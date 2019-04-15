@@ -1,0 +1,15 @@
+Abraham Sewell
+12603468
+Abraham@gmail.com
+S2827608C
+Male
+Malay
+216 Rotan Lane
+NUS
+Art
+4.30
+C#,C++,Python
+Database-Administrator
+Accountant
+6,10,10,9,3
+Applicant

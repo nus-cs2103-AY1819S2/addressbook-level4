@@ -1,0 +1,15 @@
+Floretta Montoya
+67122844
+Floretta@gmail.com
+S0896621B
+Female
+Indian
+216 Albert Street
+NTU
+Marketing
+4.27
+C#,PHP,Ruby,C++
+Security-Analyst,Financial-Manager,Data-Scientist
+Web-Developer,Statistician,Security-Analyst
+10,6,2,7,7
+Applicant

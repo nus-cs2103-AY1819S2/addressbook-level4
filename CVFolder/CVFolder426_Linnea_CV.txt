@@ -1,0 +1,15 @@
+Linnea Hopson
+90759857
+Linnea@gmail.com
+S2504791U
+Female
+Chinese
+497 Middle Road
+SUTD
+Mechanical Engineering
+4.72
+JAVA,PHP,C#
+Data-Scientist
+Web-Developer,Network-Architect,Accountant
+3,1,9,6,4
+Applicant

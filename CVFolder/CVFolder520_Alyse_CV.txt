@@ -1,0 +1,15 @@
+Alyse Woodard
+37496834
+Alyse@gmail.com
+S6063586W
+Female
+Malay
+100 Albert Street
+SUTD
+Nursing
+4.38
+C#,JAVA,C++,C
+Security-Analyst
+Statistician,Software-Developer,Cartographer
+8,8,3,10,9
+Applicant

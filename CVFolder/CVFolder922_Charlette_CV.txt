@@ -1,0 +1,15 @@
+Charlette Sawyer
+51669138
+Charlette@gmail.com
+S3656703V
+Female
+Malay
+465 Thomson Road
+NUS
+Electrical Engineering
+3.37
+C,Python
+Security-Analyst
+Software-Developer,Web-Developer,Network-Architect
+1,7,9,7,9
+Applicant

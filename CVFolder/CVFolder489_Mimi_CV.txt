@@ -1,0 +1,15 @@
+Mimi Rangel
+60978369
+Mimi@gmail.com
+S1520544C
+Female
+Malay
+33 Middle Road
+SMU
+Electrical Engineering
+4.94
+Python,C#,JAVA,C
+Web-Developer,Financial-Manager,Accountant
+Accountant,Web-Developer
+9,3,4,4,8
+Applicant

@@ -1,0 +1,15 @@
+Broderick Henderson
+55654544
+Broderick@gmail.com
+S3906093O
+Male
+Malay
+107 Sentosa
+SUTD
+Marketing
+3.35
+PHP,C,JavaScript
+Cartographer,Data-Scientist
+Data-Scientist,Statistician,Financial-Manager
+3,1,8,5,9
+Applicant

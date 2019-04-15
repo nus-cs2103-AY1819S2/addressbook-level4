@@ -1,0 +1,15 @@
+Margarette Barbour
+84072428
+Margarette@gmail.com
+S1772613K
+Female
+Chinese
+313 Rotan Lane
+NTU
+Mechanical Engineering
+4.67
+C,C++,Python,JAVA
+Cartographer,Statistician,Network-Architect
+Database-Administrator,Statistician,Network-Architect
+3,7,5,7,6
+Applicant

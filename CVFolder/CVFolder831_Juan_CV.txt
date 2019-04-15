@@ -1,0 +1,15 @@
+Juan Bowie
+20226506
+Juan@gmail.com
+S3530581Z
+Male
+Chinese
+309 Ang Mo Kio
+NUS
+Biology
+4.45
+C,JavaScript
+Cartographer
+Accountant
+8,6,8,10,5
+Applicant

@@ -1,0 +1,15 @@
+Sterling Alderman
+29963021
+Sterling@gmail.com
+S6494997I
+Male
+Chinese
+32 Thomson Road
+SMU
+Biology
+4.99
+JAVA,PHP,Python
+Statistician,Financial-Manager
+Database-Administrator,Software-Developer
+1,10,9,9,1
+Applicant

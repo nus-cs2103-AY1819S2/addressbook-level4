@@ -1,0 +1,15 @@
+Benton Eddy
+40235483
+Benton@gmail.com
+S8424401K
+Male
+Malay
+434 Ang Mo Kio
+Singapore Polytechnic
+Art
+3.88
+C++,JAVA,Ruby,Python
+Database-Administrator,Software-Developer,Web-Developer
+Financial-Manager
+7,1,7,7,5
+Applicant

@@ -1,0 +1,15 @@
+Christa Murrell
+28092572
+Christa@gmail.com
+S2405670O
+Female
+Chinese
+326 Jalan Besar
+SUTD
+Marketing
+4.78
+C#,JavaScript,C
+Data-Scientist
+Accountant
+9,8,3,2,4
+Applicant

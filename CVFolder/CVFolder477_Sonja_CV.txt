@@ -1,0 +1,15 @@
+Sonja Parham
+32610825
+Sonja@gmail.com
+S2353949P
+Female
+Chinese
+358 Albert Street
+NTU
+Psychology
+4.84
+Python
+Web-Developer,Database-Administrator
+Cartographer,Web-Developer,Data-Scientist
+2,4,0,7,0
+Applicant

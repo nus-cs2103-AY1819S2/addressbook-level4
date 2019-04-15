@@ -1,0 +1,15 @@
+Verdell Oliver
+73757306
+Verdell@gmail.com
+S3352559U
+Female
+Malay
+479 Jalan Besar
+NUS
+Marketing
+4.35
+JavaScript,C#
+Security-Analyst,Database-Administrator,Cartographer
+Statistician,Network-Architect
+8,1,5,7,3
+Applicant

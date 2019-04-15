@@ -1,0 +1,15 @@
+Darrick Barlow
+28943998
+Darrick@gmail.com
+S5922611S
+Male
+Malay
+132 Tanah Merah
+NUS
+Marketing
+3.89
+JavaScript,C#,Python
+Network-Architect,Security-Analyst,Financial-Manager
+Web-Developer
+6,1,2,5,10
+Applicant

@@ -1,0 +1,15 @@
+Hank Blalock
+21412410
+Hank@gmail.com
+S7976831O
+Male
+Malay
+111 Albert Street
+Singapore Polytechnic
+Political Science
+3.38
+JAVA,C#,C
+Statistician
+Statistician,Security-Analyst,Database-Administrator
+4,2,10,0,1
+Applicant

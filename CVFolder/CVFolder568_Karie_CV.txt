@@ -1,0 +1,15 @@
+Karie Smallwood
+67971280
+Karie@gmail.com
+S1998621K
+Female
+Chinese
+5 Tanah Merah
+SMU
+Mechanical Engineering
+3.54
+C,JavaScript,C++
+Financial-Manager,Security-Analyst,Accountant
+Network-Architect
+1,1,1,6,5
+Applicant

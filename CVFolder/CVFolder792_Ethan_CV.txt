@@ -1,0 +1,15 @@
+Ethan Enriquez
+52579136
+Ethan@gmail.com
+S6809376H
+Male
+Malay
+211 Kay Poh Road
+Singapore Polytechnic
+Biology
+4.56
+JAVA,JavaScript,Ruby,C++
+Accountant
+Security-Analyst,Financial-Manager,Network-Architect
+0,8,2,8,10
+Applicant

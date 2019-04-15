@@ -1,0 +1,15 @@
+Gaston Stoner
+74565753
+Gaston@gmail.com
+S8865942F
+Male
+Chinese
+175 Sentosa
+NUS
+Political Science
+3.70
+C#,C,JAVA
+Web-Developer,Data-Scientist,Statistician
+Database-Administrator,Cartographer,Network-Architect
+9,2,9,6,8
+Applicant

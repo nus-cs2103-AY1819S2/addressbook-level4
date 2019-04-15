@@ -1,0 +1,15 @@
+Rick Aldridge
+54079795
+Rick@gmail.com
+S2231726C
+Male
+Malay
+22 Thomson Road
+NUS
+Biology
+3.20
+JAVA,Ruby,Python,C++
+Database-Administrator,Web-Developer
+Financial-Manager
+3,4,0,6,8
+Applicant

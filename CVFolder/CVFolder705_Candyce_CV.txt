@@ -1,0 +1,15 @@
+Candyce Mackey
+07569814
+Candyce@gmail.com
+S7937041F
+Female
+Chinese
+495 Thomson Road
+SUTD
+Marketing
+3.63
+C++,C#,Python,JAVA
+Database-Administrator
+Accountant
+0,3,0,10,10
+Applicant

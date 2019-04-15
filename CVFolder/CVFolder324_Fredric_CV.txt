@@ -1,0 +1,15 @@
+Fredric Dowd
+97452173
+Fredric@gmail.com
+S2381418I
+Male
+Indian
+459 Jalan Besar
+NTU
+Psychology
+4.07
+JavaScript,C++
+Data-Scientist
+Accountant
+6,1,3,7,9
+Applicant

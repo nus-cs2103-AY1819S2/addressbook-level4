@@ -1,0 +1,15 @@
+Elwood Eaton
+53097287
+Elwood@gmail.com
+S9352927O
+Male
+Malay
+259 Albert Street
+NUS
+Psychology
+4.39
+Python,Ruby
+Accountant
+Web-Developer
+6,9,5,0,0
+Applicant

@@ -1,0 +1,15 @@
+Nicolas Penn
+34297824
+Nicolas@gmail.com
+S3937336Z
+Male
+Others
+133 Ang Mo Kio
+NTU
+Political Science
+3.50
+JAVA,C,Python
+Network-Architect,Statistician
+Network-Architect,Statistician,Cartographer
+1,0,0,9,1
+Applicant

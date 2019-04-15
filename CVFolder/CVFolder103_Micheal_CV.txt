@@ -1,0 +1,15 @@
+Micheal Blum
+26727658
+Micheal@gmail.com
+S5583956C
+Male
+Malay
+159 PGPR
+SMU
+Psychology
+4.02
+C++,JAVA
+Financial-Manager,Web-Developer,Security-Analyst
+Statistician
+1,7,6,3,8
+Applicant

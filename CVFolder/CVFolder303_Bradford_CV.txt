@@ -1,0 +1,15 @@
+Bradford Kuhn
+36795900
+Bradford@gmail.com
+S1573953S
+Male
+Indian
+99 Jalan Besar
+Singapore Polytechnic
+Biology
+3.24
+C++,Ruby,JAVA,JavaScript
+Security-Analyst
+Data-Scientist,Software-Developer,Web-Developer
+3,10,1,5,10
+Applicant

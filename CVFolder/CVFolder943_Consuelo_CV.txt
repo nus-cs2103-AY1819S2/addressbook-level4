@@ -1,0 +1,15 @@
+Consuelo Doran
+98862338
+Consuelo@gmail.com
+S3535130D
+Female
+Others
+225 Sentosa
+NTU
+Mechanical Engineering
+4.11
+JAVA,C#
+Cartographer,Database-Administrator,Data-Scientist
+Accountant,Software-Developer,Statistician
+7,6,1,1,9
+Applicant

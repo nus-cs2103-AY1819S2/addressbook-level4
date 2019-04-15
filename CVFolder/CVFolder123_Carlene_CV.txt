@@ -1,0 +1,15 @@
+Carlene Kraus
+55929661
+Carlene@gmail.com
+S7735999R
+Female
+Others
+282 Rotan Lane
+SMU
+Computer Science
+3.78
+C++,C,Python
+Network-Architect,Database-Administrator
+Software-Developer,Financial-Manager
+0,7,5,6,9
+Applicant

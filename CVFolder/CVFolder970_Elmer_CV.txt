@@ -1,0 +1,15 @@
+Elmer Gallo
+76709058
+Elmer@gmail.com
+S2719007L
+Male
+Indian
+328 Jalan Besar
+SUTD
+Political Science
+4.52
+C
+Data-Scientist,Financial-Manager,Web-Developer
+Statistician
+8,7,5,3,7
+Applicant

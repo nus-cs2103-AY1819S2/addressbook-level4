@@ -1,0 +1,15 @@
+Yuko Weeks
+19245100
+Yuko@gmail.com
+S4652105B
+Female
+Indian
+8 Rotan Lane
+NUS
+Electrical Engineering
+3.39
+C,PHP,Ruby
+Network-Architect
+Network-Architect,Data-Scientist
+9,0,4,8,10
+Applicant

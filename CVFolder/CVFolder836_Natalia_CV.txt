@@ -1,0 +1,15 @@
+Natalia Odom
+60165721
+Natalia@gmail.com
+S9144524G
+Female
+Chinese
+192 Thomson Road
+SMU
+Political Science
+4.60
+C,JAVA
+Network-Architect
+Software-Developer,Database-Administrator,Financial-Manager
+5,10,8,5,10
+Applicant

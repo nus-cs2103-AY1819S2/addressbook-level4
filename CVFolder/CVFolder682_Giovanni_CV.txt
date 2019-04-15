@@ -1,0 +1,15 @@
+Giovanni Pool
+56479456
+Giovanni@gmail.com
+S9349388K
+Male
+Chinese
+127 Kay Poh Road
+SUTD
+Mechanical Engineering
+4.56
+PHP,C++,Ruby
+Statistician,Web-Developer,Software-Developer
+Security-Analyst,Accountant
+0,5,9,9,8
+Applicant

@@ -1,0 +1,15 @@
+Everett Douglass
+60815947
+Everett@gmail.com
+S4207177N
+Male
+Malay
+203 Bugis Street
+Singapore Polytechnic
+Computer Science
+3.75
+JAVA,C++,JavaScript,Ruby
+Statistician
+Financial-Manager,Database-Administrator
+10,6,9,7,2
+Applicant

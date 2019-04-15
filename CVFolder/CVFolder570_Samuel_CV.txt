@@ -1,0 +1,15 @@
+Samuel Medley
+83521667
+Samuel@gmail.com
+S1353749I
+Male
+Indian
+67 Sentosa
+SMU
+Political Science
+3.75
+C#,C++,PHP
+Statistician,Financial-Manager,Network-Architect
+Cartographer,Security-Analyst,Accountant
+2,9,6,0,9
+Applicant

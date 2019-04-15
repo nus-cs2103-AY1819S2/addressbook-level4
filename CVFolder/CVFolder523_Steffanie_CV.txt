@@ -1,0 +1,15 @@
+Steffanie Fraley
+55491950
+Steffanie@gmail.com
+S6265352G
+Female
+Others
+75 Tanah Merah
+Singapore Polytechnic
+Marketing
+4.09
+Python
+Database-Administrator,Web-Developer,Financial-Manager
+Database-Administrator
+1,0,10,8,2
+Applicant

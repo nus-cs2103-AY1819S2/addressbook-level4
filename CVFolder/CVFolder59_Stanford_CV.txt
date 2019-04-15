@@ -1,0 +1,15 @@
+Stanford Holt
+12651276
+Stanford@gmail.com
+S8696226R
+Male
+Chinese
+19 Ang Mo Kio
+Singapore Polytechnic
+Biology
+3.66
+C#,Python
+Cartographer,Software-Developer
+Security-Analyst,Accountant,Statistician
+6,10,6,6,1
+Applicant

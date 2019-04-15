@@ -1,0 +1,15 @@
+Mitchell Tapia
+25586666
+Mitchell@gmail.com
+S7166157J
+Male
+Indian
+338 Albert Street
+NTU
+Psychology
+4.67
+Ruby,C++,C#
+Cartographer,Security-Analyst
+Data-Scientist,Web-Developer,Network-Architect
+9,9,1,6,2
+Applicant

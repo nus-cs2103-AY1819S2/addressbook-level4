@@ -1,0 +1,15 @@
+Loni Harrell
+03960499
+Loni@gmail.com
+S7479461G
+Female
+Chinese
+394 Bugis Street
+NTU
+Nursing
+3.43
+JAVA
+Accountant,Statistician
+Statistician,Web-Developer
+10,9,10,8,3
+Applicant

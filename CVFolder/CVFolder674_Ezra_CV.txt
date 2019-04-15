@@ -1,0 +1,15 @@
+Ezra Feliciano
+88020908
+Ezra@gmail.com
+S0626133S
+Male
+Malay
+262 Tanah Merah
+NTU
+Marketing
+3.96
+JAVA,C#
+Accountant
+Cartographer,Network-Architect,Data-Scientist
+3,0,1,8,1
+Applicant

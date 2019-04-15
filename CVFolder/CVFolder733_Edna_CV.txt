@@ -1,0 +1,15 @@
+Edna Alvarado
+06992480
+Edna@gmail.com
+S6691028S
+Female
+Indian
+138 Rotan Lane
+NTU
+Mechanical Engineering
+4.25
+C#,C++,JAVA
+Web-Developer,Network-Architect
+Web-Developer
+2,1,0,5,9
+Applicant

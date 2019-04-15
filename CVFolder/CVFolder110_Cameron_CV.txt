@@ -1,0 +1,15 @@
+Cameron Gentry
+56521464
+Cameron@gmail.com
+S8529681Z
+Male
+Others
+119 Middle Road
+NUS
+Political Science
+4.37
+Python,C#,C++
+Software-Developer,Security-Analyst
+Statistician,Web-Developer,Database-Administrator
+3,8,5,2,5
+Applicant

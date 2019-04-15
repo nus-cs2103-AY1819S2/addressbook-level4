@@ -1,0 +1,15 @@
+Marcus Croft
+96901494
+Marcus@gmail.com
+S3558259R
+Male
+Malay
+230 Thomson Road
+Singapore Polytechnic
+Computer Science
+4.80
+JAVA,C++,Ruby
+Database-Administrator,Security-Analyst,Data-Scientist
+Security-Analyst
+1,2,10,2,6
+Applicant

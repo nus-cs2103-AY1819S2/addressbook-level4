@@ -1,0 +1,15 @@
+Dell Howland
+14709963
+Dell@gmail.com
+S2523982L
+Female
+Malay
+445 Jalan Besar
+NUS
+Electrical Engineering
+4.51
+JAVA,Python,PHP,C
+Financial-Manager
+Data-Scientist,Security-Analyst
+2,4,4,3,10
+Applicant

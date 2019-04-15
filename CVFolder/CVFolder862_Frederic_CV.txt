@@ -1,0 +1,15 @@
+Frederic Drake
+86921936
+Frederic@gmail.com
+S5733597O
+Male
+Indian
+413 Tanah Merah
+Singapore Polytechnic
+Art
+3.64
+JavaScript,C++,JAVA
+Financial-Manager,Network-Architect,Data-Scientist
+Web-Developer,Statistician
+6,10,4,10,5
+Applicant

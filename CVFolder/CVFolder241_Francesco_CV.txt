@@ -1,0 +1,15 @@
+Francesco Chung
+95338382
+Francesco@gmail.com
+S4764430K
+Male
+Others
+221 Jalan Besar
+SUTD
+Marketing
+4.44
+Python,C,JAVA,C++
+Financial-Manager
+Statistician
+8,9,3,1,2
+Applicant

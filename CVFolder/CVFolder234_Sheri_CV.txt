@@ -1,0 +1,15 @@
+Sheri Lindquist
+39446273
+Sheri@gmail.com
+S9966188O
+Female
+Malay
+226 Bugis Street
+SUTD
+Mechanical Engineering
+4.27
+Ruby,PHP,JAVA,JavaScript
+Data-Scientist,Database-Administrator,Security-Analyst
+Data-Scientist
+5,2,3,4,1
+Applicant

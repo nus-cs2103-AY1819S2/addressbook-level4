@@ -1,0 +1,15 @@
+Jeri Childs
+71027179
+Jeri@gmail.com
+S1677413O
+Female
+Chinese
+204 PGPR
+NTU
+Electrical Engineering
+3.60
+C++,C#,JAVA,C
+Financial-Manager,Network-Architect
+Software-Developer,Accountant
+3,2,3,4,5
+Applicant

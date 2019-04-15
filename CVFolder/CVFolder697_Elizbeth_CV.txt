@@ -1,0 +1,15 @@
+Elizbeth Oneil
+72074996
+Elizbeth@gmail.com
+S0731359B
+Female
+Indian
+283 Ang Mo Kio
+NUS
+Art
+4.52
+Ruby,C
+Software-Developer,Database-Administrator,Statistician
+Security-Analyst,Data-Scientist
+9,3,2,8,5
+Applicant

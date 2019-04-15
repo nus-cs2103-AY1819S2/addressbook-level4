@@ -1,0 +1,15 @@
+Alpha Gustafson
+72306587
+Alpha@gmail.com
+S2759688B
+Female
+Indian
+499 Bugis Street
+NTU
+Computer Science
+3.79
+JAVA,C#,JavaScript
+Database-Administrator,Accountant
+Web-Developer,Database-Administrator
+5,10,9,3,4
+Applicant

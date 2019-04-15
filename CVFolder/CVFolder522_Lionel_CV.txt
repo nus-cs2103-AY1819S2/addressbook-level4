@@ -1,0 +1,15 @@
+Lionel Levy
+45078237
+Lionel@gmail.com
+S5171373V
+Male
+Chinese
+466 Jalan Besar
+SUTD
+Art
+3.27
+Ruby,C#,C
+Data-Scientist,Network-Architect,Cartographer
+Web-Developer
+0,5,7,5,9
+Applicant

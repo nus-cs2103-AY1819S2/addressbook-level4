@@ -1,0 +1,15 @@
+Jose Puckett
+76112724
+Jose@gmail.com
+S8510326I
+Male
+Indian
+96 Tanah Merah
+SMU
+Art
+3.35
+C#,JAVA,Ruby,C++
+Accountant,Security-Analyst,Network-Architect
+Database-Administrator,Financial-Manager
+1,5,0,6,8
+Applicant

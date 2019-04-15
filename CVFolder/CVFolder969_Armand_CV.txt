@@ -1,0 +1,15 @@
+Armand Mckee
+04934170
+Armand@gmail.com
+S4487261U
+Male
+Others
+454 Thomson Road
+NTU
+Computer Science
+3.80
+C++,Ruby,C
+Financial-Manager
+Web-Developer,Statistician
+1,1,8,10,7
+Applicant

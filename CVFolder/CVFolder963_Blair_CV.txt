@@ -1,0 +1,15 @@
+Blair Hickman
+65522167
+Blair@gmail.com
+S3116391F
+Male
+Malay
+136 Thomson Road
+SUTD
+Computer Science
+4.84
+Ruby,JAVA,JavaScript
+Data-Scientist,Software-Developer
+Database-Administrator,Data-Scientist,Financial-Manager
+6,5,8,10,9
+Applicant

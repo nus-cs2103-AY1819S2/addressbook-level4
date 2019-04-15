@@ -1,0 +1,15 @@
+Vanesa Boling
+79611031
+Vanesa@gmail.com
+S7711238V
+Female
+Chinese
+393 Bugis Street
+SMU
+Psychology
+3.91
+C#,JavaScript
+Database-Administrator,Software-Developer
+Financial-Manager
+5,8,2,10,2
+Applicant

@@ -1,0 +1,15 @@
+Ned Bergman
+24323410
+Ned@gmail.com
+S6428153J
+Male
+Indian
+228 Bugis Street
+SUTD
+Electrical Engineering
+3.95
+JavaScript,C,JAVA,PHP
+Database-Administrator,Data-Scientist,Software-Developer
+Cartographer,Web-Developer
+3,7,9,2,5
+Applicant

@@ -1,0 +1,15 @@
+Brent Valentin
+67338252
+Brent@gmail.com
+S0733315D
+Male
+Others
+377 Tanah Merah
+SUTD
+Computer Science
+4.94
+Python,C++,JAVA,Ruby
+Software-Developer,Web-Developer
+Database-Administrator
+10,6,6,7,5
+Applicant

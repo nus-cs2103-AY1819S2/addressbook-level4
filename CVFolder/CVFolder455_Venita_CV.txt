@@ -1,0 +1,15 @@
+Venita Rivers
+30484785
+Venita@gmail.com
+S4814668R
+Female
+Chinese
+470 Bugis Street
+SMU
+Biology
+4.03
+Ruby,Python,PHP,JAVA
+Cartographer,Data-Scientist,Security-Analyst
+Security-Analyst,Statistician,Financial-Manager
+2,5,5,0,7
+Applicant

@@ -1,0 +1,15 @@
+Sam Parr
+66572467
+Sam@gmail.com
+S6856819Z
+Male
+Chinese
+92 Tanah Merah
+Singapore Polytechnic
+Electrical Engineering
+3.85
+JavaScript,Ruby,C#
+Cartographer,Security-Analyst,Web-Developer
+Database-Administrator,Software-Developer,Financial-Manager
+2,8,5,9,4
+Applicant

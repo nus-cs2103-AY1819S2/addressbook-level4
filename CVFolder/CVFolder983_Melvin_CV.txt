@@ -1,0 +1,15 @@
+Melvin Polanco
+95465754
+Melvin@gmail.com
+S5676007Z
+Male
+Malay
+229 Bugis Street
+SUTD
+Psychology
+4.43
+PHP,Python,JavaScript,C
+Statistician
+Network-Architect,Software-Developer,Statistician
+9,7,9,0,7
+Applicant

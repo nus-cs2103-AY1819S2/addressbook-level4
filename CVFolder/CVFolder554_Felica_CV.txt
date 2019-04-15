@@ -1,0 +1,15 @@
+Felica Pope
+20865095
+Felica@gmail.com
+S2695082Q
+Female
+Others
+55 Middle Road
+SMU
+Marketing
+4.12
+JAVA
+Statistician,Accountant,Web-Developer
+Security-Analyst,Financial-Manager
+8,2,1,5,3
+Applicant

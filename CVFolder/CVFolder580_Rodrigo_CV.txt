@@ -1,0 +1,15 @@
+Rodrigo Cho
+65636682
+Rodrigo@gmail.com
+S4279467F
+Male
+Chinese
+440 Bugis Street
+SUTD
+Nursing
+3.09
+PHP
+Data-Scientist,Cartographer,Security-Analyst
+Data-Scientist
+10,1,0,7,10
+Applicant

@@ -1,0 +1,15 @@
+Florencio Mullen
+96348356
+Florencio@gmail.com
+S5574441D
+Male
+Malay
+96 Albert Street
+NTU
+Marketing
+3.64
+JavaScript,Python
+Cartographer,Network-Architect,Web-Developer
+Accountant,Financial-Manager
+8,7,0,0,8
+Applicant

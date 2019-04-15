@@ -1,0 +1,15 @@
+Guillermo Pugh
+63429597
+Guillermo@gmail.com
+S5346262V
+Male
+Malay
+473 Ang Mo Kio
+NTU
+Electrical Engineering
+4.28
+C,JAVA,JavaScript
+Accountant,Financial-Manager
+Accountant,Web-Developer
+6,6,2,6,5
+Applicant

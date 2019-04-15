@@ -1,0 +1,15 @@
+Cornelius Hayden
+59468374
+Cornelius@gmail.com
+S1580329Q
+Male
+Indian
+351 Albert Street
+NUS
+Art
+4.84
+Python
+Financial-Manager
+Database-Administrator
+5,7,2,6,1
+Applicant

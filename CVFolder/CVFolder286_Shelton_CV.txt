@@ -1,0 +1,15 @@
+Shelton Alvarez
+07027780
+Shelton@gmail.com
+S2831271D
+Male
+Chinese
+455 Ang Mo Kio
+NTU
+Psychology
+4.85
+C#,C
+Data-Scientist
+Security-Analyst,Financial-Manager
+4,2,2,2,8
+Applicant

@@ -1,0 +1,15 @@
+Willie Mclaughlin
+64232515
+Willie@gmail.com
+S9633076Z
+Female
+Malay
+179 Rotan Lane
+SMU
+Electrical Engineering
+4.01
+C,PHP,Python
+Cartographer,Software-Developer
+Software-Developer,Web-Developer
+7,6,6,8,6
+Applicant

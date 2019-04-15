@@ -1,0 +1,15 @@
+Luke Latham
+90766257
+Luke@gmail.com
+S5356134Q
+Male
+Chinese
+207 Albert Street
+SUTD
+Biology
+3.90
+Ruby,Python
+Software-Developer
+Statistician,Security-Analyst,Accountant
+7,8,1,6,10
+Applicant

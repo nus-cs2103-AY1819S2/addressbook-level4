@@ -1,0 +1,15 @@
+William Root
+34175051
+William@gmail.com
+S4785301M
+Female
+Others
+452 Kay Poh Road
+NTU
+Political Science
+3.12
+PHP,Ruby,Python
+Web-Developer,Network-Architect
+Web-Developer,Software-Developer,Network-Architect
+1,7,8,1,2
+Applicant

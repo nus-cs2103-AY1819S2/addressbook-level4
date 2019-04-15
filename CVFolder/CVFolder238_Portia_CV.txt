@@ -1,0 +1,15 @@
+Portia Bell
+22848729
+Portia@gmail.com
+S3746415J
+Female
+Indian
+210 Tanah Merah
+SUTD
+Psychology
+3.14
+PHP,Python,Ruby,C#
+Web-Developer,Accountant
+Data-Scientist,Statistician,Accountant
+6,5,7,0,9
+Applicant

@@ -1,0 +1,15 @@
+Jasper Jenkins
+59646745
+Jasper@gmail.com
+S2499915E
+Male
+Chinese
+420 Bugis Street
+SUTD
+Nursing
+4.03
+JAVA,C
+Network-Architect
+Database-Administrator,Statistician
+1,4,10,8,4
+Applicant

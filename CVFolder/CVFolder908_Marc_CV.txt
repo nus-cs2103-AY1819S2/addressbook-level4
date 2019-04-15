@@ -1,0 +1,15 @@
+Marc Stokes
+74526162
+Marc@gmail.com
+S5391930F
+Male
+Indian
+252 PGPR
+NTU
+Electrical Engineering
+3.05
+C++
+Data-Scientist,Web-Developer,Security-Analyst
+Statistician
+5,7,1,10,2
+Applicant

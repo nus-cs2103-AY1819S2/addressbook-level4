@@ -1,0 +1,15 @@
+Martina Bowling
+76390957
+Martina@gmail.com
+S3721090O
+Female
+Indian
+90 Albert Street
+SUTD
+Electrical Engineering
+4.96
+C#,Ruby,JAVA
+Network-Architect,Accountant,Web-Developer
+Database-Administrator,Accountant,Financial-Manager
+4,2,4,5,7
+Applicant

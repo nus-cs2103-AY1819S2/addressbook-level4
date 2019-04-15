@@ -1,0 +1,15 @@
+Delmar Culp
+47286201
+Delmar@gmail.com
+S0844568Q
+Male
+Chinese
+209 Jalan Besar
+NTU
+Marketing
+3.92
+Python,C#,JavaScript,C
+Web-Developer,Accountant,Security-Analyst
+Web-Developer
+9,1,4,4,2
+Applicant

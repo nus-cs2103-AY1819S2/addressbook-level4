@@ -1,0 +1,15 @@
+Alvin Hurd
+71110544
+Alvin@gmail.com
+S3783418H
+Male
+Malay
+97 Middle Road
+NUS
+Biology
+3.48
+C++,PHP,C#,Python
+Accountant,Database-Administrator
+Software-Developer,Network-Architect,Data-Scientist
+4,7,7,4,10
+Applicant

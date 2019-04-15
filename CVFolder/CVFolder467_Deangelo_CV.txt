@@ -1,0 +1,15 @@
+Deangelo Webber
+37933131
+Deangelo@gmail.com
+S1297486A
+Male
+Chinese
+4 Jalan Besar
+NUS
+Biology
+4.78
+Ruby,C#,JAVA
+Network-Architect,Database-Administrator
+Security-Analyst
+9,10,10,5,9
+Applicant

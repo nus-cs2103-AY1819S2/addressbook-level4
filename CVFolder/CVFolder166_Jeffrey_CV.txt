@@ -1,0 +1,15 @@
+Jeffrey Mccord
+98430654
+Jeffrey@gmail.com
+S4575158U
+Male
+Indian
+153 Ang Mo Kio
+SMU
+Psychology
+3.26
+Python,JAVA,C#,PHP
+Financial-Manager,Cartographer
+Cartographer,Accountant
+1,3,4,2,3
+Applicant

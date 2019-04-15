@@ -1,0 +1,15 @@
+Penni Bean
+64363841
+Penni@gmail.com
+S3146850D
+Female
+Chinese
+353 Kay Poh Road
+NUS
+Psychology
+3.03
+JavaScript
+Financial-Manager
+Security-Analyst,Database-Administrator,Accountant
+3,5,5,3,0
+Applicant

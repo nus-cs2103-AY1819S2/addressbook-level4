@@ -1,0 +1,15 @@
+Jamal Guerrero
+77141230
+Jamal@gmail.com
+S7863375T
+Male
+Chinese
+139 PGPR
+NUS
+Electrical Engineering
+4.09
+Ruby
+Security-Analyst
+Security-Analyst,Accountant
+10,9,4,8,2
+Applicant

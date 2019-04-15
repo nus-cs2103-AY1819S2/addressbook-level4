@@ -1,0 +1,15 @@
+Ruby Mahoney
+11861154
+Ruby@gmail.com
+S0937205Z
+Female
+Malay
+335 Bugis Street
+NUS
+Biology
+4.03
+Ruby,C#
+Data-Scientist
+Statistician,Web-Developer,Cartographer
+0,8,0,3,3
+Applicant

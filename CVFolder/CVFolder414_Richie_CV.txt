@@ -1,0 +1,15 @@
+Richie Self
+19069609
+Richie@gmail.com
+S6836545P
+Male
+Malay
+151 Sentosa
+Singapore Polytechnic
+Psychology
+3.56
+C#,JAVA,Python,PHP
+Financial-Manager,Software-Developer,Web-Developer
+Network-Architect,Accountant
+2,2,0,7,9
+Applicant

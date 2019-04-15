@@ -1,0 +1,15 @@
+Darell Boyle
+62279745
+Darell@gmail.com
+S8620216F
+Male
+Malay
+39 Bugis Street
+NUS
+Political Science
+4.43
+C#,JavaScript,Ruby
+Statistician,Web-Developer,Security-Analyst
+Cartographer,Statistician
+8,9,0,1,8
+Applicant

@@ -1,0 +1,15 @@
+Nickolas Bain
+53692402
+Nickolas@gmail.com
+S7720024S
+Male
+Others
+373 Bugis Street
+SMU
+Mechanical Engineering
+3.83
+JAVA,Python
+Accountant
+Database-Administrator,Cartographer,Security-Analyst
+9,3,8,8,10
+Applicant

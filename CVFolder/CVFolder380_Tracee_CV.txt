@@ -1,0 +1,15 @@
+Tracee Watt
+68491948
+Tracee@gmail.com
+S4571617H
+Female
+Chinese
+453 Rotan Lane
+NUS
+Electrical Engineering
+4.99
+JAVA,JavaScript,C
+Statistician,Web-Developer
+Accountant,Software-Developer
+8,1,6,5,8
+Applicant

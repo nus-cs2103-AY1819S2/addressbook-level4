@@ -1,0 +1,15 @@
+Ivory Pool
+43452367
+Ivory@gmail.com
+S1073218B
+Male
+Chinese
+114 Albert Street
+SMU
+Biology
+4.34
+PHP,JAVA,Python,C++
+Network-Architect,Web-Developer,Financial-Manager
+Web-Developer,Financial-Manager,Network-Architect
+10,4,0,0,3
+Applicant

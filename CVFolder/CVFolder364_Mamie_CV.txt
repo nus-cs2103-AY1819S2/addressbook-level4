@@ -1,0 +1,15 @@
+Mamie Mcneal
+42785734
+Mamie@gmail.com
+S1122226I
+Female
+Others
+413 Sentosa
+NUS
+Art
+3.79
+C++,JAVA,Python,JavaScript
+Cartographer,Accountant
+Data-Scientist,Accountant
+0,1,8,2,4
+Applicant

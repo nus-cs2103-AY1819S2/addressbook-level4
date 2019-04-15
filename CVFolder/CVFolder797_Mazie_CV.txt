@@ -1,0 +1,15 @@
+Mazie Singh
+68586288
+Mazie@gmail.com
+S2096206Z
+Female
+Indian
+199 Jalan Besar
+NTU
+Mechanical Engineering
+3.01
+JavaScript,C,JAVA
+Data-Scientist,Security-Analyst,Web-Developer
+Financial-Manager
+9,10,7,1,4
+Applicant

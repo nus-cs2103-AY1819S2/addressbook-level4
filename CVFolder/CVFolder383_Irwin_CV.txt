@@ -1,0 +1,15 @@
+Irwin Martel
+56630916
+Irwin@gmail.com
+S9017030S
+Male
+Others
+294 Thomson Road
+SUTD
+Psychology
+3.29
+JAVA,Python,C++,Ruby
+Database-Administrator,Software-Developer
+Web-Developer,Security-Analyst,Data-Scientist
+7,0,8,2,2
+Applicant

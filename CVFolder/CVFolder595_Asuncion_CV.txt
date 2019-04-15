@@ -1,0 +1,15 @@
+Asuncion Macias
+82049656
+Asuncion@gmail.com
+S5218960A
+Female
+Malay
+157 Thomson Road
+NUS
+Political Science
+4.77
+JAVA
+Network-Architect,Financial-Manager,Statistician
+Database-Administrator,Statistician,Accountant
+0,1,7,6,8
+Applicant

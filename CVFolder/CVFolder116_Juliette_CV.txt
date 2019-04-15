@@ -1,0 +1,15 @@
+Juliette Hicks
+81587027
+Juliette@gmail.com
+S4186241G
+Female
+Malay
+1 Tanah Merah
+NTU
+Nursing
+4.84
+C#
+Web-Developer,Database-Administrator,Data-Scientist
+Statistician,Software-Developer
+3,2,10,5,1
+Applicant

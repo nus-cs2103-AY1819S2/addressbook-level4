@@ -1,0 +1,15 @@
+Luciana Haskins
+35902857
+Luciana@gmail.com
+S1087093Q
+Female
+Malay
+293 Bugis Street
+SUTD
+Psychology
+3.03
+PHP,Ruby,JavaScript
+Database-Administrator,Data-Scientist,Web-Developer
+Database-Administrator,Security-Analyst
+8,8,3,10,0
+Applicant

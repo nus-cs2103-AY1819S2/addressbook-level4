@@ -1,0 +1,15 @@
+Garrett Willis
+09282138
+Garrett@gmail.com
+S2414620P
+Male
+Indian
+307 Tanah Merah
+SMU
+Nursing
+3.79
+Python,PHP,JAVA,C++
+Software-Developer,Database-Administrator,Web-Developer
+Financial-Manager,Database-Administrator,Statistician
+8,8,6,8,3
+Applicant

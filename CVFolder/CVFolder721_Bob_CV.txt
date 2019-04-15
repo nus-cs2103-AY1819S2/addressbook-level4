@@ -1,0 +1,15 @@
+Bob Fritz
+21694563
+Bob@gmail.com
+S0982482D
+Male
+Others
+209 Jalan Besar
+NUS
+Art
+3.70
+PHP,Python,C++
+Database-Administrator,Web-Developer,Statistician
+Accountant,Web-Developer
+3,1,4,6,7
+Applicant

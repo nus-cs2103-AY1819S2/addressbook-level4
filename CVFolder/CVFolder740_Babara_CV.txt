@@ -1,0 +1,15 @@
+Babara Griffiths
+43082900
+Babara@gmail.com
+S4146342D
+Female
+Chinese
+257 Albert Street
+SUTD
+Art
+3.11
+JavaScript,Python,JAVA,C#
+Network-Architect,Security-Analyst,Cartographer
+Data-Scientist,Statistician
+0,1,8,4,3
+Applicant

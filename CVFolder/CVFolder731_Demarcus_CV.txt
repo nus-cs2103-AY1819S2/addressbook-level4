@@ -1,0 +1,15 @@
+Demarcus Forman
+03650852
+Demarcus@gmail.com
+S8301471I
+Male
+Malay
+123 Thomson Road
+SUTD
+Biology
+4.15
+C++,PHP
+Web-Developer,Software-Developer,Security-Analyst
+Network-Architect,Data-Scientist
+8,2,4,3,1
+Applicant

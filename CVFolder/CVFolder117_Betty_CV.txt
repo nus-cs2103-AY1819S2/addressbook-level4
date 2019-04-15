@@ -1,0 +1,15 @@
+Betty Mccain
+60378243
+Betty@gmail.com
+S4604617L
+Female
+Malay
+102 Albert Street
+SUTD
+Nursing
+4.65
+C#,Python
+Web-Developer,Cartographer,Software-Developer
+Data-Scientist
+8,6,3,5,1
+Applicant

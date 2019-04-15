@@ -1,0 +1,15 @@
+Josiah Omalley
+79835130
+Josiah@gmail.com
+S6718455F
+Male
+Malay
+142 Rotan Lane
+NUS
+Biology
+4.60
+JAVA
+Financial-Manager,Statistician,Network-Architect
+Statistician
+1,2,0,9,5
+Applicant

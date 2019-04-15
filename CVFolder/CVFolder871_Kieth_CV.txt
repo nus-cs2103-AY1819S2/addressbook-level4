@@ -1,0 +1,15 @@
+Kieth Knutson
+75726595
+Kieth@gmail.com
+S1701214B
+Male
+Others
+429 Sentosa
+SMU
+Mechanical Engineering
+4.80
+C
+Database-Administrator,Data-Scientist,Software-Developer
+Network-Architect,Data-Scientist,Web-Developer
+4,4,4,1,3
+Applicant

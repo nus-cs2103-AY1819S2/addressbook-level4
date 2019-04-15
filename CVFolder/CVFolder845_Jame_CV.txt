@@ -1,0 +1,15 @@
+Jame Phillips
+63206796
+Jame@gmail.com
+S8001928H
+Male
+Malay
+236 Jalan Besar
+NUS
+Marketing
+4.05
+Ruby,C#,C++,JAVA
+Cartographer,Web-Developer,Financial-Manager
+Security-Analyst
+1,3,7,8,0
+Applicant

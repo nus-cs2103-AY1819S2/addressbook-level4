@@ -1,0 +1,15 @@
+Toney Ferris
+21669423
+Toney@gmail.com
+S7880475W
+Male
+Indian
+220 Sentosa
+SMU
+Electrical Engineering
+3.65
+C#,PHP,C,C++
+Network-Architect,Cartographer
+Security-Analyst,Web-Developer
+0,10,1,0,2
+Applicant

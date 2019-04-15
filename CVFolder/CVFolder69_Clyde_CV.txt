@@ -1,0 +1,15 @@
+Clyde Jimenez
+83376749
+Clyde@gmail.com
+S8048509V
+Male
+Chinese
+296 Jalan Besar
+NUS
+Political Science
+4.22
+JAVA,C#,C++
+Security-Analyst,Database-Administrator,Statistician
+Security-Analyst,Data-Scientist,Statistician
+8,7,0,8,0
+Applicant

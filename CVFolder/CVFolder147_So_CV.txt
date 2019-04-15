@@ -1,0 +1,15 @@
+So Boswell
+26357696
+So@gmail.com
+S1472186W
+Female
+Malay
+143 Thomson Road
+SMU
+Computer Science
+5.00
+C#,JAVA
+Financial-Manager,Statistician,Network-Architect
+Accountant,Software-Developer,Statistician
+8,1,10,6,10
+Applicant

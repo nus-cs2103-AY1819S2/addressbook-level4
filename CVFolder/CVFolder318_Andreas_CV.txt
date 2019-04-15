@@ -1,0 +1,15 @@
+Andreas John
+02424700
+Andreas@gmail.com
+S3046358H
+Male
+Chinese
+477 Jalan Besar
+Singapore Polytechnic
+Mechanical Engineering
+4.57
+C#
+Accountant,Network-Architect
+Web-Developer
+7,2,4,4,2
+Applicant

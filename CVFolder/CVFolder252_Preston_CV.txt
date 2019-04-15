@@ -1,0 +1,15 @@
+Preston Blanchard
+78100403
+Preston@gmail.com
+S8034258P
+Male
+Indian
+129 Thomson Road
+SMU
+Political Science
+3.61
+C#,Python
+Database-Administrator,Accountant
+Database-Administrator,Security-Analyst,Statistician
+2,8,8,4,4
+Applicant

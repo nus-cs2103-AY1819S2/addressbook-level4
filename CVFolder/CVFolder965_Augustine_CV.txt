@@ -1,0 +1,15 @@
+Augustine Fortier
+23278522
+Augustine@gmail.com
+S8701275P
+Male
+Chinese
+261 Bugis Street
+SMU
+Biology
+4.38
+JavaScript,PHP,C#,Python
+Data-Scientist
+Database-Administrator,Security-Analyst
+0,6,10,5,3
+Applicant

@@ -1,0 +1,15 @@
+Walter Jernigan
+78934026
+Walter@gmail.com
+S0034891P
+Male
+Chinese
+489 Thomson Road
+NTU
+Art
+4.67
+C,C++
+Data-Scientist
+Cartographer,Data-Scientist,Accountant
+0,10,0,5,9
+Applicant

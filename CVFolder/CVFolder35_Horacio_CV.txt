@@ -1,0 +1,15 @@
+Horacio Hicks
+77664082
+Horacio@gmail.com
+S0114600U
+Male
+Malay
+141 Kay Poh Road
+SMU
+Marketing
+4.24
+PHP
+Software-Developer,Database-Administrator,Network-Architect
+Financial-Manager,Accountant
+6,9,2,0,2
+Applicant

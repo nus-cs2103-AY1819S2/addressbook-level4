@@ -1,0 +1,15 @@
+Carmine Harper
+40932217
+Carmine@gmail.com
+S5816880W
+Male
+Chinese
+242 Tanah Merah
+SMU
+Nursing
+3.81
+Ruby,C
+Cartographer
+Software-Developer,Web-Developer,Data-Scientist
+0,9,6,5,10
+Applicant

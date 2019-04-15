@@ -1,0 +1,15 @@
+Lavern Milam
+88932293
+Lavern@gmail.com
+S7623408R
+Male
+Chinese
+418 Bugis Street
+SUTD
+Computer Science
+4.36
+C++,PHP
+Database-Administrator
+Software-Developer,Web-Developer
+1,1,9,2,3
+Applicant

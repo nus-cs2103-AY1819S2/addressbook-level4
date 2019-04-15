@@ -1,0 +1,15 @@
+Emmanuel Gooch
+46880051
+Emmanuel@gmail.com
+S4621320C
+Male
+Indian
+247 Kay Poh Road
+Singapore Polytechnic
+Psychology
+4.81
+PHP
+Data-Scientist
+Data-Scientist,Network-Architect,Cartographer
+0,1,8,8,0
+Applicant

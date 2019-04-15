@@ -1,0 +1,15 @@
+Cameron Lamb
+20583417
+Cameron@gmail.com
+S7430371U
+Male
+Others
+100 Albert Street
+SUTD
+Computer Science
+4.99
+JAVA
+Network-Architect,Data-Scientist,Cartographer
+Cartographer
+4,6,5,4,10
+Applicant

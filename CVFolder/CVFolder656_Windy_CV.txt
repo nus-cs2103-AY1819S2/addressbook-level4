@@ -1,0 +1,15 @@
+Windy Billingsley
+07725693
+Windy@gmail.com
+S7806866M
+Female
+Others
+31 Middle Road
+SUTD
+Computer Science
+4.52
+Ruby,C
+Software-Developer,Network-Architect
+Network-Architect,Software-Developer,Financial-Manager
+5,8,10,5,8
+Applicant

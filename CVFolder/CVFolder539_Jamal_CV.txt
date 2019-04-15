@@ -1,0 +1,15 @@
+Jamal Peterson
+03300132
+Jamal@gmail.com
+S6518890Q
+Male
+Chinese
+302 Ang Mo Kio
+Singapore Polytechnic
+Marketing
+4.08
+PHP
+Network-Architect,Cartographer
+Database-Administrator
+5,1,9,10,6
+Applicant

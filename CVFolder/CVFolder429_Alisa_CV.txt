@@ -1,0 +1,15 @@
+Alisa Gross
+72424212
+Alisa@gmail.com
+S8087334W
+Female
+Malay
+263 Bugis Street
+SUTD
+Marketing
+4.47
+C#,PHP,C
+Data-Scientist,Cartographer,Web-Developer
+Financial-Manager,Software-Developer,Cartographer
+0,5,1,6,10
+Applicant

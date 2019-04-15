@@ -1,0 +1,15 @@
+Casie Dowdy
+28446851
+Casie@gmail.com
+S7985278L
+Female
+Chinese
+438 Tanah Merah
+Singapore Polytechnic
+Nursing
+3.80
+C,JAVA,C#,Ruby
+Web-Developer
+Statistician,Network-Architect,Cartographer
+8,1,9,5,2
+Applicant

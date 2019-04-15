@@ -1,0 +1,15 @@
+Margret Dickson
+30992036
+Margret@gmail.com
+S9489624X
+Female
+Others
+165 Ang Mo Kio
+NUS
+Psychology
+3.02
+Python
+Network-Architect
+Software-Developer,Web-Developer,Data-Scientist
+0,10,4,8,4
+Applicant

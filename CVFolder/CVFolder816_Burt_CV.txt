@@ -1,0 +1,15 @@
+Burt Ham
+02436443
+Burt@gmail.com
+S4565222J
+Male
+Chinese
+290 Rotan Lane
+SMU
+Art
+4.97
+C#,Ruby,JAVA,Python
+Financial-Manager,Web-Developer
+Security-Analyst,Software-Developer
+3,9,3,2,0
+Applicant

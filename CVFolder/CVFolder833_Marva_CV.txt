@@ -1,0 +1,15 @@
+Marva Mays
+65105605
+Marva@gmail.com
+S1877846J
+Female
+Malay
+319 Tanah Merah
+NUS
+Biology
+4.46
+Python
+Cartographer
+Security-Analyst,Statistician,Network-Architect
+9,6,3,3,5
+Applicant

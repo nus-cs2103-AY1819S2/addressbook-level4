@@ -1,0 +1,15 @@
+Charles Banda
+17807439
+Charles@gmail.com
+S2336106R
+Female
+Chinese
+342 Tanah Merah
+NTU
+Electrical Engineering
+4.81
+C,Python
+Data-Scientist,Software-Developer,Security-Analyst
+Database-Administrator
+6,2,9,0,9
+Applicant

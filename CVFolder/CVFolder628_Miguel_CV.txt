@@ -1,0 +1,15 @@
+Miguel Clark
+97752683
+Miguel@gmail.com
+S5221572T
+Male
+Malay
+397 Tanah Merah
+SMU
+Computer Science
+3.21
+C,JavaScript,Python
+Data-Scientist,Statistician
+Web-Developer
+9,3,3,9,2
+Applicant

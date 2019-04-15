@@ -1,0 +1,15 @@
+Fausto Hong
+88028181
+Fausto@gmail.com
+S1986181C
+Male
+Others
+84 Albert Street
+NTU
+Marketing
+3.51
+C,Python
+Software-Developer
+Security-Analyst
+6,1,10,8,0
+Applicant

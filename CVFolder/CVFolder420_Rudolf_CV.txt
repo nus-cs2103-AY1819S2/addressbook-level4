@@ -1,0 +1,15 @@
+Rudolf Shook
+04241237
+Rudolf@gmail.com
+S6011209S
+Male
+Others
+321 Tanah Merah
+NTU
+Psychology
+4.98
+JAVA,Python
+Financial-Manager,Software-Developer
+Web-Developer,Data-Scientist,Financial-Manager
+4,9,4,5,1
+Applicant

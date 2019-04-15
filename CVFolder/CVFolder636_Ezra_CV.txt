@@ -1,0 +1,15 @@
+Ezra Medley
+11828476
+Ezra@gmail.com
+S2565466E
+Male
+Malay
+192 Albert Street
+Singapore Polytechnic
+Mechanical Engineering
+3.10
+JavaScript,C,C++,Ruby
+Statistician,Database-Administrator,Accountant
+Database-Administrator,Software-Developer
+8,8,2,9,3
+Applicant

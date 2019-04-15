@@ -1,0 +1,15 @@
+Keiko Beatty
+92751867
+Keiko@gmail.com
+S0640386S
+Female
+Indian
+28 Thomson Road
+NTU
+Biology
+4.42
+C
+Security-Analyst
+Security-Analyst,Accountant,Data-Scientist
+4,8,4,2,7
+Applicant

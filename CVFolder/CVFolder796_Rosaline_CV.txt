@@ -1,0 +1,15 @@
+Rosaline James
+44918669
+Rosaline@gmail.com
+S4164248L
+Female
+Malay
+217 PGPR
+NTU
+Electrical Engineering
+3.88
+JAVA,Ruby,C++,JavaScript
+Database-Administrator,Network-Architect
+Accountant
+2,7,0,10,4
+Applicant

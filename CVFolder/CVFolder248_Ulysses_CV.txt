@@ -1,0 +1,15 @@
+Ulysses Currier
+63292862
+Ulysses@gmail.com
+S1679421W
+Male
+Malay
+77 Tanah Merah
+SMU
+Political Science
+3.68
+PHP,JAVA
+Security-Analyst
+Security-Analyst,Database-Administrator,Cartographer
+1,8,0,7,6
+Applicant

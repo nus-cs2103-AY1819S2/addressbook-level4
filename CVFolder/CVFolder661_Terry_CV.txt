@@ -1,0 +1,15 @@
+Terry Doughty
+55118278
+Terry@gmail.com
+S3570632V
+Male
+Malay
+439 Jalan Besar
+SUTD
+Marketing
+4.13
+C++,PHP
+Software-Developer,Database-Administrator,Cartographer
+Data-Scientist,Statistician
+9,2,8,10,10
+Applicant

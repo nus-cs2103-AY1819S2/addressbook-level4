@@ -1,0 +1,15 @@
+Barbara Chestnut
+66915022
+Barbara@gmail.com
+S8430041V
+Female
+Chinese
+336 Kay Poh Road
+NTU
+Art
+3.08
+Ruby,C++
+Database-Administrator,Security-Analyst
+Cartographer,Security-Analyst,Database-Administrator
+5,10,9,2,3
+Applicant

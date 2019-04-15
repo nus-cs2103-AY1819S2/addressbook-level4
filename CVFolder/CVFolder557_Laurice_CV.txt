@@ -1,0 +1,15 @@
+Laurice Ray
+74768762
+Laurice@gmail.com
+S3132936A
+Female
+Chinese
+255 Albert Street
+SMU
+Mechanical Engineering
+3.05
+JavaScript,C#,Ruby,JAVA
+Cartographer,Network-Architect
+Database-Administrator,Security-Analyst
+6,3,4,0,3
+Applicant

@@ -1,0 +1,15 @@
+Chang Valencia
+99312082
+Chang@gmail.com
+S2842655K
+Male
+Malay
+433 Rotan Lane
+SMU
+Art
+3.80
+C++,Python,JAVA,Ruby
+Accountant
+Database-Administrator
+3,0,4,8,1
+Applicant

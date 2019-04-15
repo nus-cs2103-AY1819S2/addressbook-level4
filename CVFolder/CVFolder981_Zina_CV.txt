@@ -1,0 +1,15 @@
+Zina Paulson
+93698574
+Zina@gmail.com
+S9391520P
+Female
+Malay
+294 Middle Road
+SUTD
+Electrical Engineering
+4.99
+Ruby
+Database-Administrator,Data-Scientist,Accountant
+Security-Analyst,Accountant
+9,1,10,0,4
+Applicant

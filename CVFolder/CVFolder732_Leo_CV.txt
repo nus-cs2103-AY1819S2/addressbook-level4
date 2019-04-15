@@ -1,0 +1,15 @@
+Leo Mojica
+28775057
+Leo@gmail.com
+S6999972A
+Male
+Indian
+434 Sentosa
+SMU
+Psychology
+4.77
+JAVA,JavaScript,C#,C++
+Security-Analyst,Financial-Manager,Web-Developer
+Security-Analyst,Statistician
+0,8,5,3,4
+Applicant

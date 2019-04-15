@@ -1,0 +1,15 @@
+Jerald Saylor
+76036320
+Jerald@gmail.com
+S2262221I
+Male
+Chinese
+137 Thomson Road
+NUS
+Marketing
+3.52
+C++
+Statistician
+Database-Administrator,Software-Developer,Financial-Manager
+1,0,3,0,10
+Applicant

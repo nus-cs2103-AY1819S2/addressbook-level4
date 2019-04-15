@@ -1,0 +1,15 @@
+Kennith Cross
+55188012
+Kennith@gmail.com
+S5958387M
+Male
+Malay
+413 Thomson Road
+SUTD
+Psychology
+3.55
+C#,C++
+Database-Administrator,Data-Scientist
+Database-Administrator,Software-Developer,Accountant
+6,1,3,1,7
+Applicant

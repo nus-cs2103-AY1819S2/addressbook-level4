@@ -1,0 +1,15 @@
+Lanell Giles
+73623745
+Lanell@gmail.com
+S5038717V
+Female
+Malay
+186 Thomson Road
+NUS
+Psychology
+4.38
+PHP,Python,Ruby
+Financial-Manager,Web-Developer,Statistician
+Network-Architect,Software-Developer
+10,1,6,8,4
+Applicant

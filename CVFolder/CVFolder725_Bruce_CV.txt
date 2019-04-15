@@ -1,0 +1,15 @@
+Bruce Bryant
+66248722
+Bruce@gmail.com
+S7127584M
+Male
+Indian
+52 Ang Mo Kio
+Singapore Polytechnic
+Electrical Engineering
+4.29
+C#
+Data-Scientist,Web-Developer,Network-Architect
+Database-Administrator,Network-Architect,Statistician
+3,5,5,2,4
+Applicant

@@ -1,0 +1,15 @@
+Michael Henry
+45509849
+Michael@gmail.com
+S6658035Z
+Male
+Indian
+465 Kay Poh Road
+SUTD
+Electrical Engineering
+4.47
+C++,JAVA,C#
+Security-Analyst
+Accountant,Financial-Manager,Data-Scientist
+1,9,2,0,3
+Applicant

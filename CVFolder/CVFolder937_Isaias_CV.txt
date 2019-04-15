@@ -1,0 +1,15 @@
+Isaias Polk
+21335027
+Isaias@gmail.com
+S9037180H
+Male
+Chinese
+43 Bugis Street
+Singapore Polytechnic
+Political Science
+4.26
+C++,PHP,JAVA
+Database-Administrator,Financial-Manager,Statistician
+Database-Administrator,Software-Developer
+0,4,4,4,5
+Applicant

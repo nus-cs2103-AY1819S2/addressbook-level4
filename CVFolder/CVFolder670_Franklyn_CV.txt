@@ -1,0 +1,15 @@
+Franklyn Erwin
+60927321
+Franklyn@gmail.com
+S3767454M
+Male
+Indian
+487 Albert Street
+NTU
+Mechanical Engineering
+3.53
+Python,Ruby,JAVA
+Database-Administrator,Software-Developer
+Statistician,Security-Analyst
+5,8,3,2,7
+Applicant

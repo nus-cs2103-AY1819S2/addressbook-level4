@@ -1,0 +1,15 @@
+Vern Moreno
+71358441
+Vern@gmail.com
+S3696397G
+Male
+Chinese
+146 Rotan Lane
+NUS
+Mechanical Engineering
+3.87
+Python,PHP,JAVA
+Network-Architect,Financial-Manager
+Web-Developer
+3,10,3,6,4
+Applicant

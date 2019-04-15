@@ -1,0 +1,15 @@
+Sally Lyons
+28027700
+Sally@gmail.com
+S7636850W
+Female
+Others
+156 Thomson Road
+Singapore Polytechnic
+Marketing
+3.43
+Python,Ruby
+Database-Administrator
+Database-Administrator,Network-Architect,Software-Developer
+7,10,2,5,1
+Applicant

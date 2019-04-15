@@ -1,0 +1,15 @@
+Winston Choate
+39171172
+Winston@gmail.com
+S8306315L
+Male
+Indian
+316 Jalan Besar
+NUS
+Computer Science
+3.99
+Python,JavaScript,JAVA,PHP
+Accountant
+Database-Administrator,Network-Architect
+2,10,3,8,0
+Applicant

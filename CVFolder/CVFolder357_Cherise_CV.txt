@@ -1,0 +1,15 @@
+Cherise Thacker
+46671252
+Cherise@gmail.com
+S1806080V
+Female
+Indian
+189 Rotan Lane
+NUS
+Nursing
+4.70
+PHP,C#
+Financial-Manager,Statistician
+Network-Architect
+0,10,5,3,8
+Applicant

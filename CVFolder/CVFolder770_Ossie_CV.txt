@@ -1,0 +1,15 @@
+Ossie Newsome
+03846053
+Ossie@gmail.com
+S1001767A
+Female
+Others
+473 Sentosa
+NUS
+Nursing
+4.45
+JavaScript,Python,C++
+Financial-Manager,Data-Scientist
+Financial-Manager,Software-Developer,Data-Scientist
+8,10,5,9,1
+Applicant

@@ -1,0 +1,15 @@
+Garret Lane
+58166798
+Garret@gmail.com
+S0314526B
+Male
+Indian
+10 Thomson Road
+NUS
+Marketing
+3.51
+JavaScript,PHP,C
+Statistician
+Software-Developer
+8,4,5,9,5
+Applicant

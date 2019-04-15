@@ -1,0 +1,15 @@
+Chung Sanderson
+85034672
+Chung@gmail.com
+S6001477D
+Male
+Malay
+39 Tanah Merah
+NTU
+Nursing
+3.42
+JavaScript
+Database-Administrator,Data-Scientist
+Software-Developer,Statistician,Data-Scientist
+9,10,10,7,2
+Applicant

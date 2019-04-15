@@ -1,0 +1,15 @@
+Ermelinda Pennington
+19962085
+Ermelinda@gmail.com
+S9290272N
+Female
+Malay
+348 Thomson Road
+NUS
+Computer Science
+3.63
+C#,C++
+Statistician,Web-Developer,Network-Architect
+Accountant,Network-Architect,Database-Administrator
+7,6,3,1,8
+Applicant

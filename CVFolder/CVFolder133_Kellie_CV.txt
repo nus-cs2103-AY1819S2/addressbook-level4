@@ -1,0 +1,15 @@
+Kellie Perez
+80916185
+Kellie@gmail.com
+S0383095J
+Female
+Indian
+206 Albert Street
+SUTD
+Mechanical Engineering
+3.12
+Ruby,C++,C#,Python
+Financial-Manager
+Cartographer,Software-Developer
+6,9,0,3,1
+Applicant

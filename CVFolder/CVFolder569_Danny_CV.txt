@@ -1,0 +1,15 @@
+Danny Oglesby
+14224370
+Danny@gmail.com
+S6728554I
+Male
+Others
+382 Rotan Lane
+SMU
+Mechanical Engineering
+4.87
+Ruby,JavaScript,PHP
+Data-Scientist,Accountant,Software-Developer
+Web-Developer
+0,7,0,10,1
+Applicant

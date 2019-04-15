@@ -1,0 +1,15 @@
+Jamey Parris
+80707821
+Jamey@gmail.com
+S7709504C
+Male
+Indian
+176 Jalan Besar
+SUTD
+Mechanical Engineering
+3.85
+C,C#
+Statistician
+Software-Developer
+1,6,1,8,2
+Applicant

@@ -1,0 +1,15 @@
+Humberto Mckenna
+11579448
+Humberto@gmail.com
+S2879067R
+Male
+Others
+422 Sentosa
+SMU
+Electrical Engineering
+4.97
+Ruby,JAVA,JavaScript,Python
+Web-Developer,Cartographer
+Accountant,Database-Administrator,Statistician
+1,3,8,3,0
+Applicant

@@ -1,0 +1,15 @@
+Brinda Fernandes
+93554495
+Brinda@gmail.com
+S1704830E
+Female
+Chinese
+377 PGPR
+NTU
+Marketing
+4.54
+C++,PHP,Python
+Data-Scientist,Cartographer,Financial-Manager
+Accountant,Data-Scientist,Software-Developer
+10,6,5,8,5
+Applicant

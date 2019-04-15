@@ -1,0 +1,15 @@
+Sheena Kearns
+72030411
+Sheena@gmail.com
+S4271867G
+Female
+Indian
+373 Albert Street
+NTU
+Nursing
+4.33
+Python,Ruby,C++,C#
+Network-Architect,Financial-Manager
+Database-Administrator
+9,5,6,3,9
+Applicant

@@ -1,0 +1,15 @@
+Humberto Babb
+58957035
+Humberto@gmail.com
+S4838992U
+Male
+Indian
+355 Middle Road
+NUS
+Mechanical Engineering
+4.38
+Ruby
+Financial-Manager,Database-Administrator,Statistician
+Network-Architect,Statistician,Software-Developer
+2,1,3,3,9
+Applicant

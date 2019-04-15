@@ -1,0 +1,15 @@
+Jamal Blue
+28014314
+Jamal@gmail.com
+S5270640G
+Male
+Others
+326 Bugis Street
+SMU
+Mechanical Engineering
+3.03
+Ruby,PHP
+Security-Analyst
+Database-Administrator
+8,8,1,1,8
+Applicant

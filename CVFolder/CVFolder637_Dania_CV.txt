@@ -1,0 +1,15 @@
+Dania Waddell
+54823280
+Dania@gmail.com
+S9551128R
+Female
+Indian
+416 Albert Street
+NTU
+Psychology
+3.60
+Python,Ruby,C++
+Software-Developer,Security-Analyst,Network-Architect
+Data-Scientist,Accountant,Network-Architect
+0,3,4,2,6
+Applicant

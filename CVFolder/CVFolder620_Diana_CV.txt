@@ -1,0 +1,15 @@
+Diana Freeman
+21407615
+Diana@gmail.com
+S8163848M
+Female
+Others
+99 Ang Mo Kio
+SUTD
+Mechanical Engineering
+3.56
+C++
+Data-Scientist,Web-Developer,Accountant
+Statistician,Cartographer,Software-Developer
+7,1,2,0,5
+Applicant

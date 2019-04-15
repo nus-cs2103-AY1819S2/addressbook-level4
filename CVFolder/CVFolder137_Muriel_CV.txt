@@ -1,0 +1,15 @@
+Muriel Ogle
+52430116
+Muriel@gmail.com
+S2095274T
+Female
+Chinese
+43 Jalan Besar
+SUTD
+Marketing
+4.79
+C++,C#,JavaScript,Ruby
+Database-Administrator,Network-Architect,Financial-Manager
+Software-Developer,Data-Scientist
+9,6,8,7,5
+Applicant

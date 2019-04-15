@@ -1,0 +1,15 @@
+Joann Mcgraw
+51052223
+Joann@gmail.com
+S5487462B
+Female
+Malay
+73 Rotan Lane
+SMU
+Marketing
+4.43
+JAVA,C++,JavaScript,C
+Data-Scientist,Web-Developer,Software-Developer
+Financial-Manager,Security-Analyst
+1,8,6,0,1
+Applicant

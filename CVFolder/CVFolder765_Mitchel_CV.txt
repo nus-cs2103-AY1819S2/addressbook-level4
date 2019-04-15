@@ -1,0 +1,15 @@
+Mitchel Johnston
+03221095
+Mitchel@gmail.com
+S1297511W
+Male
+Malay
+400 Kay Poh Road
+NTU
+Nursing
+4.62
+C++,C#,Ruby,PHP
+Database-Administrator
+Web-Developer,Data-Scientist,Network-Architect
+7,6,4,3,6
+Applicant

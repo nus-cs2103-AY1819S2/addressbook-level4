@@ -1,0 +1,15 @@
+Gail Bermudez
+45621907
+Gail@gmail.com
+S6885010E
+Male
+Malay
+64 Rotan Lane
+NUS
+Political Science
+3.39
+PHP,C#,C,Python
+Data-Scientist,Security-Analyst,Software-Developer
+Web-Developer,Security-Analyst,Cartographer
+1,6,9,1,7
+Applicant

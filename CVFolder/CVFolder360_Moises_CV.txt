@@ -1,0 +1,15 @@
+Moises Hills
+58748613
+Moises@gmail.com
+S4516019Q
+Male
+Others
+203 Jalan Besar
+Singapore Polytechnic
+Political Science
+3.19
+Ruby,C,C++,JavaScript
+Financial-Manager,Database-Administrator,Network-Architect
+Security-Analyst,Statistician
+6,1,1,5,9
+Applicant

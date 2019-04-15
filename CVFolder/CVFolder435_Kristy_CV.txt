@@ -1,0 +1,15 @@
+Kristy Rea
+34892993
+Kristy@gmail.com
+S1749281M
+Female
+Malay
+485 Albert Street
+SUTD
+Electrical Engineering
+4.30
+C++,Python,PHP
+Security-Analyst,Data-Scientist
+Accountant
+1,3,5,9,9
+Applicant

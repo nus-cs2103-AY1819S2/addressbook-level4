@@ -1,0 +1,15 @@
+Tracey Gilchrist
+14662055
+Tracey@gmail.com
+S5619029Y
+Male
+Malay
+260 Tanah Merah
+NUS
+Political Science
+3.82
+C,Python,PHP,C++
+Software-Developer,Web-Developer
+Software-Developer,Statistician,Network-Architect
+4,4,4,8,4
+Applicant

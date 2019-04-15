@@ -1,0 +1,15 @@
+Leon Bradford
+77141014
+Leon@gmail.com
+S2590504B
+Male
+Others
+65 Kay Poh Road
+SMU
+Art
+3.30
+PHP,C,C++,Python
+Security-Analyst,Web-Developer
+Database-Administrator
+8,4,7,9,0
+Applicant

@@ -1,0 +1,15 @@
+Barry Esposito
+85025127
+Barry@gmail.com
+S3530066L
+Male
+Indian
+208 PGPR
+SUTD
+Nursing
+4.31
+Python,C++,C
+Statistician,Accountant
+Security-Analyst,Cartographer
+10,8,2,5,10
+Applicant

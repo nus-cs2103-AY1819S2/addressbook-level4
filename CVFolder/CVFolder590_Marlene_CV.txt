@@ -1,0 +1,15 @@
+Marlene Kimball
+69790307
+Marlene@gmail.com
+S8694654I
+Female
+Chinese
+320 Jalan Besar
+Singapore Polytechnic
+Nursing
+4.27
+Python,JavaScript,C#
+Security-Analyst,Data-Scientist
+Database-Administrator
+8,8,4,5,5
+Applicant

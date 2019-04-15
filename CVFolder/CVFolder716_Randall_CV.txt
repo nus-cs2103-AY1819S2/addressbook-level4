@@ -1,0 +1,15 @@
+Randall Harder
+40408902
+Randall@gmail.com
+S4666188J
+Male
+Malay
+98 Tanah Merah
+SUTD
+Computer Science
+4.96
+Ruby,Python,C,PHP
+Security-Analyst,Data-Scientist,Web-Developer
+Database-Administrator,Accountant,Cartographer
+1,9,8,1,1
+Applicant

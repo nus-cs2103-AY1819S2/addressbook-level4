@@ -1,0 +1,15 @@
+Carlo Puckett
+97088749
+Carlo@gmail.com
+S0904027T
+Male
+Chinese
+330 Ang Mo Kio
+SMU
+Mechanical Engineering
+4.49
+PHP,Python,C++,JAVA
+Software-Developer
+Data-Scientist
+3,7,10,0,10
+Applicant

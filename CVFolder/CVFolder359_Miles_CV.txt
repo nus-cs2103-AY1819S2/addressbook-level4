@@ -1,0 +1,15 @@
+Miles Jackson
+08298158
+Miles@gmail.com
+S7107088W
+Male
+Indian
+272 Tanah Merah
+NUS
+Political Science
+3.03
+JavaScript,JAVA
+Accountant,Database-Administrator
+Data-Scientist,Network-Architect
+10,8,9,10,1
+Applicant

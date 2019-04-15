@@ -1,0 +1,15 @@
+Brett Herndon
+85799823
+Brett@gmail.com
+S1668244D
+Male
+Chinese
+249 Bugis Street
+NUS
+Mechanical Engineering
+3.98
+JavaScript,C#
+Accountant
+Cartographer,Financial-Manager
+5,2,8,0,6
+Applicant

@@ -1,0 +1,15 @@
+Bruce Allred
+79872663
+Bruce@gmail.com
+S6902441N
+Male
+Others
+444 Bugis Street
+NTU
+Nursing
+3.22
+C++,C,C#,PHP
+Data-Scientist,Software-Developer,Web-Developer
+Network-Architect
+4,1,6,2,0
+Applicant

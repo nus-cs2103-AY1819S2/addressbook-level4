@@ -1,0 +1,15 @@
+Shanice Bullard
+30088848
+Shanice@gmail.com
+S4736078L
+Female
+Malay
+342 Bugis Street
+Singapore Polytechnic
+Mechanical Engineering
+3.81
+JAVA,Ruby,Python,C++
+Data-Scientist,Network-Architect,Accountant
+Financial-Manager
+0,9,0,4,7
+Applicant

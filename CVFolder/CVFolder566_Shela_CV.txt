@@ -1,0 +1,15 @@
+Shela Burrows
+58789913
+Shela@gmail.com
+S3455812Z
+Female
+Others
+27 Albert Street
+SUTD
+Computer Science
+3.81
+PHP,JavaScript
+Database-Administrator,Security-Analyst,Data-Scientist
+Database-Administrator,Data-Scientist,Accountant
+4,0,5,0,7
+Applicant

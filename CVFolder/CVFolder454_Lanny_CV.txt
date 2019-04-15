@@ -1,0 +1,15 @@
+Lanny Eastman
+52637930
+Lanny@gmail.com
+S1881956X
+Male
+Others
+423 Albert Street
+SUTD
+Nursing
+3.82
+C#,C++
+Financial-Manager,Database-Administrator,Security-Analyst
+Web-Developer
+9,9,1,5,7
+Applicant

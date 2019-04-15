@@ -1,0 +1,15 @@
+Connie Cunningham
+76225877
+Connie@gmail.com
+S1295475L
+Male
+Chinese
+395 Rotan Lane
+SUTD
+Marketing
+4.36
+C++,JavaScript,Python
+Network-Architect,Statistician,Financial-Manager
+Security-Analyst
+7,0,5,4,6
+Applicant

@@ -1,0 +1,15 @@
+Beverlee Mendez
+34752032
+Beverlee@gmail.com
+S7701987C
+Female
+Chinese
+113 Rotan Lane
+SMU
+Biology
+3.92
+C++,PHP
+Database-Administrator
+Security-Analyst,Financial-Manager
+0,6,6,1,6
+Applicant

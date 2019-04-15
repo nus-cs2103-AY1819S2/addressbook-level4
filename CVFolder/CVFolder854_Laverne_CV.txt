@@ -1,0 +1,15 @@
+Laverne Diamond
+98444902
+Laverne@gmail.com
+S5187075P
+Female
+Indian
+161 Kay Poh Road
+SUTD
+Electrical Engineering
+4.24
+JAVA,C#
+Accountant
+Network-Architect
+4,8,6,3,0
+Applicant

@@ -1,0 +1,15 @@
+Curt Brownlee
+96231452
+Curt@gmail.com
+S0767675L
+Male
+Chinese
+316 Middle Road
+SUTD
+Biology
+4.68
+JAVA,JavaScript
+Data-Scientist
+Financial-Manager,Web-Developer,Accountant
+2,3,4,3,0
+Applicant

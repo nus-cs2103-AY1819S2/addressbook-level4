@@ -1,0 +1,15 @@
+Leisa Montoya
+47647968
+Leisa@gmail.com
+S0399352P
+Female
+Chinese
+270 Albert Street
+SUTD
+Marketing
+3.92
+JAVA,C++,PHP
+Financial-Manager
+Network-Architect,Accountant
+9,8,6,3,10
+Applicant

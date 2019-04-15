@@ -1,0 +1,15 @@
+Amy Larkin
+79636902
+Amy@gmail.com
+S9510575W
+Female
+Others
+187 Jalan Besar
+NUS
+Mechanical Engineering
+3.72
+JAVA
+Software-Developer
+Security-Analyst,Statistician
+4,4,10,3,6
+Applicant

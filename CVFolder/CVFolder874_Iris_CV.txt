@@ -1,0 +1,15 @@
+Iris Gross
+49758777
+Iris@gmail.com
+S8396101R
+Female
+Chinese
+107 Albert Street
+SMU
+Marketing
+3.40
+Ruby,C#
+Network-Architect,Data-Scientist
+Data-Scientist,Network-Architect
+5,5,5,2,2
+Applicant

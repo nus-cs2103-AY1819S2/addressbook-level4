@@ -1,0 +1,15 @@
+Alonzo Jude
+07232618
+Alonzo@gmail.com
+S2789893J
+Male
+Chinese
+143 Kay Poh Road
+NTU
+Nursing
+3.95
+C
+Network-Architect
+Database-Administrator,Cartographer
+1,4,2,7,10
+Applicant

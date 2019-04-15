@@ -1,0 +1,15 @@
+Norman Dickens
+53613664
+Norman@gmail.com
+S3103607S
+Male
+Chinese
+113 Thomson Road
+SUTD
+Art
+4.12
+Ruby,C,C#
+Database-Administrator
+Software-Developer,Network-Architect
+7,5,4,3,9
+Applicant

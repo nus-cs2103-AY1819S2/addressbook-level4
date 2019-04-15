@@ -1,0 +1,15 @@
+Ying Vincent
+89317557
+Ying@gmail.com
+S1022433U
+Female
+Indian
+6 Tanah Merah
+NTU
+Computer Science
+3.90
+Python,C#,C++,JAVA
+Data-Scientist,Statistician
+Web-Developer,Data-Scientist,Security-Analyst
+8,1,4,4,2
+Applicant

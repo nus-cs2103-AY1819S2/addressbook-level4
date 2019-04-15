@@ -1,0 +1,15 @@
+Emil Goodson
+79966826
+Emil@gmail.com
+S1230245V
+Male
+Malay
+414 Albert Street
+SUTD
+Computer Science
+4.51
+Python,PHP,Ruby
+Accountant
+Statistician,Network-Architect
+6,6,5,6,0
+Applicant

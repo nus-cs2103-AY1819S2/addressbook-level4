@@ -1,0 +1,15 @@
+Kacie Serna
+76838664
+Kacie@gmail.com
+S7620051C
+Female
+Chinese
+327 PGPR
+Singapore Polytechnic
+Mechanical Engineering
+3.11
+C++,C,JAVA
+Security-Analyst,Web-Developer,Network-Architect
+Database-Administrator,Software-Developer,Security-Analyst
+9,5,8,2,1
+Applicant

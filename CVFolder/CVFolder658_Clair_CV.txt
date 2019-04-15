@@ -1,0 +1,15 @@
+Clair Kearns
+85765653
+Clair@gmail.com
+S1082246O
+Male
+Others
+135 Albert Street
+Singapore Polytechnic
+Nursing
+3.24
+Python
+Database-Administrator,Cartographer
+Cartographer,Security-Analyst,Network-Architect
+3,4,5,8,1
+Applicant

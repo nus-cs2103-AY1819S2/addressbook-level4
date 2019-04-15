@@ -1,0 +1,15 @@
+Scott Pendleton
+17374464
+Scott@gmail.com
+S4245745C
+Male
+Others
+131 Rotan Lane
+SMU
+Political Science
+3.82
+JAVA
+Accountant,Database-Administrator
+Financial-Manager,Software-Developer,Security-Analyst
+4,3,5,6,9
+Applicant

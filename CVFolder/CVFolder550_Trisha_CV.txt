@@ -1,0 +1,15 @@
+Trisha Schmidt
+40138486
+Trisha@gmail.com
+S0855382P
+Female
+Chinese
+7 Kay Poh Road
+NTU
+Mechanical Engineering
+4.50
+Ruby,PHP
+Accountant,Network-Architect,Database-Administrator
+Security-Analyst,Network-Architect,Accountant
+9,3,8,4,1
+Applicant

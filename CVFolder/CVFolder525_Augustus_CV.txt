@@ -1,0 +1,15 @@
+Augustus Burgos
+78724423
+Augustus@gmail.com
+S6489086F
+Male
+Chinese
+89 Kay Poh Road
+SMU
+Biology
+4.61
+JAVA,Ruby
+Web-Developer,Data-Scientist,Accountant
+Data-Scientist,Software-Developer,Web-Developer
+7,5,5,5,4
+Applicant

@@ -1,0 +1,15 @@
+Kraig Robison
+02536531
+Kraig@gmail.com
+S0968237A
+Male
+Others
+228 Bugis Street
+SMU
+Electrical Engineering
+4.36
+Ruby,Python,C++,JAVA
+Web-Developer,Software-Developer,Security-Analyst
+Web-Developer,Database-Administrator
+5,6,1,8,0
+Applicant

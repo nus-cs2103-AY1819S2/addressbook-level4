@@ -1,0 +1,15 @@
+Lita Reyes
+64929775
+Lita@gmail.com
+S0537304Z
+Female
+Indian
+75 Thomson Road
+SUTD
+Nursing
+3.90
+C,C#
+Web-Developer,Accountant
+Financial-Manager,Statistician,Security-Analyst
+9,8,10,8,4
+Applicant

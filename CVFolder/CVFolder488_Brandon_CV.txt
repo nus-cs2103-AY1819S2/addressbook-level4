@@ -1,0 +1,15 @@
+Brandon Aldridge
+09201447
+Brandon@gmail.com
+S7933203A
+Male
+Chinese
+68 Rotan Lane
+SMU
+Political Science
+3.96
+Python,C++
+Web-Developer
+Financial-Manager,Software-Developer
+6,6,4,4,8
+Applicant

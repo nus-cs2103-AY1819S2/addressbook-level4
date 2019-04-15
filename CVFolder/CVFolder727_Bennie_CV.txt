@@ -1,0 +1,15 @@
+Bennie Staples
+19757618
+Bennie@gmail.com
+S4609468W
+Female
+Indian
+203 Thomson Road
+Singapore Polytechnic
+Biology
+3.99
+C++,C,JavaScript,JAVA
+Financial-Manager,Accountant
+Database-Administrator,Accountant,Network-Architect
+10,10,4,3,10
+Applicant

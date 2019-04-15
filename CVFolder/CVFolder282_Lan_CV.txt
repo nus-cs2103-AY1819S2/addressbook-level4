@@ -1,0 +1,15 @@
+Lan Grayson
+85983246
+Lan@gmail.com
+S6839576U
+Female
+Chinese
+234 Albert Street
+SMU
+Computer Science
+4.40
+C#,JAVA,PHP
+Data-Scientist,Web-Developer
+Accountant
+8,8,0,8,6
+Applicant

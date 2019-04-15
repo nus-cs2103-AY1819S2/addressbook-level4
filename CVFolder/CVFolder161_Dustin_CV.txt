@@ -1,0 +1,15 @@
+Dustin Harder
+97144061
+Dustin@gmail.com
+S4287022G
+Male
+Malay
+169 Rotan Lane
+SMU
+Marketing
+3.64
+C++
+Financial-Manager,Statistician
+Statistician,Network-Architect,Financial-Manager
+7,5,2,7,0
+Applicant

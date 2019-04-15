@@ -1,0 +1,15 @@
+King Hodge
+14201804
+King@gmail.com
+S4004970N
+Male
+Indian
+265 PGPR
+NTU
+Mechanical Engineering
+3.49
+Ruby,Python,JAVA,C
+Financial-Manager,Statistician,Accountant
+Data-Scientist,Network-Architect
+1,0,6,3,4
+Applicant

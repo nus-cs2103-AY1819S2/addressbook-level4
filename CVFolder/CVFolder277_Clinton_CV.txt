@@ -1,0 +1,15 @@
+Clinton Spruill
+27994319
+Clinton@gmail.com
+S7668973Z
+Male
+Chinese
+53 Middle Road
+SMU
+Art
+3.07
+JAVA,PHP,C#
+Network-Architect,Database-Administrator,Data-Scientist
+Security-Analyst,Statistician
+6,0,7,2,10
+Applicant

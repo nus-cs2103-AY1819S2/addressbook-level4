@@ -1,0 +1,15 @@
+Franklin Geiger
+56488427
+Franklin@gmail.com
+S3359228Y
+Male
+Chinese
+159 Ang Mo Kio
+SUTD
+Mechanical Engineering
+4.02
+Ruby
+Accountant
+Database-Administrator,Software-Developer
+2,10,4,7,1
+Applicant

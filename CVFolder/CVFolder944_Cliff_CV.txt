@@ -1,0 +1,15 @@
+Cliff Pyle
+63742397
+Cliff@gmail.com
+S6044245K
+Male
+Malay
+306 Jalan Besar
+SUTD
+Nursing
+4.75
+C++
+Statistician
+Software-Developer,Accountant,Data-Scientist
+9,0,5,9,7
+Applicant

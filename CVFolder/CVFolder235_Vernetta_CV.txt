@@ -1,0 +1,15 @@
+Vernetta Fagan
+84407892
+Vernetta@gmail.com
+S4599610K
+Female
+Others
+469 Bugis Street
+NTU
+Mechanical Engineering
+4.78
+JAVA,Ruby
+Financial-Manager,Data-Scientist,Security-Analyst
+Web-Developer,Software-Developer,Accountant
+9,4,0,5,3
+Applicant

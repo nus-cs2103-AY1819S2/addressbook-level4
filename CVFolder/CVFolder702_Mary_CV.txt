@@ -1,0 +1,15 @@
+Mary Carbone
+58478496
+Mary@gmail.com
+S5468314O
+Male
+Malay
+162 Tanah Merah
+Singapore Polytechnic
+Psychology
+3.21
+Ruby,C,PHP,JavaScript
+Database-Administrator,Cartographer
+Accountant
+9,7,6,2,3
+Applicant

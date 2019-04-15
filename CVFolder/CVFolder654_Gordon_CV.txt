@@ -1,0 +1,15 @@
+Gordon Guyton
+05238368
+Gordon@gmail.com
+S3602284S
+Male
+Malay
+141 PGPR
+NUS
+Political Science
+4.75
+JavaScript
+Accountant,Financial-Manager,Data-Scientist
+Web-Developer,Statistician,Database-Administrator
+3,3,9,10,3
+Applicant

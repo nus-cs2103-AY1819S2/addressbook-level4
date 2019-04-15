@@ -1,0 +1,15 @@
+Guadalupe Dickens
+79378688
+Guadalupe@gmail.com
+S4611460M
+Male
+Malay
+460 Jalan Besar
+NTU
+Biology
+3.22
+Python,C++,JAVA,C
+Cartographer,Accountant,Software-Developer
+Web-Developer
+1,0,0,0,0
+Applicant

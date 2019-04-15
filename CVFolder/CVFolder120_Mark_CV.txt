@@ -1,0 +1,15 @@
+Mark Lombardo
+03132549
+Mark@gmail.com
+S4130827U
+Male
+Indian
+10 Albert Street
+SUTD
+Art
+4.95
+Python,C,Ruby
+Security-Analyst
+Software-Developer,Data-Scientist
+9,7,6,4,5
+Applicant

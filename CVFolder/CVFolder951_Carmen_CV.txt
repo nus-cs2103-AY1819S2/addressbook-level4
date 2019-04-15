@@ -1,0 +1,15 @@
+Carmen Mccain
+60802802
+Carmen@gmail.com
+S4789560G
+Female
+Malay
+312 Albert Street
+Singapore Polytechnic
+Biology
+4.47
+JAVA,JavaScript
+Security-Analyst,Data-Scientist
+Statistician,Financial-Manager,Network-Architect
+0,4,9,8,7
+Applicant

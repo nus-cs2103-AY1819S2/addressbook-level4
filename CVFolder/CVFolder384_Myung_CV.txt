@@ -1,0 +1,15 @@
+Myung Petersen
+02389156
+Myung@gmail.com
+S2103238L
+Female
+Indian
+330 Middle Road
+SUTD
+Political Science
+3.22
+C++
+Security-Analyst,Cartographer,Web-Developer
+Accountant,Statistician,Network-Architect
+4,3,7,1,6
+Applicant

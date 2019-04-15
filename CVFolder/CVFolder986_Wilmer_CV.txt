@@ -1,0 +1,15 @@
+Wilmer Rubin
+76624978
+Wilmer@gmail.com
+S1176778R
+Male
+Malay
+39 Middle Road
+NUS
+Political Science
+4.74
+C#
+Software-Developer
+Statistician
+0,2,7,3,1
+Applicant

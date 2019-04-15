@@ -1,0 +1,15 @@
+Saul Stroud
+61924314
+Saul@gmail.com
+S3928643J
+Male
+Malay
+157 Sentosa
+NTU
+Marketing
+3.72
+Ruby,Python
+Security-Analyst
+Web-Developer,Data-Scientist,Cartographer
+10,7,5,7,3
+Applicant

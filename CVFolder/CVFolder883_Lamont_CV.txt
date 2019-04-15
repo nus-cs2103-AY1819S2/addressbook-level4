@@ -1,0 +1,15 @@
+Lamont Willett
+71356420
+Lamont@gmail.com
+S0257250C
+Male
+Others
+17 Rotan Lane
+Singapore Polytechnic
+Marketing
+3.93
+Ruby,C#,JAVA
+Database-Administrator
+Statistician,Network-Architect
+0,1,4,8,3
+Applicant

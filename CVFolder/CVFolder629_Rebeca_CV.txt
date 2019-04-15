@@ -1,0 +1,15 @@
+Rebeca Scarborough
+42312978
+Rebeca@gmail.com
+S5962958V
+Female
+Malay
+54 Jalan Besar
+Singapore Polytechnic
+Political Science
+3.53
+Python,JAVA
+Data-Scientist
+Web-Developer
+8,1,6,3,4
+Applicant

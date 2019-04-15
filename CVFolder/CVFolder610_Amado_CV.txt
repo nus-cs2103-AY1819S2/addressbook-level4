@@ -1,0 +1,15 @@
+Amado Lloyd
+17402035
+Amado@gmail.com
+S7203890Q
+Male
+Chinese
+38 Middle Road
+SUTD
+Marketing
+3.72
+Python
+Data-Scientist
+Financial-Manager
+3,1,6,0,9
+Applicant

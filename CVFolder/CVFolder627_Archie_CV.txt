@@ -1,0 +1,15 @@
+Archie Lane
+83184941
+Archie@gmail.com
+S9905798K
+Male
+Indian
+226 Rotan Lane
+Singapore Polytechnic
+Psychology
+3.77
+C
+Network-Architect
+Security-Analyst,Software-Developer,Database-Administrator
+9,10,1,5,5
+Applicant

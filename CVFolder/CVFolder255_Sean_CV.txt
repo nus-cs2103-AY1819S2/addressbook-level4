@@ -1,0 +1,15 @@
+Sean Mckenzie
+46456140
+Sean@gmail.com
+S0231338S
+Male
+Chinese
+220 Ang Mo Kio
+Singapore Polytechnic
+Nursing
+3.61
+JAVA,PHP,C
+Database-Administrator,Cartographer,Software-Developer
+Web-Developer,Cartographer,Accountant
+2,3,3,0,9
+Applicant

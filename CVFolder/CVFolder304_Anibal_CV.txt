@@ -1,0 +1,15 @@
+Anibal Cote
+50187714
+Anibal@gmail.com
+S9129191B
+Male
+Indian
+302 Middle Road
+NUS
+Electrical Engineering
+3.72
+C,C++,JAVA,JavaScript
+Web-Developer,Financial-Manager,Cartographer
+Accountant,Database-Administrator
+3,1,3,4,4
+Applicant

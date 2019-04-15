@@ -1,0 +1,15 @@
+Bart Mcarthur
+68601171
+Bart@gmail.com
+S3186642C
+Male
+Indian
+20 Middle Road
+SMU
+Art
+4.46
+Ruby,JAVA,PHP
+Security-Analyst,Statistician
+Software-Developer
+3,0,1,2,7
+Applicant

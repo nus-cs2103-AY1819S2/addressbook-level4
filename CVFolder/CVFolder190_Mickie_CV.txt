@@ -1,0 +1,15 @@
+Mickie Ferrell
+24278750
+Mickie@gmail.com
+S0504310M
+Female
+Indian
+356 Albert Street
+SUTD
+Mechanical Engineering
+3.54
+Python,JavaScript,C++,C
+Database-Administrator,Financial-Manager,Statistician
+Database-Administrator
+6,8,6,9,7
+Applicant

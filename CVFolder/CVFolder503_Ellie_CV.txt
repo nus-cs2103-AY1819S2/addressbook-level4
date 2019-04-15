@@ -1,0 +1,15 @@
+Ellie Lemieux
+64337254
+Ellie@gmail.com
+S3159436N
+Female
+Others
+136 Middle Road
+SUTD
+Psychology
+3.36
+C++,Ruby
+Network-Architect,Database-Administrator,Data-Scientist
+Network-Architect,Data-Scientist
+0,4,7,9,9
+Applicant

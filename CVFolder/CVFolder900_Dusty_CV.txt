@@ -1,0 +1,15 @@
+Dusty Farmer
+59475857
+Dusty@gmail.com
+S6337054C
+Female
+Malay
+171 Bugis Street
+Singapore Polytechnic
+Electrical Engineering
+3.94
+Ruby,C,PHP,C++
+Software-Developer,Database-Administrator,Security-Analyst
+Statistician
+7,6,10,9,0
+Applicant

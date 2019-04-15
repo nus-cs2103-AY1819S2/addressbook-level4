@@ -1,0 +1,15 @@
+Bertha Worley
+40455677
+Bertha@gmail.com
+S5566436Z
+Female
+Others
+291 Bugis Street
+NUS
+Marketing
+4.21
+Python,JavaScript,C++,Ruby
+Accountant,Financial-Manager
+Network-Architect,Security-Analyst,Database-Administrator
+5,8,5,6,0
+Applicant

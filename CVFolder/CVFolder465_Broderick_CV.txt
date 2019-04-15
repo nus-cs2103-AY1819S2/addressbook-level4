@@ -1,0 +1,15 @@
+Broderick Mcdonough
+37525732
+Broderick@gmail.com
+S7638631D
+Male
+Malay
+119 Jalan Besar
+Singapore Polytechnic
+Nursing
+4.56
+C,PHP
+Network-Architect,Financial-Manager,Database-Administrator
+Data-Scientist,Security-Analyst,Statistician
+7,9,10,6,0
+Applicant

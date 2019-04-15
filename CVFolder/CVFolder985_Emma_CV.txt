@@ -1,0 +1,15 @@
+Emma Rosas
+85206746
+Emma@gmail.com
+S1891601S
+Female
+Chinese
+137 Middle Road
+Singapore Polytechnic
+Mechanical Engineering
+3.86
+C#,PHP,C
+Statistician,Software-Developer
+Database-Administrator,Financial-Manager,Accountant
+1,7,1,1,4
+Applicant

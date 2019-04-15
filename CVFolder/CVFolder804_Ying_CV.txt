@@ -1,0 +1,15 @@
+Ying Kenney
+96692051
+Ying@gmail.com
+S6305055M
+Female
+Indian
+158 Ang Mo Kio
+SMU
+Political Science
+3.35
+C#,Python,JAVA,Ruby
+Network-Architect,Cartographer,Financial-Manager
+Accountant,Web-Developer
+4,0,4,1,6
+Applicant

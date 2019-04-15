@@ -1,0 +1,15 @@
+Lucy Irving
+40516894
+Lucy@gmail.com
+S8248147Q
+Female
+Others
+2 Albert Street
+NTU
+Biology
+3.51
+C#,Ruby,PHP,Python
+Security-Analyst,Cartographer
+Software-Developer,Security-Analyst,Cartographer
+7,6,3,5,3
+Applicant

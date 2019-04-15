@@ -1,0 +1,15 @@
+Erick Clay
+56708326
+Erick@gmail.com
+S6756250W
+Male
+Chinese
+39 Albert Street
+NTU
+Nursing
+3.95
+C#,JavaScript
+Network-Architect,Financial-Manager,Cartographer
+Financial-Manager,Network-Architect,Cartographer
+10,0,5,9,5
+Applicant

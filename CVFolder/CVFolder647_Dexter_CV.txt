@@ -1,0 +1,15 @@
+Dexter Means
+24315601
+Dexter@gmail.com
+S3080461S
+Male
+Malay
+221 Rotan Lane
+Singapore Polytechnic
+Computer Science
+3.65
+Ruby,C#,C++
+Data-Scientist
+Database-Administrator,Data-Scientist
+7,8,5,1,5
+Applicant

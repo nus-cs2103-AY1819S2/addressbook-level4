@@ -1,0 +1,15 @@
+Henry Harbin
+48516786
+Henry@gmail.com
+S7234719S
+Female
+Chinese
+477 Middle Road
+NTU
+Psychology
+4.29
+JavaScript,C#,C++,PHP
+Software-Developer,Accountant,Cartographer
+Cartographer
+0,10,7,3,4
+Applicant

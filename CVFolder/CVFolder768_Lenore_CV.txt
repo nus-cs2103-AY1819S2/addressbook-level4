@@ -1,0 +1,15 @@
+Lenore Hogan
+14486505
+Lenore@gmail.com
+S7883027F
+Female
+Indian
+355 Thomson Road
+SUTD
+Nursing
+4.02
+Python,PHP,C#
+Web-Developer,Financial-Manager
+Security-Analyst,Data-Scientist,Web-Developer
+9,1,9,10,7
+Applicant

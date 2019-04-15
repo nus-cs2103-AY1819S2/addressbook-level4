@@ -1,0 +1,15 @@
+Oscar Sandoval
+61036647
+Oscar@gmail.com
+S9003430L
+Male
+Malay
+83 Thomson Road
+SMU
+Nursing
+4.31
+PHP,Python,C,Ruby
+Accountant
+Web-Developer,Software-Developer,Database-Administrator
+1,8,10,2,3
+Applicant

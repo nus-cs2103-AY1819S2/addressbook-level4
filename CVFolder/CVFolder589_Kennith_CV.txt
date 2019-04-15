@@ -1,0 +1,15 @@
+Kennith Ogden
+72142024
+Kennith@gmail.com
+S0110275C
+Male
+Others
+71 Albert Street
+NTU
+Mechanical Engineering
+3.05
+PHP
+Data-Scientist
+Data-Scientist,Database-Administrator,Software-Developer
+3,0,2,5,6
+Applicant

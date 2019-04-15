@@ -1,0 +1,15 @@
+Leslee Looney
+92775074
+Leslee@gmail.com
+S1906004M
+Female
+Chinese
+165 Sentosa
+SUTD
+Psychology
+4.63
+JAVA,C,C++,Python
+Cartographer,Financial-Manager
+Software-Developer,Web-Developer
+2,9,2,4,10
+Applicant

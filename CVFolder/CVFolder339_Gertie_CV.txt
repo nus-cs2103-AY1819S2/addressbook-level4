@@ -1,0 +1,15 @@
+Gertie Riggins
+83087073
+Gertie@gmail.com
+S3930848N
+Female
+Others
+178 Thomson Road
+NTU
+Political Science
+4.34
+Ruby
+Financial-Manager,Accountant
+Financial-Manager,Software-Developer
+1,1,9,1,5
+Applicant

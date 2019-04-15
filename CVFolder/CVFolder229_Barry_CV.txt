@@ -1,0 +1,15 @@
+Barry Cain
+62708170
+Barry@gmail.com
+S3397666C
+Male
+Malay
+183 Jalan Besar
+SMU
+Biology
+3.19
+C++,C,Python
+Cartographer,Security-Analyst,Financial-Manager
+Web-Developer,Statistician,Security-Analyst
+2,10,0,7,9
+Applicant

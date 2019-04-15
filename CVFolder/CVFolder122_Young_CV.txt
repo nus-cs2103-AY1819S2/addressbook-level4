@@ -1,0 +1,15 @@
+Young Hardison
+31214711
+Young@gmail.com
+S9232310P
+Male
+Indian
+338 Jalan Besar
+SUTD
+Computer Science
+3.47
+Ruby,Python,JavaScript,PHP
+Financial-Manager,Statistician
+Statistician,Data-Scientist,Network-Architect
+3,1,8,5,3
+Applicant

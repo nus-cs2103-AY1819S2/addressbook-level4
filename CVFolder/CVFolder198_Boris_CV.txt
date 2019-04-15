@@ -1,0 +1,15 @@
+Boris Bridges
+80728064
+Boris@gmail.com
+S4227487V
+Male
+Malay
+19 Albert Street
+SUTD
+Nursing
+4.69
+C++,Python
+Statistician,Data-Scientist
+Web-Developer,Statistician,Accountant
+7,0,1,7,10
+Applicant

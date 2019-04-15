@@ -1,0 +1,15 @@
+Lynette Canales
+74823165
+Lynette@gmail.com
+S5220021K
+Female
+Indian
+213 Tanah Merah
+Singapore Polytechnic
+Electrical Engineering
+3.11
+JavaScript,PHP,C#,C
+Software-Developer,Accountant
+Database-Administrator,Security-Analyst,Network-Architect
+7,1,5,1,9
+Applicant

@@ -1,0 +1,15 @@
+Carley Turpin
+93694970
+Carley@gmail.com
+S6773130X
+Female
+Indian
+66 Jalan Besar
+SMU
+Computer Science
+3.15
+C,C++,C#
+Software-Developer,Security-Analyst
+Web-Developer
+2,10,3,4,6
+Applicant

@@ -1,0 +1,15 @@
+Marylou Keller
+84349095
+Marylou@gmail.com
+S2528606N
+Female
+Chinese
+37 Ang Mo Kio
+Singapore Polytechnic
+Computer Science
+4.78
+JAVA,C++,PHP,Ruby
+Data-Scientist
+Data-Scientist,Financial-Manager,Network-Architect
+6,0,6,4,9
+Applicant

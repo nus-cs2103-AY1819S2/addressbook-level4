@@ -1,0 +1,15 @@
+Alexis Law
+48539954
+Alexis@gmail.com
+S1480071K
+Male
+Malay
+306 Albert Street
+SUTD
+Computer Science
+3.44
+PHP,JAVA
+Network-Architect
+Financial-Manager,Statistician,Database-Administrator
+2,8,4,1,6
+Applicant

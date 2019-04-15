@@ -1,0 +1,15 @@
+Josefina Holton
+34086290
+Josefina@gmail.com
+S4791523V
+Female
+Chinese
+425 Middle Road
+SMU
+Biology
+3.09
+Python,C
+Software-Developer,Financial-Manager,Cartographer
+Security-Analyst,Cartographer,Financial-Manager
+8,10,0,10,2
+Applicant

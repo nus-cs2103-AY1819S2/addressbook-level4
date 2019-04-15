@@ -1,0 +1,15 @@
+Josef Pickens
+88941647
+Josef@gmail.com
+S1489014Y
+Male
+Indian
+8 Middle Road
+NUS
+Marketing
+3.83
+C++
+Network-Architect,Financial-Manager
+Statistician,Security-Analyst,Software-Developer
+0,6,9,2,5
+Applicant

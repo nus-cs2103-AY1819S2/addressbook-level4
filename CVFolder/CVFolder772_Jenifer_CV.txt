@@ -1,0 +1,15 @@
+Jenifer Blackwell
+90732720
+Jenifer@gmail.com
+S1215815B
+Female
+Malay
+163 Albert Street
+SMU
+Art
+3.21
+Python
+Accountant
+Accountant,Financial-Manager
+3,4,0,7,8
+Applicant

@@ -1,0 +1,15 @@
+Nicki Cornwell
+65952035
+Nicki@gmail.com
+S0761047W
+Female
+Indian
+164 Rotan Lane
+SMU
+Art
+3.88
+JAVA,Python,JavaScript,Ruby
+Security-Analyst,Software-Developer
+Statistician
+8,0,1,2,1
+Applicant

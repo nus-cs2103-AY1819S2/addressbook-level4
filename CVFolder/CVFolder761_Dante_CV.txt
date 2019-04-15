@@ -1,0 +1,15 @@
+Dante Urban
+88741401
+Dante@gmail.com
+S3140596B
+Male
+Chinese
+61 Kay Poh Road
+SUTD
+Nursing
+4.87
+C++,JavaScript,C
+Statistician,Data-Scientist,Security-Analyst
+Data-Scientist,Security-Analyst,Web-Developer
+7,1,4,5,4
+Applicant

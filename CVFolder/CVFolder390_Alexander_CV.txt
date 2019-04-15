@@ -1,0 +1,15 @@
+Alexander Dillard
+69702906
+Alexander@gmail.com
+S5605942H
+Female
+Indian
+285 Middle Road
+NTU
+Biology
+3.26
+PHP
+Software-Developer,Database-Administrator
+Software-Developer,Statistician,Network-Architect
+8,6,4,0,9
+Applicant

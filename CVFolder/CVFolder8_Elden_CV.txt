@@ -1,0 +1,15 @@
+Elden Ricketts
+21860084
+Elden@gmail.com
+S5833842N
+Male
+Chinese
+285 PGPR
+SUTD
+Biology
+3.41
+JavaScript,C#,Python,C++
+Statistician,Data-Scientist
+Software-Developer,Cartographer,Accountant
+9,8,4,1,9
+Applicant

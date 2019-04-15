@@ -1,0 +1,15 @@
+Angeline Escamilla
+60833984
+Angeline@gmail.com
+S6444761N
+Female
+Others
+285 Thomson Road
+NUS
+Psychology
+4.13
+C#,C++,PHP,JAVA
+Security-Analyst,Data-Scientist
+Database-Administrator
+6,9,4,4,2
+Applicant

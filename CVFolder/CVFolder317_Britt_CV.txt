@@ -1,0 +1,15 @@
+Britt Casper
+14051932
+Britt@gmail.com
+S0023544D
+Male
+Chinese
+472 Albert Street
+Singapore Polytechnic
+Computer Science
+4.21
+Python,C,C++,Ruby
+Network-Architect,Accountant,Web-Developer
+Software-Developer,Web-Developer
+2,2,2,0,6
+Applicant

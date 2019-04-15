@@ -1,0 +1,15 @@
+Thurman Humphreys
+56302275
+Thurman@gmail.com
+S9461975T
+Male
+Chinese
+455 Albert Street
+Singapore Polytechnic
+Computer Science
+4.60
+Ruby
+Security-Analyst,Statistician,Cartographer
+Statistician,Financial-Manager
+6,6,4,3,6
+Applicant

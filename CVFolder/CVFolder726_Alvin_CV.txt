@@ -1,0 +1,15 @@
+Alvin Saavedra
+88309945
+Alvin@gmail.com
+S5912898K
+Male
+Indian
+147 Thomson Road
+NUS
+Nursing
+3.83
+C,JavaScript,PHP,Python
+Software-Developer,Cartographer
+Security-Analyst,Database-Administrator,Web-Developer
+2,2,5,4,10
+Applicant

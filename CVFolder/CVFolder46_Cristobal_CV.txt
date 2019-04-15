@@ -1,0 +1,15 @@
+Cristobal Fortner
+64149645
+Cristobal@gmail.com
+S3252563Y
+Male
+Chinese
+114 Tanah Merah
+SMU
+Art
+3.24
+C
+Data-Scientist,Financial-Manager
+Accountant,Web-Developer,Network-Architect
+10,10,1,9,2
+Applicant

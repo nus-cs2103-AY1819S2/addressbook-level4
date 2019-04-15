@@ -1,0 +1,15 @@
+Lynn Montes
+85743410
+Lynn@gmail.com
+S1434609O
+Male
+Malay
+158 Kay Poh Road
+Singapore Polytechnic
+Psychology
+3.85
+PHP,C++,Ruby
+Financial-Manager,Database-Administrator
+Financial-Manager
+0,3,4,3,8
+Applicant

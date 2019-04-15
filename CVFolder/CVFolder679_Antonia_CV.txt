@@ -1,0 +1,15 @@
+Antonia Hacker
+38295718
+Antonia@gmail.com
+S3570806D
+Female
+Others
+230 Ang Mo Kio
+SUTD
+Biology
+4.70
+Ruby,C,C#,JavaScript
+Database-Administrator,Statistician
+Cartographer
+8,4,4,7,10
+Applicant

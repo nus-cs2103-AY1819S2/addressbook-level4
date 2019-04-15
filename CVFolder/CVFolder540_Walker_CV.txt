@@ -1,0 +1,15 @@
+Walker Nava
+75715551
+Walker@gmail.com
+S2718799T
+Male
+Others
+396 Albert Street
+SUTD
+Mechanical Engineering
+4.42
+Python,JAVA
+Database-Administrator,Network-Architect
+Financial-Manager,Software-Developer
+3,3,6,8,4
+Applicant

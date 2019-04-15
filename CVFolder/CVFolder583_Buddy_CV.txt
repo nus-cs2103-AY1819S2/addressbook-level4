@@ -1,0 +1,15 @@
+Buddy Kelley
+43210070
+Buddy@gmail.com
+S2944773X
+Male
+Chinese
+105 Sentosa
+NUS
+Marketing
+4.06
+PHP,Ruby,C#,JavaScript
+Web-Developer
+Statistician,Network-Architect,Database-Administrator
+2,9,4,2,0
+Applicant

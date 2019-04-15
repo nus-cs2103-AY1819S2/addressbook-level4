@@ -1,0 +1,15 @@
+Ashlee Odom
+68125322
+Ashlee@gmail.com
+S7405991Z
+Female
+Indian
+55 PGPR
+NUS
+Political Science
+4.16
+Python
+Accountant
+Security-Analyst,Accountant,Financial-Manager
+10,3,8,4,3
+Applicant

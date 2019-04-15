@@ -1,0 +1,15 @@
+Sergio Leonard
+59515099
+Sergio@gmail.com
+S7576408I
+Male
+Chinese
+294 PGPR
+NUS
+Computer Science
+3.99
+C,Ruby
+Data-Scientist,Cartographer,Network-Architect
+Cartographer
+0,4,10,3,5
+Applicant

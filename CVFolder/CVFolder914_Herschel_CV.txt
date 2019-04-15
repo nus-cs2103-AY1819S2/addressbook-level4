@@ -1,0 +1,15 @@
+Herschel Kaplan
+52705470
+Herschel@gmail.com
+S9311384E
+Male
+Chinese
+218 Kay Poh Road
+Singapore Polytechnic
+Mechanical Engineering
+4.71
+Ruby,C#,Python
+Web-Developer
+Data-Scientist,Web-Developer,Financial-Manager
+10,1,6,5,9
+Applicant

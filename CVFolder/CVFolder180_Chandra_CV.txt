@@ -1,0 +1,15 @@
+Chandra Littlejohn
+41127420
+Chandra@gmail.com
+S5552642W
+Female
+Indian
+458 Rotan Lane
+Singapore Polytechnic
+Marketing
+4.13
+C#,PHP,JavaScript,C++
+Financial-Manager,Accountant,Web-Developer
+Database-Administrator,Data-Scientist
+7,6,2,10,0
+Applicant

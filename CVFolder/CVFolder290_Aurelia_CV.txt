@@ -1,0 +1,15 @@
+Aurelia Stanfield
+83514109
+Aurelia@gmail.com
+S4112379I
+Female
+Indian
+140 Albert Street
+NUS
+Mechanical Engineering
+3.90
+C,C++,Ruby
+Database-Administrator,Software-Developer,Security-Analyst
+Data-Scientist,Cartographer
+1,2,4,9,3
+Applicant

@@ -1,0 +1,15 @@
+Charley Whitley
+30497754
+Charley@gmail.com
+S4415868Y
+Male
+Chinese
+184 Tanah Merah
+SUTD
+Marketing
+3.91
+C++,JAVA,C#
+Software-Developer
+Financial-Manager,Statistician
+3,2,4,10,4
+Applicant

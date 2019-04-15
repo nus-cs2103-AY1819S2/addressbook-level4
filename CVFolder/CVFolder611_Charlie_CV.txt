@@ -1,0 +1,15 @@
+Charlie Hutson
+51523382
+Charlie@gmail.com
+S2693184Y
+Female
+Chinese
+349 Thomson Road
+SUTD
+Political Science
+3.54
+JavaScript,PHP,Python,C++
+Security-Analyst,Financial-Manager
+Security-Analyst
+8,7,5,3,10
+Applicant

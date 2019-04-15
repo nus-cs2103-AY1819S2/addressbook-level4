@@ -1,0 +1,15 @@
+Gilberto Rapp
+46188169
+Gilberto@gmail.com
+S9122362Z
+Male
+Others
+282 Albert Street
+NUS
+Political Science
+3.53
+C#
+Database-Administrator,Statistician
+Statistician
+1,9,5,2,5
+Applicant

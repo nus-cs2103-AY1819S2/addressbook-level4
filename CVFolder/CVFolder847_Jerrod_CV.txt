@@ -1,0 +1,15 @@
+Jerrod Lemons
+73892993
+Jerrod@gmail.com
+S9170433T
+Male
+Malay
+462 Albert Street
+SUTD
+Biology
+3.86
+PHP,JAVA,C
+Security-Analyst,Database-Administrator
+Financial-Manager
+10,7,3,4,4
+Applicant

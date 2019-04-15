@@ -1,0 +1,15 @@
+Warner Aaron
+08994740
+Warner@gmail.com
+S9746788F
+Male
+Others
+354 Rotan Lane
+NTU
+Computer Science
+3.85
+C++
+Financial-Manager,Network-Architect,Security-Analyst
+Accountant,Statistician,Software-Developer
+0,0,4,5,6
+Applicant

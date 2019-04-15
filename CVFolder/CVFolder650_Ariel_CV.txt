@@ -1,0 +1,15 @@
+Ariel Manuel
+41805764
+Ariel@gmail.com
+S6944983M
+Female
+Indian
+62 Sentosa
+SUTD
+Psychology
+4.52
+C,JAVA,Ruby
+Data-Scientist
+Security-Analyst,Database-Administrator
+1,0,3,1,8
+Applicant

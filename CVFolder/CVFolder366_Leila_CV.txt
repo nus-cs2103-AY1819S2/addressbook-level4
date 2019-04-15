@@ -1,0 +1,15 @@
+Leila Dyer
+52845691
+Leila@gmail.com
+S6312208R
+Female
+Chinese
+10 Kay Poh Road
+NTU
+Marketing
+3.05
+JavaScript,JAVA,C++
+Statistician,Network-Architect,Data-Scientist
+Cartographer,Accountant,Network-Architect
+10,5,8,4,1
+Applicant

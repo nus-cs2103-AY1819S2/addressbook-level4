@@ -1,0 +1,15 @@
+Evelin Vaughn
+08735310
+Evelin@gmail.com
+S5063011P
+Female
+Chinese
+71 Albert Street
+SUTD
+Political Science
+3.42
+C,C++,Ruby,Python
+Cartographer,Accountant,Security-Analyst
+Statistician,Cartographer,Network-Architect
+1,1,6,3,5
+Applicant

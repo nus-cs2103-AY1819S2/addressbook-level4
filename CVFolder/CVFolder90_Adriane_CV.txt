@@ -1,0 +1,15 @@
+Adriane Wolf
+57007010
+Adriane@gmail.com
+S9648695N
+Female
+Chinese
+159 Rotan Lane
+SUTD
+Computer Science
+3.12
+Ruby,PHP
+Statistician
+Software-Developer
+10,7,10,8,2
+Applicant

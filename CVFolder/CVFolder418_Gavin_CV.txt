@@ -1,0 +1,15 @@
+Gavin Applegate
+58447617
+Gavin@gmail.com
+S0641085S
+Male
+Others
+126 Albert Street
+Singapore Polytechnic
+Marketing
+4.35
+Ruby
+Security-Analyst,Web-Developer,Data-Scientist
+Web-Developer,Accountant,Cartographer
+2,7,1,3,3
+Applicant

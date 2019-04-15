@@ -1,0 +1,15 @@
+Arnoldo Delaney
+53146900
+Arnoldo@gmail.com
+S9010369A
+Male
+Malay
+267 Ang Mo Kio
+NTU
+Marketing
+3.47
+PHP,Ruby,Python,C++
+Financial-Manager,Statistician,Database-Administrator
+Web-Developer
+10,10,5,2,10
+Applicant

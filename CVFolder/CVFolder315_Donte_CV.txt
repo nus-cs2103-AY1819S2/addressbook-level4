@@ -1,0 +1,15 @@
+Donte Boswell
+89092950
+Donte@gmail.com
+S1817987I
+Male
+Malay
+345 PGPR
+NTU
+Nursing
+4.16
+JAVA,Python,Ruby
+Statistician
+Statistician,Security-Analyst,Web-Developer
+3,1,9,5,1
+Applicant

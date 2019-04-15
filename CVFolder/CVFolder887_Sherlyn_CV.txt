@@ -1,0 +1,15 @@
+Sherlyn Gooden
+80334308
+Sherlyn@gmail.com
+S7432261O
+Female
+Others
+280 Kay Poh Road
+SUTD
+Marketing
+3.76
+C++,C
+Data-Scientist,Software-Developer,Database-Administrator
+Statistician,Accountant,Network-Architect
+10,1,1,0,10
+Applicant

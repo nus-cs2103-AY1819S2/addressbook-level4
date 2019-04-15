@@ -1,0 +1,15 @@
+Kyung Lee
+11553566
+Kyung@gmail.com
+S8617650H
+Female
+Indian
+191 Sentosa
+SMU
+Biology
+3.82
+C++,C,JavaScript,JAVA
+Data-Scientist,Network-Architect,Database-Administrator
+Statistician
+6,1,6,6,9
+Applicant

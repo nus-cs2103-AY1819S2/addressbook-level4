@@ -1,0 +1,15 @@
+Matt Marino
+51706618
+Matt@gmail.com
+S2513847Z
+Male
+Malay
+259 Albert Street
+NTU
+Marketing
+3.55
+C++,JavaScript,Python
+Network-Architect,Cartographer,Statistician
+Financial-Manager
+9,0,9,1,0
+Applicant

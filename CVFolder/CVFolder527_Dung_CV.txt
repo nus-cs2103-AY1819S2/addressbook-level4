@@ -1,0 +1,15 @@
+Dung Lawler
+29694094
+Dung@gmail.com
+S1589649R
+Female
+Malay
+294 Kay Poh Road
+SMU
+Biology
+4.97
+C,Ruby,C#
+Database-Administrator,Financial-Manager
+Database-Administrator,Network-Architect,Statistician
+0,0,10,10,0
+Applicant

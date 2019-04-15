@@ -1,0 +1,15 @@
+Rodolfo Herrington
+40212428
+Rodolfo@gmail.com
+S5947324S
+Male
+Indian
+412 Thomson Road
+SUTD
+Biology
+4.47
+C#,PHP
+Software-Developer,Security-Analyst,Database-Administrator
+Software-Developer
+0,8,3,4,8
+Applicant

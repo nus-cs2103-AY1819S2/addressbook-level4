@@ -1,0 +1,15 @@
+Alfonzo Qualls
+29622479
+Alfonzo@gmail.com
+S3048201P
+Male
+Others
+250 Jalan Besar
+SMU
+Mechanical Engineering
+4.56
+Ruby
+Statistician,Database-Administrator,Web-Developer
+Data-Scientist
+9,9,3,6,4
+Applicant

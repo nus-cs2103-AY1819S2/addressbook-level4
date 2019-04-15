@@ -1,0 +1,15 @@
+Enoch Doherty
+92153360
+Enoch@gmail.com
+S5400655T
+Male
+Others
+162 Bugis Street
+NTU
+Computer Science
+4.72
+JAVA,C++,C#
+Data-Scientist
+Security-Analyst
+9,10,2,6,8
+Applicant

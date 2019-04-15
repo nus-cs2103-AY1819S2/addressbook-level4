@@ -1,0 +1,15 @@
+Ruthie Ware
+75735920
+Ruthie@gmail.com
+S7546345R
+Female
+Chinese
+430 Bugis Street
+SUTD
+Mechanical Engineering
+4.11
+JavaScript,PHP,C#,C++
+Software-Developer,Web-Developer,Cartographer
+Financial-Manager
+4,3,3,6,3
+Applicant

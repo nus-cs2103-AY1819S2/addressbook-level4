@@ -1,0 +1,15 @@
+Mike Kidd
+49723291
+Mike@gmail.com
+S8829578P
+Male
+Chinese
+403 Albert Street
+NTU
+Computer Science
+3.71
+C,JavaScript
+Financial-Manager,Security-Analyst
+Database-Administrator
+6,1,7,6,5
+Applicant

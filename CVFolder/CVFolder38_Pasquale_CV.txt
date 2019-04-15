@@ -1,0 +1,15 @@
+Pasquale Langley
+46238171
+Pasquale@gmail.com
+S1277943N
+Male
+Indian
+332 Rotan Lane
+SMU
+Computer Science
+4.48
+Ruby,JAVA
+Network-Architect
+Network-Architect,Cartographer,Financial-Manager
+10,3,4,0,2
+Applicant

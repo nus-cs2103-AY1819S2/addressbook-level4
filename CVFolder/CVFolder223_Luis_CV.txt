@@ -1,0 +1,15 @@
+Luis Shearer
+88033518
+Luis@gmail.com
+S9850670C
+Female
+Malay
+3 Albert Street
+NUS
+Biology
+4.03
+JAVA
+Web-Developer,Data-Scientist
+Database-Administrator
+9,9,5,0,1
+Applicant

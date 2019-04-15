@@ -1,0 +1,15 @@
+Kelvin Mena
+41956873
+Kelvin@gmail.com
+S4204627M
+Male
+Others
+473 Albert Street
+SMU
+Art
+4.90
+PHP
+Statistician,Accountant,Network-Architect
+Security-Analyst,Network-Architect,Database-Administrator
+10,2,4,0,7
+Applicant

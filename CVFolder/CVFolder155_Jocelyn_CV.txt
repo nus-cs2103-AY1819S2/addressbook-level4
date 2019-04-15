@@ -1,0 +1,15 @@
+Jocelyn Navarro
+22967748
+Jocelyn@gmail.com
+S4813373O
+Female
+Malay
+161 Ang Mo Kio
+SMU
+Electrical Engineering
+3.15
+JAVA
+Software-Developer,Data-Scientist
+Software-Developer,Network-Architect,Security-Analyst
+10,9,9,7,0
+Applicant

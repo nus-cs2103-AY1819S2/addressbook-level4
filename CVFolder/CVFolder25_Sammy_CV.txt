@@ -1,0 +1,15 @@
+Sammy Pemberton
+44464605
+Sammy@gmail.com
+S4353685F
+Male
+Indian
+252 PGPR
+NUS
+Electrical Engineering
+4.28
+PHP,C++,JavaScript
+Financial-Manager,Software-Developer,Security-Analyst
+Database-Administrator,Network-Architect
+0,10,2,6,0
+Applicant

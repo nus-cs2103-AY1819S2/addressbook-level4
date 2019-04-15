@@ -50,13 +50,15 @@ The enhancement required an in-depth analysis of various design alternatives. Th
 
 *Credits:* link:https://github.com/google/gson[Gson], a third-party library, was used in the enhancement of this product to convert Java Objects into JSON and back.
 
-*Code contributed to major enhancement*: [link:https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=chung-ming&sort=displayName&since=2019-02-10&until=2019-04-10&timeframe=day&reverse=false&repoSort=true[RepoSense]] [link:{repoURL}/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Achung-ming+-label%3Atype.MinorEnhancement+-label%3Atype.Testing[Functional code]] [link:{repoURL}/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Achung-ming+label%3Atype.Testing[Test code]]
+*Code contributed to the major enhancement*: [link:https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=chung-ming&sort=displayName&since=2019-02-10&timeframe=day&reverse=false&repoSort=true[RepoSense]] [link:{repoURL}/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Achung-ming+-label%3Atype.MinorEnhancement+-label%3Atype.Testing[Functional code]] [link:{repoURL}/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Achung-ming+label%3Atype.Testing[Test code]]
 
 === Minor Enhancement
 
-The minor enhancement I did was converting the `add` command's Email parameter in the previous address book product to a Description parameter in the current product.
+The minor enhancement I did was converting the `add` command's `Email` parameter in the previous address book product to a `Description` parameter in the current product. The `Description` parameter allows users to note down their thoughts about the specific place that they have visited.
 
-*Code contributed to minor enhancement*: [link:{repoURL}/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Achung-ming+label%3Atype.MinorEnhancement[Functional code]]
+Additionally, I added command aliases to new and existing commands so users have the option to input a shorter command.
+
+*Code contributed to both minor enhancements*: [link:https://github.com/CS2103-AY1819S2-W11-3/main/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Achung-ming+label%3Atype.minorEnhancement[Functional code]]
 
 === Other Contributions
 
@@ -71,29 +73,37 @@ The details of other contributions can be found in <<OtherContributions>> below:
 |Managed releases on GitHub (Releases: link:{repoURL}/releases/tag/v1.2[`v1.2`], link:{repoURL}/releases/tag/v1.2.1[`v1.2.1`], link:{repoURL}/releases/tag/v1.3.1[`v1.3.1`] and link:{repoURL}/releases/tag/1.4[`v1.4`])
 
 |*Enhancements to existing features*
-a|* Updated the GUI color scheme to a `LightTheme.css` (Pull request: link:{repoURL}/pull/88[#88]) +
-* Added command aliases to both new and existing commands (Pull requests: link:{repoURL}/pull/5[#5] and link:{repoURL}/pull/163[#163])
+a|* Updated the Graphical User Interface's (GUI) color scheme to link:{repoURL}/blob/master/src/main/resources/view/LightTheme.css[`LightTheme.css`] (Pull request: link:{repoURL}/pull/88[#88])
 
 |*Documentation*
-a|* Improved readability to existing contents of the User Guide (Pull request: link:{repoURL}/pull/165[#165]) +
-* Added user stories and use cases to the Developer Guide (Pull request: link:{repoURL}/pull/170[#170])
+a|* Improved readability to existing contents of the User Guide +
+(Pull request: link:{repoURL}/pull/165[#165]) +
+* Added {websiteURL}/UserGuide.html#command-glossary-and-shortcuts[Command Glossary and Shortcuts] to the User Guide +
+(Pull request: link:{repoURL}/pull/163[#163])
+* Added {websiteURL}/DeveloperGuide.html#user-stories[user stories], {websiteURL}/DeveloperGuide.html#use-cases[use cases] and {websiteURL}/DeveloperGuide.html#non-functional-requirements[non-functional requirements] to the Developer Guide (Pull requests: link:{repoURL}/pull/170[#170] and link:{repoURL}/pull/192[#192])
 
 |*Community*
-a|* Reviewed PRs (with non-trivial review comments) (Pull request: link:{repoURL}/pull/115#discussion_r271991549[#115]) +
-* Contributed to forum discussions (Example: link:https://github.com/nus-cs2103-AY1819S2/forum/issues/37#issuecomment-474714683[1]) +
-* Reported bugs and suggestions for other teams (Examples:
-https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/268[1],
-https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/318[2],
-https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/486[3],
-https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/558[4],
-https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/632[5],
-https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/796[6],
-https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/968[7] and
-https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/18[8])
+a|* Reviewed a teammates' pull requests (with non-trivial review comments) +
+(Pull request: link:{repoURL}/pull/115#discussion_r271991549[#115]) +
+* Contributed to the forum discussions +
+(Example: link:https://github.com/nus-cs2103-AY1819S2/forum/issues/37#issuecomment-474714683[1]) +
+* Reported bugs and suggestions for other teams +
+(Examples:
+https://github.com/cs2103-ay1819s2-w14-4/main/issues/144#issue-429813664[1],
+https://github.com/cs2103-ay1819s2-w14-4/main/issues/139#issue-429808212[2],
+https://github.com/cs2103-ay1819s2-w14-4/main/issues/134#issue-429801329[3],
+https://github.com/cs2103-ay1819s2-w14-4/main/issues/131#issue-429798816[4],
+https://github.com/cs2103-ay1819s2-w14-4/main/issues/129#issue-429796558[5],
+https://github.com/cs2103-ay1819s2-w14-4/main/issues/123#issue-429791114[6],
+https://github.com/cs2103-ay1819s2-w14-4/main/issues/120#issue-429789451[7],
+https://github.com/cs2103-ay1819s2-w14-4/main/issues/117#issue-429786916[8] and
+https://github.com/cs2103-ay1819s2-w14-4/main/issues/110#issue-429781005[9])
 
 |*Tools*
-a|* Integrated a third-party library (Gson) to the project (Pull request: {repoURL}/pull/80[#80]) +
-* Integrated a new GitHub plugin (Codacy) to the team repo (Pull request: {repoURL}/pull/113[#113])
+a|* Integrated a third-party library (Gson) to the project +
+(Pull request: {repoURL}/pull/80[#80]) +
+* Integrated a new GitHub plugin (link:https://www.codacy.com/[Codacy]) to the team repository +
+(Pull request: {repoURL}/pull/113[#113])
 
 |=======================================================================
 
@@ -101,23 +111,23 @@ a|* Integrated a third-party library (Gson) to the project (Pull request: {repoU
 == Contributions to the User Guide
 
 ****
-_Given below is the start of extract of sections I contributed to the link:{websiteURL}/UserGuide.html[User Guide]. They showcase my ability to write documentation targeting end-users._
+_Given below is the start of the excerpt of sections I contributed to the link:{websiteURL}/UserGuide.html[User Guide]. They showcase my ability to write documentation targeting end-users._
 ****
 
 //include::../UserGuide.adoc[tag=intro]
 //include::../UserGuide.adoc[tag=features]
 include::../UserGuide.adoc[tag=generate]
 //include::../UserGuide.adoc[tag=cheatsheet]
-//include::../UserGuide.adoc[tag=commandFormats]
+//include::../UserGuide.adoc[tag=commandGlossaryAndShortcuts]
 
 ****
-_This is the end of extract of the link:{websiteURL}/UserGuide.html[User Guide]._
+_This is the end of the excerpt of the link:{websiteURL}/UserGuide.html[User Guide]._
 ****
 
 == Contributions to the Developer Guide
 
 ****
-_Given below is the start of extract of sections I contributed to the link:{websiteURL}/DeveloperGuide.html[Developer Guide]. They showcase my ability to write documentation targeting end-users._
+_Given below is the start of the excerpt of sections I contributed to the link:{websiteURL}/DeveloperGuide.html[Developer Guide]. They showcase my ability to write documentation targeting end-users._
 ****
 
 //include::../DeveloperGuide.adoc[tag=implementation]
@@ -126,5 +136,5 @@ include::../DeveloperGuide.adoc[tag=chartFeature]
 //include::../DeveloperGuide.adoc[tag=use-cases]
 
 ****
-_This is the end of extract of the link:{websiteURL}/DeveloperGuide.html[Developer Guide]._
+_This is the end of the excerpt of the link:{websiteURL}/DeveloperGuide.html[Developer Guide]._
 ****

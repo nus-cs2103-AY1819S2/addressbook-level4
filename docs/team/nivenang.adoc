@@ -30,7 +30,7 @@ The challenge lies in the parsing of the user input, which is tested against a p
 
 An in-depth analysis of design alternatives in keyword matching and the data structure used for the search feature was done to obtain the most optimal solution.
 
-*Code contributed*: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=nivenang&sort=displayName&since=2019-02-10&until=2019-04-10&timeframe=day&reverse=false&repoSort=true[RepoSense] | https://github.com/CS2103-AY1819S2-W11-3/main/pulls?q=is%3Apr+is%3Aclosed+label%3Atype.Enhancement+author%3Anivenang[Functional Code] | https://github.com/CS2103-AY1819S2-W11-3/main/pulls?q=is%3Apr+is%3Aclosed+author%3Anivenang+label%3Atype.Testing[Test Code]
+*Code contributed*: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=nivenang&sort=displayName&since=2019-02-10&until=2019-04-15&timeframe=day&reverse=false&repoSort=true[RepoSense] | https://github.com/CS2103-AY1819S2-W11-3/main/pulls?q=is%3Apr+is%3Aclosed+label%3Atype.Enhancement+author%3Anivenang[Functional Code] | https://github.com/CS2103-AY1819S2-W11-3/main/pulls?q=is%3Apr+is%3Aclosed+author%3Anivenang+label%3Atype.Testing[Test Code]
 
 === Minor Enhancement
 The minor enhancement I did was to convert the `Phone` parameter in the previous addressbook to the `Rating` parameter for the `Place` class to track ratings of each place in TravelBuddy.
@@ -39,7 +39,7 @@ In addition, I added the `delete multiple` feature to delete multiple entries in
 
 *Code contributed to minor enhancement:* https://github.com/CS2103-AY1819S2-W11-3/main/pull/49[Convert Phone to Rating] | https://github.com/CS2103-AY1819S2-W11-3/main/pull/3[Delete Multiple Feature]
 
-=== Other contributions
+=== Other Contributions
 
 Given below is a list of other contributions that I made to the project:
 
@@ -58,7 +58,7 @@ Given below is a list of other contributions that I made to the project:
 ** Fixed documentation errors found during testing: https://github.com/CS2103-AY1819S2-W11-3/main/pull/135[#135]
 
 * *Community*
-** Reviewed pull requests (with non-trivial review comments): https://github.com/cs2103-ay1819s2-w11-3/main/pull/84[#84]
+** Reviewed pull requests (with non-trivial review comments): https://github.com/cs2103-ay1819s2-w11-3/main/pull/84[#84], https://github.com/CS2103-AY1819S2-W11-3/main/pull/188#discussion_r275116453[#188], https://github.com/CS2103-AY1819S2-W11-3/main/pull/189#discussion_r275125627[#189]
 ** Reported bugs and helped to fix bugs: https://github.com/cs2103-ay1819s2-w11-3/main/pull/82[#82], https://github.com/CS2103-AY1819S2-W11-3/main/pull/118[#118], https://github.com/CS2103-AY1819S2-W11-3/main/pull/161[#161]
 ** Tested other projects and reported bugs: https://github.com/CS2103-AY1819S2-T12-4/main/issues/223[#223], https://github.com/CS2103-AY1819S2-T12-4/main/issues/225[#225], https://github.com/CS2103-AY1819S2-T12-4/main/issues/227[#227], https://github.com/CS2103-AY1819S2-T12-4/main/issues/231[#231], https://github.com/CS2103-AY1819S2-T12-4/main/issues/238[#238], https://github.com/CS2103-AY1819S2-T12-4/main/issues/240[#240], https://github.com/CS2103-AY1819S2-T12-4/main/issues/246[#246], https://github.com/CS2103-AY1819S2-T12-4/main/issues/248[#248]
 

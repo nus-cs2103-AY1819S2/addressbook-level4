@@ -995,7 +995,16 @@ Instead of typing `generate`, you can simply type the shortcut `g`.
 
 [source,java]
 ----
-include::{sourceDir}/seedu/travel/logic/commands/GenerateCommand.java[tags=execute,indent=1]
+public CommandResult execute(Model model, CommandHistory history) {
+    requireNonNull(model);
+    model.setChartDisplayed(true); // <1>
+    model.commitTravelBuddy(); // <2>
+    if (model.getFilteredPlaceList().isEmpty()) { // <3>
+        return new CommandResult(MESSAGE_EMPTY);
+    } else {
+        return new CommandResult(MESSAGE_SUCCESS);
+    }
+}
 ----
 
 In the snippet, the operations implemented are:
@@ -1019,13 +1028,13 @@ For this section on Charts, the focus is on the <<class-diagram, class diagram>>
 
 [[chartOopDiagramFigure]]
 .OOP Diagram
-image::Chart_ModelClassBetterOopDiagram.png[width="590", caption="Figure 4.4.1: ", reftext="Figure 4.4.1"]
+image::Chart_ModelClassBetterOopDiagram.png[width="590", caption="Figure 4.5.1.1: ", reftext="Figure 4.5.1.1"]
 
 *Logic & Model Interaction:* Having discussed Logic and Model, we can now model the workflow of the `generate` command. This can be accomplished using an <<activity-diagram, activity diagram>>, as seen in <<GenerateCommandActivityDiagram>>.
 
 [[GenerateCommandActivityDiagram]]
 .Activity Diagram for the `generate` command
-image::GenerateCommandActivityDiagram.png[width="370", caption="Figure 4.4.2: ", reftext="Figure 4.4.2"]
+image::GenerateCommandActivityDiagram.png[width="370", caption="Figure 4.5.1.2: ", reftext="Figure 4.5.1.2"]
 
 Additionally, we want to be able to capture the interaction between multiple objects for the `generate` command. This can be accomplished using a <<sequence-diagram, sequence diagram>>, as seen in <<GenerateCommandSeqDiagramFigure>> below. The step-by-step explanation of the sequence diagram is as follows:
 
@@ -1035,13 +1044,13 @@ Additionally, we want to be able to capture the interaction between multiple obj
 . The `Model#setChartDisplayed()` method is invoked with the argument `true`. The `Model#commitTravelBuddy()` method is also invoked.
 . The `TravelBuddy#commitTravelBuddy()` method is invoked by `Model`.
 . The `ChartBook#commitChart()` method is invoked by `TravelBuddy`.
-. A result object is returned.
+. The `CommandResult` object is returned.
 
 
 
 [[GenerateCommandSeqDiagramFigure]]
 .Sequence Diagram for the `generate` command
-image::GenerateCommandSeqDiagram.png[width="700", caption="Figure 4.4.3: ", reftext="Figure 4.4.3"]
+image::GenerateCommandSeqDiagram.png[width="700", caption="Figure 4.5.1.3: ", reftext="Figure 4.5.1.3"]
 
 *Storage:* The Chart's storage is handled by `JsonChartBookStorage`, which implements from `ChartBookStorage`. The three main data-storage methods it implements are:
 
@@ -1053,7 +1062,17 @@ As an example, a code snippet for `saveCountryChart(filePath)` is shown below.
 
 [source,java]
 ----
-include::{sourceDir}/seedu/travel/storage/JsonChartBookStorage.java[tags=saveCountryChart,indent=1]
+public void saveCountryChart(ReadOnlyCountryChart countryChart, Path filePath) { // <1>
+    requireAllNonNull(countryChart, filePath); // <2>
+    Gson gson = new GsonBuilder().setPrettyPrinting().create(); // <3>
+    try {
+        FileWriter fileWriter = new FileWriter(String.valueOf(filePath)); // <4>
+        gson.toJson(countryChart, fileWriter); // <5>
+        fileWriter.flush(); // <6>
+    } catch (IOException ioe) {
+        logger.warning(ioe.getMessage()); // <7>
+    }
+}
 ----
 
 In the snippet, a third-party library called Gson was used to convert Java Objects into JSON and back. The Gson API can be found https://www.javadoc.io/doc/com.google.code.gson/gson/2.8.5[here]. A step-by-step explanation is as follows:
@@ -1077,17 +1096,19 @@ _Example:_ When a place is added via the `add` command, the charts are automatic
 * The chart will not display anything when the list is empty.
 * You can type in any parameters after the `generate` command, TravelBuddy will simply ignore them.
 
-*Example:* Given below is an example usage scenario and what the user will see in the GUI.
+*Example:* Given below is an example usage scenario of the `generate` command.
 
 *Step 1:* By default, the charts are displayed when TravelBuddy launches. To navigate away from the charts, type in `select 1`. +
-*Outcome:* The first index in the place list will be selected and displayed on the right-hand side of the panel..
+*Outcome:* The first index in the place list will be selected and displayed on the right-hand side of the panel.
 
-*Step 2:* Type in `generate` to generate the charts.. +
-*Outcome:* The charts will be displayed on the right-hand side of the panel..
+*Step 2:* Type in `generate` to generate the charts. +
+*Outcome:* The charts will be displayed on the right-hand side of the panel.
 
 ==== Design Considerations
 
 ===== Aspect: How Chart Generation Executes
+
+Given below is a comparison between the alternatives of the `generate` mechanism design.
 
 [width="100%",cols="16%,<50%,<50%",options="header"]
 |=======================================================================
@@ -1120,7 +1141,7 @@ _Example:_ When a place is added via the `add` command, the charts are automatic
 
 [[Generate_BeforeEditAfterEdit]]
 .A comparison before and after the `edit` command was executed
-image::Generate_BeforeEditAfterEdit.png[width="800", caption="Figure 4.4.4: ", reftext="Figure 4.4.4"]
+image::Generate_BeforeEditAfterEdit.png[width="800", caption="Figure 4.5.3.1: ", reftext="Figure 4.5.3.1"]
 //end::chartFeature[]
 
 === Logging

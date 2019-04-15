@@ -207,10 +207,7 @@ public class GradTrak implements ReadOnlyGradTrak {
         indicateModified();
     }
 
-    /**
-     * Returns a {@code List} of {@code ModuleInfoCode} representing non-failed {@code ModuleTaken}.
-     * @return a {@code List} of {@code ModuleInfoCode} representing non-failed {@code ModuleTaken}.
-     */
+    @Override
     public List<ModuleInfoCode> getNonFailedCodeList() {
         List<ModuleInfoCode> codeList = new ArrayList<>();
         for (ModuleTaken moduleTaken : getModulesTakenList()) {
@@ -222,12 +219,7 @@ public class GradTrak implements ReadOnlyGradTrak {
         return codeList;
     }
 
-    /**
-     * Generates an {@code ArrayList} of {@code String} of missing prerequisites in this {@code GradTrak},
-     * given the {@code ModuleTree} of the module.
-     * @param moduleTree The {@code ModuleTree} of the module whose missing prerequisites are being generated.
-     * @return an {@code ArrayList} of {@code String} of missing prerequisites.
-     */
+    @Override
     public ArrayList<String> getMissingPrerequisites(ModuleTree moduleTree) {
         ArrayList<String> codeStringList = new ArrayList<>();
         for (ModuleInfoCode code : getNonFailedCodeList()) {

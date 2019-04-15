@@ -599,6 +599,9 @@ The module recommendation feature displays modules which the student is recommen
 and specific course requirements. It generates a list of module codes together with their corresponding titles and requirement
 types satisfied. The entire list is displayed on the Result Panel upon entering the `rec` command.
 
+[NOTE]
+Modules which satisfy only Unrestricted Electives are not included to prevent the list from being too long.
+
 ==== Current implementation
 
 Each recommended module is represented by a `RecModule` which contains a unique `ModuleInfo` and its corresponding
@@ -614,15 +617,15 @@ which is further wrapped in a `SortedList`, both stored in `ModelManager`. At th
 
 When the `rec` command is entered, the sequence of execution is as follows:
 
-.  `Model#updateRecModuleList` is called, which creates a `RecModulePredicate` given the student's `Course` and `GradTrak`, and a `RecModuleComparator`.
+.  `Model#updateRecModuleList` is called, which creates a `RecModulePredicate` given the student's `Course` and `ReadOnlyGradTrak`, and a `RecModuleComparator`.
 .  The `RecModulePredicate` is applied to the `FilteredList` of `RecModule`. In each test:
-.. An `EligibleModulePredicate` which takes in `GradTrak` tests if the `ModuleInfo` of this `RecModule` is eligible to be read.
-If the module is already present in GradTrak or does not have its prerequisites satisfied, this `RecModule` is filtered out.
+.. An `EligibleModulePredicate` which takes in `ReadOnlyGradTrak` tests if the `ModuleInfo` of this `RecModule` is eligible to be read.
+If the module is already present in the module plan or does not have its prerequisites satisfied, this `RecModule` is filtered out.
 .. The `ModuleInfoCode` (call it `codeToTest`) of the `RecModule` is retrieved. +
-A `nonFailedCodeList` of `ModuleInfoCode` corresponding to non-failed `ModuleTaken` (already passed or to be read in a future semester) is also retrieved from `GradTrak`.
+A `nonFailedCodeList` of `ModuleInfoCode` corresponding to non-failed `ModuleTaken` (already passed or to be read in a future semester) is also retrieved from `ReadOnlyGradTrak`.
 .. The `codeToTest` is then passed into `Course#getCourseReqTypeOf`, which in turn calls `CourseRequirement#canFulfill` for each `CourseRequirement` listed in `Course`.
  A list of `CourseReqType` that the `codeToTest` can satisfy is returned.
-This `courseReqTypeList` is sorted by the priority of `CourseReqType` as defined in the `enum` class: `CORE`, `BD`, `IE`, `FAC`, `GE`, `UE`.
+This `courseReqTypeList` is sorted by the priority of `CourseReqType` as defined in the `enum` class: `CORE`, `BD`, `IE`, `FAC`, `GE`.
 .. For each `CourseReqType` in the `courseReqTypeList` (highest priority first):
 ... `Course#isCodeContributing` is called, which takes in the `CourseReqType`, `nonFailedCodeList` and `codeToTest`.
 ... For each `CourseRequirement` listed in `Course` corresponding to the given `CourseReqType`, `CourseRequirement#getUnfulfilled`
@@ -636,7 +639,7 @@ contribute to any of the `CourseRequirement` listed in `Course`, this `RecModule
 considering that lower level modules are usually read first. In the case of equal priority and module level, lexicographical sorting of its `ModuleInfoCode` is used.
 . The `SortedList` of `RecModule` is retrieved from `ModelManager` and displayed to the student in the Result Panel.
 
-If there are changes to `GradTrak` (adding, editing or deleting modules) or `Course` (changing the course of study), the `rec` command
+If there are changes to `ReadOnlyGradTrak` (adding, editing or deleting modules) or `Course` (changing the course of study), the `rec` command
 must be run again to reflect the updated recommendation list.
 
 The sequence diagrams summarising the above execution are shown below.
@@ -673,6 +676,7 @@ image::RecModuleComparatorSequenceDiagram.png[width="800"]
 ==== Possible Improvements
 . Allow the student to display a module's information (from `displaymod` command) using its index in the recommendation list
 . Allow the student to add a module to the module plan using its index in the recommendation list
+. Enable recommendation of Unrestricted Electives based on personal interests of the user
 // end::rec[]
 
 // tag::CheckLimit[]

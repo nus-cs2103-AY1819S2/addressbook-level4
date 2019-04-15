@@ -215,7 +215,7 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the DocX data.
-* exposes an unmodifiable `ObservableList<Patient>` and ObeservableList<Doctor>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Patient>` and `ObeservableList<Doctor>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [[Design-Storage]]
@@ -327,7 +327,7 @@ Steps: +
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete")` API call.
 
-When a user executes `delete-p 1`,
+When a user executes `delete-p 1`
 
 Steps: +
 
@@ -359,7 +359,7 @@ When a user executes 'list-p', the full patient list will be displayed.
 There are various search commands available for patients. The internal workings of the search commands are similar and can be described together under this section.
 Search commands: `search-p-name, search-pid, search-p-status, search-p-advanced`.
 
-When a user executes `search-p-status`,
+When a user executes `search-p-status ACTIVE`
 
 Steps: +
 
@@ -369,7 +369,7 @@ Steps: +
 
 . `SearchPatientApptStatusCommandParser` parses the argument and checks if the entered argument is one of the four enum values: `ACTIVE, COMPLETED, CANCELLED, MISSED`.
 
-. If the entered argument is valid, the command proceeds to execute. Otherwise, it will throw a ParseException and display the correct usage to the user.
+. If the entered argument is valid, the command proceeds to execute. Otherwise, it will throw a ParseException and display the correct command usage to the user.
 
 .Activity Diagram showing search-p-status
 image::activitydiagramforsearchpatientstatus.png[width="800"]

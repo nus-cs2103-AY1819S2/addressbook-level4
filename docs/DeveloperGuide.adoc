@@ -171,6 +171,9 @@ All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 ==== How the UI executes commands
+This is handled by function `executeCommand` defined in MainWindow.
+The function `executeCommand` will be passed in `CommandBox` as a functional interface `CommandExecutor` which is defined in `CommandBox`.
+When adding text in `CommandBox` and pressed `Enter`, the command text will be passed to `Logic` component and be parsed and executed.
 
 ==== How the UI updates itself
 This is handled by the link:{repoURL}/blob/master/src/main/java/seedu/hms/commons/util/InvalidationListenerManager.java[`InvalidationListenerManager`].
@@ -181,6 +184,15 @@ Whenever a change is made to any of these five lists of the `HotelManagementSyst
 using the link:https://github.com/cs2103-ay1819s2-t12-1/main/blob/90e374cb6e0dbafa2854fbc82792444434744a42/src/main/java/seedu/hms/model/HotelManagementSystem.java#L263[`indicateModified()`] method.
 Thus, the internal listeners when called update the UI automatically.
 
+===== How the UI automatically filter by selected service type
+This is handled by the listener for selected serviceType/roomType inside the booking/reservation list panel.
+If the selected one is changed, the booking/reservation list panel will run a find command so that the list will be updated accordingly.
+
+===== How the UI automatically switch tab
+The BookingAndReservationPanel and ServiceTypeAndRoomType panel are numbered as 1 and 2. And the tabs inside them are numbered accordingly also.
+To switch to a certain tab, we need to specify which tab in which panel we want to go. There are two listeners for the two panel.
+If the selected tab is changed, the panel will switch accordingly. The selected tab can be changed by click and switch command.
+The selected tab will also be changed accordingly if the command executed is a `ReservationCommand` or a `BookingCommand`.
 
 [[Design-Logic]]
 === Logic component

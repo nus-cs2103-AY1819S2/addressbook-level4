@@ -1,0 +1,65 @@
+= Zhang Chenxi - Project Portfolio image:ZhangCX10032.png[width="150", align="right"]
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: HMS+
+
+== Overview
+
+HMS+ is a hotel management system made for hotels to manage their customers and their relevant transactions.
+The hotel staff interacts with it using a Command Line Interface (CLI), and it has a Graphical User Interface (GUI) created with JavaFX.
+It is written in Java and has around 15k LOC.
+
+== Summary of contributions
+
+* *Major enhancement*: Implemented the complete UI except statistics
+** What it does: It allows all the useful information to be visualised in a clear and user friendly way.
+** Justification: This connects the user and the machine and making it simple for the user to use all our functions.
+** Highlights: This enhancement required understanding of the whole codebase as the UI need to bring different parts
+together to make the application easy to use.
+I need to know what functions and features we have and how we want the user to use it to implement the UI in a user friendly way.
+** Credits: I mainly used the concepts from the existing codebase and those that were taught in CS2103T to implement my features.
+** Feature:
+*** https://github.com/cs2103-ay1819s2-t12-1/main/pull/149[Automatic tab switching]
+*** https://github.com/cs2103-ay1819s2-t12-1/main/pull/218[Automatic scrolling after adding new items]
+** Related Files:
+*** https://github.com/cs2103-ay1819s2-t12-1/main/tree/master/src/main/java/seedu/hms/ui[UI Codes]
+*** https://github.com/cs2103-ay1819s2-t12-1/main/tree/master/src/main/resources/view[UI Format]
+
+* *Minor enhancements*:
+
+** https://github.com/cs2103-ay1819s2-t12-1/main/pull/173[Find booking command implementation]
+** https://github.com/cs2103-ay1819s2-t12-1/main/pull/77[Implement find booking in multiple fields]
+** Methods fix
+*** https://github.com/cs2103-ay1819s2-t12-1/main/pull/226[Fix undo and redo for serviceType and roomType]
+*** Fix full check for booking and reservation https://github.com/cs2103-ay1819s2-t12-1/main/pull/229[PR1]
+https://github.com/cs2103-ay1819s2-t12-1/main/pull/236[PR2]
+
+* *Other contributions*:
+
+** Project management:
+*** Created https://github.com/cs2103-ay1819s2-t12-1/main/issues?utf8=%E2%9C%93&q=is%3Aissue+author%3AZhangCX10032[issues] to help manage the project.
+*** https://github.com/cs2103-ay1819s2-t12-1/main/pulls?utf8=%E2%9C%93&q=is%3Apr+reviewed-by%3AZhangCX10032[Reviewed and approves several PRs.]
+https://github.com/cs2103-ay1819s2-t12-1/main/blob/master/src/test/java/seedu/hms/model/util/TimeRangeTest.java[relevant tests].
+*** Set the minimum requirements for code to be merged to master.
+** Documentation:
+*** Add findCommand description in user guide.
+*** Refactor and explain how the UI is implemented in the https://github.com/cs2103-ay1819s2-t12-1/main/blob/master/docs/DeveloperGuide.adoc#41-adding-service-booking-functionality[Developer Guide]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+== Achievements and Learning Outcomes
+
+* Work on a large code base in a team
+* Learned how to design UI in a user friendly way

@@ -1328,7 +1328,7 @@ Use case resumes at step 1.
 
 *MSS*
 
-1.  User searches for patients using name or phone number.
+1.  User searches for patients using name or phone number/doctors using any keywords.
 2.  docX shows a list of patients/doctors with their full info.
 +
 Use case ends.
@@ -1370,6 +1370,24 @@ Use case ends.
 +
 Use case resumes at step 1.
 
+[discrete]
+=== Use case: Finding a doctor that matches the specialisation at the date and time specified.
+*MSS*
+
+1. User enters the specialisation and desired appointment date and time.
+2. docX shows the relevant and available doctors.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The inputs are in the wrong format.
++
+[none]
+** 1a1. docX shows an error message, prompting user to re-enter the data.
++
+Use case resumes at step 1.
 
 [discrete]
 === Use case: Add New Medical History
@@ -1789,10 +1807,41 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Adding a patient/doctor while all patients/doctors are listed
 
-.. Prerequisites: List all patients/doctors using the `list-d`/`list-p` command. Multiple patients/doctors in the list.
-.. Test case: `add-p n/Tan Kah Kee p/90192292 g/F a/54 adr/Blk 312 Tampines St 33 #02-22 t/highbloodpressure`/`add-d n/Lim Ah Bong p/61235211 y/5 g/M s/surgery s/acupuncture`
+.. Test case: `add-p n/Tan Kah Kee p/90192292 g/F a/54 adr/Blk 312 Tampines St 33 #02-22 t/highbloodpressure`/`add-d n/Lim Ah Bong p/61235211 y/5 g/M s/surgery s/acupuncture` +
    Expected: New patient/doctor is added to the end of the list with a unique ID generated for the contact. Details of the added contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case:
+.. Test case: `add-p`/`add-d` +
+   Expected: No patient/doctor is added. All fields must be filled and not left empty. The correct command format is shown.
+.. Other incorrect `add-d`/`add-p` commands to try: `add-p n/Tan Kah Kee p/30192292 g/F a/54 adr/Blk 312 Tampines St 33 #02-22 t/highbloodpressure`/`add-d n/Lim Ah Bong p/61235211 y/5 g/M` +
+   Expected: Type of error is shown. In this case, phone should begin with 6, 8 or 9 only, and specialisations of doctors must not be empty.
+
+. Listing patients/doctors
+
+.. Test case: `list-p`/`list-d` +
+   Expected: All patients/doctors are listed.
+
+. Search for doctors with keywords
+
+.. Test case: `list-d acupu` +
+   Expected: Any fields of doctors that match "acupu" will be returned.
+.. Test case: `list-d` +
+   Expected: All doctors will be listed, as no keywords are given. Same result as listing all doctors.
+
+
+. Advanced search for patients
+
+.. Test case: `search-p-advanced blood` +
+   Expected: Any fields of patients that contains "blood" will be returned.
+.. Test case: `search-p-advanced "blood"` +
+   Expected: Any fields of patients that matches "blood" exactly will be returned.
+.. Test case: `search-p-advanced "blood pressure" +
+   Expected: No patients will be found. Quoted keywords cannot have spaces in between.
+
+. Finding doctors who have the specified specialisation and available at the specified date and time.
+
+.. Test case: `match-d s/surgery d/2019-06-20 t/09:00` +
+   Expected: Doctor List Panel will show the relevant and available doctors.
+.. Test case: `match-d` +
+   Expected: No doctors will be found. All fields must be filled and not left empty. The correct command format is shown.
 
 // tag::appointmentmanualtesting[]
 === Appointment

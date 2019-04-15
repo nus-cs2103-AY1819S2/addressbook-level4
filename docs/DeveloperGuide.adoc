@@ -1096,6 +1096,7 @@ For all use cases below, the *System* is the *Equipment Manager* and the *Actor*
 
 *MSS*
 
+.Use case diagram for Select Client
 image::SelectClientUC.png[width="250"]
 
 1.  User selects the client name under Client details panel

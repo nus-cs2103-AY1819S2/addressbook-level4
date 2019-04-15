@@ -87,7 +87,7 @@ include::../UserGuide.adoc[tag=upcomingmap]
 Co-authored the Model diagram as shown below.
 
 .Model Diagram
-image::ModelClassDiagram.png[width="800"]
+image::ModelClassDiagram.png[width="600"]
 
 ---
 

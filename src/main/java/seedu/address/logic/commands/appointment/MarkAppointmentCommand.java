@@ -93,31 +93,35 @@ public class MarkAppointmentCommand extends Command {
      * Cascade the effect of the changed appointment status to the Patient
      */
     //@@author wayneswq
-    private void updatePatient(Model model, Patient patientToChange, AppointmentStatus changedStatus) {
+    private void updatePatient(Model model, Patient patientToChange, AppointmentStatus changedStatus)
+            throws CommandException {
 
         List<Appointment> lastShownList = model.getFilteredAppointmentList();
-        if (patientToChange != null) { // make sure patient is not deleted
-            // update patient's appointment status
-            Patient changedPatient =
-                    patientToChange.changeAppointmentStatus(changedStatus);
-            model.setPatient(patientToChange, changedPatient);
-            model.commitDocX();
+        // make sure patient is not deleted
+        if (patientToChange == null) {
+            throw new CommandException(Messages.MESSAGE_DELETED_PATIENT);
+        }
+        // update patient's appointment status
+        Patient changedPatient =
+                patientToChange.changeAppointmentStatus(changedStatus);
+        model.setPatient(patientToChange, changedPatient);
+        model.commitDocX();
 
-            // find whether the patient has any other active appointments
-            ListIterator<Appointment> appointmentListIterator = lastShownList.listIterator();
-            while (appointmentListIterator.hasNext()) {
-                Appointment currentAppointment = appointmentListIterator.next();
+        // find whether the patient has any other active appointments
+        ListIterator<Appointment> appointmentListIterator = lastShownList.listIterator();
+        while (appointmentListIterator.hasNext()) {
+            Appointment currentAppointment = appointmentListIterator.next();
 
-                if (currentAppointment.getPatient().equals(patientToChange)
-                        && currentAppointment.getAppointmentStatus().equals(AppointmentStatus.ACTIVE)) {
-                    changedPatient =
-                            patientToChange.changeAppointmentStatus(AppointmentStatus.ACTIVE);
-                    model.setPatient(patientToChange, changedPatient);
-                    model.commitDocX();
-                    break;
-                }
+            if (currentAppointment.getPatient().equals(patientToChange)
+                    && currentAppointment.getAppointmentStatus().equals(AppointmentStatus.ACTIVE)) {
+                changedPatient =
+                        patientToChange.changeAppointmentStatus(AppointmentStatus.ACTIVE);
+                model.setPatient(patientToChange, changedPatient);
+                model.commitDocX();
+                break;
             }
         }
+
     }
 
 

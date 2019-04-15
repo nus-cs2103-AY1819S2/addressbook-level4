@@ -260,14 +260,14 @@ This section describes some noteworthy details on how certain features are imple
 
 === Patient Management Features
 
-Patients is one of the two valid types of Persons to be stored in the docX record.
+Patient is one of the two valid types of Person to be stored in the docX record.
 The following features are implemented for patients of docX:
 
 * Add patient
-* Edit existing patients
-* Delete patients
+* Edit existing patient
+* Delete patient
 * List all patients
-* Various search functions for patients
+* Various search functions for patient
 * Select patient
 
 ==== Add Patient feature
@@ -291,7 +291,7 @@ Steps: +
 
 . The execute() calls hasPatient() of `Model`. If patient does not exist in the current DocX, the `Model` will call addPatient() and the patient will be successfully added.
 
-.Sequence diagram where patient is successfully added
+.Simplified sequence diagram showing logic and model interaction when patient is successfully added
 image::AddPatientSdForLogic.png[width="700"]
 
 ==== Edit Patient feature

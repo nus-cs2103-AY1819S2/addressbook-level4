@@ -479,11 +479,11 @@ The `memberSelect` command selects a member (based on index) on the `UniquePerso
 
 Below is a step-by-step process on how the `memberSelect` command works on execution:
 
-* Step 1: The user executes the `memberSelect` command by specifying the index of the member that the user would like to select.
-* Step 2: The `memberSelect` command will call `model#getFilteredPersonList` to retrieve the member's list.
-* Step 3: Next, the `memberSelect` command will call `model#setSelectedPerson` from which the given index will be used to pin point the specific
+* *Step 1:* The user executes the `memberSelect` command by specifying the index of the member that the user would like to select.
+* *Step 2:* The `memberSelect` command will call `model#getFilteredPersonList` to retrieve the member's list.
+* *Step 3:* Next, the `memberSelect` command will call `model#setSelectedPerson` from which the given index will be used to pin point the specific
 member in the `filteredPersonList`.
-* Step 4: Finally, the `memberSelect` command will show a command success message to indicate the member at the specified index has been successfully selected.
+* *Step 4:* Finally, the `memberSelect` command will show a command success message to indicate the member at the specified index has been successfully selected.
 
 The `memberSelect` command is naturally tied with the User Interface.
 
@@ -514,15 +514,18 @@ There are various ways to cal the statistics methods from UI. Below are some opt
 
 ==== Current Implementation
 
+The `memberSort` command extends from `MemberCommand`, and modifies the `uniquePersonList` which is an observable list. The user will provide a sorting criteria,
+and the `memberSort` command will sort the members in the `uniquePersonList` based on the sorting criteria.
+
+If the sorting criteria is not name, the `memberSort` command will
+will conduct an additional sort (by name). For example, `memberSort yearOfStudy 2` will be sorted by member's yearOfStudy, followed by member's name.
+
 image::MemberSortCommand_LogicComponentSequenceDiagram.png[width=100%]
 
-* The `memberSort` command extends from command, and modifies the uniquePersonList which is an observable list.
+* *Step 1:* The user executes the `memberSort` command by specifying the sorting criteria in which the user would like to sort the list.
+* *Step 2:* The `memberSort` command will call `model#sortAddressBook` to retrieve the member's list.
+* *Step 3:* Finally, the `memberSort` command will show a command success message to indicate that the member's list has been successfully sorted.
 
-* It takes in a criteria from the user, and checks if the input from the user matches any of the available
-sorting criteria provided.
-
-* If the user input matches, the uniquePersonList will be sorted based on that criteria
-If the user input does not match, then an error message will be prompted to the user.
 // end::membersort[]
 
 // tag::memberexport[]

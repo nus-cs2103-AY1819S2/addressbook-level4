@@ -62,13 +62,16 @@ include::../UserGuide.adoc[tag=membersort]
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
-include::../DeveloperGuide.adoc[tag=memberlistfeature]
-include::../DeveloperGuide.adoc[tag=memberadd]
 
-include::../DeveloperGuide.adoc[tag=membersort]
+include::../DeveloperGuide.adoc[tag=memberlistfeature]
+
+include::../DeveloperGuide.adoc[tag=memberadd]
 
 include::../DeveloperGuide.adoc[tag=memberfilter]
 
 include::../DeveloperGuide.adoc[tag=memberlist]
 
 include::../DeveloperGuide.adoc[tag=memberselect]
+
+include::../DeveloperGuide.adoc[tag=membersort]
+

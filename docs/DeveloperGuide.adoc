@@ -358,12 +358,12 @@ image::HighLevelStatsDiagram.png[width="800"]
 The following sequence shows how the statistics operation works when called by LogicManager:
 
 .Sequence Diagram for Statistics command
-image::StatisticsCommand[width="800"]
+image::StatisticsCommand.png[width="1000"]
 
 The following is an activity diagram that sums up the Statistics command:
 
 .Activity Diagram for Statistics command
-image::StatisticsActivityDiagram[width="800"]
+image::StatisticsActivityDiagram.png[width="800"]
 
 ==== Design Considerations
 

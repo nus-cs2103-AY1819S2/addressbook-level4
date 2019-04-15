@@ -18,10 +18,10 @@ Fashion Match is a desktop wardrobe management application used as a guide for y
 ** Justification: This feature improves the product significantly because a user can have greater clarity for his wardrobe and allows the user to be more aware of his usage patterns.
 ** Highlights: A user is able to tell his top most worn apparel, his favorite color, how clean/dirty his wardrobe is, etc.
 
-** *Code Contributed*:[https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=reinsheer&sort=displayName&since=2019-02-10&until=2019-04-15&timeframe=day&reverse=false&repoSort=true[RepoSense]], [https://github.com/CS2103-AY1819S2-W15-1/main/pull/139[#139]]
+** Code Contributed: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=reinsheer&sort=displayName&since=2019-02-10&until=2019-04-15&timeframe=day&reverse=false&repoSort=true[RepoSense]], [https://github.com/CS2103-AY1819S2-W15-1/main/pull/139[#139]]
 
 * *Minor enhancement*: Refactoring the whole of AddressBook to formulate the skeleton of Fashion Match.
-** *Code contributed*: [https://github.com/CS2103-AY1819S2-W15-1/main/pull/45[#45]], [https://github.com/CS2103-AY1819S2-W15-1/main/pull/46[#46]], [https://github.com/CS2103-AY1819S2-W15-1/main/pull/50[#50]]
+** Code contributed: [https://github.com/CS2103-AY1819S2-W15-1/main/pull/45[#45]], [https://github.com/CS2103-AY1819S2-W15-1/main/pull/46[#46]], [https://github.com/CS2103-AY1819S2-W15-1/main/pull/50[#50]]
 
 * *Other contributions*:
 ** Project Management:
@@ -44,16 +44,11 @@ Fashion Match is a desktop wardrobe management application used as a guide for y
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-Statistics command.
-
-include::../UserGuide.adoc[tag=sort]
-
+include::../UserGuide.adoc[tag=stats]
 == Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-Statisics command, Use Cases, User Stories and NFRs.
-
-include::../DeveloperGuide.adoc[tag=sort]
+include::../DeveloperGuide.adoc[tag=stats]

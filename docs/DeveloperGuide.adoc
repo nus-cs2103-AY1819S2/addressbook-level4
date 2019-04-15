@@ -1814,15 +1814,15 @@ lowest scoring flashcard question and hints are displayed
    Expected: If the correct answer to the flashcard question is `x`, a green page with correct
    attempt notification will be displayed. Otherwise, a red page with wrong answer notification will be displayed.
    For both cases, status bar remains the same to be still in test session
-.. Test case: `ans x` where x can be any integers for **MCQ cards** +
+.. Test case: `ans x` where x can be any of the option number displayed for **MCQ cards** +
    Expected: If the option number with the correct answer to the flashcard question is `x`, a green
    page with correct attempt notification will be displayed. Otherwise, a red page with wrong answer notification
    will be displayed. For both cases, status bar remains the same to be still in test session
-.. Test case: `ans x` where x is not an integer and not empty for **MCQ cards** +
+.. Test case: `ans x` where x is not an option number and not empty for **MCQ cards** +
    Expected: The error `MCQ question expects option number as answer` is shown in the status message. Status bar remains the same.
 .. Test case: `ans`  +
    Expected: The error `Invalid Command Format` is shown in the status message. Status bar remains the same.
-.. Test case: `ans x` and type `ans y` again where x and y can be anything for **non-MCQ cards** +
+.. Test case: `ans x` and type `ans y` again where x and y can be anything but empty for **non-MCQ cards** +
    Expected: Cannot input an attempt to an already answered question. The error `Answer command is valid only when a
    question is displayed` is shown in the status message. Status bar remains the same.
 

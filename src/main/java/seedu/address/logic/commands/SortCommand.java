@@ -29,6 +29,7 @@ public class SortCommand extends Command {
             + "to see valid options.\n";
 
     private final SortOption sortOption;
+    private boolean sortInDescendingOrder = false;
 
     /**
      * @param sortOption the sorting option
@@ -37,6 +38,14 @@ public class SortCommand extends Command {
         requireNonNull(sortOption);
 
         this.sortOption = sortOption;
+    }
+
+    /**
+     * @param sortOption the sorting option
+     */
+    public SortCommand(SortOption sortOption, boolean sortInDescendingOrder) {
+        this(sortOption);
+        this.sortInDescendingOrder = sortInDescendingOrder;
     }
 
     @Override
@@ -51,13 +60,24 @@ public class SortCommand extends Command {
         if (COMMAND_LIST_OPTIONS.equalsIgnoreCase(sortOption.toString())) {
             return new CommandResult(SortOption.allOptions());
         }
-        if (SortOption.NAME.equals(sortOption)) {
-            modifiableList.sort((Apparel x, Apparel y) -> x.getName().compareTo(y.getName()));
-        } else if (SortOption.COLOR.equals(sortOption)) {
-            modifiableList.sort((Apparel x, Apparel y) -> x.getColor().compareTo(y.getColor()));
-        } else if (SortOption.TYPE.equals(sortOption)) {
-            modifiableList.sort((Apparel x, Apparel y) -> x.getClothingType().toString()
-                    .compareTo(y.getClothingType().toString()));
+        if (sortInDescendingOrder) {
+            if (SortOption.NAME.equals(sortOption)) {
+                modifiableList.sort((Apparel x, Apparel y) -> y.getName().compareTo(x.getName()));
+            } else if (SortOption.COLOR.equals(sortOption)) {
+                modifiableList.sort((Apparel x, Apparel y) -> y.getColor().compareTo(x.getColor()));
+            } else if (SortOption.TYPE.equals(sortOption)) {
+                modifiableList.sort((Apparel x, Apparel y) -> y.getClothingType().toString()
+                        .compareTo(x.getClothingType().toString()));
+            }
+        } else {
+            if (SortOption.NAME.equals(sortOption)) {
+                modifiableList.sort((Apparel x, Apparel y) -> x.getName().compareTo(y.getName()));
+            } else if (SortOption.COLOR.equals(sortOption)) {
+                modifiableList.sort((Apparel x, Apparel y) -> x.getColor().compareTo(y.getColor()));
+            } else if (SortOption.TYPE.equals(sortOption)) {
+                modifiableList.sort((Apparel x, Apparel y) -> x.getClothingType().toString()
+                        .compareTo(y.getClothingType().toString()));
+            }
         }
 
         for (Apparel apparelToDelete: lastShownListUntouch) {

@@ -22,8 +22,19 @@ public class SortCommandParser implements Parser<SortCommand> {
      */
     public SortCommand parse(String args) throws ParseException {
         try {
-            SortOption sortOption = ParserUtil.parseSortValue(args);
-            return new SortCommand(sortOption);
+            String[] token = args.trim().split(" ");
+            boolean desc = false;
+            if (token.length > 1) {
+                if (token[1].equalsIgnoreCase("desc")) {
+                    desc = true;
+                }
+            }
+            SortOption sortOption = ParserUtil.parseSortValue(token[0]);
+            if (desc == true) {
+                return new SortCommand(sortOption, desc);
+            } else {
+                return new SortCommand(sortOption);
+            }
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE), pe);

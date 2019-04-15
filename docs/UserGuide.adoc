@@ -106,6 +106,7 @@ passing the turn back to the Player.
 Whoever is first to destroy all their opponent's ship will be declared the winner.
 Had fun? You can view the game statistics with the command `stats`.
 ====
+// end::gamerules[]
 
 
 [[Features]]

@@ -651,6 +651,28 @@ Format: `recordclear` or `rclear`
 [NOTE]
 `recordclear` requires the application to first be in records mode, via the `goto` command.
 
+// tag::rmc[]
+==== Record MC creation
+Creates Medical Certificate (MC) for at patient based on description of the selected record. The MC is used as a proof for patient's undergoing procedure.
+
+Format: `recordmc INDEX [DaysToRest]` or `rmc INDEX [DaysToRest]`
+
+Note:
+
+* The MC is saved as a pdf file under `data/` folder.
+
+* By defualt the number of days suggested to rest is 2.
+
+Example:
+
+* `recordmc 1` - Creates mc for the first record, suggesting 2 days of rest.
+* `recordmc 1 3` - Create mc for the first record, suggesting 3 dyas of rest.
+
+Figure below shows a sample MC created.
+
+image::SampleMc.png[width='600']
+//end::rmc[]
+
 === Teeth Management
 ==== Teeth Create
 
@@ -895,6 +917,20 @@ Example:
 * `<<taskcal, taskcal>> 25-12-2019` +
   `taskdelete 2`
 
+//tag::tcopy[]
+==== taskcopy
+Makes one or multiple copies of a task in the task list. This is useful when adding multiple tasks share similar attributes.
+
+Format: `taskcopy INDEX [COUNT]` or `tcopy INDEX [COUNT]`
+
+Note: If the copied entry is modified, it will no longer be considered as a copy. Thus, it should be different from existing entries in the task list. If copies exist before existing, there will be a confirmation.
+
+Example:
+
+* `taskcopy 1` - Make one copy of the 1st task in task list.
+
+* `taskcopy 1 2` - Make two copies of the 1st task in task list.
+
 ==== tasklist
 Shows a list of all the task stored in the application.
 
@@ -903,13 +939,19 @@ Format: `tasklist` or `tlist`
 ==== tasksort
 Sort the tasks ascendingly or descendingly in some order.
 
-Format : 'tasksort priority/startime/endtime [asc/desc]'
+Format : `tasksort PARAMETER [asc/desc]` or `tsort PARAMETER [asc/desc]`
+
+Note : 
+
+* `PATAMETER` can be `starttime`, `endtime` or  `priority`
+* The `asc/desc` is optional. It's sorted `ascendingly` by default
 
 Example:
 
-*`tasksort priority`
+* `tasksort priority`
 
-*`tasksort starttime desc`
+* `tasksort starttime desc`
+//end::tcopy[]
 
 // tag::task_ppp_cchj1995[]
 ==== taskdone
@@ -1138,6 +1180,9 @@ e.g. `recordedit 1 ic/S1234657H`
 * *Record Clear* : `recordclear` +
 e.g. `recordclear`
 
+* *Record MC creation* : `recordmc INDEX [daysToRest]` +
+e.g. `recordmc 1` 
+
 * *Patient List* : `list`
 
 * *Patient Find* : `find KEYWORD [MORE_KEYWORDS]` +
@@ -1160,13 +1205,16 @@ e.g. `taskedit 1 ti/Tooth extraction for Alex pri/HIGH`
 * *Task delete*: `taskdelete INDEX` +
 e.g. `taskdelete 1`
 
+* *Task copy*: `taskcopy INDEX [COUNT]`+
+e.g. `taskcopy 1`
+
 * *Task complete*: `taskdone INDEX` +
 e.g. `taskdone 1`
 
 * *Task calendar*: `taskcal INDEX` +
 e.g. `taskcal 11-11-2019`
 
-* *Tasksort `tasksort starttime/endtime/priority [asc/desc]`
+* *Tasksort `tasksort starttime/endtime/priority [asc/desc]` +
 e.g. `tasksort endtime`
 
 * *Teeth* : `teeth patientadd <Template>` +

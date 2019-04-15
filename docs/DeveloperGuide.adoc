@@ -263,7 +263,7 @@ The data CSV Storage features implements the following functions:
 NOTE: These functions are automatically performed on opening/closing the application. File I/O is handled in CSVUtil class
 
 ==== Csv User Format
-.Data flow diagram for User saving
+.Data flow diagram for user import and export
 image::CsvUserStorage.png[width="800"]
 
 The user is parsed by CsvUserStorage, which is converted between User and List<String[]> format. List<String[]> format
@@ -272,13 +272,81 @@ is the primary format handled by CsvUtil for reading and writing to CSV files.
 A few noteworthy main components saved into a CSV file for UserStorage are listed below.
 
 ==== Hashcode
-This is the question hashcode. Every question will have a unique hashcode.
+This is the question hashcode. Every question will have a unique hashcode for identification.
 
 ==== SRSDueDate
-This is the srsDueDate for each question. The questions with a nearer due-date will be generated first in the quiz.
+This is the srsDueDate generated for that question. Questions with a nearer due-date will be generated first in the quiz.
 
 ==== Difficult
-These are questions that are labelled difficult by the user.
+These are questions that are labelled difficult by the user. Users are able to specifically practise questions that they have labelled difficult in session.
+
+==== Sequence Diagram
+The following sequence diagram below displays the interaction between the various classes when the user imports the the savedata file:
+
+.Data flow diagram for user import and export
+image::CsvUserStorageSequenceDiagram.png[width="800"]
+The following code shows how the steps could be performed:
+
+[source,java]
+----
+private Optional<CardSrsData> parseStringIntoCard(String[] cardArray) throws
+            NumberFormatException, DateTimeParseException {
+
+        if (cardArray.length < MAX_SIZE) {
+            logger.warning("There are empty values in the file");
+            return Optional.empty();
+        }
+
+        for (int i = 0; i < cardArray.length - 1; i++) {
+            if (cardArray[i].isEmpty()) {
+                logger.warning("There are empty values in the file");
+                return Optional.empty();
+            }
+        }
+
+        int hashCode;
+        int numOfAttempts;
+        int streak;
+        Instant srs;
+        boolean isDifficult;
+        CardSrsData card;
+
+        try {
+            hashCode = Integer.parseInt(cardArray[0]);
+            numOfAttempts = Integer.parseInt(cardArray[1]);
+            streak = Integer.parseInt(cardArray[2]);
+            srs = Instant.parse(cardArray[3]);
+            isDifficult = cardArray[4].equals("true");
+
+            if (hashCode == ZERO) {
+                logger.warning("Hashcode cannot be 0 in " + filePath.toString());
+                return Optional.empty();
+            }
+
+            if (numOfAttempts < ZERO) {
+                logger.warning("Number of attempts cannot be 0 in " + filePath.toString());
+                return Optional.empty();
+            }
+
+            if (streak < ZERO) {
+                logger.warning("Streak cannot be 0 in " + filePath.toString());
+                return Optional.empty();
+            }
+        } catch (NumberFormatException e) {
+            logger.warning("Values are not correct in " + filePath.toString());
+            return Optional.empty();
+
+        } catch (DateTimeParseException e) {
+            logger.warning("SrsDate is wrong in " + filePath.toString());
+            return Optional.empty();
+        }
+
+        card = new CardSrsData(hashCode, numOfAttempts, streak, srs, isDifficult);
+
+        return Optional.of(card);
+    }
+
+----
 
 ==== Design Considerations
 * ** Alternative 1(Current choice):** Automate importing/exporting when session is open/close
@@ -287,7 +355,8 @@ These are questions that are labelled difficult by the user.
 
 * **Alternative 2:** Individual commands for user to toggle with to import and export files when desired
 ** Pros: More control given to user
-** Cons: Accidental overwriting of files may occur.
+** Cons: Accidental overwriting of files may occur. Furthermore, if users are not able to parse in values correctly, the file will not be saved. This is troublesome for users who are not tech-savvy.
+
 // end::datastorage[]
 
 
@@ -501,8 +570,6 @@ new list of cards based on the `mode` indicated by the user. The generated list 
 learning both the values. Accordingly to the mode that the user have chosen, the cards will be
 displayed differently.
 
-// end::quiz[]
-
 In the four different modes:
 
 * **Preview**: both the question and answer are shown to the user
@@ -524,6 +591,7 @@ image::quiz-command-examples/quiz-learn.PNG[width="670"]
 * **Difficult**: similar to preview mode but only contains questions that have been labelled as
 difficult.
 
+// end::quiz[]
 The following code shows how are the cards generated:
 [source,java]
 ----
@@ -657,6 +725,7 @@ question you have gotten correct in this quiz and which question you are current
 .Sequence diagram for status feature
 image::QuizStatusCommandSequenceDiagram.png[width="800"]
 
+// tag::quiz[]
 ==== Design Considerations
 
 ===== Aspect: Quiz and management commands execution
@@ -675,6 +744,7 @@ word as answer without restricting the possible choices. In certain question, it
 answer to be "start". Hence by choosing alternative 1, the choice of answer is the least
 restricted. Also, by running the quiz in a different mode, it allows the user to have intuitive
 interaction in quiz mode.
+// end::quiz[]
 
 === Logging
 
@@ -1212,8 +1282,6 @@ Answer the question according to the question from the specified lesson.
   `\quit` +
   Expected: Shown the result of the quiz and saved the progress of 1 attempted question.
 
-
-
 === Viewing status in a quiz
 
 Below is a test cases you can perform to test the `QuizStatusCommand` for the Quiz feature. +
@@ -1225,8 +1293,17 @@ Below is a test cases you can perform to test the `QuizStatusCommand` for the Qu
 . Test case: `\status` +
   Expected: Shown the quiz progress. +
 
-=== Saving data
+// tag::datastorage[]
 
-. Dealing with missing/corrupted data files
+==== Saving user data
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+. Ensuring that there is a save user file generated. The file should be generated under `/data/user/savedata`
+
+.. Prerequisites: The user has at least started on a quiz once.
+.. NOTE: There will be 5 unique notations generated in the `savedata` file. It is arranged in an array as such [hashcode, number of attempts, streak, SRS date, isDifficult]
+.. Test case: Open the `savedata` file and modify `hashcode = 0` +
+   Expected: Launch braintrain.jar again and open braintrain.log. There should be a warning message stating: `"WARNING: There are empty values in the file"` +
+   Other incorrect cases: Setting `number of attempts < 0` or `streak < 0`. +
+// end::datastorage[]
+
+

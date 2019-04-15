@@ -1,5 +1,6 @@
 package seedu.address.logic.commands.sortmethods;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -8,9 +9,9 @@ import seedu.address.model.person.Person;
 
 /**
  * Follows the SortMethod interface
- * Sorts all persons by Education and then subsequently by gpa
+ * Sorts all persons by Degree and then subsequently by Gpa
  */
-public class SortEducation implements SortMethod {
+public class SortDegree implements SortMethod {
 
     private List<Person> newList;
 
@@ -18,10 +19,11 @@ public class SortEducation implements SortMethod {
      * alters the newList to contain persons in newly sorted order
      */
     public void execute(List<Person> lastShownList, String... type) {
-        Comparator<Person> personEducationComparator = Comparator.comparing(Person::educationToString);
-        List<Person> initialSortedList = SortUtil.sortPersons(lastShownList, personEducationComparator);
+        Comparator<Person> personDegreeComparator = Comparator.comparing(Person::degreeToValue);
+        List<Person> initialSortedList = SortUtil.sortPersons(lastShownList, personDegreeComparator);
+        Collections.reverse(initialSortedList);
         SortListWithDuplicates secondarySort = new SortListWithDuplicates(initialSortedList, new SortGpa(),
-                personEducationComparator);
+                personDegreeComparator);
         this.newList = secondarySort.getList();
     }
 

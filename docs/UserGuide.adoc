@@ -242,9 +242,21 @@ Returns the persons, with new index numbers, in reverse alphabetical order of th
 skill is that which appears first when the person's skills have been ordered alphabetically.
 
 Methodology:
+.Individual Sort Command Methods
+|===
+|Command |Sort Comparison |Sort Effect |Example
+
+|`sort name`
+|Compares the Christian name first and then the surname
+|Alphabetical
+|_`Adam Smith` shall come before `Shaun Adams` and `Adam Blacksmith` shall come before `Adam Smith`._
+
+|`sort surname`
+|Compares the surname only
+|Alphabetical
+|_`Ben Adams` shall come before `Adam Black`._
+|===
 ****
-* The `sort name` command compares the Christian name first and then the surname. +
-_e.g. `Adam Smith` shall come before `Shaun Adams` and `Adam Blacksmith` shall come before `Adam Smith`._
 * The `sort surname` command compares the surname only. +
 If two surnames match, then the previous relative ordering of the two shall be kept. +
 _e.g. `Ben Adams` shall come before `Adam Black`._

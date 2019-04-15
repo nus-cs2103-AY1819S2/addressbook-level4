@@ -187,6 +187,8 @@ public class ModelManager implements Model {
         versionedAddressBook.setFilterInfo(status);
     }
 
+    //=========== Sorting Processes =======================================================================
+
     @Override
     public boolean getSortInfo() {
         return versionedAddressBook.getSortInfo();

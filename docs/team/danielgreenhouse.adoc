@@ -17,10 +17,11 @@ It is an adaptation of AddressBook - Level 4 which is a desktop address book app
 * *Major enhancement*: added *the ability to sort persons through various means*
 ** What it does: allows the user to sort the list of persons.
 ** Justification: This feature allows the user to sort through the client's data. It is pivotal in transforming the AddressBook to a Recruiting platform since it provides the user with multiple tools for visually seeing their clients in a logical manner.
-** Highlights: This enhancement is fully compatible with the other commands and proves particularly useful to the user when used in conjunction with the `filter` command.
+** Highlights: This enhancement is fully compatible with the other commands and proves particularly useful to the user when used in conjunction with the `filter` command. It also employs _intelligent sorting_ meaning that one sorting method can utilise another sorting method to further sort similar persons.
 
 * *Minor enhancement*:
 ** changes to VersionedAddressBook and ModelManager to allow for deleting all persons at once and adding a person with the filter in place.
+** multiple changes to tests and style to aid the building of Travis.
 
 
 == Contributions to the User Guide
@@ -28,13 +29,9 @@ It is an adaptation of AddressBook - Level 4 which is a desktop address book app
 ** Addition of sort method description in a new section (Recruit Me - User Guide/Features/Sorting Persons: sort).
 ** The full utility is explained to ensure the user can get a grasp of the new tools available to them.
 
-include::../UserGuide.adoc
-
 
 == Contributions to the Developer Guide
 
 ** The steps required for the addition of a new sort method is outlined for future developers in a new section (Recruit Me - Developer Guide/Implementation/Sort Commands).
 ** Some rational for the sort command has been outlined.
 ** The currently available tests have been outlined.
-
-include::../DeveloperGuide.adoc

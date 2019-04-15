@@ -2,10 +2,8 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -265,8 +263,8 @@ public class Person {
     }
 
     /**
-     *  returns the Person's first name as a string
-     */
+    * Returns just the first name of the Persons name as a string
+    */
     public String firstNameToString() {
         String fullName = nameToString();
         int firstSpace = fullName.indexOf(" ");
@@ -297,15 +295,16 @@ public class Person {
     }
 
     /**
-     *  returns the Person's positions as a string in lowercase
+     *  returns the Person's degree as a string in lowercase
      */
-    public List<String> getPositionString() {
-        Set<SkillsTag> individualTags = getTags();
-        List<String> positionTagStrings = new ArrayList<>();
-        Set<SkillsTag> positionTags = PersonUtil.getTagsOfType(individualTags, "p");
-        for (SkillsTag tag : positionTags) {
-            positionTagStrings.add(tag.toString());
-        }
-        return positionTagStrings;
+    public String degreeToString() {
+        return getDegree().toString().toLowerCase();
+    }
+
+    /**
+     *  returns the Person's degree value
+     */
+    public Integer degreeToValue() {
+        return PersonUtil.getEducationValue(degreeToString());
     }
 }

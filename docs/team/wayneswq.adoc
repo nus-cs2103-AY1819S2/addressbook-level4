@@ -56,7 +56,23 @@ tweaks of the patient class to adhere to their new features.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc#adding-a-patient-add-p[tag=add-p]
+
+include::../UserGuide.adoc#listing-all-patients-list-p[tag=list-p]
+
+include::../UserGuide.adoc#editing-a-patient-edit-p[tag=edit-p]
+
+include::../UserGuide.adoc#deleting-a-patient-delete-p[tag=delete-p]
+
+include::../UserGuide.adoc#search-patient-by-name-search-p-name[tag=search-p-name]
+
+include::../UserGuide.adoc#search-patient-by-pid-search-pid[tag=search-pid]
+
+include::../UserGuide.adoc#search-patient-by-appointment-status-search-p-status[tag=search-p-status]
+
+include::../UserGuide.adoc#advanced-search-patient-by-all-info-search-p-advanced[tag=search-p-advanced]
+
+include::../UserGuide.adoc#selecting-a-patient-select-p[tag=select-p]
 
 
 == Contributions to the Developer Guide
@@ -65,5 +81,6 @@ include::../UserGuide.adoc[tag=undoredo]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc#Design-Model[tag=Model Component]
 
+include::../DeveloperGuide.adoc#patient-management-features[tag=Patient Features]

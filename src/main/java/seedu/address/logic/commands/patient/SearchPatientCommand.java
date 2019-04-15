@@ -19,7 +19,7 @@ public class SearchPatientCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches for patients whose names contain any of "
             + "the specified keywords. (case-insensitive)\n"
-            + "Parameters: [KEYWORD] [MORE_KEYWORDS]...\n"
+            + "Parameters: [NAME] [NAME2]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
     private final PatientNameContainsKeywordsPredicate predicate;

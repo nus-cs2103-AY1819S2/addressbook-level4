@@ -5,11 +5,13 @@
 
 == PROJECT: README
 
+Hi, I'm a second-year computer science undergraduate in NUS.
+
 == Overview
 
 README is an integrated link manager and web feed aggregator application.
-
-RSS and Atom are common ways of allowing an user to access updates to online content.
+My main contribution involved adding support for web feeds to README.
+RSS and Atom are common technologies of allowing an user to access updates to online content.
 When supported by websites, subscribing to the feed removes the need for users to manually check the website in question, offering greater convenience to the user.
 
 == Summary of contributions
@@ -25,16 +27,16 @@ is a quality-of-life improvement.
 
 === *Code contributed*
 ** https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=qjqqyy[RepoSense]
-** Initial RSS support https://github.com/CS2103-AY1819S2-W10-1/main/pull/33[#33]
-** Architectural changes
+** Initial RSS support in https://github.com/CS2103-AY1819S2-W10-1/main/pull/33[#33],
+Architectural changes
 https://github.com/CS2103-AY1819S2-W10-1/main/pull/80[#80]
-https://github.com/CS2103-AY1819S2-W10-1/main/pull/107[#107]
-** Feeds subscription https://github.com/CS2103-AY1819S2-W10-1/main/pull/114[#114]
+https://github.com/CS2103-AY1819S2-W10-1/main/pull/107[#107].
+Feeds subscription https://github.com/CS2103-AY1819S2-W10-1/main/pull/114[#114]
 https://github.com/CS2103-AY1819S2-W10-1/main/pull/173[#173]
-https://github.com/CS2103-AY1819S2-W10-1/main/pull/183[#183]
-** Add counter to status bar
-https://github.com/CS2103-AY1819S2-W10-1/main/pull/15[#15]
-** Staging usage of GitHub pages for network tests https://github.com/CS2103-AY1819S2-W10-1/main/pull/64[#64]
+https://github.com/CS2103-AY1819S2-W10-1/main/pull/183[#183],
+Add counter to status bar
+https://github.com/CS2103-AY1819S2-W10-1/main/pull/15[#15],
+Staging usage of GitHub pages for network tests https://github.com/CS2103-AY1819S2-W10-1/main/pull/64[#64].
 
 === *Other contributions*:
 
@@ -62,6 +64,8 @@ https://github.com/CS2103-AY1819S2-W10-1/main/pull/33[#33]
 |===
 
 include::../UserGuide.adoc[tag=subscribe-command]
+
+include::../UserGuide.adoc[tag=bing-command]
 
 == Contributions to the Developer Guide
 

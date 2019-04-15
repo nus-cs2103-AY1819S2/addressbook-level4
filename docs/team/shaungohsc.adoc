@@ -104,17 +104,21 @@ It also needs to be responsible for view switching.
 ** Managed releases `v1.4.2` (1 release) on GitHub
 * *Enhancements to existing features*:
 ** Update PlaceCard for new data fields (Pull requests https://github.com/CS2103-AY1819S2-W11-3/main/pull/71[#71], https://github.com/CS2103-AY1819S2-W11-3/main/pull/107[#107])
-** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Updated the UI CSS so all UI components are inline with the colour palette (Pull request https://github.com/CS2103-AY1819S2-W11-3/main/pull/186[#186])
+* *Testing and Bug-fixing*
+** Wrote additional tests for existing features to increase coverage from 89% to 92% (Pull request https://github.com/CS2103-AY1819S2-W11-3/main/pull/189[#189])
+** Fixed UI bugs in PlaceListCard and PlaceListPanel (Pull request https://github.com/CS2103-AY1819S2-W11-3/main/pull/107[#107])
 * *Documentation*:
-** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Help rewrite the intro of the User Guide: https://github.com/CS2103-AY1819S2-W11-3/main/pull/178/commits/44c3b11e3a882874c1ca3631162e6003746a75aa[#178]
 * *Community*:
-** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-** Reported bugs (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W11-3/main/pull/190[#190], https://github.com/CS2103-AY1819S2-W11-3/main/pull/187[#187]
+** Reported bugs on TravelBuddy (examples:  https://github.com/CS2103-AY1819S2-W11-3/main/issues/66[#66], https://github.com/CS2103-AY1819S2-W11-3/main/issues/172[172])
+** Reported bugs and gave suggestions for other teams (Examples:
+https://github.com/CS2103-AY1819S2-W16-1/main/issues/161[Report 1],
+https://github.com/CS2103-AY1819S2-W16-1/main/issues/181[Report 2],
+https://github.com/CS2103-AY1819S2-W16-1/main/issues/171[Report 3],
+https://github.com/CS2103-AY1819S2-W16-1/main/issues/144[Report 4]
 * Tools:
-** Integrated a third party library (Natty) to the project (https://github.com[#42])
-** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
 
 == *User Guide* Contributions
 
@@ -142,4 +146,10 @@ include::../UserGuide.adoc[tag=editphoto]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=addphoto]
+=== UI Architecture
+
+include::../DeveloperGuide.adoc[tag=uiArchitecture]
+
+=== Photos Features
+
+include::../DeveloperGuide.adoc[tag=photosFeature]

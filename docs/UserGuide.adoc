@@ -42,7 +42,8 @@ More info here: <<attachPhotoFeature>>
 * *_TravelBuddy Analytics_*: Helps you gather insights into your travel patterns and behavior. +
 More info here: <<generateFeature>>
 
-Best of all, you can accomplish any of these tasks with just _a single command_. So, are you ready to _redefine traveling_?
+Best of all, you can accomplish any of these tasks with just _a single command_. So, are you ready to _redefine
+traveling_?
 // end::intro[]
 
 // tag::additionalInfo[]
@@ -69,9 +70,13 @@ Here are the steps to get you started with using TravelBuddy:
 
 .  Download the latest version of TravelBuddy. The latest TravelBuddy jar file can be found link:{repoURL}/releases[here]. Once the download is successful, you should be able to see a file named `travelBuddy.jar`.
 
-.  Double-click `travelBuddy.jar` to start the app. TravelBuddy's Graphical User Interface (GUI) should appear in a few seconds.
+.  Double-click `travelBuddy.jar` to start the app. TravelBuddy's Graphical User Interface (GUI) should appear in a
+few seconds, as shown in <<ui>>.
 +
 .An illustration of how the TravelBuddy GUI looks
+[[ui]]
+[reftext="Figure 3.1.1"]
+[caption="Figure 3.1.1: "]
 image::Ui.png[width="400"]
 +
 .  Perform a quick test to verify that TravelBuddy works by typing in a command in the command box and press kbd:[Enter] to execute it.
@@ -126,7 +131,7 @@ The code in this section is merely for illustrative purposes. It is kept brief t
 * _Whenever there are duplicate parameters, the last duplicated parameter is chosen._ +
 *Example:* If the command is `add n/Singapore Zoo n/Botanic Gardens`, where there are duplicates of the `n/NAME` parameters, the last parameter, `n/Botanic Gardens`, is chosen to be added to the list of places.
 
-* _Some parameters have a specific input format_ +
+* _Some parameters have a specific input format._ +
 *Example:* For `dv/DATE_VISITED`, the `DATE_VISITED` needs to follow the `DD/MM/YYYY` format.
 
 === Seeking Help: `help`
@@ -151,9 +156,15 @@ A quick alternative way to seek help is to hit the kbd:[F1] key.
 *Description:* The `add` command adds a place to TravelBuddy.
 
 *Shortcut:* `a`
-// TODO: label table
-The table below shows the parameters that require a specific input format to be added.
-[width="100%",cols="20%,20%,<60%"]
+
+*Format*: `add [n/NAME] [cc/COUNTRY_CODE] [dv/DATE_VISITED] [r/RATING] [d/DESCRIPTION] [a/ADDRESS] [p/FILE_PATH]
+[t/TAG]…`
+
+The <<SpecificParameters>> below shows the parameters that require a specific input format to be added.
+
+[[SpecificParameters]]
+[width="100%",cols="20%,20%,<60%"reftext="Table 4.3.1", caption="Table 4.3.1: "]
+.Parameters that require a specific format
 |=======================================================================
 |*Parameter*
 |*Parameter Prefix*
@@ -183,7 +194,6 @@ Adds Raffles Hotel to the list of places you have visited into TravelBuddy.
 
 <<addFigure>> below shows the outcome of a specific `add` command
 [[addFigure]]
-// TODO: update photo
 [reftext="Figure 4.3.1"]
 [caption="Figure 4.3.1: "]
 .Adding a place to TravelBuddy
@@ -192,16 +202,16 @@ image::addCommand.png[width="400"]
 [TIP]
 A place can have any number of tags (including 0 tags).
 
-// end::crudEdit[]
+// end::crudAdd[]
 
 // tag::addphoto[]
 [[attachPhotoFeature]]
 ==== Including a photo when adding a place with `p/`
 
-*Description:* The `add` command can also include attach a single photo
+*Description:* The `add` command can also attach a single photo
 when adding a new place to TravelBuddy.
 
-The photo must be a image file that already exists in your computer.
+The photo must be an image file that already exists in your computer.
 
 *Format:*
 [width="100%",cols="20%,20%,<60%"]
@@ -233,17 +243,17 @@ the filepath `C:\Users\Michael\Pictures\castle-photo.jpg`.
 [[addPhotoBefore]]
 [reftext="Figure 4.3.2.1"]
 [caption="Figure 4.3.2.1: "]
-.Before the `add` command is executed
-image::addPhotoBefore.png[width="400"]
+.Before the `add` command is executed.
+image::addPhotoBefore.png[width="600"]
 
 <<addPhotoAfter>> below shows TravelBuddy after the above example command is executed, and
-the newly added Place "Himeiji Castle" is selected
+the newly added "Himeiji Castle" is selected.
 
 [[addPhotoAfter]]
 [reftext="Figure 4.3.2.2"]
 [caption="Figure 4.3.2.2: "]
-.After the `add` command is executed and the newly added Place "Himeiji Castle" is selected
-image::addPhotoAfter.png[width="400"]
+.After the `add` command is executed and the newly added "Himeiji Castle" is selected.
+image::addPhotoAfter.png[width="600"]
 
 ****
 
@@ -292,14 +302,6 @@ Currently, TravelBuddy supports the following image *file formats/extensions*:
 
 *Format:* `list`
 
-[NOTE]
-Calling the `list` command returns a list of all the places in TravelBuddy as shown in <<listFigure>> below.
-// TODO: Update screenshot
-[[listFigure]]
-[reftext="Figure 4.4.1"]
-[caption="Figure 4.4.1: "]
-.Listing all the places in TravelBuddy
-image::listCommand.png[width="400"]
 
 // end::crudList[]
 
@@ -324,7 +326,8 @@ image::listCommand.png[width="400"]
 * Preconditions for changing the photo file [FILE_PATH] are in <<Replacing the photo of a place with `edit p/`>>
 
 *Examples:* Given below are some examples on how to utilize the `edit` command:
-// TODO: Consider revising below.
+
+
 * `edit 1 r/3 d/No description` +
 Edits the rating and description of the 1st entry in the list to be `3` and `No description` respectively.
 * `edit 2 n/Raffles Hotel t/` +
@@ -352,7 +355,7 @@ image::editCommandAfter.png[width="400"]
 
 ==== Replacing the photo of a place with `edit p/`
 
-The `Edit` command can also be used to change the photo of a place by replacing
+The `edit` command can also be used to change the photo of a place by replacing
 the `FILE_PATH` of the current photo with the `FILE_PATH` of the new photo.
 
 <<replacePhotoBefore>> below shows TravelBuddy before `edit` command is used to replace the current photo.
@@ -360,22 +363,22 @@ the `FILE_PATH` of the current photo with the `FILE_PATH` of the new photo.
 [[replacePhotoBefore]]
 [reftext="Figure 4.5.3"]
 [caption="Figure 4.5.3: "]
-.Before the `edit` command is used to replace a photo
+.Before the `edit` command is used to replace a photo.
 image::editPhotoBefore.png[width="400"]
 
-<<replacePhotoAfter>> below shows TravelBuddy after a new photo has been added to the place "Nanyang Technological University"
+<<replacePhotoAfter>> below shows TravelBuddy after a new photo has been added to the place "Nanyang Technological University".
 
 [[replacePhotoAfter]]
 [reftext="Figure 4.5.4"]
 [caption="Figure 4.5.4: "]
-.After the `edit` command is used to replace a photo
+.After the `edit` command is used to replace a photo.
 image::editPhotoAfter.png[width="400"]
 
 ****
-*Examples:* Given below is an example of using `Edit` to replace a photo:
+*Examples:* Given below is an example of using `edit` to replace a photo:
 
 * `edit 3 p/C:\Users\Michael\Pictures\Wallpapers\Zion National Park 1.jpg` +
-Replaces the current photo of 3rd Place Entry with the photo named `Zion National Park 1.jpg`
+Replaces the current photo of 3rd Place entry with the photo named `Zion National Park 1.jpg`
 ****
 
 [NOTE]
@@ -402,7 +405,7 @@ e.g. `University National of Singapore` will match `National University of Singa
 * Only the name of the places in TravelBuddy is searched.
 * Only full words will be matched. +
 e.g. `Nation` will not match `National`
-* Places matching at least one keyword will be returned (i.e. `OR` search). +
+* Places matching at least one keyword will be returned. +
 e.g. `National Museum` will return `National Museum of Singapore` and `National University Hospital`.
 
 *Example:* `search Singapore` +
@@ -458,7 +461,7 @@ image::UIsearchratingresults.png[width="400"]
 * The search is case insensitive. e.g `Temple` will match `temple`.
 * Only the tags of the places in TravelBuddy are searched.
 * Only full words will be matched e.g. `temp` will not match `temple`.
-* Places tagged with at least one matching keyword will be returned (i.e. `OR` search). e.g. `temple school` will return places tagged with `temple` or `school`.
+* Places tagged with at least one matching keyword will be returned. e.g. `temple school` will return places tagged with `temple` or `school`.
 * Multiple keywords can be included in the query, e.g `searcht distillery temple` will return places tagged with `distillery` or `temple`.
 
 *Example:* `searcht distillery` +
@@ -502,14 +505,15 @@ image::UIsearchcountryresults.png[width="400"]
 
 *Shortcut:* `sy`
 
-*Format:* `searchyear KEYWORD [MORE_KEYWORDS]` OR +
-`searchyear KEYWORD-KEYWORD`
+*Format:* `searchyear KEYWORD [MORE_KEYWORDS]` OR `searchyear KEYWORD-KEYWORD`
 
 *Preconditions:* Given below is a list of preconditions that must be met for the `searchyear` command to work:
 
-* The search year is bounded from 1900 to the current year. e.g `2016` will return places visited in the year 2016.
+* The search year is bounded from 1900 to the current year. e.g `searchyear 2016` will return places visited in the
+year 2016.
 * Search requests outside the bounds will issue a warning.
-* The year keywords for `searchyear` can be entered as a range. e.g `2010-2017` will return all the places visited from `2010` to `2017`.
+* The year keywords for `searchyear` can be entered as a range. e.g `searchyear 2010-2017` will return all the places
+visited from 2010 to 2017.
 * Only the year of visit of the places in TravelBuddy is searched.
 
 *Example:* `searchyear 2016` +
@@ -554,10 +558,11 @@ image::deleteCommandBefore.png[width="400"]
 .After the `delete` command is used
 image::deleteCommandAfter.png[width="400"]
 
+
 *Examples:* Given below are some examples on how to utilize the `delete` command:
 
 * `list` +
-Lists all the places in TravelBuddy +
+Lists all the places in TravelBuddy. +
 `delete 2` +
 Deletes the 2nd place in TravelBuddy.
 * `search Raffles` +
@@ -594,7 +599,7 @@ image::deletemExample.png[width="400"]
 *Examples:* Given below are some examples on how to utilize the `deletem` command:
 
 * `list` +
-Lists all the places in TravelBuddy +
+Lists all the places in TravelBuddy. +
 `deletem 1 4` +
 Deletes the 1st, 2nd, 3rd and 4th place in the currently displayed list on the left.
 * `search Singapore` +
@@ -630,7 +635,7 @@ image::selectCommand.png[width="400"]
 *Examples:* Given below are some examples on how to utilize the `select` command:
 
 * `list` +
-Lists all the places in TravelBuddy +
+Lists all the places in TravelBuddy. +
 `select 2` +
 Selects the 2nd place in TravelBuddy.
 * `search Raffles` +
@@ -679,21 +684,21 @@ Undoable commands: Commands that modify TravelBuddy's data (`add`, `delete`, `de
 *Examples:* Given below are some examples on how to utilize the `undo` command:
 
 * `delete 1` +
-Deletes the 1st place on the list currently displayed +
+Deletes the 1st place on the list currently displayed. +
 `undo` +
-Reverses the `delete 1` command +
+Reverses the `delete 1` command. +
 * `select 1` +
-Selects the 1st place on the list currently displayed +
+Selects the 1st place on the list currently displayed. +
 `undo` +
-The `undo` command fails as there are no undoable commands executed previously +
+The `undo` command fails as there are no undoable commands executed previously. +
 * `delete 1` +
-Deletes the 1st place on the list currently displayed +
+Deletes the 1st place on the list currently displayed. +
 `clear` +
-Clears all contents in the list +
+Clears all contents in the list. +
 `undo` +
-Reverses the `clear` command +
+Reverses the `clear` command. +
 `undo` +
-Reverses the `delete 1` command +
+Reverses the `delete 1` command. +
 
 === Redoing the Previously Undone Command: `redo`
 
@@ -706,27 +711,27 @@ Reverses the `delete 1` command +
 *Examples:* Given below are some examples on how to utilize the `redo` command:
 
 * `delete 1` +
-Deletes the 1st place on the list currently displayed +
+Deletes the 1st place on the list currently displayed. +
 `undo` +
-Reverses the `delete 1` command +
+Reverses the `delete 1` command. +
 `redo` +
-Reapplies the `delete 1` command +
+Reapplies the `delete 1` command. +
 * `delete 1` +
-Deletes the 1st place on the list currently displayed +
+Deletes the 1st place on the list currently displayed. +
 `redo` +
 The `redo` command fails as there are no `undo` commands executed previously.
 * `delete 1` +
-Deletes the 1st place on the list currently displayed +
+Deletes the 1st place on the list currently displayed. +
 `clear` +
-Clears all contents in the list +
+Clears all contents in the list. +
 `undo` +
-Reverses the `clear` command +
+Reverses the `clear` command. +
 `undo` +
-Reverses the `delete 1` command +
+Reverses the `delete 1` command. +
 `redo` +
-Reapplies the `delete 1` command +
+Reapplies the `delete 1` command. +
 `redo` +
-Reapplies the `clear` command +
+Reapplies the `clear` command. +
 // end::undoredo[]
 
 // tag::generate[]
@@ -757,7 +762,7 @@ image::Chart_Combined.png[width="800", caption="Figure 4.17.1: ", reftext="Figur
 * You can type in any parameters after the `generate` command, TravelBuddy will simply ignore them (<<Generate_BeforeParamAfterParam>>).
 
 [[Generate_BeforeParamAfterParam]]
-.Before and after a parameter was used in the `generate` command
+.Before and after a parameter is used in the `generate` command
 image::Generate_BeforeParamAfterParam.png[width="800", caption="Figure 4.17.2: ", reftext="Figure 4.17.2"]
 
 *Examples:* Given below are some examples on how to utilize the `generate` command:
@@ -768,16 +773,21 @@ Selects the 1st place in the current list displayed. +
 Generates the charts.  +
 *_Outcome:_* The charts were successfully generated, as seen in <<Generate_Successful>> +
 [[Generate_Successful]]
+[reftext="Figure 4.17.3"]
+[caption="Figure 4.17.3: "]
 .The charts were successfully generated
-image::Generate_Successful.png[width="400", caption="Figure 4.17.3: ", reftext="Figure 4.17.3"]
+image::Generate_Successful.png[width="400"]
+
 * `clear` +
 Clears all places in the list. +
 `generate` +
 Generates the charts.  +
 *_Outcome:_* Unable to generate the charts as the list is empty, as seen in <<Generate_ListIsEmpty>> +
 [[Generate_ListIsEmpty]]
+[reftext="Figure 4.17.4"]
+[caption="Figure 4.17.4: "]
 .Unable to generate the charts as the list is empty
-image::Generate_ListIsEmpty.png[width="400", caption="Figure 4.17.4: ", reftext="Figure 4.17.4"]
+image::Generate_ListIsEmpty.png[width="400"]
 
 // end::generate[]
 
@@ -825,36 +835,40 @@ TravelBuddy data is saved in the hard disk automatically after any command that 
 == Frequently Asked Questions (FAQ)
 
 === Setting Up
-*Q*: Can the application be used even without internet connection? +
-*A*: Yes, the application works without internet connection.
+*Q*: *Can TravelBuddy be used without an internet connection?* +
+*A*: Yes, TravelBuddy works without an internet connection.
 
-*Q*: How do I import data from another TravelBuddy? +
-*A*: Overwrite the empty data file in your computer with the data file of the other TravelBuddy.
-
-*Q*: Why is my address book empty? +
+*Q*: *Why is my TravelBuddy empty?* +
 *A*: If you are just starting out, TravelBuddy will be empty for you to add places that you have been to.
-If you have been using it frequently, please refer to Data and Storage Issues.
+If you have already added places to TravelBuddy, there is likely an issue with your `TravelBuddy.json` data file.
+Please refer to the section below.
 
 === Data and Storage Issues
-*Q*: How do I transfer my data to another computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous TravelBuddy folder.
+*Q*: *How do I transfer my data to another computer?* +
+*A*: First, install the TravelBuddy on the other computer. +
+Next, copy the `TravelBuddy.json` data file from your current TravelBuddy. It is located in the same folder as the `TravelBuddy.jar` program. +
+Finally, paste the `TravelBuddy.json` data file in the folder of your new `TravelBuddy.jar` program. When a warning box appears with the messages
+"There is already a file with the same name in this location.", select "Copy and Replace".
 
-*Q*: How do I send my address book to another person? +
-*A*: Send the person (via E-mail or messenger applications) your file that contains the data of your TravelBuddy folder.
+*Q*: *How do I send my TravelBuddy to someone else?* +
+*A*: You can send the person (via E-mail or messenger applications) your `TravelBuddy.json` data file. It is located in the same folder as the `TravelBuddy.jar` program.
 
-*Q*: Can I retrieve the data from when I just launched the application? +
-*A*: Repeatedly use the `undo` command until there are no further commands to undo.
+*Q*: *Can I reset my TravelBuddy to the state it was when I first launched the application?* +
+*A*: You can simply repeatedly run the `undo` command until there are no further commands to undo.
 
-*Q*: Why is my address book empty? +
-*A*: If you are just starting out, please refer to Setting Up section. An empty TravelBuddy means that your data has been cleared either by commands or invalid json file.
-Please do check the file that contains the data of your TravelBuddy.
+*Q*: *Why is my TravelBuddy empty?* +
+*A*: If you are just starting out, please refer to Setting Up section. Otherwise, an empty TravelBuddy may mean that your data has been cleared by commands,
+or the `TravelBuddy.json` data file is missing or corrupted. +
+
+Please check that the file is located in the same folder as the `TravelBuddy.jar` program executable, and
+the file can be opened by a text editor such as NotePad.
 
 === Command Issues
 
-*Q*: How do I view the full address book after searching or selecting an entry? +
-*A*: Use the command `list` to retrieve the full address book.
+*Q*: *How do I view the full TravelBuddy after searching or selecting an entry?* +
+*A*: You can use the command `list` to retrieve the full TravelBuddy.
 
-*Q*: What details do I need for the `add` command? +
+*Q*: *What details do I need for the `add` command?* +
 *A*: The following details are required for a valid `add` command:
 
 * Name of the place (Prefix: `n/`)
@@ -864,16 +878,16 @@ Please do check the file that contains the data of your TravelBuddy.
 * Description of the place (Prefix: `d/`)
 * Address of the place (Prefix: `a/`)
 
-*Q*: What details are optional for the `add` command? +
+*Q*: *What details are optional for the `add` command?* +
 *A*: The following details are optional for a valid `add` command:
 
 * Tags of the place (Prefix: `t/`)
 * Filepath of the photo file for the place (Prefix: `p/`)
 
-*Q*: Why does the `undo` command not work? +
+*Q*: *Why does the `undo` command not work?* +
 *A*: The `undo` command only reverses the commands `add`, `delete`, `deletem`, `edit` and `clear`.
 
-*Q*: Why does the `undo` command reverse a command from multiple commands before? +
+*Q*: *Why does the `undo` command reverse a command from multiple commands before?* +
 *A*: The `undo` command reverses the last used `add`, `delete`, `deletem`, `edit` or `clear` command.
 
 // tag::cheatsheet[]
@@ -894,7 +908,7 @@ Below is a summarized list of all the command glossary and shortcuts that Travel
 
 |*Add*
 |`a`
-|Adds a place to TravelBuddy
+|Adds a place to TravelBuddy.
 
 |*Clear*
 |`c`
@@ -918,11 +932,11 @@ Below is a summarized list of all the command glossary and shortcuts that Travel
 
 |*Generate*
 |`g`
-|Generates charts based on the list of places in TravelBuddy
+|Generates charts based on the list of places in TravelBuddy.
 
 |*Help*
 |`he`
-|Opens up a help page
+|Opens up a help page.
 
 |*History*
 |`hi`
@@ -930,7 +944,7 @@ Below is a summarized list of all the command glossary and shortcuts that Travel
 
 |*List*
 |`l`
-|Lists all the places in TravelBuddy
+|Lists all the places in TravelBuddy.
 
 |*Redo*
 |`r`
@@ -941,7 +955,7 @@ Below is a summarized list of all the command glossary and shortcuts that Travel
 |Searches for places whose names contain any of the given keywords.
 
 |*Search Country*
-|`st`
+|`sc`
 |Searches for places whose country matches the specified ISO-3166 3-letter country code.
 
 |*Search Rating*
@@ -1067,5 +1081,4 @@ _Example:_ +
 
 |=======================================================================
 // end::commandFormats[]
-
 [[start]]

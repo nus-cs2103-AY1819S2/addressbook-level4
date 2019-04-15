@@ -433,7 +433,7 @@ The control flow of the sequence diagram above is as follows:
 [source, java]
 String[] nameKeywords = trimmedArgs.split("\\s+");
 return new SearchCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
-** A NameContainsKeywordPredicate will be instantiated with the array of arguments as the predicate, which will be used to check if any of the places in TravelBuddy matches the user's input.
+** A `NameContainsKeywordPredicate` will be instantiated with the array of arguments as the predicate, which will be used to check if any of the places in TravelBuddy matches the user's input.
 +
 [source, java]
 public boolean test(Place place) {

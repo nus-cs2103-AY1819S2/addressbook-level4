@@ -69,8 +69,8 @@ Format: `add-p [n/NAME] [g/GENDER] [a/AGE] [p/PHONE_NUMBER] [adr/ADDRESS] [t/TAG
 
 Examples:
 
-* `add-p n/John Doe g/M a/21 p/98765432 adr/Utown College 2`
-* `add-p n/Betsy Crowe g/F p/8234567 a/32 adr/RVRC House 12 t/diabetic`
+* `add-p n/Tom Hiddleston g/M a/21 p/98765432 adr/Utown College 2`
+* `add-p n/Bettany Sim g/F p/8234567 a/32 adr/RVRC House 12 t/diabetic`
 
 [TIP]
 For constraints of name, gender, age, phone, address and tags, please refer to the section below.
@@ -86,8 +86,7 @@ Edits an existing patient in docX. +
 Format: `edit-p [INDEX] [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [adr/ADDRESS]`
 
 ****
-* Edits the patient at the specified `INDEX`. +
- The index refers to the current list index of the patient. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the patient at the specified list index. +
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 ****
@@ -95,11 +94,13 @@ Format: `edit-p [INDEX] [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [adr/ADDRESS]`
 Examples:
 
 * `edit-p 1 p/91234567` +
-Edits the phone number of the patient with ID of '1' to be `91234567`.
-* `edit-p 2 n/Betsy Crower p/95678901` +
-Edits the name and phone number of the patient with ID of '2' to be `Betsy Crower` and '95678901' respectively.
+Edits the phone number of the patient with current list index '1' to be `91234567`.
+* `edit-p 2 n/Alex Martin p/95678901` +
+Edits the name and phone number of the patient with current list index of '2' to be `Alex Martin` and '95678901' respectively.
+* `edit-p 1 n/Alex n/Martin` +
+Having 2 input of the same field will take the last input. Edited patient name to `Martin`.
 * `edit-p 1 t/` +
-An empty tag removes all the current tags of the patient with ID of '1'.
+An empty tag field removes all the current tags of the patient with ID of '1'.
 
 === Search patient by name: `search-p-name`
 
@@ -107,22 +108,22 @@ Search and return patient(s) whose names contain any of the given keywords. +
 Format: `search-p-name [NAME] [NAME2]`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
+* The search is case insensitive. e.g `aLeX` will match `Alex`
 * The order of the keywords does not matter +
-e.g. `Hans Bo` will match `Bo Hans`
+e.g. `Alex Martin` will match `Martin Alex`
 * Only the name is searched.
 * Only full words will be matched +
-e.g. `Han` will not match `Hans`
+e.g. `Alex` will not match `Alexander`
 * Patients matching at least one keyword will be returned +
-e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+e.g. `Alex Tom` will return `Alex Martin`, `Tom Hiddleston`
 ****
 
 Examples:
 
-* `search-p-name John` +
-Returns `john` and `John Doe`
+* `search-p-name Alex` +
+Returns `Alex Lim` and `Alex Martin`
 * `search-p-name Betsy Tim John` +
-Returns any patient having names containing `Betsy`, `Tim`, or `John`
+Returns all patients having names containing `Betsy`, `Tim`, or `John`
 
 === Search patient by pid: `search-pid`
 
@@ -137,7 +138,7 @@ Format: `search-pid [pid]`
 Examples:
 
 * `search-pid 1` +
-Returns `John Doe` who has pid of `1`.
+Returns `Alex Martin` who has pid of `1`.
 
 === Search patient by appt status: `search-p-status`
 
@@ -154,7 +155,7 @@ ACTIVE, ONGOING, COMPLETED, MISSED
 Examples:
 
 * `search-p-status ACTIVE` +
-Returns `John Doe` and `Tom Darl` who has appointment status of `ACTIVE`.
+Returns `Alex Martin` and `Tom Hiddleston` who has appointment status of `ACTIVE`.
 
 === Advanced search patient by any info: `search-p-advanced`
 
@@ -164,7 +165,7 @@ Use a "quoted_keyword" to enforce fullword match to the patient's info
 Format: `search-p-advanced [keyword] ["quoted_keyword"]...`
 
 ****
-* The search is case insensitive. e.g `ALeX` will match `Alex`
+* The search is case insensitive. e.g `aLeX` will match `Alex`
 * The order of the keywords does not matter. e.g. `stroke cancer` will match `cancer stroke`
 * With "unquoted_keyword", subwords will be matched +
 e.g. `blood` will match `highbloodpressure`
@@ -179,10 +180,15 @@ A patient's info does not include the list index and "| pid:"
 
 Examples:
 
-* `search-p-advanced blood "Doe"` +
-Returns `John Doe` who has a `highbloodpressure` tag
-* `search-p-advanced blood "Doe"` +
-Will not return `John Doeing` who has a `highbloodpressure` tag
+* `search-p-advanced blood alex` +
+Returns both `Alex Martin` who has a `bloodclot` tag and `Alexander Fleming` who has a `highbloodpressure` tag
+* `search-p-advanced blood "alex"` +
+Returns `Alex Martin` who has a `bloodclot` tag. +
+Will not return `Alexander Fleming` who has a `highbloodpressure` tag
+* `search-p-advanced "blood" "alex"` +
+Will return neither `Alex Martin` who has a `bloodclot` tag. +
+nor `Alexander Fleming` who has a `highbloodpressure` tag
+
 
 === Selecting an existing patient : `select-p`
 
@@ -191,8 +197,7 @@ Displays his/her full information on the browser panel.
 Format: `select-p [INDEX]`
 
 ****
-* Selects the patient of the specified `INDEX` in docX.
-* The index refers to the current list ID of the patient.
+* Selects the patient of the specified list index.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -200,8 +205,8 @@ Examples:
 
 * `list-p` +
 * `select-p 3` +
-Selects the patient with current list ID of '3' in the docX +
-The patient's full info can be easily viewed in the browser panel.
+Selects the patient with current list index of '3' in the docX +
+The patient's full detail can be easily viewed in the browser panel.
 
 === Deleting an existing patient : `delete-p`
 
@@ -209,8 +214,7 @@ Deletes the specified patient from docX. +
 Format: `delete-p [INDEX]`
 
 ****
-* Deletes the patient of the specified `INDEX` in docX.
-* The index refers to the current list ID of the patient.
+* Deletes the patient of the specified list index.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -218,9 +222,9 @@ Examples:
 
 * `list-p` +
 `delete-p 3` +
-Deletes the patient with current list ID of '3' in the docX.
+Deletes the patient with current list index of '3' in the docX.
 * `delete-p 2` +
-Deletes the patient with current list ID of '2' in the docX.
+Deletes the patient with current list index of '2' in the docX.
 
 tag::doctorcommands[]
 === Adding a doctor: `add-d`

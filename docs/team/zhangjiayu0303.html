@@ -129,8 +129,8 @@
                             Guide with respect to the addition of the Person structure</p>
                         </li>
                         <li>
-                          <p>Detailed user stories added in the appendix of the Developer
-                            Guide</p>
+                          <p>Added manual testing instructions in the appendix of the
+                            Developer Guide</p>
                         </li>
                       </ul>
                     </div>
@@ -157,26 +157,141 @@
             </tr>
           </tbody>
         </table>
-        <div class="paragraph">
-          <p><a href="../UserGuide.adoc" class="bare">../UserGuide.adoc</a></p>
+        <div class="sect2">
+          <h3 id="_adding_a_company_code_addcpny_code">Adding a company : <code>addcpny</code></h3>
+          <div class="paragraph">
+            <p>Adds a company to the client list</p>
+          </div>
+          <div class="paragraph">
+            <p>Format: <code>addcpny</code> n/NAME p/NUMBER e/EMAIL a/ADDRESS s/REVENUE
+              o/SECTOR r/STRUCTURE [t/TAG]…</p>
+          </div>
+          <div class="paragraph">
+            <p>Explanation:
+              <code>REVENUE</code> represents a company&#8217;s yearly revenue.
+              <code>SECTOR</code> represents the type of company i.e. Food, Retail,
+              Bank.
+              <code>STRUCTURE</code> distinguishes the organization of the company
+              i.e. Conglomerate, Local, International, Private, Public, etc.</p>
+          </div>
+          <div class="paragraph">
+            <p>Examples:</p>
+          </div>
+          <div class="paragraph">
+            <p><code>addcpny</code> n/Walmart p/98765432 e/walmart@gmail.com a/John
+              street, block 123, #01-01 s/234525223 o/Retail r/Corporation</p>
+          </div>
+          <div class="paragraph">
+            <p><code>addcpny</code> n/Betsy Cakes p/1234567 e/cakes@gmail.com a/Bob
+              street, block 232 s/2242023 o/Food r/LocalBusiness t/popular t/local</p>
+          </div>
         </div>
-        <div class="paragraph">
-          <p><a href="../UserGuide.adoc" class="bare">../UserGuide.adoc</a></p>
+        <div class="sect2">
+          <h3 id="_show_average_revenue_for_all_companies_code_averagerevenue_code">Show average revenue for all companies: <code>averageRevenue</code></h3>
+          <div class="paragraph">
+            <p>Shows average revenue for all companies in the address book</p>
+          </div>
+          <div class="paragraph">
+            <p>Format: <code>averageRevenue</code></p>
+          </div>
         </div>
-        <div class="paragraph">
-          <p><a href="../UserGuide.adoc" class="bare">../UserGuide.adoc</a></p>
+        <div class="sect2">
+          <h3 id="_show_median_revenue_for_all_revenue_code_medianrevenue_code">Show median revenue for all revenue: <code>medianRevenue</code></h3>
+          <div class="paragraph">
+            <p>Shows median revenue for all companies in the address book</p>
+          </div>
+          <div class="paragraph">
+            <p>Format: <code>medianRevenue</code></p>
+          </div>
         </div>
-        <div class="paragraph">
-          <p><a href="../UserGuide.adoc" class="bare">../UserGuide.adoc</a></p>
+        <div class="sect2">
+          <h3 id="_show_average_salary_for_all_persons_code_averagesalary_code">Show average salary for all persons: <code>averageSalary</code></h3>
+          <div class="paragraph">
+            <p>Shows average salary for all persons in the address book</p>
+          </div>
+          <div class="paragraph">
+            <p>Format: <code>averageSalary</code></p>
+          </div>
         </div>
-        <div class="paragraph">
-          <p><a href="../UserGuide.adoc" class="bare">../UserGuide.adoc</a></p>
+        <div class="sect2">
+          <h3 id="_show_median_salary_for_all_persons_code_mediansalary_code">Show median salary for all persons: <code>medianSalary</code></h3>
+          <div class="paragraph">
+            <p>Shows median salary for all persons in the address book</p>
+          </div>
+          <div class="paragraph">
+            <p>Format: <code>medianSalary</code></p>
+          </div>
         </div>
-        <div class="paragraph">
-          <p><a href="../UserGuide.adoc" class="bare">../UserGuide.adoc</a></p>
+        <div class="sect2">
+          <h3 id="_locating_persons_by_occupation_code_findoccupation_code">Locating persons by occupation : <code>findOccupation</code></h3>
+          <div class="sidebarblock">
+            <div class="content">
+              <div class="ulist">
+                <ul>
+                  <li>
+                    <p>The search is case insensitive. e.g <code>teacher</code> will
+                      match <code>Teacher</code></p>
+                  </li>
+                  <li>
+                    <p>Only the occupation is searched.</p>
+                  </li>
+                  <li>
+                    <p>Only full words will be matched e.g. <code>Tea</code> will not
+                      match <code>Teacher</code></p>
+                  </li>
+                  <li>
+                    <p>Persons matching the occupation will be returned</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="paragraph">
+            <p>Examples:</p>
+          </div>
+          <div class="ulist">
+            <ul>
+              <li>
+                <p><code>findOccupation teacher</code><br> Returns <code>Bob</code>                  and <code>Alice</code> (Their occupation is teacher)</p>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div class="paragraph">
-          <p><a href="../UserGuide.adoc" class="bare">../UserGuide.adoc</a></p>
+        <div class="sect2">
+          <h3 id="_locating_companies_by_sector_code_findsector_code">Locating companies by sector : <code>findSector</code></h3>
+          <div class="sidebarblock">
+            <div class="content">
+              <div class="ulist">
+                <ul>
+                  <li>
+                    <p>The search is case insensitive. e.g <code>bank</code> will match
+                      <code>Bank</code></p>
+                  </li>
+                  <li>
+                    <p>Only the sector is searched.</p>
+                  </li>
+                  <li>
+                    <p>Only full words will be matched e.g. <code>Ban</code> will not
+                      match <code>Bank</code></p>
+                  </li>
+                  <li>
+                    <p>Companies matching the sector will be returned</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="paragraph">
+            <p>Examples:</p>
+          </div>
+          <div class="ulist">
+            <ul>
+              <li>
+                <p><code>findCompany bank</code><br> Returns <code>OCCC</code> (Its
+                  sector is bank)</p>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -195,11 +310,330 @@
             </tr>
           </tbody>
         </table>
+      </div>
+    </div>
+    <div class="sect1">
+      <h2 id="_user_stories">User Stories</h2>
+      <div class="sectionbody">
         <div class="paragraph">
-          <p><a href="../DeveloperGuide.adoc" class="bare">../DeveloperGuide.adoc</a></p>
+          <p>Priorities: High (must have) - <code>* * *</code>, Medium (nice to have)
+            - <code>* *</code>, Low (unlikely to have) - <code>*</code></p>
         </div>
-        <div class="paragraph">
-          <p><a href="../DeveloperGuide.adoc" class="bare">../DeveloperGuide.adoc</a></p>
+        <table class="tableblock frame-all grid-all" style="width: 59%;">
+          <colgroup>
+            <col style="width: 22%;">
+            <col style="width: 23%;">
+            <col style="width: 25%;">
+            <col style="width: 30%;">
+          </colgroup>
+          <thead>
+            <tr>
+              <th class="tableblock halign-left valign-top">Priority</th>
+              <th class="tableblock halign-left valign-top">As a &#8230;&#8203;</th>
+              <th class="tableblock halign-left valign-top">I want to &#8230;&#8203;</th>
+              <th class="tableblock halign-left valign-top">So that I can&#8230;&#8203;</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock"><code>* * *</code></p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">new user</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">see usage instructions</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">refer to instructions when I forget how to use the Marketing Morph
+                  App</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock"><code>* * *</code></p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">user</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">add a new person or company</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">keep track of potential target demographics and clients</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock"><code>* * *</code></p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">user</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">delete a person or company</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">remove entries that I no longer need</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock"><code>* * *</code></p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">user</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">find a person or company by name</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">locate details of persons without having to go through the entire
+                  list</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock"><code>* * *</code></p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">user</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">sort persons by name</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">locate a person easily</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock"><code>* * *</code></p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">user</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">sort persons by occupation</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">locate a cohort of persons easily</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock"><code>* * *</code></p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">user</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">sort companies by sector</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">locate a cohort of companies easily</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock"><code>* * *</code></p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">user</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">create a group of clients</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">to organize potential clients into a separate group</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock"><code>* * *</code></p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">user</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">add contacts to a favorites list</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">to have quick access to the most used contacts</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock"><code>* * *</code></p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">user</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">delete contacts to a favorites list</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">to have quick access to the most used contacts</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock"><code>* * *</code></p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">user</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">update person or company data</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">to change information that is no longer correct</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock"><code>* * *</code></p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">user</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">analyze salary for all persons</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">know the average and median salary for all persons</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock"><code>* * *</code></p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">user</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">analyze revenue for all companies</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">know the average and median revenue for all companies</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock"><code>* *</code></p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">user</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">can analyze which people can afford a product</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">to effectively target potential consumers</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock"><code>* *</code></p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">user</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">can determine which people can shop at particular businesses</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">to sell information to companies</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock"><code>* *</code></p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">user</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">view a persons address on a map</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">visualize where they live</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock"><code>* *</code></p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">user</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">see number of entries in the addressbook</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">to know how many entries I have</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock"><code>*</code></p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">user</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">hide <a href="#private-contact-detail">private contact details</a>                  by default</p>
+              </td>
+              <td class="tableblock halign-left valign-top">
+                <p class="tableblock">minimize chance of someone else seeing them by accident</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="sect2">
+          <h3 id="_finding_a_person_by_occupation">Finding a person by occupation</h3>
+          <div class="olist arabic">
+            <ol class="arabic">
+              <li>
+                <p>Finding a person by occupation</p>
+                <div class="olist loweralpha">
+                  <ol class="loweralpha" type="a">
+                    <li>
+                      <p>Prerequisites: The person that is searched for must exist</p>
+                    </li>
+                    <li>
+                      <p>Test Case: <code>findOccupation Professor</code><br> Expected:
+                        May return <code>Alice</code> and <code>Bob</code> if both
+                        exist as persons whose occupation is professor</p>
+                    </li>
+                  </ol>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+        <div class="sect2">
+          <h3 id="_finding_a_company_by_sector">Finding a company by sector</h3>
+          <div class="olist arabic">
+            <ol class="arabic">
+              <li>
+                <p>Finding a company by sector</p>
+                <div class="olist loweralpha">
+                  <ol class="loweralpha" type="a">
+                    <li>
+                      <p>Prerequisites: The company that is searched for must exist</p>
+                    </li>
+                    <li>
+                      <p>Test Case: <code>findSector Bank</code><br> Expected: May return
+                        <code>DSS</code> and <code>OCCC</code> if both exist as companies
+                        whose sector is bank</p>
+                    </li>
+                  </ol>
+                </div>
+              </li>
+            </ol>
+          </div>
         </div>
       </div>
     </div>

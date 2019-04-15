@@ -351,6 +351,7 @@ Format: `clear`
 
 Exits the program. +
 Format: `exit`
+
 // tag::sortper[]
 === Sorting persons by name/salary/occupation/residential area/group : `sortper`
 

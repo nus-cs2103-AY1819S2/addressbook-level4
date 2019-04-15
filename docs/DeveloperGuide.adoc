@@ -346,8 +346,7 @@ Step 2. The user executes `delete 5` command to delete the 5th place in TravelBu
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new place. The `add` command also calls `Model#commitTravelBuddy()`,
-causing another modified TravelBuddy state to be saved into the `travelBuddyStateList`.
+Step 3. The user executes `add n/David ...` to add a new place. The `add` command also calls `Model#commitTravelBuddy()`, causing another modified TravelBuddy state to be saved into the `travelBuddyStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
@@ -594,7 +593,7 @@ as its country. The `searchc` command will call `LogicManager#execute()`, which 
 will be called to parse the arguments to be used in `SearchCountryCommand`. The arguments are then checked for validity (i.e. valid ISO-3166 country code).
 The parsed arguments will be compared to every entry in TravelBuddy and matching entries will be displayed.
 [NOTE]
-The country code arguments for `searchc` must be valid 3-letter ISO-3166 country codes.
+The country code arguments for `searchc` must be valid three-letter ISO-3166 country codes.
 
 Step 3. The filtered list is now displayed according to the requirements set by the user input as shown in <<Figure 4.2.1.10>> below.
 
@@ -710,8 +709,8 @@ link:https://cs2103-ay1819s2-w11-3.github.io/main/CountryCodes.html[here].
 command is
 entered.
 [[addSeqDiagram]]
-[reftext="Figure 4.3.1"]
-[caption="Figure 4.3.1: "]
+[reftext="Figure 4.3.1.1"]
+[caption="Figure 4.3.1.1: "]
 .Execution sequence of the `add` command
 image::AddCommandSequenceDiagram.PNG[width="800"]
 
@@ -785,8 +784,8 @@ a `CommandException` will be thrown with an error message on the duplicate entry
 
 6) The `Place` data is added into TravelBuddy.
 
-** Here the `Model::addPlace` method is called, and it subsequently calls the `TravelBuddy::addPlace` method.
-** Following which the `Model::commitTravelBuddy` method is called.
+** Here, the `Model::addPlace` method is called, and it subsequently calls the `TravelBuddy::addPlace` method.
+** Following which, the `Model::commitTravelBuddy` method is called.
 
 7) The `AddCommand::execute` execution completes by returning a new CommandResult that contains a success message to
 its calling method which is `LogicManager::execute`.
@@ -801,8 +800,9 @@ The user launches the application and enters the full add command `add n/Raffles
 <<addSeqDiagram>> and the output is shown below in <<output>>.
 
 [[output]]
-[reftext="Figure 4.3.2"]
-[caption="Figure 4.3.2: "]
+[reftext="Figure 4.3.1.2"]
+[caption="Figure 4.3.1.2: "]
+.Add command output
 image::addCommand.png[width="400"]
 
 
@@ -812,7 +812,9 @@ The command `add` is in lower-case. Mixed-case or upper-case commands are not re
 
 ==== Design Considerations
 
-===== Aspect: Data structure to store Country Codes
+===== Aspect: Data structure to store country codes
+
+Given below is a comparison between the alternatives for the data structure that can be used for country codes.
 
 [width="100%",cols="16%,<50%,<50%",options="header"]
 |=======================================================================
@@ -827,7 +829,7 @@ The command `add` is in lower-case. Mixed-case or upper-case commands are not re
 
 |*Pros*
 |*Ease-of-use*. This approach simply requires the importing of `java.util.Locales` to get the country codes. +
-*Comprehensive*. `java.util.Locales` contains all of the 250 three-letter country codes as specified in ISO-3166.
+*Comprehensive*. `java.util.Locales` contains all of the 250 3-letter country codes as specified in ISO-3166.
 
 |*Fast*. This approach is computationally less intensive than Alternative 1. This is because there are only 30 country
 codes in the data structure.
@@ -837,13 +839,14 @@ codes in the data structure.
 country codes to search from.
 
 |*Tedious*. This approach requires the coder to search for the top 30 visited countries in the world and type out all
- the 30, three-letter country codes as specified in ISO-3166. +
+ the 30, 3-letter country codes as specified in ISO-3166. +
 *Not User-friendly*. If the user visited a country that is not in the top 30 list of countries visited, the user
 would not be able to add it into TravelBuddy.
 
 |=======================================================================
 
-*Decision:* Alternative 1. Alternative 2 may not fulfill all of the user requirements of adding any country code, but Alternative 1 does.  Alternative 1's speed is only slightly slower than Alternative 2.
+*Decision:* Alternative 1 is used for the current implementation. Alternative 2 may not fulfill all of the user
+requirements of adding any country code.  Alternative 1's speed is only slightly slower than Alternative 2.
 
 
 // end::countrycode[]
@@ -1208,8 +1211,7 @@ image::chrome_save_as_pdf.png[width="300"]
 [[Docs-SiteWideDocSettings]]
 === Site-wide Documentation Settings
 
-The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor
-.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project
+The link:{repoURL}/tree/master/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project
 are rendered.
 
 [TIP]
@@ -1270,15 +1272,16 @@ _{asterisk} Official SE-EDU projects only_
 
 === Site Template
 
-The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
+The files in link:{repoURL}/tree/master/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
 You can modify them to change some properties of the site's design.
 
-The files in link:{repoURL}/docs/templates[`docs/templates`] controls the rendering of `.adoc` files into HTML5.
+The files in link:{repoURL}/tree/master/docs/templates[`docs/templates`] controls the rendering of `.adoc` files into
+HTML5.
 These template files are written in a mixture of https://www.ruby-lang.org[Ruby] and http://slim-lang.com[Slim].
 
 [WARNING]
 ====
-Modifying the template files in link:{repoURL}/docs/templates[`docs/templates`] requires some knowledge and
+Modifying the template files in link:{repoURL}/tree/master/docs/templates[`docs/templates`] requires some knowledge and
 experience with Ruby and Asciidoctor's API.
 You should only modify them if you need greater control over the site's layout than what stylesheets can provide.
 The SE-EDU team does not provide support for modified template files.
@@ -1358,7 +1361,7 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/travel/MainApp.java[`MainApp.java`].
+.  Update the version number in link:{repoURL}/tree/master/src/main/java/seedu/travel/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.

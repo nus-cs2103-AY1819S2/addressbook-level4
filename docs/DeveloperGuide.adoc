@@ -374,7 +374,6 @@ It follows the following rules:
 // tag::doctorcommands[]
 === CRUD of Doctors
 
-
 Doctor is one of the two valid types of Persons to be stored in the docX record.
 The following features are implemented or will be implemented for doctors of docX:
 

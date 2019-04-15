@@ -319,7 +319,7 @@ values.
 // end::stats[]
 
 // tag::upcomingmap[]
-== Coming in v2.0
+== Features Coming in v2.0
 This section describes features that have not been implemented yet and are scheduled to be released in version 2.0.
 
 === Special map shapes

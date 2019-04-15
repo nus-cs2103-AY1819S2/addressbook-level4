@@ -116,7 +116,7 @@ including the design and structure of components and their constituent classes.
 .Architecture Diagram
 image::Architecture.png[width="600"]
 
-<<ArchitectureDiagram>> above explains the high-level design of the App. Given below is a quick overview of each component.
+<<ArchitectureDiagram>> above explains the high-level design of TravelBuddy. Given below is a quick overview of each component.
 
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the
@@ -131,18 +131,22 @@ select the objects of the diagram, and choose `Save as picture`.
 <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
 The following class plays an important role at the architecture level:
 
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+* `LogsCenter` : Used by many classes to write log messages to TravelBuddy's log file.
 
-The rest of the App consists of four components.
+The rest of TravelBuddy consists of four components.
+
+
+
 
 * <<Design-Ui,*`UI`*>>: The User Interface (UI) of the App.
+
 * <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
+* <<Design-Model,*`Model`*>>: Holds the data of TravelBuddy in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
 Each of the four components
 
-* Defines its _API_ in an `interface` with the same name as the Component.
+* Defines its Application Programming Interface (_API_) in an `interface` with the same name as the component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
 For example, the `Logic` component, as seen in the class diagram in <<LogicClassDiagram>>, defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
@@ -150,7 +154,7 @@ For example, the `Logic` component, as seen in the class diagram in <<LogicClass
 [[LogicClassDiagram]]
 [reftext="Figure 3.1.2"]
 [caption="Figure 3.1.2: "]
-.Class Diagram of the Logic Component
+.Class Diagram of the Logic component
 image::LogicClassDiagram.png[width="800"]
 
 [discrete]
@@ -161,7 +165,7 @@ The sequence diagram, as seen in <<SeqDiagramDforDeletePlace>>, below shows how 
 [[SeqDiagramDforDeletePlace]]
 [reftext="Figure 3.1.3"]
 [caption="Figure 3.1.3: "]
-.Component interactions for `delete 1` command
+.component interactions for `delete 1` command
 image::SDforDeletePlace.png[width="800"]
 
 The sections below give more details of each component.
@@ -171,10 +175,13 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI Component
 
+*API* :
+link:{repoURL}/tree/master/src/main/java/seedu/travel/ui/Ui.java[`Ui.java`]
+
 [[UiClassDiagram]]
 [reftext="Figure 3.2.1"]
 [caption="Figure 3.2.1: "]
-.Structure of the UI Component
+.Structure of the UI component
 image::UiClassDiagram.png[width="800"]
 
 The `UI` component, as seen in <<UiClassDiagram>>, uses the JavaFx UI framework. The *layout* of these UI parts are
@@ -193,7 +200,7 @@ The `UI` component,
 The UI consists of a `MainWindow` that is made up of various parts specified below.
 All parts inherit from the abstract `UiPart` class.
 
-*Brief overview* of each UI Component:
+*Brief overview* of each UI component:
 
 `MainWindow`: Consists of the main menu with `File` and `Help` dropdowns and the remaining UI parts below.
 
@@ -205,21 +212,22 @@ All parts inherit from the abstract `UiPart` class.
 
 * `StatusBarFooter`: At the bottom of MainWindow, reports the status of the TravelBudy application
 
-* `PlaceListPanel`: On the left of BrowserPanel, displays Places as a VBox of PlaceListCards
+* `PlaceListPanel`: On the left of the application, displays Places as a VBox of `PlaceListCards`
 
-** `PlaceListCard`: Labels for the Display index and Place data fields (CountryCode, Rating etc.) in a VBox the left,
-Labels that display Name and actual Place data (CountryCode, Rating etc) in a VBox on the right.
+** `PlaceListCard`: Labels for the Display index and Place data fields (`CountryCode`, `Rating` etc.) in a VBox the left,
+Labels that display Name and actual Place data (`CountryCode`, `Rating` etc) in a VBox on the right
 
-* `RightParentPanel`: Parent panel for both `DisplayListPanel` and `ExtendedPlacePanel`,
-contains helper methods for switching functionality, interacts with model and logic
 
-** `DisplayListPanel`: Parent panel for analytics of all Places, the `generate` command displays this panel
+* RightParentPanel: Parent panel for both `ChartListPanel` and `ExpandedPlacePanel`,
+contains helper methods for switching functionality, interacts with `Model` and `Logic`
 
-*** `DisplayCard`: Displays `Chart` data in a bar graph
+** `ChartListPanel`: Parent panel for analytics of all Places, the `generate` command displays this panel
 
-** `ExtendedPlacePanel`: Display an expanded view of all Place data. Photo attachments to be included here as well in future releases (beyond v1.4).
+*** `ChartCard`: Displays `Chart` data in a bar graph
 
-* `BrowserPanel`: *_Deprecated._* Opens on clicking the PlaceListCard, on the right of the PlaceListPanel.
+** `ExpandedPlacePanel`: Displays an expanded view of all Place data, including the `Photo`
+
+* `BrowserPanel`: *_Deprecated._* Opens on clicking the PlaceListCard, on the right of the PlaceListPanel
 
 *All CSS code can be found in `LightTheme.css` and `Extensions.css`
 
@@ -231,11 +239,13 @@ contains helper methods for switching functionality, interacts with model and lo
 [[fig-LogicClassDiagram]]
 [reftext="Figure 3.3.1"]
 [caption="Figure 3.3.1: "]
-.Structure of the Logic Component
+.Structure of the Logic component
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/travel/logic/Logic.java[`Logic.java`]
+link:{repoURL}/tree/master/src/main/java/seedu/travel/logic/Logic.java[`Logic.java`]
+
+Below is an overview of the `Logic` interface:
 
 .  `Logic` uses the `TravelBuddyParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
@@ -243,12 +253,12 @@ link:{repoURL}/src/main/java/seedu/travel/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given in <<DeletePersonSdForLogic>> below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given in <<DeletePersonSdForLogic>> below is the sequence diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 [[DeletePersonSdForLogic]]
 [reftext="Figure 3.3.2"]
 [caption="Figure 3.3.2: "]
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions inside the Logic component for the `delete 1` command
 image::DeletePersonSdForLogic.png[width="800"]
 
 [[Design-Model]]
@@ -257,21 +267,21 @@ image::DeletePersonSdForLogic.png[width="800"]
 [[ModelClassDiagram]]
 [reftext="Figure 3.4.1"]
 [caption="Figure 3.4.1: "]
-.Structure of the Model Component
+.Structure of the Model component
 image::ModelClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/travel/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/tree/master/src/main/java/seedu/travel/model/Model.java[`Model.java`]
 
-The `Model`,
+Below is an overview of the `Model` interface:
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the place data.
-* exposes an unmodifiable `ObservableList<Place>` that can be 'observed' e.g. the UI can be bound to this list so that
+* `Model` stores a `UserPref` object that represents the user's preferences.
+* `Model` stores the place data.
+* `Model` exposes an unmodifiable `ObservableList<Place>` that can be 'observed' e.g. the UI can be bound to this list so that
 the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* `Model` does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `TravelBuddy`, which `Place` can reference. This would allow `TravelBuddy` to only require one `Tag` object per unique `Tag`, instead of each `Place` needing their own `Tag` object. An
+As a more Object Oriented Programming (OOP) model, we can store a `Tag` list in `TravelBuddy`, which `Place` can reference. This would allow `TravelBuddy` to only require one `Tag` object per unique `Tag`, instead of each `Place` needing their own `Tag` object. An
  example of how such a model may look like is seen in <<ModelClassBetterOopDiagram>>. +
  +
 [[ModelClassBetterOopDiagram]]
@@ -286,15 +296,15 @@ image::ModelClassBetterOopDiagram.png[width="800"]
 [[StorageClassDiagram]]
 [reftext="Figure 3.5.1"]
 [caption="Figure 3.5.1: "]
-.Structure of the Storage Component
+.Structure of the Storage component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/travel/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/tree/master/src/main/java/seedu/travel/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
+Below is an overview of the `Storage` interface:
 
-* can save `UserPref` objects in json format and read it back.
-* can save the TravelBuddy data in json format and read it back.
+* `Storage` can save `UserPref` objects in json format and read it back.
+* `Storage` can save the TravelBuddy data in json format and read it back.
 
 [[Design-Commons]]
 === Common Classes
@@ -316,7 +326,7 @@ Undoable commands include `add`, `edit`, `delete`, `deletem`, `clear`, `generate
 ==== Current Implementation
 
 The undo/redo mechanism is facilitated by `VersionedTravelBuddy`.
-It extends `TravelBuddy` with an undo/redo history, stored internally as an `travelBuddyStateList` and `currentStatePointer`.
+It extends `TravelBuddy` with an undo/redo history, stored internally as a `travelBuddyStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
 * `VersionedTravelBuddy#commit()` -- Saves the current TravelBuddy state in its history.
@@ -344,7 +354,7 @@ image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 If a command fails its execution, it will not call `Model#commitTravelBuddy()`, so the TravelBuddy state will not be saved into the `travelBuddyStateList`.
 
 Step 4. The user now decides that adding the place was a mistake, and decides to undo that action by executing the
-`undo` command. The `undo` command will call `Model#undoTravelBuddy()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous TravelBuddy state, and restores the TravelBuddy to that state.
+`undo` command. The `undo` command will call `Model#undoTravelBuddy()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous TravelBuddy state. This restores the TravelBuddy to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
@@ -845,53 +855,72 @@ requirements of adding any country code.  Alternative 1's speed is only slightly
 
 === Photos Feature
 
-The Photo feature gives users the ability to attach an existing image file to any Place object,
+The Photo feature gives users the ability to attach an existing image file to any `Place` object,
 which is then displayed in the `ExpandedPlacePanel` when the `select` command is called on a particular Place.
 
 ==== Current Implementation
 
-This feature is currently integrated as part of the `add` and `edit` commands. It works by accepting the user entered
-absolute file path of the image as an `add` and `edit` command parameter, specified by the prefix `p/`.
+This feature is currently integrated as part of the `add` and `edit` commands. It works by accepting the user-entered
+absolute file path of the image as an `add` or `edit` command parameter, specified by the prefix `p/`.
 
-<<Figure 4.4.1>> below is a sequence of steps, illustrating the interaction between various classes when the add command is
+<<Figure 4.4.1.1>> below is a sequence of steps, illustrating the interaction between various classes when the add command is
 used to include a photo with a newly created place.
 
-[[AddPhotoActivityDiagram]]
-[reftext="Figure 4.2.1.1"]
-[caption="Figure 4.4.1: Add Photo Activity Diagram"]
-.Activity diagram for photo feature
-image::AddPhotoActivityDiagram.PNG[width="800"]
-
-Step 1: The user enters the command `add n/Himeiji Castle cc/JPN dv/15/12/2017 r/5 d/Wow.
+*Step 1:* The user enters the command `add n/Himeiji Castle cc/JPN dv/15/12/2017 r/5 d/Wow.
 a/Kyoto t/castle p/C:\Users\Shaun\Pictures\castle-photo.jpg`.
 
-Step 2 - 5: Identical to `add` command sequence, please refer to <<<Add Feature>>> for details
+*Step 2 - 5:* Identical to `add` command sequence steps 2 - 5, please refer to <<Add Feature>> for details
 
-Step 6: The `AddCommandParser` interprets the arguments, and checks the file path input using `ParserUtil.parsePhoto()`.
+*Step 6:* The `AddCommandParser` interprets the arguments, and checks the file path input using `ParserUtil.parsePhoto()`.
 
-Step 7: `parsePhoto()` then trims any leading whitespace. It also trims a single leading and trailing double quotation mark `"`.
+*Step 7:* `parsePhoto()` then trims any leading whitespaces. It also trims a single leading and trailing double quotation mark `"`.
 This is for ease of use with the Windows 10 File Explorer *Copy Path* Home menu function, which returns the filepath of the selected file
 wrapped with double quotation marks `"`.
 
-Step 8.1: As the `photo` parameter is optional for `add` command, if photo prefix `p/` is not used, `AddCommandParser`
+*Step 8.1:* As the `photo` parameter is optional for `add` command, if photo prefix `p/` is not used, `AddCommandParser`
 calls the 2nd overloaded `Place()` constructor to create a `Place` with a special string `EMPTY_PHOTO_PATH` in the `Photo` attribute.
 
-Step 8.2.1: If photo prefix 'p/' is used, he validity of the filepath is then checked with the `Photo.isValidPhotoFilepath()` method.
+*Step 8.2:*
+
+* If photo prefix `p/` is used, he validity of the filepath is then checked with the `Photo.isValidPhotoFilepath()` method.
 The method relies on using `ImageIO.read()` to try opening the file using the provided `filepath` string.
 If the filepath is invalid or the file cannot be opened, then `ImageIO.read()` throws a `IOException`.
-The exception is caught, control returns to parsePhoto() and a ParseException is thrown.
+The exception is caught, control returns to `parsePhoto()` and a `ParseException is thrown`.
 
-Step 8.2.2: Else, control returns to `parseUtil.parsePhoto()`. It uses the all-parameter `Place()` constructor to create
+[source, java]
+`    public static boolean isValidPhotoFilepath(String test) {
+        if (!(test instanceof String)) {
+            throw new NullPointerException();
+        }
+        try {
+            File testPhoto = new File(test);
+            Image image = ImageIO.read(testPhoto);
+            FileInputStream testStream = new FileInputStream(testPhoto);
+            if (image == null) {
+                System.out.println("The file " + testPhoto + " could not be opened, it is not an image");
+                return false;
+            }
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
+    }`
+
+* Else, control returns to `parseUtil.parsePhoto()`. It uses the all-parameter `Place()` constructor to create
 a `Place` object, using the `Photo` parameter and other parameters.
 
 [NOTE]
 A valid filepath must be an absolute file path; it starts with the drive-letter (eg. `C:\\`), and ends with the file name and extension (eg. `castle-photo.jpg`).
 Supported filepaths are `.jpg` `.png` and `.bmp`, which are filepaths supported by `ImageIO.read()` and the Java `Image` class.
 
-// TODO: code snippet comparing
+*Step 9:* When the `select` command is executed, the UI component `ExpandedPlacePanel` receives the `Place` object. It then uses the `photo.filepath` attribute to create a
+JavaFX `Image` object, which is then displayed in a `ImageView` panel at the top of `ExpandedPlacePanel` using the `setImage()` method.
 
-Step 9: When the `select` command is executed, the UI component `ExpandedPlacePanel` receives the `Place` object. It then uses the `photo.filepath` attribute to create a
-JavaFX `Image` object, which is then displayed in a ImageView panel at the top of `ExpandedPlacePanel` using the `setImage()` method.
+[[AddPhotoActivityDiagram]]
+[reftext="Figure 4.4.1.1"]
+[caption="Figure 4.4.1.1: "]
+.Activity diagram for photo feature
+image::AddPhotoActivityDiagram.PNG[width="800"]
 
 ===== Example: Using `add` to include a photo
 
@@ -900,16 +929,16 @@ Given below is an example usage scenario and what the user will see in the GUI.
 Step 1.Input `add n/Himeiji Castle cc/JPN dv/15/12/2017 r/5 d/Wow. a/Kyoto t/castle p/C:\Users\Michael\Pictures\castle-photo.jpg`
 
 [[addPhotoBefore]]
-[reftext="Figure 4.4.2"]
-[caption="Figure 4.4.2: "]
+[reftext="Figure 4.4.1.2"]
+[caption="Figure 4.4.1.2: "]
 .Before the `add` command is executed
 image::addPhotoBefore.png[width="800"]
 
 Step 2. The user inputs `selects 4`.
 
 [[addPhotoAfter]]
-[reftext="Figure 4.4.3"]
-[caption="Figure 4.4.3: "]
+[reftext="Figure 4.4.1.3"]
+[caption="Figure 4.4.1.3: "]
 .After the `add` command is executed and the newly added Place "Himeiji Castle" is selected
 image::addPhotoAfter.png[width="800"]
 
@@ -931,13 +960,13 @@ image::addPhotoAfter.png[width="800"]
 directory of the JAR executable, or some other pre-defined directory.
 
 |*Pros*
-|*Ease-of-use*. This approach is more user-friendly, as users do not need to type an additional `generate` command after changes are made to the Place list. +
+|*Ease-of-use*. This approach is more user friendly when used together with Windows 10 File Explorer `Copy Path` function.
 
 |*Scalability*. This approach is does not require images to be copied or moved from their existing directory to a new directory. Instead, by using
 `Alt-Tab`, Windows 10 File Explorer `Copy Path` function, `Ctrl-C` + `Ctrl-V`, and the `edit` command, users can quickly attach multiple photos to existing places.
 
 |*Cons*
-|*Ease-of-use*. This approach is Less user-friendly as users will  have to manually type in the name and extension of each image file added, +
+|*Ease-of-use*. This approach is less user-friendly as users will  have to manually type in the name and extension of each image file added, +
 or otherwise rename the file to `Ctrl-C` + `Ctrl-V` the file name, and manually type in the extension.
 
 |*Scalability*. For a large number of image files, this approach requires the user spent extra time moving files from their existing directory to
@@ -1111,7 +1140,7 @@ the specified logging level
 *Logging Levels*
 
 * `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
+* `WARNING` : Proceed with caution
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead
 of just its size

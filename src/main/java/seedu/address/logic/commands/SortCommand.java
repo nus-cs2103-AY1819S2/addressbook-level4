@@ -81,19 +81,19 @@ public class SortCommand extends Command {
 
         if (commandInput.equals("name")) {
             processSortMethod(new SortName(), lastShownList);
-        } else if (commandInput.equals("surname")) {
+        } else if ("surname".equals(commandInput)) {
             processSortMethod(new SortSurname(), lastShownList);
-        } else if (commandInput.equals("skills") || commandInput.equals("endorsements")
-                || commandInput.equals("positions")) {
-            processSortMethod(new SortTags(), lastShownList, commandInput);
-        } else if (commandInput.equals("gpa")) {
+        } else if ("gpa".equals(commandInput)) {
             processSortMethod(new SortGpa(), lastShownList);
-        } else if (commandInput.equals("education")) {
+        } else if ("education".equals(commandInput)) {
             processSortMethod(new SortEducation(), lastShownList);
-        } else if (commandInput.substring(commandInput.lastIndexOf(" ") + 1).equals("number")) {
+        } else if ("number".equals(commandInput.substring(commandInput.lastIndexOf(" ") + 1))) {
             processSortMethod(new SortTagNumber(), lastShownList, commandInput);
-        } else if (commandInput.equals("degree")) {
+        } else if ("degree".equals(commandInput)) {
             processSortMethod(new SortDegree(), lastShownList);
+        } else if ("skills".equals(commandInput) || "endorsements".equals(commandInput)
+                || "positions".equals(commandInput)) {
+            processSortMethod(new SortTags(), lastShownList, commandInput);
         } else {
             logger.info("Invalid sort input and cannot be processed.");
         }

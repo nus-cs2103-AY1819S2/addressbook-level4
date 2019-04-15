@@ -9,6 +9,7 @@ import seedu.address.model.statistics.PlayerStatistics;
 
 /**
  * the JsonSerializableStatistics will format the statistics class in a json serializable way.
+ * @author bos10
  */
 @JsonRootName(value = "statistics")
 public class JsonSerializableStatistics {
@@ -21,7 +22,7 @@ public class JsonSerializableStatistics {
 
 
     /**
-     * Converts statistics information to Json property
+     * Converts statistics information to Json property.
      * @param hitCount
      * @param missCount
      * @param movesMade
@@ -42,7 +43,7 @@ public class JsonSerializableStatistics {
 
     }
     /**
-     * Converts this address book into the model's {@code MapGrid} object.
+     * Converts this json statistics data to the PlayerStatistics object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

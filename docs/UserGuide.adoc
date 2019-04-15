@@ -103,7 +103,7 @@ parameter which can be something like `Human Anatomy`.
 * Parameters can be in any order e.g. if the command specifies `q/QUESTION a/ANSWER`, `a/ANSWER q/QUESTION` is also acceptable.
 ====
 
-[Note]
+[NOTE]
 This application only supports Unicode characters compatible with XML. In general, most characters visible on your keyboard are supported!
 Please refer to https://www.w3.org/TR/unicode-xml/#Suitable[here for more details on incompatible characters].
 

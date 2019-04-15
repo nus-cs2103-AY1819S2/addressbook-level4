@@ -22,7 +22,7 @@ import seedu.pdf.model.tag.Tag;
  */
 class JsonAdaptedPdf {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Pdf's %s field is missing!";
+    static final String MISSING_FIELD_MESSAGE_FORMAT = "Pdf's %s field is missing!";
 
     private final String name;
     private final String size;
@@ -34,9 +34,9 @@ class JsonAdaptedPdf {
      * Constructs a {@code JsonAdaptedPdf} with the given pdf details.
      */
     @JsonCreator
-    public JsonAdaptedPdf(@JsonProperty("name") String name, @JsonProperty("directory") String directory,
-                          @JsonProperty("size") String size, @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-                          @JsonProperty("deadline") String deadline) {
+    JsonAdaptedPdf(@JsonProperty("name") String name, @JsonProperty("directory") String directory,
+                   @JsonProperty("size") String size, @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                   @JsonProperty("deadline") String deadline) {
         this.name = name;
         this.directory = directory;
         this.size = size;
@@ -49,7 +49,7 @@ class JsonAdaptedPdf {
     /**
      * Converts a given {@code Pdf} into this class for Jackson use.
      */
-    public JsonAdaptedPdf(Pdf source) {
+    JsonAdaptedPdf(Pdf source) {
         name = source.getName().getFullName();
         size = source.getSize().getValue();
         directory = source.getDirectory().getDirectory();
@@ -59,13 +59,12 @@ class JsonAdaptedPdf {
                 .collect(Collectors.toList()));
     }
 
-
     /**
      * Converts this Jackson-friendly adapted pdf object into the model's {@code Pdf} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted pdf.
      */
-    public Pdf toModelType() throws IllegalValueException {
+    Pdf toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
@@ -87,7 +86,7 @@ class JsonAdaptedPdf {
         if (!Size.isValidSize(size)) {
             throw new IllegalValueException(Size.MESSAGE_CONSTRAINTS);
         }
-        Size modelSize = new Size(size);
+        final Size modelSize = new Size(size);
 
         if (directory == null) {
             throw new IllegalValueException(

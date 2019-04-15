@@ -39,11 +39,8 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyPdfBook getSamplePdfBook() {
-        PdfBook sampleAb = new PdfBook();
-        /*for (Pdf samplePdf : getSamplePdfs()) {
-            sampleAb.addPdf(samplePdf);
-        }*/
-        return sampleAb;
+        PdfBook samplePb = new PdfBook();
+        return samplePb;
     }
 
     /**

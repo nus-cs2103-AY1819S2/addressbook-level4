@@ -381,7 +381,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 // end::undoredo[]
 
-//tag::memberlistfeature
+//tag::memberlistfeature[]
 === Member List Feature
 The Member's List is a core feature that underpins Club Manager's role as a CCA management system.
 To ensure versatility and enhance the usefulness of this list, a number of commands have been introduced to facilitate the management of members. These commands include: `MemberAdd`, `MemberDelete`, `MemberEdit`, `MemberFilter`, `MemberFind`, `MemberList`, `MemberSelect`, and `MemberSort`.
@@ -392,7 +392,7 @@ To ensure versatility and enhance the usefulness of this list, a number of comma
 .Updated Model Component Class Diagram for Member List
 image::person-attributes.png[width=100%]
 
-// end::memberlistfeature
+// end::memberlistfeature[]
 
 // tag::memberadd[]
 ===== `memberAdd` Command

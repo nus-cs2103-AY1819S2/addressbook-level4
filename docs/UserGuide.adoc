@@ -330,7 +330,7 @@ Edits the phone number and email address of the 1st member to be `91234567` and 
 * `memberEdit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd member to be `Betsy Crower` and clears all existing tags.
 
-//tag::memberfilter
+//tag::memberfilter[]
 ==== Filtering member's list: `memberFilter or mFilter`
 ****
 * Filter the member's list based on a filter criteria.
@@ -348,8 +348,6 @@ Examples:
 image::memberFilter1.png[width=70%]
 
 * `memberFilter gender male`
-
-image::memberFilter.png[width=70%]
 
 //end::memberfilter[]
 

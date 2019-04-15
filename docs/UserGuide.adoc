@@ -293,12 +293,19 @@ Examples:
 // tag::stats[]
 ==== Retrieving game statistics: `stats`
 
-Prints a list of statistics related to gameplay, such as accuracy and current hits. +
+Retrieves the gameplay statistics data displays them on a pop-up window.
+
 Format: `stats`
 
 Example:
 
 * `stats`
+
+****
+* The pop-up window will contain a bar chart visualisation of your game play data
+* The pop-up window does not update itself when it is opened and the `stats` command must be called again to display updated
+values.
+****
 // end::stats[]
 
 // tag::upcomingmap[]

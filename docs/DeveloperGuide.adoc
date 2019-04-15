@@ -869,7 +869,7 @@ The following sequence diagram summarizes what happens when a User invokes the `
 image::StatsSequenceDiagram.PNG[width=1000 ]
 Figure 35. Sequence diagram of `stats` command.
 
-==== Save and compare
+==== Save and Compare
 Given below is an example usage scenario of the automatic save and compare feature.
 
 1. Upon winning a game, a user will be presented with the following screen.
@@ -886,13 +886,13 @@ new game.
 The following sequence diagram summarizes what happens at the end of a game and an automatic save is
 performed.
 
-image::SaveSequenceDiag.PNG[width=1000]
+image::SaveSequenceDiag.PNG[width=800]
 Figure 36. Sequence diagram of how the statistics data is saved.
 
 The following sequence diagram summarizes what happens at the end of the game and an automatic reading of previous
 statistics data is performed.
 
-image::ReadSequenceDiagram.PNG[width=1000]
+image::ReadSequenceDiagram.PNG[width=800]
 Figure 37. Sequence diagram of how the previous statistics data is read from storage.
 
 ==== Activity Diagram
@@ -909,22 +909,25 @@ Figure 39. Use case diagram on the statistics feature.
 
 
 ==== Design considerations
-* **Alternative 1:** The methods that are responsible for incrementing the relevant game data is placed
-in whichever command is required to be tracked. This meant that there would be a method call to the statistics class
-from within every method itself.
+===== Design of data-tracking methods
+* **Alternative 1:** The methods that are responsible for incrementing the relevant game data are placed
+in each of the commands to be tracked. This meant that there would be a method call to the statistics class
+from within every method itself, which also meant that every method had to contain a parameter for the PlayerStatistics Object.
 ** Pros: The methods are clearly visible within each command to be tracked and as a developer I can understand when each
 command is being tracked.
-** Cons: This implementation violates the ... principle (Duplicate code) and while the behaviour is unaltered, it is not
-good programming practice.
-* **Alternative 2:** The method responsible for incrementing the statistical data is placed only at the Command Result class.
-** Pros: The implementation abides by the ... principle (no duplicate code) and contains less dependencies on the respective
-class components.
-** Cons: This would mean that the method will have to filter for the corresponding commands only and perform the related
-         methods accordingly. Does not abide by Single Responsibility Principle as the `StatsCommand` will also contain
-         filtering and analysis of data
-** Chosen: Alternative 2. Even though the method violates the Single Responsibility Principle, this can be subverted by
-performing the analysis of data in the Storage component instead. By implementing the method calls at a central Command
-Result, will make ... more modular... less dependencies especially when working with other components..(Edit)
+** Cons: This implementation violates the DRY principle (Don't Repeat Yourself) Principle.
+* **Alternative 2 (Current Choice) :** The method responsible for incrementing the statistical data is placed only at the AttackCommand class.
+** Pros: The implementation does not violate the DRY principle and contains less dependencies on the other components.
+** Cons: It is more difficult to code as it has to account for different CommandResult objects.
+
+===== Type of Storage File
+* **Alternative 1 (Current Choice)** : Use JSON file to store statistics data
+** Pros: Easy to implement as there are libraries pre-installed.
+** Cons: Formatting errors are not validated
+* **Alternative 2 ** : Use XML file to store statistics data
+** Pros: Can put metadata into the tags in  the form of attributes.
+** Cons: Difficult to code as it is less readable and external libraries must be imported.
+
 //end::stats[]
 
 === Logs

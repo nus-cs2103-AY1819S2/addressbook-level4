@@ -188,7 +188,7 @@ Format: `endorse [clear] INDEX n/YOUR NAME`
 existing endorsement tags.
 * Optional *clear* keyword will delete the employee endorsement at a specified index
 * Error will be thrown if an employee tries to un-endorse a candidate he or she has not previously endorsed
-* Compatible with filter and sorting methods for easy navigatio
+* Compatible with filter and sorting methods for easy navigation
 
 ****
 

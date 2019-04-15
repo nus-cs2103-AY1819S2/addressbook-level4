@@ -26,7 +26,7 @@ This section provides a summary of my coding, documentation and other contributi
 
 ** Highlights: This enhancement was challenging to implement as the image filter commands are working on the same image as the image manipulation commands that were implemented by my teammate. It seeks for an in-depth analysis of design alternatives and the implementation of image editing libraries. As my teammate and I had to use two different third-party libraries which return different objects, we had to ensure that the classes in our code (e.g. `CurrentEdit`) have helper methods that accept both objects from the two different libraries.
 
-** Credits: _{The processing of images is facilitated by an external API https://github.com/sksamuel/scrimage[`scrimage`]}_
+** Credits: The processing of images is facilitated by an external API https://github.com/sksamuel/scrimage[`scrimage`]
 
 * *Major enhancement*: I added *the ability to save and set preset commands for faster image-editing*
 
@@ -93,7 +93,6 @@ include::../UserGuide.adoc[tag=SetPreset]
 === *Other Works Contributed*
 '''
 * Black/White feature
-* Command Summary
 
 == Contributions to the Developer Guide
 

@@ -696,7 +696,7 @@ You can find the data saved as data files in `.json` format in the `/data` folde
 
 Go to <<FAQ>> for more details on transferring saved data files.
 
-=== Importing and exporting data from `.csv` files `[coming in v2.0]`
+=== Importing and exporting data with `.csv` files `[coming in v2.0]`
 
 Contact data in `.csv` format can be imported into the contact book, as well as exported from the contact book.
 

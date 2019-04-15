@@ -14,8 +14,6 @@ import seedu.address.model.moduleinfo.ModuleInfoCode;
  */
 public class Course {
     //TODO: Remove some of the classes such as Course Description
-    public static final String MESSAGE_REQ_COMPLETED = "All course requirements have been completed";
-
     private final CourseName courseName;
     private final CourseDescription courseDescription;
     private final List<CourseRequirement> courseRequirements;
@@ -49,6 +47,9 @@ public class Course {
         List<CourseReqType> reqTypeList = new ArrayList<>();
 
         for (CourseRequirement courseReq : courseRequirements) {
+            if (courseReq.getType().equals(CourseReqType.UE)) {
+                continue;
+            }
             if (courseReq.canFulfill(moduleInfoCode) && !reqTypeList.contains(courseReq.getType())) {
                 reqTypeList.add(courseReq.getType());
             }
@@ -71,6 +72,9 @@ public class Course {
         for (CourseRequirement courseReq : courseRequirements) {
             if (!courseReq.getType().equals(reqType)) {
                 continue;
+            }
+            if (courseReq.isFulfilled(nonFailedCodeList)) {
+                return false;
             }
             List<String> unfulfilledRegexList = courseReq.getUnfulfilled(nonFailedCodeList);
             if (unfulfilledRegexList.stream().anyMatch(regex -> moduleInfoCode.toString().matches(regex))) {

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.knowitall.commons.core.Messages.MESSAGE_INVALID_ANSWER_COMMAND;
 import static seedu.knowitall.commons.core.Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FULLSCREEN;
+import static seedu.knowitall.logic.commands.AnswerCommand.MESSAGE_OPTION_NUMBER_EXPECTED;
 import static seedu.knowitall.logic.commands.CommandTestUtil.VALID_ANSWER_1;
 import static seedu.knowitall.logic.commands.CommandTestUtil.VALID_ANSWER_2;
 import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -79,6 +80,32 @@ public class AnswerCommandTest {
     }
 
     @Test
+    public void execute_correctMcqAnswerAttempt_markCorrect() {
+        CommandResult expectedCommandResult = new CommandResult(AnswerCommand.MESSAGE_ANSWER_SUCCESS,
+                CommandResult.Type.ANSWER_CORRECT);
+
+        model.startTestSession();
+        expectedModel.startTestSession();
+
+        while (model.getCurrentTestedCard().getCardType() != Card.CardType.MCQ) {
+            model.testNextCard();
+        }
+        while (expectedModel.getCurrentTestedCard().getCardType() != Card.CardType.MCQ) {
+            expectedModel.testNextCard();
+        }
+
+        Card testedCard = model.getCurrentTestedCard();
+        AnswerCommand answerCommand = new AnswerCommand(new Answer(String.valueOf(testedCard.getAnswerIndex())));
+
+        expectedModel.setCardAsAnswered();
+        Card scoredCard = expectedModel.createScoredCard(testedCard, true);
+        expectedModel.setCard(testedCard, scoredCard);
+        expectedModel.commitActiveCardFolder();
+
+        assertCommandSuccess(answerCommand, model, commandHistory, expectedCommandResult, expectedModel);
+    }
+
+    @Test
     public void execute_wrongAnswerAttempt_markWrong() {
         CommandResult expectedCommandResult = new CommandResult(AnswerCommand.MESSAGE_ANSWER_SUCCESS,
                 CommandResult.Type.ANSWER_WRONG);
@@ -88,13 +115,29 @@ public class AnswerCommandTest {
 
         Card testedCard = model.getCurrentTestedCard();
         AnswerCommand answerCommand = new AnswerCommand(new Answer(VALID_ANSWER_2));
-
         expectedModel.setCardAsAnswered();
         Card scoredCard = expectedModel.createScoredCard(testedCard, false);
         expectedModel.setCard(testedCard, scoredCard);
         expectedModel.commitActiveCardFolder();
 
         assertCommandSuccess(answerCommand, model, commandHistory, expectedCommandResult, expectedModel);
+    }
+
+    @Test
+    public void execute_testMcqCardGiveStringNotNumber_fail() {
+        model.startTestSession();
+        expectedModel.startTestSession();
+
+        while (model.getCurrentTestedCard().getCardType() != Card.CardType.MCQ) {
+            model.testNextCard();
+        }
+        while (expectedModel.getCurrentTestedCard().getCardType() != Card.CardType.MCQ) {
+            expectedModel.testNextCard();
+        }
+
+        Card testedCard = model.getCurrentTestedCard();
+        AnswerCommand answerCommand = new AnswerCommand(testedCard.getAnswer());
+        assertCommandFailure(answerCommand, model, commandHistory, MESSAGE_OPTION_NUMBER_EXPECTED);
     }
 
     @Test

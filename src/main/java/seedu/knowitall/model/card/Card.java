@@ -165,13 +165,13 @@ public class Card {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getQuestion())
-                .append(" Answer: ")
+                .append("\nAnswer: ")
                 .append(getAnswer())
-                .append(" Incorrect options: ")
+                .append("\nIncorrect options: ")
                 .append(getOptions())
-                .append(" Score: ")
+                .append("\nScore: ")
                 .append(getScore())
-                .append(" Hints: ");
+                .append("\nHints: ");
         getHints().forEach(builder::append);
         return builder.toString();
     }

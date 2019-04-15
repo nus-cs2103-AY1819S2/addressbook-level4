@@ -9,7 +9,7 @@ import static seedu.knowitall.commons.util.AppUtil.checkArgument;
  */
 public class Question implements Comparable<Question> {
 
-    public static final int MAX_LENGTH = 512;
+    public static final int MAX_LENGTH = 256;
     public static final String MESSAGE_CONSTRAINTS = "Questions can take any values, should not be blank, and should"
             + " be less than " + MAX_LENGTH + " characters";
     /*
@@ -48,7 +48,7 @@ public class Question implements Comparable<Question> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Question // instanceof handles nulls
-                && fullQuestion.equals(((Question) other).fullQuestion)); // state check
+                && fullQuestion.toLowerCase().equals(((Question) other).fullQuestion.toLowerCase())); // state check
     }
 
     @Override

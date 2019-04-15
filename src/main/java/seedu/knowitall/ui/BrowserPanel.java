@@ -3,12 +3,11 @@ package seedu.knowitall.ui;
 import java.util.logging.Logger;
 
 import javafx.beans.value.ObservableValue;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
-import javafx.scene.web.WebView;
 import seedu.knowitall.commons.core.LogsCenter;
 import seedu.knowitall.model.card.Card;
 import seedu.knowitall.model.card.Option;
@@ -25,7 +24,7 @@ public class BrowserPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
-    private WebView browser;
+    private ScrollPane scrollPane;
     @FXML
     private GridPane cardPage;
     @FXML
@@ -41,10 +40,6 @@ public class BrowserPanel extends UiPart<Region> {
 
     public BrowserPanel(ObservableValue<Card> selectedCard) {
         super(FXML);
-
-        // To prevent triggering events for typing inside the loaded card page.
-        getRoot().setOnKeyPressed(Event::consume);
-
         // Load card page when selected card changes.
         selectedCard.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
@@ -82,6 +77,11 @@ public class BrowserPanel extends UiPart<Region> {
                 index++;
             }
         }
+        cardQuestion.setMinHeight(Region.USE_PREF_SIZE);
+        answer.setMinHeight(Region.USE_PREF_SIZE);
+        score.setMinHeight(Region.USE_PREF_SIZE);
+        hint.setMinHeight(Region.USE_PREF_SIZE);
+        options.setMinHeight(Region.USE_PREF_SIZE);
 
         cardPage.getChildren().addAll(cardQuestion, answer, score, options, hint);
     }

@@ -66,7 +66,7 @@ public class ActivityDetailPanel extends UiPart<Region> {
         actTime.setText("Date & Time: " + activity.getDateTime().fullDateTime);
         actLocation.setText("Location: " + activity.getLocation().value);
         actDescription.setText("Description: " + activity.getDescription().value);
-        actDescription.setWrappingWidth(actDetParent.getWidth()-2);
+        actDescription.setWrappingWidth(actDetParent.getWidth() - 2);
         actStatus.setText("Status: " + activity.getStatus().status.name());
         numAttending.setText("Number of people attending: " + activity.getNumberAttending());
 

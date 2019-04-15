@@ -623,6 +623,10 @@ Format: `end`
 For the final <<testscore, test score>> to be recorded, you must have attempted at least 1/4 of cards in the
  card folder. If there are less than 4 cards, any number of cards attempted will be recorded.
 
+[NOTE]
+An `undo` command after the test session will revert the whole test session so all scores for the cards will be
+updated to it was before a test session. However, test session overall score shown in the report display remains the
+same and is not affected by the undo command.
 
 //tag::reportoperations[]
 === Report Operations

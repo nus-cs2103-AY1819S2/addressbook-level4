@@ -1,11 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.job.JobListName.APPLICANT;
 import static seedu.address.model.job.JobListName.EMPTY;
-import static seedu.address.model.job.JobListName.INTERVIEW;
-import static seedu.address.model.job.JobListName.KIV;
-import static seedu.address.model.job.JobListName.SHORTLIST;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -51,35 +47,12 @@ public class ClearFilterCommand extends Command {
         boolean isAllJobScreen = model.getIsAllJobScreen();
         boolean hasListName = filterListName != EMPTY;
         checkException(isAllJobScreen, hasListName);
-        switch (filterListName) {
-        case APPLICANT:
-            model.clearJobFilteredListsApplicant();
-            model.updateJobAllApplicantsFilteredPersonList();
-            predicateList = model.getPredicateLists(APPLICANT);
-            break;
-        case KIV:
-            model.clearJobFilteredListsKiv();
-            model.updateJobKivFilteredPersonList();
-            predicateList = model.getPredicateLists(KIV);
-            break;
-        case INTERVIEW:
-            model.clearJobFilteredListsInterview();
-            model.updateJobInterviewFilteredPersonList();
-            predicateList = model.getPredicateLists(INTERVIEW);
-            break;
-        case SHORTLIST:
-            model.clearJobFilteredListsShortlist();
-            model.updateJobShortlistFilteredPersonList();
-            predicateList = model.getPredicateLists(SHORTLIST);
-            break;
-        default:
-            model.clearPredicateAllPersons();
-            model.updateFilteredPersonList();
-            predicateList = model.getPredicateLists(EMPTY);
-            break;
-        }
+        model.clearJobFilteredLists(filterListName);
+        model.updateFilteredPersonLists(filterListName);
+        predicateList = model.getPredicateLists(filterListName);
         return new CommandResult(MESSAGE_CLEAR_FILTER_SUCCESS, filterListName, predicateList);
     }
+
     /**
      * @param isAllJobScreen Indicate the current screen, true if screen on all jobs screen
      * @param hasListName    Indicate whether command parser parse the List name
@@ -94,6 +67,7 @@ public class ClearFilterCommand extends Command {
             throw new CommandException(String.format(MESSAGE_REDUNDANT_LISTNAME, showMessage));
         }
     }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

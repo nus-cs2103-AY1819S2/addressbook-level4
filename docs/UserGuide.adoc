@@ -105,6 +105,7 @@ Examples:
 
 * `importResumes C:\Users\MyName\Desktop\MyResumes` +
 Imports all resumes in the given path
+* To try this command with 1000 resumes, use the folder `CVFolder` found in the zip file of slaveFinder()'s release.
 
 
 ==== Open CV for potential applicants : `openCV` `Coming in v2.0`

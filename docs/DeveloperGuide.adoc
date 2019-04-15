@@ -356,6 +356,105 @@ the Nric is stored instead. At load time, the UniqueJobList is only created afte
 ** Pros: Faster loading and adheres to Law of Demeter as the Job does not access more that what it is associated with
 ** Cons: Greater memory usage
 
+// tag::filter[]
+=== Filter Feature
+
+With the filter feature, users can input specific parameters that act as conditions for slaveFinder() to conditionally update the `UniqueFilterList` and filter the `UniquePeronList`. Using these parameters, slaveFinder() shows applicants contains the specified parameters. Filter is visble and can combine or be deleted.
+
+Command Format:
+**`filter [FILTERLISTNAME] fn/FILTERNAME [<prefix>/<parameter>]...`
+**`deleteFilter [FILTERLISTNAME] fn/FILTERNAME`
+**`clearFilter [FILTERLISTNAME]`
+
+[NOTE]
+* FILTERLISTNAME indicate which Job list this command will used.
+
+==== Add Filter
+
+The command format for Adding a Filter is:
+
+Format: `filter [FILTERLISTNAME] fn/FILTERNAME [n/NAME] pp/PHONE_NUMBER] [nric/NRIC] [e/EMAIL] [a/ADDRESS] [g/GENDER] [r/RACE] [m/MAJOR] [s/SCHOOL] [gr/GRADE] [is1/INTERVIEWSCORESQ1] [is2/INTERVIEWSCORESQ2] [is3/INTERVIEWSCORESQ3] [is4/INTERVIEWSCORESQ4] [is5/INTERVIEWSCORESQ5] [j/JOBS_APPLY]... [kpl/KnowPROGLANG]... [pj/PASTJOB]...`
+
+[NOTE]
+====
+* If multiple fields are provided, this command will filter the `UniquePersonList` by `AND` logic among multiple fields.
+* If multiple keywords are provided in one command, this command will filter the `UniquePersonList` by `OR` logic among multiple keywords.
+* Example: `filter fn/filter1 m/CS s/NUS` changes the UI to display applicants whose school is NUS *AND* major is CS. `filter fn/filter2 s/NUS NTU` changes the UI to display applicants whose school is NUS *OR* NTU.
+====
+
+
+Upon entering the `filter` command, the `filter` command word is stripped from the input and the argument fields are passed into the `FilterCommandParser` class. The FilterListName will be stripped from the argument and parse to `LISTNAME` object. `FilterCommandParser` tokenizes the other argument string using `ArgumentTokenizer` object, The regular expressions will be checked and mapping each parameter to it's respective prefix in an `ArgumentMultiMap` object. `FilterCommandParser` then creates a `predicatePersonDescriptor` object using the parameter
+values in `ArgumentMultiMap` for each filter. If invalid parameters are specified by the user, or if an invalid `FILTERLISTNAME` was be inputed, or there is no filter name is provided, then `FilterCommandParser` throws a `ParseException` and displays an error message to the user.
+
+If valid inputs are provided, `predicatePersonDescriptor` will be created and `FilterCommandParser` will return a `FilterCommand` with parameters `predicatePersonDescriptor` and `FilterName` and `FilterListName`. `FilterCommand` then creates a Predicate Manager object (implements Java 8’s Predicate interface) using the parameter values in `predicatePersonDescriptor` for each filter condition, and combines them into one single Predicate using the and() function in Predicate interface. After that, `FilterCommand` calls the addPredicate method in Model to set the Predicate List (indicated by FilterListName).In the end  `FilterCommand` calls the updateFilteredPersonList method in Model to update applicants using all current undeleted PredicateManager object. UI will change and displaying all undeleted Filter name label and the Person who evaluates the set Predicate to true.
+
+===== Current Implementation
+
+The following sequence diagram shows the flow of events when the `filter fn/nus` command is entered by the user:
+
+image::FilterSD.png[width=800]
+Figure: Sequence diagram illustrating the interactions between the
+`Logic` and `Model` components when `filter` command is called.
+
+==== Delete Filter
+
+The command format for Adding a Filter is:
+
+Format: `deleteFilter [FILTERLISTNAME] FILTERNAME`
+
+
+Upon entering the `deleteFilter` command, the `filter` command word is stripped from the input and the argument fields are passed into the `DeleteFilterCommandParser` class. The FilterListName will be stripped from the argument and parse to `LISTNAME` object. `DeleteFilterCommandParser` tokenizes the FILTERNAME.  If an invalid `FILTERLISTNAME` was be inputed, or there is no filter name is provided, then `DeleteFilterCommandParser` throws a `ParseException` and displays an error message to the user.
+
+If valid inputs are provided, `DeleteFilterCommandParser` will return a `DeleteFilterCommand` with parameters `FilterName` and `FilterListName`. `FilterCommand`. After that, `DeleteFilterCommand` calls the removePredicate method in Model to set the Predicate List (indicated by FilterListName).In the end  `FilterCommand` calls the updateFilteredPersonList method in Model to update applicants using all current undeleted PredicateManager object. UI will change and displaying all undeleted Filter name label and the Person who evaluates the set Predicate to true.
+
+==== Clear Filter
+
+The command format for Adding a Filter is:
+
+Format: `clearFilter [FILTERLISTNAME] `
+
+
+Upon entering the `clearFilter` command, the `filter` command word is stripped from the input and the argument fields are passed into the `ClearFilterCommandParser` class. The FilterListName will be stripped from the argument and parse to `LISTNAME` object. `ClearFilterCommandParser` tokenizes the FILTERNAME.  If an invalid `FILTERLISTNAME` was be inputed, then `ClearFilterCommandParser` throws a `ParseException` and displays an error message to the user.
+
+If valid inputs are provided, `ClearFilterCommandParser` will return a `ClearFilterCommand` with parameters `FilterName` and `FilterListName`. `FilterCommand`. After that, `ClearFilterCommand` calls the clearPredicate method in Model to set the Predicate List (indicated by FilterListName).In the end  `ClearFilterCommand` calls the updateFilteredPersonList method in Model to update applicants using an always true PredicateManager object. UI will change and displaying an empty filter panel and the all Persons will show.
+
+==== Design Considerations
+
+===== Aspect: How to parse parameters in filter command
+
+* **Alternative 1 (current choice):** `FilterCommandParse` Create a `predicatePersonDescriptor` object and parse it to `FilterCommand`
+** Pros:
+*** Make filterCommand more comparable. We can compare `predicatePersonDescriptor` to say whether two filter Command is same.
+*** Have better contol on a Filtercommand.
+** Cons: Logic is indirect.
+* **Alternative 2:** `FilterCommandParse` combine all conditions (parameters) in a Predicate and parse it to `FilterCommand`
+** Pros: Logic is direct.
+** Cons: Predicate interface is incomparable so this make test more difficult.
+
+===== Aspect: How to design a filter name restricted format
+
+* **Alternative 1 (current choice):** Filter name can be any String.
+** Pros:
+*** Make Filter name more flexible.
+*** A filter may include many information. But user can only see this filter by it's Filter name label. So it should allow user make a more detailed name for memory and control.
+** Cons: Because user can take unpredictable signas their filter name, so it may cause unpredictable bugs.
+* **Alternative 2:** Filter name should only be restricted in the specified format
+** Pros: Easy to control and handle error.
+** Cons: User more need more complicated filter name.
+
+===== Aspect: How to handle filter grade and interview scores
+
+* **Alternative 1 (current choice):** Filter parameter become a value range and person's score in this range will be returned.
+** Pros:
+*** Make more sense on filtering value related field.
+*** HR manager like to know peron's score in a range, not exactly in a specified value.
+** Cons: May add additional logic and error handling.
+* **Alternative 2:** Same logic as other field
+** Pros: Easy to implement.
+** Cons: HR manager like to know peron's score in a range, not exactly equal to a specified value.
+
+// end::filter[]
+
 === Analytics Feature
 ==== Current Implementation
 
@@ -398,7 +497,6 @@ Step 3. User request for interviews to be generated.
 Step 4. Interviews are generated with the restriction based on the parameters and working hours of a normal working adult.
 
 // end::interviews[]
-==== Design Considerations
 
 ===== Aspect: How interviews is integrated with delete Person command
 
@@ -416,7 +514,6 @@ In the current implementation, the data is copied over and could take up a lot o
 
 ** Pros: Less memory is used
 ** Cons: Need to consider all possible commands, when adding new command, need to include an inverse command.
-
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

@@ -2,7 +2,6 @@
 package seedu.address.model.image;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Config.MAX_FILE_SIZE;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**

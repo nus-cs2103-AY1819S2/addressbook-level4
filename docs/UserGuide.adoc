@@ -652,6 +652,10 @@ Quits the current report session.
 
 Format: `end`
 
+====
+* This command is only valid inside a report display.
+====
+
 //end::reportoperations[]
 
 

@@ -426,8 +426,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
-// tag::dutyPackageDiagram[]
-
+// tag::dutyDiagram[]
 === Duty Package
 
 ==== Implementation
@@ -436,10 +435,9 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 image::DutyPackage.png[width:"600"]
 
 The diagram above shows the high-level structure of the duty components.
-// end::dutyPackageDiagram[]
+// end::dutyDiagram[]
 
 // tag::dutyCalendar[]
-
 ==== Duty Calendar
 
 `DutyCalendar` is an attribute of `PersonalDatabase`. It comprises of three `DutyMonth` objects -- namely `currentMonth`, `nextMonth` and `dummyNextMonth` and a `DutyStorage` object -- `dutyStorage`.
@@ -460,7 +458,7 @@ The diagram above shows the high-level structure of the duty components.
 * `DutyCalendar#confirm()` -- confirms the latest duty schedule by allowing `nextMonth` to point to the current instantiation of `dummyNextMonth`.
 // end::dutyCalendar[]
 
-// tag::dutyPackage[]
+// tag::dutyMonth[]
 ==== Duty Month
 
 `DutyMonth` class represents all duty-related information for a particular month. It contains the following key information:
@@ -477,7 +475,9 @@ The diagram above shows the high-level structure of the duty components.
 * `DutyMonth#removeBlockedDays(person)` -- remove all blocked days for a particular person, indicating that the person can now be assigned duty on any day of the month.
 * `DutyMonth#schedule(personList, dutySettings, dutyStorage)` -- invokes the scheduling alogorithm. Generate all duties for the particular month and assign person from personList to the duties.
 * `DutyMonth#confirm()` -- sets the state of the `DutyMonth` to confirmed. Duty allocation is finalized.
+// end::dutyMonth[]
 
+// tag::duty[]
 ==== Duty
 
 `Duty` class represents a duty for a day. It contains the following information:
@@ -485,7 +485,9 @@ The diagram above shows the high-level structure of the duty components.
 * List of `Person` allocated to the duty.
 * Capacity -- number of persons needed for the duty.
 * Points -- number of  points to be rewarded to each person assigned to the duty.
+// end::duty[]
 
+// tag::dutyStorage[]
 ==== Duty Storage
 
 `DutyMonth` class stores the accumulated duty points and duty records of every person. It has the following key operations:
@@ -494,14 +496,18 @@ The diagram above shows the high-level structure of the duty components.
 * `DutyStorage#undo(dutieslist)` -- restore to previous state of duty points and records. Used when previous confirmed duty schedule has to be undone.
 * `DutyStorage#reward(person, point)` -- adds duty points to a particular person.
 * `DutyStorage#penalize(person, point)` -- deducts duty points from a particular person.
+// end::dutyStorage[]
 
+// tag::dutySettings[]
 ==== Duty Settings
 
 `DutySettings` class is an attribute under `UserPrefs`. It stores information regarding the manpower needed and duty points to be rewarded for each duty based on the day of the week.
 
 
 It is accessed when duties are generated to ensure the appropriate attributes (capacity and points) given to each duty.
+// end::dutySettings[]
 
+// tag::scheduleCommand[]
 ==== Schedule Command
 
 The `schedule` command is called by the admin to generate a viable duty schedule for the upcoming month.
@@ -513,7 +519,9 @@ The sequence diagram above shows how the `schedule` operation works.
 It is worth noting that `schedule` operation does not finalize the duty schedule for next month. Therefore, `dutyCalendar` has to instantiates a new  `dummyNextMonth` for the operation.
 
 Subsequent calling of the `confirm` operation will allow the `nextMonth` object to point to the latest `dummyNextMonth`, and invoke `dutyStorage` to update duty points and records.
+// end::scheduleCommand[]
 
+// tag::scheduleAlgorithm[]
 ==== Schedule Algorithm
 
 image::ScheduleAlgorithm.jpg[width = "600"]
@@ -536,10 +544,12 @@ Approach
 ** A compatible pairing consists of conditions such as the `Person` not having blocked the day of the `Duty` and the `Duty` does not already contain the `Person`.
 ** Iteration continues after the `Duty` is filled or priority queue of `Person` becomes empty (cannot find compatible `Person`).
 * The algorithm ensures that a person with low accumulated duty points will be assigned to duties that rewards higher points and assigned to more duties. This allows the scheduler to automatically balance the duty points of each person by the end of the month.
+// end::scheduleAlgorithm[]
 
+// tag::dutyAlternative[]
 ==== Design Considerations
 
-===== Aspect: storage of Duty issues
+===== Aspect: Storage of Duty issues
 
 * **Alternative 1 (current choice):** `Duty` class also plays the role of `DutyDate` class
 ** Pros: one less layer for simplicity
@@ -558,7 +568,7 @@ Approach
 * **Alternative 2:** Enable `Person` class to contain duty related information. For example, adding a duty point attribute to `Person`.
 ** Pros: Simple and efficient indexing and referencing.
 ** Cons: Increase level of dependencies. Could potentially result in circular dependencies between `Duty` and `Person`.
-// end::dutyPackage[]
+// end::dutyAlternative[]
 
 // tag::swap[]
 === Request for swapping of duties
@@ -1496,12 +1506,71 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
+// tag::scheduleManualTest[]
+=== Schedule duties for next month
+
+. Schedule duties for the next month.
+
+.. Prerequisites: Multiple persons in the list.
+.. Test case: `schedule` +
+   Expected: The schedule for the next month should be generated. +
+   Scroll down to see the duty roster and points to be awarded to the persons.
+// end::scheduleManualTest[]
+
+// tag::confirmScheduleManualTest[]
+=== Confirm schedule for next month
+
+. Confirm a schedule for next month.
+
+.. Prerequisites: `schedule` has just been called.
+.. Test case: `confirm` +
+   Expected: Schedule has been successfully confirmed. +
+   Scroll down to see the duty roster and total points accumulated for the persons. +
+   Call `viewNext` to see the confirmed schedule on the calendar.
+// end::confirmScheduleManualTest[]
+
+// tag::rewardManualTest[]
+=== Reward points to persons
+
+. Rewards points to a person or a list of persons
+
+.. Prerequisites: Multiple persons in the list. Call `points` to view current duty points of the persons.
+.. Test case: `reward i/1 p/10` +
+   Expected: 1st person on the contact list has his duty points increase by 10. Call `points` again to verify. +
+.. Test case: `reward i/1 2 4 p/30` +
+   Expected: 1st, 3nd and 4th persons on the contact list have their duty points increase by 30 each. Call `points` again to verify. +
+// end::rewardManualTest[]
+
+// tag::penalizeManualTest[]
+=== Penalize points to persons
+
+. Penalize points to a person or a list of persons
+
+.. Prerequisites: Multiple persons in the list. Call `points` to view current duty points of the persons.
+.. Test case: `penalize i/1 p/15` +
+   Expected: 1st person on the contact list has his duty points decrease by 15. Call `points` again to verify. +
+.. Test case: `penalize i/2 3 p/5` +
+   Expected: 2nd and 3rd persons on the contact list have their duty points decrease by 5 each. Call `points` again to verify. +
+// end::penalizeManualTest[]
+
+// tag::settingsManualTest[]
+=== Change duty settings
+
+. Change duty settings
+
+.. Prerequisites: Multiple persons in the list. Duty schedule for next month not confirmed. Call `schedule` to get a duty allocation. When viewing the duty roster result from the scheduling, take note of the points awarded by each duty and the number of persons allocated to each duty based on which day of the week it is.
+.. Test case: `settings` +
+   Expected: Duty settings get displayed, indicating the manpower needed and points rewarded for duties based on which day of the week the duty falls on. These numbers should tally with the observations from calling `schedule` previously. +
+.. Test case: `settings d/sun p/10 m/5` +
+   Expected: Sunday duties now require 5 persons and worth 10 points each. Call `schedule` again and observe the duty roster result. The new duty roster should provide information that tallies with the changed duty settings +
+// end::settingsManualTest[]
+
 === BlockDateCommand Tests
 
-. Prerequisites: You need to be logged in as a general user before you can block dates. If there are no personnel Database you can add some by loggin in as an Admin first
+. Prerequisites: You need to be logged in as a general user before you can block dates. If there are no personnel Database you can add some by login in as an Admin first
 
 .. Test case : block 1 5 6
-Expected : The person has succesfully blocked days in the upcoming month and when schedule is run he will not be assigned duties on those days.
+Expected : The person has successfully blocked days in the upcoming month and when schedule is run he will not be assigned duties on those days.
 
 .. Test case : block -1
 Expected : CommandException will be thrown to show invalid date. No dates will be blocked.

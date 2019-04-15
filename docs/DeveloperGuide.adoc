@@ -844,11 +844,11 @@ Step 3. Input `stats` into the command-line and press enter to obtain the curren
 
 Inputting `stats` :
 
-image::inputStatsCommandSS.png[width=250]
+image::inputStatsCommandSS.png[width=400]
 
 Pop-up window for `stats` :
 
-image::StatsWindowSS.png[width=600]
+image::StatsWindowSS.png[width=800]
 
 There should not be any valid data at the moment as the game as not started.
 
@@ -856,24 +856,22 @@ Step 4. Now proceed with the game and perform an attack. Input `attack a1`.
 
 Step 5. Invoke the `stats` command again to view the updated statistics of the attack result.
 
-image::StatsWindowUpdatedSS.PNG[width=400]
+image::StatsWindowUpdatedSS.PNG[width=800]
 
 Besides the pop-up window, the data is also captured in the command-line result box.
 
 image::StatsCommandBox.PNG[width=400]
 
-End of Example Usage Scenario
-
 The following sequence diagram summarizes what happens when a User invokes the `stats` command.
 
-image::StatsSequenceDiagram.PNG[width=800]
+image::StatsSequenceDiagram.PNG[width=1000 ]
 
 ==== Save and compare
 Given below is an example usage scenario of the automatic save and compare feature.
 
 1. Upon winning a game, a user will be presented with the following screen.
 
-image::StatsWinScreen.png[width=650]
+image::StatsWinScreen.PNG[width=650]
 Notice the displayed 'Statistics Analysis' section that displays a comparison of the player's accuracy in the current game and
 the previous game.
 
@@ -882,12 +880,10 @@ the previous game.
 3. Next, input the command `stats` to observe how the previous statistics data has also been cleared in preparation for the
 new game.
 
-End of Example Usage Scenario.
-
 The following sequence diagram summarizes what happens at the end of a game and an automatic save is
 performed.
 
-image::SaveSequenceDiag.PNG[width=800]
+image::SaveSequenceDiag.PNG[width=1000]
 
 The following sequence diagram summarizes what happens when a previous statistic data is read and compared.
 

@@ -628,10 +628,9 @@ An example is shown below:
 .Report display
 image::ReportDisplay.png[width="790"]
 
-**Resizable graph** `Coming in v2.0`
-
+[TIP]
 The report display is currently best viewed with the window in full screen. Otherwise, you may need to use the horizontal and vertical
-scroll bars to view the graph and questions. Hang tight, a display that changes in size is coming soon!
+scroll bars to view the graph and questions. Hang tight, a display that changes in size is coming in v2.0!
 
 **Displays response time for each card** `Coming in v2.0`
 

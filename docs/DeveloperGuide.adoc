@@ -18,6 +18,7 @@ endif::[]
 
 By: `Team W17-3`      Since: `March 2019`      Licence: `MIT`
 
+[.text-justify]
 == Introduction
 {bl}
 [blue]#Welcome to the _In-Credit-Ble_ Developer Guide!#
@@ -34,6 +35,7 @@ and <<ContactUs#, [blue]#ContactUs.adoc#>> for more information on how to contac
 
 {bl}
 
+[.text-justify]
 == Setting Up
 {bl}
 
@@ -56,6 +58,7 @@ Do not disable them. If you have disabled them, go to menu:File[Settings > Plugi
 
 === Setting up the project in your computer
 {bl}
+
 . Fork this repo, and clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen, click menu:File[Close Project] to close the existing project dialog first)
 . Set up the correct JDK version for Gradle
@@ -76,6 +79,7 @@ This will generate all resources required by the application and tests.
 
 === Verifying the setup
 {bl}
+
 . Run `[fuchsia]#seedu.finance.MainApp#` and try a few commands
 . <<Testing,[underline blue]#Run the tests#>> to ensure they all pass.
 
@@ -83,6 +87,7 @@ This will generate all resources required by the application and tests.
 
 === Configurations to do before writing code
 {bl}
+
 ==== Configuring the coding style
 {bl}
 This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[[blue]#oss-generic coding standards#]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
@@ -134,7 +139,7 @@ When you are ready to start coding,
 2. Take a look at [underline blue]#<<GetStartedProgramming>>#.
 
 {bl}
-
+[.text-justify]
 == Design
 {bl}
 
@@ -305,10 +310,11 @@ The `[fuchsia]#Storage#` component,
 Classes used by multiple components are in the `[fuchsia]#seedu.financetracker.commons#` package.
 
 {bl}
-
+[.text-justify]
 == Implementation
-
+{bl}
 This section describes in detail the implementation of certain features in _In-Credit-Ble_.
+{bl}
 
 // tag::search[]
 === Search feature
@@ -317,6 +323,8 @@ This feature allows the user to filter out specific expenses based on keywords t
 or date.
 
 This implementation is under `[fuchsia]#Logic#` and `[fuchsia]#Model#` Component.
+
+{bl}
 
 ==== Current Implementation
 The search command uses predicates that implement `[fuchsia]#java.util.Predicate#` interface which will be used to filter the records
@@ -362,6 +370,8 @@ by the new predicate.
 7. Then the record list panel will show a set of records according to the keywords. A `[fuchsia]#CommandResult#` is then created
 and returned to `[fuchsia]#Logic Manager#`.
 
+{bl}
+
 ==== Design Consideration
 
 This feature can be implemented in different ways in terms of how the records are found.
@@ -386,6 +396,8 @@ that is inputted into the finance tracker.
 
 // end::search[]
 
+{bl}
+
 // tag::sort[]
 === Sort feature
 
@@ -393,6 +405,7 @@ By default, the list of entries is ordered according to the time the entry is en
 where the entry entered first will be at the top of the list, and the entry entered last is at the bottom of the list.
 The sort mechanism allows users to view their expense records in a different way.
 
+{bl}
 
 ==== Current Implementation
 
@@ -408,7 +421,7 @@ The sort command uses comparators that implement `[fuchsia]#java.util.Comparator
 |`[fuchsia]#sort -cat#`, `[fuchsia]#sort -cat -asc#` |`[fuchsia]#RecordCategoryComparator#` |Lexicographical order
 
 |===
-
+{bl}
 
 .Sort commands (Specified order opposite to that of default)
 |===
@@ -422,7 +435,7 @@ The sort command uses comparators that implement `[fuchsia]#java.util.Comparator
 |===
 
 Here is the list of operations involved in the execution of command, `[fuchsia]#sort -name#`.
-
+[.text-left]
 . `[fuchsia]#LogicManager#execute(_"sort -name"_)#` calls `[fuchsia]#FinanceTrackerParser#parseCommand(_"sort -name"_)#`.
 . `[fuchsia]#FinanceTracker#parseCommand(_"sort -name"_)#` creates a new `[fuchsia]#SortCommandParser#` object and calls `[fuchsia]#SortCommandParser#parse(_" -name"_)#`.
 . `[fuchsia]#SortCommandParser#parse()#` creates a new `[fuchsia]#RecordNameComparator()#` object, _comparator_ and passes it as a parameter into the `[fuchsia]#SortCommand#` constructor.
@@ -440,6 +453,8 @@ image::SortSequenceDiagram1.png[width="800"]
 
 .Sequence Diagram of Sort Command II
 image::SortSequenceDiagram2.png[width="800"]
+
+{bl}
 
 ==== Design Considerations
 
@@ -474,6 +489,8 @@ image::SortSequenceDiagram2.png[width="800"]
 
 // end::sort[]
 
+{bl}
+
 // tag::reverse[]
 === Reverse feature
 
@@ -481,10 +498,12 @@ The reverse feature allows users to reverse the list of entries displayed on the
 The sort features are implemented with a default ordering.
 The reverse command provides a convenient way for users to sort their entries in reverse order.
 
+{bl}
+
 ==== Current Implementation
 
 This is how the reverse command is implemented:
-
+[.text-left]
 . `[fuchsia]#LogicManager#execute(_"reverse"_)#` calls `[fuchsia]#FinanceTrackerParser#parseCommand(_"reverse"_)#`.
 . `[fuchsia]#FinanceTrackerParser#parseCommand(_"reverse"_)#` creates a `[fuchsia]#ReverseCommand#` object, _r_.
 . _r_ is passed back to the `[fuchsia]#FinanceTrackerParser#`, and then back to the `[fuchsia]#LogicManager#`.
@@ -499,6 +518,8 @@ This is how the reverse command is implemented:
 image::ReverseSequenceDiagram.png[width="800"]
 
 // end::reverse[]
+
+{bl}
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -516,16 +537,19 @@ These operations are exposed in the `[fuchsia]#Model#` interface as `[fuchsia]#M
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
+{bl}
 *Step 1.* +
 The user launches the application for the first time. The `[fuchsia]#VersionedFinanceTracker#` will be initialized with the initial finance tracker state, and the `[fuchsia]#currentStatePointer#` pointing to that single finance tracker state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
+{bl}
 *Step 2.* +
 The user executes `[fuchsia]#delete 5#` command to delete the 5th record in the finance tracker. The `[fuchsia]#delete#` command calls `[fuchsia]#Model#commitFinanceTracker()#`, causing the modified state of the finance tracker after the `[fuchsia]#delete 5#` command executes to be saved in the `[fuchsia]#financeTrackerStateList#`, and the `[fuchsia]#currentStatePointer#` is shifted to the newly inserted finance tracker state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
+{bl}
 *Step 3.* +
 The user executes `[fuchsia]#spend n/burger ...#` to add a new record. The `[fuchsia]#spend#` command also calls `[fuchsia]#Model#commitFinanceTracker()#`, causing another modified finance tracker state to be saved into the `[fuchsia]#financeTrackerStateList#`.
 
@@ -534,6 +558,7 @@ image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 [NOTE]
 If a command fails its execution, it will not call `[fuchsia]#Model#commitFinanceTracker()#`, so the finance tracker state will not be saved into the `[fuchsia]#financeTrackerStateList#`.
 
+{bl}
 *Step 4.* +
 The user now decides that adding the record was a mistake, and decides to undo that action by executing the `[fuchsia]#undo#` command. The `[fuchsia]#undo#` command will call `[fuchsia]#Model#undoFinanceTracker()#`, which will shift the `[fuchsia]#currentStatePointer#` once to the left, pointing it to the previous finance tracker state, and restores the finance tracker to that state.
 
@@ -552,11 +577,13 @@ The `[fuchsia]#redo#` command does the opposite -- it calls `[fuchsia]#Model#red
 [NOTE]
 If the `[fuchsia]#currentStatePointer#` is at index `[fuchsia]#financeTrackerStateList.size() - 1#`, pointing to the latest finance tracker state, then there are no undone finance tracker states to restore. The `[fuchsia]#redo#` command uses `[fuchsia]#Model#canRedoFinanceTracker()#` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
+{bl}
 *Step 5.* +
 The user then decides to execute the command `[fuchsia]#list#`. Commands that do not modify the finance tracker, such as `[fuchsia]#list#`, will usually not call `[fuchsia]#Model#commitFinanceTracker()#`, `[fuchsia]#Model#undoFinanceTracker()#` or `[fuchsia]#Model#redoFinanceTracker()#`. Thus, the `[fuchsia]#financeTrackerStateList#` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
+{bl}
 *Step 6.* +
 The user executes `[fuchsia]#clear#`, which calls `[fuchsia]#Model#commitFinanceTracker()#`. Since the `[fuchsia]#currentStatePointer#` is not pointing at the end of the `[fuchsia]#financeTrackerStateList#`, all finance tracker states after the `[fuchsia]#currentStatePointer#` will be purged. We designed it this way because it no longer makes sense to redo the `[fuchsia]#spend n/burger ...#` command. This is the behavior that most modern desktop applications follow.
 
@@ -565,6 +592,8 @@ image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 The following activity diagram summarizes what happens when a user executes a new command:
 
 image::UndoRedoActivityDiagram.png[width="650"]
+
+{bl}
 
 ==== Design Considerations
 
@@ -586,6 +615,8 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `[fuchsia]#HistoryManager#` now needs to do two different things.
 // end::undoredo[]
+
+{bl}
 
 // tag::budgetmanagement[]
 
@@ -611,6 +642,8 @@ any number of `[fuchsia]#CategoryBudget#`.
 As seen in the class diagram, the `[fuchsia]#CategoryBudget#` in `[fuchsia]#TotalBudget#` is kept in a `[fuchsia]#HashSet#`.
 
 // end::budgetclassdiagram[]
+
+{bl}
 
 // tag::budget[]
 ==== Setting a Budget
@@ -647,6 +680,7 @@ that the budget has been set (Budget set to 120 in example).
 . Although not shown in the diagram, the UI is then updated with the new budget. The UI update of budget data will be
 covered in [underline blue]#<<Updating the UI with Budget Data>>#.
 
+{bl}
 
 ==== Design Consideration
 
@@ -661,6 +695,8 @@ iterating through changed record list.
 ** Pros: App would run updates faster with more targeted methods.
 ** Cons: More code and test cases to be written to implement and maintain several methods for updating budget.
 //end::budget[]
+
+{bl}
 
 // tag::categorybudget[]
 ==== Allocating a budget to category
@@ -690,6 +726,8 @@ calls `[fuchsia]#TotalBudget#setNewCategoryBudget()#`.
 . `[fuchsia]#TotalBudget#setNewCategoryBudget()#` takes into account if there are any previous budget
 allocated to a category and if so, adds the expenses to the new budget assigned to the category
 
+{bl}
+
 ==== Design consideration
 
 ===== Aspect: allocating Category Budget
@@ -707,10 +745,14 @@ if the category was not previously allocated with a budget
 ** Cons: User might be confused with too many commands and not intuitive.
 // end::categorybudget[]
 
+{bl}
+
 // tag::show[]
 ==== Listing Category Budgets allocated
 This feature allows user to list the category budgets and the current spending in these
 categories after category budgets are allocated.
+
+{bl}
 
 ==== Implementation
 . User enters command `[fuchsia]#show#` in Command Box.
@@ -721,6 +763,8 @@ budgets
 . An `[fuchsia]#Iterator#` is then used to iterate through the set of `[fuchsia]#CategoryBudgets#` and the `[fuchsia]#currentSpending#` is printed with
 the `[fuchsia]#totalBudget#` allocated to the `[fuchsia]#CategoryBudget#`.
 // end::show[]
+
+{bl}
 
 //tag::budgetupdateui[]
 ==== Updating the UI with Budget Data
@@ -763,6 +807,7 @@ details.
 //end::budgetupdateui[]
 //end::budgetmanagement[]
 
+{bl}
 
 // tag::summary[]
 === Summary
@@ -770,25 +815,37 @@ The `[fuchsia]#summary#` feature shows an overview of your previous expenditures
 
 You can also set a report period by indicating the number of days or months. Specifying a report period is optional. If no parameters are defined, data of expenditures in the past week (ie. the last `[fuchsia]#7#` days) will be displayed in the pie chart by default.
 
+{bl}
+
 ==== Implementation
 The implementation of the `[fuchsia]#Summary#` command can be divided into two phases – preparation and execution. Given below is an explanation of how the summary mechanism behaves at each phase.
 
+{bl}
+
 ===== Preparation
 In the preparation phase, the application will parse the command. Below is the UML Sequence diagram and a step-by-step explanation of the preparation stage.
+{bl}
 
 .Sequence diagram of the preparation stage in the summary mechanism
 image::SummarySequenceDiagram.png[width="800"]
+
+{bl}
 
 1.	User first enters the command `[fuchsia]#summary #/7 p/d#`. This command is received by `[fuchsia]#FinanceTrackerParser#`, which then calls `[fuchsia]#SummaryCommandParser#parse()#` to create `[fuchsia]#SummaryCommand#`.
 2.	If no parameters are provided by the user, `[fuchsia]#SummaryCommand#SummaryCommand()#` is called to create `[fuchsia]#SummaryCommand#` with the default parameters of `[fuchsia]#periodAmount#` as `[fuchsia]#7#` and `[fuchsia]#period#` as `[fuchsia]#d#`. Otherwise, `[fuchsia]#SummaryCommand#SummaryCommand(periodAmount, period)#` is called to create `[fuchsia]#SummaryCommand#` with the specified parameters.
 3.	`[fuchsia]#SummaryCommand#` then checks if the parameters are valid. If any parameter is invalid, an exception will be thrown, and an error message will be shown to the user. Else, the parameters are stored in instance variables and `[fuchsia]#SummaryCommand#` is returned to `[fuchsia]#LogicManager#`.
 4.	`[fuchsia]#LogicManager#` then calls `[fuchsia]#SummaryCommand#execute()#`, which updates the variables `[fuchsia]#RecordSummaryPredicate#`, `[fuchsia]#summaryPeriod#` and `[fuchsia]#periodAmount#` in `[fuchsia]#ModelManager#`.
 
+{bl}
+
 ===== Execution
 In the execution phase, the program handles `[fuchsia]#ShowSummaryRequestEvent#` posted by `[fuchsia]#SummaryCommand#` to retrieve the data to be displayed. The data will be rendered as a JavaFX `[fuchsia]#PieChart#` and then displayed. Below is the UML sequence diagram and a step-by-step explanation of the execution stage.
+{bl}
 
 .Sequence diagram of the execution stage in the summary mechanism
 image::SummarySequenceDiagram2.png[width="800"]
+
+{bl}
 
 1.	The `[fuchsia]#handleShowSummary#` will be handled by `[fuchsia]#MainWindow#handleShowSummary()#`, which will call `[fuchsia]#SummaryPanel#setData()#` and pass the data as parameters by calling `[fuchsia]#Logic#getRecordSummary()#`, `[fuchsia]#Logic#getSummaryPeriod()#`  and `[fuchsia]#Logic#getPeriodAmount()#`.
 2.	`[fuchsia]#Logic#getRecordSummary()#` gets the filtered record list by calling `[fuchsia]#Model#getRecordSummary()#`, which returns an unmodifiable `[fuchsia]#ObservableList#`, containing only expenses in the last 7 days.
@@ -813,6 +870,8 @@ ii)	Else, `[fuchsia]#SummaryPanel#setSummaryData()#` will be called, which gener
             pieChart.setLegendSide(Side.BOTTOM);
             chartArea.getChildren().add(pieChart);
     }
+
+{bl}
 
 ==== Design Consideration
 ===== Aspect: Representation for Summary of Expenditure
@@ -839,10 +898,14 @@ Each sector of the chart represents a category. The area of each sector indicate
 
 //end::summary[]
 
+{bl}
+
 // tag::theme[]
 === Theme
 The `[fuchsia]#theme#` feature allows users to change the colour theme of the application to provide
 them with some customisation.
+
+{bl}
 
 ==== Implementation
 . User enters command `[fuchsia]#theme COLOUR#` in Command Box, where `[fuchsia]#COLOUR#` is either `[fuchsia]#dark#`, `[fuchsia]#light#`, `[fuchsia]#blue#` or `[fuchsia]#pink#`
@@ -854,6 +917,8 @@ first character in uppercase and the rest of the characters in lowercase.
 to the user-specified input
 // end::theme[]
 
+{bl}
+
 === Logging
 
 We are using `[fuchsia]#java.util.logging#` package for logging. The `[fuchsia]#LogsCenter#` class is used to manage the logging levels and logging destinations.
@@ -862,6 +927,7 @@ We are using `[fuchsia]#java.util.logging#` package for logging. The `[fuchsia]#
 * The `[fuchsia]#Logger#` for a class can be obtained using `[fuchsia]#LogsCenter.getLogger(Class)#` which will log messages according to the specified logging level
 * Currently log messages are output through: `[fuchsia]#Console#` and to a `[fuchsia]#.log#` file.
 
+{bl}
 *Logging Levels*
 
 * `[fuchsia]#SEVERE#` : Critical problem detected which may possibly cause the termination of the application
@@ -869,29 +935,39 @@ We are using `[fuchsia]#java.util.logging#` package for logging. The `[fuchsia]#
 * `[fuchsia]#INFO#` : Information showing noteworthy actions by the application
 * `[fuchsia]#FINE#` : Details that is not usually noteworthy but may be useful in debugging [navy]#e.g.# print the actual list instead of just its size
 
+{bl}
+
 [[Implementation-Configuration]]
 === Configuration
 
 Certain properties of the application can be controlled ([navy]#e.g.# user prefs file location, logging level) through the configuration file (default: `[fuchsia]#config.json#`).
 
-== Documentation
+{bl}
 
+== Documentation
+{bl}
 We use asciidoc for writing documentation.
 
 [NOTE]
 We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
 
+{bl}
+[.text-justify]
 === Editing Documentation
-
+{bl}
 See <<UsingGradle#rendering-asciidoc-files, [blue]#UsingGradle.adoc#>> to learn how to render `[fuchsia]#.adoc#` files locally to preview the end result of your edits.
 Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `[fuchsia]#.adoc#` files in real-time.
 
-=== Publishing Documentation
+{bl}
 
+=== Publishing Documentation
+{bl}
 See <<UsingTravis#deploying-github-pages, [blue]#UsingTravis.adoc#>> to learn how to deploy GitHub Pages using Travis.
 
-=== Converting Documentation to PDF format
+{bl}
 
+=== Converting Documentation to PDF format
+{bl}
 We use https://www.google.com/chrome/browser/desktop[[blue]#Google Chrome#] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
 
 Here are the steps to convert the project documentation files to PDF format.
@@ -905,13 +981,17 @@ Here are the steps to convert the project documentation files to PDF format.
 .Saving project documentation files to PDF format
 image::chrome_save_as_pdf.png[width="300"]
 
+{bl}
+
 [[Docs-SiteWideDocSettings]]
 === Site-wide Documentation Settings
-
+{bl}
 The link:{repoURL}/build.gradle[`[blue]#build.gradle#`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[ [blue]_asciidoc attributes_] which affects how all documentation files within this project are rendered.
 
 [TIP]
 Attributes left unset in the `[fuchsia]#build.gradle#` file will use their *default value*, if any.
+
+{bl}
 
 [cols="1,2a,1", options="header"]
 .List of site-wide attributes
@@ -935,15 +1015,19 @@ This will render the SE-EDU navigation bar at the top of the page, and add some 
 
 |===
 
+{bl}
+
 [[Docs-PerFileDocSettings]]
 === Per-file Documentation Settings
-
+{bl}
 Each `[fuchsia]#.adoc#` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[[blue]_asciidoc attributes_] which affects how the file is rendered.
 
 Asciidoctor's https://asciidoctor.org/docs/user-manual/#builtin-attributes[[blue]_built-in attributes_] may be specified and used as well.
 
 [TIP]
 Attributes left unset in `[fuchsia]#.adoc#` files will use their *default value*, if any.
+
+{bl}
 
 [cols="1,2a,1", options="header"]
 .List of per-file attributes, excluding Asciidoctor's built-in attributes
@@ -964,8 +1048,10 @@ _{asterisk} Official SE-EDU projects only_
 
 |===
 
-=== Site Template
+{bl}
 
+=== Site Template
+{bl}
 The files in link:{repoURL}/docs/stylesheets[`[blue]#docs/stylesheets#`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[[blue]#CSS stylesheets#] of the site.
 You can modify them to change some properties of the site's design.
 
@@ -978,21 +1064,27 @@ Modifying the template files in link:{repoURL}/docs/templates[`[blue]#docs/templ
 You should only modify them if you need greater control over the site's layout than what stylesheets can provide.
 ====
 
+{bl}
+[.text-justify]
 [[Testing]]
 == Testing
 
-=== Running Tests
+{bl}
 
+=== Running Tests
+{bl}
 There are three ways to run tests.
 
 [TIP]
 The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
 
+{bl}
 *Method 1: Using IntelliJ JUnit test runner*
 
 * To run all tests, right-click on the `[fuchsia]#src/test/java`# folder and choose `[fuchsia]#Run 'All Tests'#`
 * To run a subset of tests, you can right-click on a test package, test class, or a test and choose `[fuchsia]#Run 'ABC'#`
 
+{bl}
 *Method 2: Using Gradle*
 
 * Open a console and run the command `[fuchsia]#gradlew clean allTests#` (Mac/Linux: `[fuchsia]#./gradlew clean allTests#`)
@@ -1000,14 +1092,17 @@ The most reliable way to run tests is the 3rd one. The first two methods might f
 [NOTE]
 See <<UsingGradle#, [blue]#UsingGradle.adoc#>> for more info on how to run tests using Gradle.
 
+{bl}
 *Method 3: Using Gradle (headless)*
 
 Thanks to the https://github.com/TestFX/TestFX[[blue]#TestFX#] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
 
 To run tests in headless mode, open a console and run the command `[fuchsia]#gradlew clean headless allTests#` (Mac/Linux: `./[fuchsia]#gradlew clean headless allTests#`)
 
-=== Types of tests
+{bl}
 
+=== Types of tests
+{bl}
 We have two types of tests:
 
 .  *GUI Tests* - These are tests involving the GUI. They include,
@@ -1021,32 +1116,47 @@ We have two types of tests:
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
 [navy]#e.g.# `[fuchsia]#seedu.finance.logic.LogicManagerTest#`
 
+{bl}
 
 === Troubleshooting Testing
+{bl}
 **Problem: `[fuchsia]#HelpWindowTest#` fails with a `[fuchsia]#NullPointerException#`.**
 
 * Reason: One of its dependencies, `[fuchsia]#HelpWindow.html#` in `[fuchsia]#src/main/resources/docs#` is missing.
 * Solution: Execute Gradle task `[fuchsia]#processResources#`.
 
+{bl}
+[.text-justify]
 == Dev Ops
 
-=== Build Automation
+{bl}
 
+=== Build Automation
+{bl}
 See <<UsingGradle#, [blue]#UsingGradle.adoc#>> to learn how to use Gradle for build automation.
 
-=== Continuous Integration
+{bl}
 
+=== Continuous Integration
+{bl}
 We use https://travis-ci.org[[blue]#Travis CI#] and https://www.appveyor.com[[blue]#AppVeyor#] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, [blue]#UsingTravis.adoc#>> and <<UsingAppVeyor#, [blue]#UsingAppVeyor.adoc#>> for more details.
 
-=== Coverage Reporting
+{bl}
 
+=== Coverage Reporting
+{bl}
 We use https://coveralls.io[[blue]#Coveralls#] to track the code coverage of our projects. See <<UsingCoveralls#, [blue]#UsingCoveralls.adoc#>> for more details.
 
+{bl}
+
 === Documentation Previews
+{bl}
 When a pull request has changes to asciidoc files, you can use https://www.netlify.com[[blue]#Netlify#] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, [blue]#UsingNetlify.adoc#>> for more details.
 
-=== Making a Release
+{bl}
 
+=== Making a Release
+{bl}
 Here are the steps to create a new release.
 
 .  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`[blue]#MainApp.java#`].
@@ -1054,20 +1164,24 @@ Here are the steps to create a new release.
 .  Tag the repo with the version number. [navy]#e.g.# `[fuchsia]#v0.1#`
 .  https://help.github.com/articles/creating-releases[[blue]#Create a new release using GitHub#] and upload the JAR file you created.
 
-=== Managing Dependencies
+{bl}
 
+=== Managing Dependencies
+{bl}
 A project often depends on third-party libraries. For example, _In-Credit-Ble_ depends on the https://github.com/FasterXML/jackson[[blue]#Jackson library#] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
 
 [loweralpha]
 . Include those libraries in the repo (this bloats the repo size)
 . Require developers to download those libraries manually (this creates extra work for developers)
 
-[[GetStartedProgramming]]
+{bl}
 
+[[GetStartedProgramming]]
+[.text-justify]
 // tag::appendixA[]
 [appendix]
 == Product Scope
-
+{bl}
 *Target user profile*:
 
 * has a need to manage a significant amount of expenses/finances
@@ -1076,16 +1190,22 @@ A project often depends on third-party libraries. For example, _In-Credit-Ble_ d
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
+{bl}
 *Value proposition*: Manage expenses faster than a typical mouse/GUI driven app
 // end::appendixA[]
 
+{bl}
+
 // tag::appendixB[]
 [appendix]
+[.text-justify]
 == User Stories
-
+{bl}
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+{bl}
+
+[cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to it when I forget how to use the application
@@ -1118,11 +1238,16 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 // end::appendixB[]
 
+{bl}
+
 // tag::appendixC[]
 [appendix]
+[.text-justify]
 == Use Cases
-
+{bl}
 (For all use cases below, the *System* is `[fuchsia]#In-Credit-Ble#` and the *User* is the `[fuchsia]#user#`, unless specified otherwise)
+
+{bl}
 
 [discrete]
 === Use case: Setting a budget for the month
@@ -1141,6 +1266,8 @@ Use case ends.
 +
 Use case ends.
 
+{bl}
+
 [discrete]
 === Use case: Allocate budget to a category
 
@@ -1153,6 +1280,8 @@ Use case ends.
 +
 Use case ends.
 
+{bl}
+
 [discrete]
 === Use case: Increasing budget for the month
 
@@ -1164,6 +1293,8 @@ Use case ends.
 4.  _System_ will increase the budget for the month (that is associated with category input)
 +
 Use case ends.
+
+{bl}
 
 [discrete]
 === Use case: Add expense entry
@@ -1186,6 +1317,8 @@ Use case ends.
 ** 3a1. _System_ shows an error message.
 +
 Use case resumes at step 2.
+
+{bl}
 
 [discrete]
 === Use case: Editing an expense entry
@@ -1214,6 +1347,8 @@ Use case ends
 +
 Use case resumes at step 2.
 
+{bl}
+
 [discrete]
 === Use case: Delete expense entry
 
@@ -1240,6 +1375,8 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+{bl}
+
 [discrete]
 === Use case: Listing history of entered commands
 
@@ -1256,6 +1393,8 @@ Use case ends.
 * 1a. There was no entered commands
 +
 Use case ends.
+
+{bl}
 
 [discrete]
 === Use case: User wants to undo previous command
@@ -1274,6 +1413,8 @@ Use case ends.
 +
 Use case ends with message to let _User_ know there is no previous command
 
+{bl}
+
 [discrete]
 === Use case: User wants to redo previous undone command
 
@@ -1291,6 +1432,7 @@ Use case ends.
 +
 Use case ends with message to let _User_ know there is no previous undone command
 
+{bl}
 
 [discrete]
 === Use case: User wants to clear all entries
@@ -1311,8 +1453,12 @@ Use case ends with message to let _User_ know there are no entries in _System_
 
 // end::appendixC[]
 
+{bl}
+
 [appendix]
+[.text-justify]
 == Non Functional Requirements
+{bl}
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `[fuchsia]#9#` or higher installed.
 .  Should work on both 32-bit and 64-bit environments.
@@ -1321,8 +1467,12 @@ Use case ends with message to let _User_ know there are no entries in _System_
 .  The user interface should be intuitive and easy to use for people who are not IT-savvy.
 .  Responses by the system should be fast (~5 seconds).
 
+{bl}
+
 [appendix]
+[.text-justify]
 == Glossary
+{bl}
 
 Amount::
 The amount of money for expenditure and budget
@@ -1337,9 +1487,12 @@ Windows, Linux, Unix, OS-X
 Records::
 The list of all entries stored in the application
 
-[appendix]
-== Product Survey
+{bl}
 
+[appendix]
+[.text-justify]
+== Product Survey
+{bl}
 *[fuchsia]#Monefy - Money Manager#*
 
 Author: Aimbity AS
@@ -1359,6 +1512,7 @@ Cons:
 
 *[fuchsia]#Money Lover: Expense Tracker & Budget Planner#*
 
+{bl}
 Author: Finsify
 
 Pros:
@@ -1375,6 +1529,7 @@ Cons:
 * Unable to edit a transaction
 * Budgets are based per account
 
+{bl}
 *[fuchsia]#Seedly - Personal Finance App#*
 
 Author: Seedly Pte Ltd
@@ -1395,15 +1550,21 @@ Cons:
 * Summary presented is confusing
 * Unable to add in sub-categories to further pinpoint area of spending
 
-[appendix]
-== Instructions for Manual Testing
+{bl}
 
+[appendix]
+[.text-justify]
+== Instructions for Manual Testing
+{bl}
 Given below are instructions to test the application manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
+{bl}
+
 === Launch and Shutdown
+{bl}
 
 . Initial launch
 
@@ -1417,7 +1578,11 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the application by double-clicking the [fuchsia]#JAR# file. +
    Expected: The most recent window size and location is retained.
 
+{bl}
+
 === Setting a budget
+{bl}
+
 . Setting a initial budget
 .. Test case: `[fuchsia]#set $/500#` +
    Expected: The budget is set to $500. The Budget Panel and Browser Panel are updated accordingly.
@@ -1432,7 +1597,10 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `[fuchsia]#set $/0#` +
    Expected: Similar to previous
 
+{bl}
+
 === Allocating category budgets and showing allocated category budgets
+{bl}
 
 . Allocating category budget (no spending in category; we assume that total budget set is $500)
 .. Test case: `[fuchsia]#allocate $/50 c/Shopping#`, then `[fuchsia]#show#` +
@@ -1460,7 +1628,10 @@ Assume that `[fuchsia]#Food#` category has $16.50 spent so far
    Expected: Category Budget not allocated. Current Spending in category more than user input for category budget.
    Error details shown in status message.
 
+{bl}
+
 === Adding an expense
+{bl}
 
 . Adding an entry no matter what is listed.
 
@@ -1480,7 +1651,11 @@ Assume that `[fuchsia]#Food#` category has $16.50 spent so far
    `[fuchsia]#spend n/Chicken Rice $/5.50 c/Food d/12/12/2045#`, `[fuchsia]#spend n/Chicken Rice $/$5.50 c/Food#` +
    Expected: Similar to previous
 
+{bl}
+
 === Editing an expense
+{bl}
+
 . Edit an entry while all entries are listed
 
 .. Prerequisites: List all entries using the `[fuchsia]#list#` command. The list must have some entries in it.
@@ -1523,7 +1698,10 @@ Assume that `[fuchsia]#Food#` category has $16.50 spent so far
 ... Other incorrect edit commands to try: `[fuchsia]#edit 1 d/01/01/2045#`, `[fuchsia]#edit 1 $/$100#`,
     `[fuchsia]#edit 1 r/12345678901234567890123456789012345678901#`.
 
+{bl}
+
 === Deleting an entry
+{bl}
 
 . Deleting an entry while all entries are listed.
 
@@ -1535,7 +1713,10 @@ Assume that `[fuchsia]#Food#` category has $16.50 spent so far
 .. Other incorrect delete commands to try: `[fuchsia]#delete#`, `[fuchsia]#delete x#` (where x is larger than the list size), `[fuchsia]#delete three#` +
    Expected: Similar to previous.
 
+{bl}
+
 === Searching an entry
+{bl}
 
 [NOTE]
 In order for the expected results of the test to be accurate, please input the following commands below to set up your
@@ -1579,8 +1760,10 @@ finance tracker. +
     Expected: Error message is shown. The records list panel remains the same.
 ... Other incorrect search commands to try: `[fuchsia]#search -food#`, `[fuchsia]#search -cat -food#`, `[fuchsia]#search -cat -date -name#`.
 
+{bl}
 
 === Sorting the entries
+{bl}
 
 . Sort entries by name
 
@@ -1610,7 +1793,10 @@ finance tracker. +
 .. Other incorrect sort commands to try: `[fuchsia]#sort -desc -amount#`, `[fuchsia]#sort -amount -inc#`, `[fuchsia]#sort -name -amount#` +
    Expected: Similar to previous.
 
+{bl}
+
 === Obtaining a summary of entries
+{bl}
 
 . Entering `[fuchsia]#summary#` command when _In-Credit-Ble_ is empty
 
@@ -1639,8 +1825,11 @@ On the other hand, if there are no existing entries in the specified report peri
 .. Test case: `[fuchsia]#summary #/9 p/m#` +
    Expected: Error message is shown.
 
+{bl}
 
 === Changing the Finance Tracker data storage location
+{bl}
+
 [NOTE]
 In order to test this command, please take note the name of the [fuchsia]#json# file you are currently on. The name of the file can
 be seen at the right side of the status bar. By default, the json file is "[fuchsia]#finance.json#".

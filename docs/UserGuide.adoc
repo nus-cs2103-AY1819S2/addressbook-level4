@@ -548,6 +548,8 @@ In the Table Panel, you will see that Table 25 will have been updated to the cor
 image::SpaceFor_After.png[width="500",align="center"]
 |===
 
+// end::restaurantmode[]
+
 [[Reserve]]
 ==== Making a reservation : `reserve` _(Coming in v2.0)_
 
@@ -568,8 +570,6 @@ You will see a success message in the Results Display.
 a| a| For example, after executing `reserve c/5 n/John Doe d/28 m/2 y/2019 t/1900`, the following confirmation message will appear:
 "Table 4 is available and has been reserved for John Doe at 1900H on 28/2/2019."
 |===
-
-// end::restaurantmode[]
 
 // tag::tablemode[]
 === Table Mode
@@ -663,6 +663,7 @@ The Order Panel will also be updated and you will now only see 3 items displayed
 image::DeleteFromOrder_After.png[width="300"]
 |===
 
+// tag::clearorder[]
 [[ClearOrder]]
 ==== Clearing all the items in an order : `clearOrder`
 
@@ -693,6 +694,7 @@ The Order Panel will now be empty, as seen in the image below.
 
 image::ClearOrder_After.png[width="300"]
 |===
+// end::clearorder[]
 
 [[Serve]]
 ==== Marking an item in an order as served : `serve`
@@ -940,6 +942,8 @@ Now, if the ingredients for Lobster Burger are available again, executing `toggl
 // end::menumode[]
 
 // tag::statisticsmode[]
+
+// tag::smintro[]
 === Statistics Mode
 
 In Statistics Mode, you can obtain statistics related to your restaurant, such as the popularity of dishes and the
@@ -959,9 +963,9 @@ you have selected. This allows you to study trends in your restaurant's revenue.
 [NOTE]
 By default the Statistics Mode displays revenue up to 30 days in the Revenue Panel unless you execute
 <<Yearly, `yearly`>>, <<Monthly, `monthly`>> or <<Daily, `daily`>> commands to change its display.
-
+// end::smintro[]
 Here are the commands that you can use in this mode to study the statistical data of your restaurant.
-
+// tag::yearly[]
 [[Yearly]]
 ==== Changing the Revenue Panel to yearly view : `yearly`
 
@@ -986,7 +990,8 @@ scrolling through the rest of the record.
 image::SM_Yearly.png[width="700", align="center"]
 
 |===
-
+// end::yearly[]
+// tag::monthly[]
 [[Monthly]]
 ==== Changing the Revenue Panel to monthly view : `monthly`
 
@@ -1011,7 +1016,8 @@ scrolling through the rest of the record.
 image::SM_Monthly.png[width="700", align="center"]
 
 |===
-
+// end::monthly[]
+// tag::daily[]
 [[Daily]]
 ==== Changing the Revenue Panel to daily view : `daily`
 
@@ -1036,7 +1042,8 @@ scrolling through the rest of the record.
 image::SM_Daily.png[width="700", align="center"]
 
 |===
-
+// end::daily[]
+// tag::revenue[]
 [[Revenue]]
 ==== Getting the total revenue : `revenue`
 
@@ -1075,7 +1082,7 @@ image::Revenue_Month.png[]
 
 image::Revenue_Day.png[]
 |===
-
+// end::revenue[]
 // end::statisticsmode[]
 
 == FAQ

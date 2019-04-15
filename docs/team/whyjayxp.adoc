@@ -83,10 +83,12 @@ This section shows the additions that I have made to the User Guide to provide i
 include::../UserGuide.adoc[tag=tablemodecommand]
 
 |===
-| _I also wrote the Table Mode section and the descriptions for the five Orders feature commands (including one command for v2.0). My introduction for the Table Mode section and description of the `addToOrder` command are replicated below while my full write-ups can be found https://github.com/CS2103-AY1819S2-W09-3/main/blob/master/docs/UserGuide.adoc#table-mode[here]._
+| _I also wrote the Table Mode section and the descriptions for the five Orders feature commands (including one command for v2.0). My introduction for the Table Mode section and descriptions of the `addToOrder` and `clearOrder` commands are replicated below while my full write-ups can be found https://github.com/CS2103-AY1819S2-W09-3/main/blob/master/docs/UserGuide.adoc#table-mode[here]._
 |===
 
 include::../UserGuide.adoc[tag=tablemode]
+
+include::../UserGuide.adoc[tag=clearorder]
 
 == Contributions to the Developer Guide
 

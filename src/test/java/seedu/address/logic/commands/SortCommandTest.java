@@ -267,7 +267,8 @@ public class SortCommandTest {
      * Edit third person to have Associates degree with gpa 4.0
      */
     @Test
-    public void execute_sortDegreeNumber_success() {
+    public void executeSortDegreeNumberSuccess() {
+        // NOTE: method naming style change is since it is demanded by codacy coding standard test
         // i.
         Person editedAlice = new PersonBuilder().withName(ALICE.nameToString())
                 .withGpa(ALICE.gpaToString()).withDegree("High School").build();

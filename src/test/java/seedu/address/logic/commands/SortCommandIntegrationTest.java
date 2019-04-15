@@ -47,7 +47,8 @@ public class SortCommandIntegrationTest {
      * Use The sort by name method, since they are already ordered, after a trivial edit
      */
     @Test
-    public void execute_sortNamesAfterEdit_success() {
+    public void executeSortNamesAfterEditSuccess() {
+        // NOTE: method naming style change is since it is demanded by codacy coding standard test
         // First make trivial edit to the first person
         Person editedPerson = new PersonBuilder().build();
         EditCommand.EditPersonDescriptor descriptorOne = new EditPersonDescriptorBuilder(editedPerson).build();

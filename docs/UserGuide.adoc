@@ -155,7 +155,13 @@ Displays the *list of Members who is not attending or have not attended* the sel
 //tag::mode[]
 ==== Get / Set the mode of ClubManager: `mode`
 
-ClubManager operates in 2 modes. This function allows user to check the mode and change the mode +
+ClubManager operates in 2 modes. This function allows user to check the mode or change the mode +
+[NOTE]
+====
+The operation mode restricts the operations you can call in each mode.
+
+When using ClubManager, you can check the mode of operation on the top right hand corner of the window which will either state "MEMBER" or "ACTIVITY"
+====
 [width="100%",cols="25%,55%, <20%",options="header",]
 |=======================================================================
 |Mode| Definition | Example of allowed commands
@@ -167,6 +173,8 @@ This mode allows the user to manage members in ClubManager
 
  This mode allows the user to manage members in ClubManager
   | `activityAdd`, `activityList`, `activitySelect`
+
+  |[_any mode_]| In any mode, general functions can be called|`help`, `mode`, `exit` |
 |=======================================================================
 
 *Format:*
@@ -217,7 +225,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 === Member Management Features
 
-image::memberCommands.png[width="100%"]
+image::memberCommands.png[width="70%"]
 
 //tag::memberadd[]
 ==== Adding a member: `memberAdd` or `mAdd`
@@ -272,7 +280,7 @@ A member can have any number of tags (including 0).|Swimming
 
 * `memberAdd n/Jon Lim mn/A0123456J p/98765432 e/johnl@example.com a/123, Woodlands Drive 12, #12-34 g/Male y/2 m/Chemistry t/Swimming`
 
-image::memberAdd_added.png[width="1000"]
+image::memberAdd_added.png[width=70%]
 
 * `memberAdd n/James Ong mn/A0123456J p/98765432 e/jamesong@example.com a/123, Jurong West Ave 6, #08-111 g/male y/2 m/mathematics`
 * `memberAdd n/Jane Lim mn/A0654321J p/91324756 e/janelim@example.com a/123, Sengkang Ave 6, #02-123 g/Female y/3  m/physics t/Swimming`
@@ -395,7 +403,7 @@ Examples:
 `memberSelect 2` +
 Selects the 2nd person in the club manager.
 
-image::memberSelectCommand.png[width=100%]
+image::memberSelectCommand.png[width=70%]
 //end::memberselect[]
 
 //tag::membersort[]
@@ -521,7 +529,7 @@ Format: `activityAddMember ACTIVITY_INDEX MATRIC_NO`
 ****
 * Adds a member to the activity at the specified `ACTIVITY_INDEX` which refers to the index number shown in the displayed activity list.
 * The index *must be a positive integer* 1, 2, 3, ...
-* MATRIC_NO must be a currently existing entry in any existing member’s MATRIC_NO information column in the member list.
+* MATRIC_NO must be a currently existing entry in any existing member’s MATRIC_NO information column in the member list and not currently in the activity's attendance list.
 ****
 Examples:
 
@@ -555,13 +563,15 @@ Format: `activityDeleteMember ACTIVITY_INDEX MATRIC_NO`
 ****
 * Removes a member from the attending list of the activity at the specified `ACTIVITY_INDEX` which refers to the index number shown in the displayed activity list.
 * The index *must be a positive integer* 1, 2, 3, ...
-* MATRIC_NO must be a currently existing entry in the specified activity’s attending list.
+* MATRIC_NO must be a currently existing entry in the specified activity’s attendance list.
 ****
 Examples:
 
 * `activityDeleteMember 1 A1234567N` +
 Removes the member with matric number A1234567N from activity 1’s attending list.
 // end::activityDeleteMember[]
+
+// tag::activityEdit[]
 
 ==== Edit an activity: `activityEdit` or `aEdit`
 Edits an existing activity in the activity list
@@ -578,10 +588,12 @@ Format: `activityEdit ACTIVITY_INDEX [n/ACTIVITY_NAME] [d/DATE] [t/TAG] … `
 ****
 Examples:
 
-* `activityEdit 1 d/13022019` +
-Edits the date of the first activity to be 13 Feb 2019.
-* `activityEdit 2 t/` +
-Clears all existing tags of the second activity.
+* `activityEdit 1 n/New Activity d/13/02/2019 1200 l/Com1 de/Bring calculator` +
+Edits the name of the first activity, datetime, location and description to "New Activity", "13 February 2019 1200 hrs", "Com1" and "Bring calculator" respectively.
+* `activityEdit 2 l/NUS` +
+Edits the location of the second activity to "NUS".
+// end::activityEdit[]
+
 
 //tag::activityFilter[]
 
@@ -747,8 +759,8 @@ e.g. `activityAddMember 1 A1234567N`
 e.g. `activityDelete 1`
 * *Delete a member from activity* : `activityDeleteMember ACTIVITY_INDEX MATRIC_NUMBER` +
 e.g. `activityDeleteMember 1 A1234567N`
-* *Edit an activity* : `activityEdit ACTIVITY_INDEX [n/ACTIVITY_NAME] [d/DATE] [t/TAG] … ` +
-e.g. `activityEdit 1 d/13022019`
+* *Edit an activity* : `activityEdit ACTIVITY_INDEX [n/ACTIVITY_NAME] [d/DATETIME] [l/ACTIVITY_LOCATION] [de/ACTIVITY_DESCRIPTION] … ` +
+e.g. `activityEdit 1 n/New Activity d/13/02/2019 1200 l/Com1 de/Bring calculator`
 * *Find an activity* : `activityFind [PREFIX] KEYWORD [MORE_KEYWORDS] [NEXT_PREFIX KEYWORD] [MORE_KEYWORDS]` +
 e.g. `activityFind n/ Workshop`
 * *Filtering activities* : `activityFilter CONDITION NUMBER_OF_DAYS` +

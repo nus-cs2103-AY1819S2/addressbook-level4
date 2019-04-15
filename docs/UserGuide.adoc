@@ -73,7 +73,7 @@ Examples:
 * `add-p n/Bettany Sim g/F p/8234567 a/32 adr/RVRC House 12 t/diabetic`
 
 [TIP]
-For constraints of name, gender, age, phone, address and tags, please refer to the section below.
+For constraints of name, gender, age, phone, address and tags, please refer to the table below.
 
 .Table for Patient's info constraint
 image::patientdataconstrainttable.png[width="800"]

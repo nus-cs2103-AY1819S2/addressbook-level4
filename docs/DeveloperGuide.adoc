@@ -521,8 +521,6 @@ The below diagram shows the sequence diagram for the Import/Export commands
 
 image::import_export_sequenceDiagram.png[width = "1000"]
 
-//end::importexport[]
-
 ==== CSV file structure
 Example of a common cardfolder csv file, opened using microsoft excel. +
 

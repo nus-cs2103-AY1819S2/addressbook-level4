@@ -457,7 +457,7 @@ Ships can be tagged. You can list all the tags used by ships that have been depl
 
 [source,java]
 ----
-include::../src/main/java/seedu/address/model/Player/Fleet.java[lines=212..222]
+include::../src/main/java/seedu/address/model/player/Fleet.java[lines=212..222]
 ----
 
 

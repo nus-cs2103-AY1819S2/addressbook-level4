@@ -287,7 +287,7 @@ public class Fleet {
      * Represents an entry in the fleet. To describe the orientation and coordinates
      * of a given battleship.
      */
-    public class FleetEntry {
+    public static class FleetEntry {
         private final Battleship battleship;
         private final Orientation orientation;
         private final Coordinates coordinates;

@@ -305,7 +305,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 // tag::quiz[]
 === Quiz feature
-
+==== Current Implementation
 ===== Quiz
 
 The current quiz mechanism is controlled by the `QuizCommand` class.

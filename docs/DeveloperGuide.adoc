@@ -112,91 +112,95 @@ When you are ready to start coding, get some sense of the overall design by read
 
 == Design
 
+This section discusses the design of TopDeck.
+
 [[Design-Architecture]]
 === Architecture
 
-.Architecture Diagram
+.Architecture Diagram of TopDeck
 image::Architecture.png[width="600"]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* above gives a high-level overview of the design of TopDeck.
+This rest of this section provides a quick overview of each component.
 
-[TIP]
-The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
+`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. Its responsibilities:
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+* When TopDeck launches, initialize the components in the correct sequence and connect them together.
+* When TopDeck terminates, shut down the components gracefully by invoking cleanup methods and freeing resources.
 
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
+<<Design-Commons,*`Commons`*>> is a collection of classes used generically by other components.
+Notably, it contains the following class which plays an important role at the architecture level:
 
-<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
-The following class plays an important role at the architecture level:
+* `LogsCenter` : Logging facility used by many classes to write to the App's log file.
 
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+The rest of the App can be divided into the following components:
 
-The rest of the App consists of four components.
+* <<Design-Ui,*`UI`*>>: User interface
+* <<Design-Logic,*`Logic`*>>: Command execution
+* <<Design-Model,*`Model`*>>: In-memory application data
+* <<Design-Storage,*`Storage`*>>: External storage
 
-* <<Design-Ui,*`UI`*>>: The UI of the App.
-* <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
-* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+Each component
 
-Each of the four components
+* Defines its API in an `interface` with the same name as the component.
+* Exposes its functionality through a `{Component Name}Manager` class.
 
-* Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
+For example, the `Logic` component defines its API in the `Logic.java` interface and exposes its functionality through the `LogicManager.java` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[width="800"]
-
-[discrete]
-==== How the architecture components interact with each other
-
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+These components interact regularly in response user commands in a typical application session.
+As an example, the _Sequence Diagram_ below illustrates what happens when a user issues the command `delete 1` when they first launch TopDeck.
 
 .Component interactions for `delete 1` command
 image::SDforDeletePerson.png[width="800"]
 
-The sections below give more details of each component.
+The next few sections describe the design and responsibilites of each component in greater detail.
 
 [[Design-Ui]]
 === UI component
 
 .Structure of the UI Component
-image::TopDeckUIClassDiagram.png[width="800"]
+image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The `UI` component is responsible for the user interface. It relays user commands to `Logic` for execution
+and updates the user interface according to the application data in `Model`.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+`UI` consists of a `MainWindow` that owns instances of the classes that make up the user interface such as `CommandBox`.
+Notably, `MainWindow` owns a `MainPanel` which is a reference type to one of the possible main panels.
+Its concrete type is dependent on `ViewState` from `Model`. The figure below shows how the user interface is divided into classes.
 
-The `UI` component,
+image::UiClasses.png[]
 
-* Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+`MainWindow` and all its owned classes extend `UiPart` which is an abstract class that represents a unit that can be rendered to the display.
+`UI` uses the JavaFx UI framework. By convention, the layout of each `UIPart` is defined in the corresponding `.fxml` file in `src/main/resources/view`.
+For example, the layout of `MainWindow` is defined in `MainWindow.fxml`.
 
 [[Design-Logic]]
 === Logic component
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[width="800"]
+image::LogicClassDiagram.png[]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `TopDeckParser` class to parse the user command.
+The `Logic` component is responsible for parsing and executing commands. A typical command is parsed and executed as follows:
+
+.  `Logic` uses the `TopDeckParser` class to parse the user command into a command word and its arguments.
+.  `TopDeckParser` requests for the `ViewStateParser` from the active `ViewState` in `Model`.
+.  This `ViewStateParser` is then used to parse the command word itself.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a deck).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+.  The execution of this command may affect the `Model` (e.g. when deleting a deck).
+.  The result of the command execution is wrapped in a `CommandResult` object and returned back to `Ui`.
+.  Different subclasses of `CommandResult` may instruct `Ui` to perform different actions,
+   such as `UpdatePanelCommandResult` which is used to construct a new `MainPanel`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+To make things clearer, below is the Sequence Diagram for interactions within the `Logic` component given an `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+.Interactions Inside the Logic Component for `delete 1`
+image::DeletePersonSdForLogic.png[]
 
 [[Design-Model]]
 === Model component
@@ -244,7 +248,7 @@ depend on the context of the application state.
 
 For example, the command word `add` is "overloaded" with two capabilities:
 
-1. In decks view, it adds a new deck: `add DECK_NAME`
+1. In decks view, it adds a new deck: `add n/DECK_NAME`
 2. In cards view, it adds a new card to a particular deck: `add q/QUESTION a/ANSWER`
 
 It is the active state in TopDeck that resolves the actual command that is called.
@@ -257,6 +261,7 @@ A stateful user interface is also preferable to end users since it
 requires less cognitive effort to operate by virtue of the fewer and shorter commands.
 
 However, implementing state in full generality required nontrivial modifications to the AB4 architecture.
+These modifications have been reflected in <<Architecture>>.
 We will now describe how state is implemented in TopDeck.
 
 ==== Current implementation
@@ -266,25 +271,12 @@ Hence, it is natural to consider distinct views in the user interface as separat
 States in TopDeck correspond to the three possible views described in the user guide:
 decks view, cards view and study view.
 
-The following figure illustrates the transitions between these states.
-
-.State diagram for TopDeck
-image::state_diagram.png[]
-////
-[plantuml]
-....
-(*) --> "Decks view"
-"Decks view" -> [Open] "Cards view"
-"Cards view" --> [Close] "Decks view"
-"Decks view" --> [Study] "Study view"
-"Study view" -> [Finish study] "Decks view"
-....
-////
-
 Each state implements a common interface `ViewState`
 and holds transient data that is relevant only while the state is active.
 For example, `CardsView` has a member `activeDeck` which holds a reference to the deck opened in decks view.
 Commands in cards view such as `add` will then operate on this deck.
+The `ViewState` contract also requires each implementer to provide policies
+for parsing and rendering used by `Logic` and `Ui` respectively. This is an example of the strategy pattern.
 
 `ModelManager` owns the sole instance of `ViewState`.
 Having only one instance of any state makes it trivial to enforce mutual exclusion.
@@ -302,6 +294,27 @@ We assume that if a caller is capable of providing the required arguments to a m
 the method call is valid and expected.
 This obviates the need for state-checking code in `ModelManager`.
 
+==== Design considerations
+
+The design of the state classes was a significant technical decision. Below were my considerations.
+
+* Alternative 1: Keep the semantics of the original `Model` and put all state-specific fields and methods here. Maintain an enum to keep track of the active state.
+** Pros:
+*** Does not require much initial modifications to AB4 to support
+** Cons:
+*** `Model` will contain a lot of irrelevant fields and methods throughout its lifetime such as `getUserAnswer()`.
+*** Necessary to do a lot of switch-case checking, downcasting to concrete states and error handling of incorrect states.
+* Alternative 2 (current choice): Redefine the responsibilies of `Model` as above and put state-specific data and methods in the respective `ViewState` classes
+** Pros:
+*** Separation of concerns. Allows different states to be developed independently.
+*** Safety. It is harder to write wrong code if there are no irrelevant fields in a class.
+*** Can use polymorphism to dynamically dispatch correct behaviour, obviating the need for switch-case checks.
+** Cons:
+*** Requires substantial modifications to AB4 to support and requires a rewrite of many tests.
+*** Makes testing harder since the model must be initialised to the correct state.
+
+Despite its initial ease of adoption, alternative 1 is difficult to extend and creates significant technical debt in the long run as more state-specific functionality is added to `Model`.
+Thus, the choice is clear. Alternative 2 is preferable.
 
 // tag::deck[]
 === Deck operations
@@ -404,12 +417,8 @@ For each operation, there are 2 objects that need to be updated namely, `Version
 
 Each CRUD operation called by `ModelManager`can be broken down into the following steps:
 
-1. Find the chosen deck using `CardsView.activeDeck` and create a new deck from it.
-2. Execute `VersionedTopDeck#addCard(Card newCard, Deck activeDeck)` or
-`VersionedTopDeck#removeCard(Card target, Deck activeDeck)` or
-`VersionedTopDeck#setCard(Card target, Card editedCard, Deck activeDeck)` using `CardsView.activeDeck`.
-3. Update the `CardsView` with the new editedDeck.
-4. Update the UI to reflect the new CardsView.
+.ModelManager#addCard(Card card, Deck deck) Activity Diagram
+image::card_dg_fig/card_seq.png[width="800", caption="Figure 4.3.1 "]
 
 Here is a code snippet for `VersionedTopDeck#addCard(Card newCard, Deck deck)` which shows the sequence
 of functions carried out and returns the newly edited deck to `ModelManager`:
@@ -442,57 +451,66 @@ interacts with Undo/Redo:
 Step 1. The user starts up the application and is in the `DecksView`. The user then
 executes the `open 1` command to open the first deck(D1 in the figure). This should change the
 `ViewState` in the `ModelManager` from `DeckView` to `CardsView` and causes
-`CardsView.activeDeck` to point to the first deck as per figure 4.3.1. For more information, refer to
+`CardsView.activeDeck` to point to the first deck as per figure 4.3.2. For more information, refer to
 the Deck feature.
 
-image::card_dg_fig/card_fig_1.png[width="800", caption="Figure 1"]
+.Scenario 1
+image::card_dg_fig/card_fig_1.png[width="800", caption="Figure 4.3.2 "]
 
 Step 2. The user executes `add q/question a/answer` to add the new card into the current deck.
 The `add` command is parsed and calls `Model#addCard(Card card, Deck deck)`.
 `VersionedTopDeck(Card newCard, Deck deck)` is then called. D3 which is a copy
 of D1 is created and the new card is added to D3. `VersionedTopDeck` is then updated
-as per figure 4.3.2 by calling `UniqueDeckList.setDeck(Deck target, Deck editedDeck)`.
+as per figure 4.3.3 by calling `UniqueDeckList.setDeck(Deck target, Deck editedDeck)`.
 
-image::card_dg_fig/card_fig_2.png[width="800", caption="Figure 2"]
+.Scenario 2
+image::card_dg_fig/card_fig_2.png[width="800", caption="Figure 4.3.3 "]
 
 Step 3. Next, the CardsView is updated creating a new `CardsView` that points to D3
-as in figure 4.3.3
+as in figure 4.3.4
 
-image::card_dg_fig/card_fig_3.png[width="800", caption="Figure 3"]
+.Scenario 3
+image::card_dg_fig/card_fig_3.png[width="800", caption="Figure 4.3.4 "]
 
 Step 4. Once that is done, the `ModelManager.filteredItems` list and the UI is being updated to
 reflect the change.
 
 Step 5. Now the user executes `undo`. This results in the CurrentStatePointer to point
-to the previous TopDeck as per figure 4.3.4
+to the previous TopDeck as per figure 4.3.5
 
-image::card_dg_fig/card_fig_4.png[width="800", caption="Figure 4"]
+.Scenario 4
+image::card_dg_fig/card_fig_4.png[width="800", caption="Figure 4.3.5 "]
 
 Step 6. Using D3, the application will get D1 in TopDeck that is pointed to by CurrentStatePointer.
-A new CardsView(CardsView3) is then created and points to D1 as per figure 4.3.5. The application
+A new CardsView(CardsView3) is then created and points to D1 as per figure 4.3.6. The application
 then updates `ModelManager.filteredItems` and the UI is being updated.
 
-image::card_dg_fig/card_fig_5.png[width="800", caption="Figure 5"]
+.Scenario 5
+image::card_dg_fig/card_fig_5.png[width="800", caption="Figure 4.3.6 "]
 
 Step 7. Now, the user executes redo. This results in the the CurrentStatePointer to point
-to the next TopDeck as per figure 4.3.6
+to the next TopDeck as per figure 4.3.7
 
-image::card_dg_fig/card_fig_6.png[width="800", caption="Figure 6"]
+.Scenario 6
+image::card_dg_fig/card_fig_6.png[width="800", caption="Figure 4.3.7 "]
 
 Step 8. Using D1, the application will get D3 in TopDeck that is pointed to by CurrentStatePointer.
-   A new CardsView(CardsView4) is then created and points to D3 as per figure 4.3.7. The application
+   A new CardsView(CardsView4) is then created and points to D3 as per figure 4.3.8. The application
    then updates `ModelManager.filteredItems` and the UI is being updated.
 
-image::card_dg_fig/card_fig_7.png[width="800", caption="Figure 7"]
+.Scenario 7
+image::card_dg_fig/card_fig_7.png[width="800", caption="Figure 4.3.8 "]
 
 Step 9. Below is the final state of `ModelManager`:
 
-image::card_dg_fig/card_fig_8.png[width="800", caption="Figure 8"]
+.Scenario 8
+image::card_dg_fig/card_fig_8.png[width="800", caption="Figure 4.3.9 "]
 
 Below is a sequence diagram to illustrate the sequence of activities upon calling
 `Model#addCard(Card card, Deck deck)`:
 
-image::card_dg_fig/card_fig_9.png[width="800", caption="Figure 8"]
+.Sequence Diagram
+image::card_dg_fig/card_fig_9.png[width="800", caption="Figure 4.3.10 "]
 
 ==== Design considerations
 
@@ -786,13 +804,6 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 

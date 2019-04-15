@@ -12,36 +12,36 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Kuan Wei Heng
 image::xsot.png[width="150", align="left"]
-{empty}[http://github.com/xsot[github]] [<<xsot#, portfolio>>]
+{empty}[http://github.com/xsot[github]] [https://github.com/ChangDarren/main/blob/master/docs/team/xsot.adoc[xsot]]
 
 Role: Team Lead +
-Responsibilities: TBC
+Responsibilities: State Management
 
 '''
 
 === Darren Chang
 image::changdarren.png[width="150", align="left"]
-{empty}[http://github.com/changdarren[github]] [<<changdarren#, portfolio>>]
+{empty}[http://github.com/changdarren[github]] [https://github.com/ChangDarren/main/blob/master/docs/team/changdarren.adoc[portfolio]]
 
 Role: Developer +
-Responsibilities: TBC
+Responsibilities: Card Management
 
 '''
 
 === John Wong
 image::ckjohn000.png[width="150", align="left"]
-{empty}[http://github.com/ckjohn000[github]] [<<ckjohn000#, portfolio>>]
+{empty}[http://github.com/ckjohn000[github]] [https://github.com/ChangDarren/main/blob/master/docs/team/ckjohn000.adoc[portfolio]]
 
 Role: Developer +
-Responsibilities: TBC
+Responsibilities: Deck Management
 
 '''
 
 === Tiffany Chong
 image::sciffany.png[width="150", align="left"]
-{empty}[http://github.com/sciffany[github]] [<<sciffany#, portfolio>>]
+{empty}[http://github.com/sciffany[github]] [https://github.com/ChangDarren/main/blob/master/docs/team/sciffany.adoc[portfolio]]
 
 Role: Developer +
-Responsibilities: TBC
+Responsibilities: Study Session
 
 '''

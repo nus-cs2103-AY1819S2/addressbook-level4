@@ -144,8 +144,10 @@ for the user to edit accordingly.
 
 **Search for phrases**: TopDeck provides the user the ability to search for
 specific question by searching for a whole phrase instead of only individual words.
-This is done by putting `"` around `KEYWORD`. There should not be any `"` character in
-`KEYWORD`. Searching using phrases only searches the question.
+This is done by putting `"` around `KEYWORD`.
+The find command searches all `KEYWORD` between 2 `"`
+and so there should not be any `"` character in `KEYWORD`.
+Searching using phrases only searches the question.
 
 **Outcome**: Lists all cards within the current deck containing `KEYWORD` in its text.
 
@@ -165,12 +167,6 @@ will display the questions with the entire phrase `Is there a question` and the 
 Below is the result of executing this command:
 
 image::card_ug_diagrams/find_card_1.png[width="800"]
-
-* `find "When was Singapore founded?"`
-
-Below is the result of executing this command:
-
-image::card_ug_diagrams/find_card_2.png[width="800", height="200"]
 
 (End of extract)
 
@@ -192,15 +188,10 @@ Card management is currently facilitated by `Model` which implements the followi
 The CRUD operations are exposed in the Model interface as `Model#addCard(Card card, Deck deck)`,
 `Model#deleteCard(Card target, Deck deck)` and `Model#setCard(Card target, Card newCard, Deck deck)`.
 For each operation, there are 2 objects that need to be updated namely, `VersionedTopDeck` and `CardsView`.
-
 Each CRUD operation called by `ModelManager`can be broken down into the following steps:
 
-1. Find the chosen deck using `CardsView.activeDeck` and create a new deck from it.
-2. Execute `VersionedTopDeck#addCard(Card newCard, Deck activeDeck)` or
-`VersionedTopDeck#removeCard(Card target, Deck activeDeck)` or
-`VersionedTopDeck#setCard(Card target, Card editedCard, Deck activeDeck)` using `CardsView.activeDeck`.
-3. Update the `CardsView` with the new editedDeck.
-4. Update the UI to reflect the new CardsView.
+.ModelManager#addCard(Card card, Deck deck) Activity Diagram
+image::card_dg_fig/card_seq.png[width="800", caption="Figure 4.3.1 "]
 
 Here is a code snippet for `VersionedTopDeck#addCard(Card newCard, Deck deck)` which shows the sequence
 of functions carried out and returns the newly edited deck to `ModelManager`:
@@ -233,23 +224,26 @@ interacts with Undo/Redo:
 Step 1. The user starts up the application and is in the `DecksView`. The user then
 executes the `open 1` command to open the first deck(D1 in the figure). This should change the
 `ViewState` in the `ModelManager` from `DeckView` to `CardsView` and causes
-`CardsView.activeDeck` to point to the first deck as per figure 4.3.1. For more information, refer to
+`CardsView.activeDeck` to point to the first deck as per figure 4.3.2. For more information, refer to
 the Deck feature.
 
-image::card_dg_fig/card_fig_1.png[width="800", height="150", caption="Figure 1"]
+.Scenario 1
+image::card_dg_fig/card_fig_1.png[width="800", caption="Figure 4.3.2 "]
 
 Step 2. The user executes `add q/question a/answer` to add the new card into the current deck.
 The `add` command is parsed and calls `Model#addCard(Card card, Deck deck)`.
 `VersionedTopDeck(Card newCard, Deck deck)` is then called. D3 which is a copy
 of D1 is created and the new card is added to D3. `VersionedTopDeck` is then updated
-as per figure 4.3.2 by calling `UniqueDeckList.setDeck(Deck target, Deck editedDeck)`.
+as per figure 4.3.3 by calling `UniqueDeckList.setDeck(Deck target, Deck editedDeck)`.
 
-image::card_dg_fig/card_fig_2.png[width="800", caption="Figure 2"]
+.Scenario 2
+image::card_dg_fig/card_fig_2.png[width="800", caption="Figure 4.3.3 "]
 
 Step 3. Next, the CardsView is updated creating a new `CardsView` that points to D3
-as in figure 4.3.3
+as in figure 4.3.4
 
-image::card_dg_fig/card_fig_3.png[width="800", caption="Figure 3"]
+.Scenario 3
+image::card_dg_fig/card_fig_3.png[width="800", caption="Figure 4.3.4 "]
 
 Step 4. Once that is done, the `ModelManager.filteredItems` list and the UI is being updated to
 reflect the change.
@@ -257,7 +251,8 @@ reflect the change.
 Below is a sequence diagram to illustrate the sequence of activities upon calling
 `Model#addCard(Card card, Deck deck)`:
 
-image::card_dg_fig/card_fig_9.png[width="800", caption="Figure 8"]
+.Sequence Diagram
+image::card_dg_fig/card_fig_9.png[width="800", caption="Figure 4.3.10 "]
 
 ==== Design considerations
 

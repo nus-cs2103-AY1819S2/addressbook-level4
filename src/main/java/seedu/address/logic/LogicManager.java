@@ -12,6 +12,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.GenerateQuestionCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.TopDeckParser;
+import seedu.address.logic.parser.ViewStateParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ListViewState;
 import seedu.address.model.Model;
@@ -49,7 +50,8 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         try {
-            Command command = topDeckParser.parseCommand(commandText, model.getViewState().getViewStateParser());
+            ViewStateParser viewStateParser = model.getViewState().getViewStateParser();
+            Command command = topDeckParser.parseCommand(commandText, viewStateParser);
             commandResult = command.execute(model, history);
             if (command instanceof GenerateQuestionCommand) {
                 topDeckModified = true;

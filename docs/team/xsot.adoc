@@ -18,9 +18,9 @@ endif::[]
 == Overview
 
 This document serves to document my contributions to TopDeck, the project I worked on
-as part of our introductory software engineering module in NUS.
+while taking the introductory software engineering module in NUS.
 TopDeck is a flash card application built on top of the code from
-https://github.com/nus-cs2103-AY1819S1/addressbook-level4[Addressbook Level 4].
+https://github.com/nus-cs2103-AY1819S1/addressbook-level4[Addressbook Level 4] (AB4).
 
 == Summary of Contributions
 
@@ -48,7 +48,8 @@ This section summarises my key contributions to TopDeck:
       features independently and easily integrate their work through the new API
       I designed.
 
-* **Minor Enhancement**: I added argument completion to the edit card command
+* **Minor Enhancement**: I added argument completion to the edit commands
+      (the remaining exposition will focus on the edit card command).
     - What it does: The edit card command has an abbreviated form `edit INDEX`.
       This prefills the command box with an expanded command which, if submitted
       verbatim, leaves the card at `INDEX` unchanged.
@@ -56,14 +57,14 @@ This section summarises my key contributions to TopDeck:
       edits. Suppose a user notices a typo in a question. Instead of retyping
       the entire question, they can quickly expand all arguments to the edit
       command and edit the question from there.
-    - Highlights: This is the only new feature in TopDeck that interacts with
-      the command box and is made possible with
-      `PrefillCommandBoxCommandResult` which extends `CommandResult` and holds
-      the string to be prefilled. In general, commands that need to interact
-      with `UI` through `MainWindow` do so by returning an appropriate subclass
-      of `CommandResult`.
+    - Highlights: Completion is a feature that interacts with the command box
+      and is implemented by defining a new subclass of `CommandResult` that
+      holds the string to be prefilled. In general, commands that need to
+      interact with `UI` through `MainWindow` do so by returning an appropriate
+      subclass of `CommandResult`.
 
-**Code Contributed:** Please view our github page to see the code that I have contributed.
+
+**Code Contributed**: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=xsot[CS2103T Dashboard]
 
 **Other contributions**:
 
@@ -83,8 +84,8 @@ This section summarises my key contributions to TopDeck:
 
 * Community:
  - I led the design of the user interface and user experience.
- - I reviewed pull requests and gave comments on how my peers can improve the readability of their code.
- - I put up issues and filed bug reports to keep our team on track.
+ - I reviewed pull requests (with non-trivial review comments): https://github.com/cs2103-ay1819s2-w11-1/main/pull/8[#8], https://github.com/cs2103-ay1819s2-w11-1/main/pull/39[#39], https://github.com/cs2103-ay1819s2-w11-1/main/pull/77[#77]
+ - I reported some subtle bugs: https://github.com/cs2103-ay1819s2-w11-1/main/issues/7[#7], https://github.com/cs2103-ay1819s2-w11-1/main/issues/63[#63]
  - I gave our team a few tips on the git workflow.
 
 * Tools:
@@ -93,77 +94,151 @@ This section summarises my key contributions to TopDeck:
 
 == Contributions to User Guide
 
-== Quick Start
+====
+This section contains excerpts of my contributions to the user guide.
+They showcase my ability to write documentation for non-technical users.
+====
 
-To get started with TopDeck:
+=== Introduction
 
-.  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `topdeck.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for TopDeck.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+TopDeck is a desktop app for anyone who relies on flash cards to memorise things.
 
-Once you have set up TopDeck, you can try these commands:
+TopDeck helps you digitise your flash cards and keeps them organised.
+You can easily review your cards and TopDeck will track your performance.
+Improve your memory without the hassle of managing a physical pile of cards!
 
-* `add Capitals` : creates a new deck named "Capitals"
-* `delete 3` : deletes the third deck in the list
-* `exit` : exits the app
+TopDeck has a Command Line Interface (CLI), which means you interact with it by typing commands.
+TopDeck can be operated entirely using the keyboard!
 
-You may refer to <<commands>> for details of each command.
+If this sounds like the tool you have been looking for,
+jump to <<Quick start>> to get started. Enjoy!
 
-== User interface
+=== User interface
 
-TopDeck's interface is seperated into three different views.
-By default, TopDeck starts in <<decksview,Decks View>>.
+TopDeck's interface is very simple. It consists of four main areas - the
+Menu Bar, the Command Box, the Results Display, and the Content Panel.
 
-=== Decks View [[decksview]]
+.Main areas in the user interface
+image::gen_ug_diagrams/ui_annotate.png[width="600"]
 
-This view displays a list of the decks in your collection.
+Here are the uses of each part of the interface:
+
+* Menu Bar: Provides access to general commands such as `exit` and `help` with dropdowns.
+* Command Box: This is where you input commands to interact with the application.
+* Results Display: This area shows the outcome of your commands.
+* Content Panel: This is the main display area and changes depending on what you are doing.
+
+TopDeck's functionality is separated into three distinct _views_ - decks view, cards view and study view.
+The interface shown in the Content Panel and the commands available change depending on the view.
+By default, TopDeck starts in decks view.
+
+.Navigating the views in TopDeck
+image::Navigation.png[width="800"]
+
+The figure above provides a brief overview of the different views and shows how you may navigate between them.
+In general, the commands `open`, `study` and `back` are used to navigate to cards view, study view and decks view respectively.
+For more information about these commands, go to <<Commands>>.
+
+The following sections will describe each view in more detail.
+
+=== Decks view [[decksview]]
+
+.Decks view
+image::deck_ug_diagrams/deck.png[width=300,float=right]
+
+Decks view displays a list of the decks in your collection.
+The figure to the right shows a typical TopDeck session in decks view.
+
 In decks view, you can:
 
-- Create, edit and delete decks.
-- Open a deck to view its contents. TopDeck will enter <<cardsview,cards view>>.
-- Pick a deck to study. TopDeck will enter <<studyview,study view>>.
+- Create a new deck.
+- Edit, delete, or search for an existing deck.
+- Open a deck to view its contents. TopDeck will open the deck in <<cardsview,cards view>>.
+- Pick a deck to study. TopDeck will use the deck in <<studyview,study view>>.
+- Export a deck in your collection or import a deck from your computer to TopDeck.
 
-=== Cards View [[cardsview]]
+You may find the corresponding commands for the features in decks view <<decksviewc,here>>.
 
-This view displays the cards in a particular deck. In cards view, you can:
+=== Cards view [[cardsview]]
 
-- Create, edit and delete cards in the deck.
-- View your performance for specific cards.
+.Cards view
+image::gen_ug_diagrams/cards.png[width="300",float=right]
 
-=== Study View [[studyview]]
+Cards view displays the cards in a particular deck.
+The figure to the right shows a typical TopDeck session in cards view.
 
-In this view you can study a deck of cards.
+In cards view, you can:
 
-- Test your knowledge of the cards in your chosen deck
-- Rate the difficulty of the cards.
+- Create a new card and add it to the deck.
+- Edit, delete, or search for an existing card in the deck.
+- View your past study performance for specific cards.
 
-image::study_ug_diagrams/study_1.png[width="800"]
+You may find the corresponding commands for the features in cards view <<cardsviewc,here>>.
 
+=== Study view [[studyview]]
 
-== Commands [[commands]]
+.Study view
+image::gen_ug_diagrams/study.png[width="300",float="right"]
 
-====
-*Command Format*
+In study view, TopDeck helps you to study a particular deck.
+The figure to the right shows a typical TopDeck session in study view.
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user. +
-  Example: In `add DECK_NAME`, `DECK_NAME` is a parameter which can be used as `add Spanish`.
-* Items in square brackets are optional. +
-  Example: `q/QUESTION a/ANSWER [t/TAG]` can be used as `q/China a/Beijing t/Asia` or as `q/China a/Beijing`.
-* Items with `…`​ after them can be used any number of times including zero. +
-  Example: `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Asia`, `t/trivia t/history` etc.
-* Parameters can be in any order. +
-  Example: If the command specifies `q/QUESTION a/ANSWER`, `q/QUESTION a/ANSWER` is also acceptable.
-====
+The cards from a particular deck will be shown one at a time.
+TopDeck will first show a question.
+You may then reveal the answer and verify if it matches your answer.
+Finally, you may rate how well you think you performed for that card before moving on to the next card.
+TopDeck automates the bookkeeping for you.
 
+You may find a more precise decription of the commands used in cards view <<cardsviewc,here>>.
 
 == Contributions to Developer Guide
 
+====
+This section contains excerpts of my contributions to the developer guide.
+They showcase my ability to write technical documentation and the technical depth of my contributions to TopDeck.
+====
+
+[[Design-Ui]]
+=== UI component
+
+.Structure of the UI Component
+image::UiClassDiagram.png[width=800]
+
+The `UI` component is responsible for the user interface. It relays user commands to `Logic` for execution
+and updates the user interface according to the application data in `Model`.
+
+`UI` consists of a `MainWindow` that owns instances of the classes that make up the user interface such as `CommandBox`.
+Notably, `MainWindow` owns a `MainPanel` which is a reference type to one of the possible main panels.
+Its concrete type is dependent on `ViewState` from `Model`. The figure below shows how the user interface is divided into classes.
+
+image::UiClasses.png[width=600]
+
+`MainWindow` and all its owned classes extend `UiPart` which is an abstract class that represents a unit that can be rendered to the display.
+`UI` uses the JavaFx UI framework. By convention, the layout of each `UIPart` is defined in the corresponding `.fxml` file in `src/main/resources/view`.
+For example, the layout of `MainWindow` is defined in `MainWindow.fxml`.
+
+[[Design-Logic]]
+=== Logic component
+
+[[fig-LogicClassDiagram]]
+.Structure of the Logic Component
+image::LogicClassDiagram.png[width=800]
+
+The `Logic` component is responsible for parsing and executing commands. A typical command is parsed and executed as follows:
+
+.  `Logic` uses the `TopDeckParser` class to parse the user command into a command word and its arguments.
+.  `TopDeckParser` requests for the `ViewStateParser` from the active `ViewState` in `Model`.
+.  This `ViewStateParser` is then used to parse the command word itself.
+.  This results in a `Command` object which is executed by the `LogicManager`.
+.  The execution of this command may affect the `Model` (e.g. when deleting a deck).
+.  The result of the command execution is wrapped in a `CommandResult` object and returned back to `Ui`.
+.  Different subclasses of `CommandResult` may instruct `Ui` to perform different actions,
+   such as `UpdatePanelCommandResult` which is used to construct a new `MainPanel`.
+
+To make things clearer, below is the Sequence Diagram for interactions within the `Logic` component given an `execute("delete 1")` API call.
+
+.Interactions Inside the Logic Component for `delete 1`
+image::DeletePersonSdForLogic.png[]
 
 === Stateful user interface
 ==== Introduction
@@ -174,7 +249,7 @@ depend on the context of the application state.
 
 For example, the command word `add` is "overloaded" with two capabilities:
 
-1. In decks view, it adds a new deck: `add DECK_NAME`
+1. In decks view, it adds a new deck: `add n/DECK_NAME`
 2. In cards view, it adds a new card to a particular deck: `add q/QUESTION a/ANSWER`
 
 It is the active state in TopDeck that resolves the actual command that is called.
@@ -187,6 +262,7 @@ A stateful user interface is also preferable to end users since it
 requires less cognitive effort to operate by virtue of the fewer and shorter commands.
 
 However, implementing state in full generality required nontrivial modifications to the AB4 architecture.
+These modifications have been reflected in <<Architecture>>.
 We will now describe how state is implemented in TopDeck.
 
 ==== Current implementation
@@ -196,25 +272,12 @@ Hence, it is natural to consider distinct views in the user interface as separat
 States in TopDeck correspond to the three possible views described in the user guide:
 decks view, cards view and study view.
 
-The following figure illustrates the transitions between these states.
-
-.State diagram for TopDeck
-image::state_diagram.png[]
-////
-[plantuml]
-....
-(*) --> "Decks view"
-"Decks view" -> [Open] "Cards view"
-"Cards view" --> [Close] "Decks view"
-"Decks view" --> [Study] "Study view"
-"Study view" -> [Finish study] "Decks view"
-....
-////
-
 Each state implements a common interface `ViewState`
 and holds transient data that is relevant only while the state is active.
 For example, `CardsView` has a member `activeDeck` which holds a reference to the deck opened in decks view.
 Commands in cards view such as `add` will then operate on this deck.
+The `ViewState` contract also requires each implementer to provide policies
+for parsing and rendering used by `Logic` and `Ui` respectively. This is an example of the strategy pattern.
 
 `ModelManager` owns the sole instance of `ViewState`.
 Having only one instance of any state makes it trivial to enforce mutual exclusion.
@@ -231,3 +294,25 @@ All methods are expected to work regardless of the current state.
 We assume that if a caller is capable of providing the required arguments to a method,
 the method call is valid and expected.
 This obviates the need for state-checking code in `ModelManager`.
+
+==== Design considerations
+
+The design of the state classes was a significant technical decision. Below were my considerations.
+
+* Alternative 1: Keep the semantics of the original `Model` and put all state-specific fields and methods here. Maintain an enum to keep track of the active state.
+** Pros:
+*** Does not require much initial modifications to AB4 to support
+** Cons:
+*** `Model` will contain a lot of irrelevant fields and methods throughout its lifetime such as `getUserAnswer()`.
+*** Necessary to do a lot of switch-case checking, downcasting to concrete states and error handling of incorrect states.
+* Alternative 2 (current choice): Redefine the responsibilies of `Model` as above and put state-specific data and methods in the respective `ViewState` classes
+** Pros:
+*** Separation of concerns. Allows different states to be developed independently.
+*** Safety. It is harder to write wrong code if there are no irrelevant fields in a class.
+*** Can use polymorphism to dynamically dispatch correct behaviour, obviating the need for switch-case checks.
+** Cons:
+*** Requires substantial modifications to AB4 to support and requires a rewrite of many tests.
+*** Makes testing harder since the model must be initialised to the correct state.
+
+Despite its initial ease of adoption, alternative 1 is difficult to extend and creates significant technical debt in the long run as more state-specific functionality is added to `Model`.
+Thus, the choice is clear. Alternative 2 is preferable.

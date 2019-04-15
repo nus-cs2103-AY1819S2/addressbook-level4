@@ -1005,6 +1005,26 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and the location is retained.
 
+=== Adding a book
+
+. Adding a book to an empty bookshelf.
+
+.. Prerequisites: Clear the bookshelf using `clear` command. The bookshelf shall be empty after the command execution.
+.. Test case: `addBook n/Alice in Wonderland n/multiple name a/Lewis Carroll m/5 t/fantasy t/fairy tale` +
+   Expected: No book is added. Error details are shown in the status message. Status bar remains the same.
+.. Test case: `addBook n/Alice in Wonderland n/multiple name a/Lewis Carroll m/5 t/fantasy t/fairy tale` +
+   Expected: Adds a book named Alice in Wonderland to the record. The book is written by Lewis Carroll, rated 5 stars, and labeled with tags ‘fantasy’ and ‘fairy tale’.
+
+=== Editing a book
+
+. Editing an existing book in the bookshelf.
+
+.. Prerequisites: At least one book exists in the bookshelf, and no book in the bookshelf is named `test`.
+.. Test case: `editBook 1 n/test a/some author t/some tag` +
+   Expected: Change the name, author, tag of the first book to test, some author, some tag.
+.. Test case: `editBook 1 t/` +
+   Expected: Clear all the existing tags of the first book in the result list.
+
 === Deleting a book
 
 . Deleting a book while all books are listed

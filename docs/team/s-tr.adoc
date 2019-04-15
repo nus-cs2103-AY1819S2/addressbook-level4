@@ -67,8 +67,19 @@ include::../UserGuide.adoc[tag=battle]
  To see my full contribution, please refer to the full Developer Guide._
 |===
 
+== 2. Design
 include::../DeveloperGuide.adoc[tag=battle]
+
+== 3. Implementation
 include::../DeveloperGuide.adoc[tag=battle_aspect_1]
 include::../DeveloperGuide.adoc[tag=battle_aspect_2]
+
+== Appendix C: Use Cases
+
+include::../DeveloperGuide.adoc[tag=beginusecase]
+
+== Appendix F: Instructions for Manual Testing
+
+include::../DeveloperGuide.adoc[tag=battletest]
 
 ---

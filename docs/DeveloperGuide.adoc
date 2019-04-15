@@ -1221,9 +1221,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` | player | see how many enemy ships I have destroyed | know how many more enemy ships to find
 
-|`* *` | player | see game statistics | know how i am performing in the game
+|`* *` | player | see game statistics | know how I am performing in the game
 
-|`* *` | player | compare scores with previous games | know if i am getting better at winning the game
+|`* *` | player | compare scores with previous games | know if I am getting better at winning the game
 
 |=======================================================================
 
@@ -1308,6 +1308,8 @@ Use case ends.
 [none]
 * 2a. If there are no ships deployed, inform the user.
 
+// tag::beginusecase[]
+
 === Begin the battle
 
 *MSS*
@@ -1325,6 +1327,10 @@ Use case ends.
 [none]
 ** 2a1. The game prevents the user from starting the battle, and
         informs them to place at least one ship.
+
+// end::beginusecase[]
+
+// begin::attackusecase[]
 
 === Attack the enemy
 
@@ -1349,6 +1355,8 @@ Use case ends.
 [none]
 ** 2b1. The game prevents the user from attacking the cell and prompts them for another.
 [none]
+
+// end::attackusecase[]
 
 //tag::StatsUseCase[]
 === See game statistics
@@ -1384,15 +1392,6 @@ Use case ends.
 ** 2a1. A single statement indicating no statistical data yet is displayed in the command box.
 
 //end::StatsUseCase[]
-=== End player turn
-
-*MSS*
-
-1. User requests for enemy to start turn.
-2. User's turn is automatically ended.
-3. Enemy player turn starts.
-+
-Use case ends.
 
 === Play enemy turn
 
@@ -1476,9 +1475,9 @@ These instructions only provide a starting point for testers to work on; testers
 
 // end::shiptest[]
 
-// tag::battletest[]
+// tag::starttest[]
 
-=== Battling
+=== Starting the battle
 
 . To test `begin`, we will test that it is only able to be executed at certain times.
   Please follow the following steps in order.
@@ -1491,6 +1490,10 @@ These instructions only provide a starting point for testers to work on; testers
    Expected result: the battle successfully begins and a message stating as such is displayed.
 .. Execute `begin` again.
    Expected result: an error message is displayed in the result box.
+
+// end::starttest[]
+
+// tag::battletest[]
 
 === Attacking
 
@@ -1518,7 +1521,7 @@ These instructions only provide a starting point for testers to work on; testers
    a "destroy" message is displayed.
 .. Destroy all the enemy's ships. +
    Expected result: a "win" message is displayed.
-.. Have all your ships be destroyed by the enemy. +
+.. Start another battle, then have all your ships be destroyed by the enemy. +
    Expected result: a "lose" message is displayed.
 
 // end::battletest[]

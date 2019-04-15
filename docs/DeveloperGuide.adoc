@@ -1820,6 +1820,21 @@ lowest scoring flashcard question and hints are displayed. Tester can also be in
 
 // end::reportmanualtest[]
 
+//tag::sortmanualtest[]
+
+=== Sorting the cards
+
+. Sort
+
+.. Prerequisites: Enter a folder. The tester may want to ensure that they have at least two
+ cards in this folder, or else there is no way to tell if the sort happened.
+.. Test case: `sort` +
+   Expected: Sorts cards in non-descending percentage score. If card A is above card B, card A will not have a higher
+   percentage score than card B.
+   `Sorted flashcards with lowest score first` is shown on the status message.
+
+// end::sortmanualtest[]
+
 //tag::foldermanualtesting[]
 === Folder operations
 

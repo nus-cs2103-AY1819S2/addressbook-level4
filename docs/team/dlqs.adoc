@@ -75,4 +75,5 @@ to the project, namely how to pass results from Model into Ui and Model state th
 include::../DeveloperGuide.adoc[tag=report]
 include::../DeveloperGuide.adoc[tag=state]
 include::../DeveloperGuide.adoc[tag=reportmanualtest]
+include::../DeveloperGuide.adoc[tag=sortmanualtest]
 include::../DeveloperGuide.adoc[tag=reportusecase]

@@ -5,7 +5,6 @@ import static org.junit.Assert.assertFalse;
 import static seedu.address.testutil.TypicalModuleTaken.CS1010X;
 import static seedu.address.testutil.TypicalModuleTaken.CS2030;
 import static seedu.address.testutil.TypicalModuleTaken.CS2040;
-import static seedu.address.testutil.TypicalModuleTaken.CS2103T;
 import static seedu.address.testutil.TypicalModuleTaken.getTypicalGradTrak;
 
 import java.io.IOException;

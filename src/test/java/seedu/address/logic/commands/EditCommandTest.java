@@ -1,17 +1,17 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
+//import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_CS1010;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_CS2103T;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MODULE_INFO_CODE_CS1010;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_SEMESTER_CS1010;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+//import static seedu.address.logic.commands.CommandTestUtil.VALID_SEMESTER_CS1010;
+//import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+//import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+//import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalModuleTaken.getTypicalGradTrak;
@@ -26,7 +26,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.EditCommand.EditModuleTakenDescriptor;
-import seedu.address.model.GradTrak;
+//import seedu.address.model.GradTrak;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserInfo;
@@ -36,7 +36,7 @@ import seedu.address.model.moduleinfo.ModuleInfoList;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.storage.moduleinfostorage.ModuleInfoManager;
 import seedu.address.testutil.EditModuleTakenDescriptorBuilder;
-import seedu.address.testutil.ModuleTakenBuilder;
+//import seedu.address.testutil.ModuleTakenBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.

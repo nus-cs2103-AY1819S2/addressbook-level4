@@ -15,8 +15,8 @@ import static seedu.address.testutil.TypicalModuleTaken.CS1010S;
 import static seedu.address.testutil.TypicalModuleTaken.CS1010X;
 import static seedu.address.testutil.TypicalModuleTaken.GER1000;
 import static seedu.address.testutil.TypicalModuleTaken.KEYWORD_MATCHING_CS;
-import static seedu.address.testutil.TypicalModuleTaken.KEYWORD_MATCHING_CS2103T;
 import static seedu.address.testutil.TypicalModuleTaken.KEYWORD_MATCHING_CS1010S;
+import static seedu.address.testutil.TypicalModuleTaken.KEYWORD_MATCHING_CS2103T;
 import static seedu.address.testutil.TypicalModuleTaken.MA1521;
 import static seedu.address.testutil.TypicalModuleTaken.getTypicalGradTrak;
 

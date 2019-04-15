@@ -407,8 +407,10 @@ image::card_ug_diagrams/edit_card_4.png[width="800"]
 
 **Search for phrases**: TopDeck provides the user the ability to search for
 specific question by searching for a whole phrase instead of only individual words.
-This is done by putting `"` around `KEYWORD`. There should not be any `"` character in
-`KEYWORD`. Searching using phrases only searches the question.
+This is done by putting `"` around `KEYWORD`.
+The find command searches all `KEYWORD` between 2 `"`
+and so there should not be any `"` character in `KEYWORD`.
+Searching using phrases only searches the question.
 
 **Outcome**: Lists all cards within the current deck containing `KEYWORD` in its text.
 
@@ -419,7 +421,7 @@ This is done by putting `"` around `KEYWORD`. There should not be any `"` charac
 [CAUTION]
 The entire phrase inside `"` will be matched word for word. For example, `find "Is there a question"`
 will display the questions with the entire phrase `Is there a question` and the question
-`Is there a question?` will not be matched due to the extra `?`
+`Is there a question?` will not be matched due to the extra `?`.
 
 **Example**:
 

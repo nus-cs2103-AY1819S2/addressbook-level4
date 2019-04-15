@@ -142,11 +142,6 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[width="600"]
-
 [discrete]
 ==== How the architecture components interact with each other
 
@@ -199,8 +194,8 @@ The selected tab will also be changed accordingly if the command executed is a `
 === Logic component
 
 [[fig-LogicClassDiagram]]
-.Overview of the Logic Component
-image::logic-class-diagram.png[width:"800"]
+.Class Diagram of the Logic Component
+image::LogicClassDiagram.png[width="600"]
 
 *API* :
 link:{repoURL}/blob/master/src/main/java/seedu/hms/logic/Logic.java[`Logic.java`]
@@ -226,7 +221,7 @@ In addition, the `CommandResult` object can also instruct the User-Interface to 
 === Model component
 
 .Structure of the Model Component
-image::model-class-diagram.png[width:"1200"]
+image::ModelClassDiagram.png[width:"600"]
 
 
 .Structure of the CustomerModel Component
@@ -279,65 +274,102 @@ Classes used by multiple components are in the `seedu.hms.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::booking[]
-=== Adding service booking functionality
-==== Current Implementation
+// tag::new-model[]
+=== How to include a new model
+==== Current Implementation using service booking
 
-In general, when adding any new model and its related commands, we need to work on 3 components
-compulsorily - Logic, Model and Storage. The UI component is modified based on how we
+In general, when adding any new model and its related commands, you need to work on 3 components
+compulsorily - Logic, Model and Storage. The UI component is modified based on how you
 want the user to be able to interact with our newly added model.
 
-We start by working on the model component. We create a more specific model which
+You will start by working on the model component. You must create a more specific model which
 implements the existing `Model` interface and create a manager for this model. This constitutes
 the API for our new model how the `Logic` component will execute the commands related to the model.
-For Booking, we create a `BookingModel` interface and a `BookingManager` manager which
+For Booking, there is a `BookingModel` interface and a `BookingManager` class which
 keeps track of a booking list. An 'observable booking list' is bounded to the UI using
-listeners so that the UI can be updated as the list changes.
+listeners so that the UI can be updated as the list changes. While the interface is a means of exposing the
+API, the manager class links with the system and performs the actions. We also create the relevant class files
+to represent the model we are implementing. For example, for representing our list of reservations,
+we create relevant classes like `ReservationList`, `Reservation`, `DateRange`, `RoomType`, etc.\
 
-Then we add the command files and parser files so that the application can parse commands
-related to the model and execute them. We have seperated the commands for different models
-by adding an interface in the middle. For example, we have a `CustomerCommand` and a
-`BookingCommand` interface which implements the `Command` interface. Then each command
-(eg. AddBookingCommand, EditBookingCommand, etc.) implements the `BookingCommand` interface.
-This makes sure that only the booking manager can be used to execute these commands as well.
-We also need to add parser classes for each command we implement (eg. AddBookingCommandParser).
-These classes are invoked in the `HotelManagementSystemParser` to get back the
-`CommandResult` which is used by the UI.
+.Changes in the Model Structure
+image::ModelComparison.png[width="600"]
 
-If the new model needs to be stored, then we also need to define JSON adapted classes
+Then you need to add the command files and parser files so that the application can parse commands
+related to the model and execute them. The commands have been separated for different models
+by adding an interface in the middle. This interface makes sure the correct model is used to execute
+those commands. For example, there is a `CustomerCommand` and a `BookingCommand` interface which
+implements the `Command` interface. Moreover the `CustomerCommand` interface specifies that it uses
+the `CustomerModel` to execute itself. Then each command (eg. AddBookingCommand, EditBookingCommand, etc.)
+implements the `BookingCommand` interface. This makes sure that only the booking manager can be used to
+execute these commands as well. You also need to add parser classes for each command you implement
+(eg. AddBookingCommandParser). These classes are invoked in the `HotelManagementSystemParser`
+to get back the `CommandResult` which is used by the UI.
+
+.The new command structure
+image::MainCommandStructure.png[width="600"]
+
+If the new model needs to be stored, then you also need to define JSON adapted classes
 to represent these models. The `JsonSerializableHotelManagementSystem` has a list of
 `JsonAdaptedCustomer` and a list of `JsonAdaptedBooking` and these two lists are saved using
-`seedu.hms.commons.util.JsonUtil`. For each model class, we need to define a JSON-adapted
-class with a `toModelType` function so that we can read the data back from the file.
+`seedu.hms.commons.util.JsonUtil`. For each model class, you need to define a JSON-adapted
+class with a `toModelType` function so that the system can read the data back from the file.
 
 The modifications in the UI for a new model depend heavily on the functionality it
-provides. In this case we decided to add a panel to display all the bookings/reservations
-which can be filtered based on the selected customer, service type and timing (to-do by v1.4).
-One can see the addition, updation and deletion of bookings in real-time in the UI as has
-been explained before.
+provides. For booking and reservations, a panel was added to display all the bookings/reservations
+which can be filtered based on different parameters. You can see the addition, updating and deletion of
+bookings in real-time in the UI as has been explained before.
 
 ==== Design Considerations
 
 ===== Aspect: How should the API be structured
 
 * **Alternative 1 (current choice):** Every model has a seperate interface which implements
-                                      the `Model`
+                                      the `Model` interface
 ** Pros: Every model has access to the GUI and User Preferences.
-** Cons: There is no specific model for GUI actions and the Customer Model is used
-         for these purposes.
+** Cons: Some models have unnecessary methods.
 * **Alternative 2:** All the model APIs will be seperate and there will be no Model Interface.
-** Pros: Better seperation and less scope for errors
-** Cons: Lot of refactoring required
+** Pros: Better separation and less scope for errors.
+** Cons: Lot of refactoring required.
+//end:new-model[]
 
-===== Aspect: Implementing Services (and Room Types)
+//tag:customizability[]
+=== Making a model customizable
+==== Current Implementation
 
-* **Alternative 1 (current choice):** Using ENUM
-** Pros: It is safer as it makes sure every booking has a valid service
-** Cons: Reduces flexibility of services and uses string matching in command parsing.
-* **Alternative 2:** Using a class
-** Pros: Makes it easier for staff to add and edit new services.
-** Cons: Requires more error handling and safety measures
-// end::booking[]
+In this section a model is considered to be customizable if an instance of it can be:
+
+* Added
+* Edited
+* Deleted
+* Listed (or Displayed)
+
+[NOTE]
+You can relate this with the infamous CRUD cycle if you are familiar with it.
+
+Every model/manager has access to the `HotelManagementSystem` inside which resides all the
+lists (`BookingList`, `UniqueCustomerList`, etc.). These lists have methods to add an item,
+set or replace an item at a particular index and delete an item. Therefore, when you are
+implementing a model and its list wrapper (Eg. `ReservationList`), you must include these functions.
+You must also define equality between instances of a model created so that it is easy to find
+an instance and replace it. Include an instance of your list inside the `HotelManagementSystem`
+and add a listener to it to automatically update the UI every time the function `indicateModified` is called.
+Based on the action, you might want to update the shown list using the `updateFiltered#{Model Name}List` method.
+A sequence diagram is given below to make the following more clear.
+
+.Sequence diagram for `add-customer`
+image::AddCustomerSequenceDiagram.png[width="600"]
+
+==== Design Considerations
+===== Aspect: Editing a model object
+
+* **Alternative 1:** Allowing objects to be edited
+** Pros: We avoid recreating new instances and will have better performance.
+** Cons: It is very hard to update the UI every time an object is added or updated.
+* **Alternative 2 (current choice):** Replacing objects with a new object with edited parameters
+** Pros: Lot of instances are created and we need to make sure the old object doesn't reappear again.
+** Cons: It is easy to update the UI using a listener for each list.
+// end::customizability[]
 
 // tag::filteringBooking[]
 === Filtering service booking functionality
@@ -1268,16 +1300,365 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is the `HMS+` and the *Actor* is the Hotel Staff, unless specified otherwise)
 
 [discrete]
-=== Use case: Generate booking bill for a specific customer
+=== Use case: Add reservation
 
 *Main Success Scenario*
 
-1.  The actor requests the list of all customers.
-2.  The system lists all the customers.
-3.  The actor requests to generate total bill for a specific customer.
-4.  The system generates the total bill for that specific customer.
+1.  The actor adds a reservation.
+2.  The system adds the reservation to its list of reservations.
 +
-Use case resumes at step 3
+Use case resumes at step 1.
+
+*Extensions*
+
+[none]
+* 1a. The actor tries to add invalid reservation.
++
+[none]
+** 1a1. The system shows an error.
++
+Steps 1 - 1a1 are repeated till a valid reservation is provided.
++
+Use case ends.
+
+[discrete]
+=== Use case: Edit reservation
+
+*Main Success Scenario*
+
+1.  The actor requests all the reservations in the system.
+2.  The system lists the reservations requested.
+3.  The actor requests to edit a reservation at a specified index.
+4.  The system editss the reservation.
++
+Use case resumes at step 3.
+
+*Extensions*
+
+[none]
+* 2a. The system has no reservations.
++
+Use case ends.
+
+* 3a. The index that the actor specified is invalid.
++
+[none]
+** 3a1. The system shows an error message.
++
+Steps 3 - 3a1 are repeated till a valid index is provided.
+
+[discrete]
+=== Use case: List reservations
+
+*Main Success Scenario*
+
+1.  The actor requests to see all the reservations in the system.
+2.  The system lists the reservations requested.
+
+[discrete]
+=== Use case: Delete reservation
+
+*Main Success Scenario*
+
+1.  The actor requests all the reservations in the system.
+2.  The system lists the reservations requested.
+3.  The actor requests to delete a reservation at a specified index.
+4.  The system deletes the reservation.
++
+Use case resumes at step 3.
+
+*Extensions*
+
+[none]
+* 2a. The system has no reservations.
++
+Use case ends.
+
+* 3a. The index that the actor specified is invalid.
++
+[none]
+** 3a1. The system shows an error message.
++
+Steps 3 - 3a1 are repeated till a valid index is provided.
+
+[discrete]
+=== Use case: Add booking
+
+*Main Success Scenario*
+
+1.  The actor adds a booking.
+2.  The system adds the booking to its list of bookings.
++
+Use case resumes at step 1.
+
+*Extensions*
+
+[none]
+* 1a. The actor tries to add invalid booking.
++
+[none]
+** 1a1. The system shows an error.
++
+Steps 1 - 1a1 are repeated till a valid booking is provided.
++
+Use case ends.
+
+[discrete]
+=== Use case: Edit booking
+
+*Main Success Scenario*
+
+1.  The actor requests all the bookings in the system.
+2.  The system lists the bookings requested.
+3.  The actor requests to edit a booking at a specified index.
+4.  The system editss the booking.
++
+Use case resumes at step 3.
+
+*Extensions*
+
+[none]
+* 2a. The system has no bookings.
++
+Use case ends.
+
+* 3a. The index that the actor specified is invalid.
++
+[none]
+** 3a1. The system shows an error message.
++
+Steps 3 - 3a1 are repeated till a valid index is provided.
+
+[discrete]
+=== Use case: List bookings
+
+*Main Success Scenario*
+
+1.  The actor requests to see all the bookings in the system.
+2.  The system lists the bookings requested.
+
+[discrete]
+=== Use case: Delete booking
+
+*Main Success Scenario*
+
+1.  The actor requests all the bookings in the system.
+2.  The system lists the bookings requested.
+3.  The actor requests to delete a booking at a specified index.
+4.  The system deletes the booking.
++
+Use case resumes at step 3.
+
+*Extensions*
+
+[none]
+* 2a. The system has no bookings.
++
+Use case ends.
+
+* 3a. The index that the actor specified is invalid.
++
+[none]
+** 3a1. The system shows an error message.
++
+Steps 3 - 3a1 are repeated till a valid index is provided.
+
+[discrete]
+=== Use case: Add room-type
+
+*Main Success Scenario*
+
+1.  The actor adds a room-type.
+2.  The system adds the room-type to its list of room-types.
++
+Use case resumes at step 1.
+
+*Extensions*
+
+[none]
+* 1a. The actor tries to add invalid room-type.
++
+[none]
+** 1a1. The system shows an error.
++
+Steps 1 - 1a1 are repeated till a valid room-type is provided.
++
+Use case ends.
+
+[none]
+* 2a. The actor tries to add an already existing room type.
++
+[none]
+** 2a1. The system shows an error.
++
+Steps 2 - 2a1 are repeated till a new room-type is provided.
++
+Use case ends.
+
+[discrete]
+=== Use case: Edit room-type
+
+*Main Success Scenario*
+
+1.  The actor requests all the room-types in the system.
+2.  The system lists the room-types requested.
+3.  The actor requests to edit a room-type at a specified index.
+4.  The system editss the room-type.
++
+Use case resumes at step 3.
+
+*Extensions*
+
+[none]
+* 2a. The system has no room-types.
++
+Use case ends.
+
+* 3a. The index that the actor specified is invalid.
++
+[none]
+** 3a1. The system shows an error message.
++
+Steps 3 - 3a1 are repeated till a valid index is provided.
+
+[none]
+* 3b. The actor tries to edit the room type to an already existing room type.
++
+[none]
+** 3b1. The system shows an error.
++
+Steps 3 - 3b1 are repeated till a new room-type is provided.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete room-type
+
+*Main Success Scenario*
+
+1.  The actor requests all the room-types in the system.
+2.  The system lists the room-types requested.
+3.  The actor requests to delete a room-type at a specified index.
+4.  The system deletes the room-type.
++
+Use case resumes at step 3.
+
+*Extensions*
+
+[none]
+* 2a. The system has no room-types.
++
+Use case ends.
+
+* 3a. The index that the actor specified is invalid.
++
+[none]
+** 3a1. The system shows an error message.
++
+Steps 3 - 3a1 are repeated till a valid index is provided.
+
+[discrete]
+=== Use case: Add service
+
+*Main Success Scenario*
+
+1.  The actor adds a service.
+2.  The system adds the service to its list of services.
++
+Use case resumes at step 1.
+
+*Extensions*
+
+[none]
+* 1a. The actor tries to add invalid service.
++
+[none]
+** 1a1. The system shows an error.
++
+Steps 1 - 1a1 are repeated till a valid service is provided.
++
+Use case ends.
+
+[none]
+* 2a. The actor tries to add an already existing room type.
++
+[none]
+** 2a1. The system shows an error.
++
+Steps 2 - 2a1 are repeated till a new service is provided.
++
+Use case ends.
+
+[discrete]
+=== Use case: Edit service
+
+*Main Success Scenario*
+
+1.  The actor requests all the services in the system.
+2.  The system lists the services requested.
+3.  The actor requests to edit a service at a specified index.
+4.  The system editss the service.
++
+Use case resumes at step 3.
+
+*Extensions*
+
+[none]
+* 2a. The system has no services.
++
+Use case ends.
+
+* 3a. The index that the actor specified is invalid.
++
+[none]
+** 3a1. The system shows an error message.
++
+Steps 3 - 3a1 are repeated till a valid index is provided.
+
+[none]
+* 3b. The actor tries to edit the room type to an already existing room type.
++
+[none]
+** 3b1. The system shows an error.
++
+Steps 3 - 3b1 are repeated till a new service is provided.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete service
+
+*Main Success Scenario*
+
+1.  The actor requests all the services in the system.
+2.  The system lists the services requested.
+3.  The actor requests to delete a service at a specified index.
+4.  The system deletes the service.
++
+Use case resumes at step 3.
+
+*Extensions*
+
+[none]
+* 2a. The system has no services.
++
+Use case ends.
+
+* 3a. The index that the actor specified is invalid.
++
+[none]
+** 3a1. The system shows an error message.
++
+Steps 3 - 3a1 are repeated till a valid index is provided.
+
+=== Use case: Generate bill for a specific customer
+
+*Main Success Scenario*
+
+1. The actor requests the list of all the customers.
+2. The system lists all the customers.
+3. The actor requests to generate total bill for a specific customer.
+4. The system generates the total bill for that specific customer.
 
 *Extensions*
 
@@ -1287,8 +1668,6 @@ Use case resumes at step 3
 Use case ends.
 
 * 3a. The command that the actor entered is invalid.
-+
-[none]
 ** 3a1. The system shows an error message that the command is invalid.
 +
 Use case resumes at step 3.
@@ -1304,176 +1683,7 @@ Use case resumes at step 3.
 * 3b. The index that the actor selected is wrong.
 +
 [none]
-** 3b1. The system generates the booking bill for a different customer, not the intended one.
-+
-Use case resumes at step 3.
-
-[discrete]
-=== Use case: Generate total bill for a specific customer
-
-*Main Success Scenario*
-
-1. The actor requests the list of all the customers.
-2. The system lists all the customers.
-3. The actor requests to generate total bill for a specific customer.
-4. The system generates the total bill for that specific customer.
-+
-Use case resumes at step 3.
-
-*Extensions*
-
-[none]
-* 2a. There are no customers.
-+
-Use case ends.
-
-[none]
-* 3a. The command that the actor entered is invalid.
-+
-[none]
-** 3a1. The system shows an error message that the command is invalid.
-+
-Use case resumes at step 3.
-
-[none]
-* 3b. The index that the actor selected is invalid.
-+
-[none]
-** 3b1. The system shows an error message that the index is invalid.
-+
-Use case resumes at step 3.
-
-[none]
-* 3b. The index that the actor selected is wrong.
-+
-[none]
-** 3b1. The system generates total bill for a different customer, not the intended one.
-+
-Use case resumes at step 3.
-
-[discrete]
-=== Use case: Finding the specific list of bookings
-
-*Main Success Scenario*
-
-1. The actor requests for the specific list of bookings.
-2. The system shows the specific list of bookings.
-+
-Use case resumes at step 1.
-
-*Extensions*
-
-[none]
-* 1a. The command that the actor entered is invalid.
-+
-[none]
-** 1a1. The system shows an error message that the command is invalid.
-+
-Use case resumes at step 1.
-
-[none]
-* 1b. The identification number that the actor entered is in wrong format.
-+
-[none]
-** 1b1. The system shows an error message that the identification number has been not entered in the correct format.
-+
-Use case resumes at step 1.
-
-[none]
-* 1c. The identification number that the actor entered is wrong.
-+
-[none]
-** 1c1. The system shows the specific list of bookings with the wrong identification number.
-+
-Use case resumes at step 1.
-
-Use cases for `ServiceType` and `TimeRange` can be created in a similar manner like steps `1b` and `1c`.
-
-[discrete]
-=== Use case: Finding the specific list of reservations
-
-*Main Success Scenario*
-
-1. The actor requests for the specific list of reservations.
-2. The system shows the specific list of reservations.
-+
-Use case resumes at step 1.
-
-*Extensions*
-
-[none]
-* 1a. The command that the actor entered is invalid.
-+
-[none]
-** 1a1. The system shows an error message that the command is invalid.
-+
-Use case resumes at step 1.
-
-[none]
-* 1b. The identification number that the actor entered is in wrong format.
-+
-[none]
-** 1b1. The system shows an error message that the identification number has been not entered in the correct format.
-+
-Use case resumes at step 1.
-
-[none]
-* 1c. The identification number that the actor entered is wrong.
-+
-[none]
-** 1c1. The system shows the specific list of reservations with the wrong identification number.
-+
-Use case resumes at step 1.
-
-Use cases for `RoomType` and `DateRange` can be created in a similar manner like steps `1b` and `1c`.
-
-[discrete]
-=== Use case: Clear all reservations
-
-*Main Success Scenario*
-
-1. The actor requests the list of all reservations.
-2. The system shows the list of all reservations.
-3. The actor requests to clear all reservations.
-4. The system clears all the reservations.
-
-*Extensions*
-
-[none]
-* 2a. The list of reservations is empty.
-+
-Use case ends.
-
-[none]
-* 3a. The command that the actor entered is invalid.
-+
-[none]
-** 3a1. The system shows an error message that the command is invalid.
-+
-Use case resumes at step 3.
-
-[discrete]
-=== Use case: Clear all bookings
-
-*Main Success Scenario*
-
-1. The actor requests the list of all bookings.
-2. The system shows the list of all bookings.
-3. The actor requests to clear all bookings.
-4. The system clears all the bookings.
-
-*Extensions*
-
-[none]
-* 2a. The list of bookings is empty.
-+
-Use case ends.
-
-[none]
-* 3a. The command that the actor entered is invalid.
-+
-[none]
-** 3a1. The system shows an error message that the command is invalid.
+** 3b1. The system generates the bill for a different customer, not the intended one.
 +
 Use case resumes at step 3.
 
@@ -1483,8 +1693,6 @@ Use case resumes at step 3.
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 customers without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-
 
 [appendix]
 == Glossary
@@ -1561,7 +1769,8 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-=== Adding a customer
+=== Customers
+==== Adding a customer
 
 . Adding a customer with the `add-customer` command
 
@@ -1571,7 +1780,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `add-customer ...` followed by the details of an existing customer +
    Expected: No customer is added. Message shows "This customer already exists in the hms book". Status bar remains the same.
 
-=== Deleting a customer
+==== Deleting a customer
 
 . Deleting a customer while all customers are listed
 
@@ -1583,7 +1792,158 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect delete commands to try: `delete-customer`, `delete-customer x` (where x is larger than the list size)... +
    Expected: Similar to previous.
 
-=== Generating bill for a customer
+=== Reservations
+==== Adding a reservation
+
+Adding a reservation with the `add-reservation` command
+
+.. Test case: `add-reservation` +
+   Expected: No reservation is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect commands to try: `add-reservation r/room-type`, `add-reservation r/room-type $/1`...
+.. Test case: `add-reservation d/5/5/19 - 4/5/19 ...` followed by the remaining details+
+   Expected: No reservation is added. Error details regarding the date range are shown. Status bar remains the same.
+..Other incorrect commands to try: `add-reservation d/5/5/1 - 4/5/19 ...`, `add-reservation d/5/13/19 - 4/5/19 ...`
+
+==== Editing a reservation
+
+=Editing a reservation with the `edit-reservation` command
+
+.. Test case: `edit-reservation` +
+   Expected: No reservation is edited. Error details shown in the status message. Status bar remains the same.
+.. Test case: `edit-reservation 1 r/INVALID_ROOM_TYPE $/-1` +
+   Expected: No reservation is edited. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect commands to try: `edit-reservation 1 r/SINGLE ROOM $/1000`, `edit-reservation 1 r/SINGLE ROOM c/-1 c/1000`
+.. Test case: `edit-reservation 1 d/5/5/19 - 4/5/19 ...` followed by the remaining details+
+   Expected: No reservation is edited. Error details regarding the date range are shown. Status bar remains the same.
+
+==== Listing reservations
+
+Listing all reservations with the `list-reservation` command
+
+.. Test case: `list=reservations` +
+   Expected: All reservations are listed.  Timestamp in the status bar is updated.
+
+==== Deleting a reservation
+
+Deleting a reservation while all reservations are listed
+
+.. Prerequisites: List all reservations using the `list-reservations` command. Multiple reservations in the list.
+.. Test case: `delete-reservation 1` +
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete-reservation 0` +
+   Expected: No reservation is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete-reservation`, `delete-reservation x` (where x is larger than the list size)... +
+   Expected: Similar to previous.
+
+=== Bookings
+==== Adding a booking
+
+Adding a booking with the `add-booking` command
+
+.. Test case: `add-booking` +
+   Expected: No booking is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect commands to try: `add-booking s/service-type`, `add-booking s/service-type $/1`...
+.. Test case: `add-booking d/5/5/19 - 4/5/19 ...` followed by the remaining details+
+   Expected: No booking is added. Error details regarding the date range are shown. Status bar remains the same.
+..Other incorrect commands to try: `add-booking d/5/5/1 - 4/5/19 ...`, `add-booking d/5/13/19 - 4/5/19 ...`
+
+==== Editing a booking
+
+=Editing a booking with the `edit-booking` command
+
+.. Test case: `edit-booking` +
+   Expected: No booking is edited. Error details shown in the status message. Status bar remains the same.
+.. Test case: `edit-booking 1 s/INVALID_SERVICE_TYPE $/-1` +
+   Expected: No booking is edited. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect commands to try: `edit-booking 1 s/GYM $/1000`, `edit-booking 1 s/GYM c/-1 c/1000`
+.. Test case: `edit-booking 1 :/22 - 25 ...` followed by the remaining details+
+   Expected: No booking is edited. Error details regarding the time range are shown. Status bar remains the same.
+
+==== Listing bookings
+
+Listing all bookings with the `list-booking` command
+
+.. Test case: `list=bookings` +
+   Expected: All bookings are listed.  Timestamp in the status bar is updated.
+
+==== Deleting a booking
+
+Deleting a booking while all bookings are listed
+
+.. Prerequisites: List all bookings using the `list-bookings` command. Multiple bookings in the list.
+.. Test case: `delete-booking 1` +
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete-booking 0` +
+   Expected: No booking is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete-booking`, `delete-reservation x` (where x is larger than the list size)... +
+   Expected: Similar to previous.
+
+=== Service Types
+==== Adding a service Type
+
+Adding a service Type with the `add-service-type` command
+
+.. Test case: `add-service-type` +
+   Expected: No service type is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect commands to try: `add-service-type n/name cap/-1`...
+.. Test case: `add-service-type :/23 - 25 ...` followed by the remaining details+
+   Expected: No service type is added. Error details regarding the time range are shown. Status bar remains the same.
+
+==== Editing a service type
+
+=Editing a service type with the `edit-service-type` command
+
+.. Test case: `edit-service-type` +
+   Expected: No service type is edited. Error details shown in the status message. Status bar remains the same.
+.. Test case: `edit-service-type 1 rate/-1` +
+   Expected: No service type is edited. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect commands to try: `edit-service-type 1 cap/-1`, `edit-service-type rate/-2`
+.. Test case: `edit-service-type 1 :/22 - 25 ...` followed by the remaining details+
+   Expected: No service type is edited. Error details regarding the time range are shown. Status bar remains the same.
+
+==== Deleting a service type
+
+Deleting a service type while all service types are listed
+
+.. Test case: `delete-service-type 1` +
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete-service-type 0` +
+   Expected: No service type is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete-service-type`, `delete-reservation x` (where x is larger than the list size)... +
+   Expected: Similar to previous.
+
+=== Room Types
+==== Adding a room Type
+
+Adding a room Type with the `add-room-type` command
+
+.. Test case: `add-room-type` +
+   Expected: No room type is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect commands to try: `add-room-type n/name cap/-1`...
+
+==== Editing a room type
+
+=Editing a room type with the `edit-room-type` command
+
+.. Test case: `edit-room-type` +
+   Expected: No room type is edited. Error details shown in the status message. Status bar remains the same.
+.. Test case: `edit-room-type 1 rate/-1` +
+   Expected: No room type is edited. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect commands to try: `edit-room-type 1 cap/-1`, `edit-room-type rate/-2`
+
+==== Deleting a room type
+
+Deleting a room type while all room types are listed
+
+.. Test case: `delete-room-type 1` +
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete-room-type 0` +
+   Expected: No room type is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete-room-type`, `delete-reservation x` (where x is larger than the list size)... +
+   Expected: Similar to previous.
+
+=== Bill
+==== Generating bill for a customer
 
 . Generating bill for a customer based on index
 

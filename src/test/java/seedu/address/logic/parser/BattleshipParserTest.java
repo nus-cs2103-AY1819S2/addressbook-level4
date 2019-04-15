@@ -14,7 +14,6 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.InitialiseMapCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListTagsCommand;
-import seedu.address.logic.commands.PutShipCommand;
 import seedu.address.logic.commands.SaveCommand;
 import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;

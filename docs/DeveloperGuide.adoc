@@ -307,9 +307,6 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-
-// tag::filter[]
-
 === Colored Tag Feature
 
 Color-coordinated tags that represent a candidate's technical and professional skills, their position interests, and
@@ -351,6 +348,7 @@ attribute that represents what tag type the object is. The strings 's:', 'p:', a
 **Coming in v2.0**
 
 Logic Component Changes
+
 * Instead of representing tag type as an attribute of a SkillsTag object, a `Tag` interface will be implemented by
 distinct `SkillsTag`, `PositionTag`, `EndorseTag` objects.
 * The tags will have separate adapted JSON objects in order to correctly store the colors in the Storage component.
@@ -358,6 +356,7 @@ distinct `SkillsTag`, `PositionTag`, `EndorseTag` objects.
 prepending tagName attributes with the respective tag type prefixes ('s:', 'p:', and 'e:').
 
 UI Component Changes
+
 * While the current implementation makes UI changes in the colors of the tags, the next implementation will have the
 separate tags featured on different lines instead of the current List of tags that has them in a random order.
 * The new view will improve the UI design to make the tags more organized and clear.

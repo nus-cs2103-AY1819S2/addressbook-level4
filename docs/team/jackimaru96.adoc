@@ -46,7 +46,7 @@ and minor features implemented for _In-Credit-Ble_.
 |===
 |[blue]#This section will give you a brief overview of my contributions to the project.# +
 
-This section will be split into *Major Enhancement*, *Minor Enhancements* and *Notable Contributions* sub-sections.#
+This section will be split into *Major Enhancement*, *Minor Enhancements* and *Notable Contributions* sub-sections.
 |===
 
 [TIP]
@@ -97,7 +97,7 @@ Depending on how close the total spending is to the total budget, the colour of 
 ** [red]#*_Justification_*:# This feature will allows users to have a visual view of their total spending against their set
 budget
 ** [red]#*_Highlights of feature:_*#
-*** This feature will be updated every time a user `[fuchsia]#spends#`, `[fuchsia]#edit#` the amount in the records, or
+*** This feature will be updated every time a user `[fuchsia]#spend#`, `[fuchsia]#edit#` the amount in the records, or
 `[fuchsia]#delete#` a record
 
 === Other Contributions
@@ -108,8 +108,8 @@ budget
 https://github.com/CS2103-AY1819S2-W17-3/main/issues?q=is%3Aissue+author%3AJackimaru96+is%3Aclosed[here!]
 *** [red]#*Set up and managed GitHub milestones and projects*#
 **** Click https://github.com/CS2103-AY1819S2-W17-3/main/milestones?state=closed[here] to view the Milestones
-and https://github.com/CS2103-AY1819S2-W17-3/main/projects?query=is%3Aclosed[here] to view the Project I managed
-*** [red]#*Changed product icon*#
+and Project I managed
+                                 *** [red]#*Changed product icon*#
 *** [red]#*Added Graphical User Interface Introduction section to User Guide*#
 **** Click https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/UserGuide.adoc#graphical-user-interface-introduction[here]
      to look at the GUI Introduction section.
@@ -152,6 +152,7 @@ To see the rest of the contributions I made to the User Guide, click the below l
 include::../UserGuide.adoc[tag=userinterface1]
 include::../UserGuide.adoc[tag=userinterface2]
 include::../UserGuide.adoc[tag=userinterface3]
+include::../UserGuide.adoc[tag=userinterface4]
 ---
 
 === `[fuchsia]#Allocate#`, `[fuchsia]#Show#` and `[fuchsia]#Theme#` Commands

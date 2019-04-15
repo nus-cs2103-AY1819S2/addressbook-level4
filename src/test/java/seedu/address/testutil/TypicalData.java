@@ -80,18 +80,20 @@ public class TypicalData {
             .build();
 
 
-    public static final Task CLEANING = new TaskBuilder().withTitle("Equipment Cleaning").withStartDate("15-01-2020")
-            .withEndDate("15-01-2020").withStartTime("0900").withEndTime("1000").withPriority("high")
-            .withNoLinkedPatient().build();
+    public static final Task CLEANING = new TaskBuilder().withTitle("Equipment Cleaning")
+            .withStartDate("15-01-2020").withEndDate("20-01-2020").withStartTime("0900").withEndTime("1000")
+            .withPriority("high").withNoLinkedPatient()
+            .build();
 
     public static final Task EXTRACT = new TaskBuilder().withTitle("Tooth extraction for Alice")
             .withStartDate("16-01-2020").withEndDate("20-01-2020").withStartTime("0900").withEndTime("0900")
             .withPriority("med").withLinkedPatient(VALID_NAME_AMY, VALID_NRIC_AMY)
             .build();
 
-    public static final Task REORG = new TaskBuilder().withTitle("Reorganize Documents").withStartDate("12-03-2020")
-            .withEndDate("12-03-2020").withStartTime("1500").withEndTime("1830").withPriority("low")
-            .withNoLinkedPatient().build();
+    public static final Task REORG = new TaskBuilder().withTitle("Reorganize Documents")
+            .withStartDate("12-03-2020").withEndDate("12-03-2020").withStartTime("1500").withEndTime("1830")
+            .withPriority("low").withNoLinkedPatient()
+            .build();
 
 
     // Manually added - Task's details found in {@code CommandTestUtil}

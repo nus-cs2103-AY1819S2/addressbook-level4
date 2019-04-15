@@ -543,6 +543,33 @@ public class ParserUtil {
     }
 
     /**
+     * Parse argument into parameters for RecordMc command
+     * @param arg
+     * @return
+     * @throws ParseException
+     */
+    public static String[] parseRecordMc(String arg) throws ParseException {
+        String[] args = arg.trim().split("\\s+");
+        String[] results = new String[] { "-1", "2" };
+
+        if (args.length > 2) { throw new ParseException("Wrong input numbers!"); }
+
+        results[0] = parseIndex(args[0]).getOneBased() + "";
+
+        if (args.length > 1) {
+            try {
+                int days = Integer.parseInt(args[1]);
+                if (days < 1) { throw new ParseException("Rest for at least 1 day"); }
+                results[1] = days + "";
+            } catch (NumberFormatException e) {
+                throw new ParseException("Invalid days of rest");
+            }
+        }
+
+        return results;
+    }
+
+    /**
      * Parses a {@code String desc} into a {@code Description}.
      * Leading and trailing whitespaces will be trimmed.
      *

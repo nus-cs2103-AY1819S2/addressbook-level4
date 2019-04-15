@@ -62,8 +62,11 @@ public class Booking {
         return comment;
     }
 
+    /**
+     * Returns the number of customers in a booking
+     */
     public int numOfCustomers() {
-        return 1 + otherUsers.map(Collection::size).orElse(0);
+        return allUsers.size();
     }
 
     public boolean isCustomerInOtherUsers(Customer key) {

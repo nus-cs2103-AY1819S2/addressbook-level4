@@ -38,12 +38,7 @@ public class EnemyTest {
     public static <T> boolean isSameListContents(List<T> list1, List<T> list2) {
         return new HashSet<>(list1).equals(new HashSet<>(list2));
     }
-
-    //Lucy TO-FIX:
-    @Test
-    public void constructor_default() {
-        //stub
-    }
+    
 
     @Test
     public void test_getName() {
@@ -165,6 +160,9 @@ public class EnemyTest {
      *    allTargets must - 1
      *    if watchlist empty -> allParityTargets must - 1
      *    else watchlist must - 1
+     *
+     *    coordinate shot at must be added to targetHistory
+     *    coordinate must not be present in allTargets, allParityTargets and watchlist
      */
     @Test public void test_enemyShootAt() {
 
@@ -182,10 +180,16 @@ public class EnemyTest {
             startingWatchlistSize = testEnemy.getWatchlist().size();
             startingTargetHistorySize = testEnemy.getTargetHistory().size();
 
-            testEnemy.enemyShootAt();
+            Coordinates shotAt = testEnemy.enemyShootAt();
 
             assertEquals(startingTargetHistorySize, (testEnemy.getTargetHistory().size() - 1));
             assertEquals((startingAllPossibleTargetsSize - 1), testEnemy.getAllPossibleTargets().size());
+
+            assertTrue(testEnemy.getTargetHistory().contains(shotAt));
+
+            assertFalse(testEnemy.getAllPossibleTargets().contains(shotAt));
+            assertFalse(testEnemy.getAllParityTargets().contains(shotAt));
+            assertFalse(testEnemy.getWatchlist().contains(shotAt));
 
             assertTrue(((startingAllParityTargets - 1) == testEnemy.getAllParityTargets().size())
                     ^ ((startingWatchlistSize - 1) == testEnemy.getWatchlist().size()));

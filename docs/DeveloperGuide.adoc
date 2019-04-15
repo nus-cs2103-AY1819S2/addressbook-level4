@@ -585,53 +585,59 @@ Besides toggling state, both commands also call
 
 ==== `ShowAnswerCommand` [[studyshow]]
 
-This command is executed when users enter any string during question state.
+This command is executed when users types in anything to the `CommandBox` during question state.
 
-This string is also the user's attempt for the question. Thus, `ShowAnswerCommand` has to store this string internally.
-This is done by setting `userAnswer` variable in `StudyView` class.
+This string typed is the user's attempt for the question shown. `ShowAnswerCommand` has to store this string internally
+for later display. This is done by setting `userAnswer` variable in `StudyView` class.
+
+
+Given below is an example usage scenario and how the `ShowAnswer` mechanism behaves at each step.
 
 .How ShowAnswerCommand works
 image::study_dg_diagrams/show.png[width="800"]
 
-Given below is an example usage scenario and how the `ShowAnswer` mechanism behaves at each step.
-
-Step 1. User attempts the question by typing in any command. If in question state, and the command is not a preset command,
+Step 1. User attempts the question by typing in any command. If in question state and the command is not a preset command,
 a `ShowAnswerCommand` object containing `userAnswer` is returned.
 
-Step 2. When command is executed, user answer is stored internally in `userAnswer`
- variable of `StudyView`.
+Step 2. When command is executed, the user's answer is stored internally in `userAnswer`
+ variable of `StudyView` through the `setUserAnswer()` function.
 
-Step 3. `currentStudyState` in  `StudyView` is toggled to `QUESTION`.
+Step 3. `currentStudyState` in  `StudyView` is toggled to `ANSWER`.
 
-Step 4. UI automatically changes to show answer as shown <<studyui,  here.>>
+Step 4. UI automatically changes to show answer as shown <<studyui, UI section>>.
 
 ==== `GenerateQuestionCommand`
 
-This command is executed when users enter ratings during answer state.
+This command is executed when users types into the `CommandBox` during answer state.
 
-This represents his rating for the previous flash card shown.
-Thus, `GenerateQuestionCommand` also needs to modify
-ratings inside `Card` object. Besides that, it needs to modify `currentCard` to show a new card as well.
+The string typed is his rating for the flash card shown.
+Thus, `GenerateQuestionCommand` needs to modify
+average difficulty rating inside `Card` object.
+Besides that, it needs to modify `currentCard` to show a new card as well.
+
+
+Given below is an example usage scenario and how the `ShowAnswer` mechanism behaves at each step.
 
 
 .How GenerateQuestionCommand works
 image::study_dg_diagrams/gen.png[width="800"]
 
 
-Given below is an example usage scenario and how the `ShowAnswer` mechanism behaves at each step.
 
 Step 1. User enters a rating. If in answer state, and command is not a preset command,
 and rating is between 1-5, a `GenerateQuestionCommand` object containing `int rating` is returned.
 
 Step 2. When command is executed, `addRating()` is called to modify the difficulty of the
-`currentCard`. This calls `addDifficulty()` in `Difficulty` class <<studydiff, detailed here>>.
+`currentCard`. This calls `addDifficulty()` in `Difficulty` class which is
+a property of `Card` class. Implementation detailes are found in <<studydiff, Difficulty Section>>.
 
-Step 3. `generateCard()` in `StudyView` is called. `StudyView` calls its `DeckShuffler` to generate a card <<studyshuffle, detailed here>>.
-`Card` returned by `DeckShuffler` is passed back to `StudyView` and studyView uses this to reset its own `currentCard`.
+Step 3. `generateCard()` in `StudyView` is called. `StudyView` calls its `DeckShuffler` to generate a card as detailed in
+<<studyshuffle, DeckShuffler section>>. `Card` returned by `DeckShuffler` is passed back to `StudyView` and studyView uses this to reset its own `currentCard`
+through `setCurrentCard()` function.
 
-Step 4. `currentState` is set to QUESTION.
+Step 4. `currentStudyState` in `StudyView` is toggled to `QUESTION`.
 
-Step 5. UI changes to show question <<studyui, detailed here>>
+Step 5. UI automatically changes to show question as shown in <<studyui, UI section>>.
 
 **Summary of Changes**
 
@@ -645,7 +651,7 @@ image::study_dg_diagrams/cycle.png[width="800"]
 `StudyView` makes  use of `ReadOnlyProperty` wrapper
 to store variables which the UI has to display. This wrapper is chosen as it implements the `Observable` interface.
 
-The UI listens for three things: the `studyState`, `userAnswer`, and `textShown`.
+The UI listens out for three things: the `studyState`, `userAnswer`, and `textShown`.
 
 .UI Observer-Listener relationship diagram
 image::study_dg_diagrams/ui.png[width="800"]
@@ -655,12 +661,13 @@ The following details the changes to these observable variables.
 [%header]
 |===
 |observableProperty variable | How this variable is modified | Changes in UI
-|`currentStudyState` | Explained <<studyusercommands, previously>> | `sCard.pseudoClass` (flash card background color)
- `sQuestion.pseudoClass` (colour of flash card text)
-`status.visibility` (whether or not to `userAnswer` and difficulty rating prompt is seen. Must be seen only during answer state)
+|`currentStudyState` | Explained in <<studyusercommands,  Study User Commands>> | `sCard.pseudoClass` (flash card background color),
+ `sQuestion.pseudoClass` (colour of flash card text),
+`status.visibility` (whether or not to `userAnswer` and difficulty rating prompt is seen. These must be seen only during answer state)
 |textShown | Calling `setCurrentCard()` and `setCurrentStudyState()` modifies `textShown` assign it a value which is either
 `Question` or `Answer` of `currentCard`. | `sQuestion.text` (text written on flash card)
-|userAnswer| Explained <<studyshow, previously>>  | `userLabel.text` (displays user's answer to flash card question displayed earlier)
+|userAnswer| Explained in <<studyshow, Show Answer Command>>  | `userLabel.text` (label which displays user's answer
+to question displayed earlier)
 |===
 
 ==== DeckShuffler brief overview
@@ -671,7 +678,7 @@ In order to generate a random `Card` object reference, `DeckShuffler` holds 3 va
 * `shuffledDeck` - list of cards in `activeDeck` that has been shuffled by `Collections.shuffle()`
 * `it` - a `Card` iterator that loops through cards in `shuffledDeck`.
 
-When `generateCard()` is called, iterator calls `next`. If none, `shuffledDeck` is shuffled again and
+When `generateCard()` is called, iterator calls `next` and returns `Card` referenced. If none, `shuffledDeck` is shuffled again and
 iterator is set to `shuffledDeck.begin()`.
 
 ==== Difficulty class overview
@@ -682,7 +689,7 @@ The `Difficulty` object, a property of `Card`, has two variables:
 * `numberOfAttempts`
 
 When `addDifficulty(int rating)` is called, `rating` is added to `totalRating` and `noOfAttempts`
-is incremented by 1. Other views can obtain average by obtaining quotient of these variables.
+is incremented by 1. Other views can obtain average by obtaining quotient of the two variables above.
 
 ==== Design considerations
 
@@ -706,18 +713,18 @@ There are not many possible reasons to store extra variables associated only wit
 ===== Aspect: How to implement UI modifications
 
 * **Alternative 1 (current choice): Observable Properties **
-** Pros: UI changes automatically. Concerns are separated as we
-no longer need to concern ourselves with sending data to UI during internal state change.
+** Pros: UI changes automatically. Concerns are separated as
+ no additional command is needed to manually update UI during internal state change.
 ** Cons: Less control over UI changes.
 
 
 * **Alternative 2: Manual Modification of UI **
 ** Pros: Greater control over items to send to UI
-** Cons: `StudyView` now also has to concern itself with UI arrangements
+** Cons: `StudyView` will have to concern itself with UI arrangements
 
 I chose the first implementation as UI changes happen all the time
 but the UI is highly similar in both states. Thus, a few Observable variables
-should suffice to achieve the intended appearance.
+should suffice to achieve the desired variation between states.
 
 
 // end::studysessions[]

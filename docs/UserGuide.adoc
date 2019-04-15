@@ -487,10 +487,10 @@ Study view presents Flash Cards in two phases, namely <<qnphase, Question Phase>
 Study view starts off in Question Phase, which displays the question in this user interface:
 
 .Study view's Question Phase
-image::study_ug_diagrams/question.png[width="800"]
+image::study_ug_diagrams/question.png[width="600"]
 
 
-As seen above, the question you have to answer is displayed in a dark blue flash card.
+As seen above, the question to be answered is displayed in a dark blue flash card.
 
 
 [NOTE]
@@ -517,11 +517,11 @@ As seen from the figure, the correct answer is displayed on a white flash card.
 Your attempt is shown on top next to the card for your own comparison.
 
 Additionally, a prompt asks you to rate the difficulty of that flash card.
-You should input your rating into the Command Box.
+You should input your rating into the Command Box which now doubles as a Rating Box.
 
 Once you've typed in your rating, hit kbd:[Enter]. Your rating will be recorded and this
-value will contribute to average difficulty statistic as seen in cards view.
-At the same time, TopDeck will reenter Question Phase.
+value will contribute to average difficulty statistic seen in cards view.
+Immediately after that, TopDeck will reenter Question Phase.
 
 During both phases, the following commands are available to end your study session:
 
@@ -536,6 +536,7 @@ During both phases, the following commands are available to end your study sessi
 **Format**: `open`
 
 **Outcome**: Opens the deck in cards view.
+
 
 === Global commands
 

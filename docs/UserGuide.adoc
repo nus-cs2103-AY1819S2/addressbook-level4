@@ -102,7 +102,7 @@ You can specify the name you want to reflect in your patients' dental record whe
 
 * If there is no dentist name specified, the program will prompt you to enter one.
 
-* This should only happen once, during the first startup of the application.
+* This should only happen once, during the first start-up of the application.
 // end::dentist_kyler[]
 
 ==== history
@@ -218,7 +218,7 @@ You can also use `exit!` to forcefully exit the application
 
 === File Management
 
-TeethHub automatically saves all data in TeethHub.json when you close the program.
+TeethHub automatically saves all data to TeethHub.json when you close the program.
 However, you can manage them manually with `open`, `save`, `import` and `export`. +
  +
 *When we mention "data", we mean the patients list and their respective records plus the task list.* +
@@ -272,10 +272,10 @@ Format: `open FILE_PATH`
 Examples:
 
 * `open data1.json` +
-This replaces the current data of TeethHub with the data in "data1.json".
+This replaces the current data of TeethHub with the contents of "data1.json".
 
 * `open february/data2.json` +
-This replaces the current data of TeethHub with the data in "data2.json" found in the "february" folder.
+This replaces the current data of TeethHub with the contents of "data2.json" found in the "february" folder.
 
 
 ==== save
@@ -1015,13 +1015,11 @@ image::SuggestionFeatureAddRecordMode.png[width="236"]
 == Planned Implementations
 
 === Patient Teeth per record [Coming in v1.5]
-
 Currently, TeethHub stores and displays the latest teeth image of each patient.
 We understand that you may want to see teeth changes over time.
 In v1.5, TeethHub will be able to store and display a teeth image for each record.
 
 === Adding images to records [Coming in v1.6]
-
 Currently, TeethHub is not equipped to accept images from you.
 We understand that you may want to store x-rays of teeth or other relevant images you have taken.
 In v1.6, TeethHub will have a new command for you to upload images.

@@ -94,10 +94,14 @@ If you’re confident in your computer set-up, jump to <<quick-start-guide>> to 
 
 === File Management
 
-TeethHub automatically saves all data in TeethHub.json when you close the program.
+TeethHub automatically saves all data to TeethHub.json when you close the program.
 However, you can manage them manually with `open`, `save`, `import` and `export`. +
  +
 *When we mention "data", we mean the patients list and their respective records plus the task list.* +
+
+*.json files hold data that TeethHub can read. Use this to "save" or "load" your progress.* +
+*.pdf files are easier for people to read. Use this if you are printing out a physical copy.* +
+
  +
 You can use `open` to open another .json file that you may have transferred over from another computer. +
  +
@@ -144,10 +148,10 @@ Format: `open FILE_PATH`
 Examples:
 
 * `open data1.json` +
-This replaces the current data of TeethHub with the data in "data1.json".
+This replaces the current data of TeethHub with the contents of "data1.json".
 
 * `open february/data2.json` +
-This replaces the current data of TeethHub with the data in "data2.json" found in the "february" folder.
+This replaces the current data of TeethHub with the contents of "data2.json" found in the "february" folder.
 
 
 ==== save
@@ -226,17 +230,22 @@ This saves patient 1 and patient 3 to patient 5 currently in TeethHub to "data1.
 * `export data1.json all` +
 This saves all patients currently in TeethHub to "data1.json".
 
-== Patient Teeth per record [Coming in v1.5]
+== Planned Implementations
 
+=== Patient Teeth per record [Coming in v1.5]
 Currently, TeethHub stores and displays the latest teeth image of each patient.
 We understand that you may want to see teeth changes over time.
 In v1.5, TeethHub will be able to store and display a teeth image for each record.
 
-== Adding images to records [Coming in v1.6]
-
+=== Adding images to records [Coming in v1.6]
 Currently, TeethHub is not equipped to accept images from you.
 We understand that you may want to store x-rays of teeth or other relevant images you have taken.
 In v1.6, TeethHub will have a new command for you to upload images.
+
+=== Spell-Checker Functionality [Coming in v1.7]
+Currently, TeethHub does not have a spell checker.
+It would be great if TeethHub would automatically correct an improperly typed command(e.g. sirt to sort).
+In v1.7, TeethHub will have a spell checker functionality.
 
 === Contributions to the Developer Guide
 

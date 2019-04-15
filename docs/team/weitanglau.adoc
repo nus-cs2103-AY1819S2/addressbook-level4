@@ -1,0 +1,396 @@
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+= Project Portfolio
+Lau Wei Tang
+ifdef::backend-pdf[:notitle:]
+
+ifdef::backend-pdf[]
+[discrete]
+= Project Portfolio
+Lau Wei Tang image:{imagesDir}/github-icon.png[width=30, link=https://github.com/WeiTangLau, top="70%"]
+endif::[]
+
+:numbered:
+:chapter-label:
+
+// URIs:
+:uri-pdfplusplus: http://github.com/CS2103-AY1819S2-T12-4/main
+:uri-addressbook: https://github.com/nus-cs2103-AY1819S2/addressbook-level4
+:uri-aboutus: https://cs2103-ay1819s2-t12-4.github.io/main/AboutUs.html
+:uri-fileprotection: https://cs2103-ay1819s2-t12-4.github.io/main/UserGuide.html#command-encdec
+:uri-add: https://cs2103-ay1819s2-t12-4.github.io/main/UserGuide.html#command-add
+:uri-open: https://cs2103-ay1819s2-t12-4.github.io/main/UserGuide.html#command-open
+:uri-youtube: https://www.youtube.com/watch?v=G0-u8qGX8yI&t=400s
+:uri-addcommand: https://github.com/CS2103-AY1819S2-T12-4/main/pull/96
+:uri-refactorpdf: https://github.com/CS2103-AY1819S2-T12-4/main/pull/89/files
+:uri-remainingautotests: https://github.com/CS2103-AY1819S2-T12-4/main/issues/217
+:uri-historycommand: https://cs2103-ay1819s2-t12-4.github.io/main/DeveloperGuide.html#history-feature
+:uri-undoredocommand: https://cs2103-ay1819s2-t12-4.github.io/main/DeveloperGuide.html#undo-redo-feature-coming-in-v2-0
+:uri-model : https://cs2103-ay1819s2-t12-4.github.io/main/DeveloperGuide.html#Design-Model
+
+
+== [underline]#Introduction#
+Welcome to my Project Portfolio. This document provides you with an
+overview of my contributions to the project I have worked on, {uri-pdfplusplus}[((PDF++))]
+
+== [underline]#About PDF++#
+
+// Background info
+Most university students have one thing in common, messy desktop.
+As a student, I have to manage multiple new documents weekly.
+Furthermore, each file is categorised differently or has a different unique purpose.
+For instance, I would look for files from my programming modules on certain algorithm
+concepts or look from my language module for files with writing tips. However, the current
+File Management System (FMS), such as File Explorer in Windows, has its limitations
+in the categorisation of files. Even for organised users, it is ineffective to
+make a constant effort maintaining the documents in an orderly manner, and inefficient
+switching between folders to look for the files of their interest. My team and I
+recognised this limitation and decided to work on building an elaborated FMS, PDF++.
+
+=== Project Scope
+//Project scope
+For the team project, we were provided with an existing {uri-addressbook}[AddressBook]
+application. We decided to morph the application into PDF++, a sophisticated FMS
+targeting students who prefer working with Command Line Interface (CLI). However,
+given the limitation of the project, our application currently supports PDF
+files only, and thus the name.
+
+=== Main role and contributions
+// main role and contributions
+I am one of the {uri-aboutus}[developers] for PDF++ that in charge of
+implementing {uri-fileprotection}[*File Protection*] feature and most of the
+test cases for the Logic component.
+
+=== Legend
+Please refer to the table below for the icons and formatting used in this document:
+
+|===
+
+| icon | description
+
+a| image:{imagesDir}/lightbulb.png[width="30"]
+| Tip
+
+a| image:{imagesDir}/warning-icon.png[width="30"]
+| Warning
+//a |NOTE: {sp}
+// | important notes
+
+|===
+
+<<<
+
+== [underline]#Summary of contributions#
+
+This section highlights my key contributions to the documentation, coding and
+technical aspects for the PDF++ project.
+
+=== Robust File Protection System
+
+PDF++ not only supports several essential features, such as {uri-add}[add] and
+{uri-open}[open] features, it also has a built-in sophisticated
+{uri-fileprotection}[File Protection System] (FPS).
+
+For FPS, I have incorporated both `encrypt` and
+`decrypt` features and other improvements that enforce the security of the application.
+
+This allows the users to protect sensitive data such that only authorised personnel to have access to.
+Similarly, users can remove the security of the document with the password that was previously set.
+During this process of file protection, we have disabled some features, such as `history` and pressing up
+on the command box that will potentially reveal the password of the documents.
+
+Though this system, users can safely rely on PDF++ for the protection of their files, without the fear of
+exposing their passwords which compromise their privacy.
+
+Credit to {uri-youtube}[Java Mitra] for the tutorial guide in implementing the encrypt feature
+
+=== Test Cases for Logic Component
+
+PDF++ offers many advanced features that have a complex implementation. Due to the complexity of the code,
+it is ideally that we have the comprehensive {uri-remainingautotests}[test cases] for each command before the actual implementation of the features.
+This requires an in-depth knowledge of our code base and discussion with my team on how the feature should be implemented.
+
+* *Code contributed*: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=weitanglau[Project Code Dashboard]
+
+=== Technical Leadership
+//Show examples of code for team to reuse
+
+For this project, we decided to make a complete overhaul from the existing code that works with imaginary data
+to support actual file manipulation. This would require many initial adjustments in enabling our application to accept
+PDF documents. I have made significant contributions to the {uri-refactorpdf}[refactoring] of *Person* class to *Pdf* class.
+Furthermore, for future expansion of features, I have implemented the {uri-addcommand}[add command]. These initial ground work
+allows my team to test their code using the GUI with the pdf files they have added.
+
+<<<
+
+== [underline]#Contributions to the User Guide#
+//Insert description as well as abstract from the User Guide
+This section includes my contributions to the documentation of the User Guide.
+
+=== File Protection: `encrypt` & `decrypt`
+
+PDF++ offers native support for file protection.
+The command `encrypt` allows you to protect your files with a password such that
+they cannot be accessed without the password.
+Similarly, the command `decrypt` allows you to remove the password that
+you had set for the file.
+
+image:{imagesDir}/lightbulb.png[width="30"]
+----
+The terms "protect" and "encrypt" will be used interchangeably.
+----
+
+The *Encrypt* and *Decrypt* feature has the following syntax:
+
+[.big]#Format: `encrypt INDEX password/PASSWORD` [For Encryption]# +
+[.big]#Format: `decrypt INDEX password/PASSWORD` [For Decryption]#
+
+* `INDEX` refers to the index of the file on the list that you wish to encrypt/decrypt.
+* `PASSWORD` refers to the password which you wish to assign to the particular file.
+
+Examples:
+
+* `encrypt 2 password/ThisIsNotASecurePassword`
+* `decrypt 2 password/ThisIsNotASecurePassword`
+
+Please refer to <<steps-encrypt, Encryption Guide>> or <<steps-decrypt, Decryption Guide>>
+for help in using these features.
+
+[#steps-encrypt]
+==== Encryption Guide
+
+image:{imagesDir}/warning-icon.png[width="30"]
+----
+"encrypt" feature will not work on files that are already encrypted.
+----
+
+Illustrated below is a sample usage scenario that provides a clear view of the inner workings
+of the Encrypt feature.
+
+Step 1: Launch the application by double clicking the `pdfplusplus.jar`.
+
+Step 2: Select the file that you wish to encrypt via the `INDEX` on the list.
+
+Step 3: Enter the `encrypt` command into the text box, following the syntax as
+illustrated below.
+
+* `encrypt 2 password/ThisIsNotASecurePassword`
+
+Step 4: Upon hitting enter to execute the command, your inputs are verified and if successful,
+your selected file is encrypted with the given password.
+
+image:{imagesDir}/lightbulb.png[width="30"]
+----
+Upon successful encryption, there will be a lock icon at the bottom right of the card
+to indicate that the file is an encrypted file.
+----
+
+.Lock icon on Encrypted Files
+image::EncryptFeatureStep5Success.png[width="300"]
+
+Step 5: If the command passes the validity check, the file you have selected is encrypted.
+You can open your file to see the result. Please refer to
+{uri-open}[open guide] for the `open` feature.
+
+.File has been encrypted
+image::{imagesDir}/EncryptFeatureStep6Open.png[width="300"]
+
+[#steps-decrypt]
+==== Decryption Guide
+
+Illustrate below is a sample usage scenario that provides a clear view of the inner workings
+of the Decrypt feature.
+
+image:{imagesDir}/lightbulb.png[width="30"]
+----
+"decrypt" feature is very similar to "encrypt" feature.
+----
+
+image:{imagesDir}/warning-icon.png[width="30"]
+----
+"decrypt" feature will not work on files that are not encrypted.
+----
+
+Step 1: Launch the application, similar to the <<steps-encrypt, Step-By-Step>> Encrypt guide.
+
+Step 2: You select the file that you wish to decrypt via the INDEX on the list.
+
+Step 3: Enter the `decrypt` command into the text box, following the syntax as
+illustrated below.
+
+* `decrypt 2 password/ThisIsNotASecurePassword`
+
+image:{imagesDir}/lightbulb.png[width="30"]
+----
+Please enter the password of the encrypted file. You will not be able to decrypt the file without the password.
+----
+
+Step 4: Upon hitting enter, the application verifies that you have entered the correct password and
+decrypts your file as shown below.
+
+.Decrypt Command Step 4
+image::DecryptFeatureStep5Success.png[width="400"]
+
+=== Proposed feature in v2.0
+* Login Page: +
+We plan to include a Login Page to help authenticate you to the application so that you can access the app more securely.
+
+Furthermore, together with the connection to external servers feature, this feature will allow you to access your documents
+anywhere you are.
+
+<<<
+
+== [underline]#Contributions to the Developer Guide#
+This section includes my contributions to the documentation of the Developer Guide.
+
+=== File Protection System
+
+PDF++ has a robust in-built file protection system which allows you to encrypt or decrypt any
+PDF files you want. These features utilises the
+https://pdfbox.apache.org/download.cgi#20x[_Apache PDFBox® library_], specifically the
+https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/PDDocument.html[_PDDocument_],
+https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/encryption/AccessPermission.html[_AccessPermission_], and
+https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/encryption/StandardProtectionPolicy.html[_StandardProtectionPolicy_].
+
+image:{imagesDir}/lightbulb.png[width="30"]
+----
+An encrypted file is a file that is protected with a password. The terms "protect" and "encrypt" will be used interchangeably.
+----
+
+You can visit <<Encryption feature>> and <<Decryption feature>> to understand more about the respective feature.
+
+==== Encryption feature
+
+===== Current Implementation
+The `encrypt` feature is facilitated by both *EncryptCommand* and *EncryptCommandParser*.
+
+The implementation of the *EncryptCommand* is summarised in the following activity diagram:
+
+image::EncryptCommandActivityDiagram.png[width="500"]
+
+. The provided index is checked for validity i.e. referring to a specific Pdf in PdfBook.
+.. If the index is invalid, a *CommandException* will be thrown and the execution ends.
+. The Pdf specified via the index is retrieved from the PdfBook.
+. A `File` object is created for the Pdf.
+. The `File` will be loaded as https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/PDDocument.html[_PDDocument_],
+which is an indicator that the `File` is a *PDF* document that is uncorrupted and
+not protected with a password.
+.. Error in loading Pdf as *PDDocument* would throw an *IOException*. Common reasons of error are:
+... File not found in the location
+... Lack of user permissions to open File
+... Protected, corrupted File
+.. Thrown IOException is intercepted, a *CommandException* will be thrown and the execution ends.
+. https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/encryption/AccessPermission.html[_AccessPermission_] and
+https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/encryption/StandardProtectionPolicy.html[_StandardProtectionPolicy_]
+are created. The password specified will be passed to `StandardProtectionPolicy` for the purpose of setting security settings for the
+`PDDocument`.
+. A protected Pdf will be saved and closed.
+.. Error in encrypting the file will throw an *IOException*. Common reasons of error are:
+... Excessive long password
+... Empty password
+.. Thrown IOException is intercepted, a *CommandException* will be thrown and the execution ends.
+. The Pdf is recorded in the {uri-model}[Model component] and the changes are saved.
+. A *CommandResult* is returned upon successful exception of *EncryptCommand*.
+
+This sequence diagram demonstrates the Main Success Scenario from the
+*LogicManager* to the end of *EncryptCommand* execution:
+
+image::EncryptCommandSequenceDiagram.png[width="800"]
+
+===== Design Considerations
+
+===== Edit password of an encrypted file
+
+* Alternative 1 (current choice): Execute *DecryptCommand* then *EncryptCommand*
+
+** Due to security reasons, it was decided to focus on encrypting an unprotected Pdf.
+You will need to use <<Decryption feature, Decryption>> feature
+before encrypting it with a new password. This is to ensure your intent in changing the password,
+as the current version *PDF++* does not support `Forget Password` feature.
+
+** However, this process is inefficient as you will need to enter 2 commands instead of 1.
+
+* Alternative 2: Change the password of an encrypted file
+
+** This minimised the number of commands to be executed, but there are several security concerns as mentioned above.
+
+===== A sophisticated protection system
+
+* Multiple adjustments to protect your interest
+
+. {uri-historycommand}[History] feature will not show the executed `EncryptCommand` which includes the password of the file.
+. The {uri-undoredocommand}[Undo/Redo] feature is temporarily disabled until a solution that
+will not comprise your privacy has been found.
+. Pressing up in the command box will not show the `EncryptCommand` that was previously executed.
+
+===== Future Implementation
+
+There are concerns of accidental encryption of a file with a wrong password. In *PDF++* v2.0,
+the *EncryptCommand* will prompt you to re-enter the password as a form of confirmation message.
+If there is a mismatch of the two passwords entered, the command will not be executed.
+
+==== Decryption feature
+
+===== Current Implementation
+
+image:{imagesDir}/lightbulb.png[width="30"]
+----
+The current Implementation of *DecryptCommand* is very similar to Encryption feature.
+The part where it is implemented differently will be specifically marked with a `*` for your convenience.
+----
+
+The `decrypt` feature is facilitated by both *DecryptCommand* and *DecryptCommandParser*.
+
+The implementation of the `DecryptCommand` execution is summarised in the following activity diagram.
+
+image::DecryptCommandActivityDiagram.png[width="600"]
+
+. The provided index is checked for validity i.e. referring to a specific Pdf in PdfBook.
+.. If the index is invalid, a *CommandException* will be thrown and the execution ends.
+. The Pdf specified via the index is retrieved from the PdfBook.
+. A `File` object is created for the Pdf.
+. The `File` will be loaded as https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/PDDocument.html[_PDDocument_]
+with the specified password, which is an indicator that the `File` is a *PDF* document that is uncorrupted, protected and the password
+provided is valid *.
+.. Error in loading Pdf as *PDDocument* would throw an *IOException* and invalid password would throw a *CommandException*.
+Common reasons of error are:
+... File not found in location
+... Lack of user permissions to open File
+... Unprotected File *
+... Corrupted File
+... Wrong password *
+.. Thrown IOException is intercepted, a *CommandException* will be thrown and the execution ends.
+. Upon success loading of the PDDocument, the security will be removed. *
+. An unprotected * Pdf will be saved and closed.
+. The Pdf is recorded in the {uri-model}[Model component] and the changes are saved.
+. A *CommandResult* is returned upon successful exception of *DecryptCommand*.
+
+This sequence diagram demonstrates the Main Success Scenario from the
+*LogicManager* to the end of *DecryptCommand* execution:
+
+image::DecryptCommandSequenceDiagram.png[width="800"]
+
+===== Design Considerations
+
+===== A sophisticated protection system
+
+* Multiple adjustments to protect your interest
+
+. {uri-historycommand}[History] will not show the executed `EncryptCommand` which includes the password of the file.
+. The {uri-undoredocommand}[Undo/Redo] feature is temporarily disabled until a solution that
+will not comprise your privacy has been found.
+. Pressing up in the command box will not show the `EncryptCommand` that was previously executed.
+
+===== Future Implementation
+
+If an unauthorised personnel obtained the password of your files through illegal means,
+they can potentially set the file with a new password. This will hinder your access to
+your files.
+
+However, With 2-Factor Authentication, there is an additional layer of protection
+that prevents these personnel from changing the passwords of your files. This
+ensures that only you/any authorised personnel can decrypt your files.
+
+In *PDF++* v2.0, the *DecryptCommand* will support for the 2FA feature as mentioned above.
+If this feature is highly demanded, this feature will be implemented to *EncryptCommand* too.

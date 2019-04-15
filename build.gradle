@@ -28,7 +28,7 @@ if (JavaVersion.current() == JavaVersion.VERSION_1_10
 }
 
 // Specifies the entry point of the application
-mainClassName = 'seedu.address.MainApp'
+mainClassName = 'seedu.pdf.MainApp'
 
 sourceCompatibility = JavaVersion.VERSION_1_9
 targetCompatibility = JavaVersion.VERSION_1_9
@@ -42,14 +42,6 @@ checkstyle {
     toolVersion = '8.1'
 }
 
-jacocoTestReport {
-    reports {
-        xml.enabled false
-        csv.enabled false
-        html.destination file("${buildDir}/jacocoHtml")
-    }
-}
-
 test {
     useJUnitPlatform()
 }
@@ -61,6 +53,7 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
     implementation group: 'com.google.guava', name: 'guava', version: '19.0'
+    implementation group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.14'
 
     testImplementation group: 'junit', name: 'junit', version: '4.12'
     testImplementation group: 'org.testfx', name: 'testfx-core', version: testFxVersion, {
@@ -77,7 +70,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'pdfplusplus.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -152,16 +145,24 @@ test {
         }
 
         if (runNonGuiTests) {
-            test.include 'seedu/address/**'
+            test.include 'seedu/pdf/commons/**'
+            test.include 'seedu/pdf/logic/**'
+            test.include 'seedu/pdf/model/**'
+            test.include 'seedu/pdf/storage/**'
+            test.include 'seedu/pdf/testutil/**'
+            test.include 'seedu/pdf/AppParametersTest**'
+            test.include 'seedu/pdf/TestApp**'
         }
 
         if (runGuiTests) {
-            test.include 'systemtests/**'
-            test.include 'seedu/address/ui/**'
+            test.exclude 'systemtests/**'
+            test.exclude 'seedu/pdf/ui/**'
+            test.exclude 'seedu/pdf/ui/PdfListPanelTest**'
+            test.exclude 'seedu/pdf/ui/PdfCardTest**'
         }
 
         if (!runGuiTests) {
-            test.exclude 'seedu/address/ui/**'
+            test.exclude 'seedu/pdf/ui/**'
         }
     }
 }
@@ -202,9 +203,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level4',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level4',
-        'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
+        'site-name': 'PDF++',
+        'site-githuburl': 'https://github.com/CS2103-AY1819S2-T12-4/main',
     ]
 
     options['template_dirs'].each {

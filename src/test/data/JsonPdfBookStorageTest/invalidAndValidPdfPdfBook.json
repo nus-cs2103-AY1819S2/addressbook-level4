@@ -1,0 +1,13 @@
+{
+  "pdfs": [ {
+    "name" : "c.pdf",
+    "location" : "/Users/prithiviraj/Repositories/CS2103T/main/src/test/data/JsonAdaptedPdfTest",
+    "size" : "500068036608",
+    "tagged" : [ ]
+  }, {
+    "name": "Pdf with invalid location",
+    "location" : "/Users/prithiviraj/Repositories/CS2103T/main/src/test/data/JsonAdaptedPdfTester",
+    "size" : "500068036608",
+    "tagged" : [ ]
+  } ]
+}

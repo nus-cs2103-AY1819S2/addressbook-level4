@@ -1,23 +1,47 @@
-= AddressBook Level 4 - Developer Guide
+= PDF++ - Developer Guide
 :site-section: DeveloperGuide
-:toc:
+:toc: left
 :toc-title:
-:toc-placement: preamble
+:toclevels: 2
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
+:plus: &#43;
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S2-T12-4/main
+:mainWindowURL: {repoURL}/blob/master/src/main/java/seedu/pdf/ui/MainWindow.java
+:helpWindowTestURL: {repoURL}/blob/master/src/test/java/seedu/pdf/ui/HelpWindowTest.java
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T12-4`      Since: `Feb 2019`      Licence: `MIT`
+
+== Introduction
+
+=== Software Overview
+
+* PDF++ is an all-in-one document management tool that allows users to easily manage and manipulate their files. +
+_The current version of this application only deals with PDF files_.
+
+* There are many unique features to the application such as the ability to search within the content of files,
+merging several files together, setting of deadlines and many more. These features can be referred to within the
+<<implementation, Implementation>> Section of this document.
+
+=== Developer Guide Usage
+
+* This document is for developers who aim to further improve upon the application or change it to suit the needs of
+your target audience.
+* Each feature and design component has its own sub-heading and can be referred through the links in the table-of-contents. +
+They contain sufficient diagrams and detailed explanations that will be extremely useful to you.
 
 == Setting up
+
+This section will assist you in setting up the project for the first time in your computer. This will allow you to work
+on the application without any issue in the future.
 
 === Prerequisites
 
@@ -30,14 +54,14 @@ Windows developers are highly recommended to use JDK `9`.
 . *IntelliJ* IDE
 +
 [NOTE]
-IntelliJ by default has Gradle and JavaFx plugins installed. +
+IntelliJ by default have Gradle and JavaFX plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
 
 === Setting up the project in your computer
 
 . Fork this repo, and clone the fork to your computer
-. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
+. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialogue first)
 . Set up the correct JDK version for Gradle
 .. Click `Configure` > `Project Defaults` > `Project Structure`
 .. Click `New...` and find the directory of the JDK
@@ -47,14 +71,14 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+. Open link:{mainWindowURL}[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+. Repeat this for the test folder as well (e.g. check link:{helpWindowTestURL}[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
-. Run the `seedu.address.MainApp` and try a few commands
+. Run the `seedu.pdf.MainApp` and try a few commands.
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
@@ -71,16 +95,6 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 * For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
-
-==== Updating documentation to match your fork
-
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
-
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
-
-. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
-
-. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
 
 ==== Setting up CI
 
@@ -105,18 +119,23 @@ When you are ready to start coding,
 
 == Design
 
+This section allows you to visualise the application in a top-down view, where you are able to see the general
+structure of the different components within PDF++.
+
 [[Design-Architecture]]
 === Architecture
+
+The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 .Architecture Diagram
 image::Architecture.png[width="600"]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
-
 [TIP]
-The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
+The `.pptx` or `.xml` files used to create diagrams in this document can be found in the
+link:{repoURL}/blob/master/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in
+the pptx or xml file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:{repoURL}/blob/master/src/main/java/seedu/pdf/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -128,9 +147,9 @@ The following class plays an important role at the architecture level:
 
 The rest of the App consists of four components.
 
-* <<Design-Ui,*`UI`*>>: The UI of the App.
+* <<Design-Ui,*`UI`*>>: The UI of the PDF++ App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
+* <<Design-Model,*`Model`*>>: Stores the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
 Each of the four components
@@ -149,7 +168,9 @@ image::LogicClassDiagram.png[width="800"]
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command
-image::SDforDeletePerson.png[width="800"]
+
+.Delete Image
+image::SDforDeletePdf.png[width="800"]
 
 The sections below give more details of each component.
 
@@ -159,11 +180,11 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PdfListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/blob/master/src/main/java/seedu/pdf/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -178,18 +199,18 @@ The `UI` component,
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/blob/master/src/main/java/seedu/pdf/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `PdfBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a pdf).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+image::DeleteCommandSequenceDiagram.png[width="800"]
 
 [[Design-Model]]
 === Model component
@@ -197,19 +218,26 @@ image::DeletePersonSdForLogic.png[width="800"]
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/pdf/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Pdf Book data.
+* exposes an unmodifiable `ObservableList<Pdf>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
+As a more OOP model, we can store a `Tag` list in `Pdf Book`, which `Pdf` can reference. This would allow `Pdf Book` to only require one `Tag` object per unique `Tag`, instead of each `Pdf` needing their own `Tag` object. An example of how such a model may look like is given below. +
+
+.OOP Diagram
+image::ModelClassBetterOopDiagram.png[width="800"]
+
+The Pdf Class Diagram below shows the structure of the Pdf class,
+which is the most used class throughout the application.
+
+.Pdf Class Diagram
+image::PdfClassDiagram.png[width="300"]
 
 [[Design-Storage]]
 === Storage component
@@ -217,74 +245,938 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/pdf/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Pdf Book data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.pdfbook.commons` package.
 
+[#implementation]
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== Undo/Redo feature
+* Items with `…`​ after them can be used multiple times including zero times e.g. `TAG...` can be used as `{nbsp}` (i.e. 0 times), `MyTag`, `TagA TagB TagC` etc.
+
+// tag::add[]
+=== Add Feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+This feature is facilitated by both the *AddCommandParser* and *AddCommand*.
+This feature adds the PDF file to the app using the path specified by your users.
+Other features such as the <<Rename Feature>> and <<Open feature>> can only be performed on files that
+are added to the application.
+
+The *AddCommandParser* uses the prefixes defined in *CliSyntax* to identify the different types of arguments that are entered along with the
+`add` command. These arguments will then be used to construct a new Pdf which will represent the Pdf to be added.
+
+The implementation of the *AddCommand* execution can be summarised in the following activity diagram:
+
+.Add Command Activity Diagram
+image::AddCommandActivityDiagram.png[width="600"]
+
+. The current PdfBook Model is checked to determine if identical Pdf has already been added.
+.. If such a Pdf already exists, a *CommandException* will be thrown and the execution will be ended.
+. The Pdf to be added is loaded into a third-party API to verify for any errors.
+.. Pdf will be loaded as link:https://pdfbox.apache.org/docs/2.0.2/javadocs/org/apache/pdfbox/pdmodel/PDDocument.html[PDDocument],
+which verifies the file that the user wishes to add to the program.
+.. Created PDDocument will be closed after loading as it is unused.
+.. Errors in adding the Pdf would throw *IOException*. Errors would most likely be due to:
+... File not found at location
+... Lack of user permissions to open file
+... File has encryption
+... File corruption
+.. Thrown *IOException* is intercepted, a *CommandException* will be thrown and the execution will be ended.
+. The Pdf is recorded in the Model and the changes are committed.
+. *CommandResult* is returned upon successful execution.
+
+==== Considerations
+
+The implementation design of this feature was built upon the original implementation used by the
+https://github.com/se-edu/addressbook-level4[addressbook]. As the application is primarily meant to be operated through the CLI, it was decided to continue using the same prefix for the
+command input to keep its consistency.
+
+Due to the handling of files, additional checks have to be added such as the use of
+https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/PDDocument.html[_PDDocument_]
+to ascertain that it is a `.pdf` file and that it can be used with https://pdfbox.apache.org/download.cgi#20x[_Apache PDFBox® library_] API.
+
+==== Future Implementation
+
+Currently, PDF++ only supports PDF files, any other types of files will not be accepted.
+As the goal of the application is to be the sole manager of files, the application will be upgraded to work
+with all files in v2.0.
+
+// end::add[]
+
+// tag::open[]
+=== Open feature
+==== Current Implementation
+The `open` feature is facilitated by both the *OpenCommandParser* and *OpenCommand*.
+Essentially upon opening a Pdf that is tracked by the application, the user will be able to
+execute the PDF with the operating system's default PDF reader application.
+
+The Open feature has the following syntax:
+
+[.big]#`open <INDEX>`#
+
+* `<INDEX>` refers to the index of the `Pdf` that you wish to edit.
+
+[NOTE]
+The index value can be referenced from the list in the main application, or from the
+result of the `Filter`, `Find` or `List` feature.
+
+==== Feature Breakdown
+Illustrated below is a sample usage scenario that provides a clear view of the inner
+workings of the Open feature.
+
+Step 1: The user launches an application with either an existing set of `Pdf` or a
+new sample set of `Pdf` stored within as shown below.
+
+Step 2: The user chooses a `Pdf` that they wish to open, in this case,`a.pdf`, and
+enters the `open` command into the CLI Interface, following the outlined Syntax as
+illustrated below.
+
+Step 3: Upon hitting enter to execute the command, the *OpenCommandParser* parses
+the input in the following method:
+
+* Extract the `INDEX` that is input that was entered by the user.
+* Verify that it contains a valid integer.
+** This is done by initialising the `Index` objects that verify the above properties on
+instantiation.
+** If the supplied parameter is invalid a `ParseException` is thrown and the `open` command is
+terminated.
+* Upon successfully parsing the input `Index`, a `OpenCommand` object is created with the relevant index
+and returned to the `LogicManager` for execution.
+
+Step 4: The `LogicManager` attempts to execute the `OpenCommand` by supplying it the `model` and `commandHistory`.
+
+Step 5: The `OpenCommand` checks that the supplied `Index` matches a `Pdf` in the model and sources for the
+default application within the `Operating System` to open the file.
+
+Step 6: Finally, the `OpenCommand` supplies the default application with the file-path of the `Pdf` to open
+and returns a successful `CommandResult` to the `LogicManager`.
+
+* Should there be an issue with the parsing of the `Pdf` due to invalid directories or a corrupted `Pdf` file,
+the `CommandException` will be thrown and the `OpenCommand` will be terminated. A "Fail Message" will then be displayed to the user.
+
+The implementation of the *OpenCommand* execution can be summarised in the following activity diagram:
+
+.Open Command Activity Diagram
+image::OpenCommandActivityDiagram.png[width="600"]
+
+[NOTE]
+For more information about the behaviour of sourcing for the default application to open the
+Pdf, please refer to Java SE 9 class link:https://docs.oracle.com/javase/9/docs/api/java/awt/Desktop.html[Desktop].
+
+// end::open[]
+
+// tag::rename[]
+=== Rename Feature
+==== Current Implementation
+
+The `rename` feature is facilitated by both the *RenameCommandParser* and *RenameCommand*.
+Essentially upon adding a Pdf to be tracked by the application, the user will be able to
+change certain attributes tied to the PDF such as the `Name` and tied to a particular Pdf.
+
+.Rename Command Activity Diagram
+image::RenameCommandActivityDiagram.png[width="600"]
+
+// end::rename[]
+
+// tag::move[]
+=== Move feature
+==== Current Implementation
+The `move` feature is facilitated by both *MoveCommand* and *MoveCommandParser*.
+This feature functions as a simplified version of <<Rename Feature>>, as in nature
+it is making an edit to the directory of the file. However, in addition to making changes
+to the directory in the application storage, it also ensures that the directory changes
+are reflected in the local filesystem.
+
+The design consideration into separating move as a new command from edit factored in the
+purpose of the application; as a document manager, the term "edit" is synonymous with
+making content or characteristic changes when it is applied in the context of documents.
+
+The Move feature has the following syntax:
+
+[.big]#`move`#
+
+[.big]#`move <INDEX> <NEWDIRECTORY>`#
+
+* `<INDEX>` refers to the index of the file that you wish to move.
+* `<NEWDIRECTORY>` refers to the address of the new location the file is to be moved.
+* Entering `move` without `<INDEX>` or  `<NEWDIRECTORY>` will open the default file
+selection GUI for the user to select the file directly.
+
+[NOTE]
+The index value can be referenced from the list in the main application, or from the
+result of the `Filter`, `Find` or `List` feature.
+
+==== Feature breakdown
+Illustrated below is a sample usage scenario that provides a clear view of the inner
+workings of the `move` feature.
+
+Step 1: From the main interface of the application, the user chooses a `Pdf` that
+they wish to move, and enters the `move` command into the CLI Interface, following
+the outlined Syntax as illustrated below.
+
+.Step 1
+image::MoveFeatureStep1.png[width="600"]
+
+In this scenario, there is a file *document.pdf* in the windows _Desktop_ directory, and
+the `move` command entered is intended for the file to be moved to the windows _Documents_
+directory.
+
+Step 2: After executing the command, the `MoveCommandParser` parses the input into
+relevant objects that are required to be executed by the `MoveCommand` object. In
+particular, it ensures that there are correctly two arguments passed as described in the
+above Syntax. Upon parsing, the parser then creates a new `MoveCommand` that will execute
+the user's input.
+
+Step 3: The `MoveCommand` is then executed. Successful execution of the command would return
+a *CommandResult* object, while unsuccessful execution due to validation failure will throw
+a *CommandException*.
+
+// end::move[]
+
+// tag::merge[]
+[#merge-feature]
+=== Merge feature
+==== Current Implementation
+The `merge` feature is facilitated by both *MergeCommand* and *MergeCommandParser*.
+This feature utilise the
+https://pdfbox.apache.org/download.cgi#20x[_Apache PDFBox® library_], specifically the
+https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/multipdf/PDFMergerUtility.html[_PDFMergerUtility_]
+API to append two or more PDFs and create a new file with the merged content. As there will be one
+additional file added to the application, this feature also implicitly performs <<Add Feature>> to add the new
+PDF to the application.
+
+The implementation of the *MergeCommand* execution can be summarised in the following activity diagram:
+
+.Merge Command Activity Diagram
+image::MergeCommandActivityDiagram.png[width="600"]
+
+. The provided indices are checked to be valid i.e. referring to a specific Pdf in the PdfBook.
+.. If there is at least one invalid index, a *CommandException* will be thrown and the execution will be ended.
+. The required Pdfs are retrieved from the PdfBook based on indices.
+. A File object is created for each Pdf which allows file operations to be performed on the Pdf.
+. https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/multipdf/PDFMergerUtility.html[_PDFMergerUtility_] is created. The directory must be set for the merged file prior to merging,
+which also includes the name of the file. By default, the directory of the Pdf based on the first index is used.
+. A unique name is created for the merged file and combined with the aforementioned directory to create the full directory for the merged file.
+.. To avoid issues with duplicate names at the directory, the name is created based on hash code. The created name will also be verified unique at the directory - and changed if necessary.
+. The Files will be loaded as https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/PDDocument.html[_PDDocument_],
+which is an indicator if the application can perform other operations on the Pdf that need it to be handled as a `.pdf` file.
+.. Errors in accessing Pdf would throw *IOException*. Errors would most likely be due to:
+... File not found at location
+... Lack of user permissions to open file
+... File has encryption
+... File corruption
+.. Thrown *IOException* is intercepted, a *CommandException* will be thrown and the execution will be ended.
+. The Files are added to the PDFMergerUtility.
+.. Errors in adding to PDFMergerUtility would throw *IOException*. The cause for error would be similar to above.
+.. Thrown *IOException* is intercepted, a *CommandException* will be thrown and the execution will be ended.
+. All loaded *PDDocument* are closed.
+. A new Pdf is created to represent the merged file created.
+. The Pdf is recorded in the Model and the changes are committed.
+. *CommandResult* is returned upon successful execution.
+
+This sequence diagram demonstrates the interactions involved from start of *MergeCommandParser* to end of *MergeCommand* execution:
+
+.Merge Command Sequence Diagram
+image::MergeCommandSequenceDiagram.png[width="600"]
+
+
+==== Considerations
+
+The default directory of the merged file is currently set to the directory of the first index of the files to be merged. There were considerations to make flexibility in the merge command input
+to allow for the user to specify the desired directory of the merged file. As the current version of *_PDF++_* is focused on a working product, it was decided to simplify the command to focus on
+the merge operation. Users can also make use of <<Move feature>> to move the file; such implementation is more intuitive if the user is going to be using the application for everyday needs.
+
+For the merging of files, the current implementation involves adding all files to a single https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/multipdf/PDFMergerUtility.html[_PDFMergerUtility_]
+to merge together. One alternative to merging multiple files would be to create a separate *PDFMergerUtility* for every pair of files and merge the content recursively into a final merged file. The
+advantage of this would be better stability in performance when merging multiple large files as there will be lesser workload on each *PDFMergerUtility*. However, this would undoubtedly cause the performance
+to be slower as more merge operations are done overall. As the case of instability occurs only in very large files, it was decided to go with a focus on performance.
+
+==== Future Implementation
+
+There are performance issues encountered when performing the merge operations with many files of large size. In future versions, the merge operation has to not only ensure
+performance but stability as well. By v2.0, the merging will be able to support larger files without any concern for the application to freeze or crash while merging.
+Currently, there are no means to make the merging operation perform faster due to the merging operation being performed through the
+https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/multipdf/PDFMergerUtility.html[_PDFMergerUtility_] API.
+
+// end::merge[]
+
+// tag::delete[]
+=== Delete feature
+==== Current Implementation
+The `delete` feature is facilitated by both *DeleteCommand* and *DeleteCommandParser*.
+This feature performs either a _soft_ or _hard_ remove operation on a file in the application
+based on the index provided.
+
+The implementation of the *DeleteCommand* execution can be summarised in the following activity diagram:
+
+.Delete Command Activity Diagram
+image::DeleteCommandActivityDiagram.png[width="600"]
+
+* _Soft_ delete is defined as removing a file from the application but not from the local filesystem;
+the physical file is left intact within the user's operating system, but the user will not be able to access or
+use the features of the application on said file - unless it is added back to the application.
+* _Hard_ delete is defined as removing a file both from the application and the local filesystem;
+the physical file will be deleted and the user will not be able to access or perform any operations
+on the file, either through the application or through the user's operating system.
+
+[WARNING]
+As of v1.4, there is no way to completely undo the _hard_ delete operation. When the file is deleted from the
+filesystem, it is permanently erased.
+
+The `delete` feature has the following syntax:
+
+[.big]#`delete <INDEX>`#
+
+[.big]#`delete <INDEX> hard`#
+
+* `<INDEX>` refers to the index of the file in the list that you wish to perform the `action` on.
+* If the keyword `hard` is not specified, the _soft_ delete operation will be performed. Otherwise, the _hard_
+delete operation will be performed.
+
+[NOTE]
+The index value can be referenced from the list in the main application, or from the
+result of the `Filter`, `Find` or `List` feature.
+
+==== Feature breakdown
+Illustrated below is a sample usage scenario that provides a clear view of the inner
+workings of the `delete` feature.
+
+Step 1: From the main interface, the user chooses a file that they wish to delete, and
+enters the `delete` command into the CLI Interface, following the outlined Syntax mentioned.
+
+Step 2: Upon hitting enter to execute the command, the *DeleteCommandParser* parses
+the input into relevant objects that are required to be executed by the *DeleteCommand*
+object. Upon parsing, the parser then creates a new *DeleteCommand* that will execute the
+user's input.
+
+Step 3: The *DeleteCommand* is then executed. Successful execution will return a
+*CommandResult* indicating that the changes have been made.
+
+.Delete Command Activity Diagram
+image::DeleteCommandActivityDiagram.png[width="600"]
+
+.Delete Command Sequence Diagram
+image::DeleteCommandSequenceDiagram.png[width="800"]
+
+// end::delete[]
+
+// tag::clear[]
+=== Clear feature
+==== Current Implementation
+The `clear` feature is facilitated by both *ClearCommand* and *ClearCommandParser*.
+This feature removes all the PDF files that were previously stored in PDF++. It is similar to
+the <<Delete feature>> in that it removes files from the application, with multiple files instead of
+one at a time. However, it differs that it does not have the option to delete the file from the local
+filesystem.
+
+The `Clear` feature has the following syntax:
+
+[.big]#`clear`#
+
+* The `clear` command will be executed regardless if there is any invalid text that comes after the command
+* All files will be removed from the application, but not from the local filesystem.
+
+[NOTE]
+Since the `clear` feature is very easily executed, if you have accidentally entered the `clear` command and
+wish to revert the action, please refer to <<Undo/Redo feature>> for more information.
+
+.Clear Command Activity Diagram.
+image::ClearCommandActivityDiagram.png[width="600"]
+
+// end::clear[]
+
+// tag::deadline[]
+=== Deadline feature
+==== Current Implementation
+The `deadline` feature is facilitated by both *Deadline*, *DeadlineCommand* and *DeadlineCommandParser*
+This feature allows you to set or remove deadlines of the file specified by you from PDF++.
+The deadlines will be recorded and displayed both in the list of files as well as in the information panel
+for each individual file.
+
+The implementation of the *Deadline* model can be represented in the following class diagram:
+
+.Deadline Class Diagram
+image::DeadlineClassDiagram.png[width="200"]
+
+A *Deadline* model has a https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html[_Java.time.LocalDate_]
+`date` attribute and a `boolean isDone`. The `date` is the date for the deadline assigned to the file, the `isDone` attribute
+evaluates to `true` if the deadline is set to be done, `false` if it is not done.
+
+The implementation of the *DeadlineCommand* execution can be summarised in the following activity diagram:
+
+.Deadline Command Activity Diagram
+image::DeadlineCommandActivityDiagram.png[width="600"]
+
+. The provided index is checked to be valid i.e. referring to a specific Pdf in the PdfBook.
+.. If the index is invalid, a *CommandException* will be thrown and the execution will be ended.
+. The required Pdf is retrieved from the PdfBook based on the index.
+. A duplicate Pdf of the required Pdf is created.
+. For cases of assigning a new deadline,
+.. The duplicate Pdf is assigned with new deadline attributes.
+. For cases of setting an existing deadline as done or removed,
+.. The existing deadline from the retrieved Pdf is tested to be a valid deadline.
+... If the existing deadline is a valid deadline, the duplicate Pdf is assigned with new deadline attributes.
+... If the existing deadline is not a valid deadline, a *CommandException* will be thrown and the execution will be ended.
+. The duplicate Pdf with new deadline attributes is recorded in the Model and the changes are committed.
+. *CommandResult* is returned upon successful execution.
+
+This sequence diagram demonstrates the interactions involved from start of *DeadlineCommandParser* to end of *DeadlineCommand* execution:
+
+.Interactions Inside the Logic Component for the `deadline 1 done` Command
+image::DeadlineCommandSequenceDiagram.png[width="600"]
+
+[TIP]
+After a deadline has been added to the PDF file specified, the date will be color-coded according to days
+remaining from the current day until the deadline date.
+
+==== Considerations
+
+There are some discrepancy for the representation of a file without a deadline in the Jackson adapted storage and the Pdf book model.
+In the Pdf book model, files without a deadline will be assigned with the default deadline whereas the date is set to
+https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html[_LocalDate.MIN_].
+In the Jackson adapted storage, we simply set the deadline attribute of a file without a deadline as empty.
+In our previous implementation, we used to assign the default date LocalDate.MIN to the deadline attribute in the Jackson adapted Storage
+as well, however, this might confuse the users if they read the _pdfplusplus.json_ and find out the non-existence deadline.
+Besides, this implementation also makes the displaying process of deadlines through the UI tedious.
+
+In order to comply with the two distinct representation of deadline model, we implemented a default deadline `toString` method that
+prints the Pdf book model version, and a modified `toJsonString` that prints the Jackson adapted storage version of the deadline.
+
+==== Future Implementation
+
+Our current color-coded deadlines are predefined based on the due date from the current date. Suggested improvement for this area
+would be providing user-defined color codes for a better user experience of our application.
+
+// end::deadline[]
+
+// tag::help[]
+=== Help feature
+==== Current Implementation
+The `help` feature brings up the UserGuide in a browser window as a html file. Following other
+features, the command is parsed and a *HelpCommand* object is created to be executed.
+
+The `help` feature has the following syntax:
+
+[.big]#`help`#
+
+After execution, the user will be directed to the start of the _UserGuide.adoc_ as shown.
+Users can reference from the UserGuide directly on how to navigate the guide.
+
+.User Guide
+image::UserGuide1.png[width="600"]
+
+// end::help[]
+
+// tag::exit[]
+=== Exit feature
+==== Current Implementation
+The `exit` feature is facilitated by *ExitCommand*. This feature allows you to exit from _PDF++_.
+
+The `exit` feature has the following syntax:
+
+[.big]#`exit`...#
+
+* The `exit` command will be executed regardless if there is any invalid text that comes after the command
+
+[NOTE]
+Your files and commands are immediately stored after execution and can be retrieved on
+reopening the application.
+
+// end::exit[]
+
+// tag::list[]
+=== List feature
+==== Current Implementation
+The list feature is facilitated by *ListCommand*.
+This feature will display all of the files currently stored within the application at the
+main interface. By default, all of the files will be displayed when the application is
+started. However, the display of the interface can be changed to reflect the results of
+<<find-feature, Find feature>> or <<filter-feature, Filter feature>>.
+
+[NOTE]
+Certain features such as <<merge-feature, Merge Feature>> rely on the index of the file(s) displayed on
+the main interface. Since the `find` or `filter` feature would list a sample of all
+the files at the main interface, no commands can be executed on the files not included in
+the results. Hence, the `list` feature is added to allow for a "reset" of the view of the files.
+
+The `List` feature has the following syntax:
+
+[.big]#`list`#
+
+// end::list[]
+
+// tag::find[]
+[#find-feature]
+=== Find feature
+==== Current Implementation
+The `find` feature is facilitated by *FindCommand* and *FindCommandParser*.
+This feature lists a subset of all the files in the application based on the keyword(s)
+provided. Using the keyword(s), the application will check the names of all files, as
+well as the content of the text within the files prior to revealing the results.
+
+The `find` feature has the following syntax:
+
+Format: [.big]#`find <KEYWORD> ...`#
+
+* `<KEYWORD>` refers to the word that the application will use as a reference to find
+files. There must be at least one provided.
+
+Example:
+* `find Resume`
+* `find Introduction`
+
+==== Feature Breakdown
+
+.Find Command Activity Diagram
+image::FindCommandActivityDiagram.png[width="600"]
+
+The following image briefly summarises the interactions of the `find` command with
+some of its immediate components.
+
+.General Internal Illustration of Find Command.
+image::FindCommandSequenceDiagram.png[width="600"]
+
+When the user enters the CLI Input for the find command, the command is first passed
+from the `LogicManager` to the `PdfBookParser` will carry out the following steps.
+
+1. The user inputs a request to `find` a keyword within the files of the application.
+e.g. `find keyword`.
+2. The `PdfBookParser` creates a new `FindCommandParser` upon recognising that the user
+wishes to use the `find` feature.
+3. Parse method within the `FindCommandParser` would create a `NameContainsKeywordPredicate` which will allow
+  the `Model` to filter its list of files to show the user the requested files.
+4. Finally, the `FindCommand` object is returned to the `LogicManager`.
+
+Upon receiving the `FindCommand` from the `PdfBookParser` the following steps are carried out.
+
+1. The `execute` method is invoked from the `LogicManager` with the parameters of `model` and `history`.
+2. The `model` then uses the `NameContainsKeywordPredicate` and runs the `test` method to check each file and
+verify that it fulfils the predicate. This is so that the `model` can update itself to present the list of
+files that the user wishes to view.
+3. The `test` method invokes classes from the external link:https://pdfbox.apache.org/index.html[Apache PDFBox] library, namely `PDDocument` and
+`PDFTextStripper` to extract the contents of the existing files.
+4. The extracted content is then checked to verify if it contains the `keyword` input by the user.
+5. Further checks are also done to confirm if each file's name contains the `keyword` as well.
+6. The `model` then updates itself and stores the current action in the `history` object.
+7. Finally, the `FindCommand` returns a `CommandResult` back to the `LogicManager` for follow up
+action.
+
+This is a brief explanation of the inner workings of the `FindCommmand` and its execution method.
+
+==== Considerations
+Our application also implements several security features such as the ability of users to `Encrypt` and
+`Decrypt` their files. Hence, a major security concern was to prevent the `FindCommand` from searching
+through the contents of files that are previously encrypted. This is crucial to prevent the leakage of data
+as malicious users might simply utilize the `FindCommand` to extract information from the tracked files.
+
+==== Future Implementation
+
+. The main issue with the current implementation of the `FindCommand` is its slow speeds with respect to
+large files or files that contain a large string of text files. Hence, a possible consideration you might
+wish to improve upon is to "upgrade" this feature by improving its speed of this feature.
+
+. Yet another enhancement to this feature you might wish to implement is the use of Optical Image Recognition,
+otherwise known as OCR. This will allow the application to translate images within the file to words which would further
+improve the ability of the application to look through content even if they are images.
+// end::find[]
+
+// tag::filter[]
+[#filter-feature]
+=== Filter feature
+==== Current Implementation
+The `filter` feature is facilitated by *FilterCommand* and *FilterCommandParser*.
+This feature is similar to <<find-feature, Find feature>> in that it lists a subset of all the files
+in the application, except that it will list the files based on the tag of the file.
+
+The `filter` feature has the following syntax:
+
+Format: [.big]#`filter t/<TAG> ...`#
+
+* `<TAG>` refers to a tag that is valid, i.e. a tag that was previously set on a file.
+* All tags need to have the prefix #/t# to differentiate between each tag.
+
+==== Feature Breakdown
+
+.Filter Command Activity Diagram
+image::FilterCommandActivityDiagram.png[width="600"]
+
+The inner workings of `FilterCommand` can be explained in the following steps should you need to modify it.
+Given that they are extremely similar to that of the <<find-feature, Find Feature>>, you may refer to that should
+you need more information.
+
+* The `LogicManager` component invokes a `PdfBookParser` to parse the input command.
+** An input command such as `filter t/school t/lecture`.
+* The `PdfBookParser` then decodes the instruction by identifying the keyword, which is
+`select` and creates a new `FilterCommandParser` to parse the necessary parameters.
+** These parameters are mainly each tag specified as `t/TAG`
+** The `FilterCommandParser` creates a predicate `TagContainsKeywordsPredicate` which tests each file
+if it contains the specified tags.
+* The `FilterCommandParser` then parses the parameter, `FilterCommand` object that is returned to
+the `LogicManager` to execute.
+* The `LogicManager` supplies the `FilterCommand` with the existing application `model` and
+`command history` and executes it.
+* The execution of the `FilterCommand` mainly contains the following step.
+** Provides `model` with the newly formed `TagContainsKeyworkdsPredicate` to update the list of files with only
+those that contain the input tags.
+** This change causes the invocation of the `UI` component to display the selected item to the user.
+* Finally, upon successful execution, a `CommandResult` is returned to the `LogicManager` for other operations.
+** If any errors occur mid-execution, a `CommandException` is thrown. These errors may occur due to:
+*** Invalid parameter inputs.
+
+// end::filter[]
+
+// tag::select[]
+=== Select feature
+==== Current Implementation
+The select feature is facilitated by `SelectCommand` and `SelectCommandParser`. This allows users to select a file and view
+more information pertaining to that selected file. They are able to view features such as its size,
+any deadlines assigned to it, its name, and directory.
+
+The `Select` feature has the following syntax:
+Format: `select INDEX`
+
+==== Feature Breakdown
+
+The inner workings of `SelectCommand` can be explained in the following steps should you need to modify it.
+
+* The `LogicManager` component invokes a `PdfBookParser` to parse the input command.
+** An input command such as `select 1`.
+* The `PdfBookParser` then decodes the instruction by identifying the keyword, which is
+`select` and creates a new `SelectCommandParser` to parse the necessary parameters.
+* The `SelectCommandParser` then parses the parameter, in this case `1` and creates a new
+`SelectCommand` object that is returned to the `LogicManager` to execute.
+* The `LogicManager` supplies the `SelectCommand` with the existing application `model` and
+`command history` and executes it.
+* The execution of the `SelectCommand` sets the `selectedPdf` property of the model.
+** This change causes the invocation of the `UI` component to display the selected item to the user.
+* Finally, upon successful execution, a `CommandResult` is returned to the `LogicManager` for other operations.
+** If any errors occur mid-execution, a `CommandException` is thrown. These errors may occur due to:
+*** Invalid parameter inputs.
+
+// end::select[]
+
+// tag::sort[]
+=== Sort feature
+==== Current Implementation
+The sort feature is facilitated by `SortCommand` and `SortCommandParser`.
+The sort command allows the user to arrange the list of files tracked by the application in a specified order & criteria.
+The order can be ascending (`up`) or descending (`down`) while the criteria can be `name`, `deadline` or `size`.
+
+The `Sort` feature has the following syntax:
+Format: `sort CRITERIA ORDER`
+Example:
+
+* `sort deadline up`
+* `sort name down`
+
+==== Feature Breakdown
+
+Listed below is a brief explanation of the inner workings of the sort feature.
+
+* The `LogicManager` component invokes a `PdfBookParser` to parse the input command.
+** An input command such as `sort deadline up`.
+* The `PdfBookParser` then decodes the instruction by identifying the keyword, which is
+`select` and creates a new `SortCommandParser` to parse the necessary parameters.
+* The `SortCommandParser` then parses both parameters and creates a `SortCommand` object that is
+returned to the `LogicManager` to execute.
+** The parameters are the `CRITERIA` and `ORDER` specified by the user.
+* The `LogicManager` supplies the `SortCommand` with the existing application `model` and
+`command history` and executes it.
+* The execution of the `SortCommand` contains the following steps:
+** The list of existing files are obtained from the `Model` component
+** This list is sorted with the given `CRITERIA` and `ORDER`.
+** The sorted list is set as the new default list of the `Model` component.
+* This change causes the invocation of the `UI` component to display the new list of files to the user.
+* Finally, upon successful execution, a `CommandResult` is returned to the `LogicManager` for other operations.
+** If any errors occur mid-execution, a `CommandException` is thrown. These errors may occur due to:
+*** Invalid parameter inputs such as invalid `CRITERIA` or `ORDER`.
+
+[NOTE]
+All other operations carried out after `sort` that require an `INDEX` to be supplied must follow the newly
+set indexes of the files tracked by the application.
+
+// end::sort[]
+
+// tag::tag[]
+=== Tag feature
+==== Current Implementation
+The tag feature is facilitated by `TagCommand` and the `TagCommandParser`.
+This allows users to set tags to files that are tracked by the application that allows them to easily organize and
+view these files with other operations supported by our application such as the <<filter-feature, Filter Feature>>.
+In order to perform the Tag Command the user needs to specify a `PREFIX` that is denoted by `-a` or `r` to signify the
+addition or removal of a tag. The `INDEX` that refers to the file that the user wishes to interact with and the tags
+themselves that are represented in the `t/TAG` format where `TAG` text that the user wishes to use as a tag.
+
+The `Tag` feature has the following syntax:
+Format: `tag PREFIX INDEX t/TAG...`
+
+Example:
+* `tag 1 -a t/SEROCKS`
+* `tag 1 -r t/SEROCKS`
+* `tag 2 -a t/Urgent t/Resume`
+
+==== Feature Breakdown
+
+The inner workings of `TagCommand` can be briefly explained in the following steps should you need to modify it.
+
+* The `LogicManager` component invokes a `PdfBookParser` to parse the input command.
+** An input command such as `tag 1 -a t/SEROCKS`.
+* The `PdfBookParser` then decodes the instruction by identifying the keyword, which is
+`select` and creates a new `TagCommandParser` to parse the necessary parameters.
+* The `TagCommandParser` then parses the relevant parameters and creates a new
+`SortCommand` object that is returned to the `LogicManager` to execute. The parsed parameters include:
+** `PREFIX` which, as mentioned above, indicates if the tag is to be added or removed from the file.
+** `INDEX` which indicates to the command which file that the user wishes to interact with.
+** `t/TAG` which contain the name of the tag(s) that the user wishes to add to the specified file.
+* The `LogicManager` supplies the `TagCommand` with the existing application `model` and
+`command history` and executes it.
+* The execution of the `TagCommand` contains the following steps:
+** The file that the user wishes to add the tags to is obtained from the `model`.
+** The parsed `tag(s)` are added to the chosen file.
+** The `model` is then updated with the newly modified file.
+** Changes are reflected in the `UI` component by new labels forming under the name of the file.
+* Finally, upon successful execution, a `CommandResult` is returned to the `LogicManager` for other operations.
+** If any errors occur mid-execution, a `CommandException` is thrown. These errors may occur due to:
+*** Invalid parameter inputs.
+
+[CAUTION]
+The `Tag Feature` only allows for tags that do not contain spaces and are alphanumeric.
+
+// end::tag[]
+
+// tag::History[]
+=== History feature
+==== Current Implementation
+The history feature is facilitated by `HistoryCommand`.
+This feature displays the previous commands entered since the start of the current session
+of the application; each time the application is closed, the command history will be erased.
+
+The `history` feature has the following syntax:
+
+[.big]#`history`#
+
+* When there is no command history, a message will be shown to notify the user.
+
+// end::History[]
+
+// tag::fileprotection[]
+=== File Protection
+
+PDF++ has a robust in-built file protection system which allows you to encrypt or decrypt any
+PDF files you want. These features utilises the
+https://pdfbox.apache.org/download.cgi#20x[_Apache PDFBox® library_], specifically the
+https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/PDDocument.html[_PDDocument_],
+https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/encryption/AccessPermission.html[_AccessPermission_], and
+https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/encryption/StandardProtectionPolicy.html[_StandardProtectionPolicy_].
+
+[NOTE]
+An <<encrypted-file, encrypted file>> is a file that is protected with a password. The terms `protect` and `encrypt` will be used interchangeably.
+
+You can visit <<Encryption feature>> and <<Decryption feature>> to understand more about the respective feature.
+
+==== Encryption feature
+
+===== Current Implementation
+The `encrypt` feature is facilitated by both *EncryptCommand* and *EncryptCommandParser*.
+
+The implementation of the *EncryptCommand* execution is summarised in the following activity diagram:
+
+.Encrypt Command Activity Diagram
+image::EncryptCommandActivityDiagram.png[width="600"]
+
+. The provided index is checked for validity i.e. referring to a specific Pdf in PdfBook.
+.. If the index is invalid, a *CommandException* will be thrown and the execution ends.
+. The Pdf specified via the index is retrieved from the PdfBook.
+. A `File` object is created for the Pdf.
+. The `File` will be loaded as https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/PDDocument.html[_PDDocument_],
+which is an indicator that the `File` is a *PDF* document that is uncorrupted and
+not protected with a password.
+.. Error in loading Pdf as *PDDocument* would throw an *IOException*. Common reasons for error are:
+... File not found in location
+... Lack of user permissions to open File
+... Protected File
+... Corrupted File
+.. Thrown IOException is intercepted, a *CommandException* will be thrown and the execution ends.
+. https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/encryption/AccessPermission.html[_AccessPermission_], and
+https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/encryption/StandardProtectionPolicy.html[_StandardProtectionPolicy_]
+are created. The password specified will be passed to `StandardProtectionPolicy` for the purpose of setting security settings for the
+`PDDocument`.
+. A protected Pdf will be saved and closed.
+.. Error in encrypting the file will throw an *IOException*. Common reasons for error are:
+... Excessive long password
+... Empty password
+.. Thrown IOException is intercepted, a *CommandException* will be thrown and the execution ends.
+. The Pdf is recorded in the <<Model component>> and the changes are saved.
+. A *CommandResult* is returned upon successful exception of *EncryptCommand*.
+
+This sequence diagram demonstrates the <<main-success-scenario>> from the
+*LogicManager* to the end of *EncryptCommand* execution:
+
+.Encrypt Command Sequence Diagram
+image::EncryptCommandSequenceDiagram.png[width="800"]
+
+===== Design Considerations
+
+===== Edit password of an encrypted file
+
+* Alternative 1 (current choice): Execute *DecryptCommand* then *EncryptCommand*
+
+** Due to security reasons, it was decided to focus on encrypting an unprotected Pdf.
+You will need to use <<Decryption feature>>
+before encrypting it with a new password. This is to ensure your intent in changing the password,
+as the current version *PDF++* does not support `Forget Password` feature.
+
+** However, this process is inefficient as you will need to enter 2 commands instead of 1.
+
+* Alternative 2: Change the password of an encrypted file
+
+** This minimised the number of commands to be executed, but there are several security concerns as mentioned above.
+
+===== A sophisticated protection system
+
+* Multiple adjustments to protect your interest
+
+. <<History feature>> will not show the executed `EncryptCommand` which includes the password of the file.
+. The <<Undo/Redo feature [Coming in v2.0]>> is temporarily disabled until a solution that
+will not comprise your privacy has been found.
+. Pressing up in the command box will not show the `EncryptCommand` that was previously executed.
+
+===== Future Implementation
+
+There are concerns of accidental encryption of a file with a wrong password. In *PDF++* v2.0,
+the *EncryptCommand* will prompt you to re-enter the password as a form of confirmation message.
+If there is a mismatch of the two passwords entered, the command will not be executed.
+
+==== Decryption feature
+
+===== Current Implementation
+
+[NOTE]
+The current Implementation of *DecryptCommand* is very similar to <<Encryption feature>>.
+The part where it is implemented differently will be specifically marked with a `*` for your convenience.
+
+The `decrypt` feature is facilitated by both *DecryptCommand* and *DecryptCommandParser*.
+
+The implementation of the `DecryptCommand` execution is summarised in the following activity diagram.
+
+.Decrypt Command Activity Diagram
+image::DecryptCommandActivityDiagram.png[width="600"]
+
+. The provided index is checked for validity i.e. referring to a specific Pdf in PdfBook.
+.. If the index is invalid, a *CommandException* will be thrown and the execution ends.
+. The Pdf specified via the index is retrieved from the PdfBook.
+. A `File` object is created for the Pdf.
+. The `File` will be loaded as https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/PDDocument.html[_PDDocument_]
+with the specified password, which is an indicator that the `File` is a *PDF* document that is uncorrupted, protected and the password
+provided is valid *.
+.. Error in loading Pdf as *PDDocument* would throw an *IOException* and invalid password would throw a *CommandException*.
+Common reasons for error are:
+... File not found in location
+... Lack of user permissions to open File
+... Unprotected File *
+... Corrupted File
+... Wrong password *
+.. Thrown IOException is intercepted, a *CommandException* will be thrown and the execution ends.
+. Upon success loading of the PDDocument, the security will be removed. *
+. An unprotected * Pdf will be saved and closed.
+. The Pdf is recorded in the <<Model component>> and the changes are saved.
+. A *CommandResult* is returned upon successful exception of *DecryptCommand*.
+
+This sequence diagram demonstrates the <<main-success-scenario>> from the
+*LogicManager* to the end of *DecryptCommand* execution:
+
+.Decrypt Command Sequence Diagram
+image::DecryptCommandSequenceDiagram.png[width="800"]
+
+===== Design Considerations
+
+===== A sophisticated protection system
+
+* Multiple adjustments to protect your interest
+
+. <<History feature>> will not show the executed `EncryptCommand` which includes the password of the file.
+. The <<Undo/Redo feature [Coming in v2.0]>> is temporarily disabled until a solution that
+will not comprise your privacy has been found.
+. Pressing up in the command box will not show the `EncryptCommand` that was previously executed.
+
+===== Future Implementation
+
+If unauthorised personnel obtained the password of your files through illegal means,
+they can potentially set the file with a new password. This will hinder your access to
+your files.
+
+However, With 2-Factor Authentication, there is an additional layer of protection
+that prevents these personnel from changing the passwords of your files. This
+ensures that only you/any authorised personnel can decrypt your files.
+
+In *PDF++* v2.0, the *DecryptCommand* will support for the 2FA feature as mentioned above.
+If this feature is highly demanded, this feature will be implemented to *EncryptCommand* too.
+
+// end::fileprotection[]
+
+// tag::undoredo[]
+=== Undo/Redo feature [Coming in v2.0]
+==== Current Implementation
+
+The undo/redo mechanism is facilitated by `VersionedPdfBook`.
+It extends `PdfBook` with an undo/redo history, stored internally as an `pdfBookStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedPdfBook#commit()` -- Saves the current pdf book state in its history.
+* `VersionedPdfBook#undo()` -- Restores the previous pdf book state from its history.
+* `VersionedPdfBook#redo()` -- Restores a previously undone pdf book state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitPdfBook()`, `Model#undoPdfBook()` and `Model#redoPdfBook()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedPdfBook` will be initialized with the initial pdf book state, and the `currentStatePointer` pointing to that single pdf book state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th pdf in the pdf book. The `delete` command calls `Model#commitPdfBook()`, causing the modified state of the pdf book after the `delete 5` command executes to be saved in the `pdfBookStateList`, and the `currentStatePointer` is shifted to the newly inserted pdf book state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new pdf. The `add` command also calls `Model#commitPdfBook()`, causing another modified pdf book state to be saved into the `pdfBookStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitPdfBook()`, so the pdf book state will not be saved into the `pdfBookStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the pdf was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoPdfBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous pdf book state, and restores the pdf book to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial pdf book state, then there are no previous pdf book states to restore. The `undo` command uses `Model#canUndoPdfBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoPdfBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the pdf book to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `pdfBookStateList.size() - 1`, pointing to the latest pdf book state, then there are no undone pdf book states to restore. The `redo` command uses `Model#canRedoPdfBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the pdf book, such as `list`, will usually not call `Model#commitPdfBook()`, `Model#undoPdfBook()` or `Model#redoPdfBook()`. Thus, the `pdfBookStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitPdfBook()`. Since the `currentStatePointer` is not pointing at the end of the `pdfBookStateList`, all pdf book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -296,29 +1188,22 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire pdf book.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the pdf being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of pdf book states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedPdfBook`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
@@ -333,12 +1218,12 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `SEVERE` : Critical problem detected which may possibly cause the termination of the application
 * `WARNING` : Can continue, but with caution
 * `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+* `FINE` : Details that are not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 [[Implementation-Configuration]]
 === Configuration
 
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+Certain properties of the application can be controlled (e.g user prefs file directory, logging level) through the configuration file (default: `config.json`).
 
 == Documentation
 
@@ -431,15 +1316,15 @@ _{asterisk} Official SE-EDU projects only_
 
 === Site Template
 
-The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
+The files in link:{repoURL}/blob/master/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
 You can modify them to change some properties of the site's design.
 
-The files in link:{repoURL}/docs/templates[`docs/templates`] controls the rendering of `.adoc` files into HTML5.
+The files in link:{repoURL}/blob/master/docs/templates[`docs/templates`] controls the rendering of `.adoc` files into HTML5.
 These template files are written in a mixture of https://www.ruby-lang.org[Ruby] and http://slim-lang.com[Slim].
 
 [WARNING]
 ====
-Modifying the template files in link:{repoURL}/docs/templates[`docs/templates`] requires some knowledge and experience with Ruby and Asciidoctor's API.
+Modifying the template files in link:{repoURL}/blob/master/docs/templates[`docs/templates`] requires some knowledge and experience with Ruby and Asciidoctor's API.
 You should only modify them if you need greater control over the site's layout than what stylesheets can provide.
 The SE-EDU team does not provide support for modified template files.
 ====
@@ -478,14 +1363,14 @@ We have two types of tests:
 
 .  *GUI Tests* - These are tests involving the GUI. They include,
 .. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
-.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+.. _Unit tests_ that test the individual components. These are in `seedu.pdf.ui` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
+e.g. `seedu.pdf.commons.StringUtilTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.address.storage.StorageManagerTest`
-..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
+e.g. `seedu.pdf.storage.StorageManagerTest`
+..  Hybrids of unit and integration tests. These tests are checking multiple code units as well as how they are connected together. +
+e.g. `seedu.pdf.logic.LogicManagerTest`
 
 
 === Troubleshooting Testing
@@ -515,14 +1400,14 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version number in link:{repoURL}/blob/master/src/main/java/seedu/pdf/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
+A project often depends on third-party libraries. For example, Pdf Book depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
 
 [loweralpha]
 . Include those libraries in the repo (this bloats the repo size)
@@ -551,14 +1436,14 @@ Each individual exercise in this section is component-based (i.e. you would not 
 [TIP]
 Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
 
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
+. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all pdfs in the list.
 +
 ****
 * Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
+** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/blob/master/src/main/java/seedu/pdf/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/blob/master/src/main/java/seedu.pdf/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
+** link:{repoURL}/blob/master/src/main/java/seedu/pdf/logic/parser/PdfBookParser.java[`PdfBookParser`] is responsible for analyzing command words.
 * Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
+** Modify the switch statement in link:{repoURL}/blob/master/src/main/java/seedu/pdf/logic/parser/PdfBookParser.java[`PdfBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
 ** Add new tests for each of the aliases that you have added.
 ** Update the user guide to document the new aliases.
 ** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
@@ -567,21 +1452,21 @@ Do take a look at <<Design-Logic>> before attempting to modify the `Logic` compo
 [discrete]
 ==== `Model` component
 
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
+*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the pdf book, but the model API does not support such functionality at the moment. Your job is to implement an API method so that your teammate can use your API to implement his command.
 
 [TIP]
 Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
 
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
+. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the pdf book.
 +
 ****
 * Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
+** The link:{repoURL}/blob/master/src/main/java/seedu/pdf/model/Model.java[`Model`] and the link:{repoURL}/blob/master/src/main/java/seedu.pdf/model/PdfBook.java[`PdfBook`] API need to be updated.
 ** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
+**  Find out which of the existing API methods in  link:{repoURL}/blob/master/src/main/java/seedu/pdf/model/PdfBook.java[`PdfBook`] and link:{repoURL}/blob/master/src/main/java/seedu.pdf/model/pdf/Pdf.java[`Pdf`] classes can be used to implement the tag removal logic. link:{repoURL}/blob/master/src/main/java/seedu/pdf/model/PdfBook.java[`PdfBook`] allows you to update a pdf, and link:{repoURL}/blob/master/src/main/java/seedu/pdf/model/pdf/Pdf.java[`Pdf`] allows you to update the tags.
 * Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
+** Implement a `removeTag(Tag)` method in link:{repoURL}/blob/master/src/main/java/seedu/pdf/model/PdfBook.java[`PdfBook`]. Loop through each pdf, and remove the `tag` from each pdf.
+** Add a new API method `deleteTag(Tag)` in link:{repoURL}/blob/master/src/main/java/seedu/pdf/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/blob/master/src/main/java/seedu.pdf/model/ModelManager.java[`ModelManager`] should call `PdfBook#removeTag(Tag)`.
 ** Add new tests for each of the new public methods that you have added.
 ** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
 ****
@@ -589,92 +1474,98 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 [discrete]
 ==== `Ui` component
 
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
+*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your pdf book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last pdf in the list. Your job is to implement improvements to the UI to solve all these problems.
 
 [TIP]
 Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
 
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
+. Use different colors for different tags inside pdf cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
 +
 **Before**
 +
+.UI Before Tag
 image::getting-started-ui-tag-before.png[width="300"]
 +
 **After**
 +
+.UI After Tag
 image::getting-started-ui-tag-after.png[width="300"]
 +
 ****
 * Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
+** The tag labels are created inside link:{repoURL}/blob/master/src/main/java/seedu/pdf/ui/PdfCard.java[the `PdfCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
 ** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
+** You may wish to modify link:{repoURL}/blob/master/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
 * Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
+** You can modify the existing test methods for `PdfCard` 's to include testing the tag's color as well.
 ** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
 *** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
 ****
 
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
+. Modify link:{repoURL}/blob/master/src/main/java/seedu/pdf/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/blob/master/src/main/java/seedu.pdf/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
 +
 **Before**
 +
+.Ui Before Result
 image::getting-started-ui-result-before.png[width="200"]
 +
 **After**
 +
+.UI After Result
 image::getting-started-ui-result-after.png[width="200"]
 +
 ****
 * Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
+** link:{repoURL}/blob/master/src/main/java/seedu/pdf/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/blob/master/src/main/java/seedu.pdf/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/blob/master/src/main/java/seedu/pdf/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
+** Refer to link:{repoURL}/blob/master/src/main/java/seedu/pdf/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
 * Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
+** Modify link:{repoURL}/blob/master/src/main/java/seedu/pdf/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
+** Modify link:{repoURL}/blob/master/src/main/java/seedu/pdf/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
 ** You can write two different kinds of tests to ensure that the functionality works:
 *** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
+*** The system tests link:{repoURL}/blob/master/src/test/java/systemtests/PdfBookSystemTest.java[`PdfBookSystemTest#assertCommandBoxShowsDefaultStyle() and PdfBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
 ** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
 *** Do read the commits one at a time if you feel overwhelmed.
 ****
 
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
+. Modify the link:{repoURL}/blob/master/src/main/java/seedu/pdf/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the pdf book.
 +
 **Before**
 +
+.UI Before Status
 image::getting-started-ui-status-before.png[width="500"]
 +
 **After**
 +
+.UI After Status
 image::getting-started-ui-status-after.png[width="500"]
 +
 ****
 * Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
+** link:{repoURL}/blob/master/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
+** link:{repoURL}/blob/master/src/main/java/seedu/pdf/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the pdf book is updated.
 * Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
+** Modify the constructor of link:{repoURL}/blob/master/src/main/java/seedu/pdf/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of pdfs when the application just started.
+** Use link:{repoURL}/blob/master/src/main/java/seedu/pdf/ui/StatusBarFooter.java[`StatusBarFooter#handlePdfBookChangedEvent(PdfBookChangedEvent)`] to update the number of pdfs whenever there are new changes to the pdfbook.
+** For tests, modify link:{repoURL}/blob/master/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save directory and sync status.
+** For system tests, modify link:{repoURL}/blob/master/src/test/java/systemtests/PdfBookSystemTest.java[`PdfBookSystemTest`] to also verify the new total number of pdfs status bar.
 ** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
 ****
 
 [discrete]
 ==== `Storage` component
 
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
+*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the pdf book to the cloud. However, the current implementation of the application constantly saves the pdf book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the pdf book storage.
 
 [TIP]
 Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
 
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
+. Add a new method `backupPdfBook(ReadOnlyPdfBook)`, so that the pdf book can be saved in a fixed temporary directory.
 +
 ****
 * Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/JsonAddressBookStorage.java[`JsonAddressBookStorage`] class.
+** Add the API method in link:{repoURL}/blob/master/src/main/java/seedu/pdf/storage/PdfBookStorage.java[`PdfBookStorage`] interface.
+** Implement the logic in link:{repoURL}/blob/master/src/main/java/seedu/pdf/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/blob/master/src/main/java/seedu.pdf/storage/JsonPdfBookStorage.java[`JsonPdfBookStorage`] class.
 * Solution
 ** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
 ****
@@ -684,18 +1575,18 @@ Do take a look at <<Design-Storage>> before attempting to modify the `Storage` c
 
 By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
 
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
+*Scenario:* You are a software maintainer for `pdfbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
 
 ==== Description
-Edits the remark for a person specified in the `INDEX`. +
+Edits the remark for a pdf specified in the `INDEX`. +
 Format: `remark INDEX r/[REMARK]`
 
 Examples:
 
 * `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
+Edits the remark for the first pdf to `Likes to drink coffee.`
 * `remark 1 r/` +
-Removes the remark for the first person.
+Removes the remark for the first pdf.
 
 ==== Step-by-step Instructions
 
@@ -704,13 +1595,13 @@ Let's start by teaching the application how to parse a `remark` command. We will
 
 **Main:**
 
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
+. Add a `RemarkCommand` that extends link:{repoURL}/blob/master/src/main/java/seedu/pdf/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
+. Modify link:{repoURL}/blob/master/src/main/java/seedu/pdf/logic/parser/PdfBookParser.java[`PdfBookParser`] to accept a `RemarkCommand`.
 
 **Tests:**
 
 . Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
+. Add new test method to link:{repoURL}/blob/master/src/test/java/seedu/pdf/logic/parser/PdfBookParserTest.java[`PdfBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
 
 ===== [Step 2] Logic: Teach the app to accept 'remark' arguments
 Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
@@ -719,50 +1610,50 @@ Let's teach the application to parse arguments that our `remark` command will ac
 
 . Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
 . Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
+. Modify link:{repoURL}/blob/master/src/main/java/seedu/pdf/logic/parser/PdfBookParser.java[`PdfBookParser`] to use the newly implemented `RemarkCommandParser`.
 
 **Tests:**
 
 . Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
 . Add `RemarkCommandParserTest` that tests different boundary values
 for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
+. Modify link:{repoURL}/blob/master/src/test/java/seedu/pdf/logic/parser/PdfBookParserTest.java[`PdfBookParserTest`] to test that the correct command is generated according to the user input.
 
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
+===== [Step 3] Ui: Add a placeholder for remark in `PdfCard`
+Let's add a placeholder on all our link:{repoURL}/blob/master/src/main/java/seedu/pdf/ui/PdfCard.java[`PdfCard`] s to display a remark for each pdf later.
 
 **Main:**
 
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
+. Add a `Label` with any random text inside link:{repoURL}/blob/master/src/main/resources/view/PdfListCard.fxml[`PdfListCard.fxml`].
+. Add FXML annotation in link:{repoURL}/blob/master/src/main/java/seedu/pdf/ui/PdfCard.java[`PdfCard`] to tie the variable to the actual label.
 
 **Tests:**
 
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
+. Modify link:{repoURL}/blob/master/src/test/java/guitests/guihandles/PdfCardHandle.java[`PdfCardHandle`] so that future tests can read the contents of the remark label.
 
 ===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
+We have to properly encapsulate the remark in our link:{repoURL}/blob/master/src/main/java/seedu/pdf/model/pdf/Pdf.java[`Pdf`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
 
 **Main:**
 
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
+. Add `Remark` to model component (you can copy from link:{repoURL}/blob/master/src/main/java/seedu/pdf/model/pdf/Directory.java[`Directory`], remove the regex and change the names accordingly).
 . Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
 
 **Tests:**
 
 . Add test for `Remark`, to test the `Remark#equals()` method.
 
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
+===== [Step 5] Model: Modify `Pdf` to support a `Remark` field
+Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/blob/master/src/main/java/seedu/pdf/model/pdf/Pdf.java[`Pdf`].
 
 **Main:**
 
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `data/addressbook.json` so that the application will load the sample data when you launch it.)
+. Add `getRemark()` in link:{repoURL}/blob/master/src/main/java/seedu/pdf/model/pdf/Pdf.java[`Pdf`].
+. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the pdf will be created without a remark).
+. Modify link:{repoURL}/blob/master/src/main/java/seedu/pdf/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `data/pdfbook.json` so that the application will load the sample data when you launch it.)
 
-===== [Step 6] Storage: Add `Remark` field to `JsonAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/JsonAdaptedPerson.java[`JsonAdaptedPerson`] to include a `Remark` field so that it will be saved.
+===== [Step 6] Storage: Add `Remark` field to `JsonAdaptedPdf` class
+We now have `Remark` s for `Pdf` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/blob/master/src/main/java/seedu/pdf/storage/JsonAdaptedPdf.java[`JsonAdaptedPdf`] to include a `Remark` field so that it will be saved.
 
 **Main:**
 
@@ -770,33 +1661,33 @@ We now have `Remark` s for `Person` s, but they will be gone when we exit the ap
 
 **Tests:**
 
-. Fix `invalidAndValidPersonAddressBook.json`, `typicalPersonsAddressBook.json`, `validAddressBook.json` etc., such that the JSON tests will not fail due to a missing `remark` field.
+. Fix `invalidAndValidPdfPdfBook.json`, `typicalPdfsPdfBook.json`, `validPdfBook.json` etc., such that the JSON tests will not fail due to a missing `remark` field.
 
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
+===== [Step 6b] Test: Add withRemark() for `PdfBuilder`
+Since `Pdf` can now have a `Remark`, we should add a helper method to link:{repoURL}/blob/master/src/test/java/seedu/pdf/testutil/PdfBuilder.java[`PdfBuilder`], so that users are able to create remarks when building a link:{repoURL}/blob/master/src/main/java/seedu.pdf/model/pdf/Pdf.java[`Pdf`].
 
 **Tests:**
 
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
+. Add a new method `withRemark()` for link:{repoURL}/blob/master/src/test/java/seedu/pdf/testutil/PdfBuilder.java[`PdfBuilder`]. This method will create a new `Remark` for the pdf that it is currently building.
+. Try and use the method on any sample `Pdf` in link:{repoURL}/blob/master/src/test/java/seedu/pdf/testutil/TypicalPdfs.java[`TypicalPdfs`].
 
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
+===== [Step 7] Ui: Connect `Remark` field to `PdfCard`
+Our remark label in link:{repoURL}/blob/master/src/main/java/seedu/pdf/ui/PdfCard.java[`PdfCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
 
 **Main:**
 
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
+. Modify link:{repoURL}/blob/master/src/main/java/seedu/pdf/ui/PdfCard.java[`PdfCard`]'s constructor to bind the `Remark` field to the `Pdf` 's remark.
 
 **Tests:**
 
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
+. Modify link:{repoURL}/blob/master/src/test/java/seedu/pdf/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPdf(...)`] so that it will compare the now-functioning remark label.
 
 ===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
 We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
 
 **Main:**
 
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
+. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a pdf.
 
 **Tests:**
 
@@ -812,7 +1703,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 *Target user profile*:
 
 * has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* prefers desktop app over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
@@ -829,33 +1720,83 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |organized student |rename the PDFs to any valid name supported by the operating system |keep my PDFs organized
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |lazy user |filter my PDFs based on the tags |so that I can see all the files with the same tag in the app
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |delete a pdf |remove entries that I no longer need
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |find a pdf by name |locate details of PDFs without having to go through the entire list
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user with different tasks and deadlines |set due dates for my PDFs |be notified of upcoming deadlines and know the files required for that task
+
+|`* *` |student |view my productivity analysis and estimate time to get work done |allocate sufficient time to finish my homework & assignments before deadlines
+
+|`*` |user |view clashing tasks/appointments |be notified and make changes
+
+|`*` |class tutor |obtain the statistics of the exam |evaluate the performance of the exam
+
+|`*` |teacher |create new exam paper |create formatted online exam paper easily
+
+|`*` |NUS student |submit my files to LumiNUS with command lines |submit files without using an internet browsers
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+[discrete]
+=== Use case: Add new PDF file
+*System: PDF{plus}{plus}*  +
+*Actor: Student* +
+*MSS* +
+
+1.  User types `add f/FILEPATH` into the CLI Input.
+2.  User presses enter.
+3.  PDF++ makes a record of the relevant attributes of the selected PDF.
+
+Use case ends.
+
+*Extensions* +
+3a. User loads an invalid file (not a pdf). +
+
+- 3a1. PDF++ shows an error message to user.
+- 3a2. User repeats Step 1 and 2 to add a valid pdf into PDF++. +
+  Use Case resumes at step 3.
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Find keyword in files within PDF++
+*System: PDF{plus}{plus}*  +
+*Actor: Student* +
+*MSS* +
 
-*MSS*
+1.  User types `find KEYWORD`.
+2.  User presses enter.
+3.  PDF++ Returns a list of files that contain the keyword in its names or content. +
+Use case ends.
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+*Extensions* +
+2a. User input invalid data. +
+
+- 2a1. PDF++ throws an exception to alert the user.
+- 2a2. User repeats Step 1 to 3 to search till a valid `KEYWORD` is entered.
+
+2b. User inputs a `KEYWORD` that is not in any of the files. +
+
+- 2b1. PDF++ Returns an empty list. +
+Use Case ends.
+
+
+[discrete]
+=== Use case: Delete PDF file within PDF++
+*System: PDF{plus}{plus}*  +
+*Actor: Student* +
+*MSS* +
+
+1.  User requests to list pdfs
+2.  PdfBook shows a list of pdfs
+3.  User requests to delete a specific pdf in the list
+4.  PdfBook deletes the pdf
 +
 Use case ends.
 
@@ -869,20 +1810,92 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. PdfBook shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: Merge PDF files within PDF++
+*System: PDF{plus}{plus}*  +
+*Actor: Student* +
+*MSS* +
+
+1.  User types `list` in CLI to list all pdfs.
+2.  PdfBook shows a list of pdfs.
+3.  User types `merge [INDEXES]` in CLI where INDEXES refer to displayed list index of pdfs to be merged in their desired order.
+4.  PdfBook merges the specified pdfs into new pdf.
+5.  PdfBook updates the list to show the merged pdf.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. One of the indexes provided is invalid.
+
+[none]
+** 3a1. PDF++ throws an exception to alert the user.
+** 3a2. User repeats Step 1 to 3 to merge with valid indexes provided. +
+Use case ends.
+
+[none]
+* 4a. One or more of the files referenced by indexes provided are encrypted.
+
+[none]
+** 4a1. PDF++ throws an exception to alert the user.
+** 4a2. User removes encryption on files to be merged before restarting from Step 1. +
+Use case ends.
+
+[none]
+* 4b. One or more of the files fail to be opened or merged, throwing a *Java FileIOException*.
+
+[none]
+** 4b1. PDF++ throws an exception to alert the user.
+** 4b2. User ensures that files to be merged are working before restarting from Step 1. +
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+* **Technical requirements**
++
+The software should work on both 32-bit and 64-bit environments.
 
-_{More to be added}_
+* **Platform compatibility**
++
+The software should work on Windows, Linux and OS-X platforms.
+
+* **Response time**
++
+The software should respond within two seconds.
+
+* **Cost**
++
+The software is free of charge. However, we do appreciate any contributions to our coffee fund.
+
+* **Privacy**
++
+The software should work entirely offline and should not collect user personal data for any purposes.
+
+* **Licensing**
++
+The software is free, open-source does not require installation.
+
+* **Portability**
++
+The software should not require any installer; it should be able to run without installing any additional software.
+
+* **Extensibility**
++
+The software should take future growth into consideration e.g. adding features, carry-forward of customizations at next major version upgrade.
+
+* **Testability**
++
+The software should not have features that are hard to test both manual and automated testing.
+
+* **Data requirements**
++
+The data that is stored locally should be editable by user. In other words, expert users can open the file without using the application and edit it for his or her liking.
+
 
 [appendix]
 == Glossary
@@ -893,22 +1906,13 @@ Windows, Linux, Unix, OS-X
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
 
-[appendix]
-== Product Survey
+[[encrypted-file]] Encrypted file::
+A file that is protected with a password
 
-*Product Name*
+[[main-success-scenario]] Main Success Scenario::
+The expected sequence of events assuming that nothing goes wrong
 
-Author: ...
 
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -928,30 +1932,236 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Saving window preferences
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
+.. Resize the window to an optimum size. Move the window to a different directory. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+   Expected: The most recent window size and directory is retained.
 
-_{ more test cases ... }_
+=== Adding a pdf
 
-=== Deleting a person
+. Adding an actual pdf file that is on the local device
+.. Prerequisites:
+... Have Read, Write and Execute permissions to access the file.
+... The file must be an unencrypted and uncorrupted pdf file.
 
-. Deleting a person while all persons are listed
+.. Test case: `add f/C:\Users\WeiTang\Desktop\test\validPdfFile.pdf`
+... Please make sure that your command is of this format: `add f/VALIDFILEPATH.pdf`.
+Note that the file path various for Operating Systems and devices.
+... Expected: The pdf is added to the last index of the list. Details of the added pdf shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `add f/invalidFilePath`
+... Expected: No pdf is added. Error details are shown in the status message. Status bar remains the same.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+=== Sorting the list of pdf
+
+. Sorting the list of pdfs in a specified order
+
+.. Prerequisites: The pdf files in the list are uncorrupted and they exist in the system. The sort command works even for an empty list.
+.. Test case: `sort name up` +
+    Expected: The list of pdfs will be sorted according to name in ascending order.
+.. Other correct sort commands to try: `sort name down` (sort the list by name in descending order), `sort size up` (sort the list by size in
+  ascending order), `sort size down` (sort the list by size in descending order), `sort deadline up` (sort the list by deadline in ascending order),
+  `sort deadline down` (sort the list by deadline in descending order).
+
+  .. Test case: `sort invalidOperation up` +
+    Expected: The list of pdfs is not sorted. Error details are shown in the status message. Status bar remains the same.
+  .. Other incorrect sort commands to try: `sort name wrongCriteria` (the order is wrong), `sort name` (sort order is not specified),
+  `sort up` (sort order is not specified).
+
+. Moving a pdf to a new specified directory
+
+.. Prerequisites: The pdf files in the list are uncorrupted and they exist in the system.
+.. Test case: `move 1` +
+    Expected: A GUI will show to allow you to select the directory that you want to move the first pdf to.
+... If the directory indicated is different from the current directory of pdf +
+    Expected: The pdf is moved to the new directory. Details of the deleted pdf shown in the status message. Timestamp in the status bar is updated.
+... If the directory indicated is same from the current directory of the pdf +
+    Expected: The first pdf is not moved. Error details are shown in the status message. Status bar remains the same.
+
+.. Test case: `move 1 d/validPathToDirectory`
+... If the directory indicated is different from the current directory of pdf +
+    Expected: The pdf is moved to the new directory. Details of the deleted pdf shown in the status message. Timestamp in the status bar is updated.
+... If the directory indicated is same from the current directory of the pdf +
+    Expected: The first pdf is not moved. Error details are shown in the status message. Status bar remains the same.
+    Expected: The first pdf is moved to the new directory. Details of the deleted pdf shown in the status message. Timestamp in the status bar is updated.
+
+.. Test case: `move d/validPathToDirectory`
+    Expected: No pdf is moved. Error details are shown in the status message. Status bar remains the same.
+ .. Other incorrect move commands to try: `move`, `move 1 d/` (no directory specified), `move 1 validPathToDirectory` (no directory prefix),
+    `move 1 d/NotADirectory.pdf` (not directory path specified) +
+    Expected: Similar to previous.
+
+
+=== Open
+
+. Open the pdf by the specified index in the list.
+
+.. Prerequisites: The pdf files in the list are uncorrupted and they exist in the system.
+.. Test case: `open 1` +
+   Expected: The first pdf is opened using the system default PDFReader. Details of the updated pdf shown in the status message. Timestamp in the status bar is updated.
+.. `open 0` +
+   Expected: No pdf is open. Error details are shown in the status message. Status bar remains the same.
+.. Other incorrect open commands to try: `open`, `open x` (where x is larger than the list size), `open y` (where y is any negative number)  +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Rename a pdf file
+
+.. Prerequisites: The pdfs in the list are uncorrupted and they exist in the system.
+.. Test case: `rename 1 n/newName.pdf` +
+    Expected: First pdf is renamed to `newName.pdf`. Details of the updated pdf shown in the status message. Timestamp in the status bar is updated.
+
+.. Test case: `rename 1 n/pdf` +
+    Expected: First pdf is not renamed. Error details are shown in the status message. Status bar remains the same.
+.. Other incorrect rename commands to try: `rename 1 validName.pdf` (no prefix), `rename x n/validName.pdf`(where x is larger than the list size),
+`rename y n/validName.pdf` (where y is any negative number), `rename n/validName.pdf` (no index), `rename 1 wrong/validName.pdf` (wrong prefix)  +
+    Expected: Similar to previous.
+
+=== Tagging a pdf
+
+. Tagging a pdf that is in the list.
+
+.. Prerequisites: The pdf files in the list are uncorrupted and they exist in the system.
+.. Test case: `tag 1 -a t/SEROCKS` +
+    Expected: First pdf is tagged with SEROCKS. Details of the updated pdf shown in the status message. Timestamp in the status bar is updated.
+    The first file in the file section GUI has the `SEROCKS` tag.
+.. Other correct tag commands to try: `tag 1 -a t/SEROCKS t/CS2103T` (as tag supports for adding of multiple tags) +
+    Expected: Similar to previous.
+
+.. Test case: `tag 1 -r t/SEROCKS`
+... If the tag does not exists: +
+    Expected: The pdf is not tagged. Error details are shown in the status message. Status bar remains the same.
+... If the tag exists: +
+    Expected: First pdf's tag is removed. Details of the updated pdf shown in the status message. Timestamp in the status bar is updated.
+
+.. Test case: `tag 1 -r SEROCKS` +
+    Expected: The pdf is not tagged. Error details are shown in the status message. Status bar remains the same.
+.. Other incorrect tag commands to try: `tag 1 -x t/SEROCKS` (invalid operation), `tag 1 -a t/` (no tag specified) +
+    Expected: Similar to previous.
+
+=== Deleting a pdf
+
+. Deleting a pdf while all pdfs are listed
+
+.. Prerequisites: List all pdfs using the `list` command. Multiple pdfs in the list.
+.. Test case: `delete 1` +
+   Expected: First pdf is deleted from the list. Details of the deleted pdf shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete 0` +
+   Expected: No pdf is deleted. Error details are shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size), `delete y` (where y is any negative number)  +
+   Expected: Similar to previous.
+
+=== Move
+
+. Moving a pdf to a new specified directory
+
+.. Prerequisites: The pdf files in the list are uncorrupted and they exist in the system.
+.. Test case: `move 1` +
+    Expected: A GUI will show to allow you to select the directory that you want to move the first pdf to.
+... If the directory indicated is different from the current directory of pdf +
+    Expected: The pdf is moved to the new directory. Details of the deleted pdf shown in the status message. Timestamp in the status bar is updated.
+... If the directory indicated is same from the current directory of the pdf +
+    Expected: The first pdf is not moved. Error details are shown in the status message. Status bar remains the same.
+
+.. Test case: `move 1 d/validPathToDirectory`
+... If the directory indicated is different from the current directory of pdf +
+    Expected: The pdf is moved to the new directory. Details of the deleted pdf shown in the status message. Timestamp in the status bar is updated.
+... If the directory indicated is same from the current directory of the pdf +
+    Expected: The first pdf is not moved. Error details are shown in the status message. Status bar remains the same.
+    Expected: The first pdf is moved to the new directory. Details of the deleted pdf shown in the status message. Timestamp in the status bar is updated.
+
+.. Test case: `move d/validPathToDirectory`
+    Expected: No pdf is moved. Error details are shown in the status message. Status bar remains the same.
+ .. Other incorrect move commands to try: `move`, `move 1 d/` (no directory specified), `move 1 validPathToDirectory` (no directory prefix),
+    `move 1 d/NotADirectory.pdf` (not directory path specified) +
+    Expected: Similar to previous.
+
+=== Deadline
+
+. Setting deadline of the pdf
+
+.. Prerequisites: The pdf files in the list are uncorrupted and they exist in the system.
+.. Test case: `deadline 1 date/14-4-2019` +
+    Expected: The first pdf is set with deadline 14-4-2019. Details of the edited pdf shown in the status message. Timestamp in the status bar is updated.
+.. Other correct deadline commands to try: `deadline 1 done` (set that the task has been completed), `deadline 1 remove` (remove the deadline)
+
+.. Test case: `deadline 1 date/20-20-2019` +
+    Expected: No deadline is set to the first pdf. Error details are shown in the status message. Status bar remains the same.
+.. Other incorrect deadline commands to try: `deadline x date/4-4-2019` (where x is larger than the list size), `deadline y date/4-4-2019`
+(where y is any negative number), `deadline 1 date/` (no date specified), `deadline 1 d` (wrong prefix), `deadline date` (no index specified)
+
+=== Filter
+
+. Filters the list of pdfs by the specified tag
+
+.. Prerequisites: The pdf files in the list are uncorrupted and they exist in the system.
+.. Test case: `filter t/SEROCKS` +
+    Expected: All pdfs with the same tag will be shown in the filtered list. Details of the number of pdf is shown in the status message. Timestamp in the status bar is updated.
+.. Other correct filter commands to try: `filter t/SEROCKS t/CS2103T` (more than 1 tag specified)
+    Expected: All pdfs with either of the tags will be shown in the filtered list.
+
+.. Test case: `filter t/` +
+    Expected: An empty list will be displayed.
+
+=== Find
+
+. Finds the list of pdfs with the specified keyword(s)
+
+.. Prerequisites: The pdf files in the list are uncorrupted and they exist in the system.
+.. Test case: `find algorithm` +
+    Expected: All pdfs with the keyword as the name and in the file will be shown in the filtered list. Details of the the number of pdf listed is shown in the status message. Timestamp in the status bar is updated.
+.. Other correct find commands to try: `find algorithm SEROCK` (more than one keyword) +
+    Expected: All pdfs with at least one of the keywords as the name and in the file will be shown in the filtered list.
+
+.. Test case: `find` +
+    Expected: No pdf is filtered. Error details are shown in the status message. Status bar remains the same.
+
+=== Encrypt
+
+. Encrypts the pdf by the specified index of the list with the specified password
+
+.. Prerequisites: The pdf files in the list are uncorrupted, unencrypted and they exist in the system.
+.. Test case: `encrypt 1 password/anyValidPassword` +
+    Expected: The first pdf will be encrypted with the password `anyValidPassword`. Details of the encryption is shown in the status message. Timestamp in the status bar is updated.
+
+.. Test case: `encrypt 1 password/` +
+    Expected: The first pdf is not encrypted. Error details are shown in the status message. Status bar remains the same.
+.. Other incorrect encrypt commands to try: `encrypt 1 anyValidPassword` (no prefix), `encrypt 1 p/anyValidPassword` (wrong prefix),
+`encrypt password/anyValidPassword` (no index)
+    Expected: Similar to previous.
+
+=== Decrypt
+
+. Decrypts the pdf by the specified index of the list with the specified password.
+
+.. Prerequisites: The pdf files in the list are uncorrupted, protected and they exist in the system.
+.. Test case: `decrypt 1 password/anyValidPassword` +
+    Expected: The first pdf will be encrypted with the password `anyValidPassword`. Details of the decryption is shown in the status message. Timestamp in the status bar is updated.
+
+.. Test case: `decrypt 1 password/` +
+    Expected: The first pdf is not encrypted. Error details are shown in the status message. Status bar remains the same.
+.. Other incorrect decrypt commands to try: `decrypt 1 anyValidPassword` (no prefix), `decrypt 1 p/anyValidPassword` (wrong prefix),
+`decrypt password/anyValidPassword` (no index)
+    Expected: Similar to previous.
+
+=== Merge
+
+. Merge 2 or more pdfs into 1 and adds the merged pdf to the back of the list.
+
+.. Prerequisites: The pdf files in the list are uncorrupted, unprotected and they exist in the system, and at least 2 indexes are specified.
+.. Test case: `merge 1 2` +
+    Expected: The first and second pdfs are merged into one pdf and put at the back of the list. Details of the merge is shown in the status message. Timestamp in the status bar is updated.
+.. Other correct merge commands to try: `merge 1 1 1 1 1` +
+    Expected: The first pdf is merged 5 times into 1 pdf and the merged pdf is added to the back of the list.
+
+.. Test case: `merge 0` +
+    Expected: No merged pdf is produced. Error details are shown in the status message. Status bar remains the same.
+.. Other incorrect merge commands to try: `merge 1`, (only 1 index is specified), `merge 1 x` (where x is larger than the list size),
+`merge 1 y` (where y is any negative number) +
+    Expected: Similar to previous.
 
 === Saving data
 
 . Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+.. When you have a corrupted data files in the application. You can follow the steps below:
+... Enter `open INDEX` to test that the file is really uncorrupted and cannot be accessed from
+the application
+... Enter `delete INDEX` to remove the file from the application
+... Enter `add f/PATHTOFILE.pdf` to add the file from the system to the application.

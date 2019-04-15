@@ -7,7 +7,7 @@
 :sectnumlevels: 1
 :imagesDir: images
 :stylesDir: stylesheets
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S2-T12-4/main
 
 After studying this code and completing the corresponding exercises, you should be able to,
 
@@ -40,7 +40,7 @@ The JavaFX event loop acts as an _event dispatcher_ to transmit events to event 
 
 == Use API Design `[LO-ApiDesign]`
 
-Note how components of AddressBook have well-defined APIs. For example, the API of the `Logic` component is given in the link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+Note how components of PDF++ have well-defined APIs. For example, the API of the `Logic` component is given in the link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 image:LogicClassDiagram.png[width="800"]
 
 *Resources*
@@ -51,7 +51,7 @@ image:LogicClassDiagram.png[width="800"]
 
 == Use Assertions `[LO-Assertions]`
 
-Note how the AddressBook app uses Java ``assert``s to verify assumptions.
+Note how the PDF++ app uses Java ``assert``s to verify assumptions.
 
 *Resources*
 
@@ -60,14 +60,14 @@ Note how the AddressBook app uses Java ``assert``s to verify assumptions.
 === Exercise: Add more assertions
 
 * Make sure assertions are enabled in your IDE by forcing an assertion failure (e.g. add `assert false;` somewhere in the code and run the code to ensure the runtime reports an assertion failure).
-* Add more assertions to AddressBook as you see fit.
+* Add more assertions to PDF++ as you see fit.
 
 
 '''
 
 == Use Logging `[LO-Logging]`
 
-Note <<DeveloperGuide#logging, how the AddressBook app uses Java's `java.util.log` package to do logging>>.
+Note <<DeveloperGuide#logging, how the PDF++ app uses Java's `java.util.log` package to do logging>>.
 
 *Resources*
 
@@ -75,14 +75,14 @@ Note <<DeveloperGuide#logging, how the AddressBook app uses Java's `java.util.lo
 
 === Exercise: Add more logging
 
-Add more logging to AddressBook as you see fit.
+Add more logging to PDF++ as you see fit.
 
 
 '''
 
 == Use Defensive Coding `[LO-DefensiveCoding]`
 
-Note how AddressBook uses the `ReadOnly*` interfaces to prevent objects being modified by clients who are not supposed to modify them.
+Note how PDF++ uses the `ReadOnly*` interfaces to prevent objects being modified by clients who are not supposed to modify them.
 
 *Resources*
 
@@ -90,7 +90,7 @@ Note how AddressBook uses the `ReadOnly*` interfaces to prevent objects being mo
 
 === Exercise: identify more places for defensive coding
 
-Analyze the AddressBook code/design to identify,
+Analyze the PDF++ code/design to identify,
 
 * where defensive coding is used
 * where the code can be more defensive
@@ -99,7 +99,7 @@ Analyze the AddressBook code/design to identify,
 
 == Use Build Automation `[LO-BuildAutomation]`
 
-Note <<UsingGradle#, how the AddressBook app uses Gradle to automate build tasks>>.
+Note <<UsingGradle#, how the PDF++ app uses Gradle to automate build tasks>>.
 
 *Resources*
 
@@ -118,7 +118,7 @@ Note <<UsingGradle#, how the AddressBook app uses Gradle to automate build tasks
 
 == Use Continuous Integration `[LO-ContinuousIntegration]`
 
-Note <<UsingTravis#, how the AddressBook app uses Travis to perform Continuous Integration>>. (https://travis-ci.org/se-edu/addressbook-level4[image:https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master[Build Status]])
+Note <<UsingTravis#, how the PDF++ app uses Travis to perform Continuous Integration>>. (https://travis-ci.org/se-edu/addressbook-level4[image:https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master[Build Status]])
 
 *Resources*
 
@@ -164,8 +164,8 @@ class gives some examples of how to use _Equivalence Partitions_, _Boundary Valu
 
 Consider the link:{repoURL}/src/test/java/seedu/address/storage/StorageManagerTest.java[`StorageManagerTest.java`] class.
 
-* Test methods `prefsReadSave()` and `addressBookReadSave()` are integration tests. Note how they simply test if The `StorageManager` class is correctly wired to its dependencies.
-* Test method `handleAddressBookChangedEvent_exceptionThrown_eventRaised()` is a unit test because it uses _dependency injection_ to isolate the SUT `StorageManager#handleAddressBookChangedEvent(...)` from its dependencies.
+* Test methods `prefsReadSave()` and `pdfBookReadSave()` are integration tests. Note how they simply test if The `StorageManager` class is correctly wired to its dependencies.
+* Test method `handlePDFBookChangedEvent_exceptionThrown_eventRaised()` is a unit test because it uses _dependency injection_ to isolate the SUT `StorageManager#handlePDFBookChangedEvent(...)` from its dependencies.
 
 Compare the above with link:{repoURL}/src/test/java/seedu/address/logic/LogicManagerTest.java[`LogicManagerTest`]. Some of the tests in that class (e.g. `execute_*` methods) are neither integration nor unit tests. They are _integration + unit_ tests because they not only check if the LogicManager is correctly wired to its dependencies, but also checks the working of its dependencies. For example, the following two lines test the `LogicManager` but also the `Parser`.
 
@@ -262,7 +262,7 @@ Note how this project uses the http://checkstyle.sourceforge.net/[CheckStyle] st
 
 == Do Code Reviews `[LO-CodeReview]`
 
-* Note how some PRs in this project have been reviewed by other developers. Here is an https://github.com/se-edu/addressbook-level4/pull/147[example].
+* Note how some PRs in this project have been reviewed by other developers. Here is an https://github.com/CS2103-AY1819S2-T12-4/main/pull/128[example].
 * Also note how we have used https://www.codacy.com[Codacy] to do automate some part of the code review workload (https://www.codacy.com/app/damith/addressbook-level4?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level4&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]])
 
 

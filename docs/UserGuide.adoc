@@ -726,9 +726,6 @@ You can also use the keyword `today` as an input which will use the current date
 Only *possible* dates are accepted as valid as the program follows the calendar strictly.
 For example, `31-04-2019` will be flagged as invalid as there are only 30 days in April.
 
-As of the current version, 29th of February in a leap year (29-02-2019) is not accepted as a valid input, but will be
-implemented in future versions.
-
 |sd/
 |sd/19-12-2019
 
@@ -1166,7 +1163,7 @@ e.g. `taskdone 1`
 * *Task calendar*: `taskcal INDEX` +
 e.g. `taskcal 11-11-2019`
 
-* *Tasksort `tasksort starttime/endtime/priority [asc/desc]`
+* *Tasksort* `tasksort starttime/endtime/priority [asc/desc]`
 e.g. `tasksort endtime`
 
 * *Teeth* : `teeth patientadd <Template>` +

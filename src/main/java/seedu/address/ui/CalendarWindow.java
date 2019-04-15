@@ -41,6 +41,7 @@ public class CalendarWindow extends UiPart<Stage> {
     private static DatePicker datePicker;
     private static DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private static boolean runningCommand;
+    private static boolean dateClicked;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -147,6 +148,7 @@ public class CalendarWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         logic.displayAllTasks();
+        resultDisplay.setFeedbackToUser("");
         primaryStage.hide();
     }
 
@@ -277,7 +279,8 @@ public class CalendarWindow extends UiPart<Stage> {
             node.setOnMouseClicked(event -> {
                 try {
                     DateCell dateCell = (DateCell) node;
-                    logic.execute("taskcal " + dateCell.getItem().format(format));
+                    dateClicked = true;
+                    executeCommand("taskcal " + dateCell.getItem().format(format));
                 } catch (CommandException | ParseException e) {
                     logger.info("Invalid date");
                 }
@@ -291,6 +294,9 @@ public class CalendarWindow extends UiPart<Stage> {
      */
     public static boolean isRunningCommand() {
         return runningCommand;
+    }
+    public static boolean isDateClicked() {
+        return dateClicked;
     }
     public static void setDate(String newDate) {
         datePicker.setValue(LocalDate.parse(newDate, format));

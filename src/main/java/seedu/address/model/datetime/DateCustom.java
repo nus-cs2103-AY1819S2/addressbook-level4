@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDate;
+import java.time.chrono.IsoChronology;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 /**
  * Represents a date for tasks.
@@ -44,7 +47,7 @@ public class DateCustom implements DateBuilder, Comparable<DateCustom> {
     }
 
     public static boolean isValidDate(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && dateExists(test);
     }
 
     /**
@@ -78,6 +81,15 @@ public class DateCustom implements DateBuilder, Comparable<DateCustom> {
         LocalDate firstDate = LocalDate.parse(date1, DATE_FORMATTER);
         LocalDate secondDate = LocalDate.parse(date2, DATE_FORMATTER);
         return firstDate.isBefore(secondDate);
+    }
+
+    private static boolean dateExists(String test) {
+        String[] date = test.split("-");
+        LocalDate aa = LocalDate.parse(test, DATE_FORMATTER);
+        if (Integer.valueOf(date[0]) == 29 && Integer.valueOf(date[1]) == 2) {
+            return aa.isLeapYear();
+        }
+        return true;
     }
 
     @Override

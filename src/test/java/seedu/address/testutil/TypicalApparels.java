@@ -154,6 +154,40 @@ public class TypicalApparels {
     }
 
     /**
+     * Returns an {@code FashionMatch} with all the typical persons sorted by name.
+     */
+    public static FashionMatch getTypicalAddressBookSortedByNameDesc() {
+        FashionMatch ab = new FashionMatch();
+        for (Apparel apparel : getTypicalApparelsSortedByNameDesc()) {
+            ab.addApparel(apparel);
+        }
+        return ab;
+    }
+
+    /**
+     * Returns an {@code FashionMatch} with all the typical persons sorted by color.
+     */
+    public static FashionMatch getTypicalAddressBookSortedByColorDesc() {
+        FashionMatch ab = new FashionMatch();
+        for (Apparel apparel : getTypicalApparelsSortedByColorDesc()) {
+            ab.addApparel(apparel);
+        }
+        return ab;
+    }
+
+    /**
+     * Returns an {@code FashionMatch} with all the typical persons sorted by color.
+     */
+    public static FashionMatch getTypicalAddressBookSortedByTypeDesc() {
+        FashionMatch ab = new FashionMatch();
+        for (Apparel apparel : getTypicalApparelsSortedByTypeDesc()) {
+            ab.addApparel(apparel);
+        }
+        return ab;
+    }
+
+
+    /**
      * Returns an {@code FashionMatch} with first and second indexed item swapped.
      */
     public static FashionMatch getTypicalAddressBookSwappedIndexOneAndTwo() {
@@ -194,5 +228,20 @@ public class TypicalApparels {
 
     public static List<Apparel> getTypicalApparelsSortedByType() {
         return new ArrayList<>(Arrays.asList(BELT1, BELT2, BELT3, PANTS1, SHOES1, SHOES2, SHOES3, SHIRT1, SHIRT2));
+    }
+
+    public static List<Apparel> getTypicalApparelsSortedByNameDesc() {
+        return new ArrayList<>(Arrays.asList(SHOES3, SHOES2, SHOES1, BELT3, BELT2, BELT1, SHIRT2, PANTS1, SHIRT1));
+    }
+
+    public static List<Apparel> getTypicalApparelsSortedByColorDesc() {
+        getTypicalApparels().sort((Apparel a, Apparel b) -> {
+            return a.getColor().compareTo(b.getColor());
+        });
+        return new ArrayList<>();
+    }
+
+    public static List<Apparel> getTypicalApparelsSortedByTypeDesc() {
+        return new ArrayList<>(Arrays.asList(SHIRT1, SHIRT2, SHOES1, SHOES2, SHOES3, PANTS1, BELT1, BELT2, BELT3));
     }
 }

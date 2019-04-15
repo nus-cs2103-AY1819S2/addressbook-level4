@@ -204,9 +204,10 @@ A place can have any number of tags (including 0 tags).
 
 // end::crudAdd[]
 
-// tag::addphoto[]
 [[attachPhotoFeature]]
 ==== Including a photo when adding a place with `p/`
+
+// tag::addphoto[]
 
 *Description:* The `add` command can also attach a single photo
 when adding a new place to TravelBuddy.
@@ -351,9 +352,9 @@ image::editCommandAfter.png[width="400"]
 
 // end::crudEdit[]
 
-// tag::editPhoto[]
-
 ==== Replacing the photo of a place with `edit p/`
+
+// tag::editphoto[]
 
 The `edit` command can also be used to change the photo of a place by replacing
 the `FILE_PATH` of the current photo with the `FILE_PATH` of the new photo.
@@ -385,7 +386,7 @@ Replaces the current photo of 3rd Place entry with the photo named `Zion Nationa
 The image FILE_PATH being replaced with the `edit` command must still follow the
 specifications laid out in <<Including a photo when adding a place with `p/`>>
 
-// end::editPhoto[]
+// end::editphoto[]
 
 // tag::search[]
 [[searchFeature]]

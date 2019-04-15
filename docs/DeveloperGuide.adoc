@@ -133,13 +133,9 @@ The following class plays an important role at the architecture level:
 
 * `LogsCenter` : Used by many classes to write log messages to TravelBuddy's log file.
 
-The rest of TravelBuddy consists of four components.
-
-
-
+The rest of TravelBuddy consists of four components:
 
 * <<Design-Ui,*`UI`*>>: The User Interface (UI) of the App.
-
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Model,*`Model`*>>: Holds the data of TravelBuddy in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
@@ -170,10 +166,10 @@ image::SDforDeletePlace.png[width="800"]
 
 The sections below give more details of each component.
 
-// tag::uiArchitecture[]
-
 [[Design-Ui]]
 === UI Component
+
+// tag::uiArchitecture[]
 
 *API* :
 link:{repoURL}/tree/master/src/main/java/seedu/travel/ui/Ui.java[`Ui.java`]
@@ -213,7 +209,6 @@ All parts inherit from the abstract `UiPart` class.
 
 ** `PlaceListCard`: Labels for the Display index and Place data fields (`CountryCode`, `Rating` etc.) in a VBox the left,
 Labels that display Name and actual Place data (`CountryCode`, `Rating` etc) in a VBox on the right
-
 
 * RightParentPanel: Parent panel for both `ChartListPanel` and `ExpandedPlacePanel`,
 contains helper methods for switching functionality, interacts with `Model` and `Logic`
@@ -848,9 +843,8 @@ requirements of adding any country code.  Alternative 1's speed is only slightly
 
 // end::countrycode[]
 
-// tag::photosFeature[]
-
 === Photos Feature
+// tag::photosFeature[]
 
 The Photo feature gives users the ability to attach an existing image file to any `Place` object,
 which is then displayed in the `ExpandedPlacePanel` when the `select` command is called on a particular Place.
@@ -885,7 +879,7 @@ If the filepath is invalid or the file cannot be opened, then `ImageIO.read()` t
 The exception is caught, control returns to `parsePhoto()` and a `ParseException is thrown`.
 
 [source, java]
-`    public static boolean isValidPhotoFilepath(String test) {
+    public static boolean isValidPhotoFilepath(String test) {
         if (!(test instanceof String)) {
             throw new NullPointerException();
         }
@@ -901,7 +895,7 @@ The exception is caught, control returns to `parsePhoto()` and a `ParseException
             return false;
         }
         return true;
-    }`
+    }
 
 * Else, control returns to `parseUtil.parsePhoto()`. It uses the all-parameter `Place()` constructor to create
 a `Place` object, using the `Photo` parameter and other parameters.
@@ -923,7 +917,7 @@ image::AddPhotoActivityDiagram.PNG[width="800"]
 
 Given below is an example usage scenario and what the user will see in the GUI.
 
-Step 1.Input `add n/Himeiji Castle cc/JPN dv/15/12/2017 r/5 d/Wow. a/Kyoto t/castle p/C:\Users\Michael\Pictures\castle-photo.jpg`
+Step 1. Input `add n/Himeiji Castle cc/JPN dv/15/12/2017 r/5 d/Wow. a/Kyoto t/castle p/C:\Users\Michael\Pictures\castle-photo.jpg`
 
 [[addPhotoBefore]]
 [reftext="Figure 4.4.1.2"]

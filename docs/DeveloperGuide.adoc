@@ -299,7 +299,7 @@ When the user inputs the wash command in the CLI, the input is parsed, and the i
 LogicManager executes WashCommand which calls Model to set the apparel in the list to `worn`, and commits the changes to the Apparel to Storage.
 
 .Sequence Diagram for Wear command
-image::wearCommand.jpg[width="800"]
+image::wearCommand.png[width="800"]
 
 The CommandResult object that is returned by the wear command lets the user know that the status of the apparel has been set to `worn` and returns and random message if the indicated apparel was already `worn` before command was executed.
 

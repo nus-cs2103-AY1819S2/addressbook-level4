@@ -2,24 +2,8 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
-:sourceDir: ../src/main/java
-:sectnums:
-ifdef::env-github[]
-:tip-caption: :bulb:
-:note-caption: :information_source:
-:warning-caption: :warning:
-:experimental:
-endif::[]
-:toc:
-:toc-title:
-:toc-placement: preamble
-:repoURL: https://github.com/CS2103-AY1819S2-W11-4/main
-:pullURL: https://github.com/CS2103-AY1819S2-W11-4/main/pull
 
-image::jiangqinhua.png[width=200px]
-{empty}[https://github.com/jiangqinhua[Github]][https://cs2103-ay1819s2-w11-4.github.io/main/team/jiangqinhua.html[Portfolio]]
-
-= PROJECT: BookSquirrel
+== PROJECT: BookSquirrel
 == Introduction
 
 This portfolio is to document my contribution to the project called BookSquirrel. BookSquirrel is a team project for our CS2103T Software Engineering. The aim of this project is to create a new application base on a given project called AddressBook Level 4(AB4), make the new project running without any bugs. In the project, Most of the word documents are written in asciidoc or markdown. +
@@ -82,217 +66,16 @@ https://github.com/cs2103-ay1819s2-w11-4/main/pull/102[#102]
 ** PRs reviewed (with non-trivial review comments)
 
 == Contributions to the User Guide
+Given below are sections I contributed to the User Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 
-=== Sort books command : `sortBook`
+include::../UserGuide.adoc[tag=sortBook]
+include::../UserGuide.adoc[tag=undoredo]
 
-sort books in the Bookshelf with specifying order. +
-Format: `sortBook st/TYPE... [o/ORDER] [o1/ORDER] [o2/ORDER] [o3/ORDER]`
-[NOTE]
-====
-...means you can specify more than one time and [] means it is optional for the command.
-====
-****
-* TYPE can only be either *AUTHOR*, *NAME* or *RATING*.
-* Able to sort more than one *TYPE* by writing down more than one *TYPE* after the *sortBook*.
-* ORDER can be either *ASC*(ascending) and *DES*(descending).
-* Omit o/ORDER, it will sort in *ASC*(ascending).
-* o1, o2, o3 are corresponding orders for  *TYPEs* that are specified in front.
-* *TYPE* and *ORDER* are all case-insensitive.
-****
-[NOTE]
-====
-o/ORDER is the order for all *TYPEs*, it will overwrite sub-orders if both o and o1 appear at the same time.
-====
-Examples:
-
-* `sortBook st/name`
-Sorts books in the Bookshelf by book name in ascending order.
-* `sortBook st/rating st/name o1/des`
-Sorts books in the Bookshelf by the rating of the book in descending order and if they having the same rating it will sort them by book name in ascending order.
-* `sortBook st/author st/rating o/des o2/asc`
-Sorts books in the Bookshelf by the author in descending order and if they having the same rating it will sort them by rating in des order. (o/des overwrite o2/asc)
-
-=== Undoing previous command : `undo`
-
-Restores the records to the state before the previous _undoable_ command was executed. +
-Format: `undo`
-
-[NOTE]
-====
-Undoable commands: those commands that modify the records content (`addBook`, `addReview`, `deleteBook`, `deleteReview`, `editBook`, `sortBook` and `clear`).
-====
-
-Examples:
-
-* `listBook n/Alice` Shows the book with name Alice in the bookshelf. +
-`deleteBook 1` After the first command, the only book will appear in Bookshelf is the book named Alice. So deleteBook 1 will delete the book named Alice. +
-`undo` Reverses the `deleteBook 1` command, now Alice will appear in Bookshelf again. +
-
-* `sortBook st/rating` Sorts all books in the Bookshelf by rating in ascending order. +
-`undo` Reverses the `sortBook st/rating` command, now Bookshelf will show original order before the sort command. +
-
-* `listBook a/James` Shows the book with author name James in the bookshelf. +
-`undo` The `undo` command fails as there are no undoable commands executed previously.
-
-* `deleteBook 1` Deletes the first book in the Bookshelf. +
-`clear` Clears all the books in the Bookshelf. +
-`undo` Reverses the `clear` command, all the books will appear in Bookshelf again. +
-`undo` Reverses the `deleteBook 1` command, the first book that was deleted will appear back to Bookshelf again. +
-
-=== Redoing the previously undone command: `redo`
-
-Reverses the most recent `undo` command. +
-Format: `redo`
-
-Examples:
-
-* `deleteBook 1` Deletes the first book in the Bookshelf. +
-`undo` Reverses the `deleteBook 1` command, the first book that was deleted will appear back to Bookshelf again. +
-`redo` Reapplies the `deleteBook 1` command, the first book get removed from Bookshelf again. +
-
-* `deleteBook 1` Deletes the first book in the Bookshelf. +
-`redo` The `redo` command fails as there are no `undo` commands executed previously.
 
 == Contributions to the Developer Guide
 Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 
-=== SortBook feature
-==== Current Implementation
+include::../DeveloperGuide.adoc[tag=userStories]
+include::../DeveloperGuide.adoc[tag=sortBook]
+include::../DeveloperGuide.adoc[tag=undoredo]
 
-The sortBook mechanism is facilitated by `VersionedBookShelf`.
-It extends `BookShelf` with the sort function which will sort the `UniqueBookList`. `UniqueBookList` implemented the Bookshelf as `ObservableList<Book>`. sortBook command sorts books in the Bookshelf with specifying order by implementing the `Comparator<Book>`.
-
-Additionally, it uses/implements the following operations:
-
-* `VersionedBookShelf#sort()` -- It calls `UniqueBookList` sortBooks function and notifies the listeners.
-
-* `BookShelf#indicateModified()` -- Notifies listeners that the bookshelf has been modified.
-
-* `UniqueBookList#sortBooks()` -- Implements the comparator, call `ObservableList<Book>` and pass in the comparator.
-
-* `ObservableList<Book>#sort()` -- Sorts the internalList is specify order.
-
-Given below is an example usage scenario and how the sortBook mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial bookshelf state, and the `currentStatePointer` pointing to that single bookshelf state.
-
-Step 2. The user wants to find out what are the highest rating books that he/she read by executing `sortBook st/rating o/des` command to sort all the books in the Bookshelf in descending order. The string text will be passed to SortBookCommand Parser and convert it to SortBook command object. The parser checks the correctness of the string text. If it is in incorrect formats, the parser will give a warning by show correct command instruction to the user. Otherwise, the parser calls the constructor of the SortBook command.
-
-Step 3. `SortBookCommand#execute` checks whether the Bookshelf is empty before proceed to call `ModelManager#sort()`.
-
-[NOTE]
-If the Bookshelf is empty, CommandException(MESSAGE_BOOK_LIST_EMPTY) will be thrown.
-
-Step 4. If everything is correct, `VersionedBookShelf#sort()` executes `UniqueBookList#sortBooks` and `BookShelf#indicateModified` will be called after the list is been sorted to notify the listener that display data has been modified.
-
-Step 5. `ObservableList<Book>` was implemented in `UniqueBookList` as internal list. `UniqueBookList#sortBooks` calls `ObservableList<Book>#sort` to sort the internal list by providing custom Comparator.
-
-Step 6. ` model#commitBookShelf()` stores the current Bookshelf into `List<ReadOnlyBookShelf>` to support undo/redo command.
-
-==== Design Considerations
-
-===== Aspect: Sorting algorithm implemented.
-
-Alternative 1 has been chosen as the default choice, built-in sorting function is enough for the current project.
-
-* **Alternative 1 (current choice):** Sorts using library sorting method.
-** Pros: Easy to implement, easy to maintain.
-** Cons: The sorting method is too general, can have a better sorting algorithm.
-
-* **Alternative 2:** Using custom sorting method.
-** Pros: More custom, may improve performance.
-** Cons: Hard to maintain and easy to produce bugs.
-
-===== Aspect: Data structure to support the sort commands
-
-Alternative 1 has been chosen as the default choice, sub-list is not support sorting function. It's very time-consuming to use alternative 2.
-
-* **Alternative 1 (current choice):** Sorts with the complete list.
-** Pros: Easy to implement, the list comes with sort function.
-** Cons: May have performance issues in terms of speed, as we need to sort the whole list.
-
-* **Alternative 2:** Sorts with sub-list that visual to the user.
-** Pros: It is faster than the first choice as we only need to sort a partial list.
-** Cons: The sub-list is not support sorting function, it's hard and time-consuming to sort the sub-list.
-
-=== Undo/Redo feature
-==== Current Implementation
-
-The undo/redo mechanism is facilitated by `VersionedBookShelf`.
-It extends `BookShelf` with an undo/redo history, stored internally as a `BookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedBookShelf#commit()` -- Saves the current bookshelf state in its history.
-* `VersionedBookShelf#undo()` -- Restores the previous bookshelf state from its history.
-* `VersionedBookShelf#redo()` -- Restores a previously undone bookshelf state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitBookShelf()`, `Model#undoBookShelf()` and `Model#redoBookShelf()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial bookshelf state, and the `currentStatePointer` pointing to that single bookshelf state.
-
-image::UndoRedoStartingStateListDiagram.png[width="800"]
-
-Step 2. The user executes `deleteBook 1` command to delete the first book in the bookshelf. The `deleteBook` command calls `Model#commitBookShelf()`, causing the modified state of the Bookshelf after the `deleteBook 1` command executes to be saved in the `BookShelfStateList`, and the `currentStatePointer` is shifted to the newly inserted Bookshelf state.
-
-image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
-
-Step 3. The user executes `addBook n/David ...` to add a new book. The `addBook` command also calls `Model#commitBookShelf()`, causing another modified address book state to be saved into the `BookShelfStateList`.
-
-image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitBookShelf()`, so the bookshelf state will not be saved into the `BookShelfStateList`.
-
-Step 4. The user now decides that adding the book was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoBookShelf()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous bookshelf state, and restores the bookshelf to that state.
-
-image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial bookshelf state, then there are no previous bookshelf states to restore. The `undo` command uses `Model#canundoBookShelf()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the to undo operation works:
-
-image::UndoRedoSequenceDiagram.png[width="800"]
-
-The `redo` command does the opposite -- it calls `Model#redoBookShelf()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the bookshelf to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `BookShelfStateList.size() - 1`, pointing to the latest bookshelf state, then there are no undone bookshelf states to restore. The `redo` command uses `Model#canredoBookShelf()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `listBook`. Commands that do not modify the Bookshelf, such as `listBook`, will usually not call `Model#commitBookShelf()`, `Model#undoBookShelf()` or `Model#redoBookShelf()`. Thus, the `BookShelfStateList` remains unchanged.
-
-image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
-
-Step 6. The user executes `clear`, which calls `Model#commitBookShelf()`. Since the `currentStatePointer` is not pointing at the end of the `BookShelfStateList`, all bookshelf states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `addBook n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::UndoRedoActivityDiagram.png[width="650"]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-Alternative 1 has been chosen as the default choice, it is easier than alternative 2 and less prone to error.
-
-* **Alternative 1 (current choice):** Saves the entire Bookshelf.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `deleteBook`, just save the book being deleted).
-** Cons: We must ensure that the implementation of each individual command is correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-Alternative 1 has been chosen as the default choice, it is easier to implement than alternative 2 and less prone to error.
-
-* **Alternative 1 (current choice):** Use a list to store the history of Bookshelf states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedBookShelf`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.

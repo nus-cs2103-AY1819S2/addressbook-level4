@@ -252,6 +252,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::sortBook[]
 === SortBook feature
 ==== Current Implementation
 
@@ -307,6 +308,9 @@ Step 6. ` model#commitBookShelf()` will be executed to store the current Bookshe
 ** Pros: It is faster than the first choice as we only need to sort a partial list.
 ** Cons: The sub-list is not supported sort function, it's hard and time consumed to manipulate sorting and put it back to sub-list.
 
+// end::sortBook[]
+
+// tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
 
@@ -922,7 +926,10 @@ A project often depends on third-party libraries. For example, Bookshelf depends
 
 *Value proposition*: manage book reviews faster than a typical mouse/GUI driven app
 
+
 [appendix]
+// tag::userStories[]
+
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -956,7 +963,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |user |sort |sort the book list in specified order
 |=======================================================================
-
+// end::userStories[]
 
 [appendix]
 == Use Cases
@@ -1082,6 +1089,7 @@ These instructions only provide a starting point for testers to work on; testers
     Prefix `c/` is not recognized, so `Madame c/nonsense` will be regarded as a whole keyword for book name. Since whitespace and '/' are not allowed for keywords, the input is invalid. Error is shown in the status message.
 ... `listBook m/12` +
     12 is not a valid range for the rating. Error is shown in the status message.
+// tag::mtsortBook[]
 
 === Sorting the booklist
 
@@ -1101,6 +1109,7 @@ These instructions only provide a starting point for testers to work on; testers
 ... `sortBook st/name o1/des o2/asc` +
    Error message: Second sorting type does not exist.
 
+// end::mtsortBook[]
 === Saving data
 
 . Dealing with missing/corrupted data files

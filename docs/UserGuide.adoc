@@ -162,6 +162,7 @@ Books whose rating is _5_ or _6_ wil be displayed.
 
 // end::list[]
 
+// tag::sortBook[]
 ==== Sort books command : `sortBook`
 
 sort booklist in specify order. +
@@ -187,6 +188,7 @@ sort bookList by the rating of the book in descending order and if they having t
 sort bookList by the author in descending order and if they having the same rating it will sort them by rating in des order. (o/des overwrite o2/asc)
 * `sortBook st/rating st/author st/name o1/des o3/asc`
 sort bookList by rating in descending order and since the o2 order is not specified, if the same rating it will consider author as ascending order.
+// end::sortBook[]
 
 // tag::reviews[]
 === Review Commands

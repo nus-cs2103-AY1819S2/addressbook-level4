@@ -334,11 +334,15 @@ You can relate this with the infamous CRUD cycle if you are familiar with it.
 Every model/manager has access to the `HotelManagementSystem` inside which resides all the
 lists (`BookingList`, `UniqueCustomerList`, etc.). These lists have methods to add an item,
 set or replace an item at a particular index and delete an item. Therefore, when you are
-implementing a model and its list wrapper (Eg. `ReservationList`), you must include these functions. You must also define equality
-between instances of a model created so that it is easy to find an instance and replace it.
-Include an instance of your list inside the `HotelManagementSystem` and add a listener to it
-to automatically update the UI everytime the function `indicateModified` is called.
+implementing a model and its list wrapper (Eg. `ReservationList`), you must include these functions.
+You must also define equality between instances of a model created so that it is easy to find
+an instance and replace it. Include an instance of your list inside the `HotelManagementSystem`
+and add a listener to it to automatically update the UI every time the function `indicateModified` is called.
+Based on the action, you might want to update the shown list using the `updateFiltered#{Model Name}List` method.
+A sequence diagram is given below to make the following more clear.
 
+.Sequence diagram for `add-customer`
+image::AddCustomerSequenceDiagram.png[width="600"]
 
 ==== Design Considerations
 ===== Aspect: Editing a model object

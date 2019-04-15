@@ -330,9 +330,6 @@ Pins the 2nd contact in the contact book.
 * `search James` +
 `pin 1` +
 Pins the 1st contact in the results of the `search` command.
-* `search seller` +
-`select 3` +
-Selects the 3rd contact in the results of the `search` command.
 
 Screenshots for 1st example:
 

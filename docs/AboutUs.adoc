@@ -58,9 +58,18 @@ Responsibilities: In-progress
 
 === Sun Yiqun
 image::dukesun99.png[width="150", align="left"]
-{empty}[https://github.com/dukesun99[github]] [https://cs2103-ay1819s2-w10-3.github.io/main/team/yiqun.html[portfolio]]
+{empty}[https://github.com/dukesun99[github]] [https://cs2103-ay1819s2-w10-3.github.io/main/team/dukesun99.html[portfolio]]
 
 Role: Developer +
-Responsibilities: In-progress
+Responsibilities:
+
+* Route
+* Display
+* Map (Equipment detail page)
+* Toolchain (Gradle)
+* Documentation
+* Manage release
+
+'''
 
 '''

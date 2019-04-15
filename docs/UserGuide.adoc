@@ -290,6 +290,17 @@ Format: `display`
 Example:
 
 * `display`
+
+[NOTE]
+====
+The addresses (address of equipments and the origin address) will be interpreted to match Google Map data.
+The `equipments` with invalid addresses in Google Map will not be shown on the map as well.
+The display may take a few seconds.
+====
+
+Screen shot after typing command `display`:
+
+image::display-screenshot.png[width="800"]
 // end::display[]
 
 
@@ -426,6 +437,34 @@ Example:
 
 === Enabling notification: `notify` [Coming in v2.0]
 Notifies you when an equipment is due for preventive maintenance in 2 days. You can choose to get notifications or not.
+
+// tag::route[]
+=== Route planning: `route`
+With multiple destinations that you plan to visit for preventive maintenance, using the route command can return you with the following details: +
+****
+* A visual representation on the map of the most efficient route you can take
+* A list of location to visit in order.
+* A suggested travel order to all `equipments` listed in the `Equipment Details` panel.
+****
+Format: `route [origin address]`
+
+Examples:
+
+* `list-w` +
+`route School of Computing, NUS, Singapore 117417`
+
+[NOTE]
+====
+The addresses (address of equipments and the origin address) will be interpreted to match Google Map data.
+The `equipments` with invalid addresses in Google Map will not be shown on the map as well.
+The suggest order is marked on map with Alphabets start with B, and the suggest route is travel from A (Overlapped with the largest alphabet, so A may not be visible on map), to the largest alphabet in increasing order.
+The `origin address` must include the country name, and it is suggested to include the postal code.
+====
+
+Screen shot after typing command `route School of Computing, NUS, Singapore 117417`:
+
+image::route-planning-screenshot.png[width="800"]
+// end::route[]
 
 === Listing entered commands: `history`
 Lists all the commands that you have entered in reverse chronological order.

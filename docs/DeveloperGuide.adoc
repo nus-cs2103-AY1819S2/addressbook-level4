@@ -539,6 +539,10 @@ The display feature allow users to view the location of all equipment in the cur
 
 ==== Current Implementation
 
+The following activity diagram shows each action is done by which component.
+
+image::DisplayActivityDiagram.png[width="800"]
+
 The following sequence diagram shows how the display operation works:
 
 image::DisplaySequenceDiagram.png[width="800"]
@@ -547,25 +551,96 @@ Step 1. The user launches the application, the list of equipment will show in `U
 
 Step 2. The user executes `display` command to show all the equipment on the map. The execution of `display` command will return a `CommandResult` indicating `display` which can be checked by `CommandResult#isDisplayMap()`. The `MainWindow` will check if the `CommandResult` is a display map command. Then `MainWindow#handleDisplayMap` will be called. `MainWindow#handleDisplayMap` will call `Logic#getFilteredPersonList()` to get the equipment list, and then call `Equipment#getCoordiantes()` on each equipment to get its coordinates.
 
-Step 3. The `Equipment#getCoordiantes()` calls to `Google Map Geocoding API` with the address returned by `Equipment#getAddress()`. The API will return the coordinates of the address. This will be returned as the coordinates of the equipment.
+Step 3. The `Equipment#getCoordiantes()` calls to `Google Map Geocoding API` with the address returned by `Equipment#getAddress()`. The API will return the coordinates of the address. This will be returned as the coordinates of the equipment. The coordinates will be stored for future use.
 
 [NOTE]
 `Google Map Geocoding API` is not free to use. You need to have your own API key to use the API. You may check link:https://developers.google.com/maps/documentation/javascript/geocoding[`Google Map Platform - Geocoding Service`]
 
-Step 4. The coordinates are constructed to form a URL and call a webpages in `BrowserPanel` to display the map. Currently the map is stord under `/docs/staticpages/` which will be copied and published by Travis CI robot to `github pages`. You may either use your own `github pages` URL by changing `BrowserPanel#MAP_PAGE_BASE_URL` to your own `github pages` URL, or use the current URL published by `CS2103-AY1819S2-W10-3` team.
+Step 4. The coordinates are constructed to form a URL and call a web page in `BrowserPanel` to display the map. Currently the map is stored as `/docs/staticpages/DisplayGmap.html` which will be copied and published by Travis CI robot to `github pages`. You may either use your own `github pages` URL by changing `BrowserPanel#MAP_MULTIPLE_POINT_BASE_URL` to your own `github pages` URL, or use the current URL published by `CS2103-AY1819S2-W10-3` team.
 
-Step 5. The webpage receive the coordinates in parameter form. It will first parse the parameters. The standard form of parameters is `?coordinates=[[1.3012,103.1233], [1.4323, 103.2012]]&otherfields=["abc", "def"]`. The map may be extended to handle more functions, however the current parameter paraser can only handle parameters in the standard format. For now, only coordinates is used, other parameters will be ignored.
+Step 5. The webpage receive the coordinates in parameter form. It will first parse the parameters. The standard form of parameters is `?coordinates=[[1.3012,103.1233], [1.4323, 103.2012]]&otherfields=["abc", "def"]`. The number of elements in other parameters must match the number of elements in the `coordinates` parameter. The map may be extended to handle more functions, however the current parameter parser can only handle parameters in this standard format. For now, only coordinates are used, other parameters will be ignored.
 
 ==== Design Considerations
 
 ===== Aspect: How to display the base map
 * **Alternative 1 (current choice):** Use separate web page, pass the coordinates as parameters.
 ** Pros: Easy to implement. Flexible to add more functions. Many JavaScript libraries can be used.
-** Cons: Unexpected behaviors would happen if the WebEngine cannot display the webpage properly.
+** Cons: Unexpected behaviors would happen if the WebEngine cannot display the web page properly.
 * **Alternative 2:** Use third party JavaFX map libraries.
 ** Pros: No unexpected behaviors, and more consistent running on different platforms.
 ** Cons: Harder to implement, less flexibility, and limit to extensions.
+
+===== Aspect: Which JavaScript Map library to use
+* **Alternative 1 (current choice):** Use Google Map JavaScript API
+** Pros: Easy to embed other Google Map APIs, and work better with JavaFX built in browser.
+** Cons: Harder to customize the style of map, marker and etc. (Compared to `Alternative 2`)
+* **Alternative 2:** Use MapBox GL JS.
+** Pros: Easy to have customized view, better looking themes.
+** Cons: Works bad in JavaFX default built in browser, and harder to cooperate with Google API.
+
+===== Aspect: Call `Geocoding API` to get coordinates in main application or built in browser
+* **Alternative 1 (current choice):** In main application
+** Pros: Addresses are reusable, i.e. only need to call `Geocoding API` once for each equipment.
+** Cons: Harder to make the function call, and increase the hang up time when many equipments do not have coordinates retrieved.
+* **Alternative 2:** In built in browser with JavaScript
+** Pros: User will get instant response and see the base map after entering the command, although the actual display will come later.
+** Cons: Addresses will not be reusable, each time user enter `display` would call `Geocoding API` for each equipment and incur high API costs.
 // end::display[]
+
+// tag::route[]
+=== Route feature
+The route feature allow users to know the best order to traverse through all equipments listed in the equipment panel. The order will be shown on the map.
+
+The following sequence diagram shows how the display operation works:
+
+image::RouteSequenceDiagram.png[width="800"]
+
+==== Current Implementation
+
+Step 1. The user launches the application, the list of equipments will show in `UI` and stored in the `Model`.
+
+Step 2. The user executes `route` command together with the origin address to display the route starting from the origin address, travel through all equipments, and go back to the origin address. The execution of `route` command will return a `CommandResult` indicating this is an `route` command which can be checked by `CommandResult#isRoute()`. The `CommandResult` also contains start address parameter called `routeAddress` of `Address` type. The `MainWindow` will check if the `CommandResult` is a route command. Then `MainWindow#handleRoute` will be called.
+
+Step 3. `MainWindow#handleRoute` will call `Logic#getFilteredPersonList()` to get the equipments list, and then call `Equipment#getAddress()` on each equipments to get its address.
+
+Step 4. The addresses are constructed to form a URL and call a web page in `BrowserPanel` to display the map. Currently the map is stored as `/docs/staticpages/DisplayRoutes.html` which will be copied and published by Travis CI robot to `github pages`. You may either use your own `github pages` URL by changing `BrowserPanel#MAP_ROUTE_BASE_URL` to your own `github pages` URL, or use the current URL published by `CS2103-AY1819S2-W10-3` team.
+
+Step 5. The web page receive the addresses in parameter form. It will first parse the parameters. The standard form of parameters is `?address=["Address 1", "Address 2"]&start="Origin address"&end="Destination address"`. The order of parameters does not matter.
+
+Step 6. The JavaScript code in the web page will call `Google Map JavaScript API` to calculate the best route to each addresses, and display the route on the map.
+
+[NOTE]
+`Google Map JavaScript API` is not free to use. You need to have your own API key to use the API. You may check link:https://developers.google.com/maps/documentation/javascript/tutorial[`Google Map Platform - Maps JavaScript API`]
+
+==== Design Considerations
+
+===== Aspect: Passing addresses or coordinates to web page
+* **Alternative 1 (current choice):** Passing addresses to web page
+** Pros: Better accuracy, as addresses would interpreted more accurately than coordinates when involving routing.
+** Cons: Worse data reusability, waste API calls, because the data retrieved from the `Google Map JavaScript API` cannot be send back to the main application and stored.
+* **Alternative 2:** Passing coordinates to the web page
+** Pros: Save some API calls.
+** Cons: Worse accuracy.
+
+[NOTE]
+Calling `Google Map JavaScript API` to retrieve the route is much more expensive than calling `Geocoding API` to retrieve the coordinates. Thus, it is fair to prioritize to utilize function of `Google Map JavaScript API` to retrieve the route.
+
+===== Aspect: How to pass the origin address to UI
+* **Alternative 1 (current choice):** Passing as a parameter in `CommandResult`
+** Pros: Minimal code changes.
+** Cons: Need to create more constructor of `CommandResult`, and it may get harder to understand the usage of these constructors.
+* **Alternative 2:** Storing as a field in `Model`
+** Pros: Easier to understand and use.
+** Cons: Require more code changes because changing `Model` interface will break many classes and tests.
+
+===== Aspect: How to pass extra parameters to `CommandResult`
+* **Alternative 1 (current choice):** Use overloading of the constructor
+** Pros: No need to change the caller code of the constructor, decrease the possibility of code conflicts when merging with teammates' code.
+** Cons: As more fields are added to `CommandResult`, more constructors will be added. As a result, it may confuse future developers.
+* **Alternative 2:** Directly modify the `CommandResult` class and its constructor signature
+** Pros: More straightaway and easier to understand.
+** Cons: Changing the constructor signature also need to change all the caller functions. So it requires changes of many classes which may bring code conflicts.
+// end::route[]
 
 // tag::uiug[]
 === User Interface (UI)
@@ -951,17 +1026,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |user |add an equipment and its specific details |keep track of the details of an equipment
+|`* * *` |user |create, update, and delete an equipment or its specific details | keep the equipment information full and up-to-date.
 
-|`* * *` |user |delete an equipment or its specific details |remove equipment that is obsolete
+|`* * *` |user |create, update, and delete an worklist | use worklist for tracking progress and tasks
 
-|`* * *` |user |have a work list where I can store the equipment I am working on |keep track of all the equipment that I am assigned to
-
-|`* * *` |user |delete work list |remove work list which indicates work completed and no longer need it for tracking progress
+|`* * *` |user |have a worklist where I can store the equipments I am working on | keep track of all the equipments that I am assigned to
 
 |`* * *` |user |view details of all equipment |know how many equipment there are and what is the individual details of each equipment
 
-|`* * *` |user |know how many clients have the equipment |track equipment in group based on client and how many equipment the client owns
+|`* * *` |user |want to know names of the clients | so that i can get a clear view of my customers and their respective equipments
 |=======================================================================
 
 [discrete]
@@ -969,7 +1042,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |user |filter the list based on some conditions |remove all irrelevant equipment and work list showing on the list
+|`* * *` |user |filter the list based on some conditions |remove all irrelevant equipments showing on the list
 |=======================================================================
 
 [discrete]
@@ -985,9 +1058,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* *` |user |know how to get to the location where the equipment is at |navigate to the address of the equipment easily
+|`* *` |user |know the location where the equipment is at | have a direct visual sense of the location of the equipment
 
-|`* *` |user |have a visual representation of areas I am visiting |have quick overview on information
+|`* *` |user |have a visual representation of all equipments in the list |have quick overview on information
 
 |`*` |user |plan efficient routes between multiple locations |increase productivity, cut transportation costs, improve maintenance services
 
@@ -1002,8 +1075,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |new user |be able to understand the UI without much instruction |spend my time on the program features
 
-|`* *` |user |receive notifications on the equipment that is due for preventive maintenance |know which equipment requires preventive maintenance as soon as possible
-
 |`*` |user |see my past commands |keep track of what I have searched on
 
 |`*` |user |change command keywords |use the words that I prefer
@@ -1012,11 +1083,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |user |autocomplete my command queries |get the information that I want faster
 |=======================================================================
-
-_{More to be added}_
 //end:userstories[]
 
-
+//tag:: usecases[]
 [appendix]
 == Use Cases
 
@@ -1078,9 +1147,92 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: Add worklist and put in equipments
 
-//tag:: appendix[]
+*MSS*
+
+1.  User requests to list equipments
+2.  Equipment shows a list of equipments
+3.  User requests to create a new worklist
+4.  *Equipment Manager* create a worklist
+5.  User requests to put a new equipment into the worklist
+6.  *Equipment Manager* put the equipment into the worklist
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. The parameters are invalid.
++
+3a1. Equipment Manager shows an error message.
++
+Use case resumes at step 3.
+
+* 5a. The equipment list is empty.
++
+User case ends.
+* 5b. The given index is invalid.
++
+[none]
+** 5b1. *Equipment Manager* shows an error message.
++
+Use case resumes at step 5.
+
+[discrete]
+=== Use case: Filter the equipments
+
+*MSS*
+
+1.  User requests to list equipments
+2.  Equipment shows a list of equipments
+3.  User requests to filter the equipment list based on some parameters.
+4.  *Equipment Manager* filter the worklist and display to user
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. The parameters are invalid.
++
+[none]
+** 3a1. Equipment Manager shows an error message.
++
+Use case resumes at step 3.
+
+* 3b. The equipment list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: Calculate route of equipments
+
+*MSS*
+
+1.  User requests to list equipments
+2.  Equipment shows a list of equipments
+3.  User requests to calculate route of the equipment list with an origin address.
+4.  *Equipment Manager* calculate the route and display on the map
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. The parameter address is invalid.
++
+[none]
+** 3a1. Equipment Manager shows an error message.
++
+Use case resumes at step 3.
+
+* 3b. The equipment list is empty.
++
+Use case ends.
+//end:: usecases[]
+
 [appendix]
 == Non Functional Requirements
 Non-functional requirements specify the constraints under which system is developed and operated.
@@ -1219,7 +1371,34 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: Delete the data directory and launch the app
 +
 Expected: A sample folder is present when the app launches (although it is not committed to storage until a persistent change is made).
-
 .. Test case: Insert a non-json file/corrupted json file in the data directory and launch the app
 +
 Expected: The valid json files have folders with their corresponding names present. The non-json file/corrupted json file remains unaffected.
+_{ more test cases ... }_
+
+=== Display the equipments
+
+. Display the equipments while there are some equipments in the list
+
+.. Prerequisites: List all equipment using the `list-e` command. Multiple equipments in the list.
+.. Test case: `display` +
+   Expected: Some red markers of equipments shown on the map
+
+. Display the equipments while no equipments in the list
+.. Prerequisites: Clear all equipment using the `clear` command. No equipment in the list.
+.. Test case: `display` +
+   Expected: No red markers of equipments shown on the map, but the map should still display.
+
+=== Route the equipments
+
+. Route the equipments while there are some equipments in the list
+
+.. Prerequisites: List all equipment using the `list-e` command. Multiple equipments in the list.
+.. Test case: `route School of Computing, NUS, Singapore` +
+   Expected: Route of some equipments with valid and concise addresses will be shown and route will be calculated.
+.. Test case: `route` +
+   Expected: Browser panel do not change. Error messages shown.
+. Display the equipments while no equipments in the list
+.. Prerequisites: Clear all equipment using the `clear` command. No equipment in the list.
+.. Test case: `route School of Computing, NUS, Singapore` +
+   Expected: Only a marker shwon on the map, no routes calculated. Map will still display.

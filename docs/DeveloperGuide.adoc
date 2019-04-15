@@ -872,7 +872,7 @@ image::inputStatsCommandSS.png[width=400]
 Pop-up window for `stats` :
 
 .Screenshot of empty statistics pop-up window.
-image::StatsWindowSS.png[width=800]
+image::StatsWindowSS.png[width=600]
 
 There should not be any valid data at the moment as the game as not started.
 
@@ -881,7 +881,7 @@ Step 4. Now proceed with the game and perform an attack. Input `attack a1`.
 Step 5. Invoke the `stats` command again to view the updated statistics of the attack result.
 
 .Screenshot of populated statistics pop-up window.
-image::StatsWindowUpdatedSS.PNG[width=800]
+image::StatsWindowUpdatedSS.PNG[width=600]
 
 Besides the pop-up window, the data is also captured in the command-line result box.
 
@@ -910,13 +910,13 @@ The following sequence diagram summarizes what happens at the end of a game and 
 performed.
 
 .Sequence diagram of how the statistics data is saved.
-image::SaveSequenceDiag.PNG[width=600]
+image::SaveSequenceDiag.PNG[width=500]
 
 The following sequence diagram summarizes what happens at the end of the game where an automatic reading of previous
 statistics data is performed.
 
 .Sequence diagram of how the previous statistics data is read from storage.
-image::ReadSequenceDiagram.PNG[width=600]
+image::ReadSequenceDiagram.PNG[width=500]
 
 ==== Activity Diagram
 The following Activity Diagram shows when the `stats` command can be used.

@@ -26,7 +26,7 @@ By: `Team W17-3`      Since: `March 2019`      Licence: `MIT`
 [blue]#Welcome to the _In-Credit-Ble_ User Guide!# _In-Credit-Ble_ is your all-in-one application in managing and tracking your
 personal finances. Our user-friendly interface will make it easy for you to see how much you can safely spend within your budget and be more aware
 of your spending habits. If you are a *fast typer*, *prefer to type* over using your mouse and *like to get things done
-efficiently*, then this is the product just for you! _In-Credit-Ble_ is designed for those who prefer to work with a
+efficiently*, then this is the product just for you! _In-Credit-Ble_ is designed for *students* who prefer to work with a
 *Command Line Interface (CLI)*.
 
 
@@ -88,8 +88,9 @@ image::GUI_Diagram2.png[width="600"]
 .Graphical User Interface (When starting up)
 image::GUI_Diagram.png[width="600"]
 
-// tag::userinterface2[]
+
 {bl}
+// tag::userinterface2[]
 There are a total of 7 elements in the Graphical User Interface in _In-Credit-Ble_ Finance Tracker
 as denoted by the different coloured boxes above. The elements will be explained below.
 
@@ -110,9 +111,9 @@ The menu bar can be used to:
 * Open the _Help_ page to view commands available under btn:[Help] tab
 * Change the colour theme of the application under btn:[Theme] tab
 
-// tag::userinterface3[]
-{bl}
 
+{bl}
+// tag::userinterface3[]
 === Records List Panel
 {bl}
 
@@ -919,6 +920,11 @@ image::asterPlot.png[width="200"]
 
 This will make it more effective in showing the user what is the remaining budget amount for each category.
 It also allows users to easily perceive whether their spending is within their budget for each category.
+
+==== Enhancements to UI to allow `[fuchsia]#CategoryBudgets#` to be shown `[yellow]#[coming in v2.0]#`
+Instead of using the `show` command to list the category budgets in the Result Display, _In-Credit-Ble_'s
+`allocate` command will immediately display the category budgets allocated on another Panel known as *CategoryBudget
+Panel* in v2.0 of _In-Credit-Ble_.
 
 // end::upcomingFeatures[]
 

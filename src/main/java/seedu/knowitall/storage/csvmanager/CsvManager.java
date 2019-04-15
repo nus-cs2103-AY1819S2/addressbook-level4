@@ -35,7 +35,7 @@ public class CsvManager implements CsvCommands {
 
     private static final String COMMA_DELIMITTER = ",";
     private static final String NEW_LINE_SEPARATOR = "\n";
-    private static final String CARD_HEADERS = "Question,Answer,Hints,Options";
+    private static final String CARD_HEADERS = "Question,Answer,Hints,Option,Option,Option";
     private static final String TEST_FOLDER_PATH = "test";
 
     private String defaultPath;
@@ -88,11 +88,11 @@ public class CsvManager implements CsvCommands {
     private Card buildCard(String[] rawStringCard) throws IllegalArgumentException {
         // cardValues = {"question", "answer", "hint","option"}
 
-        // Allow only one option per card
-        String[] stringCard = Arrays.copyOfRange(rawStringCard, 0, 4);
+        // Allow only max 3 options per card
+        String[] stringCard = Arrays.copyOfRange(rawStringCard, 0, 7);
 
         // remove double quotes from each string array
-        String[] cardValues = Stream.of(stringCard).map(line -> line.replace("\"", ""))
+        String[] cardValues = Stream.of(rawStringCard).map(line -> line.replace("\"", ""))
                 .toArray(String[]::new);
 
         Question question = new Question(cardValues[0]);
@@ -107,12 +107,14 @@ public class CsvManager implements CsvCommands {
      */
     private Set<Option> buildOptions(String[] card) {
         Set<Option> optionSet = new HashSet<>();
-        String optionVal = card[3];
-        if (optionVal.equals("")) {
+        String[] optionValues = Arrays.copyOfRange(card, 3, card.length);
+        // if all option fields are empty
+        if (optionValues[0].equals("") && optionValues[1].equals("") && optionValues[2].equals("")) {
             return optionSet;
         }
-        Option option = new Option(optionVal);
-        optionSet.add(option);
+        Arrays.stream(optionValues)
+                .filter(option -> !option.equals(""))
+                .forEach(optionString -> optionSet.add(new Option(optionString)));
         return optionSet;
     }
 
@@ -146,7 +148,9 @@ public class CsvManager implements CsvCommands {
         }
 
         for (int i = 0; i < cardHeaders.length; i++) {
-            if (!cardHeaders[i].toLowerCase().equals(fileHeaders[i].toLowerCase())) {
+            String cardHeader = cardHeaders[i].trim().toLowerCase();
+            String fileHeader = fileHeaders[i].trim().toLowerCase();
+            if (!cardHeader.equals(fileHeader)) {
                 return false;
             }
         }
@@ -233,13 +237,32 @@ public class CsvManager implements CsvCommands {
      */
     private void parseOptions(Set<Option> options, StringBuilder stringBuilder) {
         if (options.isEmpty()) {
-            return;
+            // include up to 3 options
+            stringBuilder.append(COMMA_DELIMITTER).append(COMMA_DELIMITTER);
         } else {
             Set<String> optionString = options.stream().map(x -> x.optionValue).collect(Collectors.toSet());
-            String toJoin = String.join(",", optionString);
+            String toJoin = String.join(COMMA_DELIMITTER, optionString);
+            toJoin = fillCommas(toJoin);
             stringBuilder.append(toJoin);
-
         }
+    }
+
+    /**
+     * Ensures that each row of the csv file has option fields filled correctly with commas
+     */
+    private String fillCommas(String toJoin) {
+        // 3 options filled
+        long numCommas = toJoin.chars().mapToObj(c -> (char) c)
+                .filter(c -> String.valueOf(c).equals(COMMA_DELIMITTER))
+                .count();
+        if (numCommas == 0) {
+            toJoin += COMMA_DELIMITTER;
+            toJoin += COMMA_DELIMITTER;
+        }
+        if (numCommas == 1) {
+            toJoin += COMMA_DELIMITTER;
+        }
+        return toJoin;
     }
 
     /**

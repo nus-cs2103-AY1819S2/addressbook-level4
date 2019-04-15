@@ -15,6 +15,7 @@ public class SampleBloodCards {
     public static final Card CARD_1 = new CardBuilder().withQuestion("Commonly used anti-fibrinolytic drug is _____, "
             + "which prevent activation of plasminogen to plasmin").withAnswer("tranexamic acid")
             .withHint("ph less than 7")
+            .withOptions("hydrochloric acid", "sulfuric acid")
             .withScore("0/0").build();
 
     public static final Card CARD_2 = new CardBuilder().withQuestion("Myelodysplasia often regresses "
@@ -61,7 +62,7 @@ public class SampleBloodCards {
     public static final Card CARD_9 = new CardBuilder().withQuestion("<something>penia means too _____")
             .withAnswer("few")
             .withScore("0/0")
-            .withOptions("many")
+            .withOptions("some", "many", "full")
             .build();
 
 

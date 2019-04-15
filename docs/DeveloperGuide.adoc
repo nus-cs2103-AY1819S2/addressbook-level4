@@ -434,7 +434,7 @@ is true at any point in time. E.g., only one of inFolder, inHomeDir, inTest... c
 
 //tag::importexport[]
 === Import/Export feature
-[discrete]__
+[discrete]
 ==== Current Implementation
 The Import and Export feature is facilitated by the Logic and model components, together
 with the addition of 3 new classes inside the csvmanager package defined under
@@ -1961,14 +1961,12 @@ lowest scoring flashcard question and hints are displayed. Answer the current qu
 
 .. Test case: `import Blood.csv` +
 Prerequisites: Ensure that Blood.csv exists within the project root directory. +
-Expected: Command box outputs a message `Successfully imported: Blood.csv` and
+Expected: Command box outputs a message "Successfully imported: Blood.csv" and
 a new folder with name Blood is added to the existing folders in the home directory,
 with the corresponding flashcards added to the folder
 
 .. Other incorrect commands to try: `import`,
 `import Blood.json`
-
-
 
 . Exporting a folder
 .. Prerequisites: You must be outside a folder (status bar should read `in home directory`) +

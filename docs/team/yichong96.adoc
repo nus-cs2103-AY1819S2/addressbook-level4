@@ -36,7 +36,8 @@ NOTE: This admonition contains important information pertaining to the usage of 
 
 `command`: A monospace font has two meanings. For the user guide, it represents a command
 that can be inputted into the command line and executed by the application. In the Developer guide,
-it represents methods, variables or classes found within the Java files.
+it can represent methods, variables or classes found within the Java files in addition to command line
+input by the user.
 
 
 == Summary of contributions
@@ -96,102 +97,3 @@ make decisions not just in code design, but also to enable users to have a
 smooth experience in being able to import and export their flashcards.
 . The following is a brief summary of my analysis and decisions.
 include::../DeveloperGuide.adoc[tag=design_considerations_import_export]
-[= Ong Yi Chong - Project Portfolio
-:site-section: AboutUs
-:imagesDir: ../images
-:stylesDir: ../stylesheets
-
-== PROJECT: Know-It-All
----
-
-Hello ! I am Yi Chong, a year 2 Computer Science student. I have worked on a few projects in the past, of which I have
-developed an android application and built a machine learning model to classify e-commerce products. My current areas of interest
-include Artificial Intelligence (AI) and Software Engineering. This project portfolio serves to document my contributions
-to Know-It-All; including the code base, developer and user guide.
-
-== Overview
-The motivation behind this project came from a problem faced by Wei Jie, a medical student and friend of my group mate.
-Wei Jie is an avid user of flashcards for study. However, the trouble of carrying physical flashcards and
-the sheer amount of content recorded on flashcards has caused major inconveniences to Wei Jie.
-
-As part of our Software Engineering project, we had the option to either enhance the existing address book software or
-morph it into another product. As such, our team decided to morph the existing product into a flashcard application for
-students like Wei Jie, who prefer flashcards as a study method but find using physical flashcards a major pain point.
-
-This enhanced application helps students organize their digital flashcards neatly.
-The application also comes with a test feature; allowing users to test themselves on the flashcards
-created, a report feature; allowing them to view their performance for each folder and a import and
-export feature; which allows for the sharing of flashcards.
-
-My role was to design and write the codes for the import and export features. The following sections
-illustrate these enhancements in more detail, as well as the relevant sections I have added to the
-user and developer guides in relation to these enhancements.
-
-
-
-=== Legend
-NOTE: This admonition contains important information pertaining to the usage of the commands.
-
-`command`: A monospace font has two meanings. For the user guide, it represents a command
-that can be inputted into the command line and executed by the application. In the Developer guide,
-it represents methods, variables or classes found within the Java files.
-
-
-== Summary of contributions
-This section contains a summary of my contributions to the project;
-mainly the code and documentation for the import and export feature as well as contributions to the community.
-
-* *Major enhancement*: added *the ability to import/export existing or new flashcards*
-** What it does: The import command allows users to import flashcards from a a .csv file while the export command
-allows users to export flashcards as a .csv file.
-** Justification: These two complementary features improve the product significantly because users can now share their flashcards with others,
-saving time taken to create similar flashcards for the other user.
-Also, being able to import flashcards from a csv file provides users with a quicker alternative to create large numbers of flashcards.
-** Highlights: Although not technically challenging, there were many considerations that went into the design of the import/export feature. One of them was deciding
-the formatting of csv files. whether a user should be able to export multiple card folders into a single csv. Also, since commas
-were used within each card field as well, there was a need to ensure that the comma separated values are actually not
-part of the "commas" within the card field itself.
-
-
-* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=yichong96[Collated code]]
-
-* *Other contributions*:
-** Enhancements to existing features:
-*** Wrote additional tests for existing features to increase coverage from 78.379% to 81.079 (Pull requests https://github.com[#105])
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/cs2103-ay1819s2-w10-4/main/pull/60[#60], https://github.com/cs2103-ay1819s2-w10-4/main/pull/2[#2]
-*** Conducted manual testing for other team's projects. Reported bugs and gave suggestions on how to improve their product
-: https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/903[#903],
-https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/816[#816], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/772[#772]
-
-
-=== Contributions to the User Guide
----
-
-The user guide contains instructions needed to effectively use Know-It-All.
-The following is an excerpt from Know-It-All's user guide, which contains the additions that I have made to the user guide.
-
-
-include::../UserGuide.adoc[tag = advancedoperations]
-
-
-
-=== Contributions to the Developer Guide
----
-
-The following shows my addition to Know-It-All's developer guide for the import and export commmand.
-
-include::../DeveloperGuide.adoc[tag=importexport]
-== Instructions for Manual Testing
-
-include::../DeveloperGuide.adoc[tag=folderimportexporttesting]
-
-=== Design Considerations
----
-
-Designing the import and export features required me to
-make decisions not just in code design, but also to enable users to have a
-smooth experience in being able to import and export their flashcards.
-. The following is a brief summary of my analysis and decisions.
-include::../DeveloperGuide.adoc[tag=design_considerations_import_export]
-]

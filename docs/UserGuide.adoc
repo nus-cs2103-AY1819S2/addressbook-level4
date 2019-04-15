@@ -1149,7 +1149,7 @@ nokp/84875215 nokr/Father noka/same`
 * *Patient Clear* : `patientclear` +
 e.g. `patientclear`
 
-* *copy* : `copy INDEX` +
+* *Copy* : `copy INDEX` +
 e.g. `copy 3`
 
 * *Patient Delete* : `patientdelete INDEX` +
@@ -1195,8 +1195,8 @@ nokp/84875215 nokr/Father noka/same`
 * *patientcopy* : `patientcopy INDEX` +
 e.g. `patientcopy 3`
 
-* *Record Add* : `recordadd p/PROCEDURE det/DETAILS` +
-e.g. `recordadd p/Cleaning desc/Mouth was noticeably foul, might have halitosis`
+* *Record Add* : `recordadd pro/PROCEDURE desc/DESCRIPTION` +
+e.g. `recordadd pro/Braces-Top row desc/Mouth was noticeably foul, might have halitosis`
 
 * *Record Delete* : `recorddelete INDEX` +
 e.g. `recorddelete 4`

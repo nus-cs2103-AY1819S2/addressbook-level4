@@ -639,6 +639,7 @@ the `select` command download un-downloaded articles in the background.
 
 Here is a sequence diagram showing how the interaction works:
 
+.Sequence diagram from select command to article saving
 image::SelectRefreshSdForStorage.png[width="600"]
 
 Notice that when returning from the async network call,
@@ -719,6 +720,7 @@ This is described in section xref:Design-Storage[]
 As an example, what happens when viewing an entry with offline mode enabled?
 This is summarised by the activity diagram below:
 
+.Activity diagram when viewing entry with offline mode
 image::OfflineModeViewEntryActivityDiagram.png[width="600"]
 
 // end::offline-mode[]

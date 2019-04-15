@@ -625,6 +625,7 @@ Sorts the list of records by category in lexicographical order (ascending order)
 .Examples of `[fuchsia]#sort#` command (sorted by name, amount, date and category respectively, default ordering)
 image::sortExamples.png[width ="900"]
 
+{bl}
 *[navy]#More examples#*:
 
 * `[fuchsia]#sort -name -desc#`: +

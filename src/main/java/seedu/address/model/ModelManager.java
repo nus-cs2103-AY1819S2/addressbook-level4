@@ -202,15 +202,16 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean canDeleteModuleTaken(ModuleTaken moduleTaken) {
-        requireNonNull(moduleTaken);
+    public boolean canDeleteModuleTaken(ModuleTaken toDelete) {
+        requireNonNull(toDelete);
         for (ModuleTaken module : versionedGradTrak.getModulesTakenList()) {
-            if (module.equals(moduleTaken)) {
+            if (module.equals(toDelete)) {
                 continue;
             }
             ModuleInfo moduleInfo = moduleInfoList.getModule(module.getModuleInfoCode().value);
             ModuleTree moduleTree = moduleInfo.getModuleInfoPrerequisite().getModuleTree();
-            if (!versionedGradTrak.getMissingPrerequisitesWithoutModule(moduleTree, moduleTaken).isEmpty()) {
+            System.out.println(versionedGradTrak.getMissingPrerequisitesWithoutModule(moduleTree, toDelete));
+            if (!versionedGradTrak.getMissingPrerequisitesWithoutModule(moduleTree, toDelete).isEmpty()) {
                 return false;
             }
         }

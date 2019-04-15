@@ -64,6 +64,10 @@ public class SortCommand extends Command {
         return input;
     }
 
+    /**
+     * Executes the necessary sort method and returns the list.
+     * Ensures sorted list matches the length of the inputted list.
+     */
     private void processSortMethod(SortMethod command, List<Person> lastShownList, String... type) {
         command.execute(lastShownList, type);
         this.sortedPersons = command.getList();

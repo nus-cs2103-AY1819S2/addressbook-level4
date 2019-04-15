@@ -471,6 +471,7 @@ The following features are implemented or will be implemented for doctors of doc
 * Add doctor `add-d`
 * List all doctors and search for doctors by keywords `list-d`
 * Edit existing doctors `edit-d`
+* Select a doctor to display the full details `select-d`
 * Delete existing doctors `delete-d`
 * Finding relevant and available doctors for upcoming appointments `match-d`
 
@@ -480,7 +481,7 @@ When a user executes `add-d n/John Doe g/M p/98765432 y/3 s/'acupuncture`
 
 Step1. LogicManager calls parseCommand("add-d") in docXParser.
 
-Step2. Based on the COMMAND_WORD, docXParser builds a new AddDoctorCommandParser() and call function parse(arguments) of AddDoctorCommandParser.
+Step2. Based on the COMMAND_WORD, docXParser builds a new AddDoctorCommandParser() and calls function parse(arguments) of AddDoctorCommandParser.
 
 Step3. AddDoctorCommandParser parses the argument and get doctor's name, gender, year of experience, phone and his/her specialisations. AddDoctorCommandParser calls constructors of Name, Year, Gender, Phone, Specialisation and then calls the constructor of Doctor.
 	   Then, AddDoctorCommandParser calls AddDoctorCommand(Doctor).
@@ -495,9 +496,9 @@ When a user executes `list-doctor acupu`
 
 Step1. LogicManager calls parseCommand("list-d") in docXParser.
 
-Step2. Based on the COMMAND_WORD, docXParser builds a new ListDoctorCommandParser() and call function parse(arguments) of ListDoctorCommandParser.
+Step2. Based on the COMMAND_WORD, docXParser builds a new ListDoctorCommandParser() and calls function parse(arguments) of ListDoctorCommandParser.
 
-Step3. ListDoctorCommandParser parses the argument. If no argument is present, then ListDoctorCommandParser calls ListDoctorCommand(). If there are argument(s) present, DoctorContainsKeywordsPredicate("acupu") will be called.
+Step3. ListDoctorCommandParser parses the argument. If no argument is present, then ListDoctorCommandParser calls ListDoctorCommand(). If there are argument(s) present, DoctorContainsKeywordsPredicate("acupu") will be created.
         Then, ListDoctorCommandParser calls ListDoctorCommand(DoctorContainsKeywordsPredicate).
 
 Step4. LogicManager calls execute() of ListDoctorCommand.
@@ -514,7 +515,7 @@ When a user executes `edit-d 1 n/Betty Veronica`
 
 Step1. LogicManager calls parseCommand("edit-d") in docXParser.
 
-Step2. Based on the COMMAND_WORD, docXParser builds a new EditDoctorCommandParser() and call function parse(arguments) of EditDoctorCommandParser.
+Step2. Based on the COMMAND_WORD, docXParser builds a new EditDoctorCommandParser() and calls function parse(arguments) of EditDoctorCommandParser.
 
 Step3. EditDoctorCommandParser parses the argument and get the relative index of the doctor to be changed and the respective field(s) to be changed.
         It will call EditDoctorDescriptor() and change the field(s) accordingly.
@@ -523,6 +524,22 @@ Step3. EditDoctorCommandParser parses the argument and get the relative index of
 Step4. LogicManager calls execute() of EditDoctorCommand.
 
 Step5. execute() calls getFilteredDoctorList() of ModelManager and gets the doctor to be edited. After creating the edited doctor, EditDoctorCommand calls setDoctor(DoctorToEdit, EditedDoctor) of ModelManager.
+
+==== Select Doctor feature
+
+When a user executes `select-d 1`
+
+Step1. LogicManager calls parseCommand("select-d") in docXParser.
+
+Step2. Based on the COMMAND_WORD, docXParser builds a new SelectDoctorCommandParser() and calls function parse("1") of SelectDoctorCommandParser.
+
+Step3. SelectDoctorCommandParser parses the argument and get the relative index of the doctor to be selected.
+        Then SelectDoctorCommandParser calls SelectDoctorCommand(index).
+
+Step4. LogicManager calls execute() of SelectDoctorCommand.
+
+Step5. execute() calls getFilteredDoctorList() of ModelManager and gets the doctor to be selected.
+        SelectDoctorCommand calls setSelectedDoctor(selectedDoctor) and calls DOCTOR_BROWSER to be showed in the browser panel in the UI with the CommandResult.
 
 ==== Delete Doctor feature
 
@@ -548,8 +565,18 @@ Step1. LogicManager calls parseCommand("match-d") in docXParser.
 Step2. Based on the COMMAND_WORD, docXParser builds a new DoctorMatchCommandParser() and call function parse(arguments) of DoctorMatchCommandParser.
 
 Step3. DoctorMatchCommandParser parses the argument and get the desired specialisation, date and time of the appointment. DoctorMatchCommandParser calls constructors of Specialisation, AppointmentDate, AppointmentTime and then calls the constructor of DoctorMatch.
+        Then, DoctorSpecialisationMatchesPredicate(DoctorMatch) will be created.
 
-Step4. // to continue
+Step4. Then, DoctorMatchCommandParser calls DoctorMatchCommand(DoctorSpecialisationMatchesPredicate).
+
+Step5. execute() calls updateFilteredDoctorList(DoctorSpecialisationMatchesPredicate) of ModelManager to filter the list of doctors whose specialisation matches the user's input.
+
+
+Step6. Then, execute() will call the constructor of DoctorsMatch with the filtered list of doctors, the desired appointment date and time. AppointmentContainsDoctorPredicate(DoctorsMatch) will be created.
+        execute() calls updateAppointmentList(AppointmentContainsDoctorPredicate) of ModelManager to filter the list of appointments who are occupied during the desired date and time of appointment.
+
+Step7. Then, execute() will get the filtered list of appointments and the desired specialisation. DoctorHasAppointmentPredicate will be created.
+        execute() calls updateFilteredDoctorList(DoctorHasAppointmentPredicate) to filter the list of doctors whose specialisation matches and are available on the date and timing inputted.
 
 === Appointments
 

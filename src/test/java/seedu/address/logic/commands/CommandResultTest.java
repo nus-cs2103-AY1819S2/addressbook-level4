@@ -51,4 +51,12 @@ public class CommandResultTest {
         // different exit value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, true).hashCode());
     }
+
+    @Test
+    public void booleans() {
+        CommandResult commandResult = new CommandResult("feedback", true, true);
+
+        assertTrue(commandResult.isShowHelp());
+        assertTrue(commandResult.isExit());
+    }
 }

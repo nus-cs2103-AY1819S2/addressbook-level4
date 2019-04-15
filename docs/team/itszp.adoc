@@ -10,7 +10,7 @@
 
 == Overview
 
-My team and I were tasked with enhancing a basic command line Address Book for our software engineering project. We decided to morph the project into a image editor. +
+My team and I were tasked with enhancing a basic command line Address Book for our software engineering project. We decided to morph the project into an image editor. +
 
 FomoFoto is a robust yet simple image-editing tool. Users interact with the application through worded commands from their keyboard, and receive visual feedback from it through the displayed image on the application. +
 
@@ -27,7 +27,7 @@ This section provides a summary of my coding, documentation and other contributi
 
 ** _Why it is important:_ This feature is essential as it enables users to choose which image they want to edit. Upon using the `open` command, the chosen image is displayed prominently in the main window of the application, allowing users to know which image they are about to apply their edits on.
 
-** _Highlights:_ The `open` command duplicates the opened image in a temporary folder so that users are able to recover the original image should they decide to abandon their edits or in the unlikely event of an application crash. Therefore, this enhancement requires in depth analysis on how the temporary image is stored. When an image is opened, two copies named `ori_img.png` and `temp_img.png` are created in the temporary folder. Subsequent edits will update and overwrite `temp_img.png` while `ori_img.png` is used for `undo` and `redo` operations.
+** _Highlights:_ The `open` command duplicates the opened image so that users are able to recover the original image should they decide to abandon their edits or in the unlikely event of an application crash. Therefore, this enhancement requires in-depth analysis on how the temporary image is stored. When an image is opened, two copies named `ori_img.png` and `temp_img.png` are created in the temporary folder. Subsequent edits will update and overwrite `temp_img.png` while `ori_img.png` is used for `undo` and `redo` operations.
 
 === *Major Enhancement* -- Added the feature to save an image.
 
@@ -54,47 +54,72 @@ Here are the code contributions that I have made. [https://github.com/CS2103-AY1
 *** Managed labels, milestones and issues for issue tracking on GitHub.
 
 ** Documentation:
-*** Wrote features implemented for the User Guide: https://github.com/CS2103-AY1819S2-W14-2/main/pull/58[#58]
-*** Wrote model and features for the Developer Guide: https://github.com/CS2103-AY1819S2-W14-2/main/pull/129[#129]
+*** Wrote features implemented for the User Guide: https://github.com/CS2103-AY1819S2-W14-2/main/pull/58[#58],
+https://github.com/CS2103-AY1819S2-W14-2/main/pull/142[#142]
+*** Wrote features implemented and User Stories for the Developer Guide: https://github.com/CS2103-AY1819S2-W14-2/main/pull/129[#129],
+https://github.com/CS2103-AY1819S2-W14-2/main/pull/244[#244]
+
 ** Community:
-*** Pull requests reviewed (with non-trivial comments): https://github.com/CS2103-AY1819S2-W14-2/main/pull/39[#39],
+*** Reviewed pull requests:
+https://github.com/CS2103-AY1819S2-W14-2/main/pull/39[#39],
 https://github.com/CS2103-AY1819S2-W14-2/main/pull/239[#239],
 https://github.com/CS2103-AY1819S2-W14-2/main/pull/242[#242],
 https://github.com/CS2103-AY1819S2-W14-2/main/pull/247[#247]
 *** Reported bugs and provided solutions to team:
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/70[#70],
 https://github.com/CS2103-AY1819S2-W14-2/main/issues/89[#89],
-https://github.com/CS2103-AY1819S2-W14-2/main/issues/93[#93],  https://github.com/CS2103-AY1819S2-W14-2/main/issues/70[#70],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/93[#93],
 https://github.com/CS2103-AY1819S2-W14-2/main/issues/103[#103],
 https://github.com/CS2103-AY1819S2-W14-2/main/issues/128[#128],
 https://github.com/CS2103-AY1819S2-W14-2/main/issues/159[#159],
 https://github.com/CS2103-AY1819S2-W14-2/main/issues/189[#189]
+*** Raised core issues:
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/32[#32],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/63[#63],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/64[#64],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/71[#71],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/114[#114],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/160[#160],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/224[#224]
 
 
 == Contributions to the User Guide
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I that contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
+=== *Features*
+'''
+include::../UserGuide.adoc[tag=FeaturesHeader]
 
-include::../UserGuide.adoc[tag=ListAndOpen]
+=== Save Feature
+include::../UserGuide.adoc[tag=UGSave]
 
-include::../UserGuide.adoc[tag=UserSave]
+=== *Other Works Contributed*
+'''
+*  Open Feature
+*  List Files Feature
 
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections that I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=DesignModel]
+=== *Open Feature*
+'''
+include::../DeveloperGuide.adoc[tag=DGOpen]
 
-include::../DeveloperGuide.adoc[tag=OpenAndListFiles]
+=== *List Files Feature*
+'''
+include::../DeveloperGuide.adoc[tag=DGListFiles]
 
-include::../DeveloperGuide.adoc[tag=Save]
+=== *Save Feature*
+'''
+include::../DeveloperGuide.adoc[tag=DGSave]
 
-include::../DeveloperGuide.adoc[tag=UserStories]
-
-
-
+=== *Other Works Contributed*
+'''
+*  Appendix B: User Stories

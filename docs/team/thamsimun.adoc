@@ -5,11 +5,9 @@
 
 == PROJECT: FomoFoto
 
----
-
 == Overview
 
-My team and I were tasked with enhancing a basic command line addressbook for our Software Engineering project. We decided to morph the project into a image editor. +
+My team and I were tasked with enhancing a basic command line addressbook for our Software Engineering project. We decided to morph the project into an image editor. +
 
 FomoFoto is a robust yet simple image-editing tool. Users interact with the application through worded commands from their keyboard, and receive visual feedback from it through the displayed image on the application. +
 
@@ -20,15 +18,23 @@ In addition, FomoFoto is well maintained with high reliability and code quality 
 == Summary of contributions
 This section provides a summary of my coding, documentation and other contributions to FomoFoto, our team project.
 
-* *Major enhancement*: added *the ability to apply filters on images*
+* *Major enhancement*: I added *the ability to apply filters on images*
 
-** What it does: It parses the arguments specified by user, validate the filter commands and apply the filter on a targetted image. Users can key in commands such as `contrast`, `brightness` and `bw` to apply the filters.
+** What it does: This feature allows the user to apply filters on images by adjusting their contrast and brightness or transforming them into black and white images. Users can key in commands such as `contrast`, `brightness` and `bw` to apply the respective filters on images. Before our application executes the respective image filter commands, the arguments specified by the user will first be parsed and validated.
 
-** Justification: This feature improves the product significantly because applying filters on images is one of the main feature of our image-editing product, FomoFoto. Users might need to adjust the brightness and contrast of an image as the image they have might be under-exposed and is not well contrasted. The black and white filter is useful for users who like vintage images.
+** Justification: This feature improves the product significantly because applying filters on images is an essential feature of an image editor. Users might need to adjust the brightness and contrast of images as the images they have might be under-exposed and are not well contrasted. Also, the black and white filter is useful for users who like vintage images.
 
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation was challenging as it required changes to existing commands. Furthermore, it required the gradle script to declare a compile-time dependency on an external API that provides images editing tools.footnote:[Gradle is an open-source build automation tool that is designed to be flexible enough to build almost any type of software.]
+** Highlights: This enhancement was challenging to implement as the image filter commands are working on the same image as the image manipulation commands that were implemented by my teammate. It seeks for an in-depth analysis of design alternatives and the implementation of image editing libraries. As my teammate and I had to use two different third-party libraries which return different objects, we had to ensure that the classes in our code (e.g. `CurrentEdit`) have helper methods that accept both objects from the two different libraries.
 
-** Credits: _{The processing of images is facilitated by an external API https://github.com/sksamuel/scrimage[`scrimage`]}_
+** Credits: The processing of images is facilitated by an external API https://github.com/sksamuel/scrimage[`scrimage`]
+
+* *Major enhancement*: I added *the ability to save and set preset commands for faster image-editing*
+
+** What it does: This feature allows the user to save and set a list of image-editing commands in advance of their uses. The `savepreset` command saves a list of commands that were applied to an image so that they can be applied to other images in the future by executing the `setpreset` command.
+
+** Justification: This feature improves the product significantly because multiple image filters and manipulations are frequently applied simultaneously. With this feature, users can save multiple image-editing commands as one preset command and use them for other images.  This makes image-editing more efficient as the user can now apply multiple image filters or manipulations on other images with just a command instead of executing the commands one by one.
+
+** Highlights: This feature requires an in-depth understanding of how the image-editing commands (e.g. image filters and image manipulations) are executed as it has to execute a few of them at a go. Furthermore, as a  preset list of commands might not work on another image (e.g. the cropping command depends on the size of the image), it is necessary to display the exact command in the preset list of commands that cannot be applied on the image to guide the user.
 
 * *Code contributed*:
 ** https://github.com/CS2103-AY1819S2-W14-2/main/commits?author=thamsimun[List of commits]
@@ -37,32 +43,56 @@ This section provides a summary of my coding, documentation and other contributi
 * *Other contributions*:
 
 ** Project management:
-*** Managed release `v1.3` (1 release) on GitHub
+*** Managed release `v1.4` (1 release) on GitHub
+*** Ensured the standardization of codes in our team to achieve better code quality.
+
 ** Documentation:
-*** Wrote skeleton for the User Guide: https://github.com/CS2103-AY1819S2-W14-2/main/issues/132[#132]
+*** Wrote the skeleton for the user guide: https://github.com/CS2103-AY1819S2-W14-2/main/issues/132[#132]
+*** Did the sequence diagrams of the logic component in the developer guide:
+https://github.com/CS2103-AY1819S2-W14-2/main/pull/116[#116]
+*** Wrote the documentation for the image filters in the developer guide
+https://github.com/CS2103-AY1819S2-W14-2/main/pull/131[#131]
+*** Wrote the documentation for the preset commands in the developer guide
+https://github.com/CS2103-AY1819S2-W14-2/main/pull/271[#271]
+
+** Enhancements to Existing Features:
+*** Wrote tests for image filters and preset commands to increase coverage. (Pull requests https://github.com/CS2103-AY1819S2-W14-2/main/pull/233[#233],
+https://github.com/CS2103-AY1819S2-W14-2/main/pull/220[#220], https://github.com/CS2103-AY1819S2-W14-2/main/pull/219[#219],
+https://github.com/CS2103-AY1819S2-W14-2/main/pull/213[#213],
+https://github.com/CS2103-AY1819S2-W14-2/main/pull/207[#207])
+
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W14-2/main/pull/98[#98], https://github.com/CS2103-AY1819S2-W14-2/main/pull/52[#52], https://github.com/CS2103-AY1819S2-W14-2/main/pull/46[#46]
-*** Reported bugs and provided solutions to team: https://github.com/CS2103-AY1819S2-W14-2/main/issues/99[#99], https://github.com/CS2103-AY1819S2-W14-2/main/issues/133[#133]
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W14-2/main/pull/98[#98], https://github.com/CS2103-AY1819S2-W14-2/main/pull/52[#52], https://github.com/CS2103-AY1819S2-W14-2/main/pull/46[#46],
+https://github.com/CS2103-AY1819S2-W14-2/main/pull/236[#236],
+https://github.com/CS2103-AY1819S2-W14-2/main/pull/203[#203],
+https://github.com/CS2103-AY1819S2-W14-2/main/pull/153[#153]
+*** Reported bugs and provided solutions to team: https://github.com/CS2103-AY1819S2-W14-2/main/issues/99[#99], https://github.com/CS2103-AY1819S2-W14-2/main/issues/133[#133],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/270[#270],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/209[#209],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/199[#199]
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/148[#148],
+
 ** Tools:
 *** Integrated a third party library (https://github.com/sksamuel/scrimage[`scrimage`]) to the project (https://github.com[#42])
-
-
-_{you can add/remove categories in the list above}_
+*** Integrated Netlify and Appveyor to the team repository (https://github.com/CS2103-AY1819S2-W14-2/main/issues/151[#151])
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=BlackWhiteCommand]
-
 include::../UserGuide.adoc[tag=ContrastCommand]
 
 include::../UserGuide.adoc[tag=BrightnessCommand]
 
-include::../UserGuide.adoc[tag=CommandSummary]
+include::../UserGuide.adoc[tag=SavePreset]
+
+include::../UserGuide.adoc[tag=SetPreset]
+
+=== *Other Works Contributed*
+'''
+* Black/White feature
 
 == Contributions to the Developer Guide
 
@@ -70,11 +100,11 @@ include::../UserGuide.adoc[tag=CommandSummary]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=LogicComponentSequenceDiagrams]
-
-include::../DeveloperGuide.adoc[tag=StorageComponent]
-
 include::../DeveloperGuide.adoc[tag=ImageFilter]
 
+include::../DeveloperGuide.adoc[tag=SetPreset]
 
-== PROJECT: PowerPointLabs
+=== *Other Works Contributed*
+'''
+* Save Preset feature
+* Logic Component sequence diagrams

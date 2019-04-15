@@ -49,7 +49,7 @@ image::thamsimun.png[width="150", align="left"]
 *Role:* +
 Developer +
 *Responsibilities:* +
-Testing, Image Filters
+Testing, Image Filters, Preset Image Editing
 
 '''
 

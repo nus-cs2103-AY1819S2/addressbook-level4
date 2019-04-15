@@ -73,8 +73,7 @@ public class AddBudgetCommandSystemTest extends FinanceTrackerSystemTest {
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
-        /* Case:
-        missing category -> rejected */
+        /* Case: missing category -> rejected */
         command = AddBudgetCommand.COMMAND_WORD + AMOUNT_DESC_BUDGET + STARTDATE_DESC_BUDGET + ENDDATE_DESC_BUDGET
                 + REMARKS_DESC_BUDGET;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddBudgetCommand.MESSAGE_USAGE));

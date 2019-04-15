@@ -53,7 +53,10 @@ image::liuxuanian.png[width="150", align="left"]
 {empty}[https://github.com/liuxuanian[github]] [https://cs2103-ay1819s2-w10-3.github.io/main/team/LiuXuan.html[portfolio]]
 
 Role: Developer +
-Responsibilities: In-progress
+Responsibilities:
+* WorkList
+* Documentation
+* UI
 
 '''
 

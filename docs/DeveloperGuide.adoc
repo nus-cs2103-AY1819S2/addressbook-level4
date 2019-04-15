@@ -961,9 +961,10 @@ The reminder is in the form of an `AlertDialog` and is scheduled to display on t
 ==== Current Implementation
 
 The following sequence diagram shows the sequence flow from when the `SetReminderCommandParser` receives the command and
-parses it to a `SetReminderCommand`.
+parses it into a `SetReminderCommand` object.
 
 image::SetReminderSequenceDiagram.png[width="800"]
+Figure 3.8.1 shows the sequence diagram for the different method invocation calls between the classes.
 // end::setreminder[]
 
 
@@ -990,16 +991,21 @@ with an `AutoCompleteTextField` class that extends from the parent class, `TextF
 In the `AutoCompleteTextField` class, it adds an additional listener to the `textProperty()` of `TextField` class, to register for when
 a text input is being sensed and generates the suggestion box in the form of a `ContextMenu` to the user.
 
-The searching of which commands to display to the user as suggestions is by iterating the `suggestions` data structure, which is a `TreeSet`, then checking
+image::AutoCompleteTextFieldSMD.png[]
+Figure 3.10.1 shows the state machine diagram for the `AutoCompleteTextField` behaviour when it listens for a user input.
+
+The searching of which commands to display to the user as suggestions is done by iterating the `suggestions` data structure, which is a `TreeSet`, then checking
 against the user's input if any of the suggestions starts with the user's text.
 
 ==== Aspect: Data structure to store the list of commands
-<insert text>
+[width="100%",cols="1, 5, 5",options="header"]
+|=======================================================================
+Implementation | Use a `TreeSet` datastructure | Use a `SuffixTree` datastructure
+|Pros| Implements the `NavigatableSet` interface and guarantees that elements are stored in sorted order, also allows for _O(log n)_ time complexity for dynamic searching of elements  | Made for features like autocompletion, allows particularly fast implementation of `String` operations
+|Cons| _none at the moment_ | difficult to comprehend and implement
+|=======================================================================
 
-==== Aspect: Algorithm to search for commands that fit user's input
-<insert text>
 
-A detailed interaction diagram for the autocomplete behaviour is created previously under <insert section>.
 // end::autocomplete[]
 
 // tag::dataencryption[]

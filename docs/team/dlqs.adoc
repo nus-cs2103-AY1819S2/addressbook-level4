@@ -10,7 +10,7 @@
 == Overview
 
 Know-It-All is a flashcard application that helps students manage, store, and use flash cards effectively. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
-My major roles included the report feature and ability to record score. To see directly what code I contributed, a [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=dlqs[summary]] provided by Reposense is available here.
+My major roles included the report feature and ability to record score. To see directly what code I contributed, a https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=dlqs[summary] provided by Reposense is available here.
 
 == Summary of contributions
 |===
@@ -21,7 +21,8 @@ My major roles included the report feature and ability to record score. To see d
 ** What it does: Records the number of questions correctly answered after a test session, called the test score, and generates a report for that folder that shows the change in (past) test scores.
 There is also a line showing percentage change in test score as well as the lowest individual scoring cards in the current folder.
  Test scores are only recorded if at least 1/4 of the questions in the folder are attempted. An example is shown below.
-image::ReportDisplay.png[width="790"]
+
+** image::ReportDisplay.png[width="790"]
 
 ** Justification: This feature improves the product significantly because a user can see the outcome of the spaced-repetition technique employed by Know-It-All. They are able to track their average score over time, per folder, so that
 they are able tell which folders they score well and not so well for. This lets them know which folder they need to practice more on.

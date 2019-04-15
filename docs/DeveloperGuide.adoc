@@ -433,7 +433,6 @@ parameter is added to AddressBook class, all the functions have to be changed co
 * **Cons of this approach:**
 ** It is hard and time consuming to implement this approach because `Predicates` are used. In `AddressBook` class itself, we can directly reach to the persons and their all fields easily. But with `Predicate` approach,
 it requires additional data to be built (`Predicates` may need to be created before adding new persons to the parameter). Moreover, we do not have much knowledge about `Predicate` usage and because of these reasons, our job may take more time to finish.
-** It may require some changes in the `Model` class.
 
 ===== Parser Implementation
 
@@ -447,26 +446,6 @@ could only add the content after `PREFIX` (without any `REVERSE PREFIX` usage) l
 ** Using also reverse prefix makes the job much easier, because it simply marks also the end of the content.
 ** In currently implemented version, no order of the criterion is necessary. So, first phone number and then name etc. can be added for filtering condition.
 However in the alternative approach, implementing the input taking with no order is harder and time consuming.
-
-==== Combining the Command With Other Commands
-
-Since a new parameter is added to the `AddressBook` class, some changes should have done to adjust the existing processes to
-be used at the same time with filtering commands.
-
-===== Undo/Redo Command
-
-* A new local boolean parameter is added to the `AddressBook` class to hold if in that step the filtering exists or not. This addition is important for not losing the filtering information, not losing the storage data as a result of `undo/redo` processes, when filtering is active and being able to use `clearFilter()`, if undo and redo commands are used when filtering is active.
-* `resetData` method is modified in order to reset the `allPersonsStorage` parameter if needed.
-
-===== Add, Edit and Delete Commands
-
-* `delete` and `edit` processes are working without clearing the filter.
-* `add` method clears the filter when a new person is added. Because, all the previous filtering are not saved in anywhere, so we cannot control if the newly added person matches
-with the filtering criterion. Thus, all the filtering is cleared.
-
-===== Other Commands
-
-These are the ones that requires almost no changes or only small amount of changes to be compatible with filtering.
 
 ==== Testing of Filter Command Design
 
@@ -496,6 +475,26 @@ The testing methods for filtering is written for 3 different parts:
 * Also for every interacting command, *failure* and *success* cases are both investigated.
 
 // end::filter[]
+
+==== Combining the Command With Other Commands
+
+Since a new parameter is added to the `AddressBook` class, some changes should have done to adjust the existing processes to
+be used at the same time with filtering commands.
+
+===== Undo/Redo Command
+
+* A new local boolean parameter is added to the `AddressBook` class to hold if in that step the filtering exists or not. This addition is important for not losing the filtering information, not losing the storage data as a result of `undo/redo` processes, when filtering is active and being able to use `clearFilter()`, if undo and redo commands are used when filtering is active.
+* `resetData` method is modified in order to reset the `allPersonsStorage` parameter if needed.
+
+===== Add, Edit and Delete Commands
+
+* `delete` and `edit` processes are working without clearing the filter.
+* `add` method clears the filter when a new person is added. Because, all the previous filtering are not saved in anywhere, so we cannot control if the newly added person matches
+with the filtering criterion. Thus, all the filtering is cleared.
+
+===== Other Commands
+
+These are the ones that requires almost no changes or only small amount of changes to be compatible with filtering.
 
 // tag::sort[]
 === Sort Commands

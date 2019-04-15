@@ -43,6 +43,7 @@ https://github.com/CS2103-AY1819S2-W16-4/main/pull/59[#59] , https://github.com/
 * Updated `Add Command / List Command / Select Command Sections`.
 
 include::../UserGuide.adoc[tag=filter]
+
 include::../UserGuide.adoc[tag=cvview]
 
 == Contributions to the Developer Guide:
@@ -50,6 +51,8 @@ include::../UserGuide.adoc[tag=cvview]
 * A new section for filtering is added to the developer guide,iImplementation of the whole process including testing is explained in detail: +
 `DeveloperGuide -> Implementation -> Filter or/and/clear/reverse feature` (In the document below, basic explanation of the command types and valid input format of the related fields are excluded.
 Please look at the beginning part of the DeveloperGuide or read UserGuide section about filtering process to have a better understanding of the process) :
+
+
 include::../DeveloperGuide.adoc[tag=filter]
 
 

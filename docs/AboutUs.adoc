@@ -78,4 +78,4 @@ Responsibilities::
 
 * Contribute to task methods
 
-* Contribute to record methods 
+* Contribute to record methods

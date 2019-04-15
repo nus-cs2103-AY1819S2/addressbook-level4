@@ -14,11 +14,11 @@ public class ListEquipmentCommand extends Command {
 
     public static final String COMMAND_WORD = "list-e";
 
+    public static final String EXTRA_PARA_EXCEPTION = "Extra parameters will be ignored.";
+
     public static final String MESSAGE_SUCCESS = "Listed all equipment";
 
     private boolean extraPara = false;
-
-    public static final String EXTRA_PARA_EXCEPTION = "Extra parameters will be ignored.";
 
     /**
      * Crate a ListEquipmentCommand with {@code arguments} given.

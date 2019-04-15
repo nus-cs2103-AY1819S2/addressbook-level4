@@ -14,11 +14,11 @@ public class ListWorkListCommand extends Command {
 
     public static final String COMMAND_WORD = "list-w";
 
+    public static final String EXTRA_PARA_EXCEPTION = "Extra parameters will be ignored.";
+
     public static final String MESSAGE_SUCCESS = "Listed all worklists";
 
     private boolean extraPara = false;
-
-    public static final String EXTRA_PARA_EXCEPTION = "Extra parameters will be ignored.";
 
     /**
      * Crate a ListWorkListCommand with {@code arguments} given.

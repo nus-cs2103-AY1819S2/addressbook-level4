@@ -30,8 +30,8 @@ public class AddWorkListCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New WorkList created:(WorkListId) %1$s";
     public static final String MESSAGE_DUPLICATE_EQUIPMENT = "Duplicated WorkList ID, "
             + "this WorkList already exists in the equipment manager.";
-    public static final String INVALID_DATE = "Date format is not valid. Need to follow dd-mm-yyyy, for example" +
-            " 12-12-2019";
+    public static final String INVALID_DATE = "Date format is not valid. Need to follow dd-mm-yyyy, for example"
+            + " 12-12-2019";
 
     private final WorkList toAdd;
 

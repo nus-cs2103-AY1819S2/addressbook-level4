@@ -21,7 +21,7 @@ slaveFinder() is a desktop address book application used for people in the HR de
 
 * *Minor enhancement*: Added a major field and known programming language field which helps in the ranking and filtering of individuals for interviews
 
-* *Code contributed*:https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=githbub_username_in_lower_case (replace githbub_username_in_lower_case
+* *Code contributed*:https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=danieldssim
 
 * *Other contributions*:
 

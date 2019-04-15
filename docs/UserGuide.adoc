@@ -23,7 +23,7 @@ By: `W17-1`      Since: `Feb 2019`      Licence: `MIT`
 // tag::introductionUG[]
 == Welcome to The Food Diary
 
-If you would like to get use the Food Diary straightaway, jump to the <<Quick Start>> to get started
+If you would like to get to use the Food Diary straightaway, jump to <<Quick Start>> to get started
 
 **What is the Food Diary? **
 
@@ -38,7 +38,7 @@ Despite being optimized for those who prefer to work with a Command Line Interfa
 To all you fast-typers out there, FD can get your foodie tasks done faster than traditional GUI apps!
 Furthermore, FD also stores your data locally, ensuring that you get security on top of speed.
 
-Some of the features that can look forward to:
+Some of the features that you can look forward to:
 
 * Keeping track of restaurants you've visited.
 * Getting an aggregate rating over all your visits.
@@ -193,13 +193,13 @@ Format: `listUnvisited po/POSTAL_CODE`
 
 [NOTE]
 ====
-Calculation of proximity is based on postal code provided for the restaurant. If no postal code or an invalid postal code is provided for a restaurant, it will appear at the bottom of the list.
+Calculation of proximity is based on `Restaurant` 's postal code. If no postal code or an invalid postal code is provided for a restaurant, it will appear at the bottom of the list.
 ====
 
 Examples:
 
 * `listUnvisited po/267951` +
-Returns all the restaurants that has no reviews ranked based on the proximity to a postal code `267951`.
+Shows all the restaurants that has no reviews ranked based on the proximity to the postal code `267951`.
 
 [TIP]
 ====

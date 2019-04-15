@@ -307,8 +307,8 @@ It does this by first querying the `PostalData` of the postal code of the `Resta
 calculating the distance from the user inputted postal code.
 This result is then stored within the `Comparator` class.
 [NOTE]
-If a `Restaurant` postal code is invalid or not in `PostalDataSet`, the distance will be set to `Double.MAX_VALUE`.
-This implies that these `Restaurant` will appear at the bottom of the `SortedList`.
+If a `Restaurant` 's postal code is not in `PostalDataSet`, the distance will be set to `Double.MAX_VALUE`.
+This implies that this `Restaurant` will appear at the bottom of the `SortedList`.
 
 
 Given below is an example usage scenario and how 3 components behaves at each step.

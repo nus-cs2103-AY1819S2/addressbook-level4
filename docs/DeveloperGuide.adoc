@@ -1484,6 +1484,28 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
+=== Authentication
+
+. Using another account, and with the correct authority level.
+
+.. Prerequisites: Password and UserType are changed. Add 2 people using the `add` command, edit the second person's password and UserType using the `edit` command:
+`edit 2 pw/pass u/A`. Then exit the program.
+.. Test case: log back in with the first person's NRIC as username and password. +
+Expected: logs in.
+.. Test case: use command `clear`. +
+Expected: User cannot use the clear command.
+.. Test case: use `edit` command on any field. Eg: `edit n/John` +
+Expected: user will change own account fields.
+.. Test case: use exit the program, then log in with second person's NRIC as username, and 'pass' as password. +
+Expected: Able to log in.
+.. Test case: use an admin type command, like `add`. +
+Expected: able to add.
+.. Test case: edit own NRIC or usertype. Example: `edit INDEX nr/S9676543K`, where INDEX corresponds to your own account. +
+Expected: program will exit by itself, user edited (Can check by logging back in using "Admin" as username and password).
+.. Test case: login to another admin account (besides the one with "Admin" as a username and password), and delete own account using `delete INDEX`.
+Expected: program will exit by itself.
+.. Add more admin and general accounts, and try using both admin and general commands to see if they can use the correct commands based on their authority.
+
 === Deleting a person
 
 . Deleting a person while all persons are listed

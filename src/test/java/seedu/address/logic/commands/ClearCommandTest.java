@@ -7,6 +7,7 @@ import static seedu.address.testutil.TypicalPersons.getTypicalPersonnelDatabase;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.UserType;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -23,7 +24,8 @@ public class ClearCommandTest {
         Model expectedModel = new ModelManager();
         expectedModel.commitPersonnelDatabase();
 
-        assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ClearCommand(UserType.DEFAULT_ADMIN_USERNAME),
+                model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
@@ -33,7 +35,8 @@ public class ClearCommandTest {
         expectedModel.setPersonnelDatabase(new PersonnelDatabase());
         expectedModel.commitPersonnelDatabase();
 
-        assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ClearCommand(UserType.DEFAULT_ADMIN_USERNAME),
+                model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
@@ -42,7 +45,8 @@ public class ClearCommandTest {
         Model expectedModel = new ModelManager();
         expectedModel.commitPersonnelDatabase();
 
-        assertCommandFailureGeneral(new ClearCommand(), model, commandHistory, Messages.MESSAGE_NO_AUTHORITY);
+        assertCommandFailureGeneral(new ClearCommand(UserType.DEFAULT_ADMIN_USERNAME),
+                model, commandHistory, Messages.MESSAGE_NO_AUTHORITY);
     }
 
     @Test
@@ -52,7 +56,8 @@ public class ClearCommandTest {
         expectedModel.setPersonnelDatabase(new PersonnelDatabase());
         expectedModel.commitPersonnelDatabase();
 
-        assertCommandFailureGeneral(new ClearCommand(), model, commandHistory, Messages.MESSAGE_NO_AUTHORITY);
+        assertCommandFailureGeneral(new ClearCommand(UserType.DEFAULT_ADMIN_USERNAME),
+                model, commandHistory, Messages.MESSAGE_NO_AUTHORITY);
     }
 
 }

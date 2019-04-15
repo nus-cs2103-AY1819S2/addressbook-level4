@@ -357,7 +357,7 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(null));
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearCommand()));
+        assertFalse(standardCommand.equals(new ClearCommand(UserType.DEFAULT_ADMIN_USERNAME)));
 
         // different index -> returns false
         assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_PERSON, DESC_AMY,
@@ -385,7 +385,7 @@ public class EditCommandTest {
         assertTrue(standardCommandGeneral.equals(standardCommandGeneral));
 
         // different types -> returns false
-        assertFalse(standardCommandGeneral.equals(new ClearCommand()));
+        assertFalse(standardCommandGeneral.equals(new ClearCommand(UserType.DEFAULT_ADMIN_USERNAME)));
 
         // with Index ->returns false
         assertFalse(standardCommandGeneral.equals(new EditCommand(INDEX_SECOND_PERSON, DESC_AMY, personNric)));

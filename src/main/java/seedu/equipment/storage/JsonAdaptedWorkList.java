@@ -95,7 +95,7 @@ class JsonAdaptedWorkList {
 
         int numOfEquipments = modelEquipments.size();
         Iterator<Equipment> ir = modelEquipments.iterator();
-        for(int i = 0; i < numOfEquipments; i++) {
+        for (int i = 0; i < numOfEquipments; i++) {
             thisWorkList.addEquipment(ir.next());
         }
         return thisWorkList;

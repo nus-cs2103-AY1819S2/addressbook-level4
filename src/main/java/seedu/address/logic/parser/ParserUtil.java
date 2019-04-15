@@ -46,7 +46,7 @@ public class ParserUtil {
      */
     public static ModuleInfoCode moduleInfoCode(String moduleInfoCode) throws ParseException {
         requireNonNull(moduleInfoCode);
-        String trimmedName = moduleInfoCode.trim();
+        String trimmedName = moduleInfoCode.trim().toUpperCase();
         if (!ModuleInfoCode.isValidModuleInfoCode(trimmedName)) {
             throw new ParseException(ModuleInfoCode.MESSAGE_CONSTRAINTS);
         }
@@ -76,7 +76,7 @@ public class ParserUtil {
      */
     public static Semester parseSemester(String semester) throws ParseException {
         requireNonNull(semester);
-        String trimmedSemester = semester.trim();
+        String trimmedSemester = semester.trim().toUpperCase();
         if (!Semester.isValidSemesterForTakingModules(trimmedSemester)) {
             throw new ParseException(Semester.MESSAGE_CONSTRAINTS);
         }
@@ -91,7 +91,7 @@ public class ParserUtil {
      */
     public static Grade parseGrade(String grade) throws ParseException {
         requireNonNull(grade);
-        String trimmedGrade = grade.trim();
+        String trimmedGrade = grade.trim().toUpperCase();
         if (!Grade.isValidGrade(trimmedGrade)) {
             throw new ParseException(Grade.MESSAGE_CONSTRAINTS);
         }

@@ -487,6 +487,10 @@ member in the `filteredPersonList`.
 
 The `memberSelect` command is naturally tied with the User Interface.
 
+image::updatedUIcomponent.png[width=100%]
+
+When a member is selected, the `memberDetailPanel` will populate the information of the selected person. The `ActivitiesAttendedByMemberPanel` will also populate the activities that are attended by member.
+For the population of member statistics, it is less straightforward. The calling flow is UI to Logic to Model. This is illustrated in the diagram below.
 
 //end::memberselect[]
 

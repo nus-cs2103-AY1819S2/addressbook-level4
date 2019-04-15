@@ -127,9 +127,12 @@ After forking the repo, the documentation will still have the SE-EDU branding an
 
 If you plan to develop this fork as a separate product (i.e. instead of contributing to *se-edu/addressbook-level4*), you should do the following:
 
-. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[[.java]#build.gradle#], such as the [.java]#site-name#, to suit your own project.
+. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/blob/master/build
+.gradle[[.java]#build.gradle#], such as the [.java]#site-name#, to suit your own project.
 
-. Replace the URL in the attribute [.java]#repoURL# in link:{repoURL}/docs/DeveloperGuide.adoc[[.java]#DeveloperGuide.adoc#] and link:{repoURL}/docs/UserGuide.adoc[[.java]#UserGuide.adoc#] with the URL of your fork.
+. Replace the URL in the attribute [.java]#repoURL# in link:{repoURL}/blob/master/docs/DeveloperGuide.adoc[[
+.java]#DeveloperGuide.adoc#] and link:{repoURL}/blob/master/docs/UserGuide.adoc[[.java]#UserGuide.adoc#] with the URL
+ of your fork.
 
 ==== Setting up CI
 
@@ -161,11 +164,16 @@ The _Architecture Diagram_ given below explains the high-level design of the ROR
 image::Architecture.png[width="600"]
 
 [TIP]
-The *.pptx* files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose btn:[Save as picture] and save your new diagram into the link:{repoURL}/docs/images/[images] folder.
+The *.pptx* files used to create diagrams in this document can be found in the
+link:{repoURL}/blob/master/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file,
+select the
+objects of the diagram, and choose btn:[Save as picture] and save your new diagram into the
+link:{repoURL}/blob/master/docs/images/[images] folder.
 
 Given below is a quick overview of each component.
 
-[.java]#Main# has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[[.java]#MainApp#]. It has two functions:
+[.java]#Main# has only one class called link:{repoURL}/blob/master/src/main/java/seedu/address/MainApp.java[[
+.java]#MainApp#]. It has two functions:
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method(s) where necessary.
@@ -214,7 +222,10 @@ image::UiClassDiagram.png[width="800"]
 
 The UI consists of a [.java]#MainWindow# that is made up of parts such as [.java]#CommandBox#, [.java]#ResultDisplay# and [.java]#StatusBarFooter#. All these, including the [.java]#MainWindow#, inherit from the abstract [.java]#UiPart# class. Not all the parts are displayed to the user at the same time (eg. [.java]#TableFlowPanel# is not shown together with [.java]#StatisticsFlowPanel#). The parts that are shown depends on the <<Modes, mode>>.
 
-The [.java]#UI# component uses JavaFx UI framework. The layout of these UI parts are defined in matching *.fxml* files that are in the [.java]#src/main/resources/view# folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[[.java]#MainWindow#] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[[.java]#MainWindow.fxml#].
+The [.java]#UI# component uses JavaFx UI framework. The layout of these UI parts are defined in matching *.fxml*
+files that are in the [.java]#/blob/master/src/main/resources/view# folder. For example, the layout of the
+link:{repoURL}/blob/master/src/main/java/seedu/address/ui/MainWindow.java[[.java]#MainWindow#] is specified in
+link:{repoURL}/blob/master/src/main/resources/view/MainWindow.fxml[[.java]#MainWindow.fxml#].
 
 The [.java]#UI# component:
 
@@ -1288,7 +1299,8 @@ image::chrome_save_as_pdf.png[width="300"]
 [[Docs-SiteWideDocSettings]]
 === Site-wide Documentation Settings
 
-The link:{repoURL}/build.gradle[[.java]#build.gradle#] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+The link:{repoURL}/blob/master/build.gradle[[.java]#build.gradle#] file specifies some project-specific
+https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
 
 [TIP]
 Attributes left unset in the [.java]#build.gradle# file will use their *default value*, if any.
@@ -1346,15 +1358,18 @@ _{asterisk} Official SE-EDU projects only_
 
 === Site Template
 
-The files in link:{repoURL}/docs/stylesheets[[.java]#docs/stylesheets#] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
+The files in link:{repoURL}/blob/master/docs/stylesheets[[.java]#docs/stylesheets#] are the https://developer.mozilla
+.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
 You can modify them to change some properties of the site's design.
 
-The files in link:{repoURL}/docs/templates[[.java]#docs/templates#] controls the rendering of *.adoc* files into HTML5.
+The files in link:{repoURL}/blob/master/docs/templates[[.java]#docs/templates#] controls the rendering of *.adoc* files
+into HTML5.
 These template files are written in a mixture of https://www.ruby-lang.org[Ruby] and http://slim-lang.com[Slim].
 
 [WARNING]
 ====
-Modifying the template files in link:{repoURL}/docs/templates[[.java]#docs/templates#] requires some knowledge and experience with Ruby and Asciidoctor's API.
+Modifying the template files in link:{repoURL}/blob/master/docs/templates[[.java]#docs/templates#] requires some
+knowledge and experience with Ruby and Asciidoctor's API.
 You should only modify them if you need greater control over the site's layout than what stylesheets can provide.
 The SE-EDU team does not provide support for modified template files.
 ====
@@ -1430,7 +1445,8 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[[.java]#MainApp.java#].
+.  Update the version number in link:{repoURL}/blob/master/src/main/java/seedu/address/MainApp.java[[.java]#MainApp
+.java#].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. *v0.1*
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.

@@ -21,11 +21,11 @@ endif::[]
 :doctype: article
 :reproducible:
 
-= *PROJECT: TravelBuddy*
+= PROJECT: TravelBuddy
 
 ---
 
-== *Overview*
+== Overview
 
 This document serves to highlight my contributions to *TravelBuddy*, a travel journaling application. +
 
@@ -39,13 +39,13 @@ functionality, TravelBuddy also gives travelers new insights about their adventu
 *TravelBuddy* was built as part of the CS2103 Software Engineering module in the National University of Singapore, in which link:https://cs2103-ay1819s2-w11-3.github.io/main/AboutUs.html[my team and I] were tasked to
 morph an existing link:https://se-education.org/addressbook-level4/[Address Book] software product, and turn it into a new product -- *TravelBuddy*. The full source code for *TravelBuddy* is available link:https://github.com/CS2103-AY1819S2-W11-3/main[here].
 
-== *Summary of Contributions*
+== Summary of Contributions
 
 This section gives an overview of my contributions to the development and testing
 of the software. A more detailed sample of my contributions to the User Guide and Developer Guide
 can be found below in <<User Guide Contributions>> and <<Developer Guide Contributions>> .
 
-=== *Major Enhancement*: Photo Functionality
+=== Major Enhancement: Photo Functionality
 Photo functionality refers to the ability to include an image file with a user-defined Place. This functionality includes the ability to:
 
 * *Add a photo* to a Place +
@@ -74,7 +74,7 @@ Hence, changes to `addParser` and `ParserUtil` were also needed to take into acc
 
 *Code contributed to major enhancement*: [link:https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=shaun&sort=displayName&since=2019-02-10&timeframe=day&reverse=false&repoSort=true[RepoSense]] [link:{repoURL}/pulls?utf8=✓&q=is%3Apr+author%3Ashaungohsc+label%3Atype.Enhancement+[Functional code]]
 
-=== *Minor Enhancement*: View Switching between Place view and Chart view
+=== Minor Enhancement: View Switching between Place view and Chart view
 
 On calling the `generate` command, the Chart view is displayed to the user. On calling the `select` command, the expanded Place view is displayed to the user.
 
@@ -99,7 +99,7 @@ It also needs to be responsible for view switching.
 This section gives a sample overview of other miscellaneous contributions to TravelBuddy.
 
 * *Project management*:
-** Managed release `v1.4` (1 release) on GitHub
+** Managed release `v1.4` (1 release) on https://github.com/CS2103-AY1819S2-W11-3/main/releases/tag/v1.4[GitHub]
 * *Enhancements to existing features*:
 ** Updated `PlaceCard` for new data fields (Pull requests https://github.com/CS2103-AY1819S2-W11-3/main/pull/71[#71], https://github.com/CS2103-AY1819S2-W11-3/main/pull/107[#107])
 ** Updated the UI CSS so all UI components are inline with the color palette (Pull request https://github.com/CS2103-AY1819S2-W11-3/main/pull/186[#186])

@@ -582,6 +582,7 @@ e.g. `filter or phone<9>phone edu<NUS>edu pos<Manager, Developer>pos deg<high sc
 ** Usage 4: `filter reverse`
 
 * *Sort* : `sort [reverse] KEYWORD` +
+Valid KEYWORDs: `name`; `surname`; `education`; `gpa`; `degree`; `skills`; `positions`; `endorsements`; `skill number`; `position number`;  `endorsement number` +
 e.g. `sort name` +
 e.g. `sort reverse education`
 * *Endorse* : `endorse [clear] INDEX n/NAME` +

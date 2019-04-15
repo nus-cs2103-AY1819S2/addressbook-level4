@@ -3,11 +3,10 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
+---
 == PROJECT: RestOrRant
 
----
-
-== About the project
+== Overview
 
 My team and I were given a basic command line interface addressbook program and were tasked to enhance or morph it for our Software Engineering module project. We decided to morph it into a restaurant management system called _RestOrRant_. With _RestOrRant_, the restaurant's front-end operations can be streamlined via automation to maximise efficiency for waiters and cashiers. _RestOrRant_ allows restaurant managers to manage tables (availabilities and lists of orders), orders (whether they have been served and calculation of the bill), menu (updates to the menu) and statistics (daily, monthly and yearly revenue).
 

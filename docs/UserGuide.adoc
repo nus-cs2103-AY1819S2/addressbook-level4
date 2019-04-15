@@ -60,7 +60,7 @@ Format: `help`
 === Adding a patient: `add-p`
 
 Adds a patient to docX +
-Format: `add-p [n/NAME] [g/GENDER] [a/AGE] [p/PHONE_NUMBER] [adr/ADDRESS] [t/TAG]`
+Format: `add-p [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [adr/ADDRESS] [t/TAG]`
 
 ****
 * A patient can have any number of tags (including 0) +
@@ -164,16 +164,16 @@ Returns `Alex Martin` and `Tom Hiddleston` who has appointment status of `ACTIVE
 
 Search and return patient(s) whose detail contains all of the given keywords,
 even if the keyword is only a subword of the patient's info +
-Use a "quoted_keyword" to enforce fullword match to the patient's info
+Use a "quoted_keyword" to enforce fullword match to the patient's info +
 Format: `search-p-advanced [keyword] ["quoted_keyword"]...`
 
 ****
 * The search is case insensitive. e.g `aLeX` will match `Alex`
 * The order of the keywords does not matter. e.g. `stroke cancer` will match `cancer stroke`
 * With "unquoted_keyword", subwords will be matched +
-e.g. `blood` will match `highbloodpressure`
+e.g. `blood` will match `highbloodpressure` and `bloodclot`
 * With quoted keyword, only the full word will be matched +
-e.g. `"blood"` will not match `highbloodpressure`
+e.g. `"blood"` will only match `blood` and not match `highbloodpressure`
 * "quoted_keyword" must be one word and contain no spaces
 * All the keywords input must be present in a patient's info to be true.
 ****
@@ -186,10 +186,10 @@ Examples:
 * `search-p-advanced blood alex` +
 Returns both `Alex Martin` who has a `bloodclot` tag and `Alexander Fleming` who has a `highbloodpressure` tag
 * `search-p-advanced blood "alex"` +
-Returns `Alex Martin` who has a `bloodclot` tag. +
-Will not return `Alexander Fleming` who has a `highbloodpressure` tag
+Returns `Alex Martin` who has a `bloodclot` tag +
+and will not return `Alexander Fleming` who has a `highbloodpressure` tag
 * `search-p-advanced "blood" "alex"` +
-Will return neither `Alex Martin` who has a `bloodclot` tag. +
+Will return neither `Alex Martin` who has a `bloodclot` tag +
 nor `Alexander Fleming` who has a `highbloodpressure` tag
 
 
@@ -684,11 +684,10 @@ The user will be able to enable/disable the encryption of data files through a b
 
 PATIENT COMMANDS
 
-* *Add a new patient* `add-p [n/NAME] [g/GENDER] [a/AGE] [p/PHONE_NUMBER] [adr/ADDRESS] [t/TAG]` +
+* *Add a new patient* `add-p [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [adr/ADDRESS] [t/TAG]` +
 * *List existing patients* : `list-p`
 * *Edit an existing patient* : `edit-p [INDEX] [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [adr/ADDRESS] [t/TAG]` +
 * *Delete an existing patient* : `delete-p [INDEX]` +
-e.g. `delete-p 3`
 * *Searching a patient by name* : `search-p-name [NAME]` +
 * *Searching a patient by pid* : `search-pid [pid]` +
 * *Searching a patient by appt status* : `search-p-status [STATUS]` +

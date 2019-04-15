@@ -196,7 +196,7 @@ image::ListTagsSdForLogic.png[width="800"]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[width="400", align="center"]
+image::ModelClassDiagram.png[width="800"]
 
 // end::model[]
 
@@ -331,7 +331,7 @@ Simpler implementation means the likelihood of bugs being introduced is less whe
 
 {empty} +
 
-// tag::putShip[]
+// tag::putShip1[]
 
 === Ship Management Feature
 ==== Current Implementation
@@ -365,13 +365,22 @@ The management of ships can be carried out with three commands, namely `put`, `l
 
 The `put` command puts a ship on the map grid, specified by the __head coordinates__.
 
+// end::putShip1[]
+
+// tag::putShipHeadCoordinates[]
+
 ====
 *__What are the head coordinates?__*
 
 The head coordinates are the coordinates of the top-most and left-most cell of a ship. When coordinates are specified in the `put` command, they refer to the head coordinates of the ship.
 
-image:BattleshipHeadExample.png[width=400, align="center"]
+
+image:BattleshipHeadExample.png[width=800]
 ====
+
+// end::putShipHeadCoordinates[]
+
+// tag::putShip2[]
 
 The following operations are called when the `put` command is called.
 
@@ -392,7 +401,7 @@ Once `BoundaryValueChecker` has finished its checks and if there are no exceptio
 .Sequence diagram of putting a battleship on the map.
 image::PutShipSequenceDiagram.png[width=800, align="center"]
 
-// end::putShip[]
+// end::putShip2[]
 
 
 // tag::listTags[]
@@ -408,12 +417,6 @@ include::../src/main/java/seedu/address/model/Player/Fleet.java[lines=212..222]
 
 
 // end::listTags[]
-
-
-The sequence diagram below shows how the tags are listed.
-
-.Sequence diagram of listing battleship tags.
-image::ListTagsSequenceDiagram.png[width=800, align="center"]
 
 
 // tag::listShips[]

@@ -74,11 +74,20 @@ dependencies {
     testRuntimeOnly group: 'org.testfx', name: 'openjfx-monocle', version: 'jdk-9+181'
     testRuntimeOnly group:'org.junit.vintage', name:'junit-vintage-engine', version: jUnitVersion
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
+    compile group: 'com.drewnoakes', name: 'metadata-extractor', version: '2.6.2'
+    compile group: 'org.apache.commons', name: 'commons-io', version: '1.3.2'
+    compile group: 'net.imagej', name: 'ij', version: '1.52k'
+    // https://mvnrepository.com/artifact/org.imgscalr/imgscalr-lib
+    compile group: 'org.imgscalr', name: 'imgscalr-lib', version: '4.2'
+    // https://mvnrepository.com/artifact/com.sksamuel.scrimage/scrimage-core
+    compile group: 'com.sksamuel.scrimage', name: 'scrimage-core_2.12', version: '3.0.0-alpha4'
+    // https://mvnrepository.com/artifact/com.sksamuel.scrimage/scrimage-filters
+    compile group: 'com.sksamuel.scrimage', name: 'scrimage-filters_2.12', version: '3.0.0-alpha4'
+    compile 'com.google.guava:guava:27.1-jre'
 }
 
 shadowJar {
     archiveName = 'addressbook.jar'
-
     destinationDir = file("${buildDir}/jar/")
 }
 
@@ -202,9 +211,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level4',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level4',
-        'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
+        'site-name': 'FomoFoto',
+        'site-githuburl': 'https://cs2103-ay1819s2-w14-2.github.io/main/',
     ]
 
     options['template_dirs'].each {

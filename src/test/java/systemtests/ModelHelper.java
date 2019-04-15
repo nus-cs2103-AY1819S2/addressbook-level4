@@ -5,12 +5,16 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+import org.junit.Ignore;
+
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
  * Contains helper methods to set up {@code Model} for testing.
  */
+
+@Ignore
 public class ModelHelper {
     private static final Predicate<Person> PREDICATE_MATCHING_NO_PERSONS = unused -> false;
 

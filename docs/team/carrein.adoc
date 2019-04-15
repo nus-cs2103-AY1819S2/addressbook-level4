@@ -1,0 +1,138 @@
+= Addison Ho's Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Project Title: FomoFoto
+=== Overview
+FomoFoto is a robust yet simple image-editing tool. Users interact with the application through worded commands from their keyboard and receive visual feedback from it through the displayed image on the application. +
+
+Unlike other heavy image editors, FomoFoto has a gentle learning curve, removing clutter while still retaining essential features. All features and their implementations are well documented in guides for both users and developers respectively.
+
+'''
+
+=== Summary of contributions
+
+==== Major Enhancements:
+1. Importing of images.
+
+** *What it does:*
+Allow users to import images into FomoFoto for editing. Imported images are added to an Album in FomoFoto that can be opened for edits such as Image Transformation and Filters.
+
+** *Justification:*
+This feature is core to the operation of FomoFoto. Without the ability to import images, an image editor cannot function properly since there is no image to modify.
+
+** *Highlights:*
+This enhancement is tough to implement as it requires many checks to ensure the image is valid. Images which do not fit the rule set such as wrong name formats are rejected. Users are also given the flexibility to import a single image or a directory.
+
+2. Overall user interaction and interface/experience design.
+
+** *What it does:*
+FomoFoto has an intuitive, human-centric design. Users are able to see the images they are editing, the information of images in the Album, their details and all edits applied.
+
+** *Justification:* A good user interface facilitates easy usage of the editor. Users are able to get a good overview of the edits they are doing simply by observing the image and information available on the screen. This feature comprises of five components:
+*** `Initial Panel` - Contains a quick start message on FomoFoto's first start, giving users a high-level overview of the commands available.
+*** `Image Panel` - Displays the image currently opened for editing.
+*** `Album Images Panel` - Displays all images imported to FomoFoto's Album.
+*** `EXIF Profile Panel` - Displays core details such as Time and Location Taken about the opened image shown on the Image Panel.
+*** `Command History Panel` - Displays all previously applied edits on the opened image shown on the Image Panel.
+
+** *Highlights:* This enhancement is core to the operation of FomoFoto. Since we are dealing with images, it is paramount to show the item that is being worked on. Without it, there is no visual cue if the edits being carried out is accurate. Careful attention has been paid to ensure images are aligned accurately with a clean colour scheme.
+
+==== Minor Enhancements:
+1. Tab Command.
+** Added a Tab Command that allows the user to interact with the Information Panel without using a mouse.
+
+2. Inclusion of `sample` image folder.
+** Added a folder containing a list of valid and invalid images. These images can be used for command and feature testing.
+** Example of sample images:
+*** `validJPGTest.jpg`
+*** `invalidPDFTest.pdf`
+
+3. Image and Album classes.
+** Breaks down imported images in FomoFoto to an extensible Image class which is added to an Album. This ensures all images are valid and allows the creation of other commands by tapping on Album's methods.
+
+==== Code Contributed:
+* https://github.com/CS2103-AY1819S2-W14-2/main/commits?author=carrein[List of commits]
+* https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=carrein[Project Code Dashboard]
+
+'''
+
+=== Other Contributions
+
+==== Project Management:
+*** Managed 2 version releases on GitHub: +
+https://github.com/CS2103-AY1819S2-W14-2/main/releases/tag/v1.1[v1.1],
+https://github.com/CS2103-AY1819S2-W14-2/main/releases/tag/v1.3[v1.3]
+
+==== Enhancements to Existing Features:
+*** Additional unit tests for existing features to increase overall coverage: +
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/187[#187], https://github.com/CS2103-AY1819S2-W14-2/main/issues/193[#193], https://github.com/CS2103-AY1819S2-W14-2/main/issues/230[#230], https://github.com/CS2103-AY1819S2-W14-2/main/issues/236[#236]
+
+==== Documentation:
+*** Addendum tweaks to existing contents of the User Guide: https://github.com/CS2103-AY1819S2-W14-2/main/issues/236[#236]
+
+==== Community:
+*** Core PRs Contributed: +
+    https://github.com/CS2103-AY1819S2-W14-2/main/issues/10[#10], https://github.com/CS2103-AY1819S2-W14-2/main/issues/56[#56], https://github.com/CS2103-AY1819S2-W14-2/main/issues/75[#75], https://github.com/CS2103-AY1819S2-W14-2/main/issues/87[#87], https://github.com/CS2103-AY1819S2-W14-2/main/issues/105[#105], https://github.com/CS2103-AY1819S2-W14-2/main/issues/111[#111], https://github.com/CS2103-AY1819S2-W14-2/main/issues/119[#119], https://github.com/CS2103-AY1819S2-W14-2/main/issues/125[#125], https://github.com/CS2103-AY1819S2-W14-2/main/issues/156[#156], https://github.com/CS2103-AY1819S2-W14-2/main/issues/163[#163], https://github.com/CS2103-AY1819S2-W14-2/main/issues/193[#193], https://github.com/CS2103-AY1819S2-W14-2/main/issues/195[#195], https://github.com/CS2103-AY1819S2-W14-2/main/issues/202[#202], https://github.com/CS2103-AY1819S2-W14-2/main/issues/203[#203],
+ https://github.com/CS2103-AY1819S2-W14-2/main/issues/215[#215], https://github.com/CS2103-AY1819S2-W14-2/main/issues/239[#239],
+ https://github.com/CS2103-AY1819S2-W14-2/main/issues/246[#246]
+
+*** Core PRs Reviewed: +
+    https://github.com/CS2103-AY1819S2-W14-2/main/issues/45[#45], https://github.com/CS2103-AY1819S2-W14-2/main/issues/56[#56], https://github.com/CS2103-AY1819S2-W14-2/main/issues/72[#72], https://github.com/CS2103-AY1819S2-W14-2/main/issues/75[#75], https://github.com/CS2103-AY1819S2-W14-2/main/issues/84[#84], https://github.com/CS2103-AY1819S2-W14-2/main/issues/87[#87], https://github.com/CS2103-AY1819S2-W14-2/main/issues/157[#157], https://github.com/CS2103-AY1819S2-W14-2/main/issues/194[#194]
+
+*** Core Issues Opened: +
+    https://github.com/CS2103-AY1819S2-W14-2/main/issues/11[#11], https://github.com/CS2103-AY1819S2-W14-2/main/issues/13[#13], https://github.com/CS2103-AY1819S2-W14-2/main/issues/30[#30], https://github.com/CS2103-AY1819S2-W14-2/main/issues/31[#31], https://github.com/CS2103-AY1819S2-W14-2/main/issues/41[#41], https://github.com/CS2103-AY1819S2-W14-2/main/issues/42[#42], https://github.com/CS2103-AY1819S2-W14-2/main/issues/43[#43], https://github.com/CS2103-AY1819S2-W14-2/main/issues/44[#44], https://github.com/CS2103-AY1819S2-W14-2/main/issues/73[#73], https://github.com/CS2103-AY1819S2-W14-2/main/issues/76[#76], https://github.com/CS2103-AY1819S2-W14-2/main/issues/77[#77], https://github.com/CS2103-AY1819S2-W14-2/main/issues/78[#78], https://github.com/CS2103-AY1819S2-W14-2/main/issues/79[#79], https://github.com/CS2103-AY1819S2-W14-2/main/issues/81[#81], https://github.com/CS2103-AY1819S2-W14-2/main/issues/82[#82], https://github.com/CS2103-AY1819S2-W14-2/main/issues/83[#83], https://github.com/CS2103-AY1819S2-W14-2/main/issues/85[#85], https://github.com/CS2103-AY1819S2-W14-2/main/issues/95[#95], https://github.com/CS2103-AY1819S2-W14-2/main/issues/109[#109], https://github.com/CS2103-AY1819S2-W14-2/main/issues/149[#149]
+
+*** Core Issues Reviewed: +
+    https://github.com/CS2103-AY1819S2-W14-2/main/issues/64[#64], https://github.com/CS2103-AY1819S2-W14-2/main/issues/108[#108], https://github.com/CS2103-AY1819S2-W14-2/main/issues/148[#148] https://github.com/CS2103-AY1819S2-W14-2/main/issues/165[#165], https://github.com/CS2103-AY1819S2-W14-2/main/issues/166[#166], https://github.com/CS2103-AY1819S2-W14-2/main/issues/169[#169], https://github.com/CS2103-AY1819S2-W14-2/main/issues/170[#170], https://github.com/CS2103-AY1819S2-W14-2/main/issues/175[#175], https://github.com/CS2103-AY1819S2-W14-2/main/issues/176[#176], https://github.com/CS2103-AY1819S2-W14-2/main/issues/177[#177], https://github.com/CS2103-AY1819S2-W14-2/main/issues/178[#178], https://github.com/CS2103-AY1819S2-W14-2/main/issues/181[#181], https://github.com/CS2103-AY1819S2-W14-2/main/issues/183[#183], https://github.com/CS2103-AY1819S2-W14-2/main/issues/185[#185], https://github.com/CS2103-AY1819S2-W14-2/main/issues/186[#186], https://github.com/CS2103-AY1819S2-W14-2/main/issues/236[#236]
+
+==== Tools:
+*** Integrated TravisCI to the team repo.
+*** Integrated Coveralls to the team repo.
+*** Added Issue Templates to the team repo.
+
+== Contributions to the User Guide
+
+|===
+|_The section below showcases my contributions towards the User Guide._
+|===
+
+=== Quick Start
+'''
+include::../UserGuide.adoc[tag=QuickStart]
+
+=== Import Command
+'''
+include::../UserGuide.adoc[tag=Import]
+
+=== Tab Command
+'''
+include::../UserGuide.adoc[tag=Tab]
+
+== Contributions to the Developer Guide
+
+|===
+|_The section below showcases my contributions towards the Developer Guide._
+|===
+
+
+=== Album and Image Class
+'''
+include::../DeveloperGuide.adoc[tag=albumModel]
+
+=== User Interface Overhaul
+'''
+include::../DeveloperGuide.adoc[tag=ui]
+
+=== Import and ImportParser Class
+'''
+include::../DeveloperGuide.adoc[tag=import]
+
+=== Assets and Temp Folder
+'''
+include::../DeveloperGuide.adoc[tag=DetailsStorage]
+
+=== Additional Work Contributed:
+'''
+* Appendix A, C, D, E and F.

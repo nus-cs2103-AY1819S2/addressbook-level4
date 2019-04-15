@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- @@author Carrein -->
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1">
+   <ImageView fx:id="imageView" fitHeight="300.0" fitWidth="300.0" nodeOrientation="INHERIT" StackPane.alignment="CENTER" />
+</StackPane>

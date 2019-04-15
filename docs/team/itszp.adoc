@@ -1,0 +1,121 @@
+= Tay Zhan Peng's Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+ This portfolio seeks to document my contributions to our team's project, FomoFoto.
+
+== Project Title: FomoFoto
+
+
+== Overview
+
+My team and I were tasked with enhancing a basic command line Address Book for our software engineering project. We decided to morph the project into an image editor. +
+
+FomoFoto is a robust yet simple image-editing tool. Users interact with the application through worded commands from their keyboard, and receive visual feedback from it through the displayed image on the application. +
+
+Unlike other heavy image editors, FomoFoto has a very gentle learning curve as it abstracts out clutter by providing the more essential features (complex editing can still be done with special commands). The features and implementations are well documented in guides for users and developers respectively.
+
+In addition, FomoFoto is well-maintained with high reliability and code quality as it is covered by rigorous tests and checks.
+
+== Summary of contributions
+This section provides a summary of my coding, documentation and other contributions to FomoFoto, our team project.
+
+=== *Major Enhancement* -- Added the feature to open an image.
+
+** _What it does:_ The `open` command allows users to open an image that was previously imported into the album for editing.
+
+** _Why it is important:_ This feature is essential as it enables users to choose which image they want to edit. Upon using the `open` command, the chosen image is displayed prominently in the main window of the application, allowing users to know which image they are about to apply their edits on.
+
+** _Highlights:_ The `open` command duplicates the opened image so that users are able to recover the original image should they decide to abandon their edits or in the unlikely event of an application crash. Therefore, this enhancement requires in-depth analysis on how the temporary image is stored. When an image is opened, two copies named `ori_img.png` and `temp_img.png` are created in the temporary folder. Subsequent edits will update and overwrite `temp_img.png` while `ori_img.png` is used for `undo` and `redo` operations.
+
+=== *Major Enhancement* -- Added the feature to save an image.
+
+** _What it does:_ The `save` command allows users to apply their edits to the image and save it as a new image.
+
+** _Why it is important:_ This feature completes the image editor by enabling users to apply their edits permanently onto the image. It also gives users the ability to save their current work and resume editing at another time.
+
+** _Highlights:_ The `save` command gives users the choice to either save the edited image with a new name or overwrite the original image. To save as a new image, users simply type `save newName.png` and an image named `newName.png` will be created in the album. To overwrite the original image, a simple `save` would suffice. After saving, users may continue to edit the image.
+
+
+=== *Minor Enhancement* -- Added the feature to list file names.
+
+The `listfiles` command displays all the names of the images in the album. It provides a quick reference to the images so that users may type the name correctly when using `open`.
+
+
+=== *Code Contributed*
+Here are the code contributions that I have made. [https://github.com/CS2103-AY1819S2-W14-2/main/commits?author=itszp[List of Commits]]  [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=itszp[Project Code Dashboard]]
+
+
+=== *Other Contributions*
+
+** Project management:
+*** Managed release `v1.2`, `v1.3`, `v1.3.1` and `v1.4` (4 releases) on GitHub.
+*** Managed labels, milestones and issues for issue tracking on GitHub.
+
+** Documentation:
+*** Wrote features implemented for the User Guide: https://github.com/CS2103-AY1819S2-W14-2/main/pull/58[#58],
+https://github.com/CS2103-AY1819S2-W14-2/main/pull/142[#142]
+*** Wrote features implemented and User Stories for the Developer Guide: https://github.com/CS2103-AY1819S2-W14-2/main/pull/129[#129],
+https://github.com/CS2103-AY1819S2-W14-2/main/pull/244[#244]
+
+** Community:
+*** Reviewed pull requests:
+https://github.com/CS2103-AY1819S2-W14-2/main/pull/39[#39],
+https://github.com/CS2103-AY1819S2-W14-2/main/pull/239[#239],
+https://github.com/CS2103-AY1819S2-W14-2/main/pull/242[#242],
+https://github.com/CS2103-AY1819S2-W14-2/main/pull/247[#247]
+*** Reported bugs and provided solutions to team:
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/70[#70],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/89[#89],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/93[#93],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/103[#103],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/128[#128],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/159[#159],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/189[#189]
+*** Raised core issues:
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/32[#32],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/63[#63],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/64[#64],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/71[#71],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/114[#114],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/160[#160],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/224[#224]
+
+
+== Contributions to the User Guide
+
+This section highlights my contributions to the User Guide. It showcases my ability to write documentation targeting end-users.
+
+=== *Features*
+'''
+include::../UserGuide.adoc[tag=FeaturesHeader]
+
+=== Save Feature
+include::../UserGuide.adoc[tag=UGSave]
+
+=== *Other Works Contributed*
+'''
+*  Open Feature
+*  List Files Feature
+
+
+== Contributions to the Developer Guide
+
+The section highlights my contributions to the Developer Guide. It showcases my ability to write technical documentation and the technical depth of my contributions to the project.
+
+=== *Open Feature*
+'''
+include::../DeveloperGuide.adoc[tag=DGOpen]
+
+=== *List Files Feature*
+'''
+include::../DeveloperGuide.adoc[tag=DGListFiles]
+
+=== *Save Feature*
+'''
+include::../DeveloperGuide.adoc[tag=DGSave]
+
+=== *Other Works Contributed*
+'''
+*  Appendix B: User Stories

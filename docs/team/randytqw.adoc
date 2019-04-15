@@ -1,0 +1,73 @@
+= Tan Qun Wei Randy - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: FomoFoto
+
+---
+
+== Overview
+
+My team and I were tasked with enhancing a basic command line addressbook for our Software Engineering project. We decided to morph the project into a image editor. +
+
+FomoFoto is a robust yet simple image-editing tool. Users interact with the application through worded commands from their keyboard, and receive visual feedback from it through the displayed image on the application. +
+
+Unlike other heavy image editors, FomoFoto has a very gentle learning curve as it abstracts out clutter by providing the more essential features (complex editing can still be done with special commands). The features and implementations are well documented in guides for users and developers respectively.
+
+In addition, FomoFoto is well maintained with high reliability and code quality as it is covered by rigorous tests and checks.
+
+== Summary of contributions
+This section provides a summary of my coding, documentation and other contributions to FomoFoto, our team project.
+
+* *Major enhancement 1*: added *the ability to undo/redo transformations on an image*
+
+** What it does: allows the user to undo previous transformations one at a time. Preceding undone transformations can be reversed by using the redo command.
+
+** Justification: This feature improves the product significantly because a user can make mistakes by applying incorrect transformations and the app should provide a convenient way to rectify them.
+
+** Highlights: Transformation history is stored as a list of commands so it takes up minimal space on the user's PC.
+
+* *Major enhancement 2*: added *the ability to export images to the user's PC*
+
+** What it does: allows the user to export an image in the album to a specified directory.
+
+** Justification: This feature improves the product significantly because the user can save his images outside of the application.
+
+* *Code contributed*:
+** https://github.com/CS2103-AY1819S2-W14-2/main/commits?author=randytqw[List of commits]
+** https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=randytqw[Project Code Dashboard]
+
+* *Other contributions*:
+
+** Documentation:
+*** Wrote detailed documentation on undo/redo command in developer guide: https://github.com/CS2103-AY1819S2-W14-2/main/pull/138[#138]
+*** Wrote detailed documentation on export command in developer's guide: https://github.com/CS2103-AY1819S2-W14-2/main/pull/216[#216]
+** Community:
+*** PRs merged (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W14-2/main/pull/141[#141] https://github.com/CS2103-AY1819S2-W14-2/main/pull/57[#57]
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=Undo]
+
+include::../UserGuide.adoc[tag=Redo]
+
+include::../UserGuide.adoc[tag=UpcomingFeatures]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+
+== PROJECT: PowerPointLabs

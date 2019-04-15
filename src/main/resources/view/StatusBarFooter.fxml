@@ -12,3 +12,4 @@
   <Label fx:id="syncStatus" />
   <Label fx:id="saveLocationStatus" GridPane.columnIndex="1" />
 </GridPane>
+

@@ -97,6 +97,7 @@
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
     -fx-padding: 0 0 0 0;
+    -fx-text-fill: white;
 }
 
 .list-cell:filled:even {
@@ -343,10 +344,58 @@
 }
 
 #tags .label {
-    -fx-text-fill: white;
-    -fx-background-color: #3e7b91;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+}
+
+#tags .teal {
+    -fx-text-fill: #3e7b91;
+    -fx-background-color: white;
+}
+
+#tags .red {
+    -fx-text-fill: red;
+    -fx-background-color: white;
+}
+
+#tags .yellow {
+    -fx-text-fill: yellow;
+    -fx-background-color: black;
+}
+
+#tags .blue {
+    -fx-text-fill: blue;
+    -fx-background-color: white;
+}
+
+#tags .orange {
+    -fx-text-fill: orange;
+    -fx-background-color: black;
+}
+
+#tags .brown {
+    -fx-text-fill: white;
+    -fx-background-color: brown;
+}
+
+#tags .green {
+    -fx-text-fill: green;
+    -fx-background-color: white;
+}
+
+#tags .pink {
+    -fx-text-fill: black;
+    -fx-background-color: pink;
+}
+
+#tags .black {
+    -fx-text-fill: white;
+    -fx-background-color: black;
+}
+
+#tags .grey {
+    -fx-text-fill: grey;
+    -fx-background-color: white;
 }

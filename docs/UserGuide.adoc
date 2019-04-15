@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= FomoFoto
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,249 +12,498 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S2-W14-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `W14-2`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+FomoFoto is an image processing software suite written in Java. This application is optimised for users who are *familiar with the Command Line Interface (CLI)*, while providing a *Graphical User Interface (GUI)* for easy reference. The application is optimized for users who prefer text-based instructions.
+
+For new users, jump to <<Quick Start>> for an overview on how to use FomoFoto and view the tools available.
+
 
 == Quick Start
+// tag::QuickStart[]
+System Requirements:
 
-.  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+* *Windows 10 or newer / OS X 10.8 or newer.*
+* *Java 9 or newer.*
+
+Follow the steps below to set up your computer to run FomoFoto:
+
+.  Ensure your system meets the system requirements.
+.  Download the latest FomoFoto.jar https://github.com/CS2103-AY1819S2-W14-2/main/releases[here].
+.  Copy the JAR to the folder you want to use as the home folder for your FomoFoto application.
+.  Double-click the JAR to start the application. The Graphical User Interface should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+.Home Page of FomoFoto
+image::Ui.png[width="800"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+.  You have just successfully setup FomoFoto on your device. To see the command available in FomoFoto, refer to <<Features>> for details of each command. A step-by-step walkthrough of FomoFoto is available in the next section: <<A Walk Through>>.
+// end::QuickStart[]
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+== A Walk Through
+// tag::AWalkThrough[]
+Let's start on our image editing journey. In this walkthrough, we will be demonstrating some simple commands to edit a sample image.
+
+.  Head over to this https://twistedsifter.files.wordpress.com/2012/03/squirrel-photobomb-banff.jpg[link] to get a suggested sample image to start from.
+
+.  Save the image in any desired folder you like on your device, like your Pictures folder for example. Name your image *squirrel.jpg*.
+
+.  Start FomoFoto by referring to <<Quick Start>>.
+
+.  Open the folder that the image file is stored in. Then, to get the file path of the image:
+* In Windows: Hold on to the kbd:[Shift] key and *right click* on your image file. Click the option *Copy path*.
+* In Mac: Go to terminal and navigate to your image file. Type 'pwd' to get the file path to your image file and copy paste.
+
+.  Go back to the FomoFoto application. Import the image into FomoFoto by typing as follows:
++
+.Import Command
+image::import.PNG[width="912"]
++
+.  Paste the file path of the image you would like to import.
+* In Windows: Remove the kbd:["] and kbd:["] signs at the two ends of the file path.
+
+.  Ensure your final command looks similar to the figure below (file path may differ):
++
+.Import with Filepath
+image::importCommand.PNG[width="915"]
++
+
+.  Press kbd:[Enter] to execute the import command. Your image should be now displayed on the Album tab on the FomoFoto application as shown in the figure below.
++
+.Import Success
+image::importSuccess.PNG[width="917"]
++
+
+.  Open the imported image in FomoFoto by typing as follows:
++
+.Open Command
+image::open.PNG[width="917"]
++
+
+.  Press kbd:[Enter] to execute the open command. Your image should be now displayed on the FomoFoto application as shown in the figure below.
++
+.Open Success
+image::openImage.PNG[width="917"]
++
+
+.  Increase the brightness of the image by typing the following command: `brightness 2.0`. This doubles the brightness of the image.
+
++
+.Brightness Command
+image::brightnessCommand.PNG[width="915"]
++
+
+.  Press kbd:[Enter]. Your image should be brighter as shown in the figure below.
++
+.Brightness Success
+image::brightnessSuccess.PNG[width="917"]
++
+
+.  Crop your image by typing the following command: `crop 310 250 140 200`. Press kbd:[Enter]. Your image should look similar to the figure below.
+
++
+.Crop Success
+image::cropSuccess.PNG[width="918"]
++
+
+.  Save your edits by typing the command: `save`.
+
+// end::AWalkThrough[]
 
 [[Features]]
 == Features
+// tag::FeaturesHeader[]
+This section describes all the commands available in FomoFoto. It provides a short description of what each command does, their formats as well as examples of how to use them. The commands are listed in alphabetical order.
 
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+The following styles are used to describe the format of the commands.
+
+* Words in `UPPER_CASE` are to be replaced with what the text specifies. +
+e.g. `open FILENAME`: `FILENAME` is to be replaced with the name of the file that the user wants to work on such as `open myImage.png`.
+* Words in square brackets are optional values. +
+e.g. `brightness [BRIGHTNESS_RATIO]`: `BRIGHTNESS_RATIO` can be omitted. Both `brightness` and `brightness 0.9` are accepted.
+
 ====
 
-=== Viewing help : `help`
+// end::FeaturesHeader[]
 
-Format: `help`
 
-=== Adding a person: `add`
+// tag::BlackWhiteCommand[]
+=== Black and White Filter : `bw`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-[TIP]
-A person can have any number of tags (including 0)
+Applies a black and white filter on the opened image based on an integer
+threshold value. If the threshold value is not specified, the black and white filter will use a preset threshold value of 127. Pixels in the image lighter than the threshold value will become white and pixels in the image darker than the threshold value will become black. The higher the threshold value, the larger the proportion of black and the smaller the proportion of white.  +
+Format: `bw [THRESHOLD_VALUE]`
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `bw` (threshold value preset to 127)
+* `bw 130`
+// end::BlackWhiteCommand[]
 
-=== Listing all persons : `list`
+// tag::BrightnessCommand[]
+=== Brightness: `brightness`
 
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+Adjusts the brightness of the opened image based on a decimal value. If the brightness value is not specified, a preset decimal value of 1.1 will be used. Any positive decimal value that is less than 1 (e.g. 0.5) will reduce the brightness of the image while any decimal value that is above 1 (e.g. 1.9) will increase the brightness of the image. Negative decimal value will not be accepted. +
+Format: `brightness [BRIGHTNESS_VALUE]`
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `brightness` (brightness decimal value is preset to 1.1 which increases the brightness slightly)
+* `brightness 1.9` (increases brightness)
+* `brightness 0.3` (reduces brightness)
+// end::BrightnessCommand[]
 
-=== Locating persons by name: `find`
+// tag::ClearCommand[]
+=== Clear Album: `clear`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-=== Selecting a person : `select`
-
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
-
-****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-Examples:
-
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
-
-=== Listing entered commands : `history`
-
-Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
-
-[NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
-
-// tag::undoredo[]
-=== Undoing previous command : `undo`
-
-Restores the address book to the state before the previous _undoable_ command was executed. +
-Format: `undo`
-
-[NOTE]
-====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
-====
-
-Examples:
-
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
-
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-
-=== Redoing the previously undone command : `redo`
-
-Reverses the most recent `undo` command. +
-Format: `redo`
-
-Examples:
-
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
-
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
+Clears all images imported into the Album. +
 Format: `clear`
 
-=== Exiting the program : `exit`
+[NOTE]
+====
+Clear does not remove the image currently being edited i.e. Images opened with the `open` command.
+====
+// end::ClearCommand[]
+
+// tag::ContrastCommand[]
+=== Contrast: `contrast`
+
+Adjusts the contrast of the opened image based on a decimal value. If the contrast value is not specified, a preset decimal value of 1.1 will be used. Any positive decimal value that is lower than 1 (e.g. 0.5) will reduce the contrast of the image while any decimal value that is above 1 (e.g. 1.9) will increase the contrast of the image. Negative decimal value will not be accepted. +
+Format: `contrast [CONTRAST_VALUE]`
+
+Examples:
+
+* `contrast` (contrast decimal value is preset to 1.1 which increases the contrast slightly)
+* `contrast 1.4` (increases contrast)
+* `contrast 0.3` (reduces contrast)
+// end::ContrastCommand[]
+
+
+=== Crop an Image : `crop`
+// tag::CropCommand[]
+Crops an image based on the given top left-hand corner coordinates, width and height of final cropped image wanted. +
+Format: `crop X_POINTCOORD Y_POINTCOORD WIDTH HEIGHT`
+
+[NOTE]
+====
+The point coordinates must be separated by a space each.
+====
+
+Example:
+
+* `crop 2 3 500 500`
+
+// end::CropCommand[]
+
+=== Exit the Program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
+=== Export edited Image : `export`
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Exports the edited image into the specified Directory +
+Format: `export f/FILENAME d/DIRECTORY`
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+Example:
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+* `export f/newImage.jpg d/C:\Users\randy\Desktop`
 
-== FAQ
+=== Help View: `help`
+Displays help view to user.
+Format: `help`
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+// tag::Import[]
 
+=== Import an Image : `import`
+
+Imports images to FomoFoto's Album from a specified file path or a folder. +
+Format: `import FILEPATH`
+
+Example of single file path import:
+
+* `import C:\Users\Addison\Desktop\sample.jpg`
+* `import C:\Home\sample.png`
+
+Example of folder import:
+
+* `import C:\Users\Addison\Desktop`
+* `import C:\Home`
+
+For folder import, invalid files are skipped and only valid images will be imported.
+
+[NOTE]
+Images should be of the following formats: `bmp`, `jpg` , `jpeg`, `png`, `tif`, `tiff` or `gif`. Images with `tif` or `tiff` formats are not rendered on screen due to a bug with Java but edits made will still be applied.
+
+Additionally, images must also adhere to the following additional requirements:
+
+. Not be hidden or prepended by a `.` dot identifier.
+. Not be over 10MB in size.
+. Not have the same name as an existing image in the Album.
+
+// end::Import[]
+
+
+=== List Files: `listfiles`
+// tag::UGListFiles[]
+Lists all the names of the files in the album. +
+Format: `listfiles`
+// end::UGListFiles[]
+
+=== Open an Image : `open`
+// tag::UGOpen[]
+Opens an image from the album for editing. +
+Format: `open FILENAME`
+
+Example:
+
+* `open sample.jpg`
+// end::UGOpen[]
+
+//tag::Redo[]
+=== Redo Edit Steps : `redo`
+
+Returns to a previously undone state. +
+Format: `redo`
+
+[NOTE]
+====
+Redoable commands: those commands that modify the image (`rotate`, `crop`, `resize`, `brightness`, `contrast` and `bw`).
+====
+
+Examples:
+
+* `rotate 180` +
+`brightness` +
+`undo` (reverses the `brightness` command) +
+`redo` (runs `brightness` again)
+
+* `contrast 0.3` +
+`crop 2 3 500 500` +
+`undo` (reverses the `crop 2 3 500 500` command +
+`undo` (reverses the `contrast 0.3`) +
+`redo` (runs `contrast 0.3` command again) +
+`redo` (runs `crop 2 3 500 500` command again)
+// end::Redo[]
+
+
+=== Rotate an Image : `rotate`
+// tag::RotateCommand[]
+Rotates the image by a given degree provided by the user. Only 90, 180 or 270 degrees of rotation is allowed. +
+Format: `rotate ANGLE`
+
+Example:
+
+* `rotate 90`
+// end::RotateCommand[]
+
+
+=== Resize an Image : `resize`
+// tag::ResizeCommand[]
+Resizes the image to a given width and height provided by the user. +
+Format: `resize WIDTH HEIGHT`
+
+Example:
+
+* `resize 100 200`
+// end::ResizeCommand[]
+
+
+=== Save Image : `save`
+// tag::UGSave[]
+Applies your edits and saves the image. +
+Format: `save [FILENAME]`
+
+
+Example:
+
+* `save`
+* `save newname.jpg`
+
+[NOTE]
+====
+For a file name to be valid, it must end with either of the following: `.jpg`, `.png`, `.gif`, `.bmp`, `.jpeg`, `.tif` or `tiff`.
+====
+
+
+[[invalid_save_name]]
+.Invalid Save Name
+image::ugInvalidsave.png[width="800"]
+
+[[valid_save_name]]
+.Valid Save Name
+image::ugValidsave.png[width="800"]
+
+
+<<invalid_save_name>> shows an example of how FomoFoto does not allow saving with invalid names. Ensure that your file name is valid before saving. There should be a message to indicate that the save is successful as shown in <<valid_save_name>> . To overwrite the original image, simply use `save` without the file name.
+// end::UGSave[]
+
+// tag::SavePreset[]
+=== Save Preset: `savepreset`
+Saves a list of commands that were used to edit the opened image under a specified name so that you can apply them on other images in the future. The specified name given must not be used before. +
+Format: `savepreset PRESETNAME`
+
+Example:
+
+* `rotate 180` +
+`brightness 1.3` +
+`savepreset preset1` (saves `rotate 180` and `brightness 1.3` in a list of commands that can be used on other images)
+// end::SavePreset[]
+
+// tag::SetPreset[]
+=== Set Preset: `setpreset`
+Applies the list of commands saved under the specified preset name on the opened image. +
+Format: `setpreset PRESETNAME`
+
+Example:
+
+* `rotate 180` +
+`brightness 1.3` +
+`savepreset preset1` (saves `rotate 180` and `brightness 1.3` in a list of commands that can be used on other images) +
+`open newImage.jpg`  (opens a new image to edit on) +
+`setpreset preset1`  (applies the list of commands which consists of `rotate 180` and `brightness 1.3` on the newly opened image)
+// end::SetPreset[]
+
+// tag::Tab[]
+=== Tab Switching: `tab`
+
+Cycle between available tabs in the side *Information Panel*. +
+Format: `tab`
+
+The three available tabs are listed below:
+
+. Album Images
+- Displays all images currently opened in the Album and available for editing.
+. EXIF Profile
+- Displays all ancillary tags attached to the currently opened
+image such as metadata information like *Date and Time* and *Copyright information*.
+. Command History
+- Display all *Image Transformation* and *Image Filters* applied to the currently opened image.
+// end::Tab[]
+
+// tag::Undo[]
+=== Undo Edit Steps : `undo`
+
+Goes back to the previous state of the image. +
+Format: `undo`
+
+[NOTE]
+====
+Undoable commands: those commands that modify the image (`rotate`, `crop`, `resize`, `brightness`, `contrast`, `wm` and `bw`).
+====
+// end::Undo[]
+
+
+=== WaterMark : `wm`
+// tag::WaterMarkCommand[]
+Adds a watermark to the image with a (C) at the start of the input message. Messages can contain spaces. Should the message be too long to fit within the width of the image, the message will be cut off. +
+Format: `wm MESSAGE`
+
+[NOTE]
+====
+Each image can only have one watermark.
+====
+
+Example:
+
+* `wm FomoFoto`
+* `wm Done By FomoFoto`
+// end::WaterMarkCommand[]
+
+// tag::UpcomingFeatures[]
+== Upcoming Features (in v2.0)
+
+=== Layer
+
+Format: `layer add (layer name)` -> Creates a new layer for the user to work on.
+
+Example:
+
+* `layer add BW-layer` adds a new layer with name BW-layer.
+
+
+Format: `layer select (layer name)` -> Selects the layer the user wants to work on.
+
+Example:
+
+* `layer select BW-layer` selects the BW-layer.
+
+Format: `layer delete (layer name)` -> deletes the layer with input name.
+
+Example:
+
+* `layer delete (BW-layer)` -> deletes the BW-layer
+
+This command is not undo-able and transformations on each layer do not affect other layers.
+
+
+=== Ruler
+
+Format: `ruler [ON|OFF]` -> Toggles a ruler that surrounds the displayed image. This will help you in estimating the number of pixels to move when using `crop` or resizing objects.
+// end::UpcomingFeatures[]
+
+// tag::CommandSummary[]
 == Command Summary
+Below is a quick summary of all the commands available in FomoFoto.
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+* *Black/White* `bw [THRESHOLD_VALUE]` +
+e.g. `bw 127` +
+
+* *Brightness* `brightness [BRIGHTNESS_VALUE]` +
+e.g. `brightness 0.8` +
+
+* *Clear* `clear` +
+
+* *Contrast* `contrast [CONTRAST_VALUE]` +
+e.g. `contrast 1.9` +
+
+* *Crop* `crop X_POINTCOORD Y_POINTCOORD W_WIDTH H_HEIGHT` +
+e.g. `crop 2 4 500 500`
+
+* *Exit* `exit` +
+
+* *Export* `export f/FILENAME d/DIRECTORY` +
+e.g. `export f/newImage.jpg d/C:\Users\randy\Desktop`
+
+* *Help* `help` +
+
+* *Import* `import FILEPATH` +
+e.g. `import Users/Fomo/Pictures/sample.jpg` +
+
+* *List Files* `listfiles` +
+
+* *Open* `open FILENAME` +
+e.g. `open sample.jpg` +
+
+* *Redo* `redo` +
+
+* *Rotate* `rotate ANGLE` +
+e.g. `rotate 270` +
+
+* *Resize* `resize WIDTH HEIGHT` +
+e.g. `resize 100 200` +
+
+* *Save* `save [FILENAME]` +
+e.g. `save MyNewImage.png` +
+
+* *Save Preset* `savepreset PRESETNAME` +
+e.g. `savepreset preset1`
+
+* *Set Preset* `setpreset PRESETNAME` +
+e.g. `setpreset preset1`
+
+* *Tab* `tab` +
+
+* *Undo* `undo` +
+
+* *WaterMark* `wm MESSAGE` +
+e.g. `wm FomoFoto`
+
+// end::CommandSummary[]

@@ -4,53 +4,62 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+FomoFoto was developed by CS2103-AY1819S2-W14-2 +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Ho Boon Wee Addison
+image::carrein.png[width="150", align="left"]
+{empty}[https://github.com/Carrein[github]] [<<carrein#, portfolio>>]
 
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+*Role:* +
+Team Lead +
+*Responsibilities:* +
+User Interface and Model Design
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Tan Qun Wei Randy
+image::randytqw.png[width="150", align="left"]
+{empty}[https://github.com/randytqw[github]] [<<randytqw#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
-
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+*Role:* +
+Developer +
+*Responsibilities:* +
+Integration, Image State Management (Undo, Redo)
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Tay Zhan Peng
+image::itszp.png[width="150", align="left"]
+{empty}[https://github.com/itszp[github]] [<<itszp#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+*Role:* +
+Developer +
+*Responsibilities:* +
+Code Quality, Image and Directory Navigation (Open, Save, ListFiles)
+
+'''
+
+=== Tham Si Mun
+image::thamsimun.png[width="150", align="left"]
+{empty}[https://github.com/thamsimun[github]] [<<thamsimun#, portfolio>>]
+
+*Role:* +
+Developer +
+*Responsibilities:* +
+Testing, Image Filters, Preset Image Editing
+
+'''
+
+=== Chong Kay Heen
+image::kayheen.png[width="150", align="left"]
+{empty}[https://github.com/kayheen[github]] [<<kayheen#, portfolio>>]
+
+*Role:* +
+Developer +
+*Responsibilities:* +
+Documentation, Image Manipulation
 
 '''

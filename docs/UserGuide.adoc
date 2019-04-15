@@ -47,7 +47,7 @@ different features and shows you how to perform basic _In-Credit-Ble_ operations
    link:https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html[[blue]#here#]
 .  Download the latest `[fuchsia]#In-Credit-Ble.jar#` file link:{repoURL}/releases[[blue]#here#].
 .  Copy the file to the folder you want to use as the home folder for your finance tracker.
-.  Double-click the file to start the app. The GUI should appear in a few seconds as shown below.
+.  Double-click the file to start the application. The GUI should appear in a few seconds as shown below.
    The _In-Credit-Ble_ finance tracker is loaded with example expense records and budget is still not set.
 {bl}
 {bl}
@@ -270,7 +270,7 @@ step-by-step instructions on how to use the different commands.
 [NOTE]
 ====
 * The budget set must contain a valid amount. A valid amount is a positive number with
-0 or 2 decimal places. Amount entered cannot be larger than 100000000.
+0 or 2 decimal places. Amount entered cannot be larger than 100,000,000.
 * If you provide multiple amounts ([navy]#e.g.# `[fuchsia]#set $/30 $/50#`), only the last amount you provided will
 be used to set the budget (`[fuchsia]#$/50#` in the example). Only the last amount needs to be a valid
 amount ([navy]#e.g.# `[fuchsia]#set $/1a $/10#` works while `[fuchsia]#set $/10 $/1a#` does not).
@@ -291,7 +291,7 @@ UI as clean as possible without extra panels for past budgets.
 ====
 * Take note that you can spend over the budget set and set a budget lower than current spending. The
 rationale is for you to be able to see how much you have exceeded your budget set to better plan your
-expenditure in the future since the App is unable to stop you from spending.
+expenditure in the future since the application is unable to stop you from spending.
 * The budget you set must be higher than or equal to the sum of the budgets allocated to individual
 category. The rationale is that it would be pointless to set an overall budget if individual category
 budgets are going to exceed it.
@@ -317,7 +317,7 @@ budgets are going to exceed it.
 ****
 [NOTE]
 ====
-* Amount entered cannot be larger than 100000000.
+* Amount entered cannot be larger than 100,000,000.
 * If you provide multiple categories ([navy]#e.g.# `[fuchsia]#allocate $/50.00 c/Food c/Clothes#`),
 only the last category you provided will be taken (in the previous e.g., the command will
 set budget for `[fuchsia]#Clothes#` category. Your last category must be of the correct format (see below).
@@ -423,7 +423,7 @@ and cannot contain special characters such as `*:<>;\/|?~^%$#@*`
 * Date cannot be a date in the future. Addition of future expenses are not allowed.
 * If no date is inputted, current local date will be used instead.
 * Name, category and description inputs are limited to 40 characters each.
-* Amount entered cannot be larger than 100000000.
+* Amount entered cannot be larger than 100,000,000.
 * Order of the different parameters does not matter.
 
 ====
@@ -467,7 +467,7 @@ image::RemoveDescriptionExample.png[width ="600"]
 * `[fuchsia]#INDEX#` must be within the total number of records that are displayed.
 * At least one of the optional fields must be provided.
 * Name, category and description inputs are limited to 40 characters each.
-* Amount entered cannot be larger than 100000000.
+* Amount entered cannot be larger than 100,000,000.
 * Date inputted cannot be a date later than the present date.
 * Order of parameters inputted does not matter.
 * Existing values will be updated to the input values.
@@ -686,6 +686,8 @@ image::summaryUI_2.png[width ="800"]
 * If a period is not specified, then the summary will show a default report period of the last 7 days.
 * Deleted entries are not included in the summary.
 * Adding more entries while in the summary view mode will update the pie chart statistics automatically, as long as the expense falls within the specified report period
+* Due to space constraints, not all labels in the pie chart may be displayed if there are too many categories listed.
+  This issue will be resolved in future iterations of our application.
 ====
 
 ****
@@ -900,16 +902,27 @@ the data. There is no need for you to save manually.
 
 {bl}
 
-==== Login Feature `[green]#[coming in v2.0]#`
+==== Login Feature `[yellow]#[coming in v2.0]#`
 _In-Credit-Ble_ will implement a login feature so that your data and personal finance records will remain safe and secure.
 Your personal data will be encrypted and stored in your own account that can also be secured with a password.
 
 With this feature, multiple users will be able to use _In-Credit-Ble_ on the same computer without being able to access or modify each other's data.
-// end::upcomingFeatures[]
 
 {bl}
 
-==== Separate expenditures based on methods of payment (Cash, Visa, DBS PayLah) `[green]#[coming in v2.0]#`
+==== Enhancements to Summary Feature `[yellow]#[coming in v2.0]#`
+Instead of the current pie chart, _In-Credit-Ble_'s summary feature will display an overview of your expenditures as an
+Aster Plot chart instead, as shown in the diagram below.
+
+.Example of Aster Plot Graph
+image::asterPlot.png[width="200"]
+
+This will make it more effective in showing the user what is the remaining budget amount for each category.
+It also allows users to easily perceive whether their spending is within their budget for each category.
+
+// end::upcomingFeatures[]
+
+==== Separate expenditures based on methods of payment (Cash, Visa, DBS PayLah) `[yellow]#[coming in v2.0]#`
 
 _In-Credit-Ble_ will link up with secure methods of payment to allow tracking of your cashless transactions.
 These include, but not limited to, payment services such as DBS PayLah, Visa/MasterCard, Amex and Paypal.
@@ -920,7 +933,7 @@ and recorded as entries in _In-Credit-Ble_.
 {bl}
 
 // tag::savingpatterns[]
-==== Establish saving patterns based on record and derive projected savings/expenses in a time span `[green]#[coming in v2.0]#`
+==== Establish saving patterns based on record and derive projected savings/expenses in a time span `[yellow]#[coming in v2.0]#`
 
 Your monthly finance records will be archived at the end of the month. This information will be used to derive
 the projected savings and expenses of future months, based on analysing your typical spending patterns.
@@ -928,7 +941,7 @@ the projected savings and expenses of future months, based on analysing your typ
 
 {bl}
 
-==== Links to financial articles `[green]#[coming in v2.0]#`
+==== Links to financial articles `[yellow]#[coming in v2.0]#`
 
 You will be able to list categories of financial articles that you are interested in
 ([navy]#e.g.# investment, stock market, taxes). Based on these categories, _In-Credit-Ble_ will use Google API to search for
@@ -951,7 +964,7 @@ that contains the data of your previous _In-Credit-Ble_ folder.
 *A*: At the current version, the application is unable to support transactions record in different currency.
 You will need to calculate and enter your input based on your local currency.
 
-_In-Credit-Ble_  aims to support multi-currency transactions in [green]#v2.0#`.
+_In-Credit-Ble_  aims to support multi-currency transactions in `[yellow]#v2.0#`.
 
 {bl}
 

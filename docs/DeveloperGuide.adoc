@@ -250,7 +250,7 @@ The `[fuchsia]#Storage#` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `[fuchsia]#seedu.financetracker.commons#` package.
+Classes used by multiple components are in the `[fuchsia]#seedu.finance.commons#` package.
 
 
 
@@ -765,7 +765,7 @@ ii)	Else, `[fuchsia]#SummaryPanel#setSummaryData()#` will be called, which gener
 ==== Design Consideration
 ===== Aspect: Representation for Summary of Expenditure
 
-* *Alternative 1 (current choice)*: Represent summary of expenses using a pie chart
+*Alternative 1 (current choice)*: Represent summary of expenses using a pie chart
 
 .Current Implementation of Summary Panel using JavaFX's `[fuchsia]#PieChart#`
 image::summaryPanel.png[width="600"]
@@ -773,12 +773,12 @@ image::summaryPanel.png[width="600"]
 ** Pros: Labels can act as a legend as well as there might be categories with similar colours. This will help the user to easily identify the expenditures in different categories.
 ** Cons: If there are too many categories, the labels may not show up as it will clash with the other labels. The data presented may also become too cluttered as well.
 
-* *Alternative 2 (planned for `[green]#[v2.0]#`)*: Represent summary of expenses using an Aster Plot graph
+*Alternative 2 (planned for `[yellow]#[v2.0]#`)*: Represent summary of expenses using an Aster Plot graph
 
-In `[green]#v2.0#` of _In-Credit-Ble_, the summary feature intends to use a [fuchsia]#D3.js Aster Plot# graph to display the summary of expenditures instead of the current pie chart. This will help contribute to the aesthetics and user-friendliness of displaying the data in _In-Credit-Ble_.
+In `[yellow]#v2.0#` of _In-Credit-Ble_, the summary feature intends to use a [fuchsia]#D3.js Aster Plot# graph to display the summary of expenditures instead of the current pie chart. This will help contribute to the aesthetics and user-friendliness of displaying the data in _In-Credit-Ble_.
 
 .Example of Aster Plot Graph
-image::asterPlot.png[width="400"]
+image::asterPlot.png[width="200"]
 
 Each sector of the chart represents a category. The area of each sector indicates the total budget amount allocated for a particular category, while the coloured area of the sector denotes the amount spent for that category. On mouseover of each sector, a pop-up display of the category name and amount spent for each category will be shown. The colours used for the category in the aster plot graph should also correspond to the same colour palette used for the category labels.
 
@@ -959,7 +959,7 @@ To run tests in headless mode, open a console and run the command `[fuchsia]#gra
 We have two types of tests:
 
 .  *GUI Tests* - These are tests involving the GUI. They include,
-.. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `[fuchsia]#systemtests#` package.
+.. _System Tests_ that test the entire application by simulating user actions on the GUI. These are in the `[fuchsia]#systemtests#` package.
 .. _Unit tests_ that test the individual components. These are in `[fuchsia]#seedu.finance.ui#` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
@@ -1022,9 +1022,9 @@ A project often depends on third-party libraries. For example, _In-Credit-Ble_ d
 * has a need to be more aware of his/her spending habits/patterns
 * can type fast
 * prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* is reasonably comfortable using CLI applications
 
-*Value proposition*: Manage expenses faster than a typical mouse/GUI driven app
+*Value proposition*: Manage expenses faster than a typical mouse/GUI driven application
 // end::appendixA[]
 
 // tag::appendixB[]
@@ -1033,7 +1033,7 @@ A project often depends on third-party libraries. For example, _In-Credit-Ble_ d
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="100%",cols="20%,<20%,<25%,<35%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to it when I forget how to use the application
@@ -1052,7 +1052,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |locate a specific entry easily |recall how much I spent
 
-|`* *` |user | save my data |refer to it when I use the app next time
+|`* *` |user | save my data |refer to it when I use the application next time
 
 |`* *` |user | sort my expenses in terms of amount | be aware of what costs the most
 

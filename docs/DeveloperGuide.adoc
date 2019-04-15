@@ -2,8 +2,10 @@
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
+:toclevels: 4
 :toc-placement: preamble
 :sectnums:
+:sectnumlevels: 4
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -525,7 +527,7 @@ An `ArrayList` of `FleetEntry` objects is used for storage, where `FleetEntry` c
 
 // end::ship_aspect_2[]
 
-// tag::battle[]
+// tag::battle_aspect_1[]
 === Battle feature
 The Battle feature handles the following:
 
@@ -570,13 +572,13 @@ to `PLAYER_ATTACK`.
 
 
 ==== Implementation of the `BattleManager` class
-// end::battle[]
+// end::battle_aspect_1[]
 The `BattleManager` class contains four important methods, detailed as follows.
 
 ===== `void startGame()`
 
 .Sequence diagram of the `startGame` method
-image::StartGameSequenceDiagram.png[width=800]
+image::StartGameSequenceDiagram.png[width=600]
 
 `startGame` is called when the player begins the battle (via `BeginCommand`,
 see next section for more details).
@@ -585,7 +587,7 @@ see next section for more details).
 which causes the enemy to place its ships and set up other data structures.
 For more information, please see the "Enemy AI Feature" section below.
 
-// tag::battle[]
+// tag::battle_aspect_2[]
 ===== `AttackResult performAttack(Player, Player, Coordinates)`
 
 .Sequence diagram of the `performAttack` method
@@ -598,12 +600,12 @@ the attacked `Coordinates`, and returns an `AttackResult`. (See section
 
 This method is an internal method, used by both `humanPerformAttack` and
 `takeComputerTurn`.
-// end::battle[]
+// end::battle_aspect_2[]
 
 ===== `AttackResult humanPerformAttack(Coordinates)`
 
 .Sequence diagram of the `humanPerformAttack` method
-image::HumanPerformAttackSequenceDiagram.png[width=800]
+image::HumanPerformAttackSequenceDiagram.png[width=300]
 
 `humanPerformAttack` is called when the player makes an attack (via
 `AttackCommand`, see below.)
@@ -612,7 +614,7 @@ This method simply calls `performAttack` with the human player as the
 attacker, the computer player as the target and the argument coordinate
 as the attacked coordinate.
 
-// tag::battle[]
+// tag::battle_aspect_3[]
 ===== `List<AttackResult> takeComputerTurn()`
 
 .Sequence diagram of the `takeComputerTurn` method
@@ -679,7 +681,7 @@ image::AttackSequenceDiagram.png[width=800]
 
 ==== Design considerations
 * **Current choice:** +
-  `BattleManager` is stored under `Model`. Every time `Attack`, `EndTurn` or `Begin` commands
+  `BattleManager` is stored under `Model`. Every time `Attack` or `Begin` commands
   are executed, they will use this `BattleManager` to actually perform the actions,
   with the logic in the `Command`-s mostly being error handling. +
   When AI performs attacks, the `BattleManager` will call the AI to compute its attack
@@ -693,7 +695,7 @@ image::AttackSequenceDiagram.png[width=800]
 ** Cons:
 *** The `Model` component now contains game logic (`BattleManager`) within it.
 * **Alternative** +
-  `BattleManager` is stored under `Logic`. Every time `Attack`, `EndTurn` or `Begin` commands
+  `BattleManager` is stored under `Logic`. Every time `Attack` or `Begin` commands
   are executed, they will perform the action using the logic coded within themselves, not
   interfacing with `BattleManager`. +
   When AI performs attacks, the `BattleManager` will create these commands and execute them.
@@ -710,7 +712,7 @@ In the end, we decided to implement Option 1. Even though some team members pref
 we decided that `Logic` and `Model` not being kept separate was a worthy tradeoff
 for the advantages of Option 1.
 
-// end::battle[]
+// end::battle_aspect_3[]
 
 === Enemy AI feature
 

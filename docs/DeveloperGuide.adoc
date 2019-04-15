@@ -1821,7 +1821,7 @@ lowest scoring flashcard question and hints are displayed
 .. Test case: `ans x` where x is not an option number and not empty for **MCQ cards** +
    Expected: The error `MCQ question expects option number as answer` is shown in the status message. Status bar remains the same.
 .. Test case: `ans`  +
-   Expected: The error `Invalid Command Format` is shown in the status message. Status bar remains the same.
+   Expected: The error `Invalid command format` is shown in the status message. Status bar remains the same.
 .. Test case: `ans x` and type `ans y` again where x and y can be anything but empty for **non-MCQ cards** +
    Expected: Cannot input an attempt to an already answered question. The error `Answer command is valid only when a
    question is displayed` is shown in the status message. Status bar remains the same.

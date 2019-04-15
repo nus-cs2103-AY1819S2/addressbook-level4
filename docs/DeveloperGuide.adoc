@@ -149,7 +149,7 @@ image::LogicClassDiagram.png[width="800"]
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command
-image::SDforDeleteCard.png[width="800"]
+image::SDForDeleteCard.png[width="800"]
 
 The sections below give more details of each component.
 //tag::UIdesign[]

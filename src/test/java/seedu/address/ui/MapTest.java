@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import javafx.scene.paint.Color;
+
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.cell.Status;
@@ -32,6 +33,7 @@ public class MapTest extends GuiUnitTest {
         assertEquals(playerMap.getColor(Status.EMPTYHIT), Color.DARKBLUE);
     }
 
+    // TODO: write UI tests
     @Test
     public void stubTests() {
         model.updateUi();

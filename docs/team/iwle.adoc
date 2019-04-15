@@ -59,11 +59,18 @@ include::../UserGuide.adoc[tag=listTags]
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+image::ModelClassDiagram.png[width="400", width="center"]
+include::../DeveloperGuide.adoc[tag=putShip1]
+====
+*__What are the head coordinates?__*
 
-include::../DeveloperGuide.adoc[tag=model]
-include::../DeveloperGuide.adoc[tag=putShip]
+The head coordinates are the coordinates of the top-most and left-most cell of a ship. When coordinates are specified in the `put` command, they refer to the head coordinates of the ship.
+
+
+image:BattleshipHeadExample.png[width=400, align="center"]
+====
+include::../DeveloperGuide.adoc[tag=putShip2]
 include::../DeveloperGuide.adoc[tag=listTags]
-_The sequence diagram for `listTags` has been omitted due to space constraints and because it is similar to the sequence diagram for `list`._
 include::../DeveloperGuide.adoc[tag=listShips]
 include::../DeveloperGuide.adoc[tag=ship_aspect_1]
 include::../DeveloperGuide.adoc[tag=ship_aspect_2]

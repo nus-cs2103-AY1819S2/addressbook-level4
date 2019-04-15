@@ -19,7 +19,6 @@ Thinking that this is not enough to ensure a pleasant experience for our users, 
 Tests in the form of component, integration and system tests are also added to ensure quality control.
 
 
-
 == Overview
 * Restructured most of the `.fxml` files associated with the UI components
 * Wrote code to render the model data into the different UI components
@@ -75,11 +74,9 @@ include::../UserGuide.adoc[tag=releasenotes-2.0]
 include::../UserGuide.adoc[tag=setreminder]
 
 |===
-|_The table below demonstrates the importance of formatting key information for my users,
-so that they can easily find the summary of the commands._
+|_In addition to the sections above, I also formatted the Command Summary table in the user guide in a neat manner for easier access of the commands._
 |===
 
-include::../UserGuide.adoc[tag=summary]
 
 == Contributions to the Developer Guide
 

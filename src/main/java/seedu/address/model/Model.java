@@ -92,6 +92,11 @@ public interface Model {
     boolean isEligibleModuleTaken(ModuleTaken moduleTaken);
 
     /**
+     * Returns true if editing the moduleTaken will not cause other prerequisites to be unsatisfied
+     */
+    boolean canEditModuleTaken(ModuleTaken moduleTakenToEdit, ModuleTaken editedModuleTaken);
+
+    /**
      * Returns true if deleting the moduleTaken will not cause other prerequisites to be unsatisfied
      */
     boolean canDeleteModuleTaken(ModuleTaken moduleTaken);

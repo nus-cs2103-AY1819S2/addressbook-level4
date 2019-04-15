@@ -92,7 +92,7 @@ public class EditCommand extends Command {
         ModuleTaken editedModuleTaken = createEditedPerson(moduleTakenToEdit, editPersonDescriptor);
 
         if (!moduleTakenToEdit.getModuleInfoCode().equals(editedModuleTaken.getModuleInfoCode()) &&
-                !model.canDeleteModuleTaken(moduleTakenToEdit)) {
+                !model.canEditModuleTaken(moduleTakenToEdit, editedModuleTaken)) {
             throw new CommandException(Messages.MESSAGE_PREREQUISITE_VIOLATED);
         }
 

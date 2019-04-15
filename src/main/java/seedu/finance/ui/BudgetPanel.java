@@ -18,7 +18,8 @@ import seedu.finance.model.budget.Budget;
 //@@author Jackimaru96
 /**
  * This class represents the budget panel for the finance tracker.
- * Shows currentSpending/totalBudget with some animation
+ * Shows currentSpending/totalBudget and the progress bar changes colour
+ * depending on how close the user is to the budget set
  */
 public class BudgetPanel extends UiPart<Region> {
 

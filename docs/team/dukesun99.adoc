@@ -1,0 +1,88 @@
+= Sun Yiqun - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Introduction
+
+Hi visitor! I am Yiqun, the author of this page.
+
+I am a Year 2 Computer Science student in National University of Singapore (at the time of Apr 2019).
+This is the Personal Project Portfolio (PPP) of my CS2103T Software Engineering project.
+In this PPP I will showcase some of my learning outcomes and contributions to you.
+To tell the truth, I really spent a lot effort in this project, but I am very happy to see all the achievements I have made from my hard work. I believe you are the same, right?
+
+== PROJECT: Equipment Manager
+
+---
+
+== Overview
+
+* Equipment Manager is a desktop equipment information management system used for technicians and engineers who need to do maintenance or manage equipments. It allows users to keep track of equipment information, and plan their work.
+* The user interacts with it using mainly a CLI (command line interface). It also has a GUI (graphical user interface) to serve as secondary approach for users to interact with the application, also as the primary approach to display information. The GUI is build with JavaFX, and the whole application is mainly build with Java, except for the static pages to display equipment details and maps.
+
+This project is morphed from link:https://github.com/nus-cs2103-AY1819S2/addressbook-level4[AddressBook-Level4].
+
+== Summary of contributions
+
+* *Code contributed*: link:https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=dukesun99[Project Code Dashboard]
+
+* *Enhancement 1*: added *the map display feature*
+** What it does: allows the user to view equipments on the map displayed on the right hand side of the application window.
+** Justification: The display feature adds great value to the project in the following aspects:
+*** This feature is one of the major selling points of this project.
+*** The map make this application unique from ordinary information management tools like Excel, which cannot visualize information like address.
+** Highlights: The implementation of this feature involves in many technical decisions, including choosing the way to display map (built in or browser), choosing the map JavaScript library, choosing the message passing approach, choosing the way to host static pages and etc. Although number of line of code is not very large, this feature involves in a lot of learning and knowledge.
+
+* *Enhancement 2*: added *the route feature*
+** What it does: allows the user to see the efficient routes between multiple locations.
+** Justification: This feature is the "highest level" feature of the project, which is unique to this project, and also the innovation point. This help users increase productivity, cut transportation costs, improve maintenance services.
+** Highlights: This feature is the hardest feature to implement among all features in this project, because many aspects are involved. There are many technical decisions need to made, and many learning, testing, trail and error need to be made to get to this feature. This involves not only Java, but also JavaScript, HTML, CSS, and knowledge of computer networking, algorithm.
+
+* *Enhancement 3*: added *the equipment detail split screen display feature*
+** What it does: allows the user to view the equipment details and equipment location on map together.
+** Justification: This feature allows user to view the map and equipment details at the same time. The map gives the user a visual representation of the address of the address. So the user does not need to use any map application to search the equipment address.
+** Highlights: This feature is straight forward (just click and view). The user experience is good as the information is organized clearly and neatly.
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.2` on GitHub. (link:https://github.com/CS2103-AY1819S2-W10-3/main/releases/tag/1.2[Releases v1.2])
+*** Managed releases `v1.3` on GitHub. (link:https://github.com/CS2103-AY1819S2-W10-3/main/releases/tag/1.3[Releases v1.3])
+** Documentation:
+*** Remove header of original project for project website: https://github.com/CS2103-AY1819S2-W10-3/main/pull/48[#48]
+*** Drafting first version of UG and DG on Google Docs.
+*** Editing the `User stories` component of DG.
+** Community:
+*** PRs reviewed: https://github.com/CS2103-AY1819S2-W10-3/main/pull/39[#39], https://github.com/CS2103-AY1819S2-W10-3/main/pull/94[#94], https://github.com/CS2103-AY1819S2-W10-3/main/pull/99[#99], https://github.com/CS2103-AY1819S2-W10-3/main/pull/99[#181]
+*** Reported bugs and suggestions for teammates (examples:  https://github.com/CS2103-AY1819S2-W10-3/main/pull/39[#39])
+*** Help teammates solve problems (examples: https://github.com/CS2103-AY1819S2-W10-3/main/pull/185[#185] and more offline)
+** Tools:
+*** Modify the Gradle automation script to auto publish the static pages into gh-pages branch. (https://github.com/CS2103-AY1819S2-W10-3/main/pull/45[#45])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are some example sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=display]
+
+include::../UserGuide.adoc[tag=route]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are some example sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=display]
+
+include::../DeveloperGuide.adoc[tag=route]
+
+== PROJECT: Equipment Manager
+
+---
+
+

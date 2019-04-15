@@ -44,8 +44,8 @@ public class SampleDataTest extends EquipmentManagerSystemTest {
     }
 
     @Test
-    public void addressBook_dataFileDoesNotExist_loadSampleData() {
+    public void equipmentManager_dataFileDoesNotExist_loadSampleData() {
         Equipment[] expectedList = SampleDataUtil.getSamplePersons();
-        assertListMatching(getPersonListPanel(), expectedList);
+        assertListMatching(getEquipmentListPanel(), expectedList);
     }
 }

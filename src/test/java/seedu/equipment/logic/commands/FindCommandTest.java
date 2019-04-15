@@ -8,7 +8,7 @@ import static seedu.equipment.logic.commands.CommandTestUtil.assertCommandSucces
 import static seedu.equipment.testutil.TypicalEquipments.BUKITGCC;
 import static seedu.equipment.testutil.TypicalEquipments.CHENGSANCC;
 import static seedu.equipment.testutil.TypicalEquipments.TECKGHEECC;
-import static seedu.equipment.testutil.TypicalEquipments.getTypicalAddressBook;
+import static seedu.equipment.testutil.TypicalEquipments.getTypicalEquipmentManager;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -25,8 +25,8 @@ import seedu.equipment.model.equipment.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalEquipmentManager(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalEquipmentManager(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

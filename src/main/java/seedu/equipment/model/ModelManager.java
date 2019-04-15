@@ -48,7 +48,7 @@ public class ModelManager implements Model {
 
         versionedEquipmentManager = new VersionedEquipmentManager(equipmentManager);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredEquipments = new FilteredList<>(versionedEquipmentManager.getPersonList());
+        filteredEquipments = new FilteredList<>(versionedEquipmentManager.getEquipmentList());
         filteredEquipments.addListener(this::ensureSelectedPersonIsValid);
         filteredWorkList = new FilteredList<>(versionedEquipmentManager.getWorkListList());
         filteredClient = new FilteredList<>(versionedEquipmentManager.getClientList());
@@ -110,7 +110,7 @@ public class ModelManager implements Model {
     @Override
     public boolean hasEquipment(Equipment equipment) {
         requireNonNull(equipment);
-        return versionedEquipmentManager.hasPerson(equipment);
+        return versionedEquipmentManager.hasEquipment(equipment);
     }
 
     @Override
@@ -187,21 +187,18 @@ public class ModelManager implements Model {
     @Override
     public void setEquipment(Equipment target, Equipment editedEquipment) {
         CollectionUtil.requireAllNonNull(target, editedEquipment);
-
         versionedEquipmentManager.setPerson(target, editedEquipment);
     }
 
     @Override
     public void setClient(Name target, Name editedEquipment) {
         CollectionUtil.requireAllNonNull(target, editedEquipment);
-
         versionedEquipmentManager.setClient(target, editedEquipment);
     }
 
     @Override
     public void updateEquipment(Equipment target, Equipment editedEquipment) {
         CollectionUtil.requireAllNonNull(target, editedEquipment);
-
         versionedEquipmentManager.updateEquipment(target, editedEquipment);
     }
 

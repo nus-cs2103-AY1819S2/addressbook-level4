@@ -24,20 +24,17 @@ public class AddCommand extends Command {
             + CliSyntax.PREFIX_SERIALNUMBER + "SERIAL NUMBER "
             + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + CliSyntax.PREFIX_NAME + "John Doe "
-            + CliSyntax.PREFIX_PHONE + "98765432 "
+            + CliSyntax.PREFIX_NAME + "Chua Chu Kang CC "
+            + CliSyntax.PREFIX_PHONE + "67655001 "
             + CliSyntax.PREFIX_PM + "22-04-2019 "
-            + CliSyntax.PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + CliSyntax.PREFIX_SERIALNUMBER + "A008866X "
-            + CliSyntax.PREFIX_TAG + "west "
+            + CliSyntax.PREFIX_ADDRESS + "35 Teck Whye Ave, Singapore 688892 "
+            + CliSyntax.PREFIX_SERIALNUMBER + "A006412X "
+            + CliSyntax.PREFIX_TAG + "northwest "
             + CliSyntax.PREFIX_TAG + "urgent";
 
     public static final String MESSAGE_SUCCESS = "New equipment added: %1$s";
     public static final String MESSAGE_DUPLICATE_EQUIPMENT = "Duplicated equipment serial number, "
             + "this equipment already exists in the equipment manager.";
-
-    public static final String MESSAGE_DUPLICATE_CLIENT = "Duplicated client name in client details.";
-
 
     private final Equipment toAdd;
 

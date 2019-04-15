@@ -61,7 +61,7 @@ public class LogicManager implements Logic {
         if (equipmentManagerModified) {
             logger.info("Equipment Manager modified, saving to file.");
             try {
-                storage.saveAddressBook(model.getEquipmentManager());
+                storage.saveEquipmentManager(model.getEquipmentManager());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }

@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.equipment.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.equipment.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.equipment.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.equipment.testutil.TypicalEquipments.getTypicalAddressBook;
+import static seedu.equipment.testutil.TypicalEquipments.getTypicalEquipmentManager;
 import static seedu.equipment.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.equipment.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
@@ -26,7 +26,7 @@ import seedu.equipment.model.equipment.Equipment;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalEquipmentManager(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -74,7 +74,7 @@ public class DeleteCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of equipment book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getEquipmentManager().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getEquipmentManager().getEquipmentList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
@@ -92,7 +92,7 @@ public class DeleteCommandTest {
         // delete -> first equipment deleted
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered equipment list to show all persons
+        // undo -> reverts equipmentmanager back to previous state and filtered equipment list to show all equipment
         expectedModel.undoEquipmentManager();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -134,7 +134,7 @@ public class DeleteCommandTest {
         // delete -> deletes second equipment in unfiltered equipment list / first equipment in filtered equipment list
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered equipment list to show all persons
+        // undo -> reverts equipmentmanager back to previous state and filtered equipment list to show all equipment
         expectedModel.undoEquipmentManager();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 

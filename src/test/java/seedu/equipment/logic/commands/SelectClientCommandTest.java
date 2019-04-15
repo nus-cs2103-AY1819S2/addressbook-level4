@@ -3,7 +3,7 @@ package seedu.equipment.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.equipment.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.equipment.testutil.TypicalEquipments.getTypicalAddressBook;
+import static seedu.equipment.testutil.TypicalEquipments.getTypicalEquipmentManager;
 import static seedu.equipment.testutil.TypicalIndexes.INDEX_FIRST_CLIENT;
 import static seedu.equipment.testutil.TypicalIndexes.INDEX_SECOND_CLIENT;
 
@@ -20,7 +20,7 @@ import seedu.equipment.model.UserPrefs;
  * Contains integration tests (interaction with the Model) for {@code SelectClientCommand}.
  */
 public class SelectClientCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalEquipmentManager(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

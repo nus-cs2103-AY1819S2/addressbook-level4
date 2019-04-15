@@ -431,7 +431,7 @@ The date must be in the format of dd-mm-yyyy.
 The `history` command allows you to view the list of commands that are previously entered
 into the application.
 
-[.big]#Format: `history` [To Set a Deadline]# +
+[.big]#Format: `history`# +
 
 Example:
 

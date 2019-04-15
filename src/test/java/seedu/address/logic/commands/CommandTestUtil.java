@@ -104,6 +104,8 @@ public class CommandTestUtil {
     public static final String INVALID_STATUS = "ASDF";
     public static final String VALID_CHRONOLOGY = "PAST";
     public static final String INVALID_CHRONOLOGY = "ASDF";
+    public static final String VALID_MARK_APPT_INDEX = "1";
+    public static final String INVALID_MARK_APPT_INDEX = "-1";
     public static final String DESC_VALID_PATIENT_ID = " " + PREFIX_PATIENT_ID + VALID_PATIENT_ID;
     public static final String DESC_INVALID_PATIENT_ID = " " + PREFIX_PATIENT_ID + INVALID_APPT_PATIENT_ID;
     public static final String DESC_VALID_DOCTOR_ID = " " + PREFIX_DOCTOR_ID + VALID_DOCTOR_ID;
@@ -116,6 +118,10 @@ public class CommandTestUtil {
     public static final String DESC_INVALID_STATUS = " " + PREFIX_APPT_STATUS + INVALID_STATUS;
     public static final String DESC_VALID_CHRONOLOGY = " " + PREFIX_CHRONOLOGY + VALID_CHRONOLOGY;
     public static final String DESC_INVALID_CHRONOLOGY = " " + PREFIX_CHRONOLOGY + INVALID_CHRONOLOGY;
+    public static final String DESC_VALID_MARK_APPT = " " + VALID_MARK_APPT_INDEX + " " + PREFIX_APPT_STATUS
+            + VALID_STATUS;
+    public static final String DESC_INVALID_MARK_APPT_INDEX = " " + INVALID_MARK_APPT_INDEX + " " + DESC_VALID_STATUS;
+    public static final String DESC_INVALID_MARK_APPT_STATUS = " " + VALID_MARK_APPT_INDEX + " " + DESC_INVALID_STATUS;
     // end of testing appointment
 
     // medical history test

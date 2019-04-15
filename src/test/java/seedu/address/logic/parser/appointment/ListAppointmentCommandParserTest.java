@@ -1,4 +1,4 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.appointment;
 
 import static seedu.address.logic.commands.CommandTestUtil.DESC_INVALID_CHRONOLOGY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_INVALID_DATE_OF_APPT;
@@ -26,7 +26,6 @@ import java.util.Optional;
 import org.junit.Test;
 
 import seedu.address.logic.commands.appointment.ListAppointmentCommand;
-import seedu.address.logic.parser.appointment.ListAppointmentCommandParser;
 import seedu.address.model.appointment.AppointmentChronology;
 import seedu.address.model.appointment.AppointmentDate;
 import seedu.address.model.appointment.AppointmentDoctorId;

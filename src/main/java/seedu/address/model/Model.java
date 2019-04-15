@@ -14,7 +14,6 @@ import seedu.address.model.job.Job;
 import seedu.address.model.job.JobListName;
 import seedu.address.model.job.JobName;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.predicate.UniqueFilterList;
 
 /**
@@ -131,91 +130,6 @@ public interface Model {
     void setPerson(Person target, Person editedPerson);
 
     /**
-     * add Predicate to All persons list
-     */
-    void addPredicateAllPersons(String predicateName, Predicate<Person> predicate);
-
-    /**
-     * add Predicate to JobShortlist
-     */
-    void addPredicateJobShortlist(String predicateName, Predicate<Person> predicate);
-
-    /**
-     * add Predicate to JobInterview
-     */
-    void addPredicateJobInterview(String predicateName, Predicate<Person> predicate);
-
-    /**
-     * add Predicate to JobKiv
-     */
-    void addPredicateJobKiv(String predicateName, Predicate<Person> predicate);
-
-    /**
-     * add Predicate to JobAllApplicants
-     */
-    void addPredicateJobAllApplicants(String predicateName, Predicate<Person> predicate);
-
-    /**
-     * remove Predicate to All persons
-     */
-    void removePredicateAllPersons(String predicateName);
-
-    /**
-     * remove Predicate to All persons
-     */
-    void clearPredicateAllPersons();
-
-    /**
-     * clear Predicate to Applicants
-     */
-    void clearJobFilteredListsApplicant();
-
-    /**
-     * clear Predicate to Interview
-     */
-    void clearJobFilteredListsInterview();
-
-    /**
-     * clear Predicate to ShortList
-     */
-    void clearJobFilteredListsShortlist();
-
-    /**
-     * clear Predicate to Kiv
-     */
-    void clearJobFilteredListsKiv();
-
-    /**
-     * remove Predicate to JobShortlist
-     */
-    void removePredicateJobShortlist(String predicateName);
-
-    /**
-     * remove Predicate to JobInterview
-     */
-    void removePredicateJobInterview(String predicateName);
-
-    /**
-     * remove Predicate to JobKiv
-     */
-    void removePredicateJobKiv(String predicateName);
-
-    /**
-     * remove Predicate to JobAllApplicants
-     */
-    void removePredicateJobAllApplicants(String predicateName);
-
-    /**
-     * Returns one of the UniqueFilterList in the job
-     */
-    UniqueFilterList getPredicateList(JobName name, Integer listNumber);
-
-    /**
-     * Returns one of the UniquePersonList in the job
-     */
-    UniquePersonList getJobList(JobName name, Integer listNumber);
-
-    /**
      * Returns the job and makes it the active job
      */
     Job getJob(JobName name);
@@ -226,14 +140,9 @@ public interface Model {
     Job getActiveJob();
 
     /**
-     * Returns an unmodifiable view of the filtered person list
-     */
-    ObservableList<Person> getFilteredPersonList();
-
-    /**
      * Returns an unmodifiable view of the filtered  people list in job
      *
-     * @param list
+     * @param list indicate the job person list
      */
 
     ObservableList<Person> getJobsList(JobListName list);
@@ -243,10 +152,17 @@ public interface Model {
      */
     ObservableList<Job> getAllJobs();
 
+
     /**
-     * Returns an unmodifiable view of the filtered job list
+     * add Predicate to filterList list
      */
-    UniqueFilterList getPredicateLists(JobListName listName);
+    void addPredicate(String predicateName, Predicate<Person> predicate, JobListName listname);
+
+    /**
+     * remove Predicate to filterList list
+     */
+    void removePredicate(String predicateName, JobListName listName);
+
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
@@ -263,31 +179,9 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
-     * Updates the filter of the active filtered person list to filter.
-     */
-    void updateFilteredPersonList();
-
-    /**
-     * Updates the filter of the JobAllApplcants filtered person list to filter by the given {@code predicate}.
-     */
-    void updateJobAllApplicantsFilteredPersonList();
-
-    /**
      * Updates the filter of the JobKiv filtered person list to filter by the given {@code predicate}.
      */
-    void updateJobKivFilteredPersonList();
-
-    /**
-     * Updates the filter of the JobInterview filtered person list to filter by the given {@code predicate}.
-     */
-    void updateJobInterviewFilteredPersonList();
-
-    /**
-     * Updates the filter of the JobShortlist filtered person list to filter by the given {@code predicate}.
-     *
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateJobShortlistFilteredPersonList();
+    void updateFilteredPersonLists(JobListName listname);
 
     /**
      * Clear four filter list.
@@ -295,11 +189,21 @@ public interface Model {
     void clearJobFilteredLists();
 
     /**
-     * Changes the filtered person list to the given {@code list}.
-     *
-     * @throws NullPointerException if {@code predicate} is null.
+     * Clear indicated filter list.
      */
-    void changeFilteredPersonList(UniquePersonList list);
+    void clearJobFilteredLists(JobListName listName);
+
+    /**
+     * Returns an unmodifiable view of the filtered person list
+     */
+    ObservableList<Person> getFilteredPersonList();
+
+
+    /**
+     * Returns the filtered job list
+     */
+    UniqueFilterList getPredicateLists(JobListName listName);
+
 
     /**
      * Revert the display list.

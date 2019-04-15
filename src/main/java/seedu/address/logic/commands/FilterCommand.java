@@ -14,11 +14,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PASTJOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHOOL;
-import static seedu.address.model.job.JobListName.APPLICANT;
 import static seedu.address.model.job.JobListName.EMPTY;
-import static seedu.address.model.job.JobListName.INTERVIEW;
-import static seedu.address.model.job.JobListName.KIV;
-import static seedu.address.model.job.JobListName.SHORTLIST;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -144,53 +140,13 @@ public class FilterCommand extends Command {
         boolean isAllJobScreen = model.getIsAllJobScreen();
         boolean hasListName = listName != EMPTY;
         checkException(isAllJobScreen, hasListName);
-
-        switch (listName) {
-        case APPLICANT:
-            try {
-                model.addPredicateJobAllApplicants(commandName, predicate);
-            } catch (DuplicateFilterException ex) {
-                throw new CommandException(MESSAGE_REDUNDANT_FILTERNAME);
-            }
-            model.updateJobAllApplicantsFilteredPersonList();
-            predicateList = model.getPredicateLists(APPLICANT);
-            break;
-        case KIV:
-            try {
-                model.addPredicateJobKiv(commandName, predicate);
-            } catch (DuplicateFilterException ex) {
-                throw new CommandException(MESSAGE_REDUNDANT_FILTERNAME);
-            }
-            model.updateJobKivFilteredPersonList();
-            predicateList = model.getPredicateLists(KIV);
-            break;
-        case INTERVIEW:
-            try {
-                model.addPredicateJobInterview(commandName, predicate);
-            } catch (DuplicateFilterException ex) {
-                throw new CommandException(MESSAGE_REDUNDANT_FILTERNAME);
-            }
-            model.updateJobInterviewFilteredPersonList();
-            predicateList = model.getPredicateLists(INTERVIEW);
-            break;
-        case SHORTLIST:
-            try {
-                model.addPredicateJobShortlist(commandName, predicate);
-            } catch (DuplicateFilterException ex) {
-                throw new CommandException(MESSAGE_REDUNDANT_FILTERNAME);
-            }
-            model.updateJobShortlistFilteredPersonList();
-            predicateList = model.getPredicateLists(SHORTLIST);
-            break;
-        default:
-            try {
-                model.addPredicateAllPersons(commandName, predicate);
-            } catch (DuplicateFilterException ex) {
-                throw new CommandException(MESSAGE_REDUNDANT_FILTERNAME);
-            }
-            model.updateFilteredPersonList();
-            predicateList = model.getPredicateLists(EMPTY);
+        try {
+            model.addPredicate(commandName, predicate, listName);
+        } catch (DuplicateFilterException ex) {
+            throw new CommandException(MESSAGE_REDUNDANT_FILTERNAME);
         }
+        model.updateFilteredPersonLists(listName);
+        predicateList = model.getPredicateLists(listName);
         int size = model.getJobsList(listName).size();
         return new CommandResult(
             String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, size), listName,

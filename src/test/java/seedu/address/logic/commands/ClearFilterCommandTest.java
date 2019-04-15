@@ -48,8 +48,8 @@ public class ClearFilterCommandTest {
         String expectedMessage = String.format(ClearFilterCommand.MESSAGE_CLEAR_FILTER_SUCCESS);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addPredicateAllPersons(VALID_FILTERNAME, predicator);
-        expectedModel.clearPredicateAllPersons();
+        expectedModel.addPredicate(VALID_FILTERNAME, predicator, EMPTY);
+        expectedModel.clearJobFilteredLists(EMPTY);
 
         assertCommandSuccess(clearFilterCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -67,8 +67,8 @@ public class ClearFilterCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setIsAllJobScreen(false);
-        expectedModel.addPredicateJobAllApplicants(VALID_FILTERNAME, predicator);
-        expectedModel.clearJobFilteredListsApplicant();
+        expectedModel.addPredicate(VALID_FILTERNAME, predicator, APPLICANT);
+        expectedModel.clearJobFilteredLists(APPLICANT);
 
         assertCommandSuccess(clearFilterCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -86,8 +86,8 @@ public class ClearFilterCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setIsAllJobScreen(false);
-        expectedModel.addPredicateAllPersons(VALID_FILTERNAME, predicator);
-        expectedModel.removePredicateAllPersons(VALID_FILTERNAME);
+        expectedModel.addPredicate(VALID_FILTERNAME, predicator, EMPTY);
+        expectedModel.clearJobFilteredLists(EMPTY);
 
         assertCommandSuccess(clearFilterCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -105,8 +105,8 @@ public class ClearFilterCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setIsAllJobScreen(false);
-        expectedModel.addPredicateAllPersons(VALID_FILTERNAME, predicator);
-        expectedModel.removePredicateAllPersons(VALID_FILTERNAME);
+        expectedModel.addPredicate(VALID_FILTERNAME, predicator, SHORTLIST);
+        expectedModel.clearJobFilteredLists(SHORTLIST);
 
         assertCommandSuccess(clearFilterCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -124,8 +124,8 @@ public class ClearFilterCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setIsAllJobScreen(false);
-        expectedModel.addPredicateAllPersons(VALID_FILTERNAME, predicator);
-        expectedModel.removePredicateAllPersons(VALID_FILTERNAME);
+        expectedModel.addPredicate(VALID_FILTERNAME, predicator, KIV);
+        expectedModel.clearJobFilteredLists(KIV);
 
         assertCommandSuccess(clearFilterCommand, model, commandHistory, expectedMessage, expectedModel);
     }

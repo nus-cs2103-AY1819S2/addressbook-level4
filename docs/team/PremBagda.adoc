@@ -68,7 +68,7 @@ to remove the specific place.
 *Highlights*: This enhancement involved a large amount of refactoring and careful crafting of test cases in order to
 test thoroughly the `DateVisited` field.
 
-*Overall code contributed*: [link:https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=Prem&sort=displayName&since=2019-02-10&until=2019-04-14&timeframe=day&reverse=false&repoSort=true[Project Code Dashboard]]
+*Overall code contributed*: [link:https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=Prem&sort=displayName&since=2019-02-10&until=2019-04-15&timeframe=day&reverse=false&repoSort=true[Project Code Dashboard]]
 
 === Minor Enhancement
 The minor enhancement I did was to convert the `Person` object from the original code base to a `Place` object.

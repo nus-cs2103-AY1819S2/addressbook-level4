@@ -56,11 +56,7 @@ public class MovePeopleCommandParser implements Parser<MovePeopleCommand> {
                 throw new ParseException(MovePeopleCommand.MESSAGE_NO_INDEX
                         + String.format(MESSAGE_INVALID_COMMAND_FORMAT, MovePeopleCommand.MESSAGE_USAGE));
             }
-            try {
-                toAdd = ParserUtil.parseJobName(argMultimap.getValue(PREFIX_JOBNAME).get());
-            } catch (Exception e) {
-                toAdd = null;
-            }
+            toAdd = null;
         } else {
             try {
                 indexString = args.split("\\b\\s")[1].trim();
@@ -68,7 +64,11 @@ public class MovePeopleCommandParser implements Parser<MovePeopleCommand> {
                 throw new ParseException(MovePeopleCommand.MESSAGE_NO_INDEX
                         + String.format(MESSAGE_INVALID_COMMAND_FORMAT, MovePeopleCommand.MESSAGE_USAGE));
             }
-            toAdd = null;
+            try {
+                toAdd = ParserUtil.parseJobName(argMultimap.getValue(PREFIX_JOBNAME).get());
+            } catch (Exception e) {
+                toAdd = null;
+            }
         }
 
         ArrayList<String> numbers = new ArrayList<>(Arrays.asList(indexString.split("[,\\s]+")));

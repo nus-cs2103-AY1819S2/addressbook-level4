@@ -144,6 +144,7 @@ For example, the `Logic` component (see the class diagram given below) defines i
 image::LogicClassDiagram.png[width="800"]
 
 [discrete]
+// tag::componentinteraction[]
 ==== How the architecture components interact with each other
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user
@@ -153,6 +154,8 @@ issues the command `add-appt pid/1 did/7 d/2019-06-01 t/09:00`.
 image::LogicComponentSequenceDiagram-AddAppointment.png[width="800"]
 
 The sections below give more details of each component.
+
+// end::componentinteraction[]
 
 [[Design-Ui]]
 === UI component
@@ -172,6 +175,7 @@ The `UI` component,
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
+// tag::logiccomponent[]
 === Logic component
 
 [[fig-LogicClassDiagram]]
@@ -195,10 +199,12 @@ UI or Model is omitted or simplified for clarity.
 .Interactions Inside the Logic Component for the `add-appt ...` Command
 image::AddAppointmentSequenceDiagramForLogic.png[width="800"]
 
+// end::logiccomponent[]
+
 [[Design-Model]]
 === Model component
 
-Due to space constraint and aid visibility, we will only include patient and doctor to illustrate our model.
+Due to space constraint and to aid visibility, we will only include patient and doctor to illustrate our model.
 
 .Structure of the Model Component
 image::ModelClassDiagramForPatientAndDoctor.png[width="800"]
@@ -208,12 +214,12 @@ image::ModelClassDiagramForPatientAndDoctor.png[width="800"]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the DocX data.
+* exposes an unmodifiable `ObservableList<Patient>` and ObeservableList<Doctor>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `DocX`, which `Patient` can reference. This would allow `DocX` to only require one `Tag` object per unique `Tag`, instead of each `Patient` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
 
@@ -269,10 +275,10 @@ Patients is one of the two valid types of Persons to be stored in the docX recor
 The following features are implemented for patients of docX:
 
 * Add patient
-* List all patients
 * Edit existing patients
-* Various search patients by keywords
 * Delete patients
+* List all patients
+* Various search functions for patients
 * Select patient
 
 ==== Add Patient feature
@@ -296,14 +302,8 @@ Steps: +
 
 . The execute() calls hasPatient() of `Model`. If patient does not exist in the current DocX, the `Model` will call addPatient() and the patient will be successfully added.
 
+.Sequence diagram where patient is successfully added
 image::AddPatientSdForLogic.png[width="700"]
-
-==== List Patient feature
-When a user executes 'list-p', the full patient list will be displayed.
-
-. `LogicManager` calls execute() of `ListPatientCommand`.
-
-. execute() will call `Model` to `updateFilterPatientList` by setting the predicate to show all the patients in the DocX currently.
 
 ==== Edit Patient feature
 
@@ -328,20 +328,9 @@ Steps: +
 
 . If both are the conditions are false, the `model` will set the editedPatient to replace the patientToEdit and the patient will be successfully edited.
 
-==== Search Patient feature
-There are various search commands available for patients. The internal workings of the search commands can be described under this section.
-Search commands: `search-p-name, search-pid, search-p-status, search-p-advanced`.
-
-When a user executes `search-p-name`
-
-
-
 ==== Delete Patient feature
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete")` API call.
-
-.Interactions Inside the Logic Component for the `delete-p` Command
-image::DeletePatientSdForLogic.png[width="700"]
 
 When a user executes `delete-p 1`
 
@@ -361,6 +350,38 @@ DeletePatientCommand calls deletePatient(patientToDelete) of `ModelManager`.
 
 . `ModelManager` later commitDocX and the patient is successfully deleted.
 
+.Interactions Inside the Logic Component for the `delete-p` Command
+image::DeletePatientSdForLogic.png[width="700"]
+
+==== List Patient feature
+When a user executes 'list-p', the full patient list will be displayed.
+
+. `LogicManager` calls execute() of `ListPatientCommand`.
+
+. execute() will call `Model` to `updateFilterPatientList` by setting the predicate to show all the patients in the DocX currently.
+
+==== Search Patient feature
+There are various search commands available for patients. The internal workings of the search commands can be described under this section.
+Search commands: `search-p-name, search-pid, search-p-status, search-p-advanced`.
+
+When a user executes `search-p-name`
+
+==== Select Patient feature
+When a user executes 'select-p [INDEX]', the full patient info will be displayed on the browser panel.
+
+Steps: +
+
+. LogicManager calls parseCommand("select-p") in `DocXParser`.
+
+. Based on the COMMAND_WORD, `DocXParser` builds a new SelectPatientCommandParser() and calls function parse("1") of SelectPatientCommandParser.
+
+. SelectPatientCommandParser parses the argument and get the relative list index of the patient to be selected.
+     Then SelectPatientCommandParser calls SelectPatientCommand(index).
+
+. LogicManager calls execute() of SelectPatientCommand.
+
+. execute() calls getFilteredPatientList() of ModelManager and gets the patient to be selected.
+SelectPatientCommand calls setSelectedPatient(selectedPatient) and then return a new `CommandResult` that will trigger browser panel display.
 
 ==== Appointment Status Display feature
 The patient card will show the appointment status of a patient. It will display any one of the four enum values: `ACTIVE, COMPLETED, CANCELLED, MISSED`.
@@ -599,6 +620,7 @@ Here, `SortMedHistCommandParser` checks the argument string is either "" or "ASC
 . The `LogicManager` then calls the execution of `SortMedHistCommand`, which interacts with Model component. In Model component, the internal list of medical histories in `UniqueMedHistList` is sorted.
 Through a `ListChangeListener`, Ui component is updated the changes of medical history list order. Then the sorted list of medical histories will be displayed in user interface.
 
+// tag::appointment[]
 
 === Add Appointment Feature
 Appointments are created to facilitate future appointments between patients and doctors.
@@ -647,34 +669,36 @@ The appointment object is then sent to the Model layer.
 The Storage layer will convert the appointment Java object into the JSON file format using the format specified in `JsonAdaptedAppointment`.
 The next time the application is opened, the Storage layer will use `JsonAdaptedAppointment` again to convert appointments in the JSON file back into appointment objects.
 
+// end::appointment[]
+
 === Prescriptions
 Prescriptions are used to keep track of what kind of medicine a doctor suggest a particular patient to take. they
 are useful because sometimes patients may want to know what medicine they took before. There are three functionalities
 related to prescriptions, which are add a new prescription, edit an existing prescription and delete an existing
 prescription respectively.
 
+
+
 ==== Add a New Prescription
 Current proposed implementation
 
-A user specifies the id of the patient, the id of the doctor and a description of the prescription in command line. And
+A user specifies the id of the patient, the id of the doctor, the date, the name of the medicine and a description of the prescription in command line. And
 then the command processing procedure is roughly as follows:
 
-Step1. LogicManager calls parseCommand("add-prescription") in AddressBookParser.
+Step1. LogicManager calls parseCommand("add-prescription") in DocXParser.
 
-Step2. Based on the COMMAND_WORD, AddressBookParser builds a new AddMedHistCommandParser()
-and call function parse(arguments) of AddMedHistCommandParser;
+Step2. Based on the COMMAND_WORD, DocXParser builds a new AddPrescriptionCommandParser()
+and call function parse(arguments) of AddPrescriptionCommandParser;
 
-Step3. AddPrescriptionCommandParser parses patient id, doctor id as well as the description of the prescription.
-Then it searches for the corresponding patient and doctor in the database. If both exist, then we invoke the constructor
-of Patient class and Doctor Class to create the corresponding patient and doctor. Otherwise, we throw an exception indicating
-that the patient id or the doctor id is not valid here.
+Step3. AddPrescriptionCommandParser parses patient id, doctor id, date, medicine name as well as the description of the prescription.
 
-Step4. After the patient and doctor objects are created, the constructor of Prescription class is invoked. Then
-AddPrescriptionCommandParser will invoke AddPrescriptionCommand with the newly created prescription as the input.
+Step4. Constructors for patientId, doctorId, validDate, medicine and description are invoked. After this the constructor for Prescription is called to create a new prescription. Then AddPrescriptionCommandParser calls AddPrescriptionCommand(prescription).
 
 Step5. LogicManager calls execute() of AddPrescriptionCommand.
 
-Step6. execute() calls hasPrescription() of Model. If the prescription does not exist, call addPrescription() of Model
+Step6. execute() calls hasPrescription() of Model. If the prescription does not exist, call addPrescription() of Model.
+
+image::AddPrescriptionSD.png[width="800"]
 
 ==== Edit an Existing Prescription
 
@@ -1770,9 +1794,21 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: New patient/doctor is added to the end of the list with a unique ID generated for the contact. Details of the added contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case:
 
+// tag::appointmentmanualtesting[]
 === Appointment
+. Adding a new appointment
 
-. Marking an appointment as "CANCELLED"
+.. Prerequisites: There are existing patients and doctors in the system.
+.. Test case: `add-appt pid/1 did/7 d/2019-06-01 t/09:00` +
+   Expected: A new appointment with the given patient, doctor, date and time is added.
+.. Test case: `add-appt` +
+   Expected: No appointment is added. All fields must be filled and not left empty. The correct command format is shown.
+.. Other incorrect add-appt commands to try: `add-appt pid/1 did/7`, `add-appt d/2019-06-01 t/09:00`. +
+   Expected: Similar to previous.
+.. Test case: `add-appt add-appt pid/1 did/7 d/2019-02-29 t/30:00` +
+  Expected: No appointment is added. The date and time should be in the valid format and be a valid date on the calendar.
+
+. Marking an appointment as "CANCELLED" (or back to ACTIVE)
 
 .. Prerequisites: List all appointments using the `list-appt` command. All appointments are in the list.
 .. Test case: `mark-appt 1 s/CANCELLED` +
@@ -1781,3 +1817,21 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: No appointment is changed. A list of valid appointment status that can be input is shown.
 .. Other incorrect mark-appt commands to try: `mark-appt`, `mark-appt 1 s/123`. +
    Expected: Similar to previous.
+
+. Listing appointments
+
+.. Prerequisites: There are existing appointments in the system.
+.. Test case: `list-appt` +
+   Expected: All appointments in the system are shown.
+.. Test case: `list-appt pid/1` +
+   Expected: Appointments made by patient ID 1 are shown.
+.. Test case: `list-appt did/7` +
+   Expected: Appointments made by doctor ID 7 are shown.
+.. Test case: `list-appt c/PAST` +
+   Expected: Only appointments in the past are shown.
+.. Test case: `list-appt d/2019-06-99` +
+   Expected: No appointments are shown. A message prompting the user to enter the correct command format is shown.
+.. Other incorrect list-appt commands to try: `list-appt t/99:00`, `list-appt s/ASDF`, `list-appt c/TOMORROW`. +
+   Expected: Similar to previous.
+
+// end::appointmentmanualtesting[]

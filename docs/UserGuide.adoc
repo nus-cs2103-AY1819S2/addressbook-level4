@@ -16,9 +16,33 @@ endif::[]
 
 By: `Team W13-1 and Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
+// tag::introduction[]
 == Introduction
 
-docX is for those who *prefer to use a desktop app for managing contacts*. More importantly, docX is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, docX can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+DocX is a desktop clinic management application designed for receptionists in small clinics.
+Even today, many receptionists in small clinics are still using pen and paper to track patients' information, which can be prone to human errors and reduced productivity if the number of patients is large. Our clinic management application is designed specifically to make this process much easier for them.
+
+The features we provide include:
+
+* Record and manage patients coming to the clinic
+
+* Record and manage doctors in the clinic
+
+* Record and manage medical histories of patients
+
+* Make and manage appointments for patients
+
+* Record and manage medicines in the clinic and prescriptions given by doctors
+
+While it has a GUI,
+most of the user interactions happen using a CLI (Command Line Interface).
+More importantly, DocX is *optimized for those who prefer to work with a Command Line Interface* (CLI)
+while still having the benefits of a Graphical User Interface (GUI).
+No technical knowledge on programming or terminal commands is needed.
+If you can type normal words fast, DocX can get your clinic management tasks done faster than traditional GUI apps.
+
+Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+// end::introduction[]
 
 == Quick Start
 
@@ -50,7 +74,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add-p n/NAME`, `NAME` is a parameter which can be used as `add-p n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[s/SPECIALISATION]...` can be used as `{nbsp}` (i.e. 0 times), `s/acupuncture`, `s/acupuncture s/general` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE`, `p/PHONE n/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
@@ -64,7 +88,7 @@ Format: `add-p [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [adr/ADDRESS] [t/TAG]`
 
 ****
 * A patient can have any number of tags (including 0) +
-* If there are multiple entries for each parameters input, the last input will be stored
+* If there are multiple input for each parameter field, the last input will be stored
 ****
 
 Examples:
@@ -73,7 +97,7 @@ Examples:
 * `add-p n/Bettany Sim g/F p/8234567 a/32 adr/RVRC House 12 t/diabetic`
 
 [TIP]
-For constraints of name, gender, age, phone, address and tags, please refer to the section below.
+For constraints of name, gender, age, phone, address and tags, please refer to the table below.
 
 .Table for Patient's info constraint
 image::patientdataconstrainttable.png[width="800"]
@@ -91,6 +115,7 @@ Format: `edit-p [INDEX] [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [adr/ADDRESS]`
 ****
 * Edits the patient at the specified list index. +
 * At least one of the optional fields must be provided.
+* If there are multiple input for each parameter field, the last input will be stored
 * Existing values will be updated to the input values.
 ****
 
@@ -105,9 +130,27 @@ Having 2 input of the same field will take the last input. Edited patient name t
 * `edit-p 1 t/` +
 An empty tag field removes all the current tags of the patient with ID of '1'.
 
+=== Deleting a patient : `delete-p`
+
+Deletes the specified patient from docX. +
+Format: `delete-p [INDEX]`
+
+****
+* Deletes the patient of the specified list index.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list-p` +
+`delete-p 3` +
+Deletes the patient with current list index of '3' in the docX.
+* `delete-p 2` +
+Deletes the patient with current list index of '2' in the docX.
+
 === Search patient by name: `search-p-name`
 
-Search and return patient(s) whose names contain any of the given keywords. +
+Search and return patient(s) whose names contain any of the input keywords. +
 Format: `search-p-name [NAME] [NAME2]`
 
 ****
@@ -143,9 +186,9 @@ Examples:
 * `search-pid 1` +
 Returns `Alex Martin` who has pid of `1`.
 
-=== Search patient by appt status: `search-p-status`
+=== Search patient by appointment status: `search-p-status`
 
-Search and return patient(s) whose appointment status matches the specified keyword. +
+Search and return patient(s) whose appointment status matches the input status. +
 Format: `search-p-status [STATUS]`
 
 ****
@@ -162,14 +205,14 @@ Returns `Alex Martin` and `Tom Hiddleston` who has appointment status of `ACTIVE
 
 === Advanced search patient by any info: `search-p-advanced`
 
-Search and return patient(s) whose detail contains all of the given keywords,
+Search and return patient(s) whose detail contains all of the input keywords,
 even if the keyword is only a subword of the patient's info +
 Use a "quoted_keyword" to enforce fullword match to the patient's info +
 Format: `search-p-advanced [keyword] ["quoted_keyword"]...`
 
 ****
 * The search is case insensitive. e.g `aLeX` will match `Alex`
-* The order of the keywords does not matter. e.g. `stroke cancer` will match `cancer stroke`
+* The order of the input keywords does not matter. e.g. `stroke cancer` will match `cancer stroke`
 * With "unquoted_keyword", subwords will be matched +
 e.g. `blood` will match `highbloodpressure` and `bloodclot`
 * With quoted keyword, only the full word will be matched +
@@ -193,7 +236,7 @@ Will return neither `Alex Martin` who has a `bloodclot` tag +
 nor `Alexander Fleming` who has a `highbloodpressure` tag
 
 
-=== Selecting an existing patient : `select-p`
+=== Selecting a patient : `select-p`
 
 Select the specified patient from docX. +
 Displays his/her full information on the browser panel.
@@ -210,24 +253,6 @@ Examples:
 `select-p 3` +
 Selects the patient with current list index of '3' in the docX +
 The patient's full detail can be easily viewed in the browser panel.
-
-=== Deleting an existing patient : `delete-p`
-
-Deletes the specified patient from docX. +
-Format: `delete-p [INDEX]`
-
-****
-* Deletes the patient of the specified list index.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list-p` +
-`delete-p 3` +
-Deletes the patient with current list index of '3' in the docX.
-* `delete-p 2` +
-Deletes the patient with current list index of '2' in the docX.
 
 // tag::doctorcommands[]
 === Adding a doctor: `add-d`
@@ -469,6 +494,8 @@ Examples:
 * `select-med-hist 1` +
 Returns details of the medical history with index 1 in medical history list.
 
+// tag::appointment[]
+
 === Adding an appointment: `add-appt`
 Adds an appointment between a patient and a doctor +
 Format: `add-appt pid/PATIENT_ID did/DOCTOR_ID d/DATE_OF_APPT t/START_TIME`
@@ -546,6 +573,7 @@ The appointment with INDEX 1 is cancelled.
 * `mark-appt 3 s/MISSED` +
 The appointment with INDEX 3 was missed. Note that this can only be done to elapsed appointments.
 
+// end::appointment[]
 
 === Adding a prescription: `add-presc`
 
@@ -751,6 +779,7 @@ e.g. `search-med-hist fever`
 * *Select a medical history* : `select-med-hist INDEX ` +
 e.g. `select-med-hist 1`
 
+// tag::appointmentsummary[]
 APPOINTMENT COMMANDS
 
 * *Add a new appointment* `add-appt pid/PATIENT_ID did/DOCTOR_ID d/DATE_OF_APPT t/START_TIME` +
@@ -760,7 +789,7 @@ e.g. `add-appt pid/1 did/1 d/2019-06-01 t/09:00`
 e.g. `list-appt`
 * *Changing an appointment status* : `mark-appt INDEX s/NEW_STATUS`
 e.g. `mark-appt 1 s/CANCELLED`
-
+// end::appointmentsummary[]
 
 PRESCRIPTION COMMANDS
 

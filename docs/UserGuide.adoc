@@ -752,7 +752,7 @@ e.g. `activityDelete 1`
 * *Delete a member from activity* : `activityDeleteMember ACTIVITY_INDEX MATRIC_NUMBER` +
 e.g. `activityDeleteMember 1 A1234567N`
 * *Edit an activity* : `activityEdit ACTIVITY_INDEX [n/ACTIVITY_NAME] [d/DATETIME] [l/ACTIVITY_LOCATION] [de/ACTIVITY_DESCRIPTION] … ` +
-e.g. `activityEdit 1 n/New Activity d/13022019 1200 l/Com1 de/Bring calculator`
+e.g. `activityEdit 1 n/New Activity d/13/02/2019 1200 l/Com1 de/Bring calculator`
 * *Find an activity* : `activityFind [PREFIX] KEYWORD [MORE_KEYWORDS] [NEXT_PREFIX KEYWORD] [MORE_KEYWORDS]` +
 e.g. `activityFind n/ Workshop`
 * *Filtering activities* : `activityFilter CONDITION NUMBER_OF_DAYS` +

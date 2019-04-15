@@ -654,6 +654,7 @@ List will be sorted by name in reverse lexicographical order.
 ==== Reversing the entries: `[fuchsia]#reverse#`
 
 [navy]#You can also reverse the order of the list of entries in the records.# +
+See Figure 19 below for an example. +
 `[fuchsia]#Reverse#` has effect on the entire list of entries (instead of a filtered list).
 
 *Alias*: `[fuchsia]#rev#`

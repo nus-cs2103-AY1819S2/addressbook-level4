@@ -55,6 +55,7 @@ import seedu.address.testutil.PersonUtil;
 
 public class AddCommandSystemTest extends AddressBookSystemTest {
 
+    // Ignored as it passes on local build, but fails on Travis CI / AppVeyor
     @Ignore
     @Test
     public void add() {

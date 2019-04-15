@@ -254,7 +254,7 @@ link:{repoURL}/blob/master/src/main/java/seedu/address/logic/Logic.java[[.java]#
 Given below is the Sequence Diagram for interactions within the [.java]#Logic# component for the [.java]#execute("addTable 2")# API call.
 
 .Interactions Inside the Logic Component for the `addTable 2` Command
-image::AddTableSdForLogic.png[width="800"]
+image::AddTableSdforLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
@@ -306,10 +306,10 @@ As ROR contains many features, users may find it complicated to handle all the f
 
 As such, we have decided to implement a mode system for ROR to organise the available commands into their respective features. ROR provides 4 different modes for the users, each displaying a different set of panels that are relevant to the mode:
 
-* *Restaurant Mode* - perform <<Tables feature, table-related operations>> across the entire restaurant
-* *Table Mode* - perform <<Orders feature, order-related operations>> for a specific table
-* *Menu Mode* - perform <<Menu feature, menu-related operations>> on the restaurant's menu
-* *Statistics Mode* - perform <<Statistics feature, queries>> to retrieve the restaurant's statistics
+* *Restaurant Mode* - perform <<Tablesf, table-related operations>> across the entire restaurant
+* *Table Mode* - perform <<Ordersf, order-related operations>> for a specific table
+* *Menu Mode* - perform <<Menuf, menu-related operations>> on the restaurant's menu
+* *Statistics Mode* - perform <<Statisticsf, queries>> to retrieve the restaurant's statistics
 
 To use the different features, we have also implemented commands for users to switch between the 4 user modes.
 
@@ -415,6 +415,7 @@ We decided to go ahead with this implementation as we feel that from a user's po
 |=======================================================================
 // end::changemode[]
 
+[[Tablesf]]
 === Tables feature
 
 The Table feature allows the users to add, edit and clear tables using the commands <<AddTable,`addTable`>>, <<EditPax,`editPax`>>, <<EditSeats, `editSeats`>> and <<ClearTables, `clearTables`>> to ensure that RestOrRant reflects their physical restaurant in terms of the number of tables and each table's occupancy. Also, the Tables feature provides a quick way to look for an available table that can accommodate the specified number of customers using the <<SpaceFor, `spaceFor`>> command. All of the table details are displayed in our UI for easy reference.
@@ -562,6 +563,7 @@ This functionality uses the `spaceFor` command and is facilitated by the [.java]
 // end::spacefor[]
 // end::tables[]
 
+[[Ordersf]]
 === Orders feature
 
 The Orders feature allows restaurant front-end staff to take orders from customers using the <<AddToOrder, `addToOrder`>> command,
@@ -715,6 +717,7 @@ If the [.java]#OrderItem# is found and the quantity served is valid, a new [.jav
 
 // end::serve[]
 
+[[Menuf]]
 === Menu feature
 The Menu feature allows restaurant managers to take add items to the menu using the <<AddToMenu, `addToMenu`>> command, as well as
 remove menu items as needed using the <<DeleteFromMenu, `deleteFromMenu`>> or <<ClearMenu, `clearMenu`>> commands. They can track the current list of
@@ -879,6 +882,7 @@ When [.java]#ClearMenuCommand#execute()# is called, it will check if the restaur
 // tag::statistics[]
 // tag::statisticsintro[]
 [[Statistics]]
+[[Statisticsf]]
 === Statistics feature
 
 The Statistics feature allows users to perform queries that deal with the restaurant's statistical data, mainly the

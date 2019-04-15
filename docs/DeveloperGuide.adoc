@@ -1234,3 +1234,30 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+=== Display the equipments
+
+. Display the equipments while there are some equipments in the list
+
+.. Prerequisites: List all equipment using the `list-e` command. Multiple equipments in the list.
+.. Test case: `display` +
+   Expected: Some red markers of equipments shown on the map
+
+. Display the equipments while no equipments in the list
+.. Prerequisites: Clear all equipment using the `clear` command. No equipment in the list.
+.. Test case: `display` +
+   Expected: No red markers of equipments shown on the map, but the map should still display.
+
+=== Route the equipments
+
+. Route the equipments while there are some equipments in the list
+
+.. Prerequisites: List all equipment using the `list-e` command. Multiple equipments in the list.
+.. Test case: `route School of Computing, NUS, Singapore` +
+   Expected: Route of some equipments with valid and concise addresses will be shown and route will be calculated.
+.. Test case: `route` +
+   Expected: Browser panel do not change. Error messages shown.
+. Display the equipments while no equipments in the list
+.. Prerequisites: Clear all equipment using the `clear` command. No equipment in the list.
+.. Test case: `route School of Computing, NUS, Singapore` +
+   Expected: Only a marker shwon on the map, no routes calculated. Map will still display.

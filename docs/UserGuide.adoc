@@ -304,6 +304,10 @@ The addresses (address of equipments and the origin address) will be interpreted
 The `equipments` with invalid addresses in Google Map will not be shown on the map as well.
 The display may take a few seconds.
 ====
+
+Screen shot after typing command `display`:
+
+image::display-screenshot.png[width="800"]
 // end::display[]
 
 // tag::sort[]
@@ -429,6 +433,10 @@ The `equipments` with invalid addresses in Google Map will not be shown on the m
 The suggest order is marked on map with Alphabets start with B, and the suggest route is travel from A (Overlapped with the largest alphabet, so A may not be visible on map), to the largest alphabet in increasing order.
 The `origin address` must include the country name, and it is suggested to include the postal code.
 ====
+
+Screen shot after typing command `route School of Computing, NUS, Singapore 117417`:
+
+image::route-planning-screenshot.png[width="800"]
 
 === Listing entered commands: `history`
 Lists all the commands that you have entered in reverse chronological order.

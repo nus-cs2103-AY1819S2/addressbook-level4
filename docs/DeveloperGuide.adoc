@@ -526,6 +526,8 @@ Approach
 
 *Swap Request Creation*
 
+image::SwapRequestSequenceDiagram.png[width="800"]
+
 There is currently a Java class called Request in the request folder in the model package. This request represents a swap request that a duty personnel submits using the 'swap' command. It has 4 fields, the requester Person object, the allocated date (out of which the requester wants to swap) as a java.time.LocalDate object, the requested date (into which the requester wants to swap) also as a LocalDate object, and the accepter Person object, which could be null.
 
 A Request object is created when the 'swap' command is entered by a non-master-admin user. Since he is an actual human user with an associated Person object and NRIC, he is able to request a swap if he is unwilling or unable to do his current allocated duty. This must happen after the duties are scheduled. Otherwise, the list of duties associated with the user is empty and a swap request cannot be made.

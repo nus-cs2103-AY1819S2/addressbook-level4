@@ -1,0 +1,8 @@
+{
+  "books": [ {
+    "bookname": "Book With Invalid Author Field",
+    "author": "J.K",
+    "rating": "5"
+  } ],
+  "reviews" : []
+}

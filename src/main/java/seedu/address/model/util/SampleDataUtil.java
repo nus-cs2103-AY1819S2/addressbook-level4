@@ -4,48 +4,76 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.BookShelf;
+import seedu.address.model.ReadOnlyBookShelf;
+import seedu.address.model.book.Author;
+import seedu.address.model.book.Book;
+import seedu.address.model.book.BookName;
+import seedu.address.model.book.Rating;
+import seedu.address.model.book.Review;
+import seedu.address.model.book.ReviewTitle;
 import seedu.address.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code BookShelf} with sample data.
  */
 public class SampleDataUtil {
-    public static Person[] getSamplePersons() {
-        return new Person[] {
-            new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                new Address("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("friends")),
-            new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-                new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                getTagSet("colleagues", "friends")),
-            new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                getTagSet("neighbours")),
-            new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                getTagSet("family")),
-            new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-                new Address("Blk 47 Tampines Street 20, #17-35"),
-                getTagSet("classmates")),
-            new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                new Address("Blk 45 Aljunied Street 85, #11-31"),
-                getTagSet("colleagues"))
+    public static Book[] getSampleBooks() {
+        return new Book[] {
+            new Book(new BookName("Madame Bovary"), new Author("Gustave Flaubert"), new Rating("8"),
+                getTagSet("classic")),
+            new Book(new BookName("Pride and Prejudice"), new Author("Jane Austen"), new Rating("6"),
+                getTagSet("novel", "romantic")),
+            new Book(new BookName("Green Eggs and Ham"), new Author("Dr Seuss"), new Rating("7"),
+                getTagSet("children")),
+            new Book(new BookName("The Adventures of Tintin"), new Author("Georges Remi"), new Rating("5"),
+                getTagSet("adventure")),
+            new Book(new BookName("Gone Girl"), new Author("Gillian Flynn"), new Rating("4"),
+                getTagSet("thriller")),
+            new Book(new BookName("One Hundred Years of Solitude"), new Author("Garcia Marquez"), new Rating("9"),
+                getTagSet("fantasy")),
+            new Book(new BookName("The Second Sex"), new Author("Beauvoir"), new Rating("9"),
+                getTagSet()),
+            new Book(new BookName("The Master and Margaret"), new Author("Mikhail Bulgakov"), new Rating("8"),
+                getTagSet()),
+            new Book(new BookName("Sense and Sensibility"), new Author("Jane Austen"), new Rating("7"),
+                getTagSet("novel", "romantic")),
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
-        for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+    public static Review[] getSampleReviews() {
+        return new Review[] {
+            new Review(new ReviewTitle("A Childhood Favorite"), new BookName("Green Eggs and Ham"),
+                    "This is my favorite book when I was a kid. Read it again with my younger brother. "),
+            new Review(new ReviewTitle("Magical Realism"), new BookName("One Hundred Years of Solitude"),
+                    "One of the best books I've ever read. "),
+            new Review(new ReviewTitle("Desperate Housewife"), new BookName("Madame Bovary"),
+                    "Poor Emma Bovary. She will never escape the tyranny of her desires, never avoid the "
+                            + "anguish into which her romantic conceits deliver her, never claim the oblivion she "
+                            + "sought from what is perhaps the most excruciating slow suicide ever written."),
+            new Review(new ReviewTitle("Belief Systems"), new BookName("Pride and Prejudice"),
+                    "Most of the characters believe that nothing matters more than social class. Characters "
+                            + "threaten, criticize, ostracize, flatter, marry, venerate and despise other characters, "
+                            + "all for the sake of maintaining or elevating their status in society."),
+            new Review(new ReviewTitle("Book of a Lifetime"), new BookName("Madame Bovary"),
+                    "What leaves me reeling with each re-reading is the use of language."
+                            + " There can be no doubt as to the reason for Flaubert's brain popping at"
+                            + " the top of the stairs when he was 58. He broke it scouring for perfect sentences,"
+                            + " words, le mot juste.")
+        };
+    }
+
+    public static ReadOnlyBookShelf getSampleBookShelf() {
+        BookShelf sampleBs = new BookShelf();
+
+        for (Book sampleBook : getSampleBooks()) {
+            sampleBs.addBook(sampleBook);
         }
-        return sampleAb;
+
+        for (Review sampleReview : getSampleReviews()) {
+            sampleBs.addReview(sampleReview);
+        }
+        return sampleBs;
     }
 
     /**
@@ -56,5 +84,4 @@ public class SampleDataUtil {
                 .map(Tag::new)
                 .collect(Collectors.toSet());
     }
-
 }

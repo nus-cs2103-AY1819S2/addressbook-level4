@@ -11,11 +11,13 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.BookShelfParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.ReadOnlyBookShelf;
+import seedu.address.model.book.Book;
+import seedu.address.model.book.Review;
+import seedu.address.model.book.ReviewBookNameContainsExactKeywordsPredicate;
 import seedu.address.storage.Storage;
 
 /**
@@ -28,36 +30,36 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final CommandHistory history;
-    private final AddressBookParser addressBookParser;
-    private boolean addressBookModified;
+    private final BookShelfParser bookShelfParser;
+    private boolean bookShelfModified;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         history = new CommandHistory();
-        addressBookParser = new AddressBookParser();
+        bookShelfParser = new BookShelfParser();
 
         // Set addressBookModified to true whenever the models' address book is modified.
-        model.getAddressBook().addListener(observable -> addressBookModified = true);
+        model.getBookShelf().addListener(observable -> bookShelfModified = true);
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        addressBookModified = false;
+        bookShelfModified = false;
 
         CommandResult commandResult;
         try {
-            Command command = addressBookParser.parseCommand(commandText);
+            Command command = bookShelfParser.parseCommand(commandText);
             commandResult = command.execute(model, history);
         } finally {
             history.add(commandText);
         }
 
-        if (addressBookModified) {
-            logger.info("Address book modified, saving to file.");
+        if (bookShelfModified) {
+            logger.info("Bookshelf modified, saving to file.");
             try {
-                storage.saveAddressBook(model.getAddressBook());
+                storage.saveBookShelf(model.getBookShelf());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
@@ -67,13 +69,18 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyBookShelf getBookShelf() {
+        return model.getBookShelf();
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<Book> getFilteredBookList() {
+        return model.getFilteredBookList();
+    }
+
+    @Override
+    public ObservableList<Review> getFilteredReviewList() {
+        return model.getFilteredReviewList();
     }
 
     @Override
@@ -82,8 +89,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getBookShelfFilePath() {
+        return model.getBookShelfFilePath();
     }
 
     @Override
@@ -97,12 +104,27 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyProperty<Person> selectedPersonProperty() {
-        return model.selectedPersonProperty();
+    public ReadOnlyProperty<Book> selectedBookProperty() {
+        return model.selectedBookProperty();
     }
 
     @Override
-    public void setSelectedPerson(Person person) {
-        model.setSelectedPerson(person);
+    public ReadOnlyProperty<Review> selectedReviewProperty() {
+        return model.selectedReviewProperty();
+    }
+
+    @Override
+    public void setSelectedBook(Book book) {
+        if (book != null) {
+            model.setSelectedBook(book);
+            ReviewBookNameContainsExactKeywordsPredicate predicate =
+                    new ReviewBookNameContainsExactKeywordsPredicate(book.getBookName());
+            model.updateFilteredReviewList(predicate);
+        }
+    }
+
+    @Override
+    public void setSelectedReview(Review review) {
+        model.setSelectedReview(review);
     }
 }

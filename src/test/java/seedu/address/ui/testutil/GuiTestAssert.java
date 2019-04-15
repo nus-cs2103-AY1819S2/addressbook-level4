@@ -2,66 +2,148 @@ package seedu.address.ui.testutil;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import guitests.guihandles.PersonCardHandle;
-import guitests.guihandles.PersonListPanelHandle;
+import guitests.guihandles.BookBrowserPanelHandle;
+import guitests.guihandles.BookCardHandle;
+import guitests.guihandles.BookListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
-import seedu.address.model.person.Person;
+import guitests.guihandles.ReviewCardHandle;
+import seedu.address.model.book.Book;
+import seedu.address.model.book.Review;
+import seedu.address.ui.BookCard;
+
 
 /**
  * A set of assertion methods useful for writing GUI tests.
  */
 public class GuiTestAssert {
+
+    private static final String LABEL_DEFAULT_STYLE = "label";
+
     /**
      * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
      */
-    public static void assertCardEquals(PersonCardHandle expectedCard, PersonCardHandle actualCard) {
-        assertEquals(expectedCard.getId(), actualCard.getId());
-        assertEquals(expectedCard.getAddress(), actualCard.getAddress());
-        assertEquals(expectedCard.getEmail(), actualCard.getEmail());
+    public static void assertCardEquals(BookCardHandle expectedCard, BookCardHandle actualCard) {
         assertEquals(expectedCard.getName(), actualCard.getName());
-        assertEquals(expectedCard.getPhone(), actualCard.getPhone());
-        assertEquals(expectedCard.getTags(), actualCard.getTags());
+        assertEquals(expectedCard.getAuthor(), actualCard.getAuthor());
+        assertEquals(expectedCard.getRating(), actualCard.getRating());
+
+        expectedCard.getTags().forEach(tag ->
+            assertEquals(expectedCard.getTagStyleClasses(tag), actualCard.getTagStyleClasses(tag)));
     }
 
     /**
-     * Asserts that {@code actualCard} displays the details of {@code expectedPerson}.
+     * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
      */
-    public static void assertCardDisplaysPerson(Person expectedPerson, PersonCardHandle actualCard) {
-        assertEquals(expectedPerson.getName().fullName, actualCard.getName());
-        assertEquals(expectedPerson.getPhone().value, actualCard.getPhone());
-        assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
-        assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
-        assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
-                actualCard.getTags());
+    public static void assertReviewCardEquals(ReviewCardHandle expectedCard, ReviewCardHandle actualCard) {
+        assertEquals(expectedCard.getName(), actualCard.getName());
+        assertEquals(expectedCard.getBookName(), actualCard.getBookName());
+        assertEquals(expectedCard.getMessage(), actualCard.getMessage());
+        assertEquals(expectedCard.getDate(), actualCard.getDate());
     }
 
     /**
-     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and
-     * in the correct order.
+     * Asserts that {@code actualCard} displays the details of {@code expectedBook}.
      */
-    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, Person... persons) {
-        for (int i = 0; i < persons.length; i++) {
-            personListPanelHandle.navigateToCard(i);
-            assertCardDisplaysPerson(persons[i], personListPanelHandle.getPersonCardHandle(i));
+    public static void assertCardDisplaysBook(Book expectedBook, BookCardHandle actualCard) {
+
+        assertEquals(expectedBook.getBookName().fullName, actualCard.getName());
+        assertEquals(expectedBook.getAuthor().fullName, actualCard.getAuthor());
+        assertEquals("Rating:  " + expectedBook.getRating().value, actualCard.getRating());
+        assertTagsEqual(expectedBook, actualCard);
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedBook}.
+     */
+    public static void assertCardDisplaysReview(Review expectedReview, ReviewCardHandle actualCard) {
+
+        assertEquals(expectedReview.getBookName().fullName, actualCard.getBookName());
+        assertEquals(expectedReview.getTitle().fullName, actualCard.getName());
+        assertEquals(expectedReview.getReviewMessage(), actualCard.getMessage());
+        assertEquals(expectedReview.getDateCreated(), actualCard.getDate());
+    }
+
+    /**
+     * Asserts that {@code actualPanel} displays the details of {@code expectedReview}.
+     */
+    public static void assertPanelDisplaysReview(Review expectedReview, BookBrowserPanelHandle actualPanel) {
+        assertEquals(expectedReview.getReviewMessage(), actualPanel.getMessageField());
+    }
+
+    /**
+     * Returns the color style for {@code tagName}'s label. The tag's color is determined by looking up the color
+     * in {@code BookCard#TAG_COLOR_STYLES}, using an index generated by the hash code of the tag's content.
+     *
+     * @see BookCard #getTagColorStyleFor(String)
+     */
+    private static String getTagColorStyleFor(String tagName) {
+        switch (tagName) {
+        case "popular":
+            return "blue";
+        case "fantasy":
+            return "orange";
+        case "classic":
+            return "yellow";
+        case "novel":
+            return "black";
+        case "romantic":
+            return "blue";
+        case "children":
+            return "brown";
+        case "thriller":
+            return "teal";
+        case "adventure":
+            return "orange";
+        case "textbook":
+            return "teal";
+        case "boring":
+            return "read";
+        default:
+            throw new AssertionError(tagName + " does not have a color assigned.");
         }
     }
 
     /**
-     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and
-     * in the correct order.
+     * Asserts that the tags in {@code actualCard} matches all the tags in {@code expectedPerson} with the correct
+     * color.
      */
-    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, List<Person> persons) {
-        assertListMatching(personListPanelHandle, persons.toArray(new Person[0]));
+    private static void assertTagsEqual(Book expectedBook, BookCardHandle actualCard) {
+        List<String> expectedTags = expectedBook.getTags().stream()
+            .map(tag -> tag.tagName).collect(Collectors.toList());
+        assertEquals(expectedTags, actualCard.getTags());
+        expectedTags.forEach(tag ->
+            assertEquals(Arrays.asList(LABEL_DEFAULT_STYLE, getTagColorStyleFor(tag)),
+                actualCard.getTagStyleClasses(tag)));
     }
 
     /**
-     * Asserts the size of the list in {@code personListPanelHandle} equals to {@code size}.
+     * Asserts that the list in {@code bookListPanelHandle} displays the details of {@code persons} correctly and
+     * in the correct order.
      */
-    public static void assertListSize(PersonListPanelHandle personListPanelHandle, int size) {
-        int numberOfPeople = personListPanelHandle.getListSize();
+    public static void assertListMatching(BookListPanelHandle bookListPanelHandle, Book... books) {
+        for (int i = 0; i < books.length; i++) {
+            bookListPanelHandle.navigateToCard(i);
+            assertCardDisplaysBook(books[i], bookListPanelHandle.getBookCardHandle(i));
+        }
+    }
+
+    /**
+     * Asserts that the list in {@code bookListPanelHandle} displays the details of {@code persons} correctly and
+     * in the correct order.
+     */
+    public static void assertListMatching(BookListPanelHandle bookListPanelHandle, List<Book> books) {
+        assertListMatching(bookListPanelHandle, books.toArray(new Book[0]));
+    }
+
+    /**
+     * Asserts the size of the list in {@code bookListPanelHandle} equals to {@code size}.
+     */
+    public static void assertListSize(BookListPanelHandle bookListPanelHandle, int size) {
+        int numberOfPeople = bookListPanelHandle.getListSize();
         assertEquals(size, numberOfPeople);
     }
 

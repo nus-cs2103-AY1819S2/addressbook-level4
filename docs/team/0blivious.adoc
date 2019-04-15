@@ -1,0 +1,60 @@
+= 0blivious - Project Portfolio for BookSquirrel
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== About the Project
+
+My team and I were tasked with enhancing a application addressbook-level4 for our
+Software Engineering project. We chose to morph it into an book review recording application called
+BookSquirrel. This enhanced application enables readers to keep track of their reading, recording down their
+reviews of books and obtain statistics of their past reading habits.
+
+My role was to design and write the codes to support the CRUD of books. The following sections
+illustrate these enhancements in more detail, as well as the relevant sections I have added to the
+user and developer guides in relation to these enhancements.
+
+== Summary of contributions
+This section shows a summary of my coding, documentation, and other helpful contributions to the
+team project.
+
+* *Major enhancement*: Support CRUD of book object.
+** What it does: Allows the user to add, edit, delete book in the book shelf and check reviews of selected book
+** Justification: This feature is the basis of the application. As our app is viewed as a big book shelf
+that keeps numerous books and the reviews related to each book. The CRUD features of book object is necessary to support
+all the other operations.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth
+analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+
+* *Minor enhancement*: Modified the UI to make it better suit our product
+
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=0blivious[Link to Code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
+*** Setting up Travis, Coveralls, Codacy for code checking purpose.
+*** Managing Issue Tracker and merging of PRs.
+** Enhancements to existing features:
+*** Updated the GUI to show list of reviews of certain book when click on that book card (Pull requests https://github.com/cs2103-ay1819s2-w11-4/main/pull/90[#90])
+*** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com/cs2103-ay1819s2-w11-4/main/pull/67[#67], https://github.com/cs2103-ay1819s2-w11-4/main/pull/69[#69],
+ https://github.com/cs2103-ay1819s2-w11-4/main/pull/92[#92])
+** Documentation:
+*** Update User Guide and Developer Guide to reflect current product (Pull requests https://github.com/cs2103-ay1819s2-w11-4/main/pull/61[#61], https://github.com/cs2103-ay1819s2-w11-4/main/pull/97[#97],
+ https://github.com/cs2103-ay1819s2-w11-4/main/pull/96[#96])
+** Community:
+*** PRs reviewed (with non-trivial review comments): (Pull requests https://github.com/cs2103-ay1819s2-w11-4/main/pull/42[#42], https://github.com/cs2103-ay1819s2-w11-4/main/pull/65[#65], https://github.com/cs2103-ay1819s2-w11-4/main/pull/66[#66], , https://github.com/cs2103-ay1819s2-w11-4/main/pull/93[#93])
+
+== Contributions to the User Guide
+We had to update the original addressbook User Guide with instructions for the enhancements that
+we had added. The following is an excerpt from our BookSquirrel User Guide, showing additions that I have
+made for the CRUD features for book.
+
+include::../UserGuide.adoc[tag=book]
+
+== Contributions to the Developer Guide
+The following section shows my additions to the BookSquirrel Developer Guide for the addBook
+features.
+
+include::../DeveloperGuide.adoc[tag=book]

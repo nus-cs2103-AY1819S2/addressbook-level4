@@ -1,19 +1,24 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
+import seedu.address.model.book.Book;
+import seedu.address.model.book.Review;
+import seedu.address.model.tag.Tag;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Book> PREDICATE_SHOW_ALL_BOOKS = unused -> true;
+    Predicate<Review> PREDICATE_SHOW_ALL_REVIEWS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -36,95 +41,192 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' book shelf file path.
      */
-    Path getAddressBookFilePath();
+    Path getBookShelfFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' book shelf file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setBookShelfFilePath(Path bookShelfFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces book shelf data with the data in {@code bookShelf}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setBookShelf(ReadOnlyBookShelf bookShelf);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the BookShelf */
+    ReadOnlyBookShelf getBookShelf();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a book with the same identity as {@code book} exists in the book shelf.
      */
-    boolean hasPerson(Person person);
+    boolean hasBook(Book book);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Returns true if a book with the same identity as {@code book} exists in the book shelf.
      */
-    void deletePerson(Person target);
+    boolean hasReview(Review review);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Deletes the given book.
+     * The book must exist in the book shelf.
      */
-    void addPerson(Person person);
+    void deleteBook(Book target);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Deletes the given book.
+     * The book must exist in the book shelf.
      */
-    void setPerson(Person target, Person editedPerson);
-
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    void deleteReview(Review target);
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Adds the given book.
+     * {@code book} must not already exist in the book shelf.
+     */
+    void addBook(Book book);
+
+    /**
+     * Adds the given book.
+     * {@code book} must not already exist in the book shelf.
+     */
+    void addReview(Review review);
+
+    /**
+     * Replaces the given book {@code target} with {@code editedBook}.
+     * {@code target} must exist in the book shelf.
+     * The book identity of {@code editedBook} must not be the same as another existing book in the book shelf.
+     */
+    void setBook(Book target, Book editedBook);
+
+    /**
+     * Replaces the given review {@code target} in the list with {@code editedReview}.
+     * {@code target} must exist in the book shelf.
+     * The review identity of {@code editedReview} must not be the same as another existing review in the book shelf.
+     */
+    void setReview(Review target, Review editedReview);
+
+    /** Returns an unmodifiable view of the filtered book list */
+    ObservableList<Book> getFilteredBookList();
+
+    /** Returns an unmodifiable view of the filtered book list */
+    ObservableList<Review> getFilteredReviewList();
+
+    /**
+     * Updates the filter of the filtered book list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredBookList(Predicate<Book> predicate);
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Updates the filter of the filtered book list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
      */
-    boolean canUndoAddressBook();
+    void updateFilteredReviewList(Predicate<Review> predicate);
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Returns true if the model has previous book shelf states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canUndoBookShelf();
 
     /**
-     * Restores the model's address book to its previous state.
+     * Returns true if the model has undone book shelf states to restore.
      */
-    void undoAddressBook();
+    boolean canRedoBookShelf();
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Restores the model's book shelf to its previous state.
      */
-    void redoAddressBook();
+    void undoBookShelf();
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Restores the model's book shelf to its previously undone state.
      */
-    void commitAddressBook();
+    void redoBookShelf();
 
     /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
+     * Saves the current book shelf state for undo/redo.
      */
-    ReadOnlyProperty<Person> selectedPersonProperty();
+    void commitBookShelf();
 
     /**
-     * Returns the selected person in the filtered person list.
-     * null if no person is selected.
+     * Selected book in the filtered book list.
+     * null if no book is selected.
      */
-    Person getSelectedPerson();
+    ReadOnlyProperty<Book> selectedBookProperty();
 
     /**
-     * Sets the selected person in the filtered person list.
+     * Selected book in the filtered book list.
+     * null if no book is selected.
      */
-    void setSelectedPerson(Person person);
+    ReadOnlyProperty<Review> selectedReviewProperty();
+
+    /**
+     * Returns the selected book in the filtered book list.
+     * null if no book is selected.
+     */
+    Book getSelectedBook();
+
+    /**
+     * Returns the selected review in the filtered review list.
+     * null if no review is selected.
+     */
+    Review getSelectedReview();
+
+    /**
+     * Sets the selected book in the filtered book list.
+     */
+    void setSelectedBook(Book book);
+
+    /**
+     * Sets the selected book in the filtered review list.
+     */
+    void setSelectedReview(Review review);
+
+
+    /**
+     * Delete the tag{@code tag} of all contacts in the phone book
+     */
+    void deleteTag(Tag tag);
+
+    /**
+     * Sort the Book list into different order
+     */
+
+    void sortBook(List<String> types, String mainOrder, Map<String, String> subOrder);
+
+    /**
+     * Get total number of books
+     */
+    int getNumberOfBooks();
+
+    /**
+     * Get the most read authors.
+     */
+    List<String> getMostReadAuthors();
+
+    /**
+     * Get books by certain author.
+     */
+    List<String> getBooksByAuthor(String authorName);
+
+    /**
+     * Get the highest marks.
+     */
+    String getHighestMark();
+
+    /**
+     * Get the books of the highest marks.
+     */
+    List<String> getBooksWithHighestMark(String mark);
+
+    /**
+     * Get the most read tags.
+     */
+    List<String> getMostReadTags();
+
+    /**
+     * Get the books with the most read tags
+     */
+    List<String> getBooksWithTag(String tagContent);
 }

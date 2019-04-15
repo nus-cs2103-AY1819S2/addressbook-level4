@@ -8,8 +8,9 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.ReadOnlyBookShelf;
+import seedu.address.model.book.Book;
+import seedu.address.model.book.Review;
 
 /**
  * API of the Logic component
@@ -25,14 +26,17 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the BookShelf.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see seedu.address.model.Model#getBookShelf()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyBookShelf getBookShelf();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered list of books */
+    ObservableList<Book> getFilteredBookList();
+
+    /** Returns an unmodifiable view of the filtered list of books */
+    ObservableList<Review> getFilteredReviewList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -41,9 +45,9 @@ public interface Logic {
     ObservableList<String> getHistory();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' book shelf file path.
      */
-    Path getAddressBookFilePath();
+    Path getBookShelfFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
@@ -56,17 +60,32 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
+     * Selected person in the filtered books list.
+     * null if no book is selected.
      *
-     * @see seedu.address.model.Model#selectedPersonProperty()
+     * @see seedu.address.model.Model#selectedBookProperty()
      */
-    ReadOnlyProperty<Person> selectedPersonProperty();
+    ReadOnlyProperty<Book> selectedBookProperty();
+
+    /**
+     * Selected person in the filtered books list.
+     * null if no book is selected.
+     *
+     * @see seedu.address.model.Model#selectedBookProperty()
+     */
+    ReadOnlyProperty<Review> selectedReviewProperty();
 
     /**
      * Sets the selected person in the filtered person list.
      *
-     * @see seedu.address.model.Model#setSelectedPerson(Person)
+     * @see seedu.address.model.Model#setSelectedBook(Book)
      */
-    void setSelectedPerson(Person person);
+    void setSelectedBook(Book book);
+
+    /**
+     * Sets the selected person in the filtered person list.
+     *
+     * @see seedu.address.model.Model#setSelectedBook(Book)
+     */
+    void setSelectedReview(Review review);
 }

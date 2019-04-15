@@ -1,0 +1,82 @@
+= Jiang Qinhua - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: BookSquirrel
+== Introduction
+
+This portfolio is to document my contribution to the project called BookSquirrel. BookSquirrel is a team project for our CS2103T Software Engineering. The aim of this project is to create a new application base on a given project called AddressBook Level 4(AB4), make the new project running without any bugs. In the project, Most of the word documents are written in asciidoc or markdown. +
+There are some basic requirements for this project:
+
+    1. Modifying base on an existing project instead of starting from scratch.
+
+    2. Forming a team and collaborate with team members.
+
+    3. Using Github and Version Control System to manage our project, knowing how to use git commands.
+
+    4. Must follow the coding standard.
+
+    5. Must write various tests for the project such as the Unit test.
+
+    6. Writing Developer guide and User guide is compulsory.
+
+    7. The project is base on Java 9.0, so Java is the only language you can use for this project.
+
+    8. Forbidden feathers such as login in, using network function and using database function.
+
+BookSquirrel is a desktop application for those who want to keep records of books they've read. You can write down multiple reviews for a single book.
+Before you write any reviews for a book, you need to add a book into our application first. The details include book name, author of the book, rating point that you would rate for this book and some optional tags.BookSquirrel is optimized for those who prefer to work with a *Command Line Interface* (CLI) while still having the benefits of a *Graphical User Interface* (GUI). +
+
+In order to meet the task requirement, I have to consistently write code contribute to my project to avoid last minus work. I will ask for help if I am stuck too long and I will communicate with team members frequently to avoid doing redundant or repeated works.
+
+== Summary of Contributions
+My contribution to this project includes: +
+
+* *Major enhancement*: added the *ability to rearrange books in certain order*
+
+- What it does: allows the user to sort the books they added by book name, author or rating.
+
+- Justification: This feature improves the product significantly because users can easier arrange all books in the way they want, such as high rating to low rating.
+
+- Highlights: This enhancement is not simply sorted by one attribute, it can be sorted with more than one attributes at the same time. For example, you want to sort the rating of books in descending, if they are tie you may want them in ascending order of book name.
+
+
+* *Major enhancement*: added the *ability to undo/redo previous commands*
+
+- *What it does*: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
+
+- *Justification*: This feature improves the product significantly because a user can make mistakes in commands and the application should provide a convenient way to rectify them.
+
+- *Highlights*: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+
+- *Credits*: The code is modified base on https://github.com/nus-cs2103-AY1819S2/addressbook-level4[se-edu/addressbook-level4]
+
+* *Minor enhancement*: modifies the UI base on AddressBook- level 4.
+
+* *Code contributed*: https://github.com/cs2103-ay1819s2-w11-4/main/pull/78/files[Functional code] https://github.com/cs2103-ay1819s2-w11-4/main/pull/81/files[Test code]
+
+* *Other contributions*:
+- Updates Tag color for the project(Pull requests, https://github.com/cs2103-ay1819s2-w11-4/main/pull/10[#10])
+- Documentation:
+** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/cs2103-ay1819s2-w11-4/main/pull/82[#82],
+https://github.com/cs2103-ay1819s2-w11-4/main/pull/102[#102]
+** Did cosmetic tweaks to existing contents of the Developer Guide: https://github.com/cs2103-ay1819s2-w11-4/main/pull/14[#14], https://github.com/cs2103-ay1819s2-w11-4/main/pull/102[#102]
+- Community:
+** PRs reviewed (with non-trivial review comments)
+
+== Contributions to the User Guide
+Given below are sections I contributed to the User Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+
+include::../UserGuide.adoc[tag=sortBook]
+include::../UserGuide.adoc[tag=undoredo]
+
+
+== Contributions to the Developer Guide
+Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+
+include::../DeveloperGuide.adoc[tag=userStories]
+include::../DeveloperGuide.adoc[tag=sortBook]
+include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=mtsortBook]
+

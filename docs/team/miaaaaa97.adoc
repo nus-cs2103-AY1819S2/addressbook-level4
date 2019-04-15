@@ -1,0 +1,64 @@
+= Zhang Tieze - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: BookSquirrel
+
+---
+
+== Overview
+
+BookSquirrel(v1.4) is for those who want to keep a record of books they’ve read. More importantly, BookSquirrel is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BookSquirrel can get your note management tasks done faster than traditional GUI apps.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the Review feature*.
+** What it does: allows the user to add, list, view, and delete reviews.
+** Justification: This feature enables the user to record their thoughts when they read books.
+** Highlights: This feature requires a lot of change to the UI and model of the application, meanwhile, it is closely linked to the book feature, which
+makes it challenging and bug-prone. To find a way to store reviews, many architectures were considered.
+Extra care was taken to integrate Reviews with existing Book commands, such as to cascade any deletion or editing of books.
+
+* *Minor enhancement*: fixed the bug that ConfigUtil will always output config.json with missing new line at end of file, which causes the travis build to fail unless a new line is manually added.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=miaaaaa97[Functional code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Created and managed the Project board
+*** Created and organized tags
+** Enhancements to existing features:
+*** Wrote additional tests for existing features to increase coverage from 87% to 92% (Pull request https://github.com/cs2103-ay1819s2-w11-4/main/pull/95[#95])
+** Documentation:
+*** Wrote the AboutUs and ContactUs documents. (Pull request https://github.com/cs2103-ay1819s2-w11-4/main/pull/6[#6])
+*** Update diagrams in README page, UserGuide and DeveloperGuide. (Pull request https://github.com/cs2103-ay1819s2-w11-4/main/pull/17[#17], https://github.com/cs2103-ay1819s2-w11-4/main/pull/21[#21])
+*** Re-organized existing contents of the User Guide and Developer Guide: (Pull request https://github.com/cs2103-ay1819s2-w11-4/main/pull/95[#95])
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=reviews]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=uidiagram]
+include::../DeveloperGuide.adoc[tag=logicdiagram]
+include::../DeveloperGuide.adoc[tag=modeldiagram]
+include::../DeveloperGuide.adoc[tag=addReview]
+include::../DeveloperGuide.adoc[tag=manualtesting]
+include::../DeveloperGuide.adoc[tag=manualtestreview]
+
+
+

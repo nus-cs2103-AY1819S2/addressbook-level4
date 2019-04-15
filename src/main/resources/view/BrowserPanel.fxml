@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.web.WebView?>
+<?import javafx.scene.control.Label?>
 
-<StackPane xmlns:fx="http://javafx.com/fxml/1">
-  <WebView fx:id="browser"/>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Label fx:id="title" text="\$title" styleClass="label-dark"/>
+<StackPane xmlns:fx="http://javafx.com/fxml/1" alignment="TOP_LEFT">
+  <Label fx:id="reviewMessage" text="\$reviewMessage" styleClass="cell_big_label"/>
 </StackPane>
+</VBox>

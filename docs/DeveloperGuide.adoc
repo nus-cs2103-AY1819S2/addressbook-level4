@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= BookSquirrel - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,9 +13,13 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/cs2103-ay1819s2-w11-4/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W11-4`      Since: `Jun 2019`      Licence: `MIT`
+
+== Introduction
+
+BookSquirrel is for those who *want to keep a record of books they've read*. More importantly, BookSquirrel is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BookSquirrel can get your management of books done faster than traditional GUI apps.
 
 == Setting up
 
@@ -30,7 +34,7 @@ Windows developers are highly recommended to use JDK `9`.
 . *IntelliJ* IDE
 +
 [NOTE]
-IntelliJ by default has Gradle and JavaFx plugins installed. +
+IntelliJ by default has Gradle and JavaFX plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
 
@@ -46,7 +50,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `Open as Project`
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
-This will generate all resources required by the application and tests.
+This will generate all the resources required by the application and tests.
 . Open link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
@@ -74,9 +78,9 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, the documentation will still have the SE-EDU branding and refer to the `cs2103-ay1819s2-w11-4/main` repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `cs2103-ay1819s2-w11-4/main`), you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
@@ -101,7 +105,6 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 When you are ready to start coding,
 
 1. Get some sense of the overall design by reading <<Design-Architecture>>.
-2. Take a look at <<GetStartedProgramming>>.
 
 == Design
 
@@ -148,11 +151,12 @@ image::LogicClassDiagram.png[width="800"]
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete 1` command
-image::SDforDeletePerson.png[width="800"]
+.Component interactions for `deleteBook 1` command
+image::SDforDeleteBook.png[width="800"]
 
 The sections below give more details of each component.
 
+//tag::uidiagram[]
 [[Design-Ui]]
 === UI component
 
@@ -161,7 +165,9 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+//end::uidiagram[]
+
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `BookListPanel`, `ReviewListPanel`, `StatusBarFooter`, `ReviewBrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -169,6 +175,7 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
 
 [[Design-Logic]]
 === Logic component
@@ -180,17 +187,20 @@ image::LogicClassDiagram.png[width="800"]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `BookShelfParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a book).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+//tag::logicdiagram[]
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("deleteBook 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+.Interactions Inside the Logic Component for the `deleteBook 1` Command
+image::DeleteBookSdForLogic.png[width="800"]
+//end::logicdiagram[]
 
+//tag::modeldiagram[]
 [[Design-Model]]
 === Model component
 
@@ -198,20 +208,23 @@ image::DeletePersonSdForLogic.png[width="800"]
 image::ModelClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+//end::modeldiagram[]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the BookShelf data.
+* exposes an unmodifiable `ObservableList<Book>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `BookShelf`, which `Book` can reference. This would allow `BookShelf` to only require one `Tag` object per unique `Tag`, instead of each `Book` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
+
+// tag::storage[]
 === Storage component
 
 .Structure of the Storage Component
@@ -221,8 +234,14 @@ image::StorageClassDiagram.png[width="800"]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save `UserPref` objects in JSON format and read it back.
+* can save the BookShelf data in JSON format and read it back.
+* both the data of books and reviews will be saved.
+* users are not supposed to touch the data file (the file inside the `data` folder) directly. If the user insists on doing so, the data might be corrupted.
+* users are not supposed to add data files into the app manually. If the user accidentally corrupts the data file, he or she may have to reinstall the app and all data will get lost.
+* developers can edit the data file for the purpose of testing.
+
+// end::storage[]
 
 [[Design-Commons]]
 === Common classes
@@ -233,58 +252,116 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::sortBook[]
+=== SortBook feature
+==== Current Implementation
+
+The sortBook mechanism is facilitated by `VersionedBookShelf`.
+It extends `BookShelf` with the sort function which will sort the `UniqueBookList`. `UniqueBookList` implemented the BookList as `ObservableList<Book>`. sortBook command sort the booklist in specify order by implementing the `Comparator<Book>`.
+
+Additionally, it uses/implements the following operations:
+
+* `VersionedBookShelf#sort()` -- It calls `UniqueBookList` sortBooks function and notifies the listeners.
+
+* `BookShelf#indicateModified()` -- Notifies listeners that the bookshelf has been modified.
+
+* `UniqueBookList#sortBooks()` -- Implement the comparator, call `ObservableList<Book>` and pass in the comparator.
+
+* `ObservableList<Book>#sort()` -- sort the internalList is specify order.
+
+Given below is an example usage scenario and how the sortBook mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial bookshelf state, and the `currentStatePointer` pointing to that single bookshelf state.
+
+Step 2. The user executes `sortBook st/rating` command to sort all the books in the bookshelf in ascending order. The command will be pass to SortBookCommand Parser to convert it to SortBook command, the parser will check the correctness of the command. If the command is in an incorrect format, the parser will show correct command instruction to the user, otherwise, the parser will call the constructor of SortBook command.
+
+Step 3. `SortBookCommand#execute` will be call, it will check whether the Bookshelf is empty before proceed to call `ModelManager#sort()`.
+
+[NOTE]
+If the Bookshelf is empty, CommandException(MESSAGE_BOOK_LIST_EMPTY) will be thrown.
+
+Step 4. If everything is correct, `VersionedBookShelf#sort()` will be called. It will execute `UniqueBookList#sortBooks` and `BookShelf#indicateModified` will be called after the list is been sorted to notify the listener that display data has been modified.
+
+Step 5. `ObservableList<Book>` was implemented in `UniqueBookList` as internal list. `UniqueBookList#sortBooks` will call `ObservableList<Book>#sort` to sort the internal list by providing custom Comparator.
+
+Step 6. ` model#commitBookShelf()` will be executed to store the current Bookshelf into `List<ReadOnlyBookShelf>` for support undo/redo command after the list is sorted and notify the listener.
+
+==== Design Considerations
+
+===== Aspect: Sorting algorithm implemented.
+
+* **Alternative 1 (current choice):** Sorts using library sorting method.
+** Pros: Easy to implement, easy to maintain.
+** Cons: The sorting method is too general, can have a better sorting algorithm.
+
+* **Alternative 2:** Using custom sorting method.
+** Pros: more custom, may improve performance.
+** Cons: hard to maintain and easy to produce bugs.
+
+===== Aspect: Data structure to support the sort commands
+
+* **Alternative 1 (current choice):** Sorts with the complete list.
+** Pros: Easy to implement, as the list coming with sort function.
+** Cons: May have performance issues in terms of speed, as we need to sort the whole list.
+
+* **Alternative 2:** Sorts with sub-list that available to the user.
+** Pros: It is faster than the first choice as we only need to sort a partial list.
+** Cons: The sub-list is not supported sort function, it's hard and time consumed to manipulate sorting and put it back to sub-list.
+
+// end::sortBook[]
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedBookShelf`.
+It extends `BookShelf` with an undo/redo history, stored internally as a `BookStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedBookShelf#commit()` -- Saves the current bookshelf state in its history.
+* `VersionedBookShelf#undo()` -- Restores the previous bookshelf state from its history.
+* `VersionedBookShelf#redo()` -- Restores a previously undone bookshelf state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitBookShelf()`, `Model#undoBookShelf()` and `Model#redoBookShelf()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial bookshelf state, and the `currentStatePointer` pointing to that single bookshelf state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `deleteBook 1` command to delete the first book in the bookshelf. The `deleteBook` command calls `Model#commitBookShelf()`, causing the modified state of the Bookshelf after the `deleteBook 1` command executes to be saved in the `BookShelfStateList`, and the `currentStatePointer` is shifted to the newly inserted Bookshelf state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `addBook n/David ...` to add a new book. The `addBook` command also calls `Model#commitBookShelf()`, causing another modified address book state to be saved into the `BookShelfStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitBookShelf()`, so the bookshelf state will not be saved into the `BookShelfStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the book was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoBookShelf()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous bookshelf state, and restores the bookshelf to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial bookshelf state, then there are no previous bookshelf states to restore. The `undo` command uses `Model#canundoBookShelf()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
-The following sequence diagram shows how the undo operation works:
+The following sequence diagram shows how to undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoBookShelf()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the bookshelf to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `BookShelfStateList.size() - 1`, pointing to the latest Bookshelf state, then there are no undone bookshelf states to restore. The `redo` command uses `Model#canredoBookShelf()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `listBook`. Commands that do not modify the Bookshelf, such as `listBook`, will usually not call `Model#commitBookShelf()`, `Model#undoBookShelf()` or `Model#redoBookShelf()`. Thus, the `BookShelfStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitBookShelf()`. Since the `currentStatePointer` is not pointing at the end of the `BookShelfStateList`, all bookshelf states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `addBook n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -296,29 +373,22 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire Bookshelf.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Pros: Will use less memory (e.g. for `deleteBook`, just save the book being deleted).
+** Cons: We must ensure that the implementation of each individual command is correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of Bookshelf states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedBookShelf`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
@@ -340,6 +410,328 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+// tag::book[]
+=== AddBook feature
+==== Current Implementation
+
+The addBook mechanism is facilitated by `BookShelf`.
+It contains `UniqueBookList` in which all the book data are stored and duplicates are not allowed. Books with same book name are considered as duplicates.
+Additionally, it uses the following operations from `BookShelf`:
+
+* `model#hasBook()` -- Check if the book already exists in the Bookshelf.
+* `model#addBook()` -- To add the new book into Bookshelf.
+* `model#commitBookShelf()` -- Saves the current Bookshelf state for undo/redo..
+
+These operations are exposed to the `Model` interface.
+
+Given below is an example usage scenario and how the addBook mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial bookshelf state, and the `currentStatePointer` pointing to that single bookshelf state.
+
+Step 2. The user executes `addBook n/Alice a/HR m/5 tag/fantasy` command to add the book called Alice, written by HR, with a rating of 5 and tag of fantasy in the Bookshelf. The `AddBookCommandParser` check if the command is in valid format.
+
+[NOTE]
+If the command is not in valid format, ParseException(MESSAGE_INVALID_COMMAND_FORMAT) will be thrown. The book will not be added to the bookshelf.
+
+Step 3. The `addBook` command calls `Model#hasBook()`, checking if the book already exists in the bookshelf.
+
+[NOTE]
+If the book already exists, CommandException(MESSAGE_DUPLICATE_BOOK) will be thrown. It will not call `Model#commitBookShelf()`, so the bookshelf state will not be saved into the `BookShelfStateList`.
+
+Step 4. The bookshelf now adds the book to the Bookshelf after making sure there are no duplicates, and calls Model#commitBookShelf(), causing the modified state of the Bookshelf after the `addBook` command executes to be saved in the BookShelfStateList
+
+The Sequence Diagram below shows how the components interact with each other for the scenario where the user issues the command `addBook n/Alice a/HR m/5 tag/fantasy`.
+
+image::AddBookHighLevelSequenceDiagram.jpg[width="800"]
+
+The following activity diagram summarizes what happens when a user executes an AddBook command:
+
+image::AddBookActivityDiagram.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: How duplicate of book is defined
+
+* **Alternative 1 (current choice):** Books with same book name are considered as duplicates.
+** Pros: Easy to support other commands such as addReview which search for the book based on its name.
+** Cons: User may encounter trouble if they read two books with the same name but written by different authors.
+* **Alternative 2:** Books with multiple identical fields (eg. book name and author, book name and rating, etc) are considered as the same book.
+** Pros: Able to store books with same but different in other fields.
+** Cons: Causing trouble in executing other commands like addReview as more parameters must be provided to search for a certain book.
+
+===== Aspect: Data structure to support the addBook command
+
+* **Alternative 1 (current choice):** Saves the entire book as one object contains different fields such as author, rating, etc.
+** Pros: Easy to implement delete and other features that change an entire book.
+** Cons: Maybe more difficult to implement the summary feature which needs to obtain statistics of all separate fields stored in each book, eg. find the most popular author.
+
+[NOTE]
+An example of the current model is given below. +
+ +
+image:BookModelComponentClassOopDiagram.png[width="800"]
+
+* **Alternative 2:** Store a Tag list and an Author List in BookShelf, which Book can reference.
+** Pros: Easier to obtain statistics regarding each component.
+** Cons: It is harder to manage book object as we need to find a way to connect all components together.
+
+[NOTE]
+An example of the alternative model is given below. +
+ +
+image:BookModelComponentAlternativeClassOopDiagram.png[width="800"]
+
+=== EditBook feature
+==== Current Implementation
+
+The editBook mechanism is facilitated by `BookShelf`.
+It contains `UniqueBookList` in which all the book data are stored and duplicates are not allowed. Books with same book name are considered as duplicates.
+Additionally, it uses the following operations from `BookShelf`:
+
+* `model#hasBook()` -- Check if the book already exists in the Bookshelf.
+* `model#setBook()` -- To set a book with field values provided.
+* `model#commitBookShelf()` -- Saves the current Bookshelf state for undo/redo..
+
+These operations are exposed to the `Model` interface.
+
+Given below is an example usage scenario and how the addBook mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial bookshelf state, and the `currentStatePointer` pointing to that single bookshelf state.
+
+Step 2. The user executes `editBook 1 n/Alice a/HR m/5 tag/fantasy` command to edit the first book present in the Bookshelf to be a book called Alice, written by HR, with a rating of 5 and tag of fantasy in the Bookshelf. The `addBook` command calls `Model#hasBook()`, checking if the book already exists in the bookshelf.
+
+[NOTE]
+If the new book name already exists, CommandException(MESSAGE_DUPLICATE_BOOK) will be thrown. It will not call `Model#commitBookShelf()`, so the bookshelf state will not be saved into the `BookShelfStateList`.
+
+Step 4. The bookshelf now set the fields of the first book to the new ones provided, and calls Model#commitBookShelf(), causing the modified state of the Bookshelf after the `addBook` command executes to be saved in the BookShelfStateList
+
+==== Design Considerations
+
+===== Aspect: How editBook is executed
+
+* **Alternative 1 (current choice):** Use the index to figure out the book user wishes to edit.
+** Pros: Easy to select the book user wish to edit with the support of our UI.
+** Cons: A listBook command might be needed before executing editBook if the current filtered Bookshelf is empty
+* **Alternative 2:** Use exact book name to figure out the book user wishes to edit.
+** Pros: No need to first filter out a non-empty Bookshelf.
+** Cons: Causing trouble for the user to type in the full name of the book.
+// end::book[]
+
+// tag::listBook[]
+=== ListBook feature
+
+==== Current Implementation
+
+The current version of listBook command works to help the user to search books that satisfy certain criteria. The user can look for books by giving keywords of book name, author, tag or rating.
+
+This would be handy when there are many books on the bookshelf. It also makes the app more user-friendly as the user sometimes cannot remember the exact full name of a book but only know a few things about the book desired.
+
+Compared to the `list` command in the address book app, our `listBookCommand` is an implementation of the combination of `list` and `find` and even more functionally helpful, as it accepts more filtering criteria than the original command does.
+
+Given below is an example usage and how listBook feature behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial bookshelf state, and the `currentStatePointer` pointing to that single bookshelf state.
+
+Step 2. The user executes `listBook n/Life`.
+
+Step 3. The `ListBookCommandParser` parses this command. It will first create some predicates according to the input and then use theses predicates to create a `ListBookCommand`. The exception will be thrown if the command is invalid. The command is created by the logic manager as follows.
+
+image::listBookCommandLogic.png[width="800"]
+
+Step 4. The `ListBookCommand` will be executed. The command checks all the books on the `BookShelf`, selects out books whose name contain `Life` based on `BookNameContainsKeywordPredicate`.
+
+The sequence diagram of the whole process is as follows.
+
+image::listBookSqDiagram.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: How to select books.
+
+* **Alternative 1 (current choice):** Only books match all criteria provided will be selected. For example, if the user gives 2 book name keywords and 2 ratings, only books matching at least 1 name keyword and at least 1 rating will be selected. Books match 1 name keyword but no ratings will not be considered.
+** Pros: Easy to test and manage.
+** Cons: Such search techniques may fail to provide the user with enough information.
+* **Alternative 2:** Books that match at least one criteria will be selected. For example, if the user gives 2 book name keywords and 2 ratings, books that match 1 name keyword but no ratings will still be selected.
+** Pros: More likely to provide the user with the book that the user is looking for.
+** Cons: Such a design also fails to narrow down search results when the user is providing more keywords for the targeted book. Besides, it's hard to test and manage.
+
+// end::listBook[]
+
+// tag::summary[]
+=== Summary feature
+
+==== Current Implementation
+
+The summary feature is a command works to summarize the books on the bookshelf. The user can have an overview of what he/she has read.
+
+Given below is an example of usage and how the summary feature works.
+
+Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial bookshelf state, and the `currentStatePointer` pointing to that single bookshelf state.
+
+Step 2. The user executes `summary`
+
+Step 3. The `SummaryCommandParser` parses this command.
+
+Step 4. The `SummaryCommandParser`returns an `SummaryCommand`. The exception will be thrown if the command is invalid.
+
+Step 5. The `SummaryCommand` executes. The command will traverse all books in the bookshelf, checks, if there are authors or tags, appear more than once and give relative details. The command will also return the highest rating of books on the bookshelf.
+
+The summary command creates a summary as follows:
+
+image:SummaryActivity.png[width="800"]
+
+==== Design Consideration
+
+===== Aspect: Component to fetch the data
+
+* **Alternative 1 (current choice):** Model manager is in charge of data processing, then returns the result to the command.
+** Pros: This prevents the command from accessing data managed by the model manager, thus independence of different parts is guaranteed.
+** Cons: More methods are introduced into the model manager. To include more information in the summary, not only the summary command should be modified, but also more information query methodS should be added in The `Model`. This somehow break the abstraction.
+* **Alternative 2:** Model manager passes the whole bookshelf to the command, then command process the data according to this list.
+** Pros: More flexible as the command can extract any information it desires. Whenever we want the summary to include more information, we just directly fetch the data from the copy of the bookshelf.
+** Cons: This approach is unsafe and may lead to more bugs as it violates the principle of independence.
+* **Alternative 3:** Model manager creates a list of the copies of the books in the bookshelf and passes it to the command.
+** Pros: More flexible as the command can read whatever information desired, thus keeps the bookshelf safe from any unintended modification.
+** Cons: The manager no longer has control over what information is accessible to the command, thus may still expose some sensitive information. Besides, making a copy of the whole list is not practical when there are many books in the bookshelf.
+
+// end::summary[]
+
+// tag::addReview[]
+
+=== AddReview feature
+
+==== Current Implementation
+
+Given below is an example usage and how addReview feature behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial bookshelf state, and the `currentStatePointer` pointing to that single bookshelf state.
+
+Step 2. The user executes `addReview n/Alice in Wonderland rt/Carroll has depicted a unique world I hadn't seen before r/Alice's Adventures in Wonderland by Lewis Carroll is a story about Alice who falls down a rabbit hole and lands into a fantasy world that is full of weird, wonderful people and animals.`
+
+Step 3. The `AddReviewCommandParser` parses this command and creates a `Review` object based on the parameters in user input.
+
+Step 4. The `AddReviewCommandParser`returns an `AddReviewCommand`. The exception will be thrown if the command is invalid.
+
+Step 5. The `AddReviewCommand` executes. The command checks if the book to which the review is added exists in the `BookShelf`, based on `BookNameContainsExactKeywordPredicate`. If the book does not exist, an exception is thrown.
+
+Step 6. If the book exists, the review is added to the review list of the Bookshelf.
+
+The Sequence Diagram below shows how the components interact with each other for the scenario where the user issues the command `addBook n/Alice rt/rt/interesting r/an interesting story book...`
+
+image::AddReviewSequenceDiagram.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: Data structure to store Reviews
+
+* **Alternative 1 (current choice):** Use a List to store Reviews
+** Pros: There will be an order for the reviews added based on time created. More clear to users.
+** Cons: May have unforeseen bugs or implications.
+* **Alternative 2:** Use a Set to store all Reviews, just like tags.
+** Pros: Easy to code and manage because it is the same implementation as tags.
+** Cons: Set does not allow duplicate reviews. Need to check for duplicate reviews added.
+
+===== Aspect: Where to store Reviews
+
+* **Alternative 1 (current choice):** Have another independent list for reviews in the bookshelf.
+** Pros: Much easier to implement.
+** Cons: Reviews and Books now have exactly the same structure, which violates the DRY principle.
+* **Alternative 2:** Use a Set within a Book, just like tags.
+** Pros: The model makes more sense because Reviews belong to Books.
+** Cons: Makes it more difficult to link with the UI component.
+
+===== Aspect: Constraints on Review Parameters
+
+* ReviewTitle has the same constraints as BookName, less than 50 characters.
+* ReviewMessage should be less than or equal to 400 characters. This is because of the
+BookBrowserPanel used to display the ReviewMessage currently cannot hold more than 400 characters.
+The longer text also makes it more difficult to edit in the small CommandBox. Future releases would consider
+adding enhanced review input panel to make the review feature more user-friendly.
+
+===== Aspect: Auto-creation of Date for the Review
+
+* Currently, the constructor of Review automatically assigns a dateCreated to it.
+This feature is provided for the convenience of the user. An overloaded constructor
+is available where the date can be passed in as a parameter, to be used in testing.
+
+=== ListReview feature
+
+==== Current Implementation
+
+Given below are an example of usage and program behavior:
+
+Step 1. The user executes `listReview 1`
+
+Step 2. The ListReviewCommandParser parses this command and returns a new ListReviewCommand with the specified index.
+
+Step 3. The ListReviewCommand executes. The book with the specified index is selected.
+
+Step 4. Reviews of the selected book will be displayed in the rightmost panel.
+
+Alternatively, the user can click the book to select it.
+
+===== Aspect:
+
+=== ListAllReviews feature
+==== Current Implementation
+
+The ListAllReviews Feature uses the same implementation as the ListBook feature:
+
+Step 1. The user executes `listAllReviews`
+
+Step 2. A new ListAllReviewsCommand is returned by the BookShelfParser
+
+Step 3. The ListAllReviewsCommand executes. Review list panel is updated to show all reviews.
+
+==== Design Considerations
+
+===== Aspect: Whether to combine ListAllReviews command with ListReview command
+
+* **Alternative 1 (current choice):** not to combine.
+** Pros: Command is more logical and user-friendly because it is actually not intuitive to have two functions combined in one ListReview command.
+** Cons: Inconsistency with the ListBook command may cause confusion.
+* **Alternative 2:** Combine.
+** Pros: Consistency.
+** Cons: Command is not intuitive, and takes extra time to implement review predicates.
+
+=== SelectReview feature
+==== Current Implementation
+
+Selection of review is implemented the same way as the selection of a book.
+
+In addition, review message of a selected review will be displayed in the book browser panel.
+
+Step 1. The user executes `selectReview 1`
+
+Step 2. The SelectReviewCommandParser parses this command and returns a new SelectReviewCommand with index 1.
+
+Step 3. The SelectReviewCommand executes. The review with the specified index is selected.
+
+Step 4. The BookBrowserPanel listens to the change in the selected review and displays its review message.
+
+
+=== DeleteReview feature
+==== Current Implementation
+
+The review is deleted based on the index.
+
+Step 1. The user executes `deleteReview 1`
+
+Step 2. The DeleteReviewCommandParser parses this command and returns a new DeleteReviewCommand with index 1.
+
+Step 3. The DeleteReviewCommand executes. The review with the specified index is deleted.
+
+==== Other Design Considerations
+
+===== Whether to Implement EditReview
+
+It seems natural to implement EditReview as one component of the CRUD features. However,
+editing an existing review requires re-typing everything and seems painstaking to the user. It makes much more sense to just delete
+the original review and add a new one. Hence. EditReview is currently not implemented.
+
+
+
+
+// end::addReview[]
+
 == Documentation
 
 We use asciidoc for writing documentation.
@@ -347,18 +739,18 @@ We use asciidoc for writing documentation.
 [NOTE]
 We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
 
-=== Editing Documentation
+=== Editing documentation
 
 See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
 Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
 
-=== Publishing Documentation
+=== Publishing documentation
 
 See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
 
-=== Converting Documentation to PDF format
+=== Converting documentation to PDF format
 
-We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
+We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting the document to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
 
 Here are the steps to convert the project documentation files to PDF format.
 
@@ -371,12 +763,12 @@ Here are the steps to convert the project documentation files to PDF format.
 image::chrome_save_as_pdf.png[width="300"]
 
 [[Docs-SiteWideDocSettings]]
-=== Site-wide Documentation Settings
+=== Site-wide documentation settings
 
-The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+The link:{repoURL}/build.gradle[`build.gradle`]  file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
 
 [TIP]
-Attributes left unset in the `build.gradle` file will use their *default value*, if any.
+Attributes left unset in the `build.gradle` file will use their *default value* if any.
 
 [cols="1,2a,1", options="header"]
 .List of site-wide attributes
@@ -403,7 +795,7 @@ This will render the SE-EDU navigation bar at the top of the page, and add some 
 [[Docs-PerFileDocSettings]]
 === Per-file Documentation Settings
 
-Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
+Each `.adoc`  files may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
 
 Asciidoctor's https://asciidoctor.org/docs/user-manual/#builtin-attributes[built-in attributes] may be specified and used as well.
 
@@ -418,7 +810,7 @@ Attributes left unset in `.adoc` files will use their *default value*, if any.
 |`site-section`
 |Site section that the document belongs to.
 This will cause the associated item in the navigation bar to be highlighted.
-One of: `UserGuide`, `DeveloperGuide`, ``LearningOutcomes``{asterisk}, `AboutUs`, `ContactUs`
+One of: `UserGuide`, `DeveloperGuide`, `AboutUs`, `ContactUs`
 
 _{asterisk} Official SE-EDU projects only_
 |_not set_
@@ -429,7 +821,7 @@ _{asterisk} Official SE-EDU projects only_
 
 |===
 
-=== Site Template
+=== Site template
 
 The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
 You can modify them to change some properties of the site's design.
@@ -439,7 +831,7 @@ These template files are written in a mixture of https://www.ruby-lang.org[Ruby]
 
 [WARNING]
 ====
-Modifying the template files in link:{repoURL}/docs/templates[`docs/templates`] requires some knowledge and experience with Ruby and Asciidoctor's API.
+Modifying the template files in the link:{repoURL}/docs/templates[`docs/templates`] requires some knowledge and experience with Ruby and Asciidoctor's API.
 You should only modify them if you need greater control over the site's layout than what stylesheets can provide.
 The SE-EDU team does not provide support for modified template files.
 ====
@@ -447,7 +839,7 @@ The SE-EDU team does not provide support for modified template files.
 [[Testing]]
 == Testing
 
-=== Running Tests
+=== Running tests
 
 There are three ways to run tests.
 
@@ -481,14 +873,14 @@ We have two types of tests:
 .. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
+e.g. `seedu.address.commons.util.StringUtilTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
 e.g. `seedu.address.storage.StorageManagerTest`
-..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
+..  Hybrids of unit and integration tests. These tests are checking multiple code units as well as how they are connected together. +
 e.g. `seedu.address.logic.LogicManagerTest`
 
 
-=== Troubleshooting Testing
+=== Troubleshooting testing
 **Problem: `HelpWindowTest` fails with a `NullPointerException`.**
 
 * Reason: One of its dependencies, `HelpWindow.html` in `src/main/resources/docs` is missing.
@@ -496,22 +888,22 @@ e.g. `seedu.address.logic.LogicManagerTest`
 
 == Dev Ops
 
-=== Build Automation
+=== Build automation
 
 See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
 
-=== Continuous Integration
+=== Continuous integration
 
 We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
 
-=== Coverage Reporting
+=== Coverage reporting
 
 We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
 
-=== Documentation Previews
-When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
+=== Documentation previews
+When a pull request has changed asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
 
-=== Making a Release
+=== Making a release
 
 Here are the steps to create a new release.
 
@@ -520,306 +912,32 @@ Here are the steps to create a new release.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
-=== Managing Dependencies
+=== Managing dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
+A project often depends on third-party libraries. For example, Bookshelf depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
 
 [loweralpha]
 . Include those libraries in the repo (this bloats the repo size)
 . Require developers to download those libraries manually (this creates extra work for developers)
 
-[[GetStartedProgramming]]
-[appendix]
-== Suggested Programming Tasks to Get Started
-
-Suggested path for new programmers:
-
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
-=== Improving each component
-
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
-
-[discrete]
-==== `Logic` component
-
-*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
-
-[TIP]
-Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
-
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
-+
-****
-* Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
-* Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
-** Add new tests for each of the aliases that you have added.
-** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
-****
-
-[discrete]
-==== `Model` component
-
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
-
-[TIP]
-Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
-
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
-+
-****
-* Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
-* Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
-** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
-****
-
-[discrete]
-==== `Ui` component
-
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
-
-[TIP]
-Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
-
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
-+
-**Before**
-+
-image::getting-started-ui-tag-before.png[width="300"]
-+
-**After**
-+
-image::getting-started-ui-tag-after.png[width="300"]
-+
-****
-* Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
-** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
-* Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
-*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
-****
-
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
-+
-**Before**
-+
-image::getting-started-ui-result-before.png[width="200"]
-+
-**After**
-+
-image::getting-started-ui-result-after.png[width="200"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
-* Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
-** You can write two different kinds of tests to ensure that the functionality works:
-*** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
-*** Do read the commits one at a time if you feel overwhelmed.
-****
-
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
-+
-**Before**
-+
-image::getting-started-ui-status-before.png[width="500"]
-+
-**After**
-+
-image::getting-started-ui-status-after.png[width="500"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
-* Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
-****
-
-[discrete]
-==== `Storage` component
-
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
-
-[TIP]
-Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
-
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
-+
-****
-* Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/JsonAddressBookStorage.java[`JsonAddressBookStorage`] class.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
-****
-
-[[GetStartedProgramming-RemarkCommand]]
-=== Creating a new command: `remark`
-
-By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
-
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
-
-==== Description
-Edits the remark for a person specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
-
-Examples:
-
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
-* `remark 1 r/` +
-Removes the remark for the first person.
-
-==== Step-by-step Instructions
-
-===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
-Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
-
-**Main:**
-
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
-
-**Tests:**
-
-. Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
-
-===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
-
-**Main:**
-
-. Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
-. Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
-
-**Tests:**
-
-. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
-. Add `RemarkCommandParserTest` that tests different boundary values
-for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
-
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
-
-**Main:**
-
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
-
-===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
-
-**Main:**
-
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
-. Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
-
-**Tests:**
-
-. Add test for `Remark`, to test the `Remark#equals()` method.
-
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Main:**
-
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `data/addressbook.json` so that the application will load the sample data when you launch it.)
-
-===== [Step 6] Storage: Add `Remark` field to `JsonAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/JsonAdaptedPerson.java[`JsonAdaptedPerson`] to include a `Remark` field so that it will be saved.
-
-**Main:**
-
-. Add a new JSON field for `Remark`.
-
-**Tests:**
-
-. Fix `invalidAndValidPersonAddressBook.json`, `typicalPersonsAddressBook.json`, `validAddressBook.json` etc., such that the JSON tests will not fail due to a missing `remark` field.
-
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Tests:**
-
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
-
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
-
-**Main:**
-
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
-
-===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
-
-**Main:**
-
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
-
-**Tests:**
-
-. Update `RemarkCommandTest` to test that the `execute()` logic works.
-
-==== Full Solution
-
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
 
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage a significant number of book reviews
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage book reviews faster than a typical mouse/GUI driven app
+
 
 [appendix]
+// tag::userStories[]
+
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -829,60 +947,69 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new book | record a book I have read
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |delete a book |remove entries that I no longer need
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |find books by certain criteria such as name |locate details and reviews of the books without having to go through the entire list
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |exist the program |
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |select a review | so that I can view the review
+
+|`* * *` |user |save |able to save data in local
+
+|`* *` |user |show history |able to see what you did
+
+|`* *` |user |undo |able to undo your operation
+
+|`* *` |user |redo |able to redo your undo
+
+|`* *` |user |clear |clear all entires
+
+|`* *` |user |guideline |by typing help to show all commands
+
+|`*` |user |sort |sort the book list in specified order
 |=======================================================================
-
-_{More to be added}_
+// end::userStories[]
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `BookSquirrel` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+
+=== Use
+
+=== Use case: Delete book
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list books
+2.  BookSquirrel shows a list of books
+3.  User requests to delete a specific book in the list
+4.  BookSquirrel deletes the book and all its reviews
 +
-Use case ends.
+The use case ends.
 
 *Extensions*
 
-[none]
 * 2a. The list is empty.
 +
-Use case ends.
+The use case ends.
 
 * 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
-
-_{More to be added}_
+** 3a1. BookSquirrel shows an error message.
+        Use case resumes at step 2.
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 books without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -890,27 +1017,9 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
 [appendix]
-== Product Survey
 
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
+//tag::manualtesting[]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
@@ -918,40 +1027,169 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+//end::manualtesting[]
+
+=== Launch and shutdown
 
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample books and reviews. The window size may not be optimum.
 
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+   Expected: The most recent window size and the location is retained.
 
-_{ more test cases ... }_
+=== Adding a book
 
-=== Deleting a person
+. Adding a book to an empty bookshelf.
 
-. Deleting a person while all persons are listed
+.. Prerequisites: Clear the bookshelf using `clear` command. The bookshelf shall be empty after the command execution.
+.. Test case: `addBook n/Alice in Wonderland n/multiple name a/Lewis Carroll m/5 t/fantasy t/fairy tale` +
+   Expected: No book is added. Error details are shown in the status message. Status bar remains the same.
+.. Test case: `addBook n/Alice in Wonderland n/multiple name a/Lewis Carroll m/5 t/fantasy t/fairy tale` +
+   Expected: Adds a book named Alice in Wonderland to the record. The book is written by Lewis Carroll, rated 5 stars, and labeled with tags ‘fantasy’ and ‘fairy tale’.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+=== Editing a book
+
+. Editing an existing book in the bookshelf.
+
+.. Prerequisites: At least one book exists in the bookshelf, and no book in the bookshelf is named `test`.
+.. Test case: `editBook 1 n/test a/some author t/some tag` +
+   Expected: Change the name, author, tag of the first book to test, some author, some tag.
+.. Test case: `editBook 1 t/` +
+   Expected: Clear all the existing tags of the first book in the result list.
+
+=== Deleting a book
+
+. Deleting a book while all books are listed
+
+.. Prerequisites: List all book using the `listBook` command. All books present in the bookshelf are shown in the list.
+.. Test case: `deleteBook 1` +
+   Expected: First book is deleted from the list. Details of the deleted book shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `deleteBook 0` +
+   Expected: No book is deleted. Error details are shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `deleteBook` +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Listing books in the bookshelf
 
+. Search and display the books in the bookshelf
+.. Prerequisites: The following test cases work as described only when you haven't deleted or modified _Madame Bovary_ and _Pride and Prejudice_ in the bookshelf. If you have, please only use the following test cases as examples and generate your own test cases accordingly.
+
+.. Test case: `listBook` +
+   Expected: All books in the bookshelf are shown in the leftmost column
+.. Test case: `listBook n/Madame` +
+   Expected: _Madame Bovary_ should de displayed in the left column. Any other book whose name contains _Madame_ will also be displayed.
+.. Test case: `listBook n/Madame n/Madame` +
+   Expected: Repeated keywords are acceptable. _Madame Bovary_ should de displayed in the left column. Any other book whose name contains _Madame_ will also be displayed.
+.. Test case: `listBook n/Madame n/Bovary` +
+   Expected: _Madame Bovary_ and any other books contain _Madame_ or _Bovary_ will be displayed.
+.. Test case: `listBook n/Madame n/Pride m/6 m/8` +
+   The book _Madame Bovary_ and _Pride and Prejudice_ will be displayed. Some other books will also be displayed according to what you've added into the bookshelf. For example, if you've added _Madame Butterfly_ with a rating 6 into the bookshelf, it will also be displayed. But if you added _Madame Serpent_ with rating 7 into the bookshelf, it will not be displayed as it does not match 'at least one criteria for very dimensions'.
+.. Some incorrect listBook commands to try
+... `listBook n/Madame Bovary` +
+    Keyword given is not a single word. Error isshown in the status message.
+... `listBook n/Madame c/nonsense` +
+    Prefix `c/` is not recognized, so `Madame c/nonsense` will be regarded as a whole keyword for book name. Since whitespace and '/' are not allowed for keywords, the input is invalid. Error is shown in the status message.
+... `listBook m/12` +
+    12 is not a valid range for the rating. Error is shown in the status message.
+// tag::mtsortBook[]
+
+=== Sorting the booklist
+
+. Sorting the current booklist in a certain order.
+
+.. Prerequisites: List all book using the `listBook` command. Multiple books on the list.
+.. Test case: `SortBook st/rating` +
+   Expected: booklist will be sorted with the rating in ascending order.
+.. Test case: `SortBook st/rating st/author o/asc o2/des` +
+   Expected: The booklist will be sorted in ascending order, if they are having the same rating then it will be sorted in ascending order of author `o2/des` will be ignored as `o/asc` is specified.
+.. Test case: `SortBook st/rating st/author o2/des` +
+   Expected: The booklist will be sorted in ascending order, if they are having the same rating then it will be sorted in descending order of author `.
+.. Some incorrect sort commands to try:
+
+... `sortBook` +
+   Error message: Sorting type is not provided.
+... `sortBook st/name o1/des o2/asc` +
+   Error message: Second sorting type does not exist.
+
+// end::mtsortBook[]
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Data is saved in `bookshelf.json`, which is under the `data` directory.
+.. After the installation, `bookshelf.json` is not present. The file is initialized after the main app runs for the first time. At this point, the file is loaded with the sample data.
+.. The data will not be saved automatically. If the user does not exit the program using the `exit` command, the changes will not be kept.
+.. If the developer modifies the storage component, to make the data structure and content consistent with the newly updated code, The developer should delete the file before relaunching the app.
+.. If the file is corrupted, the developer or the user can manually fix the bookshelf.json to restore the data. However, he or she should stick to the format specified or the data will not be read properly. Therefore, modifying the `bookshelf.json` directly is not encouraged as such behavior will cause unexpected bugs.
 
-_{ more test cases ... }_
+// tag::manualtestreview[]
+=== Adding a review
+
+. Adding a review with the target book existing in bookshelf
+.. Test case: `addReview n/Pride and Prejudice rt/Belief Systems r/Most of the characters believe that nothing matters more than social class...` +
+   Expected: a review titled "Belief Systems" should appear in the review list.
+
+. Adding a review with the target book not existing in bookshelf
+.. Test case: `addReview n/Invalid Bookname rt/Belief Systems r/Most of the characters believe that nothing matters more than social class...` +
+   Expected: the following error message should appear: "The target book does not exist in the book shelf".
+
+. Other invalid commands to try:
+.. Test case: `addReview n/Pride and Prejudice rt/Belief%Systems r/Most of the characters believe that nothing matters more than social class...` +
+   Expected: error message: "Review titles should contains only alphanumeric characters, spaces, '*', ',', '.', '?', ''', '()' and '&'.
+                             And it should not be blank or have more than 50 characters (space included).".
+.. Test case: `addReview rt/Belief Systems r/Most of the characters believe that nothing matters more than social class...` +
+   Expected: error message: "Invalid command format!
+                             addReview: Adds a review to a certain book.
+                             Parameters: n/BOOK NAME rt/REVIEW TITLE r/REVIEW
+                             Example: addReview n/Alice in Wonderland rt/A great fairytale r/While Lewis Carroll purists will scoff at the aging of his young protagonist..."
+.. Test case: `addReview n/Pride and Prejudice rt/Belief Systemssssssssssssssssssssssssssssssssssssss r/Most of the characters believe that nothing matters more than social class...` +
+   Expected: error message: "Review titles should contains only alphanumeric characters, spaces, '*', ',', '.', '?', ''', '()' and '&'.
+                             And it should not be blank or have more than 50 characters (space included).".
+
+=== Deleting a review
+
+. Deleting a review while all reviews are listed
+
+.. Prerequisites: List all reviews using the `listAllReviews` command. All reviews present in the bookshelf are shown in the list.
+.. Test case: `deleteReview 1` +
+   Expected: First review is deleted from the list. Timestamp in the status bar is updated.
+.. Test case: `deleteReview 0` +
+   Expected: No review is deleted. Error details are shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `deleteReview` +
+   Expected: Similar to previous.
+
+
+=== Listing reviews
+
+. Listing a review of a book
+
+.. Prerequisites: 1 or more books are listed in the book list, by the listBook or sortBook command.
+.. Test case: `listReview 1`
+   Expected: the book with the index is selected. Reviews to that book are listed in the review list.
+.. Test case: `listReview 0`
+   Expected: Error details are shown in the status message. Status bar remains the same.
+
+. Listing all reviews
+.. Test case: `listAllReviews`
+   Expected: any selected book is deselected. All reviews in the book shelf are listed in the review list.
+
+=== Selecting review
+
+
+. Selecting a review while all reviews are listed
+
+.. Prerequisites: List all reviews using the `listAllReviews` command. All reviews present in the bookshelf are shown in the list.
+.. Test case: `selectReview 1` +
+   Expected: First review is selected. The complete review is shown in the selected review panel.
+.. Test case: `selectReview 0` +
+   Expected: No review is selected. Error details are shown in the status message.
+.. Other incorrect delete commands to try: `selectReview` +
+   Expected: Similar to previous.
+
+// end::manualtestreview[]

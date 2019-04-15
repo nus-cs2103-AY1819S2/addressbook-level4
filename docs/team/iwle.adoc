@@ -21,7 +21,7 @@ My role in the team was to design and implement the Ship Management feature. The
 *** The `list` command allows the user to list down the ships that have been placed on the map grid. The user can filter the list by the `name` of the ship or by specific `tags`.
 *** The `listTags` command allows the user to list down all the tags that have been used on ships.
 ** Justification: The Ship Manager feature is crucial to the game as it works together with the map grid to allow both the human player and the computer player to interact in a turn-taking game. Behind the scenes, the  feature also implements the `Coordinates`, `Orientation` and `Fleet` classes for other features to work. Furthermore, the feature implements boundary value checking that is used by the Battle Manager and Computerised Enemy feature.
-** Highlights: The other features rely on the functionality provided by the Ship Management feature, such as creating an enemy player and processing the statistics for the game. The feature requires detailed planning as these features are built on top of the functionality provided by it.
+** Highlights: The other features rely on the functionality provided by the Ship Management feature, such as creating an enemy player and processing the statistics for the game.
 
 // ** Highlights:
 // *** Implements coordinates and orientation: Behind the scenes, the feature // implements the `Coordinates`, `Orientation` and `Fleet` classes that are used by // the Battle Manager feature and the Computer Enemy feature.
@@ -59,13 +59,16 @@ include::../UserGuide.adoc[tag=listTags]
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+_I co-authored the class diagram for the `Model` component with my team mate Erjill._
+
+.Model diagram
 image::ModelClassDiagram.png[width="400", width="center"]
 include::../DeveloperGuide.adoc[tag=putShip1]
 ====
 *__What are the head coordinates?__*
 
 The head coordinates are the coordinates of the top-most and left-most cell of a ship. When coordinates are specified in the `put` command, they refer to the head coordinates of the ship.
-
 
 image:BattleshipHeadExample.png[width=400, align="center"]
 ====

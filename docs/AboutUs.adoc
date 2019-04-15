@@ -71,5 +71,11 @@ Responsibilities::
 image::wsemis.png[width="150", aligh="left"]
 {empty}[https://github.com/wSemis[github]] [<<wsemis#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Record processing
+Role: Developer /Tester
+
+Responsibilities::
+* Implement copy methods
+
+* Contribute to task methods
+
+* Contribute to record methods 

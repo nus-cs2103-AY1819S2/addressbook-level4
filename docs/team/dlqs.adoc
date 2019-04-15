@@ -44,7 +44,7 @@ This feature also improves the product significantly because many other features
 * *Other contributions*:
 
 ** Enhancements to existing features:
-*** Wrote additional tests for new features to increase coverage from 80% to 82% (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/75[#75])
+*** Wrote additional unit tests for new features, as well as system tests for Test and Report features, to increase coverage from 80% to 87% (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/75[#75], https://github.com/cs2103-ay1819s2-w10-4/main/pull/167[#167])
 
 ** Documentation:
 *** Rewrote the project README to look like a real product: https://github.com/cs2103-ay1819s2-w10-4/main/pull/107[#107]

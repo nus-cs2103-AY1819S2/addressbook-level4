@@ -1,11 +1,11 @@
-Question,Answer,Hints,Options
-"Commonly used anti-fibrinolytic drug is _____, which prevent activation of plasminogen to plasmin",tranexamic acid,ph less than 7,
-Myelodysplasia often regresses into what blood disorder?,Acute Leukaemia,type of cancer,
-<something>cytosis means too _____,many,,
-Burkitt lymphoma is associated with what virus?,EBV,,
-"For _____, besides systemic chemo, treatment includes chemo injections into scrotum and CSF",acute lymphoblastic leukemia,,
-"_____% of circulating neutrophils are in marginating pool, hence not counted in full blood count",50,,55
-"If patient has raised WBC count, raised platelet and raised Hb count, he is likely to have _____",myeloproliferative neoplasm,,
-Patients with Acute lymphoblastic leukaemia with philadelphia chromosome cytogenic changes will require what special treatment?,Imatinib,,
-<something>penia means too _____,few,,many
-_____ is the iron-containing oxygen-transport metalloprotein in the red blood cells,haemoglobin,,
+Question,Answer,Hints,Option,Option,Option
+"Commonly used anti-fibrinolytic drug is _____, which prevent activation of plasminogen to plasmin",tranexamic acid,ph less than 7,hydrochloric acid,sulfuric acid,
+Myelodysplasia often regresses into what blood disorder?,Acute Leukaemia,type of cancer,,,
+<something>cytosis means too _____,many,,,,
+Burkitt lymphoma is associated with what virus?,EBV,,,,
+"For _____, besides systemic chemo, treatment includes chemo injections into scrotum and CSF",acute lymphoblastic leukemia,,,,
+"_____% of circulating neutrophils are in marginating pool, hence not counted in full blood count",50,,55,,
+"If patient has raised WBC count, raised platelet and raised Hb count, he is likely to have _____",myeloproliferative neoplasm,,,,
+Patients with Acute lymphoblastic leukaemia with philadelphia chromosome cytogenic changes will require what special treatment?,Imatinib,,,,
+<something>penia means too _____,few,,some,many,full
+_____ is the iron-containing oxygen-transport metalloprotein in the red blood cells,haemoglobin,,,,

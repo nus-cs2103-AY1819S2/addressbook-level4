@@ -28,13 +28,15 @@ image::UI.png[width="790"]
 
 Welcome to the *Know-It-All* User Guide! This document will equip you with what you need in order to use `v1.4` of the application. While some familiarity with command line programs will come in handy, simply adhere to the command formats specified in this guide closely and the rest will be a breeze.
 
+// end::introabout[]
+
 Look out for the following icons and formatting used!
 
 [NOTE]
 Important information that should be noted.
 
 [TIP]
-Useful tips that can help if you get stuck.
+Tips that can help if you get stuck.
 
 `test`: Command to be executed or less commonly, a component, class or object in the architecture of the application.
 
@@ -44,9 +46,6 @@ Useful information for a deeper understanding of the command.
 
 Without further ado, let's head over to <<Quick Start>> to get started!
 
-// end::introabout[]
-
-// tag::quickstart[]
 == Quick Start
 
 ==== Launching the application
@@ -57,14 +56,15 @@ To get *Know-It-All* up and running:
 .  Copy the file to the folder you want to use as the home folder for *Know-It-All*.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 
+// tag::quickstart[]
 ==== Using the application
-In this section, we'll walk you through the primary user interface of the application and how to create your first flashcard.
+In this section, we'll walk you through the primary user interface of the application and how to create your first <<flashcard, flashcard>>.
 
 [TIP]
 To use a command, type the command in the command box and press kbd:[enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[enter] will open the help window. +
 
-. When booting up the app for the first time, you should see the home directory much like the screengrab below. The first and only folder present is a sample folder.
+. When booting up the app for the first time, you should see the home directory much like the screengrab below. The first and only <<folder, folder>> present is a sample folder.
 +
 image::AnnotatedStartupUI.png[width="500"]
 
@@ -103,12 +103,16 @@ parameter which can be something like `Human Anatomy`.
 * Parameters can be in any order e.g. if the command specifies `q/QUESTION a/ANSWER`, `a/ANSWER q/QUESTION` is also acceptable.
 ====
 
+[NOTE]
+This application only supports Unicode characters compatible with XML. In general, most characters visible on your keyboard are supported!
+Please refer to https://www.w3.org/TR/unicode-xml/#Suitable[here for more details on incompatible characters].
+
 //tag::folderoperations[]
 === Folder Operations
 Commands listed in this section are folder-level operations. This includes the operations such as creating and deleting of folders, and excludes commands that affect the contents of individual folders (e.g. adding a card).
 
 [NOTE]
-The commands in this section can only be executed when you are at the home directory, outside of any folder. The commands are also not valid inside a test or report session. You can easily verify that you are at the home directory with the status bar at the bottom, which should display: +
+The commands in this section, unless otherwise stated, can only be executed when you are at the home directory, outside of any folder. The commands are also not valid inside a test or report session. You can easily verify that you are at the home directory with the status bar at the bottom, which should display: +
  +
 image:StatusBarInHomeDirectory.png[width ="150"]
 
@@ -123,6 +127,23 @@ Examples:
 * `cd 2` +
 Enters the second folder in the folder list on the home directory.
 
+==== Exit folder : `cd ..`
+
+Return to the root directory (exit the current folder). A list of folders will be displayed
+
+Format: `cd ..`
+
+====
+* This command, unlike the rest of the commands in this section, can only be executed when inside a folder.
+====
+
+Examples:
+
+* `cd 2` +
+`cd ..` +
+The first command enters the second folder in the folder list on the <<homedirectory, home directory>>. The second command then returns you back to the home directory by exiting the folder.
+
+//tag::addfolder[]
 [[addfolder]]
 ==== Create new folder : `addfolder`
 
@@ -144,6 +165,7 @@ Creates a folder with the name "Nervous System". The UI should appear like the f
 image:AnnotatedAddFolderUI.png[width=500]
 
 You can then enter the folder with the `cd` command and begin adding cards.
+//end::addfolder[]
 
 ==== Remove folder : `deletefolder`
 
@@ -160,6 +182,7 @@ Examples:
 * `deletefolder 2` +
 Deletes the second folder in the folder list, along with its cards, on the home directory.
 
+//tag::editfolder[]
 ==== Rename folder : `editfolder`
 
 Renames the flashcard folder specified by index.
@@ -174,6 +197,7 @@ Examples:
 
 * `editfolder 2 Circulatory System` +
 Renames the second folder in the folder list to "Circulatory System".
+//end::editfolder[]
 
 **Merge folders feature** `Coming in v2.0`
 
@@ -184,7 +208,7 @@ Format: `merge FOLDER_INDEX_1 FOLDER_INDEX_1 NEW_FOLDER_NAME`
 //end::folderoperations[]
 
 === Card Operations
-Commands listed in this section affect the <<flashcard, flashcards>> within a single <<folder, folder>>.
+Commands listed in this section affect the flashcards within a single folder.
 
 [NOTE]
 The commands in this section can only be executed when you are within a folder. The commands are also not valid inside a test or report session. You can easily verify you are inside a folder with the status bar at the bottom, which should display: +
@@ -211,6 +235,7 @@ image:mcqCard.PNG[width="250"]
 * A card can have at most 1 hint (including 0).
 * A card can have at most 3 incorrect options to denote an MCQ card.
 * A card with 0 incorrect options will automatically be denoted as a Single answer card.
+* If the content of a card exceeds the length of the card, you can scroll/click and drag to see the rest of the content.
 ====
 
 Examples:
@@ -379,18 +404,6 @@ The `redo` command fails as there are no `undo` commands executed previously.
 // end::undoredo[]
 
 
-==== Exit folder : `cd ..`
-
-Return to the root directory (exit the current folder). A list of folders will be displayed
-
-Format: `cd ..`
-
-Examples:
-
-* `cd 2` +
-`cd ..` +
-The first command enters the second folder in the folder list on the <<homedirectory, home directory>>. The second command then returns you back to the home directory by exiting the folder.
-
 //tag::advancedoperations[]
 
 ==== Export flashcards : `export`
@@ -402,13 +415,15 @@ directory.
 
 Format: `export FOLDER_INDEX FILENAME [MORE_INDEXES]`
 
-IMPORTANT: The export command creates the new csv file in your project root directory.
+[NOTE]
+The export command creates the new csv file in your project root directory.
 i.e The directory where your .jar file is located. +
-The `import command` imports csv files located in the same directory as well.
+The import command imports csv files located in the same directory as well.
 
 image::project_root_dir.png[width ="800"]
 
-NOTE: The current version does not support the importing and exporting of files outside of this directory
+[NOTE]
+The current version does not support the importing and exporting of files outside of this directory
 
 ====
 * You should key in indices corresponding to the folder index
@@ -420,10 +435,10 @@ Examples:
 * `export 1 2 3` +
 exports the first, second and third cardfolder in your home directory.
 Suppose that the first, second and third cardfolder corresponds to the card folder names : +
-`Blood` +
-`Circulatory System` +
-`Cardiovascular` +
-Then the following files `Blood.csv`, `Circulatory System.csv` and `Cardiovascular.csv`
+Blood +
+Circulatory System +
+Cardiovascular +
+Then the following files Blood.csv, Circulatory System.csv and Cardiovascular.csv
 will be created in the project root directory.
 
 ==== Import flashcards : `import`
@@ -439,10 +454,10 @@ NOTE: The csv file imported should follow the format described below
 ====
 * The first row of the csv file should have the following headers:
 +
-Question, Answer, Options, Hints.
+Question, Answer, Hints, Option, Option, Option.
 * Question and Answer are mandatory fields, and should not be left blank.
 * Hints can take 0 or 1 values only.
-* For MCQ cards, The csv file only accepts one incorrect option for each flashcard.
+* For MCQ cards, The csv file accepts up to 3 incorrect options per flashcard.
 ====
 
 .Sample format for csv file
@@ -450,15 +465,14 @@ image::Blood.png[width = "800"]
 
 Format: `import FILENAME`
 
-NOTE: unlike the `export command` the importing of multiple csv files
+NOTE: unlike the export command the importing of multiple csv files
 is not supported in *Know-It-All*.
 
 Examples:
 
 * `import Blood.csv` +
-Imports blood csv file into *Know-It-All*. A new `Blood` cardfolder should be present in the home
+Imports blood csv file into *Know-It-All*. A new Blood cardfolder should be present in the home
 directory after execution of this command.
-
 // end::advancedoperations[]
 
 
@@ -625,6 +639,10 @@ An example is shown below:
 .Report display
 image::ReportDisplay.png[width="790"]
 
+[TIP]
+The report display is currently best viewed with the window in full screen. Otherwise, you may need to use the horizontal and vertical
+scroll bars to view the graph and questions. Hang tight, a display that changes in size is coming in v2.0!
+
 **Displays response time for each card** `Coming in v2.0`
 
 With the timer feature coming in v2.0, we are also able to track the time taken to provide the correct response to the
@@ -636,14 +654,17 @@ Format: `report`
 [NOTE]
 This command is only valid inside a folder.
 
-[NOTE]
-There must be at least two test attempts for the line graph to be drawn.
-
+====
+* There must be at least two test attempts for the line graph to be drawn.
+====
 ==== End the current report session : `end`
 
 Quits the current report session.
 
 Format: `end`
+
+[NOTE]
+This command is only valid inside a report display.
 
 //end::reportoperations[]
 
@@ -663,21 +684,20 @@ Exits the program.
 
 Format: `exit`
 
-//tag::glossarycmdsummary[]
 == Glossary
 
 * [[flashcard]] **Flashcard/Card**: An object containing a single question and answer, and optionally hints.
-* [[folder]] **Folder**: A collections of flashcards, grouped topically. There are no
-sub-folders.
+* [[folder]] **Folder**: A collections of flashcards. There are no sub-folders.
 * [[testsession]] **Test Session**: A session where all flashcards in a folder are queued to have their
 questions displayed. You are required to key in an answer for each question.
 * [[cardscore]]  **Card Score**: The number of correct answers divided by the number of attempts for a single card. When you are tested on a card,
 this number is automatically calculated and recorded.
-* [[testscore]] **Test score**: The number of cards correctly answered over number of cards attempted during a test session. This number is automatically recorded after each test session.
+* [[testscore]] **Test Score**: The number of cards correctly answered over number of cards attempted during a test session. This number is automatically recorded after each test session.
 * [[homedirectory]] **Home Directory**: The home page where all the folders are listed. From here, users can enter folders to view cards.
 * [[index]] **Index**: The unique number associated with an item in a list. The first item in a list has an index of 1.
+* **project root directory**: The directory where Know-It-All's .jar file is located
 
-
+//tag::cmdsummary[]
 == Command Summary
 [width="100%",cols="20%,<30%",options="header",]
 |=======================================================================
@@ -704,8 +724,8 @@ this number is automatically calculated and recorded.
 |`end` | Quits the current test session or report display.
 |`search KEYWORDS [MORE_KEYWORDS]` | Searches for flashcards inside the current folder using keywords in flashcard questions.
 |`import FILENAME` | Imports a file with the specified name. Filename must include .csv extension
-|`export FOLDER_INDEX FILENAME [MORE_INDEXES]` | Creates a csv file containing the flashcards from the specified folder, which can later be imported.
+|`export FOLDER_INDEX [MORE_INDEXES]` | Creates a csv file containing the flashcards from the specified folder, which can later be imported.
 |`help` | Opens the User Guide in a new window.
 |`exit` | Exits the application.
 |=======================================================================
-//end::glossarycmdsummary[]
+//end::cmdsummary[]

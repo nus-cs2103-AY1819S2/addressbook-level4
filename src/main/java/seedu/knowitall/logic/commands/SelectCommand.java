@@ -35,11 +35,11 @@ public class SelectCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        List<Card> filteredCardList = model.getActiveFilteredCards();
-
         if (model.getState() != Model.State.IN_FOLDER) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER);
         }
+
+        List<Card> filteredCardList = model.getActiveFilteredCards();
 
         if (targetIndex.getZeroBased() >= filteredCardList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);

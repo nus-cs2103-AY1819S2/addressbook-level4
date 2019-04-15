@@ -440,7 +440,7 @@ is true at any point in time. E.g., only one of inFolder, inHomeDir, inTest... c
 [discrete]
 ==== Current Implementation
 The Import and Export feature is facilitated by the Logic and model components, together
-with the addition of 2 new classes inside the csvmanager package defined under
+with the addition of 3 new classes inside the csvmanager package defined under
 the storage package.
 
 [discrete]
@@ -461,14 +461,15 @@ Model also implements `Model#setTestCsvPath` and the `Model#getDefaultPath` whic
 
 [discrete]
 ===== csvmanager package:
-The csvmanager package contains all classes dealing with the reading and writing of cardfolders into and out to
+The csvmanager package contains all classes dealing with the reading and writing of card folders into and out to
 the model.
 
 The classes include:
 
-* CsvManager - Main class responsible for the writing and reading of .csv files during the import and export of files
-* CsvFile - Wrapper class for file name input by user
-* CsvCommands interface - API for import/export method in CsvManager
+* `CsvManager` - Main class responsible for the writing and reading of .csv files during the import and export of files
+* `CsvFile` - Wrapper class for file name input by user
+* `CsvCommands` interface - API for import/export method in CsvManager
+* `CsvUtils` - Utility class containing the default path and test paths used by the application.
 
 The main logic for the import / export command is carried out inside the CsvManager class specified by it's
 API `CsvManager#writeFoldersToCsv` and `CsvManager#readFoldersToCsv`.
@@ -476,27 +477,28 @@ API `CsvManager#writeFoldersToCsv` and `CsvManager#readFoldersToCsv`.
 
 [discrete]
 ===== Example Usage
-1. User wants to export folders `Human Anatomy` and `Nervous System`.
+1. User wants to export folders Human Anatomy and Nervous System.
 Suppose that these two folders index as shown on the main application screen is 1 and 3 respectively.
 The user types ``export 1 3``
 
-2. The Export command parser extracts the indices, parses the indices into a List<Integer> and
+2. The Export command parser extracts the indices, stores the indices into a `List<Integer>` and
 `ExportCommand` object, which keeps track of the indices.
 
 
-3. The Export command executes, calling `Model#exportCardFolders` method.
+3. The Export command calls executes, resulting in a call to the  `Model#exportCardFolders` method.
 
-4. Model#exportCardFolders method checks that all card folders specified by user exists inside the list of card folders.
-   With reference to the diagram below, we can see that the indices specified by the user corresponds
-   to each card folder. +
+4. `Model#exportCardFolders` method checks that all card folders specified by user exists within the model.
+   With reference to the diagram below, we can see that the indices specified by the user (1 and 3) corresponds to the
+   (i - 1) th indexes of the list of card folders in the model,
+   where 1 < i <= no.of card folders in model. +
    The method throws `CardFolderNotFoundException` if card folder index is not found in list.
 +
 image::import_export_model_list1.png[width = "800"]
 
 
-5. `CsvManager` is called to carry out the main logic of writing the cardfolders to file.
+5.  `CsvManager` is called to carry out the main logic of writing the card folders to file.
     File exported will be created in the project root directory. +
-    Names of the files created will correspond to the names of their corresponding cardfolders. +
+    Names of the files created will correspond to the names of their corresponding card folders. +
     i.e `Human Anatomy.csv` and `Nervous System.csv`
 
 6. User wants to import `Human Anatomy.csv` file.
@@ -504,14 +506,16 @@ image::import_export_model_list1.png[width = "800"]
 User types `import Blood.csv` command
 
 7. Import command parser extracts file name, wraps file into a `CsvFile` object and
-   parses the CsvFile into an Import Command object.
+   parses the `CsvFile` object into an Import Command object.
 
 8. Logic unit executes the import command.
-The execute method makes a call to `Model#importCardFolder` method.
+The execute method makes a call to `Model#importCardFolder` method. The model checks that
+the card folder to import does not already exist within the model. Throws `DuplicateCardFolderException`
+if card folder already exists.
 
-9. CsvManager is called to carry out the main logic of reading cardfolders to file.
+9. CsvManager is called to carry out the main logic of reading card folders to file.
 File imported will be serialized into a `CardFolder` object and
-added to the `filteredFoldersList` variable.
+added to the `folders` variable in model.
 
 
 NOTE: Both Imported and Exported files have to be placed in the project root directory.
@@ -521,67 +525,57 @@ The below diagram shows the sequence diagram for the Import/Export commands
 image::import_export_sequenceDiagram.png[width = "1000"]
 
 ==== CSV file structure
-Example of a common cardfolder csv file +
+Example of a common cardfolder csv file, opened using microsoft excel. +
 
 Blood.csv
 
-image::Blood.png[width="800"]
-
+image::Blood.png[width= '800']
 
 * The first line of any file contains the headers for each card.
-Headers have to be present in the csv file for import.
+These headers have to be present in the csv file. If not the import would not work.
 
-* Each row of the csv file represents a single flashcard.
+* Each row of the csv file starting from the second,
+represents a single flashcard.
 
-* Options header can take more than one value or none.
+* Option headers i.e (Option,Option,Option)
+can be left blank or take on 1 value.
 
 * Hints header can take either 0 or 1 value.
 
+//end::importexport[]
+
+
+
 ==== Design Considerations
+//tag::design_considerations_import_export[]
+
 ===== Aspect: Which component responsible for import/export logic
-* Alternative 1: Implement read and write card folders in `StorageManager` class
-** Pros:
-*** The most intuitive solution,
+* **Alternative 1 (current choice)**: Implement read and write card folders in StorageManager class
+** Pros: The most intuitive solution,
 since Storage involves read and write logic
 ** Cons:
-*** Model and Storage are now more coupled together.
-*** Storage has more than one responsibility now.
-Instead of managing the internal data of card folder, it now has to
-manage the read and write to csv files.
-
-
-* Alternative 2: Implement read and write card folders in `csvmanager` package class. (Current)
-** Pros:
-*** Separate responsibilities of both Storage and Model. +
-1.  Model class can focus on the representation of the in-memory card folders
-Storage +
-2. Storage class can focus on managing the internal card folder data (.json files)
-** Cons:
-*** More code to write. Storage class could possibly call the relevant API's
+*** Either Logic and Model will be more coupled with storage. Storage also has more than one responsibility now.
+* **Alternative 2**:Implement read/write and other logic in another class. (Current)
+** Pros: Separate responsibilities of both Storage and Model. Model class can focus on the representation of the in-memory card folders
+and Storage class can focus on managing the internal card folder data (.json files)
+** Cons: More code to write. Storage class could possibly call the relevant API's
 to convert .json file  into .csv file
 
 
-=====  Aspect: csv file design structure
-* Alternative 1: Export multiple card folders into a single file.
-** Pros:
-*** Saves user trouble of calling multiple import for files.
+===== Aspect: Csv file design structure
+* **Alternative 1**: Export multiple card folders into a single file.
+
+** Pros: Saves user trouble of calling multiple import for files. +
 Each card folder is separated by a new line.
-** Cons:
-*** Not a .csv file anymore.
-First line header would now specify cardfolder name before card headers,
+** Cons: Not a .csv file anymore. First line header would now specify cardfolder name before card headers,
 leading to unequal rows and columns
-*** Users will be unable to select specific card folders to import if multiple card folders
-have been exported into a single file.
+* **Alternative 2**: Export each card folder into a single file (Current)
+** Pros: More flexibility for users to import desired card folders,
+since 1 cardfolder = 1 csv file. Files are also now correctly formatted as .csv file
+and Storage class can focus on managing the internal card folder data (.json files)
+** Cons: Slightly more work needed to import multiple card folders.
+//end::design_considerations_import_export[]
 
-* Alternative 2: Export each card folder into a single file (Current)
-** Pros:
-*** More flexibility for users to import desired card folders,
-since 1 cardfolder = 1 csv file.
-*** Files are now correctly formatted as .csv file
-
-** Cons:
-*** Slightly more work needed to import multiple card folders.
-//end::importexport[]
 
 //tag::folders[]
 === Folders
@@ -632,7 +626,7 @@ If the input is invalid (e.g. user did not provide a folder name or provided one
 * Step 3. The `LogicManager` executes the `AddFolderCommand`, Before transferring control to the Model component with the `ModelManager#addFolder()` method, a few checks are performed to ensure that the user is inside a folder and the model does not already have a folder with the same name (not shown in sequence diagram).
 
 [NOTE]
-If any of the aforementioned checks do not success, Step 3 would end in a Command Exception being thrown and would not proceed. Model and Storage components would not be modified.
+If any of the aforementioned checks do not succeed, Step 3 would end in a Command Exception being thrown and would not proceed. Model and Storage components would not be modified.
 
 * Step 4. The `ModelManager` creates a `VersionedCardFolder` to represent the newly created folder, storing a reference to its currently empty list of cards. Before returning control to the Logic component, `ModelManager#indicateModified()` is invoked to notify listeners in the `LogicManager` that the list of `CardFolders` have changed.
 
@@ -722,7 +716,7 @@ image::EnterFolderGUISequenceDiagram.png[width="800"]
 ** Pros: Has the advantages but not the disadvantages of Alternatives 1 and 2.
 ** Cons: More difficult to implement, developers will need to pay special attention to understand this behaviour.
 
-*Evaluation*: Alternative 3 is the most logical decision because it achieves the important objectives of retaining non-corrupted user data, while always ensuring there is data for the user to work with even if he/she is starting the application for the first time.
+*Evaluation*: Alternative 3 was deemed the most logical choice because it achieves the important objectives of retaining non-corrupted user data, while always ensuring there is data for the user to work with even if he/she is starting the application for the first time.
 
 === Navigating folders
 
@@ -741,7 +735,7 @@ To keep track of navigation state, an enum `State` is maintained by the `ModelMa
 
 ===== Change Directory Command
 
-Folder navigation is achieved by the user through the use of the `change` command. As navigating folders do not actually modify folders and their cards, folder navigation does not involve the Storage Component.
+Folder navigation is achieved by the user through the use of the `cd` command. As navigating folders do not actually modify folders and their cards, folder navigation does not involve the Storage Component.
 
 The change directory command has the following formats:
 
@@ -1928,6 +1922,7 @@ lowest scoring flashcard question and hints are displayed. Answer the current qu
 .. Test case: `editfolder 1 x` (where x is a name not used by any existing folder) +
    Expected: The json with the original name of the edited folder is no longer present in the data directory, replaced with a json with the new folder name.  No other files in the directory are affected.
 
+
 === Navigating in and out of folders
 
 . Entering a folder
@@ -1948,13 +1943,45 @@ lowest scoring flashcard question and hints are displayed. Answer the current qu
 .. Other incorrect cd commands to try: `cd`, `cd Home` +
    Expected: Similar to previous.
 
+
+
 === Saving data
 
 . Dealing with missing/corrupted data files
 .. Prerequisites: You must know where the data files are stored. By default, this will be at the `data/` directory at the path of the jar file.
 .. Test case: Delete the data directory and launch the app +
-   Expected: A sample folder is present when the app launches.
+   Expected: A sample folder is present when the app launches (although it is not committed to storage until a persistent change is made).
 .. Test case: Insert a non-json file/corrupted json file in the data directory and launch the app +
    Expected: The valid json files have folders with their corresponding names present. The non-json file/corrupted json file remains unaffected.
 
 //end::foldermanualtesting[]
+
+//tag::folderimportexporttesting[]
+. Importing a folder
+.. Prerequisites: +
+    You must be outside a folder (status bar should read `in home directory`. +
+    Ensure that you also have the file to import in the project root directory. +
+    file has to have a .csv extension format. +
+    The imported file has to comply with the csv file headers. +
+    Compulsary fields, like Question and Answer should not be left blank.
+
+.. Test case: `import Blood.csv` +
+Prerequisites: Ensure that Blood.csv exists within the project root directory. +
+Expected: Command box outputs a message "Successfully imported: Blood.csv" and
+a new folder with name Blood is added to the existing folders in the home directory,
+with the corresponding flashcards added to the folder
+
+.. Other incorrect commands to try: `import`,
+`import Blood.json`
+
+. Exporting a folder
+.. Prerequisites: You must be outside a folder (status bar should read `in home directory`) +
+ flashcard application
+.. Test case: `export 1` +
+Prerequisities: You must have at least one folder existing in the application. +
+   Expected: The command box outputs a message "Successfully exported card folders" and project root directory should contain a `x.csv` file where `x` is the name of the first folder in the application.
+.. Test case: `export 1 2 3` +
+Prerequisities: You must have at least 3 card folder existing in the application. +
+   Expected: The same message output in the command box as the previous test case and the corresponding files `x1.csv`, `x2.csv` and `x3.csv` created in project root directory, where `x1`, `x2`, `x3` corresponds to the name of the first, second and third folder
+.. Other incorrect cd commands to try: `export`, `export -1`, `export 12 13 14`, where `12` `13` and `14` are non existsnt card folder indexes.
+//end:folderimportexporttesting[]

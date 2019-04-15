@@ -23,7 +23,8 @@ By: `CS2103T W11-3 Team`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-Welcome to *TravelBuddy's* Developer Guide, put together by Chung Ming, Prem, Niven and Shaun. In this guide, you will find all the relevant information to get you familiarize with TravelBuddy's design and implementation.
+Welcome to *TravelBuddy*'s Developer Guide, put together by Chung Ming, Prem, Niven and Shaun. In this guide, you will
+ find all the relevant information to get you familiarize with TravelBuddy's design and implementation.
 
 == Setting Up
 
@@ -118,9 +119,11 @@ image::Architecture.png[width="600"]
 <<ArchitectureDiagram>> above explains the high-level design of TravelBuddy. Given below is a quick overview of each component.
 
 [TIP]
-The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
+The `.pptx` files used to create diagrams in this document can be found in the
+link:{repoURL}/tree/master/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file,
+select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/travel/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:{repoURL}/tree/master/src/main/java/seedu/travel/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -132,7 +135,11 @@ The following class plays an important role at the architecture level:
 
 The rest of TravelBuddy consists of four components.
 
-* <<Design-Ui,*`UI`*>>: The UI of TravelBuddy.
+
+
+
+* <<Design-Ui,*`UI`*>>: The User Interface (UI) of the App.
+
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Model,*`Model`*>>: Holds the data of TravelBuddy in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
@@ -177,9 +184,13 @@ link:{repoURL}/tree/master/src/main/java/seedu/travel/ui/Ui.java[`Ui.java`]
 .Structure of the UI component
 image::UiClassDiagram.png[width="800"]
 
-The `UI` component, as seen in <<UiClassDiagram>>, uses JavaFx UI framework. The *layout* of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/travel/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component, as seen in <<UiClassDiagram>>, uses the JavaFx UI framework. The *layout* of these UI parts are
+defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the
+link:{repoURL}/tree/master/src/main/java/seedu/travel/ui/MainWindow.java[`MainWindow`] is specified in
+link:{repoURL}/tree/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The 'UI' component *controllers* are found in the `src/main/java/seedu/travel/ui` folder. Each class corresponds to a specific `.fxml` file.
+The `UI` component *controllers* are found in the `src/main/java/seedu/travel/ui` folder. Each class corresponds to a
+ specific `.fxml` file.
 
 The `UI` component,
 
@@ -206,7 +217,8 @@ All parts inherit from the abstract `UiPart` class.
 ** `PlaceListCard`: Labels for the Display index and Place data fields (`CountryCode`, `Rating` etc.) in a VBox the left,
 Labels that display Name and actual Place data (`CountryCode`, `Rating` etc) in a VBox on the right
 
-* RightParentPanel: Parent panel for both `DisplayListPanel` and `ExtendedPlacePanel`,
+
+* RightParentPanel: Parent panel for both `ChartListPanel` and `ExpandedPlacePanel`,
 contains helper methods for switching functionality, interacts with `Model` and `Logic`
 
 ** `ChartListPanel`: Parent panel for analytics of all Places, the `generate` command displays this panel

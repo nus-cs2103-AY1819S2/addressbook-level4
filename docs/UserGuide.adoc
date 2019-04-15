@@ -298,13 +298,14 @@ Format: `{[aqua]#add-reservation#/[aqua]#ar#} [blue]#r/# [lime]#ROOM_TYPE# [blue
 * `START_DATE` and `END_DATE` follows the `DD/MM/YYYY` format.
 * `COMMENTS` can contain any text without slash (/).
 * All reservations can only be done from current date to upto one year from current date.
-* We alloW the same person to reserve the same room for the same dates. In short, we allow duplicate reservations.
+* We allow the same person to reserve the same room for the same dates. In short, we allow duplicate reservations.
 * We allow different people to reserve the same room for the same date as someone else already has.
 ====
 
 
 Examples: +
 Assume current date is 10 May, 2019. +
+
 * `list-customers`, then `ar r/SINGLE ROOM d/20/5/2019-25/5/2019 $/5` +
 Adds a reservation of Single Room in the name of the 5th customer from 20 May 2019 to 25 May 2019.
 
@@ -949,7 +950,7 @@ There is no need to save manually.
     _Validation_:: Phone should adhere to following constraints:
 
     1: It should contain only digits.
-    2: It should be atleast 3 digits long.
+    2: It should be at least 3 digits long.
 
     _Example_:: [blue]#p/# 81424394
 // tag::prefixlist[]
@@ -971,7 +972,7 @@ There is no need to save manually.
        _Validation_:: Identification Number should adhere to following constraints:
 
         1: It should contain only digits and uppercase alphabetical letters.
-        2: It should be atleast 7 digits long and maximum 10 digits long
+        2: It should be at least 7 digits long and maximum 10 digits long
 
       _Example_:: [blue]#id/# Z4264321
 

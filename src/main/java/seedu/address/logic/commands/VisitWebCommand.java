@@ -83,8 +83,13 @@ public class VisitWebCommand extends Command {
      * @throws CommandException when url is invalid
      */
     private void checkUrl(Weblink weblink) throws NoInternetException, CommandException {
-        if (!WebUtil.isUrlValid(weblink.value)) {
-            throw new CommandException(String.format(Messages.MESSAGE_CHANGE_WEBLINK, weblink.value));
+
+        boolean notValid = !WebUtil.isUrlValid(weblink.value);
+        boolean weblinkIsDefault = weblink.isDefault();
+        if (notValid && weblinkIsDefault) {
+            throw new CommandException(String.format(Messages.MESSAGE_CHANGE_WEBLINK, "Weblink"));
+        } else if (notValid) {
+            throw new CommandException(String.format(Messages.MESSAGE_CHANGE_WEBLINK, weblink.toString()));
         }
     }
 

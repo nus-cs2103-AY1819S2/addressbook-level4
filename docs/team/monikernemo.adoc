@@ -1,0 +1,79 @@
+= Lee Yi Quan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: GradTrak - A Graduation Tracker by NUS Students, for NUS Students
+
+---
+
+== Overview
+
+GradTrak is an application that was morphed from the codebase of https://github.com/nus-cs2103-AY1819S2/addressbook-level4[Address Book - Level 4].
+It was conceptualised and designed in mind to assist students of NUS to track their graduation progress and plan modules
+they want to take in the future.
+
+
+I was involved in designing the functionality for users to track their course requirement. In the sections that follow,
+I will showcase my contributions to the project and also some of the section that I have written
+in the User and Developer's Guides.
+
+== Summary of contributions
+
+* *Major feature*: added the functionality for users to track their graduation requirements
+** What it does: This feature allows the user to check against a list of modules they have taken or plan to take
+and informs them whether they have fulfilled the requirements. The feature also allows the users
+to know approximately, the extent of completion of these graduation requirements.
+
+** Why this feature: This feature is one of the core functionalities of GradTrak. This greatly enhances quality of life of
+students in NUS as it would allow them to find out their graduation requirements as well as how far are they away from
+fulfilling them.
+
+** Highlights: It is difficult to implement this feature because course requirements can vary greatly. As a course
+requirement can be composed of simpler course requirements, another technical difficulty that I faced was designing an
+interface that treats simple and more complex course requirements uniformly. To tackle this hurdle, I had to do some
+research on design patterns to understand how to come up with such design to suit the need of my project.
+
+* *Minor enhancement*:
+** created user editable files for users to store different courses and course requirements
+** added some sample courses into the application namely: Computer Science Algorithms, Artificial Intelligence
+and Software Engineering.
+** created utility for to load json file formats after exporting jar file. https://github.com/cs2103-ay1819s2-w14-4/main/pull/94[#94]
+
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=monikernemo[Project Code Dashboard]]
+
+* *Other contributions*:
+** Project Management
+*** Set up milestones, issue tracker https://github.com/cs2103-ay1819s2-w14-4/main/issues?q=is%3Aissue+author%3Amonikernemo+is%3Aclosed[(examples)]
+*** Added user stories https://github.com/cs2103-ay1819s2-w14-4/main/issues?q=label%3Atype.Story+is%3Aclosed[(examples)]
+*** Reviewed and assigned issues to teammates in previous round of product testing https://github.com/cs2103-ay1819s2-w14-4/main/issues?q=is%3Aissue+author%3Acs2103-feedback-bot+is%3Aclosed[(examples)]
+*** Managing release, https://github.com/cs2103-ay1819s2-w14-4/main/releases/tag/v1.4[v1.4]
+ which should be up in a couple of days
+
+** Refactored Code and changed documentation from AddressBook - Level 4 code base
+*** Renamed significant amount of variables, classes in Address Book - Level 4 code base https://github.com/cs2103-ay1819s2-w14-4/main/pull/66[#66]
+*** Changed some visuals for the User Guide, Developer Guide https://github.com/cs2103-ay1819s2-w14-4/main/pull/90[#90]
+*** Changed some of the prose of the User Guide, Developer Guide (see above Pull Request)
+*** Modified irrelevant sections of User Guide, Developer Guide (see above Pull Request)
+
+
+
+== Contributions to the User Guide
+In this section, I will highlight some of my contributions to the user guide namely,
+the `displayreq` and `study` commands in `GradTrak`.
+
+include::../UserGuide.adoc[tag=Displayreq]
+
+include::../UserGuide.adoc[tag=study]
+
+== Contributions to the Developer Guide
+In this section, I will highlight some of my contributions to the developer guide.
+
+include::../DeveloperGuide.adoc[tag=CourseRequirement]
+
+
+== PROJECT: Cuckoo Hash
+This is an experimental assignment from https://www.comp.nus.edu.sg/~gilbert/CS5330/[CS5330 - Randomised Algorithm]. The
+aim was to investigate various effects of different Cuckoo Hash schemes. More information on assignment
+https://www.comp.nus.edu.sg/~gilbert/CS5330/2019/psets/ExperimentalAlgorithms.pdf[here]
+and more on the codes of the implementation https://github.com/monikernemo/CS5330-Experimental-Assignment[ here]

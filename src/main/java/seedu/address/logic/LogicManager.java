@@ -11,12 +11,18 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.GradTrakParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ClassForPrinting;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.ReadOnlyGradTrak;
+import seedu.address.model.course.RequirementStatus;
+import seedu.address.model.moduleinfo.ModuleInfo;
+import seedu.address.model.moduleinfo.ModuleInfoCode;
+import seedu.address.model.moduletaken.ModuleTaken;
+import seedu.address.model.recmodule.RecModule;
 import seedu.address.storage.Storage;
+import seedu.address.storage.UserInfoStorage;
 
 /**
  * The main LogicManager of the app.
@@ -27,37 +33,50 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
+    private final UserInfoStorage userInfoStorage;
     private final CommandHistory history;
-    private final AddressBookParser addressBookParser;
-    private boolean addressBookModified;
+    private final GradTrakParser gradTrakParser;
+    private boolean gradTrakModified;
+    private boolean userInfoModified;
 
-    public LogicManager(Model model, Storage storage) {
+    public LogicManager(Model model, Storage storage, UserInfoStorage userInfoStorage) {
         this.model = model;
         this.storage = storage;
+        this.userInfoStorage = userInfoStorage;
         history = new CommandHistory();
-        addressBookParser = new AddressBookParser();
+        gradTrakParser = new GradTrakParser();
 
-        // Set addressBookModified to true whenever the models' address book is modified.
-        model.getAddressBook().addListener(observable -> addressBookModified = true);
+        // Set gradTrakModified to true whenever the model's gradTrak is modified.
+        model.getGradTrak().addListener(observable -> gradTrakModified = true);
+        model.getUserInfo().addListener(observable -> userInfoModified = true);
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        addressBookModified = false;
+        gradTrakModified = false;
+        userInfoModified = false;
 
         CommandResult commandResult;
         try {
-            Command command = addressBookParser.parseCommand(commandText);
+            Command command = gradTrakParser.parseCommand(commandText);
             commandResult = command.execute(model, history);
         } finally {
             history.add(commandText);
         }
 
-        if (addressBookModified) {
-            logger.info("Address book modified, saving to file.");
+        if (userInfoModified) {
+            logger.info("userInfo modified, saving to file.");
             try {
-                storage.saveAddressBook(model.getAddressBook());
+                userInfoStorage.saveUserInfo(model.getUserInfo());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
+        }
+        if (gradTrakModified) {
+            logger.info("GradTrak modified, saving to file.");
+            try {
+                storage.saveGradTrak(model.getGradTrak());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
@@ -67,13 +86,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyGradTrak getAddressBook() {
+        return model.getGradTrak();
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<ModuleTaken> getFilteredPersonList() {
+        return model.getFilteredModulesTakenList();
     }
 
     @Override
@@ -83,7 +102,7 @@ public class LogicManager implements Logic {
 
     @Override
     public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+        return model.getGradTrakFilePath();
     }
 
     @Override
@@ -97,12 +116,44 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyProperty<Person> selectedPersonProperty() {
-        return model.selectedPersonProperty();
+    public ReadOnlyProperty<ClassForPrinting> selectedPersonProperty() {
+        return model.selectedClassForPrintingProperty();
     }
 
     @Override
-    public void setSelectedPerson(Person person) {
-        model.setSelectedPerson(person);
+    public void setSelectedPerson(ClassForPrinting moduleTaken) {
+        model.setSelectedClassForPrinting(moduleTaken);
     }
+
+    @Override
+    public ReadOnlyProperty<ModuleInfo> selectedModuleInfoProperty() {
+        return model.selectedModuleInfoProperty();
+    }
+
+    @Override
+    public void setSelectedModuleInfo(ModuleInfo moduleInfo) {
+        model.setSelectedModuleInfo(moduleInfo);
+    }
+
+    @Override
+    public ObservableList<ModuleInfo> getDisplayList() {
+        return model.getDisplayList();
+    }
+
+    @Override
+    public ObservableList<RequirementStatus> getRequirementStatusList() {
+        return model.getRequirementStatusList();
+    }
+
+    @Override
+    public ObservableList<ModuleInfoCode> getModuleInfoCodeList() {
+        return model.getModuleInfoCodeList();
+    }
+
+
+    @Override
+    public ObservableList<RecModule> getRecModuleListSorted() {
+        return model.getRecModuleListSorted();
+    }
+
 }

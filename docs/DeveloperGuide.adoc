@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= GradTrak - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,13 +13,17 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/cs2103-ay1819s2-w14-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W14-4`      Since: `Feb 2019`      Licence: `MIT`
 
 == Setting up
 
-=== Prerequisites
+Go through the following sections to set up GradTrak.
+
+=== Checking prerequisites
+
+Ensure that each of the following software has been installed.
 
 . *JDK `9`* or later
 +
@@ -33,54 +37,49 @@ Windows developers are highly recommended to use JDK `9`.
 IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
+=== Setting up the project
 
-=== Setting up the project in your computer
+Follow the instructions below to set up the project on your computer.
 
-. Fork this repo, and clone the fork to your computer
-. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
-. Set up the correct JDK version for Gradle
-.. Click `Configure` > `Project Defaults` > `Project Structure`
-.. Click `New...` and find the directory of the JDK
-. Click `Import Project`
-. Locate the `build.gradle` file and select it. Click `OK`
-. Click `Open as Project`
-. Click `OK` to accept the default settings
+. Fork this repo, and clone the fork to your computer.
+. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first).
+. Set up the correct JDK version for Gradle.
+.. Click `Configure` > `Project Defaults` > `Project Structure`.
+.. Click `New...` and find the directory of the JDK.
+. Click `Import Project`.
+. Locate the `build.gradle` file and select it. Click `OK`.
+. Click `Open as Project`.
+. Click `OK` to accept the default settings.
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
-.. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
-.. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+. Open link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors.
+.. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully.
+.. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error.
+. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way).
 
 === Verifying the setup
+Follow the instructions below to verify that the setup is successful.
 
-. Run the `seedu.address.MainApp` and try a few commands
-. <<Testing,Run the tests>> to ensure they all pass.
+. Run `seedu.address.MainApp` and try a few commands.
+. <<Testing,Run the tests>> to ensure all of them pass.
 
-=== Configurations to do before writing code
+=== Configurating the project
+
+Go through the following sections to configure the project.
 
 ==== Configuring the coding style
 
-This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
+This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order.
+Follow the instructions below to rectify this issue.
 
-. Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS)
-. Select `Editor` > `Code Style` > `Java`
-. Click on the `Imports` tab to set the order
+. Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS).
+. Select `Editor` > `Code Style` > `Java`.
+. Click on the `Imports` tab to set the order.
 
-* For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements
-* For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
+* For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements.
+* For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`.
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
-
-==== Updating documentation to match your fork
-
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
-
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
-
-. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
-
-. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
 
 ==== Setting up CI
 
@@ -98,7 +97,7 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 
 ==== Getting started with coding
 
-When you are ready to start coding,
+Follow the instructions below when you are ready to start coding.
 
 1. Get some sense of the overall design by reading <<Design-Architecture>>.
 2. Take a look at <<GetStartedProgramming>>.
@@ -106,6 +105,8 @@ When you are ready to start coding,
 == Design
 
 [[Design-Architecture]]
+The following sections explain the design of GradTrak.
+
 === Architecture
 
 .Architecture Diagram
@@ -116,10 +117,10 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for:
 
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
+* At app launch: Initializing the components in the correct sequence and connecting them with one another.
+* At shut down: Shutting down the components and invoking cleanup methods where necessary.
 
 <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
 The following class plays an important role at the architecture level:
@@ -128,20 +129,17 @@ The following class plays an important role at the architecture level:
 
 The rest of the App consists of four components.
 
-* <<Design-Ui,*`UI`*>>: The UI of the App.
+* <<Design-Ui,*`UI`*>>: The user interface (UI) of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
-* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-Model,*`Model`*>>: The model holding the data of the App in-memory.
+* <<Design-Storage,*`Storage`*>>: The storage which reads data from and writes data to the hard disk.
 
-Each of the four components
+Each of the four components above:
 
-* Defines its _API_ in an `interface` with the same name as the Component.
+* Defines its Application Programming Interface (API) in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[width="800"]
+For example, the `Logic` component (see class diagram in Section 2.3) defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -149,7 +147,7 @@ image::LogicClassDiagram.png[width="800"]
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command
-image::SDforDeletePerson.png[width="800"]
+image::SDforDeleteModuleTaken.png[width="800"]
 
 The sections below give more details of each component.
 
@@ -159,13 +157,14 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
+
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The `UI` component,
+The `UI` component:
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
@@ -178,18 +177,18 @@ The `UI` component,
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/blob/master/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `GradTrakParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a module).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+.Interactions inside the Logic Component for the `delete 1` Command
+image::DeleteModuleTakenSdForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
@@ -197,32 +196,54 @@ image::DeletePersonSdForLogic.png[width="800"]
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
-The `Model`,
+The `Model`:
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores a `UserInfo` object that represents user's information such as `Course` and `SemLimit`
+* stores the GradTrak data.
+* stores a filtered list of `ModuleInfo`, `RecModule` that represents a list of modules NUS offers
+* stores a list of `RequirementStatus` that keep tracks of the status of each `CourseRequirement` of the `Course`.
+* exposes an unmodifiable `ObservableList<ModuleTaken>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `GradTrak`, which `ModuleTaken` can reference. This would allow `GradTrak` to only require one `Tag` object per unique `Tag`, instead of each `ModuleTaken` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
-
+//tag::storage[]
 [[Design-Storage]]
 === Storage component
+Within the `Storage` component there are *2* types of storage classes: +
+1. read and write storage +
+2. read only storage
 
+==== Read and write storage
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
-
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+//TODO: update class diagram
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save `UserPref`, `UserInfo` objects in json format and read it back.
+* can save the GradTrak data in json format and read it back.
+
+==== Read-only storage
+image::moduleinfostorage.png[width="800"]
+.Structure of read-only storage components
+image::CourseStorage.png[width="800"]
+
+
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/storage/moduleinfostorage/ModuleInfoStorage.java[`ModuleInfoStorage.java`],
+link:{repoURL}/blob/master/src/main/java/seedu/address/storage/coursestorage/CourseStorage.java[`CourseStorage.java`]
+
+* loads `ModuleInfoStorage` and `CourseStorage` from json format into memory
+
+
+
+// end::storage[]
 
 [[Design-Commons]]
 === Common classes
@@ -233,62 +254,177 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::displaymod[]
+=== Displaymod feature
+==== Current implementation
+`displaymod` is a command that displays the information of a module based on the search by the student. The main reason for implementing
+such a feature is so that students can have immediate access to all available modules in NUS instead of searching through the
+internet.
+
+==== Creation of `ModuleInfo`
+Most of the processing of this feature is done during the launch of the application. The modules are created as a object
+called `ModuleInfo`. These objects only contain vital information of a particular module and nothing else. This to ensure that
+only information relevant students are displayed. This process is done with aid of the `Storage` class, to be more exact
+it uses <<Read-Only>> extracting all the data from `allModule.Json` file found in the `resources` folder. +
+
+The figure below shows the class diagram for `ModuleInfo` :
+
+image::ModuleInfoclass.png[width="800"]
+
+As seen from above the `ModuleInfo` class is made up of 8 other classes: +
+|===
+
+|`ModuleInfoCode`  |`ModuleInfoDepartment`
+| `ModuleInfoTitle` |`ModuleInfoWorkload`
+|`ModuleInfoCredits` |`ModuleInfoPrerequisite`
+|`ModuleInfoDescription`|`ModuleInfoPreclusion` *For V2.0*
+
+|===
+
+The information found in the modules are separated into their own class to maintain modularity in the
+code. All of these objects are created in the construction of the `ModuleInfo` Object. +
+
+image::moduleinfoconstructor.png[width="800"]
+
+==== Generating prerequisite trees
+Within the `ModuleInfo` class, the `ModuleInfoPrerequisite` class requires the most pre-processing. If a student wishes to take
+a particular module, they have to check if they can satisfy the prerequisites, thus presenting the prerequisite tree is
+paramount to the `ModuleInfo` class. +
+
+`ModuleInfoPrerequisite` contains a custom data structure called `ModuleTree` which can be found in the
+`commons.Util` package. It was place in the `commons` package since it was a data structure and other functions
+or feature may require the `ModuleTree` *i.e.* when adding/deleting modules from the `ModuleTaken` list of the student. +
+
+The `ModuleTree` data structure consist of "smaller" objects called `Node`, which can also be found in `commons.Util`.
+`Node` can represent one of the following information: +
+
+*1.* *Head* : The head/root of the `ModuleTree` which holds a `value` of the module code of the "larger" `ModuleInfo` object. +
+
+*2.* *Operator* : Either "OR" or "AND" to indicate if only one of the module is required to fulfill the prerequisite or
+all of the listed modules are required respectively. +
+
+*3.* *Module Code* : The module code that is required to meet the prerequisite. +
+
+image::PrerequisiteTreeAnnotated.png[width="300"]
+
+The `generatePrerequisiteTree()` function is called after the `ModuleInfoPrerequisite` object has been created, since
+the `ModuleTree` is dependent on the `String` input `prereq` which later be saved as `prerequisiteString`. +
+
+image::PrerequisiteString.png[width="600"]
+
+The input `prerequisite` usually comes in the format:
+
+ "Prerequisite":"[MA1312 or MA1521 or MA1505 or (MA1511 and MA1512)] and [ST2334 or ST2131 or ST2132] and [IS3106 or BT3103]"
+
+The input value is then split into an `array` using regular expressions:
+
+image::RegexSplitter.png[width="200"]
+
+This helps with the arrangement of the `ModuleTree` as shown below: +
+
+.Step 1:The first index `String` is used to create a minor tree
+image::prerequisiteStep1.png[width="400"]
+
+.Step 2:Since the previous `String` ended with a "OR" the next `String` is made and added as a child to the predecessor.
+image::prerequisiteStep2.png[width="400"]
+
+.Step 3:Finally,the same process is repeated with the other Strings until the tree is complete.
+image::prerequisiteStepFinal.png[width="400"]
+
+
+==== Making it into a list
+The final part of this entire process is storing all the `ModuleInfo` objects into a list. Currently, we did this using
+an `ObservableList<>`, this is done so that we can take advantage of the `FilteredList<>` class by filtering the list using
+`Predicates`. +
+
+During initial launch, after each module's information is converted into a `ModuleInfo` object, it will be added to a
+`ModuleInfoList` object which contains an `ArrayList<ModuleInfo>`. After all the modules are added into `ModuleInfoList`,
+`ModuleInfoList` will be passed into `ModelManager` and will be converted into an `ObservableList<>` called `allModules`.
+ Following that, a `FilteredList<>` object called `displaylist` will also be constructed from the `allModules` `ObservableList<>`.
+
+image::Observable.png[width="800"]
+
+Whenever the student searches for a particular `ModuleInfo` , the `ObservableList<>` is always ready and the `FilteredList<>`
+will be updated using a `Predicate` List generated from the keywords searched by the student.
+
+image::keywords.png[width="600"]
+
+==== Design considerations
+===== Aspect: ModuleTree data structure
+* **Current implementation :** Custom Module tree data structure
+** Pros: Able to handle "AND" or "OR" operations found in the prerequisite Tree.
+** Cons: Takes a extremely long time to implement and design. Not to mention extremely error-prone.
+
+* **Alternative considered :** Use a current `JDK` `Tree` data structure
+** Pros: Easy to deploy into current code base.
+** Cons: Unable to deal with special operations like "AND" or "OR".
+
+==== Aspect: Storing `ModuleInfo` objects in an `ObservableList<>`
+* **Current Implementation :** `ObservableList<>` is used
+** Pros: Allows for `FilteredList<>` to be used based on predicates; easy implementation.
+** Cons: Requires additional classes to be implemented to handle the use of `Predicates`.
+
+* **Alternative considered:** Sticking to `ArrayList<>`
+** Pros: Easy to handle as it is a simple data structure.
+** Cons: Harder to search for `ModuleInfo` objects based on codes and keywords.
+// end::displaymod[]
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedGradTrak`.
+It extends `GradTrak` with an undo/redo history, stored internally as an `gradTrakStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedGradTrak#commit()` -- Saves the current GradTrak state in its history.
+* `VersionedGradTrak#undo()` -- Restores the previous GradTrak state from its history.
+* `VersionedGradTrak#redo()` -- Restores a previously undone GradTrak state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitGradTrak()`, `Model#undoGradTrak()` and `Model#redoGradTrak()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The student launches the application for the first time. The `VersionedGradTrak` will be initialized with the initial GradTrak state, and the `currentStatePointer` pointing to that single GradTrak state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The student executes `delete 5` command to delete the 5th module in the GradTrak. The `delete` command calls `Model#commitGradTrak()`, causing the modified state of the GradTrak after the `delete 5` command executes to be saved in the `GradTrakStateList`, and the `currentStatePointer` is shifted to the newly inserted GradTrak state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The student executes `add c/CS2103T ...` to add a new module. The `add` command also calls `Model#commitGradTrak()`, causing another modified GradTrak state to be saved into the `gradTrakStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitGradTrak()`, so the GradTrak state will not be saved into the `gradTrakStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The student now decides that adding the module was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoGradTrak()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous GradTrak state, and restores the GradTrak to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial GradTrak state, then there are no previous GradTrak states to restore. The `undo` command uses `Model#canUndoGradTrak()` to check if this is the case. If so, it will return an error to the student rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoGradTrak()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the GradTrak to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `gradTrakStateList.size() - 1`, pointing to the latest GradTrak state, then there are no undone GradTrak states to restore. The `redo` command uses `Model#canRedoGradTrak()` to check if this is the case. If so, it will return an error to the student rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The student then decides to execute the command `list`. Commands that do not modify the GradTrak, such as `list`, will usually not call `Model#commitGradTrak()`, `Model#undoGradTrak()` or `Model#redoGradTrak()`. Thus, the `gradTrakStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The student executes `clear`, which calls `Model#commitGradTrak()`. Since the `currentStatePointer` is not pointing at the end of the `gradTrakStateList`, all GradTrak states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add c/CS2103T ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
-The following activity diagram summarizes what happens when a user executes a new command:
+The following activity diagram summarizes what happens when a student executes a new command:
 
 image::UndoRedoActivityDiagram.png[width="650"]
 
@@ -296,7 +432,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire GradTrak.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
@@ -305,20 +441,349 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+* **Alternative 1 (current choice):** Use a list to store the history of GradTrak states.
+** Pros: Easy for less experienced developers to understand.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedGradTrak`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::CourseRequirement[]
+=== Display Course Requirement feature
+==== Current Implementation
+The `displayreq` command allows the students to see all their course requirements and also check if the modules they have
+taken fulfils them. This command is currently facilitated by 2 classes in `Model`, `CourseRequirement` and
+`RequirementStatus`:
 
-_{Explain here how the data encryption feature will be implemented}_
+===== `CourseRequirement` Interface
+As there are many different kinds of course requirements that can be found in NUS, it is difficult to iron down the common characteristic
+they all share. This can be seen in the examples found below:
 
-// end::dataencryption[]
+
+.Computer Systems Team Project Requirement
+image::nus_requirement.PNG[width ="400"]
+
+.Focus Area Requirement
+image::nus_requirement2.PNG[width="400"]
+
+For the requirement shown in Figure 9, students just have to complete at least one of CS3203 or
+CS3216 and CS3217 or CS3281 and CS3282. Whereas for the requirement in Figure 10, students have to fulfill
+all of the conditions stated above. Even though these two conditions might seem quite different,
+we are still able to draw some key observations about what they have in common:
+
+. Each requirement is composed of conjunction or disjunction of clauses. In turn, the clauses can
+be composed by conjunction and disjunction of other simpler clauses.
+. Clauses that cannot be further broken down into smaller clauses usually contain the following information:
+.. a list of modules that can be used to satisfy the clause
+.. how many of the modules should be completed to satisfy the clause.
+
+These observations gives us some insight as to how we should design the interface. As such, the `CourseRequirement` interface follows a `Composite` design pattern. This is favoured as it allows
+us to treat individual and composition of `CourseRequirement` objects uniformly through the use of polymorphism. The diagram below gives an overview of
+how `CourseRequirement` is implemented.
+
+.`CourseRequirement` class diagram
+image::CompositeDesignPattern.png[width="400"]
+
+This interface is realised by 2 subclasses - `PrimitiveRequirement` and `CompositeRequirement`.
+The `PrimitiveRequirement` is the simplest building block for `CourseRequirement`. Each `PrimitiveRequirement` stores a
+list of `Condition` objects. A `Condition` object stores a `Java` `Pattern` and an `int`, `minToSatisfy`. A `Condition`
+is satisfied if there are at least `minToSatisfy` many distinct
+`ModuleInfoCode` that matches `Pattern` in it. `PrimitiveRequirement` is satisfied only if all `Condition` objects in the list are
+fulfilled.
+
+For instance in Figure 9, a suitable `Condition` for completing CS3216 and CS3217 would be
+a `Pattern` that accepts only CS3216 or CS3217, and a `minToSatisfy` of 2.
+
+
+
+The `CompositeRequirement` can replicate the behaviour of more complex course requirements. Each `CompositeRequirement`
+object contains two `CourseRequirement` objects. It also contains a `LogicalConnector` enumeration
+that tells the `CompositeRequirement` how two different `CourseRequirement` are composed using logical operations. For instance, for
+a list of `ModuleInfoCode` to satisfy a `CompositeRequirement` that has a `AND` `LogicalConnector`, the list must
+satisfy the both `CourseRequirement` objects contained in `CompositeRequirement`.
+
+There currently 3 methods that `CourseRequirement` provides information to the student:
+
+* `isFulfilled()` -- a method that accepts a list of `ModuleInfoCode` and returns a `boolean` to indicate whether the list of
+`ModuleInfoCode` can satisfy the all the `CourseRequirement`
+
+** In `PrimitiveRequirement`, this is achieved by checking whether all the `ModuleInfoCode` satisfies all the
+`Condition` stored in it.
+
+** In `CompositeRequirement`, this is dependent on the `LogicalConnector` it has. It would return the value of
+first `CourseRequirement#isFulfilled` `LogicalConnector` second `CourseRequirement#isFulfilled`.
+
+* `percentageFulfilled()` -- a method that also accepts a list of ModuleInfoCode returns a `double` value that represents the
+percentage of completion of the `CourseRequirement`
+** In `PrimitiveRequirement`, this is achieved by calculating the number of distinct modules that satisfy for each `Condition`,
+in `PrimitiveRequirement` and it is divided by the sum of `minToSatisfy`.
+** This depends on the `LogicalConnector` in `CompositeRequirement`. If it is a `OR` connector, we return the maximum
+of `first#percentageFulfilled` or `second#percentageFulfilled`. The `AND` logical connector returns the average of the degree of completion for both requirements.
+* `getUnfulfilled()` -- a method that accepts a list of `ModuleInfoCode` and returns a list of RegExes from where none of the
+`ModuleInfoCode` matches. This method is used in the module recommendation feature.
+
+===== `RequirementStatus` Class
+The `RequirementStatus` is an association class that links a `CourseRequirement` with `VersionedGradTrak` in `Model`.
+This can be seen in the class diagram below:
+
+.`RequirementStatus` class diagram
+image::RequirementStatusClassDiagram.png[width="400"]
+
+
+It also stores the result of the associated `CourseRequirement` object's `isFulfilled` and `percentageFulfilled`
+methods acting on the list of `ModuleInfoCode`.
+
+
+Below is a sequence of execution when `displayreq` command is executed by the student:
+
+1. `Model#updateRequirementStatusList` is called. This updates the pre-existing `RequirementStatusList`
+and fills it with new `RequirementStatus` objects based on current `nonFailedCodeList` from `GradTrak`.
+
+2. `UI` calls `getRequirementStatusList` from `Logic` and retrieves the updated `RequirementStatusList`
+from `Model`. This list is displayed in the `ResultPanel`.
+
+The sequence diagram below summarises the execution mentioned earlier:
+
+.Sequence Diagram when `displayreq` executes
+image::displayreqcommandsequence.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: How `Condition` class checks if it is fulfilled.
+* **Current choice: Checking `Condition` fulfilled by only using `ModuleInfoCode` of
+`ModuleTaken`**
+** Pros: Easy to implement since we are restricting scope to only checking whether strings match
+pattern in `Condition`
+** Cons: Possible that the `CourseRequirement` class is unable to replicate
+requirements that does not depend on `ModuleInfoCode`
+
+
+* ** Alternative: Checking Requirement fulfilled by accessing any attribute of `ModuleTaken`**
+** Pros: Increased flexibility and easier to replicate actual NUS requirements that does not depend
+on `ModuleInfoCode`
+** Cons: Increased complexity to implement `CourseRequirement` class properly.
+
+We chose the current choice over the alternative due to time constraints in the project. Moreover, our current choice
+is sufficient to replicate most NUS requirements accurately.
+
+===== Aspect: Choice of information stored in `Condition` class
+* **Current choice: `Condition` class stores a `Pattern` to check whether a requirement is satisfied**
+** Pros: Compact representation of which `ModuleInfoCode` fulfills the requirement
+** Cons: Difficult to find the correct regular expression for some `Condition.`
+
+* **Alternative: `Condition` class stores an exact list of `String` to check whether a condition is satisfied**
+** Pros: Easy and interpretive to use.
+** Cons: Might need to store a long list of `String` if many modules can fulfil the `Condition` eg: General Education
+Modules
+
+We chose our current choice as it takes up much fewer space to store. Moreover, storing a pattern
+also improves performance time since each `ModuleInfoCode` is compared against one`Pattern` instead of an entire
+list of `String` objects.
+
+==== Possible Improvements
+. Allow students to create and export their own `Course` and `CourseRequirement` objects.
+. Allow `Condition` to check its fulfillment by accessing other attributes of a `ModuleTaken` object in the future.
+//end::CourseRequirement[]
+
+// tag::rec[]
+=== Module recommendation feature
+
+The module recommendation feature displays modules which the student is recommended to read based on the current module plan
+and specific course requirements. It generates a list of module codes together with their corresponding titles and requirement
+types satisfied. The entire list is displayed on the Result Panel upon entering the `rec` command.
+
+[NOTE]
+Modules which satisfy only Unrestricted Electives are not included to prevent the list from being too long.
+
+==== Current implementation
+
+Each recommended module is represented by a `RecModule` which contains a unique `ModuleInfo` and its corresponding
+`CourseReqType` satisfied, as shown in the diagram below.
+
+.`RecModule` class diagram
+image::RecModuleClassDiagram.png[width="400"]
+
+
+When `ModelManager` is initialised, `Model#getObservableRecModuleList` is called which generates an
+`ObservableList` of `RecModule` , one for each module in the entire `ModuleInfoList`. This list is wrapped in a `FilteredList`,
+which is further wrapped in a `SortedList`, both stored in `ModelManager`. At this point, all `RecModule` in the list contain an empty `CourseReqType` field.
+
+When the `rec` command is entered, the sequence of execution is as follows:
+
+.  `Model#updateRecModuleList` is called, which creates a `RecModulePredicate` given the student's `Course` and `ReadOnlyGradTrak`, and a `RecModuleComparator`.
+.  The `RecModulePredicate` is applied to the `FilteredList` of `RecModule`. In each test:
+.. An `EligibleModulePredicate` which takes in `ReadOnlyGradTrak` tests if the `ModuleInfo` of this `RecModule` is eligible to be read.
+If the module is already present in the module plan or does not have its prerequisites satisfied, this `RecModule` is filtered out.
+.. The `ModuleInfoCode` (call it `codeToTest`) of the `RecModule` is retrieved. +
+A `nonFailedCodeList` of `ModuleInfoCode` corresponding to non-failed `ModuleTaken` (already passed or to be read in a future semester) is also retrieved from `ReadOnlyGradTrak`.
+.. The `codeToTest` is then passed into `Course#getCourseReqTypeOf`, which in turn calls `CourseRequirement#canFulfill` for each `CourseRequirement` listed in `Course`.
+ A list of `CourseReqType` that the `codeToTest` can satisfy is returned.
+This `courseReqTypeList` is sorted by the priority of `CourseReqType` as defined in the `enum` class: `CORE`, `BD`, `IE`, `FAC`, `GE`.
+.. For each `CourseReqType` in the `courseReqTypeList` (highest priority first):
+... `Course#isCodeContributing` is called, which takes in the `CourseReqType`, `nonFailedCodeList` and `codeToTest`.
+... For each `CourseRequirement` listed in `Course` corresponding to the given `CourseReqType`, `CourseRequirement#getUnfulfilled`
+is called which takes in the `nonFailedCodeList` and returns an `unfulfilledRegexList` of RegExes not satisfied.
+... If the `codeToTest` matches any of the RegExes in the
+`unfulfilledRegexList`, `Course#isCodeContributing` returns `true` and the loop for `courseReqTypeList` terminates.
+.. The `CourseReqType` of highest priority satisfied by `codeToTest` is then set into the `RecModule`. However, if the `codeToTest` does not
+contribute to any of the `CourseRequirement` listed in `Course`, this `RecModule` is filtered out.
+. The `RecModuleComparator` is applied to the `SortedList` of `RecModule`. It sorts the list in decreasing priority of the
+`CourseReqType` satisfied by the `RecModule`. Those `RecModule` with equal priority are sorted by module level (the first numerical digit of its `ModuleInfoCode`),
+considering that lower level modules are usually read first. In the case of equal priority and module level, lexicographical sorting of its `ModuleInfoCode` is used.
+. The `SortedList` of `RecModule` is retrieved from `ModelManager` and displayed to the student in the Result Panel.
+
+If there are changes to `ReadOnlyGradTrak` (adding, editing or deleting modules) or `Course` (changing the course of study), the `rec` command
+must be run again to reflect the updated recommendation list.
+
+The sequence diagrams summarising the above execution are shown below.
+
+.`RecCommand` sequence diagram
+image::RecCommandSequenceDiagram.png[width="1000"]
+
+.`RecModulePredicate` sequence diagram
+image::RecModulePredicateSequenceDiagram.png[width="800"]
+
+.`RecModuleComparator` sequence diagram
+image::RecModuleComparatorSequenceDiagram.png[width="800"]
+
+==== Design Considerations
+===== Aspect: Sorting of recommendation list
+* **Alternative 1 (current choice): Recommendation list is sorted by a fixed order of `CourseReqType` priority as defined in the `enum` class**
+** Pros: Easy to implement and modify
+** Cons: Student may have his own order of priority that differs from the default one
+
+* **Alternative 2: Recommendation list can be sorted by a custom order defined by the student**
+** Pros: Student can sort the list according to his own preferences
+** Cons: Difficult to implement if several parameters for sorting is allowed; input method for the custom order is problematic
+
+===== Aspect: Format of recommendation
+* **Alternative 1 (current choice): Display a list of all eligible modules that contribute to course requirements**
+** Pros: Student has a greater freedom of choice
+** Cons: Student may be confused or unable to decide if the list is too long
+
+* **Alternative 2: Display `n` modules for each semester, where `n` is decided by the student**
+** Pros: Student can plan modules for specific semesters easily and quickly
+** Cons: Algorithm required to plan for all semesters can be complex; student may not prefer the given plan
+
+
+==== Possible Improvements
+. Allow the student to display a module's information (from `displaymod` command) using its index in the recommendation list
+. Allow the student to add a module to the module plan using its index in the recommendation list
+. Enable recommendation of Unrestricted Electives based on personal interests of the user
+// end::rec[]
+
+// tag::CheckLimit[]
+=== Checking of limits
+
+==== Current Implementation
+
+The `cklimit` command is able to calculate the CAP and workload information of the current module plan and display the results in a report together with the preferred limits set by the student for comparison.
+
+The `LimitChecker` class does all the computation and generation of the report.
+It makes use of the following classes as input:
+
+* `Semester` that holds the current semester
+* `ObservableList` of `SemesterLimit__s__` that holds the current semester limits
+* `ObservableList` of `ModuleTaken__s__` that holds the list of modules currently planned
+* `ModuleInfoList` that holds the list of modules with the number of module credits they have
+
+The LimitChecker class is modelled with the class diagram as shown below.
+
+.`LimitChecker` class diagram
+image::LimitCheckerClassDiagram.png[width="800"]
+
+GradTrak uses the following classes to store and manipulate the variables for calculation:
+
+* `CapAverage`
+* `WeightedGrade`
+* `ModuleInfoCredits`
+
+The `CapAverage` class contains an `ArrayList` of `WeightedGrade__s__`.
+Each `WeightedGrade` has a CAP score and information on the number of module credits weighted by the score.
+
+The aggregated minimum and maximum expected CAP is calculated with the minimum and maximum expected CAP of every module taken respectively.
+
+The current CAP only includes modules that are completed. Modules are considered completed if they are taken on a semester before the current semester.
+
+The CAP of the student is calculated using the formula below.
+
+.Formula for CAP calculation
+image::modular-system.png[width="800"]
+
+The total number of hours for each type of workload for each semester are also summed up to be displayed.
+
+Once all the calculations are completed, the HTML string report is generated and stored in the `checkedReport` variable in the `LimitChecker` to be displayed.
+
+`LimitChecker` implements the `ClassForPrinting` and can be used to set the HTML string generated to be displayed on the `BrowserPanel` using the `setSelectedClassForPrinting` method as seen below.
+
+.Usage example for the `ClassForPrinting`
+image::ClassForPrintingUsageExample.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: Having to change multiple types of limits.
+
+* **Current choice: Using a single command to check both the CAP limits as well as the workload limits and print the results all to one page**
+** Pros: Only one command needs to be known and it can check everything in one page to ensure that the module plan meets the selected limit preferences
+** Cons: Unwanted information that was not requested will also be shown on the page and may cause confusion
+
+* ** Alternative: Using separate commands to display CAP limits and workload limits on their own individual page**
+** Pros: The information needed can be easily identified from the pages displayed
+** Cons: Two commands need to be known and keyed in to check the limits every time a modification is made to the module plan
+
+The current choice was chosen because the student will become more experienced and familiar with GradTrak over time and be less confused by the result page. Scrolling up and down the page is easier than having to type two commands alternatively to view the limits.
+
+==== Possible Improvements
+. Check if any row has their minimum or maximum limits violated and highlight them to student
+. Style the table to suit the theme of the app so that the student has a better experience using the app
+//end::CheckLimit[]
+
+// tag::SetCurrentSemester[]
+=== Current Semester Tracking
+
+==== Current Implementation
+
+The `cursem` command allows the student to track the current semester using GradTrak. This indicates completion of all modules in the previous semesters and includes them in the current CAP computation during the `cklimit` command.
+
+The interaction of how the `cursem` command interacts with the system is shown below as a sequence diagram.
+
+.Sequence Diagram for setting of the current semester
+image::SetCurrentSemesterSequenceDiagram.png[width="1000"]
+
+==== Design Considerations
+
+===== Aspect: Storage location of the current semester.
+
+* **Current choice: Storing of current semester within the `VersionedGradTrak` **
+** Pros: Allows the `cursem` command to be undoable and redoable
+** Cons: The storage file `gradtrak.json` has to contain more than just the modules taken and it is difficult to make changes as it would require restructuring a large part of the application and multiple unit tests.
+
+* ** Alternative: Storing of the current semester outside of the `VersionedGradTrak` together with the module and course information**
+** Pros: Minimal changes are required to implement it
+** Cons: Problems may occur later on in maintaining the integrity of the application as `cursem` can only be performed if grades in the previous semesters have been finalized. The `undo` and `redo` commands can bypass the checks for finalized grades and lead to instability in the application.
+
+The current choice was chosen because it will be worth the effort to restructure the application storage to make GradTrak easier to develop in the future and be less likely to cause problems.
+
+==== Possible Improvements
+. Prevent the student from adding or editing his module plan if doing so will violate the limits set
+. Allowing the student to type semester indexes instead of the entire semester name
+//end::SetCurrentSemester[]
+
+// tag::SetSemesterLimit[]
+=== Semester CAP and workload management feature
+
+==== Current Implementation
+
+The `setlimit` command allows the student to set CAP limits and workload limits for each semester. This helps the student manage the difficulty and time required of the modules taken. Various types of limits can be set, such as the minimum and maximum number of weekly lecture hours, tutorial hours, lab hours, project hours, and preparation hours acceptable, as well as the minimum and maximum CAP acceptable for each semester.
+
+The interaction of the `setlimit` command with the system is shown below as a sequence diagram.
+
+.Sequence Diagram for setting of the limits for a semester
+image::SetSemesterLimitSequenceDiagram.png[width="1000"]
+
+//end::SetSemesterLimit[]
+
 
 === Logging
 
@@ -338,7 +803,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 [[Implementation-Configuration]]
 === Configuration
 
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+Certain properties of the application can be controlled (e.g student prefs file location, logging level) through the configuration file (default: `config.json`).
 
 == Documentation
 
@@ -373,10 +838,10 @@ image::chrome_save_as_pdf.png[width="300"]
 [[Docs-SiteWideDocSettings]]
 === Site-wide Documentation Settings
 
-The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affect how all documentation files within this project are rendered.
 
 [TIP]
-Attributes left unset in the `build.gradle` file will use their *default value*, if any.
+Attributes left unset in the `build.gradle` file will use their *default values*, if any.
 
 [cols="1,2a,1", options="header"]
 .List of site-wide attributes
@@ -403,12 +868,12 @@ This will render the SE-EDU navigation bar at the top of the page, and add some 
 [[Docs-PerFileDocSettings]]
 === Per-file Documentation Settings
 
-Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
+Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affect how the file is rendered.
 
 Asciidoctor's https://asciidoctor.org/docs/user-manual/#builtin-attributes[built-in attributes] may be specified and used as well.
 
 [TIP]
-Attributes left unset in `.adoc` files will use their *default value*, if any.
+Attributes left unset in `.adoc` files will use their *default values*, if any.
 
 [cols="1,2a,1", options="header"]
 .List of per-file attributes, excluding Asciidoctor's built-in attributes
@@ -452,7 +917,7 @@ The SE-EDU team does not provide support for modified template files.
 There are three ways to run tests.
 
 [TIP]
-The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
+The most reliable way to run tests is the third one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
 
 *Method 1: Using IntelliJ JUnit test runner*
 
@@ -464,11 +929,11 @@ The most reliable way to run tests is the 3rd one. The first two methods might f
 * Open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`)
 
 [NOTE]
-See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using Gradle.
+See <<UsingGradle#, UsingGradle.adoc>> for more information on how to run tests using Gradle.
 
 *Method 3: Using Gradle (headless)*
 
-Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
+Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the computer while the tests are running.
 
 To run tests in headless mode, open a console and run the command `gradlew clean headless allTests` (Mac/Linux: `./gradlew clean headless allTests`)
 
@@ -476,15 +941,15 @@ To run tests in headless mode, open a console and run the command `gradlew clean
 
 We have two types of tests:
 
-.  *GUI Tests* - These are tests involving the GUI. They include,
-.. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
+.  *GUI Tests* - These are tests involving the GUI. They include:
+.. _System tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
 .. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
-.  *Non-GUI Tests* - These are tests not involving the GUI. They include,
+.  *Non-GUI Tests* - These are tests not involving the GUI. They include:
 ..  _Unit tests_ targeting the lowest level methods/classes. +
 e.g. `seedu.address.commons.StringUtilTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
 e.g. `seedu.address.storage.StorageManagerTest`
-..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
+..  Hybrids of unit and integration tests. These tests are checking multiple code units as well as how they are connected together. +
 e.g. `seedu.address.logic.LogicManagerTest`
 
 
@@ -515,309 +980,33 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version `courseReqCredits` in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
-.  Tag the repo with the version number. e.g. `v0.1`
+.  Tag the repo with the version courseReqCredits. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
+A project often depends on third-party libraries. For example, GradTrak depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
 
 [loweralpha]
 . Include those libraries in the repo (this bloats the repo size)
 . Require developers to download those libraries manually (this creates extra work for developers)
-
-[[GetStartedProgramming]]
-[appendix]
-== Suggested Programming Tasks to Get Started
-
-Suggested path for new programmers:
-
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
-=== Improving each component
-
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
-
-[discrete]
-==== `Logic` component
-
-*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
-
-[TIP]
-Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
-
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
-+
-****
-* Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
-* Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
-** Add new tests for each of the aliases that you have added.
-** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
-****
-
-[discrete]
-==== `Model` component
-
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
-
-[TIP]
-Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
-
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
-+
-****
-* Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
-* Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
-** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
-****
-
-[discrete]
-==== `Ui` component
-
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
-
-[TIP]
-Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
-
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
-+
-**Before**
-+
-image::getting-started-ui-tag-before.png[width="300"]
-+
-**After**
-+
-image::getting-started-ui-tag-after.png[width="300"]
-+
-****
-* Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
-** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
-* Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
-*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
-****
-
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
-+
-**Before**
-+
-image::getting-started-ui-result-before.png[width="200"]
-+
-**After**
-+
-image::getting-started-ui-result-after.png[width="200"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
-* Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
-** You can write two different kinds of tests to ensure that the functionality works:
-*** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
-*** Do read the commits one at a time if you feel overwhelmed.
-****
-
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
-+
-**Before**
-+
-image::getting-started-ui-status-before.png[width="500"]
-+
-**After**
-+
-image::getting-started-ui-status-after.png[width="500"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
-* Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
-****
-
-[discrete]
-==== `Storage` component
-
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
-
-[TIP]
-Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
-
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
-+
-****
-* Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/JsonAddressBookStorage.java[`JsonAddressBookStorage`] class.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
-****
-
-[[GetStartedProgramming-RemarkCommand]]
-=== Creating a new command: `remark`
-
-By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
-
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
-
-==== Description
-Edits the remark for a person specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
-
-Examples:
-
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
-* `remark 1 r/` +
-Removes the remark for the first person.
-
-==== Step-by-step Instructions
-
-===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
-Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
-
-**Main:**
-
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
-
-**Tests:**
-
-. Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
-
-===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
-
-**Main:**
-
-. Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
-. Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
-
-**Tests:**
-
-. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
-. Add `RemarkCommandParserTest` that tests different boundary values
-for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
-
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
-
-**Main:**
-
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
-
-===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
-
-**Main:**
-
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
-. Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
-
-**Tests:**
-
-. Add test for `Remark`, to test the `Remark#equals()` method.
-
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Main:**
-
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `data/addressbook.json` so that the application will load the sample data when you launch it.)
-
-===== [Step 6] Storage: Add `Remark` field to `JsonAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/JsonAdaptedPerson.java[`JsonAdaptedPerson`] to include a `Remark` field so that it will be saved.
-
-**Main:**
-
-. Add a new JSON field for `Remark`.
-
-**Tests:**
-
-. Fix `invalidAndValidPersonAddressBook.json`, `typicalPersonsAddressBook.json`, `validAddressBook.json` etc., such that the JSON tests will not fail due to a missing `remark` field.
-
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Tests:**
-
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
-
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
-
-**Main:**
-
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
-
-===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
-
-**Main:**
-
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
-
-**Tests:**
-
-. Update `RemarkCommandTest` to test that the `execute()` logic works.
-
-==== Full Solution
-
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
 
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* NUS student from Computer Science, intending to specialise in Algorithms, Artificial Intelligence or Software Engineering
+* has taken many modules in NUS
+* prefers desktop applications over other types
 * can type fast
 * prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* is reasonably comfortable using CLI applications
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Allow students to plan modules to take in future semesters and at the same time view module prerequisites
+and graduation requirements without having to refer to different webpages.
 
 [appendix]
 == User Stories
@@ -827,17 +1016,29 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |student |track the modules I am taking |know what I need to complete my graduation requirement
 
-|`* * *` |user |add a new person |
+|`* * *` |student |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |student |add a module for the current semester |keep track of all the modules I intend to take
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |student |delete a module |remove modules that I am not taking
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |student |find a module by code, semester, grade or finished status |locate details of modules without having to go through the entire list
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |student |view pre-requisites for a module |take the pre-requisite modules ahead of time
+
+|`* *` |student |add my modules in future semesters |plan ahead
+
+|`* *` |student |know my current CAP |track my academic performance
+
+|`* *` |student |predict my maximum and minimum CAP for graduation |compare them against my current CAP and check my performance
+
+|`* *` |student |check the total workload for each semester |ensure an even distribution of workload across all semesters
+
+|`* *` |student |see a recommended list of modules I can take in order of priority |fulfil the graduation requirements on time
+
+|`*` |student with many modules |sort module by name |locate a module easily
 |=======================================================================
 
 _{More to be added}_
@@ -845,44 +1046,243 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `GT` (GradTrak) and the *Actor* is the `Student`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Initialising
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  Student starts GT.
+2.  GT loads courses, module information and modules taken.
+3.  GT loads loading screen.
++
+Use case ends.
+
+[discrete]
+=== Use case: Adding to completed list of modules
+
+Precondition: Student has already initialised GT
+
+*MSS*
+
+1.  Student enters command to add modules with module code, semester completed and grades.
+2.  System records module code, semester completed and grades.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. Student enters invalid grade.
++
+[none]
+** 1a1. GT informs student that grade is invalid.
++
+Use case resumes at step 1.
+
+[none]
+* 1b. Student enters invalid module code.
++
+[none]
+** 1b1. GT informs student that module code is invalid.
++
+Use case resumes at step 1.
+
+[none]
+* 1c. Student enters invalid semester.
++
+[none]
+** 1c1. GT informs student that semester is invalid.
++
+Use case resumes at step 1.
+
+[none]
+* 1d. Student enters module that is already in list of completed modules and same semester.
++
+[none]
+** 1d1. GT informs student that there is a repeat of module code.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+[discrete]
+=== Use case: Delete module
+
+Precondition: Student has already intialised GT
+
+*MSS*
+
+1.  Student enters command to remove modules by keying in position in list.
+2.  System removes module from list of completed / planned modules.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Student enters numbers that is 0, negative or exceeds the size of the list.
+
+** 1a1. GT shows an error message.
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Modify details of modules taken
+
+*MSS*
+
+1.  Student enters command to edit modules indicated by position on list and gives grades and semester taken / planning to take.
+2.  System edits relevant details.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Number keyed in is 0, negative or exceeds size of list.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 1a1. GT shows an error message.
 +
-Use case resumes at step 2.
+Use case ends.
 
-_{More to be added}_
+* 1b. Student enters invalid module code, invalid grade or invalid semester.
++
+[none]
+** 1b1. GT shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Set Semester Limit for a semester
+
+*MSS*
+
+1.  Student enters a command to indicate the semester to set the limit as well as the limits to be set on the semester
+2.  System edits relevant details.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Semester provided is invalid
++
+[none]
+** 1a1. GT shows an error message.
++
+Use case ends.
+
+* 1b. Limit provided is invalid.
++
+[none]
+** 1b1. GT shows an error message.
++
+Use case ends.
+
+* 1c. Limit provided is out of order, such that the minimum limit is more than the maximum limit.
++
+[none]
+** 1c1. GT shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Check limits
+
+*MSS*
+
+1.  Student enters the command to check the current plan against their preferred semester limits
+2.  System analyses the current module plan to generate and display a report comparing the current plan against the semester limits.
++
+Use case ends.
+
+[discrete]
+=== Use case: Display NUS module information
+
+*MSS*
+
+1.  Student enters `displaymod` to find an NUS module based on module code or keywords in the module title.
+2.  System returns full module information.
++
+Use case ends.
+
+[discrete]
+=== Use case: Recommend modules
+*MSS*
+
+1.  Student enters `rec` command.
+2.  System returns a list of module codes (with title) that the student is recommended to take.
++
+Use case ends.
+
+[discrete]
+=== Use case: Find modules
+*MSS*
+
+1. Student enters `find` command to search the module plan based on module code, semester, grade or finished status.
+2. System returns a list of modules in the module plan which satisfy the given parameters.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Student enters `find` without parameters.
++
+[none]
+** 1a1. System gives an "invalid command format" message and provides the correct format.
++
+Use case ends.
+
+* 1b. Student enters an invalid grade or semester.
++
+[none]
+** 1b1. System rejects the command and provides the correct format for grade or semester.
++
+Use case ends.
+
+[discrete]
+=== Use case: Display requirements
+*MSS*
+
+1.  Student enters `displayreq` command.
+2.  System returns a list of course requirement along side their details and percentage of the requirement fulfilled.
++
+Use case ends.
+
+[discrete]
+=== Use case: Change course of study
+*MSS*
+
+1.  Student enters `study` command with some course parameter.
+2.  System changes course of study to course intended by student.
++
+Use case ends.
+
+*Extensions*
+[none]
+
+* 1a. Student enters `study` with courses not inside of GT.
+[none]
+** 1a1. System informs student that no such course is available. +
+Use case ends.
+[none]
+* 1b. Student enters `study` without parameter. +
+[none]
+** 1b1. System informs student of the right command format. +
+Use case ends.
+
+
+[discrete]
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 `modulesTaken` without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -890,30 +1290,10 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
 [appendix]
 == Instructions for Manual Testing
 
-Given below are instructions to test the app manually.
+Given below are instructions to test the application manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
@@ -922,9 +1302,9 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Initial launch
 
-.. Download the jar file and copy into an empty folder
+.. Download the jar file and copy it into an empty folder.
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with an empty module plan. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -932,26 +1312,36 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Deleting a module
 
-=== Deleting a person
+. Deleting a module while all `moduleTaken` are listed
 
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all `moduleTaken` using the `list` command.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First module is deleted from the list. Details of the deleted module are shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: No module is deleted. Error details are shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size or negative) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+=== Check completion of course requirements
+. Check what are the course requirement completed based on list of modules taken or planning to take
+.. Prerequisite: Set the course to intended choice of study eg: `study Computer Science Artificial Intelligence`, empty
+ list of module taken +
+.. Test case: `study Computer Science Algorithms`, `displayreq` +
+   Expected: Display all course requirements for the course Computer Science Algorithms
+.. Test case: `study Computer Science Algorithms`, `displayreq` `study Computer Science Artificial Intelligence`, `displayreq` +
+Expected: Display all course requirements for course Computer Science Artificial Intelligence.
+.. Test case: `add GER1000 s/Y1S1`, `add GEQ1000 s/Y1S1`, `add GES1000 s/Y1S1`, `add GEH1000 s/Y1S1`, `add GET1000 s/Y1S1`, `displayreq` +
+Expected: Display University Level Requirement is completed.
+.. Test case: `add GER1000 s/Y1S1`, `add GEQ1000 s/Y1S1`, `add GES1000 s/Y1S1`, `add GEH1000 s/Y1S1`, `add GEH1036 s/Y1S1`, `displayreq`  +
+Expected: Display University Level Requirement is not completed but at completion rate of 80%.
+.. Test case: `add GER1000 s/Y1S1`, `add GEQ1000 s/Y1S1`, `add GES1000 s/Y1S1`, `add GEH1000 s/Y1S1`, `add GEH1000 s/Y1S2`, `displayreq`  +
+Expected: Display University Level Requirement is not completed but at completion rate of 80%.
+.. Test case: `add CS3281 s/Y1S1`, `displayreq` +
+Expected: Show that Software System Project Requirement not completed and has a completion rate of 50%.
+.. Other test cases to consider:
+... Duplicate modules in different semesters not double counted in requirement
+... Module that satisfy the same condition e.g. CS1010 and CS1101S can fulfil same condition, not double counted
+... Modules failed in previous semesters does not contribute in fulfilling requirement e.g.: current semester Y1S2,
+but failed a module in Y1S1. The failed module does not count towards any requirement.

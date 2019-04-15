@@ -13,7 +13,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
+import seedu.address.model.ClassForPrinting;
 
 /**
  * The Browser Panel of the App.
@@ -31,30 +31,44 @@ public class BrowserPanel extends UiPart<Region> {
     @FXML
     private WebView browser;
 
-    public BrowserPanel(ObservableValue<Person> selectedPerson) {
+    public BrowserPanel(ObservableValue<ClassForPrinting> selectedPerson) {
         super(FXML);
 
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
 
-        // Load person page when selected person changes.
+        // Load moduleTaken page when selected moduleTaken changes.
         selectedPerson.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
                 loadDefaultPage();
                 return;
             }
-            loadPersonPage(newValue);
+            loadBrowerPanelPage(newValue);
         });
 
         loadDefaultPage();
     }
 
-    private void loadPersonPage(Person person) {
-        loadPage(SEARCH_PAGE_URL + person.getName().fullName);
+    /**
+     * Loads a class for printing into the browser panel page.
+     * If the class for printing is a ModuleTaken, it will print the details which includes the workload information
+     * that is not shown in the person card.
+     * If the class is a LimitChecker, it will print the generated checked report.
+     */
+    private void loadBrowerPanelPage(ClassForPrinting classForPrinting) {
+        loadContent(classForPrinting.getPrintable());
     }
 
     public void loadPage(String url) {
         Platform.runLater(() -> browser.getEngine().load(url));
+    }
+
+    /**
+     * Loads the given String to be printed on the BrowserPanel.
+     */
+    public void loadContent(String toPrint) {
+        Platform.runLater(() -> browser.getEngine().loadContent("<html><span style='white-space: pre-line'>" + toPrint
+                + "</span></html>"));
     }
 
     /**

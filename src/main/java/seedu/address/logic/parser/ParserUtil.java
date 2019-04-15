@@ -9,10 +9,12 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
+import seedu.address.model.course.CourseName;
+import seedu.address.model.moduleinfo.ModuleInfoCode;
+import seedu.address.model.moduletaken.CapAverage;
+import seedu.address.model.moduletaken.Grade;
+import seedu.address.model.moduletaken.Hour;
+import seedu.address.model.moduletaken.Semester;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -21,6 +23,7 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String FINISHED_STATUS_TRUE = "y";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -36,63 +39,93 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
+     * Parses a {@code String moduleInfoCode} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code name} is invalid.
+     * @throws ParseException if the given {@code moduleInfoCode} is invalid.
      */
-    public static Name parseName(String name) throws ParseException {
-        requireNonNull(name);
-        String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+    public static ModuleInfoCode moduleInfoCode(String moduleInfoCode) throws ParseException {
+        requireNonNull(moduleInfoCode);
+        String trimmedName = moduleInfoCode.trim().toUpperCase();
+        if (!ModuleInfoCode.isValidModuleInfoCode(trimmedName)) {
+            throw new ParseException(ModuleInfoCode.MESSAGE_CONSTRAINTS);
         }
-        return new Name(trimmedName);
+        return new ModuleInfoCode(trimmedName);
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
+     * Parses a {@code String courseName} into a {@code CourseName}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code courseName} is invalid.
      */
-    public static Phone parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+    public static CourseName parseCourseName(String courseName) throws ParseException {
+        requireNonNull(courseName);
+        String trimmedCourseName = courseName.trim();
+        if (!CourseName.isValidCourseName(trimmedCourseName)) {
+            throw new ParseException(CourseName.MESSAGE_CONSTRAINTS);
         }
-        return new Phone(trimmedPhone);
+        return new CourseName(trimmedCourseName);
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
+     * Parses a {@code String semester} into a {@code Semester}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code address} is invalid.
+     * @throws ParseException if the given {@code semester} is invalid.
      */
-    public static Address parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+    public static Semester parseSemester(String semester) throws ParseException {
+        requireNonNull(semester);
+        String trimmedSemester = semester.trim().toUpperCase();
+        if (!Semester.isValidSemesterForTakingModules(trimmedSemester)) {
+            throw new ParseException(Semester.MESSAGE_CONSTRAINTS);
         }
-        return new Address(trimmedAddress);
+        return Semester.valueOf(trimmedSemester);
     }
 
     /**
-     * Parses a {@code String email} into an {@code Email}.
+     * Parses a {@code String grade} into an {@code Grade}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code email} is invalid.
+     * @throws ParseException if the given {@code grade} is invalid.
      */
-    public static Email parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
+    public static Grade parseGrade(String grade) throws ParseException {
+        requireNonNull(grade);
+        String trimmedGrade = grade.trim().toUpperCase();
+        if (!Grade.isValidGrade(trimmedGrade)) {
+            throw new ParseException(Grade.MESSAGE_CONSTRAINTS);
         }
-        return new Email(trimmedEmail);
+        return Grade.getGrade(trimmedGrade);
+    }
+
+    /**
+     * Parses a {@code String hour} into an {@code Hour}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code Hour} is invalid.
+     */
+    public static Hour parseHour(String hour) throws ParseException {
+        requireNonNull(hour);
+        String trimmedHour = hour.trim();
+        if (!Hour.isValidHour(trimmedHour)) {
+            throw new ParseException(Hour.MESSAGE_CONSTRAINTS);
+        }
+        return new Hour(trimmedHour);
+    }
+
+    /**
+     * Parses a {@code String cap} into an {@code CapAverage}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code CapAverage} is invalid.
+     */
+    public static CapAverage parseCap(String cap) throws ParseException {
+        requireNonNull(cap);
+        String trimmedCap = cap.trim();
+        if (!CapAverage.isValidCapAverage(trimmedCap)) {
+            throw new ParseException(CapAverage.MESSAGE_CONSTRAINTS);
+        }
+        return new CapAverage(Double.parseDouble(trimmedCap));
     }
 
     /**
@@ -120,5 +153,28 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code finishedStatus} string into a boolean.
+     * @param finishedStatus Any string.
+     * @return true if the string is "y" (case-insensitive), false otherwise.
+     */
+    public static boolean parseFinishedStatus(String finishedStatus) {
+        requireNonNull(finishedStatus);
+
+        return finishedStatus.trim().toLowerCase().equals(FINISHED_STATUS_TRUE);
+    }
+
+    /**
+     * Converts a boolean to a String representing the corresponding finished status.
+     * @param isFinished The finished status.
+     * @return "y" if isFinished, "n" otherwise.
+     */
+    public static String booleanToFinishedStatus(boolean isFinished) {
+        if (isFinished) {
+            return FINISHED_STATUS_TRUE;
+        }
+        return "n"; // can be any string other than "y"
     }
 }

@@ -2,7 +2,10 @@ package seedu.address.commons.util;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -20,6 +23,7 @@ import com.fasterxml.jackson.databind.deser.std.FromStringDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
+import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 
@@ -47,6 +51,33 @@ public class JsonUtil {
             throws IOException {
         return fromJsonString(FileUtil.readFromFile(jsonFile), classOfObjectToDeserialize);
     }
+
+    /**
+     * Similar to readJsonFile, but input is inputStreamPath instead of file path.
+     * @param inputStreamPath cannot be null
+     * @param classOfObjectToDeserialize Json file has to correspond to the structure in the class given here.
+     * @throws DataConversionException if the file format is not as expected.
+     * @throws IOException if the inputStreamPath is invalid.
+     */
+    public static <T> Optional<T> readJsonFileFromInputStream(
+            String inputStreamPath, Class<T> classOfObjectToDeserialize) throws DataConversionException {
+        requireNonNull(inputStreamPath);
+        InputStream inputStream = MainApp.class.getResourceAsStream(inputStreamPath);
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
+            String line = "";
+            StringBuilder json = new StringBuilder();
+            while ((line = br.readLine()) != null) {
+                json.append(line);
+            }
+            inputStream.close();
+            return Optional.of(objectMapper.readValue(json.toString(), classOfObjectToDeserialize));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Optional.empty();
+    }
+
 
     /**
      * Returns the Json object from the given file or {@code Optional.empty()} object if the file is not found.
@@ -89,6 +120,8 @@ public class JsonUtil {
 
         serializeObjectToJsonFile(filePath, jsonFile);
     }
+
+
 
 
     /**

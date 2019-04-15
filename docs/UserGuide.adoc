@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= GradTrak - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,33 +12,64 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/cs2103-ay1819s2-w14-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W14-4`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+GradTrak is an application designed for students of National University of Singapore (NUS) to easily track their graduation progress.
+The current version of the application offers graduation requirement tracking to Computer Science majors (namely the Algorithms, Artificial Intelligence and Software Engineering Focus Areas).
+Stay tuned as we will be adding other courses in the near future!
 
-== Quick Start
+Students can interact with the application by entering commands into the command box. This will benefit Computer Science majors as they can generally type quickly.
 
-.  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+== Installation Guide
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+Follow the instructions below to install this application.
 
-.  Refer to <<Features>> for details of each command.
+.  Ensure you have Java version `9` or later installed in your computer.
+.  Download the latest `GradTrak.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your GradTrak.
+.  Double-click the file to start the application. The application window should appear within a few seconds.
+
+== Quick Guide
+
+Read the guide below to have a quick understanding of the usage of this application.
+
+.Parts of the User Interface
+image::annotated-ui.png[width="790"]
+
+. Refer to `Fig 1` for parts of the User Interface (UI). Here are the brief functionalities
+of the UI annotated above:
+
+.. Task Bar: You can exit the application or access the help menu (this guide) here.
+
+.. Command Box: You can enter a command here to access the features of the application
+
+.. Result Box: You receive feedback for your entered command here. If the command is unsuccessfully executed,
+the correct input format of the command will be provided.
+
+.. Result Panel: You can view the information associated with the command entered here.
+
+.. Module Panel: You can view the details of the modules that you have taken
+or are planning to take.
+
+.  To access a feature of the application, type a command in the command box and press kbd:[Enter] to execute it.
+For example, typing *`help`* and pressing kbd:[Enter] will open the help window.
+. You might wish to set the course of study first. There are currently 3 courses available in this app: Computer Science Algorithms,
+Computer Science Artificial Intelligence, Computer Science Software Engineering.
+To set the course, enter the following command:
+`study [COURSE]`
+.  Here are some commands you can try:
+* **`add`**`c/CS1010 s/Y1S1` : adds the module "CS1010", taken in Y1S1, to the module plan
+* **`delete`**`1` : deletes the first module on the most recently displayed list
+* **`displayreq`**: displays information on your course requirements and the percentage completed for each requirement.
+* **`cklimit`**: displays information on your current semester and a report with the CAP and workload information of the current module plan
+* *`exit`* : exits the application
+
+Here we only introduced some of the more basic functions and commands of GradTrak. The following section, <<Features>>,
+will give you a more detailed guide/walk through for each command.
 
 [[Features]]
 == Features
@@ -46,117 +77,325 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the student, e.g. in `add c/MODULE_CODE`, `MODULE_CODE` is a parameter which can be used as `add c/cs1010`.
+* Items in square brackets are optional e.g `c/MODULE_CODE [g/GRADE_OBTAINED]` can be used as `c/CS1010 g/A` or as `c/CS1010`.
 ====
 
-=== Viewing help : `help`
+[[add]]
+=== Add module: `add`
 
+Adds a module to the module plan based on the given module code, semester taken and expected / obtained grade. +
+Format: `add c/MODULE_CODE s/SEMESTER [ming/NEW_EXPECTED_MIN_GRADE] [maxg/NEW_EXPECTED_MAX_GRADE] [lec/NEW_LECTURE_HOURS] [tut/NEW_TUTORIAL_HOURS] [lab/NEW_LAB_HOURS] [proj/NEW_PROJ_HOURS] [prep/NEW_PREP_HOURS]` +
+
+****
+* Possible grade options are the standard letter grades (A_PLUS, A, A_MINUS, B_PLUS, B, B_MINUS etc.) and IC, EXE, CS, CU, W, S, U.
+* You cannot add an existing module with the same semester.
+* You can only add a module if you have previously added its prerequisites. `[coming in v2.0]`
+****
+
+Examples:
+
+* `add c/CS2103T s/Y1S1` +
+Adds the module CS2103T, to be taken in the first semester of year 1, to the module plan.
+
+* `add c/CS2103T s/Y2S2 max/B_MINUS` +
+Adds the module CS2103T, to be taken in the second semester of year 2 with expected max grade B-, to the module plan.
+
+****
+* This command is undoable and redoable
+****
+
+// tag::CheckLimit[]
+=== Check CAP limits: `cklimit`
+
+To find out if their current plans are suitable in maintaining their CAP for each semester, students would like to: +
+
+* Know what their current CAP is.
+* Be able to estimate their minimum and maximum projected CAP based on their estimated grade range for each module
+* Find out if any semester has too many difficult modules that would pull down their CAP unexpectedly, or too many easy modules that could be distributed to other semesters to maintain a more steady and predictable CAP for all semesters.
+
+GradTrak is able to consolidate all the information about the modules they plan to take and the limit preferences they have for each semester. This allows the student to run a CAP analysis on their current module plan and generate the results to be printed all in one page on their screen.
+
+[NOTE]
+The `edit` command allows students to indicate their expected minimum and maximum grades for each module they plan to take.
+
+[NOTE]
+The `setlimit` command allows students to indicate their CAP preferences for each semester.
+
+The `cklimit` command calculates the expected minimum and maximum CAP of each semester and checks them against the limit preferences set by the student. +
+Format: `cklimit`
+
+The image below shows the display after using the `cklimit` command
+
+.Results of `cklimit` is displayed
+image::CheckLimitDisplay.png[width="1000"]
+
+
+****
+* This command also analyzes and prints workload information.
+****
+
+=== Check workload limits: `cklimit`
+
+To find out if their current plans are optimized in workload distribution, students would like to: +
+
+* Know what is the total number of workload hours for each semester in their current module plan.
+* Find out if any semester is too heavy or light on any type of workload that could suggest a reallocation of modules to redistribute the workload across all semesters.
+
+GradTrak is able to consolidate all the information about the modules they plan to take and what limit preferences they have for each semester. This allows the student to run a workload analysis on their current module plan and generate the results to be printed all in one page on their screen.
+
+[NOTE]
+The `edit` command allows students to indicate their expected workloads for each module they plan to take.
+
+[NOTE]
+The `setlimit` command allows students to indicate their workload preferences for each semester.
+
+The `cklimit` command calculates the total expected weekly workload of each semester and checks them against the limit preferences set by the student. +
+Format: `cklimit` +
+
+The image below shows the display after using the `cklimit` command and scrolling down the result page to the section on workload information:
+
+.Results of `cklimit` is displayed after scrolling down the result page
+image::CheckLimitScrolledDownDisplay.png[width="1000"]
+
+****
+* This command also analyzes and prints CAP information
+****
+// end::CheckLimit[]
+
+
+=== Clear all data entered: `clear`
+
+Deletes all the added modules in the module plan. +
+Format: `clear`
+
+// tag::SetCurrentSemester[]
+=== Set the current semester: `cursem`
+GradTrak keeps track of the current semester of the student and considers all modules taken before the current semester to be completed.
+All completed modules must have a finalized grade and will be included in the calculation of the current CAP during the `cklimit` command.
+
+After the student receives the results of the modules they took in the latest semester, they can confirm the grades attained in that semester and update GradTrak with their final grades.
+They can then inform GradTrak of their current semester to indicate completion of all modules in the previous semesters, so that the calculation of their current CAP will be updated as well.
+
+The `cursem` command updates GradTrak with the current semester. +
+Format: `cursem SEMESTER`
+
+****
+* The given semester must be a valid semester from year 1 to 5, in either the first or second semester, or GRAD if the student has completed all semesters.
+* All modules taken in the previous semesters must have a finalized grade. The minimum expected grade and maximum expected grade must be the same.
+****
+
+Examples:
+
+* `cursem Y3S2` +
+Sets the current semester to the second semester of year 3.
+
+* `cursem GRAD` +
+Sets the current semester to the graduated semester.
+
+****
+* This command is undoable and redoable
+****
+// end::SetCurrentSemester[]
+
+=== Delete module: `delete`
+
+Removes a module from the module plan based on its index in the most recently displayed list. +
+Format: `delete INDEX` +
+
+****
+* Shows a message if the given index is invalid
+* This command is undoable and redoable
+****
+
+Examples:
+
+* `delete 1` +
+Deletes the first module on the most recently displayed list.
+
+// tag::Displaymod[]
+=== Display module information: `displaymod`
+
+The `displaymod` command shows all the modules that are available in NUS based on the search by the student. This command simply
+shows modules straight from NUS's database of modules and does not check if the student has met the prerequisites to read
+a particular module.
+
+This command will allow students to find out more about a module or even compare modules so as to decide which modules to read
+in the upcoming semesters. Once decided on which module the student plans to read, they can use <<add>> command to add the
+module to their own list.
+
+[NOTE]
+Searches are *case-insensitive*.
+
+[WARNING]
+Students must strictly adhere to syntax of the `displaymod` command in order to get optimum search results.
+
+
+There are *2* ways to search for modules:
+
+* Search by *code*:
+All modules have module code associated with it, this makes it easier to remember modules.To search for modules based on
+code, a `c/` prefix must be added after `displaymod` command, followed by a list of modules which are separated by `,`. +
+Format: `displaymod c/MODULE_CODE,[MODULE_CODE]
+
+.Single module code search command format +
+image::displaymod1cexamplecmd.png[width="500"]
+
+The search above should yield a result: +
+
+.Single module code search result +
+image::displaymod1cexampleresult.png[width="500"]
+
+However if students wishes to search for multiple modules at once they can follow the example given below: +
+
+.Multiple module codes search command format +
+image::displaymodMcexamplecmd.png[width="500"]
+
+The search above should yield a result: +
+
+.Multiple module code search result +
+image::displaymodMcexampleresult.png[width="500"]
+
+* Search by *name*:
+There are cases where students may not remember or know the module code but vaguely remember the module name. Students
+who find themselves in such a situation can search for modules by their names by adding a `n/` prefix after the
+`displaymod` command, followed by keyword/s that can be found in the module name. Keywords have to be separated by `+`
+symbol. +
+Format: `displaymod n/KEYWORD+[KEYWORD]`
+
+
+.Single module name search command format
+image::displaymod1nexamplecmd.png[width="500"]
+
+The search above should yield a result: +
+
+
+.Single module name search command result +
+image::displaymod1nexampleresult.png[width="500"]
+
+However if students wishes to search for multiple modules at once they can follow the example given below: +
+
+.Multiple module name keyword search format +
+image::displaymodMnexamplecmd.png[width="500"]
+
+The search above should yield a result: +
+
+.Multiple module name keyword search result +
+image::displaymodMnexampleresult.png[width="500"]
+
+If the student has successfully managed to display a module of their choice, they will be presented with module/s containing
+several information that the student will find useful. The example below will show the information provided for each module
+after a successful search:
+
+.What information each module contains
+image::displaymoddisplay.png[width="800"]
+
+What each number displays: +
+*1.* Shows the module *code* and module *name*. +
+*2.* Shows which *department* the module belongs to. +
+*3.* Displays the amount of module *credits* a student can gain by reading this module. +
+*4.* Displays a brief description of the modules and potentially the topics that may be covered. +
+*5.* Contains the *prerequisite tree* for each module. +
+*6.* Contains *workload* load information, the values are meant to be read as *Hours*.
+
+// end::Displaymod[]
+
+// tag::Displayreq[]
+=== Display course requirements: `displayreq`
+One of the core functions of GradTrak is to check whether the student has fulfilled his/her degree requirement.
+As of `v1.4` of the application, GradTrak currently only has course information of 3 Computer Science major Focus Areas, namely:
+
+* Algorithms
+* Artificial Intelligence
+* Software Engineering
+
+The course of study can be changed by using the `study` command which will be outlined in the later sections of this guide.
+
+Based off the modules you have passed and completed, or have planned to take in the future semesters, this command
+displays to you the degree to which you have completed your course requirements. It also displays other relevant
+information regarding your course's requirements. This can be seen in the annotated screenshot below:
+
+.Annotated screenshot when `displayreq` is invoked
+image::displayreqcommand.png[width = "800"]
+
+These information are displayed in the result panel when `displayreq` is keyed in:
+
+. Name of the course requirement. +
+. Description of the course requirement. Gives an overview of the modules the student should take to fulfill the requirement. +
+. Requirement type. Informs the student the importance of the requirement in relation to their course of study. +
+. Requirement progress bar and percentage. Informs the student the extent to which he/she have fulfilled the course
+requirement.
+
+Format: `displayreq`
+
+// end::Displayreq[]
+
+=== Edit module: `edit`
+
+Edits the semester, grade or workload of a module in the module plan, based on its index in the most recently displayed list. +
+Format: `edit INDEX [s/NEW_SEMESTER] [ming/NEW_EXPECTED_MIN_GRADE] [maxg/NEW_EXPECTED_MAX_GRADE] [lec/NEW_LECTURE_HOURS] [tut/NEW_TUTORIAL_HOURS] [lab/NEW_LAB_HOURS] [proj/NEW_PROJ_HOURS] [prep/NEW_PREP_HOURS]` +
+
+****
+* Parameters can be in any order, but the index must be entered first.
+* At least one field to be edited must be given.
+****
+
+Examples:
+
+* `edit 2 min/A_PLUS` +
+Changes the expected min grade of the second module in the most recently displayed list to A+.
+
+****
+* This command is undoable and redoable
+****
+
+=== Exit the program: `exit`
+
+Exits the program. +
+Format: `exit`
+
+// tag::find[]
+=== Find module: `find`
+
+Finds modules in the module plan matching all given module code, semester, grade or finished status. +
+Format: `find [c/MODULE_CODE] [s/SEMESTER] [g/GRADE] [f/IS_FINISHED]`
+
+****
+* Parameters can be in any order and are case-insensitive.
+* Module code can be entered partially, but semester and grade must be in the exact format.
+* For unfinished modules, searching by grade will display those whose grade range covers that grade.
+* Finished status is indicated by `y` for finished module (i.e. semester read is before current semester) or any other value for unfinished.
+****
+
+Examples:
+
+* `find c/CS` +
+Lists all modules with "CS" in their codes.
+
+.Finding modules with "CS"
+image::find(c).png[width="800"]
+
+* `find s/Y1S2` +
+Lists all modules in Y1S2.
+
+.Finding modules in Y1S2
+image::find(s).png[width="800"]
+
+* `find g/A f/y` +
+Lists all finished modules with grade A.
+
+.Finding finished modules with grade A (current semester: Y1S2)
+image::find(g,f).png[width="800"]
+// end::find[]
+
+=== View all other commands : `help`
+
+Displays a list of all available commands. +
 Format: `help`
 
-=== Adding a person: `add`
+=== List entered commands: `history`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-[TIP]
-A person can have any number of tags (including 0)
-
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-=== Selecting a person : `select`
-
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
-
-****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-Examples:
-
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
-
-=== Listing entered commands : `history`
-
-Lists all the commands that you have entered in reverse chronological order. +
+Lists all commands entered in reverse chronological order. +
 Format: `history`
 
 [NOTE]
@@ -164,34 +403,34 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-// tag::undoredo[]
-=== Undoing previous command : `undo`
+=== List all modules: `list`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
-Format: `undo`
+Shows a list of all modules in the module plan. +
+Format: `list`
+
+// tag::rec[]
+=== Recommend module: `rec`
+
+Recommends modules that can be read based on the current module plan and course requirements. +
+Format: `rec`
+
+****
+* Modules with unmet prerequisites or those already added (except for failed modules) will not be recommended.
+* Recommended modules are displayed in order of requirement type satisfied: _Core_, _Breadth & Depth_, _Industry Experience_, _Faculty_, _General Education_.
+Modules with the same requirement type satisfied are sorted by level.
+****
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+If any change is made to the course or module plan, enter `rec` again to update the recommendation list.
 ====
+The figure below shows a sample recommendation list for a student studying Computer Science Algorithms with an empty module plan.
 
-Examples:
+.Recommendation list for Computer Science Algorithms
+image::recommend.png[width="800"]
+// end::rec[]
 
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
-
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-
-=== Redoing the previously undone command : `redo`
+=== Redo the previously undone command: `redo`
 
 Reverses the most recent `undo` command. +
 Format: `redo`
@@ -212,49 +451,158 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `undo` (reverses the `delete 1` command) +
 `redo` (reapplies the `delete 1` command) +
 `redo` (reapplies the `clear` command) +
-// end::undoredo[]
 
-=== Clearing all entries : `clear`
+// tag::study[]
+=== Set the current course of study: `study`
 
-Clears all entries from the address book. +
-Format: `clear`
+To set the desired course of study, the student can simply key in the following command:
 
-=== Exiting the program : `exit`
+Format: `study COURSE` +
 
-Exits the program. +
-Format: `exit`
+[NOTE]
+The parameter `COURSE` is case-sensitive.
 
-=== Saving the data
+As of `v1.4`, GradTrak has information to keep track of course requirement
+from the courses mentioned below:
+****
+* Computer Science Algorithms
+* Computer Science Artificial Intelligence
+* Computer Science Software Engineering
+****
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Example:
+
+* `study Computer Science Algorithms` +
+Sets the course of study to Computer Science with Focus Area Algorithms. Invoking `study` command again will change your course of study.
+
+More courses will be rolled out in GradTrak in the future.
+// end::study[]
+
+// tag::SetSemesterLimit[]
+=== Set CAP limits: `setlimit`
+
+Some students have a desired CAP for graduation. They may like to plan their modules such that it helps them to keep their CAP at a suitable range at all times. This helps to ensure that they can easily apply for programs with minimum CAP requirements such as the Student Exchange Program, or NUS Overseas Colleges, or maintain the CAP requirement of their scholarship for each semester.
+
+GradTrak can keep track of their CAP limit preferences so that it is possible to help them detect whether their current module plan fulfils their preferences.
+
+[NOTE]
+The `cklimit` command allows the student to check their limit preferences against their current module plan.
+
+The `setlimit` command allows you to set the minimum and maximum preferred CAP for a semester. +
+Format: `setlimit SEMESTER [mincap/MIN_CAP] [maxcap/MAX_CAP]`
+
+****
+* Parameters can be in any order, but the semester must be entered first.
+* The given semester must be a valid semester from year 1 to 5, in either the first or second semester.
+* At least one field to be edited must be given.
+* Newly edited limits must be not be out of order. Minimum CAP must not be more than the maximum CAP
+****
+
+Examples:
+
+* `setlimit Y1S1 mincap/2.52 maxcap/5` +
+This sets the minimum CAP acceptable to 2.52 and maximum CAP acceptable to 5.00 for the first semester in year 1.
+
+****
+* This command also able to set workload limits for each semester.
+* This command is undoable and redoable
+****
+
+=== Set workload limits: `setlimit`
+
+Some students who do not have a strong programming background may be slightly uncomfortable taking multiple programming modules in year 1 as they may feel too stressed from huge weekly lab workloads. Other students who like project work may like to take 1 or 2 team-based modules per semester that focuses on communication skills.
+
+GradTrak can keep track of their workload limit preferences for each semester so that it is possible to help them detect whether their current module plan fulfils their preferences. Various types of workload limits  such as total number of weekly lecture hours, tutorial hours, lab hours, project hours, and preparation hours can be set by the student.
+
+The `setlimit` command allows you to set the minimum and maximum total weekly workload limits for a semester. +
+Format: `setlimit SEMESTER [minlec/MIN_LECTURE_HOURS] [maxlec/MAX_LECTURE_HOURS] [mintut/MIN_TUTORIAL_HOURS] [maxtut/MAX_TUTORIAL_HOURS] [minlab/MIN_LAB_HOURS] [maxlab/MAX_LAB_HOURS] [minproj/MIN_PROJ_HOURS] [maxproj/MAX_PROJ_HOURS] [minprep/MIN_PREP_HOURS] [maxprep/MAX_PREP_HOURS]`
+
+****
+* Parameters can be in any order, but the semester must be entered first.
+* The given semester must be a valid semester from year 1 to 5, in either the first or second semester.
+* At least one field to be edited must be given.
+* Newly edited limits must be not be out of order such that the following requirements are met:
+** Minimum lecture hours must not be more than the maximum lecture hours
+** Minimum tutorial hours must not be more than the maximum tutorial hours
+** Minimum lab hours must not be more than the maximum lab hours
+** Minimum project hours must not be more than the maximum project hours
+** Minimum preparation hours must not be more than the maximum preparation hours
+****
+
+Examples:
+
+* `setlimit Y1S2 minlec/2.5 maxproj/3` +
+This sets the minimum number of weekly lecture hours acceptable to 2.5 and maximum number of weekly project hours acceptable to 3 for the second semester in year 1.
+
+****
+* This command also able to set CAP limits for each semester.
+* This command is undoable and redoable
+****
+
+// end::SetSemesterLimit[]
+
+=== Undo previous command: `undo`
+
+Restores GradTrak to the state before the previous _undoable_ command was executed. +
+Format: `undo`
+
+[NOTE]
+====
+Undoable commands: those commands that modify the module plan or course (`set`, `add`, `edit`, `delete` and `clear`).
+====
+
+Examples:
+
+* `delete 1` +
+`displayreq` +
+`undo` (reverses the `delete 1` command) +
+
+* `displayreq` +
+`cklimit` +
+`undo` +
+The `undo` command fails as there are no undoable commands executed previously.
+
+* `cursem Y2S2` +
+`setlimit Y3S1 minprep/4` +
+`undo` (reverses the `setlimit Y3S1 minprep/4` command) +
+`undo` (reverses the `cursem Y2S2` command) +
+
+=== Save data
+
+Data are saved in the hard disk automatically after any command that changes them. There is no need to save manually.
 
 // tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+=== Encrypt data files `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
+Encrypts your data files.
 // end::dataencryption[]
+
+=== Update module information `[coming in v2.0]`
+
+Retrieves the latest information of all modules from CORS.
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the application on the other computer and overwrite the empty data file it creates with the file that contains the data of your previous GradTrak folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+* *Add*: `add c/MODULE_CODE s/SEMESTER`
+* *Cklimit*: `cklimit`
+* *Clear*: `clear`
+* *Cursem*: `cursem SEMESTER`
+* *Delete*: `delete INDEX` +
+* *Displaymod*: `displaym o/OPTIONS [MORE_ARGUMENTS]`
+* *Displayreq*: `displayreq`
+* *Edit*: `edit INDEX [s/NEW_SEMESTER]`
+* *Exit*: `exit`
+* *Find*: `find [c/MODULE_CODE] [s/SEMESTER] [g/GRADE] [f/IS_FINISHED]`
+* *Help*: `help`
+* *History*: `history`
+* *List*: `list`
+* *Recommend*: `rec`
+* *Redo*: `redo`
+* *Set*: `study COURSE` +
+* *Setlimit*: `setlimit SEMESTER [mincap/MIN_CAP] [maxcap/MAX_CAP] [minprep/MIN_PREP_HOURS] [maxprep/MAX_PREP_HOURS]`
+* *Undo*: `undo`

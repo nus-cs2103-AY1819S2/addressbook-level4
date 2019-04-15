@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<HBox id ="moduleinfopane" fx:id="moduleinfopane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane HBox.hgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150"/>
+        </columnConstraints>
+        <VBox alignment="CENTER_LEFT" minHeight="150" GridPane.columnIndex="0">
+            <padding>
+                <Insets top="5" right="5" bottom="5" left="15" />
+            </padding>
+            <HBox spacing="5" alignment="CENTER_LEFT">
+                <Label fx:id="id" styleClass="cell_big_label">
+                    <minWidth>
+                        <Region fx:constant="USE_PREF_SIZE" />
+                    </minWidth>
+                </Label>
+                <Label fx:id="moduleinfocode" text ="\$moduleinfocode" styleClass="cell_big_label"/>
+                <Label fx:id="moduleinfotitle" text="\$moduleinfotitle" styleClass="cell_big_label"/>
+            </HBox>
+            <HBox spacing="5" alignment="CENTER_LEFT">
+                <padding>
+                    <Insets top = "5" bottom="5"/>
+                </padding>
+                <Label fx:id="deparmentText" text="Department:" styleClass="cell_medium_label"/>
+                <Label fx:id="moduleinfodepartment" text="\$moduleinfodepartment" styleClass="cell_small_label"/>
+            </HBox>
+            <HBox spacing="5" alignment="CENTER_LEFT">
+                <padding>
+                    <Insets top = "5" bottom="5"/>
+                </padding>
+                <Label fx:id="creditsText" text="Credits:" styleClass="cell_medium_label"/>
+                <Label fx:id="moduleinfocredits" text="\$moduleinfocredits" styleClass="cell_small_label"/>
+            </HBox>
+            <HBox spacing="5" alignment="CENTER_LEFT">
+                <padding>
+                    <Insets top = "5" bottom="5"/>
+                </padding>
+                <Label fx:id="moduleinfodescription" text="\$moduleinfodescription" styleClass="cell_small_label" wrapText="true"/>
+            </HBox>
+            <HBox spacing="5" >
+                <padding>
+                    <Insets top = "8" bottom="8"/>
+                </padding>
+                <HBox spacing="5">
+                    <padding>
+                        <Insets left = "5" right="5"/>
+                    </padding>
+                    <Label fx:id="moduleinfoprerequisites" text="Prerequisite: " styleClass="cell_medium_label"/>
+                    <TreeView fx:id="prerequisitetree" editable="false" prefHeight="150" styleClass="tree-view" />
+                </HBox>
+                <HBox spacing="5">
+                    <padding>
+                        <Insets left="8" right="8"/>
+                    </padding>
+                    <Label fx:id="workloadText" text="Work Load: " styleClass="cell_medium_label"/>
+                    <TableView fx:id="workloadtable" editable="false" prefWidth="308" prefHeight="20" styleClass="table-view"/>
+                </HBox>
+            </HBox>
+        </VBox>
+    </GridPane>
+</HBox>

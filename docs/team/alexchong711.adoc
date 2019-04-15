@@ -1,0 +1,81 @@
+= Chong Hong Yun - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: GradTrak - A Graduation Tracker for NUS
+
+---
+
+== Overview
+
+GradTrak is an application that was morphed from the codebase of https://github.com/nus-cs2103-AY1819S2/addressbook-level4[Address Book - Level 4].
+It was conceptualised and designed in mind to assist students of NUS to track their graduation progress and plan future modules that they want to take.
+
+== Summary of contributions
+
+* *Major feature*: added the ability for students to manage CAP and workload limits for each semester
+** What it does: allows the student to check if the current module plan for all semesters within the preferred limits in difficulty and time required
+The student can set their preferences and check against the modules they plan to take.
+
+** Why this feature: This is critical for students to ensure that they can manage their workload and maintain their targeted CAP for graduation.
+It is easier for students to detect if any semester will be too challenging or too easy for them.
+This may suggest reallocating some modules to distribute the difficulty more evenly across all semesters.
+
+** Highlights: This feature depends on many attributes that originally does not exist in the system and can only be implemented after implementing the other smaller features.
+Before being able to check their plan against their preferences, the student must first be able to set their preferences, as well as estimate their workload and grades for each planned module.
+
+* *Minor enhancement*: added the ability to shift the current semester when grades have been finalized. The current semester indicates that all modules taken in previous semesters have been completed and should be included in the calculation of the current CAP.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=alexchong711[Reposense]]
+
+* *Other contributions*:
+** https://github.com/cs2103-ay1819s2-w14-4/main/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Aalexchong711[Pull Requests Made]
+** https://github.com/cs2103-ay1819s2-w14-4/main/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aclosed+reviewed-by%3Aalexchong711[Pull Requests Reviewed]
+
+** Project Management
+*** Put up user stories
+
+** Refactored Code
+*** Morphed the original Person class in Address Book to contain the attributes of the module taken by the student - Level 4 code base
+
+** Documentation:
+*** Changed some of the prose of the User Guide, Developer Guide (see above PR)
+*** Modified some sections of User Guide, Developer Guide
+
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users, such that technical terms describing how the application works are reduced as end-users are only concerned with how the application can help them.
+
+The guide will include how students can use the application to manage their CAP and workload expectations while planning for modules to take._
+|===
+
+include::../UserGuide.adoc[tag=CheckLimit]
+
+include::../UserGuide.adoc[tag=SetCurrentSemester]
+
+include::../UserGuide.adoc[tag=SetSemesterLimit]
+
+|===
+|_End of extract of my contributions to the User Guide._
+|===
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project. This is so that future developers who wish to maintain and update my code will able to do so easily after reading the guide and understanding how the application works.
+
+The guide will include sequence diagrams about how the `cursem`, and `setlimit` commands interact with the system, as well as class diagrams that describe the architecture of the system._
+|===
+
+include::../DeveloperGuide.adoc[tag=CheckLimit]
+
+include::../DeveloperGuide.adoc[tag=SetCurrentSemester]
+
+include::../DeveloperGuide.adoc[tag=SetSemesterLimit]
+
+|===
+|_End of extract of my contributions to the Developer Guide._
+|===

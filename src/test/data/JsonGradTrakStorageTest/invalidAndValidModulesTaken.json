@@ -1,0 +1,17 @@
+{
+  "modulesTaken": [ {
+    "moduleInfoCode": "CS2103T",
+    "semester": "Y1S1",
+    "expectedMinGrade": "F",
+    "expectedMaxGrade": "A",
+    "lectureHour" : "2",
+    "tags": [ ]
+  }, {
+    "moduleInfoCode": "CS213",
+    "semester": "Y2S22",
+    "expectedMinGrade": "F",
+    "expectedMaxGrade": "A",
+    "lectureHour" : "f",
+    "tags": [ ]
+  } ]
+}

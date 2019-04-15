@@ -1,11 +1,16 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPECTED_MAX_GRADE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPECTED_MIN_GRADE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LAB_HOUR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LECTURE_HOUR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_INFO_CODE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PREPARATION_HOUR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PROJECT_HOUR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIAL_HOUR;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -20,88 +25,141 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.moduleinfo.ModuleInfo;
+import seedu.address.model.moduleinfo.ModuleInfoCode;
+import seedu.address.model.moduletaken.Grade;
+import seedu.address.model.moduletaken.Hour;
+import seedu.address.model.moduletaken.ModuleTaken;
+import seedu.address.model.moduletaken.Semester;
+import seedu.address.model.moduletaken.Workload;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing moduleTaken in the address book.
  */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the "
+            + "moduleTaken identified "
+            + "by the index number used in the displayed moduleTaken list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_MODULE_INFO_CODE + "NAME] "
+            + "[" + PREFIX_SEMESTER + "SEMESTER] "
+            + "[" + PREFIX_EXPECTED_MIN_GRADE + "EXPECTED MIN GRADE] "
+            + "[" + PREFIX_EXPECTED_MAX_GRADE + "EXPECTED MAX GRADE] "
+            + "[" + PREFIX_LECTURE_HOUR + "LECTURE HOUR] "
+            + "[" + PREFIX_TUTORIAL_HOUR + "TUTORIAL HOUR] "
+            + "[" + PREFIX_LAB_HOUR + "LAB HOUR] "
+            + "[" + PREFIX_PROJECT_HOUR + "PROJECT HOUR] "
+            + "[" + PREFIX_PREPARATION_HOUR + "PREPARATION HOUR] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_SEMESTER + "Y3S1 "
+            + PREFIX_EXPECTED_MIN_GRADE + "B";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited ModuleTaken: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This moduleTaken already exists in the address book.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditModuleTakenDescriptor editPersonDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editPersonDescriptor details to edit the person with
+     * @param index of the moduleTaken in the filtered moduleTaken list to edit
+     * @param editPersonDescriptor details to edit the moduleTaken with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditModuleTakenDescriptor editPersonDescriptor) {
         requireNonNull(index);
         requireNonNull(editPersonDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editPersonDescriptor = new EditModuleTakenDescriptor(editPersonDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<ModuleTaken> lastShownList = model.getFilteredModulesTakenList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_MODULETAKEN_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        ModuleTaken moduleTakenToEdit = lastShownList.get(index.getZeroBased());
+        ModuleTaken editedModuleTaken = createEditedPerson(moduleTakenToEdit, editPersonDescriptor);
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
+        if (!moduleTakenToEdit.getModuleInfoCode().equals(editedModuleTaken.getModuleInfoCode())
+                && !model.canEditModuleTaken(moduleTakenToEdit, editedModuleTaken)) {
+            throw new CommandException(Messages.MESSAGE_PREREQUISITE_VIOLATED);
+        }
+
+        if (editedModuleTaken.getExpectedMinGrade().getGradePoint()
+                > editedModuleTaken.getExpectedMaxGrade().getGradePoint()) {
+            throw new CommandException(Messages.MESSAGE_GRADES_OUT_OF_ORDER);
+        }
+
+        if ((editPersonDescriptor.getExpectedMinGrade().isPresent()
+                || editPersonDescriptor.getExpectedMaxGrade().isPresent())
+                && editedModuleTaken.getSemester().getIndex() < model.getCurrentSemester().getIndex()) {
+            throw new CommandException(Messages.MESSAGE_GRADES_NOT_FINALIZED_BEFORE_SEMESTER);
+        }
+
+        if (!editedModuleTaken.getExpectedMaxGrade().isCountedInCap()) {
+            throw new CommandException(Messages.MESSAGE_MAX_GRADE_MUST_BE_COUNTED);
+        }
+
+        if (!moduleTakenToEdit.isSameModuleTaken(editedModuleTaken) && model.hasModuleTaken(editedModuleTaken)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+        ModuleInfo moduleInfo = model.getModuleInfoList().getModule(editedModuleTaken.getModuleInfoCode().value);
+
+        if (moduleInfo == null) {
+            throw new CommandException(Messages.MESSAGE_MODULE_DOES_NOT_EXIST);
+        }
+
+        editedModuleTaken.setWorkload(new Workload(moduleInfo.getModuleInfoWorkload()));
+
+        model.setModuleTaken(moduleTakenToEdit, editedModuleTaken);
+        model.updateFilteredModulesTakenList(PREDICATE_SHOW_ALL_PERSONS);
+        model.commitGradTrak();
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedModuleTaken));
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
+     * Creates and returns a {@code ModuleTaken} with the details of {@code moduleTakenToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
-        assert personToEdit != null;
+    private static ModuleTaken createEditedPerson(ModuleTaken moduleTakenToEdit,
+                                                  EditModuleTakenDescriptor editPersonDescriptor) {
+        assert moduleTakenToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        ModuleInfoCode updatedName = editPersonDescriptor.getModuleInfoCode()
+                .orElse(moduleTakenToEdit.getModuleInfoCode());
+        Semester updatedSemester = editPersonDescriptor.getSemester().orElse(moduleTakenToEdit.getSemester());
+        Grade updatedExpectedMinGrade = editPersonDescriptor
+                .getExpectedMinGrade().orElse(moduleTakenToEdit.getExpectedMinGrade());
+        Grade updatedExpectedMaxGrade = editPersonDescriptor
+                .getExpectedMaxGrade().orElse(moduleTakenToEdit.getExpectedMaxGrade());
+        Hour updatedLectureHour = editPersonDescriptor
+                .getLectureHour().orElse(moduleTakenToEdit.getLectureHour());
+        Hour updatedTutorialHour = editPersonDescriptor
+                .getTutorialHour().orElse(moduleTakenToEdit.getTutorialHour());
+        Hour updatedLabHour = editPersonDescriptor
+                .getLabHour().orElse(moduleTakenToEdit.getLabHour());
+        Hour updatedProjectHour = editPersonDescriptor
+                .getProjectHour().orElse(moduleTakenToEdit.getProjectHour());
+        Hour updatedPreparationHour = editPersonDescriptor
+                .getPreparationHour().orElse(moduleTakenToEdit.getPreparationHour());
+        Workload updatedWorkload = new Workload(updatedLectureHour, updatedTutorialHour, updatedLabHour,
+                updatedProjectHour, updatedPreparationHour);
+        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(moduleTakenToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new ModuleTaken(updatedName, updatedSemester, updatedExpectedMinGrade, updatedExpectedMaxGrade,
+                updatedWorkload, updatedTags);
     }
 
     @Override
@@ -123,27 +181,37 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details to edit the moduleTaken with. Each non-empty field value will replace the
+     * corresponding field value of the moduleTaken.
      */
-    public static class EditPersonDescriptor {
-        private Name name;
-        private Phone phone;
-        private Email email;
-        private Address address;
+    public static class EditModuleTakenDescriptor {
+        private ModuleInfoCode moduleInfoCode;
+        private Semester semester;
+        private Grade expectedMinGrade;
+        private Grade expectedMaxGrade;
+        private Hour lectureHour;
+        private Hour tutorialHour;
+        private Hour labHour;
+        private Hour projectHour;
+        private Hour preparationHour;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public EditModuleTakenDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
-            setName(toCopy.name);
-            setPhone(toCopy.phone);
-            setEmail(toCopy.email);
-            setAddress(toCopy.address);
+        public EditModuleTakenDescriptor(EditModuleTakenDescriptor toCopy) {
+            setModuleInfoCode(toCopy.moduleInfoCode);
+            setSemester(toCopy.semester);
+            setExpectedMinGrade(toCopy.expectedMinGrade);
+            setExpectedMaxGrade(toCopy.expectedMaxGrade);
+            setLectureHour(toCopy.lectureHour);
+            setTutorialHour(toCopy.tutorialHour);
+            setLabHour(toCopy.labHour);
+            setProjectHour(toCopy.projectHour);
+            setPreparationHour(toCopy.preparationHour);
             setTags(toCopy.tags);
         }
 
@@ -151,39 +219,79 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(moduleInfoCode, semester, expectedMinGrade, expectedMaxGrade, tags);
         }
 
-        public void setName(Name name) {
-            this.name = name;
+        public void setModuleInfoCode(ModuleInfoCode moduleInfoCode) {
+            this.moduleInfoCode = moduleInfoCode;
         }
 
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
+        public Optional<ModuleInfoCode> getModuleInfoCode() {
+            return Optional.ofNullable(moduleInfoCode);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setSemester(Semester semester) {
+            this.semester = semester;
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
+        public Optional<Semester> getSemester() {
+            return Optional.ofNullable(semester);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
+        public void setExpectedMinGrade(Grade expectedMinGrade) {
+            this.expectedMinGrade = expectedMinGrade;
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
+        public Optional<Grade> getExpectedMinGrade() {
+            return Optional.ofNullable(expectedMinGrade);
         }
 
-        public void setAddress(Address address) {
-            this.address = address;
+        public void setExpectedMaxGrade(Grade expectedMaxGrade) {
+            this.expectedMaxGrade = expectedMaxGrade;
         }
 
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
+        public Optional<Grade> getExpectedMaxGrade() {
+            return Optional.ofNullable(expectedMaxGrade);
+        }
+
+        public void setLectureHour(Hour lectureHour) {
+            this.lectureHour = lectureHour;
+        }
+
+        public Optional<Hour> getLectureHour() {
+            return Optional.ofNullable(lectureHour);
+        }
+
+        public void setTutorialHour(Hour tutorialHour) {
+            this.tutorialHour = tutorialHour;
+        }
+
+        public Optional<Hour> getTutorialHour() {
+            return Optional.ofNullable(tutorialHour);
+        }
+
+        public void setLabHour(Hour labHour) {
+            this.labHour = labHour;
+        }
+
+        public Optional<Hour> getLabHour() {
+            return Optional.ofNullable(labHour);
+        }
+
+        public void setProjectHour(Hour projectHour) {
+            this.projectHour = projectHour;
+        }
+
+        public Optional<Hour> getProjectHour() {
+            return Optional.ofNullable(projectHour);
+        }
+
+        public void setPreparationHour(Hour preparationHour) {
+            this.preparationHour = preparationHour;
+        }
+
+        public Optional<Hour> getPreparationHour() {
+            return Optional.ofNullable(preparationHour);
         }
 
         /**
@@ -211,17 +319,22 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditModuleTakenDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            EditModuleTakenDescriptor e = (EditModuleTakenDescriptor) other;
 
-            return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
+            return getModuleInfoCode().equals(e.getModuleInfoCode())
+                    && getSemester().equals(e.getSemester())
+                    && getExpectedMinGrade().equals(e.getExpectedMinGrade())
+                    && getExpectedMaxGrade().equals(e.getExpectedMaxGrade())
+                    && getLectureHour().equals(e.getLectureHour())
+                    && getTutorialHour().equals(e.getTutorialHour())
+                    && getLabHour().equals(e.getLabHour())
+                    && getProjectHour().equals(e.getProjectHour())
+                    && getPreparationHour().equals(e.getPreparationHour())
                     && getTags().equals(e.getTags());
         }
     }

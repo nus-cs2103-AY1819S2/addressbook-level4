@@ -15,7 +15,7 @@ import seedu.address.logic.commands.BillCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ClearMenuCommand;
 import seedu.address.logic.commands.ClearOrderCommand;
-import seedu.address.logic.commands.ClearTableCommand;
+import seedu.address.logic.commands.ClearTablesCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DailyCommand;
 import seedu.address.logic.commands.DeleteFromMenuCommand;
@@ -108,11 +108,11 @@ public class RestOrRantParser {
             }
             return new EditPaxCommandParser().parse(arguments);
 
-        case ClearTableCommand.COMMAND_WORD:
+        case ClearTablesCommand.COMMAND_WORD:
             if (mode != Mode.RESTAURANT_MODE) {
                 throw new ParseException(MESSAGE_INVALID_MODE);
             }
-            return new ClearTableCommand();
+            return new ClearTablesCommand();
 
         case EditSeatsCommand.COMMAND_WORD:
             if (mode != Mode.RESTAURANT_MODE) {
@@ -221,7 +221,7 @@ public class RestOrRantParser {
 
         case "clear":
             if (mode == Mode.RESTAURANT_MODE) {
-                return new ClearTableCommand();
+                return new ClearTablesCommand();
             } else if (mode == Mode.TABLE_MODE) {
                 return new ClearOrderCommand();
             } else if (mode == Mode.MENU_MODE) {

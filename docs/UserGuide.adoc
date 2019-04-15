@@ -324,7 +324,7 @@ _Figure 5: Success!_
 ====
 * The index refers to the index number shown in the displayed restaurants list.
 * You need to ensure that the index entered *must be a positive integer* `1, 2, 3, ...`
-* You need to ensure that the `Price Range` entered *must* only consist of 1-5 $ characters. e.g. `$`, `\$$$`, `$$$$$`
+* You need to ensure that the `Price Range` entered *must* only consist of 1-5 $ characters. e.g. `$`, `$$$`
 * You need to ensure that `Cuisine` and `Occasion` *must* only contain alphanumeric characters and spaces.
 * You do not need to worry about capitalization for `Cuisine` and `Occasion`.
 e.g. `fast food` will be capitalized to `Fast Food`.
@@ -334,9 +334,9 @@ e.g. `fast food` will be capitalized to `Fast Food`.
 
 Other examples you can try:
 
-* `setCategories 2 oc/Premium Casual pr/\$$$$$` +
+* `setCategories 2 oc/Premium Casual pr/$` +
 Sets the categories of the second restaurant in the list to `Premium Casual` for occasion and
-`\$$$$$` for price range.
+`$` for price range.
 * `setCategories 3 c/Western` +
 Only sets the cuisine of the third restaurant to `Western`.
 

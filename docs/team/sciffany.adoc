@@ -81,6 +81,7 @@ or answers.
 
 == Contributions to User Guide
 
+<start of extract>
 
 === Study View [[studyview]]
 

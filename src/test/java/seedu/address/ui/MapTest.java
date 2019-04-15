@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,6 +19,7 @@ public class MapTest extends GuiUnitTest {
     public void setUp() {
         model = new ModelManager();
         playerMap = new PlayerMap(model.getHumanMapObservable(), model.getHumanMapGrid());
+
     }
 
     @Test
@@ -28,5 +30,13 @@ public class MapTest extends GuiUnitTest {
         assertEquals(playerMap.getColor(Status.EMPTY), Color.LIGHTBLUE);
         assertEquals(playerMap.getColor(Status.DESTROYED), Color.RED);
         assertEquals(playerMap.getColor(Status.EMPTYHIT), Color.DARKBLUE);
+    }
+
+    @Test
+    public void stubTests() {
+        model.updateUi();
+        playerMap.getColumnLabelCell();
+        playerMap.getRowLabelCell();
+        assertTrue(true);
     }
 }

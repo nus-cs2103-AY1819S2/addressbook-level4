@@ -12,7 +12,7 @@ My team and I were presented with an existing code base for a command line inter
 The user interacts with it using a command-line interface (CLI) and it has a graphical user interface(GUI) created using JavaFX.
 It is written in Java, and has about 10 kLoC.
 
-My role was to design and write the code for the `map` feature of the game.
+My role was to design and write the code for the *map feature* of the game.
 The following sections illustrate the feature in more detail, as well as the relevant sections I have added to the user and developer guides in relation to this feature.
 
 *Relevant links:* +

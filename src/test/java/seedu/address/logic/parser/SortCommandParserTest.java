@@ -25,6 +25,20 @@ public class SortCommandParserTest {
         assertParseSuccess(parser, userInput, new SortCommand(SortOption.create(userInput)));
         userInput = "type";
         assertParseSuccess(parser, userInput, new SortCommand(SortOption.create(userInput)));
+        // allow extra white space
+        userInput = "name ";
+        assertParseSuccess(parser, userInput, new SortCommand(SortOption.create(userInput)));
+        userInput = "color  ";
+        assertParseSuccess(parser, userInput, new SortCommand(SortOption.create(userInput)));
+        userInput = "type  ";
+        assertParseSuccess(parser, userInput, new SortCommand(SortOption.create(userInput)));
+        // allow desc parameter
+        userInput = "name";
+        assertParseSuccess(parser, userInput, new SortCommand(SortOption.create(userInput), true));
+        userInput = "color";
+        assertParseSuccess(parser, userInput, new SortCommand(SortOption.create(userInput), true));
+        userInput = "type";
+        assertParseSuccess(parser, userInput, new SortCommand(SortOption.create(userInput), true));
     }
 
     @Test

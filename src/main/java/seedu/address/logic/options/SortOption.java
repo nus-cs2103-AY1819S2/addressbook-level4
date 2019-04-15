@@ -27,11 +27,12 @@ public enum SortOption {
      * Create a SortOption.
      */
     public static SortOption create(String optionString) throws IllegalArgumentException {
-        if (!isValid(optionString)) {
+        String option = optionString.trim().toUpperCase();
+        if (!isValid(option)) {
             throw new IllegalArgumentException("Invalid option.");
         }
 
-        return SortOption.valueOf(optionString.toUpperCase());
+        return SortOption.valueOf(option);
     }
 
     /**

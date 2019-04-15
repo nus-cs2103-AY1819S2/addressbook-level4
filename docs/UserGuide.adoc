@@ -762,12 +762,12 @@ served.
 
 image::Bill_AllServed.png[]
 
-When `bill` is called, the user interface changes to display the receipt as shown below:
+When `bill` is called, the user interface changes to display the receipt as shown below: +
 
-image::Bill_Receipt.png[width="700",align="center"]
+image::Bill_Receipt.png[width="700",align="center"] +
 
 When you switch to Restaurant Mode using the <<RM, `restaurantMode`>> command, you will realise that the table
-has been updated to accomodate new customers.
+has been updated to accomodate new customers. +
 
 image::Bill_UpdatedSeats.png[width="500",align="center"]
 |===

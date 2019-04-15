@@ -25,6 +25,7 @@ import seedu.address.storage.StorageManager;
 /**
  * The StatisticsTest will test the methods of the statistics class.
  * Contains integration tests (interaction with Model, Player, Storage and Battleship commands)
+ * @author bos10
  */
 public class SaveCommandTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");

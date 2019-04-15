@@ -21,6 +21,10 @@ import seedu.address.storage.JsonStatisticsStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 
+/**
+ * Testing for StatsCommand.
+ * @author bos10
+ */
 public class StatsCommandTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableStatistics");
     private static final Path STATS_FILE = TEST_DATA_FOLDER.resolve("statsTest_statsCommand.json");
@@ -45,9 +49,6 @@ public class StatsCommandTest {
         history = new CommandHistory();
         logic = new LogicManager(model, storage);
     }
-
-
-
 
     @Test
     public void execute_success() throws CommandException {

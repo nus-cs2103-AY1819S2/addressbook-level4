@@ -12,7 +12,8 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 
 /**
- *  Initializes the Statistics Window
+ *  Initializes the Statistics Pop-up Window.
+ * @author bos10
  */
 public class StatisticView extends UiPart<Stage> {
 
@@ -22,7 +23,11 @@ public class StatisticView extends UiPart<Stage> {
     @FXML
     private StackPane statisticView;
 
-    // set constructor which one
+    /**
+     * Constructor for the pop-up window.
+     * @param root
+     * @param statsData
+     */
     public StatisticView(Stage root, XYChart.Series statsData) {
         super(FXML, root);
         CategoryAxis xAxis = new CategoryAxis();
@@ -37,8 +42,6 @@ public class StatisticView extends UiPart<Stage> {
         statisticView.getChildren().add(statsChart);
 
     }
-
-
     /**
      * Opens pop-up window for statistics.
      */

@@ -8,7 +8,8 @@ import seedu.address.logic.battle.AttackResult;
 import seedu.address.storage.Storage;
 
 /**
- * A Statistics Class tracks the key gameplay information.
+ * A Statistics Class tracks the key game play information.
+ * @author bos10
  */
 public abstract class Statistics {
 
@@ -175,7 +176,6 @@ public abstract class Statistics {
         dataSeries1.getData().add(new XYChart.Data("Hits", getHitCount()));
         dataSeries1.getData().add(new XYChart.Data("Misses", getMissCount()));
         dataSeries1.getData().add(new XYChart.Data("Ships Destroyed", getEnemyShipsDestroyed()));
-        //dataSeries1.getData().add(new XYChart.Data("Accuracy", getAccuracy()));
         return dataSeries1;
     }
 
@@ -189,17 +189,24 @@ public abstract class Statistics {
      * @throws IOException
      */
     public void saveToStorage(PlayerStatistics statisticsData) throws IOException {
-        //System.out.println("SaveStatisticsData");
+        logger.info("Saving Statistics Data to Storage");
         this.storage.saveStatisticsData(statisticsData);
     }
 
+    /**
+     * Set the storage location inside the PlayerStatistics Object.
+     * @param storage
+     */
     public void setStorage(Storage storage) {
         logger.info("Set Storage Location for Statistics");
         this.storage = storage;
-
     }
 
+    /**
+     * Resets the statistics data with the default configuration.
+     */
     public void resetData() {
+        logger.info("Rest Data");
         defaultConfig();
     }
 }

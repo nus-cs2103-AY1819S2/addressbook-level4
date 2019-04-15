@@ -1,11 +1,12 @@
 package seedu.address.ui;
 
+import static seedu.address.ui.WindowViewState.EVENTS;
+import static seedu.address.ui.WindowViewState.PERSONS;
+
 import java.util.logging.Logger;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -15,6 +16,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.WrongViewException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -32,12 +34,16 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+    private ListPanel listPanel;
+    private ListPanel listPanel2;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-
+    private WindowViewState currentState;
+    private PersonInfo personInfo;
+    private EventInfo eventInfo;
+    private boolean showFullReminder;
     @FXML
-    private StackPane browserPlaceholder;
+    private StackPane dataDetailsPanelPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -46,7 +52,10 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane listPanelPlaceholder;
+
+    @FXML
+    private StackPane listPanel2Placeholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -60,7 +69,8 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
-
+        this.currentState = PERSONS;
+        this.showFullReminder = false;
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
@@ -100,10 +110,10 @@ public class MainWindow extends UiPart<Stage> {
          * in CommandBox or ResultDisplay.
          */
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
-                menuItem.getOnAction().handle(new ActionEvent());
-                event.consume();
-            }
+            //if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
+            //   menuItem.getOnAction().handle(new ActionEvent());
+            //    event.consume();
+            //}
         });
     }
 
@@ -111,12 +121,9 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedPersonProperty());
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
-
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
-                logic::setSelectedPerson);
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        personInfo = new PersonInfo(logic.selectedPersonProperty());
+        eventInfo = new EventInfo(logic.selectedEventProperty());
+        resetView();
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -126,6 +133,69 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+    }
+
+    /**
+     * Switches the view of the UI when the switch command is entered.
+     */
+    void handleSwitch() {
+        if (this.currentState == PERSONS) {
+            this.currentState = EVENTS;
+        } else {
+            this.currentState = PERSONS;
+        }
+        resetView();
+    }
+
+    /**
+     * handle the view of reminder list.
+     * @param isShowFullReminder
+     */
+    void handleShowFullReminder(boolean isShowFullReminder) {
+        if (this.showFullReminder != isShowFullReminder) {
+            this.showFullReminder = isShowFullReminder;
+            resetView();
+        }
+    }
+
+    /**
+     * Resets the view given the current state of the UI.
+     */
+    void resetView() {
+        listPanelPlaceholder.getChildren().clear();
+        dataDetailsPanelPlaceholder.getChildren().clear();
+
+        if (!showFullReminder) {
+            listPanel2 = new ReminderListPanel(logic.getFilteredReminderList(), logic.selectedReminderProperty(),
+                    logic::setSelectedReminder);
+            listPanel2Placeholder.getChildren().add(listPanel2.getRoot());
+        } else {
+            listPanel2 = new ReminderListFullPanel(logic.getFilteredReminderList(), logic.selectedReminderProperty(),
+                    logic::setSelectedReminder);
+            listPanel2Placeholder.getChildren().add(listPanel2.getRoot());
+        }
+        if (currentState == PERSONS) {
+            dataDetailsPanelPlaceholder.getChildren().add(personInfo.getRoot());
+            listPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
+                    logic::setSelectedPerson);
+            listPanelPlaceholder.getChildren().add(listPanel.getRoot());
+        } else if (currentState == EVENTS) {
+            dataDetailsPanelPlaceholder.getChildren().add(eventInfo.getRoot());
+            listPanel = new EventListPanel(logic.getFilteredEventList(), logic.selectedEventProperty(),
+                    logic::setSelectedEvent);
+            listPanelPlaceholder.getChildren().add(listPanel.getRoot());
+        }
+    }
+
+    void handlePersonCommand() {
+        this.currentState = PERSONS;
+        resetView();
+    }
+
+    void handleEventCommand() {
+        this.currentState = EVENTS;
+        resetView();
     }
 
     /**
@@ -168,20 +238,23 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public ListPanel getListPanel() {
+        return listPanel;
     }
 
     /**
      * Executes the command and returns the result.
      *
-     * @see seedu.address.logic.Logic#execute(String)
+     * @see seedu.address.logic.Logic#execute(String, WindowViewState)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText)
+            throws CommandException, ParseException, WrongViewException {
         try {
-            CommandResult commandResult = logic.execute(commandText);
+            CommandResult commandResult = logic.execute(commandText, currentState);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            handleShowFullReminder(commandResult.isShowFullReminder());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -191,11 +264,23 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandResult.isSwitchView()) {
+                handleSwitch();
+            }
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        } catch (WrongViewException wve) {
+            logger.info("Cannot run " + commandText + " in this view.");
+            resultDisplay.setFeedbackToUser(wve.getMessage());
+            handleSwitch();
+            throw wve;
         }
+    }
+
+    public WindowViewState getViewState() {
+        return this.currentState;
     }
 }

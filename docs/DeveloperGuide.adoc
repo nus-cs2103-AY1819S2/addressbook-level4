@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= UniLA - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103-W16-1`      Since: `Feb 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -202,7 +202,7 @@ image::ModelClassDiagram.png[width="800"]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the UniLA data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -222,7 +222,7 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the UniLA data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -232,6 +232,77 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+// tag::import[]
+=== Import Contacts
+==== Current Implementation
+The ImportCommand uses `JsonAddressBookStorage` to create a temporary `AddressBook` instance from a given path. It takes in a Path `path` as argument. The command will add the contacts, events and reminders found in this temporary AddressBook but not present in the AddressBook storage into storage. The constructor for ImportCommand is as follows:
+
+[source,java]
+ public ImportCommand(Path importPath) {
+        requireNonNull(importPath);
+        this.filePath = importPath;
+        addressBookStorage = new JsonAddressBookStorage(filePath);
+ }
+
+The execution flow of ImportCommand is shown in the diagram below.
+
+image::ImportSequenceDiagram.png[align="center"]
+    Figure: Import command flow chart
+
+==== Design Considerations
+===== Aspects : Implementation Import Command
+
+* **Alternative 1 (current choice):** Users import contacts, events and reminders from one .json file.
+** Pros: This approach minimizes the effort needed from users to import data.
+** Cons: Users might want to separate contacts, events and reminders so that importing one component will not affect the other
+* **Alternative 2:** Users import contacts, events and reminders from separate files.
+** Pros: Data can be imported independently.
+** Cons: It takes unnecessary extra effort to import data separately.
+// end::import[]
+
+// tag::export[]
+=== Export
+==== Current Implementation
+
+The `ExportCommand` uses `JsonAddressBookStorage` class to generate a .json file storing contacts, events and reminders by specified tags to store at a specified path. It takes in a String `name`, Path `path` and an optional Tag `tag`. Omitting the tag will simply save all data into the json file. Below is the main idea ExportCommand constructor:
+
+[source,java]
+----
+public ExportCommand(String fileName, Path exportPath, Tag tagExport) {
+        requireNonNull(exportPath);
+        this.filePath = exportPath;
+        this.fileName = fileName;
+        this.tag = tagExport;
+        this.addressBookExported = new AddressBook();
+        addressBookStorage = new JsonAddressBookStorage(filePath);
+    }
+----
+
+The execution flow of the Export command is shown below.
+
+image::ExportSequenceDiagram.png[align="center"]
+    Figure: Export command flow chart
+
+
+Either zero or one tag can be specified. Therefore below are the possible scenarios:
+
+* Without a tag
+** The app exports all contacts, events and reminders in the UniLA by default.
+* With a Tag
+** The app exports all contacts bearing the specified tag in their tagset, along with all events and reminders.
+
+The final step is to create the xml/excel file from the `teachConnectBook`. This is done with the help of the method `tryStorage()`.
+
+==== Design Considerations
+===== Aspects : Implementation Export Command
+* **Alternative 1:** Users can export contacts, events, reminders into separate files.
+** Pros: This implementation removes the dependency between contacts, events and reminders. Users can change one component without affecting the other.
+** Cons: It might take more effort from users to import and export data in general because they need to handle each component separately.
+* **Alternative 2 (current choice):** Users export all data into the same file.
+** Pros: This implementation helps remove the need for importing contacts, events and reminders separately. Instead everything can be imported at once.
+** Cons: Contacts, events and reminders are exported together, and thus there is codependency between these components.
+// end::export[]
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -253,7 +324,7 @@ Step 1. The user launches the application for the first time. The `VersionedAddr
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th person in the UniLA. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
@@ -313,12 +384,390 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::findCommand-yinya998[]
 
-_{Explain here how the data encryption feature will be implemented}_
+=== Find feature
+==== Current Implementation
 
-// end::dataencryption[]
+The mechanism is facilitated by `findCommand`, `findCommandParser` and different Predicate classes. It allows users to search with 3 different search patterns. During the execution of find command, 3 search patterns will be executed one by one.
+
+Given below is the process of executing find command:
+
+Step 1. The exact search: This is a base method of matching string. It's implemented by String.equals().
+
+Step 2. The fuzzy search: This is based on similarity comparison. First edit distance between input keywords and the string in people's fields is calculated based on Levenshtein Distance algorithm. Subsequently, similarity is calculated by s = 1 - Levenshtein_Distance/Max_Length_Of_Two_Strings. The similarity threshold is set to 0.7. If a person’s fields contain keyword which have more than 0.7 similarity to the input keywords, he or she will be returned in fuzzy search result.
+
+Step 3. The wildcard search: This is based on regular expression. It recognizes character *. The character * matches any number of alphanumeric characters consisting of 0-9, a-z and A-Z.
+
+* The following code snippet is from `TagsContainsKeywordPredicate` class. It shows an example of how predicate class works:
+
+[source,java]
+----
+    @Override
+    public boolean test(Person person) {
+        return keywords.stream()
+                .anyMatch(keyword -> {
+                    String name = person.getName().fullName;
+                    String tags = person.getTagsAsStringNoBracket();
+                    if (StringUtil.containsWordIgnoreCase(tags, keyword)) {
+                        if (!exactSearchList.contains(name)) {
+                            exactSearchList.add(name);
+                        }
+                        return true;
+                    }
+                    if (StringUtil.matchFuzzySearch(tags, keyword)) {
+                        if (!fuzzySearchList.contains(name)) {
+                            fuzzySearchList.add(name);
+                       }
+                        return true;
+                    }
+                    if (StringUtil.matchWildcardSearch(tags, keyword)) {
+                        if (!wildcardSearchList.contains(name)) {
+                            wildcardSearchList.add(name);
+                        }
+                        return true;
+                    }
+                    return false;
+                });
+    }
+
+----
+
+==== Design Considerations
+
+===== Aspect: How fuzzy search is executed
+
+* **Alternative 1 (current choice):** Use similarity to compare the keywords
+** Pros: The accuracy is higher because the differences and the total length of the strings are proportional.
+** Cons: Less easy to implement.
+* **Alternative 2:** Use edit distance to compare the keywords
+** Pros: Easy to implement.
+** Cons: Lower accuracy especially when the string is short.
+
+[NOTE]
+Different search patterns optimize the 'find' command for different kinds of users. They help with users when they cannot remember the exact spelling or users who are prone to typos.
+
+
+// end::findCommand-yinya998[]
+
+
+// tag::photoCommand-yinya998[]
+
+=== Photo feature
+==== Current Implementation
+
+The mechanism is facilitated by `Photo`, `PhotoCommand` class. A `Photo` class is added to `Model`. It allows users to add a photo to the person in the contact list.
+
+Given below is the process of executing photo command:
+
+Step 1. The command will be checked whether it contains sub command `clear`. If it is a photo clear command, the photo of the contact list will reset to default photo. The photo command execution is finished. Else, following steps will be executed.
+
+Step 2. The input file path will be checked for whether the file exists.
+
+Step 3. The input file path will be checked for whether it can be opened as an image.
+
+Step 4. The size the of photo will be checked for whether it is within the range (smaller than 20MB).
+
+Step 5. The photo will be copied to the program and it is saved to the target person.
+
+
+* The following code snippet is from PhotoCommand class. It shows an example of how photo command executes:
+
+[source,java]
+----
+if (photo.getPath().equals(COMMAND_SUB)) {
+    photo.setPath(DEFAULT_PHOTOPATH);
+    Person personToEdit = lastShownList.get(targetIndex.getZeroBased());
+    String path = personToEdit.getPhoto().getPath();
+    File file = new File(path);
+    file.delete();
+
+    } else {
+    if (!isValidPhotoPath(photo.getPath())) {
+         return new CommandResult(MESSAGE_INVALID_PHOTOPATH);
+    }
+    if (!isImage(photo.getPath())) {
+         return new CommandResult(MESSAGE_FILE_NOT_IMAGE);
+    }
+    if (!isPhotoSizeWithinRange(photo.getPath())) {
+         return new CommandResult(MESSAGE_SIZE_EXCEED);
+    }
+
+    String user = System.getProperty("user.name");
+    String dir = "data/";
+    String copyPath = FileUtil.copyFile(photo.getPath(), String.format(dir, user));
+    photo.setPath(copyPath);
+    }
+
+----
+
+==== Design Considerations
+
+===== Aspect: How photo is stored in UniLA
+
+* **Alternative 1 (current choice):** Copy the photo to the program.
+** Pros: The address book will not be affected if the photo in the original path is moved, renamed or deleted. Stability of the program is ensured.
+** Cons: Consumes more memory because the photo is copied to the program.
+* **Alternative 2:** Save the path and load the photo from the path every time when user opens the app.
+** Pros: Use less memory. Easy to implement.
+** Cons: The photo will be not be displayed if the photo in the original path is moved, renamed or deleted.
+
+// end::photoCommand-yinya998[]
+
+// tag::eventlistcomponent-jwl1997[]
+=== Event list component
+==== Current Implementation
+
+The Event list component complements Person list(the original addressbook4) to provide user with better manage events and their participants. To achieve this, a new Event model is created to according to the below class diagram.
+
+image::EventClassDiagram.png[width="300"]
+
+All the Events object will be stored inside `UniqueEventList`, which becomes another data collection inside `AddressBook` class. When `ModelManager` create `VersionedAddressBook`(implements `AddressBook`), there will be two data collections, one for event and the other for contact.
+From the below Model class diagram, it will be easier to see the illustrate how this Event model integrate the original data structures
+
+image::BeforeAfterClassDiagram.png[width="800]
+
+Several use cases are implemented for this event components, the use case diagram is shown below:
+
+image::EventListUseCases.png[width="500"]
+
+==== Design Considerations
+
+===== Aspect: How to implement Event list component
+
+* **Alternative 1 (current choice):** Add `UniqueEventList` into `AddressBook`.
+** Pros: Easy to implement and current redo, undo, clear command can work for this Event model commands
+** Cons: `AddressBook` need to manage both contacts and events, thus have to implement more functions, like add, delete, set for both event and person.
+* **Alternative 2:** Build another class outside `AddressBook` to maintain `UniqueEventList`
+** Pros: Functionality will be separated to different classes.
+** Cons: This will need much more implementation to build the event list component, including `VersionedAddressBook`, `redo`,`undo`
+
+// end::eventlistcomponent-jwl1997[]
+
+// tag::contacteventconnection-jwl1997[]
+=== Connect feature
+==== Current Implementation
+The connect feature will provide two commands, `Connect` and `Disconnect`, which is used to add/remove a person to an event as participants.
+The connect/disconnect mechanism is facilitated by the `persons` list attribute defined in `Event` class. All the participants for an event is stored inside the `persons` list.
+The connect/disconnect functions are achieved by adding/removing person from the list in a specific event.
+To achieve this function and other person-event related functions, a unidirectional reference is maintained from `Event` to `Person`, as shown below.
+
+image::EventContactReference.png[width="700"]
+
+==== Design Considerations
+===== Aspect: How to implement Connection between contact and event
+
+* **Alternative 1 (current choice):** Maintain unidirectional relationship between events and contacts.
+** Pros: Easier to implement, sufficient for all the operations provided in the current product and less memory/storage required
+** Cons: `meet` function need to loop through all events to plan a meeting
+* **Alternative 2:** Maintain bidirectional relationship between events and contacts.
+** Pros: Still easy to implement, easier to get the events that each person has.
+** Cons: This bidirectional relationship is relatively harder to manage than unidirectional, because delete person/event and connect/disconnect need to change both two referencing lists. Also, more storage will be used in this implementation because Person class also maintain all the Events it is participating, although when the number of events and persons is small, the difference in storage is not significant.
+
+
+// end::contacteventconnection-jwl1997[]
+
+// tag::meet[]
+=== Meeting Planner
+
+The mechanism is supported by the MeetCommand class. This command allows users to automatically create a meeting event among certain people, removing the need to siphon through all the events just to find a common available timeslot among contacts to meet. The command will:
+
+****
+* search for the earliest available timeslot among the requested people to meet
+* create the meeting event in the event list
+* connect the requested people to the event and
+* set the details of the event (such as name, description etc.) as requested.
+****
+
+Format:
+`meet INDEX TAGS n/NAME d/DESCRIPTION v/VENUE l/LABEL duration/DURATION s/STARTDATETIME e/ENDDATETIME block/BLOCK`
+
+Example:
+
+`meet 1 2 t/friends t/colleagues n/Snooker competition d/Playing snooker again v/SAFRA Toa Payoh l/snooker duration/0 8 -30 0 s/2019-05-01 00:00:00 e/2019-05-07 00:00:00 block/09:00 18:00`
+
+creates an event whereby:
+
+****
+* The event will have the first and second people in the contact list, and all persons with the `friends` or `colleagues` tag, or both
+* The event's name is `Snooker competition`
+* The event's description is `Playing snooker again`
+* The event venue is `SAFRA Toa Payoh`
+* The event is labeled as `snooker`
+* The event will last 7 hours and 30 minutes
+* The event will start at or after 1st May 2019 at 12am
+* The event will end at or before 7th May 2019 at 12am
+* The event must fall within 9am to 6pm of the same day.
+****
+
+==== How it works:
+. `MeetCommandParser` parses `meet` command. The `MeetCommandParser` will ensure that:
+** at least one index or tag was entered
+** all indices are valid
+** all other errors caused by invalid arguments will be thrown by `ParserUtil` and `ParserUtilForEvent`
+. All the fields are passed as arguments into the constructor of `MeetCommand`, which stores all arguments as instance fields.
+. `MeetCommand` retrieves the specified persons from `model`. If a person is not able to be retrieved from the contact list, or if it discovers that less than two valid persons were entered, a `CommandException` is thrown.
+. Next, a check will be done to ensure that the specified start time entered is non-trivial, that is, the earliest event created must start at least from the next hour from the time the user enters the command. If the user enters a date and time before the date and time when the command is entered, the next hour after the current date and time will be used instead.
+. The full event list will be retrieved from `model`, and piped into a `Stream`.
+. Events will be filtered off from the `Stream`, based on whether the event involves any of the people specified by the user. This is so that a common free slot can be found.
+. The events will then be sorted in order of start time, so that the earliest available common free time slot can be found.
+. The earliest common time slot that fits the given block and duration of the event is searched for.
+. This event is created, added, and the addressbook is then committed.
+
+The sequence of interactions is shown in the following diagram:
+
+image::MeetCommandSequenceDiagram.png[width="800"]
+
+The loop portion is not actually implemented with a `for` or `while` loop. Instead, a `Stream` was used as it was able to `filter` and `reduce` each event sequentially.
+
+The following describes the logic behind points 4 till 9.
+
+Suppose the user enters `meet 1 2 3 s/2019-05-14 03:00 duration/0 4 0 0 block/09:30 18:00`. In this case, the indices, tags, name, description, venue and label are trivial to the logic. Further suppose the user enters this command at some date and time before 03:00 on 14 May 2019.
+
+In this user's current events list, there are six events, all involving either persons 1, 2 or 3. These events are "in the way". They are depicted as red boxes in the following diagrams. All other events in the list have been filtered away by the `Stream`.
+
+The yellow region signifies the block entered by the user, i.e. the block of time which the event *must* fall in.
+
+image::MeetCommandLogic1.png[width="800"]
+
+Because the start time is after the next hour from the time the command was entered, an event with a duration of 4 hours that starts on 3am on 14 May 2019 is created. This is labeled as `meeting` in light blue below.
+
+image::MeetCommandLogic2.png[width="800"]
+
+`meeting` is first transformed to fit in the first block. This is done by the `transformEventToFitBlock(Event e)` method.
+
+At this point, all existing events in the events list (shown in red) will be piped into a `Stream` object. This `stream` is filtered, such that all events that do not have *any* of the proposed meeting participants are filtered out.
+
+In this case, because all events in the user's events list involve either persons 1, 2 or 3, none of them are filtered out. Now, `reduce` is applied on this `Stream` object.
+
+The following is the code snippet for the `reduce` method.
+
+[source,java]
+----
+.reduce(meeting, (x, y) -> {
+    LocalDateTime xEnd = toDateTime(x.getEndDateTime());
+    LocalDateTime yStart = toDateTime(y.getStartDateTime());
+    LocalDateTime yEnd = toDateTime(y.getEndDateTime());
+    if (toDateTime(x.getStartDateTime()).isAfter(yEnd)
+            || !xEnd.isAfter(yStart)) {
+        return x;
+
+    }
+    LocalDateTime start = yEnd;
+    return transformEventToFitBlock(new Event(name, description, venue,
+            new DateTime(start.format(DateTime.DATE_TIME_FORMATTER)),
+            new DateTime(start.plus(duration).format(DateTime.DATE_TIME_FORMATTER)), label));
+});
+----
+
+In this case, `x` will always be the `meeting` event, shown in blue. Event `y` will be highlighted green.
+
+Because the `stream` has already been sorted in order of start `DateTime` s, `y` will be selected in order of left to right in the diagram.
+
+The logic behind `reduce` is as follows:
+
+* If `x` does not clash with `y`, then `(x, y)` reduces to `x`.
+* Else, create a new meeting that starts at the end `DateTime` of y, then transform it to fit the block.
+
+Pictorially, it will look like the following.
+
+image::MeetCommandLogic3.png[width="800"]
+
+The left-most event is selected as `y`. In the first use of `reduce`, the `identity` was set to be the initial `meeting:Event`, in blue.
+
+Because the event in blue does not clash with the event in green, both events simply reduce to the one in blue. The next left-most event is selected as the next `y`.
+
+image::MeetCommandLogic4.png[width="800"]
+
+In this case, the event in blue clashes with the event in green. Thus, a new event, with a duration of 4 hours (same as before), that starts at the end of `y`, is created. This event is then transformed to fit the block, which in this case already does. The old blue and green events are reduced to this new event.
+
+image::MeetCommandLogic5.png[width="800"]
+
+Here, the event in blue clashes with the event in green. A new event with a duration of 4 hours, that starts at the end of `y`, is created. This event is then transformed to fit the block, in this case, it is pushed all the way to start at 09:30 the next day.
+
+image::MeetCommandLogic6.png[width="800"]
+
+image::MeetCommandLogic6a.png[width="800"]
+
+The event here does not clash with `meeting`. Both events reduce to `meeting`.
+
+image::MeetCommandLogic7.png[width="800"]
+
+Here, the event in blue clashes with the event in green. Just as before, the two old events are reduced to a new meeting event that starts right after the end of `y` and is within the block.
+
+image::MeetCommandLogic8.png[width="800"]
+
+Finally, the last event does not clash with the event in blue. Both events reduce to the event in blue.
+
+image::MeetCommandLogic9.png[width="800"]
+
+This event is then tested whether its end `DateTime` is later than the latest end `DateTime` specified by the user, and whether there are duplicate events. I would have written a lot more, but I'm out of space in my PPP.
+
+// end::meet[]
+
+// tag::reminderComponent-jillWangJill[]
+=== Reminder Component
+
+The mechanism is supported by the `reminder` and `reminderList` class. It allows users to add reminders to event, which will pop in app certain interval before event start time. Please refer to this class diagram.
+
+image::ReminderEventRelationship.png[width="800"]
+
+`reminderList` will keep track of all `reminder`.
+`reminder` class contains `Unit`, `Interval` to facilitate the constructor building. Please refer to the following class diagram.
+
+image::ReminderClassDiagram.png[width="200"]
+
+==== Aspect: How to implement `reminder`
+* **Alternative 1 (current choice):** Create new model, named `reminder` to include `reminder` and `reminderList` class.
+** Pros: Convenient for modifying because of the relatively loose connection with `event`.
+** Cons: Require large change in model.
+* **Alternative 2:** Add another attribute named reminder to record the remind time and we can list the event by sorting remind time.
+** Pros: Easy to implement. Only need `event` and `person` model.
+** Cons: Not easy to delete corresponding reminder after its reminding time as it is highly connected with event. Cannot be applied and modified anywhere.
+
+==== Aspect: How to implement `reminderList`
+* **Alternative 1 (current choice):** Create only one reminder list for whole `UniLA`.
+** Pros: Convenient for adding, deleting, and checking.
+** Cons: Required more connection between logic and model.
+* **Alternative 2:** Create one reminder list for each event for whole `UniLA`.
+** Pros: Easy to implement.
+** Cons: Not centered. Need to loop through every event when add, delete and check.
+
+
+// end::reminderComponent-jillWangJill[]
+// tag::reminderFeature-jillWangJill[]
+=== Reminder Feature
+
+Please take a look at use case diagram first.
+
+image::ReminderUseCase.png[width="400"]
+
+Among these features, the `addR` combined with `reminderCheck` is the most useful one. The mechanism is supported by `ReminderCheck`,`AddR` and `AddR parser` classes. It allows users to create a reminder in certain interval before event start time.
+And the reminder will pop inside app at that reminding time. Also, it will disappear after showing up for one minute.
+
+Given below is an example usage scenario and how the `AddR` reminder behaves.
+
+Step 1. The user lists events in address and select the event that the user wants UniLA to remind.
+
+Step 2. User run command `addR 2 t/4 u/min`, which will let UniLA add the one 4min-before-starttime reminder to the second event.
+
+Step 3. When the time is up, the reminder pop up under `listR` model.
+
+Step 4. After showing up for 1 minute, the reminder will be automatically deleted from the reminder list.
+
+==== How it works:
+* AddRCommandParser parses `addR` command. The AddRCommandParser will ensure the interval unit and to check possible exceptions.
+* Interval and event will be passed to AddRCommand. AddRCommand touched model to create new reminder in reminder list.
+* Another thread named `reminderCheck` will be running at the same time. It will check when to pop up the reminder, and when to make it disappear by comparing `the starting time - interval` with `current time`.
+* Reminder which satisfies the time requirement will pop up under `listR` model.
+* Reminder will be deleted from reminder list after it shows up for 1 minute.
+
+To achieve the reminder check function, another thread is created as the sequence diagram shown below.
+
+image::reminderListSequenceDiagram.png[width="800"]
+
+
+// end::reminderFeature-jillWangJill[]
 
 === Logging
 
@@ -567,12 +1016,12 @@ Do take a look at <<Design-Logic>> before attempting to modify the `Logic` compo
 [discrete]
 ==== `Model` component
 
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
+*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the UniLA, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
 
 [TIP]
 Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
 
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
+. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the UniLA.
 +
 ****
 * Hints
@@ -589,7 +1038,7 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 [discrete]
 ==== `Ui` component
 
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
+*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your UniLA application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
 
 [TIP]
 Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
@@ -639,7 +1088,7 @@ image::getting-started-ui-result-after.png[width="200"]
 *** Do read the commits one at a time if you feel overwhelmed.
 ****
 
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
+. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the UniLA.
 +
 **Before**
 +
@@ -652,7 +1101,7 @@ image::getting-started-ui-status-after.png[width="500"]
 ****
 * Hints
 ** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
+** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the UniLA is updated.
 * Solution
 ** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
 ** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
@@ -664,12 +1113,12 @@ image::getting-started-ui-status-after.png[width="500"]
 [discrete]
 ==== `Storage` component
 
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
+*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the UniLA to the cloud. However, the current implementation of the application constantly saves the UniLA after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the UniLA storage.
 
 [TIP]
 Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
 
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
+. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the UniLA can be saved in a fixed temporary location.
 +
 ****
 * Hint
@@ -837,25 +1286,60 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
-|=======================================================================
+|`*` |user with many persons in the UniLA |sort persons by name |locate a person easily
 
-_{More to be added}_
+|`* * *` |user |add a new event |
+
+|`* * *` |user |delete an event |remove the events that I have attended
+
+|`* * *` |user |edit an event |modify the events details
+
+|`* * *` |user |list all events |see all the events that I have
+
+|`* * *` |user |connect a person to an event |add a person as participant to an event
+
+|`* * *` |user |disconnect a person from an event |remove this person from the event
+
+|`* * *` |user |meet people |find common free timeslot and create event with people
+|=======================================================================
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `UniLA` and the *Actor* is the `user`, unless specified otherwise)
+
+// tag::useCases-jwl1997[]
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add person / event
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User inputs text to console to add person/event.
+2. UniLA acknowledges and adds person/event to the list.
+3. UniLA is updated with a latest list of persons/events.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The format of parameters entered are invalid.
++
+[none]
+** 1a1. UniLA shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Delete person/event
+
+*MSS*
+
+1.  User requests to list persons/events
+2.  UniLA shows a list of persons/events
+3.  User requests to delete a specific person/event in the list
+4.  UniLA deletes the person/event
 +
 Use case ends.
 
@@ -869,11 +1353,56 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. UniLA shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: Edit person/event
+
+*MSS*
+
+1.  User requests to edit a specific person/event in the list.
+2.  UniLA updates itself.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list is empty.
++
+[none]
+** 1a1. UniLA shows an error message.
++
+Use case ends.
+
+* 1b. The arguments for edit command are invalid.
++
+** 1b1. UniLA shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: List persons/events
+
+*MSS*
+
+1. User request to list all the persons/events.
+2. UniLA displays list of persons.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. There is no event/person in UniLA.
++
+** UniLA shows a successful message.
++
+Use case ends.
+
+
+// end::useCases-jwl1997[]
 
 [appendix]
 == Non Functional Requirements
@@ -948,6 +1477,15 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
+=== Delete an event
+
+. Delete an event while all events are listed.
+
+.. Prerequisites:List all events using the `listE` command. Multiple events in the list.
+    Delete all reminders relate to this event using `deleteR e/1`.
+.. Test case: `deleteE 1` +
+   Expected: 1st event deleted.
+
 === Saving data
 
 . Dealing with missing/corrupted data files
@@ -955,3 +1493,27 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+=== Meeting planner
+
+. Meeting multiple people
+
+.. Prerequisites: List all persons using the `list` command. At least 5 persons must be in the list.
+.. Prerequisites: List all events using `listE` command. No events must be in the list.
+.. Test case: `meet 1 2` +
+   Expected: A 2-hour event with the first two people in this list is created. The event should start in the next hour the user enters the command.
+.. `meet 2 3` +
+   Expected: A 2-hour event with the second and third persons in this list is created. This event should start right after the previous event was created.
+.. `switch` +
+   `edit 1 n/Another Name` +
+   `listE` +
+   `select` 1
+   Expected: The first event should update the changes in the first person's name
+.. `meet 4 5 duration/0 3 0 0` +
+   Expected: A 3-hour event with the fourth and fifth persons in this list is created. This event should start in the next hour the user enters the command.
+.. Test case 2: `meet 1` +
+   Expected: An error is thrown saying that more than one person must be involved in this event.
+.. Test case 3: `meet 10000000000000 100000000001` +
+   Expected: An error is thrown saying that the indices are invalid.
+.. Test case 4: `meet 1 1 2 2 2` +
+   Expected: The command works as per normal. Duplicates should be ignored.

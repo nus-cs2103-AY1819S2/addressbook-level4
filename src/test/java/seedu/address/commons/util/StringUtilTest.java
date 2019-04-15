@@ -67,7 +67,7 @@ public class StringUtilTest {
     }
 
     private void assertExceptionThrown(Class<? extends Throwable> exceptionClass, String sentence, String word,
-            Optional<String> errorMessage) {
+                                       Optional<String> errorMessage) {
         thrown.expect(exceptionClass);
         errorMessage.ifPresent(message -> thrown.expectMessage(message));
         StringUtil.containsWordIgnoreCase(sentence, word);
@@ -146,7 +146,7 @@ public class StringUtilTest {
     @Test
     public void getDetails_exceptionGiven() {
         assertThat(StringUtil.getDetails(new FileNotFoundException("file not found")),
-                   containsString("java.io.FileNotFoundException: file not found"));
+                containsString("java.io.FileNotFoundException: file not found"));
     }
 
     @Test
@@ -155,5 +155,25 @@ public class StringUtilTest {
         StringUtil.getDetails(null);
     }
 
+    @Test
+    public void matchTwoWordsSimilarity() {
+        assertFalse(StringUtil.containsWordIgnoreCase("Charlotte", "alx"));
+        assertFalse(StringUtil.containsWordIgnoreCase("David", "alx"));
+        assertFalse(StringUtil.containsWordIgnoreCase("alx", "David"));
+        assertFalse(StringUtil.containsWordIgnoreCase("David", "vai"));
+
+        assertFalse(StringUtil.containsWordIgnoreCase("David", "a"));
+        assertFalse(StringUtil.containsWordIgnoreCase("David", "Da"));
+        assertFalse(StringUtil.containsWordIgnoreCase("David", "D"));
+        assertFalse(StringUtil.containsWordIgnoreCase("David", "vid"));
+        assertFalse(StringUtil.containsWordIgnoreCase("David", "av"));
+
+        assertTrue(StringUtil.match("David", "D*id"));
+        assertTrue(StringUtil.match("David", "d*id"));
+        assertTrue(StringUtil.match("David", "D*i*"));
+        assertTrue(StringUtil.match("David", "d*I*"));
+        assertTrue(StringUtil.match("David", "Da*"));
+        assertTrue(StringUtil.match("David", "da*"));
+    }
 
 }

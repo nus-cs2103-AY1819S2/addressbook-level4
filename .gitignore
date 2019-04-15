@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+/build
+=======
 build/
+>>>>>>> parent of 82f19c8c... update my repo
 .gradle/
 .checkstyle
 .settings/
@@ -8,7 +12,7 @@ lib/*
 *.log
 *.log.*
 *.csv
-config.json
+/config.json
 src/test/data/sandbox/
 preferences.json
 .DS_Store

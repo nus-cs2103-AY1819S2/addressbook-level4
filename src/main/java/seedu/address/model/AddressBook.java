@@ -7,9 +7,12 @@ import java.util.List;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
+import seedu.address.model.event.Event;
+import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
-
+import seedu.address.model.reminder.Reminder;
+import seedu.address.model.reminder.ReminderList;
 /**
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
@@ -17,20 +20,24 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueEventList events;
+    private final ReminderList reminders;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
-    /*
+    /**
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
+     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.htm
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
+     * among constructors.
      */
     {
         persons = new UniquePersonList();
+        events = new UniqueEventList();
+        reminders = new ReminderList();
     }
 
-    public AddressBook() {}
+    public AddressBook() {
+    }
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
@@ -58,6 +65,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setEvents(newData.getEventList());
+        setReminders(newData.getReminderList());
     }
 
     //// person-level operations
@@ -134,11 +143,170 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && persons.equals(((AddressBook) other).persons))
+                && events.equals(((AddressBook) other).events);
     }
 
     @Override
     public int hashCode() {
         return persons.hashCode();
+    }
+
+
+    /**
+     * Replaces the contents of the event list with {@code events}.
+     * {@code events} must not contain duplicate events.
+     */
+    public void setEvents(List<Event> events) {
+        this.events.setEvents(events);
+        indicateModified();
+    }
+
+    //event-level operation
+
+    /**
+     * Returns true if a event with the same identity as {@code event} exists in the address book.
+     */
+    public boolean hasEvent(Event event) {
+        requireNonNull(event);
+        return events.contains(event);
+    }
+
+    /**
+     * Adds an event to the address book.
+     * The event must not already exist in the address book.
+     */
+    public void addEvent(Event event) {
+        events.add(event);
+        indicateModified();
+    }
+
+    /**
+     * Replaces the given event {@code target} in the list with {@code editedEvent}.
+     * {@code target} must exist in the address book.
+     * The event identity of {@code editedEvent} must not be the same as another existing event in the address book.
+     */
+    public void setEvent(Event target, Event editedEvent) {
+        requireNonNull(editedEvent);
+
+        events.setEvent(target, editedEvent);
+        indicateModified();
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeEvent(Event key) {
+        events.remove(key);
+        indicateModified();
+    }
+
+    @Override
+    public ObservableList<Event> getEventList() {
+        return events.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Reminder> getReminderList() {
+        return reminders.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ReminderList getReminderListTest() {
+        return reminders;
+    }
+
+    /**
+     * Replaces the contents of the reminder list with {@code remindersreminder}.
+     * {@code reminders} must not contain duplicate reminders.
+     */
+    public void setReminders(List<Reminder> reminders) {
+        this.reminders.setReminders(reminders);
+        indicateModified();
+    }
+
+    //-reminder operation
+
+    /**
+     * Returns true if a reminder with the same identity as {@code reminder} exists in the address book.
+     */
+    public boolean hasReminder(Reminder reminder) {
+        requireNonNull(reminder);
+        return reminders.contains(reminder);
+    }
+
+
+    /**
+     * check whether this reminder's time is passed or not
+     * @param reminder
+     * @return
+     */
+    public boolean isReminderPassed(Reminder reminder) {
+        requireNonNull(reminder);
+        return reminder.deleteReminder();
+    }
+
+    /**
+     * Adds an reminder to the address book.
+     * The reminder must not already exist in the address book.
+     */
+    public void addReminder(Reminder reminder) {
+        reminders.add(reminder);
+        indicateModified();
+    }
+
+    /**
+     * connect AddR command with GUI
+     *
+     * @param reminder
+     */
+    public void addShownReminder(Reminder reminder) {
+        reminders.addShown(reminder);
+        indicateModified();
+    }
+
+    public void setShow(Reminder r, boolean v) {
+        r.setShow(v);
+    }
+
+    public void setNotShow(Reminder r, boolean v) {
+        r.setNotShow(v);
+    }
+
+
+    /*public void setReminder(Reminder target, Reminder editedReminder) {
+        requireNonNull(editedReminder);
+
+        reminders.setReminder(target, editedReminder);
+        indicateModified();
+    }*/
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeReminder(Reminder key) {
+        reminders.remove(key);
+        indicateModified();
+    }
+
+    /**
+     * To remove reminder with specific event
+     *
+     * @param key
+     */
+    public void removeReminder(Event key) {
+        reminders.remove(key);
+        indicateModified();
+    }
+
+    /**
+     * Check whether there are event to be removed
+     * @param target
+     * @return
+     */
+    public boolean isRemove(Event target) {
+        return reminders.isRemove(target);
     }
 }

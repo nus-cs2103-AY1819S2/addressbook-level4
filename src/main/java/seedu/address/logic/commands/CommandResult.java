@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+
 /**
  * Represents the result of a command execution.
  */
@@ -17,21 +18,52 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** The application should switch views. */
+    private final boolean switchView;
+
+    /** The application should show full reminder. */
+    private final boolean showFullReminder;
+
+    //private final WindowViewState switchReminderView;
     /**
      * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean switchView) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.switchView = switchView;
+        this.showFullReminder = false;
+    }
+
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean switchView,
+                         boolean showFullReminder) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.switchView = false;
+        this.showFullReminder = showFullReminder;
+    }
+
+
+    /**
+     * Constructs a {@code CommandResult} with the specified showHelp and exit fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.switchView = false;
+        this.showFullReminder = false;
     }
+
 
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -44,6 +76,14 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isSwitchView() {
+        return switchView;
+    }
+
+    public boolean isShowFullReminder() {
+        return showFullReminder;
     }
 
     @Override

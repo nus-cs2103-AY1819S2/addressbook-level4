@@ -107,6 +107,14 @@ public class BillManager implements BillModel {
         userPrefs.setHotelManagementSystemFilePath(hotelManagementSystemFilePath);
     }
 
+    /**
+     * Returns an unmodifiable view of the list of {@code Booking} backed by the internal list of
+     * {@code versionedHotelManagementSystem}
+     */
+    public ObservableList<Booking> getFilteredBookingList() {
+        return filteredBookings;
+    }
+
     //=========== HotelManagementSystem ================================================================================
 
     @Override
@@ -129,34 +137,12 @@ public class BillManager implements BillModel {
         return filteredReservations;
     }
 
-    //=========== Filtered Booking List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Booking} backed by the internal list of
-     * {@code versionedHotelManagementSystem}
-     */
-    public ObservableList<Booking> getFilteredBookingList() {
-        return filteredBookings;
-    }
-
-    //=========== Filtered Reservation List Accessors =============================================================
-
     /**
      * Returns an unmodifiable view of the list of {@code Reservation} backed by the internal list of
      * {@code versionedHotelManagementSystem}
      */
     public ObservableList<RoomType> getFilteredRoomTypeList() {
         return roomTypeList;
-    }
-
-    //=========== Filtered Booking List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Booking} backed by the internal list of
-     * {@code versionedHotelManagementSystem}
-     */
-    public ObservableList<ServiceType> getServiceTypeList() {
-        return serviceTypeList;
     }
 
     //=========== Undo/Redo =================================================================================

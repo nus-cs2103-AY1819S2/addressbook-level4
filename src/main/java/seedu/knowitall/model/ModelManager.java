@@ -407,6 +407,8 @@ public class ModelManager implements Model {
     @Override
     public void endTestSession() {
         int minimumNumberAnswered = getActiveCardFolder().getCardList().size() / MIN_FRACTION_ANSWERED_TO_COUNT;
+        System.out.println("min num to be ans" + minimumNumberAnswered);
+        System.out.println("num answered" + numAnsweredTotal);
         if (numAnsweredTotal >= minimumNumberAnswered) {
             getActiveVersionedCardFolder()
                     .addFolderScore((double) numAnsweredCorrectly / numAnsweredTotal);

@@ -351,7 +351,7 @@ Format: `clear`
 
 Exits the program. +
 Format: `exit`
-
+// tag::sortper[]
 === Sorting persons by name/salary/occupation/residential area/group : `sortper`
 
 Lists all people that meet the specified filter requirement(in sequence/reverse order).
@@ -363,8 +363,9 @@ Examples:
 `sortper` salary seq     (list all persons by salary in sequence order)
 
 `sortper` phone rev            (list all persons by their phone number in reverse order)
+// end::sortper[]
 
-
+// tag::sortcpny[]
 === Sorting companies by name/revenue/occupation/residential area/group : `sortcpny`
 
 Lists all companies that meet the specified filter requirement(in sequence/reverse order).
@@ -376,7 +377,7 @@ Examples:
 `sortcpny` revenue seq     (list all companies by revenue in sequence order)
 
 `sortcpny` phone rev            (list all companies by their phone number in reverse order)
-
+// end::sortcpny[]
 
 === Find clients: `findCli` `[coming in v2.0]`
 
@@ -475,6 +476,8 @@ Examples:
 
 `group` winners n/jacob a/1 queen st n/adam a/10 north st
 
+// tag::export[]
+
 === Export data as CSV: `export`
 
 Exports the data to a CSV file
@@ -484,7 +487,7 @@ Format: `export` [FILEPATH] [FILENAME]
 Examples:
 
 `export` /Users/fandongzhe/Desktop/fg market (type in the whole filepath)
-
+// end::export[]
 
 // tag::averageSalary[]
 === Show average salary for all persons: `averageSalary`
@@ -502,17 +505,21 @@ Shows median salary for all persons in the address book
 Format: `medianSalary`
 // end::medianSalary[]
 
+// tag::findmax[]
 === Show maximum salary for all clients: `findmax`
 
 Show maximum salary for all clients in the address book
 
 Format: `findmax`
+// end::findmax[]
 
+// tag::findmin[]
 === Show minimum salary for all clients: `findmin`
 
 Show minimum salary for all clients in the address book
 
 Format: `findmin`
+// end::findmin[]
 
 // tag::averageRevenue[]
 === Show average revenue for all companies: `averageRevenue`

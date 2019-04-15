@@ -892,11 +892,13 @@ Figure 36. Sequence diagram of how the statistics data is saved.
 The following sequence diagram summarizes what happens at the end of the game and an automatic reading of previous
 statistics data is performed.
 
+image::ReadSequenceDiagram.PNG[width=1000]
 Figure 37. Sequence diagram of how the previous statistics data is read from storage.
 
 ==== Activity Diagram
 The following Activity Diagram shows when the `stats` command can be used.
 
+image::StatisticsActivityDiagram.png[width=1000]
 Figure 38. Activity Diagram of the statistics feature.
 
 ==== Use Case Diagram

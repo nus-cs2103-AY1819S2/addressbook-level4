@@ -18,7 +18,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import guitests.guihandles.StatusBarFooterHandle;
-import seedu.address.model.AddressBook;
+import seedu.address.model.FashionMatch;
 
 public class StatusBarFooterTest extends GuiUnitTest {
 
@@ -29,7 +29,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
     private static final Clock injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
 
     private StatusBarFooterHandle statusBarFooterHandle;
-    private final AddressBook addressBook = new AddressBook();
+    private final FashionMatch addressBook = new FashionMatch();
 
     @BeforeClass
     public static void setUpBeforeClass() {

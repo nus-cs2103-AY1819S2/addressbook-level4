@@ -162,7 +162,7 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:https://github.com/CS2103-AY1819S2-W15-1/main/tree/master/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ApparelListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
@@ -200,7 +200,7 @@ image::DeletePersonSdForLogic.png[width="800"]
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link::https://github.com/CS2103-AY1819S2-W15-1/main/tree/master/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
@@ -215,7 +215,7 @@ The `Model`,
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:https://github.com/CS2103-AY1819S2-W15-1/main/tree/master/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -233,17 +233,91 @@ This section describes some noteworthy details on how certain features are imple
 
 // tag::wash[]
 === Wash feature
-Set availability status to clean.
-==== Current Implementation
-_{More to be added}_
+Reset apparel status to `clean` if previously `worn`.
+Simulating an event in the real world where send your clothes to wash.
+
+3.1.1. Current implementation - Wash a single indicated apparel
+
+The wash command takes in only one parameter:
+
+* Index: Index number of an apparel in filtered/unfiltered list. Only positive numbers present in list are valid.
+
+e.g `wash 1`
+
+.High Level Visualisation of Wash Command
+image::HighLevelWashDiagram.png[width="800"]
+
+When the user inputs the wash command in the CLI, the input is parsed, and the index of the apparel specified are tokenized and extracted.
+
+`wash` keyword will call a constructor for WashCommandParser to parse the `index`, 1, creating a WashCommand for LogicManager.
+
+LogicManager executes WashCommand which calls Model to set the apparel in the list to `clean`, and commits the changes to Storage.
+
+.Sequence Diagram for Wash command
+image::washCommand.jpg[width="800"]
+
+The CommandResult object that is returned by the wash command lets the user know that the status of the apparel has been reset to `clean` or that it is already `clean`.
+
+3.1.2. Design Considerations:
+
+* Alternate command word: `available 1` works the same and is identical to `wash 1`
+
+Pros: Gives the user a choice and a more intuitive approach to wardrobe management
+
+* Input: Not allowing user to wash an already-clean Apparel again.
+
+Pros: Reminds the user that his apparel is already clean if user absentminded types command.
+
+Pros: Saves CPU time as it is not commiting to Addressbook. Throws exception instead.
+
+3.1.3. Proposed additions for v2.0:
+
+A washAll command to simulate throwing all your dirty clothes into the washing machine.
+
 // end::wash[]
 
-// tag::Wear[]
+// tag::wear[]
 === Wear feature
-Set availability status to Worn.
-==== Current Implementation
-_{More to be added}_
-// end::Wear[]
+Sets apparel status to `worn` whether its previous status was `clean` or `worn` and increases usage count by one.
+Simulating an event in the real world where throw your worn clothes to the laundry basket
+
+3.2.1. Current implementation - Wear a single indicated apparel
+
+The wear command takes in only one parameter:
+
+* Index: Index number of an apparel in filtered/unfiltered list. Only positive numbers present in list are valid.
+
+e.g `wear 1`
+
+.High Level Visualisation of Wear Command
+image::HighLevelWearDiagram.png[width="800"]
+
+When the user inputs the wash command in the CLI, the input is parsed, and the index of the apparel specified are tokenized and extracted.
+
+`wear` keyword will call a constructor for WearCommandParser to parse the `index`, 1, creating a WearCommand for LogicManager.
+
+LogicManager executes WashCommand which calls Model to set the apparel in the list to `worn`, and commits the changes to the Apparel to Storage.
+
+.Sequence Diagram for Wear command
+image::wearCommand.jpg[width="800"]
+
+The CommandResult object that is returned by the wear command lets the user know that the status of the apparel has been set to `worn` and returns and random message if the indicated apparel was already `worn` before command was executed.
+
+3.2.2. Design Considerations:
+
+* Alternate command word: `unavailable 1` works the same and is identical to `wash 1`
+
+Pros: Gives the user a choice and a more intuitive approach to wardrobe management
+
+* Input: Allowing user to wear an already-clean Apparel again.
+
+Pros: Simulates the real world where people might not have time to wash their clothes due to bad time management and instead throws on the next thing in the wardrobe.
+
+3.2.3. Proposed additions for v2.0:
+
+A wear command that takes in multiple INDEXs to simulate wearing a whole outfit out. e.g. `wear 1 2 3` to wear Apparel no. 1, 2 and 3.
+
+// end::wear[]
 
 // tag::sort[]
 === Sort Apparel feature

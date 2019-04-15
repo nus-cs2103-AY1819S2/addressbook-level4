@@ -28,7 +28,7 @@ public class AddressBookTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBook addressBook = new AddressBook();
+    private final FashionMatch addressBook = new FashionMatch();
 
     @Test
     public void constructor() {
@@ -43,7 +43,7 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
+        FashionMatch newData = getTypicalAddressBook();
         addressBook.resetData(newData);
         assertEquals(newData, addressBook);
     }
@@ -53,7 +53,7 @@ public class AddressBookTest {
         // Two apparels with the same identity fields
         Apparel editedAlice = new ApparelBuilder(SHIRT1).build();
         List<Apparel> newApparels = Arrays.asList(SHIRT1, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newApparels);
+        FashionMatchStub newData = new FashionMatchStub(newApparels);
 
         thrown.expect(DuplicateApparelException.class);
         addressBook.resetData(newData);
@@ -109,12 +109,12 @@ public class AddressBookTest {
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose apparels list can violate interface constraints.
+     * A stub ReadOnlyFashionMatch whose apparels list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class FashionMatchStub implements ReadOnlyFashionMatch {
         private final ObservableList<Apparel> apparels = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Apparel> apparels) {
+        FashionMatchStub(Collection<Apparel> apparels) {
             this.apparels.setAll(apparels);
         }
 

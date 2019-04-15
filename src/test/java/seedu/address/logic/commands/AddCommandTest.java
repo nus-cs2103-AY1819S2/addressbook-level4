@@ -19,9 +19,9 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.FashionMatch;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyFashionMatch;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.apparel.Apparel;
 import seedu.address.testutil.ApparelBuilder;
@@ -128,12 +128,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setAddressBook(ReadOnlyFashionMatch newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyFashionMatch getAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -270,8 +270,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyFashionMatch getAddressBook() {
+            return new FashionMatch();
         }
     }
 

@@ -27,7 +27,7 @@ import seedu.address.model.apparel.exceptions.ApparelNotFoundException;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
+    private final VersionedFashionMatch versionedFashionMatch;
     private final UserPrefs userPrefs;
     private final FilteredList<Apparel> filteredApparels;
     private final SimpleObjectProperty<Apparel> selectedPerson = new SimpleObjectProperty<>();
@@ -35,20 +35,20 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given Fashion Match and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyFashionMatch addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with fashion match: " + addressBook + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAddressBook(addressBook);
+        versionedFashionMatch = new VersionedFashionMatch(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredApparels = new FilteredList<>(versionedAddressBook.getApparelList());
+        filteredApparels = new FilteredList<>(versionedFashionMatch.getApparelList());
         filteredApparels.addListener(this::ensureSelectedPersonIsValid);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new FashionMatch(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -89,29 +89,29 @@ public class ModelManager implements Model {
     //=========== FashionMatch ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        versionedAddressBook.resetData(addressBook);
+    public void setAddressBook(ReadOnlyFashionMatch addressBook) {
+        versionedFashionMatch.resetData(addressBook);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+    public ReadOnlyFashionMatch getAddressBook() {
+        return versionedFashionMatch;
     }
 
     @Override
     public boolean hasApparel(Apparel apparel) {
         requireNonNull(apparel);
-        return versionedAddressBook.hasApparel(apparel);
+        return versionedFashionMatch.hasApparel(apparel);
     }
 
     @Override
     public void deleteApparel(Apparel target) {
-        versionedAddressBook.removeApparel(target);
+        versionedFashionMatch.removeApparel(target);
     }
 
     @Override
     public void addApparel(Apparel apparel) {
-        versionedAddressBook.addApparel(apparel);
+        versionedFashionMatch.addApparel(apparel);
         updateFilteredApparelList(PREDICATE_SHOW_ALL_APPARELS);
     }
 
@@ -119,14 +119,14 @@ public class ModelManager implements Model {
     public void setPerson(Apparel target, Apparel editedApparel) {
         requireAllNonNull(target, editedApparel);
 
-        versionedAddressBook.setApparel(target, editedApparel);
+        versionedFashionMatch.setApparel(target, editedApparel);
     }
 
     //=========== Filtered Apparel List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Apparel} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedFashionMatch}
      */
     @Override
     public ObservableList<Apparel> getFilteredApparelList() {
@@ -143,27 +143,27 @@ public class ModelManager implements Model {
 
     @Override
     public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+        return versionedFashionMatch.canUndo();
     }
 
     @Override
     public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+        return versionedFashionMatch.canRedo();
     }
 
     @Override
     public void undoAddressBook() {
-        versionedAddressBook.undo();
+        versionedFashionMatch.undo();
     }
 
     @Override
     public void redoAddressBook() {
-        versionedAddressBook.redo();
+        versionedFashionMatch.redo();
     }
 
     @Override
     public void commitAddressBook() {
-        versionedAddressBook.commit();
+        versionedFashionMatch.commit();
     }
 
     //=========== Statistics ===============================================================================
@@ -344,7 +344,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
+        return versionedFashionMatch.equals(other.versionedFashionMatch)
                 && userPrefs.equals(other.userPrefs)
                 && filteredApparels.equals(other.filteredApparels)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
@@ -354,8 +354,8 @@ public class ModelManager implements Model {
      * Debugging tool to determine and output the property that is different.
      */
     public void validateEquality(ModelManager other) {
-        if (!versionedAddressBook.equals(other.versionedAddressBook)) {
-            System.out.println("versionedAddressBook is different");
+        if (!versionedFashionMatch.equals(other.versionedFashionMatch)) {
+            System.out.println("versionedFashionMatch is different");
         }
 
         if (!userPrefs.equals(other.userPrefs)) {
@@ -374,7 +374,7 @@ public class ModelManager implements Model {
     @Override
     public String toString() {
         return "ModelManager{"
-                + "versionedAddressBook=" + versionedAddressBook
+                + "versionedFashionMatch=" + versionedFashionMatch
                 + ", userPrefs=" + userPrefs
                 + ", filteredApparels=" + filteredApparels
                 + ", selectedPerson=" + selectedPerson

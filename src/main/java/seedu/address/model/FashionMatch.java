@@ -14,7 +14,7 @@ import seedu.address.model.apparel.UniqueApparelList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSameApparel comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class FashionMatch implements ReadOnlyFashionMatch {
 
     private final UniqueApparelList apparels;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
@@ -30,12 +30,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         apparels = new UniqueApparelList();
     }
 
-    public AddressBook() {}
+    public FashionMatch() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an FashionMatch using the Persons in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public FashionMatch(ReadOnlyFashionMatch toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -52,9 +52,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code FashionMatch} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyFashionMatch newData) {
         requireNonNull(newData);
 
         setApparels(newData.getApparelList());
@@ -93,7 +93,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code FashionMatch}.
      * {@code key} must exist in the address book.
      */
     public void removeApparel(Apparel key) {
@@ -134,8 +134,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && apparels.equals(((AddressBook) other).apparels));
+                || (other instanceof FashionMatch // instanceof handles nulls
+                && apparels.equals(((FashionMatch) other).apparels));
     }
 
     @Override

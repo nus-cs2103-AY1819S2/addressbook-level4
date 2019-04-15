@@ -32,7 +32,13 @@ The following sections illustrate the feature in more detail, as well as the rel
 *** Actively update issues and provide constructive comments and feedback to the team
 *** Managed the progress of the Developer Guide and ensure it is completed on time
 ** Enhancements to existing features:
+<<<<<<< Updated upstream
 *** <Something on HistoryCommand> (Pull requests https://github.com[#], https://github.com[#])
+=======
+*** Morphed HistoryCommand into StatsCommand to be used by rest of the team(Pull requests https://github.com[#], https://github.com[#])
+*** Restructured Storage component to accommodate saving of statistics data (Pull requests : #)
+*** Introduced an elapsed time functionality in the Graphical User Interface (GUI). (Pull request : # )
+>>>>>>> Stashed changes
 ** Documentation:
 *** Setup the structure of the Developer Guide(https://github.com[#]) and updated the User Guide with relevant information for the `stats` command.
 ** Community:

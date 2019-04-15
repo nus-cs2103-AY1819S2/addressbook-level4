@@ -406,7 +406,7 @@ There are three types of ships and the number of each ship depends on the size o
 
 The management of ships can be carried out with three commands, namely `put`, `listTags` and `list`.
 
-===== 3.2.1.1 Putting ships
+===== Putting ships
 
 The `put` command puts a ship on the map grid, specified by the __head coordinates__.
 
@@ -451,7 +451,7 @@ image::PutShipSequenceDiagram.png[width=800, align="center"]
 
 // tag::listTags[]
 
-===== 3.2.1.2 Listing tags
+===== Listing tags
 
 Ships can be tagged. You can list all the tags used by ships that have been deployed on the map grid with the `listTags` command. The command uses the `getAllTags()` method of the `Fleet` class. The code snippet below shows the operation of the `getAllTags()` method. The method returns a list of all the unique tags present in the player's fleet of deployed ships.
 
@@ -466,7 +466,7 @@ include::../src/main/java/seedu/address/model/player/Fleet.java[lines=212..222]
 
 // tag::listShips[]
 
-===== 3.2.1.3 Listing ships
+===== Listing ships
 
 Ships that have been deployed can also be listed in four different ways:
 
@@ -494,9 +494,11 @@ Ship management functions throughout the entirety of the game. As there are mult
 .Activity diagram of ship management throughout the game.
 image::ShipManagementActivityDiagram.png[height=400, align="center"]
 
+// tag::ship_aspect_1[]
+
 ==== Design Considerations
 
-// tag::ship_aspect_1[]
+
 
 ===== Aspect: How a ship is placed on the map
 * **Current choice:** +

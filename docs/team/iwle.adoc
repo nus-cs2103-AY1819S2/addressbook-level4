@@ -2,6 +2,7 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:sectnums:
 
 Hello there! My name is Ian and I am one of the developers for the Battleship game. The following document is a Project Portfolio Page of my contributions to the application.
 
@@ -47,7 +48,7 @@ You can find out more about the Battleship application https://cs2103-ay1819s2-w
 *** Reported bugs and suggestions for other teams in the class: https://bit.ly/2v4qari[bugs] found by me.
 ** Tools: Integrated Travis CI Bot and Coveralls Checker with team repository.
 
-== Contributions to the User Guide
+== 3. Contributions to the User Guide
 
 
 |===
@@ -64,12 +65,6 @@ include::../UserGuide.adoc[tag=ship2]
 include::../UserGuide.adoc[tag=list]
 include::../UserGuide.adoc[tag=listTags]
 
-== Coming in v2.0
-
-
-include::../UserGuide.adoc[tag=upcomingQuickStart]
-include::../UserGuide.adoc[tag=upcomingPattern]
-
 == Contributions to the Developer Guide
 
 |===
@@ -80,6 +75,7 @@ _I co-authored the class diagram for the `Model` component with my team mate Erj
 
 .Model diagram
 image::ModelClassDiagram.png[width="400", align="left"]
+
 include::../DeveloperGuide.adoc[tag=putShip1]
 ====
 *__What are the head coordinates?__*
@@ -108,8 +104,6 @@ image::ListShipSequenceDiagram.png[ align="left"]
 include::../DeveloperGuide.adoc[tag=ship_activity]
 .Activity diagram of ship management throughout the game.
 image::ShipManagementActivityDiagram.png[height=400, align="left"]
-
-=== Design Considerations
 
 include::../DeveloperGuide.adoc[tag=ship_aspect_1]
 include::../DeveloperGuide.adoc[tag=ship_aspect_2]

@@ -89,9 +89,9 @@ image::UserGuide_ApplicationInterface.png[width="1000"]
 
 * Displays a list of medicines running low on stock and a list of expiring/expired medicine batches.
 * Warnings will be logged in the warnings panel until changes are made to medicines and/or batches displayed, or to the thresholds controlling what is displayed.
-* Image below shows the labeled components of the the warning panel:
+* Image below shows the labelled components of the warning panel:
 +
-.Labeled warning panel
+.Labelled warning panel
 image::WarningPanelLabeled.png[width="500"]
 // end::uiwarningpanel[]
 

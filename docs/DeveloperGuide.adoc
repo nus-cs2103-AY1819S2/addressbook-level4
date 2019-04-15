@@ -415,7 +415,6 @@ Step4. LogicManager calls execute() of ListDoctorCommand.
 Step5. execute() checks if the DoctorContainsPredicate equals to null. If it equals to null, it calls updateFilteredDoctorList() of Model to show all doctors.
         If it is not null, it calls updateFilteredDoctorList() of ModelManager.
 
-
 Step6. test(Doctor) of DoctorContainsKeywordsPredicate will be called. It will check if any of the field matches "acupu" in full or part. If it matches, the doctor will be shown.
 
 ==== Edit Doctor feature

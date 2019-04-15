@@ -1,0 +1,15 @@
+Nola Tackett
+18683324
+Nola@gmail.com
+S0791172G
+Female
+Chinese
+192 Middle Road
+SUTD
+Psychology
+4.26
+Ruby,Python,C++,JAVA
+Security-Analyst,Web-Developer
+Data-Scientist,Network-Architect,Financial-Manager
+1,3,6,8,0
+Applicant

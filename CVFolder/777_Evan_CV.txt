@@ -1,0 +1,15 @@
+Evan High
+69832587
+Evan@gmail.com
+S0750366X
+Male
+Indian
+204 Middle Road
+SMU
+Biology
+3.07
+C,JavaScript,C#
+Cartographer,Financial-Manager,Security-Analyst
+Network-Architect,Accountant
+2,10,4,2,4
+Applicant

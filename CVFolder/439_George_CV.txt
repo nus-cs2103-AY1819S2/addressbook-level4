@@ -1,0 +1,15 @@
+George Barney
+62282270
+George@gmail.com
+S8846756F
+Female
+Malay
+154 Ang Mo Kio
+Singapore Polytechnic
+Computer Science
+3.54
+C#,PHP,Python
+Cartographer,Data-Scientist,Financial-Manager
+Software-Developer,Web-Developer,Accountant
+1,7,9,10,10
+Applicant

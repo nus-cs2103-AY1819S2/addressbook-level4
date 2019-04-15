@@ -1,0 +1,15 @@
+Reatha Ventura
+79057494
+Reatha@gmail.com
+S0265779Q
+Female
+Chinese
+346 Albert Street
+SMU
+Psychology
+3.77
+C#,JavaScript,Ruby,JAVA
+Statistician,Network-Architect
+Financial-Manager,Statistician
+8,1,2,4,9
+Applicant

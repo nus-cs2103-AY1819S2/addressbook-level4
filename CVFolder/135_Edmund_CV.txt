@@ -1,0 +1,15 @@
+Edmund Thomson
+75503879
+Edmund@gmail.com
+S9866193D
+Male
+Malay
+341 Bugis Street
+Singapore Polytechnic
+Nursing
+4.90
+Ruby,Python,JAVA
+Database-Administrator,Cartographer,Software-Developer
+Network-Architect
+6,1,9,10,6
+Applicant

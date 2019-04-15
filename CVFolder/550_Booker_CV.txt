@@ -1,0 +1,15 @@
+Booker Piper
+21292109
+Booker@gmail.com
+S5655463N
+Male
+Indian
+108 Jalan Besar
+SUTD
+Marketing
+3.78
+Ruby,JAVA,C++
+Security-Analyst,Web-Developer
+Cartographer
+9,9,0,5,6
+Applicant

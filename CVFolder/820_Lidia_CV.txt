@@ -1,0 +1,15 @@
+Lidia Goldberg
+05984580
+Lidia@gmail.com
+S0655502N
+Female
+Malay
+414 Thomson Road
+NTU
+Nursing
+3.99
+C,C++,JAVA
+Database-Administrator,Statistician,Software-Developer
+Network-Architect,Software-Developer,Web-Developer
+7,6,3,1,6
+Applicant

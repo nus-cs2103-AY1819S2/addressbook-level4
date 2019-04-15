@@ -1,0 +1,15 @@
+Esperanza Short
+55947747
+Esperanza@gmail.com
+S7906201Z
+Female
+Indian
+490 Rotan Lane
+SUTD
+Art
+4.56
+C,JAVA,C#
+Data-Scientist,Statistician
+Database-Administrator,Accountant
+7,9,4,5,9
+Applicant

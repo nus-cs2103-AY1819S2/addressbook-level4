@@ -1,0 +1,15 @@
+Brandon Maldonado
+47226929
+Brandon@gmail.com
+S4190366P
+Male
+Chinese
+467 Middle Road
+NUS
+Nursing
+4.56
+Ruby,JavaScript,C#
+Accountant,Software-Developer
+Data-Scientist
+8,2,7,9,8
+Applicant

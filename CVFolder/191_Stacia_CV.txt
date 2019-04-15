@@ -1,0 +1,15 @@
+Stacia East
+61715690
+Stacia@gmail.com
+S7739121S
+Female
+Others
+98 Albert Street
+NTU
+Political Science
+4.59
+C++
+Security-Analyst,Cartographer
+Web-Developer,Security-Analyst,Software-Developer
+2,8,5,4,1
+Applicant

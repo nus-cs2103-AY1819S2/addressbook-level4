@@ -1,0 +1,15 @@
+Merlene Connelly
+39024227
+Merlene@gmail.com
+S5028921S
+Female
+Chinese
+112 Middle Road
+SMU
+Computer Science
+3.23
+Ruby,Python,C++,JAVA
+Database-Administrator,Software-Developer,Statistician
+Data-Scientist,Cartographer
+10,6,10,1,8
+Applicant

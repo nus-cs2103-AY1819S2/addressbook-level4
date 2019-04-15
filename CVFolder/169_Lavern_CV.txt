@@ -1,0 +1,15 @@
+Lavern Goldsmith
+66254281
+Lavern@gmail.com
+S0077064A
+Male
+Chinese
+99 Albert Street
+NUS
+Art
+4.08
+C,C#
+Cartographer,Accountant,Data-Scientist
+Network-Architect
+5,4,0,6,9
+Applicant

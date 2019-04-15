@@ -1,0 +1,15 @@
+Dorthea Byrd
+07353841
+Dorthea@gmail.com
+S3665921X
+Female
+Others
+107 Jalan Besar
+SUTD
+Mechanical Engineering
+4.79
+Ruby
+Security-Analyst,Database-Administrator
+Cartographer,Data-Scientist,Web-Developer
+5,0,4,6,2
+Applicant

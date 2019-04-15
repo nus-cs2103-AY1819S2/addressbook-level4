@@ -1,0 +1,15 @@
+Kelley Thayer
+74181156
+Kelley@gmail.com
+S0052187M
+Female
+Others
+439 Albert Street
+SUTD
+Nursing
+4.99
+C
+Cartographer,Security-Analyst,Financial-Manager
+Software-Developer,Network-Architect,Database-Administrator
+7,5,2,2,2
+Applicant

@@ -1,0 +1,15 @@
+Sonja Harms
+98408331
+Sonja@gmail.com
+S3360172U
+Female
+Indian
+271 Jalan Besar
+SMU
+Nursing
+4.32
+C#,JAVA,Ruby
+Cartographer,Accountant,Statistician
+Statistician,Accountant
+7,7,0,6,7
+Applicant

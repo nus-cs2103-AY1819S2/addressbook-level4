@@ -1,0 +1,15 @@
+Janine Seay
+13267748
+Janine@gmail.com
+S8455656W
+Female
+Others
+126 Bugis Street
+SUTD
+Biology
+3.04
+C++,C#,Python
+Data-Scientist,Security-Analyst
+Security-Analyst,Statistician,Database-Administrator
+4,5,7,6,3
+Applicant

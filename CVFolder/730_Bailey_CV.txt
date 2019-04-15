@@ -1,0 +1,15 @@
+Bailey Chan
+28624834
+Bailey@gmail.com
+S2979689C
+Female
+Others
+218 Bugis Street
+SMU
+Computer Science
+4.07
+JavaScript
+Security-Analyst,Software-Developer,Data-Scientist
+Database-Administrator,Financial-Manager,Software-Developer
+5,5,1,9,1
+Applicant

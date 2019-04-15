@@ -1,0 +1,15 @@
+Carrol Lowe
+08728229
+Carrol@gmail.com
+S2348881P
+Female
+Chinese
+62 Rotan Lane
+SMU
+Computer Science
+4.10
+Python
+Statistician,Web-Developer
+Data-Scientist,Software-Developer
+10,7,7,10,6
+Applicant

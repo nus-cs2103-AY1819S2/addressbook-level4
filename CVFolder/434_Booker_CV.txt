@@ -1,0 +1,15 @@
+Booker Honeycutt
+80838007
+Booker@gmail.com
+S0299368Q
+Male
+Others
+289 Albert Street
+NUS
+Political Science
+4.29
+C,JAVA,C++
+Software-Developer,Statistician
+Database-Administrator
+9,6,4,6,7
+Applicant

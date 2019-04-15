@@ -1,0 +1,15 @@
+Rey Starr
+12407008
+Rey@gmail.com
+S4705812U
+Male
+Chinese
+192 Sentosa
+SMU
+Psychology
+3.88
+C#,C,JavaScript,JAVA
+Security-Analyst,Statistician,Software-Developer
+Network-Architect,Cartographer,Software-Developer
+4,10,8,9,6
+Applicant

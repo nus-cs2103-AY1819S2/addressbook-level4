@@ -1,0 +1,15 @@
+Ling Barclay
+53308765
+Ling@gmail.com
+S4524673H
+Female
+Indian
+188 PGPR
+NUS
+Political Science
+3.91
+JavaScript,PHP
+Security-Analyst,Financial-Manager,Cartographer
+Cartographer,Network-Architect,Financial-Manager
+0,6,6,0,6
+Applicant

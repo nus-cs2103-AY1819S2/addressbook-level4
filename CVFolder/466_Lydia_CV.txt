@@ -1,0 +1,15 @@
+Lydia Mcnair
+34301151
+Lydia@gmail.com
+S6779495P
+Female
+Malay
+383 Rotan Lane
+NTU
+Political Science
+3.09
+JAVA,C++,Python,JavaScript
+Accountant,Cartographer,Software-Developer
+Security-Analyst,Statistician,Accountant
+9,1,6,4,10
+Applicant

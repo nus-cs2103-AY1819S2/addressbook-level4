@@ -1,0 +1,15 @@
+Lane Wren
+23932004
+Lane@gmail.com
+S7376141D
+Male
+Chinese
+149 Jalan Besar
+NUS
+Nursing
+3.60
+Ruby,C#
+Network-Architect,Database-Administrator,Web-Developer
+Web-Developer,Financial-Manager
+7,5,9,9,8
+Applicant

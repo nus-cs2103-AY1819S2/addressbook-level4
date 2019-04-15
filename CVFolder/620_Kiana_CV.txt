@@ -1,0 +1,15 @@
+Kiana Richards
+41380420
+Kiana@gmail.com
+S5269477A
+Female
+Chinese
+176 Albert Street
+NUS
+Biology
+3.41
+PHP,JAVA,C#,Python
+Data-Scientist,Statistician
+Statistician,Network-Architect,Security-Analyst
+6,2,3,0,4
+Applicant

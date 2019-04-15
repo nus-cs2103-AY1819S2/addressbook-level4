@@ -1,0 +1,15 @@
+Michaela Young
+61382500
+Michaela@gmail.com
+S7546964Y
+Female
+Malay
+369 Bugis Street
+SUTD
+Computer Science
+4.46
+Ruby
+Software-Developer
+Web-Developer,Data-Scientist,Software-Developer
+2,0,7,1,8
+Applicant

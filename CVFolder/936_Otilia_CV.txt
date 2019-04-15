@@ -1,0 +1,15 @@
+Otilia Coates
+63744246
+Otilia@gmail.com
+S8815056D
+Female
+Indian
+249 Thomson Road
+NUS
+Political Science
+3.79
+Python,C,JAVA,C#
+Security-Analyst,Software-Developer,Accountant
+Data-Scientist,Security-Analyst
+3,7,6,0,10
+Applicant

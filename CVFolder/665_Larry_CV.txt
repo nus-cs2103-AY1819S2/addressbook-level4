@@ -1,0 +1,15 @@
+Larry Leon
+40390840
+Larry@gmail.com
+S0395460B
+Male
+Malay
+373 Ang Mo Kio
+SMU
+Psychology
+4.44
+C,PHP
+Web-Developer,Accountant,Database-Administrator
+Network-Architect,Web-Developer
+10,5,0,4,6
+Applicant

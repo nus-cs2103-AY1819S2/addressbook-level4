@@ -1,0 +1,15 @@
+Erich Rock
+53905421
+Erich@gmail.com
+S8590929R
+Male
+Malay
+134 Middle Road
+SMU
+Nursing
+4.68
+C#,PHP,JavaScript
+Accountant,Statistician,Software-Developer
+Financial-Manager,Network-Architect
+3,2,7,8,9
+Applicant

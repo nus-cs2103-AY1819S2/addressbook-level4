@@ -1,0 +1,15 @@
+Sung Heaton
+18883928
+Sung@gmail.com
+S7957012D
+Male
+Malay
+486 Jalan Besar
+NUS
+Electrical Engineering
+3.21
+C#
+Data-Scientist
+Web-Developer,Software-Developer,Statistician
+6,8,7,8,10
+Applicant

@@ -1,0 +1,15 @@
+Johnny Jacobsen
+35591716
+Johnny@gmail.com
+S4107151B
+Male
+Indian
+212 Tanah Merah
+SMU
+Psychology
+4.14
+PHP,C#
+Web-Developer
+Cartographer,Security-Analyst,Web-Developer
+0,3,9,7,10
+Applicant

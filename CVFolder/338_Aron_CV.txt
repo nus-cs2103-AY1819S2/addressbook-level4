@@ -1,0 +1,15 @@
+Aron Wilkerson
+81505531
+Aron@gmail.com
+S5723395O
+Male
+Chinese
+483 Sentosa
+SUTD
+Psychology
+3.33
+Python,C#,C++,JavaScript
+Statistician,Accountant,Network-Architect
+Database-Administrator,Web-Developer,Data-Scientist
+7,7,0,5,5
+Applicant

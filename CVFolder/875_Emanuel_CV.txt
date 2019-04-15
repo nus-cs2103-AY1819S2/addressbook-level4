@@ -1,0 +1,15 @@
+Emanuel Farrar
+54859151
+Emanuel@gmail.com
+S2677826O
+Male
+Malay
+248 Bugis Street
+SUTD
+Nursing
+4.63
+C++,C#,Python,JavaScript
+Database-Administrator
+Financial-Manager,Accountant
+10,1,7,0,10
+Applicant

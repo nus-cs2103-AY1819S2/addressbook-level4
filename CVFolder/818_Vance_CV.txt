@@ -1,0 +1,15 @@
+Vance Fugate
+17296242
+Vance@gmail.com
+S9371388H
+Male
+Malay
+56 PGPR
+NTU
+Political Science
+4.91
+Python,PHP,JAVA,Ruby
+Accountant,Software-Developer
+Cartographer,Web-Developer,Financial-Manager
+9,5,6,10,1
+Applicant

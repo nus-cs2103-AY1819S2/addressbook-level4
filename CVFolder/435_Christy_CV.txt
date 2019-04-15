@@ -1,0 +1,15 @@
+Christy Mccray
+05243746
+Christy@gmail.com
+S3115555E
+Female
+Chinese
+53 PGPR
+NTU
+Biology
+4.87
+C#,Ruby,C,JAVA
+Financial-Manager
+Security-Analyst
+1,2,7,6,1
+Applicant

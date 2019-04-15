@@ -1,0 +1,15 @@
+Abram Nolan
+02628860
+Abram@gmail.com
+S8160684S
+Male
+Others
+303 Albert Street
+SUTD
+Electrical Engineering
+3.84
+JavaScript,Ruby,C++,Python
+Database-Administrator,Security-Analyst,Data-Scientist
+Cartographer,Web-Developer
+9,6,5,7,5
+Applicant

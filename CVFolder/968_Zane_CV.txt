@@ -1,0 +1,15 @@
+Zane Redman
+89974879
+Zane@gmail.com
+S5415136W
+Male
+Others
+97 Tanah Merah
+NTU
+Marketing
+4.82
+JAVA,Python,C#
+Database-Administrator,Cartographer
+Security-Analyst,Data-Scientist
+10,10,1,7,5
+Applicant

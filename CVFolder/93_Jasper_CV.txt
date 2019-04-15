@@ -1,0 +1,15 @@
+Jasper Ortiz
+27582919
+Jasper@gmail.com
+S4001875B
+Male
+Indian
+31 Jalan Besar
+SMU
+Biology
+3.78
+C++
+Data-Scientist,Network-Architect,Security-Analyst
+Statistician
+4,8,0,1,4
+Applicant

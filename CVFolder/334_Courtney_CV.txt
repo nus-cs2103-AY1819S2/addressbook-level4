@@ -1,0 +1,15 @@
+Courtney Pollock
+80249332
+Courtney@gmail.com
+S9275432Z
+Male
+Others
+109 Thomson Road
+NTU
+Political Science
+4.92
+C++
+Statistician
+Software-Developer,Cartographer,Network-Architect
+10,1,0,2,4
+Applicant

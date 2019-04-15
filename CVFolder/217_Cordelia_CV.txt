@@ -1,0 +1,15 @@
+Cordelia Marks
+33612256
+Cordelia@gmail.com
+S1039138J
+Female
+Malay
+372 Jalan Besar
+Singapore Polytechnic
+Electrical Engineering
+4.07
+JAVA
+Database-Administrator
+Accountant,Data-Scientist,Software-Developer
+1,10,5,9,5
+Applicant

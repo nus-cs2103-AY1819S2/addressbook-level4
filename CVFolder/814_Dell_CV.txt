@@ -1,0 +1,15 @@
+Dell Champion
+20307853
+Dell@gmail.com
+S2889796L
+Female
+Others
+451 Bugis Street
+SUTD
+Psychology
+3.38
+JavaScript,C#,JAVA
+Data-Scientist,Financial-Manager,Web-Developer
+Software-Developer,Database-Administrator,Network-Architect
+7,1,1,4,1
+Applicant

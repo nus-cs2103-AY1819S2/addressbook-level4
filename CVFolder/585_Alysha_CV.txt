@@ -1,0 +1,15 @@
+Alysha Yanez
+89687353
+Alysha@gmail.com
+S4341545M
+Female
+Indian
+488 Albert Street
+NUS
+Mechanical Engineering
+4.76
+C,PHP,JavaScript,Python
+Web-Developer
+Database-Administrator
+9,6,1,10,3
+Applicant

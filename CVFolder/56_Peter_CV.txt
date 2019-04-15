@@ -1,0 +1,15 @@
+Peter Archuleta
+50918471
+Peter@gmail.com
+S7977153A
+Male
+Others
+342 Ang Mo Kio
+SMU
+Electrical Engineering
+4.86
+JavaScript
+Data-Scientist,Software-Developer,Statistician
+Financial-Manager,Network-Architect
+4,10,10,0,3
+Applicant

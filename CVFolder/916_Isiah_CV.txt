@@ -1,0 +1,15 @@
+Isiah Ojeda
+59117716
+Isiah@gmail.com
+S6132573J
+Male
+Others
+100 Rotan Lane
+Singapore Polytechnic
+Electrical Engineering
+4.48
+Ruby,C++
+Database-Administrator
+Security-Analyst,Software-Developer,Statistician
+8,5,10,0,6
+Applicant

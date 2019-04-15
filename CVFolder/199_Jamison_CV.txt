@@ -1,0 +1,15 @@
+Jamison Troutman
+37697849
+Jamison@gmail.com
+S5698940T
+Male
+Indian
+380 Tanah Merah
+NUS
+Computer Science
+4.13
+C,PHP
+Cartographer,Accountant
+Financial-Manager,Accountant
+6,5,8,7,10
+Applicant

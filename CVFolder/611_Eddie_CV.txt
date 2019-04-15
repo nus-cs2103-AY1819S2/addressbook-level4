@@ -1,0 +1,15 @@
+Eddie Munson
+38985372
+Eddie@gmail.com
+S2782366U
+Male
+Chinese
+101 Bugis Street
+Singapore Polytechnic
+Psychology
+4.37
+PHP,JAVA,Ruby,C++
+Cartographer,Accountant,Statistician
+Cartographer
+1,1,6,3,9
+Applicant

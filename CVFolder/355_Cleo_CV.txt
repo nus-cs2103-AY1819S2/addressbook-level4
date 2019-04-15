@@ -1,0 +1,15 @@
+Cleo Johnson
+78591847
+Cleo@gmail.com
+S4669260Z
+Male
+Indian
+220 Tanah Merah
+SUTD
+Nursing
+4.04
+C#
+Network-Architect
+Security-Analyst,Financial-Manager,Data-Scientist
+10,0,5,5,4
+Applicant

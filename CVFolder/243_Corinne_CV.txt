@@ -1,0 +1,15 @@
+Corinne Colburn
+35764428
+Corinne@gmail.com
+S2140939E
+Female
+Malay
+401 Albert Street
+NTU
+Art
+3.16
+Python,PHP,Ruby
+Cartographer,Data-Scientist,Network-Architect
+Database-Administrator,Network-Architect,Accountant
+5,0,5,4,1
+Applicant

@@ -1,0 +1,15 @@
+Benedict Jolly
+24972404
+Benedict@gmail.com
+S7008226B
+Male
+Others
+258 Rotan Lane
+NTU
+Psychology
+4.34
+C#,Python
+Statistician
+Data-Scientist
+5,10,0,8,6
+Applicant

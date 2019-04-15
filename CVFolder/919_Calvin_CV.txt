@@ -1,0 +1,15 @@
+Calvin Arrington
+78854363
+Calvin@gmail.com
+S5054257R
+Male
+Chinese
+217 Middle Road
+SMU
+Psychology
+4.52
+C,JavaScript,Python,C#
+Statistician,Network-Architect
+Security-Analyst
+4,0,2,2,9
+Applicant

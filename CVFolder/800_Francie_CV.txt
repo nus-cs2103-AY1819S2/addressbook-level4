@@ -1,0 +1,15 @@
+Francie Mayfield
+52313522
+Francie@gmail.com
+S2032952V
+Female
+Others
+306 Rotan Lane
+SUTD
+Marketing
+3.67
+Ruby,JavaScript
+Statistician,Software-Developer,Data-Scientist
+Web-Developer
+3,2,1,6,1
+Applicant

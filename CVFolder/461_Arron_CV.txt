@@ -1,0 +1,15 @@
+Arron Potter
+43344219
+Arron@gmail.com
+S0387558B
+Male
+Chinese
+132 Bugis Street
+SUTD
+Marketing
+4.76
+C,PHP,Python,JAVA
+Financial-Manager,Accountant,Cartographer
+Network-Architect,Statistician,Data-Scientist
+4,3,3,8,10
+Applicant

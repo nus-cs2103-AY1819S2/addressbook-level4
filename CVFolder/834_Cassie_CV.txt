@@ -1,0 +1,15 @@
+Cassie Corey
+30557834
+Cassie@gmail.com
+S5879698S
+Female
+Indian
+453 Sentosa
+NUS
+Psychology
+4.69
+C++,Ruby,JavaScript,JAVA
+Financial-Manager,Network-Architect
+Software-Developer,Financial-Manager
+3,9,0,7,3
+Applicant

@@ -1,0 +1,15 @@
+Pete Haines
+92168047
+Pete@gmail.com
+S2032429Y
+Male
+Chinese
+138 Bugis Street
+SMU
+Mechanical Engineering
+4.59
+C++
+Financial-Manager,Network-Architect
+Statistician
+9,4,7,5,1
+Applicant

@@ -1,0 +1,15 @@
+Bob Hobbs
+65291157
+Bob@gmail.com
+S9160070C
+Male
+Indian
+160 Middle Road
+Singapore Polytechnic
+Electrical Engineering
+3.31
+Ruby,JAVA,PHP
+Financial-Manager
+Financial-Manager
+9,5,9,8,4
+Applicant

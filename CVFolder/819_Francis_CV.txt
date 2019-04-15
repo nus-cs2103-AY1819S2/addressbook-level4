@@ -1,0 +1,15 @@
+Francis Vaughan
+97364525
+Francis@gmail.com
+S2859381F
+Male
+Indian
+393 PGPR
+NUS
+Psychology
+3.80
+JAVA,Python,JavaScript
+Web-Developer,Security-Analyst
+Network-Architect
+0,1,6,0,9
+Applicant

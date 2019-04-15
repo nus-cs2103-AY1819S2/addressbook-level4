@@ -1,0 +1,15 @@
+Jamel Willoughby
+44646342
+Jamel@gmail.com
+S3333613J
+Male
+Indian
+300 Rotan Lane
+SMU
+Marketing
+4.10
+PHP,C++,JAVA
+Database-Administrator,Cartographer,Security-Analyst
+Data-Scientist,Cartographer
+5,7,8,3,3
+Applicant

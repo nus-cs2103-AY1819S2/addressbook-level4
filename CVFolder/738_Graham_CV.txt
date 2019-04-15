@@ -1,0 +1,15 @@
+Graham Blake
+56763076
+Graham@gmail.com
+S5209080H
+Male
+Others
+151 Middle Road
+NTU
+Computer Science
+4.64
+C,Ruby
+Financial-Manager,Web-Developer,Security-Analyst
+Accountant,Database-Administrator,Statistician
+6,10,6,10,9
+Applicant

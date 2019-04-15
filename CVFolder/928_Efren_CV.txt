@@ -1,0 +1,15 @@
+Efren Hogan
+08687492
+Efren@gmail.com
+S6146287R
+Male
+Others
+207 Albert Street
+NUS
+Art
+3.55
+JAVA,C#
+Accountant
+Statistician,Web-Developer,Accountant
+9,6,0,1,1
+Applicant

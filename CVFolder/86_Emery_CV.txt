@@ -1,0 +1,15 @@
+Emery Hinkle
+63145518
+Emery@gmail.com
+S8257861O
+Male
+Indian
+177 Rotan Lane
+NUS
+Electrical Engineering
+3.70
+C#,C++,PHP,JAVA
+Financial-Manager,Network-Architect
+Software-Developer
+2,5,4,0,4
+Applicant

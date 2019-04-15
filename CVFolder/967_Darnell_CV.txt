@@ -1,0 +1,15 @@
+Darnell Lyle
+40909402
+Darnell@gmail.com
+S4906311O
+Male
+Others
+332 Bugis Street
+SMU
+Electrical Engineering
+3.38
+Python,C,PHP,C++
+Network-Architect,Security-Analyst,Cartographer
+Accountant,Security-Analyst,Statistician
+4,1,4,0,5
+Applicant

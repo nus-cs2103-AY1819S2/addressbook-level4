@@ -1,0 +1,15 @@
+Jeanna Giles
+72382154
+Jeanna@gmail.com
+S4496228C
+Female
+Indian
+4 Tanah Merah
+SUTD
+Biology
+4.94
+Python,JAVA,PHP
+Network-Architect,Financial-Manager
+Financial-Manager,Security-Analyst
+8,2,3,2,1
+Applicant

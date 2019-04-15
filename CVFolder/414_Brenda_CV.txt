@@ -1,0 +1,15 @@
+Brenda Hill
+70351498
+Brenda@gmail.com
+S2161955M
+Female
+Malay
+439 Kay Poh Road 
+SUTD
+Electrical Engineering
+4.36
+PHP,C
+Network-Architect,Web-Developer,Accountant
+Security-Analyst,Financial-Manager,Statistician
+4,8,2,3,4
+Applicant

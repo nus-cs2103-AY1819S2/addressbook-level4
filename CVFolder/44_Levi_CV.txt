@@ -1,0 +1,15 @@
+Levi Aragon
+93180901
+Levi@gmail.com
+S2118610T
+Male
+Malay
+402 Jalan Besar
+NUS
+Biology
+4.04
+JavaScript,C#
+Security-Analyst
+Financial-Manager,Statistician,Accountant
+5,5,3,4,4
+Applicant

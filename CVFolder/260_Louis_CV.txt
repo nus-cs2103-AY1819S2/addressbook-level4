@@ -1,0 +1,15 @@
+Louis Early
+10256849
+Louis@gmail.com
+S5862663L
+Female
+Chinese
+115 Bugis Street
+Singapore Polytechnic
+Electrical Engineering
+4.89
+Ruby,Python,JavaScript
+Network-Architect
+Financial-Manager,Network-Architect
+8,4,8,8,8
+Applicant

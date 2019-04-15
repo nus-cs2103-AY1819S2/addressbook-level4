@@ -1,0 +1,15 @@
+Fletcher Hadley
+44493365
+Fletcher@gmail.com
+S2936956Q
+Male
+Chinese
+417 Albert Street
+SUTD
+Art
+3.70
+Ruby,C#
+Web-Developer,Statistician
+Web-Developer,Network-Architect,Data-Scientist
+6,0,0,5,3
+Applicant

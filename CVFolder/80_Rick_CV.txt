@@ -1,0 +1,15 @@
+Rick Hutton
+09399092
+Rick@gmail.com
+S6726884D
+Male
+Indian
+461 Middle Road
+Singapore Polytechnic
+Nursing
+3.63
+PHP,C#,JAVA,Ruby
+Network-Architect,Software-Developer,Cartographer
+Cartographer,Accountant,Web-Developer
+1,1,6,0,2
+Applicant

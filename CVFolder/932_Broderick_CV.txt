@@ -1,0 +1,15 @@
+Broderick Burgos
+20226800
+Broderick@gmail.com
+S9094258X
+Male
+Indian
+1 Kay Poh Road 
+Singapore Polytechnic
+Marketing
+3.20
+Ruby,Python,PHP,JavaScript
+Accountant,Data-Scientist,Financial-Manager
+Accountant,Financial-Manager,Database-Administrator
+10,8,2,5,3
+Applicant

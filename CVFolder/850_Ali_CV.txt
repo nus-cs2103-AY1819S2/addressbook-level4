@@ -1,0 +1,15 @@
+Ali Bergeron
+10340162
+Ali@gmail.com
+S9916803A
+Male
+Malay
+500 Rotan Lane
+SMU
+Political Science
+3.36
+C++,C#,Python
+Security-Analyst,Accountant,Financial-Manager
+Accountant
+1,9,3,0,0
+Applicant

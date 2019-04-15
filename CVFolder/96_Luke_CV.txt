@@ -1,0 +1,15 @@
+Luke Dawkins
+98635048
+Luke@gmail.com
+S4546378H
+Male
+Malay
+454 Kay Poh Road 
+SUTD
+Electrical Engineering
+3.57
+C#
+Database-Administrator,Statistician
+Software-Developer,Data-Scientist,Statistician
+5,8,6,9,5
+Applicant

@@ -1,0 +1,15 @@
+Marcus Reynoso
+02879098
+Marcus@gmail.com
+S4784530Z
+Male
+Chinese
+330 Tanah Merah
+NUS
+Electrical Engineering
+4.75
+JavaScript,C#
+Statistician
+Cartographer,Web-Developer,Financial-Manager
+1,4,5,9,0
+Applicant

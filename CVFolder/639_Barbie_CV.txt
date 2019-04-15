@@ -1,0 +1,15 @@
+Barbie Myers
+75604561
+Barbie@gmail.com
+S8633456H
+Female
+Indian
+346 Sentosa
+Singapore Polytechnic
+Art
+4.18
+C++,Python,Ruby,JavaScript
+Database-Administrator,Cartographer,Financial-Manager
+Financial-Manager,Accountant,Cartographer
+10,9,1,2,4
+Applicant

@@ -1,0 +1,15 @@
+Hank Webb
+09145045
+Hank@gmail.com
+S5646669C
+Male
+Indian
+51 Bugis Street
+NUS
+Mechanical Engineering
+4.73
+Python,Ruby,PHP,C
+Network-Architect,Financial-Manager
+Security-Analyst,Cartographer,Accountant
+9,7,1,4,4
+Applicant

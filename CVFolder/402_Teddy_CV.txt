@@ -1,0 +1,15 @@
+Teddy Cardwell
+05984900
+Teddy@gmail.com
+S8797391X
+Male
+Indian
+43 Sentosa
+Singapore Polytechnic
+Psychology
+3.90
+Python,C#
+Database-Administrator,Cartographer
+Data-Scientist,Security-Analyst
+10,4,0,8,7
+Applicant

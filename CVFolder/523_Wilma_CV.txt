@@ -1,0 +1,15 @@
+Wilma Burleson
+96983655
+Wilma@gmail.com
+S0581314B
+Female
+Indian
+348 Middle Road
+NUS
+Electrical Engineering
+4.68
+C#,Python,C,PHP
+Network-Architect
+Cartographer,Data-Scientist
+2,2,10,8,0
+Applicant

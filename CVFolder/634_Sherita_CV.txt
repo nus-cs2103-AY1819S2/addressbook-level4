@@ -1,0 +1,15 @@
+Sherita Brock
+59954678
+Sherita@gmail.com
+S8721701C
+Female
+Chinese
+88 Sentosa
+Singapore Polytechnic
+Electrical Engineering
+3.01
+JavaScript,PHP
+Database-Administrator,Security-Analyst
+Cartographer,Accountant
+1,10,10,3,5
+Applicant

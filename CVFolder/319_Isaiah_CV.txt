@@ -1,0 +1,15 @@
+Isaiah Vaughn
+91780250
+Isaiah@gmail.com
+S7397831G
+Male
+Malay
+476 Rotan Lane
+SUTD
+Political Science
+4.74
+Python,JavaScript,JAVA
+Database-Administrator,Cartographer
+Cartographer,Database-Administrator,Accountant
+1,8,7,6,0
+Applicant

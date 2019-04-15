@@ -1,0 +1,15 @@
+Loren Bolin
+55873457
+Loren@gmail.com
+S1970489C
+Male
+Indian
+189 Ang Mo Kio
+NUS
+Nursing
+4.94
+Ruby,C#,JAVA
+Accountant,Software-Developer,Financial-Manager
+Financial-Manager,Cartographer
+2,9,0,5,7
+Applicant

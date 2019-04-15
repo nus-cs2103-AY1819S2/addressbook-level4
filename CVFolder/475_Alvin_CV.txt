@@ -1,0 +1,15 @@
+Alvin Chen
+59933769
+Alvin@gmail.com
+S7170618F
+Male
+Malay
+28 Thomson Road
+SMU
+Electrical Engineering
+4.24
+Ruby,C++,PHP
+Accountant
+Network-Architect,Statistician
+6,10,6,0,1
+Applicant

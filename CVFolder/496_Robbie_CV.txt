@@ -1,0 +1,15 @@
+Robbie Gage
+55554690
+Robbie@gmail.com
+S6842488M
+Female
+Chinese
+345 Ang Mo Kio
+SMU
+Marketing
+3.85
+C++,JavaScript
+Network-Architect,Cartographer,Data-Scientist
+Software-Developer,Security-Analyst
+7,2,8,8,0
+Applicant

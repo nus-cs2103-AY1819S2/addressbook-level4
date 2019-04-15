@@ -1,0 +1,15 @@
+Kennith Marquez
+13944823
+Kennith@gmail.com
+S0571725S
+Male
+Chinese
+356 Jalan Besar
+SUTD
+Mechanical Engineering
+3.20
+C#,Python,JAVA,C++
+Statistician,Cartographer,Accountant
+Web-Developer
+7,1,6,0,1
+Applicant

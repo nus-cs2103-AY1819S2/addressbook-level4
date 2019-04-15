@@ -1,0 +1,15 @@
+Kazuko Heard
+40475879
+Kazuko@gmail.com
+S8896866P
+Female
+Others
+290 Jalan Besar
+SMU
+Computer Science
+4.62
+C#
+Web-Developer
+Web-Developer,Financial-Manager,Software-Developer
+0,1,9,7,2
+Applicant

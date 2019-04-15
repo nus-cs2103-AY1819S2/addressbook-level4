@@ -1,0 +1,15 @@
+Rodrick Sadler
+48043905
+Rodrick@gmail.com
+S5601312Z
+Male
+Indian
+212 Albert Street
+NUS
+Nursing
+3.95
+Ruby,C++,C
+Security-Analyst,Software-Developer,Accountant
+Statistician
+8,9,0,0,9
+Applicant

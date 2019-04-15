@@ -1,0 +1,15 @@
+Pandora Pollock
+30250299
+Pandora@gmail.com
+S6634824N
+Female
+Chinese
+188 Ang Mo Kio
+NTU
+Psychology
+3.69
+Python
+Network-Architect,Database-Administrator,Web-Developer
+Statistician,Accountant,Financial-Manager
+3,3,8,0,1
+Applicant

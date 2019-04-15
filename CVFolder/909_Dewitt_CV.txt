@@ -1,0 +1,15 @@
+Dewitt Broussard
+72626725
+Dewitt@gmail.com
+S2772492M
+Male
+Indian
+364 Middle Road
+SUTD
+Political Science
+4.69
+C,C++,PHP
+Data-Scientist,Network-Architect,Statistician
+Network-Architect,Database-Administrator,Web-Developer
+9,10,0,4,7
+Applicant

@@ -1,0 +1,15 @@
+Rebbeca Kellogg
+64792479
+Rebbeca@gmail.com
+S1529913X
+Female
+Malay
+368 Jalan Besar
+SMU
+Psychology
+4.95
+PHP,C++,Ruby
+Data-Scientist,Software-Developer,Statistician
+Accountant
+6,9,7,6,0
+Applicant

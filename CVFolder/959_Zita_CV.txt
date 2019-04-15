@@ -1,0 +1,15 @@
+Zita Clement
+23764336
+Zita@gmail.com
+S1081059D
+Female
+Indian
+131 Middle Road
+SMU
+Marketing
+4.05
+JAVA,PHP,C
+Security-Analyst,Software-Developer,Financial-Manager
+Statistician
+9,4,10,10,0
+Applicant

@@ -1,0 +1,15 @@
+Lyndon Malloy
+46185556
+Lyndon@gmail.com
+S1767790Z
+Male
+Chinese
+167 Bugis Street
+SUTD
+Marketing
+4.67
+JAVA,C,C++,JavaScript
+Cartographer
+Accountant,Financial-Manager,Software-Developer
+9,5,9,1,3
+Applicant

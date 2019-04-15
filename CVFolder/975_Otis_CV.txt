@@ -1,0 +1,15 @@
+Otis Carmichael
+46346662
+Otis@gmail.com
+S9169732X
+Male
+Malay
+332 Jalan Besar
+NTU
+Psychology
+4.46
+C
+Software-Developer
+Security-Analyst,Software-Developer,Financial-Manager
+3,6,6,5,4
+Applicant

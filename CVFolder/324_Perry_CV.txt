@@ -1,0 +1,15 @@
+Perry Estep
+82958562
+Perry@gmail.com
+S9642602Z
+Female
+Malay
+235 Kay Poh Road 
+SMU
+Marketing
+3.29
+C++,JavaScript
+Cartographer,Financial-Manager
+Financial-Manager,Web-Developer
+0,4,8,7,10
+Applicant

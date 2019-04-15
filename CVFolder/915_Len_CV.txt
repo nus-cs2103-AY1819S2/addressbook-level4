@@ -1,0 +1,15 @@
+Len Kaufman
+12863382
+Len@gmail.com
+S2441053O
+Male
+Malay
+341 Rotan Lane
+Singapore Polytechnic
+Art
+4.56
+Python,JAVA
+Accountant,Database-Administrator,Financial-Manager
+Web-Developer
+8,9,4,4,8
+Applicant

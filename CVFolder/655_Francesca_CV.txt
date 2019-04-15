@@ -1,0 +1,15 @@
+Francesca Lara
+63151319
+Francesca@gmail.com
+S5363471F
+Female
+Chinese
+82 Thomson Road
+Singapore Polytechnic
+Electrical Engineering
+4.58
+JavaScript,Ruby,C#,PHP
+Software-Developer,Security-Analyst,Accountant
+Accountant,Security-Analyst
+3,3,7,8,1
+Applicant

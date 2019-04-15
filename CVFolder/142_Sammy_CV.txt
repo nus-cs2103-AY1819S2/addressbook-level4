@@ -1,0 +1,15 @@
+Sammy Pritchard
+60966373
+Sammy@gmail.com
+S9520909N
+Male
+Malay
+308 Tanah Merah
+SMU
+Art
+4.68
+JAVA,PHP
+Accountant,Software-Developer
+Security-Analyst,Financial-Manager
+9,2,6,1,6
+Applicant

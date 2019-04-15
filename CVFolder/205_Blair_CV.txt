@@ -1,0 +1,15 @@
+Blair Leyva
+39397165
+Blair@gmail.com
+S3741986B
+Female
+Malay
+213 Ang Mo Kio
+Singapore Polytechnic
+Political Science
+4.96
+C#,C
+Software-Developer,Network-Architect
+Cartographer,Database-Administrator,Web-Developer
+0,6,7,4,2
+Applicant

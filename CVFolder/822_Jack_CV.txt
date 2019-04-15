@@ -1,0 +1,15 @@
+Jack Mcnulty
+92095785
+Jack@gmail.com
+S3410003L
+Male
+Malay
+124 Jalan Besar
+SMU
+Political Science
+4.95
+Ruby
+Accountant,Network-Architect,Web-Developer
+Network-Architect
+10,8,7,8,4
+Applicant

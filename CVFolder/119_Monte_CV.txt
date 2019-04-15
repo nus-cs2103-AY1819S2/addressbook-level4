@@ -1,0 +1,15 @@
+Monte Waggoner
+89981610
+Monte@gmail.com
+S5604082R
+Male
+Others
+306 Rotan Lane
+SUTD
+Computer Science
+3.88
+JAVA,Python,PHP
+Database-Administrator
+Database-Administrator
+0,4,6,9,1
+Applicant

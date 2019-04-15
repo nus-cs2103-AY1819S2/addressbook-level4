@@ -1,0 +1,15 @@
+Bernie Briscoe
+54000437
+Bernie@gmail.com
+S9641017Y
+Female
+Others
+256 Albert Street
+NTU
+Computer Science
+4.05
+Ruby
+Data-Scientist
+Security-Analyst,Accountant
+0,1,6,7,10
+Applicant

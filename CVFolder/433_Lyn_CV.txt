@@ -1,0 +1,15 @@
+Lyn Davis
+75482791
+Lyn@gmail.com
+S9038636D
+Female
+Indian
+223 Tanah Merah
+NTU
+Marketing
+4.75
+Python,C,C#
+Statistician,Database-Administrator,Network-Architect
+Network-Architect
+5,10,8,7,1
+Applicant

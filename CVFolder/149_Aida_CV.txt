@@ -1,0 +1,15 @@
+Aida Suggs
+42974803
+Aida@gmail.com
+S6271069X
+Female
+Malay
+110 Albert Street
+SMU
+Political Science
+3.26
+Ruby,PHP,Python,C#
+Statistician,Web-Developer
+Network-Architect,Financial-Manager,Accountant
+7,3,4,3,5
+Applicant

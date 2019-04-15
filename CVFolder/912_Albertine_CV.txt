@@ -1,0 +1,15 @@
+Albertine Deaton
+50130385
+Albertine@gmail.com
+S4333144S
+Female
+Chinese
+362 Middle Road
+SUTD
+Mechanical Engineering
+3.78
+JAVA,Ruby,Python
+Security-Analyst,Database-Administrator
+Financial-Manager,Cartographer
+3,9,6,6,1
+Applicant

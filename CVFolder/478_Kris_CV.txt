@@ -1,0 +1,15 @@
+Kris Butler
+10644121
+Kris@gmail.com
+S6418746Y
+Female
+Others
+481 Jalan Besar
+NUS
+Nursing
+4.11
+JavaScript,C
+Network-Architect,Cartographer,Data-Scientist
+Network-Architect,Statistician,Security-Analyst
+1,6,2,2,7
+Applicant

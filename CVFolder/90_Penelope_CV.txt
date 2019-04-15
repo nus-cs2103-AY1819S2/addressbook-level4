@@ -1,0 +1,15 @@
+Penelope Hopson
+26914416
+Penelope@gmail.com
+S3230491A
+Female
+Others
+13 PGPR
+NTU
+Mechanical Engineering
+3.59
+PHP,C,JavaScript
+Financial-Manager,Database-Administrator,Statistician
+Data-Scientist,Financial-Manager,Software-Developer
+0,6,0,4,9
+Applicant

@@ -1,0 +1,15 @@
+Modesta Morales
+75328669
+Modesta@gmail.com
+S4123592R
+Female
+Chinese
+149 Albert Street
+SMU
+Biology
+4.18
+C#
+Software-Developer,Statistician,Database-Administrator
+Statistician
+4,1,0,7,9
+Applicant

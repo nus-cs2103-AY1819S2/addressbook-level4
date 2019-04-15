@@ -1,0 +1,15 @@
+Thomasina Carmichael
+51163560
+Thomasina@gmail.com
+S8902135T
+Female
+Malay
+300 Sentosa
+SUTD
+Electrical Engineering
+4.46
+PHP,JAVA,C#,JavaScript
+Statistician,Software-Developer,Web-Developer
+Data-Scientist,Accountant,Cartographer
+5,2,2,10,7
+Applicant

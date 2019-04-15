@@ -1,0 +1,15 @@
+Heide Murdock
+99632468
+Heide@gmail.com
+S2647451A
+Female
+Chinese
+62 PGPR
+SUTD
+Electrical Engineering
+3.13
+Ruby,C
+Accountant,Web-Developer
+Accountant,Data-Scientist
+0,1,10,10,9
+Applicant

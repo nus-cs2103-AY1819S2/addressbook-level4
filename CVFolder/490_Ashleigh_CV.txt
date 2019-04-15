@@ -1,0 +1,15 @@
+Ashleigh Seal
+66417789
+Ashleigh@gmail.com
+S1482714E
+Female
+Indian
+383 Jalan Besar
+NUS
+Mechanical Engineering
+4.98
+C,JAVA,JavaScript,Python
+Cartographer,Data-Scientist
+Database-Administrator,Software-Developer,Accountant
+6,0,2,6,7
+Applicant

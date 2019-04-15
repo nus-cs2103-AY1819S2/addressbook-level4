@@ -1,0 +1,15 @@
+Billy Hong
+96032020
+Billy@gmail.com
+S7793652E
+Female
+Chinese
+172 PGPR
+Singapore Polytechnic
+Art
+4.21
+C++,Python
+Web-Developer,Software-Developer,Database-Administrator
+Web-Developer,Statistician
+8,2,7,4,5
+Applicant

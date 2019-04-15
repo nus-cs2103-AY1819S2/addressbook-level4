@@ -1,0 +1,15 @@
+Meri Trujillo
+76430105
+Meri@gmail.com
+S6080728R
+Female
+Malay
+83 Ang Mo Kio
+SMU
+Computer Science
+4.13
+C,JAVA,Ruby,Python
+Security-Analyst,Software-Developer,Cartographer
+Financial-Manager,Web-Developer,Database-Administrator
+9,5,1,4,10
+Applicant

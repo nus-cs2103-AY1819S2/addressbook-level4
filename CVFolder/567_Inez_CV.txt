@@ -1,0 +1,15 @@
+Inez Roe
+17421924
+Inez@gmail.com
+S0446493R
+Female
+Chinese
+269 Albert Street
+NUS
+Art
+4.19
+PHP,Ruby
+Financial-Manager,Software-Developer
+Cartographer
+9,1,0,0,8
+Applicant

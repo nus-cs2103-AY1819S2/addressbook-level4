@@ -1,0 +1,15 @@
+Ashton Roush
+00387072
+Ashton@gmail.com
+S9667338L
+Female
+Chinese
+359 Thomson Road
+NTU
+Marketing
+4.28
+C#,Python
+Data-Scientist
+Web-Developer
+9,0,4,10,7
+Applicant

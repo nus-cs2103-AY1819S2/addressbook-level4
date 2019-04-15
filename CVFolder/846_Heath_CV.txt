@@ -1,0 +1,15 @@
+Heath Lee
+07319772
+Heath@gmail.com
+S4641773N
+Male
+Malay
+404 Tanah Merah
+NUS
+Biology
+3.34
+Python,C#
+Financial-Manager,Cartographer
+Financial-Manager,Database-Administrator,Network-Architect
+4,0,0,9,0
+Applicant

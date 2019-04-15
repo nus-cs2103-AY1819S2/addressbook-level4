@@ -1,0 +1,15 @@
+Mollie Bledsoe
+88956337
+Mollie@gmail.com
+S6613756N
+Female
+Others
+198 Albert Street
+NTU
+Political Science
+3.20
+JAVA
+Financial-Manager,Database-Administrator,Cartographer
+Statistician,Network-Architect
+4,3,10,0,4
+Applicant

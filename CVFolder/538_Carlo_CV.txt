@@ -1,0 +1,15 @@
+Carlo Freeman
+24904625
+Carlo@gmail.com
+S8497746J
+Male
+Indian
+113 Ang Mo Kio
+SUTD
+Art
+4.40
+PHP,C,Python
+Security-Analyst,Network-Architect
+Accountant,Security-Analyst
+3,9,3,1,0
+Applicant

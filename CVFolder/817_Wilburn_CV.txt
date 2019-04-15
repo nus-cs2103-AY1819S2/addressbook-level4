@@ -1,0 +1,15 @@
+Wilburn Brinkley
+84887906
+Wilburn@gmail.com
+S5115529A
+Male
+Indian
+12 Bugis Street
+NTU
+Marketing
+4.55
+JavaScript,Ruby,C#,C++
+Network-Architect,Data-Scientist
+Database-Administrator,Network-Architect,Web-Developer
+4,9,5,3,7
+Applicant

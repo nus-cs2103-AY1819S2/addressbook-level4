@@ -1,0 +1,15 @@
+Oralia Darden
+06297524
+Oralia@gmail.com
+S3205020P
+Female
+Indian
+251 Rotan Lane
+NUS
+Nursing
+3.19
+Python,JAVA
+Software-Developer,Web-Developer
+Web-Developer,Cartographer,Database-Administrator
+3,10,5,8,6
+Applicant

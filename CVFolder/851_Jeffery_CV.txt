@@ -1,0 +1,15 @@
+Jeffery Ohara
+70815058
+Jeffery@gmail.com
+S4046322O
+Male
+Malay
+496 Thomson Road
+NUS
+Nursing
+3.48
+PHP,Python,JAVA,C++
+Database-Administrator,Cartographer,Web-Developer
+Network-Architect,Database-Administrator
+9,0,7,6,0
+Applicant

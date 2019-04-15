@@ -1,0 +1,15 @@
+Roberto Griggs
+79656477
+Roberto@gmail.com
+S0681014S
+Male
+Chinese
+23 PGPR
+NTU
+Art
+3.28
+Ruby,JavaScript
+Financial-Manager,Software-Developer,Database-Administrator
+Database-Administrator,Statistician
+1,2,5,9,10
+Applicant

@@ -1,0 +1,15 @@
+Kent Dodson
+60960283
+Kent@gmail.com
+S0493673C
+Male
+Chinese
+223 Ang Mo Kio
+NUS
+Mechanical Engineering
+3.77
+Python,JAVA
+Accountant,Statistician,Security-Analyst
+Web-Developer,Accountant
+5,1,1,1,6
+Applicant

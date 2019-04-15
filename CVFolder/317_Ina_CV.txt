@@ -1,0 +1,15 @@
+Ina Hale
+27374878
+Ina@gmail.com
+S4989889X
+Female
+Indian
+223 Middle Road
+NTU
+Mechanical Engineering
+3.96
+Python,Ruby,C#
+Data-Scientist
+Cartographer
+9,5,2,1,3
+Applicant

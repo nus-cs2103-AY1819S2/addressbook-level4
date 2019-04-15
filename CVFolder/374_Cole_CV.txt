@@ -1,0 +1,15 @@
+Cole Arthur
+01366041
+Cole@gmail.com
+S6832906M
+Male
+Indian
+47 Kay Poh Road 
+NTU
+Art
+4.70
+JavaScript,JAVA,C
+Statistician,Software-Developer
+Database-Administrator,Statistician,Network-Architect
+2,2,2,5,1
+Applicant

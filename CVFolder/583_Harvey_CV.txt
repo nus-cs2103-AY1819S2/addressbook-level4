@@ -1,0 +1,15 @@
+Harvey Stapleton
+51450559
+Harvey@gmail.com
+S8844895Z
+Male
+Others
+15 Thomson Road
+NUS
+Political Science
+4.67
+C#,Ruby
+Security-Analyst,Accountant
+Web-Developer,Database-Administrator
+9,1,6,7,10
+Applicant

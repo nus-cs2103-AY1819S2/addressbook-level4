@@ -1,0 +1,15 @@
+Brendan Cantu
+14368282
+Brendan@gmail.com
+S4293631A
+Male
+Chinese
+144 Thomson Road
+SUTD
+Marketing
+3.32
+Python,Ruby
+Web-Developer,Network-Architect
+Software-Developer
+5,0,3,6,2
+Applicant

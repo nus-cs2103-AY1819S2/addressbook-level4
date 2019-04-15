@@ -1,0 +1,15 @@
+Darryl Wells
+51081456
+Darryl@gmail.com
+S5604330K
+Male
+Others
+102 Kay Poh Road 
+SUTD
+Computer Science
+4.24
+JavaScript,C
+Network-Architect,Financial-Manager,Security-Analyst
+Data-Scientist,Cartographer
+0,10,5,10,2
+Applicant

@@ -1,0 +1,15 @@
+Freddy Yancey
+79993916
+Freddy@gmail.com
+S3887741H
+Male
+Others
+290 Albert Street
+NUS
+Art
+3.94
+PHP,Python,C++,Ruby
+Statistician,Software-Developer,Security-Analyst
+Security-Analyst,Financial-Manager
+7,0,5,6,8
+Applicant

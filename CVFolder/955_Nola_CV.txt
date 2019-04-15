@@ -1,0 +1,15 @@
+Nola Mabry
+85428355
+Nola@gmail.com
+S3998821O
+Female
+Chinese
+277 Tanah Merah
+NTU
+Electrical Engineering
+4.23
+C,JavaScript
+Database-Administrator,Statistician
+Statistician,Financial-Manager,Software-Developer
+9,4,4,10,6
+Applicant

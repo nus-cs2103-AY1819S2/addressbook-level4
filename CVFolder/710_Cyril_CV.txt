@@ -1,0 +1,15 @@
+Cyril Norwood
+79107399
+Cyril@gmail.com
+S1936933R
+Male
+Malay
+438 Albert Street
+NUS
+Biology
+3.27
+C#,JavaScript
+Data-Scientist,Database-Administrator
+Web-Developer,Security-Analyst,Cartographer
+7,0,0,8,3
+Applicant

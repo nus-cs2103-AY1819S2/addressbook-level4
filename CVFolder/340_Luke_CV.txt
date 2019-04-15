@@ -1,0 +1,15 @@
+Luke Coffey
+02420259
+Luke@gmail.com
+S1531819P
+Male
+Chinese
+386 Albert Street
+SMU
+Psychology
+4.29
+C,JavaScript
+Data-Scientist
+Data-Scientist
+8,4,5,10,0
+Applicant

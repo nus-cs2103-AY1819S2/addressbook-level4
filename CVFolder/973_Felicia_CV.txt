@@ -1,0 +1,15 @@
+Felicia Nickerson
+63598900
+Felicia@gmail.com
+S9011549D
+Female
+Others
+171 Bugis Street
+SUTD
+Biology
+3.62
+C#,PHP,C++,Ruby
+Web-Developer,Network-Architect,Security-Analyst
+Security-Analyst
+3,10,0,5,4
+Applicant

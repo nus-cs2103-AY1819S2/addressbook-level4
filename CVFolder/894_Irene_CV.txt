@@ -1,0 +1,15 @@
+Irene Deleon
+93374135
+Irene@gmail.com
+S1070569I
+Female
+Indian
+312 Bugis Street
+Singapore Polytechnic
+Nursing
+3.80
+C,PHP,JAVA
+Database-Administrator,Security-Analyst
+Network-Architect
+3,7,9,4,0
+Applicant

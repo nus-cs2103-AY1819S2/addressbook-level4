@@ -1,0 +1,15 @@
+Danika Michaud
+11741187
+Danika@gmail.com
+S4192072J
+Female
+Others
+27 Thomson Road
+NTU
+Marketing
+3.92
+JavaScript,C#
+Database-Administrator,Cartographer,Accountant
+Security-Analyst,Network-Architect
+0,6,8,2,7
+Applicant

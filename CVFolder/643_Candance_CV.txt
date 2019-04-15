@@ -1,0 +1,15 @@
+Candance Medley
+81534654
+Candance@gmail.com
+S9133962V
+Female
+Indian
+123 Albert Street
+NTU
+Psychology
+4.88
+PHP,JavaScript,C#,Ruby
+Software-Developer,Cartographer
+Data-Scientist,Software-Developer,Accountant
+9,0,7,5,8
+Applicant

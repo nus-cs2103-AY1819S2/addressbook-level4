@@ -1,0 +1,15 @@
+Clayton Holt
+34957408
+Clayton@gmail.com
+S4049163W
+Male
+Chinese
+265 Bugis Street
+SUTD
+Biology
+3.76
+JAVA,JavaScript
+Software-Developer,Statistician
+Software-Developer,Cartographer
+8,6,6,5,10
+Applicant

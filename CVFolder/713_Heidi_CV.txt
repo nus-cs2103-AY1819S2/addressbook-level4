@@ -1,0 +1,15 @@
+Heidi Lugo
+03396230
+Heidi@gmail.com
+S3951896D
+Female
+Chinese
+427 Middle Road
+SMU
+Biology
+4.90
+JavaScript,JAVA,C++,Python
+Statistician,Network-Architect
+Statistician,Accountant,Database-Administrator
+7,9,8,2,7
+Applicant

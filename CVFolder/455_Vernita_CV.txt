@@ -1,0 +1,15 @@
+Vernita Mcgraw
+08272425
+Vernita@gmail.com
+S5931685Z
+Female
+Indian
+28 Sentosa
+NUS
+Biology
+3.98
+JavaScript,C,JAVA
+Security-Analyst,Financial-Manager
+Web-Developer,Accountant,Security-Analyst
+1,7,2,9,1
+Applicant

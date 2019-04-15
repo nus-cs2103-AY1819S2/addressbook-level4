@@ -1,0 +1,15 @@
+Jody Brock
+94868485
+Jody@gmail.com
+S0066075R
+Female
+Malay
+430 Middle Road
+SUTD
+Electrical Engineering
+3.22
+C++,JAVA,C,Ruby
+Network-Architect,Software-Developer,Data-Scientist
+Cartographer,Network-Architect
+4,8,1,6,4
+Applicant

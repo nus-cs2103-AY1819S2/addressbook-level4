@@ -1,0 +1,15 @@
+Jamar Carlson
+50892195
+Jamar@gmail.com
+S7689897I
+Male
+Chinese
+173 Tanah Merah
+NTU
+Biology
+3.20
+Ruby
+Network-Architect,Accountant,Web-Developer
+Financial-Manager,Cartographer
+1,0,4,0,2
+Applicant

@@ -1,0 +1,15 @@
+Earlene Hay
+56534367
+Earlene@gmail.com
+S4740927D
+Female
+Others
+6 Tanah Merah
+Singapore Polytechnic
+Political Science
+3.08
+PHP,C,C++,JAVA
+Statistician,Data-Scientist,Database-Administrator
+Web-Developer,Accountant,Database-Administrator
+1,5,1,10,6
+Applicant

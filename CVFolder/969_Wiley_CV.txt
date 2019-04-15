@@ -1,0 +1,15 @@
+Wiley Mcarthur
+60817492
+Wiley@gmail.com
+S6968795S
+Male
+Malay
+141 Albert Street
+SMU
+Nursing
+3.69
+C#,C
+Database-Administrator,Cartographer
+Data-Scientist,Statistician
+5,10,10,2,5
+Applicant

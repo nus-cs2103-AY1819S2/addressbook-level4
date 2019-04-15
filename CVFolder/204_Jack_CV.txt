@@ -1,0 +1,15 @@
+Jack Snodgrass
+30076983
+Jack@gmail.com
+S7665193J
+Male
+Malay
+145 Albert Street
+SUTD
+Art
+4.44
+C,C++,C#,PHP
+Network-Architect
+Web-Developer,Security-Analyst,Network-Architect
+0,6,6,10,1
+Applicant

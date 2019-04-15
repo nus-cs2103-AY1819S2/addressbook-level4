@@ -1,0 +1,15 @@
+Delpha Moulton
+77462281
+Delpha@gmail.com
+S3986329U
+Female
+Indian
+107 Albert Street
+NUS
+Nursing
+4.43
+C++,PHP
+Statistician
+Data-Scientist,Security-Analyst,Database-Administrator
+8,0,6,6,3
+Applicant

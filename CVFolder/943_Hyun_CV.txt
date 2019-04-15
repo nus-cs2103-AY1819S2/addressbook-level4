@@ -1,0 +1,15 @@
+Hyun Lemons
+35077332
+Hyun@gmail.com
+S4055977F
+Female
+Malay
+317 Albert Street
+Singapore Polytechnic
+Mechanical Engineering
+4.75
+JavaScript,C,C#,Python
+Software-Developer,Cartographer,Data-Scientist
+Cartographer,Database-Administrator,Accountant
+8,2,9,0,0
+Applicant

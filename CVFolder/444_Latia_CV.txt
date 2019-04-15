@@ -1,0 +1,15 @@
+Latia Valencia
+48915580
+Latia@gmail.com
+S0901151S
+Female
+Indian
+215 Albert Street
+NTU
+Mechanical Engineering
+3.39
+C,C++,Ruby,JAVA
+Software-Developer
+Software-Developer,Database-Administrator,Web-Developer
+8,6,6,8,7
+Applicant

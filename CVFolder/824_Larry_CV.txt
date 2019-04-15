@@ -1,0 +1,15 @@
+Larry Holloway
+69159917
+Larry@gmail.com
+S0900361J
+Male
+Others
+46 Sentosa
+SMU
+Marketing
+4.60
+JAVA
+Database-Administrator,Data-Scientist
+Database-Administrator,Network-Architect,Software-Developer
+0,8,0,8,4
+Applicant

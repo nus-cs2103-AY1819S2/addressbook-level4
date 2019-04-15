@@ -1,0 +1,15 @@
+Lewis Michaels
+48197036
+Lewis@gmail.com
+S6501386I
+Male
+Chinese
+200 Middle Road
+NTU
+Electrical Engineering
+3.92
+JavaScript,PHP,C++,JAVA
+Accountant,Financial-Manager,Security-Analyst
+Software-Developer
+3,9,3,5,1
+Applicant

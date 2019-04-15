@@ -1,0 +1,15 @@
+Le Connolly
+45776549
+Le@gmail.com
+S6185817W
+Female
+Indian
+237 Middle Road
+NTU
+Electrical Engineering
+4.87
+Python,C++,JAVA,JavaScript
+Accountant,Web-Developer,Cartographer
+Security-Analyst,Accountant,Web-Developer
+8,5,5,3,7
+Applicant

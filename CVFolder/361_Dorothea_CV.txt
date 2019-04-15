@@ -1,0 +1,15 @@
+Dorothea Redding
+96078442
+Dorothea@gmail.com
+S5303711I
+Female
+Indian
+84 Ang Mo Kio
+NTU
+Computer Science
+3.74
+C++,Python,C
+Web-Developer
+Web-Developer
+3,6,1,1,10
+Applicant

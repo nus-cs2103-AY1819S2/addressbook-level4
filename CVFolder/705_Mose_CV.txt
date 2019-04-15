@@ -1,0 +1,15 @@
+Mose Meek
+71769968
+Mose@gmail.com
+S6821089Z
+Male
+Others
+324 Jalan Besar
+SUTD
+Art
+3.72
+Python,JavaScript,PHP
+Accountant,Network-Architect,Database-Administrator
+Network-Architect,Web-Developer
+1,8,5,3,2
+Applicant

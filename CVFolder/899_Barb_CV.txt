@@ -1,0 +1,15 @@
+Barb Leary
+94331889
+Barb@gmail.com
+S8605825W
+Female
+Indian
+207 Albert Street
+Singapore Polytechnic
+Marketing
+4.95
+PHP,JAVA,C#
+Statistician,Data-Scientist
+Data-Scientist,Security-Analyst,Statistician
+7,10,9,0,0
+Applicant

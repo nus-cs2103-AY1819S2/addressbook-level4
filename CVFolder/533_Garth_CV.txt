@@ -1,0 +1,15 @@
+Garth Pence
+47517088
+Garth@gmail.com
+S1557139R
+Male
+Indian
+482 Jalan Besar
+NTU
+Art
+4.74
+C,Python
+Security-Analyst,Accountant,Financial-Manager
+Security-Analyst,Accountant
+4,5,3,8,3
+Applicant

@@ -1,0 +1,15 @@
+Rena Gallardo
+46919822
+Rena@gmail.com
+S1704573P
+Female
+Chinese
+84 Thomson Road
+NUS
+Computer Science
+4.46
+PHP,Ruby,JAVA,C++
+Financial-Manager,Cartographer
+Security-Analyst
+10,5,6,3,1
+Applicant

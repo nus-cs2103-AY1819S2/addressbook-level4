@@ -1,0 +1,15 @@
+Garret Matlock
+10148661
+Garret@gmail.com
+S9135205T
+Male
+Chinese
+274 Rotan Lane
+Singapore Polytechnic
+Art
+3.59
+C#,PHP,C
+Web-Developer,Data-Scientist,Security-Analyst
+Accountant,Database-Administrator
+0,6,2,9,4
+Applicant

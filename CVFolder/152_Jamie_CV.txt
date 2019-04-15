@@ -1,0 +1,15 @@
+Jamie Guerra
+58905346
+Jamie@gmail.com
+S1235384R
+Male
+Others
+406 Middle Road
+SUTD
+Art
+4.73
+Ruby,C#,Python,C++
+Statistician,Security-Analyst
+Network-Architect,Software-Developer
+1,10,4,5,7
+Applicant

@@ -1,0 +1,15 @@
+Merna Cutler
+47655913
+Merna@gmail.com
+S9424485H
+Female
+Malay
+272 Albert Street
+Singapore Polytechnic
+Nursing
+4.79
+Python
+Web-Developer,Database-Administrator
+Software-Developer,Web-Developer,Accountant
+3,10,7,4,9
+Applicant

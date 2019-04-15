@@ -1,0 +1,15 @@
+Roslyn Traylor
+82320201
+Roslyn@gmail.com
+S6979561N
+Female
+Others
+149 Rotan Lane
+SUTD
+Mechanical Engineering
+4.84
+Ruby,C,C#,Python
+Data-Scientist
+Web-Developer
+10,9,8,2,10
+Applicant

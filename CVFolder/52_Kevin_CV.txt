@@ -1,0 +1,15 @@
+Kevin Prince
+10612350
+Kevin@gmail.com
+S6468905G
+Male
+Indian
+472 Kay Poh Road 
+Singapore Polytechnic
+Biology
+4.62
+Ruby,C#,JAVA,Python
+Network-Architect,Data-Scientist,Statistician
+Web-Developer,Security-Analyst,Cartographer
+2,8,7,7,9
+Applicant

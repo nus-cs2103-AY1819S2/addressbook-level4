@@ -1,0 +1,15 @@
+Esperanza Boswell
+39668338
+Esperanza@gmail.com
+S4559079B
+Female
+Indian
+400 Jalan Besar
+NTU
+Art
+4.29
+JavaScript,C,PHP
+Financial-Manager,Software-Developer,Data-Scientist
+Financial-Manager,Cartographer,Accountant
+5,9,3,10,6
+Applicant

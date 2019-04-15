@@ -1,0 +1,15 @@
+Rashad Grigsby
+19751563
+Rashad@gmail.com
+S4218161K
+Male
+Others
+461 Albert Street
+NTU
+Nursing
+4.87
+C++,C,Ruby,PHP
+Statistician
+Cartographer,Financial-Manager,Software-Developer
+2,1,1,4,3
+Applicant

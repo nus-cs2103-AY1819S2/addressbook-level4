@@ -1,0 +1,15 @@
+Norine Salgado
+19707436
+Norine@gmail.com
+S5808372P
+Female
+Malay
+228 Albert Street
+NTU
+Biology
+3.83
+Ruby,PHP
+Web-Developer,Cartographer,Financial-Manager
+Accountant,Cartographer
+10,0,6,7,1
+Applicant

@@ -1,0 +1,15 @@
+Cornelia Dowell
+41240592
+Cornelia@gmail.com
+S1881087B
+Female
+Malay
+99 Bugis Street
+Singapore Polytechnic
+Electrical Engineering
+4.38
+Python,JAVA,C#
+Web-Developer,Cartographer,Network-Architect
+Web-Developer,Statistician
+10,4,9,10,2
+Applicant

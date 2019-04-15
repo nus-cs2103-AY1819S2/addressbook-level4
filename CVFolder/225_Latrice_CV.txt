@@ -1,0 +1,15 @@
+Latrice Sprague
+49556703
+Latrice@gmail.com
+S1811786T
+Female
+Indian
+398 Bugis Street
+SMU
+Nursing
+3.12
+Python,C,C#,PHP
+Financial-Manager,Web-Developer,Database-Administrator
+Accountant,Database-Administrator,Security-Analyst
+10,4,1,5,9
+Applicant

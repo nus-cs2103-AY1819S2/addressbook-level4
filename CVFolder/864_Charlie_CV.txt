@@ -1,0 +1,15 @@
+Charlie Turner
+44464907
+Charlie@gmail.com
+S6350639E
+Male
+Indian
+166 Middle Road
+SUTD
+Marketing
+4.29
+JavaScript
+Security-Analyst,Software-Developer
+Statistician,Software-Developer
+1,9,7,7,3
+Applicant

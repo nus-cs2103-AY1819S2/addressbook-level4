@@ -1,0 +1,15 @@
+Nadia Nielson
+67823237
+Nadia@gmail.com
+S4882091D
+Female
+Others
+385 Rotan Lane
+SMU
+Psychology
+3.30
+C,Ruby,Python
+Network-Architect
+Accountant
+5,10,3,3,0
+Applicant

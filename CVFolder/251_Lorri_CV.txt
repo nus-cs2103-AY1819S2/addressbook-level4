@@ -1,0 +1,15 @@
+Lorri Copeland
+57770251
+Lorri@gmail.com
+S7983459U
+Female
+Indian
+352 Ang Mo Kio
+SMU
+Mechanical Engineering
+3.14
+C#
+Data-Scientist,Security-Analyst
+Database-Administrator,Web-Developer,Cartographer
+0,1,6,3,0
+Applicant

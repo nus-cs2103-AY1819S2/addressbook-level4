@@ -1,0 +1,15 @@
+Brenton Perry
+40705340
+Brenton@gmail.com
+S7178871T
+Male
+Others
+257 Ang Mo Kio
+NTU
+Electrical Engineering
+3.01
+C#
+Accountant,Software-Developer,Financial-Manager
+Web-Developer,Financial-Manager
+1,7,2,10,10
+Applicant

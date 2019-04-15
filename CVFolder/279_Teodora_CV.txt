@@ -1,0 +1,15 @@
+Teodora Sellers
+67721121
+Teodora@gmail.com
+S4180411H
+Female
+Indian
+250 Kay Poh Road 
+SUTD
+Mechanical Engineering
+4.74
+Python,JAVA,C,C++
+Cartographer,Data-Scientist,Financial-Manager
+Cartographer
+5,2,7,1,2
+Applicant

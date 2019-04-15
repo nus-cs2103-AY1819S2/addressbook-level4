@@ -1,0 +1,15 @@
+Josie Gardiner
+43518126
+Josie@gmail.com
+S2098424Q
+Female
+Malay
+252 Middle Road
+SMU
+Marketing
+4.87
+PHP,C#,Python,C++
+Database-Administrator
+Cartographer,Accountant
+7,10,2,4,9
+Applicant

@@ -1,0 +1,15 @@
+Alvin Meza
+53714435
+Alvin@gmail.com
+S9316866S
+Male
+Chinese
+139 Bugis Street
+Singapore Polytechnic
+Psychology
+4.61
+JAVA,JavaScript,Python
+Database-Administrator
+Web-Developer,Accountant
+4,0,7,3,3
+Applicant

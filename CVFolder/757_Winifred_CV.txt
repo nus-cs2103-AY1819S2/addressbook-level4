@@ -1,0 +1,15 @@
+Winifred Talbot
+25249316
+Winifred@gmail.com
+S7151546N
+Female
+Indian
+219 Albert Street
+NTU
+Psychology
+4.34
+Python,Ruby,C#
+Accountant,Network-Architect
+Network-Architect,Software-Developer,Statistician
+6,8,1,7,7
+Applicant

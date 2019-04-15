@@ -1,0 +1,15 @@
+Bradly Amaya
+10549140
+Bradly@gmail.com
+S4957066W
+Male
+Indian
+62 Tanah Merah
+SUTD
+Art
+3.16
+JAVA,C#,C++,Python
+Accountant,Statistician,Data-Scientist
+Software-Developer,Database-Administrator
+0,4,5,10,0
+Applicant

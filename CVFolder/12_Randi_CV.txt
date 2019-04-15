@@ -1,0 +1,15 @@
+Randi Goldstein
+35121498
+Randi@gmail.com
+S1800546W
+Female
+Indian
+392 Bugis Street
+SUTD
+Nursing
+3.30
+Python
+Accountant,Security-Analyst
+Web-Developer,Software-Developer
+10,0,8,10,1
+Applicant

@@ -1,0 +1,15 @@
+Selina Muse
+17819659
+Selina@gmail.com
+S3891432W
+Female
+Malay
+137 Ang Mo Kio
+SUTD
+Political Science
+4.76
+C++,Python
+Network-Architect,Data-Scientist,Statistician
+Network-Architect,Accountant
+10,6,8,10,2
+Applicant

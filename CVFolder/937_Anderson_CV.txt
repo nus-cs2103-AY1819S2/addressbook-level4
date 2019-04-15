@@ -1,0 +1,15 @@
+Anderson Stinson
+18049513
+Anderson@gmail.com
+S5559344P
+Male
+Indian
+137 Ang Mo Kio
+NTU
+Nursing
+4.90
+C,C#,C++
+Accountant,Cartographer
+Accountant
+8,8,3,10,5
+Applicant

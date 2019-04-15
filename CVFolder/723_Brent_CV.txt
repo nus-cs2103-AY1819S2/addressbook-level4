@@ -1,0 +1,15 @@
+Brent Roberson
+43681268
+Brent@gmail.com
+S6675646T
+Male
+Malay
+497 Albert Street
+Singapore Polytechnic
+Marketing
+4.31
+C++,Python
+Financial-Manager,Accountant
+Statistician
+0,0,7,7,3
+Applicant

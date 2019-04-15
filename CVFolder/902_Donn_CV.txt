@@ -1,0 +1,15 @@
+Donn Guillory
+97225154
+Donn@gmail.com
+S2145492G
+Male
+Malay
+23 Middle Road
+NUS
+Marketing
+4.81
+JAVA,C,C#
+Accountant
+Statistician,Security-Analyst
+2,1,2,4,7
+Applicant

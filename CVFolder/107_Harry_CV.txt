@@ -1,0 +1,15 @@
+Harry Pendleton
+93992632
+Harry@gmail.com
+S4455479I
+Male
+Malay
+351 Thomson Road
+Singapore Polytechnic
+Nursing
+3.60
+Python,Ruby,C,C++
+Data-Scientist
+Statistician,Cartographer
+1,0,7,7,3
+Applicant

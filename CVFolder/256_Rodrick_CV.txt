@@ -1,0 +1,15 @@
+Rodrick Mills
+45039306
+Rodrick@gmail.com
+S0609448C
+Male
+Chinese
+256 Kay Poh Road 
+SMU
+Biology
+3.50
+Python,C#,Ruby,PHP
+Software-Developer,Network-Architect
+Statistician,Database-Administrator
+2,7,0,9,6
+Applicant

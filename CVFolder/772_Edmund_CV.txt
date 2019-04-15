@@ -1,0 +1,15 @@
+Edmund Dill
+83398609
+Edmund@gmail.com
+S5481698Z
+Male
+Malay
+390 Jalan Besar
+NUS
+Nursing
+4.53
+Python
+Network-Architect,Software-Developer,Data-Scientist
+Software-Developer,Database-Administrator,Network-Architect
+5,7,10,5,9
+Applicant

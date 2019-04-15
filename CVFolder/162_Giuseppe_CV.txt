@@ -1,0 +1,15 @@
+Giuseppe Bowling
+79916607
+Giuseppe@gmail.com
+S6106243F
+Male
+Others
+12 Middle Road
+NTU
+Nursing
+3.22
+C++
+Software-Developer,Data-Scientist
+Database-Administrator,Data-Scientist,Statistician
+10,0,2,1,3
+Applicant

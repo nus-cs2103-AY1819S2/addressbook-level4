@@ -1,0 +1,15 @@
+Clint Box
+69254011
+Clint@gmail.com
+S6987181S
+Male
+Malay
+421 Bugis Street
+SUTD
+Computer Science
+3.25
+PHP,C++
+Statistician,Database-Administrator
+Data-Scientist,Network-Architect
+7,9,3,7,9
+Applicant

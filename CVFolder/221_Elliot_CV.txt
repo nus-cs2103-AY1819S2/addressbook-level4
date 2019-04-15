@@ -1,0 +1,15 @@
+Elliot Espinosa
+10825781
+Elliot@gmail.com
+S2084400U
+Male
+Others
+431 Jalan Besar
+SMU
+Art
+4.87
+C#,Python
+Database-Administrator,Security-Analyst,Web-Developer
+Statistician,Cartographer,Financial-Manager
+5,4,10,3,8
+Applicant

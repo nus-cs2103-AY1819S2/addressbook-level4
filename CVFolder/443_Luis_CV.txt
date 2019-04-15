@@ -1,0 +1,15 @@
+Luis Tidwell
+69407139
+Luis@gmail.com
+S2352497C
+Male
+Others
+289 Tanah Merah
+SUTD
+Political Science
+3.07
+C,PHP
+Web-Developer,Security-Analyst
+Software-Developer,Database-Administrator
+1,1,10,9,2
+Applicant

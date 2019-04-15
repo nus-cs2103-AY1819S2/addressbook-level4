@@ -1,0 +1,15 @@
+Randa Biddle
+16431890
+Randa@gmail.com
+S2135505M
+Female
+Chinese
+175 Ang Mo Kio
+NTU
+Psychology
+4.35
+C#
+Web-Developer,Data-Scientist,Network-Architect
+Network-Architect,Software-Developer,Cartographer
+9,10,8,8,10
+Applicant

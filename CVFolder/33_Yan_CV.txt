@@ -1,0 +1,15 @@
+Yan Dillard
+24866846
+Yan@gmail.com
+S4776664H
+Female
+Indian
+340 Kay Poh Road 
+NTU
+Electrical Engineering
+4.03
+C++
+Software-Developer
+Software-Developer,Accountant
+2,5,1,4,9
+Applicant

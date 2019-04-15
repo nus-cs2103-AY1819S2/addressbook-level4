@@ -1,0 +1,15 @@
+Ned Padgett
+64816020
+Ned@gmail.com
+S8405565Z
+Male
+Chinese
+411 Rotan Lane
+Singapore Polytechnic
+Psychology
+4.52
+C++,JAVA,Ruby
+Data-Scientist,Software-Developer
+Software-Developer
+5,10,6,4,10
+Applicant

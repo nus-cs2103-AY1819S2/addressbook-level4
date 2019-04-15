@@ -1,0 +1,15 @@
+Pete Bermudez
+46117885
+Pete@gmail.com
+S0052302R
+Male
+Indian
+277 Middle Road
+Singapore Polytechnic
+Political Science
+3.23
+C,JavaScript,PHP
+Accountant,Database-Administrator
+Security-Analyst
+10,2,3,0,6
+Applicant

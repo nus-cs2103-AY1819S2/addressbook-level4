@@ -1,0 +1,15 @@
+Chris Costa
+36736179
+Chris@gmail.com
+S3512127Z
+Male
+Malay
+361 Ang Mo Kio
+NUS
+Marketing
+4.06
+Python,PHP,Ruby,C#
+Accountant,Data-Scientist
+Web-Developer
+3,3,10,9,5
+Applicant

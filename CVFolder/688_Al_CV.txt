@@ -1,0 +1,15 @@
+Al Havens
+22105598
+Al@gmail.com
+S7747581Z
+Male
+Indian
+76 Sentosa
+Singapore Polytechnic
+Electrical Engineering
+4.88
+Python
+Accountant,Statistician,Software-Developer
+Cartographer,Web-Developer,Database-Administrator
+1,1,5,8,4
+Applicant

@@ -1,0 +1,15 @@
+Benton Stein
+65331035
+Benton@gmail.com
+S6806641F
+Male
+Malay
+427 Albert Street
+SUTD
+Psychology
+3.64
+C,C#,C++,PHP
+Software-Developer,Web-Developer
+Statistician,Network-Architect,Web-Developer
+6,2,0,3,2
+Applicant

@@ -1,0 +1,15 @@
+Mabel Valentine
+88148820
+Mabel@gmail.com
+S0208648L
+Female
+Others
+272 Kay Poh Road 
+NTU
+Biology
+4.54
+Python,Ruby,JAVA
+Database-Administrator,Web-Developer
+Cartographer,Accountant
+1,4,7,5,0
+Applicant

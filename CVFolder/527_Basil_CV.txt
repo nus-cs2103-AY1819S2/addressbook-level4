@@ -1,0 +1,15 @@
+Basil Dejesus
+42727256
+Basil@gmail.com
+S2284632E
+Male
+Malay
+141 Jalan Besar
+SMU
+Psychology
+4.25
+JavaScript,C++,JAVA
+Database-Administrator,Statistician
+Statistician,Financial-Manager,Web-Developer
+4,4,1,7,10
+Applicant

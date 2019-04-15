@@ -1,0 +1,15 @@
+Hosea Leal
+22054573
+Hosea@gmail.com
+S1222903F
+Male
+Malay
+364 Middle Road
+NUS
+Marketing
+3.77
+Python,JavaScript
+Database-Administrator,Software-Developer
+Financial-Manager,Network-Architect,Accountant
+4,6,2,3,3
+Applicant

@@ -1,0 +1,15 @@
+Ione Chester
+13977885
+Ione@gmail.com
+S4672898R
+Female
+Others
+226 Sentosa
+NTU
+Marketing
+3.33
+C#,C++,Python
+Security-Analyst,Accountant
+Accountant,Web-Developer
+5,1,1,0,2
+Applicant

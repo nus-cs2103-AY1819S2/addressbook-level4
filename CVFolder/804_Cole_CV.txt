@@ -1,0 +1,15 @@
+Cole Robert
+47460057
+Cole@gmail.com
+S8400099M
+Male
+Chinese
+144 Rotan Lane
+NUS
+Political Science
+3.85
+Python
+Database-Administrator,Statistician,Cartographer
+Software-Developer
+6,8,0,2,3
+Applicant

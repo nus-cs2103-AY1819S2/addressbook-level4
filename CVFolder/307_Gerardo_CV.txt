@@ -1,0 +1,15 @@
+Gerardo Ratliff
+54965525
+Gerardo@gmail.com
+S3257754P
+Male
+Chinese
+142 Middle Road
+SUTD
+Psychology
+3.24
+C++,C#,JAVA,C
+Software-Developer
+Data-Scientist
+0,6,6,9,4
+Applicant

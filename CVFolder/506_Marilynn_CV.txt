@@ -1,0 +1,15 @@
+Marilynn Crespo
+27684981
+Marilynn@gmail.com
+S5608730R
+Female
+Malay
+75 Albert Street
+SMU
+Nursing
+3.47
+C#
+Data-Scientist
+Data-Scientist,Financial-Manager,Software-Developer
+10,8,9,5,3
+Applicant

@@ -1,0 +1,15 @@
+Dale Atwood
+10341968
+Dale@gmail.com
+S5699798F
+Male
+Chinese
+86 PGPR
+Singapore Polytechnic
+Marketing
+4.88
+Ruby,Python,C#,JavaScript
+Statistician,Database-Administrator
+Statistician
+4,8,3,2,1
+Applicant

@@ -1,0 +1,15 @@
+Eldon Goff
+11453984
+Eldon@gmail.com
+S8057588K
+Male
+Indian
+471 Sentosa
+Singapore Polytechnic
+Marketing
+3.49
+C,JAVA,C#,PHP
+Network-Architect,Database-Administrator,Data-Scientist
+Security-Analyst
+9,9,9,3,4
+Applicant

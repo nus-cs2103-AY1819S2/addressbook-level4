@@ -1,0 +1,15 @@
+David Cheng
+55674919
+David@gmail.com
+S6575279P
+Female
+Others
+87 Ang Mo Kio
+NTU
+Marketing
+3.69
+C#
+Network-Architect,Database-Administrator,Security-Analyst
+Database-Administrator,Network-Architect
+3,8,10,0,6
+Applicant

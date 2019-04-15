@@ -1,0 +1,15 @@
+Ben Mcwilliams
+36640523
+Ben@gmail.com
+S8476110M
+Male
+Chinese
+403 Jalan Besar
+SUTD
+Biology
+4.91
+JavaScript
+Accountant,Cartographer
+Accountant,Web-Developer
+9,1,7,4,0
+Applicant

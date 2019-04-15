@@ -1,0 +1,15 @@
+Takisha Blank
+40529258
+Takisha@gmail.com
+S4898999D
+Female
+Others
+113 Rotan Lane
+NTU
+Psychology
+3.35
+PHP,C
+Network-Architect,Software-Developer,Data-Scientist
+Database-Administrator,Accountant,Financial-Manager
+7,7,2,10,3
+Applicant

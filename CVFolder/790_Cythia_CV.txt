@@ -1,0 +1,15 @@
+Cythia Liles
+94619605
+Cythia@gmail.com
+S8300738T
+Female
+Chinese
+158 Rotan Lane
+Singapore Polytechnic
+Nursing
+3.22
+Python,C#,Ruby,C++
+Database-Administrator,Software-Developer,Data-Scientist
+Web-Developer,Data-Scientist,Software-Developer
+7,3,2,4,8
+Applicant

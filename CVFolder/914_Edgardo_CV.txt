@@ -1,0 +1,15 @@
+Edgardo Storey
+18065325
+Edgardo@gmail.com
+S3925382S
+Male
+Chinese
+364 Middle Road
+SUTD
+Psychology
+4.17
+C++
+Network-Architect,Cartographer,Financial-Manager
+Network-Architect,Data-Scientist,Cartographer
+9,6,0,4,2
+Applicant

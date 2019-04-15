@@ -1,0 +1,15 @@
+Katlyn Gillis
+07377084
+Katlyn@gmail.com
+S5610804Q
+Female
+Others
+79 Middle Road
+SUTD
+Mechanical Engineering
+3.36
+PHP,JavaScript,C++
+Accountant,Security-Analyst,Cartographer
+Security-Analyst,Accountant,Statistician
+1,7,10,5,10
+Applicant

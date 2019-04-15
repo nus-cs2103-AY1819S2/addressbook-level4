@@ -1,0 +1,15 @@
+Coreen Weldon
+15197501
+Coreen@gmail.com
+S9419999I
+Female
+Indian
+241 Albert Street
+NUS
+Political Science
+4.47
+C
+Database-Administrator,Statistician
+Data-Scientist,Network-Architect,Software-Developer
+8,4,1,5,8
+Applicant

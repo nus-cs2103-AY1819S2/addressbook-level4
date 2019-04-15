@@ -1,0 +1,15 @@
+Lionel Parker
+57544549
+Lionel@gmail.com
+S0825893M
+Male
+Chinese
+271 Bugis Street
+SMU
+Marketing
+3.16
+Python,C,C++,JAVA
+Cartographer,Statistician,Data-Scientist
+Data-Scientist,Security-Analyst,Software-Developer
+0,9,5,6,9
+Applicant

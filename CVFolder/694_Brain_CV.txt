@@ -1,0 +1,15 @@
+Brain Michaud
+12944882
+Brain@gmail.com
+S9705607U
+Male
+Malay
+461 Thomson Road
+NTU
+Marketing
+3.61
+JavaScript,Python,C++
+Network-Architect,Cartographer,Data-Scientist
+Cartographer,Web-Developer,Database-Administrator
+8,6,0,1,8
+Applicant

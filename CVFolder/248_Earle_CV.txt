@@ -1,0 +1,15 @@
+Earle Wicker
+31734438
+Earle@gmail.com
+S4968434F
+Male
+Indian
+74 Rotan Lane
+NTU
+Art
+4.59
+C,C#
+Cartographer
+Security-Analyst
+2,0,2,1,3
+Applicant

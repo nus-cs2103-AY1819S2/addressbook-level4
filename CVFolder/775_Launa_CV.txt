@@ -1,0 +1,15 @@
+Launa Peralta
+52445838
+Launa@gmail.com
+S4988427Z
+Female
+Others
+265 Tanah Merah
+Singapore Polytechnic
+Biology
+4.90
+Ruby,C#,C,JAVA
+Security-Analyst,Software-Developer,Financial-Manager
+Financial-Manager,Accountant
+0,8,0,8,0
+Applicant

@@ -1,0 +1,15 @@
+Bob Herring
+94046808
+Bob@gmail.com
+S1462424Z
+Male
+Indian
+97 Kay Poh Road 
+SMU
+Marketing
+4.43
+C,PHP,Python
+Database-Administrator,Statistician
+Financial-Manager,Web-Developer,Database-Administrator
+6,6,5,6,2
+Applicant

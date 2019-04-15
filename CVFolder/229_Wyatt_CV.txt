@@ -1,0 +1,15 @@
+Wyatt Moses
+70119055
+Wyatt@gmail.com
+S5805656I
+Male
+Malay
+174 Albert Street
+SUTD
+Electrical Engineering
+3.97
+JAVA,Ruby,Python,PHP
+Network-Architect,Database-Administrator,Cartographer
+Financial-Manager
+2,8,5,4,6
+Applicant

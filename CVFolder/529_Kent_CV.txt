@@ -1,0 +1,15 @@
+Kent Avalos
+10248185
+Kent@gmail.com
+S8375315H
+Male
+Malay
+445 Albert Street
+NUS
+Nursing
+3.82
+C++,JavaScript,JAVA
+Accountant,Security-Analyst
+Cartographer,Statistician
+4,7,5,0,1
+Applicant

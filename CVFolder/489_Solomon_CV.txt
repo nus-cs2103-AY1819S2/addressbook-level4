@@ -1,0 +1,15 @@
+Solomon Pineda
+04994596
+Solomon@gmail.com
+S9287106S
+Male
+Indian
+340 Albert Street
+Singapore Polytechnic
+Psychology
+4.74
+Python
+Data-Scientist,Accountant
+Accountant,Database-Administrator,Data-Scientist
+0,1,5,0,10
+Applicant

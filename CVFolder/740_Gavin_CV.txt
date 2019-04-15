@@ -1,0 +1,15 @@
+Gavin Uribe
+06397859
+Gavin@gmail.com
+S7385092G
+Male
+Chinese
+486 Albert Street
+NTU
+Marketing
+3.44
+Python,C++
+Web-Developer
+Network-Architect,Security-Analyst,Financial-Manager
+6,10,9,5,5
+Applicant

@@ -1,0 +1,15 @@
+Erika Wong
+52730453
+Erika@gmail.com
+S1813603N
+Female
+Chinese
+67 Ang Mo Kio
+Singapore Polytechnic
+Political Science
+4.55
+C#,Ruby
+Software-Developer
+Network-Architect,Software-Developer,Financial-Manager
+8,8,5,7,1
+Applicant

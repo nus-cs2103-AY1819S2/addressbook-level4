@@ -1,0 +1,15 @@
+Lane Gale
+59386937
+Lane@gmail.com
+S4063509K
+Male
+Malay
+235 Thomson Road
+NUS
+Psychology
+3.51
+JAVA,C,PHP,C++
+Statistician,Data-Scientist,Web-Developer
+Network-Architect
+9,7,1,2,7
+Applicant

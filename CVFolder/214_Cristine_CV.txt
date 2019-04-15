@@ -1,0 +1,15 @@
+Cristine Grubbs
+28226122
+Cristine@gmail.com
+S4669556D
+Female
+Malay
+431 Albert Street
+SUTD
+Marketing
+3.38
+C,C#
+Accountant,Database-Administrator
+Security-Analyst
+1,1,4,3,1
+Applicant

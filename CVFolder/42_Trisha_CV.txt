@@ -1,0 +1,15 @@
+Trisha Partridge
+61093745
+Trisha@gmail.com
+S6128192Y
+Female
+Malay
+233 Kay Poh Road 
+SUTD
+Computer Science
+4.17
+Ruby
+Data-Scientist,Financial-Manager
+Database-Administrator,Financial-Manager,Data-Scientist
+2,1,2,10,9
+Applicant

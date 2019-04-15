@@ -1,0 +1,15 @@
+Suzan Aguirre
+75733329
+Suzan@gmail.com
+S1833970F
+Female
+Malay
+175 Albert Street
+Singapore Polytechnic
+Nursing
+3.79
+JavaScript,PHP,JAVA,C
+Database-Administrator,Network-Architect,Accountant
+Accountant,Database-Administrator
+2,5,7,3,10
+Applicant

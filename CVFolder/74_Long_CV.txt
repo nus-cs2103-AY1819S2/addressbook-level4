@@ -1,0 +1,15 @@
+Long Horn
+48764256
+Long@gmail.com
+S1305647T
+Male
+Chinese
+405 Kay Poh Road 
+SMU
+Electrical Engineering
+3.35
+C,JavaScript,Python
+Security-Analyst
+Database-Administrator,Network-Architect,Security-Analyst
+2,2,5,7,6
+Applicant

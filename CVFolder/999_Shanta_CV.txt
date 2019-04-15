@@ -1,0 +1,15 @@
+Shanta Solis
+45047601
+Shanta@gmail.com
+S3065667C
+Female
+Others
+396 Albert Street
+Singapore Polytechnic
+Art
+4.23
+C#,Ruby,PHP,Python
+Network-Architect,Cartographer
+Web-Developer,Network-Architect
+10,0,5,3,5
+Applicant

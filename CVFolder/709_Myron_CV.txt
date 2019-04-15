@@ -1,0 +1,15 @@
+Myron Pepper
+20838138
+Myron@gmail.com
+S4835318Z
+Male
+Malay
+111 Bugis Street
+NTU
+Marketing
+3.21
+Ruby,C#
+Accountant,Cartographer
+Software-Developer,Cartographer,Accountant
+6,6,1,6,2
+Applicant

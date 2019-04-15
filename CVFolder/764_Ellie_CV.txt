@@ -1,0 +1,15 @@
+Ellie Mcgill
+86668164
+Ellie@gmail.com
+S5238255C
+Female
+Others
+469 Bugis Street
+Singapore Polytechnic
+Art
+4.21
+C#,Python,JAVA
+Financial-Manager
+Security-Analyst
+10,9,1,3,5
+Applicant

@@ -1,0 +1,15 @@
+Maynard Churchill
+66994180
+Maynard@gmail.com
+S2328627U
+Male
+Others
+495 Middle Road
+NTU
+Psychology
+4.93
+Ruby,C#,JavaScript
+Financial-Manager
+Financial-Manager,Database-Administrator,Statistician
+1,9,1,7,4
+Applicant

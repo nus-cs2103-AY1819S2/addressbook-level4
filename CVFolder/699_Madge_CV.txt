@@ -1,0 +1,15 @@
+Madge Gilmore
+54515774
+Madge@gmail.com
+S7914414E
+Female
+Others
+204 Kay Poh Road 
+SMU
+Mechanical Engineering
+3.61
+C,PHP,Python
+Web-Developer
+Data-Scientist
+1,6,6,10,1
+Applicant

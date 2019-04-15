@@ -1,0 +1,15 @@
+Brendan Quigley
+56171855
+Brendan@gmail.com
+S3720320O
+Male
+Indian
+106 Albert Street
+Singapore Polytechnic
+Political Science
+4.06
+C,PHP,Python,Ruby
+Software-Developer
+Accountant,Data-Scientist,Network-Architect
+7,4,5,7,3
+Applicant

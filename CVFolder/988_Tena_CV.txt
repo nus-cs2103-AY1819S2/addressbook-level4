@@ -1,0 +1,15 @@
+Tena Waterman
+50953160
+Tena@gmail.com
+S7058950B
+Female
+Others
+65 Albert Street
+SUTD
+Marketing
+4.58
+Ruby,C++,C
+Accountant
+Cartographer
+6,6,9,7,3
+Applicant

@@ -1,0 +1,15 @@
+Rubie Alderman
+02704655
+Rubie@gmail.com
+S8066018U
+Female
+Chinese
+37 Kay Poh Road 
+NUS
+Computer Science
+3.58
+JAVA,Ruby,Python,C
+Web-Developer,Software-Developer
+Software-Developer,Database-Administrator
+8,6,9,4,3
+Applicant

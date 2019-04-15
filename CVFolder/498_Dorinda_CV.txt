@@ -1,0 +1,15 @@
+Dorinda Sutherland
+71470274
+Dorinda@gmail.com
+S0461212X
+Female
+Others
+10 Bugis Street
+NTU
+Computer Science
+4.67
+JavaScript
+Accountant
+Data-Scientist
+0,0,10,1,3
+Applicant

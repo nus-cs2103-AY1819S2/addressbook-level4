@@ -1,0 +1,15 @@
+Chad Pool
+77961991
+Chad@gmail.com
+S9260738A
+Male
+Malay
+250 Albert Street
+SMU
+Political Science
+4.52
+JAVA,C
+Data-Scientist,Cartographer,Web-Developer
+Statistician,Financial-Manager
+10,7,9,10,4
+Applicant

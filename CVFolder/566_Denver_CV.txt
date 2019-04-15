@@ -1,0 +1,15 @@
+Denver Matthews
+67717401
+Denver@gmail.com
+S8340142H
+Male
+Others
+401 Albert Street
+NUS
+Marketing
+3.04
+JavaScript,PHP,Ruby
+Financial-Manager,Cartographer
+Database-Administrator,Cartographer
+9,5,0,2,7
+Applicant

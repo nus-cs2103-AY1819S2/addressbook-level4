@@ -1,0 +1,15 @@
+Sanford Ruiz
+56546742
+Sanford@gmail.com
+S4006472F
+Male
+Malay
+403 Bugis Street
+SUTD
+Computer Science
+4.66
+C,C++
+Data-Scientist,Software-Developer
+Database-Administrator
+6,3,6,10,10
+Applicant

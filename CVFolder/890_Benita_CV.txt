@@ -1,0 +1,15 @@
+Benita Sisk
+01944764
+Benita@gmail.com
+S5204354O
+Female
+Others
+5 Albert Street
+SMU
+Biology
+4.32
+PHP,Ruby,C++,C
+Accountant,Web-Developer,Cartographer
+Database-Administrator,Web-Developer
+3,9,4,8,4
+Applicant

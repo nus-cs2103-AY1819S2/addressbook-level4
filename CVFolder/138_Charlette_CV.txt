@@ -1,0 +1,15 @@
+Charlette Conner
+46746735
+Charlette@gmail.com
+S0821399N
+Female
+Malay
+395 Rotan Lane
+SMU
+Electrical Engineering
+3.26
+JavaScript,JAVA
+Network-Architect
+Network-Architect,Database-Administrator,Data-Scientist
+6,0,5,5,5
+Applicant

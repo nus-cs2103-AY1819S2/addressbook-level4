@@ -1,0 +1,15 @@
+Gemma Newby
+37719661
+Gemma@gmail.com
+S7353263E
+Female
+Malay
+451 Rotan Lane
+NTU
+Marketing
+3.36
+Python,C
+Database-Administrator,Financial-Manager
+Network-Architect,Database-Administrator
+9,8,0,3,6
+Applicant

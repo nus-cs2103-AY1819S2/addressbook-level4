@@ -1,0 +1,15 @@
+Houston Radford
+20483477
+Houston@gmail.com
+S1034683J
+Male
+Indian
+380 Jalan Besar
+Singapore Polytechnic
+Biology
+3.25
+C++,PHP,JAVA
+Statistician,Software-Developer,Data-Scientist
+Network-Architect,Financial-Manager,Web-Developer
+0,3,4,5,5
+Applicant

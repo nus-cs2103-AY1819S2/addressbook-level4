@@ -1,0 +1,15 @@
+Ernesto Browning
+99310035
+Ernesto@gmail.com
+S7388629K
+Male
+Others
+228 Albert Street
+SUTD
+Nursing
+4.21
+Python
+Cartographer
+Security-Analyst
+1,10,8,4,4
+Applicant

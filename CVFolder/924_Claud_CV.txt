@@ -1,0 +1,15 @@
+Claud Grey
+24858605
+Claud@gmail.com
+S1297213T
+Male
+Indian
+286 Rotan Lane
+SUTD
+Psychology
+4.44
+C#,C,JAVA
+Cartographer,Database-Administrator,Software-Developer
+Accountant,Security-Analyst,Statistician
+4,7,5,10,0
+Applicant

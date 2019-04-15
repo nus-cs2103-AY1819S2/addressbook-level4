@@ -1,0 +1,15 @@
+Keith Godwin
+56289681
+Keith@gmail.com
+S2623541N
+Male
+Chinese
+202 Tanah Merah
+SMU
+Mechanical Engineering
+4.97
+C#,C++,PHP,Python
+Data-Scientist,Accountant,Security-Analyst
+Network-Architect,Database-Administrator,Web-Developer
+3,4,2,1,0
+Applicant

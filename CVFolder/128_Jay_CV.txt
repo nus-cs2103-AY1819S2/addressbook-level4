@@ -1,0 +1,15 @@
+Jay Gonzales
+74840193
+Jay@gmail.com
+S6524714X
+Male
+Indian
+448 Sentosa
+NUS
+Mechanical Engineering
+4.33
+Python
+Accountant
+Web-Developer
+1,1,2,0,4
+Applicant

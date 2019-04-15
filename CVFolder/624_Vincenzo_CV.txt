@@ -1,0 +1,15 @@
+Vincenzo Petty
+88072096
+Vincenzo@gmail.com
+S3293131T
+Male
+Indian
+225 Thomson Road
+NTU
+Art
+3.48
+C,JAVA,PHP,Python
+Web-Developer,Software-Developer
+Database-Administrator,Cartographer
+9,5,8,4,7
+Applicant

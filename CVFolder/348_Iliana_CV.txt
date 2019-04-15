@@ -1,0 +1,15 @@
+Iliana Beach
+66344570
+Iliana@gmail.com
+S0651037P
+Female
+Chinese
+140 Tanah Merah
+NTU
+Psychology
+3.86
+PHP,Ruby
+Database-Administrator,Statistician,Cartographer
+Accountant
+9,5,5,1,8
+Applicant

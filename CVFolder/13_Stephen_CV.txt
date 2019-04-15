@@ -1,0 +1,15 @@
+Stephen Mclean
+55754485
+Stephen@gmail.com
+S1748862L
+Female
+Indian
+470 Rotan Lane
+NTU
+Mechanical Engineering
+3.97
+C#
+Statistician,Data-Scientist,Network-Architect
+Accountant,Data-Scientist,Network-Architect
+9,3,5,0,7
+Applicant

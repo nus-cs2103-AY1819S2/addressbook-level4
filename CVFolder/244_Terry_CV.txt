@@ -1,0 +1,15 @@
+Terry Kiser
+56144129
+Terry@gmail.com
+S7611789Y
+Male
+Chinese
+295 Thomson Road
+NUS
+Electrical Engineering
+3.24
+PHP,Ruby,Python,JavaScript
+Security-Analyst
+Data-Scientist,Financial-Manager
+0,1,5,10,4
+Applicant

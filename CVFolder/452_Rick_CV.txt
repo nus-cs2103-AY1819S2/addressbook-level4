@@ -1,0 +1,15 @@
+Rick Sinclair
+12977931
+Rick@gmail.com
+S2761052S
+Male
+Chinese
+95 Albert Street
+Singapore Polytechnic
+Mechanical Engineering
+3.55
+Python,C,C++
+Network-Architect,Data-Scientist
+Security-Analyst,Database-Administrator
+3,5,4,10,8
+Applicant

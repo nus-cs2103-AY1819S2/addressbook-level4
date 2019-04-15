@@ -1,0 +1,15 @@
+Jarod Teague
+36108787
+Jarod@gmail.com
+S8243668N
+Male
+Others
+122 Jalan Besar
+SUTD
+Political Science
+3.09
+C#,Python
+Accountant,Data-Scientist,Statistician
+Database-Administrator
+8,1,10,6,5
+Applicant

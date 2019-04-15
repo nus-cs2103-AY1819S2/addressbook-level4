@@ -1,0 +1,15 @@
+Johnathan Busch
+77105204
+Johnathan@gmail.com
+S3002919D
+Male
+Chinese
+99 Sentosa
+SMU
+Mechanical Engineering
+3.02
+Ruby,JAVA,C++,C#
+Cartographer,Software-Developer,Database-Administrator
+Statistician
+10,8,1,8,2
+Applicant

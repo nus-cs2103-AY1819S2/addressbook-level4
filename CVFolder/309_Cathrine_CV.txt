@@ -1,0 +1,15 @@
+Cathrine Layton
+78132654
+Cathrine@gmail.com
+S5245528V
+Female
+Indian
+190 Thomson Road
+SUTD
+Biology
+4.70
+C,C#,JavaScript,JAVA
+Database-Administrator,Cartographer
+Web-Developer,Cartographer,Data-Scientist
+3,1,5,10,1
+Applicant

@@ -1,0 +1,15 @@
+Natalie Roberson
+35808145
+Natalie@gmail.com
+S8142633T
+Female
+Chinese
+469 Sentosa
+SUTD
+Political Science
+3.24
+Python,JAVA
+Financial-Manager
+Database-Administrator,Software-Developer,Statistician
+3,0,8,1,6
+Applicant

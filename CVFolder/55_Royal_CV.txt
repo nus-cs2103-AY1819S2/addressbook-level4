@@ -1,0 +1,15 @@
+Royal Pagan
+82439290
+Royal@gmail.com
+S3062259F
+Male
+Malay
+491 Jalan Besar
+NUS
+Psychology
+3.58
+C#,PHP
+Financial-Manager,Software-Developer
+Software-Developer,Statistician,Database-Administrator
+3,2,1,5,7
+Applicant

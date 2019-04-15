@@ -1,0 +1,15 @@
+Johnny Jacobs
+35901980
+Johnny@gmail.com
+S0564229I
+Female
+Chinese
+130 Albert Street
+NUS
+Mechanical Engineering
+4.25
+C,PHP
+Accountant,Data-Scientist,Network-Architect
+Financial-Manager,Web-Developer,Accountant
+2,9,2,3,1
+Applicant

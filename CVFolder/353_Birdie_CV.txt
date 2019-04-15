@@ -1,0 +1,15 @@
+Birdie Weiss
+58411137
+Birdie@gmail.com
+S9519498U
+Female
+Indian
+166 Albert Street
+SUTD
+Political Science
+3.36
+C,JavaScript
+Financial-Manager,Statistician,Data-Scientist
+Security-Analyst
+6,6,10,5,9
+Applicant

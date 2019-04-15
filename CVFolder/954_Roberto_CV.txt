@@ -1,0 +1,15 @@
+Roberto Lund
+56506935
+Roberto@gmail.com
+S7403325J
+Male
+Others
+500 Tanah Merah
+SMU
+Marketing
+4.63
+JavaScript,Ruby,C#
+Database-Administrator,Financial-Manager,Data-Scientist
+Financial-Manager,Cartographer
+6,10,8,7,7
+Applicant

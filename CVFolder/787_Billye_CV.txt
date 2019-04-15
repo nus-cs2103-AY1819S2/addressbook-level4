@@ -1,0 +1,15 @@
+Billye Mulligan
+96227147
+Billye@gmail.com
+S6344315Y
+Female
+Malay
+190 Jalan Besar
+SMU
+Marketing
+3.80
+Ruby,JAVA,Python,C
+Software-Developer,Web-Developer,Database-Administrator
+Database-Administrator,Data-Scientist
+9,4,4,10,7
+Applicant

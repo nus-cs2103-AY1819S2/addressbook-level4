@@ -1,0 +1,15 @@
+Rosendo Ochoa
+90201122
+Rosendo@gmail.com
+S6218998D
+Male
+Indian
+270 Thomson Road
+NTU
+Art
+3.13
+JAVA,C
+Accountant
+Statistician,Data-Scientist
+10,7,3,6,9
+Applicant

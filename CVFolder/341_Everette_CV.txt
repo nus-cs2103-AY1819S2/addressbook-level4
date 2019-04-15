@@ -1,0 +1,15 @@
+Everette Billings
+45089835
+Everette@gmail.com
+S9972903V
+Male
+Indian
+389 Middle Road
+SMU
+Political Science
+4.77
+C#,JAVA
+Web-Developer,Software-Developer,Data-Scientist
+Cartographer,Security-Analyst,Web-Developer
+3,10,0,5,1
+Applicant

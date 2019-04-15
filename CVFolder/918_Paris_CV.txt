@@ -1,0 +1,15 @@
+Paris Hoover
+87756194
+Paris@gmail.com
+S2613229Y
+Male
+Indian
+303 Ang Mo Kio
+NUS
+Political Science
+4.68
+Python,PHP,C,JAVA
+Data-Scientist,Statistician,Software-Developer
+Software-Developer,Security-Analyst
+10,0,4,2,4
+Applicant

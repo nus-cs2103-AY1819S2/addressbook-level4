@@ -1,0 +1,15 @@
+Brandee Ryder
+73088957
+Brandee@gmail.com
+S9164561D
+Female
+Indian
+133 Albert Street
+Singapore Polytechnic
+Political Science
+3.49
+JAVA,C,Python,PHP
+Software-Developer,Web-Developer,Statistician
+Data-Scientist,Financial-Manager
+10,7,9,8,5
+Applicant

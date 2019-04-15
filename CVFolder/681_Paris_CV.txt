@@ -1,0 +1,15 @@
+Paris Templeton
+95084450
+Paris@gmail.com
+S2979873S
+Male
+Indian
+226 Albert Street
+NTU
+Nursing
+4.07
+Python,C++
+Data-Scientist,Financial-Manager,Web-Developer
+Database-Administrator,Cartographer
+1,7,5,2,6
+Applicant

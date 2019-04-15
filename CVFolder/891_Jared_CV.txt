@@ -1,0 +1,15 @@
+Jared Rivas
+40909513
+Jared@gmail.com
+S7321299G
+Male
+Malay
+165 Thomson Road
+Singapore Polytechnic
+Nursing
+4.84
+PHP,JavaScript,Python,C++
+Financial-Manager,Accountant,Database-Administrator
+Financial-Manager,Database-Administrator
+7,9,9,2,4
+Applicant

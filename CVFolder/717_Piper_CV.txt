@@ -1,0 +1,15 @@
+Piper Rodriguez
+71329950
+Piper@gmail.com
+S0025086V
+Female
+Others
+216 Jalan Besar
+SMU
+Electrical Engineering
+3.58
+C,JAVA
+Software-Developer
+Database-Administrator
+3,6,10,5,0
+Applicant

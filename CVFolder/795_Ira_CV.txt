@@ -1,0 +1,15 @@
+Ira Sterling
+21568721
+Ira@gmail.com
+S9726169E
+Male
+Indian
+191 Albert Street
+SMU
+Art
+4.47
+PHP,JavaScript,C++
+Cartographer,Security-Analyst,Accountant
+Security-Analyst,Web-Developer
+10,7,2,2,5
+Applicant

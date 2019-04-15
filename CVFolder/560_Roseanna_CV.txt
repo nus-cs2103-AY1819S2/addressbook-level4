@@ -1,0 +1,15 @@
+Roseanna Neumann
+74559507
+Roseanna@gmail.com
+S4179394Y
+Female
+Others
+243 Ang Mo Kio
+NUS
+Mechanical Engineering
+3.95
+Ruby,JAVA,C++
+Software-Developer,Web-Developer
+Statistician,Cartographer,Web-Developer
+5,1,10,6,1
+Applicant

@@ -1,0 +1,15 @@
+Oscar Nieves
+19015924
+Oscar@gmail.com
+S3338655U
+Male
+Others
+241 Rotan Lane
+Singapore Polytechnic
+Marketing
+4.94
+JAVA,PHP,JavaScript,C#
+Accountant
+Web-Developer
+0,9,4,10,2
+Applicant

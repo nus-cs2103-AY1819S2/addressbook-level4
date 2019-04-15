@@ -1,0 +1,15 @@
+Alonzo Swift
+58464604
+Alonzo@gmail.com
+S7415478H
+Male
+Indian
+4 Rotan Lane
+Singapore Polytechnic
+Nursing
+4.84
+C++,Ruby
+Accountant,Web-Developer,Database-Administrator
+Cartographer,Accountant,Data-Scientist
+1,4,0,10,6
+Applicant

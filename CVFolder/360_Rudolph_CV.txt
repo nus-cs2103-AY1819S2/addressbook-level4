@@ -1,0 +1,15 @@
+Rudolph Stevens
+51695629
+Rudolph@gmail.com
+S4920958Y
+Male
+Malay
+367 Bugis Street
+Singapore Polytechnic
+Political Science
+4.75
+JAVA,Python,C++
+Cartographer,Statistician,Financial-Manager
+Security-Analyst,Database-Administrator
+6,9,6,9,5
+Applicant

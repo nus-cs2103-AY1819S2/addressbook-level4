@@ -1,0 +1,15 @@
+Anthony Maddox
+20918169
+Anthony@gmail.com
+S8736385P
+Female
+Malay
+113 Thomson Road
+NUS
+Psychology
+4.97
+Python,JavaScript,C#,C++
+Cartographer
+Security-Analyst
+9,3,1,5,5
+Applicant

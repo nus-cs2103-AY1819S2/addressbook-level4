@@ -1,0 +1,15 @@
+Jarvis Messer
+47262616
+Jarvis@gmail.com
+S4890968W
+Male
+Chinese
+299 Bugis Street
+Singapore Polytechnic
+Marketing
+3.13
+JavaScript,C++,C
+Accountant,Data-Scientist
+Network-Architect,Database-Administrator,Accountant
+2,1,3,5,3
+Applicant

@@ -1,0 +1,15 @@
+Cameron Golden
+86640997
+Cameron@gmail.com
+S0522063F
+Male
+Malay
+497 Rotan Lane
+NUS
+Electrical Engineering
+4.44
+Ruby,Python,PHP
+Accountant,Cartographer,Software-Developer
+Database-Administrator,Security-Analyst
+10,10,7,9,9
+Applicant

@@ -1,0 +1,15 @@
+Douglas Torrez
+34637701
+Douglas@gmail.com
+S8864404E
+Male
+Malay
+264 Albert Street
+Singapore Polytechnic
+Marketing
+3.93
+JAVA,C#,Python,C
+Database-Administrator,Accountant
+Financial-Manager
+2,0,0,5,9
+Applicant

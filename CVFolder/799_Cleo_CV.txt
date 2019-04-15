@@ -1,0 +1,15 @@
+Cleo Bartlett
+77250579
+Cleo@gmail.com
+S4524983E
+Male
+Others
+434 Middle Road
+NUS
+Psychology
+3.81
+Ruby
+Data-Scientist,Statistician,Database-Administrator
+Accountant,Financial-Manager,Database-Administrator
+6,6,2,5,10
+Applicant

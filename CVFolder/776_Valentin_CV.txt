@@ -1,0 +1,15 @@
+Valentin Artis
+06407449
+Valentin@gmail.com
+S4227448Y
+Male
+Indian
+229 Albert Street
+SUTD
+Nursing
+4.32
+JavaScript,C,C++,Python
+Security-Analyst,Data-Scientist
+Database-Administrator
+1,9,9,2,2
+Applicant

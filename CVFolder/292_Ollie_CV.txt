@@ -1,0 +1,15 @@
+Ollie Sapp
+63941450
+Ollie@gmail.com
+S5692632I
+Male
+Indian
+145 Albert Street
+SMU
+Biology
+4.58
+Python,PHP
+Financial-Manager,Web-Developer,Accountant
+Web-Developer,Statistician,Cartographer
+10,10,2,10,9
+Applicant

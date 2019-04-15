@@ -1,0 +1,15 @@
+Mitchel Grubbs
+43772536
+Mitchel@gmail.com
+S4350430I
+Male
+Chinese
+493 Kay Poh Road 
+Singapore Polytechnic
+Nursing
+3.12
+C#,Python,PHP
+Statistician,Web-Developer,Data-Scientist
+Statistician,Database-Administrator,Cartographer
+3,3,7,10,9
+Applicant

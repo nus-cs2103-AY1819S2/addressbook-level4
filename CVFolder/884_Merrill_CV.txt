@@ -1,0 +1,15 @@
+Merrill Chadwick
+10248319
+Merrill@gmail.com
+S9210395Z
+Male
+Others
+413 Rotan Lane
+NUS
+Mechanical Engineering
+4.43
+C,PHP,Ruby
+Software-Developer,Statistician,Web-Developer
+Software-Developer,Statistician
+0,4,7,10,0
+Applicant

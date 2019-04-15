@@ -1,0 +1,15 @@
+Stuart Guyton
+05993820
+Stuart@gmail.com
+S6995955O
+Male
+Others
+253 Thomson Road
+NTU
+Biology
+4.58
+C#
+Database-Administrator
+Database-Administrator,Software-Developer,Security-Analyst
+6,4,2,9,8
+Applicant

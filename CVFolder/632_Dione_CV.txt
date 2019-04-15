@@ -1,0 +1,15 @@
+Dione Gentile
+42130324
+Dione@gmail.com
+S1200087A
+Female
+Malay
+235 Rotan Lane
+SMU
+Electrical Engineering
+3.49
+C
+Network-Architect,Cartographer
+Security-Analyst
+0,1,7,1,3
+Applicant

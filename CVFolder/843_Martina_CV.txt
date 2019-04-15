@@ -1,0 +1,15 @@
+Martina Obrien
+56427526
+Martina@gmail.com
+S1571489B
+Female
+Others
+421 Bugis Street
+NTU
+Electrical Engineering
+3.41
+C#,PHP,C++,JAVA
+Accountant,Software-Developer
+Web-Developer,Cartographer,Network-Architect
+6,4,9,4,10
+Applicant

@@ -1,0 +1,15 @@
+Bruno Kincaid
+91078287
+Bruno@gmail.com
+S1978366Q
+Male
+Chinese
+269 Thomson Road
+NUS
+Psychology
+3.62
+C++,JavaScript,Python,C
+Database-Administrator
+Database-Administrator,Cartographer,Web-Developer
+1,3,7,4,3
+Applicant

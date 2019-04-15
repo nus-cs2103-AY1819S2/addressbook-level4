@@ -705,7 +705,7 @@ Step 10.`Album#refreshAlbum()` is called to update the Information Panel on the 
 ** Advantage: Name of the new image is clear to the user.
 ** Disadvantage: May be tedious for the user to type in a name each time `save` is performed.
 
-* *Alternative 2 (current choice) *: The user can choose to save as a new name or overwrite the original image
+* *Alternative 2 (current choice)*: The user can choose to save as a new name or overwrite the original image
 ** Advantage: Convenient for the user to `save` quickly without having to type a new name every time.
 ** Disadvantage: The user may unintentionally overwrite the original image.
 

@@ -14,6 +14,7 @@ import seedu.address.model.review.Review;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Summary {
+    public static final Float NO_RATING = (float) -1;
     private static final DecimalFormat ONE_DP = new DecimalFormat("#.#");
 
     // Data fields
@@ -32,7 +33,7 @@ public class Summary {
             this.avgRating = computeAvgRating(reviews, totalVisits);
         } else {
             this.totalVisits = 0;
-            this.avgRating = (float) -1;
+            this.avgRating = NO_RATING;
         }
 
         requireAllNonNull(totalVisits, avgRating);
@@ -96,11 +97,10 @@ public class Summary {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Overall Rating: ")
-                .append(getAvgRating())
+        builder.append(getAvgRating())
                 .append(" from ")
                 .append(getTotalVisits())
-                .append(" visits");
+                .append(" visit(s)");
         return builder.toString();
     }
 }

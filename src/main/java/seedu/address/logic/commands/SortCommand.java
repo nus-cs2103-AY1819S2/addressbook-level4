@@ -30,15 +30,15 @@ public class SortCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Sorts all restaurants in ascending or descending order of its aggregate ratings.\n"
-            + "The list of restaurants will be sorted in descending order of aggregate ratings by default, "
-            + "unless its order (ASC/DES) is specified. You can limit the number of ratings by specifying the limit.\n"
+            + "The list of restaurants will be sorted in descending order of aggregate ratings by default, unless "
+            + "its order (ASC/DES) is specified. You can limit the number of rankings shown by specifying the limit.\n"
             + "The specified keywords for order are 'ASC' or 'DES' (case-insensitive) and represent the order "
             + "that the restaurants will be listed in.\n"
             + "Parameters: [or/ASC] or [or/DES] and [l/LIMIT]\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_ORDER + "asc " + PREFIX_LIMIT + "3";
 
     public static final String MESSAGE_SUCCESS_ALL = "Sorted all restaurants in %1$s order";
-    public static final String MESSAGE_SUCCESS_LIMIT = "Sorted %1$s restaurant(s) in %2$s order";
+    public static final String MESSAGE_SUCCESS_LIMIT = "Sorted restaurant(s) with %1$s ranking(s) in %2$s order";
 
     private Order order;
     private Optional<Limit> limit;
@@ -49,19 +49,24 @@ public class SortCommand extends Command {
      */
     public SortCommand(Order order, Optional<Limit> limit) {
         this.order = order;
-        if (limit.isPresent()) {
+        boolean isLimitPresent = limit.isPresent();
+        boolean isOrderAsc = order.equals(new Order(ORDER_ASC));
+        boolean isOrderDes = order.equals(new Order(ORDER_DES));
+
+        if (isLimitPresent) {
             this.limit = Optional.ofNullable(limit.get());
-            if (order.equals(new Order(ORDER_ASC))) {
+
+            if (isOrderAsc) {
                 this.commandMessage = String.format(MESSAGE_SUCCESS_LIMIT,
-                        "the top " + limit.get().toInteger(), FEEDBACK_ASC);
-            } else {
+                        "the bottom " + limit.get().toInteger(), FEEDBACK_ASC);
+            } else if (isOrderDes) {
                 this.commandMessage = String.format(MESSAGE_SUCCESS_LIMIT,
                         "the top " + limit.get().toInteger(), FEEDBACK_DES);
             }
         } else {
-            if (order.equals(new Order(ORDER_ASC))) {
+            if (isOrderAsc) {
                 this.commandMessage = String.format(MESSAGE_SUCCESS_ALL, FEEDBACK_ASC);
-            } else {
+            } else if (isOrderDes) {
                 this.commandMessage = String.format(MESSAGE_SUCCESS_ALL, FEEDBACK_DES);
             }
         }
@@ -69,39 +74,54 @@ public class SortCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
+        boolean isLimitPresent = limit != null;
 
         requireNonNull(model);
         model.sortRestaurantList(new SortRating(order));
 
         // Filter the sorted list to only show those within the limited range
-        if (limit == null) {
+        if (!isLimitPresent) {
             model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
         } else {
-            int limitInt = limit.get().toInteger();
-            ArrayList<Float> uniqueRatings = model.getUniqueRatings();
-
-            // If limit < number of Restaurants, need to filter
-            if (limitInt < uniqueRatings.size()) {
-                float ratingBorder = model.getUniqueRatings().get(limitInt);
-
-                if (order.equals(new Order(ORDER_ASC))) {
-                    Predicate<Restaurant> predicateShowLimitedAsc = (r) ->
-                            r.getSummary().getAvgRating() < ratingBorder;
-                    model.updateFilteredRestaurantList(predicateShowLimitedAsc);
-                } else {
-                    Predicate<Restaurant> predicateShowLimitedDes = (r) ->
-                            r.getSummary().getAvgRating() > ratingBorder;
-                    model.updateFilteredRestaurantList(predicateShowLimitedDes);
-                }
-            } else {
-                // Else, just show all
-                model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
-            }
-
+            filterToLimit(model, limit, order);
         }
+
         model.commitFoodDiary();
 
         return new CommandResult(this.commandMessage);
+    }
+
+    /**
+     * Creates a Predicate to sort and then filter the restaurant list to the
+     * restaurants with the top {@code limit} number of ratings, ordered in
+     * {@code order}.
+     */
+    private void filterToLimit(Model model, Optional<Limit> limit, Order order) {
+        boolean isOrderAsc = order.equals(new Order(ORDER_ASC));
+        boolean isOrderDes = order.equals(new Order(ORDER_DES));
+
+        int limitInt = limit.get().toInteger();
+        ArrayList<Float> uniqueRatings = model.getUniqueRatings();
+
+        // If limit < number of Restaurants, need to filter
+        if (limitInt < uniqueRatings.size()) {
+            float ratingBorder = model.getUniqueRatings().get(limitInt);
+
+            if (isOrderAsc) {
+                Predicate<Restaurant> predicateShowLimitedAsc = (r) ->
+                        r.getSummary().getAvgRating() < ratingBorder;
+                model.updateFilteredRestaurantList(predicateShowLimitedAsc);
+            } else if (isOrderDes) {
+                Predicate<Restaurant> predicateShowLimitedDes = (r) ->
+                        r.getSummary().getAvgRating() > ratingBorder;
+                model.updateFilteredRestaurantList(predicateShowLimitedDes);
+            }
+        } else {
+            // Else, just show all
+            model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
+        }
+
+
     }
 
     @Override

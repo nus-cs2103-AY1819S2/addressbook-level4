@@ -4,10 +4,18 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <VBox fx:id="panel" styleClass="panel_title" minHeight="10" alignment="CENTER">
+    <Label fx:id="panelName" styleClass="cell_placeholder_label" text="Restaurant List Panel" />
+  </VBox>
   <ListView fx:id="restaurantListView" VBox.vgrow="ALWAYS">
     <placeholder>
-      <Label styleClass="cell_placeholder_label" text="Restaurants"/>
+      <ImageView pickOnBounds="true" preserveRatio="true">
+        <Image url="@/images/restaurants.png"/>
+      </ImageView>
     </placeholder>
   </ListView>
 </VBox>

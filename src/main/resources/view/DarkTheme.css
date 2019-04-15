@@ -166,7 +166,7 @@
 .cell_placeholder_label {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 16px;
-    -fx-text-fill: #606060;
+    -fx-text-fill: white;
 }
 
 .cell_placeholder_web {
@@ -179,6 +179,11 @@
 .vbox_background {
     -fx-background-color: #3e7b91;
     -fx-padding: 30 10 30 10;
+}
+
+.panel_title {
+    -fx-background-color: #3e7b91;
+    -fx-padding: 10 10 10 10;
 }
 
 .vbox_name_label.label {

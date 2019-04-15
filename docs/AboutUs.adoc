@@ -70,7 +70,7 @@ Responsibilities::
 === Wang Debang
 image::wsemis.png[width="150", aligh="left"]
 {nbsp} +
-*Wang Debang*,{nbsp} _Developer / Tester_ {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``https://github.com/wSemis[GitHub]``{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``<<wsemis#, portfolio>>``
+*Wang Debang*,{nbsp} _Developer / Tester_ {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``https://github.com/wSemis[GitHub]``{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``<<wsemis#, Portfolio>>``
 {nbsp} +
 {nbsp} +
 

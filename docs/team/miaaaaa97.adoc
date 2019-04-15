@@ -9,7 +9,7 @@
 
 == Overview
 
-BookSquirrel(v1.3) is for those who want to keep a record of books they’ve read. More importantly, BookSquirrel is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BookSquirrel can get your note management tasks done faster than traditional GUI apps.
+BookSquirrel(v1.4) is for those who want to keep a record of books they’ve read. More importantly, BookSquirrel is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BookSquirrel can get your note management tasks done faster than traditional GUI apps.
 
 == Summary of contributions
 
@@ -53,6 +53,12 @@ include::../UserGuide.adoc[tag=reviews]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+include::../DeveloperGuide.adoc[tag=uidiagram]
+include::../DeveloperGuide.adoc[tag=logicdiagram]
+include::../DeveloperGuide.adoc[tag=modeldiagram]
 include::../DeveloperGuide.adoc[tag=addReview]
+include::../DeveloperGuide.adoc[tag=manualtesting]
+include::../DeveloperGuide.adoc[tag=manualtestreview]
+
 
 

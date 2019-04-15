@@ -14,8 +14,12 @@ public class ListBookCommand extends Command {
 
     public static final String COMMAND_WORD = "listBook";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": list all books whose tags and rating match"
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": list all books whose names, author, tags and rating"
+            + " match the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
+            + "All keywords should be single words.\n"
+            + "Keywords for book names contain only alphanumeric characters or '*', ',', '.', '?', ''', '()', '&'.\n"
+            + "Keywords for author name or tags should contain only alphanumeric characters.\n"
+            + "Keywords for rating should contain only integer number ranging from 0 to 10.\n"
             + "Parameters: [n/BOOKNAME]...[a/AUTHOR]...[t/TAGS]...[m/RATING]...\n"
             + "Example: " + COMMAND_WORD + " t/textbook m/5";
 

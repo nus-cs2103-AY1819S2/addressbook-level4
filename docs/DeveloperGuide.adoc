@@ -156,6 +156,7 @@ image::SDforDeleteBook.png[width="800"]
 
 The sections below give more details of each component.
 
+//tag::uidiagram[]
 [[Design-Ui]]
 === UI component
 
@@ -163,6 +164,8 @@ The sections below give more details of each component.
 image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+
+//end::uidiagram[]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `BookListPanel`, `ReviewListPanel`, `StatusBarFooter`, `ReviewBrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
@@ -172,6 +175,7 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
 
 [[Design-Logic]]
 === Logic component
@@ -189,11 +193,14 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
+//tag::logicdiagram[]
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("deleteBook 1")` API call.
 
 .Interactions Inside the Logic Component for the `deleteBook 1` Command
 image::DeleteBookSdForLogic.png[width="800"]
+//end::logicdiagram[]
 
+//tag::modeldiagram[]
 [[Design-Model]]
 === Model component
 
@@ -201,6 +208,7 @@ image::DeleteBookSdForLogic.png[width="800"]
 image::ModelClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+//end::modeldiagram[]
 
 The `Model`,
 
@@ -215,6 +223,8 @@ As a more OOP model, we can store a `Tag` list in `BookShelf`, which `Book` can 
 image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
+
+// tag::storage[]
 === Storage component
 
 .Structure of the Storage Component
@@ -229,6 +239,9 @@ The `Storage` component,
 * both the data of books and reviews will be saved.
 * users are not supposed to touch the data file (file inside the `data` folder) directly. If the user insists on doing so, the data might be corrupted.
 * users are not supposed to add data files into the app manually. If the user accidentally corrupts the data file, he or she may have to reinstall the app and all data will get lost.
+* developers can edit the data file for the purpose of testing.
+
+// end::storage[]
 
 [[Design-Commons]]
 === Common classes
@@ -515,9 +528,15 @@ Step 1. The user launches the application for the first time. The `VersionedBook
 
 Step 2. The user executes `listBook n/Life`.
 
-Step 3. The `ListBookCommandParser` parses this command, and returns an `ListBookCommand`. The exception will be thrown if the command is invalid.
+Step 3. The `ListBookCommandParser` parses this command. It will first create some predicates according to the input and then use theses predicates to create a `ListBookCommand`. The exception will be thrown if the command is invalid. The command is created by the logic manager as follows.
 
-Step 4. The `ListBookCommand` be executed. The command checks all the book in the `BookShelf`, selects out books whose name contain `Life` based on `BookNameContainsKeywordPredicate`.
+image::listBookCommandLogic.png[width="800"]
+
+Step 4. The `ListBookCommand` will be executed. The command checks all the book in the `BookShelf`, selects out books whose name contain `Life` based on `BookNameContainsKeywordPredicate`.
+
+The sequence diagram of the whole process is as follows.
+
+image::listBookSqDiagram.png[width="800"]
 
 ==== Design Considerations
 
@@ -688,9 +707,9 @@ Step 2. The DeleteReviewCommandParser parses this command and returns a new Dele
 
 Step 3. The DeleteReviewCommand executes. The review with the specified index is deleted.
 
-=== Other Design Considerations
+==== Other Design Considerations
 
-==== Whether to Implement EditReview
+===== Whether to Implement EditReview
 
 It seems natural to implement EditReview as one component of the CRUD features. However,
 editing an existing review requires re-typing everything and seems painstaking to the user. It makes much more sense to just delete
@@ -984,12 +1003,16 @@ The use case ends.
 Windows, Linux, Unix, OS-X
 
 [appendix]
+
+//tag::manualtesting[]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+
+//end::manualtesting[]
 
 === Launch and Shutdown
 
@@ -1005,6 +1028,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and the location is retained.
 
+<<<<<<< HEAD
 === Adding a book
 
 . Adding a book to an empty bookshelf.
@@ -1024,6 +1048,31 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: Change the name, author, tag of the first book to test, some author, some tag.
 .. Test case: `editBook 1 t/` +
    Expected: Clear all the existing tags of the first book in the result list.
+=======
+=== Listing books in the bookshelf
+
+. Search and display the books in the bookshelf
+.. Prerequisites: The following test cases work as described only when you haven't deleted or modified _Madame Bovary_ and _Pride and Prejudice_ in the bookshelf. If you have, please only use the following test cases as examples and generate your own test cases accordingly.
+
+.. Test case: `listBook` +
+   Expected: All books in the bookshelf are shown in the leftmost column
+.. Test case: `listBook n/Madame` +
+   Expected: _Madame Bovary_ should de displayed in the left column. Any other book whose name contains _Madame_ will also be displayed.
+.. Test case: `listBook n/Madame n/Madame` +
+   Expected: Repeated keywords are acceptable. _Madame Bovary_ should de displayed in the left column. Any other book whose name contains _Madame_ will also be displayed.
+.. Test case: `listBook n/Madame n/Bovary` +
+   Expected: _Madame Bovary_ and any other books contain _Madame_ or _Bovary_ will be displayed.
+.. Test case: `listBook n/Madame n/Pride m/6 m/8` +
+   The book _Madame Bovary_ and _Pride and Prejudice_ will be displayed. Some other books will also be displayed according to what you've added into the bookshelf. For example, if you've added _Madame Butterfly_ with a rating 6 into the bookshelf, it will also be displayed. But if you added _Madame Serpent_ with rating 7 into the bookshelf, it will not be displayed as it does not match 'at least one criteria for very dimensions'.
+.. Some incorrect listBook commands to try
+... `listBook n/Madame Bovary` +
+    Keyword given is not a single word. Error isshown in the status message.
+... `listBook n/Madame c/nonsense` +
+    Prefix `c/` is not recognized, so `Madame c/nonsense` will be regarded as a whole keyword for book name. Since whitespace and '/' are not allowed for keywords, the input is invalid. Error is shown in the status message.
+... `listBook m/12` +
+    12 is not a valid range for the rating. Error is shown in the status message.
+
+>>>>>>> 479d4fd35c25c742f3ef434eb27352e58f15e155
 
 === Deleting a book
 
@@ -1049,6 +1098,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `SortBook st/rating st/author o2/des` +
    Expected: The booklist will be sorted in ascending order, if they are having the same rating then it will be sorted in descending order of author `.
 .. Some incorrect sort commands to try:
+
 ... `sortBook` +
    Error message: Sorting type is not provided.
 ... `sortBook st/name o1/des o2/asc` +
@@ -1063,3 +1113,69 @@ These instructions only provide a starting point for testers to work on; testers
 .. The data will not be saved automatically. If the user does not exit the program using the `exit` command, the changes will not be kept.
 .. If the developer modifies the storage component, to make the data structure and content consistent with the newly updated code, The developer should delete the file before relaunching the app.
 .. If the file is corrupted, the developer or the user can manually fix the bookshelf.json to restore the data. However, he or she should stick to the format specified or the data will not be read properly. Therefore, modifying the `bookshelf.json` directly is not encouraged as such behavior will cause unexpected bugs.
+
+// tag::manualtestreview[]
+=== Adding a review
+
+. Adding a review with the target book existing in bookshelf
+.. Test case: `addReview n/Pride and Prejudice rt/Belief Systems r/Most of the characters believe that nothing matters more than social class...` +
+   Expected: a review titled "Belief Systems" should appear in the review list.
+
+. Adding a review with the target book not existing in bookshelf
+.. Test case: `addReview n/Invalid Bookname rt/Belief Systems r/Most of the characters believe that nothing matters more than social class...` +
+   Expected: the following error message should appear: "The target book does not exist in the book shelf".
+
+. Other invalid commands to try:
+.. Test case: `addReview n/Pride and Prejudice rt/Belief%Systems r/Most of the characters believe that nothing matters more than social class...` +
+   Expected: error message: "Review titles should contains only alphanumeric characters, spaces, '*', ',', '.', '?', ''', '()' and '&'.
+                             And it should not be blank or have more than 50 characters (space included).".
+.. Test case: `addReview rt/Belief Systems r/Most of the characters believe that nothing matters more than social class...` +
+   Expected: error message: "Invalid command format!
+                             addReview: Adds a review to a certain book.
+                             Parameters: n/BOOK NAME rt/REVIEW TITLE r/REVIEW
+                             Example: addReview n/Alice in Wonderland rt/A great fairytale r/While Lewis Carroll purists will scoff at the aging of his young protagonist..."
+.. Test case: `addReview n/Pride and Prejudice rt/Belief Systemssssssssssssssssssssssssssssssssssssss r/Most of the characters believe that nothing matters more than social class...` +
+   Expected: error message: "Review titles should contains only alphanumeric characters, spaces, '*', ',', '.', '?', ''', '()' and '&'.
+                             And it should not be blank or have more than 50 characters (space included).".
+
+=== Deleting a review
+
+. Deleting a review while all reviews are listed
+
+.. Prerequisites: List all reviews using the `listAllReviews` command. All reviews present in the bookshelf are shown in the list.
+.. Test case: `deleteReview 1` +
+   Expected: First review is deleted from the list. Timestamp in the status bar is updated.
+.. Test case: `deleteReview 0` +
+   Expected: No review is deleted. Error details are shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `deleteReview` +
+   Expected: Similar to previous.
+
+
+=== Listing reviews
+
+. Listing a review of a book
+
+.. Prerequisites: 1 or more books are listed in the book list, by the listBook or sortBook command.
+.. Test case: `listReview 1`
+   Expected: the book with the index is selected. Reviews to that book are listed in the review list.
+.. Test case: `listReview 0`
+   Expected: Error details are shown in the status message. Status bar remains the same.
+
+. Listing all reviews
+.. Test case: `listAllReviews`
+   Expected: any selected book is deselected. All reviews in the book shelf are listed in the review list.
+
+=== Selecting review
+
+
+. Selecting a review while all reviews are listed
+
+.. Prerequisites: List all reviews using the `listAllReviews` command. All reviews present in the bookshelf are shown in the list.
+.. Test case: `selectReview 1` +
+   Expected: First review is selected. The complete review is shown in the selected review panel.
+.. Test case: `selectReview 0` +
+   Expected: No review is selected. Error details are shown in the status message.
+.. Other incorrect delete commands to try: `selectReview` +
+   Expected: Similar to previous.
+
+// end::manualtestreview[]

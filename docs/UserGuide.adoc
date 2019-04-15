@@ -732,6 +732,99 @@ Format: `{[aqua]#exit#/[aqua]#ex#}`
 .The `exit` command
 image::exit-command.png[width="800"]
 
+=== [underline]#Automatic tab switching#
+
+The tab will be switched automatically to show the content.
+
+==== [underline]#Service Booking#
+All service booking related commands will switch tab to the one for Booking and the one for Service Type. +
+
+Example:
+
+*  `lb` +
+All bookings will be shown and the tab will also be switched
+
+.Example for the automatic tab switching for `lb` command before executing
+image::atp_forbooking1.png[width="800"]
+
+.Example for the automatic tab switching for `lb` command after executing
+image::atp_forbooking2.png[width="800"]
+
+==== [underline]#Room Reservation#
+All room reservation related commands will switch tab to the one for Reservation and the one for Room Type. +
+
+Example:
+
+*  `lr` +
+All reservations will be shown and the tab will also be switched.
+
+.Example for the automatic tab switching for `lr` command before executing
+image::atp_forreservation1.png[width="800"]
+
+.Example for the automatic tab switching for `lr` command after executing
+image::atp_forreservation2.png[width="800"]
+
+==== [underline]#Bill#
+All bill related commands will switch tab to the one for Bill. +
+
+Example:
+
+*  `gb-c 1` +
+The bill be generated and the tab will also be switched.
+
+.Example for the automatic tab switching for `gb-c 1` command before executing
+image::atp_forbill1.png[width="800"]
+
+.Example for the automatic tab switching for `gb-c 1` command after executing
+image::atp_forbill2.png[width="800"]
+
+=== [underline]#Automatic panel scrolling#
+==== [underline]#Service Booking#
+The customer panel will be scrolled automatically to show the newly added item.
+
+.Example for the automatic panel scrolling for `ac n/Tom Brown p/12442512 e/tom@brown.com id/G112342H` command before executing
+image::aps_forcustomer1.png[width="800"]
+
+.Example for the automatic panel scrolling for `ac n/Tom Brown p/12442512 e/tom@brown.com id/G112342H` command after executing
+image::aps_forcustomer2.png[width="800"]
+
+==== [underline]#Service Booking#
+The booking panel will be scrolled automatically to show the newly added item.
+
+.Example for the automatic tab switching for `ab s/TUTORIAL :/10-11 $/1` command before executing
+image::aps_forbooking1.png[width="800"]
+
+.Example for the automatic tab switching for `ab s/TUTORIAL :/10-11 $/1` command after executing
+image::aps_forbooking2.png[width="800"]
+
+==== [underline]#Room Reservation#
+The reservation panel will be scrolled automatically to show the newly added item.
+
+.Example for the automatic panel scrolling for `ar r/DOUBLE DOUBLE ROOM d/16/04/2019-17/04/2019 $/3` command before executing
+image::aps_forreservation1.png[width="800"]
+
+.Example for the automatic panel scrolling for `ar r/DOUBLE DOUBLE ROOM d/16/04/2019-17/04/2019 $/3` command after executing
+image::aps_forreservation2.png[width="800"]
+
+=== [underline]#Filtering by clicking#
+==== [underline]#Service Booking#
+Click on a service type and the booking list will be filtered by the clicked service type.
+
+.Example for booking filtering before clicking
+image::fbc_forbooking1.png[width="800"]
+
+.Example for booking filtering after clicking
+image::fbc_forbooking2.png[width="800"]
+
+==== [underline]#Room Reservation#
+Click on a service type and the booking list will be filtered by the clicked room type.
+
+.Example for reservation filtering before clicking
+image::fbc_forbooking1.png[width="800"]
+
+.Example for reservation filtering after clicking
+image::fbc_forbooking2.png[width="800"]
+
 === [underline]#Saving the data#
 
 The HMS+ data file is saved in the hard disk automatically after any command that changes the data. +

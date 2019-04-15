@@ -1641,4 +1641,3 @@ Prerequisites:
    Expected: Error message showing no internet connection found is displayed in the status message.
 .. Test case: `visitWeb www.kfc.com.sg` +
    Expected: Error message showing no internet connection found is displayed in the status message.
-   

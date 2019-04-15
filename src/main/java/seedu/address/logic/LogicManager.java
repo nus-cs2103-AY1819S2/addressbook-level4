@@ -53,7 +53,7 @@ public class LogicManager implements Logic {
                 validCommand = true;
             } else {
                 commandResult = new CommandResult("Cannot perform command while "
-                    + model.getBattleState().getDescription().toLowerCase());
+                    + model.getBattleState().toString().toLowerCase());
             }
         } finally {
             if (validCommand) {

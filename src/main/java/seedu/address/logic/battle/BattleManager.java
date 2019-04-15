@@ -27,7 +27,6 @@ public class BattleManager implements Battle {
      * The enemy player
      */
     private Enemy enemyPlayer;
-    private long delay = 300;
 
     public BattleManager(Player humanPlayer, Enemy enemyPlayer) {
         requireNonNull(humanPlayer);
@@ -78,8 +77,6 @@ public class BattleManager implements Battle {
             }
         } catch (IndexOutOfBoundsException ioobe) {
             return new AttackFailed(attacker, target, coord, "coordinates out of bounds");
-        } catch (Exception ex) {
-            return new AttackFailed(attacker, target, coord, ex.getMessage());
         }
     }
 
@@ -98,13 +95,7 @@ public class BattleManager implements Battle {
                 logger.info(lastRes.formatAsEnemyAttack());
                 resList.add(lastRes);
                 // update the UI for every enemy attack
-                try {
-                    Thread.sleep(delay);
-                    enemyPlayer.getMapGrid().updateUi();
-                    Thread.sleep(delay);
-                } catch (InterruptedException ex) {
-                    logger.info(ex.getMessage());
-                }
+                enemyPlayer.getMapGrid().updateUi();
                 // if the Enemy has won, just end it now
                 if (lastRes.isWin()) {
                     break;
@@ -133,9 +124,5 @@ public class BattleManager implements Battle {
     @Override
     public Enemy getEnemyPlayer() {
         return enemyPlayer;
-    }
-
-    public void setDelay(long delay) {
-        this.delay = delay;
     }
 }

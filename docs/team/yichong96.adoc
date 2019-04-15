@@ -1,4 +1,4 @@
-http://= Ong Yi Chong - Project Portfolio
+= Ong Yi Chong - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets

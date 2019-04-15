@@ -433,7 +433,7 @@ is true at any point in time. E.g., only one of inFolder, inHomeDir, inTest... c
 // end::state[]
 
 //tag::importexport[]
-=== Import/Export feature__
+=== Import/Export feature
 [discrete]__
 ==== Current Implementation
 The Import and Export feature is facilitated by the Logic and model components, together

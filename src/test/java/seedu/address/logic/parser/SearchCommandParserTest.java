@@ -21,7 +21,7 @@ public class SearchCommandParserTest {
     }
 
     @Test
-    public void parse_validArgs_returnsFindCommand() {
+    public void parse_validArgs_returnsSearchCommand() {
         // no leading and trailing whitespaces
         SearchCommand expectedSearchCommand =
                 new SearchCommand(new PersonContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));

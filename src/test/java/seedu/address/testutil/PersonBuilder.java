@@ -40,6 +40,9 @@ public class PersonBuilder {
     private Price rentalPrice;
     private Remark remark;
 
+    /**
+     * Initializes the PersonBuilder with the default data.
+     */
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
@@ -150,7 +153,9 @@ public class PersonBuilder {
         return this;
     }
 
-
+    /**
+     * Returns a (@code Buyer) from the builder.
+     */
     public Buyer buildBuyer() {
         return new Buyer(name, phone, email, remark);
     }
@@ -170,10 +175,17 @@ public class PersonBuilder {
         return new Landlord(name, phone, email, remark,
                 new Property(PropertyType.RENTAL, address, rentalPrice, tags));
     }
+
+    /**
+     * Returns a (@code Tenant) from the builder.
+     */
     public Tenant buildTenant() {
         return new Tenant(name, phone, email, remark);
     }
 
+    /**
+     * Returns a (@code Person) from the builder.
+     */
     public Person build() {
         return new Person(name, phone, email, remark);
     }

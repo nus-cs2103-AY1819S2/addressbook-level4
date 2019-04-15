@@ -125,7 +125,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String Price} into an {@code Price}.
+     * Parses a {@code String price} into an {@code Price}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code price} is invalid.
@@ -140,7 +140,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String Remark} into an {@code Remark}.
+     * Parses a {@code String remark} into an {@code Remark}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code remark} is invalid.

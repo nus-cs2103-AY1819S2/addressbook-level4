@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Selects an archived person identified using its displayed index from the archive book.
+ * Selects an archived person identified using its displayed index from the archive book list.
  */
 public class ArchiveSelectCommand extends Command {
 

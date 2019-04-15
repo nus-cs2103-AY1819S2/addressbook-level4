@@ -25,7 +25,7 @@ image::tanlongbin.png[width="150", align="left"]
 
 Role: Developer +
 Responsibilities: Deliverables and Deadlines + Model + Integration + Testing +
-Features: Add, Edit, Find
+Features: Add, Edit, Search
 
 '''
 

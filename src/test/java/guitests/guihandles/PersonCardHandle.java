@@ -123,7 +123,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
                 && getRemark().equals(buyer.getRemark().value)
                 && getPhone().equals(buyer.getPhone().value)
                 && getEmail().equals(buyer.getEmail().value)
-                && getCustomer().equals("buyer");
+                && getCustomer().equals(Buyer.CUSTOMER_TYPE_BUYER);
     }
 
     /**
@@ -134,7 +134,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
                 && getRemark().equals(tenant.getRemark().value)
                 && getPhone().equals(tenant.getPhone().value)
                 && getEmail().equals(tenant.getEmail().value)
-                && getCustomer().equals("tenant");
+                && getCustomer().equals(Tenant.CUSTOMER_TYPE_TENANT);
     }
 
     /**
@@ -142,7 +142,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
      */
     public boolean equals(Seller seller) {
         return getName().equals(seller.getName().fullName)
-                && getCustomer().equals("seller")
+                && getCustomer().equals(Seller.CUSTOMER_TYPE_SELLER)
                 && getRemark().equals(seller.getRemark().value)
                 && getPhone().equals(seller.getPhone().value)
                 && getEmail().equals(seller.getEmail().value)
@@ -158,7 +158,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
      */
     public boolean equals(Landlord landlord) {
         return getName().equals(landlord.getName().fullName)
-                && getCustomer().equals("landlord")
+                && getCustomer().equals(Landlord.CUSTOMER_TYPE_LANDLORD)
                 && getRemark().equals(landlord.getRemark().value)
                 && getPhone().equals(landlord.getPhone().value)
                 && getEmail().equals(landlord.getEmail().value)

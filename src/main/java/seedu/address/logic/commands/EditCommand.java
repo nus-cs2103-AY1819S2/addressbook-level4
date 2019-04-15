@@ -168,8 +168,7 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Returns true if only the correct information is being edited for each customer type
      */
     private static Boolean isLegalEdit(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
         if (((personToEdit instanceof Buyer || personToEdit instanceof Tenant)

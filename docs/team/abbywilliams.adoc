@@ -18,38 +18,204 @@ Recruit Me is a desktop application designed for . It is an adaptation of Addres
 ** Justification: Tags are critical elements that shape a candidate and this color-coded system allows managers to better view these applicants and allows employees to interact with the recruiting process.
 ** Highlights:
     - command allows an employee to add their name as a special blue tag to a candidate's profile
-    - accepts all ASCII input, not just limited to alphanumeric
-    - if a candidate edits his or her tags the employee endorsement will not be deleted
+    - command's clear option allows employee to rescind their endorsement and remove the blue tag
+    - if a candidate edits his or her tags the employee endorsements will not be deleted
     - command accepts all characters and is not limited to alphanumeric input
-    - works with filtering command so a manager can filter by a specific employee to see which candidate's he or she has      endorsed
+    - works with filtering and sorting methods to endorse correct candidates even in different views
 
-* *Minor enhancement*: Diverse Tag Functionality
+* *Minor enhancement*: Colored Tag Feature
     - Refactoring Tag to distinguish between their skills and positions when they add and edit their profile
     - Present skills and position tags in different colors for recruiters to get a better view of the candidate
+    - Change how JsonAdaptedTags are stored in order to parse a tag's name and understand its tag type
     - Allow more than just alphanumeric input for the skill/position options
 
 
 == Contributions to the User Guide
 
+=== Adding a person: `add`
 
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
+Adds a candidate to Recruit Me +
+
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL  d/EDUCATION g/GPA a/ADDRESS deg/DEGREE-LEVEL [skill/SKILL]... [position/POSITION]...`
+
+* A candidate can have any number of skill/position tags (including 0)
+
+=== Editing a person : `edit`
+
+Edits an existing candidate in Recruit Me. +
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [d/EDUCATION] [g/GPA] [deg/DEGREE-LEVEL] [a/ADDRESS] [skill/TAG]... [position/TAG]...`
+
+* When editing tags, the existing tags of the person will be removed (i.e adding of tags is not cumulative, both skills and positions will be changed after editing one of them) except for
+existing endorsement tags.
+
+* You can remove all the person's tags, except for endorsement tags, by typing `skill/` or 'position/' without
+specifying any tags after it.
+
+=== Employee approval of candidates: `endorse`
+
+Endorses an existing candidate in RecruitMe. +
+Format: `endorse [clear] INDEX n/YOUR NAME`
+
+* Feature for employees to navigate the recruiting platform and choose candidates that they want hired
+****
+* Endorses the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* All ASCII characters accepted, not limited to alphanumeric characters
+* Error will be thrown if an employee tries to endorse a candidate more than once
+* When editing tags, the existing tags of the person will be removed (i.e adding of tags is not cumulative) except for
+existing endorsement tags.
+* Optional *clear* keyword will delete the employee endorsement at a specified index
+* Error will be thrown if an employee tries to un-endorse a candidate he or she has not previously endorsed
+* Compatible with filter and sorting methods for easy navigation
+
+****
+
+Examples:
+
+* `endorse 1 n/Steve Jobs`
+Adds a blue tag to the candidate at the `1` index with the text `Steve Jobs`
+* `endorse clear 1 n/Steve Jobs`
+Removes 'Steve Jobs' blue tag from the candidate at the `1` index
 
 include::../UserGuide.adoc
 
 
 == Contributions to the Developer Guide
 
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
+=== Colored Tag Feature
+
+Color-coordinated tags that represent a candidate's technical and professional skills, their position interests, and
+their endorsements created by members of the hiring company. Tags are a critical part of the recruitment platform in
+order to create a user-friendly, cohesive view of all
+candidates.Candidate tags are organized as *pink* for skills, *yellow* for positions of interest, and *blue* for
+employee endorsements.
+
+==== Current Implementation
+**Add and Edit Commands**
+
+Tag colors are determined by user input prefixes 'skill' and 'position'
+
+For example:
+`add` n/Amanda Collins ...other attributes... skill/Java skill/Powerpoint position/Project Manager
+
+Endorsement tags are separately determined by the `endorse` command and cannot be specified as part of a user profile
+ in the add and edit commands.
+
+These prefixes (skill and position) create new SkillsTag objects that specify the type of tag ('skill', 'pos', or
+'endorse') which is stored as an attribute in the SkillsTag class.
+
+The type attribute then specifies which tag color attribute is assigned to the SkillsTag, which is then communicated
+to the Storage component.
+
+SkillsTag in Logic component communicates to the CSS file in the GUI to change the color.
+
+The color attribute is then modeled as a JsonAdaptedTag in the Storage component.
+
+**IMPORTANT NOTE** the current implementation works with the JSON Constructor by adding a prefix to each `tagName`
+attribute that represents what tag type the object is. The strings 's:', 'p:', and 'e:' are prepended to each respective
+ skill, position, or endorse tag's tagName attribute.
+
+Other commands such as filtering and sorting are currently integrated with this design approach and parse out the
+prefixes to get the correct tag names. This design helps the filter and sort commands differentiate between the three
+ tag types in order to properly display the results of their commands and improve user readability.
+
+==== Alternate Implementation
+**Coming in v2.0**
+
+Logic Component Changes
+* Instead of representing tag type as an attribute of a SkillsTag object, a `Tag` interface will be implemented by
+distinct `SkillsTag`, `PositionTag`, `EndorseTag` objects.
+* The tags will have separate adapted JSON objects in order to correctly store the colors in the Storage component.
+* This will replace the current system of
+prepending tagName attributes with the respective tag type prefixes ('s:', 'p:', and 'e:').
+
+UI Component Changes
+* While the current implementation makes UI changes in the colors of the tags, the next implementation will have the
+separate tags featured on different lines instead of the current List of tags that has them in a random order.
+* The new view will improve the UI design to make the tags more organized and clear.
+
+=== Endorse Command
+
+==== Overview
+
+* A command for the use of company employees that want to assist in the hiring process and find the candidates that
+will work best in their teams.
+
+* The `endorse` command allows employees to select candidates by their index and create an endorsement tag to help
+candidates stand out in the recruiting platform.
+
+* There is a complementary `'clear'` function for removing endorsement tags if an employee wants to rescind his
+recommendation.
+
+image::EndorseCommandDiagram.png[width="800"]
+
+
+==== Current Implementation
+
+Endorsing mechanism is facilitated by `AddressBook`. Like other commands, the Logic Manager parses the user input and
+recognizes the 'endorse' keyword as the user calling the `endorse` command and sending the arguments to the
+`EndorseCommandParser`. The parser then interprets the specified index as an `Index` object and identifies the
+candidate to endorse. A new tag of type 'endorse' is created and added to the set of tags associated
+with the specific `Person` object. The tag is shaded teal to represent an endorsement and a "e:" prefix is added to the
+tag name in order
+to save the color correctly as a `JsonAdaptedTag` (as described in Section 3.2: Colored Tags).
+
+**Clearing Endorsements**
+
+Endorsing can be reversed through the `'clear'` keyword. When an employee has previously endorsed a candidate and
+then wants to remove that endorsement, he or she can include 'clear' in their endorse command input before the index
+is specified. The `EndorseCommandParser` recognizes the clear command and specifies that this is a clearing process
+in the instantiation of a new `EndorseCommand` object. To specify a normal endorse command, the `EndorseCommand`
+object is passed a process code of 0 in the constructor and a process code of 1 to show that a clearing command has
+been called. The object recognizes the passing of a clearing process and removes the tag of the specified employee in
+ the `Person` class.
+
+**Incorporation With Other Commands**
+
+_**Add and Edit Commands**_
+
+The add command does not have prefixes for creating endorsement tags so that candidates cannot add any company
+endorsements when they `add` themselves to the platform or when they `edit` their profile.
+
+Because endorsements are only created and removed by employees, they are saved as part of the candidate profile and
+cannot be changed by a candidate editing their skills and position tags. If a candidate adds or removes tags from
+their profile, any employee endorsements that they have received will be maintained.
+
+_**Filter and Sort Commands**_
+
+In order for the command to be functional in a filtered or sorted view, the candidate is found in the model through
+the filtered persons list. When a user filters by specified parameters and/or sorts the results by a
+profile characteristic, using the endorse command on the new indexed results will still result in a successful
+endorsement of the correct candidate.
+
+
+==== Endorse Command Tests
+
+Tests the implementation of the endorse command and the endorse clear command. Checks that the endorse command
+correctly creates an endorsement tag and endorses the correct indexed person. Also checks that the endorse clear
+command removes an endorsement tag from the correct indexed person.
+The following use cases are tested:
+
+* Endorses the correct index and correct person at the specified index
+* Clears endorsement of correct person at the correct index
+* Accepts a valid employee name
+* Accepts a valid integer as the index
+* Cannot endorse a candidate more than once
+* Cannot clear an endorsement that has never been made
+
+
+
+==== Alternate Implementation
+
+_Coming in v2.0_
+
+Separating exclusive features for different users so that only candidates can change their skills and only employees
+can endorse candidates. We will differentiate the experiences that the distinct users (candidates,
+recruiters, and employees) can have with the platform and make a more individual view for each person. Distinguishing
+ which user is using the system will allow us to prevent some users from using functions that are only meant for
+ others, such as candidates using the endorse function or employees editing a candidate profile.
+
 
 include::../DeveloperGuide.adoc
 
 
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

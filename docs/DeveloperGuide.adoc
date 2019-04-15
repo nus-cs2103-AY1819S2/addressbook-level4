@@ -587,7 +587,7 @@ Step 1. The user enters the command `warning e/10` to change the threshold for e
 
 Step 2. The command is parsed and a `WarningCommand` object is created with the type and value of the new threshold to be set.
 
-Step 3. The `WarningCommand#execute` method is invoked. The type and value of the new threshold is passed into `Model#changeWarningPanelListThreshold`.
+Step 3. The `WarningCommand#execute` method is invoked.
 
 Step 4. Threshold for expiring medicine batches is changed.
 
@@ -605,7 +605,7 @@ Step 3. The `WarningCommand#execute` method is invoked.
 
 Step 4. The current thresholds used are shown in the result display box.
 
-The activity diagram below summarises what happens when a user execute the `warning` command:
+The activity diagram below summarises what happens when the `warning` command is executed:
 
 [[fig-WarningPanelActivityDiagram]]
 .Activity diagram illustrating what happens when a user executes the `warning` command
@@ -1124,6 +1124,27 @@ Expected: The most recent window size and location is retained.
 Expected: First entry is deleted from the list. Details of the deleted entry shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
 Expected: No medicine is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
 Expected: Similar to previous.
 
+=== Changing warning panel thresholds
+
+. Changing the threshold for expiring medicine batches
+
+.. Prerequisites: Current expiry threshold is 10 days (default). Multiple medicines with batches in the list.
+.. Test case: `warning e/0` +
+Expected: All medicines batches that have expired or are expiring today are shown in the warning panel's "Expiring Soon/Expired" list. New thresholds are shown in status message.
+.. Test case: `warning e/-1` +
+Expected: No changes to warning panel. Error details shown in the status message.
+.. Other incorrect warning commands to try: `warning`, `warning e/x` (where x is not a positive integer), `warning {non-whitespace preamble} e/y` (where y is a positive integer) +
+Expected: Similar to previous.
+
+. Changing the threshold for medicines with low stock
+
+.. Prerequisites: Current low stock threshold is 20 (default). Multiple medicines with non-zero total quantities in the list.
+.. Test case: `warning q/0` +
+Expected: Warning panel's "Low in Stock" list empties and placeholder "Nothing to show" is displayed. New thresholds are shown in status message.
+.. Test case: `warning q/-1` +
+Expected: No changes to warning panel. Error details shown in the status message.
+.. Other incorrect warning commands to try: `warning`, `warning q/x` (where x is not a positive integer), `warning {non-whitespace preamble} q/y` (where y is a positive integer) +
+Expected: Similar to previous.

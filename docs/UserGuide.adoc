@@ -382,7 +382,7 @@ If the thresholds are not set, the default threshold for expiry will be 10 days,
 Thresholds set by the user are saved and will be used when the application is launched again.
 
 ****
-* `EXPIRY_THRESHOLD` should be in days before expiry date.
+* `EXPIRY_THRESHOLD` should be number of days before expiry date.
 * `LOW_STOCK_THRESHOLD` should be in number of stock remaining.
 * `SHOW` is case insensitive.
 ****

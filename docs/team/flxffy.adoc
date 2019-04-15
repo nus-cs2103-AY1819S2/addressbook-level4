@@ -17,7 +17,7 @@ MediTabs is a desktop application built with the goal to streamline inventory ma
 
 To achieve this goal, we implemented several key features: a warning panel to view urgent issues, an information panel to display medicine information, and data exportation for data analysis.
 
-In this project, I was in-charge of implementing the warning panel and its related commands.
+For this project, I was in-charge of implementing the warning panel and its related commands.
 
 == Summary of contributions
 
@@ -52,15 +52,11 @@ image::PPP_Ui_WarningPanel.png[width="600"]
 
 The following sections are my contributions to the User Guide. They showcase my ability to write documentation targeting end-users.
 
-include::../UserGuide.adoc[tag=warningpanelfeature]
-
 include::../UserGuide.adoc[tag=warningpanelcommand]
 
 == Contributions to the Developer Guide
 
 The following sections are my contributions to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
-
-include::../DeveloperGuide.adoc[tag=uicomponent]
 
 include::../DeveloperGuide.adoc[tag=warningpanel]
 

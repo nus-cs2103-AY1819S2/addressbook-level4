@@ -738,15 +738,15 @@ Reapplies the `clear` command. +
 [[generateFeature]]
 === Generating Charts: `generate`
 
+[[Chart_Combined]]
+.The number of places visited by country, rating category and year
+image::Chart_Combined.png[width="800", caption="Figure 4.17.1: ", reftext="Figure 4.17.1"]
+
 *Description:* The `generate` command generates charts based on the list of places in TravelBuddy. TravelBuddy serves up three charts (<<Chart_Combined>>) that are the most relevant to you as a traveler:
 
 * The number of places visited for each country
 * The number of places visited for each rating category
 * The number of places visited for each year
-
-[[Chart_Combined]]
-.The number of places visited by country, rating category and year
-image::Chart_Combined.png[width="800", caption="Figure 4.17.1: ", reftext="Figure 4.17.1"]
 
 *Shortcut:* `g`
 
@@ -771,23 +771,25 @@ image::Generate_BeforeParamAfterParam.png[width="800", caption="Figure 4.17.2: "
 Selects the 1st place in the current list displayed. +
 `generate` +
 Generates the charts.  +
-*_Outcome:_* The charts were successfully generated, as seen in <<Generate_Successful>> +
-[[Generate_Successful]]
-[reftext="Figure 4.17.3"]
-[caption="Figure 4.17.3: "]
-.The charts were successfully generated
-image::Generate_Successful.png[width="400"]
+*_Outcome:_* The charts were successfully generated, as seen in <<Generate_Successful>>
 
 * `clear` +
 Clears all places in the list. +
 `generate` +
 Generates the charts.  +
-*_Outcome:_* Unable to generate the charts as the list is empty, as seen in <<Generate_ListIsEmpty>> +
+*_Outcome:_* Unable to generate the charts as the list is empty, as seen in <<Generate_ListIsEmpty>>
+
+[[Generate_Successful]]
+[reftext="Figure 4.17.3"]
+[caption="Figure 4.17.3: "]
+.The charts were successfully generated
+image::Generate_Successful.png[width="380"]
+
 [[Generate_ListIsEmpty]]
 [reftext="Figure 4.17.4"]
 [caption="Figure 4.17.4: "]
 .Unable to generate the charts as the list is empty
-image::Generate_ListIsEmpty.png[width="400"]
+image::Generate_ListIsEmpty.png[width="380"]
 
 // end::generate[]
 

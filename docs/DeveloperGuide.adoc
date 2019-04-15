@@ -818,6 +818,7 @@ details.
 
 <<<
 // tag::summary[]
+[.text-justify]
 === Summary
 The `[fuchsia]#summary#` feature shows an overview of your previous expenditures in a pie chart. Each sector of the chart represents a category, labelled with the name and total expenditure for each category.
 
@@ -878,14 +879,14 @@ ii)	Else, `[fuchsia]#SummaryPanel#setSummaryData()#` will be called, which gener
 
 {bl}
 
-<<<
+[.text-justify]
 ==== Design Consideration
 ===== Aspect: Representation for Summary of Expenditure
 
 *Alternative 1 (current choice)*: Represent summary of expenses using a pie chart
 
 .Current Implementation of Summary Panel using JavaFX's `[fuchsia]#PieChart#`
-image::summaryPanel.png[width="600"]
+image::summaryPanel.png[width="450"]
 
 ** Pros: Labels can act as a legend as well as there might be categories with similar colours. This will help the user to easily identify the expenditures in different categories.
 ** Cons: If there are too many categories, the labels may not show up as it will clash with the other labels. The data presented may also become too cluttered as well.

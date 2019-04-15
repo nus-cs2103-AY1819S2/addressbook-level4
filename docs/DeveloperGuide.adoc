@@ -438,7 +438,7 @@ Step 4. The bookshelf now adds the book to the Bookshelf after making sure there
 
 The Sequence Diagram below shows how the components interact with each other for the scenario where the user issues the command `addBook n/Alice a/HR m/5 tag/fantasy`.
 
-image::AddBookHighLevelSequenceDiagram.png[width="800"]
+image::AddBookHighLevelSequenceDiagram.jpg[width="800"]
 
 The following activity diagram summarizes what happens when a user executes an AddBook command:
 

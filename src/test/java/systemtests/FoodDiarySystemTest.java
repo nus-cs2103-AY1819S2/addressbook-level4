@@ -25,6 +25,7 @@ import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.RestaurantListPanelHandle;
+import guitests.guihandles.RestaurantSummaryPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.ReviewListPanelHandle;
 import guitests.guihandles.StatusBarFooterHandle;
@@ -106,6 +107,10 @@ public abstract class FoodDiarySystemTest {
         return mainWindowHandle.getReviewListPanel();
     }
 
+    public RestaurantSummaryPanelHandle getRestaurantSummaryPanel() {
+        return mainWindowHandle.getRestaurantSummaryPanel();
+    }
+
     public MainMenuHandle getMainMenu() {
         return mainWindowHandle.getMainMenu();
     }
@@ -184,6 +189,18 @@ public abstract class FoodDiarySystemTest {
         assertEquals(new FoodDiary(expectedModel.getFoodDiary()), testApp.readStorageFoodDiary());
         assertListMatching(getRestaurantListPanel(), expectedModel.getFilteredRestaurantList());
     }
+
+    /**
+     * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
+     * {@code expectedResultMessage} and the restaurant list panel displays the restaurants in the model correctly.
+     */
+    protected void assertApplicationDisplaysExpectedForSorting(String expectedCommandInput,
+                                                               String expectedResultMessage, Model expectedModel) {
+        assertEquals(expectedCommandInput, getCommandBox().getInput());
+        assertEquals(expectedResultMessage, getResultDisplay().getText());
+        assertListMatching(getRestaurantListPanel(), expectedModel.getFilteredRestaurantList());
+    }
+
 
     /**
      * Calls {@code BrowserPanelHandle}, {@code RestaurantListPanelHandle} and {@code StatusBarFooterHandle} to remember

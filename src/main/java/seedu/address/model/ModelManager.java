@@ -58,8 +58,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Optional<PostalData> getPostalData(int postal) {
-        return Optional.ofNullable(this.postalDataSet.getPostalDataSet().get(postal));
+    public Optional<PostalDataSet> getPostalDataSet() {
+        return Optional.ofNullable(this.postalDataSet);
     }
 
     //=========== UserPrefs ==================================================================================
@@ -191,10 +191,10 @@ public class ModelManager implements Model {
 
     @Override
     public void updateFilteredRestaurantListAndSort(Predicate<Restaurant> predicate, Comparator<Restaurant> sortBy) {
-        requireNonNull(predicate);
-        System.out.println("hello");
+        requireAllNonNull(predicate, sortBy);
         filteredRestaurants.setPredicate(predicate);
         sortedRestaurants.setComparator(sortBy);
+
     }
 
     //=========== Undo/Redo =================================================================================

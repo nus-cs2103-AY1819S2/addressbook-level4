@@ -2,45 +2,64 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RESTAURANT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_RESTAURANT;
 import static seedu.address.testutil.TypicalRestaurants.getTypicalFoodDiary;
 
+import java.util.List;
+
 import org.junit.Test;
 
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.model.FoodDiary;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.PostalDataSet;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.review.Entry;
 import seedu.address.model.review.Rating;
 import seedu.address.model.review.Review;
+import seedu.address.testutil.RestaurantBuilder;
+import seedu.address.testutil.ReviewBuilder;
 
 public class AddReviewCommandTest {
 
     private Model model = new ModelManager(getTypicalFoodDiary(), new UserPrefs(), new PostalDataSet());
     private CommandHistory commandHistory = new CommandHistory();
 
-    /*@Test
+    @Test
     public void execute_normalUnfilteredList_success() {
-        Review newReview = new ReviewBuilder().build();
-        Restaurant firstRestaurant = model.getFilteredRestaurantList().get(INDEX_FIRST_RESTAURANT.getZeroBased());
+        Review reviewToAdd = new ReviewBuilder().build();
+        Restaurant editedRestaurant = new RestaurantBuilder(model.getFilteredRestaurantList().get(0))
+                .withReviews(List.of(reviewToAdd)).build();
+        AddReviewCommand addReviewCommand = new AddReviewCommand(INDEX_FIRST_RESTAURANT, reviewToAdd);
 
-        RestaurantBuilder rb = new RestaurantBuilder(firstRestaurant).withReview(newReview);
-        //TODO: problem is that .withReview(newReview) somehow tries to modify unmodifiable list, returned by
-        //getReviews() from restaurant class
-        Restaurant editedRestaurant = new RestaurantBuilder(firstRestaurant).withReview(newReview).build();
-        AddReviewCommand addReviewCommand = new AddReviewCommand(INDEX_FIRST_RESTAURANT, newReview);
+        String expectedMessage = String.format(AddReviewCommand.MESSAGE_SUCCESS, editedRestaurant.getName());
 
-        String expectedMessage = String.format(AddReviewCommand.MESSAGE_SUCCESS, editedRestaurant);
-
-        Model expectedModel = new ModelManager(new FoodDiary(model.getFoodDiary()), new UserPrefs());
+        Model expectedModel = new ModelManager(new FoodDiary(model.getFoodDiary()),
+                new UserPrefs(), new PostalDataSet());
         expectedModel.setRestaurant(model.getFilteredRestaurantList().get(0), editedRestaurant);
+        expectedModel.setSelectedRestaurant(editedRestaurant);
         expectedModel.commitFoodDiary();
 
         assertCommandSuccess(addReviewCommand, model, commandHistory, expectedMessage, expectedModel);
-    }*/
+    }
+
+    @Test
+    public void execute_invalidIndex_failure() {
+        Review reviewToAdd = new ReviewBuilder().build();
+        int sizeOfList = model.getFilteredRestaurantList().size();
+        Index outOfBoundsIndex = Index.fromOneBased(sizeOfList + 1);
+        AddReviewCommand addReviewCommand = new AddReviewCommand(outOfBoundsIndex, reviewToAdd);
+
+        assertCommandFailure(addReviewCommand, model, commandHistory,
+                Messages.MESSAGE_INVALID_RESTAURANT_DISPLAYED_INDEX);
+    }
 
     @Test
     public void equals() {

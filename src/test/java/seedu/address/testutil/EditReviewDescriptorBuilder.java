@@ -13,7 +13,7 @@ public class EditReviewDescriptorBuilder {
     private EditReviewDescriptor descriptor;
 
     public EditReviewDescriptorBuilder() {
-        descriptor = new EditReviewDescriptor();
+        this.descriptor = new EditReviewDescriptor();
     }
 
     public EditReviewDescriptorBuilder(EditReviewDescriptor descriptor) {

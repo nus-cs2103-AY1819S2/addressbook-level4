@@ -7,8 +7,10 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.model.PostalData;
 import seedu.address.model.restaurant.categories.Categories;
 import seedu.address.model.review.Review;
 import seedu.address.model.tag.Tag;
@@ -31,6 +33,7 @@ public class Restaurant {
     private final List<Review> reviews = new ArrayList<>();
     private final OpeningHours openingHours;
     private final Postal postal;
+    private Optional<PostalData> postalData;
     private final Summary summary;
 
     // Categories fields
@@ -98,6 +101,7 @@ public class Restaurant {
         this.reviews.addAll(restaurant.reviews);
         this.summary = new Summary(restaurant.getReviews());
     }
+
 
     public Name getName() {
         return name;
@@ -178,22 +182,23 @@ public class Restaurant {
         if (!(other instanceof Restaurant)) {
             return false;
         }
-
         Restaurant otherRestaurant = (Restaurant) other;
         return otherRestaurant.getName().equals(getName())
                 && otherRestaurant.getPhone().equals(getPhone())
                 && otherRestaurant.getEmail().equals(getEmail())
                 && otherRestaurant.getAddress().equals(getAddress())
+                && otherRestaurant.getPostal().equals(getPostal())
                 && otherRestaurant.getTags().equals(getTags())
                 && otherRestaurant.getWeblink().equals(getWeblink())
                 && otherRestaurant.getOpeningHours().equals(getOpeningHours())
                 && otherRestaurant.getReviews().equals(getReviews());
+
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, weblink, openingHours, reviews);
+        return Objects.hash(name, phone, email, address, postal, tags, weblink, openingHours, reviews);
     }
 
     @Override
@@ -203,7 +208,14 @@ public class Restaurant {
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Postal: ")
-                .append(getPostal());
+                .append(getPostal())
+                .append(" Weblink: ")
+                .append(getWeblink())
+                .append(" Opening Hours: ")
+                .append(getOpeningHours())
+                .append(" Tags: ");
+        getTags().forEach(builder::append);
+
 
         // Optional fields
 

@@ -6,6 +6,8 @@ import java.util.logging.Logger;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -19,7 +21,7 @@ public class RestaurantSummaryPanel extends UiPart<Region> {
     private static final String FXML = "RestaurantSummaryPanel.fxml";
     private static final DecimalFormat ONE_DP = new DecimalFormat("0.0");
     private static final String FIELD_NOT_ADDED = "N.A.";
-    private static final String ADDRESS_PLACEHOLDER = "Address: \n";
+    private static final String ADDRESS_POSTAL_PLACEHOLDER = "Address: \n";
     private static final String PHONE_PLACEHOLDER = "Contact No.: \n";
     private static final String OPENING_HOURS_PLACEHOLDER = "Opening Hours: \n";
     private static final String EMAIL_PLACEHOLDER = "Email: \n";
@@ -28,11 +30,19 @@ public class RestaurantSummaryPanel extends UiPart<Region> {
 
     // Panes
     @FXML
+    private BorderPane summaryPane;
+    @FXML
     private VBox titleVbox;
     @FXML
     private VBox infoVbox;
     @FXML
-    private BorderPane summaryPane;
+    private VBox placeholderVbox;
+    @FXML
+    private ImageView placeholderImg;
+
+    // Field to be added to panel VBox
+    @FXML
+    private Label panelName;
 
     // Fields to be added to infoVbox
     @FXML
@@ -44,7 +54,7 @@ public class RestaurantSummaryPanel extends UiPart<Region> {
     @FXML
     private Label totalVisits;
     @FXML
-    private Label address;
+    private Label addressPostal;
     @FXML
     private Label phone;
     @FXML
@@ -61,7 +71,7 @@ public class RestaurantSummaryPanel extends UiPart<Region> {
         loadPlaceholder();
 
         selectedRestaurant.addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selected restaurant changed to: " + newValue);
+            logger.fine("Summary of restaurant: " + newValue + " displayed");
 
             if (newValue == null) {
                 loadPlaceholder();
@@ -77,13 +87,14 @@ public class RestaurantSummaryPanel extends UiPart<Region> {
      * Loads placeholder into RestaurantSummaryPanel.
      */
     public void loadPlaceholder() {
-        // Create placeholder label
-        Label placeholder = new Label("Restaurant Summary");
-        placeholder.setStyle("-fx-font-size: 16px; -fx-text-fill: #606060");
+        // Create placeholder
+        placeholderImg.setImage(new Image("/images/summary.png"));
+        panelName.setText("Select a restaurant to see its summary in this panel!");
+        placeholderVbox.getChildren().setAll(panelName);
 
         // Add placeholder into summaryPane
-        summaryPane.setTop(null);
-        summaryPane.setCenter(placeholder);
+        summaryPane.setTop(placeholderVbox);
+        summaryPane.setCenter(placeholderImg);
     }
 
     /**
@@ -102,17 +113,23 @@ public class RestaurantSummaryPanel extends UiPart<Region> {
             totalVisits.setText("from " + restaurant.getSummary().getTotalVisits() + " visit(s)");
         }
 
-        address.setText(ADDRESS_PLACEHOLDER + restaurant.getAddress().toString());
+        addressPostal.setText(ADDRESS_POSTAL_PLACEHOLDER + restaurant.getAddress().toString()
+                + " S(" + restaurant.getPostal().toString() + ")");
         phone.setText(PHONE_PLACEHOLDER + restaurant.getPhone().toString());
 
         // Check if Restaurant has Opening Hours added
-        if (restaurant.getOpeningHours().toString().equals("No opening hours added")) {
+        if (restaurant.getOpeningHours().isDefault()) {
             openingHours.setText(OPENING_HOURS_PLACEHOLDER + FIELD_NOT_ADDED);
         } else {
             openingHours.setText(OPENING_HOURS_PLACEHOLDER + restaurant.getOpeningHours().toString());
         }
 
-        email.setText(EMAIL_PLACEHOLDER + restaurant.getEmail().toString());
+        // Check if Restaurant has Email added
+        if (restaurant.getEmail().toString().equals("No email added")) {
+            email.setText(EMAIL_PLACEHOLDER + FIELD_NOT_ADDED);
+        } else {
+            email.setText(EMAIL_PLACEHOLDER + restaurant.getEmail().toString());
+        }
 
         // Check if Restaurant has a Weblink
         if (restaurant.getWeblink().isDefault()) {
@@ -123,7 +140,7 @@ public class RestaurantSummaryPanel extends UiPart<Region> {
 
         // Add all Labels for the fields of a Summary into infoVbox and display it in summaryPane
         titleVbox.getChildren().setAll(name, avgRating, totalVisits);
-        infoVbox.getChildren().setAll(address, phone, openingHours, email, weblink);
+        infoVbox.getChildren().setAll(addressPostal, phone, openingHours, email, weblink);
         summaryPane.setTop(titleVbox);
         summaryPane.setCenter(infoVbox);
     }

@@ -27,5 +27,24 @@ public class PostalData {
         return this.y;
     }
 
+    @Override
+    public String toString() {
+        return "postal:" + postal + " X:" + x + " Y:" + y;
+    }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof PostalData)) {
+            return false;
+        }
+        PostalData otherPostalData = (PostalData) other;
+        return otherPostalData.getPostal().equals(getPostal())
+                && otherPostalData.getX() == (getX())
+                && otherPostalData.getY() == (getY());
+
+    }
 }

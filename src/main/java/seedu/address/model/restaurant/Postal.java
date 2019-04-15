@@ -12,7 +12,7 @@ public class Postal {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Postal Code should only contain numbers, and it should 6 digits long";
-    public static final String VALIDATION_REGEX = "\\d{6,}";
+    public static final String VALIDATION_REGEX = "\\d{6}";
     public final String value;
 
     /**
@@ -41,8 +41,8 @@ public class Postal {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Phone // instanceof handles nulls
-                && value.equals(((Phone) other).value)); // state check
+                || (other instanceof Postal // instanceof handles nulls
+                && value.equals(((Postal) other).value)); // state check
     }
 
     @Override

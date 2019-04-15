@@ -15,7 +15,29 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/cs2103-ay1819s2-w17-1/main
 
+image::developerguide.png[width="600"]
+
 By: `W17-1`      Since: `Feb 2019`      Licence: `MIT`
+
+== Welcome to the Food Diary
+
+Welcome to the *Food Diary*! The *Food Diary* is a desktop app for storing your personal food reviews and obtain food recommendations based on your past reviews.
+
+This developer guide contains information on the mechanics of all of the features of the *Food Diary* and is thus suited for developers of all levels to learn the inner workings of our application and how to effectively build on them.
+
+If you would like to improve on the *Food Diary*, here's a good place to start!
+
+**Callouts**
+
+Callouts are boxes with important information regarding the usage of the Food Diary. These 3 callouts are used throughout our User Guide.
+[NOTE]
+This is a *note*. A warning indicates important additional information that should be read.
+
+[TIP]
+This is a *tip*. A tip indicates good to know information that would improve your user experience
+
+[WARNING]
+This is a *warning*. A warning indicates critical information that would affect the functionality of this programme.
 
 == Setting up
 
@@ -161,7 +183,7 @@ image::UiClassDiagramV1.3.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `RestaurantListPanel`, `StatusBarFooter`, `BrowserPanel`, 'ReviewListPanel', etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `RestaurantListPanel`, `StatusBarFooter`, `BrowserPanel`, `ReviewListPanel`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -235,61 +257,77 @@ This section describes some noteworthy details on how certain features are imple
 
 
 // tag::listUnvisitedDG[]
-=== listUnvisited feature which sorts by distance nearest to you
+=== `listUnvisited` feature which sorts `Restaurant` by distance to a specified postal code
 ==== Current Implementation
-The 'listUnvisited' feature accepts the user's current postal code and displays restaurants without reviews nearest to the user's postal code.
+The `listUnvisited` feature accepts a postal code as user input and displays restaurants without reviews nearest to the user's inputted postal code.
 
 The implementation of this feature can be broken down into 3 main components.
 
-1)Storage Component
+*1) Storage Component*
 
-2)Model Component
+*2) Model Component*
 
-3)Logic Component
+*3) Logic Component*
 
 These implementations and scope of these components will be discussed below.
 
-*[.underline]#1.Storage Component#*
 
-The storage component function is to serialise the JSON data file `PostalData.json`
-into `JsonSerializablePostalData` which contains a `List` of `JsonAdaptedPostalData` which contains the x and y-coordinates of every postal code in Singapore as of 13/03/2019.
-This is exposed through the `StorageManager#getPostalData()` class.
-[Note]
-In order to update the PostalData.json, you can run the script found at ....
+*[.underline]#1. Storage Component#*
 
-*[.underline]#2.Model Component#*
+The `Storage` component's function is to serialise the JSON data file `PostalData.json`, which contains the x and y-coordinates of every postal code in Singapore as of 13/03/2019.
+The data is serialised into `JsonSerializablePostalData` which contains a `List` of `JsonAdaptedPostalData`.
+This data can be retreived through the `StorageManager#getPostalData()` method.
 
-The Model component function is to allow other components to get the PostalData of a specific postal code.
-This is done through the `PostalDataSet` which is obtained from the `StorageManager`. `PostalDataSet` contains a `HashMap` of `Integer` representing the postal code mapped to `PostalData`.
-This is exposed through the `Model#getPostalData(int postal)` which returns of a `Optional<PostalData>` of the postal code provided.
+[NOTE]
+In order to update the PostalData.json, you can run the script found https://github.com/chanqingzhou/postalDataScript[here].
+
+
+*[.underline]#2. Model Component#*
+
+The `Model` component's function is to allow the retrieval of the `PostalData` of a specific postal code.
+It contains a `PostalDataSet` which contains a `HashMap` of `String` representing the postal code mapped to the corresponding `PostalData`.
+This contains the x and y-coordinates of the corresponding postal code.
+The retrieval is done through the `PostalDataSet#getPostalData(int postal)` method.
+`PostalDataSet` is obtained through the `Model#getPostalDataSet()` interface which returns of a `Optional<PostalDataSet>`.
+
 
 *[.underline]#3.Logic Component#*
-The logic component consists of two key sub-components, the `Command` component and the `Comparator` component.
-The `Command` component parses the user input into a postal code and creates a new `SortDistanceComparator<Restaurant>` class with the postal code inputted as the parameters.
+
+The `Logic` component consists of two key sub-components, the `Command` component and the `Comparator` component.
+The `Command` component parses the user input into a `Postal` and then checks if the `Postal` is within the `PostalDataSet`.
+If the postal code provided is not within `PostalDataSet`, the `ListUnvisitedCommand` will simply filter out unreviewed restaurants.
+Otherwise, if the postal code is valid, it will creates a new `SortDistanceComparator<Restaurant>` class with the postal code and `PostalDataSet` inputted as the parameters.
 This `SortDistanceComparator` is then passed to the `Model` class to sort the `SortedList` which encapsulates the `FilteredList`.
+This sequence is illustrated in the activity diagram below.
+
+image::ListUnvisitedLogicActivityDiagram.png[width="800"]
 
 The `SortDistanceComparator<Restaurant>` class sorts the `Restaurant` based on the distance to the user inputted postal code.
-It does this by first querying the `PostalData` of the postal code of the `Restaurant` from `Model` then calculating the distance from the user inputted postal code.
-The result is then stored within the `Comparator` class.
+It does this by first querying the `PostalData` of the postal code of the `Restaurant` from `PostalDataSet` then
+calculating the distance from the user inputted postal code.
+This result is then stored within the `Comparator` class.
 [NOTE]
 If a `Restaurant` postal code is invalid or not in `PostalDataSet`, the distance will be set to `Double.MAX_VALUE`.
-
-`SortDistance` implements the function `compare(Restaurant firstRestaurant ,Restaurant secondRestaurant)`.
-
+This implies that these `Restaurant` will appear at the bottom of the `SortedList`.
 
 
 Given below is an example usage scenario and how 3 components behaves at each step.
 
-Step 1. The user launches the application for the first time. The `PostalDataSet` will be initialised with data from `PostalData.json` through the `Storage` component.
+Step 1. The user launches the application for the first time. The `PostalDataSet` will be initialised with data from `PostalData.json`
+through the `Storage` component.
 
-Step 2. The user calls `listUnvisited po/267951`. A new `SortBy` will be created containing the `PostalData` of '267951'. This command will then call the method `Model#filterAndSort(Predicate PREDICATE_SHOW_UNVISITED_RESTAURANTS, Comparator sortBy).`
+Step 2. The user calls `listUnvisited po/267951`. The `listUnvisitedCommand` class will be initialised.
+A new `SortDistanceComparator` will be created by the
+'listUnvisitedCommand` class containing the `PostalData` of '267951'.
+The command will then call the method `Model#filterAndSort(Predicate PREDICATE_SHOW_UNVISITED_RESTAURANTS, Comparator sortBy).`
 [NOTE]
-If the postal code provided by the user is invalid, there will be no change in ordering of the `Restaurant`.
+If the postal code provided by the user is invalid, there will be no change in ordering of the `Restaurant`. The `Restaurant` will be filtered to only show `Restaurant` without any `Review`
 
 
 Step 3. The `Model#filterAndSortByLocation()` will first filter the `filterList` to show all `Restaurants` with zero reviews.
 
-Step 4. The `sortedList` which encapsulates the `filteredList` will then be sorted based on the `sortBy` `Comparator` provided to show the nearest `Restaurants` with zero review.
+Step 4. The `sortedList` which encapsulates the `filteredList` will then be sorted based on the `Comparator`
+provided to show the nearest `Restaurants` with zero review.
 
 The following sequence diagram summarizes what happens when the user executes a listUnvisited Command.
 
@@ -306,92 +344,174 @@ image::ListUnvisitedSequenceDiagram.png[width="800"]
 ** Pros: Will use less memory and will always be updated and accurate.
 ** Cons: Internet Service is required for the usage of the feature.
 
-===== Aspect: Construction of comparator to compare Restaurants
+===== Aspect: Accessing of local postal data
 
-* **Alternative 1 (current choice):** Comparator constructor is done in the `listUnvisitedCommand`.
+* **Alternative 1 (current choice):** `PostalData` is retrieved for each `Restaurant` by the `Comparator`.
 ** Pros: Easy to implement.
-** Cons: Increased coupling between `Command` and `Model`.
-* **Alternative 2:** Passing the user entered postal code into the `ModelManager`.
-** Pros: Coupling is reduced between `Command` and `Model`.
-** Cons: Violates Single Responsibility Principle and Separation of Concerns as `ModelManager` needs to handle the logic component of the command.
-
+** Cons: Increased coupling between `Logic` and `Model`. There might also be performance issues.
+* **Alternative 2:** Using the x and y coordinates as a field in the Restaurant class
+** Pros: Repeated calls to retrieve the `PostalData` from `PostalDataSet` is not required.
+** Cons: If incorrect postal data is provided, the incorrect x and y coordinates will be written to the data file. This may be difficult to correct.
 // end::listUnvisitedDG[]
 
-// tag::selectDG[]
-=== `select` feature which selects a restaurant and displays all of its information
+// tag::selectSortDG[]
+=== Display of Restaurants and Restaurant Details
 
-==== Current Implementation
+In order to enhance user's experience in the Food Diary, the `select` feature is enhanced and a new `sort` feature is implemented.
+These two features complete the diary aspect of the application by generating total visits and average ratings from the user's own reviews and allowing users to sort the restaurants to see their favourite ones.
+This section describes the implementation of these two features.
+
+==== Select Feature
+
+The `select` feature displays a restaurant's summary and reviews when it is selected.
+The restaurant's summary is made up its generated data, the average rating and total visits, which are calculated from the reviews of a restaurant in the `Summary` class.
+
+===== Current Implementation
 The `select` feature is a pre-existing one from AddressBook Level 4.
-The enhancement made is to improve the User Experience by displaying increased quantity and quality of restaurant information upon selection.
+The enhancement made is to display greater quantity and quality of restaurant information upon selection.
 
-The following is the chain of activities that happen when the `select` command is executed.
+You can refer to _Figure 1_ to see the chain of activities that happen when the `select` command is executed.
 
 image::SelectActivityDiagram.png[width="800"]
+_Figure 1. Activity Diagram for `select` command_
 
-The `selection` mechanism is facilitated by...
+The majors components involved in the implementation of this feature are the `FoodDiaryParser`, `SelectCommandParser` and `SelectCommand` classes. Their role in this implementation will be expounded on below.
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The following describes how the `select` mechanism behaves at each step:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+Step 1. The user executes `select INDEX` command, whereby `INDEX` is a positive integer within the range of indexes in the filtered restaurant list.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+Step 2. The `FoodDiaryParser` parses the user's input and constructs a `SelectCommandParser` object, which then parses the input index into an `Index` object and constructs a `SelectCommand` object.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+Step 3. The `SelectCommand` is executed and calls on `Model#setSelectedRestaurant()` to set the selected restaurant to be the restaurant with the target `Index` in the current filtered restaurant list.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-Step 2. The user executes `delete 5` command to delete the 5th restaurant in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-Step 3. The user executes `add n/David ...` to add a new restaurant. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 4. The listeners in the `RestaurantSummaryPanel` and `ReviewListPanel` pick up the new value of the selected restaurant and loads the restaurant's summary and reviews respectively onto the GUI.
+The `RestaurantSummaryPanel` does so by calling its own `RestaurantSummaryPanel#loadSummary()` operation, which retrieves the selected restaurant's attributes such as `Summary`, and through it,
+the restaurant's `avgRating` and `totalVisit`.
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the restaurant was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+A restaurant with no reviews is indicated with `totalVisits` = 0 and `avgRating` = -1. The number -1 is chosen as all user input `Ratings` can only be a number between [0,5], thus -1 is a clear
+indication that there is no `avgRating` for the particular restaurant. This then allows a clear check that `avgRating` field displayed in the UI should be `N.A.`.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+There is no state change to the Food Diary as the `select` command only selects a restaurant from the current `FilteredList` of restaurants.
+As such, this command cannot be undone or redone through the `undo` and `redo` commands respectively.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-The following activity diagram summarizes what happens when a user executes a new command:
+You can refer to _Figure 2_ for a better idea of the internal implementation flow when a `select` command is executed.
 
 image::SelectSequenceDiagram.png[width="800"]
+_Figure 2. Sequence Diagram for `select` command_
 
-==== Design Considerations
+===== Design Considerations
 
-===== Aspect: How to structure the Summary in the UI
+Two guiding design patterns are applied to this feature:
 
-* **Alternative 1 (current choice):** Implement `Summary` as a class in the `Restaurant` package
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Implement `Summary` as a UI component that listens to changes in the Review of the Restaurant
-** Pros: Will use less memory (e.g. for `delete`, just save the restaurant being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+- The Facade design pattern is used to allow access to `avgRating` and `totalVisit` of a `Restaurant` only through its `Summary` class.
 
-===== Aspect: Data structure to support the undo/redo commands
+- The Observer pattern is also applied in the UI component as the `RestaurantSummaryPanel` and `ReviewListPanel` gets updated automatically once the selected restaurant is changed.
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+====== Aspect: How to structure the Summary in the UI
 
-// end::selectDG[]
+* Alternative 1 (Current Choice): Implement `Summary` as a class in the `Restaurant` package
+
+|=====================
+| Pros | Applies Observer pattern and reduces duplicate code as calculation of `avgRating` only has to be done once in `Summary` class for it to be displayed on both `RestaurantCard` and `RestaurantSummaryPanel`
+| Cons | Results in coupling as it introduces dependency of `Summary` on `Review` class.
+|=====================
+
+* Alternative 2: Implement `Summary` as a UI component that listens to changes in the Review of the Restaurant
+
+|=========
+| Pros | Reduces dependency within Model component.
+| Cons | Increases duplicate code as `avgRating` of a Restaurant's `Summary` is displayed in both the `RestaurantCard` and `RestaurantSummaryPanel` and will thus have to be calculated twice.
+|=========
+
+
+==== Sort Feature
+
+The `sort` feature allows users to sort the restaurants in the Food Diary in ascending or descending order of ratings, and even limit the number of top/bottom ranked Restaurants shown.
+
+===== Current Implementation
+The command format is `sort [or/ORDER] [l/LIMIT]` with optional `ORDER` and `LIMIT` parameters.
+By default, the restaurants would be sorted in descending order of ratings with no limit applied.
+
+You can refer to _Figure 3_ below for a better understanding of the activity flow of the `sort` command.
+
+image::SortActivityDiagram.png[width="800"]
+_Figure 3. Activity Diagram for `sort` command_
+
+The majors components involved in the implementation of this feature are:
+
+- `FoodDiaryParser`, which parses the user's input and constructs a `SelectCommandParser`, which then parses the input into `Order` and `Limit` and constructs a `SortCommand`.
+
+- `SortRating`, which implements Comparator<Restaurant> and serves as a comparator to sort the restaurants in the Food Diary by its `avgRating`.
+To construct this comparator, an `Order` has to be passed in to determine whether `SortRating#compare()` will be indicating ascending or descending order.
+
+- `SortCommand`, contains 2 sub-classes, `Order` and `Limit`, which are used for the construction of `SortCommand`.
+`SortCommand` is where the `SortRating` comparator is constructed and passed into the `Model#sortRestaurantList()` operation. The filtering of the sorted list to the `Limit`, if present, also takes place here.
+
+
+The following shows how the sort mechanism behaves at each step.
+
+Step 1. The user executes `sort [or/ORDER] [l/LIMIT]` command.
+
+Step 2. The `FoodDiaryParser` parses the user's input and constructs a `SortCommandParser` object, which then parses the inputs into `Order` and `Limit` objects, and constructs a `SortCommand` object using the `Order` and `Limit` constructed.
+
+[NOTE]
+If there is no order in the user's input, the default `Order` will be constructed using the String `"DES"`.
+
+[NOTE]
+If there is no limit in the user's input, an `Optional.empty()` object will be used in place of `Limit` in the construction of a `SortCommand` object.
+
+Step 3. The `SortCommand` is executed.
+
+- Step 3.1. A `SortRating` comparator is constructed and `Model#sortRestaurantList()` call to sort the list of restaurants in the Food Diary.
+
+- Step 3.2. If `Limit` is present, `SortCommand#filterToLimit()` is called to get a `uniqueRatings` list from `Model#getUniqueRatings()` to get the borderline of the `avgRatings` to be included in the filtered list.
+A predicate containing the borderline `avgRating` is then created and passed into `Model#updateFilteredRestaurantList()` to filter the sorted restaurant list. Else, if `Limit` is not present, the predicate passed
+into `Model#updateFilteredRestaurantList()` to display all restaurants.
+
+Step 4. The sorted restaurant list is then stored in the Food Diary via `Model#commitFoodDiary()`.
+
+You can refer to _Figure 4_ below for a more detailed idea of how `sort` command is implemented internally.
+
+image::SortSequenceDiagram.png[width="800"]
+_Figure 4. Sequence Diagram for `sort` command_
+
+
+===== Design Considerations
+
+====== Aspect: How to apply the `Limit`
+
+* **Alternative 1 (current choice):** Let the `Limit` denote the number of ranks of restaurants to be displayed
+|=====================
+| Pros | Accurately shows the top/bottom ranked restaurants.
+| Cons | More expensive operations required to limit ranks of restaurants as a unique ratings list has to be stored to get the limited ranks.
+|=====================
+
+* **Alternative 2:** Let the `Limit` denote the number of restaurants to be displayed
+|=====================
+| Pros | More intuitive to users.
+| Cons | Does not provide an accurate depiction of top/bottom restaurants as multiple restaurants with the same ratings may not be displayed.
+|=====================
+
+====== Aspect: Whether to sort the restaurants in the Food Diary permanently or temporarily
+
+* **Alternative 1 (current choice):** Sort the restaurants permanently by saving the state of the Food Diary after command execution in `Model#commitFoodDiary()`
+|=====================
+| Pros | More intuitive to users as they can undo the `sort` command and return to the previous state of the Food Diary.
+| Cons | Uses more memory as the sorted list will be stored as a version of the Food Diary.
+|=====================
+
+* **Alternative 2:** Sort the restaurants temporarily by encapsulating `FilteredList` in a `SortedList`
+|=====================
+| Pros | Easy to implement.
+| Cons | Might be jarring to users as the sorted state of the Food Diary would not be saved upon leaving the application and there is no way for the user to
+         return to his/her originally ordered list of restaurants within the same window of use.
+|=====================
+
+// end::selectSortDG[]
+
 
 === Undo/Redo feature
 ==== Current Implementation
@@ -628,7 +748,7 @@ This alternative was considered as well:
 
 ==== Edit Reviews
 
-This command allows the modification of exiting reviews in The Food Diary.
+This command allows the modification of exiting reviews in the Food Diary.
 
 Command format: `editReview INDEX [re/ENTRY] [rr/RATING]`, where `INDEX` refers to the index of the review to edit in the selected restaurant, `ENTRY` and `RATING` are optional, but at least one of the two fields must be specified.
 
@@ -713,7 +833,7 @@ _Figure 1.1 Sequence diagram of visitWeb `INDEX` command_
 
 ==== visitWeb `weblink`
 Visits website entered by user.
-This allows user to visit website of restaurant that are not added to the FoodDiary.
+This allows user to visit website of restaurant that are not added to the Food Diary.
 
 The difference between this command and the previous is that, the `Weblink` is directly passed into `VisitWebCommand` instead of the `INDEX` of the restaurant.
 Thus, there is a need to validate this `Weblink` with the help of `WebUtil`.
@@ -726,13 +846,13 @@ _Figure 2.1 Sequence diagram of visitWeb `weblink` command_
 
 To illustrate the level of checks done in visiting web further, the command is broken down into the following steps.
 
-Step 1. FoodLover enters visitWeb `Weblink` command.
+Step 1. Food Lover enters visitWeb `Weblink` command.
 
-Step 2. FoodDiary checks if the entered `Weblink` is in the correct Url form. Else, display error message and show example of the correct form of `Weblink`
+Step 2. Food Diary checks if the entered `Weblink` is in the correct Url form. Else, display error message and show example of the correct form of `Weblink`
 
-Step 2. FoodDiary checks if internet connection is present. If not, throw `NoInternetException` and show error message.
+Step 2. Food Diary checks if internet connection is present. If not, throw `NoInternetException` and show error message.
 
-Step 3. FoodDiary validates the weblink entered. If weblink does not exist, or it is not in the correct Url format, throw `ParseException` and show error message.
+Step 3. Food Diary validates the weblink entered. If weblink does not exist, or it is not in the correct Url format, throw `ParseException` and show error message.
 
 Step 4. Display website on browser window.
 
@@ -1042,232 +1162,232 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `FoodDiary` and the *Actor* is the `FoodLover`, unless specified otherwise)
+(For all use cases below, the *System* is the `Food Diary` and the *Actor* is the `Food Lover`, unless specified otherwise)
 
 [discrete]
-=== Use case: Adding a restaurant by FoodLover to FoodDiary
+=== Use case: Adding a restaurant by Food Lover to Food Diary
 
 *MSS*
 
-1. FoodLover enters command to add restaurant
-2. FoodDiary adds restaurant
+1. Food Lover enters command to add restaurant
+2. Food Diary adds restaurant
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. FoodLover enters a name and location that already exists in FoodDiary
+* 2a. Food Lover enters a name and location that already exists in Food Diary
 [none]
-** 2a1. FoodDiary tells FoodLover that the restaurant already exists and asks user to enter another name and location
+** 2a1. Food Diary tells Food Lover that the restaurant already exists and asks user to enter another name and location
 
 [discrete]
-=== Use case: Adding a restaurant by Google Search by FoodLover to FoodDiary
+=== Use case: Adding a restaurant by Google Search by Food Lover to Food Diary
 
 *MSS*
 
-1. FoodLover enters command to add restaurant by Google Search
-2. FoodDiary adds restaurant
+1. Food Lover enters command to add restaurant by Google Search
+2. Food Diary adds restaurant
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. FoodLover enters a name that already exists in FoodDiary
+* 2a. Food Lover enters a name that already exists in Food Diary
 [none]
-** 2a1. FoodDiary tells FoodLover that the restaurant already exists
-** 2a2. FoodDiary asks user to enter another name and location
+** 2a1. Food Diary tells Food Lover that the restaurant already exists
+** 2a2. Food Diary asks user to enter another name and location
 +
 
 [none]
-* 2b. FoodDiary is unable to retrieve anything from Google.
+* 2b. Food Diary is unable to retrieve anything from Google.
 [none]
-** 2b1. FoodDiary tells user that retrieval of information has failed.
+** 2b1. Food Diary tells user that retrieval of information has failed.
 +
 Use case ends
 
 [discrete]
-=== Use case: Deleting a restaurant from FoodDiary
+=== Use case: Deleting a restaurant from Food Diary
 
 *MSS*
 
-1. FoodLover enters command and index to delete restaurant
-2. FoodDiary deletes restaurant
+1. Food Lover enters command and index to delete restaurant
+2. Food Diary deletes restaurant
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. FoodLover enters an invalid index
+* 1a. Food Lover enters an invalid index
 [none]
-** 1a1. FoodDiary tells user that he has entered an invalid index and deletion of restaurant has failed.
+** 1a1. Food Diary tells user that he has entered an invalid index and deletion of restaurant has failed.
 +
 Use case ends
 
 [discrete]
-=== Use case: Selecting a Restaurant in FoodDiary
+=== Use case: Selecting a Restaurant in Food Diary
 
 *MSS*
 
-1. FoodLover enters command and index to select restaurant
-2. FoodDiary displays restaurant’s detailed information and reviews
+1. Food Lover enters command and index to select restaurant
+2. Food Diary displays restaurant’s detailed information and reviews
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. FoodLover enters an invalid index
+* 1a. Food Lover enters an invalid index
 [none]
-** 1a1. FoodDiary tells user that he has entered an invalid index and selection of restaurant has failed.
+** 1a1. Food Diary tells user that he has entered an invalid index and selection of restaurant has failed.
 
 [discrete]
-=== Use case: Filter Restaurants in FoodDiary (cuisine, occasion, price)
+=== Use case: Filter Restaurants in Food Diary (cuisine, occasion, price)
 
 *MSS*
 
-1. FoodLover enters command, category to filter by (i.e. cuisine, occasion, price range) and keyword / price range (e.g.japanese, lunch, 5 10)
-2. FoodDiary displays restaurant’s that fit the filter.
+1. Food Lover enters command, category to filter by (i.e. cuisine, occasion, price range) and keyword / price range (e.g.japanese, lunch, 5 10)
+2. Food Diary displays restaurant’s that fit the filter.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. FoodLover enters an invalid category
+* 1a. Food Lover enters an invalid category
 [none]
-** 1a1. FoodLover tells user that no such category exists.
+** 1a1. Food Lover tells user that no such category exists.
 +
 Use case ends.
 
 [none]
-* 1b. FoodLover enters an invalid price range (i.e. 1 number / 3 numbers input)
+* 1b. Food Lover enters an invalid price range (i.e. 1 number / 3 numbers input)
 [none]
-** 1b1. FoodLover tells user that an invalid price range is entered
-** 1b2. FoodLover displays the correct format to input command
+** 1b1. Food Lover tells user that an invalid price range is entered
+** 1b2. Food Lover displays the correct format to input command
 +
 Use case ends.
 
 [none]
-* 1c. FoodLover enters an invalid price range (i.e. 1 number / 3 numbers input)
+* 1c. Food Lover enters an invalid price range (i.e. 1 number / 3 numbers input)
 [none]
-** 1c1. FoodLover tells user that an invalid price range is entered
-** 1c2. FoodLover displays the correct format to input command
-+
-Use case ends.
-
-[discrete]
-=== Use case: Sort Restaurants in FoodDiary (rating, price)
-
-*MSS*
-
-1. FoodLover enters command, category to sort by (i.e. rating, price)
-2. FoodDiary displays restaurants according to category
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. FoodLover enters an invalid category
-[none]
-** 1a1. FoodLover tells user that no such category exists.
+** 1c1. Food Lover tells user that an invalid price range is entered
+** 1c2. Food Lover displays the correct format to input command
 +
 Use case ends.
 
 [discrete]
-=== Use case: Adding a review to a Restaurant in FoodDiary
+=== Use case: Sort Restaurants in Food Diary (rating, price)
 
 *MSS*
 
-1. FoodLover lists all restaurants
-2. FoodDiary displays all restaurants
-3. FoodLover enters command to add review and the index of the restaurant it should be added to
-4. FoodLover enters rating and comment in the command
-5. FoodDiary adds review to restaurant selected
+1. Food Lover enters command, category to sort by (i.e. rating, price)
+2. Food Diary displays restaurants according to category
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. FoodLover finds restaurants by criteria
+* 1a. Food Lover enters an invalid category
 [none]
-** 1a1. FoodDiary displays restaurants fulfilling criteria
+** 1a1. Food Lover tells user that no such category exists.
++
+Use case ends.
+
+[discrete]
+=== Use case: Adding a review to a Restaurant in Food Diary
+
+*MSS*
+
+1. Food Lover lists all restaurants
+2. Food Diary displays all restaurants
+3. Food Lover enters command to add review and the index of the restaurant it should be added to
+4. Food Lover enters rating and comment in the command
+5. Food Diary adds review to restaurant selected
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Food Lover finds restaurants by criteria
+[none]
+** 1a1. Food Diary displays restaurants fulfilling criteria
 +
 Use case resumes at step 3.
 
 [none]
-* 4a. FoodLover enters an invalid rating, such as a number out of the range of 0 - 5
+* 4a. Food Lover enters an invalid rating, such as a number out of the range of 0 - 5
 [none]
-** 4a1. FoodDiary tells FoodLover that the rating is out of the valid range (0 - 5)
-** 4a2. FoodDiary asks user to enter another rating
+** 4a1. Food Diary tells Food Lover that the rating is out of the valid range (0 - 5)
+** 4a2. Food Diary asks user to enter another rating
 +
 Use case resumes at step 6 if rating is valid else repeat step 4a.
 
 [discrete]
-=== Use case: Deleting a review to a Restaurant in FoodDiary
+=== Use case: Deleting a review to a Restaurant in Food Diary
 
 *MSS*
 
-1. FoodLover lists all reviews
-2. FoodDiary displays all reviews in chronological order
-3. FoodLover enters command to delete review and the index of the review to be deleted
-4. FoodDiary deletes selected review
+1. Food Lover lists all reviews
+2. Food Diary displays all reviews in chronological order
+3. Food Lover enters command to delete review and the index of the review to be deleted
+4. Food Diary deletes selected review
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. FoodLover lists all restaurants
+* 1a. Food Lover lists all restaurants
 [none]
-** 1a1. FoodDiary displays all restaurants
-** 1a2. FoodLover selects the restaurant from which the reviews are to be deleted
-** 1a3. FoodDiary displays all reviews for the restaurant selected
+** 1a1. Food Diary displays all restaurants
+** 1a2. Food Lover selects the restaurant from which the reviews are to be deleted
+** 1a3. Food Diary displays all reviews for the restaurant selected
 +
 Use case resumes at step 3.
 
 [discrete]
-=== Use case: Editing a review to a Restaurant in FoodDiary
+=== Use case: Editing a review to a Restaurant in Food Diary
 
 *MSS*
 
-1. FoodLover lists all reviews
-2. FoodDiary displays all reviews in chronological order
-3. FoodLover enters command to edit review and the index of the review to be edited
-4. FoodLover enters rating and comment
-5. FoodDiary updates selected review
+1. Food Lover lists all reviews
+2. Food Diary displays all reviews in chronological order
+3. Food Lover enters command to edit review and the index of the review to be edited
+4. Food Lover enters rating and comment
+5. Food Diary updates selected review
 +
 Use case ends.
 
 *Extension*
 
 [none]
-* 1a. FoodLover lists all restaurants
+* 1a. Food Lover lists all restaurants
 [none]
-** 1a1. FoodDiary displays all restaurants
-** 1a2. FoodLover selects the restaurant from which the reviews are to be deleted
-** 1a3. FoodDiary displays all reviews for the restaurant selected
+** 1a1. Food Diary displays all restaurants
+** 1a2. Food Lover selects the restaurant from which the reviews are to be deleted
+** 1a3. Food Diary displays all reviews for the restaurant selected
 +
 Use case resumes at step 3.
 
 [none]
-* 1b. FoodLover finds restaurants by criteria
+* 1b. Food Lover finds restaurants by criteria
 [none]
-** 1b1. FoodDiary displays restaurants fulfilling criteria
-** 1b2. FoodLover selects the restaurant from which the reviews are to be deleted
-** 1b3. FoodDiary displays all reviews for the restaurant selected
+** 1b1. Food Diary displays restaurants fulfilling criteria
+** 1b2. Food Lover selects the restaurant from which the reviews are to be deleted
+** 1b3. Food Diary displays all reviews for the restaurant selected
 +
 Use case resumes at step 3.
 
 [none]
-* 4a. FoodLover enters an invalid rating, such as a number out of the range of 0 - 5
+* 4a. Food Lover enters an invalid rating, such as a number out of the range of 0 - 5
 [none]
-** 4a1. FoodDiary tells FoodLover that the rating is out of the valid range (0 - 5)
-** 4a2. FoodDiary asks user to enter another rating
+** 4a1. Food Diary tells Food Lover that the rating is out of the valid range (0 - 5)
+** 4a2. Food Diary asks user to enter another rating
 +
 Use case resumes at step 6 if rating is valid else repeat step 4a.
 
@@ -1276,51 +1396,40 @@ Use case resumes at step 6 if rating is valid else repeat step 4a.
 
 *MSS*
 
-1. FoodLover adds a new review
-2. FoodLover enters command to share review on Facebook
-3. FoodDiary opens Facebook login page
-4. FoodLover enters Facebook login details
-5. FoodLover confirms Facebook sharing
+1. Food Lover adds a new review
+2. Food Lover enters command to share review on Facebook
+3. Food Diary opens Facebook login page
+4. Food Lover enters Facebook login details
+5. Food Lover confirms Facebook sharing
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. FoodLover lists all reviews
+* 1a. Food Lover lists all reviews
 [none]
-** 1a1. FoodDiary displays all reviews in chronological order
-** 1a2. FoodLover enters command to share review and the index of the selected review
+** 1a1. Food Diary displays all reviews in chronological order
+** 1a2. Food Lover enters command to share review and the index of the selected review
 +
 Use case resumes at step 3.
 
 [none]
-* 1b. FoodLover lists all restaurants
+* 1b. Food Lover lists all restaurants
 [none]
-** 1b1. FoodDiary displays all restaurants
-** 1b2. FoodLover selects the restaurant from which the reviews are to be deleted
-** 1b3. FoodDiary displays all reviews for the restaurant selected
+** 1b1. Food Diary displays all restaurants
+** 1b2. Food Lover selects the restaurant from which the reviews are to be deleted
+** 1b3. Food Diary displays all reviews for the restaurant selected
 +
 Use case resumes at step 3.
-
-[discrete]
-=== Use case: Switching from Restaurant view to Review view in FoodDiary
-
-*MSS*
-
-1. FoodLover enters command to switch context
-2. FoodDiary performs context switch
-3. FoodLover continues using the FoodDiary
-+
-Use case ends
 
 [discrete]
 === Use case: Undo / Redo command
 
 *MSS*
 
-1. FoodLover enters command to undo / redo
-2. FoodDiary undos / redos previous command, tells user that undo / redo successful.
+1. Food Lover enters command to undo / redo
+2. Food Diary undos / redos previous command, tells user that undo / redo successful.
 +
 Use case ends.
 
@@ -1329,7 +1438,7 @@ Use case ends.
 [none]
 * 1a. There is no command to undo / redo
 [none]
-** 1a1. FoodDiary tells FoodLover that there is no command to undo / redo.
+** 1a1. Food Diary tells Food Lover that there is no command to undo / redo.
 +
 Use case ends.
 
@@ -1338,25 +1447,25 @@ Use case ends.
 
 *MSS*
 
-1. FoodLover enters command and index of restaurant
-2. FoodDiary displays website to User.
+1. Food Lover enters command and index of restaurant
+2. Food Diary displays website to User.
 +
 Use case ends
 
 *Extensions*
 
 [none]
-* 1a. FoodLover enters command and website of any restaurant
+* 1a. Food Lover enters command and website of any restaurant
 [none]
-** 2a. Website is valid and FoodDiary displays website
-** 2b. Website is invalid and FoodDiary tells FoodLover that the website he entered is invalid
+** 2a. Website is valid and Food Diary displays website
+** 2b. Website is invalid and Food Diary tells Food Lover that the website he entered is invalid
 +
 +
 
 [none]
 * 2c. There is no website added for this restaurant
 [none]
-** 2c1. FoodDiary tells FoodLover that there is no website for this restaurant
+** 2c1. Food Diary tells Food Lover that there is no website for this restaurant
 +
 Use case ends.
 
@@ -1366,8 +1475,8 @@ Use case ends.
 
 *MSS*
 
-1. FoodLover enters command and his current postal code
-2. FoodDiary displays a list of restaurants ranked based on his proximity to the provided postal code.
+1. Food Lover enters command and his current postal code
+2. Food Diary displays a list of restaurants ranked based on his proximity to the provided postal code.
 +
 Use case ends
 
@@ -1376,7 +1485,7 @@ Use case ends
 [none]
 * 2a. Postal code entered is not valid.
 [none]
-** 2a1. FoodDiary displays all the unreviewed restaurants.
+** 2a1. Food Diary displays all the unreviewed restaurants.
 +
 Use case ends.
 // end::useCaseDG[]
@@ -1393,10 +1502,10 @@ Use case ends.
 [appendix]
 == Glossary
 
-[[fooddiary]] FoodDiary::
+[[fooddiary]] Food Diary::
 The application that users interact with.
 
-[[foodlover]] FoodLover::
+[[foodlover]] Food Lover::
 The intended users of this application
 
 [[mainstream-os]] Mainstream OS::
@@ -1450,9 +1559,9 @@ _{ more test cases ... }_
 
 .. Prerequisites: List all restaurants using the `list` command. Multiple restaurants in the list.
 .. Test case: `select 1` +
-   Expected: First restaurant in the list is selected. Details of the selected restaurant is shown in the 3 panels next to the restaurant list panel.
+   Expected: First restaurant in the list is selected. Details of the selected restaurant is shown in the 2 panels next to the restaurant list panel.
 .. Test case: `select 0` +
-   Expected: No restaurant is selected. Error details shown in the status message. Status bar remains the same.
+   Expected: No restaurant is selected. Error details shown in the status message.
 .. Other incorrect select commands to try: `select`, `select x` (where x is larger than the list size)
    Expected: Similar to previous.
 
@@ -1460,12 +1569,83 @@ _{ more test cases ... }_
 
 .. Prerequisites: There is at least one restaurant in the list.
 .. Test case: `select 1` +
-   Expected: First restaurant in the list is selected. Details of the selected restaurant is shown in the 3 panels next to the restaurant list panel.
+   Expected: First restaurant in the list is selected. Details of the selected restaurant is shown in the 2 panels next to the restaurant list panel.
 .. Test case: `select 0` +
-   Expected: No restaurant is selected. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect select commands to try: `select`, `select x` (where x is larger than the list size)
+   Expected: No restaurant is selected. Error details shown in the status message.
+.. Other incorrect select commands to try: `select`, `select x` (where x is larger than the list size) +
    Expected: Similar to previous.
 // end::selection[]
+
+// tag::sorting[]
+=== Sorting restaurant list
+
+. Sorting entire restaurant list
+
+.. Test case: `sort` +
+   Expected: All restaurants in the list are sorted in descending order of ratings.
+.. Test case: `sort or/ASC` +
+   Expected: All restaurants in the list are sorted in ascending order of ratings.
+.. Test case: `sort or/dEs` +
+   Expected: All restaurants in the list are sorted in descending order of ratings.
+.. Test case: `sort or/1` +
+   Expected: No restaurant is sorted. Error details shown in the status message to indicate wrong `ORDER` format.
+.. Other incorrect select commands to try: `sort 1`, `sort or/ASCENDIng`, `sort or/deSCENDING` +
+   Expected: Similar to previous.
+
+. Sorting restaurant list and limiting to top/bottom ranking restaurants
+
+.. Scenario: There are 6 restaurants in the list.
+.. Test case: `sort l/2` +
+   Expected: All restaurants in the list are sorted in descending order of ratings, restaurants with the 2 highest ratings are displayed in descending order of ratings.
+.. Test case: `sort or/ASC l/2` +
+   Expected: All restaurants in the list are sorted in ascending order of ratings, restaurants with the 2 lowest ratings are displayed in ascending order of ratings.
+.. Test case: `sort or/dEs l/10` +
+   Expected: All restaurants in the list are sorted in descending order of ratings. Status message indicates that restaurants with top 10 (the limit input by user) rankings are sorted in descending order.
+.. Test case: `sort l/-10` +
+   Expected: No restaurant is sorted. Error details shown in the status message to indicate wrong `LIMIT` format.
+.. Other incorrect select commands to try: `sort l/-20`, `sort or/asc l/1.567`, `sort or/des l/0` +
+   Expected: Similar to previous.
+// end::sorting[]
+
+=== Adding a Review to a restaurant
+
+. Adding a review to the first restaurant when all restaurants are listed
+
+.. Test case: `addReview 1 re/Nice food rr/4` +
+   Expected: A review of entry "Nice food" and rating "4" added to the first listed restaurant.
+.. Test case: `addReview 22 re/Nice food rr/4` +
+   Expected: No review is added. Error message shown indicating an invalid index specified.
+.. Test case: `addReview 1 re/Nice food` +
+   Expected: No review is added. Error message shown indicating an invalid command format.
+
+=== Adding a default Review to a restaurant
+
+. Adding a default review of rating 3 to the first restaurant when all restaurants are listed
+
+.. Test case: `addR 1 3` +
+   Expected: A new review of entry "Average, normal" and rating "3" is added to the first restaurant.
+.. Test case: `addR 1 6` +
+   Expected: No new review is added. Error message indicating an invalid command format will be shown.
+
+=== Editing the Review of a restaurant
+
+. Editing the first review of the first restaurant when all restaurants are listed
+
+.. Test case: `select 1`, followed by `editReview 1 re/poor` +
+   Expected: The first review's entry of the first restaurant will be changed to "poor".
+.. Test case: `select 1`, followed by `editReview 10 rr/5` +
+   Expected: No review is edited. Error message shown indicating an invalid review index.
+.. Test case: `select 1`, followed by `editReview 1` +
+   Expected: No review is edited. Error message shown indicating that at least one field to edit must be provided.
+
+=== Deleting the Review of a restaurant
+
+. Deleting the first review of the first restaurant when all restaurants are listed
+
+.. Test case: `select 1`, followed by `deleteReview 1` +
+   Expected: The first review of the first restaurant will be deleted.
+.. Test case: `select 1`, followed by `deleteReview` +
+   Expected: No review is deleted. Error message shown indicating an invalid command format.
 
 // tag::categorization[]
 === Setting the categories of a restaurant

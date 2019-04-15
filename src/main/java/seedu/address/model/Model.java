@@ -34,7 +34,7 @@ public interface Model {
     /**
      *  return PostalData of the provided postal code
      */
-    Optional<PostalData> getPostalData(int postal);
+    Optional<PostalDataSet> getPostalDataSet();
 
     /**
      * Returns the user prefs' GUI settings.

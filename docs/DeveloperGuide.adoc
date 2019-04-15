@@ -1,4 +1,4 @@
-= docX - Developer Guide
+= DocX - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -428,6 +428,7 @@ Step7. Then, execute() will get the filtered list of appointments and the desire
         execute() calls updateFilteredDoctorList(DoctorHasAppointmentPredicate) to filter the list of doctors whose specialisation matches and are available on the date and timing inputted.
 // end::doctorcommands[]
 
+
 === Sort Medical History Features
 ==== Current Implementation
 The sort medical history feature is enable bt the classes: `MedicalHistory`, `ValidDate`, `SortMedHistCommand`, `SortMedHistCommandParser`
@@ -505,6 +506,11 @@ Step5. execute() calls hasMedHist() of Model. If medical history doesn't exist, 
 
 
 === Add Appointment Feature
+Appointments are created to facilitate future appointments between patients and doctors.
+A patient can have none or multiple appointments, a doctor can have none or multiple appointments.
+An appointment cannot overlap with a patient's or doctor's existing appointments.
+This is determined if the date and time overlaps.
+An appointment must specify a patient ID, doctor ID, date and time.
 ==== Current Implementation
 The add appointment feature is enabled by the classes: `Appointment`, `FutureAppointment`,
 `AddAppointmentCommandParser`, `AddAppointmentCommand` and `JsonAdaptedAppointment`.
@@ -629,7 +635,6 @@ To be updated later
 ----- Delete an Existing Prescription
 
 To be updated later
-
 
 
 == Documentation

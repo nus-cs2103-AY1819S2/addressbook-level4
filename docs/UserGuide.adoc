@@ -1,4 +1,4 @@
-= docX - User Guide
+= DocX - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_COMMAND_CANNOT_USE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
@@ -36,37 +37,37 @@ public class AddCommand extends Command {
     public static final String COMMAND_ALIAS = "a";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book.\n"
-            + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_PHONE + "PHONE "
-            + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_NRIC + "NRIC "
-            + PREFIX_GENDER + "GENDER "
-            + PREFIX_RACE + "RACE "
-            + PREFIX_ADDRESS + "ADDRESS "
-            + PREFIX_SCHOOL + "SCHOOL "
-            + PREFIX_MAJOR + "MAJOR "
-            + PREFIX_GRADE + "GRADE "
-            + PREFIX_INTERVIEWSCORES + "INTERVIEWSCORES "
-            + PREFIX_JOBSAPPLY + "JOBSAPPLY..."
-            + "[" + PREFIX_PASTJOB + "PASTJOB]..."
-            + "[" + PREFIX_KNOWNPROGLANG + "KNOWNPROGLANG]...\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_PHONE + "98765432 "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_NRIC + "S9671597H "
-            + PREFIX_GENDER + "Male "
-            + PREFIX_RACE + "Indian "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_SCHOOL + "NUS "
-            + PREFIX_MAJOR + "Computer Science "
-            + PREFIX_GRADE + "4.76 "
-            + PREFIX_JOBSAPPLY + "Software-Engineer "
-            + PREFIX_INTERVIEWSCORES + "1,2,3,4,5 "
-            + PREFIX_KNOWNPROGLANG + "Python "
-            + PREFIX_PASTJOB + "Software Engineer "
-            + "The alias \"a\" can be used instead.\n";
+        + "Parameters: "
+        + PREFIX_NAME + "NAME "
+        + PREFIX_PHONE + "PHONE "
+        + PREFIX_EMAIL + "EMAIL "
+        + PREFIX_NRIC + "NRIC "
+        + PREFIX_GENDER + "GENDER "
+        + PREFIX_RACE + "RACE "
+        + PREFIX_ADDRESS + "ADDRESS "
+        + PREFIX_SCHOOL + "SCHOOL "
+        + PREFIX_MAJOR + "MAJOR "
+        + PREFIX_GRADE + "GRADE "
+        + PREFIX_INTERVIEWSCORES + "INTERVIEWSCORES "
+        + PREFIX_JOBSAPPLY + "JOBSAPPLY..."
+        + "[" + PREFIX_PASTJOB + "PASTJOB]..."
+        + "[" + PREFIX_KNOWNPROGLANG + "KNOWNPROGLANG]...\n"
+        + "Example: " + COMMAND_WORD + " "
+        + PREFIX_NAME + "John Doe "
+        + PREFIX_PHONE + "98765432 "
+        + PREFIX_EMAIL + "johnd@example.com "
+        + PREFIX_NRIC + "S9671597H "
+        + PREFIX_GENDER + "Male "
+        + PREFIX_RACE + "Indian "
+        + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+        + PREFIX_SCHOOL + "NUS "
+        + PREFIX_MAJOR + "Computer Science "
+        + PREFIX_GRADE + "4.76 "
+        + PREFIX_JOBSAPPLY + "Software-Engineer "
+        + PREFIX_INTERVIEWSCORES + "1,2,3,4,5 "
+        + PREFIX_KNOWNPROGLANG + "Python "
+        + PREFIX_PASTJOB + "Software Engineer "
+        + "The alias \"a\" can be used instead.\n";
 
     public static final String MESSAGE_LACK_NAME = "Name field should not be empty.\n%1$s";
     public static final String MESSAGE_LACK_ADDRESS = "Address field should not be empty.\n%1$s";
@@ -80,9 +81,10 @@ public class AddCommand extends Command {
     public static final String MESSAGE_LACK_RACE = "Race field should not be empty.\n%1$s";
     public static final String MESSAGE_LACK_SCHOOL = "School field should not be empty.\n%1$s";
     public static final String MESSAGE_INFORMATION_WITHOUT_PREFIX =
-            "All information need a prefix for this command. \n%1$s";
+        "All information need a prefix for this command. \n%1$s";
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+
 
     private final Person toAdd;
 
@@ -97,7 +99,10 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-
+        boolean isAllJobsScreen = model.getIsAllJobScreen();
+        if (!isAllJobsScreen) {
+            throw new CommandException(MESSAGE_COMMAND_CANNOT_USE);
+        }
         if (model.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
@@ -119,7 +124,7 @@ public class AddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+            || (other instanceof AddCommand // instanceof handles nulls
+            && toAdd.equals(((AddCommand) other).toAdd));
     }
 }

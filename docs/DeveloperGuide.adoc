@@ -157,11 +157,11 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[width="800"]
+image::UiComponentClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `JobListPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -324,6 +324,15 @@ the Nric is stored instead. At load time, the UniqueJobList is only created afte
 * **Alternative 2:** Store full person data in Job
 ** Pros: Faster loading and adheres to Law of Demeter as the Job does not access more that what it is associated with
 ** Cons: Greater memory usage
+
+=== Analytics Feature
+==== Current Implementation
+
+The analytics is facilicated by the Analytics class. Analytics data are generated in real time depending on the specific job currently on display in the software by the user. Hence it will not be saved as states in the `versionedAddressBook`. It pulls required person list to generate data from Model, which consists of lists: `displayedFilter`, `activeJobAllApplicants`, `activeJobKiv`, `activeJobInterview`, `activeJobShortist`. An `Analytics` object will be created by Analytics class, storing the various required data generated, and pass it to Logic and UI for display.
+
+Given below is the sequence diagram for `analytics`:
+
+image::AnalyticsDiagram.png[width="790"]
 
 // tag::interviews[]
 === Interviews Feature
@@ -808,8 +817,8 @@ Use case resumes at step 2.
 
 *MSS*
 
-1. User requests to display lists of person from job lists
-2. slaveFinder() shows lists of persons
+1. User requests to display various lists of applicants from one of the jobs in all job openings lists
+2. slaveFinder() shows lists of persons for specific job
 3. User requests to view analytics for specific list of persons
 4. slaveFinder() shows analytics results
 +

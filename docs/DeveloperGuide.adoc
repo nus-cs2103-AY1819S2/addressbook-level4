@@ -938,8 +938,8 @@ The manipulation feature is facilitated by `CurrentEdit`. It uses the following 
 
 The diagram below illustrates how the WaterMark Command works:
 
- .Sequence Diagram for WaterMark Command
- image::WaterMarkCommandSequenceDiagram.png[width="800"]
+.Sequence Diagram for WaterMark Command
+image::WaterMarkCommandSequenceDiagram.png[width="800"]
 
 
 Given below is an example usage scenario and how the command should behave at each step:

@@ -792,15 +792,15 @@ its calling method which is `LogicManager::execute`.
 ===== Add Command
 Given below is an example usage scenario and what the user will see in the GUI.
 
-The user launches the application and enters the full add command `add n/Raffles Hotel cc/SGP dv/05/05/2016 t/hotel d/This place is lovely a/Raffles Road r/5 t/staycation
-117417 t/faculty`. TravelBuddy will start executing the steps mentioned in
-<<addSeqDiagram>> and the output is shown below in <<output>>.
-
 [[output]]
 [reftext="Figure 4.3.1.2"]
 [caption="Figure 4.3.1.2: "]
 .Add command output
 image::addCommand.png[width="400"]
+
+The user launches the application and enters the full add command `add n/Raffles Hotel cc/SGP dv/05/05/2016 t/hotel d/This place is lovely a/Raffles Road r/5 t/staycation
+117417 t/faculty`. TravelBuddy will start executing the steps mentioned in
+<<addSeqDiagram>> and the output is shown above in <<output>>.
 
 
 [NOTE]

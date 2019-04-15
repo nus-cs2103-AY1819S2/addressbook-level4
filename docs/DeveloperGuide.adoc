@@ -891,9 +891,11 @@ image::mchafterundo.png[width="800"]
 [NOTE]
 If the `currentStatePointer` of both `VersionedHealthWorkerBook` and `VersionedRequestBook` is at index 0, pointing to the initial book state for both books, then there are no previous states to restore. The `undo` command uses `Model#canUndo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
-The following sequence diagram shows how the undo operation works:
+[NOTE]
+As of version 1.4, the only command that has modifies both the health worker book and the request book is `EditHealthWorkerCommand`.
+It is the only command that has `CommandType.HEALTHWORKER_AND_REQUEST_COMMAND`.
 
-image::UndoRedoSeqDiagram.png[width="800"]
+
 
 The user first enters the `undo` command in the command line interface. The logic manager processes the command as a string
 and checks using the `AddressBookParser` is the string is a valid command. In this case, the parser sees that the command string
@@ -901,6 +903,10 @@ matches the `undo` command string and hence returns an `undo` command to the `Lo
 The `execute()` method calls `Model#undo()` in which the model checks the `ModifyCommandHistory` for the correct `VersionedBook` that needs to be undone
 and then calls `VersionedBook#undo()`. Upon a successful undo, the `UndoCommand` will return a successful result to the `LogicManager`
 which will then the "Undo Success!" message will be displayed on the command line interface.
+
+The following sequence diagram shows how the undo operation works:
+
+image::UndoRedoSeqDiagram.png[width="800"]
 
 The `redo` command does the opposite -- it calls `Model#redo()`, which first obtains the command type by calling `ModifyCommandHistory#getRedoCommand()` and based on the returned command type it shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the respective book to that state.
 

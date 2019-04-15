@@ -1,0 +1,15 @@
+{
+  "equipment": [ {
+    "name": "Valid Person",
+    "phone": "9482424",
+    "date": "23-04-2019",
+    "serial number": "A008866X",
+    "address": "4th street"
+  }, {
+    "name": "Person With Invalid Phone Field",
+    "phone": "948asdf2424",
+    "date": "23-04-2019",
+    "serial number": "A008866X",
+    "address": "4th street"
+  } ]
+}

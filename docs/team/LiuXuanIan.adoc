@@ -1,0 +1,78 @@
+= Liu Xuan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Introduction
+
+Hi, I am Liu Xuan, a year 2 Computer Science student, studying at National University of Singapore.
+
+I am working on a software product with my project teammates, Rachel, Mei Yen and Sun Yiqun. This project portfolio will
+specify and illustrate which part I was working on.
+
+== PROJECT: Equipment Manager
+
+== Overview
+
+*Equipment Manager* is a Command Line Interface Software Product, which helps engineers to better manage their equipments.
+This application allows users to arrange and organize their equipments, assign the equipment maintenance work into a person and a specified
+date, and have a best routing plan.
+
+== Summary of contributions
+
+* *Major enhancement*: constructed *a feature that helps users to have a collection of their equipments, named WorkList.*
+** What it does: allows the user to create a work list, and put some equipments into a work list.
+** Justification: This feature improves the product significantly because it can help users to effectively allocate
+   equipment maintenance work to their staff.
+** Highlights: This enhancement affects the whole model and structure. It required an in-depth analysis of the
+   relationships between the WorkList and the Equipment. In addition, it also required more commands to be added into
+   this software. The implementation too was challenging as it required changes to the model and the commands. This feature
+   also helps users to better organize their equipments and assign the maintenance work to some person.
+** AddWorkListCommand: [https://github.com/CS2103-AY1819S2-W10-3/main/pull/79[#79]] [https://github.com/CS2103-AY1819S2-W10-3/main/pull/97[#97]]
+** DeleteWorkListCommand: [https://github.com/CS2103-AY1819S2-W10-3/main/pull/182[#182]]
+** PutCommand: [https://github.com/CS2103-AY1819S2-W10-3/main/pull/109[#109]]
+** RemoveCommand: [https://github.com/CS2103-AY1819S2-W10-3/main/pull/181[#181]]
+** ListWorkListCommand: [https://github.com/CS2103-AY1819S2-W10-3/main/pull/65[#65]]
+** Credits: Code from `AddWorkListCommand` and `DeleteWorkListCommand` was referenced in the implementation of `AddCommand` and `DeleteCommand` respectively
+** Credits: Code from `ListWorkListCommand` was referenced in the implementation of `ListEquipmentCommand`
+//** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
+* *Code contributed*:
+** https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=LiuXuanIan[Click here] to view my code on the CS2103T Project Code Dashboard.
+
+* *Other contributions*:
+
+** Enhancements to existing UI:
+*** Adding Labels for both Equipments and WorkLists. (Pull requests [https://github.com/CS2103-AY1819S2-W10-3/main/pull/114[#114]], [https://github.com/CS2103-AY1819S2-W10-3/main/pull/193[#193]])
+** Refactor ParseEmail to ParseDate
+*** Refactor the name ParseEmail to ParseDate to better fit our product. (Pull requests [https://github.com/CS2103-AY1819S2-W10-3/main/pull/84[#84]])
+** Community:
+*** PRs reviewed:
+[https://github.com/CS2103-AY1819S2-W10-3/main/pull/191[#191]],
+[https://github.com/CS2103-AY1819S2-W10-3/main/pull/115[#115]],
+[https://github.com/CS2103-AY1819S2-W10-3/main/pull/98[#98]],
+[https://github.com/CS2103-AY1819S2-W10-3/main/pull/83[#83]].
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=remove]
+
+include::../UserGuide.adoc[tag=put]
+
+include::../UserGuide.adoc[tag=add-w]
+
+include::../UserGuide.adoc[tag=delete-w]
+
+include::../UserGuide.adoc[tag=list-w]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=worklist]

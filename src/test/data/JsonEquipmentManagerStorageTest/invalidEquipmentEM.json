@@ -1,0 +1,9 @@
+{
+  "equipment": [ {
+    "name": "Person with invalid name field: Ha!ns Mu@ster",
+    "phone": "9482424",
+    "date": "9-04-2019",
+    "serial number": "A008866X",
+    "address": "4th street"
+  } ]
+}

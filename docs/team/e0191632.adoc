@@ -1,0 +1,111 @@
+= Rachel Tan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Introduction
+
+Hello! I am Rachel Tan!
+
+I am a Year 2 Computer Science student in National University of Singapore.
+In this Project Portfolio, I will be sharing with you one of the projects I have embarked on for CS2103T Software Engineering module.
+I will showcase my main contributions to the team in making *Equipment manager* a successful application.
+
+== PROJECT: Equipment Manager
+
+
+== Overview
+
+*Equipment Manager* is a _Preventive Maintenance (PM)_ planner application that allows users, specifically the engineers, to keep track of the PM schedule of all resuscitation equipment in Singapore.
+*Equipment Manager* is designed to allow engineers assign the equipment which they are going to carry out maintenance work on, to their own work schedule.
+
+When they are carrying out maintenance work on multiple equipments based on their work schedule, they are able to have a visual representation on the locations of all equipment.
+In order to carry out maintenance work efficiently, *Equipment Manager* provides engineers with an efficient route to take for visiting multiple locations, minimizing the chance that the resuscitation equipment will fail and cause costly unscheduled downtime.
+
+== Terminology
+Some technical terms have been used as it will better deliver the idea of *Equipment Manager* features.
+To aid you in reading this portfolio without any confusion, this section provides you with a quick summary of the technical terms being used in this portfolio.
+
+|===
+| *Technical Terms* | *Meaning*
+| _Preventive Maintenance_ | A maintenance work that is regularly performed on a piece of equipment to lessen the likelihood of it failing. It is performed while the equipment is still working so that it does not break down unexpectedly.
+| _UI_ | User Interface (UI) allows the user to interact with the application through inputs and outputs of data.
+| _basic function_ | It is the basic features in *Equipment Manager*: add, edit, delete and list equipments.
+|===
+
+== Summary of Contributions
+In this section, I have put together a summary of my coding, documentation and other helpful contributions to the team project.
+
+* *Enhancement 1*: I create a _UI_ specifically for displaying *Client details* and added a `select-c` command.
+** What it does: This enhancement allows user to have a quick look on the distinct number of client *Equiment Manager* has, under *Client details* panel. With a selection on the desired client, users can get a view on all the equipment and its details the client owns.
+** Justification: Having a list of distinct client displayed provides option and improve overall planning process as explained below:
+*** As a client can own zero to infinite equipment, knowing how many equipment a client owns, allows user to be aware that there are equivalent number of equipment to carry out maintenance work at the client's address.
+*** In addition to the ability to track each equipment individually, by displaying a list of distinct client, it gives user the options to track down several equipment in a group based on how many equipment the client owns.
+*** Planning process would be greatly reduced as user can now target the equipment in groups based on a client location instead of having to sieve out individual equipment details that may not be sorted together.
+** Highlights: This enhancement was done as I realized the possible lack of flexibility and confusion since user was initially only given the choice to view all the equipment individually under equipment details panel but is interested to know how many clients there are and how many equipment they actually owns.
+Under time constraint, I made use of the existing `filter` command and panel labelled under *Equipment details* to incorporate the ability to view all equipment the selected client owns.
+
+
+* *Enhancement 2*: I enhanced the a Person model from initial Address Book 4 application  to *Equipment model* in our own *Equipment Manager* application.
+** What it does: All the `commands` carried out by user require details of an Equipment and/or Client. Specifically, equipment will now have a serial number and a due date to carry out preventive maintenance. The name, phone, address and where the equipment is located at (address) refer to client's details.
+** Justification: With all the equipment and client details, this enhancement allows users to carry out features of Equipment Manager. For example:
+*** In the event, user wants to have a visual respresentation of an equipment, the address where the equipment is located at is retrieved and displayed on google map.
+*** It helps users to be more organized with their work plan because the application allows assignation of each selected equipment with its details into their work agenda under *My Work List* panel.
+*** Overall, it allows users to keep track of equipment details and provide visual representation of the equipment locations
+** Highlights: This enhancement provides the ability for my team mates to use the relevant details of equipment and client to build a feature for *Equipment Manager*. An in-depth analysis of design alteratives was necessary to ensure all enhancement of equipment or client details played a part in providing user with details to keep track of the equipment.
+The implementation was challenging as this enhancement requires many changes in all logic, ui, storage, model components as well as writing new system testings for it.
+
+[TIP]
+`commands`: add-e, edit-e, filter, list-e, delete-e, display, select, put
+
+* Codes contributed: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=e0&sort=displayName&since=2019-02-10&until=2019-04-15&timeframe=day&reverse=false&repoSort=true[Collated code]
+
+
+* *Other contributions*:
+
+** Project management:
+*** Morphed the code from address book to equipment manager. https://github.com/CS2103-AY1819S2-W10-3/main/pull/16[#16], https://github.com/CS2103-AY1819S2-W10-3/main/pull/19[#19]
+*** Morphed the test cases from address book to equipment manager. https://github.com/CS2103-AY1819S2-W10-3/main/pull/72[#72], https://github.com/CS2103-AY1819S2-W10-3/main/pull/63[#63]
+
+** Enhancements to existing features:
+*** Changed the condition to check for duplicate equipments https://github.com/CS2103-AY1819S2-W10-3/main/pull/59[#59]
+*** Updated command word and prefixes https://github.com/CS2103-AY1819S2-W10-3/main/pull/58[#58]
+*** Updated the GUI color scheme https://github.com[#33], https://github.com[#34]
+
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide and Developer Guide: https://github.com/CS2103-AY1819S2-W10-3/main/pull/90[#90], https://github.com/CS2103-AY1819S2-W10-3/main/pull/88[#88]
+*** Updated images, diagrams and contents of User Guide and Developer Guide: https://github.com/CS2103-AY1819S2-W10-3/main/pull/90[#90], https://github.com/CS2103-AY1819S2-W10-3/main/pull/73[#73], https://github.com/CS2103-AY1819S2-W10-3/main/pull/37[#37], https://github.com/CS2103-AY1819S2-W10-3/main/pull/36[#36]
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W10-3/main/pull/65[#65], https://github.com/CS2103-AY1819S2-W10-3/main/pull/52[#52], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+
+** Tools:
+*** Set up coverall badges, appveyors and travis bot for the team.
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=add-e]
+
+include::../UserGuide.adoc[tag=select-c]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=equipment]
+
+include::../DeveloperGuide.adoc[tag=uidg]
+
+include::../DeveloperGuide.adoc[tag=selectClientUC]
+
+
+== PROJECT: PowerPointLabs
+
+---

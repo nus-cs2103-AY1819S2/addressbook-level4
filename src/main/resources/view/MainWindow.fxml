@@ -11,10 +11,12 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.GridPane?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Address App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="Equipment Manager" minWidth="1000" minHeight="800" onCloseRequest="#handleExit">
   <icons>
-    <Image url="@/images/address_book_32.png" />
+    <Image url="@/images/equipment_manager.png" />
   </icons>
   <scene>
     <Scene>
@@ -47,12 +49,31 @@
         </StackPane>
 
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-          <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+          <VBox fx:id="equipmentList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+            <Label>Equipment Details</Label>
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
             <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
+
+          <SplitPane id="splitPane" dividerPositions="0.1" orientation="VERTICAL">
+            <VBox fx:id="workListList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+              <Label>My Work List</Label>
+              <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+              </padding>
+              <StackPane fx:id="workListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            </VBox>
+
+            <VBox fx:id="clientList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+              <Label>Client Details</Label>
+              <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+              </padding>
+              <StackPane fx:id="clientListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            </VBox>
+          </SplitPane>
 
           <StackPane fx:id="browserPlaceholder" prefWidth="340" >
             <padding>

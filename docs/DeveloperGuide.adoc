@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= Equipment Manager - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -6,6 +6,7 @@
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
+:sourceDir: https://github.com/nus-cs2103-AY1819S2/addressbook-level4.git
 :xrefstyle: full
 ifdef::env-github[]
 :tip-caption: :bulb:
@@ -13,9 +14,24 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S2-W10-3/main.git
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W10-3`      Since: `Feb 2019`      Licence: `MIT`
+
+//tag:introduction[]
+== Introduction
+Welcome to the Developer Guide for *Equipment Manager*!
+
+*Equipment Manager* is an application that allows engineers to keep track of the Preventive Maintenance schedule of all Resuscitation Devices in Singapore. It will help engineers plan the number of equipment to carry out preventive maintenance, and also keep track on each equipment details such as status and location. +
+
+Objectives of the application include:
+
+* Providing commands such as search and filter to search and filter equipment serial number, equipment status or work list respectively.
+
+* Displaying location of equipment in Google Maps.
+
+* Planning the most efficient route to take for visiting multiple locations.
+//end:introduction[]
 
 == Setting up
 
@@ -47,14 +63,14 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+. Open link:{repoURL}/src/main/java/seedu/equipment/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/equipment/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
-. Run the `seedu.address.MainApp` and try a few commands
+. Run the `seedu.equipment.MainApp` and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
@@ -74,9 +90,9 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, the documentation will still have the SE-EDU branding and refer to the `nus-cs2103-AY1819S2/addressbook-level4` repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `nus-cs2103-AY1819S2/addressbook-level4`), you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
@@ -96,13 +112,7 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
-==== Getting started with coding
-
-When you are ready to start coding,
-
-1. Get some sense of the overall design by reading <<Design-Architecture>>.
-2. Take a look at <<GetStartedProgramming>>.
-
+//tag::design[]
 == Design
 
 [[Design-Architecture]]
@@ -114,9 +124,9 @@ image::Architecture.png[width="600"]
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 [TIP]
-The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
+|The `.pptx` files used to create diagrams in this document can be found in the link:https://github.com/CS2103-AY1819S2-W10-3/main/tree/master/docs/diagrams[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:https://github.com/CS2103-AY1819S2-W10-3/main/tree/master/src/main/java/seedu/equipment/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -151,7 +161,7 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 .Component interactions for `delete 1` command
 image::SDforDeletePerson.png[width="800"]
 
-The sections below give more details of each component.
+The sections below will give more details of each component; *UI*, *Logic*, *Model* and *Storage*.
 
 [[Design-Ui]]
 === UI component
@@ -159,11 +169,13 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:https://github.com/CS2103-AY1819S2-W10-3/main/tree/master/src/main/java/seedu/equipment/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+
+The `UI` component shows webpages e.g. `DisplayGmap.html` hosted somewhere on the Internet. To host a webpage yourself, you may put your webpage into `\docs\staticpages`. All pages in `\docs\staticpages` will be copied to `gh-pages` branch and hosted on `gh-pages`.
 
 The `UI` component,
 
@@ -178,11 +190,11 @@ The `UI` component,
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:https://github.com/CS2103-AY1819S2-W10-3/main/tree/master/src/main/java/seedu/equipment/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `EquipmentManagerParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding an equipment).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -197,19 +209,20 @@ image::DeletePersonSdForLogic.png[width="800"]
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:https://github.com/CS2103-AY1819S2-W10-3/main/tree/master//src/main/java/seedu/equipment/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the *Equipment Manager* data.
+* exposes an unmodifiable `ObservableList<Equipment>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
+[TIP]
+As a more OOP model, we can store a `Tag` list in `Equipment Manager`, which `Equipment` can reference. This would allow `Equipment Manager` to only require one `Tag` object per unique `Tag`, instead of each `Equipment` needing their own `Tag` object. An example of how such a model may look like is given below. +
+
+.Class diagram of Model Component
+image::ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
 === Storage component
@@ -217,74 +230,606 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:https://github.com/CS2103-AY1819S2-W10-3/main/tree/master/src/main/java/seedu/equipment/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the *Equipment Manager* data in json format and read it back.
+//end::design[]
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.equipment.commons` package.
 
+[[Implementation-Commons]]
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+//tag::equipment[]
+=== Equipment feature
+To provide users with the best understanding on the parameters of equipment in *Equipment Manager*,
+this section will provide a brief overview on the equipment details as well as how the details of an equipment are
+used for multiple features in the design of Equipment Manager. Not forgetting sharing some design considerations to make the best choice for *Equipment Manager*.
+
+==== Overview on Equipment details
+
+|===
+| *Equipment Parameters* | *Description* | *Things to Note*
+| NAME | The client's name who owns the equipment. | Name should only contain alphanumeric characters and spaces, and it should not be blank.
+| PHONE | The contact number of the client that owns the equipment. | Phone numbers should only contain numbers, and it should be at least 3 digits long
+| DATE | The due date for which maintenance work on the equipment should be carried out by then. | Should only contain numbers and hyphens, no blanks allowed. The correct format is  dd-MM-yyyy. For example, 03-05-2019 which means 3 May 2019.
+| ADDRESS | The address of the client that owns the equipment. |
+| SERIAL_NUMBER | The serial number of an equipment | All equipment have unique serial number and there should not be duplicated serial number.
+| TAG | Tag provides user with desired labels without any restriction on labelling format in *Equipment Manager*. An equipment can any number of tags (including 0).
+|===
+
+
+==== Current Usage of Equipment Details
+In order to allow users to keep track of the Preventive Maintenance schedule and carry out features provided by Equipment Manager, we have implemented the following commands with the usage of the equipment parameters as mentioned in the previous section.
+
+*An example of how the parameters of equipment are used:*
+
+* When user execute the `AddCommand` or `EditCommand`, there are equipment details stored in *Equipment Manager*.
+* When user uses command like `DisplayCommand`, *Equipment Manager* will need to use the address details to provide visual representation of the location of client that owns the equipment.
+* When user uses command like `SelectCommand`, *Equipment Manager* will need to use all the equipment details in order to reflect more detailed information on equipment in the *Equipment Details Page*.
+
+==== Current Implementation
+Using `AddCommand` mentioned in previous section as an example,
+the *add equipment* mechanism is facilitated by `VersionedEquipmentManager` which extends the `Equipment Manager`.
+The results of this command will be displayed under *Equipment Details* panel.
+
+The following sequence diagram shows how the *add equipment* operation works:
+
+.Sequence diagram for `AddCommand`
+image::AddCommandSD.png[width="800"]
+
+Given below is an example usage scenario of how the adding of equipment details mechanism behaves at each step after carrying out `add-e`.
+
+Step 1. The user launches the application.
+
+Step 2. The user executes `add-e n/Pending CC pm/01-05-2019 p/99887766 a/8 Pending Rd, Singapore 678295 s/XDH1429387 t/north-west` command.
+
+Step 3. After `EquipmentManagerParser` detects `add-e` as the command word, a `AddCommandParser#parse()` is called.
+
+Step 4. `AddCommand#execute()` is then called.
+
+Step 5. The parser will parse all the attributes and add into equipment and client models respectively.
+
+Step 7. The model now contains details of equipment and client, and returns to GUI for display on *Equipment details* and *Client details* panels respectively.
+
+With that, you may refer to <<Display feature>> to see how *Equipment Manager* will then use the address details to provide visual representation of the location of client that owns the equipment.
+
+==== Design Considerations
+===== Aspects: What attributes are important for equipment details to serve the purpose of *Equipment Manager*.
+
+* *Alternative 1 (current choice)*: Equipment details contain client details whom own the equipment and equipment unique serial number.
+** Pros: This allows users to know that each equipment has unique serial number and each client can own multiple equipment. Do not have to make major enhancement, save time on backend work.
+** Cons: Might be confusing to user if user is not clear how Equipment Manager works as it may seem like there is duplicated equipment.
+
+* *Alternative 2*: Equipment details only has serial number and create a seperate class to store store name, phone, address, as client details.
+** Pros: By reading the structure, it is clearer to user that the attributes describe equipment or client.
+** Cons: More backend work needs to be change, takes up a lot of time.
+
+//end::equipment[]
+
+//tag::worklist[]
+=== WorkList feature
+To help users understand how this feature, *WorkList*, works in *Equipment Manager*,
+this section will give an overview on the WorkList details and how users can interact with WorkList based on the commands implemented
+in the design of Equipment Manager. It also provides some design considerations to give users an insight of how the current solutions are worked out.
+
+==== Overview on WorkList details
+
+|===
+| *Attributes* | *Description* | *Things to Note*
+| Date | The tentative maintenance date on the equipments in the WorkList. |
+| Assignee | The name of the person who is assigned to conduct the maintenance work. |
+| WorkListId | The id of a WorkList | All WorkLists should have unique id and there should not be duplicated id.
+|===
+
+==== Current Usage of WorkList Details
+
+In order to allow users to user WorkList to help them organize their equipments and assign their work, we have implemented several
+commands as follows with the usage of WorkList details and also some Equipment details.
+
+*An example of how the attributes of WorkList are used:*
+
+* When user execute the `AddWorkListCommand` or `DeleteWorkListCommand`, the added WorkList details stored in *Equipment Manager*,
+and the deleted WorkList details will be deleted from *Equipment Manager*.
+* When user uses command like `PutCommand`, *Equipment Manager* will help users to put the selected Equipment into the specified
+WorkList, such that they will know those equipment are in the WorkList with one specified assignee and date.
+* When user uses command like `RemoveWorkListCommand`, *Equipment Manager* will remove the selected Equipment from a
+specified WorkList, it could be the case that users put the equipment into a wrong WorkList, they want to put the equipment
+into a different WorkList or they just finished maintaining that equipment so they want to remove it from the WorkList.
+
+==== Current Implementation
+Using `AddWorkListCommand` mentioned in previous section as an example,
+the *add WorkList* mechanism is facilitated by `VersionedEquipmentManager` which extends the `Equipment Manager`.
+The results of this command will be displayed under *WorkList Details* panel.
+
+The following sequence diagram shows how the *add WorkList* operation works:
+
+.Sequence diagram for `AddWorkListCommand`
+image::AddWorkListCommandSD.png[width="800"]
+
+Below is an example of the step-by-step mechanism of `add-w` command.
+
+Step 1. The user launches the application.
+
+Step 2. The user executes `add-w d/09-05-2019 a/Mary i/13` command.
+
+Step 3. After `EquipmentManagerParser` detects `add-w` as the command word, a `AddWorkListCommandParser#parse()` is called.
+
+Step 4. `AddWorkListCommand#execute()` is then called.
+
+Step 5. The parser will parse all the attributes and add into WorkList models.
+
+Step 7. The model now contains details of WorkList, and returns to GUI for display on *WorkList details* panels.
+
+==== Design Considerations
+===== Aspects: What should be the relationship between the WorkList and Equipments.
+
+* *Alternative 1 (current choice)*: The WorkList is a independent class and can contains a list of Equipment objects.
+** Pros: This is more organized and it is clear that WorkList contains some Equipments.
+** Cons: Might be confusing the users that why there are so many relationships and these classes are interacting with each other.
+
+* *Alternative 2*: Equipment is our major work and WorkList is just contains some Serial Numbers just for displaying purposes.
+** Pros: Easy to implement and users are able to know which part they should focusing on more, which is Equipment in this case.
+** Cons: It is hard to do more. If in the future, we intend to do some features like display the equipments in some certain WorkList,
+then it will be quite hard to implement such a feature.
+
+//end::worklist[]
+
+//tag::client[]
+=== Client feature
+This section describes features specific to client, how having client details contribute to the features in *Equipment Manager* as well as our design considerations.
+There may contain some repeated explanation when describing this sections
+because attributes of client and equipment are being shared in order to for features to be carried out in *Equipment Manager*.
+
+==== Overview on Client details
+In Equipment Manager, there are `Name`, `Phone`, `Address` attributes stored under *Equipment details* that identify client details.
+
+* A client can have 0 to numerous equipment which are identified by unique serial number but an equipment cannot be shared by multiple clients.
+** By using `select-c` to select the desired client name in *Client details* pabel, we can view a list of equipments that are owned by the client.
+* Each address tells user where 0 to numerous equipment, which each client owns, are located at.
+
+==== Current Usage of Client details
+As mentioned in <<Current Usage of Equipment Details>>, the `Address` which belong to the client address, are used in features like `DisplayCommand` and `SelectCommand`.
+
+==== Current implementation
+There is `SelectClientCommand` that is supported by  `SelectClientCommandParser`.
+This selection of client details mechanism is facilitated by `VersionedEquipmentManager` which extends the  `Equipment Manager`.
+
+Given below is an example usage scenario of how the selection of client details mechanism behaves at each step after carrying out `select-c`.
+
+Step 1. The user launches the application.
+
+Step 2. The user executes `select-c 1` command.
+
+Step 3. After `EquipmentManagerParser` detects `select-c` as the command word, a `SelectClientCommandParser#parse()` is called.
+
+Step 4. `SelectClientCommand#execute()` is then called and set the selected client in the model with the filtered client list.
+
+Step 5. Using the `filter` feature, the model will use the `Name` attributes, filter the equipment list accordingly and displays the client's equipment in the *Equipment details* panel.
+
+Step 7. The model now contains additional client name and returns to GUI for display on *Client details* panel respectively. The model also contains filtered client's equipment and returns the GUI for display on *Equipment details* panel.
+
+[NOTE]
+The figure in Current Implementation of <<Equipment feature>> also explains how `AddCommand` contributes to the results shown in *Client Details* panel.
+
+==== Design Considerations
+Refer to the *Design Considerations* in <<Equipment feature>> as we went through the same design considerations to come out with equipment and client details separation.
+
+===== Aspects: With a list of client displayed in *Client details* panel, how should the client's equipment details be displayed?
+
+* *Alternative 1 (current choice)*: Making use of the `filter` command to show client's equipment
+** Pros: Making use of existing *Equipment details* panel. Easier to implement with lesser changes to the storage, logic, model and ui components within the time constraint.
+** Cons: select followed by a filter command is stored in the history even though user did not use filter command. This is the trade off.
+
+* *Alternative 2*: Add a new equipment panel and card for displaying client's equipment when selecting the client
+** Pros: Do not have the issue of filter command being tracked in history even though user did not use the filter command.
+** Cons: Too many different panels in one main window display may cause confusion and lower user's experience.
+//end::client[]
+
+//tag::filter[]
+=== Filter feature
+
+==== Introduction
+We have implemented a `FilterCommand` that allow users to filter the equipment list with the specified fields.
+
+The filter feature allow users to filter the equipment list with any specified fields, and also can filter by multiple fields.
+
+The `FilterCommand` is able to filter the equipment list according to the user's preference at a time.
+
+==== Current Implementation
+
+The *filter* mechanism is supported by `FilterCommandParser`. It implements `Parser` that implements the following operation:
+
+- `FilterCommandParser#parse()`  -  Checks the arguments for empty strings and throws a ParseException if empty string is found.
+It then splits the arguments using `ArgumentTokenizer#tokenize()` and returns an ArgumentMultimap. Keywords of the same prefix are then grouped using `ArgumentMultimap#getAllValues()`.
+
+The *filter* mechanism is also facilitated by `FilterCommand`. It extends `Command` and implements the following operation:
+
+`FilterCommand#execute()`  —  Executes the command by updating the current `FilteredPersonList` with the `EquipmentContainsKeywordPredicate`.
+
+`EquipmentContainsKeywordsPredicate` takes in the lists of keywords for the following:
+
+- Name
+- Address
+- Date
+- Phone
+- Tags
+- Serial Number
+
+The following sequence diagram shows how the filter operation works:
+
+image::FilterCommandSequenceDiagram.png[width="800"]
+
+*Example*
+
+Given below is an example usage scenario of how the filter mechanism behaves at each step when filtering.
+
+Step 1. The user launches the application.
+
+Step 2. The user executes `filter n/jurong a/west t/urgent` command to get all fields whose equipment contains the keywords
+
+Step 3. After `EquipmentManagerParser` detects *filter* as the command word, a `FilterCommandParser#parse()` is called and
+the EquipmentContainsKeywordsPredicate is constructed with the arguments of the filter command.
+
+Step 4. `FilterCommand#execute()` is then called.
+
+Step 5. The entire equipment list is filtered by the predicate `EquipmentContainsKeywordsPredicate`.
+
+Step 6. Then, `EquipmentContainsKeywordsPredicate` checks that the *Equipment Manager* has either the respective
+attributes - serial number, tags, address, name, preventive maintenance date, phone.
+
+Step 7. The argument is filtered against the predicate and returned to the GUI.
+
+[TIP]
+`FilterCommand` only filters the equipment list.
+
+==== Design Considerations
+*Implementation of `FilterCommand`*
+
+* **Alternative 1 (current choice):** Require user to prepend every keyword argument with the appropriate attribute prefix.
+Supports multiple fields in the same command.
+** Pros: It is easy to implement and easy to match keyword against an equipment if the matching attribute is known.
+** Pros: User has more control over the results returned.
+** Pros: User can also filter by multiple fields.
+e.g: `filter n/jurong t/west`
+** Cons: User is required to type slightly more.
+** Cons: It only filters the equipment list.
+
+* **Alternative 2:** filter by specific fields
+
+** Pros: It is easy to implement and it is also consistent with how `FilterCommand` works.
+** Cons: User has less control over the results returned.
+** Cons: User can input anything and the results returned is not specific by type.
+
+* **Alternative 3:** filter by tags
+** Pros: It is more specific and more restricted.
+** Cons: More difficult to implement
+** Cons: Too restricted as it is only filtered by tags.
+// end::filter[]
+
+// tag::sort[]
+=== Sort feature
+
+==== Introduction
+We have implemented a `SortCommand` that allow users to sort the equipment list with specific field.
+
+The entries in the equipment list is ordered to the time when the entry is entered into the application by default such that the entry entered first is at the top of the equipment list and the latest entry entered is at the bottom of the equipment list.
+The `sort` mechanism allows user to view the equipment list according to their preferences.
+
+The `SortCommand` is able to sort the equipment list according to the user's preferences at a time.
+
+==== Current Implementation
+
+The `sort` command sorts the list by specified field in lexicographical order.
+
+Comparators that implement `java.util.Comparator` interface are used in the *sort* mechanism to perform the comparsion.
+
+The *sort* mechanism is supported by `SortCommandParser`. It implements `Parser` that implements the following operation:
+
+- `SortCommandParser#parse()` -  Checks the arguments for empty strings and throws a ParseException if empty string is found.
+It then splits the arguments and checks if the next string is a valid field, else, it will throw a ParseException.
+
+Valid fields:
+
+- name
+- date
+- phone
+- serial
+
+The following sequence diagram shows how the sort operation works:
+
+image::SortCommandSequenceDiagram.png[width="800"]
+
+Example
+
+Given below is an example usage scenario of how the sort mechanism behaves at each step when sorting.
+
+Step 1. The user launches the application.
+
+Step 2. The user executes `sort name` command to sort the equipment list by name.
+
+Step 3. `SortCommandParser#parse()` creates a new `NameComparator()` object and passes it into `SortCommand`.
+
+Step 4. `EquipmentManager#sortEquipmentList(comparator)` calls `UniqueEquipmentList#sortEquipmentList(comparator)`, which then
+uses FXCollection’s static method `sort()` to sort the equipment list by name.
+
+Step 5. The list is sorted by specified field (name) and returned to the GUI.
+
+Test cases:
+
+- Input: `sort`
+
+Output: An error message will be displayed to show what are the fields available.
+
+- Input: `sort name`
+
+Output: The list is sorted by the name in alphabetical order.
+
+- Input: `sort date`
+
+Output: The list is sorted in ascending order by the the preventative maintenance date of the equipment.
+
+- Input: `sort phone`
+
+Output: The list is sorted in ascending order by the phone number of the client.
+
+- Input: `sort serial`
+
+Output: The list is sorted in ascending order by the serial number of the equipment.
+
+[TIP]
+`SortCommand` only sorts the equipment list.
+
+
+==== Design Considerations
+*Implementation of `SortCommand`*
+
+* **Alternative 1 (current choice): **Sorts by specific field by using the Comparator interface.
+** Pros: Sorting can be done based on different fields (name, date, phone number and serial number)
+** Cons: A new class that implements the interface Comparator needs to be created for the fields.
+
+* **Alternative 2:** Sort by client name
+** Pros: Overall list is sorted fully by client name
+** Cons: Unable to sort other specific fields such as serial number of the equipment.
+// end::sort[]
+
+// tag::display[]
+=== Display feature
+The display feature allow users to view the location of all equipment in the current shown list on map.
+
+==== Current Implementation
+
+The following activity diagram shows each action is done by which component.
+
+image::DisplayActivityDiagram.png[width="800"]
+
+The following sequence diagram shows how the display operation works:
+
+image::DisplaySequenceDiagram.png[width="800"]
+
+Step 1. The user launches the application, the list of equipment will show in `UI` and stored in the `Model`.
+
+Step 2. The user executes `display` command to show all the equipment on the map. The execution of `display` command will return a `CommandResult` indicating `display` which can be checked by `CommandResult#isDisplayMap()`. The `MainWindow` will check if the `CommandResult` is a display map command. Then `MainWindow#handleDisplayMap` will be called. `MainWindow#handleDisplayMap` will call `Logic#getFilteredPersonList()` to get the equipment list, and then call `Equipment#getCoordiantes()` on each equipment to get its coordinates.
+
+Step 3. The `Equipment#getCoordiantes()` calls to `Google Map Geocoding API` with the address returned by `Equipment#getAddress()`. The API will return the coordinates of the address. This will be returned as the coordinates of the equipment. The coordinates will be stored for future use.
+
+[NOTE]
+`Google Map Geocoding API` is not free to use. You need to have your own API key to use the API. You may check link:https://developers.google.com/maps/documentation/javascript/geocoding[`Google Map Platform - Geocoding Service`]
+
+Step 4. The coordinates are constructed to form a URL and call a web page in `BrowserPanel` to display the map. Currently the map is stored as `/docs/staticpages/DisplayGmap.html` which will be copied and published by Travis CI robot to `github pages`. You may either use your own `github pages` URL by changing `BrowserPanel#MAP_MULTIPLE_POINT_BASE_URL` to your own `github pages` URL, or use the current URL published by `CS2103-AY1819S2-W10-3` team.
+
+Step 5. The webpage receive the coordinates in parameter form. It will first parse the parameters. The standard form of parameters is `?coordinates=[[1.3012,103.1233], [1.4323, 103.2012]]&otherfields=["abc", "def"]`. The number of elements in other parameters must match the number of elements in the `coordinates` parameter. The map may be extended to handle more functions, however the current parameter parser can only handle parameters in this standard format. For now, only coordinates are used, other parameters will be ignored.
+
+==== Design Considerations
+
+===== Aspect: How to display the base map
+* **Alternative 1 (current choice):** Use separate web page, pass the coordinates as parameters.
+** Pros: Easy to implement. Flexible to add more functions. Many JavaScript libraries can be used.
+** Cons: Unexpected behaviors would happen if the WebEngine cannot display the web page properly.
+* **Alternative 2:** Use third party JavaFX map libraries.
+** Pros: No unexpected behaviors, and more consistent running on different platforms.
+** Cons: Harder to implement, less flexibility, and limit to extensions.
+
+===== Aspect: Which JavaScript Map library to use
+* **Alternative 1 (current choice):** Use Google Map JavaScript API
+** Pros: Easy to embed other Google Map APIs, and work better with JavaFX built in browser.
+** Cons: Harder to customize the style of map, marker and etc. (Compared to `Alternative 2`)
+* **Alternative 2:** Use MapBox GL JS.
+** Pros: Easy to have customized view, better looking themes.
+** Cons: Works bad in JavaFX default built in browser, and harder to cooperate with Google API.
+
+===== Aspect: Call `Geocoding API` to get coordinates in main application or built in browser
+* **Alternative 1 (current choice):** In main application
+** Pros: Addresses are reusable, i.e. only need to call `Geocoding API` once for each equipment.
+** Cons: Harder to make the function call, and increase the hang up time when many equipments do not have coordinates retrieved.
+* **Alternative 2:** In built in browser with JavaScript
+** Pros: User will get instant response and see the base map after entering the command, although the actual display will come later.
+** Cons: Addresses will not be reusable, each time user enter `display` would call `Geocoding API` for each equipment and incur high API costs.
+// end::display[]
+
+// tag::route[]
+=== Route feature
+The route feature allow users to know the best order to traverse through all equipments listed in the equipment panel. The order will be shown on the map.
+
+The following sequence diagram shows how the display operation works:
+
+image::RouteSequenceDiagram.png[width="800"]
+
+==== Current Implementation
+
+Step 1. The user launches the application, the list of equipments will show in `UI` and stored in the `Model`.
+
+Step 2. The user executes `route` command together with the origin address to display the route starting from the origin address, travel through all equipments, and go back to the origin address. The execution of `route` command will return a `CommandResult` indicating this is an `route` command which can be checked by `CommandResult#isRoute()`. The `CommandResult` also contains start address parameter called `routeAddress` of `Address` type. The `MainWindow` will check if the `CommandResult` is a route command. Then `MainWindow#handleRoute` will be called.
+
+Step 3. `MainWindow#handleRoute` will call `Logic#getFilteredPersonList()` to get the equipments list, and then call `Equipment#getAddress()` on each equipments to get its address.
+
+Step 4. The addresses are constructed to form a URL and call a web page in `BrowserPanel` to display the map. Currently the map is stored as `/docs/staticpages/DisplayRoutes.html` which will be copied and published by Travis CI robot to `github pages`. You may either use your own `github pages` URL by changing `BrowserPanel#MAP_ROUTE_BASE_URL` to your own `github pages` URL, or use the current URL published by `CS2103-AY1819S2-W10-3` team.
+
+Step 5. The web page receive the addresses in parameter form. It will first parse the parameters. The standard form of parameters is `?address=["Address 1", "Address 2"]&start="Origin address"&end="Destination address"`. The order of parameters does not matter.
+
+Step 6. The JavaScript code in the web page will call `Google Map JavaScript API` to calculate the best route to each addresses, and display the route on the map.
+
+[NOTE]
+`Google Map JavaScript API` is not free to use. You need to have your own API key to use the API. You may check link:https://developers.google.com/maps/documentation/javascript/tutorial[`Google Map Platform - Maps JavaScript API`]
+
+==== Design Considerations
+
+===== Aspect: Passing addresses or coordinates to web page
+* **Alternative 1 (current choice):** Passing addresses to web page
+** Pros: Better accuracy, as addresses would interpreted more accurately than coordinates when involving routing.
+** Cons: Worse data reusability, waste API calls, because the data retrieved from the `Google Map JavaScript API` cannot be send back to the main application and stored.
+* **Alternative 2:** Passing coordinates to the web page
+** Pros: Save some API calls.
+** Cons: Worse accuracy.
+
+[NOTE]
+Calling `Google Map JavaScript API` to retrieve the route is much more expensive than calling `Geocoding API` to retrieve the coordinates. Thus, it is fair to prioritize to utilize function of `Google Map JavaScript API` to retrieve the route.
+
+===== Aspect: How to pass the origin address to UI
+* **Alternative 1 (current choice):** Passing as a parameter in `CommandResult`
+** Pros: Minimal code changes.
+** Cons: Need to create more constructor of `CommandResult`, and it may get harder to understand the usage of these constructors.
+* **Alternative 2:** Storing as a field in `Model`
+** Pros: Easier to understand and use.
+** Cons: Require more code changes because changing `Model` interface will break many classes and tests.
+
+===== Aspect: How to pass extra parameters to `CommandResult`
+* **Alternative 1 (current choice):** Use overloading of the constructor
+** Pros: No need to change the caller code of the constructor, decrease the possibility of code conflicts when merging with teammates' code.
+** Cons: As more fields are added to `CommandResult`, more constructors will be added. As a result, it may confuse future developers.
+* **Alternative 2:** Directly modify the `CommandResult` class and its constructor signature
+** Pros: More straightaway and easier to understand.
+** Cons: Changing the constructor signature also need to change all the caller functions. So it requires changes of many classes which may bring code conflicts.
+// end::route[]
+
+// tag::uiug[]
+=== User Interface (UI)
+The UI of *Equipment Manager* is a combination of JavaFX, HTML and CSS.
+This section describes our overall current implementation for UI as well as
+showing our thinking process for the UI in designs considerations section.
+
+==== Current implementation
+===== Launch the Application
+
+.On start of the Equipment Manager application, UI with labels
+image::ui_labelled.png[width="790"]
+
+The figure above depicts the interface the user see when the user launches the application.
+The user should be greeted by 9 different regions:
+
+|===
+| Regions of Application | Purpose
+| [1] *Menu Bar* | Allow users to click `File` > `Exit` to exit the application and click `Help` to navigate to our User Guide page.
+| [2] *Command Box* | User enters the command in the command box. Refer to *User Guide* to learn all the available commands.
+| [3] *Message box* | The message box that shows the result after a command has been executed.
+| [4] *Status Bar* | Show the total number of equipment in the *Equipment Manager*.
+| [5] *Google Map*  | Google map serves as a visual representation for where equipment are at as well as showing user the possible routes to take.
+| [6] *Equipment details* panel | This panel shows summarized details on equipment
+| [7] *Equipment Details Page* | This is a HTML page where it shows more detailed information on an equipment.
+| [8] *Client Details* panel | This panel shows specifically information related to client such as the name and how many equipment the client owns.
+| [9] *My Work List* panel | This panels shows the work schedule of a person when the user assigns equipment whom the user want to carry out preventive maintenance work.
+|===
+
+===== Showcasing Client details
+To avoid cluttering to many information in *Equipment details* panel,
+we decided to categorise information related to clients into *Client details* panel
+such as showing all the unique client names in Equipment Manager as seen in the figure below.
+
+.Client name listed under Client details panel
+image::AddClientDetailsUI.png[%autowidth]
+
+===== Showcasing Equipment details and locations
+Similarly, there are many information to be shown in *Equipment details* panel.
+Hence, as seen in the figure below, we created a HTML page to show more information
+on equipment. This means that there are some information not shown in *Equipment details* panel but will instead be shown in *Equipment Details Page*.
+
+.Incorporating HTML in panel to show more equipment details
+image::equipmentdetailsUI.png[%autowidth]
+
+One of our main feature of *Equipment Manager* is the ability to have a visual representation on 1 or more equipment in a *Google Map*.
+
+.Outcome of `display` feature on UI
+image::clientlocationsUI.png[%autowidth]
+
+As seen in the above figure, entering `display` command will allow a visual representation of all equipment locations in the *Equipment Manager* data storage onto *Google Map*.
+This is one of our main feature of *Equipment Manager* where we provide users to view either 1 equipment location at a time by entering `select` INDEX or simply by clicking onto the an equipment in *Equipment details* panel.
+
+==== Design Considerations
+===== Aspects: Information to be displayed on respective panels
+
+* Alternative 1: Showing all client, worklist, equipment resulting commands in one panel.
+|===
+| Pros | Lesser panels will have lesser clutter to user experience. UX experience will be better.
+| Cons | Harder to implement. Require to work with label that is able to change when panel has changed to serve other purposes such as from displaying equipment details to worklist details in the same panel.
+|===
+
+* Alternative 2 (Current Choice): Show client, worklist, equipment resulting commands in 3 respective panels.
+|===
+| Pros | Easier to implement. To avoid confusion on which panel is being updated, we added a header label above each panel.
+| Cons | Application looks more cluttered with more dividers for different panels.
+|===
+// end:: uiug[]
 
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedEquipmentManager`.
+It extends `EquipmentManager` with an undo/redo history, stored internally as an `EquipmentManagerStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedEquipmentManager#commit()` -- Saves the current *Equipment Manager* state in its history.
+* `VersionedEquipmentManager#undo()` -- Restores the previous *Equipment Manager* state from its history.
+* `VersionedEquipmentManager#redo()` -- Restores a previously undone *Equipment Manager*  state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitEquipmentManager()`, `Model#undoEquipmentManager()` and `Model#redoEquipmentManager()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedEquipmentManager` will be initialized with the initial *Equipment Manager* state, and the `currentStatePointer` pointing to that single *equipment manager* state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete-e 5` command to delete the 5th equipment in the *Equipment Manager*. The `delete-e` command calls `Model#commitEquipmentManager()`, causing the modified state of the *Equipment Manager* after the `delete-e 5` command executes to be saved in the `equipmentManagerStateList`, and the `currentStatePointer` is shifted to the newly inserted *Equipment Manager*r state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add-e n/Clementi CC ...` to add a new equipment. The `add` command also calls `Model#commitEquipmentManager()`, causing another modified *Equipment Manager* state to be saved into the `equipmentManagerStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitEquipmentManager()`, so the *Equipment Manager* state will not be saved into the `equipmentManagerStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the equipment was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoEquipmentManager()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous *Equipment Manager* state, and restores the *Equipment Manager* to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial *Equipment Manager* state, then there are no previous *Equipment Manager* states to restore. The `undo` command uses `Model#canUndoEquipmentManager()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoEquipmentManager()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the *Equipment Manager* to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `equipmentManagerStateList.size() - 1`, pointing to the latest *Equipment Manager* state, then there are no undone *Equipment Manager* states to restore. The `redo` command uses `Model#canRedoEquipmentManager()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the *Equipment Manager*, such as `list`, will usually not call `Model#commitEquipmentManager()`, `Model#undoEquipmentManager()` or `Model#redoEquipmentManager()`. Thus, the `equipmentManagerStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitEquipmentManager()`. Since the `currentStatePointer` is not pointing at the end of the `equipmentManagerStateList`, all *Equipment Manager* states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/Clementi CC ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -296,29 +841,22 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire *Equipment Manager*.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete-e`, just save the equipment being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of *Equipment Manager* states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedEquipmentManager`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
@@ -405,6 +943,8 @@ This will render the SE-EDU navigation bar at the top of the page, and add some 
 
 Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
 
+All files under `\docs\staticpages\` will be copied to final output documentation folders as well. You may put any static pages you want to public to `\docs\staticpages`.
+
 Asciidoctor's https://asciidoctor.org/docs/user-manual/#builtin-attributes[built-in attributes] may be specified and used as well.
 
 [TIP]
@@ -478,14 +1018,14 @@ We have two types of tests:
 
 .  *GUI Tests* - These are tests involving the GUI. They include,
 .. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
-.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+.. _Unit tests_ that test the individual components. These are in `seedu.equipment.ui` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
+e.g. `seedu.equipment.commons.StringUtilTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.address.storage.StorageManagerTest`
+e.g. `seedu.equipment.storage.StorageManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
+e.g. `seedu.equipment.logic.LogicManagerTest`
 
 
 === Troubleshooting Testing
@@ -528,334 +1068,148 @@ A project often depends on third-party libraries. For example, Address Book depe
 . Include those libraries in the repo (this bloats the repo size)
 . Require developers to download those libraries manually (this creates extra work for developers)
 
-[[GetStartedProgramming]]
-[appendix]
-== Suggested Programming Tasks to Get Started
-
-Suggested path for new programmers:
-
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
-=== Improving each component
-
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
-
-[discrete]
-==== `Logic` component
-
-*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
-
-[TIP]
-Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
-
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
-+
-****
-* Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
-* Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
-** Add new tests for each of the aliases that you have added.
-** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
-****
-
-[discrete]
-==== `Model` component
-
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
-
-[TIP]
-Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
-
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
-+
-****
-* Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
-* Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
-** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
-****
-
-[discrete]
-==== `Ui` component
-
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
-
-[TIP]
-Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
-
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
-+
-**Before**
-+
-image::getting-started-ui-tag-before.png[width="300"]
-+
-**After**
-+
-image::getting-started-ui-tag-after.png[width="300"]
-+
-****
-* Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
-** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
-* Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
-*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
-****
-
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
-+
-**Before**
-+
-image::getting-started-ui-result-before.png[width="200"]
-+
-**After**
-+
-image::getting-started-ui-result-after.png[width="200"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
-* Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
-** You can write two different kinds of tests to ensure that the functionality works:
-*** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
-*** Do read the commits one at a time if you feel overwhelmed.
-****
-
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
-+
-**Before**
-+
-image::getting-started-ui-status-before.png[width="500"]
-+
-**After**
-+
-image::getting-started-ui-status-after.png[width="500"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
-* Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
-****
-
-[discrete]
-==== `Storage` component
-
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
-
-[TIP]
-Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
-
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
-+
-****
-* Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/JsonAddressBookStorage.java[`JsonAddressBookStorage`] class.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
-****
-
-[[GetStartedProgramming-RemarkCommand]]
-=== Creating a new command: `remark`
-
-By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
-
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
-
-==== Description
-Edits the remark for a person specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
-
-Examples:
-
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
-* `remark 1 r/` +
-Removes the remark for the first person.
-
-==== Step-by-step Instructions
-
-===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
-Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
-
-**Main:**
-
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
-
-**Tests:**
-
-. Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
-
-===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
-
-**Main:**
-
-. Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
-. Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
-
-**Tests:**
-
-. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
-. Add `RemarkCommandParserTest` that tests different boundary values
-for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
-
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
-
-**Main:**
-
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
-
-===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
-
-**Main:**
-
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
-. Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
-
-**Tests:**
-
-. Add test for `Remark`, to test the `Remark#equals()` method.
-
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Main:**
-
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `data/addressbook.json` so that the application will load the sample data when you launch it.)
-
-===== [Step 6] Storage: Add `Remark` field to `JsonAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/JsonAdaptedPerson.java[`JsonAdaptedPerson`] to include a `Remark` field so that it will be saved.
-
-**Main:**
-
-. Add a new JSON field for `Remark`.
-
-**Tests:**
-
-. Fix `invalidAndValidPersonAddressBook.json`, `typicalPersonsAddressBook.json`, `validAddressBook.json` etc., such that the JSON tests will not fail due to a missing `remark` field.
-
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Tests:**
-
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
-
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
-
-**Main:**
-
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
-
-===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
-
-**Main:**
-
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
-
-**Tests:**
-
-. Update `RemarkCommandTest` to test that the `execute()` logic works.
-
-==== Full Solution
-
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
-
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
+* engineers who need to keep track of their preventive maintenance schedule
+* wants to plan the most efficient route to multiple locations
 * has a need to manage a significant number of contacts
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: help plan an efficient route for busy engineers to multiple locations and also carrying preventive maintenance on multiple equipment in a day.
 
+//tag:userstories[]
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
+[discrete]
+=== Add, Edit, Delete, List (Basic CRUD commands)
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |user |create, update, and delete an equipment or its specific details | keep the equipment information full and up-to-date.
 
-|`* * *` |user |add a new person |
+|`* * *` |user |create, update, and delete an worklist | use worklist for tracking progress and tasks
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |have a worklist where I can store the equipments I am working on | keep track of all the equipments that I am assigned to
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |view details of all equipment |know how many equipment there are and what is the individual details of each equipment
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |want to know names of the clients | so that i can get a clear view of my customers and their respective equipments
 |=======================================================================
 
-_{More to be added}_
+[discrete]
+=== Put, Remove
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+|`* * *` |user |put an equipment into a work list |arrange my equipments and put into a work list if I want to keep track of these equipments.
 
+|`* * *` |user |remove an equipment from a work list |remove an equipment if I put it wrongly or I finished maintaining this equipment so I want to remove it from this work list.
+
+|=======================================================================
+
+[discrete]
+=== Filter
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+|`* * *` |user |filter the list based on some conditions |remove all irrelevant equipments showing on the list
+|=======================================================================
+
+[discrete]
+=== Sort
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+|`* *` |user |sort the list based on some fields |view the list in a specific way
+|=======================================================================
+
+[discrete]
+=== Google Map And Route Planning
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+|`* *` |user |know the location where the equipment is at | have a direct visual sense of the location of the equipment
+
+|`* *` |user |have a visual representation of all equipments in the list |have quick overview on information
+
+|`*` |user |plan efficient routes between multiple locations |increase productivity, cut transportation costs, improve maintenance services
+
+|=======================================================================
+
+[discrete]
+=== Other commands
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+|`* * *` |new user |learn how to use the application easily | spend less time on learning and more on using it
+
+|`* * *` |new user |be able to understand the UI without much instruction |spend my time on the program features
+
+|`*` |user |see my past commands |keep track of what I have searched on
+
+|`*` |user |change command keywords |use the words that I prefer
+
+|`*` |user |redo or undo my past commands |correct any mistakes I have made
+
+|`*` |user |autocomplete my command queries |get the information that I want faster
+|=======================================================================
+//end:userstories[]
+
+//tag:: usecases[]
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+For all use cases below, the *System* is the *Equipment Manager* and the *Actor* is the `user`, unless specified otherwise.
 
-[discrete]
-=== Use case: Delete person
+// tag::selectClientUC[]
+=== Use Case: Select Client
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+.Use case diagram for Select Client
+image::SelectClientUC.png[width="250"]
+
+1.  User selects the client name under Client details panel
+2.  The client name under Client details panel is selected
+3.  Equipment details panel shows a list of equipment that is owned by the client name
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The client name is listed in CLient details panel
++
+Use case ends.
+
+[none]
+* 2b. The given index is empty.
++
+Use case ends.
+
+[none]
+* 3a. The client does not own any equipment (as of now). Zero equipment listed.
++
+Use case ends.
+// end::selectClientUC[]
+
+=== Use case: Delete equipment
+
+*MSS*
+
+1.  User requests to list equipment
+2.  Equipment shows a list of equipment
+3.  User requests to delete a specific equipment in the list
+4.  *Equipment Manager* deletes the equipment
 +
 Use case ends.
 
@@ -869,46 +1223,130 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. *Equipment Manager* shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: Add worklist and put in equipments
+
+*MSS*
+
+1.  User requests to list equipments
+2.  Equipment shows a list of equipments
+3.  User requests to create a new worklist
+4.  *Equipment Manager* create a worklist
+5.  User requests to put a new equipment into the worklist
+6.  *Equipment Manager* put the equipment into the worklist
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. The parameters are invalid.
++
+3a1. Equipment Manager shows an error message.
++
+Use case resumes at step 3.
+
+* 5a. The equipment list is empty.
++
+User case ends.
+* 5b. The given index is invalid.
++
+[none]
+** 5b1. *Equipment Manager* shows an error message.
++
+Use case resumes at step 5.
+
+[discrete]
+=== Use case: Filter the equipments
+
+*MSS*
+
+1.  User requests to list equipments
+2.  Equipment shows a list of equipments
+3.  User requests to filter the equipment list based on some parameters.
+4.  *Equipment Manager* filter the worklist and display to user
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. The parameters are invalid.
++
+[none]
+** 3a1. Equipment Manager shows an error message.
++
+Use case resumes at step 3.
+
+* 3b. The equipment list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: Calculate route of equipments
+
+*MSS*
+
+1.  User requests to list equipments
+2.  Equipment shows a list of equipments
+3.  User requests to calculate route of the equipment list with an origin address.
+4.  *Equipment Manager* calculate the route and display on the map
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. The parameter address is invalid.
++
+[none]
+** 3a1. Equipment Manager shows an error message.
++
+Use case resumes at step 3.
+
+* 3b. The equipment list is empty.
++
+Use case ends.
+//end:: usecases[]
 
 [appendix]
 == Non Functional Requirements
+Non-functional requirements specify the constraints under which system is developed and operated.
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 equipment without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  Should come with automated unit tests and be able to handle errors and exceptions.
+.  Should be user-friendly for someone who have never used a CLI or software before to keep track of preventive maintenance schedule or route planning.
 
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+If you do not understand a technical term used in this document, refer to [underline]#<<techtable>># below.
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+.Technical Terms
+[[techtable]]
+[cols="2,5", options="header"]
+|===
+| Term | Explanation
 
-[appendix]
-== Product Survey
+|*Autocomplete*
+|Provides suggestions while you type into the field.
 
-*Product Name*
+|*Google Maps*
+|It is a online map service provided by Google.
 
-Author: ...
+|*Mainstream Operating System (OS)*
+|Windows, Linux, Unix and OS-X are operating systems used widely in the world.
 
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+|*User Interface (UI)*
+|Allows the user to interact with the application through inputs and outputs of data.
+|===
+//end:: appendix[]
 
 [appendix]
 == Instructions for Manual Testing
@@ -917,6 +1355,7 @@ Given below are instructions to test the app manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+
 
 === Launch and Shutdown
 
@@ -932,26 +1371,114 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Equipment feature
 
-=== Deleting a person
+. Adding an equipment (identified by serial number)
 
-. Deleting a person while all persons are listed
+.. Prerequisites: Add an equipment using the `add-e n/Clementi CC p/67762517 pm/01-05-2019 a/220 Clementi Ave 4, Singapore 129880 Rd s/X14DH9283` command. Note that this equipment has serial number X14DH9283.
+.. Test case: `add-e n/Clementi CC p/67762517 pm/01-05-2019 a/220 Clementi Ave 4, Singapore 129880 Rd s/X14DH9283` +
+   Expected: Duplicated equipment serial number, this equipment already exists in the equipment manager.
+.. Test case: `add-e n/Clementi CC`
+   Expected: Invalid command format. Error details shown in message box.
+.. Other incorrect edit commands to try: `add` (without giving the correct parameters)
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+. Editing an equipment
+.. Prerequisites: Starts off with an empty equipment list. To check, use `list-e` command. If it is not empty, use `clear` command to clear all datas.
+.. Test case: `edit-e 1 n/Pending CC` +
+   Expected: The equipment index provided is invalid.
+.. Test case: `add-e n/Clementi CC p/67762517 pm/01-05-2019 a/220 Clementi Ave 4, Singapore 129880 Rd s/X14DH9283` + `edit-e 1 n/Pending CC p/65060900 a/8 Pending Rd, Singapore 678295` +
+   Expected: Equipment successfully modified.
+.. Test case: `edit-e 0 n/Pending CC` +
+   Expected: Invalid index given.
+.. Other incorrect edit commands to try: `edit`, `edit-e 1` (without giving the parameters)
+
+. Deleting an equipment while all equipment are listed
+
+.. Prerequisites: List all equipment using the `list-e` command. Multiple equipment in the list.
+.. Test case: `delete-e 1` +
+   Expected: First equipment is deleted from the list. Details of the deleted equipment shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete-e 0` +
+   Expected: No equipment is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Client feature
+
+. Selecting a client name
+
+.. Prerequisites: App launch will provide list of equipment and client details displayed under *Equipment details* and *Client details* panel respectively.
+.. Test case: `select-c 1` +
+   Expected: First client is selected from the client list. Equipments that are owned by this client will be listed under the *Equipment details* panel.
+.. Test case: `select 1` +
+   Expected: First equipment is selected from the equipment list, resulting in equipment details displayed in *Equipment result page* but this is not the correct command to select client from client list.
+
+=== Sorting the equipment list
+
+. Sort the equipment list by specific fields
+
+.. Prerequisites: Equipment list must have some entries in it.
+.. Test case: `sort name` +
+   Expected: List is sorted by the name in alphabetical order.
+.. Test case: `sort date` +
+   Expected: List is sorted in ascending order by the the preventative maintenance date of the equipment.
+.. Test case: `sort phone` +
+   Expected: List is sorted in ascending order by the phone number of the client.
+.. Test case: `sort serial` +
+   Expected: List is sorted in ascending order by the serial number of the equipment.
+.. Test case: `sort` +
+   Expected: List will not be sorted. An error message will be displayed of what are the fields that are available.
+
+
+=== Filtering the equipment list
+
+. Filter the equipment list to find specific equipment
+
+.. Prerequisites: Equipment list must have some entries in it.
+
+.. User requests to view equipment that matches certain criteria.
+.. Equipment Manager displays equipment that matches the fields specified by the user. +
+
+.. Test case: User enters an invalid prefix for a field or does not specify any field. +
+   Expected: An error message will be displayed to show the correct input.
+
 
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Prerequisites: You must know where the data files are stored. By default, this will be at the data/ directory at the path of the jar file.
 
+.. Test case: Delete the data directory and launch the app
++
+Expected: A sample folder is present when the app launches (although it is not committed to storage until a persistent change is made).
+.. Test case: Insert a non-json file/corrupted json file in the data directory and launch the app
++
+Expected: The valid json files have folders with their corresponding names present. The non-json file/corrupted json file remains unaffected.
 _{ more test cases ... }_
+
+=== Display the equipments
+
+. Display the equipments while there are some equipments in the list
+
+.. Prerequisites: List all equipment using the `list-e` command. Multiple equipments in the list.
+.. Test case: `display` +
+   Expected: Some red markers of equipments shown on the map
+
+. Display the equipments while no equipments in the list
+.. Prerequisites: Clear all equipment using the `clear` command. No equipment in the list.
+.. Test case: `display` +
+   Expected: No red markers of equipments shown on the map, but the map should still display.
+
+=== Route the equipments
+
+. Route the equipments while there are some equipments in the list
+
+.. Prerequisites: List all equipment using the `list-e` command. Multiple equipments in the list.
+.. Test case: `route School of Computing, NUS, Singapore` +
+   Expected: Route of some equipments with valid and concise addresses will be shown and route will be calculated.
+.. Test case: `route` +
+   Expected: Browser panel do not change. Error messages shown.
+. Display the equipments while no equipments in the list
+.. Prerequisites: Clear all equipment using the `clear` command. No equipment in the list.
+.. Test case: `route School of Computing, NUS, Singapore` +
+   Expected: Only a marker shwon on the map, no routes calculated. Map will still display.

@@ -10,18 +10,22 @@ public class StatusBarFooterHandle extends NodeHandle<Node> {
     public static final String STATUS_BAR_PLACEHOLDER = "#statusbarPlaceholder";
 
     private static final String SYNC_STATUS_ID = "#syncStatus";
+    private static final String TOTAL_EQUIPMENTS_STATUS_ID = "#totalEquipmentsStatus";
     private static final String SAVE_LOCATION_STATUS_ID = "#saveLocationStatus";
 
     private final Labeled syncStatusNode;
+    private final Labeled totalEquipmentsStatus;
     private final Labeled saveLocationNode;
 
     private String lastRememberedSyncStatus;
+    private String lastRememberedTotalEquipmentsStatus;
     private String lastRememberedSaveLocation;
 
     public StatusBarFooterHandle(Node statusBarFooterNode) {
         super(statusBarFooterNode);
 
         syncStatusNode = getChildNode(SYNC_STATUS_ID);
+        totalEquipmentsStatus = getChildNode(TOTAL_EQUIPMENTS_STATUS_ID);
         saveLocationNode = getChildNode(SAVE_LOCATION_STATUS_ID);
     }
 
@@ -30,6 +34,13 @@ public class StatusBarFooterHandle extends NodeHandle<Node> {
      */
     public String getSyncStatus() {
         return syncStatusNode.getText();
+    }
+
+    /**
+     * Returns the text of the 'total equipment' portion of the status bar.
+     */
+    public String getTotalEquipmentsStatus() {
+        return totalEquipmentsStatus.getText();
     }
 
     /**
@@ -52,6 +63,21 @@ public class StatusBarFooterHandle extends NodeHandle<Node> {
      */
     public boolean isSyncStatusChanged() {
         return !lastRememberedSyncStatus.equals(getSyncStatus());
+    }
+
+    /**
+     *
+     */
+    public void rememberTotalPersonsStatus() {
+        lastRememberedTotalEquipmentsStatus = getTotalEquipmentsStatus();
+    }
+
+    /**
+     * Returns true if the current content of the 'total equipment' is different from the value remembered by the
+     * most recent {@code rememberTotalPersonsStatus()} call.
+     */
+    public boolean isTotalPersonsStatusChanged() {
+        return !lastRememberedTotalEquipmentsStatus.equals(getTotalEquipmentsStatus());
     }
 
     /**

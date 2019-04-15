@@ -1,0 +1,118 @@
+= Tan Mei Yen - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Introduction
+
+Hello! My name is Tan Mei Yen and I am currently a second year student studying Computer Science at National University of Singapore. +
+
+This Personal Project Portfolio details the contributions which I have made to the Equipment Manager project for CS2103T Software Engineering module. My main responsibilites are implementing command features which are `filter` and `sort` and also ensuring proper documentation in the user and developer guide.
+The following sections illustrate these enhancements in further detail and other relevant sections I have added to the user and developer guides in relation to these enhancements.
+
+
+== Project: Equipment Manager
+
+== Overview
+_Equipment Manager_ is a desktop CLI (Command Line Interface) application that allows engineers to keep track on the Preventive Maintenance schedule of all Resuscitation Devices in Singapore. It has a GUI (Graphic User Interface) that allows users to get further information on each equipment. +
+
+If you are an engineer that uses the computer frequently and want to improve efficiency at work, why not try out
+https://github.com/CS2103-AY1819S2-W10-3/main/releases[_Equipment Manager_]? No installation is required!
+
+Main Features of _Equipment Manager_:
+
+* Viewing of equipment information through typing
+* Searching and filtering by equipment serial number, equipment status or work list
+* Display equipment location in Google Maps
+* Plan the most efficient route to take for visiting multiple locations
+
+
+== Summary Of Contributions
+
+This section is to provide a summary of my contributions to the project.
+
+* *Enhancement 1*: added the ability to *filter the equipment list according to specified fields*
+** What it does: The `filter` command allows the user to filter the equipment list which matches the given fields:
+*** Name
+*** Address
+*** Date
+*** Phone
+*** Tags
+*** Serial Number
+
+** Justification: The user can filter the list with certain fields, expediting the search process, and reducing the time needed to find an equipment and its details.
+
+** Highlights:
+*** The command is simple to use and allows multiple fields to filter by.
+*** If users were to forget what are the fields available, error messages would guide them to execute the commands correctly.
+
+** Credits: Code from `FindCommand` was referenced in the implementation of `FilterCommand`
+
+
+* *Enhancement 2*: added the ability to *sort the equipment list according to specified fields*
+** What it does: The `sort` command allows the user to sort the equipment list by the given fields:
+*** Name
+*** Date
+*** Serial Number
+*** Phone
+
+** Justification: The user can sort the equipment list in lexicographical order for better viewing purposes.
+
+** Highlights:
+*** The command is simple to use and allows the user to sort the list by their own preferences.
+*** If users were to forget what are the fields available, error messages would guide them to execute the commands correctly.
+
+** Filter Command: [https://github.com/CS2103-AY1819S2-W10-3/main/pull/94[#94]] [https://github.com/CS2103-AY1819S2-W10-3/main/pull/60[#60]] [https://github.com/CS2103-AY1819S2-W10-3/main/pull/52[#52]]
+** Sort Command: [https://github.com/CS2103-AY1819S2-W10-3/main/pull/178[#178]] [https://github.com/CS2103-AY1819S2-W10-3/main/pull/75[#75]] [https://github.com/CS2103-AY1819S2-W10-3/main/pull/39[#39]]
+
+* *Code contributed*:
+** https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=bendymochi[Click here] to view my code on the CS2103T Project Code Dashboard.
+
+* *Other contributions*:
+
+** Enhancements to existing features:
+*** Checking if Date is in correct format and valid [https://github.com/CS2103-AY1819S2-W10-3/main/pull/91[#91]]
+*** Refactoring person to equipment [https://github.com/CS2103-AY1819S2-W10-3/main/pull/191[#191]], [https://github.com/CS2103-AY1819S2-W10-3/main/pull/60[#60]]
+*** Refactor PersonCard to EquipmentCard [https://github.com/CS2103-AY1819S2-W10-3/main/pull/18[#18]]
+*** Added total number of entries in StatusBarFooter [https://github.com/CS2103-AY1819S2-W10-3/main/pull/13[#13]]
+*** Added tag colors [https://github.com/CS2103-AY1819S2-W10-3/main/pull/4[#4]]
+
+
+** Documentation:
+*** Helped write the user stories in User Guide
+*** Updated contents of the User Guide and Developer Guide with new features
+[https://github.com/CS2103-AY1819S2-W10-3/main/pull/101[#101]] +
+*** Changed UI colors
+[https://github.com/CS2103-AY1819S2-W10-3/main/pull/17[#17]] +
+
+** Community:
+
+*** PRs reviewed
+[https://github.com/CS2103-AY1819S2-W10-3/main/pull/181[#181]],
+[https://github.com/CS2103-AY1819S2-W10-3/main/pull/111[#111]],
+[https://github.com/CS2103-AY1819S2-W10-3/main/pull/79[#79]],
+[https://github.com/CS2103-AY1819S2-W10-3/main/pull/59[#59]],
+[https://github.com/CS2103-AY1819S2-W10-3/main/pull/45[#45]].
+
+*** Reported bugs and offered suggestions for other teams in the class (examples: [https://github.com/CS2103-AY1819S2-W15-1/main/issues/128[1], https://github.com/CS2103-AY1819S2-W15-1/main/issues/114[2], https://github.com/CS2103-AY1819S2-W15-1/main/issues/123[3]])
+
+
+== Contributions to the User Guide
+
+Given below are sections I contributed to the User Guide, which consists of documentation of filter and sort commands. They showcase my ability to write documentation targeting end-users.
+
+[https://github.com/CS2103-AY1819S2-W10-3/main/commit/cdfb70685902e82505a7ec48034467c5a9fc756d[Update SortFeature]]
+
+include::../UserGuide.adoc[tag=shortfilter]
+
+include::../UserGuide.adoc[tag=shortsort]
+
+== Contributions to the Developer Guide
+
+Given below are sections I contributed to the Developer Guide, which consists of documentation of filter and sort commands and user stories. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+
+
+include::../DeveloperGuide.adoc[tag=filter]
+
+include::../DeveloperGuide.adoc[tag=sort]
+

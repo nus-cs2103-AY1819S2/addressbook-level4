@@ -1667,8 +1667,12 @@ Use case ends
 .  Should be able to hold up to 1000 cards without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  The user interface should be intuitive enough even for medical students to use the app.
-
-_{More to be added}_
+.  In the event where corrupted files are present, uncorrupted files should be preserved so that users do not lose
+their data.
+.  When no data is present, sample data should be generated so users are able to use the app on launch.
+.  Know-It-All works without active internet connection.
+.  Know-It-All needs to be able to allow at least 50 characters for folder names and 256 characters for card
+information.
 
 
 [appendix]

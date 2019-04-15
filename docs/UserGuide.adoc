@@ -972,7 +972,7 @@ Format : `tasksort PARAMETER [asce/desc]` or `tsort PARAMETER [asce/desc]`
 
 Note :
 
-* `PATAMETER` can be `starttime`, `endtime` or  `priority`
+* `PARAMETER` can be `starttime`, `endtime` or  `priority`
 * The `asc/desc` is optional. It's sorted `ascendingly` by default
 
 Example:

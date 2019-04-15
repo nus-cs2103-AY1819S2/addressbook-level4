@@ -415,13 +415,15 @@ directory.
 
 Format: `export FOLDER_INDEX FILENAME [MORE_INDEXES]`
 
-IMPORTANT: The export command creates the new csv file in your project root directory.
+[NOTE]
+The export command creates the new csv file in your project root directory.
 i.e The directory where your .jar file is located. +
-The `import command` imports csv files located in the same directory as well.
+The import command imports csv files located in the same directory as well.
 
 image::project_root_dir.png[width ="800"]
 
-NOTE: The current version does not support the importing and exporting of files outside of this directory
+[NOTE]
+The current version does not support the importing and exporting of files outside of this directory
 
 ====
 * You should key in indices corresponding to the folder index
@@ -433,10 +435,10 @@ Examples:
 * `export 1 2 3` +
 exports the first, second and third cardfolder in your home directory.
 Suppose that the first, second and third cardfolder corresponds to the card folder names : +
-`Blood` +
-`Circulatory System` +
-`Cardiovascular` +
-Then the following files `Blood.csv`, `Circulatory System.csv` and `Cardiovascular.csv`
+Blood +
+Circulatory System +
+Cardiovascular +
+Then the following files Blood.csv, Circulatory System.csv and Cardiovascular.csv
 will be created in the project root directory.
 
 ==== Import flashcards : `import`
@@ -452,10 +454,10 @@ NOTE: The csv file imported should follow the format described below
 ====
 * The first row of the csv file should have the following headers:
 +
-Question, Answer, Options, Hints.
+Question, Answer, Hints, Option, Option, Option.
 * Question and Answer are mandatory fields, and should not be left blank.
 * Hints can take 0 or 1 values only.
-* For MCQ cards, The csv file only accepts one incorrect option for each flashcard.
+* For MCQ cards, The csv file accepts up to 3 incorrect options per flashcard.
 ====
 
 .Sample format for csv file
@@ -463,15 +465,14 @@ image::Blood.png[width = "800"]
 
 Format: `import FILENAME`
 
-NOTE: unlike the `export command` the importing of multiple csv files
+NOTE: unlike the export command the importing of multiple csv files
 is not supported in *Know-It-All*.
 
 Examples:
 
 * `import Blood.csv` +
-Imports blood csv file into *Know-It-All*. A new `Blood` cardfolder should be present in the home
+Imports blood csv file into *Know-It-All*. A new Blood cardfolder should be present in the home
 directory after execution of this command.
-
 // end::advancedoperations[]
 
 
@@ -694,6 +695,7 @@ this number is automatically calculated and recorded.
 * [[testscore]] **Test Score**: The number of cards correctly answered over number of cards attempted during a test session. This number is automatically recorded after each test session.
 * [[homedirectory]] **Home Directory**: The home page where all the folders are listed. From here, users can enter folders to view cards.
 * [[index]] **Index**: The unique number associated with an item in a list. The first item in a list has an index of 1.
+* **project root directory**: The directory where Know-It-All's .jar file is located
 
 //tag::cmdsummary[]
 == Command Summary
@@ -722,7 +724,7 @@ this number is automatically calculated and recorded.
 |`end` | Quits the current test session or report display.
 |`search KEYWORDS [MORE_KEYWORDS]` | Searches for flashcards inside the current folder using keywords in flashcard questions.
 |`import FILENAME` | Imports a file with the specified name. Filename must include .csv extension
-|`export FOLDER_INDEX FILENAME [MORE_INDEXES]` | Creates a csv file containing the flashcards from the specified folder, which can later be imported.
+|`export FOLDER_INDEX [MORE_INDEXES]` | Creates a csv file containing the flashcards from the specified folder, which can later be imported.
 |`help` | Opens the User Guide in a new window.
 |`exit` | Exits the application.
 |=======================================================================

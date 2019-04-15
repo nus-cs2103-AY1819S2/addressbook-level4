@@ -934,6 +934,9 @@ Changes to the data in the application are also saved that any command that
 modifies application parameters, making sure that minimal data is lost should
 any unforeseen circumstances happen.
 
+Attempting to read a corrupted data file will show an empty book.
+If the application is unable to find any data files, it will create books based on its sample data.
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +

@@ -7,6 +7,7 @@
 My name is Jin Jing and I am currently a second-year Computer Science student from the National University of Singapore.
 I enjoy doing math and I like to solve logic problems in my spare time.
 
+https://github.com/jing1324[This is my Github]
 
 == Project: Health Hub
 
@@ -50,6 +51,7 @@ instead of searching the documents manually.
  [https://github.com/CS2103-AY1819S2-W09-2/main/blob/master/src/main/java/seedu/address/storage/JsonSerializableRequestBook.java[SerializableRequestBook]]
  [https://github.com/CS2103-AY1819S2-W09-2/main/blob/master/src/main/java/seedu/address/storage/JsonRequestBookStorage.java[RequestBookStorage]]
 
+https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=jing1324&sort=displayName&since=2019-02-10&until=2019-04-12&timeframe=day&reverse=false&repoSort=true[Click here to see all my code contributions]
 
 * *Other contributions*:
 
@@ -69,7 +71,6 @@ instead of searching the documents manually.
 |_The following sections of the user guide were written by me. Do take a look._
 |===
 
-include::../UserGuide.adoc[tag=releasenotes-1.4]
 include::../UserGuide.adoc[tag=undoredo]
 include::../UserGuide.adoc[tag=releasenotes-1.4]
 
@@ -81,6 +82,7 @@ include::../UserGuide.adoc[tag=releasenotes-1.4]
 |_The following sections of the developer's guide were written by me. Please take a look._
 |===
 
+include::../DeveloperGuide.adoc[tag=logic-header]
 include::../DeveloperGuide.adoc[tag=storage]
 include::../DeveloperGuide.adoc[tag=undoredo]
 

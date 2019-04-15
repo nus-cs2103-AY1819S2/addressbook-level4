@@ -1,6 +1,5 @@
 package guitests.guihandles;
 
-//import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -11,7 +10,6 @@ import javafx.scene.text.Text;
  */
 public class SummaryPanelHandle extends NodeHandle<Region> {
 
-    public static final String SUMMARY_PANEL_ID = "#summaryPanel";
     public static final String CHART_AREA_ID = "#chartArea";
 
     private final StackPane chartArea;
@@ -37,15 +35,6 @@ public class SummaryPanelHandle extends NodeHandle<Region> {
     public boolean isNoExpenseText() {
         return chartArea.getChildren().get(0) instanceof Text;
     }
-
-    /* //Won't be implementing bar chart
-    /**
-     * Checks if child is a BarChart
-     * @return true if child is an instance of BarChart
-
-    public boolean isTimeChart() {
-        return chartArea.getChildren().get(0) instanceof BarChart;
-    }*/
 
     /**
      * Checks if child is Text and checks that it matches {@code matchingText}

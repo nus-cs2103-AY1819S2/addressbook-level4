@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SEVENTH_PERSON;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
@@ -123,7 +125,6 @@ public class SortCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedAlice);
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedAlice);
         expectedModel.commitAddressBook();
-        System.out.println(expectedModel.getFilteredPersonList());
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
 
         // Edit the second person to have George's surname
@@ -175,12 +176,7 @@ public class SortCommandTest {
         String expectedMessage = String.format("Sorted all persons by reverse education");
         SortWord type = new SortWord("reverse education");
         SortCommand command = new SortCommand(type);
-        expectedModel.deleteAllPerson();
-        correctPersonOrder = Arrays.asList(GEORGE, DANIEL, ALICE, BENSON, CARL, ELLE, FIONA);
-        for (Person newPerson : correctPersonOrder) {
-            expectedModel.addPersonWithFilter(newPerson);
-        }
-        expectedModel.commitAddressBook();
+        expectedModelFromSort(Arrays.asList(GEORGE, DANIEL, ALICE, BENSON, CARL, ELLE, FIONA));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
 
@@ -189,12 +185,7 @@ public class SortCommandTest {
         String expectedMessage = String.format("Sorted all persons by gpa");
         SortWord type = new SortWord("gpa");
         SortCommand command = new SortCommand(type);
-        expectedModel.deleteAllPerson();
-        correctPersonOrder = Arrays.asList(FIONA, ALICE, CARL, BENSON, DANIEL, ELLE, GEORGE);
-        for (Person newPerson : correctPersonOrder) {
-            expectedModel.addPersonWithFilter(newPerson);
-        }
-        expectedModel.commitAddressBook();
+        expectedModelFromSort(Arrays.asList(FIONA, ALICE, CARL, BENSON, DANIEL, ELLE, GEORGE));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
 
@@ -203,12 +194,7 @@ public class SortCommandTest {
         String expectedMessage = String.format("Sorted all persons by reverse gpa");
         SortWord type = new SortWord("reverse gpa");
         SortCommand command = new SortCommand(type);
-        expectedModel.deleteAllPerson();
-        correctPersonOrder = Arrays.asList(GEORGE, ELLE, DANIEL, BENSON, CARL, ALICE, FIONA);
-        for (Person newPerson : correctPersonOrder) {
-            expectedModel.addPersonWithFilter(newPerson);
-        }
-        expectedModel.commitAddressBook();
+        expectedModelFromSort(Arrays.asList(GEORGE, ELLE, DANIEL, BENSON, CARL, ALICE, FIONA));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
 
@@ -217,12 +203,7 @@ public class SortCommandTest {
         String expectedMessage = String.format("Sorted all persons by skills");
         SortWord type = new SortWord("skills");
         SortCommand command = new SortCommand(type);
-        expectedModel.deleteAllPerson();
-        correctPersonOrder = Arrays.asList(ELLE, ALICE, BENSON, DANIEL, FIONA, CARL, GEORGE);
-        for (Person newPerson : correctPersonOrder) {
-            expectedModel.addPersonWithFilter(newPerson);
-        }
-        expectedModel.commitAddressBook();
+        expectedModelFromSort(Arrays.asList(ELLE, ALICE, BENSON, DANIEL, FIONA, CARL, GEORGE));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
 
@@ -231,12 +212,7 @@ public class SortCommandTest {
         String expectedMessage = String.format("Sorted all persons by positions");
         SortWord type = new SortWord("positions");
         SortCommand command = new SortCommand(type);
-        expectedModel.deleteAllPerson();
-        correctPersonOrder = Arrays.asList(ELLE, FIONA, GEORGE, ALICE, CARL, DANIEL, BENSON);
-        for (Person newPerson : correctPersonOrder) {
-            expectedModel.addPersonWithFilter(newPerson);
-        }
-        expectedModel.commitAddressBook();
+        expectedModelFromSort(Arrays.asList(ELLE, FIONA, GEORGE, ALICE, CARL, DANIEL, BENSON));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
 
@@ -245,12 +221,7 @@ public class SortCommandTest {
         String expectedMessage = String.format("Sorted all persons by endorsements");
         SortWord type = new SortWord("endorsements");
         SortCommand command = new SortCommand(type);
-        expectedModel.deleteAllPerson();
-        correctPersonOrder = Arrays.asList(DANIEL, FIONA, ELLE, GEORGE, ALICE, BENSON, CARL);
-        for (Person newPerson : correctPersonOrder) {
-            expectedModel.addPersonWithFilter(newPerson);
-        }
-        expectedModel.commitAddressBook();
+        expectedModelFromSort(Arrays.asList(DANIEL, FIONA, ELLE, GEORGE, ALICE, BENSON, CARL));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
 
@@ -259,12 +230,7 @@ public class SortCommandTest {
         String expectedMessage = String.format("Sorted all persons by skill number");
         SortWord type = new SortWord("skill number");
         SortCommand command = new SortCommand(type);
-        expectedModel.deleteAllPerson();
-        correctPersonOrder = Arrays.asList(CARL, ELLE, BENSON, DANIEL, FIONA, ALICE, GEORGE);
-        for (Person newPerson : correctPersonOrder) {
-            expectedModel.addPersonWithFilter(newPerson);
-        }
-        expectedModel.commitAddressBook();
+        expectedModelFromSort(Arrays.asList(CARL, ELLE, BENSON, DANIEL, FIONA, ALICE, GEORGE));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
 
@@ -273,12 +239,7 @@ public class SortCommandTest {
         String expectedMessage = String.format("Sorted all persons by position number");
         SortWord type = new SortWord("position number");
         SortCommand command = new SortCommand(type);
-        expectedModel.deleteAllPerson();
-        correctPersonOrder = Arrays.asList(FIONA, CARL, GEORGE, ALICE, DANIEL, BENSON, ELLE);
-        for (Person newPerson : correctPersonOrder) {
-            expectedModel.addPersonWithFilter(newPerson);
-        }
-        expectedModel.commitAddressBook();
+        expectedModelFromSort(Arrays.asList(FIONA, CARL, GEORGE, ALICE, DANIEL, BENSON, ELLE));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
 
@@ -287,26 +248,92 @@ public class SortCommandTest {
         String expectedMessage = String.format("Sorted all persons by endorsement number");
         SortWord type = new SortWord("endorsement number");
         SortCommand command = new SortCommand(type);
-        expectedModel.deleteAllPerson();
-        correctPersonOrder = Arrays.asList(DANIEL, FIONA, ELLE, GEORGE, ALICE, BENSON, CARL);
-        for (Person newPerson : correctPersonOrder) {
-            expectedModel.addPersonWithFilter(newPerson);
-        }
-        expectedModel.commitAddressBook();
+        expectedModelFromSort(Arrays.asList(DANIEL, FIONA, ELLE, GEORGE, ALICE, BENSON, CARL));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
 
+    /**
+     * i. Check initial ordering
+     * Edit first person to have High School degree
+     * Edit second person to have Masters degree
+     * Edit third person to have PhD degree
+     * Check sorting
+     *
+     * Keep old gpa and name since they are used for subsequent sorting
+     *
+     * ii. Check case of same education, same gpa
+     * Edit first person to have Associates degree with gpa 4.0
+     * Edit second person to have Associates degree with gpa 4.0
+     * Edit third person to have Associates degree with gpa 4.0
+     */
     @Test
     public void execute_sortDegreeNumber_success() {
+        // i.
+        Person editedAlice = new PersonBuilder().withName(ALICE.nameToString())
+                .withGpa(ALICE.gpaToString()).withDegree("High School").build();
+        EditCommand.EditPersonDescriptor descriptorOne = new EditPersonDescriptorBuilder(editedAlice).build();
+        EditCommand editCommandAlice = new EditCommand(INDEX_FIRST_PERSON, descriptorOne);
+        String expectedMessageAlice = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedAlice);
+        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedAlice);
+        expectedModel.commitAddressBook();
+        assertCommandSuccess(editCommandAlice, model, commandHistory, expectedMessageAlice, expectedModel);
+
+        Person editedBenson = new PersonBuilder().withName(BENSON.nameToString())
+                .withGpa(BENSON.gpaToString()).withDegree("Masters").build();
+        EditCommand.EditPersonDescriptor descriptorBenson = new EditPersonDescriptorBuilder(editedBenson).build();
+        EditCommand editCommandBenson = new EditCommand(INDEX_SECOND_PERSON, descriptorBenson);
+        String expectedMessageBenson = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedBenson);
+        expectedModel.setPerson(model.getFilteredPersonList().get(1), editedBenson);
+        expectedModel.commitAddressBook();
+        assertCommandSuccess(editCommandBenson, model, commandHistory, expectedMessageBenson, expectedModel);
+
+        Person editedCarl = new PersonBuilder().withName(CARL.nameToString())
+                .withGpa(CARL.gpaToString()).withDegree("PhD").build();
+        EditCommand.EditPersonDescriptor descriptorCarl = new EditPersonDescriptorBuilder(editedCarl).build();
+        EditCommand editCommandCarl = new EditCommand(INDEX_THIRD_PERSON, descriptorCarl);
+        String expectedMessageCarl = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedCarl);
+        expectedModel.setPerson(model.getFilteredPersonList().get(2), editedCarl);
+        expectedModel.commitAddressBook();
+        assertCommandSuccess(editCommandCarl, model, commandHistory, expectedMessageCarl, expectedModel);
+
         String expectedMessage = String.format("Sorted all persons by degree");
         SortWord type = new SortWord("degree");
         SortCommand command = new SortCommand(type);
-        expectedModel.deleteAllPerson();
-        correctPersonOrder = Arrays.asList(DANIEL, FIONA, ELLE, GEORGE, ALICE, BENSON, CARL);
-        for (Person newPerson : correctPersonOrder) {
-            expectedModel.addPersonWithFilter(newPerson);
-        }
-        expectedModel.commitAddressBook();
+        expectedModelFromSort(Arrays.asList(editedCarl, editedBenson, FIONA, DANIEL, ELLE, GEORGE, editedAlice));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+
+        // ii.
+        Person editedAliceTwo = new PersonBuilder().withName(ALICE.nameToString())
+                .withGpa("4.0").withDegree("Associates").build();
+        EditCommand.EditPersonDescriptor descriptorTwo = new EditPersonDescriptorBuilder(editedAliceTwo).build();
+        EditCommand editCommandAliceTwo = new EditCommand(INDEX_SEVENTH_PERSON, descriptorTwo); // Alice moved
+        String expectedMessageAliceTwo = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedAliceTwo);
+        expectedModel.setPerson(model.getFilteredPersonList().get(6), editedAliceTwo); // Alice now in last pos
+        expectedModel.commitAddressBook();
+        assertCommandSuccess(editCommandAliceTwo, model, commandHistory, expectedMessageAliceTwo, expectedModel);
+
+        Person editedBensonTwo = new PersonBuilder().withName(BENSON.nameToString())
+                .withGpa("4.0").withDegree("Associates").build();
+        EditCommand.EditPersonDescriptor descriptorBensonTwo = new EditPersonDescriptorBuilder(editedBensonTwo).build();
+        EditCommand editCommandBensonTwo = new EditCommand(INDEX_SECOND_PERSON, descriptorBensonTwo);
+        String expectedMessageBensonTwo = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedBensonTwo);
+        expectedModel.setPerson(model.getFilteredPersonList().get(1), editedBensonTwo); // Benson now in 2nd pos
+        expectedModel.commitAddressBook();
+        assertCommandSuccess(editCommandBensonTwo, model, commandHistory, expectedMessageBensonTwo, expectedModel);
+
+        Person editedCarlTwo = new PersonBuilder().withName(CARL.nameToString())
+                .withGpa("4.0").withDegree("Associates").build();
+        EditCommand.EditPersonDescriptor descriptorCarlTwo = new EditPersonDescriptorBuilder(editedCarlTwo).build();
+        EditCommand editCommandCarlTwo = new EditCommand(INDEX_FIRST_PERSON, descriptorCarlTwo);
+        String expectedMessageCarlTwo = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedCarlTwo);
+        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedCarlTwo); // Carl now in 1st pos
+        expectedModel.commitAddressBook();
+        assertCommandSuccess(editCommandCarlTwo, model, commandHistory, expectedMessageCarlTwo, expectedModel);
+
+        String expectedMessageTwo = String.format("Sorted all persons by degree");
+        SortWord typeTwo = new SortWord("degree");
+        SortCommand commandTwo = new SortCommand(typeTwo);
+        expectedModelFromSort(Arrays.asList(FIONA, DANIEL, ELLE, GEORGE, editedAlice, editedBenson, editedCarl));
+        assertCommandSuccess(commandTwo, model, commandHistory, expectedMessageTwo, expectedModel);
     }
 }

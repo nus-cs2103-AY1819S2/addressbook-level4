@@ -62,12 +62,7 @@ public class SortCommandIntegrationTest {
         String expectedMessageTwo = String.format("Sorted all persons by name");
         SortWord type = new SortWord("name");
         SortCommand command = new SortCommand(type);
-        expectedModel.deleteAllPerson();
         expectedModelFromSort(Arrays.asList(editedPerson, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
-        for (Person newPerson : correctPersonOrder) {
-            expectedModel.addPersonWithFilter(newPerson);
-        }
-        expectedModel.commitAddressBook();
         assertCommandSuccess(command, model, commandHistory, expectedMessageTwo, expectedModel);
     }
 

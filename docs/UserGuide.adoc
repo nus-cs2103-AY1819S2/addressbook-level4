@@ -22,7 +22,7 @@ GradTrak is an application designed for students of National University of Singa
 The current version of the application offers graduation requirement tracking to Computer Science majors (namely the Algorithms, Artificial Intelligence and Software Engineering Focus Areas).
 Stay tuned as we will be adding other courses in the near future!
 
-Users can interact with the application by entering commands into the command box. This will benefit Computer Science majors as they can generally type quickly.
+Students can interact with the application by entering commands into the command box. This will benefit Computer Science majors as they can generally type quickly.
 
 == Installation Guide
 
@@ -77,7 +77,7 @@ will give you a more detailed guide/walk through for each command.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user, e.g. in `add c/MODULE_CODE`, `MODULE_CODE` is a parameter which can be used as `add c/cs1010`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the student, e.g. in `add c/MODULE_CODE`, `MODULE_CODE` is a parameter which can be used as `add c/cs1010`.
 * Items in square brackets are optional e.g `c/MODULE_CODE [g/GRADE_OBTAINED]` can be used as `c/CS1010 g/A` or as `c/CS1010`.
 ====
 
@@ -108,21 +108,21 @@ Adds the module CS2103T, to be taken in the second semester of year 2 with expec
 // tag::CheckLimit[]
 === Check CAP limits: `cklimit`
 
-To find out if their current plans are suitable in maintaining their CAP for each semester, users would like to: +
+To find out if their current plans are suitable in maintaining their CAP for each semester, students would like to: +
 
 * Know what their current CAP is.
 * Be able to estimate their minimum and maximum projected CAP based on their estimated grade range for each module
 * Find out if any semester has too many difficult modules that would pull down their CAP unexpectedly, or too many easy modules that could be distributed to other semesters to maintain a more steady and predictable CAP for all semesters.
 
-GradTrak is able to consolidate all the information about the modules they plan to take and the limit preferences they have for each semester. This allows the user to run a CAP analysis on their current module plan and generate the results to be printed all in one page on their screen.
+GradTrak is able to consolidate all the information about the modules they plan to take and the limit preferences they have for each semester. This allows the student to run a CAP analysis on their current module plan and generate the results to be printed all in one page on their screen.
 
 [NOTE]
-The `edit` command allows users indicate their expected minimum and maximum grades for each module they plan to take.
+The `edit` command allows students to indicate their expected minimum and maximum grades for each module they plan to take.
 
 [NOTE]
-The `setlimit` command allows users indicate their CAP preferences for each semester.
+The `setlimit` command allows students to indicate their CAP preferences for each semester.
 
-The `cklimit` command calculates the expected minimum and maximum CAP of each semester and checks them against the limit preferences set by the user. +
+The `cklimit` command calculates the expected minimum and maximum CAP of each semester and checks them against the limit preferences set by the student. +
 Format: `cklimit`
 
 The image below shows the display after using the `cklimit` command
@@ -137,20 +137,20 @@ image::CheckLimitDisplay.png[width="1000"]
 
 === Check workload limits: `cklimit`
 
-To find out if their current plans are optimized in workload distribution, users would like to: +
+To find out if their current plans are optimized in workload distribution, students would like to: +
 
 * Know what is the total number of workload hours for each semester in their current module plan.
 * Find out if any semester is too heavy or light on any type of workload that could suggest a reallocation of modules to redistribute the workload across all semesters.
 
-GradTrak is able to consolidate all the information about the modules they plan to take and what limit preferences they have for each semester. This allows the user to run a workload analysis on their current module plan and generate the results to be printed all in one page on their screen.
+GradTrak is able to consolidate all the information about the modules they plan to take and what limit preferences they have for each semester. This allows the student to run a workload analysis on their current module plan and generate the results to be printed all in one page on their screen.
 
 [NOTE]
-The `edit` command allows users indicate their expected workloads for each module they plan to take.
+The `edit` command allows students to indicate their expected workloads for each module they plan to take.
 
 [NOTE]
-The `setlimit` command allows users indicate their workload preferences for each semester.
+The `setlimit` command allows students to indicate their workload preferences for each semester.
 
-The `cklimit` command calculates the total expected weekly workload of each semester and checks against the limit preferences set by the user. +
+The `cklimit` command calculates the total expected weekly workload of each semester and checks against the limit preferences set by the student. +
 Format: `cklimit` +
 
 The image below shows the display after using the `cklimit` command and scrolling down the result page to the section on workload information:
@@ -171,17 +171,17 @@ Format: `clear`
 
 // tag::SetCurrentSemester[]
 === Set the current semester: `cursem`
-GradTrak keeps track of the current semester of the user and considers all modules taken before the current semester to be completed.
+GradTrak keeps track of the current semester of the student and considers all modules taken before the current semester to be completed.
 All completed modules must have a finalized grade and will be included in the calculation of the current CAP during the `cklimit` command.
 
-After the user receives the results of the modules they took in the latest semester, they can confirm the grades attained in that semester and update GradTrak with their final grades.
+After the student receives the results of the modules they took in the latest semester, they can confirm the grades attained in that semester and update GradTrak with their final grades.
 They can then inform GradTrak of their current semester to indicate completion of all modules in the previous semesters, so that the calculation of their current CAP will be updated as well.
 
 The `cursem` command updates GradTrak with the current semester. +
 Format: `cursem SEMESTER`
 
 ****
-* The given semester must be a valid semester from year 1 to 5, in either the first or second semester, or GRAD if the user has completed all semesters.
+* The given semester must be a valid semester from year 1 to 5, in either the first or second semester, or GRAD if the student has completed all semesters.
 * All modules taken in the previous semesters must have a finalized grade. The minimum expected grade and maximum expected grade must be the same.
 ****
 
@@ -216,19 +216,19 @@ Deletes the first module on the most recently displayed list.
 // tag::Displaymod[]
 === Display module information: `displaymod`
 
-The `displaymod` command shows all the modules that are available in NUS based on the user's search. This command simply
-shows modules straight from NUS's database of modules and does not check if the user has met the prerequisites to read
+The `displaymod` command shows all the modules that are available in NUS based on the search by the student. This command simply
+shows modules straight from NUS's database of modules and does not check if the student has met the prerequisites to read
 a particular module.
 
-This command will allow users to find out more about a module or even compare modules so as to decide which modules to read
-in the upcoming semesters. Once decided on which module the user plans to read, they can use <<add>> command to add the
+This command will allow students to find out more about a module or even compare modules so as to decide which modules to read
+in the upcoming semesters. Once decided on which module the student plans to read, they can use <<add>> command to add the
 module to their own list.
 
 [NOTE]
 Searches are *case-insensitive*.
 
 [WARNING]
-Users must strictly adhere to syntax of the `displaymod` command in order to get optimum search results.
+Students must strictly adhere to syntax of the `displaymod` command in order to get optimum search results.
 
 
 There are *2* ways to search for modules:
@@ -244,9 +244,9 @@ image::displaymod1cexamplecmd.png[width="500"]
 The search above should yield a result: +
 
 .Single module code search result +
-image::displaymod1cexampleresult.png[width="800"]
+image::displaymod1cexampleresult.png[width="500"]
 
-However if users wishes to search for multiple modules at once they can follow the example given below: +
+However if students wishes to search for multiple modules at once they can follow the example given below: +
 
 .Multiple module codes search command format +
 image::displaymodMcexamplecmd.png[width="500"]
@@ -254,12 +254,12 @@ image::displaymodMcexamplecmd.png[width="500"]
 The search above should yield a result: +
 
 .Multiple module code search result +
-image::displaymodMcexampleresult.png[width="800"]
+image::displaymodMcexampleresult.png[width="500"]
 
 * Search by *name*:
-There are cases where students may not remember or know a module's code but vaguely remember the module's name. Users
+There are cases where students may not remember or know the module code but vaguely remember the module name. Students
 who find themselves in such a situation can search for modules by their names by adding a `n/` prefix after the
-`displaymod` command, followed by keyword/s that can be found in the module's name. Keywords have to be separated by `+`
+`displaymod` command, followed by keyword/s that can be found in the module name. Keywords have to be separated by `+`
 symbol. +
 Format: `displaymod n/KEYWORD+[KEYWORD]`
 
@@ -271,9 +271,9 @@ The search above should yield a result: +
 
 
 .Single module name search command result +
-image::displaymod1nexampleresult.png[width="800"]
+image::displaymod1nexampleresult.png[width="500"]
 
-However if users wishes to search for multiple modules at once they can follow the example given below: +
+However if students wishes to search for multiple modules at once they can follow the example given below: +
 
 .Multiple module name keyword search format +
 image::displaymodMnexamplecmd.png[width="500"]
@@ -281,10 +281,10 @@ image::displaymodMnexamplecmd.png[width="500"]
 The search above should yield a result: +
 
 .Multiple module name keyword search result +
-image::displaymodMnexampleresult.png[width="800"]
+image::displaymodMnexampleresult.png[width="500"]
 
-If the user has successfully managed to display a module of their choice, they will be presented with module/s containing
-several information that the user will find useful. The example below will show the information provided for each module
+If the student has successfully managed to display a module of their choice, they will be presented with module/s containing
+several information that the student will find useful. The example below will show the information provided for each module
 after a successful search:
 
 .What information each module contains
@@ -302,7 +302,7 @@ What each number displays: +
 
 // tag::Displayreq[]
 === Display course requirements: `displayreq`
-One of the core functions of GradTrak is to check whether the user has fulfilled his/her degree requirement.
+One of the core functions of GradTrak is to check whether the student has fulfilled his/her degree requirement.
 As of `v1.4` of the application, GradTrak currently only has course information of 3 Computer Science major Focus Areas, namely:
 
 * Algorithms
@@ -321,9 +321,9 @@ image::displayreqcommand.png[width = "800"]
 These information are displayed in the result panel when `displayreq` is keyed in:
 
 . Name of the course requirement. +
-. Description of the course requirement. Gives an overview of the modules the user should take to fulfill the requirement. +
-. Requirement type. Informs the user the importance of the requirement in relation to their course of study. +
-. Requirement progress bar and percentage. Informs the user the extent to which he/she have fulfilled the course
+. Description of the course requirement. Gives an overview of the modules the student should take to fulfill the requirement. +
+. Requirement type. Informs the student the importance of the requirement in relation to their course of study. +
+. Requirement progress bar and percentage. Informs the student the extent to which he/she have fulfilled the course
 requirement.
 
 Format: `displayreq`
@@ -424,7 +424,7 @@ Modules with the same requirement type satisfied are sorted by level.
 ====
 If any change is made to the course or module plan, enter `rec` again to update the recommendation list.
 ====
-The figure below shows a sample recommendation list for a user studying Computer Science Algorithms with an empty module plan.
+The figure below shows a sample recommendation list for a student studying Computer Science Algorithms with an empty module plan.
 
 .Recommendation list for Computer Science Algorithms
 image::recommend.png[width="800"]
@@ -455,7 +455,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 // tag::study[]
 === Set the current course of study: `study`
 
-To set the desired course of study, the user can simply key in the following command:
+To set the desired course of study, the student can simply key in the following command:
 
 Format: `study COURSE` +
 
@@ -479,14 +479,14 @@ More courses will be rolled out in GradTrak in the future.
 // end::study[]
 
 // tag::SetSemesterLimit[]
-=== Set the CAP limit: `setlimit`
+=== Set CAP limits: `setlimit`
 
-Some students have a desired CAP for graduation. They may like to plan their modules such that it helps them to keep their CAP at a suitable range at all times. This helps to ensure that they can easily apply for programs with minimum CAP requirements such as the Student Exchange Program, or NUS Overseas Challenge, or maintain the CAP requirement of their scholarship for each semester.
+Some students have a desired CAP for graduation. They may like to plan their modules such that it helps them to keep their CAP at a suitable range at all times. This helps to ensure that they can easily apply for programs with minimum CAP requirements such as the Student Exchange Program, or NUS Overseas Colleges, or maintain the CAP requirement of their scholarship for each semester.
 
 GradTrak can keep track of their CAP limit preferences so that it is possible to help them detect whether their current module plan fulfils their preferences.
 
 [NOTE]
-The `cklimit` command allows the user to check their limit preferences against their current module plan.
+The `cklimit` command allows the student to check their limit preferences against their current module plan.
 
 The `setlimit` command allows you to set the minimum and maximum preferred CAP for a semester. +
 Format: `setlimit SEMESTER [mincap/MIN_CAP] [maxcap/MAX_CAP]`
@@ -495,7 +495,7 @@ Format: `setlimit SEMESTER [mincap/MIN_CAP] [maxcap/MAX_CAP]`
 * Parameters can be in any order, but the semester must be entered first.
 * The given semester must be a valid semester from year 1 to 5, in either the first or second semester.
 * At least one field to be edited must be given.
-* Newly edited limits must be not be out of order. Minimum CAP must not be more than maximum CAP
+* Newly edited limits must be not be out of order. Minimum CAP must not be more than the maximum CAP
 ****
 
 Examples:
@@ -508,11 +508,11 @@ This sets the minimum CAP acceptable to 2.52 and maximum CAP acceptable to 5.00 
 * This command is undoable and redoable
 ****
 
-=== Set the workload limit: `setlimit`
+=== Set workload limits: `setlimit`
 
 Some students who do not have a strong programming background may be slightly uncomfortable taking multiple programming modules in year 1 as they may feel too stressed from huge weekly lab workloads. Other students who like project work may like to take 1 or 2 team-based modules per semester that focuses on communication skills.
 
-GradTrak can keep track of their workload limit preferences for each semester so that it is possible to help them detect whether their current module plan fulfils their preferences. Various types of workload limits  such as total number of weekly lecture hours, tutorial hours, lab hours, project hours, and preparation hours can be tracked.
+GradTrak can keep track of their workload limit preferences for each semester so that it is possible to help them detect whether their current module plan fulfils their preferences. Various types of workload limits  such as total number of weekly lecture hours, tutorial hours, lab hours, project hours, and preparation hours can be set by the student.
 
 The `setlimit` command allows you to set the minimum and maximum total weekly workload limits for a semester. +
 Format: `setlimit SEMESTER [minlec/MIN_LECTURE_HOURS] [maxlec/MAX_LECTURE_HOURS] [mintut/MIN_TUTORIAL_HOURS] [maxtut/MAX_TUTORIAL_HOURS] [minlab/MIN_LAB_HOURS] [maxlab/MAX_LAB_HOURS] [minproj/MIN_PROJ_HOURS] [maxproj/MAX_PROJ_HOURS] [minprep/MIN_PREP_HOURS] [maxprep/MAX_PREP_HOURS]`
@@ -591,7 +591,7 @@ Retrieves the latest information of all modules from CORS.
 * *Add*: `add c/MODULE_CODE s/SEMESTER`
 * *Cklimit*: `cklimit`
 * *Clear*: `clear`
-* *Cursem*: `cursem s/SEMESTER`
+* *Cursem*: `cursem SEMESTER`
 * *Delete*: `delete INDEX` +
 * *Displaymod*: `displaym o/OPTIONS [MORE_ARGUMENTS]`
 * *Displayreq*: `displayreq`

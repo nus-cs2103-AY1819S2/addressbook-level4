@@ -305,12 +305,12 @@ all of the listed modules are required respectively. +
 
 *3.* *Module Code* : The module code that is required to meet the prerequisite. +
 
-image::PrerequisiteTreeAnnotated.png[width="600"]
+image::PrerequisiteTreeAnnotated.png[width="300"]
 
 The `generatePrerequisiteTree()` function is called after the `ModuleInfoPrerequisite` object has been created, since
 the `ModuleTree` is dependent on the `String` input `prereq` which later be saved as `prerequisiteString`. +
 
-image::PrerequisiteString.png[width="800"]
+image::PrerequisiteString.png[width="600"]
 
 The input `prerequisite` usually comes in the format:
 
@@ -318,24 +318,18 @@ The input `prerequisite` usually comes in the format:
 
 The input value is then split into an `array` using regular expressions:
 
-image::RegexSplitter.png[width="400"]
+image::RegexSplitter.png[width="200"]
 
 This helps with the arrangement of the `ModuleTree` as shown below: +
 
 .Step 1:The first index `String` is used to create a minor tree
-image::prerequisiteStep1.png[width="600"]
+image::prerequisiteStep1.png[width="400"]
 
 .Step 2:Since the previous `String` ended with a "OR" the next `String` is made and added as a child to the predecessor.
-image::prerequisiteStep2.png[width="600"]
+image::prerequisiteStep2.png[width="400"]
 
-.Step 3:The next `String` is a lone "AND" operator thus it supersedes as the new root node.
-image::prerequisiteStep3.png[width="600"]
-
-.Step 4:The subsequent minor tree is added to the root node.
-image::prerequisiteStep4.png[width="600"]
-
-.Step 5:Finally, since the next operator is same as the current root operator the next minor tree is added as a child.
-image::prerequisiteStepFinal.png[width="600"]
+.Step 3:Finally,the same process is repeated with the other Strings until the tree is complete.
+image::prerequisiteStepFinal.png[width="400"]
 
 
 ==== Making it into a list
@@ -657,19 +651,19 @@ image::RecModuleComparatorSequenceDiagram.png[width="800"]
 ===== Aspect: Sorting of recommendation list
 * **Alternative 1 (current choice): Recommendation list is sorted by a fixed order of `CourseReqType` priority as defined in the `enum` class**
 ** Pros: Easy to implement and modify
-** Cons: User may have his own order of priority that differs from the default one
+** Cons: Student may have his own order of priority that differs from the default one
 
 * **Alternative 2: Recommendation list can be sorted by a custom order defined by the student**
-** Pros: User can sort the list according to his own preferences
+** Pros: Student can sort the list according to his own preferences
 ** Cons: Difficult to implement if several parameters for sorting is allowed; input method for the custom order is problematic
 
 ===== Aspect: Format of recommendation
 * **Alternative 1 (current choice): Display a list of all eligible modules that contribute to course requirements**
-** Pros: User has a greater freedom of choice
-** Cons: User may be confused or unable to decide if the list is too long
+** Pros: Student has a greater freedom of choice
+** Cons: Student may be confused or unable to decide if the list is too long
 
 * **Alternative 2: Display `n` modules for each semester, where `n` is decided by the student**
-** Pros: User can plan modules for specific semesters easily and quickly
+** Pros: Student can plan modules for specific semesters easily and quickly
 ** Cons: Algorithm required to plan for all semesters can be complex; student may not prefer the given plan
 
 
@@ -689,26 +683,35 @@ The `cklimit` command is able to calculate the CAP and workload information of t
 The `LimitChecker` class does all the computation and generation of the report.
 It makes use of the following classes as input:
 
-* `Semester`
-* `ObservableList` of `SemesterLimit`
-* `ObservableList` of `ModuleTaken`
-* `ModuleInfoList`
+* `Semester` that holds the current semester
+* `ObservableList` of `SemesterLimit__s__` that holds the current semester limits
+* `ObservableList` of `ModuleTaken__s__` that holds the list of modules currently planned
+* `ModuleInfoList` that holds the list of modules with the number of module credits they have
 
-<class diagram>
+The LimitChecker class is modelled with the class diagram as shown below.
 
-The CAP of the student is calculated using the formula below
+.`LimitChecker` class diagram
+image::LimitCheckerClassDiagram.png[width="800"]
+
+GradTrak uses the following classes to store and manipulate the variables for calculation:
+
+* `CapAverage`
+* `WeightedGrade`
+* `ModuleInfoCredits`
+
+The `CapAverage` class contains an `ArrayList` of `WeightedGrade__s__`.
+Each `WeightedGrade` has a CAP score and information on the number of module credits weighted by the score.
+
+The aggregated minimum and maximum expected CAP is calculated with the minimum and maximum expected CAP of every module taken respectively.
+
+The current CAP only includes modules that are completed. Modules are considered completed if they are taken on a semester before the current semester.
+
+The CAP of the student is calculated using the formula below.
 
 .Formula for CAP calculation
 image::modular-system.png[width="800"]
 
-GradTrak uses the classes `CapAverage`, `WeightedGrade`, and `ModuleInfoCredits` to store and manipulate the variables for calculation.
-
-The `CapAverage` class contains an `ArrayList` of `WeightedGrade`.
-Each weight grade has a CAP score and information on the number of Modular Credits weighted by the score.
-
-The minimum and maximum expected CAP is calculated with the minimum and maximum expected CAP of every module taken respectively.
-
-The current CAP only includes modules that are completed. Modules are considered completed if they are taken on a semester before the current semester.
+The total number of hours for each type of workload for each semester are also summed up to be displayed.
 
 Once all the calculations are completed, the HTML string report is generated and stored in the `checkedReport` variable in the `LimitChecker` to be displayed.
 
@@ -996,8 +999,8 @@ A project often depends on third-party libraries. For example, GradTrak depends 
 *Target user profile*:
 
 * NUS student from Computer Science, intending to specialise in Algorithms, Artificial Intelligence or Software Engineering
-* Has taken many modules in NUS
-* prefer desktop applications over other types
+* has taken many modules in NUS
+* prefers desktop applications over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI applications
@@ -1015,15 +1018,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |student |track the modules I am taking |know what I need to complete my graduation requirement
 
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |student |see usage instructions |refer to instructions when I forget how to use the App
 
 |`* * *` |student |add a module for the current semester |keep track of all the modules I intend to take
 
 |`* * *` |student |delete a module |remove modules that I am not taking
 
 |`* * *` |student |find a module by code, semester, grade or finished status |locate details of modules without having to go through the entire list
-
-|`* *` |student |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
 |`* *` |student |view pre-requisites for a module |take the pre-requisite modules ahead of time
 
@@ -1202,7 +1203,7 @@ Use case ends.
 
 *MSS*
 
-1.  User enters `displaymod` to find an NUS module based on module code or keywords in the module title.
+1.  Student enters `displaymod` to find an NUS module based on module code or keywords in the module title.
 2.  System returns full module information.
 +
 Use case ends.
@@ -1211,7 +1212,7 @@ Use case ends.
 === Use case: Recommend modules
 *MSS*
 
-1.  User enters `rec` command.
+1.  Student enters `rec` command.
 2.  System returns a list of module codes (with title) that the student is recommended to take.
 +
 Use case ends.
@@ -1220,7 +1221,7 @@ Use case ends.
 === Use case: Find modules
 *MSS*
 
-1. User enters `find` command to search the module plan based on module code, semester, grade or finished status.
+1. Student enters `find` command to search the module plan based on module code, semester, grade or finished status.
 2. System returns a list of modules in the module plan which satisfy the given parameters.
 +
 Use case ends.
@@ -1228,14 +1229,14 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. User enters `find` without parameters.
+* 1a. Student enters `find` without parameters.
 +
 [none]
 ** 1a1. System gives an "invalid command format" message and provides the correct format.
 +
 Use case ends.
 
-* 1b. User enters an invalid grade or semester.
+* 1b. Student enters an invalid grade or semester.
 +
 [none]
 ** 1b1. System rejects the command and provides the correct format for grade or semester.
@@ -1246,7 +1247,7 @@ Use case ends.
 === Use case: Display requirements
 *MSS*
 
-1.  User enters `displayreq` command.
+1.  Student enters `displayreq` command.
 2.  System returns a list of course requirement along side their details and percentage of the requirement fulfilled.
 +
 Use case ends.
@@ -1255,7 +1256,7 @@ Use case ends.
 === Use case: Change course of study
 *MSS*
 
-1.  User enters `study` command with some course parameter.
+1.  Student enters `study` command with some course parameter.
 2.  System changes course of study to course intended by student.
 +
 Use case ends.
@@ -1263,12 +1264,12 @@ Use case ends.
 *Extensions*
 [none]
 
-* 1a. User enters `study` with courses not inside of GT.
+* 1a. Student enters `study` with courses not inside of GT.
 [none]
 ** 1a1. System informs student that no such course is available. +
 Use case ends.
 [none]
-* 1b. User enters `study` without parameter. +
+* 1b. Student enters `study` without parameter. +
 [none]
 ** 1b1. System informs student of the right command format. +
 Use case ends.

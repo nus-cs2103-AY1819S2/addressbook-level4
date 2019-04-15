@@ -49,7 +49,7 @@ Before being able to check their plan against their preferences, the student mus
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users, such that technical terms describing how the application works are reduced as end-users are only concerned with how the application can help them.
 
-The guide will include how students can use the application to manage their CAP and workload expectations while planning for the modules to take._
+The guide will include how students can use the application to manage their CAP and workload expectations while planning for modules to take._
 |===
 
 include::../UserGuide.adoc[tag=CheckLimit]

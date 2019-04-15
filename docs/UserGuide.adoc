@@ -229,7 +229,7 @@ Deletes the patient with current list index of '3' in the docX.
 * `delete-p 2` +
 Deletes the patient with current list index of '2' in the docX.
 
-tag::doctorcommands[]
+// tag::doctorcommands[]
 === Adding a doctor: `add-d`
 
 Adds a doctor to docX +
@@ -331,6 +331,7 @@ Format: `match-d s/SPECIALISATION d/DESIRED_DATE_OF_APPT t/DESIRED_START_TIME_OF
 
 ****
 * Search can only be done with 1 specialisation.
+* Only full words are matched. e.g. `acupun` will not match `acupuncture`
 * `DESIRED_DATE_OF_APPT` is in the format `YYYY-MM-DD`.
 * `DESIRED_START_TIME_OF_APPT` is in the 24-hour format as `HH:mm`.
 ****
@@ -342,7 +343,7 @@ Lists the doctors who has the specialisation of `acupuncture` and is free on 2nd
 * `match-d s/general d/2019-10-04 t/15:00` +
 Lists the doctors who has the specialisation of `general` and is free on 4th October 2019 at 3pm.
 
-end::doctorcommands[]
+// end::doctorcommands[]
 
 === Adding a medical history: `add-med-hist`
 
@@ -545,36 +546,15 @@ The appointment with INDEX 1 is cancelled.
 The appointment with INDEX 3 was missed. Note that this can only be done to elapsed appointments.
 
 
-=== Adding a medicine: `add-med`
-
-Adds a medicine in docX database. +
-Format: `add-med MEDICINE`
-
-****
-* A unique identification number (ID) will be generated for the new medicine.
-* Adding a pre-existing medicine will result in an error.
-* Medicines must be quoted in quotation marks.
-****
-
-Examples:
-* `add-med 'coughing tablets'` +
-Adds 'coughing syrup' into docX's available lists of medicines.
-* `add-med 'muscle patch'` +
-Adds 'muscle patch' into docX's available lists of medicines.
-
-=== Listing all medicines : `list-med`
-
-Shows a list of all medicines in docX. +
-Format: `list-med`
-
 === Adding a prescription: `add-presc`
 
 Adds a prescription and the prescribing doctor under the patient involved. +
-Format: `add-presc pid/PATIENT_ID did/DOCTOR_ID rid/MED_ID w/SHORT_WRITEUP`
+Format: `add-presc pid/PATIENT_ID did/DOCTOR_ID dp/DATE rid/MED_ID w/SHORT_WRITEUP`
 
 ****
-* Prescription with corresponding patient, doctor, medicine and a short description written by the doctor will be added to docX.
-* PATIENT_ID and DOCTOR_ID must be ids that correspond to existing patient and doctor.
+* Prescription with corresponding patient, doctor, date, medicine and a short description written by the doctor will be added to docX.
+* *PATIENT_ID and DOCTOR_ID* must be ids that correspond to existing patient and doctor.
+* *DATE* must be a valid date in calendar and must be a past day or today.
 * Duplicate prescription cannot be added to the list.
 * Description is doctor's description about the prescription. Description can be edited by "edit-presc" command.
 
@@ -582,12 +562,12 @@ Format: `add-presc pid/PATIENT_ID did/DOCTOR_ID rid/MED_ID w/SHORT_WRITEUP`
 
 Examples:
 
-* `add-presc pid/1 did/2 mn/Acetaminophen d/500 mg for relieving pain` +
+* `add-presc pid/1 did/2 dp/2018-05-13 mn/Acetaminophen d/500 mg for relieving pain` +
 Adds the prescribing doctor with ID of '2', the medicine with name of 'Acetaminophen',
-and a short description of '500 mg for relieving pain' under the patient with ID of '1'.
-* `add-presc pid/5 did/3 mn/Aspirin d/2g for curing fever` +
+and a short description of '500 mg for relieving pain' under the patient with ID of '1' on the date May 13rd 2018.
+* `add-presc pid/5 did/3 dp/2018-05-13 mn/Aspirin d/2g for curing fever` +
 Adds the prescribing doctor with ID of '3', the medicine with name of 'Aspirin',
-and a short description of '2g for curing fever' under the patient with ID of '5'.
+and a short description of '2g for curing fever' under the patient with ID of '5' on the date May 13rd 2018.
 
 === Listing prescriptions: `list-presc`
 
@@ -595,9 +575,11 @@ Show a list of all prescriptions with the specified requirements. +
 Format: `list-presc [pid/PATIENT_ID] [did/DOCTOR_ID]`
 
 ****
-* PATIENT_ID and DOCTOR_ID must be existing id in patient and doctor list.
+* PATIENT_ID and DOCTOR_ID are *optional*. list-presc wioutout specifying PATIENT_ID and DOCTOR_ID will list out all prescriptions.
+* *PATIENT_ID and DOCTOR_ID* must be existing id in patient and doctor list.
 * If there is no prescription satisfying all specified requirements, an empty list will be shown.
 * Description of prescription may not be shown fully in the list. Can view more details of a particular prescription by using "select-presc" command.
+* If presriptions in the list have *deleted patient or deleted doctor*, "Patient Deleted" or "Doctor Deleted" will replace the previous shown id in patientId or doctorId field.
 ****
 
 Examples:
@@ -605,43 +587,87 @@ Examples:
 * `list-presc` +
 Lists all past prescriptions.
 * `list-presc pid/3` +
-Lists all past prescriptions whose patient id is '3'.
+Lists all past prescriptions whose patientId is '3'.
 * `list-presc pid/3 did/5` +
-Lists all past prescriptions whose patient id is '3' and doctor id is '5'.
+Lists all past prescriptions whose patientId is '3' and doctor id is '5'.
 
-=== Viewing a prescription of a patient: `view-presc`
+=== Editing description of a prescription: `edit-presc`
 
-View the full specified prescription of the specified patient. +
-Format: `view-presc pid/PATIENT_ID prescid/PRESCRIPTION_ID`
-
-****
-* Display the full prescription of the specified `PRESCRIPTION_ID` of the specified patient `PATIENT_ID`. The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `view-presc pid/2 prescid/2` +
-Returns full write up of the prescription with ID of '2' of the patient with ID of '2'.
-
-=== Locating prescription : `search-presc`
-
-Finds prescription(s) whose write up contain any of the given keywords. +
-Format: `search-presc KEYWORD`
+Edit the description of the prescription with specified index in prescription list. +
+Format: `edit-presc INDEX d/EDITED_DESCRIPTION`
 
 ****
-* The search is case insensitive. e.g `flu` will match `Flu`
-* The order of the keywords does not matter. e.g. `heaty cough` will match `cough heaty`
-* Only full words will be matched e.g. `cough` will not match `coughs`
-* Write ups of the prescription matching at least one keyword will be returned (i.e. `OR` search). e.g. `cough` will return `dry cough`, `heaty cough`
-* Each keyword is to be quoted in quotation marks.
+* Please *execute `list-presc`* to find the index of the prescription you want to edit before execute `edit-presc` command.
+* *INDEX* should be a valid existing index in the displayed list.
+* Users can *only edit the description* of a prescription. Patient id, doctor id, the date of a prescription and the medicine are immutable.
+* To view the edited prescription, please execute `select-presc` command to view more details.
+
+
 ****
 
 Examples:
 
-* `search-presc 'flu'` +
-Returns all prescriptions with the write up containing the keyword `flu`
-* `search-presc 'stomach flu' 'sorethroat'` +
-Returns all prescriptions with the write up containing either 'stomach flu' or 'sorethroat' or both keywords.
+* `edit-presc 1 d/For curing fever`
+
+=== Searching prescriptions : `search-presc`
+
+Finds prescriptions whose description contains any one of the specified keywords. +
+Format: `search-presc KEYWORDS`
+
+****
+* If the list of prescription is not yet shown. Before searching, `list-presc` command *must be executed* to view the searching result.
+* The search is case insensitive. e.g `fever` will match `Fever`
+* The order of the keywords does not matter. e.g. `fever cold` will have the same effect as `cold fever`.
+* Only full words will be matched e.g. `fever` will not match `fevers`
+* Prescriptions with descriptions matching at least one keyword will be returned (i.e. `OR` search). e.g. Prescriptions with the descriptions being `fever` or `cold` will all be returned with searching keywords `fever cold`.
+* If there is no prescription whose description contains any of the keywords, an empty list will be shown.
+* There should be one space between two keywords.
+****
+
+Examples:
+
+* `search-presc fever` +
+All prescriptions with descriptions containing the keyword `fever` will be listed.
+* `search-presc fever cold` +
+All prescriptions with descriptions containing the keyword `fever` or `cold` will be listed.
+
+=== Viewing prescriptions: `select-presc`
+
+View details of the specified prescription with index in the displayed list. +
+Format: `select-presc INDEX`
+
+****
+* Display details of the prescription with the specified index, including patient information, doctor information, medicine name, date and the full description.
+* *INDEX* should be a valid existing index in the displayed list.
+****
+
+Examples:
+
+* `select-presc 1` +
+List details of the prescription with index 1 in displayed prescription list.
+
+=== Sorting precriptions by date: `sort-presc`
+
+Sort prescriptions by date in ascending order or descending order. +
+Format: `sort-presc [ASC/DESC]`
+
+****
+* To view the sorted list, execute `list-presc` command.
+* When a new prescription is added to docX, it will be added to *the end of list*. You can sort again to make the list be in order.
+* If "ASC" or "DESC" is not specified in the command, the default order will be descending order(DESC). Prescriptions will be listed from newest date to oldest date.
+* If "DESC" is specified, the order will be descending order. Prescriptions will be listed from newest date to oldest date.
+* If "ASC" is specified, the order will be ascending order. Prescriptions will be listed from oldest date or newest date.
+
+
+****
+
+Examples:
+
+* `sort-presc` +
+Prescriptions will be listed from newest date to oldest date
+* `sort-presc ASC` +
+Prescriptions will be listed from oldest date or newest date.
+
 
 
 === Listing entered commands : `history`
@@ -737,16 +763,18 @@ e.g. `mark-appt 1 s/CANCELLED`
 
 PRESCRIPTION COMMANDS
 
-* *Add a new remedy* `add-remedy MEDICINE`
-e.g. `add-remedy 'coughing tablets'`
-* *List existing remedies* : `list-remedy`
-* *Add a new prescription* `add-presc pid/PATIENT_ID did/DOCTOR_ID rid/REMEDY_ID w/SHORT_WRITEUP` +
-e.g. `add-presc pid/1 did/1 rid/1 w/heaty cough`
-* *List prescriptions of a patient* : `list-presc PATIENT_ID`
-* *View a prescription* : `view-presc pid/PATIENT_ID prescid/PRESCRIPTION_ID` +
-e.g. `view-presc pid/2 prescid/2`
-* *Locating a prescription* : `search-presc KEYWORD`
-e.g. `search-presc 'stomach flu' 'sorethroat'`
+* *Add a new prescription* `add-presc pid/PATIENT-ID did/DOCTOR-ID dp/DATE mn/MEDICINE NAME d/SHORT DESCRIPTION` +
+e.g. `add-presc pid/1 did/2 dp/2018-05-13 mn/Acetaminophen d/500 mg for relieving pain`
+* *List prescriptions* : `list-presc  [pid/PATIENT-ID ] [did/DOCTOR-ID ]` +
+e.g. `list-presc pid/1 did/2`
+* *Edit description of an existing prescription* `edit-presc INDEX (must be a positive integer) d/EDITED-DESCRIPTION` +
+e.g. `edit-presc 1 d/For curing fever`
+* *Sort prescriptions by date* : `sort-presc [ASC/DESC]` +
+e.g. `sort-presc ASC`
+* *Search a prescription* : `search-presc KEYWORDS` +
+e.g. `search-presc fever`
+* *Select a prescription* : `select-presc INDEX` +
+e.g. `select-presc 1`
 
 
 GENERAL COMMANDS

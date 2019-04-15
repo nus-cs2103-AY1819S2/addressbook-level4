@@ -1699,7 +1699,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+
 
 === Deleting a person
 
@@ -1722,3 +1722,32 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+=== Editing an activity
+
+. Editing an activity while all activities are listed.
+
+.. Prerequisites: List all activities using the `aList` command. Multiple persons in the list.
+.. Test case: `activityEdit 1 n/New Activity d/13/02/2019 1200 l/Com1 de/Bring calculator` +
+.. Expected: Edited Activity: New Activity Date Time: 13/02/2019 1200 Location: Com1 Description: Bring calculator Number Attending: "NUM_ATTENDING"
+.. Test case: `aEdit 0` +
+   Expected: Invalid command format!
+
+=== Adding a member to an activity's attendance list
+. Adding a member to an activity while all activities are listed.
+
+.. Prerequisites: List all activities using the `aList` command. Multiple persons in the list.
+.. Test case: `aAddMember 1 A0111111M` +
+.. Expected: Successfully added to selected Activity: 1
+.. Test case: `aAddMember 1 A1234567N` +
+   Expected: MatricNumber should only contain alphanumeric characters, starting with an A and ending with an uppercase alphabet, with 7 digits in between the first and last character.
+   The last letter must be a valid checksum.
+
+=== Deleting a member from an activity's attendance list
+. Deleting a member from an activity while all activities are listed.
+
+.. Prerequisites: List all activities using the `aList` command. Multiple persons in the list.
+.. Test case: `activityDeleteMember 1 A0111111M` +
+.. Expected: Successfully removed member from selected Activity: 1
+.. Test case: `activityDeleteMember 1 A0111111M` +
+   Expected: The person is not in the activity attendance list!

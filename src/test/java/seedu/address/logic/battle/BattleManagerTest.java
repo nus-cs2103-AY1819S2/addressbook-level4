@@ -35,7 +35,6 @@ public class BattleManagerTest {
         initialisePlayerSizeTen(player);
         initialisePlayerSizeTen(enemy);
         batMan = new BattleManager(player, enemy);
-        batMan.setDelay(0);
     }
 
     /**

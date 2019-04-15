@@ -27,7 +27,6 @@ public class BattleManager implements Battle {
      * The enemy player
      */
     private Enemy enemyPlayer;
-    private long delay = 300;
 
     public BattleManager(Player humanPlayer, Enemy enemyPlayer) {
         requireNonNull(humanPlayer);
@@ -125,9 +124,5 @@ public class BattleManager implements Battle {
     @Override
     public Enemy getEnemyPlayer() {
         return enemyPlayer;
-    }
-
-    public void setDelay(long delay) {
-        this.delay = delay;
     }
 }

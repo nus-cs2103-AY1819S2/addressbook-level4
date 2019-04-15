@@ -1149,14 +1149,19 @@ nokp/84875215 nokr/Father noka/same`
 * *Patient Clear* : `patientclear` +
 e.g. `patientclear`
 
-* *Copy* : `copy INDEX` +
-e.g. `copy 3`
+* *Patient Copy* : `patientcopy INDEX` +
+e.g. `patientcopy 3`
 
 * *Patient Delete* : `patientdelete INDEX` +
 e.g. `patientdelete 3`
 
 * *Patient Edit* : `patientedit INDEX PARAMETERS…` +
 e.g. `patientedit 2 p/12345 e/newemail@gmail.com`
+
+* *Patient List* : `patientlist`
+
+* *Patient Find* : `patientfind PREFIX/KEYWORD [MORE_KEYWORDS]` +
+e.g. `pfind n/Alex`
 
 * *Records Mode* : `goto INDEX` +
 e.g. `goto 1`
@@ -1185,16 +1190,6 @@ e.g `login kthSIM cavities!2`
 * *Open* : `open FILE_PATH` +
 e.g. `Open mnt/sample/newData.json`
 
-* *patientadd* : patientadd PARAMETERS [t/TAG]*…​* +
-e.g. `patientadd n/John Choo p/98425871 e/jonC@example.com a/IDA street, block
-13, #02-05 ic/S1234567H age/32 dob/26021987 nokn/Jacky Choo
-nokp/84875215 nokr/Father noka/same`
-
-* *patientclear* : `patientclear`
-
-* *patientcopy* : `patientcopy INDEX` +
-e.g. `patientcopy 3`
-
 * *Record Add* : `recordadd pro/PROCEDURE desc/DESCRIPTION` +
 e.g. `recordadd pro/Braces-Top row desc/Mouth was noticeably foul, might have halitosis`
 
@@ -1209,11 +1204,6 @@ e.g. `recordclear`
 
 * *Record MC creation* : `recordmc INDEX [daysToRest]` +
 e.g. `recordmc 1`
-
-* *Patient List* : `list`
-
-* *Patient Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find n/Alex`
 
 * *Redo* : `redo`
 

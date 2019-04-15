@@ -391,7 +391,7 @@ will hold all the records that correspond to these category or dates.
 ** Cons: Need to change the original architecture of storage to introduce storing of different list corresponding to
 each tag. Will take up more space if there is many different tags.
 
-We have implemented *Alternative 1* as we want the search function to be more dynamic and more generic to accept
+We have implemented *Alternative 1* as we want the search function to be more dynamic and more generic to
 accept different kind of search in the future implementation. If we were to choose *Alternative 2*, the search
 conditions will only be restricted to category and date where it is likely for different records to have the same
 value (eg. same date or same category). However, it is not feasible to create a different list for every single name
@@ -438,15 +438,20 @@ The sort command uses comparators that implement `[fuchsia]#java.util.Comparator
 
 |===
 
-Here is the list of operations involved in the execution of command, `[fuchsia]#sort -name#`.
+Here is the list of operations involved in the execution of command, `[fuchsia]#sort -name#`. +
+See Figure 10 for steps 1 to 4, and Figure 11 for steps 5 to 10.
+
+.Sequence Diagram of Sort Command I
+image::SortSequenceDiagram1.png[width="800"]
+
 [.text-left]
 . `[fuchsia]#LogicManager#execute(_"sort -name"_)#` calls `[fuchsia]#FinanceTrackerParser#parseCommand(_"sort -name"_)#`.
 . `[fuchsia]#FinanceTracker#parseCommand(_"sort -name"_)#` creates a new `[fuchsia]#SortCommandParser#` object and calls `[fuchsia]#SortCommandParser#parse(_" -name"_)#`.
 . `[fuchsia]#SortCommandParser#parse()#` creates a new `[fuchsia]#RecordNameComparator()#` object, _comparator_ and passes it as a parameter into the `[fuchsia]#SortCommand#` constructor.
 . The `[fuchsia]#SortCommand#` object, _s_, is then passed back to the `[fuchsia]#SortCommandParser#`, `[fuchsia]#FinanceTrackerParser#`, and finally back to the `[fuchsia]#LogicManager#`.
 +
-.Sequence Diagram of Sort Command I
-image::SortSequenceDiagram1.png[width="800"]
+.Sequence Diagram of Sort Command II
+image::SortSequenceDiagram2.png[width="800"]
 +
 . `[fuchsia]#LogicManager#execute(_"sort -name"_)#` then continues to call `[fuchsia]#SortCommand#execute()#`.
 . `[fuchsia]#SortCommand#execute()#` calls `[fuchsia]#Model#SortFilteredRecordList(_comparator_)#`.
@@ -455,8 +460,6 @@ image::SortSequenceDiagram1.png[width="800"]
 . `[fuchsia]#UniqueRecordList#sortList(_comparator_)#` then uses `[fuchsia]#FXCollection#`’s static method `[fuchsia]#sort()#`  to sort the records.
 . `[fuchsia]#SortCommand#execute()#` then creates a `[fuchsia]#CommandResult#` object and returns it back to the `[fuchsia]#LogicManager#`.
 
-.Sequence Diagram of Sort Command II
-image::SortSequenceDiagram2.png[width="800"]
 
 {bl}
 
@@ -507,6 +510,10 @@ The reverse command provides a convenient way for users to sort their entries in
 ==== Current Implementation
 
 This is how the reverse command is implemented:
+
+.Sequence Diagram of Reverse Command
+image::ReverseSequenceDiagram.png[width="800"]
+
 [.text-left]
 . `[fuchsia]#LogicManager#execute(_"reverse"_)#` calls `[fuchsia]#FinanceTrackerParser#parseCommand(_"reverse"_)#`.
 . `[fuchsia]#FinanceTrackerParser#parseCommand(_"reverse"_)#` creates a `[fuchsia]#ReverseCommand#` object, _r_.
@@ -517,9 +524,6 @@ This is how the reverse command is implemented:
 . `[fuchsia]#FinanceTracker#reverseRecordList()#` calls `[fuchsia]#UniqueRecordList#reverseList()#`.
 . `[fuchsia]#UniqueRecordList#reverseList()#` uses `[fuchsia]#FXCollection#`’s static method `[fuchsia]#reverse()#` to reverse the list of records.
 . `[fuchsia]#ReverseCommand#execute()#` then creates a `[fuchsia]#CommandResult#` object and returns it back to the `[fuchsia]#LogicManager#`.
-
-.Sequence Diagram of Reverse Command
-image::ReverseSequenceDiagram.png[width="800"]
 
 // end::reverse[]
 

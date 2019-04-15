@@ -615,7 +615,7 @@ image::TotalSpentInResultDisplay.png[width ="600"]
 ====
 
 ****
-*[navy]#Examples# (default ordering)*:
+*[navy]#Examples# (default ordering)* (See Figure 17 below):
 
 * `[fuchsia]#sort -name#`: +
 Sorts the list of records by name in lexicographical order (ascending order)
@@ -626,9 +626,10 @@ Sorts the list of records by date with the latest at the top (descending order)
 * `[fuchsia]#sort -cat#`: +
 Sorts the list of records by category in lexicographical order (ascending order)
 
-.Examples of `[fuchsia]#sort#` command (default ordering)
+.Examples of `[fuchsia]#sort#` command (sorted by name, amount, date and category respectively, default ordering)
 image::sortExamples.png[width ="900"]
 
+{bl}
 *[navy]#More examples#*:
 
 * `[fuchsia]#sort -name -desc#`: +
@@ -637,6 +638,7 @@ Sorts list of records by name in reverse lexicographical order.
 .Name sorted in descending order
 image::sortNameDescExample.png[width ="300"]
 
+{bl}
 
 ****
 
@@ -656,6 +658,7 @@ List will be sorted by name in reverse lexicographical order.
 ==== Reversing the entries: `[fuchsia]#reverse#`
 
 [navy]#You can also reverse the order of the list of entries in the records.# +
+See Figure 19 below for an example. +
 `[fuchsia]#Reverse#` has effect on the entire list of entries (instead of a filtered list).
 
 *Alias*: `[fuchsia]#rev#`

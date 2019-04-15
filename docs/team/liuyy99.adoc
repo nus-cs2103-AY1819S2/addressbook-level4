@@ -1,0 +1,85 @@
+= Liu Yiyang - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: docX
+This portfolio serves to document my contribution in a Software Engineering team project for CS2103.
+The team comprises of 5 members and we were tasked to develop a working application within 6 weeks.
+
+To comply with the module requirements, the project builds on from an existing code base - AddressBook Level 4,
+and the user must be able to interact with the application via Command Line Interface (CLI).
+
+== Overview
+
+DocX is a desktop application designed for receptionists in clinics.
+The app provide features for patient management, doctor management, medical history management, appointment management and prescription management.
+It is targeted at clinic receptionists who are comfortable with using Command Line Interface (CLI).
+
+== Summary of contributions
+
+* *Major feature*: Added *Medical History* Management Features
+
+** *What it does*: This feature allows receptionists in clinic to record and manage patients' medical histories of seeing doctors.
+It provides receptionists with 6 commands, which are adding, listing, sorting, editing, searching and viewing of medical histories.
+Besides, the information of visiting patient and visited doctor is stored in a medical history, and is updated in cascade with the patient and doctor.
+When patient and doctor is edited or deleted, all related medical histories will be updated automatically.
+
+** *Justification of Major Feature*: In a clinic, one of the most important and most frequent event is patient visit.
+Recording medical histories is important for clinic management. Firstly, it provides doctor with patient's information and helps doctor give proper evaluation and treatments of patient.
+Secondly, it retains documentary evidence on which the legal system depends.
+To keep a record of every patient visit, receptionists must be able to manage medical histories very efficiently. Our app provides users an easy way to manage a medical history.
+Users only need to provide patient id and doctor id, then the system will automatically find and store all information of that patient and doctor.
+To help doctor diagnosis, receptionists must be able to quickly find medical histories the doctor wants. Our app provides an easy way to do this by listing, searching or sorting command.
+To keep the whole system consistent, receptionists need to update medical histories when patient/doctor is modified. Our app can automatically update medical histories in cascade of patient and doctor, which saves users a lot of efforts.
+
+** *Highlights of Major Feature*: Firstly, it's challenging to store patient and doctor information in medical history and keep them updated.
+Commands of patients and doctors may impact related medical histories. All these commands need to be followed by the updating of medical histories.
+Secondly, it's difficult to do validation of input. Checking of the existence of input patient and doctor id must be done before adding the medical history.
+
+* *Minor enhancement*: Enable the browser of UI to switch between different browsers.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=Liuyy99&sort=displayName&since=2019-02-10&until=2019-04-15&timeframe=day&reverse=false&repoSort=true[Functional and Test Code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed the submission of UG and DG documents in v1.3 on Luminus
+** Enhancements to existing features:
+*** Remove dead code: Pull requests https://github.com/cs2103-ay1819s2-w13-1/main/pull/213[#213]
+*** Add test cases to improve the coverage: Pull requests https://github.com/cs2103-ay1819s2-w13-1/main/pull/209[#209], https://github.com/cs2103-ay1819s2-w13-1/main/pull/204[#204]
+*** Updated the GUI to show multiple lists: Pull request https://github.com/cs2103-ay1819s2-w13-1/main/pull/108[#108]
+*** Updated the GUI to switch between multiple browsers: Pull request https://github.com/cs2103-ay1819s2-w13-1/main/pull/168[#168]
+** Community:
+*** PRs reviewed (with non-trivial review comments)(examples: https://github.com/cs2103-ay1819s2-w13-1/main/pull/237#issuecomment-483196253[1])
+*** Reported bugs and suggestions for other teams in the class (https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/710[#710],
+https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/527[#527], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/433[#433])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc#adding-a-medical-history-add-med-hist[tag=add-med-hist]
+
+include::../UserGuide.adoc#listing-medical-histories-list-med-hist[tag=list-med-hist]
+
+include::../UserGuide.adoc#editing-write-up-of-medical-history-edit-med-hist[tag=edit-med-hist]
+
+include::../UserGuide.adoc#sorting-medical-history-by-date-sort-med-hist[tag=sort-med-hist]
+
+include::../UserGuide.adoc#searching-medical-history-search-med-hist[tag=search-med-hist]
+
+include::../UserGuide.adoc#viewing-a-certain-medical-history-select-med-hist[tag=select-med-hist]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc#Design-Storage[tag=Storage Component]
+
+include::../DeveloperGuide.adoc#medical-history-management-features[tag=Medical History Features]

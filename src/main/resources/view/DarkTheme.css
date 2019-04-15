@@ -6,7 +6,7 @@
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: #555555;
+    -fx-text-fill: white;
     -fx-opacity: 0.9;
 }
 
@@ -126,10 +126,24 @@
     -fx-text-fill: #010504;
 }
 
+.cell_medium_label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 14px;
+    -fx-text-fill: #010504;
+}
+
 .cell_small_label {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 13px;
     -fx-text-fill: #010504;
+}
+
+.list_panel_title {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+    -fx-text-fill: #d6d6d6;
+    -fx-alignment: center;
+    -fx-padding: 0 0 10 10;
 }
 
 .stack-pane {
@@ -307,9 +321,54 @@
     -fx-padding: 8 1 8 1;
 }
 
-#cardPane {
-    -fx-background-color: transparent;
-    -fx-border-width: 0;
+#scrollPane {
+    -fx-background-color: #383838;
+}
+
+#tableCardPane {
+    -fx-background-color: #515658;
+    -fx-border-color: #3c3e3f;
+    -fx-scale-shape: false;
+}
+
+
+#statisticsFlowPane {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+#dailyStatisticsCardPane {
+    -fx-background-color: #515658;
+    -fx-border-color: #3c3e3f;
+    -fx-scale-shape: false;
+}
+
+#dailyStatisticsCard .label {
+    -fx-text-fill: white;
+    -fx-wrap-text: true;
+}
+
+#menuItemCardPane {
+    -fx-background-color: #515658;
+    -fx-border-color: #3c3e3f;
+    -fx-scale-shape: false;
+}
+
+#tableCard .label {
+    -fx-text-fill: white;
+    -fx-wrap-text: true;
+}
+
+#menuItemCard .label {
+    -fx-text-fill: white;
+    -fx-wrap-text: true;
+}
+
+#tableFlowPane {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+#menuItemFlowPane {
+    -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 #commandTypeLabel {
@@ -349,4 +408,18 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+}
+
+.receipt_text {
+    -fx-background-color: transparent;
+    -fx-font-family: "Courier New", Courier, monospace;
+    -fx-font-size: 14px;
+    -fx-text-fill: #585858;
+}
+
+.receipt_big_label {
+    -fx-font-family: "Courier New", Courier, monospace;
+    -fx-font-weight: bold;
+    -fx-font-size: 17px;
+    -fx-text-fill: #585858;
 }

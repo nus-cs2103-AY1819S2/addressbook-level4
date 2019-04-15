@@ -1,0 +1,13 @@
+{
+  "statisticsList" : [ {
+    "day" : "1",
+    "month" : "3",
+    "year" : "2019",
+    "totalRevenue" : "700"
+  }, {
+    "day" : "1",
+    "month" : "3",
+    "year" : "2019",
+    "totalRevenue" : "500"
+  } ]
+}

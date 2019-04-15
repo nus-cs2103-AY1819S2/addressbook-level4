@@ -9,5 +9,8 @@
       "z" : 99
     }
   },
-  "addressBookFilePath" : "addressbook.json"
+  "menuFilePath" : "data/menu.json",
+  "ordersFilePath" : "data/orders.json",
+  "tablesFilePath" : "data/tables.json",
+  "statisticsFilePath" : "data/statistics.json"
 }

@@ -1,0 +1,8 @@
+{
+  "menuItems" : [ {
+    "name" : "Invalid Name!@",
+    "code" : "W06",
+    "price" : "3.40",
+    "quantityOrdered" : "2"
+  } ]
+}

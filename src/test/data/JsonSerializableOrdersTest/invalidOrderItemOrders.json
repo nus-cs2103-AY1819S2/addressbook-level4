@@ -1,0 +1,9 @@
+{
+  "orderItems" : [ {
+    "tableNumber" : "Abc",
+    "menuItemCode" : "W09",
+    "menuItemName" : "Chicken Wings",
+    "quantityOrdered" : "1",
+    "quantityUnserved" : "0"
+  } ]
+}

@@ -1,0 +1,44 @@
+{
+  "_comment" : "Menu save file which contains the same Menu item values as in TypicalRestOrRant#getTypicalMenuItems()",
+  "menuItems" : [ {
+    "name" : "Chicken Wings",
+    "code" : "W09",
+    "price" : "3.99",
+    "quantityOrdered" : "0"
+  }, {
+    "name" : "French Fries",
+    "code" : "W12",
+    "price" : "2.20",
+    "quantityOrdered" : "1"
+  }, {
+    "name" : "Salad",
+    "code" : "A05",
+    "price" : "5.50",
+    "quantityOrdered" : "2"
+  }, {
+    "name" : "Cheese Nachos",
+    "code" : "M17",
+    "price" : "7.23",
+    "quantityOrdered" : "3"
+  }, {
+    "name" : "Shrimp Fried Rice",
+    "code" : "C02",
+    "price" : "8.90",
+    "quantityOrdered" : "4"
+  }, {
+    "name" : "Mee Sua",
+    "code" : "T01",
+    "price" : "4.99",
+    "quantityOrdered" : "5"
+  }, {
+    "name" : "Kimchi Fried Rice",
+    "code" : "K12",
+    "price" : "5.50",
+    "quantityOrdered" : "6"
+  }, {
+    "name" : "Crepes",
+    "code" : "F11",
+    "price" : "7.50",
+    "quantityOrdered" : "7"
+  } ]
+}

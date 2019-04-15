@@ -1,0 +1,27 @@
+{
+  "tableList" : [ {
+    "tableNumber" : "1",
+    "tableStatus" : "4/4"
+  }, {
+    "tableNumber" : "2",
+    "tableStatus" : "4/5"
+  }, {
+    "tableNumber" : "3",
+    "tableStatus" : "0/4"
+  }, {
+    "tableNumber" : "4",
+    "tableStatus" : "3/4"
+  }, {
+    "tableNumber" : "5",
+    "tableStatus" : "0/5"
+  }, {
+    "tableNumber" : "6",
+    "tableStatus" : "0/3"
+  }, {
+    "tableNumber" : "7",
+    "tableStatus" : "4/4"
+  }, {
+    "tableNumber" : "8",
+    "tableStatus" : "1/4"
+  } ]
+}

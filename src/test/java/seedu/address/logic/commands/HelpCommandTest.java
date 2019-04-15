@@ -6,6 +6,7 @@ import static seedu.address.logic.commands.HelpCommand.SHOWING_HELP_MESSAGE;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.Mode;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
@@ -17,6 +18,7 @@ public class HelpCommandTest {
     @Test
     public void execute_help_success() {
         CommandResult expectedCommandResult = new CommandResult(SHOWING_HELP_MESSAGE, true, false);
-        assertCommandSuccess(new HelpCommand(), model, commandHistory, expectedCommandResult, expectedModel);
+        assertCommandSuccess(Mode.RESTAURANT_MODE, new HelpCommand(), model, commandHistory, expectedCommandResult,
+                expectedModel);
     }
 }

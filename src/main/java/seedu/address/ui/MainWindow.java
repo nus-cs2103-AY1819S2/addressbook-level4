@@ -1,10 +1,13 @@
 package seedu.address.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -13,9 +16,11 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
+import seedu.address.logic.Mode;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.statistics.exceptions.BillNotFoundException;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -24,6 +29,11 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String TABLE_MODE_THEME = "view/TableModeTheme.css";
+    private static final String RESTAURANT_MODE_THEME = "view/RestaurantModeTheme.css";
+    private static final String MENU_MODE_THEME = "view/MenuModeTheme.css";
+    private static final String BILL_MODE_THEME = "view/BillModeTheme.css";
+    private static final String STATISTIC_MODE_THEME = "view/StatisticsModeTheme.css";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -31,10 +41,16 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+    private MenuListPanel menuListPanel;
+    private OrderItemListPanel orderItemListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private BillPanel billPanel;
+    private TableFlowPanel tableFlowPanel;
+    private MenuItemFlowPanel menuItemFlowPanel;
+    private StatisticsFlowPanel statisticsFlowPanel;
+    private PopularMenuListPanel popularMenuListPanel;
+    private StatusBarFooter statusBarFooter;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -46,13 +62,16 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane listPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private ScrollPane scrollPane;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -73,12 +92,17 @@ public class MainWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
+    public void changeTheme(String newTheme) {
+        primaryStage.getScene().getStylesheets().set(0, newTheme);
+    }
+
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
     }
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -110,22 +134,24 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedPersonProperty());
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+    public void fillInnerParts() {
+        tableFlowPanel = new TableFlowPanel(logic.getRestOrRant().getTables().getTableList(), scrollPane);
+        browserPlaceholder.getChildren().addAll(tableFlowPanel.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
-                logic::setSelectedPerson);
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        orderItemListPanel = new OrderItemListPanel(logic.getFilteredOrderItemList(), logic.selectedOrderItemProperty(),
+                logic::setSelectedOrderItem);
+        listPanelPlaceholder.getChildren().add(orderItemListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook());
+        statusBarFooter = new StatusBarFooter("Restaurant Mode");
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        resultDisplay.setFeedbackToUser("Welcome to RestOrRant!");
     }
 
     /**
@@ -161,15 +187,105 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+        GuiSettings guiSettings =
+                new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(), (int) primaryStage.getX(),
+                        (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public MenuListPanel getMenuListPanel() {
+        return menuListPanel;
+    }
+
+    /**
+     * Changes application mode.
+     */
+    @FXML
+    private void handleChangeMode(Mode mode, boolean isDaily, boolean isMonthly, boolean isYearly) {
+        requireNonNull(mode);
+        browserPlaceholder.getChildren().clear();
+        listPanelPlaceholder.getChildren().clear();
+
+        switch (mode) {
+
+        case RESTAURANT_MODE:
+            tableFlowPanel = new TableFlowPanel(logic.getFilteredTableList(), scrollPane);
+            browserPlaceholder.getChildren().add(tableFlowPanel.getRoot());
+
+            orderItemListPanel =
+                    new OrderItemListPanel(logic.getFilteredOrderItemList(), logic.selectedOrderItemProperty(),
+                            logic::setSelectedOrderItem);
+            listPanelPlaceholder.getChildren().add(orderItemListPanel.getRoot());
+
+            statusBarFooter.updateMode("Restaurant Mode");
+            changeTheme(RESTAURANT_MODE_THEME);
+            break;
+
+        case TABLE_MODE:
+            menuItemFlowPanel = new MenuItemFlowPanel(logic.getFilteredMenuItemList(), scrollPane);
+            browserPlaceholder.getChildren().add(menuItemFlowPanel.getRoot());
+
+            orderItemListPanel =
+                    new OrderItemListPanel(logic.getFilteredOrderItemList(), logic.selectedOrderItemProperty(),
+                            logic::setSelectedOrderItem);
+            listPanelPlaceholder.getChildren().add(orderItemListPanel.getRoot());
+
+            statusBarFooter.updateMode(
+                    "Table Mode: Table " + logic.selectedTableProperty().getValue().getTableNumber().toString());
+
+            changeTheme(TABLE_MODE_THEME);
+            break;
+
+        case MENU_MODE:
+            // TODO: change to browser panel to app logo
+
+            menuListPanel = new MenuListPanel(logic.getFilteredMenuItemList(), logic.selectedMenuItemProperty(),
+                    logic::setSelectedMenuItem);
+            listPanelPlaceholder.getChildren().add(menuListPanel.getRoot());
+
+            statusBarFooter.updateMode("Menu Mode");
+            changeTheme(MENU_MODE_THEME);
+            break;
+
+        case BILL_MODE:
+            if (logic.getRecentBill().equals(null)) {
+                throw new BillNotFoundException();
+            }
+            billPanel = new BillPanel(logic.getRecentBill());
+            browserPlaceholder.getChildren().add(billPanel.getRoot());
+
+            statusBarFooter.updateMode("Table Mode");
+            changeTheme(BILL_MODE_THEME);
+            break;
+
+        case STATISTICS_MODE:
+            popularMenuListPanel = new PopularMenuListPanel(logic.getFilteredSortedMenuItemList(),
+                    logic.selectedMenuItemProperty(), logic::setSelectedMenuItem);
+            listPanelPlaceholder.getChildren().add(popularMenuListPanel.getRoot());
+
+            if (isYearly) {
+                statisticsFlowPanel =
+                        new StatisticsFlowPanel(logic.getFilteredRevenueList(), scrollPane, false, false, true);
+                browserPlaceholder.getChildren().add(statisticsFlowPanel.getRoot());
+            } else if (isMonthly) {
+                statisticsFlowPanel =
+                        new StatisticsFlowPanel(logic.getFilteredRevenueList(), scrollPane, false, true, false);
+                browserPlaceholder.getChildren().add(statisticsFlowPanel.getRoot());
+            } else {
+                statisticsFlowPanel =
+                        new StatisticsFlowPanel(logic.getFilteredRevenueList(), scrollPane, true, false, false);
+                browserPlaceholder.getChildren().add(statisticsFlowPanel.getRoot());
+            }
+
+            statusBarFooter.updateMode("Statistics Mode");
+            changeTheme(STATISTIC_MODE_THEME);
+            break;
+
+        default:
+            break;
+        }
     }
 
     /**
@@ -182,6 +298,14 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            Mode newMode = commandResult.newModeStatus();
+            boolean isDaily = commandResult.isDaily();
+            boolean isMonthly = commandResult.isMonthly();
+            boolean isYearly = commandResult.isYearly();
+
+            if (newMode != null) {
+                handleChangeMode(newMode, isDaily, isMonthly, isYearly);
+            }
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.Mode;
 import seedu.address.model.Model;
 
 /**
@@ -14,11 +15,12 @@ import seedu.address.model.Model;
 public class HistoryCommand extends Command {
 
     public static final String COMMAND_WORD = "history";
+    public static final String COMMAND_ALIAS = "h";
     public static final String MESSAGE_SUCCESS = "Entered commands (from most recent to earliest):\n%1$s";
     public static final String MESSAGE_NO_HISTORY = "You have not yet entered any commands.";
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Mode mode, Model model, CommandHistory history) {
         requireNonNull(history);
         ArrayList<String> previousCommands = new ArrayList<>(history.getHistory());
 

@@ -1,0 +1,109 @@
+= Phua Yue Jun - Project Portfolio
+:site-section: AboutUs
+:icons: font
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: RestOrRant
+
+---
+
+== Overview
+
+RestOrRant is a command line interface (CLI) restaurant management application that my team and I designed for the CS2103T Software Engineering module in NUS School of Computing.
+For our module project, we morphed RestOrRant from an address book application into one that allows restaurant managers and waiters to perform front-end operations efficiently.
+This includes allocating tables to customers, handling orders, tracking item availability and calculating bills. Managers can also view revenue and order statistics to determine how the restaurant is faring.
+
+We split the application into four main features: Tables, Orders, Menu and Statistics. Each team member was in charge of one feature and mine was the Orders feature.
+I also conceptualised and implemented the Mode system alongside my team members.
+
+I will be sharing more about the Orders feature and Mode system in the following sections, as well as extracting the relevant parts of the User Guide and Developer Guide that I wrote for these features.
+
+You may refer to the table below for the symbols and formatting used in this portfolio.
+
+[width="70%",cols="^15%,85%"]
+|===
+a| `code` | A grey highlight with monospaced font indicates a command that can be typed into the command box of the application.
+a| [.java]#name# | A blue highlight with monospaced font indicates a reference to the codebase. This could be a component, class, method, attribute or file name.
+a| icon:check[role="green", size="2x"] | A green tick indicates the expected result that you should see after executing a command in the application.
+a| icon:lightbulb-o[role="icon-tip", size="2x"] | A lightbulb indicates tips and tricks that might be useful to the user.
+a| icon:info-circle[role="icon-note", size="2x"] | A blue information symbol indicates additional information for that section that is good to know.
+a| icon:exclamation-circle[role="icon-important", size="2x"] | A red exclamation mark symbol indicates important pointers to take note.
+|===
+
+
+== Summary of contributions
+
+In this section, I will provide a summary of the contributions that I have made to the team project. These contributions include the features that I implemented, as well as other project-related contributions.
+
+* *Major enhancement added (Orders feature)*: I added the Orders feature and all of its related commands.
+** What it does: It allows restaurant front-end staff to take orders from customers using the `addToOrder` command, as well as remove incorrectly inputted orders using the `deleteFromOrder` or `clearOrder` commands. They can track the current list of items ordered for each table (in Table Mode) or across all tables (in Restaurant Mode) and update their serving statuses with the `serve` command.
+** Justification: Restaurant front-end staff will need this core feature as keeping track of orders is one of the crucial front-end operations that restaurants have to manage. This feature allow orders to be handled more efficiently so that customers can be promptly attended to and served.
+** Highlights: I had to implement new classes across the four components in the architecture to support the Orders feature, allowing me to better understand the project's architecture. I also learnt to write unit and integration tests for automated testing of the Orders feature.
+
+* *Other enhancement added (Mode system)*: I conceptualised the Mode system and added features related to the changing of modes.
+** What it does: RestOrRant has four modes for each of the four features. Users can switch between modes to use the other features by using commands, such as the `restaurantMode` and `tableMode` commands that I implemented.
+** Justification: Translating our main features into different application modes provides a functional and visual distinction between the features and makes RestOrRant more organised and clear for its users. The Mode system also allows us to provide users with only the relevant displays for each feature instead of overwhelming users with all the information at one shot.
+** Highlights: I had to work closely with my other team members as we all worked on implementing different parts of this feature together. The Mode system affects the other commands as they now need to consider the current mode. The Mode system is also designed to be easily extendable to support more modes in the future.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=whyjayxp[Project Code Dashboard]]
+
+* *Other contributions*:
+
+** Project management:
+*** Charted the direction and progress of the project and facilitated weekly project meetings as the team lead
+*** Set up the issues tracker on GitHub for our project
+*** Managed the integration of code by merging Pull Requests and ensuring compatibility
+** Enhancements to existing features:
+*** Updated the GUI colour scheme and implemented the ability to switch between colour schemes for the different modes [PR https://github.com/cs2103-ay1819s2-w09-3/main/pull/128[#128]]
+** Documentation:
+*** Updated the README page [PR https://github.com/cs2103-ay1819s2-w09-3/main/pull/150[#150]]
+*** Updated the User Guide
+**** Revamped the User Guide in terms of structure and cosmetics, as well as rewrote the Introduction and Quick Start sections [PR https://github.com/cs2103-ay1819s2-w09-3/main/pull/192[#192]]
+**** Reorganised Command Summary into table form for ease of reference [PR https://github.com/cs2103-ay1819s2-w09-3/main/pull/156[#156]]
+**** Split commands into their respective modes for a clearer presentation [PR https://github.com/cs2103-ay1819s2-w09-3/main/pull/124[#124]]
+*** Updated the Developer Guide
+**** Revamped the Developer Guide in terms of structure and cosmetics [PR https://github.com/cs2103-ay1819s2-w09-3/main/pull/194[#194]]
+**** Rewrote the Introduction section [PR https://github.com/cs2103-ay1819s2-w09-3/main/pull/150[#150]]
+** Community:
+*** PRs reviewed (with non-trivial review comments) [PRs https://github.com/cs2103-ay1819s2-w09-3/main/pull/151[#151], https://github.com/cs2103-ay1819s2-w09-3/main/pull/186[#186], https://github.com/cs2103-ay1819s2-w09-3/main/pull/190[#190]]
+*** Reported bugs for other teams in the class [Examples: https://github.com/cs2103-ay1819s2-w11-4/main/issues/113[1], https://github.com/cs2103-ay1819s2-w11-4/main/issues/117[2], https://github.com/cs2103-ay1819s2-w11-4/main/issues/120[3], https://github.com/cs2103-ay1819s2-w11-4/main/issues/126[4], https://github.com/cs2103-ay1819s2-w11-4/main/issues/129[5]]
+** Tools:
+*** Set up GitHub, Travis, AppVeyor and Coveralls for our project
+*** Set up auto-publishing of docs
+
+== Contributions to the User Guide
+
+This section shows the additions that I have made to the User Guide to provide information about how the Mode system and Orders features work.
+
+|===
+| _I wrote descriptions for the Mode system and the four commands to change between the modes. My description of the `tableMode` command is replicated below while my full write-ups can be found https://github.com/CS2103-AY1819S2-W09-3/main/blob/master/docs/UserGuide.adoc#32-changing-modes[here]._
+|===
+
+include::../UserGuide.adoc[tag=tablemodecommand]
+
+|===
+| _I also wrote the Table Mode section and the descriptions for the five Orders feature commands (including one command for v2.0). My introduction for the Table Mode section and descriptions of the `addToOrder` and `serve` commands are replicated below while my full write-ups can be found https://github.com/CS2103-AY1819S2-W09-3/main/blob/master/docs/UserGuide.adoc#table-mode[here]._
+|===
+
+include::../UserGuide.adoc[tag=tablemode]
+
+include::../UserGuide.adoc[tag=serve]
+
+== Contributions to the Developer Guide
+
+This section shows the additions that I have made to the Developer Guide to show the implementation and design considerations for the Mode system and Orders feature.
+
+|===
+| _I described the design of the Mode system as well as the implementation of the commands that allow users to change mode. My write-up for the mode-changing commands is replicated below while my overview of the Mode system can be found https://github.com/cs2103-ay1819s2-w09-3/main/blob/master/docs/DeveloperGuide.adoc#41-mode-system[here]._
+|===
+
+include::../DeveloperGuide.adoc[tag=changemode]
+
+|===
+| _I also described the design of the Orders feature and the implementation of the four commands that it currently supports. My design of the Orders feature and my implementation of the `clearOrder` command are replicated below while my full write-ups can be found https://github.com/cs2103-ay1819s2-w09-3/main/blob/master/docs/DeveloperGuide.adoc#43-orders-feature[here]._
+|===
+
+include::../DeveloperGuide.adoc[tag=orders]
+
+include::../DeveloperGuide.adoc[tag=clearorder]

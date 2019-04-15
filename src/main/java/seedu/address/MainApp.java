@@ -15,18 +15,27 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.RestOrRant;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.menu.ReadOnlyMenu;
+import seedu.address.model.order.ReadOnlyOrders;
+import seedu.address.model.statistics.ReadOnlyStatistics;
+import seedu.address.model.table.ReadOnlyTables;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonMenuStorage;
+import seedu.address.storage.JsonOrdersStorage;
+import seedu.address.storage.JsonStatisticsStorage;
+import seedu.address.storage.JsonTablesStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.MenuStorage;
+import seedu.address.storage.OrdersStorage;
+import seedu.address.storage.StatisticsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.TablesStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
@@ -36,7 +45,7 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Version VERSION = new Version(1, 4, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -46,9 +55,13 @@ public class MainApp extends Application {
     protected Model model;
     protected Config config;
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing RestOrRant ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -56,8 +69,12 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        OrdersStorage ordersStorage = new JsonOrdersStorage(userPrefs.getOrdersFilePath());
+        MenuStorage menuStorage = new JsonMenuStorage(userPrefs.getMenuFilePath());
+        StatisticsStorage statisticsStorage = new JsonStatisticsStorage(userPrefs.getStatisticsFilePath());
+        TablesStorage tablesStorage = new JsonTablesStorage(userPrefs.getTablesFilePath());
+        storage = new StorageManager(userPrefsStorage, ordersStorage, menuStorage, statisticsStorage, tablesStorage);
+
 
         initLogging(config);
 
@@ -69,25 +86,40 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s RestOrRant and {@code userPrefs}. <br>
+     * Sample data will be used instead if any {@code storage} data file is not found,
+     * or an empty RestOrRant will be used instead if errors occur when reading from any {@code storage} data file.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyOrders> ordersOptional;
+        Optional<ReadOnlyMenu> menuOptional;
+        Optional<ReadOnlyTables> tablesOptional;
+        Optional<ReadOnlyStatistics> statisticsOptional;
+        RestOrRant initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            // addressBookOptional = storage.readRestOrRant();
+            ordersOptional = storage.readOrders();
+            menuOptional = storage.readMenu();
+            tablesOptional = storage.readTables();
+            statisticsOptional = storage.readStatistics();
+            if (ordersOptional.isPresent() && menuOptional.isPresent() && tablesOptional.isPresent()
+                    && statisticsOptional.isPresent()) {
+                initialData = new RestOrRant(ordersOptional.get(), menuOptional.get(), tablesOptional.get(),
+                        statisticsOptional.get());
+            } else {
+                logger.info("One or more data file(s) not found. Will be starting with a sample RestOrRant");
+                initialData = new RestOrRant(SampleDataUtil.getSampleRestOrRant());
+                storage.saveOrders(initialData.getOrders());
+                storage.saveMenu(initialData.getMenu());
+                storage.saveTables(initialData.getTables());
+                storage.saveStatistics(initialData.getStatistics());
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty RestOrRant");
+            initialData = new RestOrRant();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Problem while reading from the file. Will be starting with an empty RestOrRant");
+            initialData = new RestOrRant();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -151,7 +183,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty RestOrRant");
             initializedPrefs = new UserPrefs();
         }
 
@@ -167,21 +199,17 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting RestOrRant " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping RestOrRant ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

@@ -1,0 +1,13 @@
+{
+  "menuItems" : [ {
+    "name" : "Chicken Nuggets",
+    "code" : "W06",
+    "price" : "3.40",
+    "quantityOrdered" : "0"
+  }, {
+    "name" : "French Fries",
+    "code" : "Invalid1234",
+    "price" : "2.20",
+    "quantityOrdered" : "1"
+  } ]
+}

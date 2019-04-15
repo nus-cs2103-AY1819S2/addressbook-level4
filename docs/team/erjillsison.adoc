@@ -8,9 +8,7 @@ The purpose of this document is to showcase the work that I have done for the pr
 
 My team and I were presented with an existing code base for a command line interface (CLI) address book application. We were given about 8 weeks to either enhance or morph the address book application to a product of our own choice. We chose to morph it into *Battleship*.
 
-*Battleship* is a desktop game application based on the classic guessing game of the same name.
-The user interacts with it using a command-line interface (CLI) and it has a graphical user interface (GUI) created using JavaFX.
-It is written in Java, and has about 10 kLoC.
+*Battleship* is a desktop game application based on the classic 2 player guessing game of the same name. The objective of the game is to sink all the opposing player's ships. The player interacts with the game using a command-line interface (CLI) and feedback is given to the player through the graphical user interface (GUI). The game is written in Java, with the GUI created using JavaFX and has about 10 kLoC.
 
 My role was to design and write the code for the *map feature* of the game.
 The following sections illustrate the feature in more detail, as well as the relevant sections I have added to the user and developer guides in relation to this feature.

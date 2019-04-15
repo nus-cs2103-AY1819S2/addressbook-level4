@@ -290,7 +290,7 @@ Given below is an example usage scenario of how the adding of equipment details 
 
 Step 1. The user launches the application.
 
-Step 2. The user executes `add-e n/Pending CC d/01-05-2019 p/99887766 a/8 Pending Rd, Singapore 678295 s/XDH1429387 t/north-west` command.
+Step 2. The user executes `add-e n/Pending CC pm/01-05-2019 p/99887766 a/8 Pending Rd, Singapore 678295 s/XDH1429387 t/north-west` command.
 
 Step 3. After `EquipmentManagerParser` detects `add-e` as the command word, a `AddCommandParser#parse()` is called.
 
@@ -1022,6 +1022,10 @@ _{More to be added}_
 
 (For all use cases below, the *System* is the *Equipment Manager* and the *Actor* is the `user`, unless specified otherwise)
 
+=== Use Case: Select Client
+
+*MSS*
+
 [discrete]
 === Use case: Delete equipment
 
@@ -1060,8 +1064,6 @@ Non-functional requirements specify the constraints under which system is develo
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  Should come with automated unit tests and be able to handle errors and exceptions.
 .  Should be user-friendly for someone who have never used a CLI or software before to keep track of preventive maintenance schedule or route planning.
-
-_{More to be added}_
 
 [appendix]
 == Glossary

@@ -422,20 +422,38 @@ public class Enemy extends Player {
         }
     }
 
+    /**
+     * This a getter method that returns the last attack status given to the {@code Enemy}
+     * @return Status
+     */
     public Status getLastAttackStatus() {
         return this.lastAttackStatus;
     }
+    /**
+     * This a getter method that returns all possible targets for the {@code Enemy}
+     * @return ArrayList
+     */
     public ArrayList<Coordinates> getAllPossibleTargets() {
         return this.allPossibleTargets;
     }
-
+    /**
+     * This a getter method that returns all the targets with parity from the {@code Enemy}
+     * @return ArrayList
+     */
     public ArrayList<Coordinates> getAllParityTargets() {
         return this.allParityTargets;
     }
-
+    /**
+     * This a getter method that returns all the possible coordinates to place a ship from {@code Enemy}
+     * @return ArrayList
+     */
     public ArrayList<Coordinates> getAllPossiblePopulateCoords() {
         return this.allPossiblePopulateCoords;
     }
+    /**
+     * This a getter method that returns the watchlist from the {@code Enemy}
+     * @return Stack
+     */
     public Stack getWatchlist() {
         return this.watchlist;
     }

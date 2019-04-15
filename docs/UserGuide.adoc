@@ -110,6 +110,14 @@ Sort all apparels according to the option supplied. +
 Example: sort the apparels by color +
 Format: `sort color`
 
+// tag::swap[]
+=== Swap any two apparels : `sort [INDEX_X] [INDEX_Y]`
+
+Swap the position of two apparels. +
+
+Format: `swap 2 5` +
+Swap the position for apparels at index 2 and 5.
+
 === Editing an apparel : `edit`
 
 Edits an existing apparel in FM. +

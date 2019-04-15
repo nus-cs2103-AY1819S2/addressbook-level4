@@ -8,10 +8,30 @@
 ---
 
 == Overview
+Fashion Match is a command line application that is morphed from an addressbook application. This is a Software Engineering project that required us to use their code as a base and we decided to morph it into an wardrobe management system. This application enables normal users to:
+** Manage the arrangement of apparels in the wardrobe
+** Wash and wear specific apparel
+** Recommend outfit combination
+** Usage statistics
 
-Fashion Match is a desktop apparels matching application that recommends user the appropriate combination of apparels based on their the apparels they owned. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+The part of Fashion Match that I implemented is the Wardrobe Management Feature which comprises of `list [OPTION]`, `sort [OPTION]`, and `swap [INDEX_X] [INDEX_Y]`. Also, I handled the display of the apparel details on the User Interface when an apparel is selected. More details about these features will be elaborated below including documentation of it in the user and developer guide.
+
+`list all` : A grey highlight (called a markup) indicates that this is a command that can be input into the command line and executed by the application.
 
 == Summary of contributions
+In this section, all of my contributions will be listed in detail including my code and documentations.
+
+Within the Wardrobe Management Feature, you will find many commands implemented to manipulate the arrangement of the apparels. These include:
+* <<list, List the apparels based on specific option>>
+* <<sort, Sort the apparels based on specific option>>
+* <<swap, Swap the position of any two apparels>>
+
+[[list]]
+. *List apparels*: added *the ability to list the apparels you want to see*
+** _What it does_: It lists the apparels based on a specific category.
+** _Justification_: This command is a fundamental feature to allow the user to limit the apparels shown on the UI. This is for easy viewing.
+** _Highlights_: This command takes in option and only show apparels based on the option given.
+
 
 * *Major enhancement*: added the Apparel Management feature which comprises of sort and list. Sort feature allows user to sort by name, colour or clothing type. As for list, it is an improved version of the previous list feature. The new list allows user to supply options in order to list the apparels according to the parameter supplied by the user.
 ** What it does: allows the user sort the apparels in any valid way. To find out about the valid way of sorting, user can simply type `sort options` which output all the valid sorting options.
@@ -37,6 +57,7 @@ Fashion Match is a desktop apparels matching application that recommends user th
 
 ** Project management:
 *** Set up team development environment.
+*** Set up travis and coverall.
 *** Managed releases `v1.1` (1 release) on GitHub
 ** Graphical User Interface:
 *** Created all apparel icons with all valid colours.

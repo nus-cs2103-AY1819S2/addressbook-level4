@@ -153,8 +153,25 @@ public class TypicalApparels {
         return ab;
     }
 
+    /**
+     * Returns an {@code FashionMatch} with first and second indexed item swapped.
+     */
+    public static FashionMatch getTypicalAddressBookSwappedIndexOneAndTwo() {
+        FashionMatch ab = new FashionMatch();
+        for (Apparel apparel : getTypicalApparelsSwappedOneAndTwo()) {
+            ab.addApparel(apparel);
+        }
+        return ab;
+    }
+
+
+
     public static List<Apparel> getTypicalApparels() {
         return new ArrayList<>(Arrays.asList(SHIRT1, SHIRT2, PANTS1, BELT1, BELT2, BELT3, SHOES1, SHOES2, SHOES3));
+    }
+
+    public static List<Apparel> getTypicalApparelsSwappedOneAndTwo() {
+        return new ArrayList<>(Arrays.asList(SHIRT2, SHIRT1, PANTS1, BELT1, BELT2, BELT3, SHOES1, SHOES2, SHOES3));
     }
 
     public static List<Apparel> getTypicalApparelsWithLowerCaseName() {

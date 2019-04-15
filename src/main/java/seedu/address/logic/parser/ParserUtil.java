@@ -24,6 +24,7 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_SWAP_INVALID_EMPTY_OPTION = "Please supply 2 indexes";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -49,6 +50,28 @@ public class ParserUtil {
         }
 
         return SortOption.create(optionSupplied);
+    }
+
+    /**
+     * Parse {@code firstIndex} and {@code secondIndex} into an array of Index and return it.
+     * @throws ParseException if the specified indexes are invalid (out of bound).
+     */
+    public static Index[] parseSwapValue(String indexes) throws ParseException {
+        if (indexes.trim().equals("")) {
+            throw new ParseException(MESSAGE_SWAP_INVALID_EMPTY_OPTION);
+        }
+
+        Index[] oneBasedIndexes = new Index[2];
+        String[] indexArrStr = indexes.trim().split(" ");
+        if (indexArrStr.length > 2) {
+            throw new ParseException("Please supply only 2 indexes.");
+        }
+
+        for (int i = 0; i < indexArrStr.length; i++) {
+            oneBasedIndexes[i] = Index.fromOneBased(Integer.parseInt(indexArrStr[i]));
+        }
+
+        return oneBasedIndexes;
     }
 
     /**

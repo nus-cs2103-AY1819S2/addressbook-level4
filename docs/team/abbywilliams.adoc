@@ -29,6 +29,15 @@ Recruit Me is a desktop application designed for . It is an adaptation of Addres
     - Change how JsonAdaptedTags are stored in order to parse a tag's name and understand its tag type
     - Allow more than just alphanumeric input for the skill/position options
 
+    Additional Minor Contributions:
+    - Created the group repository and project
+    - Set up all Travis and auto-publishing documentation
+
+== Code Contributions
+
+RepoSense Link for my contributions to the code: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=abwilli
+
+
 
 == Contributions to the User Guide
 

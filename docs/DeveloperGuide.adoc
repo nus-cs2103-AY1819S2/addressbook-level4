@@ -672,9 +672,9 @@ Step 2. The DeleteReviewCommandParser parses this command and returns a new Dele
 
 Step 3. The DeleteReviewCommand executes. The review with the specified index is deleted.
 
-=== Other Design Considerations
+==== Other Design Considerations
 
-==== Whether to Implement EditReview
+===== Whether to Implement EditReview
 
 It seems natural to implement EditReview as one component of the CRUD features. However,
 editing an existing review requires re-typing everything and seems painstaking to the user. It makes much more sense to just delete

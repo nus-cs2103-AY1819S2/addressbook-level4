@@ -17,10 +17,21 @@ public class RecCommand extends Command {
 
     public static final String MESSAGE_REC = "Recommended modules found: %d";
 
+    public static final String MESSAGE_COMPLETED = "All course requirements satisfied";
+
+    public static final String MESSAGE_UE_LEFT = "Only Unrestricted Electives left to satisfy";
+
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateRecModuleList();
+
+        if (model.getRecModuleListSorted().isEmpty()) {
+            if (model.getGradTrak().getModulesTakenList().size() >= 40) {
+                return new CommandResult(MESSAGE_COMPLETED);
+            }
+            return new CommandResult(MESSAGE_UE_LEFT);
+        }
 
         return new CommandResult(String.format(MESSAGE_REC, model.getRecModuleListSorted().size()));
     }

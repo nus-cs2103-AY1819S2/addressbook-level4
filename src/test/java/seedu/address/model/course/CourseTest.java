@@ -57,7 +57,7 @@ public class CourseTest {
     @Test
     public void getCourseReqTypeOf_typeCoreBdUe() {
         ModuleInfoCode cs3230 = new ModuleInfoCode("CS3230");
-        assertEquals(List.of(CORE, BD, UE), COMPUTER_SCIENCE_ALGORITHMS.getCourseReqTypeOf(cs3230));
+        assertEquals(List.of(CORE, BD), COMPUTER_SCIENCE_ALGORITHMS.getCourseReqTypeOf(cs3230));
     }
 
     @Test
@@ -65,7 +65,6 @@ public class CourseTest {
         ModuleInfoCode get1100 = new ModuleInfoCode("GET1100");
         List<ModuleInfoCode> moduleInfoCodeList = getTypicalModulesInfoCodes();
         assertTrue(COMPUTER_SCIENCE_ALGORITHMS.isCodeContributing(UE, moduleInfoCodeList, get1100));
-
     }
 
     @Test
@@ -73,10 +72,5 @@ public class CourseTest {
         ModuleInfoCode get1100 = new ModuleInfoCode("GET1100");
         List<ModuleInfoCode> moduleInfoCodeList = getTypicalModulesInfoCodes();
         assertFalse(COMPUTER_SCIENCE_ALGORITHMS.isCodeContributing(GE, moduleInfoCodeList, get1100));
-
     }
-
-
-
-
 }

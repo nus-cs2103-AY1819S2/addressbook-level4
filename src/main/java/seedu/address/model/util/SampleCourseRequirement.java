@@ -67,7 +67,7 @@ public class SampleCourseRequirement {
     public static final String AI_ELECTIVE =
         "(CS4216)|(CS4220)|(CS5209)|(CS5215)|(CS5228)|(CS5242)|(CS5247)|(CS5340)|(CS5339)";
     public static final String SOFTWARE_ENG_PRIMARY =
-            "(CS2103T?)|(CS3213)|(CS3219)|(CS4211)|(CS4218)|(CS4239)";
+            "(CS2103T?)|(CS3219)|(CS4211)|(CS4218)|(CS4239)";
     public static final String SOFTWARE_ENG_PRIMARY_LEVEL_4 = "(CS4211)|(CS4218)|(CS4239)";
     public static final String SOFTWARE_ENG_ELECTIVE =
         "(CS3216)|(CS3217)|(CS3226)|(CS3234)|(CS4217)|(CS5219)|(CS5232)|(CS5272)";

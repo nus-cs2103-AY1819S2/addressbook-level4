@@ -241,7 +241,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyProperty<ClassForPrinting> selectedModuleTakenProperty() {
+        public ReadOnlyProperty<ClassForPrinting> selectedClassForPrintingProperty() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -251,7 +251,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setSelectedModuleTaken(ClassForPrinting moduleTaken) {
+        public void setSelectedClassForPrinting(ClassForPrinting moduleTaken) {
             throw new AssertionError("This method should not be called.");
         }
 

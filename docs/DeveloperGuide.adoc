@@ -881,7 +881,7 @@ image::inputStatsCommandSS.png[width=400]
 Pop-up window for `stats` :
 
 .Screenshot of empty statistics pop-up window.
-image::StatsWindowSS.png[width=500]
+image::StatsWindowSS.png[width=400]
 
 There should not be any valid data at the moment as the game as not started.
 
@@ -890,7 +890,7 @@ Step 4. Now proceed with the game and perform an attack. Input `attack a1`.
 Step 5. Invoke the `stats` command again to view the updated statistics of the attack result.
 
 .Screenshot of populated statistics pop-up window.
-image::StatsWindowUpdatedSS.PNG[width=500]
+image::StatsWindowUpdatedSS.PNG[width=400]
 
 Besides the pop-up window, the data is also captured in the command-line result box.
 

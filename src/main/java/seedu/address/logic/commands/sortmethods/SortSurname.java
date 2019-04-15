@@ -7,15 +7,23 @@ import seedu.address.model.person.Person;
 
 
 /**
- * Sorts all persons by age.
+ * Follows the SortMethod interface
+ * Sorts all persons alphabetically by surname.
+ * Sorts persons with matching surnames by first name.
  */
-public class SortSurname {
+public class SortSurname implements SortMethod {
 
     private List<Person> newList;
 
-    public SortSurname(List<Person> lastShownList) {
+    /**
+     * alters the newList to contain persons in newly sorted order
+     */
+    public void execute(List<Person> lastShownList, String... type) {
         Comparator<Person> personSurnameComparator = Comparator.comparing(Person::surnameToString);
-        this.newList = SortUtil.sortPersons(lastShownList, personSurnameComparator);
+        List<Person> initialSortedList = SortUtil.sortPersons(lastShownList, personSurnameComparator);
+        SortListWithDuplicates secondarySort = new SortListWithDuplicates(initialSortedList, new SortName(),
+                personSurnameComparator);
+        this.newList = secondarySort.getList();
     }
 
     public List<Person> getList() {

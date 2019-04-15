@@ -80,7 +80,7 @@ include::../UserGuide.adoc[tag=upcomingmap]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project. Parts of the Developer Guide that belong to different sections are separated by a horizontal line.._
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project. Parts of the Developer Guide that belong to different sections are separated by a horizontal line._
 |===
 
 Co-authored the Model diagram as shown below.

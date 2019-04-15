@@ -74,7 +74,8 @@ The examples for each of the commands given below are independent of each other 
 Effect: Displays a help list, which lists all the commands that can be used. +
 Format: `{[aqua]#help#/[aqua]#hp#}`
 
-
+.Example for the `help` command
+image::help-command.png[width="800"]
 
 === [underline]#Customer commands#
 ==== Adding a customer : `add-customer`, `ac`
@@ -726,10 +727,16 @@ Example:
 * `st 1 1` +
 This will switch to the booking tab in the the first panel.
 
+.Example for the `st 1 1` command
+image::st-1-1.png[width="800"]
+
 * `st 2 1` +
 This will switch to the service type tab in the second panel.
 
-=== [underline]#Select customer command : `select`, `s`
+.Example for the `st 2 1` command
+image::st-2-1.png[width="800"]
+
+=== [underline]#Select customer command# : `select`, `s`
 
 Effect: Selects the customer whose index is specified. +
 Format: `{[aqua]#select#/[aqua]#s#} [lime]#INDEX#`
@@ -746,6 +753,9 @@ image::s1.png[width="800"]
 
 Effect: Lists all the commands that you have entered in reverse chronological order. +
 Format: `{[aqua]#history#/[aqua]#hs#}`
+
+.Example for the `clear-all` command
+image::history-command.png[width="800"]
 
 [NOTE]
 ====
@@ -769,6 +779,9 @@ Examples:
 `lc` +
 `undo` (adds back the deleted customer) +
 
+.Example for the `undo`command
+image::undo.png[width="800"]
+
 * `lc` +
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
@@ -789,6 +802,9 @@ Examples:
 `undo` (adds back the deleted customer) +
 `redo` (deletes customer at index 1 again) +
 
+.Example for the `undo` and `redo` command
+image::undo-redo.png[width="800"]
+
 * `delete-customer 1` +
 `redo` +
 The `redo` command fails as there are no `undo` commands executed previously.
@@ -806,10 +822,17 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Effect: Clears all entries from the database. +
 Format: `{[aqua]#clear-hms#/[aqua]#clear-all#}`
 
+.Example for the `clear-all` command
+image::clear-all-command.png[width="800"]
+
+
 === [underline]#Exiting the program# : `exit`,`ex`
 
 Effect: Exits the program. +
 Format: `{[aqua]#exit#/[aqua]#ex#}`
+
+.The `exit` command
+image::exit-command.png[width="800"]
 
 === [underline]#Automatic tab switching#
 

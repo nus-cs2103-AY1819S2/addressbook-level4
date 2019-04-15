@@ -1,7 +1,9 @@
-= Sreyans Sipani - Project Portfolio image:sreycodes.png[width="150", align="right"]
+= Sreyans Sipani - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+
+image:sreycodes.png[width="150"]
 
 == PROJECT: HMS+
 

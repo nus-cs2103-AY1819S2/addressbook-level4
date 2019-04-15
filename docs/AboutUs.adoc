@@ -22,7 +22,7 @@ Responsibilities: Bill and Customer Feature, Managing the UG and DG, and Creatio
 
 === Sipani Sreyans
 image::sreycodes.png[width="150", align="left"]
-{empty}[http://github.com/sreycodes[github]] [<<sreyanssipani#, portfolio>>]
+{empty}[http://github.com/sreycodes[github]] [<<sreycodes#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Service booking, Room reservations, Room Types and Service Types features

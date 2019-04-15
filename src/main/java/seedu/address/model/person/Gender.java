@@ -38,6 +38,9 @@ public class Gender {
         if (!test.matches(VALIDATION_REGEX)) {
             return false;
         }
+        if (!test.equalsIgnoreCase("male") && !test.equalsIgnoreCase("female")) {
+            return false;
+        }
         return true;
     }
     @Override

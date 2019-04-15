@@ -206,8 +206,8 @@ Format: `put n/NAME c/COORDINATES r/ORIENTATION [t/TAGS]` +
 
 Examples:
 
-* `put n/Destroyer c/a1 r/vertical`
-* `put n/Aircraft Carrier c/b1 r/h t/tag1` +
+* `put n/destroyer c/a1 r/vertical`
+* `put n/aircraft carrier c/b1 r/h t/tag1` +
 
 The head of a ship is the top-most and left-most cell of the ship. When coordinates are specified in the `put` command, it specifies the coordinates of the head of the ship, as shown in the figure below.
 

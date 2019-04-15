@@ -53,7 +53,7 @@ public class EquipmentCard extends UiPart<Region> {
         super(FXML);
         this.equipment = equipment;
         id.setText(displayedIndex + ". ");
-        name.setText("Client name: " + equipment.getName().name);
+        name.setText("Client Name: " + equipment.getName().name);
         phone.setText("Phone: " + equipment.getPhone().value);
         address.setText("Address: " + equipment.getAddress().value);
         serialNumber.setText("Serial Number: " + equipment.getSerialNumber().serialNumber);

@@ -413,13 +413,13 @@ The `FindReservationCommand` extends from the `ReservationCommand` class which i
 illustrated in the UML diagram shown below.
 
 .FindReservationCommand UML Diagram
-image::FindReservationCommandUMLDiagram.png[width="600"]
+image::FindReservationCommandUMLDiagram.png[width="300"]
 
 The `FindReservationCommand` involves the use of multiple components of the HMS+ application. The figure below shows the
 high level [underline]#Sequence Diagram# for the `FindReservationCommand`.
 
 .High Level Sequence Diagram for the  `find-reservation id/A0176684J` command
-image::FindReservationLogicSequenceDiagram.png[width="600"]
+image::FindReservationLogicSequenceDiagram.png[width="500"]
 
 As seen from the above diagram, this command doesn't affect storage at all as the purpose of this command is to just find
 a specific reservation.
@@ -506,13 +506,13 @@ The `GenerateBillForCustomerCommand` extends from the `BillCommand` class which 
 illustrated in the UML diagram shown below.
 
 .GenerateBillForCustomerCommand UML Diagram
-image::GenerateBillForCustomerCommandUMLDiagram.png[width="600"]
+image::GenerateBillForCustomerCommandUMLDiagram.png[width="300"]
 
 The `GenerateBillForCustomerCommand` involves the use of multiple components of the HMS+ application. The figure below shows the
 high level [underline]#Sequence Diagram# for the `GenerateBillForCustomerCommand`.
 
 .High Level Sequence Diagram for the  `generate-bill-customer 1` command
-image::GenerateBillLogicSequenceDiagram.png[width="600"]
+image::GenerateBillLogicSequenceDiagram.png[width="500"]
 
 As seen from the above diagram, there is no storage created for the bill as a result of which the bill generated is
 never stored. Therefore, the bill needs to be generated every time.
@@ -558,26 +558,6 @@ public HashMap<ServiceType, Pair<Double, Integer>> generateHashMapForBooking(Obs
         return new Pair<>(totalAmount, totalTime);
     }
 
-----
-
-The actual displaying of the booking bill is then done by `BillPanel` object by the following code snippet
-in the `Ui` component:
-[source,java]
-----
-if (newValue.getBookingCount() > 0) {
-                stringBuilder.append("Service Booking(s) :\n");
-                for (ServiceType st: newValue.getServiceTypes()) {
-                    if (newValue.getServiceTypeBookingCount(st) > 0) {
-                        stringBuilder.append(String.format("%14s", "[" + st.getName() + "]")
-                                + String.format("  Rate per hour:%2.1f", st.getRatePerHour()) + "\n"
-                                + String.format("  Number of hour(s):%2d", newValue.getServiceTypeBookingCount(st))
-                                + String.format("  Amount:%4.1f", newValue.getServiceTypeBill(st)) + "\n\n");
-                    }
-                }
-                stringBuilder.append(String.format("---------------------Sub-Total: %6.1f",
-                        newValue.getAmountBooking()) + "\n");
-                stringBuilder.append("--------------------------------------\n");
-            } //if count of bookings is greater than 0
 ----
 
 The [underline]#reservation bill# for the customer is also generated in the same manner and has therefore not been shown.
@@ -1250,9 +1230,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |new hotel management staff |see usage instructions |refer to instructions when I forget how to use the App
 
 |`* * *` |hotel management staff |add a new customer |add a room reservation or a service booking for the customer
-
-|`* * *` |hotel management staff |delete a customer |remove a customer
 // end::user-stories[]
+|`* * *` |hotel management staff |delete a customer |remove a customer
 
 |`* * *` |hotel management staff |edit a customer |update details of an already existing customer
 
@@ -1297,9 +1276,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |hotel management staff |add a new room type |expand my room type range
 
 |`*` |hotel management staff |change rates of a room type |change their tariffs
-// tag::user-stories3[]
-|`*` |hotel management staff |change capacity of a specific service |expand/shrink a specific service
 
+|`*` |hotel management staff |change capacity of a specific service |expand/shrink a specific service
+// tag::user-stories3[]
 |`*` |hotel management staff |sort customers by name |locate a customer easily
 |=======================================================================
 // end::user-stories3[]
@@ -1885,6 +1864,7 @@ In Object-oriented Programming, abstraction is the mechanism by which users are 
 The single responsibility principle is a computer programming principle that states that every module, class, or
 function should have responsibility over a single part of the functionality provided by the software, and that
 responsibility should be entirely encapsulated by the class.
+// end::glossary[]
 
 [[cli]] CLI::
 Acronym for Command Line Interface. It is a purely text-based interface for software. User respond to visual prompts by typing single commands into the interface and receive results as text as well.
@@ -1893,7 +1873,7 @@ Acronym for Command Line Interface. It is a purely text-based interface for soft
 [[gui]] GUI::
 Acronym for Graphical User Interface. In a GUI, the software interface consists of graphical icons, menus and/or other visual indicators to display information. Users can typically interact with these graphics, rather than just using text in the <<cli,command line>>. +
 [underline]#For example#: All Windows operating systems have a GUI.
-// end::glossary[]
+
 
 [[customer]] Customer::
 People who go to live in a hotel while they are on a vacation or stay-cation.

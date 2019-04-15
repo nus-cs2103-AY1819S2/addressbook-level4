@@ -413,6 +413,7 @@ Format: `{[aqua]#find-reservation#/[aqua]#fr#} [black]#[# [blue]#id/# [lime]#IDE
 ====
 
 Example:
+// end::find-reservation[]
 
 * `fr id/Q000001P` +
 Returns all reservations for customer with identification number, Q000001P.
@@ -420,12 +421,13 @@ Returns all reservations for customer with identification number, Q000001P.
 .Example for the `fr id/Q000001P` command
 image::fr1.png[width="800"]
 
+// tag::find-reservation[2]
 * `fr id/Q000001P r/SHARING ROOM` +
 Returns all sharing room reservations for customer with identification number, Q000001P.
 
 .Example for the `fr id/Q000001P r/SHARING ROOM` command
 image::fr2.png[width="800"]
-// end::find-reservation[]
+// end::find-reservation2[]
 
 // end::reservation-commands[]
 
@@ -651,6 +653,7 @@ Returns the bill for all services booked by the customer at index 4.
 
 .Example for the `generate-bill-booking 4` command
 image::gbb1.png[width="800"]
+// end::generation-bill-commands[]
 
 * `lc`, then `gb-b 1 s/SPA` +
 Returns the bill for all spa services booked for the customer at index 1.
@@ -658,6 +661,7 @@ Returns the bill for all spa services booked for the customer at index 1.
 .Example for the `gb-b 1 s/SPA` command
 image::gbb2.png[width="800"]
 
+// tag::generation-bill-commands2[]
 ==== Generate bill for specific reservation: `generate-bill-reservation`, `gb-r`
 
 Effect: Generates the bill for the specific booking of a customer +
@@ -669,6 +673,7 @@ Format: `{[aqua]#generate-bill-reservation#/[aqua]#gb-r#} [lime]#INDEX# [black]#
 ====
 
 Example:
+// end::generation-bill-commands2[]
 
  * `lc`, then `generate-bill-reservation 1` +
 Returns the bill for all rooms reserved by the customer at index 1.
@@ -676,12 +681,15 @@ Returns the bill for all rooms reserved by the customer at index 1.
 .Example for the `generate-bill-reservation 1` command
 image::gbr2.png[width="800"]
 
+// tag::generation-bill-commands3[]
 * `lc`, then `gb-r 3 r/SHARING ROOM` +
 Returns the bill for all sharing rooms reserved by the customer at index 3.
 
 .Example for the `gb-r 3 r/SHARING  ROOM` command
 image::gbr1.png[width="800"]
+// end::generation-bill-commands3[]
 
+// tag::generation-bill-commands4[]
 ==== Generate customer's bill : `generate-bill-customer`, `gb-c`
 
 Effect: Generates the bill for the customer based on his total room reservations and service bookings. +
@@ -700,8 +708,8 @@ Returns the total bill (includes all bookings and reservations) for the customer
 
 .Example for the `generate-bill-customer 1` command
 image::gbc1.png[width="800"]
+// end::generation-bill-commands4[]
 
-// end::generation-bill-commands[]
 
 === [underline]#Switch tab command# : `switch-tab`, `st`
 
@@ -975,7 +983,7 @@ There is no need to save manually.
           2: Date of birth should be of the format: DD/MM/YYYY.
 
       _Example_:: [blue]#dob/# 28/05/1999
-      // end::prefixlist[]
+// end::prefixlist[]
 
 * [underline]*Address* +
   _Prefix_:: `a/` +

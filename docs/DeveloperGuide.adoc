@@ -762,7 +762,7 @@ in the test session.
 ** Cons: Extra space used.
 
 * **Alternative 2**: No introduction of `currentTestedCard` as using the `currentTestedCardIndex` suffices. Every time a
-card is needed, can simply reference it using `currentTestedCardFolder.getIndex(currentTestedCardIndex)`.
+card is needed, can simply reference it using `currentTestedCardFolder#getIndex(currentTestedCardIndex)`.
 ** Pros: No need to store an extra variable so this method uses less space.
 ** Cons: Not so reader friendly. Need to keep accessing the list using the index which can potentially lead to
 possible violation of the Law of Demeter where an object should only interact with objects that are closely related to it.
@@ -890,12 +890,13 @@ folder index and `test` would just immediately display the first card in this cu
  be tested on. Lesser dependency on entering and exiting folder methods.
 ** Cons: Requires the extra step of entering the folder before it can test the folder. User may actually see the questions before the test session.
 
-* **Alternative 2**: `test` is executed when outside a folder, in the home directory. `test` command would require a
+* **Alternative 2**: `test` is executed when outside a folder, in the home directory. Test command would require a
 folder index, e.g `test 1` to test the first folder. Implementation of getting the card from the folder would rely on
 enter folder command as well.
 ** Pros: Fast way to enter test session from home directory
-** Cons: Not logical for test to be called from home directory which should only allow folder operations. `test` command
-will then have to implicitly enter the folder to get access to the cards in it in order to display them, creating a
+** Cons: Not logical for `test` to be called from inside the home directory which should only allow folder operations.
+`test` will then have to implicitly enter the folder to gain access to the cards in it in order to display them,
+creating a
 dependency between the test and enter folder commands.
 Similar issue will arise for the end test session command where user will need to implicitly exit the folder.
 

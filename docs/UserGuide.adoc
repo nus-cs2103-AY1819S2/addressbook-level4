@@ -477,10 +477,15 @@ Examples:
 
 ==== Generate Interview Dates : `generateInterviews`
 
-Generate interview dates for applicants in slaveFinder().
+Generate interview dates for all applicants in slaveFinder().
 Interview dates cannot be generated again if they are already present.
 Dates generated exclude weekends and block out dates(see below).
-Format : `generateInterviews`
+
+==== Generate Interview Dates for a particular job : `generateInterviews jn/[JOB_NAME]` `Coming in v2.0`
+
+Generate interviews for applicants of a particular job in slaveFinder().
+Interview dates cannot be generated again if they are already present.
+Dates generated exclude weekends and block out dates(see below).
 
 ==== Clear Interview Dates : `clearInterviews`
 
@@ -497,6 +502,14 @@ Sets the block out dates(unavailable dates) which the interviewer is not availab
 ==== Show interviews dates : `showInterviews`
 
 Shows the list of dates which the interviewees in slaveFinder() are assigned.
+
+==== Show interviews dates for a job opening : `showInterviews jn/[JOB_NAME]` `Coming in v2.0`
+
+Shows the list of dates which the interviewees for the state job in slaveFinder() are assigned to.
+
+==== Reschedule Person for interview: `move nric/[NRIC] [FROM_DATE(dd/mm/yyyy)] [TO_DATE(dd/mm/yyyy)]` `Coming in v2.0`
+
+Reschedules a person scheduled to a particular date to another date. If to date is not present, the person is removed from that date.
 
 // end::interviews[]
 

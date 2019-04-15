@@ -694,14 +694,14 @@ ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
 You will see a success message in the Results Display and the updated menu with the new item will be displayed in the Menu Panel.
 
-a| a| For example, the menu initially has 5 items as shown below.
+a| a| For example, the menu initially has 15 items as shown below.
 
 image::AddToMenu_Before.png[]
 
-Suppose you would like to add a Lobster Burger to the menu. After executing `addToMenu c/W06 n/Lobster Burger p/10.00`, you will see a success message in the Results Display, as shown below.
+Suppose you would like to add a Chocolate Ice Cream to the menu. After executing `addToMenu c/W16 n/Chocolate Ice Cream p/1.50`, you will see a success message in the Results Display, as shown below.
 
 image::AddToMenu_RD.png[]
-The Menu Panel will also be updated and you will now see 6 items displayed. As seen in the image below, a new 6th item with code W06, name Lobster Burger and price of 10.00 has been added to the menu.
+The Menu Panel will also be updated and you will now see 16 items displayed. As seen in the image below, a new 16th item with code W16, name Chocolate Ice Cream and price of 1.50 has been added to the menu.
 
 image::AddToMenu_After.png[]
 |===

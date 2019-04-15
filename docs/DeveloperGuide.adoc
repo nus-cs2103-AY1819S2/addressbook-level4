@@ -681,19 +681,13 @@ The user may want to remove a menu item from the menu and this can be done using
 
 As mentioned above, deleting a menu item from the menu is done by removing from the existing list.
 
-The interactions between all four components when a user executes the `deleteFromMenu` command is very similar to the
- interactions when <<AddToMenu, adding to menu>>, as shown by the sequence diagram below:
-
-.Component interactions for `deleteFromMenu` command
-image::DeleteFromMenuSequenceDiagram.png[width="800"]
+The interactions between all four components when a user executes the `deleteFromMenu` command is very similar to the interactions when <<AddToMenu, adding to menu>>:
 
 One specific difference is that deleting from menu only requires item [.java]#Code#, whereas adding to menu requires [.java]#Name#, [.java]#Code# and [.java]#Price#. For this reason, we have decided to not use any prefixes (such as `c/` to denote item code).
 
-After parsing the input text string by the [.java]#RestOrRantParser#parse()# method, the [
-.java]#DeleteFromMenuCommand# object is created.
+After parsing the input text string by the [.java]#RestOrRantParser#parse()# method, the [.java]#DeleteFromMenuCommand# object is created.
 
-[.java]#DeleteFromMenuCommand# then makes use of the method [.java]#Menu#getItemFromCode()# to retrieve the menu item
- from the item [.java]#Code# input. The code snippet of the method is shown below:
+[.java]#DeleteFromMenuCommand# then makes use of the method [.java]#Menu#getItemFromCode()# to retrieve the menu item from the item [.java]#Code# input. The code snippet of the method is shown below:
 
 [source, java]
 ----
@@ -722,8 +716,7 @@ As above, after removing from the list in the [.java]#Model# component, the [.ja
 The User Interface also updated by removing the menu item on the list panel.
 
 [NOTE]
-This action can only be done in Menu Mode. If not in Menu Mode currently , users can first change mode by typing
-<<ChangingModes, switching over to Menu Mode>>.
+This action can only be done in Menu Mode. If not in Menu Mode currently , users can first change mode by typing <<ChangingModes, switching over to Menu Mode>>.
 
 ===== Design Considerations
 The above design considerations under <<AddToMenu, Adding to Menu>> on saving changes to the menu also holds when deleting menu items.
@@ -752,16 +745,11 @@ reflect any changes to the menu in both of the data structures. +
 
 The user may want to remove all the menu items from the menu and this can be done with the `clearMenu` command.
 
-The interaction between the components for this function is similar to <<ClearOrder, clearing an order>>, a small
-difference being `clearMenu` clears all menu items, while `clearOrder` only clears orders within a specific table.
+The interaction between the components for this function is similar to <<ClearOrder, clearing an order>>. A small difference is that `clearMenu` clears all menu items, while `clearOrder` only clears orders within a specific table.
 
-When `clearMenu` is keyed in, the command is parsed by [.java]#RestOrRantParser# and a [.java]#ClearMenuCommand#
-object is returned by the parser.
+When `clearMenu` is keyed in, the command is parsed by [.java]#RestOrRantParser# and a [.java]#ClearMenuCommand# object is returned by the parser.
 
-When [.java]#ClearMenuCommand#execute()# is called, it will check if the restaurant is occupied, and if the menu is
-empty. [.java]#CommandException# with respective error messages will be thrown if either of the conditions are true.
-After ensuring that the restaurant is unoccupied and the menu is non-empty, the menu will be cleared by initializing
-the menu with an empty ArrayList, with the [.java]#Model#setMenuItems() method.
+When [.java]#ClearMenuCommand#execute()# is called, it will check if the restaurant is occupied, and if the menu is empty. [.java]#CommandException# with respective error messages will be thrown if either of the conditions are true. After ensuring that the restaurant is unoccupied and the menu is non-empty, the menu will be cleared by initializing the menu with an empty ArrayList, with the [.java]#Model#setMenuItems() method.
 
 === Statistics feature
 
@@ -1239,8 +1227,8 @@ Use case ends.
 
 1.  User [underline]#switches to Menu Mode (UC2)#.
 2.  RestOrRant switches to Menu Mode.
-1.  User enters the item's code, name and price.
-2.  RestOrRant updates the list of menu items in the side panel to include the added menu item.
+3.  User enters the item's code, name and price.
+4.  RestOrRant updates the list of menu items in the side panel to include the added menu item.
 +
 Use case ends.
 

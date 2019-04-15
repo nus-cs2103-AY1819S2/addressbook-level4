@@ -291,6 +291,7 @@ image::deck_ug_diagrams/import_deck_2(2).png[width="200"]
 
 After:
 
+
 image::deck_ug_diagrams/import_deck_3(3).png[width="200"]
 
 ==== Export a deck: `export`
@@ -523,6 +524,10 @@ Once you've typed in your rating, hit kbd:[Enter]. Your rating will be recorded 
 value will contribute to average difficulty statistic seen in cards view.
 Immediately after that, TopDeck will reenter Question Phase.
 
+[NOTE]
+Your rating can be any integer between 1-5. You may type it together with other words, e.g.
+"1 easy" but the program will only look at the first word/integer.
+
 During both phases, the following commands are available to end your study session:
 
 ==== Returning to decks view: `back` [[studyback]]
@@ -537,6 +542,10 @@ During both phases, the following commands are available to end your study sessi
 
 **Outcome**: Opens the deck in cards view.
 
+[NOTE]
+The command can include other words e.g.
+"open sesame", but as long as your command's first word is a command word,
+running the commands will be prioritised.
 
 === Global commands
 

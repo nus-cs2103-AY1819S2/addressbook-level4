@@ -1907,10 +1907,10 @@ Note that the file path various for Operating Systems and devices.
 .. Other incorrect rename commands to try: `rename 1 validName.pdf` (no prefix), `rename x n/validName.pdf`(where x is larger than the list size),
 `rename y n/validName.pdf` (where y is any negative number), `rename n/validName.pdf` (no index), `rename 1 wrong/validName.pdf` (wrong prefix)  +
     Expected: Similar to previous.
-    
+
 === Tagging a pdf
 
-. Tagging a pdf that is in the list
+. Tagging a pdf that is in the list.
 
 .. Prerequisites: The pdf files in the list are uncorrupted and they exists in the system.
 .. Test case: `tag 1 -a t/SEROCKS` +

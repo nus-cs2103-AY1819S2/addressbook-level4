@@ -663,7 +663,7 @@ this number is automatically calculated and recorded.
 |`end` | Quits the current test session or report display.
 |`search KEYWORDS [MORE_KEYWORDS]` | Searches for flashcards inside the current folder using keywords in flashcard questions.
 |`import FILENAME` | Imports a file with the specified name. Filename must include .csv extension
-|`export FOLDER_INDEX FILENAME [MORE_INDEXES]` | Creates a csv file containing the flashcards from the specified folder, which can later be imported.
+|`export FOLDER_INDEX [MORE_INDEXES]` | Creates a csv file containing the flashcards from the specified folder, which can later be imported.
 |`help` | Opens the User Guide in a new window.
 |`exit` | Exits the application.
 |=======================================================================

@@ -25,6 +25,10 @@ By: `RecruitMe`      Since: `January 2019`      Licence: `MIT`
 [NOTE]
 Only JDK 9 is supported. +
 This app will not work with later major JDK releases such as JDK 10, 11, etc.
+
+[NOTE]
+If the tests are failing due to a system error with Java9, then try to run with Java8.
+
 +
 . *IntelliJ* IDE
 +
@@ -472,9 +476,6 @@ The testing methods for filtering is written for 3 different parts:
 * This test class contains integration tests and investigates the interaction of `FilterCommand` with: `UndoCommand`, `RedoCommand`, `AddCommand`, `DeleteCommand`,`SortCommand`, `FindCommand`, `SelectCommand`, and cases, when all of them are together.
 * Each test case at least contains filtering with `or - success` or `and - success`, `clear - success` and `clear - failure`, `reverse - success` and `reverse - failure`.
 * Also for every interacting command, *failure* and *success* cases are both investigated.
-
-[TIP]
-Since add command changes the list and filter criterion applied before is not saved in any parameter, adding someone automatically clears the filter.
 // end::filter[]
 
 // tag::sort[]

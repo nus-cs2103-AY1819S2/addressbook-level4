@@ -483,7 +483,7 @@ Alternative 1 was chosen as it is less complicated, requires lesser space and mo
 This command displays the names of all the files in the `assets` directory.
 
 ==== Current Implementation
-The `listfiles` function is facilitated by `Album`. It uses the following operations:
+The `listfiles` function is facilitated by `Album`. It uses the following operation:
 
 * `Album#getFileNames()` - Returns a list of all the files in `assets` directory.
 

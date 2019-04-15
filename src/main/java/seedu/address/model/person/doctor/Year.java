@@ -11,8 +11,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Year {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Year of experience should only contain numbers, and it should between 0-150";
-    public static final String VALIDATION_REGEX = "([0-9]|[1-8][0-9]|9[0-9]|1[0-4][0-9]|150)"; // 1   -150
+            "Year of experience should only contain numbers, and it should between 0-100";
+    public static final String VALIDATION_REGEX = "([0-9]|[1-8][0-9]|9[0-9]|100)"; // 1   -100
     public final String value;
 
     /**

@@ -17,25 +17,28 @@ docX is a desktop clinic data management application used to maintain clinic's d
 
 * *Major enhancement*: added the ability to *find relevant and available doctors based on specialisation and the desired date and time*
 ** What it does: Allows the user to find doctors whose specialisation matches the input and are available at the desired date and time for an appointment.
-** Justification: This feature improves the product significantly because the user can now find available doctor(s) that match(es) the required specialisation with just one command, instead of the traditional method, where the user has to scroll through the list of doctors to find them manually.
-** Highlights: This enhancement required an in-depth analysis of design alternatives. The implementation too was challenging as it required access to another class' information (Appointment list under ModelManager) and temporary changes made to the Appointment Filtered List under Model Manager during implementation.
+** Justification: This feature improves the product significantly because the user can now find available doctor(s) that match(es) the required specialisation with just one command, instead of the traditional method, where the user has to scroll through the list of doctors to find them manually. This would save the user a huge amount of time and resources spent on finding the right doctor for the patient and would result in reduced manhours of the front desk.
+** Highlights: This enhancement required an in-depth analysis of design alternatives. The implementation too was challenging as it required access to another class' information (Appointment list under ModelManager) and temporary changes made to the Appointment Filtered List under Model Manager during implementation. Additionally, the filtering of the doctors' list can only be done with one predicate, which means the list will always be filtered from the full original list. Hence, I had to create 3 different predicates to filter the doctor list to get the relevant doctors to check against the appointment list, then filter the doctor list again based on the above results.
 
 * *Minor enhancement*: making searching of doctors by keywords more convenient with the usage of just 1 command.
 ** What it does: Allows the user to find doctors whose fields matches the keyword(s) inputted.
-** Justification: This feature allows the user to intuitively use the same command word for different functions. `list-d` now can be used to list the full original list of doctors and `list-d 10` will list doctors whose field(s) contains '10'. Hence, the user just needs to remember 1 command word for listing and searching of the doctors.
-** Highlights: This enhancement although minor, proved to be a challenge because the parser for this command has to accept any number of keywords (0 to infinitely many). Hence, the parser must be prepared to take in null arguments and many arguments too.
+** Justification: This feature allows the user to intuitively use the same command word for different functions. `list-d` now can be used to list the full original list of doctors and `list-d 10` will list doctors whose field(s) contains '10'. Hence, the user just needs to remember 1 command word for listing and searching of the doctors. This is particularly useful because a receptionist new to our application will be able to get used to the application as soon as possible, which is our objective of this application - to make the jobs of receptionist faster and easier.
+** Highlights: This enhancement although minor, proved to be a challenge because the parser for this command has to accept any number of keywords (0 to infinitely many). As the parser must be prepared to take in null arguments and many arguments, there had to be checks to ensure the right results is shown to the user.
 
 * *Code contributed*: Find my code contributed https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=siyingpoof[here].
 
 * *Other contributions*:
 
 ** Enhancements to existing features:
-*** Allowing the display of doctors' information on the browser panel. (Pull requests https://github.com[#33], https://github.com[#34])
+*** Allowing the display of doctors' information on the browser panel. (Pull request https://github.com/cs2103-ay1819s2-w13-1/main/pull/178[#178])
 *** Wrote additional tests for existing features to increase coverage by 8%. (Pull requests https://github.com/cs2103-ay1819s2-w13-1/main/pull/198[#198], https://github.com/cs2103-ay1819s2-w13-1/main/pull/202[#202], https://github.com/cs2103-ay1819s2-w13-1/main/pull/205[#205])
+*** Change Patient and Doctor to inherit from Person class (OOP)
+*** Structured the initial User Guide for the team (Pull request https://github.com/cs2103-ay1819s2-w13-1/main/pull/99[#99], https://github.com/cs2103-ay1819s2-w13-1/main/pull/66[#66], https://github.com/cs2103-ay1819s2-w13-1/main/pull/65[#65])
+
 ** Community:
 As of 15 April 2019,
 
-*** https://github.com/cs2103-ay1819s2-w13-1/main/pulls?q=is%3Apr+is%3Aclosed+author%3Asiyingpoof)[Pull Requests (PRs)] on *__docX__*'s GitHub = 25
+*** https://github.com/cs2103-ay1819s2-w13-1/main/pulls?q=is%3Apr+is%3Aclosed+author%3Asiyingpoof)[Pull Requests (PRs)] on *__docX__*'s GitHub > 30
 *** https://github.com/cs2103-ay1819s2-w13-1/main/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3Asiyingpoof[PRs reviewed] with non-trivial review comments = 3 (https://github.com/cs2103-ay1819s2-w13-1/main/pull/212[#212], https://github.com/cs2103-ay1819s2-w13-1/main/pull/113[#113], https://github.com/cs2103-ay1819s2-w13-1/main/pull/93[#93])
 *** https://github.com/cs2103-ay1819s2-w13-1/main/issues?q=is%3Aissue+is%3Aclosed+author%3Asiyingpoof[Issues] raised on *__docX__*'s GitHub = 5
 *** https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/created_by/siyingpoof[Reported bugs and suggestions] for other teams in the class (examples: https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/311[1], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/809[2],  https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/265[3])
@@ -54,5 +57,7 @@ include::../UserGuide.adoc[tag=doctorcommands]
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+include::../DeveloperGuide.adoc[tag=ui]
 
 include::../DeveloperGuide.adoc[tag=doctorcommands]

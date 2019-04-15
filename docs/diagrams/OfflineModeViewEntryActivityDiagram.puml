@@ -1,0 +1,28 @@
+@startuml
+
+start
+
+:User clicks on entry;
+
+:BrowserPanel sees change;
+
+if (reader view enabled?) then (yes)
+  if (model hasOfflineEntry?) then (yes)
+    :Load offline contents to memory;
+  else (no)
+    :Navigate WebView to online link;
+    :After loaded, load contents to memory;
+  endif
+  :Generate reader view;
+  :Navigate WebView to reader view contents;
+else (no)
+  if (model hasOfflineEntry?) then (yes)
+    :Navigate WebView to offline link;
+  else (no)
+    :Navigate WebView to online link;
+  endif
+endif
+
+stop
+
+@enduml

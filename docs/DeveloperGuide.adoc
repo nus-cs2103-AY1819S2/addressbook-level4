@@ -713,6 +713,13 @@ in case there are any encoding issues.
 When saving articles to disk, we need to do so in a way that performs well.
 This is described in section xref:Design-Storage[]
 
+==== Viewing an entry with offline mode
+
+As an example, what happens when viewing an entry with offline mode enabled?
+This is summarised by the activity diagram below:
+
+image::OfflineModeViewEntryActivityDiagram.png[width="800"]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.

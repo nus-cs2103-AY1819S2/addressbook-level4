@@ -970,7 +970,7 @@ The reminder is in the form of an `AlertDialog` and is scheduled to show on the 
 The alert only pop ups when the application is running in the background.
 // end::setreminder[]
 
-
+// tag::statistics[]
 === Statistics Feature
 
 The statistics mechanism is facilitated by Statistics class, which is a public Java class containing a private static
@@ -1117,6 +1117,8 @@ tandem so that the statistical data was always accurate in real-time.
 
 To address the issue of losing statistical data upon closing down and reopening HealthHub, I have ensured that
 statistics and sortedMap are initialized with latest data from the RequestBook during the init() method in the MainApp.
+
+// end::statistics[]
 
 
 // tag::autocomplete[]

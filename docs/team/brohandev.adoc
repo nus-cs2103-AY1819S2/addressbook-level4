@@ -68,33 +68,26 @@ image::rohan_patient_profile.PNG[]
 * *Other contributions*:
 
 ** Project management:
-*** Setup codacy and coveralls badges for the team on GitHub:
+*** Setup codacy and coveralls badges for the team on GitHub
 ** Enhancements to existing features:
 *** Wrote Conditions class based off Tag class from Address Book 4, and incorporated additional functionality for it to accept more than just 1 string input.
-*** Wrote tests for Condition class and condition-related features in Request class, including various test utility classes to assist other team members in their testing (Pull requests #105, #110)
+*** Wrote tests for Condition class and condition-related features in Request class, including various test utility classes to assist other team members in their testing
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Added detailed implementation documentation for the statistics feature in the User Guide and the Developer Guide, including diagrams
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** Reviewed and gave feedback to team members. PRs reviewed: https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Setup Codacy and Coveralls badges to perform automated testing of test cases and auto-publishing of documentation and reports on overall overage score of the application software.
 
 _{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
-
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-//include::../UserGuide.adoc[tag=undoredo]
-//
-//include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=statistics]
 
 == Contributions to the Developer Guide
 
@@ -102,13 +95,5 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=statistics]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

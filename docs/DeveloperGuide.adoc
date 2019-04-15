@@ -341,10 +341,26 @@ When the user inputs the sort command in the CLI, the input is parsed, and the s
 `sort` keyword will call a constructor for SortCommandParser to parse the sort option, *color*, creating a SortCommand for LogicManager.
 
 LogicManager executes SortCommand which calls Model to sort the apparels in the list by color, and commits the changes to Storage.
+
+.Sequence Diagram for Sort command
+image::SortCommandSequenceDiagram.png[width="800"]
+
+The CommandResult object that is returned by the sort command lets the user know that the apparels have been sorted according to the specified option.
+
+==== Design Considerations:
+
+* Alternate command word: `sort name desc` works similar to `sort name` except that it sorts in descending order of the apparel's name.
+
+Pros: Give the users more flexibility on how they want to sort the apparels.
+Pros: Simulates the real world where people might to sort the apparels in reverse order.
+
+==== Proposed additions for v2.0:
+A sort command that is able to sort the apparels by multiple parameters. e.g. `sort color name type` to sort the apparels by type first, followed by name second, and lastly by color.
+
 // end::sort[]
 
 // tag::swap[]
-=== Sort Apparel feature
+=== Swap Apparel feature
 Swap any two apparels.
 Simulating an event in the real world where users swap the position of two apparels.
 
@@ -355,6 +371,21 @@ The swap command takes in two parameters: INDEX_A and INDEX_B
 * Index_B : The second apparel to be swapped.
 
 e.g `swap 2 5` will swap the apparels at index 2 and 5.
+
+.High Level Visualisation of Sort Command
+image::HighLevelSwapDiagram.png[width="800"]
+
+When the user inputs the swap command in the CLI, the input is parsed, and both the indexes of the apparels specified are validated.
+
+`swap` keyword will call a constructor for SwapCommandParser to parse the swap parameters, *1* and *2*, creating a SwapCommand for LogicManager.
+
+LogicManager executes SwapCommand which calls Model to swap the position of apprels in index *1* and *2*, and commits the changes to Storage.
+
+.Sequence Diagram for Swap command
+image::SwapCommandSequenceDiagram.png[width="800"]
+
+The CommandResult object that is returned by the swap command lets the user know that the position of the two apparels specified have been swapped.
+
 // end::swap[]
 
 // tag::recommendation[]

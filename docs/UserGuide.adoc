@@ -461,6 +461,10 @@ Examples:
 * The order of the tags does not matter. e.g. `t/Lecture t/Week_1` will match `t/Week_1 t/Lecture`.
 * Only full words will be matched e.g. `Urgent` will not match `UrgentFiles`.
 * File matching at least one of the input tags will be shown.
+
+[NOTE]
+Using filter without any tag specified i.e. `filter t/` will return an empty list since there is no tag to reference.
+
 ****
 
 [#command-find]

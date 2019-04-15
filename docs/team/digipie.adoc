@@ -14,11 +14,11 @@ The purpose of this portfolio is to demonstrate my software engineering competen
 === Overview +
 The BrainTrain project was developed by a team of 5 students over seven weeks, under the National University of Singapore's link:{seeduURL}[CS2103T: Software Engineering module]. +
 
-CS2103T students were given the option of enhancing an link:{seeduURL}[existing addressbook application] or morphing it into another product. We chose to morph it into a https://en.wikipedia.org/wiki/Spaced_repetition[spaced-repetition] flashcard application because we wanted to further challenge ourselves and improve our software engineering skills.
+CS2103T students were given the option of enhancing an link:{seeduURL}[existing addressbook application] or morphing it into another product. We chose to morph it into a https://en.wikipedia.org/wiki/Spaced_repetition[spaced-repetition] card application because we wanted to further challenge ourselves and improve our software engineering skills.
 
 === What is BrainTrain +
 
-BrainTrain is a *spaced-repetition flashcard application* which makes *memorizing easy and effective*. With BrainTrain's link:https://www.theguardian.com/education/2016/jan/23/spaced-repetition-a-hack-to-make-your-brain-store-information[Spaced Repetition System (SRS)] optimizing your flashcard revision intervals, you will be able to *learn more in less time*.
+BrainTrain is a *spaced-repetition card application* which makes *memorizing easy and effective*. With BrainTrain's link:https://www.theguardian.com/education/2016/jan/23/spaced-repetition-a-hack-to-make-your-brain-store-information[Spaced Repetition System (SRS)] optimizing your card revision intervals, you will be able to *learn more in less time*.
 
 {empty} +
 
@@ -28,28 +28,28 @@ My primary responsibility was to design and develop the *Card Management System*
 === Major enhancement +
 My largest contribution to the project was the implementation of the *Card Management System*: +
 
-* Context: In BrainTrain, each lesson contains a set of flashcards of the same type and topic.
+* Context: In BrainTrain, each lesson contains a set of cards of the same type and topic.
 * What it does: It provides users with the ability to add, edit and delete lessons in *Lesson View* and *Card View* modes.
 * In *Lesson View*, users can:
 ** Add and delete lessons by using the `addLesson` and `deleteLesson` commands
 ** Open a lesson in *Card View* for editing by using the `edit` command
 ** List the full details of all lessons by using the `listLessons` command
 * In *Card View*, users can:
-** Add and delete flashcards by using the `addCard` and `deleteCard` commands
-** Set the 2 test values to be tested in quiz mode for all flashcards in the lesson by using the `set` command
+** Add and delete cards by using the `addCard` and `deleteCard` commands
+** Set the 2 test values to be tested in quiz mode for all cards in the lesson by using the `set` command
 ** List the full details of all cards by using the `listCards` command
 ** Quit *Card View* and return to *Lesson View* by using the `quit` command
-* Justification: Users need to be able to create and manage content in order to use BrainTrain for flashcard learning.
+* Justification: Users need to be able to create and manage content in order to use BrainTrain for card learning.
 * Most significant pull requests: link:{pullURL}113[#113], link:{pullURL}173[#173] and link:{pullURL}180[#180]
 * Code contributed: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=digipie[View on RepoSense] +
 
 === Minor enhancement +
 My second largest contribution was the Graphical User Interface (GUI) representation for the Card Management System: +
 
-* What it does: Displays all lessons and their relevant details in *Lesson View*, and the details and flashcards of the lesson being edited in *Card View*.
+* What it does: Displays all lessons and their relevant details in *Lesson View*, and the details and cards of the lesson being edited in *Card View*.
 ** In *Lesson View*, users can view all lessons and their details (e.g. number of cards).
-** In *Card View*, users can view the opened lesson's details and its flashcards.
-* Justification: The GUI representation of lessons and flashcards provides users with the ability to view all relevant details at a glance.
+** In *Card View*, users can view the opened lesson's details and its cards.
+* Justification: The GUI representation of lessons and cards provides users with the ability to view all relevant details at a glance.
 * Code contributed: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=digipie[View on RepoSense] +
 
 === Other contributions +
@@ -73,90 +73,27 @@ link:{pullURL}20[#20], https://github.com/CS2103-AY1819S2-link:{pullURL}85[#85],
 {empty} +
 
 == Contributions to the user guide +
-I have listed some of my key contributions to the
-link:{webURL}UserGuide.html[user guide] as excerpts below:
+I have listed some of my key contributions to the link:{webURL}UserGuide.html[user guide] as excerpts below: +
 
 === Excerpt: Quick start +
-To begin using BrainTrain, follow the following set of instructions: +
-
-. Ensure that Java version `9` or later is installed on your Computer. You can download it link:https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html[here].
-. Download the latest `braintrain.jar` file link:{repoURL}/releases[here]. It is located under _Assets_.
-. Create a folder to store the downloaded file (e.g. `braintrain/`).
-. Move `braintrain.jar` into the created folder.
-. Double-click `braintrain.jar` to launch the BrainTrain app. You should see the following within a few seconds:
-
-+
-.BrainTrain on first run
-[#img-firstlook]
-image::UiFirstLook.png[width="384"]
-
-. Read the next section, <<Features>>, to find out what BrainTrain commands there are.
+_Click link:{webURL}UserGuide.html#Quick-start[here] to view this section in the user guide._
 
 === Excerpt: Adding a lesson: `addLesson` +
-Adds a lesson which is used to store cards of the same type and topic. +
-Format: `addLesson n/NAME t/TEST t/TEST [t/TEST]... [h/HINT]...`
-
-[NOTE]
-====
-This command only works in lesson view. If you are currently editing a lesson in card view, you have to use the <<quit, `quit`>> command to return to lesson view before you can use this command.
-====
-
-Usage rules:
-
-* You must specify at least 2 `TEST` values. Flashcards added to this lesson must have corresponding `TEST` values.
-** For example, a lesson for memorising _muscle anatomy_ will have three `TEST` values: 'Muscle', 'Action' and 'Innervation'.
-** By default, the first 2 `TEST` values ('Muscle' and 'Action') will be tested when the lesson is started in quiz mode.
-** You can set the 2 `TEST` values to be tested by using the <<set, `set`>> command.
-* You can specify 0 or more `HINT` values (e.g. 'Muscle Group').
-** `HINT` values are displayed during quiz mode when you enter <<hint, `\hint`>>.
-
-Examples:
-
-* `addLesson n/Capitals of the world t/Country t/Capital t/Language h/Hint`
-** Adds a lesson named 'Capitals of the world' with 3 `TEST` values and 1 `HINT` value.
-* `addLesson n/Chinese vocabulary t/English t/Chinese`
-** Adds a lesson named 'Chinese vocabulary' with 2 `TEST` values.
+_Click link:{webURL}UserGuide.html#addLesson[here] to view this section in the user guide._
 
 === Excerpt: Setting the lesson's test pair: `set` +
-Sets the 2 `TEST` values at the 2 specified INDEX of the numbered card list to be tested in quiz mode. +
-Format: `set INDEX INDEX`
+_Click link:{webURL}UserGuide.html#set[here] to view this section in the user guide._
 
-[NOTE]
-====
-This command only works in card view. You have to open a lesson in card view for editing with the <<edit, `edit`>> command before you can use this command.
-====
-
-Usage rules:
-
-* You must specify exactly 2 valid `INDEX` values.
-
-Example:
-
-.A lesson opened in card view, before `set 1 3` is entered
-image::set_test_before.png[width=384]
-
-In the above scenario, the command `set 1 3` will set the first `TEST` value 'Muscle' and the third `TEST` value 'Innervation' as the values to be tested. After the command is entered, the interface updates accordingly:
-
-.A lesson opened in card view, after `set 1 3` is entered
-image::set_test_after.png[width=384]
-
-=== Excerpt: Deleting a flashcard: `deleteCard` +
-Deletes the card at the specified INDEX of the numbered card list. +
-Format: `deleteCard INDEX`
-
-[NOTE]
-====
-This command only works in card view. You have to open a lesson in card view for editing with the <<edit, `edit`>> command before you can use this command.
-====
-
-Example:
-
-.BrainTrain with sample cards loaded
-image::delete_card.png[width=384]
-
-In the above scenario, the command `deleteCard 2` will delete the second card in the numbered list, 'Orbicularis oculi / Facial nerve'.
+=== Excerpt: Deleting a card: `deleteCard` +
+_Click link:{webURL}UserGuide.html#deleteCard[here] to view this section in the user guide._
 
 {empty} +
 
 == Contributions to the developer guide +
-I have listed some of my key contributions to the link:{webURL}DeveloperGuide.html[developer guide] as excerpts below:
+I have listed some of my key contributions to the link:{webURL}DeveloperGuide.html[developer guide] as excerpts below: +
+
+=== Excerpt: How do the key components interact +
+_Click link:{webURL}DeveloperGuide.html#componentInteractions[here] to view this section in the developer guide._
+
+=== Excerpt: How do the logic sub-components interact +
+_Click link:{webURL}DeveloperGuide.html#logicInteractions[here] to view this section in the developer guide._

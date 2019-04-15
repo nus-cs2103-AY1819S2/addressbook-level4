@@ -88,26 +88,20 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 [NOTE]
 Having both Travis and AppVeyor ensures your app works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
-==== Getting started with coding
-
-When you are ready to start coding,
-
-1. Get some sense of the overall design by reading <<Design-Architecture>>.
-2. Take a look at <<GetStartedProgramming>>.
-
 == Design
 
 [[Design-Architecture]]
 === Architecture
 
-.Architecture Diagram
+.Architecture diagram
 image::Architecture.png[width="600"]
-
-The *_Architecture Diagram_* given above explains the high-level design of the app. Given below is a quick overview of each component.
 
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
+The *_architecture diagram_* given above illustrates the high-level design of the BrainTrain app. It shows the key components of the app, and how they interact with one another.
+
+==== Brief overview of key components
 * `Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`] which is responsible for:
 
 ** Initializing the components in the correct sequence and connecting them at app launch.
@@ -116,9 +110,9 @@ The `.pptx` files used to create diagrams in this document can be found in the l
 * <<Design-Commons,*`Commons`*>> is a collection of classes which provides useful utility methods used by multiple other components.
 The following class plays an important role at the architecture level:
 
-** `LogsCenter` : Used by many classes to write log messages to the app's log file.
+** `LogsCenter` : Used by numerous classes to write log messages to the app's log file.
 * <<Design-Ui,*`UI`*>>: Handles the user interface.
-* <<Design-Logic,*`Logic`*>>: Executes commands.
+* <<Design-Logic,*`Logic`*>>: Handles the command executions.
 * <<Design-ManagementModel,*`ManagementModel`*>>: Handles the in-memory data of management mode.
 * <<Design-QuizModel,*`QuizModel`*>>: Handles the in-memory data of quiz mode.
 * <<Design-Storage,*`Storage`*>>: Reads and writes data to the hard disk.
@@ -128,67 +122,73 @@ The <<Design-Ui,*`UI`*>>, <<Design-Logic,*`Logic`*>>, <<Design-ManagementModel,*
 * Has an API in the form of an Java interface named after the component.
 * Has its functionality exposed through a Java class named `{Component Name}Manager`.
 
-For example, the `Logic` component (refer to class diagram below) defines it's API in the `Logic.java`, interface and exposes its functionality through the `LogicManager.java` class.
+For example, the `Logic` component (refer to figure 2 below) has it's API defined in the `Logic.java` interface, and exposes its functionality through the `LogicManager.java` class.
 
-.Class Diagram of the Logic Component
+.Class diagram of the `Logic` component
 image::LogicClassDiagram.png[width="800"]
 
 [discrete]
-==== How the architecture components interact with each other
+[[componentInteractions]]
+==== How do the key components interact
+In this section, an example of how the key components interact when the user issues the command `deleteLesson 1` is shown.
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+.Sequence diagram of the `deleteLesson 1` command
+image::sd_delete_lesson.png[width="800"]
 
-.Component interactions for `delete 1` command
-image::SDforDeletePerson.png[width="800"]
-
-The sections below give more details of each component.
+Sequence diagrams such as the one above will be provided throughout the developer guide when it is important to highlight how the key components interact. Subsequent sections provide more details on each key component.
 
 [[Design-Ui]]
 === UI component
 
-.Structure of the UI Component
+.Structure of the `UI` Component
 image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`,
-`MainPanel`, `LessonListPanel`, `QuizResultPanel` etc. All these, including the `MainWindow`,
-inherit from the abstract `UiPart` class.
+The `UI` consists of a `MainWindow` which is made up of the following parts: `CommandBox`, `ResultDisplay`,
+`MainPanel`, `LessonListPanel`, `QuizResultPanel`, etc. All these parts, including the `MainWindow`,
+inherit from the `UiPart` abstract class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses the *JavaFx* `UI` framework. The layouts for these `UI` parts are defined in corresponding `.fxml` files in the `src/main/resources/view` folder. For example, the layout for  link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in the link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`].
 
 The `UI` component,
 
-* Executes user commands using the `Logic` component.
-* Listens for changes to `Logic` so that the UI can be updated with the modified data.
+* passes user input to the `Logic` component for command execution.
+* listens for changes to `Logic` and updates if data is changed.
 
 [[Design-Logic]]
 === Logic component
 
 [[fig-LogicClassDiagram]]
-.Structure of the Logic Component
+.Class diagram of the `Logic` component
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses either the `ManagementModeParser` or `QuizModeParser` class to parse the user command.
-..  If `ManagementParser` is used to parse the user command:
+.  `Logic` uses either `ManagementModeParser` or `QuizModeParser` class to parse the user command.
+..  If `ManagementModeParser` is used to parse the user command:
 ...  This results in a `ManagementCommand` object which is executed by the `LogicManager`.
 ...  The command execution can affect the `ManagementModel` (e.g. adding a lesson).
 ..  If `QuizModeParser` is used to parse the user command:
 ...  This results in a `QuizCommand` object which is executed by the `LogicManager`.
 ...  The command execution can affect the `QuizModel` (e.g. answering a question).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is
-passed back to the `UI`.
-.  In addition, the `CommandResult` object can also instruct the `UI` to perform certain actions,
- such as displaying help to the user.
+returned to the `UI`.
+.  In addition, the `CommandResult` object might also instruct the `UI` to perform certain actions,
+ such as displaying the user guide to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the
-`execute("edit")` API call.
-//todo update this sequence diagram
-.Interactions Inside the Logic Component for the `edit` Command
-image::DeletePersonSdForLogic.png[width="800"]
+[[logicInteractions]]
+==== How do the logic sub-components interact
+In this section, an example of how the `Logic` sub-components interact when the user issues the command `addCard t/Korea t/Seoul h/S` is shown.
+
+.'Sample-Capitals' lesson opened in card view
+image::ui_add_card.png[width="800"]
+
+Given the above example, the following sequence of interactions will occur within the `Logic` component.
+
+.Sequence diagram of the `addCard t/Korea t/Seoul h/S` command
+image::sd_add_card.png[width="800"]
 
 [[Design-ManagementModel]]
 === ManagementModel component

@@ -19,17 +19,17 @@ By: `Team BrainTrain`      Since: `Jan 2019`      Licence: `MIT`
 
 // tag::evan-intro[]
 == Introduction
-BrainTrain is a *spaced-repetition flashcard application* which makes *memorizing easy and effective*. With BrainTrain's link:https://www.theguardian.com/education/2016/jan/23/spaced-repetition-a-hack-to-make-your-brain-store-information[Spaced Repetition System (SRS)] optimizing your flashcard revision intervals, you will be able to *learn more in less time*.
+BrainTrain is a *spaced-repetition card application* which makes *memorizing easy and effective*. With BrainTrain's link:https://www.theguardian.com/education/2016/jan/23/spaced-repetition-a-hack-to-make-your-brain-store-information[Spaced Repetition System (SRS)] optimizing your card revision intervals, you will be able to *learn more in less time*.
 
 *Who is it for:*
 
-- Anyone who needs to memorise anything should use BrainTrain (e.g. Japanese vocabulary, periodic table, human anatomy). BrainTrain's flashcard system is *content-agnostic* and *flexible*. It accommodates all forms of learning you may require.
-- Anyone who needs to create flashcard learning content for educational purposes should use BrainTrain. BrainTrain's flashcards are grouped as lessons which can be *easily imported and exported*. These lessons are also saved in `.csv` files which you *can edit in your favourite spreadsheet application* (e.g. Excel).
+- Anyone who needs to memorise anything should use BrainTrain (e.g. Japanese vocabulary, periodic table, human anatomy). BrainTrain's card system is *content-agnostic* and *flexible*. It accommodates all forms of learning you may require.
+- Anyone who needs to create card learning content for educational purposes should use BrainTrain. BrainTrain's cards are grouped as lessons which can be *easily imported and exported*. These lessons are also saved in `.csv` files which you *can edit in your favourite spreadsheet application* (e.g. Excel).
 
 *Main features of BrainTrain:*
 
-- You can manage flashcard lessons in BrainTrain's management mode or alternatively do so in your preferred spreadsheet application.
-- You can attempt flashcard lessons in BrainTrain's quiz mode which will track and manage your user-specific spaced-repetition data automatically.
+- You can manage card lessons in BrainTrain's management mode or alternatively do so in your preferred spreadsheet application.
+- You can attempt card lessons in BrainTrain's quiz mode which will track and manage your user-specific spaced-repetition data automatically.
 
 Read the next section, <<Quick-start>>, to start using BrainTrain.
 // end::evan-intro[]
@@ -112,13 +112,13 @@ Usage rules:
 * You must specify index and count as a valid number which should be less than the MAXIMUM_INTEGER(0*7ffffffff), otherwise an error will be thrown.
 * You must specify `MODE`. `MODE` sets the testing mode of the quiz session. The four available modes are `LEARN`, `PREVIEW`, `REVIEW` and `DIFFICULT`.
 . `LEARN`: Displays new cards with both question and answer before test begins, and then only question is shown to test you. If you have already learned all the cards in current lesson, an error of no more new card to learn will be thrown.
-. `PREVIEW`: Displays both question and answer of flashcards. You will not be tested.
-. `REVIEW`: Tests the words based on the spaced-repetition algorithm, which means that flashcards with the earliest test date are tested first. If no card has due date before current time, an error of no card for review will be thrown.
+. `PREVIEW`: Displays both question and answer of cards. You will not be tested.
+. `REVIEW`: Tests the words based on the spaced-repetition algorithm, which means that cards with the earliest test date are tested first. If no card has due date before current time, an error of no card for review will be thrown.
 . `DIFFICULT`: Displays cards you previously labelled as difficult with both question and answer shown. You will not be tested. If no card has been labelled as difficult, an error of no difficult card will be thrown.
 
 [NOTE]
 ====
-Only in review mode, flashcards are tested based on the link:https://en.wikipedia.org/wiki/Spaced_repetition[Space-Repetition system].
+Only in review mode, cards are tested based on the link:https://en.wikipedia.org/wiki/Spaced_repetition[Space-Repetition system].
 ====
 
 Examples:
@@ -327,7 +327,7 @@ This command only works in card view. You have to open a lesson in card view for
 
 Usage rules:
 
-* You must specify at least 2 `TEST` values. This is because a flashcard needs at least 2 `TEST` values to be testable in quiz mode.
+* You must specify at least 2 `TEST` values. This is because a card needs at least 2 `TEST` values to be testable in quiz mode.
 * You can specify 0 or more `HINT` values.
 
 [NOTE]
@@ -338,13 +338,13 @@ You can only add cards to the opened lesson if they have the same number of `TES
 Examples:
 
 * `addCard t/Australia t/Canberra t/English h/Starts with C`
-** Adds a flashcard with 3 `TEST` values and 1 `HINT` value.
+** Adds a card with 3 `TEST` values and 1 `HINT` value.
 ** By default, the lesson will be set to test the first 2 `TEST` values. In this case, 'Australia' and 'Canberra' are the 2 values to be tested by default.
 * `addCard t/Cake t/蛋糕`
-** Adds a flashcard with 2 `TEST` values which are both tested in quiz  mode.
+** Adds a card with 2 `TEST` values which are both tested in quiz  mode.
 
 [[deleteCard]]
-==== Deleting a flashcard: `deleteCard` +
+==== Deleting a card: `deleteCard` +
 Deletes the card at the specified INDEX of the numbered card list. +
 Format: `deleteCard INDEX`
 

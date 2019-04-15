@@ -122,7 +122,7 @@ public class RecCommandTest {
     }
 
     @Test
-    public void execute_UeRemainingGradtrak() {
+    public void execute_ueRemainingGradtrak() {
         String expectedMessage = MESSAGE_UE_LEFT;
 
         List<ModuleTaken> algoList = TypicalModuleTaken.getFullAlgoList();

@@ -559,7 +559,7 @@ can only end after both the diagnosis and prescription are finalized.
 
 Given below is an example usage scenario:
 
-image::dg-consultation/consultation1.png[width="800"]
+
 
 *Step 1.* A previously registered patient arrives and the doctor starts the session by
 entering the consult command in this manner: `consult r/NRIC of the patient`. A message to indicate
@@ -569,7 +569,7 @@ the start of the consultation will be shown in the results display.
 that the consultation cannot continue since no patient records with the entered Nric can be found. An invalid nric entered will also prompt the
 same response
 
-image::dg-consultation/consultation2.png[width="800"]
+image::dg-consultation/consultation1.png[width="800"]
 
 *Step 2.* The patient will tell the doctor what are his / her ailments. The doctor will record the symptoms
 down. The doctor will then make the assessment of the illness the patient is having and execute the command by clicking
@@ -578,13 +578,13 @@ on the `Enter` on the keyboard.
 * The symptoms and assessment have to be prepended by the `s/` and `a/` prefix respectively
 * The command entered by the doctor will look something like this: `diagnose s/constant coughing s/sore throat a/throat infection`
 
-image::dg-consultation/consultation3.png[width="800"]
+image::dg-consultation/consultation2.png[width="800"]
 
 *Step 3.* Should the patient inform the doctor of additional symptoms after the diagnosis is given, the doctor can simply press
 the up and down key to display the previously entered command on the userInput area. The doctor can then add the new symptom in and
 press `Enter`, replacing the previously recorded diagnosis.
 
-image::dg-consultation/consultation4.png[width="800"]
+image::dg-consultation/consultation3.png[width="800"]
 
 *Step 4.* The doctor will then add the medicine to the prescription list, followed by the quantities. Medicine are prepended by the `m/` prefix while
 quantities are prefixed by `q/`.The order of the quantity entered corresponds with the order the medicine is added in the command:
@@ -596,9 +596,11 @@ quantities are prefixed by `q/`.The order of the quantity entered corresponds wi
 If any of the medicine issued are insufficient to complete the prescription, or is simply not in the inventory, a message will be displayed in
 the inputFeedback area. The command will not be executed and remains in the userInput text field. The doctor can then make the changes to the command.
 
-image::dg-consultation/consultation5.png[width="800"]
+image::dg-consultation/consultation4.png[width="800"]
 
 *Step 5.* Just like the diagnosis command, prescription can be replaced by reentering the command.
+
+image::dg-consultation/consultation5.png[width="800"]
 
 *Step 6.* After explaining the medicine intake to the patient, the doctor can then end the consultation session on QuickDocs by using the command
 `endconsult`. No further changes to the consultation records can be made from this point on.

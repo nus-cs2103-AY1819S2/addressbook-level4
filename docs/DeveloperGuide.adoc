@@ -549,7 +549,7 @@ can be left blank or take on 1 value.
 //tag::design_considerations_import_export[]
 
 ===== Aspect: Which component responsible for import/export logic
-* **Alternative 1 (current choice)**: Implement read and write card folders in `StorageManager` class
+* **Alternative 1 (current choice)**: Implement read and write card folders in StorageManager class
 ** Pros: The most intuitive solution,
 since Storage involves read and write logic
 ** Cons:
@@ -1973,7 +1973,7 @@ with the corresponding flashcards added to the folder
  flashcard application
 .. Test case: `export 1` +
 Prerequisities: You must have at least one folder existing in the application. +
-   Expected: The command box outputs a message `Successfully exported card folders` and project root directory should contain a `x`.csv file where `x` is the name of the first folder in the application.
+   Expected: The command box outputs a message "Successfully exported card folders" and project root directory should contain a `x.csv` file where `x` is the name of the first folder in the application.
 .. Test case: `export 1 2 3` +
 Prerequisities: You must have at least 3 card folder existing in the application. +
    Expected: The same message output in the command box as the previous test case and the corresponding files `x1.csv`, `x2.csv` and `x3.csv` created in project root directory, where `x1`, `x2`, `x3` corresponds to the name of the first, second and third folder

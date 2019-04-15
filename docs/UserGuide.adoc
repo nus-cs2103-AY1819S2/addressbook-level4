@@ -702,7 +702,7 @@ this number is automatically calculated and recorded.
 * [[testscore]] **Test Score**: The number of cards correctly answered over number of cards attempted during a test session. This number is automatically recorded after each test session.
 * [[homedirectory]] **Home Directory**: The home page where all the folders are listed. From here, users can enter folders to view cards.
 * [[index]] **Index**: The unique number associated with an item in a list. The first item in a list has an index of 1.
-* **project root directory**: The directory where *Know-It-All*'s jar file is located.
+* **project root directory**: The directory where Know-It-All's .jar file is located
 
 //tag::cmdsummary[]
 == Command Summary

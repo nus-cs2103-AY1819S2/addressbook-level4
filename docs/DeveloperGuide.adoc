@@ -887,7 +887,7 @@ image::inputStatsCommandSS.png[width=200]
 Pop-up window for `stats` :
 
 .Screenshot of empty statistics pop-up window.
-image::StatsWindowSS.png[width=300]
+image::StatsWindowSS.png[width=350]
 
 There should not be any valid data at the moment as the game as not started.
 
@@ -896,7 +896,7 @@ Step 4. Now proceed with the game and perform an attack. Input `attack a1`.
 Step 5. Invoke the `stats` command again to view the updated statistics of the attack result.
 
 .Screenshot of populated statistics pop-up window.
-image::StatsWindowUpdatedSS.PNG[width=300]
+image::StatsWindowUpdatedSS.PNG[width=350]
 
 Besides the pop-up window, the data is also captured in the command-line result box.
 
@@ -945,7 +945,7 @@ The following use-case diagram captures the behaviour of the statistics feature.
 
 
 .Use case diagram on the statistics feature.
-image::StatsUseCaseDiag.PNG[width=150]
+image::StatsUseCaseDiag.PNG[width=250]
 
 
 ==== Design considerations

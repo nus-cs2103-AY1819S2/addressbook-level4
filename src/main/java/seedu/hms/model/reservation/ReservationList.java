@@ -45,7 +45,7 @@ public class ReservationList implements Iterable<Reservation> {
     private Optional<DateRange> isRoomFull(Reservation reservation) {
         for (DateRange reservationDate : reservation.getDates().getEachDay()) {
             if (getOverlappingReservations(reservationDate, reservation.getRoom()).size()
-                    > reservation.getRoom().getNumberOfRooms()) {
+                    >= reservation.getRoom().getNumberOfRooms()) {
                 return Optional.of(reservationDate);
             }
         }

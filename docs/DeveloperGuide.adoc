@@ -442,7 +442,7 @@ The `open` function is facilitated by `Album` and `CurrentEdit`. It uses the fol
 .Sequence Diagram for Open Command +
 image::OpenCommandSequenceDiagram.png[width=800]
 
-Given below is an example usage scenario of how `open` behaves at each step as shown in the figure above.
+The following is an example usage scenario of how `open` behaves at each step as shown in the figure above.
 
 Step 1. The user executes `open sample.png`.
 
@@ -492,7 +492,7 @@ The `listfiles` function is facilitated by `Album`. It uses the following operat
 .Sequence Diagram for ListFiles +
 image::ListFilesCommandSequenceDiagram.png[width=800]
 
-Given below is an example usage scenario of how `listfiles` behaves at each step as shown in the figure above.
+The following is an example usage scenario of how `listfiles` behaves at each step as shown in the figure above.
 
 Step 1. The user executes `listfiles`.
 
@@ -570,7 +570,6 @@ Step 8. `CurrentEdit#addCommand(this)` is invoked to add this command to the `Li
 This command calls for an adjustment of brightness on an opened image. After adjusting the brightness, it adds this specific command called by the user to the `List<Commands>` belonging to the `tempImage` found in `currentEdit` which saves the editing history of the opened image.
 
 Refer to the example usage scenario, sequence diagram and design considerations in <<Contrast Command>>.
-
 
 ==== BlackWhite Command
 This command calls for a transformation of an opened image to a black and white image. After applying the black and white filter, it adds this specific command called by the user to the `List<Commands>` belonging to the `tempImage` found in `currentEdit` which saves the editing history of the opened image.
@@ -678,7 +677,7 @@ The `save` function is facilitated by `Album` and `CurrentEdit`. It uses the fol
 .Sequence Diagram for Save Command
 image::SaveCommandSequenceDiagram.png[width=800]
 
-Given below is an example usage scenario of how `save` behaves at each step as shown in the figure above.
+The following is an example usage scenario of how `save` behaves at each step as shown in the figure above.
 
 Step 1. The user executes `save`.
 

@@ -404,6 +404,14 @@ Step5. execute() calls hasDoctor() of Model. If doctor does not exist, call addD
 
 ==== List Doctor feature
 
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("list-d")` API call.
+
+.The Sequence Diagram of the creation of the list doctor command.
+image::ListDoctorCreationSequenceDiagram.png[width="700"]
+
+.The Sequence Diagram of the execution of the list doctor command.
+image::ListDoctorExecutionSequenceDiagram.png[width="700"]
+
 When a user executes `list-doctor acupu`
 
 Step1. LogicManager calls parseCommand("list-d") in docXParser.
@@ -420,6 +428,7 @@ Step5. execute() checks if the DoctorContainsPredicate equals to null. If it equ
 
 
 Step6. test(Doctor) of DoctorContainsKeywordsPredicate will be called. It will check if any of the field matches "acupu" in full or part. If it matches, the doctor will be shown.
+
 
 ==== Edit Doctor feature
 

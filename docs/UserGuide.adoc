@@ -757,7 +757,7 @@ image::Chart_Combined.png[width="800", caption="Figure 4.17.1: ", reftext="Figur
 * You can type in any parameters after the `generate` command, TravelBuddy will simply ignore them (<<Generate_BeforeParamAfterParam>>).
 
 [[Generate_BeforeParamAfterParam]]
-.Before and after a parameter was used in the `generate` command
+.Before and after a parameter is used in the `generate` command
 image::Generate_BeforeParamAfterParam.png[width="800", caption="Figure 4.17.2: ", reftext="Figure 4.17.2"]
 
 *Examples:* Given below are some examples on how to utilize the `generate` command:

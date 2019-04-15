@@ -86,10 +86,9 @@ public class MemberDetailPanel extends UiPart<Region> {
         int memberParticipationRate = logic.getParticipationRate(member);
         String rateOfParticipation = Integer.toString(memberParticipationRate);
         rateOfParticipation = rateOfParticipation.concat("%");
-        if (attendedCounter == 0) {
-            rateOfParticipation = "N/A";
-        }
-        participationRate.setText("Participation Rate (out of all completed activities) = " + rateOfParticipation);
+        participationRate.setText("Participation Rate:\n"
+                + "(Number of activities completed by member\n / total number of completed activities) = "
+                + rateOfParticipation);
     }
 
 

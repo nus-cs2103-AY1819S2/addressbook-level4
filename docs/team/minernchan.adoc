@@ -3,37 +3,44 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 4
+== PROJECT: ClubManager
 
 ---
 
 == Overview
 
-Club Manager is a desktop CCA management application used for managing CCA members. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+ClubManager is a desktop CCA management application used for managing CCA members.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+ClubManager is tailored for *CCA Exco Members* to help them manage their CCA members and activities. It is easy to use, and quickly displays the relevant information so that
+the Exco members can keep track on their CCA members and any upcoming events.
 
 == Summary of contributions
 
-* *Major enhancement*: Helped in creation of the activity list functionalities and added the ability to place members in the attendance lists of activities.
+* *Major enhancement*: Helped in creation of the activity list functionalities and added the ability to manage members in the attendance lists of activities.
 ** What it does: Allow users to store records of the Club activities, and keep track of members who are attending/attended particular activities.
 ** Justification: This feature improves the product significantly because instead of looking at two separate lists without any meaning, there is now a relation between the members and activities (who is attending which activity).
 ** Highlights: This enhancement affects existing commands and commands to be added in the future. Our team spent a considerable amount of time planning the design of the Activity Class, and how it should interact with the Member object. The implementation was tedious as it required a lot of new commands and functions, in addition to the editing of existing functions.
 ** Credits: [https://github.com/nus-cs2103-AY1819S2/addressbook-level4[Existing AddressBook-Level4 code]]
 
-* *Minor enhancement*: Implemented the ActivityDeleteCommand, to permanently remove records of an existing activity from the database.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Minor enhancement*:
+**Implemented the ActivityDeleteCommand
+**Implemented the ActivityEditCommand
+**Provided function to remove member from any activity attendance list, when the member is deleted.
+
+* *Code contributed*: [https://github.com/CS2103-AY1819S2-W13-2/main/commits?author=minernchan[Functional code]] [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=minernchan&sort=displayName&since=2019-02-10&until=2019-04-2&timeframe=day&reverse=false&repoSort=true[RepoSense]]
 
 * *Other contributions*:
 
 ** Project management:
+*** Contributed to issues and user stories.
 
 ** Enhancements to existing features:
-
-** Documentation:
+*** Wrote test cases for new commands.
 
 ** Community:
-
-** Tools:
+*** Reviewed PRs of team members
 
 == Contributions to the User Guide
 
@@ -48,11 +55,15 @@ include::../UserGuide.adoc[tag=activityAddMember]
 
 include::../UserGuide.adoc[tag=activityDeleteMember]
 
+include::../UserGuide.adoc[tag=activityEdit]
+
 == Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+include::../DeveloperGuide.adoc[tag=activity_edit]
 
 include::../DeveloperGuide.adoc[tag=activityDelete]
 
@@ -60,8 +71,5 @@ include::../DeveloperGuide.adoc[tag=activityAddMember]
 
 include::../DeveloperGuide.adoc[tag=activityDeleteMember]
 
-== PROJECT:
 
----
 
-_{Optionally, you may include other projects in your portfolio.}_

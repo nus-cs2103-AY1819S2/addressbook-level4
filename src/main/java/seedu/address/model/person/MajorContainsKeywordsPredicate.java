@@ -1,25 +1,21 @@
 package seedu.address.model.person;
 
-import java.util.List;
 import java.util.function.Predicate;
-
-import seedu.address.commons.util.StringUtil;
 
 /**
  * Tests that a {@code Person}'s {@code Major} matches any of the keywords given.
  */
 
 public class MajorContainsKeywordsPredicate implements Predicate<Person> {
-    private final List<String> keywords;
+    private final String keywords;
 
-    public MajorContainsKeywordsPredicate(List<String> keywords) {
+    public MajorContainsKeywordsPredicate(String keywords) {
         this.keywords = keywords;
     }
 
     @Override
     public boolean test(Person person) {
-        return keywords.stream()
-                .allMatch(keyword -> StringUtil.equalsWordIgnoreCase(person.getMajor().value, keyword));
+        return keywords.equalsIgnoreCase(person.getMajor().value);
     }
 
     @Override

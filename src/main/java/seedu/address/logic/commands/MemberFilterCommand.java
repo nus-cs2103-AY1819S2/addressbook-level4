@@ -2,14 +2,12 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Arrays;
-
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.parser.FilterCriteriaContainsKeywordPredicate;
 import seedu.address.model.Model;
 import seedu.address.model.person.GenderContainsKeywordsPredicate;
 import seedu.address.model.person.MajorContainsKeywordsPredicate;
+import seedu.address.model.person.TagsContainsKeywordsPredicate;
 import seedu.address.model.person.YearOfStudyContainsKeywordsPredicate;
 
 
@@ -22,33 +20,37 @@ public class MemberFilterCommand extends MemberCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " ：Generates a filtered member's list based on a given"
             + " filter criteria. "
-            + "Parameters:  CRITERIA KEYWORD [MORE KEYWORDS]\n"
-
+            + "Parameters:  CRITERIA [KEYWORDS]\n"
             + "Example: " + COMMAND_WORD + " yearofstudy" + " 2";
 
-    public final FilterCriteriaContainsKeywordPredicate criteria;
+    public final String[] input;
     public final YearOfStudyContainsKeywordsPredicate yearOfStudyPredicate;
     public final MajorContainsKeywordsPredicate majorPredicate;
     public final GenderContainsKeywordsPredicate genderPredicate;
+    public final TagsContainsKeywordsPredicate tagsPredicate;
 
-    public MemberFilterCommand(FilterCriteriaContainsKeywordPredicate criteria) {
-        requireNonNull(criteria);
-        this.criteria = criteria;
-        this.majorPredicate = new MajorContainsKeywordsPredicate(Arrays.asList(criteria.getFilterKeywords()));
-        this.genderPredicate = new GenderContainsKeywordsPredicate(Arrays.asList(criteria.getFilterKeywords()));
+    public MemberFilterCommand(String[] input) {
+        requireNonNull(input[0]);
+        requireNonNull(input[1]);
+        this.input = input;
+        this.majorPredicate = new MajorContainsKeywordsPredicate(input[1]);
+        this.genderPredicate = new GenderContainsKeywordsPredicate(input[1]);
+        this.tagsPredicate = new TagsContainsKeywordsPredicate(input[1]);
         this.yearOfStudyPredicate =
-                new YearOfStudyContainsKeywordsPredicate(Arrays.asList(criteria.getFilterKeywords()));
+                new YearOfStudyContainsKeywordsPredicate(input[1]);
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        if (criteria.toString().equalsIgnoreCase("gender")) {
+        if (input[0].equalsIgnoreCase("gender")) {
             model.updateFilteredPersonList(genderPredicate);
-        } else if (criteria.toString().equalsIgnoreCase("major")) {
+        } else if (input[0].equalsIgnoreCase("major")) {
             model.updateFilteredPersonList(majorPredicate);
-        } else if (criteria.toString().equalsIgnoreCase("yearofstudy")) {
+        } else if (input[0].equalsIgnoreCase("yearofstudy")) {
             model.updateFilteredPersonList(yearOfStudyPredicate);
+        } else if (input[0].equalsIgnoreCase("tags")) {
+            model.updateFilteredPersonList(tagsPredicate);
         }
 
         model.getFilteredPersonList();
@@ -60,7 +62,6 @@ public class MemberFilterCommand extends MemberCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof MemberFilterCommand // instanceof handles nulls
-                && criteria.equals(((MemberFilterCommand) other).criteria)); // state check
+                || (other instanceof MemberFilterCommand); // instanceof handles nulls
     }
 }

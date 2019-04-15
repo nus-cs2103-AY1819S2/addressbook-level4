@@ -249,37 +249,51 @@ This section describes some noteworthy details on how certain features are imple
 ==== Current Implementation
 
 ClubManager is designed to manage members and activities and allow the user to link members to the activities.
-To syncronize the user interface to show appropriate information when users are doing different operation and to minimize confusion the following feature has been added.
+To synchronize the user interface to show appropriate information when users are doing different operation and to minimize confusion the following feature has been added.
 With the implementation of modes of operations which only allows commands to be executed in their respective modes.
 
 For example when ClubManager is in Member Mode, only member commands can be called (for example memberAdd, memberEdit etc.)
 
+.ClubManager in MEMBER mode
 image::appInMemberMode.png[width="800"]
 
 Calling an activity command will result in an error.
 
+.Error when Activity Command is called in MEMBER mode
 image::appInMemberModeCallingActivityCmd.png[width="800"]
 
 General commands can be called in any mode (for example help and exit)
 
 Currently the app has 2 modes of operation, namely member mode and activity mode.
 
+A coloured label on the top right corner indicates the mode of operation at any time to let the user easily track which mode the app is operating in.
+
+image::ModeMemberLabel.png[width="200"]
+
+.Indicator for mode in the Window
+image::ModeActivityLabel.png[width="200"]
+
 ==== Design of operation mode control
 Each Command extends a CommandType, currently MemberCommand, ActivityCommand and GeneralCommand
+For each CommandType, there is an ArrayList of modes in where this category of command can operate in as seen in the class diagram.
 
-For each CommandType, there is an ArrayList of modes in where this category of command can operate in.
-When the Command is created, it instatiates the operation modes. And when the execute function of the Command is called, the app would allow the execution of the command if the current app mode can be found within the the allowed mode list of the command.
+For example, for the MemberSelectCommand extends MemberCommands which the ArrayList of AppMode.Modes contains the MEMBER mode enumeration.
+Which means that the MemberSelectCommand can only operate when ClubManager is in MEMBER mode.
+
+.Example of Class Diagram for Member Commands
+image::memberCommandClassDiagram.png[width="800px"]
+
+When the Command is created, it instantiates the operation modes. And when the execute function of the Command is called, the app would allow the execution of the command if the current app mode can be found within the the allowed mode list of the command.
 If the mode does not match, it will throw an exception preventing the execution and prompting the user to change the app mode (by using the mode command) before calling such a function.
 
-A coloured label on the top right corner also indicates the mode of operation at any time to let the user easily track which mode the app is operating in.
+For example if mLIst (alias of memberList) command is called the following process occurs to either execute the command or throw the InvalidCommandModeException exception for the case that the command is called in the wrong mode.
 
-image::ModeMemberLabel.png[width="400"]
-
-image::ModeActivityLabel.png[width="400"]
+.Sequence diagram of mode control
+image::commandModeControl.png[width="800px"]
 
 ==== Design Consideration to aid future expansion of app
 
-* The design approach of the mode of operation control allows easy expansion of the app to manage more categories if required.
+* The design approach of the mode of operation control allows easy expansion of the app to manage more categories if required as the allowed modes of operation can be added to the ArrayList.
 * The feature is designed with easy reuse in mind by allowing the checking of mode to be done dynamically.
 * Since the modes which the command can operate in is stored as an ArrayList, future implementation of more modes of operation, can be added to the list. The current function to check the allowed mode will still be valid.
 * The design also allows the type of command to operate in and not be restricted to either a single mode or all modes but also any combination of modes.
@@ -367,21 +381,31 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 // end::undoredo[]
 
-
+//tag::memberlistfeature[]
 === Member List Feature
 The Member's List is a core feature that underpins Club Manager's role as a CCA management system.
 To ensure versatility and enhance the usefulness of this list, a number of commands have been introduced to facilitate the management of members. These commands include: `MemberAdd`, `MemberDelete`, `MemberEdit`, `MemberFilter`, `MemberFind`, `MemberList`, `MemberSelect`, and `MemberSort`.
 
 ==== Current Implementation
+===== Model Component
 
+.Updated Model Component Class Diagram for Member List
+image::person-attributes.png[width=100%]
+
+// end::memberlistfeature[]
+
+// tag::memberadd[]
 ===== `memberAdd` Command
-This command takes in a number of parameters that are contact and student information pertaining to the member. The `MemberAddCommandParser` can parse requires that all field are present, in the required format, with the exception of tags which are optional.
+This command takes in a number of parameters that are contact and student information pertaining to the member. The `MemberAddCommandParser` requires that all field are present, in the required format, with the exception of tags which are optional.
+
+.Activity Diagram of Validations and Checks for MemberAddCommand
+image::memberadd_validation.png[width=100%]
 
 Below is a step-by-step process on how the memberAdd command works on execution:
 
-* *Step 1:* The User executes the memberAdd command
-* *Step 2:* The memberAdd command calls the `Model#hasPerson()` to prevent duplicated members from being added to the member's list.
-* *Step 3:* Then, the memberAdd call `Model#hasMatricNumber` to prevent duplication of matric number within the member's list. This is because matric number are unique and no two students have the same matric number.
+* *Step 1:* The User executes the `memberAdd` command
+* *Step 2:* The `memberAdd` command calls the `Model#hasPerson()` to prevent duplicated members from being added to the member's list.
+* *Step 3:* Then, the `memberAdd` call `Model#hasMatricNumber` to prevent duplication of matric number within the member's list. This is because matric number are unique and no two students can have the same matric number.
 * *Step 4:* Once these verification have been completed, the `memberAdd` command calls `Model#addPerson` to proceed with adding the member to the member's list.
 * *Step 5:* The `memberAdd` calls `Model#commitAddressBook()` to finalise the changes made to the patient record.
 * *Step 6:* Finally, the `memberAdd` command provides a success message to indicate that the member has been successfully added to Club Manager.
@@ -406,6 +430,7 @@ The following code snippet shows how the `memberAdd` command is executed:
 <1> Check if member already exists in Club Manager.
 <2> Check if the matric number entered is unique.
 <3> Add member to Club Manager.
+//end::memberadd[]
 
 //tag::memberdelete[]
 ===== `memberDelete` Command
@@ -446,7 +471,6 @@ The following code snippet shows how `memberDelete` command is executed:
 <3> Gets person from filtered person list
 <4> Gets person's matriculation number and removes it from all activities
 <5> Delete person from address book
-
 //end::memberdelete[]
 
 //tag::memberedit[]
@@ -534,24 +558,133 @@ The following code snippet shows how `memberFind` command is executed:
 
 [discrete]
 //tag::membersort[]
+=======
+// end::memberadd[]
+
+// tag::memberfilter[]
+===== `memberFilter` Command
+*Logic Component*
+
+.Sequence Diagram for MemberFilterCommand for the logic component.
+image::MemberFilter_Logic.png[width=100%]
+
+*Model Component*
+
+.Sequence Diagram for MemberFilterCommand for the model component.
+image::MemberFilter_Model.png[width=100%]
+
+The `memberFilter` command retrieves members (based on a filter criteria) from the `UniquePersonList` and displays these members on the `PersonListPanel`.
+
+Below is a step-by-step process on how the `memberFilter` command works on execution:
+
+* Step 1: The user executes the `memberFilter` command.
+* Step 2: The `memberFilter` command parser will check if the filter category entered by the user is valid. Note that this is case-insensitive.
+* Step 3: Thereafter, the `memberFilter` command parser will concatenate the keywords (if there are more than one keyword). This will allow users to filter majors with multiple words.
+* Step 4: The `memberFilter` command will then call `Model#updateFilteredPersonList` to filter the member's list based on the given criteria.
+* Step 4 (Continued): In this process, based on the criteria provided, the relevant predicate class
+(e.g. `YearOfStudyContainsKeywordsPredicate`) will be used and its test method will be called to test if the member in the member's list has an exact match of the given keyword. This gradually filters the member's list. Do note, however,
+the list generated will given as it is (no sorting carried out). Depending on the initial ordering of the member's list, the list may or may not appear to be sorted.
+* Step 5: The `memberFilter` command will then call `Model#getFilteredPersonList()` to get the filtered member's list.
+* Step 6: Finally, the memberFilter command provides a success message to indicate that the member's list has been successfully filtered.
+
+====== Design Considerations
+*Aspect:* Predicate Classes
+
+To check if the user input matches the correct criteria, there are various ways. Below are some options:
+
+* *Alternative 1 (current choice)*: Check through MemberFilterCommandParser Class
+
+** Pros : More organised and logical as parser classes handle the user input.
+** Cons : May be less efficient as check has to be done through looping through the criteria one by one.
+
+* *Alternative 2*: Check through individual predicate classes.
+
+** Pros: More time efficient as only one check is required.
+** Cons: Less logical and could prove to be confusing to the developer.
+
+==== Future Implementation
+For future implementation, the `memberFilter` command could allow more than one filter, which will further allow the user to target a specific subset of members.
+
+// end::memberfilter[]
+
+// tag::memberlist[]
+===== `memberList` Command
+The `memberList` command retrieves all the members in the `UniquePersonList` and displays all these members on the `PersonListPanel`.
+
+Below is a step-by-step process on how the `memberList` command works on execution:
+
+* Step 1: The user executes the `memberList` command.
+* Step 2: The `memberList` command will then call the `Model#UpdateFilteredPersonList()` to retrieve all the members in the UniquePersonList.
+* Step 3: The `memberList` provide the command success message to indicate that the member list has been successfully listed.
+//end::memberlist[]
+
+// tag::memberselect[]
+===== `memberSelect` Command
+
+The `memberSelect` command selects a member (based on index) on the `UniquePersonList`.
+
+Below is a step-by-step process on how the `memberSelect` command works on execution:
+
+* *Step 1:* The user executes the `memberSelect` command by specifying the index of the member that the user would like to select.
+* *Step 2:* The `memberSelect` command will call `model#getFilteredPersonList` to retrieve the member's list.
+* *Step 3:* Next, the `memberSelect` command will call `model#setSelectedPerson` from which the given index will be used to pin point the specific
+member in the `filteredPersonList`.
+* *Step 4:* Finally, the `memberSelect` command will show a command success message to indicate the member at the specified index has been successfully selected.
+
+The `memberSelect` command is naturally tied with the User Interface.
+
+.Updated Ui Component Class Diagram
+image::updatedUIcomponent.png[width=50%]
+
+When a member is selected, the `memberDetailPanel` will populate the information of the selected person. The `ActivitiesAttendedByMemberPanel` will also populate the activities that are attended by member.
+For the population of member statistics, it is less straightforward. The calling flow is UI to Logic to Model. This is illustrated in the diagram below.
+
+.Sequence Diagram of MemberSelectCommand
+image::memberselect_sequence.png[width=50%]
+
+===== Design Considerations
+*Aspect:* UI calling methods from the AddressBook class
+
+There are various ways to cal the statistics methods from UI. Below are some options:
+
+* *Alternative 1 (current choice):* Go through the calling flow of UI to logic to model.
+** Pros: Abstraction principle is observed.
+** Cons: More tedious for the developer to implement methods that UI requires.
+
+* *Aternative 2:* Go through Model directly.
+** Pros: Abstraction principle is violated.
+** Cons: Less tedious to implement.
+
+//end::memberselect[]
+
+// tag::membersort[]
+>>>>>>> 800b7dfe4f9f80237caca8a04968fda7192ab633
 === MemberSort
-[discrete]
+
 ==== Current Implementation
-image::MemberSortCommand_LogicComponentSequenceDiagram.png[width="800"]
-* The `memberSort` command extends from command, and modifies the uniquePersonList which is an observable list.
 
-* It takes in a criteria from the user, and checks if the input from the user matches any of the available
-sorting criteria provided.
+The `memberSort` command extends from `MemberCommand`, and modifies the `uniquePersonList` which is an observable list. The user will provide a sorting criteria,
+and the `memberSort` command will sort the members in the `uniquePersonList` based on the sorting criteria.
 
-* If the user input matches, the uniquePersonList will be sorted based on that criteria
-If the user input does not match, then an error message will be prompted to the user.
-//end::membersort[]
+If the sorting criteria is not name, the `memberSort` command will
+will conduct an additional sort (by name). For example, `memberSort yearOfStudy 2` will be sorted by member's yearOfStudy, followed by member's name.
+
+.Sequence Diagram of MemberSortCommand
+image::membersort_sequencediagram.png[width=70%]
+
+* *Step 1:* The user executes the `memberSort` command by specifying the sorting criteria in which the user would like to sort the list.
+* *Step 2:* The `memberSort` command will call `model#sortAddressBook` to retrieve the member's list.
+* *Step 3:* Finally, the `memberSort` command will show a command success message to indicate that the member's list has been successfully sorted.
+
+// end::membersort[]
 
 // tag::memberexport[]
 === MemberExport
 
 ==== Current Implementation
+.Sequence diagram for export function
 image::MemberExportCommand_LogicComponentSequenceDiagram.png[width="800"]
+
 * The `memberExport` command extends from command and retrieves the Person object from the Model based on the specified index
 
 * The `exportPerson` command is called with the Person object being pass into the function as a parameter. The function will get the formatting as defined in resources/exportutil personInfo.html
@@ -564,11 +697,13 @@ image::MemberExportCommand_LogicComponentSequenceDiagram.png[width="800"]
 
 * For large screens (diagram below)
 
+.Exported file on large screens
 image::MemberExportExample.png[width="1000"]
 
 * For smaller mobile screens (diagram below)
 
-image::MemberExportExampleMobile.png[width="800"]
+.Exported file on mobile screens
+image::MemberExportExampleMobile.png[width="300"]
 
 ==== Future Implementation
 * For future implementation, the `memberExport` would be able to take in an additional parameter for the selection of export format.
@@ -743,6 +878,60 @@ sorted position.
 distinguish whether an input is a keyword or a search condition.
 
 // end::activity_list[]
+
+//tag::activity_edit[]
+
+=== Activity Edit Features
+
+[discrete]
+===== Activity Edit Command
+`ClubManager` allows users to make changes to the information fields of activities that are currently in its activity list.
+
+The `activityEdit` command allows users to edit the name, datetime, location and description fields of existing activities in the activity list.
+At least one of the fields must be different from the existing record of the activity the user is trying to edit.
+
+When the command is entered, an `ActivityEditCommandParser` is created with the inputs provided by the user. +
+The ActivityEditCommandParser object would then validate the prefixes in the inputs and compare it with the current fields of the activity to check if there are any changes to be made. +
+After that, the individual inputs would be validated in the parser utils. Finally, if the checks pass, an `ActivityEditCommand` object would be returned.
+
+The execute command of the `ActivityEditCommand` object would then be called, and it will replace the existing Activity object (that the user wants to edit) with
+a new Activity object created with the updated fields, and any other previous information if certain fields are not edited.
+
+[discrete]
+===== Activity Add Member Command
+The `activityAddMember` command allows users to add members to the attendance list of an activity. The provided MatricNumber must be a valid MatricNumber and must belong to
+a member in the member list.
+
+When the `activityAddMember` command is executed from the UI, the inputs are parsed with the `ActivityAddMemberCommandParser` object which checks the validity of the MatricNumber.
+
+If the inputs are valid, the `ActivityAddMemberCommand` is returned from the Parser object and the execute function is called. The first check would be if the provided activity
+index number is valid, relative to the currently displayed activity list. Then, the Command object will check whether the MatricNumber belongs to a member in the member list. Finally,
+it will check that the MatricNumber provided does not belong to a member already in the activity's attendance list.
+
+If all the checks pass, the MatricNumber object containing the member's matric number will be stored in an ArrayList object(which represents the attendance list) belonging to the activity.
+
+.Sequence Diagram for `activityAddMember` command
+image::ActivityAddMember_SequenceDiagram.PNG[width="800"]
+
+.Object Diagram displaying the relationship between Activity and Person when using `activityAddMember` command.
+image::ActivityAddMember_ObjectDiagram.PNG[width="600" height="300"]
+
+
+[discrete]
+===== Activity Delete Member Command
+
+The `activityDeleteMember` command allows users to remove members from the attendance list of an activity. The provided MatricNumber must be a valid MatricNumber and must belong to
+a member in the member list.
+
+When the `activityDeleteMember` command is executed from the UI, the inputs are parsed with the `ActivityDeleteMemberCommandParser` object which checks the validity of the MatricNumber.
+
+If the inputs are valid, the `ActivityDeleteMemberCommand` is returned from the Parser object and the execute function is called. The first check would be if the provided activity
+index number is valid, relative to the currently displayed activity list. Then, the Command object will check whether the MatricNumber belongs to a member in the member list. Finally,
+it will check that the MatricNumber provided belongs to a member already in the activity's attendance list.
+
+If all the checks pass, the MatricNumber object containing the member's matric number will be removed from the ArrayList object(which represents the attendance list) belonging to the activity.
+
+// end::activity_edit[]
 
 === Logging
 
@@ -1233,6 +1422,8 @@ We now have everything set up... but we still can't modify the remarks. Let's fi
 See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
 
 [appendix]
+
+//tag::productscope
 == Product Scope
 
 *Target user profile*:
@@ -1253,7 +1444,10 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 . Improve the data collection accuracy and efficiency in the member management process.
 
+//end::productscope
+
 [appendix]
+//tag::userstories
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -1297,8 +1491,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |CCA main committee member |create an activity list |see the upcoming events
 |=======================================================================
-
-_{More to be added}_
+//end::userstories
 
 [appendix]
 == Use Cases
@@ -1690,6 +1883,7 @@ Use case ends.
 _{More to be added}_
 
 [appendix]
+//tag::non-functional-requirements
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
@@ -1697,8 +1891,10 @@ _{More to be added}_
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
-
+//end::non-functional-requirements
 [appendix]
+
+//tag::glossary
 == Glossary
 
 This section is designed to provide you with definitions for
@@ -1726,7 +1922,9 @@ Windows, Linux, Unix, OS-X
 
 [[Sub-Committee-Member]] Sub-Committee Member::
 A person who is an active member of the CCA, but do not play any organiser role.
+//end::glossary
 
+//tag::product-survey
 [appendix]
 == Product Survey
 
@@ -1747,6 +1945,7 @@ Cons:
 * Interface could be more intuitive e.g. allowing preview of corporate members.
 
 * No training document provided. Users have to contact the support manager for “how to” questions.
+//end::product-survey
 
 [appendix]
 == Instructions for Manual Testing

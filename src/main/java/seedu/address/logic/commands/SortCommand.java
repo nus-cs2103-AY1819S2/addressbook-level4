@@ -67,7 +67,11 @@ public class SortCommand extends Command {
     private void processSortMethod(SortMethod command, List<Person> lastShownList, String... type) {
         command.execute(lastShownList, type);
         this.sortedPersons = command.getList();
-        this.isNewListPresent = true;
+        if (lastShownList.size() == this.sortedPersons.size()) {
+            this.isNewListPresent = true;
+        } else {
+            logger.info("The sorted list does not match the initial list in length.");
+        }
     }
 
     /**
@@ -104,7 +108,7 @@ public class SortCommand extends Command {
             // only delete the list if there is one to replace it
             model.deleteAllPerson();
         } else {
-            logger.info("No sorted list has been found.");
+            logger.info("No fully sorted list has been found.");
         }
         for (Person newPerson : sortedPersons) {
             model.addPersonWithFilter(newPerson);

@@ -16,14 +16,14 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/cs2103-ay1819s2-w17-1/main
 
-image::userguide.png[width="600"]
-
 By: `W17-1`      Since: `Feb 2019`      Licence: `MIT`
 
 // tag::introductionUG[]
 == Welcome to The Food Diary
 
-If you would like to get to use the Food Diary straightaway, jump to <<Quick Start>> to get started
+image::userguide.png[float=right, width="450"]
+If you would like to get use the Food Diary straightaway, jump to <<Quick Start>> to get started
+
 
 **What is the Food Diary? **
 
@@ -51,7 +51,7 @@ Read on to find out more about the other exciting features of FD!
 
 Callouts are boxes with important information regarding the usage of the Food Diary. These 3 callouts are used throughout our User Guide.
 [NOTE]
-This is a *note*. A warning indicates important additional information that should be read.
+This is a *note*. A note indicates important additional information that should be read.
 
 [TIP]
 This is a *tip*. A tip indicates good to know information that would improve your user experience.
@@ -120,11 +120,12 @@ Examples:
 ====
 When you are adding in the Weblink, FoodDiary will check whether the Weblink is valid for you. You need to have internet connection else,
 the FoodDiary will proceed to add the restaurant without the Weblink.
-====
 
 image:NoInternetAdd.PNG[width=640]
 
 _Image 1.1 When there is no internet connection, adding a restaurant with weblink will display this result_
+====
+
 
 
 ==== Editing details of a restaurant  : `edit`
@@ -147,10 +148,6 @@ Changes the name of the second restaurant in the list to `MACS`.
 When you are editing the Weblink of a restaurant, FoodDiary will check whether the Weblink is valid for you. You need to have internet connection else,
 the FoodDiary will not edit the Weblink for you.
 ====
-
-When you are changing a restaurant's Weblink to an invalid Weblink, you will receive the following error message.
-
-When you are editing a restaurant's Weblink with no internet connection, the FoodDiary will edit your restaurant but not the Weblink.
 // end::addedit[]
 
 
@@ -340,7 +337,7 @@ _Figure 5: Success!_
 ====
 * The index refers to the index number shown in the displayed restaurants list.
 * You need to ensure that the index entered *must be a positive integer* `1, 2, 3, ...`
-* You need to ensure that the `Price Range` entered *must* only consist of 1-5 $ characters. e.g. `$`, `\$$$`, `$$$$$`
+* You need to ensure that the `Price Range` entered *must* only consist of 1-5 $ characters. e.g. `$`, `$$$`
 * You need to ensure that `Cuisine` and `Occasion` *must* only contain alphanumeric characters and spaces.
 * You do not need to worry about capitalization for `Cuisine` and `Occasion`.
 e.g. `fast food` will be capitalized to `Fast Food`.
@@ -350,9 +347,9 @@ e.g. `fast food` will be capitalized to `Fast Food`.
 
 Other examples you can try:
 
-* `setCategories 2 oc/Premium Casual pr/\$$$$$` +
+* `setCategories 2 oc/Premium Casual pr/$` +
 Sets the categories of the second restaurant in the list to `Premium Casual` for occasion and
-`\$$$$$` for price range.
+`$` for price range.
 * `setCategories 3 c/Western` +
 Only sets the cuisine of the third restaurant to `Western`.
 
@@ -426,13 +423,14 @@ Examples:
 
 * `list` +
 `visitWeb 4` +
+This command displays the webpage of the 4th Restaurant in your restaurant list.
 
 * `visitWeb www.jollibee.com.ph` +
 This command displays webpage of Jollibee as shown below.
 
 image::visitWebJolliB.PNG[width="640"]
 
-_Image 1.1 Result of `visitWeb www.jollibee.com.ph`_
+_Image 1.1 Result of `visitWeb www.jollibee.com.ph`._
 
 [NOTE]
 You need to have internet connection to visit the website of the restaurant.
@@ -456,7 +454,8 @@ Format: `addReview INDEX re/ENTRY rr/RATING`
 
 Examples:
 
-* `addReview 2 re/Peach Pie was amazing rr/4`
+* `addReview 2 re/Peach Pie was amazing rr/4` +
+Adds a review to the second restaurant in the list.
 
 
 ==== Editing a specified review : `editReview`
@@ -476,7 +475,7 @@ Steps to execute `editReview` command:
 * From the main screen of the application, first select a restaurant by clicking on it with the mouse or using the `select INDEX` command.
 
 image::UG_editReview_selected_restaurant.png[width="480"]
-_Figure 1. Upon selecting a restaurant, the reviews of the restaurant will show on the review panel, and the rightmost browser panel will show the webpage of the restaurant (if available)_
+_Figure 1. Upon selecting a restaurant, the reviews of the restaurant will show on the rightmost review panel_
 
 * Following the above, enter the command. Upon successful execution of the command:
 

@@ -25,6 +25,10 @@ By: `RecruitMe`      Since: `January 2019`      Licence: `MIT`
 [NOTE]
 Only JDK 9 is supported. +
 This app will not work with later major JDK releases such as JDK 10, 11, etc.
+
+[NOTE]
+If the tests are failing due to a system error with Java9, then try to run with Java8.
+
 +
 . *IntelliJ* IDE
 +
@@ -308,9 +312,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::filter[]
 === Filter or/and/clear/reverse feature
-==== Current Implementation
 
 *Usage Format Regarding Current Implementation:*
 
@@ -365,6 +367,9 @@ e.g. if the input is `ale`, the person with the name `Alex, aLex, ALEX, alexandr
 ** Order of `integers` are matched with the order of texts given. In other words, input 0 also means `highschool`, 1 means `associates`, 2 means `bachelors` etc.
 ** In this filtering field, it is controlled that if the entered degree level is a lower or an equal level than the one for the searched person, the person will be shown in the list.
 
+// tag::filter[]
+==== Current Implementation of Filter Command
+
 *Implementation Details:*
 
 * *Class Diagram of the Filtering Command:*
@@ -400,18 +405,6 @@ e.g. the 1st index of `criterion` is set to `57` regarding to the example above.
 . Also the type of the process (`and`, `or`, `clear` or `reverse`) is stored in a parameter in `FilterCommand`, too.
 . According to the process type, one of the methods `filterAnd()`, `filterOr()`, `clearFilter()` or `reverseFilter()` is called through `Model` interface and these methods in `Model` also called the one of these methods in `AddressBook` class with the same name.
 . For `filterAnd()` and `filterOr()` methods, the values for every single field are passed through the method call.
-** e.g. if the `criterion` value is like that: `{"ale", null, "@gmail", "singapore", "c, java","manager", "2.7", "nus", "3", "3"}`, it is stored as:
-*** `String name = "ale"`
-*** `String phone = null`
-*** `String email = "@gmail"`
-*** `String address = "singapore"`
-*** `String[] skills = ["c", "java"]`
-*** `String[] pos = ["manager"]`
-*** `String gpa = "2.7"`
-*** `String education = "nus"`
-*** `String endorseCount = "3"`
-*** `String degreeLevel = "3"`
-** and all these parameters are passed to the `filterOr()` or `filterAnd()` methods.
 
 * *Working Principle of `AddressBook` Class for Filtering Purposes*
 ** In the AddressBook class, a new `UniquePersonsList` parameter called `allPersonsStorage` is added.
@@ -443,7 +436,6 @@ parameter is added to AddressBook class, all the functions have to be changed co
 * **Cons of this approach:**
 ** It is hard and time consuming to implement this approach because `Predicates` are used. In `AddressBook` class itself, we can directly reach to the persons and their all fields easily. But with `Predicate` approach,
 it requires additional data to be built (`Predicates` may need to be created before adding new persons to the parameter). Moreover, we do not have much knowledge about `Predicate` usage and because of these reasons, our job may take more time to finish.
-** It may require some changes in the `Model` class.
 
 ===== Parser Implementation
 
@@ -457,26 +449,6 @@ could only add the content after `PREFIX` (without any `REVERSE PREFIX` usage) l
 ** Using also reverse prefix makes the job much easier, because it simply marks also the end of the content.
 ** In currently implemented version, no order of the criterion is necessary. So, first phone number and then name etc. can be added for filtering condition.
 However in the alternative approach, implementing the input taking with no order is harder and time consuming.
-
-==== Combining the Command With Other Commands
-
-Since a new parameter is added to the `AddressBook` class, some changes should have done to adjust the existing processes to
-be used at the same time with filtering commands.
-
-===== Undo/Redo Command
-
-* A new local boolean parameter is added to the `AddressBook` class to hold if in that step the filtering exists or not. This addition is important for not losing the filtering information, not losing the storage data as a result of `undo/redo` processes, when filtering is active and being able to use `clearFilter()`, if undo and redo commands are used when filtering is active.
-* `resetData` method is modified in order to reset the `allPersonsStorage` parameter if needed.
-
-===== Add, Edit and Delete Commands
-
-* `delete` and `edit` processes are working without clearing the filter.
-* `add` method clears the filter when a new person is added. Because, all the previous filtering are not saved in anywhere, so we cannot control if the newly added person matches
-with the filtering criterion. Thus, all the filtering is cleared.
-
-===== Other Commands
-
-These are the ones that requires almost no changes or only small amount of changes to be compatible with filtering.
 
 ==== Testing of Filter Command Design
 
@@ -501,18 +473,9 @@ The testing methods for filtering is written for 3 different parts:
 
 ===== FilterCommandIntegrationTests
 
-* This test class contains integration tests and investigates the interaction of `FilterCommand` with:
-** `UndoCommand`,
-** `RedoCommand`,
-** `AddCommand`,
-** `DeleteCommand`,
-** `SortCommand`,
-** `FindCommand`,
-** `SelectCommand`,
-** and cases, when all of them are together.
+* This test class contains integration tests and investigates the interaction of `FilterCommand` with: `UndoCommand`, `RedoCommand`, `AddCommand`, `DeleteCommand`,`SortCommand`, `FindCommand`, `SelectCommand`, and cases, when all of them are together.
 * Each test case at least contains filtering with `or - success` or `and - success`, `clear - success` and `clear - failure`, `reverse - success` and `reverse - failure`.
 * Also for every interacting command, *failure* and *success* cases are both investigated.
-
 // end::filter[]
 
 // tag::sort[]

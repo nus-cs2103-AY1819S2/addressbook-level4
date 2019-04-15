@@ -30,15 +30,15 @@ public class SortCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Sorts all restaurants in ascending or descending order of its aggregate ratings.\n"
-            + "The list of restaurants will be sorted in descending order of aggregate ratings by default, "
-            + "unless its order (ASC/DES) is specified. You can limit the number of ratings by specifying the limit.\n"
+            + "The list of restaurants will be sorted in descending order of aggregate ratings by default, unless "
+            + "its order (ASC/DES) is specified. You can limit the number of rankings shown by specifying the limit.\n"
             + "The specified keywords for order are 'ASC' or 'DES' (case-insensitive) and represent the order "
             + "that the restaurants will be listed in.\n"
             + "Parameters: [or/ASC] or [or/DES] and [l/LIMIT]\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_ORDER + "asc " + PREFIX_LIMIT + "3";
 
     public static final String MESSAGE_SUCCESS_ALL = "Sorted all restaurants in %1$s order";
-    public static final String MESSAGE_SUCCESS_LIMIT = "Sorted restaurant(s) with %1$s rating(s) in %2$s order";
+    public static final String MESSAGE_SUCCESS_LIMIT = "Sorted restaurant(s) with %1$s ranking(s) in %2$s order";
 
     private Order order;
     private Optional<Limit> limit;

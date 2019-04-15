@@ -1029,7 +1029,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 //end:userstories[]
 
-
+//tag:: usecases[]
 [appendix]
 == Use Cases
 
@@ -1061,9 +1061,92 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: Add worklist and put in equipments
 
-//tag:: appendix[]
+*MSS*
+
+1.  User requests to list equipments
+2.  Equipment shows a list of equipments
+3.  User requests to create a new worklist
+4.  *Equipment Manager* create a worklist
+5.  User requests to put a new equipment into the worklist
+6.  *Equipment Manager* put the equipment into the worklist
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. The parameters are invalid.
++
+3a1. Equipment Manager shows an error message.
++
+Use case resumes at step 3.
+
+* 5a. The equipment list is empty.
++
+User case ends.
+* 5b. The given index is invalid.
++
+[none]
+** 5b1. *Equipment Manager* shows an error message.
++
+Use case resumes at step 5.
+
+[discrete]
+=== Use case: Filter the equipments
+
+*MSS*
+
+1.  User requests to list equipments
+2.  Equipment shows a list of equipments
+3.  User requests to filter the equipment list based on some parameters.
+4.  *Equipment Manager* filter the worklist and display to user
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. The parameters are invalid.
++
+[none]
+** 3a1. Equipment Manager shows an error message.
++
+Use case resumes at step 3.
+
+* 3b. The equipment list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: Calculate route of equipments
+
+*MSS*
+
+1.  User requests to list equipments
+2.  Equipment shows a list of equipments
+3.  User requests to calculate route of the equipment list with an origin address.
+4.  *Equipment Manager* calculate the route and display on the map
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. The parameter address is invalid.
++
+[none]
+** 3a1. Equipment Manager shows an error message.
++
+Use case resumes at step 3.
+
+* 3b. The equipment list is empty.
++
+Use case ends.
+//end:: usecases[]
+
 [appendix]
 == Non Functional Requirements
 Non-functional requirements specify the constraints under which system is developed and operated.

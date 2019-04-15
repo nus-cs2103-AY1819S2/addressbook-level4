@@ -1564,5 +1564,4 @@ To test the statistics save and compare feature. We will use a debug command `sa
 .. Test case : Win the game +
     Expected: A comparison is made between your current game accuracy and the previous
     game accuracy which is 0. Your accuracy has improved.
-    
 //end::savetest[]

@@ -10,7 +10,7 @@ public class AppMode {
         this.init();
     }
 
-    /*
+    /**
      * Specifies Modes ENUM values for AppMode class.
      */
     public enum Modes {

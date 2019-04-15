@@ -313,6 +313,74 @@ With that, you may refer to <<Display feature>> to see how *Equipment Manager* w
 
 //end::equipment[]
 
+//tag::worklist[]
+=== WorkList feature
+To help users understand how this feature, *WorkList*, works in *Equipment Manager*,
+this section will give an overview on the WorkList details and how users can interact with WorkList based on the commands implemented
+in the design of Equipment Manager. It also provides some design considerations to give users an insight of how the current solutions are worked out.
+
+==== Overview on WorkList details
+
+|===
+| *Attributes* | *Description* | *Things to Note*
+| Date | The tentative maintenance date on the equipments in the WorkList. |
+| Assignee | The name of the person who is assigned to conduct the maintenance work. |
+| WorkListId | The id of a WorkList | All WorkLists should have unique id and there should not be duplicated id.
+|===
+
+==== Current Usage of WorkList Details
+
+In order to allow users to user WorkList to help them organize their equipments and assign their work, we have implemented several
+commands as follows with the usage of WorkList details and also some Equipment details.
+
+*An example of how the attributes of WorkList are used:*
+
+* When user execute the `AddWorkListCommand` or `DeleteWorkListCommand`, the added WorkList details stored in *Equipment Manager*,
+and the deleted WorkList details will be deleted from *Equipment Manager*.
+* When user uses command like `PutCommand`, *Equipment Manager* will help users to put the selected Equipment into the specified
+WorkList, such that they will know those equipment are in the WorkList with one specified assignee and date.
+* When user uses command like `RemoveWorkListCommand`, *Equipment Manager* will remove the selected Equipment from a
+specified WorkList, it could be the case that users put the equipment into a wrong WorkList, they want to put the equipment
+into a different WorkList or they just finished maintaining that equipment so they want to remove it from the WorkList.
+
+==== Current Implementation
+Using `AddWorkListCommand` mentioned in previous section as an example,
+the *add WorkList* mechanism is facilitated by `VersionedEquipmentManager` which extends the `Equipment Manager`.
+The results of this command will be displayed under *WorkList Details* panel.
+
+The following sequence diagram shows how the *add WorkList* operation works:
+
+.Sequence diagram for `AddWorkListCommand`
+image::AddWorkListCommandSD.png[width="800"]
+
+Below is an example of the step-by-step mechanism of `add-w` command.
+
+Step 1. The user launches the application.
+
+Step 2. The user executes `add-w d/09-05-2019 a/Mary i/13` command.
+
+Step 3. After `EquipmentManagerParser` detects `add-w` as the command word, a `AddWorkListCommandParser#parse()` is called.
+
+Step 4. `AddWorkListCommand#execute()` is then called.
+
+Step 5. The parser will parse all the attributes and add into WorkList models.
+
+Step 7. The model now contains details of WorkList, and returns to GUI for display on *WorkList details* panels.
+
+==== Design Considerations
+===== Aspects: What should be the relationship between the WorkList and Equipments.
+
+* *Alternative 1 (current choice)*: The WorkList is a independent class and can contains a list of Equipment objects.
+** Pros: This is more organized and it is clear that WorkList contains some Equipments.
+** Cons: Might be confusing the users that why there are so many relationships and these classes are interacting with each other.
+
+* *Alternative 2*: Equipment is our major work and WorkList is just contains some Serial Numbers just for displaying purposes.
+** Pros: Easy to implement and users are able to know which part they should focusing on more, which is Equipment in this case.
+** Cons: It is hard to do more. If in the future, we intend to do some features like display the equipments in some certain WorkList,
+then it will be quite hard to implement such a feature.
+
+//end::worklist[]
+
 //tag::client[]
 === Client feature
 This section describes features specific to client, how having client details contribute to the features in *Equipment Manager* as well as our design considerations.
@@ -963,6 +1031,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 
 [discrete]
+=== Put, Remove
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+|`* * *` |user |put an equipment into a work list |arrange my equipments and put into a work list if I want to keep track of these equipments.
+
+|`* * *` |user |remove an equipment from a work list |remove an equipment if I put it wrongly or I finished maintaining this equipment so I want to remove it from this work list.
+
+|=======================================================================
+
+[discrete]
 === Filter
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
@@ -1046,7 +1125,32 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: Put equipment
+
+*MSS*
+
+1.  User requests to list WorkList
+2.  Equipment shows a list of WorkList
+3.  User requests to put a specific equipment into a specified WorkList
+4.  *Equipment Manager* puts the equipment into that WorkList
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The specified equipment is not found.
++
+Use case ends.
+
+* 3b. The specified WorkList is not found.
++
+Use case ends.
 
 //tag:: appendix[]
 [appendix]

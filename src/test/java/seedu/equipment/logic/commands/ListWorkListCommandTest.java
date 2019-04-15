@@ -1,9 +1,8 @@
 package seedu.equipment.logic.commands;
 
+import static seedu.equipment.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.equipment.logic.commands.CommandTestUtil.assertCommandSuccess;
-//import static seedu.equipment.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.equipment.testutil.TypicalEquipments.getTypicalEquipmentManager;
-//import static seedu.equipment.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -29,8 +28,14 @@ public class ListWorkListCommandTest {
     }
 
     @Test
+    public void execute_extraParameters_throwException() {
+        assertCommandFailure(new ListWorkListCommand("dd"), model, commandHistory,
+                ListWorkListCommand.EXTRA_PARA_EXCEPTION);
+    }
+
+    @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListWorkListCommand(), model, commandHistory,
+        assertCommandSuccess(new ListWorkListCommand(""), model, commandHistory,
                 ListWorkListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

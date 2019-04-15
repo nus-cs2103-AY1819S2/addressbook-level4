@@ -12,7 +12,7 @@ import seedu.equipment.model.equipment.Equipment;
  */
 public class WorkListBuilder {
 
-    public static final String DEFAULT_DATE = "2019-02-12";
+    public static final String DEFAULT_DATE = "12-02-2019";
     public static final String DEFAULT_ASSIGNEE = "Mei Yen";
     public static final String DEFAULT_ID = "201";
 

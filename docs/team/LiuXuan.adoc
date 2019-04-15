@@ -3,19 +3,20 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: Equipment Manager
+== Introduction
 
----
+Hi, I am Liu Xuan, a year 2 Computer Science student, studying at National University of Singapore.
+
+I am working on a software product with my project teammates, Rachel, Mei Yen and Sun Yiqun. This project portfolio will
+specify and illustrate which part I was working on.
+
+== PROJECT: Equipment Manager
 
 == Overview
 
-*Equipment Manager* is a Preventive Maintenance (PM) planner application that allows users, specifically the engineers,
- to keep track of the PM schedule of all Resuscitation Equipment in Singapore. *Equipment Manager* is designed to allow
-  engineers assign the equipment they are going to carry out maintenance work to their own work schedule. When they are
-   carrying out maintenance work on multiple equipments in their work schedule, they are able to have a visual
-    representation on the locations of all equipment. In order to carry out maintenance work efficiently, *Equipment
-     Manager* provide engineers with an efficient route to take for visiting multiple locations, minimizing the chance
-      that the resuscitation devices will fail and cause costly unscheduled downtime.
+*Equipment Manager* is a Command Line Interface Software Product, which helps engineers to better manage their equipments.
+This application allows users to arrange and organize their equipments, assign the equipment maintenance work into a person and a specified
+date, and have a best routing plan.
 
 == Summary of contributions
 
@@ -25,43 +26,48 @@
    equipment maintenance work to their staff.
 ** Highlights: This enhancement affects the whole model and structure. It required an in-depth analysis of the
    relationships between the WorkList and the Equipment. In addition, it also required more commands to be added into
-   this software. The implementation too was challenging as it required changes to the model and the commands.
+   this software. The implementation too was challenging as it required changes to the model and the commands. This feature
+   also helps users to better organize their equipments and assign the maintenance work to some person.
+** AddWorkListCommand: [https://github.com/CS2103-AY1819S2-W10-3/main/pull/79[#79]] [https://github.com/CS2103-AY1819S2-W10-3/main/pull/97[#97]]
+** DeleteWorkListCommand: [https://github.com/CS2103-AY1819S2-W10-3/main/pull/182[#182]]
+** PutCommand: [https://github.com/CS2103-AY1819S2-W10-3/main/pull/109[#109]]
+** RemoveCommand: [https://github.com/CS2103-AY1819S2-W10-3/main/pull/181[#181]]
+** ListWorkListCommand: [https://github.com/CS2103-AY1819S2-W10-3/main/pull/65[#65]]
+** Credits: Code from `AddWorkListCommand` and `DeleteWorkListCommand` was referenced in the implementation of `AddCommand` and `DeleteCommand` respectively
+** Credits: Code from `ListWorkListCommand` was referenced in the implementation of `ListEquipmentCommand`
 //** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
-
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*:
+** https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=LiuXuanIan[Click here] to view my code on the CS2103T Project Code Dashboard.
 
 * *Other contributions*:
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Enhancements to existing UI:
+*** Adding Labels for both Equipments and WorkLists. (Pull requests [https://github.com/CS2103-AY1819S2-W10-3/main/pull/114[#114]], [https://github.com/CS2103-AY1819S2-W10-3/main/pull/193[#193]])
+** Refactor ParseEmail to ParseDate
+*** Refactor the name ParseEmail to ParseDate to better fit our product. (Pull requests [https://github.com/CS2103-AY1819S2-W10-3/main/pull/84[#84]])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** PRs reviewed:
+[https://github.com/CS2103-AY1819S2-W10-3/main/pull/191[#191]],
+[https://github.com/CS2103-AY1819S2-W10-3/main/pull/115[#115]],
+[https://github.com/CS2103-AY1819S2-W10-3/main/pull/98[#98]],
+[https://github.com/CS2103-AY1819S2-W10-3/main/pull/83[#83]].
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=remove]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=put]
+
+include::../UserGuide.adoc[tag=add-w]
+
+include::../UserGuide.adoc[tag=delete-w]
+
+include::../UserGuide.adoc[tag=list-w]
 
 == Contributions to the Developer Guide
 
@@ -69,13 +75,4 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=worklist]

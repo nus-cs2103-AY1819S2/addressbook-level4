@@ -1,5 +1,6 @@
 package seedu.equipment.logic.commands;
 
+import static seedu.equipment.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.equipment.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.equipment.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.equipment.testutil.TypicalEquipments.getTypicalEquipmentManager;
@@ -30,14 +31,20 @@ public class ListEquipmentCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListEquipmentCommand(), model, commandHistory,
+        assertCommandSuccess(new ListEquipmentCommand(""), model, commandHistory,
                 ListEquipmentCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void execute_extraParameters_throwException() {
+        assertCommandFailure(new ListEquipmentCommand("dd"), model, commandHistory,
+                ListEquipmentCommand.EXTRA_PARA_EXCEPTION);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        assertCommandSuccess(new ListEquipmentCommand(), model, commandHistory,
+        assertCommandSuccess(new ListEquipmentCommand(""), model, commandHistory,
                 ListEquipmentCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

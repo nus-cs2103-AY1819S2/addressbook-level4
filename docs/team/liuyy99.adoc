@@ -62,17 +62,9 @@ https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/527[#527], https://gith
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc#adding-a-medical-history-add-med-hist[tag=add-med-hist]
+include::../UserGuide.adoc[tag=medicalhistorycommands]
 
-include::../UserGuide.adoc#listing-medical-histories-list-med-hist[tag=list-med-hist]
-
-include::../UserGuide.adoc#editing-write-up-of-medical-history-edit-med-hist[tag=edit-med-hist]
-
-include::../UserGuide.adoc#sorting-medical-history-by-date-sort-med-hist[tag=sort-med-hist]
-
-include::../UserGuide.adoc#searching-medical-history-search-med-hist[tag=search-med-hist]
-
-include::../UserGuide.adoc#viewing-a-certain-medical-history-select-med-hist[tag=select-med-hist]
+include::../UserGuide.adoc[tag=commandsummery]
 
 == Contributions to the Developer Guide
 
@@ -80,7 +72,6 @@ include::../UserGuide.adoc#viewing-a-certain-medical-history-select-med-hist[tag
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc#Design-Storage[tag=Storage Component]
+include::../DeveloperGuide.adoc[tag=storagecomponent]
 
-include::../DeveloperGuide.adoc#medical-history-management-features[tag=Medical History Features]
-
+include::../DeveloperGuide.adoc[tag=medicalhistoryfeatures]

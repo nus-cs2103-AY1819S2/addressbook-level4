@@ -53,14 +53,14 @@ Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 +
 image::Ui.png[width="790"]
 +
+.  Note that for now, docX only supports Command Line Interface (CLI). Clicking on any list is not allowed and will cause unexpected errors.
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* **`add-p`**` n/John Doe p/98765432 a/22 g/M adr/Utown College  : adds a patient named `John Doe` to docX.
-* **`delete-d`**`3` : deletes the 3rd doctor shown in the current list
-* **`list-med-hist`* : lists all medical histories
-* **`add-med-hist`**` pid/2 did/8 d/2018-12-09 sw/The patient had a cough. I told him to have a good rest : adds a medical history of patient with specified id(pid) and doctor with specified id(did).
+* **`add-p`**`n/John Doe p/98765432 a/22 g/M adr/Utown College` : adds a patient named `John Doe` to docX.
+* *`list-med-hist`* : lists all medical histories
+* **`add-med-hist`**`pid/2 did/8 d/2018-12-09 sw/The patient had a cough. I told him to have a good rest` : adds a medical history of patient with specified id(pid) and doctor with specified id(did).
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -94,7 +94,7 @@ Format: `add-p [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [adr/ADDRESS] [t/TAG]`
 Examples:
 
 * `add-p n/Tom Hiddleston g/M a/21 p/98765432 adr/Utown College 2`
-* `add-p n/Bettany Sim g/F p/8234567 a/32 adr/RVRC House 12 t/diabetic`
+* `add-p n/Bettany Sim g/F p/82345672 a/32 adr/RVRC House 12 t/diabetic`
 
 [TIP]
 For constraints of name, gender, age, phone, address and tags, please refer to the table below.
@@ -440,7 +440,7 @@ Sort medical history by date in ascending order or descending order. +
 Format: `sort-med-hist [ASC/DESC]`
 
 ****
-* To view the sorted list, execute `list-med-hist` command.
+* If the list of medical history is not yet shown. Before sorting, `list-med-hist` command should be executed.
 * When a new medical history is added to docX, it will be added to *the end of list*. You can sort again to make the list be in order.
 * If "ASC" or "DESC" is not specified in the command, the default order will be descending order(DESC). Medical histories will be listed from newest date to oldest date.
 * If "DESC" is specified, the order will be descending order. Medical histories will be listed from newest date to oldest date.

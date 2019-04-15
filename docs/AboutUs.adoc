@@ -15,17 +15,17 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::tejas2805.png[width="150", align="left"]
 {empty}[http://github.com/tejas2805[github]] [<<tejasbhuwania#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Bill feature
+Role: Team Leader +
+Responsibilities: Bill and Customer Feature, Managing the UG and DG, and Creation of Tests
 
 '''
 
 === Sipani Sreyans
 image::sreycodes.png[width="150", align="left"]
-{empty}[http://github.com/sreycodes[github]] [<<sreyanssipani#, portfolio>>]
+{empty}[http://github.com/sreycodes[github]] [<<sreycodes#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Service booking feature
+Responsibilities: Service booking, Room reservations, Room Types and Service Types features
 
 '''
 
@@ -34,7 +34,7 @@ image::zhangcx10032.png[width="150", align="left"]
 {empty}[http://github.com/zhangcx10032[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Customer feature
+Responsibilities: Handling of Ui, and Creation of tests
 
 '''
 
@@ -43,6 +43,6 @@ image::nerrons.png[width="150", align="left"]
 {empty}[http://github.com/nerrons[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Room booking feature
+Responsibilities: Statistics feature, and Creation of tests
 
 '''

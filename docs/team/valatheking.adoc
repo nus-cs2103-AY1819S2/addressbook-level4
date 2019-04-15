@@ -69,8 +69,7 @@ application.
 * Words that are highlighted in white represent a kbd:[keyboard] button that
 can be pressed to invoke a described function.
 
-====
-*Command Format*
+==== *Command Format*
 
 ==== View all duties for current month: `viewCurrent`
 Brings up calendar view, with all duties for the current month. +
@@ -132,7 +131,9 @@ image::SDforDeletePerson.png[width="800"]
 image::ModelClassDiagram.png[width="800"]
 
 The sections below give more details of each component.
+
 === Block Dates Feature
+
 ==== Current Implementation
 
 The block dates feature is facilitated by PersonnelDatabase and was implemented for general users as they cannot be expected to do duties any time during the upcoming month.
@@ -192,26 +193,27 @@ All this is done through the model with methods such as `getBlockedDates` and `r
 
 These two commands complete the suite of blocking which allows users to experience more flexibility in their duty planning.
 ==== Design Considerations:
-* Alternative 1 (current implementation): BlockDateCommand takes in a few dates they are then stored in the personnel database as a Hashmap.
-** Pros :
-*** Easy to implement as a new Command. Parsers have already been set up in address book and adding a new command is relatively easy to implement.
-***The command storing the Integer List in the PersonnelDatabase in a HashMap is also convenient for the other commands such as `viewblock` and `removeblock.
-***The Hashmap allows easy referencing for these commands. The Hashmap also allows for easier scheduling when the scheduler is run.
 
-** Cons :
-*** The BlockDateCommand would directly modify the HashMap in the PersonnelDatabase and this would go against the n-tier architecture of the PersonnelDatabase Program. This would break the abstraction principle.
+Alternative 1 (current implementation): BlockDateCommand takes in a few dates they are then stored in the personnel database as a Hashmap. +
+* Pros :
+** Easy to implement as a new Command. Parsers have already been set up in address book and adding a new command is relatively easy to implement.
+** The command storing the Integer List in the PersonnelDatabase in a HashMap is also convenient for the other commands such as `viewblock` and `removeblock.
+** The Hashmap allows easy referencing for these commands. The Hashmap also allows for easier scheduling when the scheduler is run.
 
-** Implemented Fix for Cons :
-*** To combat the above issue, Model was given methods to add the blockedDates into the Personnel Database rather than the command itself.
-This allows the logic to pass the dates to the model which would then integrate it into the Personnel Database.
+* Cons :
+** The BlockDateCommand would directly modify the HashMap in the PersonnelDatabase and this would go against the n-tier architecture of the PersonnelDatabase Program. This would break the abstraction principle.
 
- * Alternative 2 (current implementation): BlockDateCommand takes in a few dates they are then stored as a new Class called BlockedDates
-** Pros :
-*** Easy to implement as a new Command. Parsers have already been set up in address book and adding a new command is relatively easy to implement.
-*** Would be clear what the BlockedDate Class does and also if other forms of dates such as AppointmentDates have to be added in later this would help with integrating them.
+* Implemented Fix for Cons :
+** To combat the above issue, Model was given methods to add the blockedDates into the Personnel Database rather than the command itself.
+This allows the logic to pass the dates to the model which would then integrate it into the Personnel Database. +
 
-** Cons :
-*** The implementation of a BlockedDate Class would complicated the process of integrating into the schedule much harder.
+Alternative 2 (current implementation): BlockDateCommand takes in a few dates they are then stored as a new Class called BlockedDates
+* Pros :
+** Easy to implement as a new Command. Parsers have already been set up in address book and adding a new command is relatively easy to implement.
+** Would be clear what the BlockedDate Class does and also if other forms of dates such as AppointmentDates have to be added in later this would help with integrating them.
+
+* Cons :
+** The implementation of a BlockedDate Class would complicated the process of integrating into the schedule much harder.
 Implementing the BlockedDate into the algorithm would be a lot harder and would take more time and effort
 
 === Use case 3 (Admin): See all duties planned for current and next month in the calendar

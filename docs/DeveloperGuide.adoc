@@ -292,6 +292,15 @@ During scheduling when a person is assigned to a day the model checks the list o
 Someone else will then replace them in the previously assigned duty.
 A more detailed explanation of the scheduling algorithm is in <<Duty Settings>>.
 
+==== Additional Commands
+Commands `viewblock` and removeblock` were added for the users convenience. This helps the users to find and modify the Blocked Dates for the upcoming Month.
+These two commands access the HashMap in the Model associated with blockedDates and either view or remove the blockedDates for the current user.
+The Hashmap uses a Person object as a key. The logged in user's NRIC is used to obtain the current User person object and that is used as the key to retrieve the information from the Hashmap.
+All this is done through the model with methods such as `getBlockedDates` and `removeBlockedDays respectively for view and remove.
+
+These two commands complete the suite of blocking which allows users to experience more flexibility in their duty planning.
+
+
 ==== Design Considerations:
 * Alternative 1 (current implementation): BlockDateCommand takes in a few dates they are then stored in the personnel database as a Hashmap.
 ** Pros :
@@ -302,7 +311,7 @@ A more detailed explanation of the scheduling algorithm is in <<Duty Settings>>.
 ** Cons :
 *** The BlockDateCommand would directly modify the HashMap in the PersonnelDatabase and this would go against the n-tier architecture of the PersonnelDatabase Program. This would break the abstraction principle
 
-**Implemented Fix for Cons :
+** Implemented Fix for Cons :
 *** To combat the above issue, Model was given methods to add the blockedDates into the Personnel Database rather than the command itself.
 This allows the logic to pass the dates to the model which would then integrate it into the Personnel Database.
 
@@ -314,6 +323,8 @@ This allows the logic to pass the dates to the model which would then integrate 
 ** Cons :
 *** The implementation of a BlockedDate Class would complicated the process of integrating into the schedule much harder.
 Implementing the BlockedDate into the algorithm would be a lot harder and would take more time and effort.
+
+
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -1366,7 +1377,6 @@ Use case ends.
 === Use case 10 (General user): Log into the system
 
 *MSS*
-
 
 1. A general user requests to log in to the system.
 2. The general use has not changed their password and so enters their NRIC as the username and password.

@@ -567,6 +567,8 @@ Here, `SortMedHistCommandParser` checks the argument string is either "" or "ASC
 . The `LogicManager` then calls the execution of `SortMedHistCommand`, which interacts with Model component. In Model component, the internal list of medical histories in `UniqueMedHistList` is sorted.
 Through a `ListChangeListener`, Ui component is updated the changes of medical history list order. Then the sorted list of medical histories will be displayed in user interface.
 
+// tag::appointment[]
+
 === Add Appointment Feature
 Appointments are created to facilitate future appointments between patients and doctors.
 A patient can have none or multiple appointments, a doctor can have none or multiple appointments.

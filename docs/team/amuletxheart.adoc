@@ -59,6 +59,7 @@ https://github.com/cs2103-ay1819s2-w13-1/main/blob/master/src/main/java/seedu/ad
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+include::../UserGuide.adoc[tag=introduction]
 include::../UserGuide.adoc[tag=appointment]
 include::../UserGuide.adoc[tag=appointmentsummary]
 

@@ -105,6 +105,9 @@ include::../DeveloperGuide.adoc[tag=client]
 
 include::../DeveloperGuide.adoc[tag=uidg]
 
+include::../DeveloperGuide.adoc[tag=selectClientUC]
+
+
 == PROJECT: PowerPointLabs
 
 ---

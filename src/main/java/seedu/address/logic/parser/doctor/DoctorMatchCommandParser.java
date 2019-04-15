@@ -1,4 +1,4 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.doctor;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_APPT;
@@ -7,13 +7,18 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.DoctorMatchCommand;
+import seedu.address.logic.commands.doctor.DoctorMatchCommand;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.AppointmentDate;
 import seedu.address.model.appointment.AppointmentTime;
-import seedu.address.model.person.DoctorMatch;
-import seedu.address.model.person.DoctorSpecialisationMatchesPredicate;
-import seedu.address.model.tag.Specialisation;
+import seedu.address.model.person.doctor.DoctorMatch;
+import seedu.address.model.person.doctor.DoctorSpecialisationMatchesPredicate;
+import seedu.address.model.person.specialisation.Specialisation;
 
 /**
  * Parses the given {@code String} of arguments in the context of the DoctorMatchCommand

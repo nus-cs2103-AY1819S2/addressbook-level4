@@ -3,7 +3,7 @@ package systemtests;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DOCTOR_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.DeleteDoctorCommand.MESSAGE_DELETE_DOCTOR_SUCCESS;
+import static seedu.address.logic.commands.doctor.DeleteDoctorCommand.MESSAGE_DELETE_DOCTOR_SUCCESS;
 import static seedu.address.testutil.TestUtil.getDoctor;
 import static seedu.address.testutil.TestUtil.getDoctorLastIndex;
 import static seedu.address.testutil.TestUtil.getDoctorMidIndex;
@@ -14,9 +14,9 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeleteDoctorCommand;
+import seedu.address.logic.commands.doctor.DeleteDoctorCommand;
 import seedu.address.model.Model;
-import seedu.address.model.person.Doctor;
+import seedu.address.model.person.doctor.Doctor;
 
 public class DeleteDoctorCommandSystemTest extends DocXSystemTest {
 

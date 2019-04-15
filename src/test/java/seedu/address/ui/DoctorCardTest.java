@@ -8,8 +8,9 @@ import static seedu.address.ui.testutil.GuiTestDoctorAssert.assertCardDisplaysDo
 import org.junit.Test;
 
 import guitests.guihandles.DoctorCardHandle;
-import seedu.address.model.person.Doctor;
+import seedu.address.model.person.doctor.Doctor;
 import seedu.address.testutil.DoctorBuilder;
+import seedu.address.ui.doctor.DoctorCard;
 
 public class DoctorCardTest extends GuiUnitTest {
 

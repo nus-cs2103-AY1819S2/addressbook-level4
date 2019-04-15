@@ -503,7 +503,7 @@ Step3. ListDoctorCommandParser parses the argument. If no argument is present, t
 Step4. LogicManager calls execute() of ListDoctorCommand.
 
 Step5. execute() checks if the DoctorContainsPredicate equals to null. If it equals to null, it calls updateFilteredDoctorList() of Model to show all doctors.
-        If it is not null, it calls updateFilteredDoctorList() of Model.
+        If it is not null, it calls updateFilteredDoctorList() of ModelManager.
 
 
 Step6. test(Doctor) of DoctorContainsKeywordsPredicate will be called. It will check if any of the field matches "acupu" in full or part. If it matches, the doctor will be shown.
@@ -516,7 +516,13 @@ Step1. LogicManager calls parseCommand("edit-d") in docXParser.
 
 Step2. Based on the COMMAND_WORD, docXParser builds a new EditDoctorCommandParser() and call function parse(arguments) of EditDoctorCommandParser.
 
-Step3. EditDoctorCommandParser parses the argument and get the fields to be changed. and ...
+Step3. EditDoctorCommandParser parses the argument and get the relative index of the doctor to be changed and the respective field(s) to be changed.
+        It will call EditDoctorDescriptor() and change the field(s) accordingly.
+        Then, EditDoctorCommandParser calls EditDoctorCommand(index, EditDoctorDescriptor).
+
+Step4. LogicManager calls execute() of EditDoctorCommand.
+
+Step5. execute() calls getFilteredDoctorList() of ModelManager and gets the doctor to be edited. After creating the edited doctor, EditDoctorCommand calls setDoctor(DoctorToEdit, EditedDoctor) of ModelManager.
 
 ==== Delete Doctor feature
 
@@ -526,7 +532,12 @@ Step1. LogicManager calls parseCommand("delete-d") in docXParser.
 
 Step2. Based on the COMMAND_WORD, docXParser builds a new DeleteDoctorCommandParser() and call function parse("1") of DeleteDoctorCommandParser.
 
-Step3. DeleteDoctorCommandParser parses the argument and get the relative index of the doctor to be deleted and ...
+Step3. DeleteDoctorCommandParser parses the argument and get the relative index of the doctor to be deleted.
+        Then, DeleteDoctorCommandParser calls DeleteDoctorCommand(index).
+
+Step4. LogicManager calls execute() of DeleteDoctorCommand.
+
+Step5. execute() calls getFilteredDoctorList() of ModelManager and gets the doctor to be deleted. DeleteDoctorCommand calls deleteDoctor(doctorToDelete) of ModelManager.
 
 ==== Doctor Match feature
 

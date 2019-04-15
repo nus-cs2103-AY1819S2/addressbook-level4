@@ -17,12 +17,13 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.EditDoctorCommand.EditDoctorDescriptor;
+import seedu.address.logic.commands.doctor.EditDoctorCommand;
+import seedu.address.logic.commands.doctor.EditDoctorCommand.EditDoctorDescriptor;
 import seedu.address.model.DocX;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Doctor;
+import seedu.address.model.person.doctor.Doctor;
 import seedu.address.testutil.DoctorBuilder;
 import seedu.address.testutil.EditDoctorDescriptorBuilder;
 

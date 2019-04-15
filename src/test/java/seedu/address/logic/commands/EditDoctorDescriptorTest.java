@@ -12,7 +12,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_YEAR_STEVEN;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.EditDoctorCommand.EditDoctorDescriptor;
+import seedu.address.logic.commands.doctor.EditDoctorCommand.EditDoctorDescriptor;
 import seedu.address.testutil.EditDoctorDescriptorBuilder;
 
 public class EditDoctorDescriptorTest {

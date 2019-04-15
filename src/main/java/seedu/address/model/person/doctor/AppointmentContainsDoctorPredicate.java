@@ -1,6 +1,6 @@
 /* @@author siyingpoof */
 
-package seedu.address.model.person;
+package seedu.address.model.person.doctor;
 
 import java.util.List;
 import java.util.function.Predicate;

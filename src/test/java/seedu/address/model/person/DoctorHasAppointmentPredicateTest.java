@@ -13,7 +13,9 @@ import seedu.address.model.appointment.AppointmentDate;
 import seedu.address.model.appointment.AppointmentDoctorId;
 import seedu.address.model.appointment.AppointmentPatientId;
 import seedu.address.model.appointment.AppointmentTime;
-import seedu.address.model.tag.Specialisation;
+import seedu.address.model.person.doctor.Doctor;
+import seedu.address.model.person.doctor.DoctorHasAppointmentPredicate;
+import seedu.address.model.person.specialisation.Specialisation;
 import seedu.address.testutil.DoctorBuilder;
 
 public class DoctorHasAppointmentPredicateTest {

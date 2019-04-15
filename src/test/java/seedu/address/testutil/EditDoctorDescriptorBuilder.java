@@ -4,13 +4,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.EditDoctorCommand.EditDoctorDescriptor;
-import seedu.address.model.person.Doctor;
+import seedu.address.logic.commands.doctor.EditDoctorCommand.EditDoctorDescriptor;
+import seedu.address.model.person.doctor.Doctor;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.Year;
-import seedu.address.model.tag.Specialisation;
+import seedu.address.model.person.doctor.Year;
+import seedu.address.model.person.specialisation.Specialisation;
 
 
 /**

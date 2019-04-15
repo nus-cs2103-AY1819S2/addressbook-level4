@@ -35,13 +35,14 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditDoctorCommand;
-import seedu.address.logic.commands.EditDoctorCommand.EditDoctorDescriptor;
+import seedu.address.logic.commands.doctor.EditDoctorCommand;
+import seedu.address.logic.commands.doctor.EditDoctorCommand.EditDoctorDescriptor;
+import seedu.address.logic.parser.doctor.EditDoctorCommandParser;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.Year;
-import seedu.address.model.tag.Specialisation;
+import seedu.address.model.person.doctor.Year;
+import seedu.address.model.person.specialisation.Specialisation;
 import seedu.address.testutil.EditDoctorDescriptorBuilder;
 
 public class EditDoctorCommandParserTest {

@@ -1,37 +1,35 @@
-/** author: @siyingpoof **/
-package seedu.address.model.person;
+package seedu.address.model.person.doctor;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.List;
 import java.util.Objects;
 
 import seedu.address.model.appointment.AppointmentDate;
 import seedu.address.model.appointment.AppointmentTime;
+import seedu.address.model.person.specialisation.Specialisation;
 
 /**
- * Represents a DoctorsMatch in the docX.
- * Just an object to store the relevant information needed for match-doctor cmd.
+ * Represents a DoctorMatch in the docX. Just an object to store the relevant information needed for match-doctor cmd.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class DoctorsMatch {
+public class DoctorMatch {
 
-    private final List<Doctor> specMatchedDoctors;
+    private final Specialisation spec;
     private final AppointmentDate date;
     private final AppointmentTime time;
 
     /**
      * Every field must be present and not null.
      */
-    public DoctorsMatch(List<Doctor> specMatchedDoctors, AppointmentDate date, AppointmentTime time) {
-        requireAllNonNull(specMatchedDoctors, date, time);
-        this.specMatchedDoctors = specMatchedDoctors;
+    public DoctorMatch(Specialisation spec, AppointmentDate date, AppointmentTime time) {
+        requireAllNonNull(spec, date, time);
+        this.spec = spec;
         this.date = date;
         this.time = time;
     }
 
-    public List<Doctor> getDoctors() {
-        return specMatchedDoctors;
+    public Specialisation getSpec() {
+        return spec;
     }
 
     public AppointmentDate getDate() {
@@ -45,13 +43,13 @@ public class DoctorsMatch {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(specMatchedDoctors, date, time);
+        return Objects.hash(spec, date, time);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getDoctors())
+        builder.append(getSpec())
                 .append(" Date: ")
                 .append(getDate())
                 .append(" Time: ")

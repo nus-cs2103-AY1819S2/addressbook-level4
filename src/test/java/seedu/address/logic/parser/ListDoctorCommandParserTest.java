@@ -9,11 +9,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.ListDoctorCommand;
+import seedu.address.logic.commands.doctor.ListDoctorCommand;
+import seedu.address.logic.parser.doctor.ListDoctorCommandParser;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.DoctorContainsKeywordsPredicate;
+import seedu.address.model.person.doctor.DoctorContainsKeywordsPredicate;
 
 public class ListDoctorCommandParserTest {
 

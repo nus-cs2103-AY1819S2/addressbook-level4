@@ -195,8 +195,10 @@ image::DeletePersonSdForLogic.png[width="800"]
 [[Design-Model]]
 === Model component
 
+Due to space constraint and aid visibility, we will only include patient and doctor to illustrate our model.
+
 .Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
+image::ModelClassDiagramForPatientAndDoctor.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -230,10 +232,6 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
-== Implementation
-
-This section describes some noteworthy details on how certain features are implemented.
-
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
@@ -263,21 +261,23 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+== Implementation
 
-=== CRUD of patients
+This section describes some noteworthy details on how certain features are implemented.
+
+=== Patient Management Features
 
 Patients is one of the two valid types of Persons to be stored in the docX record.
-The following features are implemented or will be implemented for patients of docX:
+The following features are implemented for patients of docX:
 
 * Add patient
 * List all patients
 * Edit existing patients
-* Search patients by keywords
-* Delete existing patients
+* Various search patients by keywords
+* Delete patients
+* Select patient
 
-==== Patient management features
-
-===== Current(Proposed) Implementation
+=== Features
 
 ==== Add Patient feature
 When a user executes 'add-p n/John Doe g/Male a/21 p/98765432 adr/Utown College 2'
@@ -304,6 +304,10 @@ image::AddPatientSdForLogic.png[width="700"]
 
 ==== List Patient feature
 When a user executes 'list-p', the full patient list will be displayed.
+
+. `LogicManager` calls execute() of `ListPatientCommand`.
+
+. execute() will call `Model` to `updateFilterPatientList` by setting the predicate to show all the patients in the DocX currently.
 
 ==== Edit Patient feature
 
@@ -340,11 +344,38 @@ When a user executes `search-p-name`
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete")` API call.
 
-.Interactions Inside the Logic Component for the `delete-patient` Command
+.Interactions Inside the Logic Component for the `delete-p` Command
 image::DeletePatientSdForLogic.png[width="700"]
+
+When a user executes `delete-p 1`
+
+Steps: +
+
+. LogicManager calls parseCommand("delete-p") in `DocXParser`.
+
+. Based on the COMMAND_WORD, `DocXParser` builds a new DeletePatientCommandParser() and call function parse("1") of DeletePatientCommandParser.
+
+. DeletePatientCommandParser parses the argument and get the relative list index of the patient to be deleted.
+        Then, DeletePatientCommandParser calls DeletePatientCommand(index).
+
+. LogicManager calls execute() of DeletePatientCommand.
+
+. execute() calls getFilteredPatientList() of `ModelManager` and gets the patient to be deleted.
+DeletePatientCommand calls deletePatient(patientToDelete) of `ModelManager`.
+
+. `ModelManager` later commitDocX and the patient is successfully deleted.
+
+
+==== Appointment Status Display feature
+The patient card will show the appointment status of a patient. It will display any one of the four enum values: `ACTIVE, COMPLETED, CANCELLED, MISSED`.
+When an appointment is added, or marked, the execution of the command will cascade and alter the status display of the patient.
+It follows the following rules:
+. If the patient still has any other active appointments, a patient status will show `ACTIVE`
+. Else, a patient status will reflect the latest status change to any of his appointment.
 
 // tag::doctorcommands[]
 === CRUD of Doctors
+
 
 Doctor is one of the two valid types of Persons to be stored in the docX record.
 The following features are implemented or will be implemented for doctors of docX:

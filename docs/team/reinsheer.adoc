@@ -17,7 +17,7 @@ Fashion Match is a desktop wardrobe management application used as a guide for y
 ** What it does: The statistics feature gives basic statistics to the user for visualisation purposes.
 ** Justification: This feature improves the product significantly because a user can have greater clarity for his wardrobe and allows the user to be more aware of his usage patterns.
 ** Highlights: A user is able to tell his top most worn apparel, his favorite color, how clean/dirty his wardrobe is, etc.
-	
+
 ** *Code Contributed*:[https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=reinsheer&sort=displayName&since=2019-02-10&until=2019-04-15&timeframe=day&reverse=false&repoSort=true[RepoSense]], [https://github.com/CS2103-AY1819S2-W15-1/main/pull/139[#139]]
 
 * *Minor enhancement*: Refactoring the whole of AddressBook to formulate the skeleton of Fashion Match.

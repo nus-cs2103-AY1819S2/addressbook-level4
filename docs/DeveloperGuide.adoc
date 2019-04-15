@@ -816,3 +816,13 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: No apparel is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
+
+=== Statistics
+
+. Displays statistics of wardrobe
+
+.. Prerequisites: Displays statistics using the `statistics` command.
+.. Test case: `stats` +
+   Expected: Details of the statistics of the wardrobe is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `statistics` +
+   Expected: Details of the statistics of the wardrobe is shown in the status message. Timestamp in the status bar is updated.

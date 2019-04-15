@@ -2,6 +2,7 @@ package seedu.address.model.tag;
 
 import org.junit.Test;
 
+import seedu.address.model.person.specialisation.Specialisation;
 import seedu.address.testutil.Assert;
 
 

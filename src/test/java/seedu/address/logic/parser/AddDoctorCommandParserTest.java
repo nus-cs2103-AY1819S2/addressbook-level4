@@ -16,12 +16,13 @@ import static seedu.address.testutil.TypicalDoctors.ALVINA;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.AddDoctorCommand;
+import seedu.address.logic.commands.doctor.AddDoctorCommand;
+import seedu.address.logic.parser.doctor.AddDoctorCommandParser;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.Year;
-import seedu.address.model.tag.Specialisation;
+import seedu.address.model.person.doctor.Year;
+import seedu.address.model.person.specialisation.Specialisation;
 
 public class AddDoctorCommandParserTest {
     private AddDoctorCommandParser parser = new AddDoctorCommandParser();

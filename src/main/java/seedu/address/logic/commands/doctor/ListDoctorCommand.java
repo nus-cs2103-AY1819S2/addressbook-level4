@@ -1,12 +1,14 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.doctor;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DOCTORS;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
-import seedu.address.model.person.DoctorContainsKeywordsPredicate;
+import seedu.address.model.person.doctor.DoctorContainsKeywordsPredicate;
 
 /**
  * Lists all doctors in the docX to the user.

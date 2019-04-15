@@ -21,12 +21,12 @@ import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.Year;
+import seedu.address.model.person.doctor.Year;
 import seedu.address.model.person.patient.Address;
 import seedu.address.model.person.patient.Age;
+import seedu.address.model.person.specialisation.Specialisation;
 import seedu.address.model.prescription.Description;
 import seedu.address.model.prescription.Medicine;
-import seedu.address.model.tag.Specialisation;
 import seedu.address.model.tag.Tag;
 
 /**

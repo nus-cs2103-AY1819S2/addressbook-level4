@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import guitests.guihandles.DoctorCardHandle;
 import guitests.guihandles.DoctorListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
-import seedu.address.model.person.Doctor;
+import seedu.address.model.person.doctor.Doctor;
 
 /**
  * A set of assertion methods useful for writing GUI tests.

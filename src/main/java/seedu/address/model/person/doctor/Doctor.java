@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.person.doctor;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -7,7 +7,12 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.tag.Specialisation;
+import seedu.address.model.person.Gender;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonId;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.specialisation.Specialisation;
 
 
 /**

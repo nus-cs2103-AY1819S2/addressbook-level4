@@ -1,6 +1,6 @@
 /* @@author siyingpoof */
 
-package seedu.address.model.person;
+package seedu.address.model.person.doctor;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 import seedu.address.commons.util.DoctorUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.tag.Specialisation;
+import seedu.address.model.person.specialisation.Specialisation;
 
 /**
  * Tests that {@code Doctor}s whose {@code specialisation} matches and don't match any appointment.

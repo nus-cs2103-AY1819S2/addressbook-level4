@@ -5,7 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import seedu.address.model.person.Doctor;
+import seedu.address.model.person.doctor.Doctor;
 import seedu.address.model.person.patient.Patient;
 
 /**

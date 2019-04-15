@@ -23,14 +23,15 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.doctor.EditDoctorCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.patient.EditPatientCommand;
 import seedu.address.model.DocX;
 import seedu.address.model.Model;
 import seedu.address.model.medicalhistory.MedHistContainsKeywordsPredicate;
 import seedu.address.model.medicalhistory.MedicalHistory;
-import seedu.address.model.person.Doctor;
-import seedu.address.model.person.DoctorContainsKeywordsPredicate;
+import seedu.address.model.person.doctor.Doctor;
+import seedu.address.model.person.doctor.DoctorContainsKeywordsPredicate;
 import seedu.address.model.person.patient.Patient;
 import seedu.address.model.person.patient.PatientNameContainsKeywordsPredicate;
 import seedu.address.model.prescription.Prescription;

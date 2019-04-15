@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.address.model.DocX;
-import seedu.address.model.person.Doctor;
+import seedu.address.model.person.doctor.Doctor;
 import seedu.address.model.person.patient.Patient;
 
 /**

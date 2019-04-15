@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.doctor;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_APPT;
@@ -7,11 +7,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
-import seedu.address.model.person.AppointmentContainsDoctorPredicate;
-import seedu.address.model.person.DoctorHasAppointmentPredicate;
-import seedu.address.model.person.DoctorSpecialisationMatchesPredicate;
-import seedu.address.model.person.DoctorsMatch;
+import seedu.address.model.person.doctor.AppointmentContainsDoctorPredicate;
+import seedu.address.model.person.doctor.DoctorHasAppointmentPredicate;
+import seedu.address.model.person.doctor.DoctorSpecialisationMatchesPredicate;
+import seedu.address.model.person.doctor.DoctorsMatch;
 
 /**
  * Searches and lists all doctors in docX record whose name contains any of the argument keywords.

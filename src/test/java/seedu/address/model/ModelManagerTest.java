@@ -22,7 +22,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Doctor;
+import seedu.address.model.person.doctor.Doctor;
 import seedu.address.model.person.exceptions.DoctorNotFoundException;
 import seedu.address.model.person.exceptions.PatientNotFoundException;
 import seedu.address.model.person.patient.Patient;

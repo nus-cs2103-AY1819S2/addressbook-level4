@@ -13,12 +13,13 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.DoctorMatchCommand;
+import seedu.address.logic.commands.doctor.DoctorMatchCommand;
+import seedu.address.logic.parser.doctor.DoctorMatchCommandParser;
 import seedu.address.model.appointment.AppointmentDate;
 import seedu.address.model.appointment.AppointmentTime;
-import seedu.address.model.person.DoctorMatch;
-import seedu.address.model.person.DoctorSpecialisationMatchesPredicate;
-import seedu.address.model.tag.Specialisation;
+import seedu.address.model.person.doctor.DoctorMatch;
+import seedu.address.model.person.doctor.DoctorSpecialisationMatchesPredicate;
+import seedu.address.model.person.specialisation.Specialisation;
 
 public class DoctorMatchCommandParserTest {
 

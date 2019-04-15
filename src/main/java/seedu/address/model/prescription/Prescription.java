@@ -3,8 +3,8 @@ package seedu.address.model.prescription;
 import java.util.Objects;
 
 import seedu.address.model.medicalhistory.ValidDate;
-import seedu.address.model.person.Doctor;
 import seedu.address.model.person.PersonId;
+import seedu.address.model.person.doctor.Doctor;
 import seedu.address.model.person.patient.Patient;
 
 /**

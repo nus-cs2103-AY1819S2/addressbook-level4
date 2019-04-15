@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import seedu.address.model.Model;
-import seedu.address.model.person.Doctor;
+import seedu.address.model.person.doctor.Doctor;
 import seedu.address.model.person.patient.Patient;
 
 /**

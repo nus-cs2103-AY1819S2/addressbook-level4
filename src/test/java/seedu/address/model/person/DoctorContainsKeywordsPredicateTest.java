@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import seedu.address.model.person.doctor.DoctorContainsKeywordsPredicate;
 import seedu.address.testutil.DoctorBuilder;
 
 public class DoctorContainsKeywordsPredicateTest {

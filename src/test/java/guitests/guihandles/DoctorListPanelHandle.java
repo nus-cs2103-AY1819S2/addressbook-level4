@@ -8,8 +8,8 @@ import java.util.Set;
 
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import seedu.address.model.person.Doctor;
-//import seedu.address.ui.DoctorCard;
+import seedu.address.model.person.doctor.Doctor;
+//import seedu.address.ui.doctor.DoctorCard;
 
 /**
  * Provides a handle for {@code DoctorListPanel} containing the list of {@code DoctorCard}.

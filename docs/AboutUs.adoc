@@ -21,7 +21,7 @@ Responsibilities: Folder features
 
 === Donald Lee Qian Siang
 image::dlqs.png[width="150", align="left"]
-{empty}[https://github.com/dlqs[github]] [<<donaldlee#, portfolio>>]
+{empty}[https://github.com/dlqs[github]] [<<dlqs#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Report and Scoring features

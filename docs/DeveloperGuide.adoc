@@ -1509,6 +1509,46 @@ _{ more test cases ... }_
    Expected: Similar to previous.
 // end::selection[]
 
+=== Adding a Review to a restaurant
+
+. Adding a review to the first restaurant when all restaurants are listed
+
+.. Test case: `addReview 1 re/Nice food rr/4` +
+   Expected: A review of entry "Nice food" and rating "4" added to the first listed restaurant.
+.. Test case: `addReview 22 re/Nice food rr/4` +
+   Expected: No review is added. Error message shown indicating an invalid index specified.
+.. Test case: `addReview 1 re/Nice food` +
+   Expected: No review is added. Error message shown indicating an invalid command format.
+
+=== Adding a default Review to a restaurant
+
+. Adding a default review of rating 3 to the first restaurant when all restaurants are listed
+
+.. Test case: `addR 1 3` +
+   Expected: A new review of entry "Average, normal" and rating "3" is added to the first restaurant.
+.. Test case: `addR 1 6` +
+   Expected: No new review is added. Error message indicating an invalid command format will be shown.
+
+=== Editing the Review of a restaurant
+
+. Editing the first review of the first restaurant when all restaurants are listed
+
+.. Test case: `select 1`, followed by `editReview 1 re/poor` +
+   Expected: The first review's entry of the first restaurant will be changed to "poor".
+.. Test case: `select 1`, followed by `editReview 10 rr/5` +
+   Expected: No review is edited. Error message shown indicating an invalid review index.
+.. Test case: `select 1`, followed by `editReview 1` +
+   Expected: No review is edited. Error message shown indicating that at least one field to edit must be provided.
+
+=== Deleting the Review of a restaurant
+
+. Deleting the first review of the first restaurant when all restaurants are listed
+
+.. Test case: `select 1`, followed by `deleteReview 1` +
+   Expected: The first review of the first restaurant will be deleted.
+.. Test case: `select 1`, followed by `deleteReview` +
+   Expected: No review is deleted. Error message shown indicating an invalid command format.
+
 // tag::categorization[]
 === Setting the categories of a restaurant
 

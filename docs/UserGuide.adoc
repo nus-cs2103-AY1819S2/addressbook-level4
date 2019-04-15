@@ -93,9 +93,9 @@ Adds a contact to the contact book, with 4 variants of customer types. Adds the 
 [NOTE]
 ====
 Accepted customer types: `seller`, `buyer`, `landlord`, `tenant` +
-`NAME`, `PHONE`, `EMAIL` & `REMARK` ARE compulsory for all customers. +
-`ADDRESS` & `SELLINGPRICE` of property are compulsory for sellers. +
-`ADDRESS` & `RENTALPRICE` of property are compulsory for landlords.
+`NAME`, `PHONE`, `EMAIL` & `REMARK` are compulsory for all customers. +
+`ADDRESS` & `SELLING_PRICE` of property are compulsory for sellers. +
+`ADDRESS` & `RENTAL_PRICE` of property are compulsory for landlords.
 ====
 
 [TIP]
@@ -103,7 +103,7 @@ A *property* can have any number of `TAG` (including 0).
 
 * *Seller:* +
 Format: `add c/seller n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS a/ADDRESS sp/SELLING_PRICE_OF_PROPERTY [t/TAG]...` +
-Example: `add c/seller n/James Lee p/98765432 e/jameslee@example.com r/need to sell by April 2018 a/Blk 345 Clementi Ave 5, #04-04, S120345 sp/500000 t/MRT t/newlyRenovated`
+Example: `add c/seller n/James Tan p/97652456 e/jamestan@example.com r/need to sell by April 2018 a/Blk 345 Clementi Ave 5, #04-04, S120345 sp/500000 t/MRT t/newlyRenovated`
 
 * *Buyer:* +
 Format: `add c/buyer n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS` +
@@ -209,7 +209,7 @@ Format: `search KEYWORD [KEYWORD]...`
 Examples:
 
 * `search James` +
-Returns `James Lee` and `John James`
+Returns `James Tan` and `James Ho`
 * `search James Tan Yang` +
 Returns any contact with information matching `James`, `Tan`, or `Yang`
 * `search Woodlands Landlord` +
@@ -236,7 +236,7 @@ Example: `edit 2 n/James Li e/jamesli@example.com sp/450000 t/`
 
 * *Buyer:* +
 Format: `edit INDEX_BUYER [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS]` +
-Example: `edit 2 n/James Tan e/jamestan@example.com r/looking for houses in Woodlands` +
+Example: `edit 2 n/James Han e/jameshan@example.com r/looking for houses in Woodlands` +
 ** Edits the name, email address and remarks of the 2nd contact to be `James Tan`, `jamestan@example.com` and `looking for houses in Woodlands` respectively.
 
 * *Landlord:* +
@@ -246,7 +246,7 @@ Example: `edit 2 n/Jim Lee p/87654321 rp/1700 t/MRT t/Park`
 
 * *Tenant:* +
 Format: `edit INDEX_TENANT [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS]` +
-Example: `edit 2 n/James p/87654322 `
+Example: `edit 2 n/James p/87654322`
 ** Edits the name and phone number of the 2nd contact to be `James` and `87654322` respectively.
 
 [NOTE]
@@ -294,9 +294,9 @@ Deletes the 2nd contact in the contact book.
 * `search James` +
 `delete 1` +
 Deletes the 1st contact in the results of the `search` command.
-* `sort` +
-`delete 3` +
-Deletes the 3rd contact in the sorted list displayed earlier.
+* `search seller` +
+`delete 2` +
+Deletes the 2nd contact in the results of the `search` command.
 
 === Clearing all entries : `clear`
 
@@ -331,8 +331,8 @@ Pins the 2nd contact in the contact book.
 `pin 1` +
 Pins the 1st contact in the results of the `search` command.
 * `search seller` +
-`select 3` +
-Selects the 3rd contact in the results of the `search` command.
+`pin 2` +
+Selects the 2nd contact in the results of the `search` command.
 
 === Unpinning a contact : `unpin`
 
@@ -614,16 +614,16 @@ User can set a password, which will be required when logging into the app.
 [none]
 ** Seller: +
 *** `add c/seller n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS a/ADDRESS sp/SELLING_PRICE_OF_PROPERTY [t/TAG]...` +
-*** e.g. `add c/seller n/James Ho p/98765432 e/jamesho@example.com r/need to sell by April 2018 a/Blk 345 Clementi Ave 5, #04-04, S120345 sp/500000 t/MRT t/newlyRenovated`
+*** e.g. `add c/seller n/James Tan p/97652456 e/jamestan@example.com r/need to sell by April 2018 a/Blk 345 Clementi Ave 5, #04-04, S120345 sp/500000 t/MRT t/newlyRenovated`
 ** Buyer: +
 *** `add c/buyer n/NAME p/PHONE_NUMBER e/EMAIL r/REMARK` +
-*** e.g. `add c/buyer n/James Ho p/98765432 e/jamesho@example.com r/looking for 3-room apartment`
+*** e.g. `add c/buyer n/James Ho p/87657252 e/jamesho@example.com r/looking for 3-room apartment`
 ** Landlord: +
 *** `add c/landlord n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS a/ADDRESS rp/RENTAL_PRICE_OF_PROPERTY [t/TAG]...` +
-*** e.g. `add c/landlord n/James Ho p/98765432 e/jamesho@example.com r/family friend  a/Blk 345 Clementi Ave 5, #04-04, S120345 rp/1500 t/MRT t/newlyRenovated`
+*** e.g. `add c/landlord n/Hans Tan p/90826522 e/hanstan@example.com r/family friend  a/Blk 345 Woodlands Street 32, #04-04, S730345 rp/1500 t/MRT t/newlyRenovated`
 ** Tenant: +
 *** `add c/tenant n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS` +
-*** e.g. `add c/tenant n/James Ho p/98765432 e/jamesho@example.com r/looking for 4-room apartment`
+*** e.g. `add c/tenant n/Bo Yang p/86541526 e/boyang@example.com r/looking for 4-room apartment`
 * *Archive* : `archive INDEX`
 ** e.g. `archive 1`
 * *Archive clear* : `archiveclear`
@@ -637,16 +637,16 @@ User can set a password, which will be required when logging into the app.
 * *Edit* :
 ** Seller: +
 *** `edit INDEX_SELLER [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS] [a/ADDRESS] [sp/SELLING_PRICE_OF_PROPERTY] [t/TAG]...` +
-*** e.g. `edit 2 n/James Lee e/jameslee@example.com sp/450000 t/`
+*** e.g. `edit 2 n/James Li e/jamesli@example.com sp/450000 t/`
 ** Buyer: +
 *** `edit INDEX_BUYER [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS]` +
-*** e.g. `edit 2 n/James Lee e/jameslee@example.com r/looking for houses in Woodlands`
+*** e.g. `edit 2 n/James Han e/jameshan@example.com r/looking for houses in Woodlands` +
 ** Landlord: +
 *** `edit INDEX_LANDLORD [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS] [a/ADDRESS] [rp/RENTAL_PRICE_OF_PROPERTY] [t/TAG]...` +
-*** e.g. `edit 2 n/James Lee p/87654321 rp/1700 t/MRT t/Park`
+*** e.g. `edit 2 n/Jim Lee p/87654321 rp/1700 t/MRT t/Park`
 ** Tenant: +
 *** `edit INDEX_TENANT [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS]` +
-*** e.g. `edit 2 n/James Lee p/87654321 r/`
+*** e.g. `edit 2 n/James p/87654322`
 * *Exit* : `exit`
 * *Search* : `search KEYWORD [KEYWORD]...`
 ** `KEYWORD` List: `CUSTOMER_TYPE`, `NAME`, `PHONE_NUMBER`, `EMAIL`, `REMARK`, `ADDRESS`, `t/TAG`

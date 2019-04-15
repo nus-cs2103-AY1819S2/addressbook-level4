@@ -671,6 +671,8 @@ for the advantages of Option 1.
 // end::battle[]
 
 === Enemy AI feature
+
+// tag::enemyCurrentImplementation[]
 ==== Current implementation
 The Enemy AI feature is currently implemented as an extension of the Player class,
 and serves as the opponent player since `Battleship` is a single-player game.
@@ -690,8 +692,10 @@ image::EnemyShootingUseCaseDiagram.png[width=650]
 Note that the Enemy AI feature does not contain any explicit commands to be
 entered by the Player. Its methods are called by other features instead, and does its
 magic in the background.
+// end::enemyCurrentImplementation[]
 
 
+// tag::enemyInitialiseMap[]
 
 *Initialising Enemy MapGrid*
 
@@ -730,7 +734,9 @@ available to it for the current game, as specified in its Parent class - Player.
 The number of battleships available to the Enemy AI is congruent to the number of battleships
 available to the Player. The exact number of the different types of battleships is decided from on
 a formula that is based on the map size specified by the player in the `init` command.
+// end::enemyInitialiseMap[]
 
+// tag::enemyShoot[]
 *Calculating Coordinate to Attack*
 
 The Enemy AI has the method `enemyShootAt()` that is invoked when the player ends their turn upon a miss.
@@ -770,8 +776,9 @@ map for another part of the Player ship, by randomly targetting coordinates in t
 
 __Note: All actions taken by the Enemy AI are seeded by a pseudo-random generator.
 Thus, its behaviour will be different for every game session.__
+// end::enemyShoot[]
 
-
+// tag::enemyDesign[]
 ==== Design considerations
 * **Alternative 1 (current choice):** seed all methods with pseudo-random seed/
 ** Pros: each game will be a different experience
@@ -779,6 +786,7 @@ Thus, its behaviour will be different for every game session.__
 * **Alternative 2:** pre-calculate and hardcode the actions the Enemy AI performs
 ** Pros: testing is made very much easier
 ** Cons: games would be less dynamic since the enemy's behaviour is non-organic
+// end::enemyDesign[]
 
 // tag::stats[]
 === Statistics feature

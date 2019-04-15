@@ -21,12 +21,9 @@ By: `W17-1`      Since: `Feb 2019`      Licence: `MIT`
 // tag::introductionUG[]
 == Welcome to The Food Diary
 
-<<<<<<< HEAD
-If you would like to get to use the Food Diary straightaway, jump to <<Quick Start>> to get started
-=======
 image::userguide.png[float=right, width="450"]
-If you would like to get use the Food Diary straightaway, jump to the <<Quick Start>> to get started
->>>>>>> 73b7d2f0fbe14b7e623e624561d405eab1afcf5f
+If you would like to get use the Food Diary straightaway, jump to <<Quick Start>> to get started
+
 
 **What is the Food Diary? **
 
@@ -151,13 +148,7 @@ Changes the name of the second restaurant in the list to `MACS`.
 When you are editing the Weblink of a restaurant, FoodDiary will check whether the Weblink is valid for you. You need to have internet connection else,
 the FoodDiary will not edit the Weblink for you.
 ====
-<<<<<<< HEAD
 
-When you are changing a restaurant's Weblink to an invalid Weblink, you will receive the following error message.
-
-When you are editing a restaurant's Weblink with no internet connection, the FoodDiary will edit your restaurant but not the Weblink.
-=======
->>>>>>> 73b7d2f0fbe14b7e623e624561d405eab1afcf5f
 // end::addedit[]
 
 

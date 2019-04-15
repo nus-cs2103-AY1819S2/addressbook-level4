@@ -107,7 +107,7 @@ Change the name, author, tag of the first book to Alice in Wonderland, some auth
 image::EditBookBefore.png[width="800"]
 Figure 2.1 Result display before the the execution of `editBook 1 n/Alice in Wonderland a/some author t/some tag`.
 
-image::EditBookBefore.png[width="800"]
+image::EditBookAfter.png[width="800"]
 Figure 2.2 Result display after the the execution of `editBook 1 n/Alice in Wonderland a/some author t/some tag`.
 
 * `editBook 2 t/` +

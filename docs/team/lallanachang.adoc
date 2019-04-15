@@ -73,7 +73,7 @@ include::../UserGuide.adoc[tag=lei]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide, showing implementation I have made for the `session` feature. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide, showing implementation I have made for the `session` feature as well as some suggested test cases for `StartCommand`. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=session]

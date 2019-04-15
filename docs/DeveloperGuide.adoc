@@ -288,7 +288,7 @@ The `Model` component's function is to allow the retrieval of the `PostalData` o
 It contains a `PostalDataSet` which contains a `HashMap` of `String` representing the postal code mapped to the corresponding `PostalData`.
 This contains the x and y-coordinates of the corresponding postal code.
 The retrieval is done through the `PostalDataSet#getPostalData(int postal)` method.
-`PostalDataSet` is obtained through the `Model#getPostalDataSet()` interface which returns of a `Optional<PostalDataSet>`.
+`PostalDataSet` is obtained through the `Model#getPostalDataSet()` interface.
 
 
 *[.underline]#3.Logic Component#*
@@ -296,7 +296,7 @@ The retrieval is done through the `PostalDataSet#getPostalData(int postal)` meth
 The `Logic` component consists of two key sub-components, the `Command` component and the `Comparator` component.
 The `Command` component parses the user input into a `Postal` and then checks if the `Postal` is within the `PostalDataSet`.
 If the postal code provided is not within `PostalDataSet`, the `ListUnvisitedCommand` will simply filter out unreviewed restaurants.
-Otherwise, if the postal code is valid, it will creates a new `SortDistanceComparator<Restaurant>` class with the postal code and `PostalDataSet` inputted as the parameters.
+Otherwise, if the postal code is valid, it will create a new `SortDistanceComparator<Restaurant>` class with the postal code and `PostalDataSet` inputted as the parameters.
 This `SortDistanceComparator` is then passed to the `Model` class to sort the `SortedList` which encapsulates the `FilteredList`.
 This sequence is illustrated in the activity diagram below.
 

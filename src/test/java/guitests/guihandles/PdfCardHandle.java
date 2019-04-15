@@ -61,7 +61,9 @@ public class PdfCardHandle extends NodeHandle<Node> {
         return deadlineLabel.getText();
     }
 
-    public String getSize() { return sizeLabel.getText(); }
+    public String getSize() {
+        return sizeLabel.getText();
+    }
 
     public List<String> getTags() {
         return tagLabels

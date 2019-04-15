@@ -102,7 +102,7 @@ Below are other example commands you may try:
 +
 . For a detailed explanation of each command, refer to <<Features>>.
 +
-. For a complete summary of each command, refer to <<Cheatsheet>>
+. For a complete summary of each command, refer to <<Cheatsheet>>.
 
 // tag::features[]
 [[Features]]
@@ -885,10 +885,10 @@ the file can be opened by a text editor such as NotePad.
 * Filepath of the photo file for the place (Prefix: `p/`)
 
 *Q*: *Why does the `undo` command not work?* +
-*A*: The `undo` command only reverses the commands `add`, `delete`, `deletem`, `edit` and `clear`.
+*A*: The `undo` command only reverses the commands `add`, `delete`, `deletem`, `generate`, `edit` and `clear`.
 
 *Q*: *Why does the `undo` command reverse a command from multiple commands before?* +
-*A*: The `undo` command reverses the last used `add`, `delete`, `deletem`, `edit` or `clear` command.
+*A*: The `undo` command reverses the last used `add`, `delete`, `deletem`, `edit`, `generate` and `clear` command.
 
 // tag::cheatsheet[]
 == Cheatsheet

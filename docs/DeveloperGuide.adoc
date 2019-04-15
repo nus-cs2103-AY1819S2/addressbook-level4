@@ -1,7 +1,6 @@
 = TravelBuddy - Developer Guide
 :site-section: DeveloperGuide
 :toc:
-:toc-title:
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
@@ -1689,4 +1688,4 @@ These instructions only provide a starting point for testers to work on. Testers
 .. Test case: `delete 0` +
    Expected: No place is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size)  +
-   Expected: Similar to previous.
+  Expected: Similar to previous.

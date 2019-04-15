@@ -1187,3 +1187,23 @@ Expected: Warning panel's "Low in Stock" list empties and placeholder "Nothing t
 Expected: No changes to warning panel. Error details shown in the status message.
 .. Other incorrect warning commands to try: `warning`, `warning q/x` (where x is not a positive integer), `warning {non-whitespace preamble} q/y` (where y is a positive integer) +
 Expected: Similar to previous.
+
+=== Labeling medicine information onto a PDF file
+
+. Output a medicine information onto a PDF file using default name.
+
+.. Prerequisites: List all medicines using the `list` command. There is at least a medicine in the first index
+
+.. Test case: `label 1` +
+Expected: Success message shown in the UI. Current medicine on index one is successfully output to a PDF file under the PDF folder. Filename is `to_print`.
+.. Test case: `label` +
+Expected: Unsuccessful message shown in the UI. No file will be output in the PDF folder.
+
+. Output a medicine information onto a PDF file with its name given by the user. Filename must follow Appendix A. Else, error message is shown.
+
+.. Prerequisites: List all medicines using the `list` command. There is at least a medicine in the first index
+
+.. Test case: `label 1 f/newfile` +
+Expected: Success message shown in the UI. Current medicine on index one is successfully output to a PDF file under the PDF folder. Filename is `newfile`.
+.. Test case: `label 1 f/^@#&` +
+Expected: Expected: Unsuccessful message shown in the UI. No file will be output in the PDF folder.

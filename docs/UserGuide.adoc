@@ -50,7 +50,7 @@ To begin using BrainTrain, follow the following set of instructions: +
 +
 .BrainTrain on first run
 [#img-firstlook]
-image::UiFirstLook.png[width="790"]
+image::UiFirstLook.png[width="384"]
 
 . Read the next section, <<Features>>, to find out what BrainTrain commands there are.
 // end::evan-start[]
@@ -144,8 +144,7 @@ Starting a quiz session with multiple lessons [coming in v2.0]
 
 // tag::evan-mgt[]
 [[listLessons]]
-==== Listing all lessons: `listLessons`
-
+==== Listing all lessons: `listLessons` +
 Displays a numbered list of all lessons. +
 Format: `listLessons` +
 
@@ -159,8 +158,7 @@ This command only works in lesson view. If you are currently editing a lesson in
 image::list_lessons.png[]
 
 [[addLesson]]
-==== Adding a lesson: `addLesson`
-
+==== Adding a lesson: `addLesson` +
 Adds a lesson which is used to store cards of the same type and topic. +
 Format: `addLesson n/NAME t/TEST t/TEST [t/TEST]... [h/HINT]...`
 
@@ -185,8 +183,7 @@ Examples:
 * `addLesson n/Chinese vocabulary t/English t/Chinese`
 ** Adds a lesson named 'Chinese vocabulary' with 2 `TEST` values.
 
-==== Deleting a lesson: `deleteLesson`
-
+==== Deleting a lesson: `deleteLesson` +
 Deletes the lesson at the specified INDEX of the numbered lesson list. +
 Format: `deleteLesson INDEX`
 
@@ -204,7 +201,7 @@ In the above scenario, the command `deleteLesson 2` will delete the second lesso
 // end::evan-mgt[]
 // tag::eugene[]
 
-==== Reloading all lessons: `reloadLessons`
+==== Reloading all lessons: `reloadLessons` +
 Reloads all lessons from the lessons folder. The default folder is `/lessons/`, found next to `braintrain.jar`.
 
 Format: `reloadLessons`
@@ -253,8 +250,7 @@ If the lesson does not appear, please check <<Troubleshooting>>.
 // end::eugene[]
 // tag::evan-mgt[]
 [[openLesson]]
-==== Editing a lesson in card view: `edit`
-
+==== Editing a lesson in card view: `edit` +
 Opens the lesson at the specified INDEX in Card View for editing. +
 Format: `openLesson INDEX`
 
@@ -271,8 +267,7 @@ image::edit_lesson.png[width=384]
 In the above scenario, the command `edit 1` will open the first lesson in the numbered list, 'Sample-Capitals' in Card View for editing.
 
 [[quit]]
-==== Quitting card view: `quit`
-
+==== Quitting card view: `quit` +
 Quits Card View and returns to Lesson View. +
 Format: `quit`
 
@@ -282,8 +277,7 @@ Changes made to the lesson in Card View are saved automatically upon quitting Ca
 ====
 
 [[set]]
-==== Setting the lesson's test pair: `set`
-
+==== Setting the lesson's test pair: `set` +
 Sets the 2 `TEST` values at the 2 specified INDEX of the numbered card list to be tested in quiz mode. +
 Format: `set INDEX INDEX`
 
@@ -307,8 +301,7 @@ In the above scenario, the command `set 1 3` will set the first `TEST` value 'Mu
 image::set_test_after.png[width=384]
 
 [[listCards]]
-==== Listing all cards: `listCards`
-
+==== Listing all cards: `listCards` +
 Displays a numbered list of all cards in the lesson opened in Card View. +
 Format: `listCards` +
 
@@ -322,7 +315,7 @@ This command only works in card view. You have to open a lesson in card view for
 image::list_cards.png[]
 
 [[addCard]]
-==== Adding a card: `addCard`
+==== Adding a card: `addCard` +
 Adds a card to the lesson opened in Card View. +
 Format: `addCard t/TEST t/TEST [t/TEST]... [h/HINT]...`
 
@@ -350,8 +343,7 @@ Examples:
 ** Adds a flashcard with 2 `TEST` values which are both tested in quiz  mode.
 
 [[deleteCard]]
-==== Deleting a flashcard: `deleteCard`
-
+==== Deleting a flashcard: `deleteCard` +
 Deletes the card at the specified INDEX of the numbered card list. +
 Format: `deleteCard INDEX`
 
@@ -369,8 +361,7 @@ In the above scenario, the command `deleteCard 2` will delete the second card in
 
 // end::evan-mgt[]
 
-==== Listing entered commands : `history`
-
+==== Listing entered commands : `history` +
 Lists all the commands you have entered in reversed chronological order. +
 Format: `history`
 
@@ -379,8 +370,7 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-==== Exiting the program : `exit`
-
+==== Exiting the program : `exit` +
 Exits the program. +
 Format: `quit`
 
@@ -388,12 +378,10 @@ Format: `quit`
 
 // tag::quiz[]
 [[quizmode]]
-=== Quiz mode
-
+=== Quiz mode +
 When you <<start, `start`>> a quiz, you will enter quiz mode. In this mode, you will only be allowed to enter the following set of quiz commands. Management commands are disabled in this mode.
 
-==== Answering a card : `[ANSWER]`
-
+==== Answering a card : `[ANSWER]` +
 An input without the `\` prefix will be treated as an answer to the current card. +
 Format: `[ANSWER]...`
 

@@ -6,8 +6,7 @@
 :repoURL: https://github.com/CS2103-AY1819S2-W14-1/main
 :pullURL: https://github.com/CS2103-AY1819S2-W14-1/main/pull/
 :seeduURL: https://github.com/se-edu/addressbook-level4
-
-Github username: link:https://github.com/DigiPie[DigiPie] | Email: mailto:evantay@comp.nus.edu.sg[evantay@comp.nus.edu.sg] | Website: link:http://evantay.com/[www.evantay.com]
+:webURL: https://cs2103-ay1819s2-w14-1.github.io/main/
 
 == Introduction +
 The purpose of this portfolio is to demonstrate my software engineering competency by showcasing my code and documentation contributions to the link:{repoURL}[BrainTrain project].
@@ -21,10 +20,7 @@ CS2103T students were given the option of enhancing an link:{seeduURL}[existing 
 
 BrainTrain is a *spaced-repetition flashcard application* which makes *memorizing easy and effective*. With BrainTrain's link:https://www.theguardian.com/education/2016/jan/23/spaced-repetition-a-hack-to-make-your-brain-store-information[Spaced Repetition System (SRS)] optimizing your flashcard revision intervals, you will be able to *learn more in less time*.
 
-*Main features of BrainTrain:*
-
-- You can manage flashcard lessons in BrainTrain's management mode or alternatively do so in your preferred spreadsheet application.
-- You can attempt flashcard lessons in BrainTrain's quiz mode which will track and manage your user-specific spaced-repetition data automatically.
+{empty} +
 
 == Summary of contributions +
 My primary responsibility was to design and develop the *Card Management System*. My secondary responsibility was to act as the project's *documentation lead*. In the following sub-sections, you will find a summary of my key contributions to the project.
@@ -35,13 +31,11 @@ My largest contribution to the project was the implementation of the *Card Manag
 * Context: In BrainTrain, each lesson contains a set of flashcards of the same type and topic.
 * What it does: It provides users with the ability to add, edit and delete lessons in *Lesson View* and *Card View* modes.
 * In *Lesson View*, users can:
-** Add a lesson by using the `addLesson` command
-** Delete a lesson by using the `deleteLesson` command
+** Add and delete lessons by using the `addLesson` and `deleteLesson` commands
 ** Open a lesson in *Card View* for editing by using the `edit` command
 ** List the full details of all lessons by using the `listLessons` command
 * In *Card View*, users can:
-** Add a flashcard by using the `addCard` command
-** Delete a flashcard by using the `deleteCard` command
+** Add and delete flashcards by using the `addCard` and `deleteCard` commands
 ** Set the 2 test values to be tested in quiz mode for all flashcards in the lesson by using the `set` command
 ** List the full details of all cards by using the `listCards` command
 ** Quit *Card View* and return to *Lesson View* by using the `quit` command
@@ -50,19 +44,11 @@ My largest contribution to the project was the implementation of the *Card Manag
 * Code contributed: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=digipie[View on RepoSense] +
 
 === Minor enhancement +
-My second largest contribution to the project was the implementation of the Graphical User Interface (GUI) representation for the Card Management System: +
+My second largest contribution was the Graphical User Interface (GUI) representation for the Card Management System: +
 
 * What it does: Displays all lessons and their relevant details in *Lesson View*, and the details and flashcards of the lesson being edited in *Card View*.
-* In *Lesson View*, users can view all lessons and their details (e.g. number of cards):
-
-.*Lesson View*
-image::digipie/lesson_view.png[width="384"]
-
-* In *Card View*, users can view the opened lesson's details and its flashcards:
-
-.*Card View*
-image::digipie/card_view.png[width="384"]
-
+** In *Lesson View*, users can view all lessons and their details (e.g. number of cards).
+** In *Card View*, users can view the opened lesson's details and its flashcards.
 * Justification: The GUI representation of lessons and flashcards provides users with the ability to view all relevant details at a glance.
 * Code contributed: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=digipie[View on RepoSense] +
 
@@ -70,42 +56,27 @@ image::digipie/card_view.png[width="384"]
 In addition to designing and writing code, I also contributed to the project through the following means:
 
 * *Documentation:*
-As the documentation lead, I ensured overall consistency and quality for the project's user guide and developer guide by,
-** Writing the User Guide's Introduction and Quick Start sections (see link:{pullURL}15[#15], link:{pullURL}85[#85],  link:{pullURL}113[#113] and link:{pullURL}180[#180]).
+As the documentation lead, I ensured overall quality for the project's documentation by,
+** Writing the User Guide's Introduction and Quick Start sections (see link:{pullURL}15[#15], link:{pullURL}85[#85], and link:{pullURL}180[#180]).
 ** Editing the User Guide and Developer Guide for overall coherency as editor (see
-link:{pullURL}20[#20], https://github.com/CS2103-AY1819S2-link:{pullURL}85[#85], link:{pullURL}107[#107] and link:{pullURL}180[#180]).
+link:{pullURL}20[#20], https://github.com/CS2103-AY1819S2-link:{pullURL}85[#85], and link:{pullURL}180[#180]).
 * *Project management:* I assisted the team lead, <<eugenefdw#, Eugene>> by,
 ** Managing product releases link:{repoURL}/releases/tag/v1.2.1[v1.2.1] and link:{repoURL}/releases/tag/v1.3[v1.3.0].
 ** Coordinating team for milestone link:{repoURL}/milestone/4[v1.3].
 * *Software architecture:* I contributed to the overall project by,
-** Implementing major refactor of `seedu.address.logic` package structure and design to improve workflow for entire team (see  link:{pullURL}/85[#85]).
-** Performing major overhaul of `seedu.address.model.util` package to improve modularity and extensibility of sample data generation (see link:{pullURL}/180[#180]).
-** Worked with fellow developer <<halcyoneee#, Tze Ting>> in designing the app's light and dark theme (see link:{pullURL}180[#180]).
-* *Community:* I worked with my team to resolve problems and achieve greater code quality by,
+** Performing major refactor of `seedu.address.logic` and `seedu.address.model.util` package structure and design to improve workflow for entire team (see  link:{pullURL}/85[#85], link:{pullURL}/180[#180]).
+** Co-designing the app's light and dark theme with fellow developer <<halcyoneee#, Tze Ting>> (see link:{pullURL}180[#180]).
+* *Community:* I worked with my team to resolve problems together by,
 ** Assisting teammates in fixing their bugs (see link:{pullURL}33[#33] and link:{pullURL}97[#97]).
-** Reviewing teammates' pull requests with non-trivial, constructive feedback (see link:{pullURL}37[#37], link:{pullURL}108[#108], link:{pullURL}132[#132], link:{pullURL}133[#133], link:{pullURL}139[#139] and link:{pullURL}175[#175]).
-
-== Contributions to the user guide +
-In addition to updating the user guide with the Card Management System commands, I also wrote the Introduction and Quick Start sections, and edited the document to ensure overall consistency and quality. I have listed some of my key contributions to the document as excerpts below:
-
-=== Excerpt: Introduction
-BrainTrain is a *spaced-repetition flashcard application* which makes *memorizing easy and effective*. With BrainTrain's link:https://www.theguardian.com/education/2016/jan/23/spaced-repetition-a-hack-to-make-your-brain-store-information[Spaced Repetition System (SRS)] optimizing your flashcard revision intervals, you will be able to *learn more in less time*.
-
-*Who is it for:*
-
-- Anyone who needs to memorise anything should use BrainTrain (e.g. Japanese vocabulary, periodic table, human anatomy). BrainTrain's flashcard system is *content-agnostic* and *flexible*. It accommodates all forms of learning you may require.
-- Anyone who needs to create flashcard learning content for educational purposes should use BrainTrain. BrainTrain's flashcards are grouped as lessons which can be *easily imported and exported*. These lessons are also saved in `.csv` files which you *can edit in your favourite spreadsheet application* (e.g. Excel).
-
-*Main features of BrainTrain:*
-
-- You can manage flashcard lessons in BrainTrain's management mode or alternatively do so in your preferred spreadsheet application.
-- You can attempt flashcard lessons in BrainTrain's quiz mode which will track and manage your user-specific spaced-repetition data automatically.
-
-Read the next section, <<Quick-start>>, to start using BrainTrain.
+** Reviewing teammates' pull requests with constructive feedback (see link:{pullURL}37[#37], link:{pullURL}139[#139] and link:{pullURL}175[#175]).
 
 {empty} +
 
-=== Excerpt: Quick start
+== Contributions to the user guide +
+I have listed some of my key contributions to the
+link:{webURL}UserGuide.html[user guide] as excerpts below:
+
+=== Excerpt: Quick start +
 To begin using BrainTrain, follow the following set of instructions: +
 
 . Ensure that Java version `9` or later is installed on your Computer. You can download it link:https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html[here].
@@ -117,13 +88,12 @@ To begin using BrainTrain, follow the following set of instructions: +
 +
 .BrainTrain on first run
 [#img-firstlook]
-image::UiFirstLook.png[width="790"]
+image::UiFirstLook.png[width="384"]
 
 . Read the next section, <<Features>>, to find out what BrainTrain commands there are.
 
-=== Excerpt: Adding a lesson: `addLesson`
-
-Adds a lesson which is used to store flashcards of the same type and topic. +
+=== Excerpt: Adding a lesson: `addLesson` +
+Adds a lesson which is used to store cards of the same type and topic. +
 Format: `addLesson n/NAME t/TEST t/TEST [t/TEST]... [h/HINT]...`
 
 [NOTE]
@@ -144,30 +114,10 @@ Examples:
 
 * `addLesson n/Capitals of the world t/Country t/Capital t/Language h/Hint`
 ** Adds a lesson named 'Capitals of the world' with 3 `TEST` values and 1 `HINT` value.
-* `addLesson n/Chinese vocabulary t/English t/Chinese t/Hanyupinyin`
+* `addLesson n/Chinese vocabulary t/English t/Chinese`
 ** Adds a lesson named 'Chinese vocabulary' with 2 `TEST` values.
 
-=== Excerpt: Editing a lesson: `edit`
-
-Opens the lesson at the specified INDEX in Card View for editing. +
-Format: `openLesson INDEX`
-
-[NOTE]
-====
-In Card View, users will be able to use the following commands: <<set, `set`>>, <<addCard, `addCard`>>, <<deleteCard, `deleteCard`>> and <<listCards, `listCards`>>.
-====
-
-Example:
-
-.BrainTrain with sample lessons loaded
-image::edit_lesson.png[width=384]
-
-In the above scenario, the command `edit 1` will open the first lesson in the numbered list, 'Sample-Capitals' in Card View for editing.
-
-{empty} +
-
-=== Excerpt: Setting the lesson's test pair: `set`
-
+=== Excerpt: Setting the lesson's test pair: `set` +
 Sets the 2 `TEST` values at the 2 specified INDEX of the numbered card list to be tested in quiz mode. +
 Format: `set INDEX INDEX`
 
@@ -190,8 +140,7 @@ In the above scenario, the command `set 1 3` will set the first `TEST` value 'Mu
 .A lesson opened in card view, after `set 1 3` is entered
 image::set_test_after.png[width=384]
 
-=== Excerpt: Deleting a flashcard: `deleteCard`
-
+=== Excerpt: Deleting a flashcard: `deleteCard` +
 Deletes the card at the specified INDEX of the numbered card list. +
 Format: `deleteCard INDEX`
 
@@ -207,5 +156,7 @@ image::delete_card.png[width=384]
 
 In the above scenario, the command `deleteCard 2` will delete the second card in the numbered list, 'Orbicularis oculi / Facial nerve'.
 
+{empty} +
+
 == Contributions to the developer guide +
-On top of updating the Developer Guide with the Card Management System design and implementation details, I also edited the document to ensure overall coherency and quality. I have listed some of my key contributions to the document as excerpts below:
+I have listed some of my key contributions to the link:{webURL}DeveloperGuide.html[developer guide] as excerpts below:

@@ -1,4 +1,4 @@
-= BrainTrain - Developer Guide
+= BrainTrain - Developer guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -18,15 +18,15 @@ endif::[]
 
 By: `Team BrainTrain`      Since: `Jan 2019`      Licence: `MIT`
 
-== Setting up
+== Setting up +
 
-=== Prerequisites
+=== Prerequisites +
 
 . *JDK `9`* or later
 +
 [WARNING]
 JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
-Windows developers are highly recommended to use JDK `9`.
+Windows developers should use JDK `9`.
 
 . *IntelliJ* IDE
 +
@@ -37,7 +37,8 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 
 === Setting up the project in your computer
 
-. Fork this repo, and clone the fork to your computer
+. Fork this repo
+. Clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
 . Set up the correct JDK version for Gradle
 .. Click `Configure` > `Project Defaults` > `Project Structure`
@@ -46,7 +47,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Locate the `build.gradle` file and select it. Click `OK`
 . Click `Open as Project`
 . Click `OK` to accept the default settings
-. Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
+. Open a console and run the command `gradlew processResources` (for Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
 . Open link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
@@ -72,16 +73,6 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 * For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
-
-==== Updating documentation to match your fork
-
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
-
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
-
-. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
-
-. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
 
 ==== Setting up CI
 

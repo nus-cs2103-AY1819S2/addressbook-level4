@@ -31,6 +31,8 @@ Interested? Jump to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
+*Setting up the app*
+
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the latest `therealapp.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for The Real App.
@@ -38,13 +40,30 @@ Interested? Jump to <<Quick Start>> to get started. Enjoy!
 [TIP]
 New files and folders will be generated after launching the app. Recommended to put jar file in a new folder.
 
+*Starting the app*
+
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 
 +
-image::Ui.png[width="790"]
+image::UiExplained.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+.  The outcome of the command will be displayed in the result display box. +
+e.g. after successfully executing the `help` command, the following message will appear: +
+ Opened help window. +
+ Displaying main person list!.
+ .  The pin list shows the contacts who has been pinned. It can be resized by clicking and dragging the borders of the box.
+ .  The main contact list shows the active list of contacts. It can be resized by clicking and dragging the borders of the box. User can toggle between the contact list view and the archive list view using commands `list` and `archivelist`.
+ .  The browser window will display the property's location on Google Maps(TM) when an appropriate contact is selected.
+
+[NOTE]
+====
+ Go to <<GoogleMaps>> for more details of the Google Maps(TM) display.
+====
+
+*Using the app*
+
 .  An example workflow with some commands you can try:
 
 .. **`add`**`c/seller n/James Ho p/98765432 e/jamesho@example.com r/urgent need to sell a/Blk 345 Clementi Ave 5, #04-04, S120345 sp/500000 t/newlyRenovated`: adds a seller named `James Ho` and the associated property information to the contact book.
@@ -121,6 +140,17 @@ Example: `add c/tenant n/Bo Yang p/86541526 e/boyang@example.com r/looking for 4
 ====
 When multiple parameters of the same type are entered, only the last one will be added. e.g. `add ... p/97642542 p/12345678 ...`, only `12345678` will be saved to the contact.
 ====
+
+Screenshots for 1st example:
+
+* Enter `add c/seller n/James Tan p/97652456 e/jamestan@example.com r/need to sell by April 2018 a/Blk 345 Clementi Ave 5, #04-04, S120345 sp/500000 t/MRT t/newlyRenovated`:
+
+image::add_screenshot_1.png[width="790"]
+
+* Client James Tan is successfully added, the contact list is updated and the newly added contact is selected:
+
+image::add_screenshot_2.png[width="790"]
+
 // end::addfeatures[]
 
 === Listing all contacts : `list`
@@ -135,7 +165,7 @@ Selects the contact identified by the index number used in the displayed contact
 Format: `select INDEX`
 
 ****
-* Selects the contact at the specified `INDEX` and displays all the contact and any associated property information, as well as the address location of the associated property (if applicable) on the Google Maps(TM) window panel.
+* Selects the contact at the specified `INDEX` and displays all the contact and any associated property information, as well as the address location of the associated property (if applicable) on the Google Maps(TM) browser window panel.
 * The index refers to the index number shown in the displayed contact list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
@@ -214,6 +244,16 @@ Returns `James Tan` and `James Ho`
 Returns any contact with information matching `James`, `Tan`, or `Yang`
 * `search Woodlands Landlord` +
 Returns any contact with information matching `Woodlands` or `Landlord`
+
+Screenshots for 1st example:
+
+* Enter `search James`:
+
+image::search_screenshot_1.png[width="790"]
+
+* The search is executed successfully and the contact list is updated to show `James Tan` and `James Ho`.
+
+image::search_screenshot_2.png[width="790"]
 // end::searchfeatures[]
 
 // tag::editfeatures[]
@@ -258,6 +298,26 @@ The customer type of the contact cannot be changed and only information type rel
 ====
 When multiple parameters of the same type are entered, only the last one will be edited. e.g. `edit ... p/97642542 p/12345678 ...`, only `12345678` will be saved to the contact.
 ====
+
+Screenshots for 1st example:
+
+* Enter `list`:
+
+image::archive_screenshot_1.png[width="790"]
+
+* Main contact list is displayed:
+
+image::edit_screenshot_1.png[width="790"]
+
+* Make sure that the contact at index 2 is a seller, otherwise choose the correct index corresponding to a seller. +
+Enter `edit 2 n/James Li e/jamesli@example.com sp/450000 t/`:
+
+image::edit_screenshot_2.png[width="790"]
+
+* Contact at index 2 is now edited to `James Li` and the information are updated accordingly. The contact is also selected upon successful execution of the `edit` command:
+
+image::edit_screenshot_3.png[width="790"]
+
 // end::editfeatures[]
 
 === Matching a contact to a property: `match` `[coming in v2.0]`
@@ -356,7 +416,7 @@ Select a pinned contact identified by the index number used in the displayed pin
 Format: `pinselect INDEX`
 
 ****
-* Selects the contact at the specified `INDEX` and displays all the contact and property information, as well as the address location of the associated property on the Google Maps(TM) window panel.
+* Selects the contact at the specified `INDEX` and displays all the contact and property information, as well as the address location of the associated property on the Google Maps(TM) browser window panel.
 * The index refers to the index number shown in the displayed pin list.
 * The index must be a positive integer no greater than `5` and the number of contacts in the pin list, whichever is bigger.
 ****
@@ -444,7 +504,7 @@ Format: `archiveselect INDEX`
 
 ****
 * Archive list must be displayed prior to this.
-* Selects the contact at the specified `INDEX` and displays the address location of the associated property on the Google Maps(TM) window panel.
+* Selects the contact at the specified `INDEX` and displays the address location of the associated property on the Google Maps(TM) browser window panel.
 * The index refers to the index number shown in the displayed contact list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
@@ -572,7 +632,7 @@ Format: `exit`
 [[GoogleMaps]]
 === Displaying location on Google Maps(TM)
 
-Double-clicking the contact will also select and bring up the the address location of the associated property on the Google Maps(TM) window panel.
+Double-clicking the contact will also select and bring up the the address location of the associated property on the Google Maps(TM) browser window panel.
 
 [NOTE]
 ====

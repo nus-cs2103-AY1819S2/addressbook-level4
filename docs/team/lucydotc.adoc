@@ -62,6 +62,7 @@ include::../UserGuide.adoc[tag=gamerules]
 include::../DeveloperGuide.adoc[tag=enemyCurrentImplementation]
 include::../DeveloperGuide.adoc[tag=enemyInitialiseMap]
 include::../DeveloperGuide.adoc[tag=enemyShoot]
+
 include::../DeveloperGuide.adoc[tag=enemyDesign]
 
 

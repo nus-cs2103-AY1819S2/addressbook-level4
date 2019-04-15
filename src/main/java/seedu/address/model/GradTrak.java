@@ -32,8 +32,8 @@ public class GradTrak implements ReadOnlyGradTrak {
     private static final int NUM_SEMS = 10;
 
     /* The following accounts for some modules with 'A' level prerequisites */
-    private static final String aLevelRegex =
-            "MA1521|MA1101R|PC1141|PC1142|PC1143|PC1144|CM1401|CM1402|CM1501|CM1502|PC1431";
+    private static final String A_LEVEL_REGEX =
+            "CS1231|MA1521|MA1101R|PC1141|PC1142|PC1143|PC1144|CM1401|CM1402|CM1501|CM1502|PC1431|PC1432|LSM1106";
 
     private Semester currentSemester;
     private final SemesterLimitList semesterLimitList;
@@ -226,7 +226,7 @@ public class GradTrak implements ReadOnlyGradTrak {
     @Override
     public ArrayList<String> getMissingPrerequisites(ModuleTree moduleTree) {
         ArrayList<String> codeStringList = new ArrayList<>();
-        if (moduleTree.getModuleCode().matches(aLevelRegex)) {
+        if (moduleTree.getModuleCode().matches(A_LEVEL_REGEX)) {
             return codeStringList;
         }
         for (ModuleInfoCode code : getNonFailedCodeList()) {

@@ -67,7 +67,7 @@ public class RecCommandTest {
 
     @Test
     public void execute_emptyGradtrak() {
-        String expectedMessage = String.format(MESSAGE_REC, 159);
+        String expectedMessage = String.format(MESSAGE_REC, 162);
 
         model.setCourse(algoCourse.getCourseName());
         expectedModel.setCourse(algoCourse.getCourseName());

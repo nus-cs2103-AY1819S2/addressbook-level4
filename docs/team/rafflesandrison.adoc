@@ -82,6 +82,9 @@ You will find many commands implemented to manipulate the arrangement of the app
 *SortCommand*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/logic/commands/SortCommand.java[Functional code]]
 *SortCommandParser*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/logic/parser/SortCommandParser.java[Functional code]]
 *SortCommandTest*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/test/java/seedu/address/logic/commands/SortCommandTest.java[Test code]]
+*SwapCommand*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/logic/commands/SwapCommand.java[Functional code]]
+*SwapCommandParser*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/logic/parser/SwapCommandParser.java[Functional code]]
+*SwapCommandTest*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/test/java/seedu/address/logic/commands/SwapCommandTest.java[Test code]]
 
 == Contributions to the User Guide
 

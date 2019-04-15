@@ -197,6 +197,9 @@ public class ModelManager implements Model {
     @Override
     public boolean isEligibleModuleTaken(ModuleTaken moduleTaken) {
         requireNonNull(moduleTaken);
+        if (moduleInfoList.isEmpty()) { //cannot check if not module info
+            return true;
+        }
         ModuleInfo moduleInfo = moduleInfoList.getModule(moduleTaken.getModuleInfoCode().value);
         return new EligibleModulePredicate(versionedGradTrak).test(moduleInfo);
     }

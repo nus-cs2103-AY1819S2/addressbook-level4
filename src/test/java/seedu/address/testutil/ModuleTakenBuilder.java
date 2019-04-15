@@ -17,8 +17,8 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class ModuleTakenBuilder {
 
-    public static final String DEFAULT_MODULE_INFO_CODE = "CS2103T";
-    public static final String DEFAULT_SEMESTER = "Y4S2";
+    public static final String DEFAULT_MODULE_INFO_CODE = "CS1010";
+    public static final String DEFAULT_SEMESTER = "Y1S1";
     public static final String DEFAULT_EXPECTED_MIN_GRADE = "F";
     public static final String DEFAULT_EXPECTED_MAX_GRADE = "A_PLUS";
     public static final String DEFAULT_LECTURE_HOUR = "0";

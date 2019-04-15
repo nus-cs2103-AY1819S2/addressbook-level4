@@ -194,7 +194,7 @@ public class TypicalModuleTaken {
     }
 
     public static List<ModuleTaken> getTypicalModulesTaken() {
-        return new ArrayList<>(Arrays.asList(CS2103T, CS2101, CS1010S, CS1010X, MA1521, LSM1301, GER1000));
+        return new ArrayList<>(Arrays.asList(CS1010S, CS1010X, MA1521, LSM1301, GER1000));
     }
 
     public static List<SemesterLimit> getTypicalSemesterLimits() {

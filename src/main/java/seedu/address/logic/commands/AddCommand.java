@@ -13,6 +13,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.moduleinfo.ModuleInfo;
+import seedu.address.model.moduleinfo.ModuleInfoList;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.model.moduletaken.Workload;
 
@@ -56,10 +57,14 @@ public class AddCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        ModuleInfo moduleInfo = model.getModuleInfoList().getModule(toAdd.getModuleInfoCode().value);
+        ModuleInfoList moduleInfoList = model.getModuleInfoList();
+        ModuleInfo moduleInfo = moduleInfoList.getModule(toAdd.getModuleInfoCode().value);
 
-        if (moduleInfo == null) {
-            throw new CommandException(Messages.MESSAGE_MODULE_DOES_NOT_EXIST);
+        if (!moduleInfoList.isEmpty()) {
+            if (moduleInfo == null) {
+                throw new CommandException(Messages.MESSAGE_MODULE_DOES_NOT_EXIST);
+            }
+
         }
 
         if (model.hasModuleTaken(toAdd)) {
@@ -84,7 +89,9 @@ public class AddCommand extends Command {
             throw new CommandException(Messages.MESSAGE_GRADES_NOT_FINALIZED_BEFORE_SEMESTER);
         }
 
-        toAdd.setWorkload(new Workload(moduleInfo.getModuleInfoWorkload()));
+        if (moduleInfo != null) {
+            toAdd.setWorkload(new Workload(moduleInfo.getModuleInfoWorkload()));
+        }
 
         model.addModuleTaken(toAdd);
         model.commitGradTrak();

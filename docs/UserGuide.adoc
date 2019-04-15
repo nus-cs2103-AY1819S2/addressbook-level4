@@ -258,6 +258,8 @@ You can use commas (no space) to choose multiple individual indexes. e.g. `1,3,5
 You can use dash (no space) to choose a range of indexes. e.g. `3-5` for 3 to 5. `1-3-5` is not allowed, just use `1-5`. +
 You can use a combination of commas and dashes to choose a range as well. e.g. `1-3,5` for 1 to 3 and 5. +
 You can also type `all` instead to import/export everything.
+*If you input a range that includes indexes that do not exist, the File Management commands will still run, but the indexes that do not exist will be ignored.* +
+e.g. `import test.json 10-40` when there are only 30 patients in test.json. Patients 10 to 30 will be imported.
 ============================================================
 
 ==== open

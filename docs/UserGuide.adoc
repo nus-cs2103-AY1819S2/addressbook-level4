@@ -59,9 +59,11 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 The game will go on until either party's ships are totally destroyed.
 
+// end::quickstart[]
+
 Refer to <<Features>> for details of each command.
 
-// end::quickstart[]
+
 
 == Game Rules
 // tag::gamerules[]

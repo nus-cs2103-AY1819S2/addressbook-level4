@@ -32,17 +32,15 @@ This section contains a summary of my contributions to the code, documentation, 
 * *Major enhancement*: I added the ability to add menu items to, delete menu items from and clear the menu.
 ** What it does:
 *** `addToMenu`: The `addToMenu` command allows the user to add a menu item to the menu. The menu item must be specified with an item code, name and price using labels such as `*c/*` for code, `*n/*` for name and `*p/*` for price. For example, `addToMenu c/W09 n/Chicken Wings p/3.20` would add the [.java]#MenuItem# with [.java]#Name# Chicken Wings with [.java]#Code# W09 and [.java]#Price# 3.20 to the [.java]#Menu#.
-*** `deleteFromMenu`: The `deleteFromMenu` command allows the user to delete a menu item from the menu, but here the menu item is only identified by its code. For example, `deleteFromMenu W09` would delete the menu item with the code W09 from the menu.
-*** `clearMenu`: The `clearMenu` command allows the user to remove all menu items from the menu.
+*** `deleteFromMenu`: The `deleteFromMenu` command allows the user to delete a [.java]#MenuItem# from the [.java]#Menu#, but here the [.java]#MenuItem# is only identified by its [.java]#Code#. For example, `deleteFromMenu W09` would delete the [.java]#MenuItem# with the [.java]#Code# W09 from the [.java]#Menu#.
+*** `clearMenu`: The `clearMenu` command allows the user to remove all [.java]#MenuItem# from the [.java]#Menu#.
 ** Justification: These commands in the menu feature would allow restaurant managers to edit the menu according to the ingredients they have available each day. The menu is also stored internally, and thus there would be no need to re-enter all the menu items but instead only add or remove a few menu items each day.
 ** Highlights: The format of labelling for the `addToMenu` command was used for ease of distinguishing the [.java]#Name#, [.java]#Code# and [.java]#Price# of the menu items. With the labels, users can key in any permutation of the attributes and  the command would work as intended. However, the labelling approach was not needed for the `deleteFromMenu` command as the [.java]#Code# is the only input needed.
 ** Credits: The addressbook given to us had originally used the labelling format for adding people to the addressbook, which is where I got my inspiration from for the `addToMenu` command.
 
-* *Minor enhancement*: I added the ability to store the quantity ordered for each menu item in the menu, and update the
-quantity ordered every time the bill is called, (implementation of `updateMenuItemQuantity` method).
-** What it does: When a menu item is added for the first time, the quantity is automatically set to zero. It then
-updates from zero every time the orders are confirmed (i.e. when the bill is called).
-** Justification: This enhancement is to aid the implementation of finding the most popular item in the [.java]#Menu#, by retrieving the menu item with the largest number of quantity ordered.
+* *Minor enhancement*: I added the ability to store the quantity ordered for each [.java]#MenuItem# in the [.java]#Menu#, and update the quantity ordered every time the [.java]#bill# is called, (implementation of `updateMenuItemQuantity` method).
+** What it does: When a [.java]#MenuItem# is added for the first time, the quantity is automatically set to zero. It then updates from zero every time the orders are confirmed (i.e. when the [.java]#bill# is called).
+** Justification: This enhancement is to aid the implementation of finding the most popular item in the [.java]#Menu#, by retrieving the [.java]#MenuItem# with the largest number of quantity ordered.
 
 * *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=bava98[Project Code
 Dashboard]]

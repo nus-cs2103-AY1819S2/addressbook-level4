@@ -439,9 +439,9 @@ The boundary checks are essential to the functionality of both the human and com
 1. `isBattleshipAbsent()` - Checks if there are no other ships that are situated on the head coordinates.
 1. `isClear()` - Checks if there are no other ships that situated along the body of the ship.
 
-These methods check both the horizontal and vertical boundaries when a ship is being deployed. They also distinguish between the head and body of a ship in order to provide more specific feedback for the user. For the methods `isBattleshipAbsent()` and `isClear()`, `BoundaryValueChecker` calls the `getCellStatus()` method of the `mapGrid` object to obtain the status of `Cell` to carry out its checks.
+These methods check the horizontal and vertical boundaries when a ship is being deployed. They distinguish between the head and body of a ship in order to provide more specific feedback for the user. For the methods `isBattleshipAbsent()` and `isClear()`, `BoundaryValueChecker` calls the `getCellStatus()` method of the `mapGrid` object to obtain the status of `Cell` for checks.
 
-Once `BoundaryValueChecker` has finished its checks and there are no exceptions thrown, the `put` command proceeds to call the `putShip()` method of the `mapGrid` object to put the ship on the map grid. It then updates the `Fleet` in the human player. The following sequence diagram illustrates what happens when the `put` command is called.
+Once `BoundaryValueChecker` has finished its checks and there are no exceptions thrown, the `put` command proceeds to call the `putShip()` method of the `mapGrid` object to put the ship on the map grid. It then updates the `Fleet` in the human player. The following sequence diagram shows what happens when the `put` command is called.
 
 // end::putShip3[]
 
@@ -457,7 +457,7 @@ Ships can be tagged. You can list all the tags used by ships that have been depl
 
 [source,java]
 ----
-include::../src/main/java/seedu/address/model/player/Fleet.java[lines=212..222]
+include::../src/main/java/seedu/address/model/player/Fleet.java[lines=204..209]
 ----
 
 

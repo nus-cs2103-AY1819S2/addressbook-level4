@@ -1,4 +1,4 @@
-= Quickdocs - Developer Guide
+= QuickDocs - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:

@@ -942,7 +942,7 @@ There is no need to save manually.
     _Validation_:: Phone should adhere to following constraints:
 
     1: It should contain only digits.
-    2: It should be atleast 3 digits long.
+    2: It should be at least 3 digits long.
 
     _Example_:: [blue]#p/# 81424394
 // tag::prefixlist[]
@@ -964,7 +964,7 @@ There is no need to save manually.
        _Validation_:: Identification Number should adhere to following constraints:
 
         1: It should contain only digits and uppercase alphabetical letters.
-        2: It should be atleast 7 digits long and maximum 10 digits long
+        2: It should be at least 7 digits long and maximum 10 digits long
 
       _Example_:: [blue]#id/# Z4264321
 

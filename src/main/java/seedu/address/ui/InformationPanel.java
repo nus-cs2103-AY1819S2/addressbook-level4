@@ -26,7 +26,6 @@ public class InformationPanel extends UiPart<Region> {
     public InformationPanel(ObservableValue<Medicine> selectedMedicine,
             ObservableValue<InformationPanelSettings> settings) {
         super(FXML);
-
         informationPanelSettings = settings.getValue();
 
         // Load medicine information page when selected medicine changes.

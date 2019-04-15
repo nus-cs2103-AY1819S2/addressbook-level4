@@ -102,8 +102,6 @@ public class BatchTable extends UiPart<Region> {
      * Sorts the table depending on the {@code informationPanelSettings}.
      */
     private void sortTable(InformationPanelSettings informationPanelSettings) {
-        table.getSortOrder().clear();
-
         SortProperty sortProperty = informationPanelSettings.getSortProperty();
         SortDirection sortDirection = informationPanelSettings.getSortDirection();
 
@@ -122,12 +120,21 @@ public class BatchTable extends UiPart<Region> {
             throw new IllegalArgumentException("Unknown sort property.");
         }
 
-        if (sortDirection.equals(SortDirection.ASCENDING)) {
+        switch (sortDirection) {
+        case ASCENDING:
             column.setSortType(TableColumn.SortType.ASCENDING);
-        } else if (sortDirection.equals(SortDirection.DESCENDING)) {
+            break;
+        case DESCENDING:
             column.setSortType(TableColumn.SortType.DESCENDING);
+            break;
+        default:
+            throw new IllegalArgumentException("Unknown sort direction.");
         }
 
         table.getSortOrder().add(column);
+
+        numberColumn.setSortable(false);
+        quantityColumn.setSortable(false);
+        expiryColumn.setSortable(false);
     }
 }

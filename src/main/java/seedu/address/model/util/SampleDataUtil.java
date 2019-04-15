@@ -23,21 +23,21 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static Medicine[] getSampleMedicines() {
         return new Medicine[] {
-            new Medicine(new Name("Aspirin"), new Company("Otsuka Pharmaceutical Co."), new Quantity("807"),
-                    new Expiry("29/11/2019"), getTagSet("fever"), getBatchSet("CD485", "807", "29/11/2019")),
-            new Medicine(new Name("Atorvastatin"), new Company("Mitsubishi Tanabe Pharma"), new Quantity("296"),
+            new Medicine(new Name("Aspirin"), new Company("Otsuka Pharmaceutical Co."), new Quantity("27"),
+                    new Expiry("29/11/2019"), getTagSet("fever"), getBatchSet("CD485", "27", "29/11/2019")),
+            new Medicine(new Name("Atorvastatin"), new Company("Mitsubishi Tanabe Pharma"), new Quantity("39"),
                     new Expiry("31/12/2019"), getTagSet("cardiovascular"),
-                    getBatchSet("BAL101025", "296", "31/12/2019")),
-            new Medicine(new Name("Bendroflumethiazide"), new Company("Piramal Healthcare"), new Quantity("58"),
+                    getBatchSet("BAL101025", "39", "31/12/2019")),
+            new Medicine(new Name("Bendroflumethiazide"), new Company("Piramal Healthcare"), new Quantity("52"),
                     new Expiry("03/10/2019"), getTagSet("hypertension", "tablet"),
-                    getBatchSet("1001194", "58", "03/10/2019")),
-            new Medicine(new Name("Co-codamol"), new Company("Renovo PLC"), new Quantity("283"),
-                    new Expiry("28/02/2020"), getTagSet("painkiller"), getBatchSet("HK-85412", "283", "28/02/2020")),
-            new Medicine(new Name("Omeprazole"), new Company("Eli Lilly and Company"), new Quantity("921"),
+                    getBatchSet("1001194", "52", "03/10/2019")),
+            new Medicine(new Name("Co-codamol"), new Company("Renovo PLC"), new Quantity("28"),
+                    new Expiry("28/02/2020"), getTagSet("painkiller"), getBatchSet("HK-85412", "28", "28/02/2020")),
+            new Medicine(new Name("Omeprazole"), new Company("Eli Lilly and Company"), new Quantity("121"),
                     new Expiry("02/07/2019"), getTagSet("gastroesophageal"),
-                    getBatchSet("A4415115698", "421", "02/07/2019", "A4415118456", "500", "22/09/2019")),
-            new Medicine(new Name("Simvastatin"), new Company("Vion Pharmaceuticals, Inc."), new Quantity("312"),
-                    new Expiry("16/09/2019"), getTagSet("lipid"), getBatchSet("B5003B504", "312", "16/09/2019"))
+                    getBatchSet("A4415115698", "21", "02/07/2019", "A4415118456", "100", "22/09/2019")),
+            new Medicine(new Name("Simvastatin"), new Company("Vion Pharmaceuticals, Inc."), new Quantity("41"),
+                    new Expiry("16/09/2019"), getTagSet("lipid"), getBatchSet("B5003B504", "41", "16/09/2019"))
         };
     }
 

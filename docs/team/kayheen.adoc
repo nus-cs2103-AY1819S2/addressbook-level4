@@ -76,17 +76,13 @@ include::../UserGuide.adoc[tag=CropCommand]
 
 include::../UserGuide.adoc[tag=RotateCommand]
 
-==== 3.3 Resize an Image : `resize`
-'''
-
-include::../UserGuide.adoc[tag=ResizeCommand]
-
-==== 3.4 WaterMark : `wm`
+==== 3.3 WaterMark : `wm`
 '''
 include::../UserGuide.adoc[tag=WaterMarkCommand]
 
-==== 3.5 Other contributions
-* A Walk Through of the image editor
+==== 3.4 Other contributions
+* A Walk Through of the Image Editor
+* Resize Command
 
 === 4. Contributions to the Developer Guide
 

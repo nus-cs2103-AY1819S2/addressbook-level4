@@ -113,7 +113,7 @@ The abstract class also provides a few utility functions for easier creation of 
 - `updateLongest` which iterates through the list and updates the `longest` variable.
 - `sortAndFormat` whose name suggests what it does.
 
-Usually, the developer only needs to provide the observable list and the function `f` for `count`. That `f` should transform items of the observable list into strings. 
+Usually, the developer only needs to provide the observable list and the function `f` for `count`. That `f` should transform items of the observable list into strings.
 Then, `count` will iterate through the observable list, map each element into a string with `f`, and count how many times the strings have appeared.
 For example, in the `CountRoomTypes` item, the observable list is the reservation list, and `f` maps each reservation into a string of its room type.
 Many reservations can have the same room type, and then the result will be a `Map<String, Long>`, the strings of the room types being the key, and the number they appear being the value.

@@ -36,6 +36,13 @@ the user and developer guide.
 ** *What it does*: Quiz mode manages user interaction during a quiz. It comprises of 6 commands
 which are only available in quiz mode. Quiz mode also reads in answer inputs.
 
+*** `[ANSWER]...` - An input without a prefix `\` is treated as an answer.
+*** `\difficult` - Labels current question in quiz as difficult or not.
+*** `\help` - Lists all commands in quiz and inputs the program will accept.
+*** `\hint` - Reveals additional information to help user to solve the question.
+*** `\quit` - Quits a quiz and save attempted progress.
+*** `\status` - Lists current status and lesson progress of user.
+
 ** *Justification*: To ensure that answers are not limited or excluded of certain keywords,
 BrainTrain supports two different modes, management and quiz mode. To differentiate the
 commands between the two modes, quiz mode commands start with a backslash `\`, whereas management

@@ -975,22 +975,30 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |export my current progress |I can keep my progress between different devices
 
-|`* * *` |user |start multiple lessons |I can see all the question at once
-
 |`* * *` |user |reset my progress |I can start anew
 
 |`* * *` |user |see my current progress |I know which questions I frequently get it right or wrong
 
 |`* * *` |user |be give multiple chances to answer |I am given some leeway for mistyping
 
-|`* * *` |user |add tags to the lessons |I can search based on the tags
-
 |`* * *` |user |start a lesson |I can start to memorise
+
+|`* * *` |user |see a hint if I am not sure about the answer |I can have a deeper impression
+
+|`* * *` |user |exit a quit any time |I can save my progress and continue next time.
 
 |`* * *` |user |view correct answer and explanation if I answered wrongly |I can understand and
 remember it better
 
-|`* *` |user |see a hint if I am not sure about the answer |I can have a deeper impression
+|`* * *` |user |view the cards from the lesson at a glance|I can manage the lesson's cards easily
+
+|`* * *` |user |view all the lessons at a glance|I can easily manage the lessons easily
+
+|`* * *` |Creator |change the testable values|I can choose which values to tested.
+
+|`* *` |user |add tags to the lessons |I can search based on the tags
+
+|`* * ` |user |start multiple lessons |I can see all the question at once
 
 |`* *` |user |limit how many questions I’m given at one go |I can have shorter/longer sessions
 
@@ -1032,7 +1040,7 @@ remember it better
 
 . User downloads file from a source (e.g Internet, other users).
 . User moves the file to the lessons folder.
-. User enters `reload` command.
+. User restarts App.
 . App loads the file as a lesson.
 . App shows loaded lessons in the UI.
 

@@ -46,4 +46,24 @@ public class ModuleInfoDescriptionTest {
         assertEquals("A full sentence to to be tested", descrip.toString());
     }
 
+    @Test
+    public void equals() {
+        ModuleInfoDescription descrip = new ModuleInfoDescription("Mathematics");
+        ModuleInfoDescription descripCopy = descrip;
+
+        assertTrue(descrip.equals(descripCopy));
+
+        ModuleInfoDescription diffdescrip = new ModuleInfoDescription("Science");
+
+        assertFalse(descrip.equals(diffdescrip));
+    }
+
+    @Test
+    public void hashcode() {
+        ModuleInfoDescription descrip = new ModuleInfoDescription("Mathematics");
+        ModuleInfoDescription descripCopy = descrip;
+
+        assertEquals(descrip.hashCode(), descripCopy.hashCode());
+    }
+
 }

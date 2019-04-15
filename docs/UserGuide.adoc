@@ -163,19 +163,15 @@ Examples:
 * `filter and name<ale>name addr<street>addr gpa<3.1>gpa pos<Manager, Developer>pos deg<bachelors>deg`
 ** _Returns the people, whose name contains `ale` (in any uppercase and lowercase format) and whose address contains `street` and who is interested in `Manager and Developer` positions,has a GPA higher than or equal to `3.1` and has at least `Bachelor's degree`._
 
-// end::filter[]
-
-// tag::filterclear[]
 === Clearing the filter in Recruit Me: `filter clear`
 It clears all the filters in the applicant pool. +
 Format: `filter clear`
-// end::filterclear[]
 
-// tag::filterreverse[]
 === Reversing the filter in Recruit Me: `filter reverse`
 It reverses all the filtering conditions and shows the eliminated ones. +
 Format: `filter reverse`
-// end::filterreverse[]
+// end::filter[]
+
 
 === Approve persons by employee name: `endorse`
 

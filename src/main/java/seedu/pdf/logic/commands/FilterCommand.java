@@ -16,8 +16,7 @@ public class FilterCommand extends Command {
     public static final String COMMAND_WORD = "filter";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filters and displays all pdfs whose "
-            + "names contain any of the specified keywords (case-sensitive) and displays them as a "
-            + "list with index numbers.\n"
+            + "tags contain any of the specified keywords (case-sensitive)\n"
             + "Parameters: t/TAG [t/MORE_TAGS]...\n"
             + "Example: " + COMMAND_WORD + " t/2103 t/project";
 

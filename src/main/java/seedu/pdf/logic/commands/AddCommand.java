@@ -28,7 +28,7 @@ public class AddCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_FILE + "Desktop\\main\\target.pdf";
 
-    public static final String MESSAGE_SUCCESS = "New PDF added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New PDF added:\n%1$s";
     public static final String MESSAGE_DUPLICATE_PDF = "This pdf already exists in the PDF book";
     public static final String MESSAGE_INVALID_SELECTION = "Selected file is not supported by PDF++";
     public static final String MESSAGE_FILE_NOT_LOADABLE = "Selected file is corrupted and cannot be"

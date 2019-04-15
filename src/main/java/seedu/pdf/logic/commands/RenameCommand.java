@@ -41,7 +41,7 @@ public class RenameCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_NAME + "Tutorial3.pdf";
 
-    public static final String MESSAGE_EDIT_PDF_SUCCESS = "Renamed Pdf: %1$s";
+    public static final String MESSAGE_EDIT_PDF_SUCCESS = "Renamed Pdf:\n%1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PDF = "This pdf already exists in the pdf book.";
     public static final String MESSAGE_DUPLICATE_PDF_DIRECTORY = "There exists another %s with in %s.";

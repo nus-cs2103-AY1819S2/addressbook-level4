@@ -19,10 +19,10 @@ public class GuiTestAssert {
      */
     public static void assertCardEquals(PdfCardHandle expectedCard, PdfCardHandle actualCard) {
         assertEquals(expectedCard.getId(), actualCard.getId());
-        assertEquals(expectedCard.getAddress(), actualCard.getAddress());
-        assertEquals(expectedCard.getEmail(), actualCard.getEmail());
+        assertEquals(expectedCard.getDirectory(), actualCard.getDirectory());
+        assertEquals(expectedCard.getSize(), actualCard.getSize());
         assertEquals(expectedCard.getName(), actualCard.getName());
-        assertEquals(expectedCard.getPhone(), actualCard.getPhone());
+        assertEquals(expectedCard.getDeadline(), actualCard.getDeadline());
         assertEquals(expectedCard.getTags(), actualCard.getTags());
     }
 
@@ -58,8 +58,8 @@ public class GuiTestAssert {
      * Asserts the size of the list in {@code pdfListPanelHandle} equals to {@code size}.
      */
     public static void assertListSize(PdfListPanelHandle pdfListPanelHandle, int size) {
-        int numberOfPeople = pdfListPanelHandle.getListSize();
-        assertEquals(size, numberOfPeople);
+        int numberOfPdf = pdfListPanelHandle.getListSize();
+        assertEquals(size, numberOfPdf);
     }
 
     /**

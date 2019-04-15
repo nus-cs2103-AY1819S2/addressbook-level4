@@ -72,7 +72,7 @@ public class PdfListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Returns a list of pdfs containing {@code pdfCount} persons that is used to populate the
+     * Returns a list of pdfs containing {@code pdfCount} pdfs that is used to populate the
      * {@code PdfListPanel}.
      */
     private ObservableList<Pdf> createBackingList(int pdfCount) {

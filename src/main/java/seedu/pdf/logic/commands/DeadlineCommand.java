@@ -39,6 +39,7 @@ public class DeadlineCommand extends Command {
             + "3. remove\n"
             + "      removes the existing deadline of the selected pdf\n"
             + "      Example: " + COMMAND_WORD + " 2 " + PREFIX_DEADLINE_REMOVE + "\n";
+    public static final String MESSAGE_EDIT_PDF_DEADLINE_SUCCESS = "Edited deadline for Pdf:\n%1$s";
 
     private final Index index;
     private final Deadline deadline;
@@ -103,7 +104,7 @@ public class DeadlineCommand extends Command {
         model.updateFilteredPdfList(PREDICATE_SHOW_ALL_PDFS);
         model.commitPdfBook();
 
-        return new CommandResult(String.format(MESSAGE_EDIT_PDF_SUCCESS, nPdf.toString()));
+        return new CommandResult(String.format(MESSAGE_EDIT_PDF_DEADLINE_SUCCESS, nPdf.toString()));
     }
 
     public static Pdf getPdfWithNewDeadline(Pdf old, Deadline deadline) {

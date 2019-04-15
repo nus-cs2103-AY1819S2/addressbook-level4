@@ -26,7 +26,7 @@ public class OpenCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Example: " + COMMAND_WORD + " 1 ";
 
-    public static final String MESSAGE_OPEN_PDF_SUCCESS = "Opened PDF: %1$s";
+    public static final String MESSAGE_OPEN_PDF_SUCCESS = "Opened PDF:\n%1$s";
     public static final String MESSAGE_OPEN_PDF_FAILIUE = "Unable to Open PDF.";
 
     private final Index index;

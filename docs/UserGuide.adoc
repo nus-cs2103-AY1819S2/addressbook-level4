@@ -915,7 +915,7 @@ Instead of the current pie chart, _In-Credit-Ble_'s summary feature will display
 Aster Plot chart instead, as shown in the diagram below.
 
 .Example of Aster Plot Graph
-image::asterPlot.png[width="400"]
+image::asterPlot.png[width="200"]
 
 This will make it more effective in showing the user what is the remaining budget amount for each category.
 It also allows users to easily perceive whether their spending is within their budget for each category.

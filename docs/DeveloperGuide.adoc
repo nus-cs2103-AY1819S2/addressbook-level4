@@ -778,7 +778,7 @@ image::summaryPanel.png[width="600"]
 In `[yellow]#v2.0#` of _In-Credit-Ble_, the summary feature intends to use a [fuchsia]#D3.js Aster Plot# graph to display the summary of expenditures instead of the current pie chart. This will help contribute to the aesthetics and user-friendliness of displaying the data in _In-Credit-Ble_.
 
 .Example of Aster Plot Graph
-image::asterPlot.png[width="400"]
+image::asterPlot.png[width="200"]
 
 Each sector of the chart represents a category. The area of each sector indicates the total budget amount allocated for a particular category, while the coloured area of the sector denotes the amount spent for that category. On mouseover of each sector, a pop-up display of the category name and amount spent for each category will be shown. The colours used for the category in the aster plot graph should also correspond to the same colour palette used for the category labels.
 

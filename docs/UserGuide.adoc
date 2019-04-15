@@ -102,7 +102,7 @@ image::brightnessCommand.PNG[width="915"]
 .Brightness Success
 image::brightnessSuccess.PNG[width="917"]
 +
-
+// end::AWalkThrough[]
 .  Crop your image by typing the following command: `crop 310 250 140 200`. Press kbd:[Enter]. Your image should look similar as the figure below.
 
 +
@@ -111,7 +111,7 @@ image::cropSuccess.PNG[width="918"]
 +
 
 .  Save your edits by typing command: `save`.
-// end::AWalkThrough[]
+
 
 
 [[Features]]

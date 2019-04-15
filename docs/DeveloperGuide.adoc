@@ -1145,7 +1145,7 @@ After which, the list of [.java]#DailyRevenue# is iterated to generate [.java]#D
 
 The current implementation uses the designs in Alternative 1. However, in version 2.0, the application will take the
 pros of Alternative 2 designs and incorporate them to the current implementation. To help users better study the
-revenue trends, v2.0 will allow users to call the commands with an argument that indicates the month or year that they want. 
+revenue trends, v2.0 will allow users to call the commands with an argument that indicates the month or year that they want.
 The display will arrange the [.java]#DailyStatisticsCard# in a calender view with 7 columns for each day. A limit
 of 31 [.java]#DailyStatisticsCard# will be used to replicate a calendar and prevent overflowing.
 

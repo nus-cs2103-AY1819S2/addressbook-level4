@@ -372,9 +372,9 @@ Returns all members (matric num starts with A0)
 Shows a list of all members in ClubManager. +
 Format: `memberList`
 
-image::MemberList.png[width=20%]
-
 //end::memberlist[]
+
+image::MemberList.png[width=20%]
 
 //tag::memberselect[]
 ==== Selecting a member : `memberSelect`

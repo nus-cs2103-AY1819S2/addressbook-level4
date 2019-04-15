@@ -579,7 +579,7 @@ Format: `activityEdit ACTIVITY_INDEX [n/ACTIVITY_NAME] [d/DATE] [t/TAG] … `
 ****
 Examples:
 
-* `activityEdit 1 n/New Activity d/13022019 1200 l/Com1 de/Bring calculator` +
+* `activityEdit 1 n/New Activity d/13/02/2019 1200 l/Com1 de/Bring calculator` +
 Edits the name of the first activity, datetime, location and description to "New Activity", "13 February 2019 1200 hrs", "Com1" and "Bring calculator" respectively.
 * `activityEdit 2 l/NUS` +
 Edits the location of the second activity to "NUS".

@@ -44,6 +44,6 @@ public class ModuleInfoDepartmentTest {
     @Test
     public void toStringTest() {
         ModuleInfoDepartment dept = new ModuleInfoDepartment("Mathematics");
-        assertEquals("Mathematic", dept.toString());
+        assertEquals("Mathematics", dept.toString());
     }
 }

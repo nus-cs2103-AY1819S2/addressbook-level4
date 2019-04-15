@@ -55,6 +55,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
+// tag::list[]
 === Listing all apparels that matches the given option : `list [OPTION] [OPTION-VALUE]`
 
 Shows a list of all apparels in FM that matches the given option. +
@@ -82,6 +83,7 @@ List all apparels of clothing type shoes.
 
 Format: `list color red`
 List all red colored apparels.
+// end::list[]
 
 === Adding a piece of Apparel: `add`
 
@@ -109,6 +111,7 @@ Sort all apparels according to the option supplied. +
 
 Example: sort the apparels by color +
 Format: `sort color`
+// end::sort[]
 
 // tag::swap[]
 === Swap any two apparels : `sort [INDEX_X] [INDEX_Y]`
@@ -117,6 +120,7 @@ Swap the position of two apparels. +
 
 Format: `swap 2 5` +
 Swap the position for apparels at index 2 and 5.
+// end::swap[]
 
 === Editing an apparel : `edit`
 

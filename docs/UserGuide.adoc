@@ -103,6 +103,10 @@ parameter which can be something like `Human Anatomy`.
 * Parameters can be in any order e.g. if the command specifies `q/QUESTION a/ANSWER`, `a/ANSWER q/QUESTION` is also acceptable.
 ====
 
+[NOTE]
+This application only supports Unicode characters compatible with XML. In general, most characters visible on your keyboard are supported!
+Please refer to https://www.w3.org/TR/unicode-xml/#Suitable[here for more details on incompatible characters].
+
 //tag::folderoperations[]
 === Folder Operations
 Commands listed in this section are folder-level operations. This includes the operations such as creating and deleting of folders, and excludes commands that affect the contents of individual folders (e.g. adding a card).
@@ -633,6 +637,10 @@ An example is shown below:
 .Report display
 image::ReportDisplay.png[width="790"]
 
+[TIP]
+The report display is currently best viewed with the window in full screen. Otherwise, you may need to use the horizontal and vertical
+scroll bars to view the graph and questions. Hang tight, a display that changes in size is coming in v2.0!
+
 **Displays response time for each card** `Coming in v2.0`
 
 With the timer feature coming in v2.0, we are also able to track the time taken to provide the correct response to the
@@ -644,14 +652,17 @@ Format: `report`
 [NOTE]
 This command is only valid inside a folder.
 
-[NOTE]
-There must be at least two test attempts for the line graph to be drawn.
-
+====
+* There must be at least two test attempts for the line graph to be drawn.
+====
 ==== End the current report session : `end`
 
 Quits the current report session.
 
 Format: `end`
+
+[NOTE]
+This command is only valid inside a report display.
 
 //end::reportoperations[]
 

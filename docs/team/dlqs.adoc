@@ -10,7 +10,7 @@
 == Overview
 
 Know-It-All is a flashcard application that helps students manage, store, and use flash cards effectively. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
-My major roles included the report feature and ability to record score. To see directly what code I contributed, a https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=dlqs[summary] provided by Reposense is available here.
+My major roles included the report feature and ability to record score. To see directly what code I contributed, a https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=dlqs[summary] provided by RepoSense is available here.
 
 == Summary of contributions
 |===

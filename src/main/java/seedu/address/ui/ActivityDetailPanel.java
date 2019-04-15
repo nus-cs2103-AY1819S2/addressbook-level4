@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.person.Person;
@@ -18,6 +19,8 @@ public class ActivityDetailPanel extends UiPart<Region> {
     private static final String FXML = "ActivityDetailPanel.fxml";
     //private final ObservableList<Person> attending;
 
+    @FXML
+    private VBox actDetParent;
     @FXML
     private Text actName;
     @FXML
@@ -63,6 +66,7 @@ public class ActivityDetailPanel extends UiPart<Region> {
         actTime.setText("Date & Time: " + activity.getDateTime().fullDateTime);
         actLocation.setText("Location: " + activity.getLocation().value);
         actDescription.setText("Description: " + activity.getDescription().value);
+        actDescription.setWrappingWidth(actDetParent.getWidth() - 2);
         actStatus.setText("Status: " + activity.getStatus().status.name());
         numAttending.setText("Number of people attending: " + activity.getNumberAttending());
 

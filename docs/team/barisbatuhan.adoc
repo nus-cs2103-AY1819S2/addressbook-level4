@@ -1,4 +1,4 @@
-= Baris Batuhan- Project Portfolio
+= Baris Batuhan Topal - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -14,41 +14,45 @@ Recruit Me is a Java Desktop GUI application that is specifically designed for a
 == Summary of contributions
 
 * *Major enhancement*: added *filtering command*
-** What it does: it filters the persons according to their every single aspect (Name, Phone, Email, Skills, ...), ait can manage multiple filterings at the same time and also the filter can be cleared in any time the user wants.
-** Justification: This feature improves the usability of the product significantly, because it can eliminate al the candidates that are not fitting for the wanted job positions. Also it makes the searching and classification process easier for the app users.
-** Highlights: This new feature affects all the commands already implemented and all other commands that will be implemented in the future. Thus, the interaction of this command with other commands are strongly investigated and minor changes for other  commands are also made to make the other commands compatible with filtering.
-
-* *Major enhancement*: added *CV representation* for selected persons
-** What it does: it shows the CV for selected person, if there is an available CV in the storage for that person. If there is not, it shows the placeholder page with the message: No CV is available.
-** Justification: This feature gives the user a better chance to see more important information about the candidate easily. It is a nice-to-have feature.
-** Highlights:
-** Note: This feature has only a basic implementation. In the UserGuide, you can see what is included and what is planned to be done for v2.0.
-
+** *What it does:*
+*** Filters the persons according to their every single aspect (Name, Phone, Email, Skills, ...)
+*** Can manage multiple filtering at the same time and also the filter can be cleared in any time the user wants.
+*** Filtering command has 4 different branches in itself: `AND, OR, REVERSE, CLEAR` (For detailed explanation, please read filtering part in UserGuide).
+** *Justification:* This feature improves the usability of the product significantly, because it can eliminate all the candidates that are not fitting for the wanted job positions. Makes classification and searching easier.
+** *Highlights:* This new feature affects all the commands already implemented and all other commands that will be implemented in the future. Thus, the interaction of this command with other commands are strongly investigated and minor changes for other commands are also made to make the other commands compatible with filtering.
+** *Related Pull Requests for This Feature:*
+*** https://github.com/CS2103-AY1819S2-W16-4/main/pull/139[#139] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/119[#119] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/121[#121] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/119[#119] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/115[#115] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/101[#101] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/100[#100] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/70[#70] ,
+https://github.com/CS2103-AY1819S2-W16-4/main/pull/59[#59] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/54[#54] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/37[#37] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/30[#30] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/27[#27] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/26[#26] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/19[#19] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/2[#2]
 
 * *Minor enhancement*:
-** Some minor changes are made for the methods in AddressBook, ModelManager and VersionedAddressBook classes that AddCommand, DeleteCommand and EditCommand uses for the compatibility with filtering process.
-** Travis Checkstyle errors and some test errors are fixed.
+** added CV representation for selected persons. Shows the matching CV for selected person, if there is an available CV in the storage for that person
+*** https://github.com/CS2103-AY1819S2-W16-4/main/pull/121[#121]
+** Some minor changes are made for the methods in `AddressBook, ModelManager and VersionedAddressBook` classes that `AddCommand, DeleteCommand and EditCommand` uses for the compatibility with filtering process.
+** Fixed almost all failing `system tests / GUI related tests / Edit Command tests` in every update process of the process:
+*** https://github.com/CS2103-AY1819S2-W16-4/main/pull/140[#140] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/133[#133] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/113[#113], https://github.com/CS2103-AY1819S2-W16-4/main/pull/73[#73]
+** `Travis Checkstyle errors` are fixed mostly by me:
+*** https://github.com/CS2103-AY1819S2-W16-4/main/pull/138[#138] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/105[#105-#104-#103] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/55[#58-#57-#56-#55]
+** `Coveralls and Codacy` is implemented for the repository:
+*** https://github.com/CS2103-AY1819S2-W16-4/main/pull/123[#123]
 
-== Other contributions:
+== Contributions to the User Guide:
 
-* Contributions to the User Guide
+* About multiple person addition (planned for v2.0) a new section is added.
+* Filtering process is added to the User guide as a new section: `UserGuide -> Features -> Filtering Recruit Me: filter`
+* For the newly implemented CV showing process, a section is added (Not linked below, you can check from the User Guide): `UserGuide -> Features -> Showing and Updating the CV for a Person`
+* Updated `Add Command / List Command / Select Command Sections`.
 
-** Filtering process is added to the User guide in a new section.
-** The form of it, the usage and some examples are given for the user.
-** The changes can be seen in
-*** `UserGuide -> Features -> Filtering Recruit Me: filter`
-*** `UserGuide -> Features -> Filtering Recruit Me: filter clear`
-*** `UserGuide -> Features -> Filtering Recruit Me: filter reverse`
+include::../UserGuide.adoc[tag=filter]
 
-* Contributions to the Developer Guide
+== Contributions to the Developer Guide:
 
-** A new section for filtering is added to the developer guide.
-** Implementation of filtering process, other alternatives and implementation of tests are explained.
-** Some of the use cases and user stories are updated.
-** The changes can be seen in `DeveloperGuide -> Implementation -> Filter or/and/clear feature`
+* A new section for filtering is added to the developer guide,iImplementation of the whole process including testing is explained in detail: +
+`DeveloperGuide -> Implementation -> Filter or/and/clear/reverse feature` (In the document below, basic explanation of the command types and valid input format of the related fields are excluded.
+Please look at the beginning part of the DeveloperGuide or read UserGuide section about filtering process to have a better understanding of the process) :
 
-* Contributions to the README.doc
 
-** Explanation of the application is updated.
-** Some parts about the changes in every version is updated.
-** UI.png is updated.
+include::../DeveloperGuide.adoc[tag=filter]
+
+
+
+

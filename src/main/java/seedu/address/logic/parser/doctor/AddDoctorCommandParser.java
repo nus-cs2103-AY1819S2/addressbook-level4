@@ -17,10 +17,10 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.doctor.Doctor;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.doctor.Doctor;
 import seedu.address.model.person.doctor.Year;
 import seedu.address.model.person.specialisation.Specialisation;
 

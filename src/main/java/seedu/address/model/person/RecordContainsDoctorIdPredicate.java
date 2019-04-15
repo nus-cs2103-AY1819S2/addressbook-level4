@@ -1,8 +1,8 @@
 package seedu.address.model.person;
 
-import seedu.address.model.person.doctor.Doctor;
-
 import java.util.function.Predicate;
+
+import seedu.address.model.person.doctor.Doctor;
 
 /**
  * Tests that a {@code Doctor}'s {@code id} matches the given id.

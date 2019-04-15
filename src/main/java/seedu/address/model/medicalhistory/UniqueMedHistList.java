@@ -13,8 +13,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.model.medicalhistory.exceptions.DuplicateMedHistException;
 import seedu.address.model.medicalhistory.exceptions.MedHistNotFoundException;
-import seedu.address.model.person.doctor.Doctor;
 import seedu.address.model.person.PersonId;
+import seedu.address.model.person.doctor.Doctor;
 import seedu.address.model.person.patient.Patient;
 
 

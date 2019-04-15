@@ -8,7 +8,6 @@ import java.util.Objects;
 
 import seedu.address.model.appointment.AppointmentDate;
 import seedu.address.model.appointment.AppointmentTime;
-import seedu.address.model.person.doctor.Doctor;
 
 /**
  * Represents a DoctorsMatch in the docX.

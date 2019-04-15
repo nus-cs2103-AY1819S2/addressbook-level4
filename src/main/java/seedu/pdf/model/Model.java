@@ -9,6 +9,8 @@ import javafx.collections.ObservableList;
 import seedu.pdf.commons.core.GuiSettings;
 import seedu.pdf.model.pdf.Pdf;
 
+import static java.util.Comparator.reverseOrder;
+
 /**
  * The API of the Model component.
  */
@@ -22,8 +24,16 @@ public interface Model {
     Comparator<Pdf> COMPARATOR_NAME_DESCENDING_PDFS = COMPARATOR_NAME_ASCENDING_PDFS.reversed();
 
     /** {@code Comparator} that compares two PDFs chronologically based on deadline */
-    Comparator<Pdf> COMPARATOR_DEADLINE_ASCENDING_PDFS = Comparator.comparing(Pdf::getDeadline);
-    Comparator<Pdf> COMPARATOR_DEADLINE_DESCENDING_PDFS = COMPARATOR_DEADLINE_ASCENDING_PDFS.reversed();
+    Comparator<Pdf> COMPARATOR_DEADLINE_ASCENDING_PDFS = (o1, o2) -> {
+        if (!o1.getDeadline().exists()) {
+            return 1;
+        } else if (!o2.getDeadline().exists()) {
+            return -1;
+        } else {
+            return o1.getDeadline().compareTo(o2.getDeadline());
+        }
+    };
+    Comparator<Pdf> COMPARATOR_DEADLINE_DESCENDING_PDFS = Comparator.comparing(Pdf::getDeadline, reverseOrder());
 
     /** {@code Comparator} that compares two PDFs numerically based on size */
     Comparator<Pdf> COMPARATOR_SIZE_ASCENDING_PDFS = Comparator.comparing(Pdf::getSize);

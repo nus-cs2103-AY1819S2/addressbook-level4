@@ -1,6 +1,7 @@
 package seedu.hms.logic.parser;
 
 import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX;
 import static seedu.hms.logic.parser.CommandParserTestUtil.assertParseFailure;
 
 import org.junit.Test;
@@ -22,5 +23,6 @@ public class GenerateBillForCustomerCommandParserTest {
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
             GenerateBillForCustomerCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "1", MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
     }
 }

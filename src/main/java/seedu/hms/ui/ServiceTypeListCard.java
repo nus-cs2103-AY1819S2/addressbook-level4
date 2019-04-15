@@ -32,11 +32,14 @@ public class ServiceTypeListCard extends UiPart<Region> {
     private Label timeRange;
     @FXML
     private Label ratePerHour;
+    @FXML
+    private Label id;
 
-    public ServiceTypeListCard(ServiceType serviceType) {
+    public ServiceTypeListCard(ServiceType serviceType, int displayedIndex) {
         super(FXML);
         this.serviceType = serviceType;
         serviceTypeName.setText(serviceType.getName());
+        id.setText(displayedIndex + ". ");
         capacity.setText("Capacity: " + Integer.toString(serviceType.getCapacity()));
         timeRange.setText("Operation hours: " + serviceType.getTiming().toString());
         ratePerHour.setText("Rate per hour: " + serviceType.getRatePerHour());

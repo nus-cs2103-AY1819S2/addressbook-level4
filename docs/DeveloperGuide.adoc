@@ -768,7 +768,7 @@ customers' orders and automatically save the revenue in the restaurant's statist
  command.
 Other commands like <<Trends, `yearly`>>, <<Trends, `monthly`>>, <<Trends, `daily`>> and <<Revenue, `revenue`>>
 commands allow the manager to retrieve and study the restaurant's statistical data trends. +
-
+// end::statisticsintro[]
 // tag::statisticsclasses[]
 [[StatsClasses]]
 ==== Classes for Statistics feature in Model
@@ -795,7 +795,8 @@ The Statistics Class Diagram below shows the relationship between the classes.
 .Statistics Class diagram in Model component
 image::Statistics_ModelClassDiagram.png[width="700"]
 
-// end::statisticsintro[]
+
+// end::statisticsclasses[]
 // tag::statisticsstorage[]
 [[StatsStorage]]
 ==== Design Considerations for Statistics Storage
@@ -821,6 +822,7 @@ Hence, we did not see the need to store receipts in the storage and chose this d
 |=======================================================================
 
 // end::statisticsstorage[]
+
 // tag::bill[]
 [[Bill]]
 ==== Billing an order

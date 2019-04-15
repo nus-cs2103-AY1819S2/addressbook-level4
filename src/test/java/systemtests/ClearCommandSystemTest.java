@@ -3,6 +3,7 @@ package systemtests;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import org.junit.Test;
+
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.request.ClearRequestCommand;
 import seedu.address.model.Model;
@@ -61,8 +62,8 @@ public class ClearCommandSystemTest extends HealthHubSystemTest {
      * box displays {@code expectedResultMessage} and the model related components equal to the current model.
      * These verifications are done by
      * {@code HealthHubSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * Also verifies that the info panel content, selected card and status bar remain unchanged, and the command box has the
-     * error style.
+     * Also verifies that the info panel content, selected card and status bar remain unchanged, and the command box
+     * has the error style.
      * @see HealthHubSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {

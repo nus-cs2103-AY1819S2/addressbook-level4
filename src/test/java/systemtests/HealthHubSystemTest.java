@@ -177,7 +177,7 @@ public abstract class HealthHubSystemTest {
     protected void showPatientsWithName(String keyword) {
         executeCommand(FilterRequestCommand.COMMAND_WORD + " request n/" + keyword);
         //assertTrue(getModel().getFilteredRequestList().size()
-                //< getModel().getRequestBook().getRequestList().size());
+        // < getModel().getRequestBook().getRequestList().size());
     }
 
     /**

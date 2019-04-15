@@ -51,7 +51,7 @@ As you will see, Battleship is a hybrid application. It combines both a CLI and 
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 .  Type commands in the command box and press kbd:[Enter] to execute them. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  To begin playing, first initialise the map to a size between 6 to 10. eg: `init 6`.
+.  Initialise the map to a size between 6 to 10. eg: `init 6`.
 .  Deploy your battleships:
 ..  Deploy your aircraft carrier: `put n/aircraft carrier c/a1 r/h`
 ..  Deploy your cruiser(s): `put n/cruiser c/c1 r/h`

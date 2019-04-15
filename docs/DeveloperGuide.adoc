@@ -321,7 +321,7 @@ Steps: +
 
 . Then, the execute() command continues to check if the patientToEdit and the editedPatient are the same, and if `model` contains the editedPatient.
 
-. If both are the conditions are false, the `model` will set the editedPatient to replace the patientToEdit and the patient will be successfully edited.
+. If both of the conditions are false, the `model` will set the editedPatient to replace the patientToEdit and the patient will be successfully edited.
 
 ==== Delete Patient feature
 

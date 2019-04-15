@@ -24,7 +24,7 @@ public class ExportCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Exports an image in the album to a specified directory in user PC.\n"
-        + "Parameters: f/FILENAME TO EXPORT d/DIRECTORY TO EXPORT TO\n"
+        + "Parameters: f/FILENAME_TO_EXPORT d/DIRECTORY_TO_EXPORT TO\n"
         + "Example: " + COMMAND_WORD + " f/iu.jpg d/C:\\Users\\randy\\Desktop";
 
     private String filename;

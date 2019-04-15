@@ -268,7 +268,7 @@ image::CsvUserStorage.png[width="800"]
 The user is parsed by CsvUserStorage, which is converted between User and List<String[]> format. List<String[]> format
 is the primary format handled by CsvUtil for reading and writing to CSV files.
 
-A few noteworthy main components saved into a CSV file for UserStorage are listed below.
+A few noteworthy mentions of the main components saved into a CSV file for UserStorage are listed below.
 
 ==== Hashcode +
 This is the question hashcode. Every question will have a unique hashcode for identification.
@@ -279,11 +279,11 @@ This is the srsDueDate generated for that question. Questions with a nearer due-
 ==== Difficult +
 These are questions that are labelled difficult by the user. Users are able to specifically practise questions that they have labelled difficult in session.
 
-==== Architecture diagram for user storage +
-Below is a sketch diagram of how a file is parsed into BrainTrain
+==== Sequence diagram for user storage
+Below is a sequence diagram of how a file is parsed into BrainTrain
 
-.File flow on start of BrainTrain Application
-image::CsvUserDiagram.png[width="800"]
+.Sequence diagram of how a file is imported when BrainTrain application starts
+image::CsvUserStorageSequenceDiagram.png[width="800"]
 
 ==== Code snippet +
 The following code snippet shows how the user data is obtained:

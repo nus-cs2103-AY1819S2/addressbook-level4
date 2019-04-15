@@ -364,6 +364,18 @@ Examples:
 s/ORTHOPAEDIC`
 * `add request n/Pay Shun c/Heart Attack t/14:00:00 d/05:05:2019`
 
+[NOTE]
+====
+If multiple prefixes are provided with valid values for parameters that can
+ only take in a single value, only the value of the last prefix will be
+ accepted. + E.g n/John n/Johnson the name field will be set to Johnson and
+ not John.
+
+Similarly for the `edit` command, in the case with multiple parameters with
+ the same prefix, only the last parameter value will be accepted as the new
+ value for that field.
+====
+
 === Editing requests/health workers : `edit`
 
 Sometimes, information on a request of health staff may be keyed in wrongly

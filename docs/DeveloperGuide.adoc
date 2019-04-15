@@ -376,7 +376,6 @@ It follows the following rules:
 // tag::doctorcommands[]
 === CRUD of Doctors
 
-
 Doctor is one of the two valid types of Persons to be stored in the docX record.
 The following features are implemented or will be implemented for doctors of docX:
 
@@ -388,6 +387,8 @@ The following features are implemented or will be implemented for doctors of doc
 * Finding relevant and available doctors for upcoming appointments `match-d`
 
 ==== Add Doctor feature
+
+===== Implementation
 
 When a user executes `add-d n/John Doe g/M p/98765432 y/3 s/'acupuncture`
 
@@ -402,7 +403,21 @@ Step4. LogicManager calls execute() of AddDoctorCommand.
 
 Step5. execute() calls hasDoctor() of Model. If doctor does not exist, call addDoctor() of Model.
 
+===== Design Considerations
+
+Aspect 1: Definition of 'duplicates' in Doctor List of docX.
+
+Alternative 1 (current choice): Phone number that is the same as any existing doctors would be deemed as a duplicated doctor.
+* Pros: It is intuitive for our users that a doctor can have the same name, same specialisations, but should have different numbers, as in the real world.
+* Cons: -
+
+Alternative 2: Name and phone number that is the same as any existing doctors would be deemed as a duplicated doctor.
+* Pros: No additional implementation required.
+* Cons: Less flexibility for our users. Not intuitive as anyone can have the same name, but should have different numbers, as in the real world.
+
 ==== List Doctor feature
+
+===== Implementation
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("list-d")` API call.
 
@@ -426,9 +441,27 @@ Step4. LogicManager calls execute() of ListDoctorCommand.
 Step5. execute() checks if the DoctorContainsPredicate equals to null. If it equals to null, it calls updateFilteredDoctorList() of Model to show all doctors.
         If it is not null, it calls updateFilteredDoctorList() of ModelManager.
 
-
 Step6. test(Doctor) of DoctorContainsKeywordsPredicate will be called. It will check if any of the field matches "acupu" in full or part. If it matches, the doctor will be shown.
 
+===== Design Considerations
+
+Aspect 1: Substring matching or full-word matching
+
+* Alternative 1 (current choice): Substring matching of keyword inputted.
+** Pros: Users will be able to view a wider list of doctors after filtering as any phrase that contains the input will be shown. Even when there are accidental typing mistakes, (eg. "genera" instead of "general") substring matching will eliminate the possibility of results being omitted due to human error.
+** Cons: When the search is too general, irrelevant results may be shown. For example, when the user input "s", almost all doctors with 's' in any of its fields will be shown.
+* Alternative 2: Full-word matching of keyword inputted.
+** Pros: Ensure that only doctors with fields that matches the user's input exactly will be returned. This will greatly reduce irrelevant results being shown.
+** Cons: Any accidental mistakes made in typing will not be condoned by the system, and may result in relevant results being omitted due to human error.
+
+Aspect 2: Categorised or non-categorised keywords
+
+* Alternative 1 (current choice): Substring matching for all fields in Doctor.
+** Pros: Users will be able to view a wider list of doctors after filtering as doctors with any of the fields containing the keyword(s) will be shown.
+** Cons: Users will not be able to specify the field he/she wants to check, even when he/she knows which field to look into. This may result in irrelevant results being shown, where the doctor(s) of irrelevant fields that matches the user's input will be shown.
+* Alternative 2: Substring matching for specific fields stated in Doctor.
+** Pros: Users will be able to view the most accurate results from the search. For example, if the user wants to search for "Ong" under the Name field only, he/she can specify in the search and narrow down to the relevant results.
+** Cons: Too restrictive if the user is not able to identify the specific field to check or if the user wants to check multiple fields.
 
 ==== Edit Doctor feature
 
@@ -448,6 +481,8 @@ Step5. execute() calls getFilteredDoctorList() of ModelManager and gets the doct
 
 ==== Select Doctor feature
 
+===== Implementation
+
 When a user executes `select-d 1`
 
 Step1. LogicManager calls parseCommand("select-d") in docXParser.
@@ -464,6 +499,8 @@ Step5. execute() calls getFilteredDoctorList() of ModelManager and gets the doct
 
 ==== Delete Doctor feature
 
+===== Implementation
+
 When a user executes `delete-d 1`
 
 Step1. LogicManager calls parseCommand("delete-d") in docXParser.
@@ -478,6 +515,8 @@ Step4. LogicManager calls execute() of DeleteDoctorCommand.
 Step5. execute() calls getFilteredDoctorList() of ModelManager and gets the doctor to be deleted. DeleteDoctorCommand calls deleteDoctor(doctorToDelete) of ModelManager.
 
 ==== Doctor Match feature
+
+===== Implementation
 
 When a user executes `match-d s/general d/2019-06-20 t/09:00`
 
@@ -498,6 +537,18 @@ Step6. Then, execute() will call the constructor of DoctorsMatch with the filter
 
 Step7. Then, execute() will get the filtered list of appointments and the desired specialisation. DoctorHasAppointmentPredicate will be created.
         execute() calls updateFilteredDoctorList(DoctorHasAppointmentPredicate) to filter the list of doctors whose specialisation matches and are available on the date and timing inputted.
+
+===== Design Considerations
+
+Aspect 1: Use user's input of the doctor's specialisation or use patient's tags to auto-match.
+
+* Alternative 1: Using patient's tags
+** Pros: Users only have to input the patient's ID, and the command will generate available doctors who are suitable (according to specialisation match) and available at the date and time.
+** Cons: Restrictions on creation of patients' tags and doctors' specialisations, as there must be a back-end check that categorises the tags under specified specialisations, which results in tags and specialisations having to be in ENUM form and added prior to usage of the application.
+* Alternative 2 (current choice): Using user's inputs to match with doctor's specialisation(s).
+** Pros: Users have the flexibility and autonomy to input the specialisation to check with the doctors' specialisations. Our users are mostly clinic receptionists, who have the ability and knowledge to decide the type of doctor the patient should consult.
+** Cons: Any accidental errors in typing or someone new on the job may not be able to identify the correct doctors for the patient based on his/her illness.
+
 // end::doctorcommands[]
 
 

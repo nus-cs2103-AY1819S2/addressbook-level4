@@ -743,7 +743,7 @@ magic in the background.
 
 // tag::enemyInitialiseMap[]
 
-*Initialising Enemy MapGrid*
+==== Initialising Enemy MapGrid
 
 The Enemy AI has the method `populateMapGrid()` which is called by the method `prepEnemy()`,
 which is in turn called by the Battle Manager when the Player enters the command `start game`.
@@ -786,7 +786,7 @@ a formula that is based on the map size specified by the player in the `init` co
 // end::enemyInitialiseMap[]
 
 // tag::enemyShoot[]
-*Calculating Coordinate to Attack*
+==== Calculating Coordinate to Attack
 
 The Enemy AI has the method `enemyShootAt()` that is invoked when the player ends their turn upon a miss.
 The Enemy AI will attempt to generate a random Coordinate to attack,
@@ -810,7 +810,7 @@ consist of at least one of each White or Black coordinates.
 The Black-White groupings of Coordinates through the concept of parity is illustrated here in the following diagram:
 
 .Checkered Board illusrating concept of parity
-= image::CheckeredBoard.png[width=650]
+image::CheckeredBoard.png[width=650]
 
 Once the Enemy hits a Coordinate that has a ship on it, it will note down every valid Coordinate that is cardinal (to the North, South, East and West) to the
 cell that was discovered to hold a ship.

@@ -20,7 +20,7 @@ public class MemberFilterCommand extends MemberCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " ：Generates a filtered member's list based on a given"
             + " filter criteria. "
-            + "Parameters:  CRITERIA KEYWORD [MORE KEYWORDS]\n"
+            + "Parameters:  CRITERIA [KEYWORDS]\n"
             + "Example: " + COMMAND_WORD + " yearofstudy" + " 2";
 
     public final String[] input;

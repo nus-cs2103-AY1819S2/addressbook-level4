@@ -18,16 +18,15 @@ Club Manager is catered for *CCA leaders* and is used for managing CCA members a
 
 ** *What it does:*
 *** *Add* member to the existing list of members (`memberAdd`).
-*** *Lists* all of the members in Club Manager (`memberList`).
-*** *Filters* the list of members based on a given filter criteria. This allows the user to shortlist members for activities (e.g. competition) based on a particular member's attribute (`memberFilter`).
+*** *Lists* all of the members in Club Manager (`memberList`). *Filters* the list of members based on a given filter criteria. This allows the user to shortlist members for activities (e.g. competition) based on a particular member's attribute (`memberFilter`).
+*Sorts* the members' list based on a given sorting criteria (`memberSort`). This allows the user to be able to organise their members based on a particular member attribute, facilitating the attendance list preparation, keying in CCA points as well as the export list function.
 *** *Select* a specific member to view the complete members' information page which includes statistics pertaining to the selected member (`memberSelect`).
-*** *Sorts* the members' list based on a given sorting criteria (`memberSort`). This allows the user to be able to organise their members based on a particular member attribute, facilitating the attendance list preparation, keying in CCA points as well as the export list function.
 ** *Justification:* This feature improves the product significantly because as a CCA leader, the user needs to be able to view the entire set of member's information and statistics, as well as manage the member's list to prepare the list to be exported and printed for attendance taking in the CCA activities. CCA leaders could also use the information to plan out their activities (e.g. logistics).
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 * *Minor enhancements*:
 ** A checksum generator has been implemented to ensure that all members have valid matric numbers.
 ** Colored tags which follows the color theme of Club Manager.
-* *Code contributed*: [https://github.com/CS2103-AY1819S2-W13-2/main/commits?author=joel0111[Functional code]] [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=joel0111&sort=displayName&since=2019-02-10&until=2019-04-12&timeframe=day&reverse=false&repoSort=true[RepoSense]]
+* *Code contributed*: [https://github.com/CS2103-AY1819S2-W13-2/main/commits?author=joel0111[Functional code]] [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=joel0111&sort=displayName&since=2019-02-10&until=2019-04-14&timeframe=day&reverse=false&repoSort=true[RepoSense]]
 
 *Other Contributions:*
 
@@ -35,8 +34,10 @@ Club Manager is catered for *CCA leaders* and is used for managing CCA members a
 * Corrected any team-related documentation issues.
 * Updated issues tracker for member management features including features that are not done by me.
 * Updated README and AboutUs page.
-* Provided UI Walkthrough in the User Guide.
+* Provided UI Walk-through in the User Guide.
 * Designed a logo for the Club Manager Application.
+* Made cosmetic changes to the command summary in User Guide by categorising the commands.
+* Did up the user stories, non-functional requirements, glossary, and product survey in the Developer Guide.
 
 *Community Contributions*
 
@@ -48,12 +49,14 @@ Club Manager is catered for *CCA leaders* and is used for managing CCA members a
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=introduction]
-include::../UserGuide.adoc[tag=userinterface]
 include::../UserGuide.adoc[tag=memberadd]
+
 include::../UserGuide.adoc[tag=memberfilter]
+
 include::../UserGuide.adoc[tag=memberlist]
+
 include::../UserGuide.adoc[tag=memberselect]
+
 include::../UserGuide.adoc[tag=membersort]
 
 == Contributions to the Developer Guide
@@ -61,10 +64,20 @@ include::../UserGuide.adoc[tag=membersort]
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+include::../DeveloperGuide.adoc[tag=memberlistfeature]
+
+include::../DeveloperGuide.adoc[tag=memberadd]
+
+include::../DeveloperGuide.adoc[tag=memberfilter]
+
+include::../DeveloperGuide.adoc[tag=memberlist]
+
+include::../DeveloperGuide.adoc[tag=memberselect]
+
 include::../DeveloperGuide.adoc[tag=membersort]
 
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+|===
+|_Some of the contributions to the user guide and developer guide have been omitted for brevity.
+Please visit W13-2 user guide and developer guide for full details._
+|===

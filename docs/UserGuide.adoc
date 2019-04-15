@@ -63,6 +63,8 @@ Here is an example of how Club Manager in activity mode looks like:
 
 image::activityUiWalkthrough.png[width="100%"]
 
+//end::userinterface[]
+
 In total, there are:
 
 * *5 General Parts:* <<#Menu-Bar, Menu Bar>>, <<#Result-Display, Result Display>>, <<#Command-Box, Command Box>>, <<#SSB, Sync Status Bar>>, <<#Mode-Status, Mode Status>>
@@ -147,14 +149,19 @@ Displays the *list of Members who is not attending or have not attended* the sel
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/Swimming` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Swimming`, `t/Running t/Hockey` etc.
 ====
-//end::userinterface[]
 
 === General Features
 
 //tag::mode[]
 ==== Get / Set the mode of ClubManager: `mode`
 
-ClubManager operates in 2 modes. This function allows user to check the mode and change the mode +
+ClubManager operates in 2 modes. This function allows user to check the mode or change the mode +
+[NOTE]
+====
+The operation mode restricts the operations you can call in each mode.
+
+When using ClubManager, you can check the mode of operation on the top right hand corner of the window which will either state "MEMBER" or "ACTIVITY"
+====
 [width="100%",cols="25%,55%, <20%",options="header",]
 |=======================================================================
 |Mode| Definition | Example of allowed commands
@@ -166,6 +173,8 @@ This mode allows the user to manage members in ClubManager
 
  This mode allows the user to manage members in ClubManager
   | `activityAdd`, `activityList`, `activitySelect`
+
+  |[_any mode_]| In any mode, general functions can be called|`help`, `mode`, `exit` |
 |=======================================================================
 
 *Format:*
@@ -216,13 +225,13 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 === Member Management Features
 
-image::memberCommands.png[width="100%"]
+image::memberCommands.png[width="70%"]
 
 //tag::memberadd[]
 ==== Adding a member: `memberAdd` or `mAdd`
 
 You can add members to ClubManager. +
-[width="100%",cols="30%,<50%, <50%",options="header",]
+[width="100%",cols="10%,85%, 5%",options="header",]
 |=======================================================================
 |Information of Member| Definition | Example
 |`Name`| NAME refers to the name of the member.
@@ -265,19 +274,18 @@ A member can have any number of tags (including 0).|Swimming
 |=======================================================================
 
 *Format:*
+
 * `memberAdd n/NAME mn/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL a/ADDRESS g/GENDER y/YEAR_OF_STUDY m/MAJOR [t/TAG]...`
 
 *Examples:*
 
 * `memberAdd n/Jon Lim mn/A0123456J p/98765432 e/johnl@example.com a/123, Woodlands Drive 12, #12-34 g/Male y/2 m/Chemistry t/Swimming`
-
-image::memberAdd_added.png[width="1000"]
-
 * `memberAdd n/James Ong mn/A0123456J p/98765432 e/jamesong@example.com a/123, Jurong West Ave 6, #08-111 g/male y/2 m/mathematics`
 * `memberAdd n/Jane Lim mn/A0654321J p/91324756 e/janelim@example.com a/123, Sengkang Ave 6, #02-123 g/Female y/3  m/physics t/Swimming`
-
+image::memberAdd_added.png[width=70%]
 //end::memberadd[]
 
+//tag::memberdelete[]
 ==== Deleting a member : `memberDelete` or `mDelete`
 
 Deletes the specified member from ClubManager. +
@@ -287,6 +295,7 @@ Format: `memberDelete INDEX`
 * Deletes the member at the specified `INDEX`.
 * The index refers to the index number shown in the displayed member list.
 * The index *must be a positive integer* 1, 2, 3, ...
+* Member will be deleted from activity attendance list as well.
 ****
 
 Examples:
@@ -297,7 +306,9 @@ Deletes the 2nd member in ClubManager.
 * `memberFind name Betsy` +
 `memberDelete 1` +
 Deletes the 1st member in the results of the `find` command.
+//end::memberdelete[]
 
+//tag::memberedit[]
 ==== Editing a member : `memberEdit` or `mEdit`
 
 Edits an existing member in ClubManager. +
@@ -319,8 +330,9 @@ Edits the phone number and email address of the 1st member to be `91234567` and 
 
 * `memberEdit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd member to be `Betsy Crower` and clears all existing tags.
+//end::memberedit[]
 
-//tag::memberfilter
+//tag::memberfilter[]
 ==== Filtering member's list: `memberFilter or mFilter`
 ****
 * Filter the member's list based on a filter criteria.
@@ -335,18 +347,21 @@ Examples:
 
 * `memberFilter yearOfStudy 2`
 
+//end::memberfilter[]
+
 image::memberFilter1.png[width=70%]
 
 * `memberFilter gender male`
 
-image::memberFilter.png[width=70%]
+*Coming in v2.0:* Filter more than one criteria, to find a subgroup of members.
 
-//end::memberfilter[]
 
+
+//tag::memberfind[]
 ==== Locating members by name: `memberFind` or `mFind`
 
 Finds members whose names contain any of the given keywords. +
-Format: `memberFind CRITERIA KEYWORD [MORE_KEYWORDS]`
+Format: `memberFind CRITERIA KEYWORD [MORE_CRITERIA] [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -364,6 +379,7 @@ Returns `john` and `John Doe`
 Returns any member having names `Betsy`, `Tim`, or `John`
 * `memberFind matricnum A0` +
 Returns all members (matric num starts with A0)
+//end::memberfind[]
 
 //tag::memberlist[]
 ==== Listing members : `memberList` or `mList`
@@ -371,9 +387,9 @@ Returns all members (matric num starts with A0)
 Shows a list of all members in ClubManager. +
 Format: `memberList`
 
-image::MemberList.png[width=40%]
-
 //end::memberlist[]
+
+image::MemberList.png[width=20%]
 
 //tag::memberselect[]
 ==== Selecting a member : `memberSelect`
@@ -392,9 +408,10 @@ Examples:
 * `memberList` +
 `memberSelect 2` +
 Selects the 2nd person in the club manager.
-
-image::memberSelectCommand.png[width=100%]
 //end::memberselect[]
+
+image::memberSelectCommand.png[width=70%]
+
 
 //tag::membersort[]
 ==== Sort members’ list : `memberSort` or `mSort`
@@ -430,15 +447,15 @@ Example:
 `memberSort name` +
 Sorts the list by name.
 
-image::MemberSortCommand_sortby_name.png[width=70%]
+//end::membersort[]
+
+image::MemberSortCommand_sortby_name.png[width=50%]
 
 * `memberList` +
 `memberSort yearOfStudy` +
 Sorts the list by year of study.
 
-image::MemberSortCommand_sortby_yearofstudy.png[width=70%]
 
-//end::membersort[]
 
 //tag::memberexport[]
 ==== Exporting details of a member : `memberExport` or `mExport`
@@ -728,8 +745,7 @@ e.g. `mode member`
 e.g. `memberAdd n/James Ong mn/A0123456Y p/98765432 e/jamesong@example.com g/male yos/1 m/mathematics`
 * *Delete a member* : `memberDelete INDEX` +
 e.g. `memberDelete 3`
-* *Edit a member* : `memberEdit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]
-[mn/MATRIC_NUMBER] [yos/YEAR_OF_STUDY] [m/MAJOR] [t/TAG]...` +
+* *Edit a member* : `memberEdit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [g/GENDER] [yos/YEAR_OF_STUDY] [m/MAJOR] [t/TAG]...` +
 e.g. `memberEdit 2 n/James Lee e/jameslee@example.com`
 * *Find a member* : `memberFind CRITERIA KEYWORD [MORE_CRITERIA] [MORE_KEYWORDS]` +
 e.g. `memberFind name John`

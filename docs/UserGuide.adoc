@@ -18,7 +18,9 @@ By: `Team W13-1 and Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-docX is for those who *prefer to use a desktop app for managing contacts*. More importantly, docX is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, docX can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+DocX is a desktop application designed for receptionists in clinics.
+The app provide features for patient management, doctor management, medical history management, appointment management and prescription management.
+It is targeted at clinic receptionists who are comfortable with using Command Line Interface (CLI).
 
 == Quick Start
 
@@ -29,6 +31,7 @@ docX is for those who *prefer to use a desktop app for managing contacts*. More 
 +
 image::Ui.png[width="790"]
 +
+.  Note that for now, docX only supports Command Line Interface (CLI). Clicking on any list is not allowed and will cause unexpected errors.
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
@@ -69,7 +72,7 @@ Format: `add-p [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [adr/ADDRESS] [t/TAG]`
 Examples:
 
 * `add-p n/Tom Hiddleston g/M a/21 p/98765432 adr/Utown College 2`
-* `add-p n/Bettany Sim g/F p/8234567 a/32 adr/RVRC House 12 t/diabetic`
+* `add-p n/Bettany Sim g/F p/82345672 a/32 adr/RVRC House 12 t/diabetic`
 
 [TIP]
 For constraints of name, gender, age, phone, address and tags, please refer to the table below.

@@ -53,8 +53,8 @@ public class MemberEditCommandParser implements Parser<MemberEditCommand> {
             editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_MATRICNUMBER).isPresent()) {
-            editPersonDescriptor.setMatricNumber(ParserUtil.parseMatricNumber
-                    (argMultimap.getValue(PREFIX_MATRICNUMBER).get()));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    "Matriculation Number cannot be changed!\n" + MemberEditCommand.MESSAGE_USAGE));
         }
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
             editPersonDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));

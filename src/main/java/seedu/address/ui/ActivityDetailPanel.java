@@ -67,9 +67,9 @@ public class ActivityDetailPanel extends UiPart<Region> {
         numAttending.setText("Number of people attending: " + activity.getNumberAttending());
 
         if (activity.getNumberAttending() > 0) {
-            hasAttending.setText("Here's the list of people attending: ");
+            hasAttending.setText("\nHere's the list of people attending: \n");
         } else {
-            hasAttending.setText("No person in the attending list.");
+            hasAttending.setText("\nNo person in the attending list. \n");
         }
     }
 

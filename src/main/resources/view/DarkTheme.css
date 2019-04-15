@@ -407,10 +407,21 @@
 
 .labelMode-Member {
     -fx-background-color: #00965E;
+    -fx-text-fill: #FFFFFF;
 }
 
 .labelMode-Activity {
     -fx-background-color: #418FDE;
+    -fx-text-fill: #FFFFFF;
+}
+
+.list-label-member {
+    -fx-background-color: #00965E;
+    -fx-padding: 5 5 5 12;
+}
+.list-label-activity {
+    -fx-background-color: #418FDE;
+    -fx-padding: 5 5 5 12;
 }
 
 .activity-details-title {

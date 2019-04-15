@@ -190,8 +190,8 @@ public class ModelManager implements Model {
         versionedAddressBook.setActivity(target, editedActivity);
     }
 
-    public void sortAddressBook(Predicate<String> predicate) {
-        versionedAddressBook.sortAddressBook(predicate);
+    public void sortAddressBook(String input) {
+        versionedAddressBook.sortAddressBook(input);
     }
 
     @Override

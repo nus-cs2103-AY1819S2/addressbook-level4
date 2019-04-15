@@ -26,7 +26,7 @@ public class MemberSortCommandParser implements Parser<MemberSortCommand> {
 
 
 
-        return new MemberSortCommand(new SortCriteriaContainsKeywordPredicate(trimmedArgs));
+        return new MemberSortCommand(trimmedArgs);
     }
 
     /**

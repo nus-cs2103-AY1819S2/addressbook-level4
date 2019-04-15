@@ -532,8 +532,8 @@ The testing methods for filtering is written for 3 different parts:
 
 // tag::sort[]
 === Sort Commands
-==== Current Implementation
-There are currently five main sorting methods present: `name`, `surname`, `gpa`, `education`, `skills`.
+==== Current Implementation Summary
+There are currently eleven main sorting methods present: `name`, `surname`, `gpa`, `education`, `degree`, `skills`, `positions`, `endorsements`, `skill number`, `position number`, `endorsement number`.
 There is also a complimentary `reverse` sort method for each main sorting method.
 
 * **name** is called by the user through the following cli input: `sort name`. +
@@ -543,10 +543,13 @@ It takes the _current_ list displayed in the left hand GUI panel and sorts them 
 It takes the _current_ list displayed in the left hand GUI panel and sorts them by surname alphabetically.
 
 * **gpa** is called by the user through the following cli input: `sort gpa`. +
-It takes the _current_ list displayed in the left hand GUI panel and sorts them by gpa in increasing numeric order.
+It takes the _current_ list displayed in the left hand GUI panel and sorts them by gpa in decreasing numeric order.
 
 * **education** is called by the user through the following cli input: `sort education`. +
 It takes the _current_ list displayed in the left hand GUI panel and sorts them by education alphabetically.
+
+* **degree** is called by the user through the following cli input: `sort degree`. +
+It takes the _current_ list displayed in the left hand GUI panel and sorts them by degree starting with _PhD_ and then proceeding to _Masters_, _Bachelors_, _Associates_ and _High School_ in this order.
 
 * **skills** is called by the user through the following cli input: `sort skills`. +
 It takes the _current_ list displayed in the left hand GUI panel and first orders the skill tags for each person alphabetically. The method then proceeds to sort all persons based on their skill tags, in alphabetical order.
@@ -571,31 +574,109 @@ It takes the _current_ list displayed in the left hand GUI panel and orders the 
 _(the **current** list means that if filter is on, only those filtered persons shall be sorted and the filter shall remain on)_
 
 
+**Intelligent Sorting**:
+
+For a recruiting company with a large number of contacts it is highly likely that certain fields shall be repeated (for example two different persons can both have Bachelors degrees).
+To aid the user, _intelligent sorting_ has been implemented. It sorts persons that match in the field that the initial sort is looking at and then performs a secondary sort using a method related to the initial sort.
+The sequences of these are shown below.
+
+.Flow pattern for the sorting methods
+|===
+|Initial Sort Method |Subsequent Sort Method __(for persons with same value after first sort method)__ |Secondary Subsequent Sort Method __(for persons with same value after first and subsequent sort method)__
+|Name
+| -
+| -
+
+|Surname
+|Name
+| -
+
+|Skills, Positions, Endorsements
+|Name
+| -
+
+|Skills, Positions, Endorsements Number
+|Skills, Positions, Endorsements respectively
+|Name
+
+|Gpa
+|Name
+| -
+
+|Degree
+|GPA
+|Name
+
+|Education
+|GPA
+|Name
+|===
+
+==== Current Implementation Description.
+
+The sort command works in a similar fashion to the commands already in place. Below is a sequence diagram for a general sort method.
+The `SortCommandParser` implements the already created `Parser` interface. It is used to take the CLI user input and make a new SortCommand object only if a valid Sort Word has been passed into the CLI.
+
+The SortCommand is an extension of the abstract `command` class. This means history, command results and addressbook committing follow the same format as the commands in place. This allows it's compatibility with those commands already present.
+It takes the list of persons in the addressbook. It ensures that if a `filter` is present, only these filtered persons are sorted, but the complete persons list is left unaffected. This presents accidental deletion of contact information.
+The SortCommand class proceeds to take the input, initially from the CLI, and uses `processSortMethod` to call the necessary sorting method.
+The sorting method classes all implement the SortMethod interface which executes the necessary sort on the list and has a getList() method.
+
+Once a correctly ordered list of persons has been retrieved by the SortCommand class, it checks for the `reverse` keyword and makes the necessary adaption.
+All the persons are then deleted from this model. Due to the severity of this command, additional care has been taken to ensure it can only be processed providing there is a list of persons (of the same length) present to replace it.
+It then adds the persons back into the addressbook in the correct order, taking note of the filter to ensure compatibility.
+
+image::SortSequenceDiagram.png[width="800"]
+.Sequence Diagram for a general sort method.
+
+Also of note are the methods used in the sorts themselves. Below is shown the sequence diagram for a surname sorting method as an example.
+The sort methods begin by retrieving the field of interest to the particular sorting method. The aim is to create a `Comparator<Person>` which can subsequently be easily sorted either numerically or alphabetically.
+To retrieve the field of interest, the `Person` class is used. For those fields not suited to numerical or alphabetical sorting, associated values can be generated. For example in the `degree` field, values are given to the different levels which can then be sorted.
+These methods should be stored in `PersonUtil` to keep the frequently used `Person` class as clear and relevant as possible.
+
+For the `skills`,  `positions` and `endorsements` sorting methods, it is required for the person's individual tags to be sorted first. This uses a sorting method on each person and the creation of _new_ person with correctly ordered skill/position/endorsement tags.
+Once a comparator has been created, the `SortUtil` class can be used to perform the actual sorting. This makes use of Java's `stream.Collectors` method.
+
+For _intelligent sorting_ the `SortListWithDuplicates` class is used. It divides the list of persons from the initial sort into smaller lists (_dupPersonList_) of those returning the same comparator value.
+These are then individually sorted by the subsequent sorting method. By utilising similar methods for each sort method, this makes the subsequent calling of further sort methods quick and easy.
+It is worth noting that a subsequent sorting method shall then perform a further sort if its comparator returns a duplicate value within the duplicate list.
+This process is terminated by the sort name method since the addressbook does not allow people to be added with the same name.
+
+image::SortSurnameSequenceDiagram.png[width="800"]
+.Sequence Diagram for the surname sort.
+
 ==== Implementation Rational
 Despite the risk of slightly increasing the coupling, the aim was to use methods already written and rely on good cohesion.
 For example, once a sort command has correctly written the correctly ordered persons to a `List<Person>`, rather than duplicating large amounts of code by modifying the already listed persons in the GUI, it shall simply remove the persons in that addressbook version and then immediately re-add them in the correct order.
 
 It is of note that the temporary deletion of persons from the addressbook should be foolproof and there should be no way that the sort command ever permanently deletes the addressbook. Furthermore, ensuring the command works with the already implemented undo/redo command should ensure the user still has full control over all the persons in the contact book.
 
+The future of this product demands the dynamic addition of contact fields as they become important. These fields should then be able to be sorted. Consequently it is paramount that the addition of a further sort command is easy.
+This is achieved through the `SortMethod` interface and provision of very adaptable sorting method techniques that can be later used. The steps taken to add a new sort command are provided below.
+
 ==== Approaches Considered
 When writing sort commands, there were two approaches considered: modify the indices of all persons and then refresh the left-hand GUI panel with this new list; or temporarily delete the list of persons and then add a new list of correctly ordered persons.
 
-Elements of lists in Java are ordered by when they were added. Sorting is possible using _Collections_, however this requires them to be strings. Since the Recruit Me application contains lists of various types, typically _Person_, there is no immediate compatibility with _Collections_. Furthermore it was suspected that to simply modify the indices of persons, a lot of duplicate code would be need to be written since this aspect of addressbook-level4 was not easily modifiable. Because of this the second method was opted for.
+Elements of lists in Java are ordered by when they were added. Sorting is possible using _Collections_, however this requires them to be strings. Since the Recruit Me application contains lists of various object types, typically _Person_, there is no immediate compatibility with _Collections_. Furthermore it was suspected that to simply modify the indices of persons, a lot of duplicate code would be need to be written since this aspect of addressbook-level4 was not easily modifiable. Because of this the second method was opted for.
+
+It was also decided to make this command as similar as possible in style to those already present. This meant that it was almost immediately compatible with the other commands.
+This way it could also make use of various methods already in place.
+
 
 ==== Adding a New Sort Command
 
 To add a new sort command, the following classes should be altered accordingly:
 
-* `cliSyntax` - add the necessary new SortWord (and the reverse option)
-* `SortCommandParser` - add the new SortWord as an accepted input
-* `SortCommand` - add the call to the new `SortNewMethod` class when the new SortWord is inputted
-* `SortNewMethod` - a new class, following the example of `SortName`, that will return a list of Persons correctly ordered according to the new method
-* `SortUtil` - a place for lower-level processes required by the new sort method and called from `SortNewMethod`
+* `cliSyntax` - add the necessary new SortWord (and the reverse option), this should match the desired CLI user input
+* `SortCommandParser` - add the new SortWords as an accepted input
+* `Sort[NewMethod]` - a new class that implements the `SortMethod` interface, that will execute a sort on the list of Persons, according to the new method, and a getList() method for returning this correctly ordered list. Here a subsequent ordering method can be specified for __intelligent sorting__
+* `Person` - it is often useful to have a Person's field as a string or numerical value in order to create a comparator. Consequently a method should be provided here for returning the Person's new field as a string or number.
+* `SortCommand` - create the link between the new SortWord and the new `Sort[NewMethod]` class
+* `SortUtil` - a place for lower-level processes required by the new sort method and called from `Sort[NewMethod]`
 
-It is also sometimes of use to alter `Person` should the new method demand access of a certain element of `Person` that may be useful for other classes in the future.
-The developer should also add the necessary testing methods in `SortCommandTest`
-(TODO: INSERT CLASS DIAGRAM FOR v1.4)
-(TODO: INSERT SEQUENCE DIAGRAM FOR v1.4)
+When choosing the subsequent sort for _intelligent sorting_, a loop must not be created. For example matching gpa's can't use education as a subsequent sorting method if education is already using gpa. This is because if a person has both the same gpa and education, they can't be sorted.
+
+The developer should also add the necessary testing methods in `SortCommandTest` and `SortCommandIntegrationTest`
 // end::sort[]
 
 

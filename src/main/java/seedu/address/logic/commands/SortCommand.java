@@ -64,10 +64,18 @@ public class SortCommand extends Command {
         return input;
     }
 
+    /**
+     * Executes the necessary sort method and returns the list.
+     * Ensures sorted list matches the length of the inputted list.
+     */
     private void processSortMethod(SortMethod command, List<Person> lastShownList, String... type) {
         command.execute(lastShownList, type);
         this.sortedPersons = command.getList();
-        this.isNewListPresent = true;
+        if (lastShownList.size() == this.sortedPersons.size()) {
+            this.isNewListPresent = true;
+        } else {
+            logger.info("The sorted list does not match the initial list in length.");
+        }
     }
 
     /**
@@ -101,7 +109,10 @@ public class SortCommand extends Command {
             sortedPersons = SortUtil.reversePersonList(sortedPersons);
         }
         if (isNewListPresent) {
+            // only delete the list if there is one to replace it
             model.deleteAllPerson();
+        } else {
+            logger.info("No fully sorted list has been found.");
         }
         for (Person newPerson : sortedPersons) {
             model.addPersonWithFilter(newPerson);

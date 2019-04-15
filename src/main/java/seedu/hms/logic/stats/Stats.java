@@ -49,6 +49,15 @@ public class Stats {
         return sb.toString();
     }
 
+    /**
+     * Update all StatsItems.
+     */
+    public void update() {
+        for (StatsItem si : statsitems) {
+            si.updateMap();
+        }
+    }
+
     public ReadOnlyHotelManagementSystem getHms() {
         return hms;
     }

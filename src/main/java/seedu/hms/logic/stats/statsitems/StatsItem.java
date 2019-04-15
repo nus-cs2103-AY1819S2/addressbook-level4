@@ -17,11 +17,13 @@ import seedu.hms.logic.stats.Stats;
 public abstract class StatsItem {
     protected String title;
     protected int longest;
+    protected Map<String, Long> map;
     protected final Stats stats;
 
     public StatsItem(Stats s) {
         this.stats = s;
         this.longest = 15;
+        this.map = calcResult();
     }
 
     public String getTitle() {
@@ -34,6 +36,16 @@ public abstract class StatsItem {
      * @return A Category-Quantity map.
      */
     public abstract Map<String, Long> calcResult(boolean isDesc);
+    public Map<String, Long> calcResult() {
+        return this.calcResult(true);
+    }
+
+    /**
+     * Update the map.
+     */
+    public void updateMap() {
+        this.map = calcResult();
+    }
 
     /**
      * Generate a text report for this StatsItem
@@ -42,8 +54,7 @@ public abstract class StatsItem {
      */
     public String toTextReport(boolean isDesc) {
         StringBuilder sb = new StringBuilder();
-        Map<String, Long> m = calcResult(isDesc);
-        Iterator<Map.Entry<String, Long>> iter = m.entrySet().iterator();
+        Iterator<Map.Entry<String, Long>> iter = map.entrySet().iterator();
         while (iter.hasNext()) {
             Map.Entry<String, Long> entry = iter.next();
             sb.append(fillOnLeft(entry.getKey(), longest) + " --- " + entry.getValue());
@@ -55,7 +66,8 @@ public abstract class StatsItem {
         return toTextReport(true);
     }
 
-    // utils
+    /*---- utils ----*/
+
     private static String fillOnLeft(String s, int n) {
         return String.format("%-" + n + "s", s);
     }

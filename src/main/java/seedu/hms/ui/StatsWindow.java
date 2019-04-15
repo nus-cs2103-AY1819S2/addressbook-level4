@@ -32,8 +32,8 @@ public class StatsWindow extends UiPart<Stage> {
 
     public StatsWindow(Stage root, Stats stats) {
         super(FXML, root);
-        this.stats = stats;
         requireNonNull(stats);
+        this.stats = stats;
 
         updateText();
         // Update the text area
@@ -58,6 +58,7 @@ public class StatsWindow extends UiPart<Stage> {
      */
     public void updateText() {
         Platform.runLater(() -> {
+            stats.update();
             statsTextArea.setText(generateText(stats));
             statsTextArea.setEditable(false);
         });

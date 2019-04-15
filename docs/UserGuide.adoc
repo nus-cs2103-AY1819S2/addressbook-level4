@@ -382,8 +382,10 @@ Typing `stats` or `statistics` will give you the following several information a
 
 * How clean or dirty is your wardrobe
 
-An example output is shown in the screenshot below: +
-image::Stats.png[width="790"]
+An example output is shown in the screenshot below:
+
+image::stats.png[width="790"]
+
 
 === Exiting the program : `exit`
 

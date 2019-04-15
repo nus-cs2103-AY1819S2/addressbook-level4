@@ -372,14 +372,12 @@ The enhancement made is to display greater quantity and quality of restaurant in
 
 You can refer to _Figure 1_ to see the chain of activities that happen when the `select` command is executed.
 
-image::SelectActivityDiagram.png[width="800"]
+image::SelectActivityDiagram.png[width="650"]
 _Figure 1. Activity Diagram for `select` command_
-
-The majors components involved in the implementation of this feature are the `FoodDiaryParser`, `SelectCommandParser` and `SelectCommand` classes. Their role in this implementation will be expounded on below.
 
 The following describes how the `select` mechanism behaves at each step:
 
-Step 1. The user executes `select INDEX` command, whereby `INDEX` is a positive integer within the range of indexes in the filtered restaurant list.
+Step 1. User executes `select INDEX` command, with `INDEX` as a positive integer within the range of indexes in the filtered restaurant list.
 
 Step 2. The `FoodDiaryParser` parses the user's input and constructs a `SelectCommandParser` object, which then parses the input index into an `Index` object and constructs a `SelectCommand` object.
 
@@ -391,15 +389,15 @@ the restaurant's `avgRating` and `totalVisit`.
 
 [NOTE]
 A restaurant with no reviews is indicated with `totalVisits` = 0 and `avgRating` = -1. The number -1 is chosen as all user input `Ratings` can only be a number between [0,5], thus -1 is a clear
-indication that there is no `avgRating` for the particular restaurant. This then allows a clear check that `avgRating` field displayed in the UI should be `N.A.`.
+indication that there is no `avgRating` for the particular restaurant. This is a clear check to decide whether the `avgRating` field displayed in the UI should be `N.A.`.
 
 [NOTE]
 There is no state change to the Food Diary as the `select` command only selects a restaurant from the current `FilteredList` of restaurants.
 As such, this command cannot be undone or redone through the `undo` and `redo` commands respectively.
 
-You can refer to _Figure 2_ for a better idea of the internal implementation flow when a `select` command is executed.
+You can refer to _Figure 2_ for the internal implementation flow when a `select` command is executed.
 
-image::SelectSequenceDiagram.png[width="800"]
+image::SelectSequenceDiagram.png[width="675"]
 _Figure 2. Sequence Diagram for `select` command_
 
 ===== Design Considerations
@@ -412,20 +410,12 @@ Two guiding design patterns are applied to this feature:
 
 ====== Aspect: How to structure the Summary in the UI
 
-* Alternative 1 (Current Choice): Implement `Summary` as a class in the `Restaurant` package
-
-|=====================
-| Pros | Applies Observer pattern and reduces duplicate code as calculation of `avgRating` only has to be done once in `Summary` class for it to be displayed on both `RestaurantCard` and `RestaurantSummaryPanel`
-| Cons | Results in coupling as it introduces dependency of `Summary` on `Review` class.
-|=====================
-
-* Alternative 2: Implement `Summary` as a UI component that listens to changes in the Review of the Restaurant
-
-|=========
-| Pros | Reduces dependency within Model component.
-| Cons | Increases duplicate code as `avgRating` of a Restaurant's `Summary` is displayed in both the `RestaurantCard` and `RestaurantSummaryPanel` and will thus have to be calculated twice.
-|=========
-
+* **Alternative 1 (current choice):** Implement `Summary` as a class in the `Restaurant` package
+** Pros: Applies Observer pattern and reduces duplicate code as calculation of `avgRating` only has to be done once in `Summary` class to display it on both `RestaurantCard` and `RestaurantSummaryPanel`.
+** Cons: Results in coupling as it introduces dependency of `Summary` on `Review` class.
+* **Alternative 2:** Implement `Summary` as a class in the UI component that listens to changes in the `Review` of the `Restaurant`
+** Pros: Reduces dependency within Model component.
+** Cons: Increases duplicate code as `avgRating` of a Restaurant's `Summary` is displayed in both the `RestaurantCard` and `RestaurantSummaryPanel` and will thus have to be calculated twice.
 
 ==== Sort Feature
 
@@ -437,7 +427,7 @@ By default, the restaurants would be sorted in descending order of ratings with 
 
 You can refer to _Figure 3_ below for a better understanding of the activity flow of the `sort` command.
 
-image::SortActivityDiagram.png[width="800"]
+image::SortActivityDiagram.png[width="650"]
 _Figure 3. Activity Diagram for `sort` command_
 
 The majors components involved in the implementation of this feature are:
@@ -475,7 +465,7 @@ Step 4. The sorted restaurant list is then stored in the Food Diary via `Model#c
 
 You can refer to _Figure 4_ below for a more detailed idea of how `sort` command is implemented internally.
 
-image::SortSequenceDiagram.png[width="800"]
+image::SortSequenceDiagram.png[width="750"]
 _Figure 4. Sequence Diagram for `sort` command_
 
 
@@ -483,32 +473,12 @@ _Figure 4. Sequence Diagram for `sort` command_
 
 ====== Aspect: How to apply the `Limit`
 
-* **Alternative 1 (current choice):** Let the `Limit` denote the number of ranks of restaurants to be displayed
-|=====================
-| Pros | Accurately shows the top/bottom ranked restaurants.
-| Cons | More expensive operations required to limit ranks of restaurants as a unique ratings list has to be stored to get the limited ranks.
-|=====================
-
-* **Alternative 2:** Let the `Limit` denote the number of restaurants to be displayed
-|=====================
-| Pros | More intuitive to users.
-| Cons | Does not provide an accurate depiction of top/bottom restaurants as multiple restaurants with the same ratings may not be displayed.
-|=====================
-
-====== Aspect: Whether to sort the restaurants in the Food Diary permanently or temporarily
-
-* **Alternative 1 (current choice):** Sort the restaurants permanently by saving the state of the Food Diary after command execution in `Model#commitFoodDiary()`
-|=====================
-| Pros | More intuitive to users as they can undo the `sort` command and return to the previous state of the Food Diary.
-| Cons | Uses more memory as the sorted list will be stored as a version of the Food Diary.
-|=====================
-
-* **Alternative 2:** Sort the restaurants temporarily by encapsulating `FilteredList` in a `SortedList`
-|=====================
-| Pros | Easy to implement.
-| Cons | Might be jarring to users as the sorted state of the Food Diary would not be saved upon leaving the application and there is no way for the user to
-         return to his/her originally ordered list of restaurants within the same window of use.
-|=====================
+* **Alternative 1 (current choice):** Let `Limit` denote the number of ranks of restaurants to be displayed
+** Pros: Accurately shows the top/bottom ranked restaurants.
+** Cons: More expensive operations required to limit ranks of restaurants as a unique ratings list has to be stored to get the limited ranks.
+* **Alternative 2:** Let `Limit` denote the number of restaurants to be displayed
+** Pros: More intuitive to users.
+** Cons: Does not provide an accurate depiction of top/bottom restaurants as multiple restaurants with the same ratings may not be displayed.
 
 // end::selectSortDG[]
 

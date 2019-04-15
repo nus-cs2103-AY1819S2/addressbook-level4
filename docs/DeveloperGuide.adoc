@@ -929,6 +929,7 @@ A project often depends on third-party libraries. For example, Bookshelf depends
 
 [appendix]
 // tag::userStories[]
+
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -1088,8 +1089,8 @@ These instructions only provide a starting point for testers to work on; testers
     Prefix `c/` is not recognized, so `Madame c/nonsense` will be regarded as a whole keyword for book name. Since whitespace and '/' are not allowed for keywords, the input is invalid. Error is shown in the status message.
 ... `listBook m/12` +
     12 is not a valid range for the rating. Error is shown in the status message.
-
 // tag::mtsortBook[]
+
 === Sorting the booklist
 
 . Sorting the current booklist in a certain order.

@@ -48,7 +48,7 @@ Responsibilities: Ship management feature
 
 === Lucy Chan
 image::lucydotc.png[width="150", align="left"]
-{empty}[http://github.com/lucydotc[github]] [<<lucychan#, portfolio>>]
+{empty}[http://github.com/lucydotc[github]] [<<lucydotc#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Computer Enemy management feature

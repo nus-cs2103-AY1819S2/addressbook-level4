@@ -319,6 +319,7 @@ The index *must be a positive integer* 1, 2, 3, ...
 * Existing values will be updated to the input values.
 * NOTE: Matriculation Number cannot be edited
 * You can remove all the member's tags by typing `t/` without specifying any tags after it.
+* You cannot change a member's Matriculation Number
 ****
 
 Examples:
@@ -736,8 +737,7 @@ e.g. `mode member`
 e.g. `memberAdd n/James Ong mn/A0123456Y p/98765432 e/jamesong@example.com g/male yos/1 m/mathematics`
 * *Delete a member* : `memberDelete INDEX` +
 e.g. `memberDelete 3`
-* *Edit a member* : `memberEdit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]
-[mn/MATRIC_NUMBER] [yos/YEAR_OF_STUDY] [m/MAJOR] [t/TAG]...` +
+* *Edit a member* : `memberEdit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [yos/YEAR_OF_STUDY] [m/MAJOR] [t/TAG]...` +
 e.g. `memberEdit 2 n/James Lee e/jameslee@example.com`
 * *Find a member* : `memberFind CRITERIA KEYWORD [MORE_CRITERIA] [MORE_KEYWORDS]` +
 e.g. `memberFind name John`

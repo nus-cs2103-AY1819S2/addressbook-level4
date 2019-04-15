@@ -2014,7 +2014,7 @@ Instructions:
    Expected: Display does not change. Error message shown on status message. Timstamp remains the same.
 .. Other incorrect find commands to try: `memberFind hello`, `memberFind `, any case which does not have the correct criteria ("name" or "matricnum" only) +
    Expected: Similar to previous.
-   
+
 _{ more test cases ... }_
 
 === Activity List Feature

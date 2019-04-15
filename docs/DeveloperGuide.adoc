@@ -285,6 +285,69 @@ The following sequence diagram below displays the interaction between the variou
 
 .Data flow diagram for user import and export
 image::CsvUserStorageSequenceDiagram.png[width="800"]
+The following code shows how the steps could be performed:
+
+[source,java]
+----
+private Optional<CardSrsData> parseStringIntoCard(String[] cardArray) throws
+            NumberFormatException, DateTimeParseException {
+
+        if (cardArray.length < MAX_SIZE) {
+            logger.warning("There are empty values in the file");
+            return Optional.empty();
+        }
+
+        for (int i = 0; i < cardArray.length - 1; i++) {
+            if (cardArray[i].isEmpty()) {
+                logger.warning("There are empty values in the file");
+                return Optional.empty();
+            }
+        }
+
+        int hashCode;
+        int numOfAttempts;
+        int streak;
+        Instant srs;
+        boolean isDifficult;
+        CardSrsData card;
+
+        try {
+            hashCode = Integer.parseInt(cardArray[0]);
+            numOfAttempts = Integer.parseInt(cardArray[1]);
+            streak = Integer.parseInt(cardArray[2]);
+            srs = Instant.parse(cardArray[3]);
+            isDifficult = cardArray[4].equals("true");
+
+            if (hashCode == ZERO) {
+                logger.warning("Hashcode cannot be 0 in " + filePath.toString());
+                return Optional.empty();
+            }
+
+            if (numOfAttempts < ZERO) {
+                logger.warning("Number of attempts cannot be 0 in " + filePath.toString());
+                return Optional.empty();
+            }
+
+            if (streak < ZERO) {
+                logger.warning("Streak cannot be 0 in " + filePath.toString());
+                return Optional.empty();
+            }
+        } catch (NumberFormatException e) {
+            logger.warning("Values are not correct in " + filePath.toString());
+            return Optional.empty();
+
+        } catch (DateTimeParseException e) {
+            logger.warning("SrsDate is wrong in " + filePath.toString());
+            return Optional.empty();
+        }
+
+        card = new CardSrsData(hashCode, numOfAttempts, streak, srs, isDifficult);
+
+        return Optional.of(card);
+    }
+
+----
+
 ==== Design Considerations
 * ** Alternative 1(Current choice):** Automate importing/exporting when session is open/close
 ** Pros: Lesser commands to manage.
@@ -1161,7 +1224,8 @@ Below is a test cases you can perform to test the `QuizStatusCommand` for the Qu
   Expected: Shown the quiz progress. +
 
 // tag::datastorage[]
-=== Saving user data
+
+==== Saving user data
 
 . Ensuring that there is a save user file generated. The file should be generated under `/data/user/savedata`
 
@@ -1169,7 +1233,7 @@ Below is a test cases you can perform to test the `QuizStatusCommand` for the Qu
 .. NOTE: There will be 5 unique notations generated in the `savedata` file. It is arranged in an array as such [hashcode, number of attempts, streak, SRS date, isDifficult]
 .. Test case: Open the `savedata` file and modify `hashcode = 0` +
    Expected: Launch braintrain.jar again and open braintrain.log. There should be a warning message stating: `"WARNING: There are empty values in the file"` +
-   Other incorrect cases: Setting `number of attempts < 0` or `streak < 0`.
+   Other incorrect cases: Setting `number of attempts < 0` or `streak < 0`. +
 // end::datastorage[]
 
 

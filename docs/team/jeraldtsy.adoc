@@ -61,12 +61,20 @@ https://github.com/CS2103-AY1819S2-W16-1/main/issues/172[#172])
 == Contributions to the User Guide
 
 _Start of extract of user mode_
+
 include::../UserGuide.adoc[tag=jeraldtsy]
-_End of extract of quiz mode_
+
+_End of extract of user mode_
+
+Click to read the full https://cs2103-ay1819s2-w14-1.github.io/main/UserGuide.html[User Guide].
 
 == Contributions to the Developer Guide
 
 _Start of extract of data storage_
+
 include::../DeveloperGuide.adoc[tag=datastorage]
+
 _End of extract of data storage_
+
+Click to read the full https://cs2103-ay1819s2-w14-1.github.io/main/DeveloperGuide.html[Developer Guide].
 

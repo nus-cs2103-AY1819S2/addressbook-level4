@@ -35,7 +35,7 @@ image::jeraldtsy.png[width="150", align="left"]
 {empty}[http://github.com/jeraldtsy[github]] [<<jeraldtsy#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Deliverables and deadlines
+Responsibilities: User model and import and export files
 
 '''
 

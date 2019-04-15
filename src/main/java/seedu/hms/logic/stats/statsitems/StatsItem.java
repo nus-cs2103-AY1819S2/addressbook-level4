@@ -81,8 +81,15 @@ public abstract class StatsItem {
                 .collect(Collectors.groupingBy(f, Collectors.counting()));
     }
 
+    /**
+     * Updates the longest key in the map
+     * @param m the map
+     * @return the map (nothing changed)
+     */
     protected Map<String, Long> updateLongest(Map<String, Long> m) {
-        this.longest = m.keySet().stream().max(Comparator.comparingInt(String::length)).get().length();
+        if (!m.isEmpty()) {
+            this.longest = m.keySet().stream().max(Comparator.comparingInt(String::length)).get().length();
+        }
         return m;
     }
 

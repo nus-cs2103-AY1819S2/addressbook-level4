@@ -18,34 +18,64 @@ By: `Team T12-2`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
+Hey there! image:mascot.png[width="120"]
+
 _Acquizition_ is a *desktop app* for easy language acquisition
-and memory retention. By analyzing your performance on recalling
-the flashcards, _Acquizition_ cleverly determines which flashcards
-should be tested to maximize recollection.
+using flashcards. It analyzes your performance on recalling words
+or phrases, and, based on how well you do, decides which word or
+phrase to show you next to maximize learning.
 
 Additionally, _Acquizition_ provides you with a user-friendly
-Graphical User Interface (GUI) to view your flashcards. If you can
-type quickly, you'll also enjoy the Command-Line Interface (CLI)
-that's streamlined for users like you.
+Graphical User Interface (GUI) to view your flashcards. It even
+supports images on the flashcards to make them more memorable. If
+you can type quickly, you will surely also enjoy the Command-Line
+Interface (CLI), streamlined for users like you.
 
-This user guide provides in-depth documentation on the _Acquizition_
-installation process, command format and Frequently
-Asked Questions (FAQs). Jump to <<Quick Start>>
-to get started. Enjoy!
+This user guide begins with an in-depth documentation on the
+_Acquizition_ installation process. We structured the user guide
+to cater to your needs by explaining common use cases, rather than
+simply giving a list of commands and command formats.
+
+Of course, you can still access the concise command summary at the
+end of this document if you need it for reference.
+
+Time is money, so jump to <<Quick Start>> to get started immediately.
+
+We hope you enjoy _Acquizition_, and we wish you the best in your
+language studies!
 
 == Quick Start
 
-.  Ensure you have Java version `9` or later installed in your computer.
-.  Download the latest `acquizition.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your
-cards collection.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Make sure that you have **Java 9** or later installed on your computer.
+    * On **Windows 10**, you can check your Java version by searching for _Apps & features_
+    and looking for Java. +
+    image:java_version_windows.png[width="790"]
+    * On **Mac OS X 10.7 (Lion)** and above, you can check your Java version by searching
+    for _System Preferences_ and looking for the Java icon, then clicking on it. +
+    image:java_version_mac.png[width="790"]
+    * This process may be different on other operating systems. Please search online for the relevant process.
+[NOTE]
+**Note:** If you do not have Java installed, or your version is outdated, you can
+download the latest version by following the instructions https://www.java.com/en/download/[here].
+.  Download the latest `acquizition.zip` file link:{repoURL}/releases[here].
+.  Copy the downloaded `acquizition.zip` file to the directory of your choice, and extract the `acquizition.zip` file there.
+[TIP]
+**Tip:** Most operating systems should have built-in support for extracting `.zip` files. The process may differ between
+operating systems. Please search online for the relevant process.
+.  Locate the `acquizition.jar` file and double-click it to start _Acquizition_. The app should appear on your
+screen in a few seconds.
+[TIP]
+**Tip:** If you do not see anything after a few seconds, you may need to open _Acquizition_ through
+the command line. To do this, open the Command Prompt, Terminal or Linux Shell. Then, type `cd`,
+followed by a space, followed by the directory of the folder containing `acquizition.jar`, and press kbd:[Enter].
+Then, type `java -jar acquizition.jar`, and press kbd:[Enter]. The app should appear on your screen in a few seconds.
 +
 image::Ui.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Try the following to get your feet wet!
+.  Try typing the following commands. Press kbd:[Enter] after typing a command to tell _Acquizition_
+to execute it.
+[NOTE]
+**Note:** Commands are _case-sensitive_: please type the commands _exactly_ as shown!
 
 * `add f/Kamusta b/Hello t/Tagalog` : Creates a flashcard with _Kamusta_ on the
 front and _Hello_ on the back, with the tag _Tagalog_.
@@ -53,7 +83,7 @@ front and _Hello_ on the back, with the tag _Tagalog_.
 _Terima kasih_ on the front and _Thank you_ on the back, with the tag _Bahasa
 Indonesia_.
 * `find b/Thank you` : lists all flashcards whose back face shows _Thank you_.
-* `delete 2` : deletes the second card in the collection.
+* `delete 2` : deletes the second flashcard in the collection.
 * `exit` : exits the app.
 
 .  Refer to <<Features>> and <<FeaturesQuiz>> for the detailed descriptions of
@@ -67,7 +97,8 @@ each command.
 
 * Words in `UPPER_CASE` should be substituted by you!
     ** Example: In `add f/FRONT_TEXT b/BACK TEXT`, `FRONT_TEXT` and `BACK_TEXT`
-    should be replaced to, say, `add f/Kamusta b/Hello`.
+    should be replaced to, say, `Kamusta` and `Hello`. So, you could write
+    `add f/Kamusta b/Hello`.
 * Words in `[square brackets]` are optional.
     ** Example: In `add f/FRONT_TEXT b/BACK_TEXT [i/IMAGE_PATH]`, `IMAGE_PATH`
     is optional. You can replace it with, say, `add f/Babae b/Woman i/images/woman.png`.
@@ -79,106 +110,316 @@ each command.
 b/BACK_TEXT`, you can also type them in the order `b/BACK_TEXT f/FRONT_TEXT`.
 ====
 
-=== Viewing help : `help`
+=== How do I add a flashcard?
 
-Shows this document!
+You can add a flashcard by using the `add` command.
 
-Format: `help`.
+Type `​add f/FRONT_TEXT b/BACK_TEXT [i/IMAGE_NAME] [t/TAG]​...​` into the command box and
+press kbd:[Enter].
 
-=== Adding a flashcard: `add`
+The `FRONT_TEXT` is the prompt you see, and the `BACK_TEXT` is what you need to recall.
 
-Adds a new flashcard to the collection.
+[TIP]
+**Tip:** A flashcard can optionally have a single image on its front face. You should specify this
+image through the use of the `IMAGE_NAME`, which is the name of your image (with the extension)
+after importing it through the `image` command. +
+See <<AddCardImage>> for more details.
 
-Format: `​add f/[FRONT_TEXT] b/[BACK_TEXT] [i/IMAGE_PATH] [t/TAG]​...​`
+[TIP]
+**Tip:** Although tags are not strictly required, we highly recommend using them, especially if you intend
+to study multiple languages. Most of the other features in _Acquizition_ are compatible with
+working with specific tags. For example, if you are learning both Chinese and Japanese and want to
+study only the Chinese flashcards, you can do that if you have tagged all the Chinese flashcards with, for
+example, `t/Chinese`.
 
-****
-* A flashcard can optionally have a single image attached to it. You should specify this
-image through the use of the `IMAGE_PATH`, which is a relative path provided by the `image` command.
-Note that you must first import the image through the `image` command. See <<ImportImage>> for more details.
-* A flashcard can have any number of tags (including zero).
-** We highly recommend using tags if you intend to study multiple subjects. This allows
-you to filter by tag later on, so you can study only the flashcards having a certain tag.
-** Tags must be alphanumeric; in particular, they cannot contain spaces. For example,
+[NOTE]
+**Note:** Tags must be alphanumeric; in particular, they cannot contain spaces. For example,
 `t/Bahasa Indonesia` is forbidden; use `t/BahasaIndonesia` instead.
-****
+
+**Examples:**
+
+* `add f/Kamusta b/Hello t/Tagalog` +
+This adds a flashcard whose front face is _Kamusta_, whose back face is _Hello_, and has the
+tag _Tagalog_.
+* `add f/さようなら b/Goodbye i/goodbye.jpg t/Japanese t/Greetings` +
+This adds a flashcard whose front face is _さようなら_, whose back face is _Goodbye_, has the image
+`goodbye.jpg` on its front face, and has the tags _Japanese_ and _Greetings_.
+
+[[AddCardImage]]
+=== How do I add a flashcard with an image?
+
+_Acquizition_ uses a local storage system to store your images. This means that to add an
+image, you first need to _import_ it into _Acquizition_. This benefits you, because that means
+once you add an image to _Acquizition_, you can move or even delete the original image and
+Acquizition will still have a copy of your image!
+
+To import an image, you can use the `image` command.
+
+Type `image IMAGE_PATH​` into the command box and press kbd:[Enter].
+
+[TIP]
+**Tip:** What is an `IMAGE_PATH`? It is the _absolute path_ to your image. For example, if you
+have an image called `everest.jpg` on your Desktop, the `IMAGE_PATH` might be `C:\Users\Robin\Desktop\everest.jpg`. +
+On Windows, you can get the absolute path by right-clicking on the image, selecting _Properties_, and copying the
+path under _Location:_. Then, append a backslash and the image filename (with the extension) to the end. +
+image:image_filepath.png[width="790"] +
+In the image above, we see that the path under _Location:_ is `C:\Users\Robin\Desktop`. We append a backslash `\`
+and the image filename `everest` with the extension `.jpg` to get the `IMAGE_PATH` which is
+`C:\Users\Robin\Desktop\everest.jpg`. +
+This process may be different on other operating systems. Please search online for the relevant process.
+
+After importing an image into _Acquizition_, you can now directly refer to the imported image by the filename
+(with the extension).
+
+Type `​add f/FRONT_TEXT b/BACK_TEXT i/IMAGE_NAME [t/TAG]​...​` into the command box and
+press kbd:[Enter]. `IMAGE_NAME` is the filename of the image you just imported.
+
+**Example:**
+
+* {blank}
+. `image C:\Users\Robin\Desktop\everest.jpg` +
+This imports the image located at `C:\Users\Robin\Desktop` into _Acquizition_,
+as previously described.
+. `add f/珠峰 b/Mount Everest i/everest.jpg t/Chinese` +
+This adds a flashcard whose front face is _珠峰_, whose back face is _Mount Everest_, has the
+image `everest.jpg` (which we just imported) on its front face, and has the tag _Chinese_.
+
+[[DeleteCard]]
+=== How do I delete a flashcard?
+
+You can delete a flashcard by using the `delete` command.
+
+Type `delete INDEX` and press kbd:[Enter].
+
+Note that `INDEX` refers to the number of the card on the _currently-visible_ list. This is the list
+you see on the left-side panel.
+
+**Example:**
+
+* `delete 3` +
+This deletes the third flashcard.
+
+=== How do I delete all flashcards at once?
+
+If, for whatever reason, you want to delete all the flashcards at once, you can do so using the `clear` command.
+
+Type `clear` and press kbd:[Enter].
+
+[[EditCard]]
+=== How do I edit a flashcard?
+
+You can edit a flashcard by using the `edit` command.
+
+Type `edit INDEX [f/FRONT_TEXT] [b/BACK_TEXT] [i/IMAGE_NAME] [t/TAG]​...​` into the command box and
+press kbd:[Enter].
+
+Note that `INDEX` refers to the number of the card on the _currently-visible_ list. This is the list
+you see on the left-side panel.
+
+You must specify at least one of `[f/FRONT_TEXT]`, `[b/BACK_TEXT]`, `[i/IMAGE_NAME]`, and `[t/TAG]​`,
+and you can specify more than one. The edit command will change _only_ the specified items, and leave
+all the others unchanged.
+
+[NOTE]
+**Note:** When specifying one or more `TAG`(s), _all existing tags_ will be removed. If you want to add a new tag,
+you must restate all the previous tags and add the new one.
+
+[NOTE]
+**Note:** For more information about the `IMAGE_NAME`, see <<AddCardImage>>.
+
+**Examples:**
+
+* `edit 3 b/Hello` +
+This changes the third card to have a back face _Hello_.
+* `edit 2 t/Navajo` +
+This removes all the tags from the second card and adds the tag _Navajo_.
+* `edit 1 f/麒麟 b/きりん i/kirin.png t/Japanese t/Kanji` +
+This changes the first card to have a front face _麒麟_, a back face _きりん_, the image `kirin.png`
+on its front face (we assume this has been previously imported), and the tags _Japanese_ and _Kanji_. +
+Effectively, this changes the first card into a completely different card. +
+Note that the back face need not be English.
+
+=== How do I import an image?
+
+See <<AddCardImage>>.
+
+=== How do I insert an image to a flashcard?
+
+To insert an image to an existing flashcard, use the `edit` command
+and specify the `IMAGE_NAME`.
+
+[NOTE]
+**Note:** You will need to _import_ the image into _Acquizition_ first. See <<AddCardImage>>
+for an explanation of how this can be done.
+
+=== How do I remove an image from a flashcard?
+
+To remove an image from a flashcard, use the `edit` command and specify an empty `IMAGE_NAME`.
+
+Specifically, type `edit INDEX b/` into the command box and press kbd:[Enter].
+
+=== How do I insert tags to a flashcard?
+
+To insert tags into a flashcard, use the `edit` command and specify _all_ the
+existing tags, followed by the tags you want to insert.
+
+[NOTE]
+**Note:** For more information about the `edit` command, see <<EditCard>>.
+
+=== How do I remove tags from a flashcard?
+
+To remove _all_ the tags from a flashcard, use the `edit` command and
+specify an empty `TAG`.
+
+Specifically, type `edit INDEX t/` into the command box and press kbd:[Enter].
+
+To remove _only some_ of the tags from a flashcard, use the `edit` command and
+specify the tags you want _to remain_.
+
+[NOTE]
+**Note:** For more information about the `edit` command, see <<EditCard>>.
+
+=== How do I restore all the flashcards to the currently-visible list?
+
+When using the `find` command, the currently-visible list of flashcards will
+change to show you the results. This will also affect the indices you should use
+when referring to the flashcards using the `edit` and `delete` commands.
+
+To restore the list of all flashcards, simply use the `list` command.
+
+Type `list` and press kbd:[Enter].
+
+[[UndoCommand]]
+=== How do I undo the most recent command?
+
+You can undo a command by using the `undo` command.
+
+Type `undo` and press kbd:[Enter].
+
+[NOTE]
+**Note:** Not all commands can be undone. Only the following commands can be
+undone: `add`, `clear`, `delete`, `edit`, `import`, `quiz`. +
+Undo will cause the most recent _undoable_ command to be undone.
 
 Examples:
 
-* `add f/Kamusta b/Hello t/Tagalog`
-* `add f/さようなら b/Goodbye i/images/goodbye.jpg t/Japanese t/Greetings`
+* {blank}
+. `delete 1` +
+This deletes the first flashcard.
+. `list` +
+This lists all the flashcards.
+. `undo` +
+This will undo the most recent undoable command, which is `delete 1`. So, this will
+restore the deleted flashcard back as the first flashcard.
+* {blank}
+. `delete 2` +
+This deletes the second flashcard.
+. `delete 1` +
+This deletes the first flashcard.
+. `undo` +
+This will undo the most recent undoable command, which is `delete 1`. So, this will
+restore the deleted flashcard back as the first flashcard.
+. `undo` +
+This will undo the most recent undoable command, which is `delete 2`. So, this will
+restore the deleted flashcard back as the second flashcard.
 
-=== Listing all flashcards : `list`
+=== How do I redo the most recent undone command?
 
-Shows a list of all flashcards in the card collection.
+You can redo an undone command by using the `redo` command. +
 
-Format: `list`
+Type `redo` and press kbd:[Enter].
 
-=== Editing a flashcard : `edit`
-
-Edits a flashcard already in the collection. +
-
-Format: ​`edit INDEX [f/FRONT_TEXT] [b/BACK_TEXT] [i/IMAGE_PATH] [t/TAG]...​`
-
-****
-* Edits the flashcard at the specified `INDEX`. The index refers to the index
-number shown in the list of all flashcards (1, 2, 3, ...).
-* You can leave `IMAGE_PATH` empty to remove the image associated with a
-flashcard. That is, to remove an image, specify `i/`.
-* When specifying a `TAG`, _all existing tags_ will be removed. If you want to
-add a new tag, you must restate all the previous tags and add the new one.
-** Note that the tags will not be affected if you do not specify any `TAG`.
-** Likewise, you can remove all the tags associated with a card by specifying
-`t/` with nothing afterwards.
-****
+[NOTE]
+**Note:** The `redo` command only works if no new undoable command was made in between
+the time the the last `undo` command was made and the `redo` command is called.
 
 Examples:
 
-* `edit 2 f/Halo` +
-The second flashcard will be edited and the front face will be updated to _Halo_.
-* `edit 3 i/ t/` +
-The third flashcard will have its image and all its tags removed, if it had any.
+* {blank}
+. `delete 1` +
+This deletes the first flashcard.
+. `undo` +
+This will undo the most recent undoable command, which is `delete 1`. So, this will
+restore the deleted flashcard back as the first flashcard.
+. `redo` +
+This will redo the command the undo undid, which is `delete 1`. So, this will
+delete the first flashcard again.
+* {blank}
+. `delete 2` +
+This deletes the second flashcard.
+. `delete 1` +
+This deletes the first flashcard.
+. `undo` +
+This will undo the most recent undoable command, which is `delete 1`. So, this will
+restore the deleted flashcard back as the first flashcard.
+. `undo` +
+This will undo the most recent undoable command, which is `delete 2`. So, this will
+restore the deleted flashcard back as the second flashcard.
+. `redo` +
+This will redo the command the undo undid, which is `delete 2`. So, this will
+delete the second flashcard again.
+. `redo` +
+This will redo the command the undo undid, which is `delete 1`. So, this will
+delete the first flashcard again.
 
-=== Deleting a flashcard : `delete`
+=== How do I discard the results of the most recent quiz session?
 
-Deletes a flashcard already in the collection. +
+The quiz command updates the statistics of the flashcards, and you may want to
+void the results of the most recent quiz session and undo the updates to the cards'
+statistics.
 
-Format: ​`delete INDEX`
+You can discard the results of the most recent quiz session by using the `undo`
+command right after a quiz session.
 
-****
-* Deletes the flashcard at the specified `INDEX`. The index refers to the index
-number shown in the list of all flashcards (1, 2, 3, ...).
-****
+[NOTE]
+**Note:** For more information about the `undo` command, see <<UndoCommand>>.
 
-Example:
+=== How do I see the list of commands I have made?
 
-* `delete 2` +
-The second flashcard will be deleted.
+You can see the list of previous commands by using the `history` command. +
 
-// tag::find[]
+Type `history` and press kbd:[Enter].
+
+[TIP]
+====
+**Tip:** Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+====
+
+=== How do I exit _Acquizition_?
+
+All good things must come to an end!
+
+To exit _Acquizition_, use the `exit` command.
+
+Type `exit` and press kbd:[Enter].
+
+[NOTE]
+**Note:** If you are in quiz mode, `exit` will exit quiz mode instead. +
+To exit _Acquizition_, use the `exit` command twice: once to exit quiz mode,
+then once to exit _Acquizition_.
+
+=== What if I want to bring up this document again?
+
+You can bring up this document again using the `help` command.
+
+Type `help` and press kbd:[Enter].
+
 === Finding flashcards by keyword(s): `find`
 
 Finds and lists all the flashcards whose front text, back text or collection tags
-contain _any_ of the given keywords. You can also specify a success rate range which
-will filter the flashcards to have a success rate within the given range.
+contain _any_ of the given keywords. +
 
-Format: ​`find [f/FRONT_FACE]... [b/BACK_FACE]... [t/TAG]... [s/SUCCESS_RATE_RANGE]`
+Format: ​`find [f/FRONT_FACE]... [b/BACK_FACE]... [t/TAG]...`
 
 ****
 * You must specify at least _one_ keyword.
 * Multiple keywords can be specified for the front text, back text and tags by
 specifying multiple prefixes. For example, `find f/Kamusta f/Terima kasih` finds
-and lists _all_ the flashcards whose front face contains the word _Kamusta_ or _Terima_ or _kasih_.
-** Multiple collection tags must be specified with multiple prefixes. `t/Tagalog Japanese` is invalid;
+and lists _all_ the flashcards whose front face contains the word _Kamusta_ or _Terima_ or _kasih_. +
+Keywords are not case sensitive: `f/Kamusta` will match `kamusta`, `kAmUsTa` or `KAMUSTA`.
+** Multiple tags must specifically be specified with multiple prefixes. `t/Tagalog Japanese` is forbidden;
 use `t/Tagalog t/Japanese` instead.
-* Keywords are not case sensitive: `f/Kamusta` will match `kamusta`, `kAmUsTa` or `KAMUSTA`.
-* Specifying a success rate range will filter the flashcards to be listed to be within
-the specified range (inclusive) and is in the form of [s/LOWEBOUND UPPERBOUND] separated by a single space character.
-** Specifying a success rate range on its own with no other prefixes will display _all_ flashcards
-having a success rate within that range.
-* All prefixes must be followed by a keyword or value and cannot be left blank.
 ****
-
-image::Ui-find.png[width="790"]
 
 Examples:
 
@@ -186,13 +427,6 @@ Examples:
 This will find and list all the flashcards that have the _Chinese_ or _Japanese_ tag.
 * `find f/Hello b/Hello` +
 This will find and list all the flashcards whose front or back text contains the word _Hello_.
-* `find t/chinese s/0 50` +
-This will find and list all the flashcards that have the _Chinese_ tag and which have a success rate less than or
-equal to 50%.
-* `find s/25 100` +
-This will find and list all the flashcards that have a success rate more than or equal to 25%
-and less than or equal to 100%.
-// end::find[]
 
 === Selecting a flashcard : `select`
 
@@ -205,7 +439,7 @@ Format: `select INDEX`
 * The success rate of the selected flashcard will be shown on the command result box.
 * The index refers to the index number shown in the displayed person list.
 * The index must be a positive integer `1, 2, 3, …`
-* Alternatively, you can select a card by clicking it on the flashcard list panel.
+* Alternatively, you can select a flashcard by clicking it on the flashcard list panel.
 ****
 
 Examples:
@@ -217,97 +451,15 @@ Selects the second flashcard in the list.
 `select 1` +
 Selects the first flashcard in the filtered list with chinese tag.
 
-=== Listing entered commands : `history`
-
-Lists all the commands that you have entered in reverse chronological order.
-
-Format: `history`
-
-[NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
-
-=== Undoing previous command : `undo`
-
-Restores the card collection to the state before the previous undoable command was executed.
-
-Format: `undo`
-
-[NOTE]
-====
-Undoable commands: those commands that modify the card collection's content (`add`, `delete`, `edit`, `clear`, `good`, `bad`, and `import`).
-====
-
-Examples:
-
-* `delete 1` +
-`list` +
-`undo` +
-Reverses the `delete 1` command.
-* `select 1` +
-`list` +
-`quiz` +
-`exit` +
-The `undo` command fails as there are no undoable commands executed previously.
-* `delete 1` +
-`clear` +
-`undo` +
-`undo` +
-Reverses the `clear` command, then reverses the `delete 1` command.
-
-=== Redoing the previously undone command : `redo`
-
-Reverses the most recent `undo` command.
-
-Format: `redo`
-
-Examples:
-
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-
-[[ImportImage]]
-=== Importing an image : `image`
-Adds an image into _Acquizition_'s internal directory.
-
-Format: `image FILE_PATH`
-
-****
-* This imports an image into _Acquizition_'s internal directory. The image imported must not
-have the same name as an image already in the internal directory.
-* `FILE_PATH` must be an _absolute path_ to the image.
-* This command will also report the path you must reference your image when adding or
-editing your image through the `add` or `edit` commands.
-****
-
-Example:
-
-* `image C:\Users\Robin\Desktop\girlfriend.png` +
-This will import the image `girlfriend.png` into _Acquizition_'s internal directory, and give
-you the path you must use to reference this image through the `add` or `edit` commands.
-
 === Showing aggregate statistics : `stats`
 
 Shows aggregate statistics for all the flashcards with any of the given tags. +
-If no tag is specified, it shows aggregate statistics for all cards currently in the list.
+If no tag is specified, it shows aggregate statistics for all flashcards currently in the list.
 
 Format: `stats [t/TAG]...`
 
 ****
-* You can use `find` followed by `stats` to show aggregate statistics for all the cards found
+* You can use `find` followed by `stats` to show aggregate statistics for all the flashcards found
 and listed by the find command.
 ****
 
@@ -320,68 +472,45 @@ This will show aggregate statistics for all flashcards that have the _Chinese_ o
 This will find and list all flashcards with _Kamusta_ in their front face then show aggregate
 statistics for all those flashcards.
 
-// tag::share[]
 === Exporting flashcards to a text file : `share`
-Creates a text file _flashcards.txt_ containing all the flashcards currently being listed.
+Creates a text file containing a collection of flashcards to be shared.
 
-Format: `share DIRECTORY_PATH`
+Format: `share [f/FRONT_FACE]... [b/BACK_FACE]... [t/TAG]...`
 
 ****
-* The text file created by the share command will be saved in the specified directory; you can then share
+* This creates a text file containing all the flashcards who match any of the
+front face, back face or tag keywords, in the same manner as `find`.
+* The text file created by the share command will be saved locally in the main application directory; you should share
  this text file with your friends.
-* Once your friends have a copy of the text file, they can import the flashcards using the `import` command.
-* **Images are not shared.**
-* Calling the share command multiple times on the same directory will overwrite the previous version of the file.
-****
-
-Examples:
-
-* `find t\Chinese` +
-`share C:\Users\Alice\Desktop` +
-This will create a text file called _flashcards.txt_ at the specified location containing all the flashcards that
-have the _Chinese_ tag.
-** (Note that DIRECTORY_PATH is user specific)
-
-* In the illustrated example below, one of the cards in the text file already existed locally. So only 6 out of
-the 7 flashcards in the file successfully imported.
-
-image::Ui-preImport.png[width="790"]
-image::Ui-postImport.png[width="790"]
-// end::share[]
-
-
-// tag::import[]
-=== Importing flashcards from a text file : `import`
-Adds flashcards from a text file to your existing collection.
-
-Format: `import FILE_PATH`
-
-****
-* This imports all the cards from a text file (produced by the `share` command) to your collection.
-** This does not replace your existing card collection; it simply adds new cards from the text file.
-** This command will also report the number of cards successfully imported.
-** Unsuccessfully imported cards may have already existed locally or may be corrupted.
+* Once your friend has a copy of the text file, he can import the flashcards using the `import` command
+* **Images will not be shared.**
 ****
 
 Example:
 
-* `import C:\Users\Alice\Desktop\flashcards.txt` +
-This will import the cards from _flashcards.txt_ to your collection.
-// end::import[]
+* `share t/Chinese` +
+This will create a text file of all the flashcards that contain the _Chinese_ tag.
 
+=== Importing flashcards from a text file : `import`
+Adds flashcards to your collection from a text file.
 
+Format: `import [FILE_PATH]`
 
-=== Deleting all flashcards : `clear`
+****
+* This imports all the flashcards from a text file (produced by `share`) to your collection.
+** This does not replace your flashcard collection; it simply adds all the flashcards from the text file
+one-by-one.
+** This command will also report the number of flashcards successfully imported.
+* If no `FILE_PATH` is specified, you will be prompted to select it through the File Explorer.
+****
 
-Deletes all flashcards.
+Examples:
 
-Format: `clear`
-
-=== Exiting the program : `exit`
-Exits the program if you are not in quiz mode. +
-If you are in quiz mode, this exits quiz mode instead. See <<QuizExit>> for more details.
-
-Format: `exit`
+* `import` +
+This will prompt the File Explorer and you should select the text file containing the flashcards
+you want to import.
+* `import C:\Users\Luca\Desktop\cards.txt` +
+This will import the flashcards from `cards.txt` to your collection.
 
 // tag::quiz[]
 [[FeaturesQuiz]]
@@ -392,16 +521,16 @@ Format: `exit`
 image::Ui-quiz.png[width="790"]
 
 Enters quiz mode. +
-A card will be shown to you one by one randomly with distribution based on accuracy of each flashcard. +
+A flashcard will be shown to you one by one randomly with distribution based on accuracy of each flashcard. +
 You can then self-verify whether you accurately recall the back side of the flashcard.
 
 Format: `quiz`
 
 ****
-* Enters quiz mode with the cards on the filtered flashcard list panel.
+* Enters quiz mode with the flashcards on the filtered flashcard list panel.
 * This will start a quiz session. The flashcard list panel on the left will change to a quiz panel.
-* The quiz panel contains the number of cards remaining on the quiz, as well as the number of good and bad feedback received.
-* The card view panel on the right will display the quizzed cards one by one, with the back face of the flashcard hidden.
+* The quiz panel contains the number of flashcards remaining on the quiz, as well as the number of good and bad feedback received.
+* The flashcard view panel on the right will display the quizzed flashcards one by one, with the back face of the flashcard hidden.
 ****
 
 === Showing back face of flashcard : `show`
@@ -422,9 +551,9 @@ Gives user feedback on quiz mode.
 Format: `good` or `bad`
 
 ****
-* In order to give feedback of how well you do in the quiz mode, you can type in either `good` or `bad` for each card in the quiz.
-* After you type `good` or `bad`, Acquizition will record the feedback on the card shown, as well as incrementing the number of good and bad feedback.
-* Acquizition will then proceed to show the next flashcard to be quizzed. If there are no cards left, it will exit quiz mode.
+* In order to give feedback of how well you do in the quiz mode, you can type in either `good` or `bad` for each flashcard in the quiz.
+* After you type `good` or `bad`, Acquizition will record the feedback on the flashcard shown, as well as incrementing the number of good and bad feedback.
+* Acquizition will then proceed to show the next flashcard to be quizzed. If there are no flashcards left, it will exit quiz mode.
 * This command is usually, but not necessarily, used after the `show` command. That is, after you look at the back face of the flashcard, you can dictate how well you recall the back face of the flashcard.
 * Note that you can only use this command inside quiz mode.
 ****
@@ -433,18 +562,18 @@ Examples:
 
 * `quiz` +
 `good` +
-This will increment the number of good feedback of the card shown, thus, the success rate of this card will increase. +
-Then, the next card in the quiz queue will be shown.
+This will increment the number of good feedback of the flashcard shown, thus, the success rate of this flashcard will increase. +
+Then, the next flashcard in the quiz queue will be shown.
 * `quiz` +
 `show` +
 `bad` +
-This will increment the number of bad feedback of the card shown, thus, the success rate of this card will decrease. +
-Then, the next card in the quiz queue will be shown.
+This will increment the number of bad feedback of the flashcard shown, thus, the success rate of this flashcard will decrease. +
+Then, the next flashcard in the quiz queue will be shown.
 * `quiz` +
 `good` +
 `...` +
 `good` +
-Suppose this is the last card to show inside quiz mode. Acquizition will record the statistics of the quiz mode and exit the quiz mode.
+Suppose this is the last flashcard to show inside quiz mode. Acquizition will record the statistics of the quiz mode and exit the quiz mode.
 
 === Smart command : kbd:[Enter]
 
@@ -455,8 +584,8 @@ Format: kbd:[Enter]
 
 ****
 * To initiate a smart command, you just need to press enter.
-* If you are in quiz mode, and the back face of the quizzed card is not yet shown, smart command will execute a `show` command.
-* If you are in quiz mode, and the back face of the quizzed card has been shown, smart command will execute a `good` command.
+* If you are in quiz mode, and the back face of the quizzed flashcard is not yet shown, smart command will execute a `show` command.
+* If you are in quiz mode, and the back face of the quizzed flashcard has been shown, smart command will execute a `good` command.
 * This dramatically reduces your time to navigate through the quiz!
 ****
 
@@ -465,16 +594,16 @@ Examples:
 * `quiz` +
 kbd:[Enter] +
 kbd:[Enter] +
-This will first show the back face of the card, then will mark the card as good.
+This will first show the back face of the flashcard, then will mark the flashcard as good.
 * `quiz` +
 kbd:[Enter] +
 `bad` +
-This will show the back face of the card, then will mark the card as bad.
+This will show the back face of the flashcard, then will mark the flashcard as bad.
 * `quiz` +
 kbd:[Enter] +
 `...` +
 kbd:[Enter] +
-This will go through all the cards in the quiz mode and mark them all as good.
+This will go through all the flashcards in the quiz mode and mark them all as good.
 
 [[QuizExit]]
 === Exiting quiz mode : `exit`
@@ -491,36 +620,31 @@ explicitly save.
 
 *Q*: How do I transfer my data to another computer? +
 *A*: Install the app in the other computer and overwrite the empty data file
-it creates with the file that contains the data of your previous Aqquizition
+it creates with the file that contains the data of your previous Acquizition
 folder.
 
 // tag::command-summary[]
 == Command Summary
 
-=== Card collection
-* *Help* : `help`
-* *Add* `add f/[FRONT_TEXT] b/[BACK_TEXT] [i/IMAGE_PATH] [t/TAG]...` +
-e.g. `add f/さようなら b/Goodbye i/images/goodbye.jpg t/Japanese t/Greetings`
-* *List* : `list`
+=== Commands (Collection)
+* *Add* `add f/FRONT_TEXT b/BACK_TEXT [i/IMAGE_NAME] [t/TAG]...` +
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [f/FRONT_TEXT] [b/BACK_TEXT] [i/IMAGE_PATH] [t/TAG]...` +
-e.g. `edit 2 f/Halo`, `edit 3 i/ t/`
-* *Find* : `find [f/FRONT_FACE]... [b/BACK_FACE]... [t/TAG]... [s/0 50]` +
-e.g. `find t/Chinese t/Japanese`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
-* *Image* : `image FILE_PATH`
-* *Stats* : `stats [t/TAG]...`
-* *Share* : `share DIRECTORY_PATH`
-* *Import* : `import FILE_PATH`
+* *Edit* : `edit INDEX [f/FRONT_TEXT] [b/BACK_TEXT] [i/IMAGE_NAME] [t/TAG]...` +
 * *Exit* : `exit`
+* *Find* : `find [f/FRONT_FACE]... [b/BACK_FACE]... [t/TAG]...` +
+* *Help* : `help`
+* *History* : `history`
+* *Image* : `image FILE_PATH`
+* *Import* : `import [FILE_PATH]`
+* *List* : `list`
+* *Redo* : `redo`
+* *Select* : `select INDEX` +
+* *Share* : `share [f/FRONT_FACE]... [b/BACK_FACE]... [t/TAG]...`
+* *Stats* : `stats [t/TAG]...`
+* *Undo* : `undo`
 
-=== Quiz mode
+=== Commands (Quiz)
 * *Quiz* : `quiz`
 * *Good feedback* : `good`
 * *Bad feedback* : `bad`

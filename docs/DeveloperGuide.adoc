@@ -765,7 +765,7 @@ ii)	Else, `[fuchsia]#SummaryPanel#setSummaryData()#` will be called, which gener
 ==== Design Consideration
 ===== Aspect: Representation for Summary of Expenditure
 
-* *Alternative 1 (current choice)*: Represent summary of expenses using a pie chart
+*Alternative 1 (current choice)*: Represent summary of expenses using a pie chart
 
 .Current Implementation of Summary Panel using JavaFX's `[fuchsia]#PieChart#`
 image::summaryPanel.png[width="600"]
@@ -773,9 +773,9 @@ image::summaryPanel.png[width="600"]
 ** Pros: Labels can act as a legend as well as there might be categories with similar colours. This will help the user to easily identify the expenditures in different categories.
 ** Cons: If there are too many categories, the labels may not show up as it will clash with the other labels. The data presented may also become too cluttered as well.
 
-* *Alternative 2 (planned for `[green]#[v2.0]#`)*: Represent summary of expenses using an Aster Plot graph
+*Alternative 2 (planned for `[yellow]#[v2.0]#`)*: Represent summary of expenses using an Aster Plot graph
 
-In `[green]#v2.0#` of _In-Credit-Ble_, the summary feature intends to use a [fuchsia]#D3.js Aster Plot# graph to display the summary of expenditures instead of the current pie chart. This will help contribute to the aesthetics and user-friendliness of displaying the data in _In-Credit-Ble_.
+In `[yellow]#v2.0#` of _In-Credit-Ble_, the summary feature intends to use a [fuchsia]#D3.js Aster Plot# graph to display the summary of expenditures instead of the current pie chart. This will help contribute to the aesthetics and user-friendliness of displaying the data in _In-Credit-Ble_.
 
 .Example of Aster Plot Graph
 image::asterPlot.png[width="400"]

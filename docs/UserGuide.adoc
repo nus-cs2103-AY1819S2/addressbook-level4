@@ -31,6 +31,8 @@ Interested? Jump to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
+*Setting up the app*
+
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the latest `therealapp.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for The Real App.
@@ -38,13 +40,30 @@ Interested? Jump to <<Quick Start>> to get started. Enjoy!
 [TIP]
 New files and folders will be generated after launching the app. Recommended to put jar file in a new folder.
 
+*Starting the app*
+
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 
 +
-image::Ui.png[width="790"]
+image::UiExplained.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+.  The outcome of the command will be displayed in the result display box. +
+e.g. after successfully executing the `help` command, the following message will appear: +
+ Opened help window. +
+ Displaying main person list!.
+ .  The pin list shows the contacts who has been pinned. It can be resized by clicking and dragging the borders of the box.
+ .  The main contact list shows the active list of contacts. It can be resized by clicking and dragging the borders of the box. User can toggle between the contact list view and the archive list view using commands `list` and `archivelist`.
+ .  The browser window will display the property's location on Google Maps(TM) when an appropriate contact is selected.
+
+[NOTE]
+====
+ Go to <<GoogleMaps>> for more details of the Google Maps(TM) display.
+====
+
+*Using the app*
+
 .  An example workflow with some commands you can try:
 
 .. **`add`**`c/seller n/James Ho p/98765432 e/jamesho@example.com r/urgent need to sell a/Blk 345 Clementi Ave 5, #04-04, S120345 sp/500000 t/newlyRenovated`: adds a seller named `James Ho` and the associated property information to the contact book.
@@ -93,9 +112,9 @@ Adds a contact to the contact book, with 4 variants of customer types. Adds the 
 [NOTE]
 ====
 Accepted customer types: `seller`, `buyer`, `landlord`, `tenant` +
-`NAME`, `PHONE`, `EMAIL` & `REMARK` ARE compulsory for all customers. +
-`ADDRESS` & `SELLINGPRICE` of property are compulsory for sellers. +
-`ADDRESS` & `RENTALPRICE` of property are compulsory for landlords.
+`NAME`, `PHONE`, `EMAIL` & `REMARK` are compulsory for all customers. +
+`ADDRESS` & `SELLING_PRICE` of property are compulsory for sellers. +
+`ADDRESS` & `RENTAL_PRICE` of property are compulsory for landlords.
 ====
 
 [TIP]
@@ -103,24 +122,35 @@ A *property* can have any number of `TAG` (including 0).
 
 * *Seller:* +
 Format: `add c/seller n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS a/ADDRESS sp/SELLING_PRICE_OF_PROPERTY [t/TAG]...` +
-Example: `add c/seller n/James Ho p/98765432 e/jamesho@example.com r/need to sell by April 2018 a/Blk 345 Clementi Ave 5, #04-04, S120345 sp/500000 t/MRT t/newlyRenovated`
+Example: `add c/seller n/James Tan p/97652456 e/jamestan@example.com r/need to sell by April 2018 a/Blk 345 Clementi Ave 5, #04-04, S120345 sp/500000 t/MRT t/newlyRenovated`
 
 * *Buyer:* +
 Format: `add c/buyer n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS` +
-Example: `add c/buyer n/James Ho p/98765432 e/jamesho@example.com r/looking for 3-room apartment`
+Example: `add c/buyer n/James Ho p/87657252 e/jamesho@example.com r/looking for 3-room apartment`
 
 * *Landlord:* +
 Format: `add c/landlord n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS a/ADDRESS rp/RENTAL_PRICE_OF_PROPERTY [t/TAG]...` +
-Example: `add c/landlord n/James Ho p/98765432 e/jamesho@example.com r/family friend  a/Blk 345 Clementi Ave 5, #04-04, S120345 rp/1500 t/MRT t/newlyRenovated`
+Example: `add c/landlord n/Hans Tan p/90826522 e/hanstan@example.com r/family friend  a/Blk 345 Woodlands Street 32, #04-04, S730345 rp/1500 t/MRT t/newlyRenovated`
 
 * *Tenant:* +
 Format: `add c/tenant n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS` +
-Example: `add c/tenant n/James Ho p/98765432 e/jamesho@example.com r/looking for 4-room apartment`
+Example: `add c/tenant n/Bo Yang p/86541526 e/boyang@example.com r/looking for 4-room apartment`
 
 [NOTE]
 ====
 When multiple parameters of the same type are entered, only the last one will be added. e.g. `add ... p/97642542 p/12345678 ...`, only `12345678` will be saved to the contact.
 ====
+
+Screenshots for 1st example:
+
+* Enter `add c/seller n/James Tan p/97652456 e/jamestan@example.com r/need to sell by April 2018 a/Blk 345 Clementi Ave 5, #04-04, S120345 sp/500000 t/MRT t/newlyRenovated`:
+
+image::add_screenshot_1.png[width="790"]
+
+* Client James Tan is successfully added, the contact list is updated and the newly added contact is selected:
+
+image::add_screenshot_2.png[width="790"]
+
 // end::addfeatures[]
 
 === Listing all contacts : `list`
@@ -135,7 +165,7 @@ Selects the contact identified by the index number used in the displayed contact
 Format: `select INDEX`
 
 ****
-* Selects the contact at the specified `INDEX` and displays all the contact and any associated property information, as well as the address location of the associated property (if applicable) on the Google Maps(TM) window panel.
+* Selects the contact at the specified `INDEX` and displays all the contact and any associated property information, as well as the address location of the associated property (if applicable) on the Google Maps(TM) browser window panel.
 * The index refers to the index number shown in the displayed contact list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
@@ -209,11 +239,21 @@ Format: `search KEYWORD [KEYWORD]...`
 Examples:
 
 * `search James` +
-Returns `James Lee` and `John James`
-* `search James Tan Young` +
-Returns any contact with information matching `James`, `Tan`, or `Young`
+Returns `James Tan` and `James Ho`
+* `search James Tan Yang` +
+Returns any contact with information matching `James`, `Tan`, or `Yang`
 * `search Woodlands Landlord` +
 Returns any contact with information matching `Woodlands` or `Landlord`
+
+Screenshots for 1st example:
+
+* Enter `search James`:
+
+image::search_screenshot_1.png[width="790"]
+
+* The search is executed successfully and the contact list is updated to show `James Tan` and `James Ho`.
+
+image::search_screenshot_2.png[width="790"]
 // end::searchfeatures[]
 
 // tag::editfeatures[]
@@ -231,23 +271,23 @@ Edits an existing contact and/or associated property (if any) in the contact boo
 
 * *Seller:* +
 Format: `edit INDEX_SELLER [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS] [a/ADDRESS] [sp/SELLING_PRICE_OF_PROPERTY] [t/TAG]...` +
-Example: `edit 2 n/James Lee e/jameslee@example.com sp/450000 t/`
-** Edits the name and email address of the 2nd contact to be `James Lee` and `jameslee@example.com` respectively. Edits selling price of the associated property to be `450000` and clears all existing tags.
+Example: `edit 2 n/James Li e/jamesli@example.com sp/450000 t/`
+** Edits the name and email address of the 2nd contact to be `James Li` and `jamesli@example.com` respectively. Edits selling price of the associated property to be `450000` and clears all existing tags.
 
 * *Buyer:* +
 Format: `edit INDEX_BUYER [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS]` +
-Example: `edit 2 n/James Lee e/jameslee@example.com r/looking for houses in Woodlands` +
-** Edits the name, email address and remarks of the 2nd contact to be `James Lee`, `jameslee@example.com` and `looking for houses in Woodlands` respectively.
+Example: `edit 2 n/James Han e/jameshan@example.com r/looking for houses in Woodlands` +
+** Edits the name, email address and remarks of the 2nd contact to be `James Tan`, `jamestan@example.com` and `looking for houses in Woodlands` respectively.
 
 * *Landlord:* +
 Format: `edit INDEX_LANDLORD [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS] [a/ADDRESS] [rp/RENTAL_PRICE_OF_PROPERTY] [t/TAG]...` +
-Example: `edit 2 n/James Lee p/87654321 rp/1700 t/MRT t/Park`
-** Edits the name and phone number of the 2nd contact to be `James Lee` and `87654321` respectively. Edits rental price of the associated property to be `1700`, clears all existing tags and adds new tags `MRT` and `Park`.
+Example: `edit 2 n/Jim Lee p/87654321 rp/1700 t/MRT t/Park`
+** Edits the name and phone number of the 2nd contact to be `Jim Lee` and `87654321` respectively. Edits rental price of the associated property to be `1700`, clears all existing tags and adds new tags `MRT` and `Park`.
 
 * *Tenant:* +
 Format: `edit INDEX_TENANT [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS]` +
-Example: `edit 2 n/James Lee p/87654321 `
-** Edits the name and phone number of the 2nd contact to be `James Lee` and `87654321` respectively.
+Example: `edit 2 n/James p/87654322`
+** Edits the name and phone number of the 2nd contact to be `James` and `87654322` respectively.
 
 [NOTE]
 ====
@@ -258,6 +298,26 @@ The customer type of the contact cannot be changed and only information type rel
 ====
 When multiple parameters of the same type are entered, only the last one will be edited. e.g. `edit ... p/97642542 p/12345678 ...`, only `12345678` will be saved to the contact.
 ====
+
+Screenshots for 1st example:
+
+* Enter `list`:
+
+image::archive_screenshot_1.png[width="790"]
+
+* Main contact list is displayed:
+
+image::edit_screenshot_1.png[width="790"]
+
+* Make sure that the contact at index 2 is a seller, otherwise choose the correct index corresponding to a seller. +
+Enter `edit 2 n/James Li e/jamesli@example.com sp/450000 t/`:
+
+image::edit_screenshot_2.png[width="790"]
+
+* Contact at index 2 is now edited to `James Li` and the information are updated accordingly. The contact is also selected upon successful execution of the `edit` command:
+
+image::edit_screenshot_3.png[width="790"]
+
 // end::editfeatures[]
 
 === Matching a contact to a property: `match` `[coming in v2.0]`
@@ -294,9 +354,9 @@ Deletes the 2nd contact in the contact book.
 * `search James` +
 `delete 1` +
 Deletes the 1st contact in the results of the `search` command.
-* `sort` +
-`delete 3` +
-Deletes the 3rd contact in the sorted list displayed earlier.
+* `search seller` +
+`delete 2` +
+Deletes the 2nd contact in the results of the `search` command.
 
 === Clearing all entries : `clear`
 
@@ -331,8 +391,8 @@ Pins the 2nd contact in the contact book.
 `pin 1` +
 Pins the 1st contact in the results of the `search` command.
 * `search seller` +
-`select 3` +
-Selects the 3rd contact in the results of the `search` command.
+`pin 2` +
+Selects the 2nd contact in the results of the `search` command.
 
 Screenshots for 1st example:
 
@@ -374,7 +434,7 @@ Select a pinned contact identified by the index number used in the displayed pin
 Format: `pinselect INDEX`
 
 ****
-* Selects the contact at the specified `INDEX` and displays all the contact and property information, as well as the address location of the associated property on the Google Maps(TM) window panel.
+* Selects the contact at the specified `INDEX` and displays all the contact and property information, as well as the address location of the associated property on the Google Maps(TM) browser window panel.
 * The index refers to the index number shown in the displayed pin list.
 * The index must be a positive integer no greater than `5` and the number of contacts in the pin list, whichever is bigger.
 ****
@@ -472,7 +532,7 @@ Format: `archiveselect INDEX`
 
 ****
 * Archive list must be displayed prior to this.
-* Selects the contact at the specified `INDEX` and displays the address location of the associated property on the Google Maps(TM) window panel.
+* Selects the contact at the specified `INDEX` and displays the address location of the associated property on the Google Maps(TM) browser window panel.
 * The index refers to the index number shown in the displayed contact list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
@@ -600,7 +660,7 @@ Format: `exit`
 [[GoogleMaps]]
 === Displaying location on Google Maps(TM)
 
-Double-clicking the contact will also select and bring up the the address location of the associated property on the Google Maps(TM) window panel.
+Double-clicking the contact will also select and bring up the the address location of the associated property on the Google Maps(TM) browser window panel.
 
 [NOTE]
 ====
@@ -642,16 +702,16 @@ User can set a password, which will be required when logging into the app.
 [none]
 ** Seller: +
 *** `add c/seller n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS a/ADDRESS sp/SELLING_PRICE_OF_PROPERTY [t/TAG]...` +
-*** e.g. `add c/seller n/James Ho p/98765432 e/jamesho@example.com r/need to sell by April 2018 a/Blk 345 Clementi Ave 5, #04-04, S120345 sp/500000 t/MRT t/newlyRenovated`
+*** e.g. `add c/seller n/James Tan p/97652456 e/jamestan@example.com r/need to sell by April 2018 a/Blk 345 Clementi Ave 5, #04-04, S120345 sp/500000 t/MRT t/newlyRenovated`
 ** Buyer: +
 *** `add c/buyer n/NAME p/PHONE_NUMBER e/EMAIL r/REMARK` +
-*** e.g. `add c/buyer n/James Ho p/98765432 e/jamesho@example.com r/looking for 3-room apartment`
+*** e.g. `add c/buyer n/James Ho p/87657252 e/jamesho@example.com r/looking for 3-room apartment`
 ** Landlord: +
 *** `add c/landlord n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS a/ADDRESS rp/RENTAL_PRICE_OF_PROPERTY [t/TAG]...` +
-*** e.g. `add c/landlord n/James Ho p/98765432 e/jamesho@example.com r/family friend  a/Blk 345 Clementi Ave 5, #04-04, S120345 rp/1500 t/MRT t/newlyRenovated`
+*** e.g. `add c/landlord n/Hans Tan p/90826522 e/hanstan@example.com r/family friend  a/Blk 345 Woodlands Street 32, #04-04, S730345 rp/1500 t/MRT t/newlyRenovated`
 ** Tenant: +
 *** `add c/tenant n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS` +
-*** e.g. `add c/tenant n/James Ho p/98765432 e/jamesho@example.com r/looking for 4-room apartment`
+*** e.g. `add c/tenant n/Bo Yang p/86541526 e/boyang@example.com r/looking for 4-room apartment`
 * *Archive* : `archive INDEX`
 ** e.g. `archive 1`
 * *Archive clear* : `archiveclear`
@@ -665,20 +725,20 @@ User can set a password, which will be required when logging into the app.
 * *Edit* :
 ** Seller: +
 *** `edit INDEX_SELLER [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS] [a/ADDRESS] [sp/SELLING_PRICE_OF_PROPERTY] [t/TAG]...` +
-*** e.g. `edit 2 n/James Lee e/jameslee@example.com sp/450000 t/`
+*** e.g. `edit 2 n/James Li e/jamesli@example.com sp/450000 t/`
 ** Buyer: +
 *** `edit INDEX_BUYER [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS]` +
-*** e.g. `edit 2 n/James Lee e/jameslee@example.com r/looking for houses in Woodlands`
+*** e.g. `edit 2 n/James Han e/jameshan@example.com r/looking for houses in Woodlands` +
 ** Landlord: +
 *** `edit INDEX_LANDLORD [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS] [a/ADDRESS] [rp/RENTAL_PRICE_OF_PROPERTY] [t/TAG]...` +
-*** e.g. `edit 2 n/James Lee p/87654321 rp/1700 t/MRT t/Park`
+*** e.g. `edit 2 n/Jim Lee p/87654321 rp/1700 t/MRT t/Park`
 ** Tenant: +
 *** `edit INDEX_TENANT [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS]` +
-*** e.g. `edit 2 n/James Lee p/87654321 r/`
+*** e.g. `edit 2 n/James p/87654322`
 * *Exit* : `exit`
 * *Search* : `search KEYWORD [KEYWORD]...`
 ** `KEYWORD` List: `CUSTOMER_TYPE`, `NAME`, `PHONE_NUMBER`, `EMAIL`, `REMARK`, `ADDRESS`, `t/TAG`
-** e.g. `search James Tan young`
+** e.g. `search James Tan yang`
 * *Help* : `help`
 * *History* : `history`
 * *Match* :

@@ -351,7 +351,7 @@ During initial launch, after each module's information is converted into a `Modu
 image::Observable.png[width="800"]
 
 Whenever the student searches for a particular `ModuleInfo` , the `ObservableList<>` is always ready and the `FilteredList<>`
-will be updated using a `Predicate` List gclaenerated from the keywords searched by the student.
+will be updated using a `Predicate` List generated from the keywords searched by the student.
 
 image::keywords.png[width="600"]
 

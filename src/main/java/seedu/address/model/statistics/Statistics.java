@@ -157,13 +157,13 @@ public abstract class Statistics {
      * This will generate the required data format for the bar charts.
      * @return the formatted data.
      */
-    public XYChart.Series generateData() {
+    public XYChart.Series<String, Number> generateData() {
         logger.info("Generating Statistical Data");
-        XYChart.Series dataSeries1 = new XYChart.Series();
-        dataSeries1.getData().add(new XYChart.Data("Attacks", getAttacksMade()));
-        dataSeries1.getData().add(new XYChart.Data("Hits", getHitCount()));
-        dataSeries1.getData().add(new XYChart.Data("Misses", getMissCount()));
-        dataSeries1.getData().add(new XYChart.Data("Ships Destroyed", getEnemyShipsDestroyed()));
+        XYChart.Series<String, Number> dataSeries1 = new XYChart.Series<>();
+        dataSeries1.getData().add(new XYChart.Data<>("Attacks", getAttacksMade()));
+        dataSeries1.getData().add(new XYChart.Data<>("Hits", getHitCount()));
+        dataSeries1.getData().add(new XYChart.Data<>("Misses", getMissCount()));
+        dataSeries1.getData().add(new XYChart.Data<>("Ships Destroyed", getEnemyShipsDestroyed()));
         return dataSeries1;
     }
 

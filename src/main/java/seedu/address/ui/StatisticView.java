@@ -28,7 +28,7 @@ public class StatisticView extends UiPart<Stage> {
      * @param root
      * @param statsData
      */
-    public StatisticView(Stage root, XYChart.Series statsData) {
+    public StatisticView(Stage root, XYChart.Series<String, Number> statsData) {
         super(FXML, root);
         CategoryAxis xAxis = new CategoryAxis();
         NumberAxis yAxis = new NumberAxis();

@@ -55,7 +55,7 @@ include::../UserGuide.adoc[tag=activityAddMember]
 
 include::../UserGuide.adoc[tag=activityDeleteMember]
 
-include::../UserGuide.adoc[tag=activity_edit]
+include::../UserGuide.adoc[tag=activityEdit]
 
 == Contributions to the Developer Guide
 
@@ -63,7 +63,7 @@ include::../UserGuide.adoc[tag=activity_edit]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=activityEdit]
+include::../DeveloperGuide.adoc[tag=activity_edit]
 
 include::../DeveloperGuide.adoc[tag=activityDelete]
 

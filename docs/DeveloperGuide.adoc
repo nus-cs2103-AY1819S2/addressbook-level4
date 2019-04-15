@@ -172,7 +172,7 @@ The `UI` component,
 * Listens for changes to `Logic` so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
-=== Logic component
+=== Logic component +
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
@@ -200,7 +200,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::DeletePersonSdForLogic.png[width="800"]
 
 [[Design-ManagementModel]]
-=== ManagementModel component
+=== ManagementModel component +
 
 .Structure of the ManagementModel Component
 image::ManagementModelClassDiagram.png[width="800"]
@@ -215,7 +215,7 @@ The `ManagementModel`,
 * depends on none of the other components.
 
 [[Design-QuizModel]]
-=== QuizModel component
+=== QuizModel component +
 
 .Structure of the QuizModel Component
 image::QuizModelClassDiagram.png[width="800"]
@@ -230,7 +230,7 @@ The `QuizModel`,
 * depends on only the `ManagementModel` component.
 
 [[Design-Storage]]
-=== Storage component
+=== Storage component +
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
@@ -244,16 +244,16 @@ The `Storage` component,
 * can save the user's SRS data in csv format and read it back.
 
 [[Design-Commons]]
-=== Common classes
+=== Common classes +
 
 Classes used by multiple components are in the `seedu.address.commons` package.
 
-== Implementation
+== Implementation +
 
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::datastorage[]
-=== Data storage feature
+=== Data storage feature +
 The data CSV Storage features implements the following functions:
 
 * Parsing user data into the correct format for file saving
@@ -261,7 +261,7 @@ The data CSV Storage features implements the following functions:
 
 NOTE: These functions are automatically performed on opening/closing the application. File I/O is handled in CSVUtil class
 
-==== Csv User Format
+==== Csv user format +
 .Data flow diagram for user import and export
 image::CsvUserStorage.png[width="800"]
 
@@ -270,22 +270,22 @@ is the primary format handled by CsvUtil for reading and writing to CSV files.
 
 A few noteworthy main components saved into a CSV file for UserStorage are listed below.
 
-==== Hashcode
+==== Hashcode +
 This is the question hashcode. Every question will have a unique hashcode for identification.
 
-==== SRSDueDate
+==== SRSDueDate +
 This is the srsDueDate generated for that question. Questions with a nearer due-date will be generated first in the quiz.
 
-==== Difficult
+==== Difficult +
 These are questions that are labelled difficult by the user. Users are able to specifically practise questions that they have labelled difficult in session.
 
-==== Architecture diagram for user storage
+==== Architecture diagram for user storage +
 Below is a sketch diagram of how a file is parsed into BrainTrain
 
 .File flow on start of BrainTrain Application
 image::CsvUserDiagram.png[width="800"]
 
-==== Code Snippet
+==== Code snippet +
 The following code snippet shows how the user data is obtained:
 [source,java]
 ----
@@ -324,7 +324,7 @@ private Optional<CardSrsData> parseStringIntoCard(String[] cardArray) throws
 
 ----
 
-==== Design Considerations
+==== Design considerations +
 * ** Alternative 1(Current choice):** Automate importing/exporting when session is open/close
 ** Pros: Lesser commands to manage.
 ** Cons: Opening and closing may take up a lot of time if file is very big.
@@ -338,7 +338,7 @@ private Optional<CardSrsData> parseStringIntoCard(String[] cardArray) throws
 
 // tag::csvstorage[]
 === CSV lesson storage feature
-==== Current Implementation
+==== Current implementation +
 The lesson CSV storage feature implements the following functions:
 
 * Parsing lesson data into a list of string arrays, which is a format OpenCSV accepts for saving to CSV.
@@ -346,7 +346,7 @@ The lesson CSV storage feature implements the following functions:
 
 Actual file I/O is handled in the CsvUtil class, which uses the OpenCSV library to read/write CSV files.
 
-==== CSV Lesson Format
+==== CSV lesson format +
 .High-level sequence diagram for the `reload` command, an example of lesson loading
 image::CsvLessonStorageSequenceDiagram.png[width="800"]
 
@@ -356,14 +356,14 @@ For lessons, there are three main sections when saved to a CSV file.
 
 {empty} +
 
-===== Name
+===== Name +
 A lesson's name in BrainTrain is equivalent to its file name.
 
 A lesson named "French" would be saved as French.csv, and vice-versa.
 
 {empty} +
 
-===== Header
+===== Header +
 The header is represented in the file as the first two lines. Each line represents a specific set of data, as outlined below.
 
 The first line represents the type of the corresponding column. Each column can have three types:
@@ -413,13 +413,13 @@ Any discrepancies in the number of types and the number of names will result in 
 
 {empty} +
 
-===== Card Data
+===== Card data +
 
 All remaining data is treated as card data. Any invalid data found in memory or from the file is skipped over.
 
 {empty} +
 
-===== Summary
+===== Summary +
 .Activity diagram for the `reload` command, highlighting failure conditions
 image::ReloadActivityDiagram.png[width="800"]
 
@@ -427,9 +427,9 @@ As shown in the above diagram, data that is read in from a file goes through var
 
 {empty} +
 
-==== Design Considerations
+==== Design considerations
 
-===== Aspect: Choice of file type
+===== Aspect: choice of file type +
 * **Alternative 1 (current choice):** Save as CSV
 ** Pros: User is able to modify lesson data in a more advanced external spreadsheet tool like Excel
 ** Cons: Lack of data verification within the file, JSON is already implemented in original code
@@ -441,7 +441,7 @@ Alternative 1 was chosen as ease of use is a high priority for the project. Most
 
 {empty} +
 
-===== Aspect: Handling of invalid data
+===== Aspect: handling of invalid data +
 * **Alternative 1 (current choice):** Skip over specific lesson/card
 ** Pros: User data is not automatically overwritten
 ** Cons: User has to manually fix any issues with their data
@@ -457,10 +457,10 @@ Alternative 1 was chosen as creators are expected to have some skill in data edi
 
 
 // tag::session[]
-=== Session feature
+=== Session feature +
 Session feature generates cards for users in quiz session based on their requirement.
 
-==== Current Implementation
+==== Current implementation +
 Session feature implements the following functions and commands:
 
 * Combining data from lesson and user storage together.
@@ -469,7 +469,7 @@ Session feature implements the following functions and commands:
 ** Updating user data after quiz ends.
 * `start` - An input with lesson index, count of cards and mode parameters.
 
-==== SRS Method
+==== SRS method +
 The SRS method allows users to be tested with the most urgent questions. The method gives each card a `srsDueDate` field which contains
 an instant value representing the deadline of testing this card again.
 
@@ -480,7 +480,7 @@ an instant value representing the deadline of testing this card again.
 .Explanation diagram for Leitner-System
 image::Leitner-system.png[width="300"]
 
-==== SrsCardManager
+==== SrsCardManager +
 The `SrsCardManager` generates needed list of `QuizCard` when the user wants to start a quiz. This class includes four methods for four different modes correspondingly as shown below.
 
 * Difficult mode: `previewDifficult()`
@@ -490,7 +490,7 @@ The `SrsCardManager` generates needed list of `QuizCard` when the user wants to 
 
 The following activity diagram summarizes what happens when the user executes a new `StartCommand`.
 
-.Activity diagram for session generation.
+.Activity diagram for session generation
 image::SrsCardManagerGenerateActivityDiagram.png[width="500"]
 
 [NOTE]
@@ -500,7 +500,7 @@ link:https://en.wikipedia.org/wiki/Spaced_repetition[Space-Repetition technique]
 
 The `SrsCardManager` also updates user data using `UpdateCardData()` after receiving results from `Quiz`.
 
-==== Quiz Start Command: `start`
+==== Quiz start command: `start` +
 
 The `start` command starts a quiz session based on input parameters. It will analyze the current storage information and then generate the list of `QuizCard` using `SrsCardManager`. The generating rules are different for different `QuizMode` as explained in section 3.3.3. Once the `start` command have succeeded running, the system will switch to the `QuizMode`.
 
@@ -511,9 +511,10 @@ The following sequence diagram shows the interaction between the various classes
 .Sequence diagram for start feature
 image::QuizStartCommandSequenceDiagram.png[width="800"]
 
-==== Design Consideration
+==== Design consideration
 
-===== Aspect: SRS method for updating
+===== Aspect: SRS method for updating +
+
 * **Alternative 1: Leinter System (current choice)**
 ** Pros: Efficient in calculation and easy to understand.
 ** Cons: The time interval between levels cannot be long.
@@ -522,7 +523,8 @@ image::QuizStartCommandSequenceDiagram.png[width="800"]
 ** Cons: No level attribute to group the element clearly.
 * Alternative 1 was chosen because it clearly displays the due date in several levels. Developers can also understand it easily since the actions for updating is simple. Besides, the system does not require the testing interval of the same card to be very small.
 
-===== Aspect: Data storage to support the SRS system
+===== Aspect: data storage to support the SRS system +
+
 * **Alternative 1: The system saves the due time into several levels and stores in a hashmap with card's hashcode (current choice)**
 ** Pros: It is easier to update the user progress using Leinter System since the levels are already stored.
 ** Cons: The system needs to generate the range of due time for each level by default and the range may be unreasonable.
@@ -531,7 +533,8 @@ image::QuizStartCommandSequenceDiagram.png[width="800"]
 ** Cons: It is more difficult to set the updated due time for each single card.
 * Alternative 1 was chosen because the quiz only passes back information of total attempts and total number of correct answers. It is hard to generate an algorithm to update due time for each single card with only these quiz information. Thus, grouping cards as different levels and updating due time under different levels can solve this problem more efficiently.
 
-===== Aspect: Review mode
+===== Aspect: review mode +
+
 * **Alternative 1: Starts test directly (current choice)**
 ** Pros: Users can focus on the tests directly.
 ** Cons: No time for them to have a quick reminder.
@@ -545,10 +548,10 @@ image::QuizStartCommandSequenceDiagram.png[width="800"]
 
 
 // tag::quiz[]
-=== Quiz feature
+=== Quiz feature +
 Quiz feature allows users to enter quiz related commands and answer.
 
-==== Current Implementation
+==== Current implementation +
 The quiz feature processes the following inputs:
 
 * `[ANSWER]...` - An input without a prefix `\` is treated as an answer.
@@ -558,7 +561,7 @@ The quiz feature processes the following inputs:
 * `\quit` - Quits a quiz and save attempted progress.
 * `\status` - Lists current status and lesson progress of user.
 
-==== Quiz class
+==== Quiz class +
 
 link:{repoURL}/src/main/java/seedu/address/model/quiz/Quiz.java[`Quiz.java`] holds all the
 information of quiz in memory. It takes in a list of <<card,cards>> from `Session` and generate a
@@ -644,7 +647,7 @@ private void generatePreview() {
 }
 ----
 // tag::quiz[]
-==== [ANSWER]
+==== [ANSWER] +
 .High-level sequence diagram for the `ANSWER` command, an example of completing a quiz.
 image::AnwerComponetSequenceDiagram.png[width="800"]
 
@@ -707,7 +710,7 @@ public CommandResult execute(Model model, CommandHistory history) throws Command
 // end::quiz[]
 
 
-==== \quit
+==== \quit +
 The `\quit` will force quit the current quiz and save the attempted question to the location that
 the user have specified in `UserPref`, by default it will saved to `\data\user\savedata.csv`. Once
 the `\quit` command have succeeded running, it will return back to the `ManagementMode`.
@@ -715,7 +718,7 @@ the `\quit` command have succeeded running, it will return back to the `Manageme
 .Sequence diagram for quit feature
 image::QuizQuitCommandSequenceDiagram.png[width="800"]
 
-==== \status
+==== \status +
 The `\status` feature lists the total number of attempts you have attempted, total number of
 question you have gotten correct in this quiz and which question you are currently on.
 
@@ -723,9 +726,9 @@ question you have gotten correct in this quiz and which question you are current
 image::QuizStatusCommandSequenceDiagram.png[width="800"]
 
 // tag::quiz[]
-==== Design Considerations
+==== Design considerations
 
-===== Aspect: Quiz and management commands execution
+===== Aspect: quiz and management commands execution +
 * **Alternative 1 (current choice):** Run quiz in a different mode
 ** Pros: Least restricted choice of answer and great user experience.
 ** Cons: Tedious to implement.
@@ -743,7 +746,7 @@ restricted. Also, by running the quiz in a different mode, it allows the user to
 interaction in quiz mode.
 // end::quiz[]
 
-=== Logging
+=== Logging +
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
@@ -759,27 +762,27 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 [[Implementation-Configuration]]
-=== Configuration
+=== Configuration +
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
-== Documentation
+== Documentation +
 
-We use asciidoc for writing documentation.
+We used AsciiDoc for writing documentation.
 
 [NOTE]
-We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
+We chose AsciiDoc over Markdown because AsciiDoc, although a bit more complex than Markdown, provides more flexibility in formatting.
 
-=== Editing documentation
+=== Editing documentation +
 
 See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
 Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
 
-=== Publishing documentation
+=== Publishing documentation +
 
 See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
 
-=== Converting documentation to PDF format
+=== Converting documentation to PDF format +
 
 We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
 
@@ -794,9 +797,9 @@ Here are the steps to convert the project documentation files to PDF format.
 image::chrome_save_as_pdf.png[width="300"]
 
 [[Docs-SiteWideDocSettings]]
-=== Site-wide documentation settings
+=== Site-wide documentation settings +
 
-The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://AsciiDoctor.org/docs/user-manual/#attributes[AsciiDoc attributes] which affects how all documentation files within this project are rendered.
 
 [TIP]
 Attributes left unset in the `build.gradle` file will use their *default value*, if any.
@@ -824,7 +827,7 @@ This will render the SE-EDU navigation bar at the top of the page, and add some 
 |===
 
 [[Docs-PerFileDocSettings]]
-=== Per-file documentation settings
+=== Per-file documentation settings +
 
 Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
 
@@ -852,7 +855,7 @@ _{asterisk} Official SE-EDU projects only_
 
 |===
 
-=== Site template
+=== Site template +
 
 The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
 You can modify them to change some properties of the site's design.
@@ -870,7 +873,7 @@ The SE-EDU team does not provide support for modified template files.
 [[Testing]]
 == Testing
 
-=== Running tests
+=== Running tests +
 
 There are three ways to run tests.
 
@@ -895,7 +898,7 @@ Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI t
 
 To run tests in headless mode, open a console and run the command `gradlew clean headless allTests` (Mac/Linux: `./gradlew clean headless allTests`)
 
-=== Types of tests
+=== Types of tests +
 
 We have two types of tests:
 
@@ -911,7 +914,7 @@ e.g. `seedu.address.storage.StorageManagerTest`
 e.g. `seedu.address.logic.LogicManagerTest`
 
 
-=== Troubleshooting testing
+=== Troubleshooting testing +
 **Problem: `HelpWindowTest` fails with a `NullPointerException`.**
 
 * Reason: One of its dependencies, `HelpWindow.html` in `src/main/resources/docs` is missing.
@@ -919,22 +922,22 @@ e.g. `seedu.address.logic.LogicManagerTest`
 
 == Dev ops
 
-=== Build automation
+=== Build automation +
 
 See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
 
-=== Continuous integration
+=== Continuous integration +
 
 We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
 
-=== Coverage reporting
+=== Coverage reporting +
 
 We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
 
-=== Documentation previews
-When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
+=== Documentation previews +
+When a pull request has changes to AsciiDoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those AsciiDoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
 
-=== Making a release
+=== Making a release +
 
 Here are the steps to create a new release.
 
@@ -943,7 +946,7 @@ Here are the steps to create a new release.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
-=== Managing dependencies
+=== Managing dependencies +
 
 A project often depends on third-party libraries. For example, Address Book depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
 
@@ -952,7 +955,7 @@ A project often depends on third-party libraries. For example, Address Book depe
 . Require developers to download those libraries manually (this creates extra work for developers)
 
 [appendix]
-== Product scope
+== Product scope +
 
 *Target user profile*:
 
@@ -970,7 +973,7 @@ A project often depends on third-party libraries. For example, Address Book depe
 *Value proposition*: Flashcard integrated with <<srs,SRS>> that assists in memorization
 
 [appendix]
-== User stories
+== User stories +
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
@@ -1037,10 +1040,10 @@ remember it better
 |=======================================================================
 
 [appendix]
-== Use cases
+== Use cases +
 
 [discrete]
-=== Use case: Import a lesson
+=== Use case: import a lesson +
 
 *MSS*
 
@@ -1064,7 +1067,7 @@ Use case ends.
 Use case resumes at step 5.
 
 [discrete]
-=== Use case: Test poorly memorised questions
+=== Use case: test poorly memorised questions +
 
 *MSS*
 
@@ -1090,7 +1093,7 @@ Use case ends.
 Use case resumes at step 3.
 
 [discrete]
-=== Use case: Start a review quiz
+=== Use case: start a review quiz +
 
 *MSS*
 
@@ -1117,7 +1120,7 @@ Use case ends.
 
 
 [appendix]
-== Non-functional requirements
+== Non-functional requirements +
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 cards in multiple lessons without a noticeable sluggishness in
@@ -1126,13 +1129,18 @@ performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 [appendix]
-== Glossary
+== Glossary +
 
 [[card]] Card::
-A set of values, where one value is given as a prompt to the user, and another value is used as the correct answer for that given question. Other values may be shown to supplement the question.
+A card contains 2 or more `TEST` values and 0 or more `HINT` values. When a card is tested in
+quiz mode, 2 of its `TEST` values will be tested as a question-answer pair. `HINT` values will be
+shown when the `\hint` command is entered.
 
 [[lesson]] Lesson::
-A labelled set of <<card,cards>>.
+A lesson contains <<card,cards>> of the same type and topic. It has 2 or more `TEST` values and 0
+ or more `HINT` values. Cards added to this lesson must have corresponding `TEST` values, but need
+ not have matching `HINT` values. By default, the first 2 `TEST` values of cards in this lesson will
+ be tested when the lesson is started in quiz mode. You can change this by using the `set` command.
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
@@ -1144,14 +1152,14 @@ User’s current learning progress
 The technique of gradually delaying or accelerating the testing of content based on the user’s success.
 
 [appendix]
-== Instructions for manual testing
+== Instructions for manual testing +
 
 Given below are instructions to test the app manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and shutdown
+=== Launch and shutdown +
 
 . Initial launch
 
@@ -1165,7 +1173,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-=== Changing theme
+=== Changing theme +
 
 . Changing from light theme to dark theme
 .. `changeTheme` +
@@ -1174,7 +1182,7 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: The theme have changed to dark theme and persist beyond restart.
 
 //tag::session[]
-=== Starting a new quiz
+=== Starting a new quiz +
 
 Below are some test cases you can perform to test the `StartCommand` for the Management feature.
 
@@ -1186,7 +1194,7 @@ Below are some test cases you can perform to test the `StartCommand` for the Man
    Expected: The system and GUI change to `Quiz mode`. Starting new quiz. Current lesson is the third lesson in the list. Besides, only one card will be learnt in the quiz.
 
 //end::session[]
-=== Answering a question in a quiz
+=== Answering a question in a quiz +
 
 Below are some test cases you can perform to test the `QuizAnswerCommand` for the Quiz feature. +
 
@@ -1237,7 +1245,7 @@ Below are some test cases you can perform to test the `QuizAnswerCommand` for th
 ... kbd:[enter] or anything without the prefix `\` followed by kbd:[enter] +
     Expected: Shown the next question for previewing. +
 
-=== Labelling a question as difficult in a quiz
+=== Labelling a question as difficult in a quiz +
 
 Below is a test case you can perform to test the `QuizDifficultCommand` for the Quiz feature. +
 
@@ -1252,7 +1260,7 @@ Below is a test case you can perform to test the `QuizDifficultCommand` for the 
 .. `\difficult` +
     Expected: Card labelled as not difficult. +
 
-=== Viewing hint in a quiz
+=== Viewing hint in a quiz +
 
 Below is a test case you can perform to test the `QuizHintCommand` for the Quiz feature. +
 
@@ -1263,7 +1271,7 @@ Below is a test case you can perform to test the `QuizHintCommand` for the Quiz 
 . Test case: `\hint` +
   Expected: Shown the hint for this question. +
 
-=== Quitting the quiz
+=== Quitting the quiz +
 
 Below are some test cases you can perform to test the `QuizQuitCommand` for the Quiz feature. +
 
@@ -1279,7 +1287,7 @@ Answer the question according to the question from the specified lesson.
   `\quit` +
   Expected: Shown the result of the quiz and saved the progress of 1 attempted question.
 
-=== Viewing status in a quiz
+=== Viewing status in a quiz +
 
 Below is a test cases you can perform to test the `QuizStatusCommand` for the Quiz feature. +
 
@@ -1292,7 +1300,7 @@ Below is a test cases you can perform to test the `QuizStatusCommand` for the Qu
 
 // tag::datastorage[]
 
-==== Saving user data
+==== Saving user data +
 
 . Ensuring that there is a save user file generated. The file should be generated under `/data/user/savedata`
 

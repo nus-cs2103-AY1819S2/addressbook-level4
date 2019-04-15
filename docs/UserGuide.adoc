@@ -217,7 +217,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 === Member Management Features
 
-image::memberCommands.png[width="100%"]
+image::memberCommands.png[width="70%"]
 
 //tag::memberadd[]
 ==== Adding a member: `memberAdd` or `mAdd`
@@ -272,7 +272,7 @@ A member can have any number of tags (including 0).|Swimming
 
 * `memberAdd n/Jon Lim mn/A0123456J p/98765432 e/johnl@example.com a/123, Woodlands Drive 12, #12-34 g/Male y/2 m/Chemistry t/Swimming`
 
-image::memberAdd_added.png[width="1000"]
+image::memberAdd_added.png[width=70%]
 
 * `memberAdd n/James Ong mn/A0123456J p/98765432 e/jamesong@example.com a/123, Jurong West Ave 6, #08-111 g/male y/2 m/mathematics`
 * `memberAdd n/Jane Lim mn/A0654321J p/91324756 e/janelim@example.com a/123, Sengkang Ave 6, #02-123 g/Female y/3  m/physics t/Swimming`
@@ -394,7 +394,7 @@ Examples:
 `memberSelect 2` +
 Selects the 2nd person in the club manager.
 
-image::memberSelectCommand.png[width=100%]
+image::memberSelectCommand.png[width=70%]
 //end::memberselect[]
 
 //tag::membersort[]

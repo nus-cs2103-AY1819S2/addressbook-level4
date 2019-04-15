@@ -13,7 +13,7 @@ endif::[]
 
 == Introduction
 
-Hi, I'm Yip Keng, a Year 2 Computer Science Undergraduate and a part time tutor in the National University of Singapore.
+Hi, I'm Yip Keng, a Year 2 Computer Science Undergraduate and a part-time tutor at the National University of Singapore.
 I am passionate about building useful applications which benefits millions of people around the world.
 
 One of my favourite projects is the PDF++, an ambitious file management system aims to replace the
@@ -31,28 +31,30 @@ The PDF++ offers a wide range of features with potentials for future improvement
 
 - *File Manipulation* : Adding, Moving, Merging and Deleting Documents.
 - *File Organization* : Labelling tags and Assigning deadlines to Documents.
-- *File ??* : Finding Documents based on tags and in-text content.
+- *File Extraction* : Finding Documents based on tags and in-text content.
 - *File Encryption* : Securing Documents with password encryption.
 
 ===  Implementation of `deadline` function
 
 ** *What*: This function allows the user to assign a deadline to a document.
 ** *Justification*: This is an integration of task reminder into our computer files.
-Users can set a deadline reminder to the documents which has tasks to be met before
+Users can set a deadline reminder to the documents which have tasks to be met before
 a specific date.
 ** *Highlights*: The application labels the deadlines based on the number of days to
 the document's due date. Upon launching the application, a list of deadline reminders
 will be shown in chronological order. This can improve the user's productivity by keeping
 track of their upcoming tasks.
 
+<<<
+
 === User Guide Contributions
 '''
 ===== Excerpt from UserGuide: Setting a deadline for a file: `deadline`
 
-Set or remove a deadline for the a file, specified by the index of the file that is next to the name of the file in the <<app-layout, Files Section>>, highlighted in green. +
+Set or remove a deadline for the file, specified by the index of the file that is next to the name of the file in the Files Section. +
 A file's deadline is located under its name and has 4 colours to indicate the amount of time you have before it is due. +
 
-The colour Green, indicates that there is more `7` days till the deadline is due, as shown below. +
+The colour Green, indicates that there is more than `7` days till the deadline is due, as shown below. +
 
 .Deadline Colour Green
 image::UGDeadlineFar.png[width="300"]
@@ -72,7 +74,9 @@ The colour Blue indicates that you have completed the set task. +
 .Deadline Colour Blue
 image::UGDeadlineDone.png[width='300']
 
-All deadlines are also displayed in the <<app-layout, Deadlines Section>> of the application highlighted by Red. +
+All deadlines are also displayed in the Deadlines section of the application. +
+
+<<<
 
 [.big]#Format: `deadline INDEX date/DATE` [To Set a Deadline]# +
 [.big]#Format: `deadline INDEX done` [To Complete a Deadline]# +
@@ -135,7 +139,7 @@ This sequence diagram demonstrates the interactions involved from start of *Dead
 image::DeadlineCommandSequenceDiagram.png[width="600"]
 
 [TIP]
-After a deadline has been added to the PDF file specified, the date will be color coded according to days
+After a deadline has been added to the PDF file specified, the date will be color-coded according to days
 remaining from the current day until the deadline date.
 
 ===== Considerations
@@ -153,8 +157,8 @@ prints the Pdf book model version, and a modified `toJsonString` that prints the
 
 ===== Future Implementation
 
-Our current color coded deadlines is predefined based on the due date from the current date. Suggested improvement for this area
-would be providing user-defined color codes for an enhanced user experience.
+Our current color-coded deadlines are predefined based on the due date from the current date. Suggested improvement for this area
+would be providing user-defined color-codes for enhanced user experience.
 
 '''
 === Summary of Minor Contributions

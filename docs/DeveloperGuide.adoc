@@ -1124,7 +1124,6 @@ Use case ends.
 ** 3a1. *Equipment Manager* shows an error message.
 +
 Use case resumes at step 2.
-
 [appendix]
 == Non Functional Requirements
 Non-functional requirements specify the constraints under which system is developed and operated.

@@ -838,10 +838,10 @@ Thus, its behaviour will be different for every game session.__
 
 // tag::enemyDesign[]
 ==== Design considerations
-* **Alternative 1 (current choice):** seed all methods with pseudo-random seed/
+* **Current choice:** seed all methods with pseudo-random seed/
 ** Pros: each game will be a different experience
 ** Cons: testing will be more difficult
-* **Alternative 2:** pre-calculate and hardcode the actions the Enemy AI performs
+* **Alternative:** pre-calculate and hardcode the actions the Enemy AI performs
 ** Pros: testing is made very much easier
 ** Cons: games would be less dynamic since the enemy's behaviour is non-organic
 // end::enemyDesign[]

@@ -30,7 +30,10 @@ Useful information for a deeper understanding of the command.
 ====
 
 == Summary of Contributions
-The section below shows a summary of my coding, documentation and other helpful contributions to the team project.
+
+|===
+|_The section below shows a summary of my coding, documentation and other helpful contributions to the team project._
+|===
 
 * *Major enhancement*: I implemented *flashcard creation and management*
 ** What it does: Allows users to create, edit and delete different kinds of flashcards.
@@ -49,17 +52,12 @@ The section below shows a summary of my coding, documentation and other helpful 
 ** What it does: Changed the display of the side panel for cards within card folders to display all card information to the user.
 ** Justification:
 *** For card folders, the side panel shows users all necessary information of a card at a glance whenever users select a card.
-+
-image:Ui.png[width="620"]
-
 *** For test sessions, only relevant information is shown at the start for each card. The correct answer is displayed only after a user inputs an answer.
-+
-image:AnsweringMcqCard.png[width="620"]
 
 ** Highlights:
 *** In a test session, the card color changes to reflect if a user has answered correctly or not. Green signifies a correct answer, while red signifies a wrong answer.
 +
-image:ExampleMcqTest.png[width="620"]
+image:ExampleMcqTest.png[width="250"]
 
 * *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=mmdlow[Collated code]]
 
@@ -70,7 +68,7 @@ image:ExampleMcqTest.png[width="620"]
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/cs2103-ay1819s2-w10-4/main/pull/54[#54], https://github.com/cs2103-ay1819s2-w10-4/main/pull/73[#73], https://github.com/cs2103-ay1819s2-w10-4/main/pull/142[#142]
-*** Reported bugs and issues involving our team's application: https://github.com/cs2103-ay1819s2-w10-4/main/issues/184[#184]
+*** Reported bugs and issues involving our team's application: https://github.com/cs2103-ay1819s2-w10-4/main/issues/184[#184], https://github.com/cs2103-ay1819s2-w10-4/main/issues/188[#188]
 *** Reported bugs and issues involving other teams' applications: https://github.com/CS2103-AY1819S2-W15-2/main/issues/248[#248], https://github.com/CS2103-AY1819S2-W15-2/main/issues/253[#253]
 
 [[contributionsToUserGuide]]
@@ -91,7 +89,7 @@ include::../UserGuide.adoc[tag=edit]
 
 
 |===
-|_Our team also updated the Developer Guide to reflect the new changes and enhancements made for Know-It-All. As with the section on <<contributionsToUserGuide>>, some key excerpts of my contributions to the Developer Guide are detailed below. These include sections on <<cards>>, <<cardUseCases>>, and the <<glossary>>._
+|_Our team also updated the Developer Guide to reflect the new changes and enhancements made for Know-It-All. As with the section on <<contributionsToUserGuide>>, some key excerpts of my contributions to the Developer Guide are detailed below. These include sections on <<cards>>, <<cardUseCases>>, the <<glossary>>, and <<cardManualTesting>>._
 |===
 
 [[cards]]
@@ -103,3 +101,7 @@ include::../DeveloperGuide.adoc[tag=cardusecases]
 
 [[glossary]]
 include::../DeveloperGuide.adoc[tag=glossary]
+
+[[cardManualTesting]]
+=== Instructions on Manual Testing for Cards
+include::../DeveloperGuide.adoc[tag=cardmanualtesting]

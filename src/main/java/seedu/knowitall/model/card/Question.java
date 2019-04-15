@@ -48,7 +48,7 @@ public class Question implements Comparable<Question> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Question // instanceof handles nulls
-                && fullQuestion.equals(((Question) other).fullQuestion)); // state check
+                && fullQuestion.toLowerCase().equals(((Question) other).fullQuestion.toLowerCase())); // state check
     }
 
     @Override

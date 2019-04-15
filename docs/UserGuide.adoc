@@ -460,20 +460,20 @@ Steps to execute `editReview` command:
 
 * From the main screen of the application, first select a restaurant by clicking on it with the mouse or using the `select INDEX` command.
 
-image::UG_editReview_start.png[width="790"]
+image::UG_editReview_start.png[width="480"]
 _Figure 3. The above screenshot shows the case when no restaurant is selected_
 
-image::UG_editReview_selected_restaurant.png[width="790"]
+image::UG_editReview_selected_restaurant.png[width="480"]
 _Figure 4. Upon selecting a restaurant, the reviews of the restaurant will show on the review panel, and the rightmost browser panel will show the webpage of the restaurant (if available)_
 
 * Following the above, enter the command:
 
-image::UG_editReview_selected_restaurant_entered_command.png[width="790"]
+image::UG_editReview_selected_restaurant_entered_command.png[width="480"]
 _Figure 5. Enter the command in the command box as shown near the top of the application_
 
 * Upon successful execution of the command:
 
-image::UG_editReview_command_executed.png[width="790"]
+image::UG_editReview_command_executed.png[width="480"]
 _Figure 6. The above screenshot shows the end-product of the successful execution of `editReview` command_
 
 Examples:

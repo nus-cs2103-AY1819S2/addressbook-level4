@@ -12,8 +12,8 @@ import seedu.address.model.review.Review;
 
 public class ReviewBuilder {
 
-    public static final String DEFAULT_ENTRY = "Standard restaurant";
-    public static final String DEFAULT_RATING = "3";
+    private static final String DEFAULT_ENTRY = "Standard restaurant";
+    private static final String DEFAULT_RATING = "3";
 
     private Entry entry;
     private Rating rating;

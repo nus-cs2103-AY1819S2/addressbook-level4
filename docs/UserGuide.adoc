@@ -968,7 +968,7 @@ Format: `tasklist` or `tlist`
 ==== tasksort
 Sort the tasks ascendingly or descendingly in some order.
 
-Format : `tasksort PARAMETER [asc/desc]` or `tsort PARAMETER [asc/desc]`
+Format : `tasksort PARAMETER [asce/desc]` or `tsort PARAMETER [asce/desc]`
 
 Note :
 
@@ -1242,7 +1242,7 @@ e.g. `taskdone 1`
 e.g. `taskcal 11-11-2019`
 
 
-* *Tasksort* `tasksort starttime/endtime/priority [asc/desc]`
+* *Tasksort* `tasksort starttime/endtime/priority [asce/desc]`
 e.g. `tasksort endtime`
 
 * *Teeth* : `teeth patientadd <Template>` +

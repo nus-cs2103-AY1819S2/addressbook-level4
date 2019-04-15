@@ -46,4 +46,24 @@ public class ModuleInfoTitleTest {
         assertEquals("Software Engineering", title.toString());
     }
 
+    @Test
+    public void equals() {
+        ModuleInfoTitle descrip = new ModuleInfoTitle("Software Engineering");
+        ModuleInfoTitle descripCopy = descrip;
+
+        assertTrue(descrip.equals(descripCopy));
+
+        ModuleInfoTitle diffdescrip = new ModuleInfoTitle("Programming methodology");
+
+        assertFalse(descrip.equals(diffdescrip));
+    }
+
+    @Test
+    public void hashcode() {
+        ModuleInfoTitle descrip = new ModuleInfoTitle("Software Engineering");
+        ModuleInfoTitle descripCopy = descrip;
+
+        assertEquals(descrip.hashCode(), descripCopy.hashCode());
+    }
+
 }

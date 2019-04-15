@@ -88,7 +88,7 @@ include::../UserGuide.adoc[tag=tablemodecommand]
 
 include::../UserGuide.adoc[tag=tablemode]
 
-include::../UserGuide.adoc[tag=clearorder]
+include::../UserGuide.adoc[tag=serve]
 
 == Contributions to the Developer Guide
 

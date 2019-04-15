@@ -50,7 +50,7 @@ done to permit only certain commands and ban others.
 
 * Enhancements to features:
 ** Wrote additional tests for new features to increase coverage from 79% to 81% (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/74[#74])
-** Refactor existing status bar to display the current state of the user (whether user is in a test session, in a
+** Refactored existing status bar to display the current state of the user (whether user is in a test session, in a
 report display, in a folder or in home directory) instead of the previous last saved location and time. Corresponding
  tests are written as well. (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/162[#162])
 ** Updated UI colour scheme to enhance aesthetics and clarity of Know-It-All (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/162[#162], https://github.com/cs2103-ay1819s2-w10-4/main/pull/166[#166],

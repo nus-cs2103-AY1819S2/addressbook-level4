@@ -19,7 +19,7 @@ By: `Team W11-4`      Since: `Jun 2019`      Licence: `MIT`
 
 == Introduction
 
-BookSquirrel is for those who *want to keep a record of books they've read*. More importantly, BookSquirrel is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BookSquirrel can get your contact management tasks done faster than traditional GUI apps.
+BookSquirrel is for those who *want to keep a record of books they've read*. More importantly, BookSquirrel is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BookSquirrel can get your management of books done faster than traditional GUI apps.
 
 == Setting up
 
@@ -223,6 +223,8 @@ As a more OOP model, we can store a `Tag` list in `BookShelf`, which `Book` can 
 image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
+
+// tag::storage[]
 === Storage component
 
 .Structure of the Storage Component
@@ -235,8 +237,11 @@ The `Storage` component,
 * can save `UserPref` objects in JSON format and read it back.
 * can save the BookShelf data in JSON format and read it back.
 * both the data of books and reviews will be saved.
-* users are not supposed to touch the data file (file inside the `data` folder) directly. If the user insists on doing so, the data might be corrupted.
+* users are not supposed to touch the data file (the file inside the `data` folder) directly. If the user insists on doing so, the data might be corrupted.
 * users are not supposed to add data files into the app manually. If the user accidentally corrupts the data file, he or she may have to reinstall the app and all data will get lost.
+* developers can edit the data file for the purpose of testing.
+
+// end::storage[]
 
 [[Design-Commons]]
 === Common classes
@@ -247,6 +252,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::sortBook[]
 === SortBook feature
 ==== Current Implementation
 
@@ -302,6 +308,9 @@ Step 6. ` model#commitBookShelf()` will be executed to store the current Bookshe
 ** Pros: It is faster than the first choice as we only need to sort a partial list.
 ** Cons: The sub-list is not supported sort function, it's hard and time consumed to manipulate sorting and put it back to sub-list.
 
+// end::sortBook[]
+
+// tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
 
@@ -419,12 +428,25 @@ Given below is an example usage scenario and how the addBook mechanism behaves a
 
 Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial bookshelf state, and the `currentStatePointer` pointing to that single bookshelf state.
 
-Step 2. The user executes `addBook n/Alice a/HR m/5 tag/fantasy` command to add the book called Alice, written by HR, with a rating of 5 and tag of fantasy in the Bookshelf. The `addBook` command calls `Model#hasBook()`, checking if the book already exists in the bookshelf.
+Step 2. The user executes `addBook n/Alice a/HR m/5 tag/fantasy` command to add the book called Alice, written by HR, with a rating of 5 and tag of fantasy in the Bookshelf. The `AddBookCommandParser` check if the command is in valid format.
+
+[NOTE]
+If the command is not in valid format, ParseException(MESSAGE_INVALID_COMMAND_FORMAT) will be thrown. The book will not be added to the bookshelf.
+
+Step 3. The `addBook` command calls `Model#hasBook()`, checking if the book already exists in the bookshelf.
 
 [NOTE]
 If the book already exists, CommandException(MESSAGE_DUPLICATE_BOOK) will be thrown. It will not call `Model#commitBookShelf()`, so the bookshelf state will not be saved into the `BookShelfStateList`.
 
 Step 4. The bookshelf now adds the book to the Bookshelf after making sure there are no duplicates, and calls Model#commitBookShelf(), causing the modified state of the Bookshelf after the `addBook` command executes to be saved in the BookShelfStateList
+
+The Sequence Diagram below shows how the components interact with each other for the scenario where the user issues the command `addBook n/Alice a/HR m/5 tag/fantasy`.
+
+image::AddBookHighLevelSequenceDiagram.jpg[width="800"]
+
+The following activity diagram summarizes what happens when a user executes an AddBook command:
+
+image::AddBookActivityDiagram.png[width="800"]
 
 ==== Design Considerations
 
@@ -439,12 +461,23 @@ Step 4. The bookshelf now adds the book to the Bookshelf after making sure there
 
 ===== Aspect: Data structure to support the addBook command
 
-* **Alternative 1 (current choice):** Saves the entire book as one object contains different components such as author, rating, etc.
+* **Alternative 1 (current choice):** Saves the entire book as one object contains different fields such as author, rating, etc.
 ** Pros: Easy to implement delete and other features that change an entire book.
-** Cons: Maybe more difficult to implement the summary feature which needs to obtain statistics of all separate components, eg. find the most popular author.
-* **Alternative 2:** Components stored as individual objects.
+** Cons: Maybe more difficult to implement the summary feature which needs to obtain statistics of all separate fields stored in each book, eg. find the most popular author.
+
+[NOTE]
+An example of the current model is given below. +
+ +
+image:BookModelComponentClassOopDiagram.png[width="800"]
+
+* **Alternative 2:** Store a Tag list and an Author List in BookShelf, which Book can reference.
 ** Pros: Easier to obtain statistics regarding each component.
-** Cons: It is hard to manage book object as we need to find a way to connect all components together.
+** Cons: It is harder to manage book object as we need to find a way to connect all components together.
+
+[NOTE]
+An example of the alternative model is given below. +
+ +
+image:BookModelComponentAlternativeClassOopDiagram.png[width="800"]
 
 === EditBook feature
 ==== Current Implementation
@@ -483,7 +516,7 @@ Step 4. The bookshelf now set the fields of the first book to the new ones provi
 // end::book[]
 
 // tag::listBook[]
-=== ListBook Feature
+=== ListBook feature
 
 ==== Current Implementation
 
@@ -499,9 +532,15 @@ Step 1. The user launches the application for the first time. The `VersionedBook
 
 Step 2. The user executes `listBook n/Life`.
 
-Step 3. The `ListBookCommandParser` parses this command, and returns an `ListBookCommand`. The exception will be thrown if the command is invalid.
+Step 3. The `ListBookCommandParser` parses this command. It will first create some predicates according to the input and then use theses predicates to create a `ListBookCommand`. The exception will be thrown if the command is invalid. The command is created by the logic manager as follows.
 
-Step 4. The `ListBookCommand` be executed. The command checks all the book in the `BookShelf`, selects out books whose name contain `Life` based on `BookNameContainsKeywordPredicate`.
+image::listBookCommandLogic.png[width="800"]
+
+Step 4. The `ListBookCommand` will be executed. The command checks all the books on the `BookShelf`, selects out books whose name contain `Life` based on `BookNameContainsKeywordPredicate`.
+
+The sequence diagram of the whole process is as follows.
+
+image::listBookSqDiagram.png[width="800"]
 
 ==== Design Considerations
 
@@ -512,16 +551,16 @@ Step 4. The `ListBookCommand` be executed. The command checks all the book in th
 ** Cons: Such search techniques may fail to provide the user with enough information.
 * **Alternative 2:** Books that match at least one criteria will be selected. For example, if the user gives 2 book name keywords and 2 ratings, books that match 1 name keyword but no ratings will still be selected.
 ** Pros: More likely to provide the user with the book that the user is looking for.
-** Cons: Hard to test and manage. Such a design also fails to narrow down search results when the user is providing more keywords for the targeted book.
+** Cons: Such a design also fails to narrow down search results when the user is providing more keywords for the targeted book. Besides, it's hard to test and manage.
 
 // end::listBook[]
 
 // tag::summary[]
-=== Summary Feature
+=== Summary feature
 
 ==== Current Implementation
 
-The summary feature is a command works to summarize the books in the bookshelf. The user can have a rough overview of what he/she has read.
+The summary feature is a command works to summarize the books on the bookshelf. The user can have an overview of what he/she has read.
 
 Given below is an example of usage and how the summary feature works.
 
@@ -533,27 +572,31 @@ Step 3. The `SummaryCommandParser` parses this command.
 
 Step 4. The `SummaryCommandParser`returns an `SummaryCommand`. The exception will be thrown if the command is invalid.
 
-Step 5. The `SummaryCommand` executes. The command will traverse all books in the bookshelf, checks, if there are authors or tags, appear more than once and give relative details. The command will also show the highest rating of books on the bookshelf.
+Step 5. The `SummaryCommand` executes. The command will traverse all books in the bookshelf, checks, if there are authors or tags, appear more than once and give relative details. The command will also return the highest rating of books on the bookshelf.
+
+The summary command creates a summary as follows:
+
+image:SummaryActivity.png[width="800"]
 
 ==== Design Consideration
 
 ===== Aspect: Component to fetch the data
 
-* **Alternative 1 (current choice):** Model manager in charge of data processing, then return the result to the command.
-** Pros: This prevents the command from accessing data managed by the model manager, thus independency of different parts is guaranteed.
+* **Alternative 1 (current choice):** Model manager is in charge of data processing, then returns the result to the command.
+** Pros: This prevents the command from accessing data managed by the model manager, thus independence of different parts is guaranteed.
 ** Cons: More methods are introduced into the model manager. To include more information in the summary, not only the summary command should be modified, but also more information query methodS should be added in The `Model`. This somehow break the abstraction.
 * **Alternative 2:** Model manager passes the whole bookshelf to the command, then command process the data according to this list.
 ** Pros: More flexible as the command can extract any information it desires. Whenever we want the summary to include more information, we just directly fetch the data from the copy of the bookshelf.
 ** Cons: This approach is unsafe and may lead to more bugs as it violates the principle of independence.
 * **Alternative 3:** Model manager creates a list of the copies of the books in the bookshelf and passes it to the command.
-** Pros: More flexible as the command can read whatever information desired, while keep the bookshelf safe from any unintended modification.
+** Pros: More flexible as the command can read whatever information desired, thus keeps the bookshelf safe from any unintended modification.
 ** Cons: The manager no longer has control over what information is accessible to the command, thus may still expose some sensitive information. Besides, making a copy of the whole list is not practical when there are many books in the bookshelf.
 
 // end::summary[]
 
 // tag::addReview[]
 
-=== AddReview Feature
+=== AddReview feature
 
 ==== Current Implementation
 
@@ -605,7 +648,7 @@ adding enhanced review input panel to make the review feature more user-friendly
 This feature is provided for the convenience of the user. An overloaded constructor
 is available where the date can be passed in as a parameter, to be used in testing.
 
-=== ListReview Feature
+=== ListReview feature
 
 ==== Current Implementation
 
@@ -623,7 +666,7 @@ Alternatively, the user can click the book to select it.
 
 ===== Aspect:
 
-=== ListAllReviews Feature
+=== ListAllReviews feature
 ==== Current Implementation
 
 The ListAllReviews Feature uses the same implementation as the ListBook feature:
@@ -645,7 +688,7 @@ Step 3. The ListAllReviewsCommand executes. Review list panel is updated to show
 ** Pros: Consistency.
 ** Cons: Command is not intuitive, and takes extra time to implement review predicates.
 
-=== SelectReview Feature
+=== SelectReview feature
 ==== Current Implementation
 
 Selection of review is implemented the same way as the selection of a book.
@@ -661,7 +704,7 @@ Step 3. The SelectReviewCommand executes. The review with the specified index is
 Step 4. The BookBrowserPanel listens to the change in the selected review and displays its review message.
 
 
-=== DeleteReview Feature
+=== DeleteReview feature
 ==== Current Implementation
 
 The review is deleted based on the index.
@@ -672,9 +715,9 @@ Step 2. The DeleteReviewCommandParser parses this command and returns a new Dele
 
 Step 3. The DeleteReviewCommand executes. The review with the specified index is deleted.
 
-=== Other Design Considerations
+==== Other Design Considerations
 
-==== Whether to Implement EditReview
+===== Whether to Implement EditReview
 
 It seems natural to implement EditReview as one component of the CRUD features. However,
 editing an existing review requires re-typing everything and seems painstaking to the user. It makes much more sense to just delete
@@ -692,16 +735,16 @@ We use asciidoc for writing documentation.
 [NOTE]
 We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
 
-=== Editing Documentation
+=== Editing documentation
 
 See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
 Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
 
-=== Publishing Documentation
+=== Publishing documentation
 
 See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
 
-=== Converting Documentation to PDF format
+=== Converting documentation to PDF format
 
 We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting the document to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
 
@@ -716,7 +759,7 @@ Here are the steps to convert the project documentation files to PDF format.
 image::chrome_save_as_pdf.png[width="300"]
 
 [[Docs-SiteWideDocSettings]]
-=== Site-wide Documentation Settings
+=== Site-wide documentation settings
 
 The link:{repoURL}/build.gradle[`build.gradle`]  file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
 
@@ -774,7 +817,7 @@ _{asterisk} Official SE-EDU projects only_
 
 |===
 
-=== Site Template
+=== Site template
 
 The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
 You can modify them to change some properties of the site's design.
@@ -792,7 +835,7 @@ The SE-EDU team does not provide support for modified template files.
 [[Testing]]
 == Testing
 
-=== Running Tests
+=== Running tests
 
 There are three ways to run tests.
 
@@ -833,7 +876,7 @@ e.g. `seedu.address.storage.StorageManagerTest`
 e.g. `seedu.address.logic.LogicManagerTest`
 
 
-=== Troubleshooting Testing
+=== Troubleshooting testing
 **Problem: `HelpWindowTest` fails with a `NullPointerException`.**
 
 * Reason: One of its dependencies, `HelpWindow.html` in `src/main/resources/docs` is missing.
@@ -841,22 +884,22 @@ e.g. `seedu.address.logic.LogicManagerTest`
 
 == Dev Ops
 
-=== Build Automation
+=== Build automation
 
 See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
 
-=== Continuous Integration
+=== Continuous integration
 
 We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
 
-=== Coverage Reporting
+=== Coverage reporting
 
 We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
 
-=== Documentation Previews
+=== Documentation previews
 When a pull request has changed asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
 
-=== Making a Release
+=== Making a release
 
 Here are the steps to create a new release.
 
@@ -865,7 +908,7 @@ Here are the steps to create a new release.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
-=== Managing Dependencies
+=== Managing dependencies
 
 A project often depends on third-party libraries. For example, Bookshelf depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
 
@@ -887,7 +930,10 @@ A project often depends on third-party libraries. For example, Bookshelf depends
 
 *Value proposition*: manage book reviews faster than a typical mouse/GUI driven app
 
+
 [appendix]
+// tag::userStories[]
+
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -921,7 +967,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |user |sort |sort the book list in specified order
 |=======================================================================
-
+// end::userStories[]
 
 [appendix]
 == Use Cases
@@ -979,7 +1025,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 //end::manualtesting[]
 
-=== Launch and Shutdown
+=== Launch and shutdown
 
 . Initial launch
 
@@ -993,6 +1039,26 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and the location is retained.
 
+=== Adding a book
+
+. Adding a book to an empty bookshelf.
+
+.. Prerequisites: Clear the bookshelf using `clear` command. The bookshelf shall be empty after the command execution.
+.. Test case: `addBook n/Alice in Wonderland n/multiple name a/Lewis Carroll m/5 t/fantasy t/fairy tale` +
+   Expected: No book is added. Error details are shown in the status message. Status bar remains the same.
+.. Test case: `addBook n/Alice in Wonderland n/multiple name a/Lewis Carroll m/5 t/fantasy t/fairy tale` +
+   Expected: Adds a book named Alice in Wonderland to the record. The book is written by Lewis Carroll, rated 5 stars, and labeled with tags ‘fantasy’ and ‘fairy tale’.
+
+=== Editing a book
+
+. Editing an existing book in the bookshelf.
+
+.. Prerequisites: At least one book exists in the bookshelf, and no book in the bookshelf is named `test`.
+.. Test case: `editBook 1 n/test a/some author t/some tag` +
+   Expected: Change the name, author, tag of the first book to test, some author, some tag.
+.. Test case: `editBook 1 t/` +
+   Expected: Clear all the existing tags of the first book in the result list.
+
 === Deleting a book
 
 . Deleting a book while all books are listed
@@ -1004,6 +1070,30 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: No book is deleted. Error details are shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `deleteBook` +
    Expected: Similar to previous.
+
+=== Listing books in the bookshelf
+
+. Search and display the books in the bookshelf
+.. Prerequisites: The following test cases work as described only when you haven't deleted or modified _Madame Bovary_ and _Pride and Prejudice_ in the bookshelf. If you have, please only use the following test cases as examples and generate your own test cases accordingly.
+
+.. Test case: `listBook` +
+   Expected: All books in the bookshelf are shown in the leftmost column
+.. Test case: `listBook n/Madame` +
+   Expected: _Madame Bovary_ should de displayed in the left column. Any other book whose name contains _Madame_ will also be displayed.
+.. Test case: `listBook n/Madame n/Madame` +
+   Expected: Repeated keywords are acceptable. _Madame Bovary_ should de displayed in the left column. Any other book whose name contains _Madame_ will also be displayed.
+.. Test case: `listBook n/Madame n/Bovary` +
+   Expected: _Madame Bovary_ and any other books contain _Madame_ or _Bovary_ will be displayed.
+.. Test case: `listBook n/Madame n/Pride m/6 m/8` +
+   The book _Madame Bovary_ and _Pride and Prejudice_ will be displayed. Some other books will also be displayed according to what you've added into the bookshelf. For example, if you've added _Madame Butterfly_ with a rating 6 into the bookshelf, it will also be displayed. But if you added _Madame Serpent_ with rating 7 into the bookshelf, it will not be displayed as it does not match 'at least one criteria for very dimensions'.
+.. Some incorrect listBook commands to try
+... `listBook n/Madame Bovary` +
+    Keyword given is not a single word. Error isshown in the status message.
+... `listBook n/Madame c/nonsense` +
+    Prefix `c/` is not recognized, so `Madame c/nonsense` will be regarded as a whole keyword for book name. Since whitespace and '/' are not allowed for keywords, the input is invalid. Error is shown in the status message.
+... `listBook m/12` +
+    12 is not a valid range for the rating. Error is shown in the status message.
+// tag::mtsortBook[]
 
 === Sorting the booklist
 
@@ -1017,11 +1107,13 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `SortBook st/rating st/author o2/des` +
    Expected: The booklist will be sorted in ascending order, if they are having the same rating then it will be sorted in descending order of author `.
 .. Some incorrect sort commands to try:
+
 ... `sortBook` +
    Error message: Sorting type is not provided.
 ... `sortBook st/name o1/des o2/asc` +
    Error message: Second sorting type does not exist.
 
+// end::mtsortBook[]
 === Saving data
 
 . Dealing with missing/corrupted data files

@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BOOKS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_REVIEWS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -100,6 +101,7 @@ public class EditBookCommand extends Command {
 
         model.setBook(bookToEdit, editBookedBook);
         model.updateFilteredBookList(PREDICATE_SHOW_ALL_BOOKS);
+        model.updateFilteredReviewList(PREDICATE_SHOW_ALL_REVIEWS);
         model.commitBookShelf();
         return new CommandResult(String.format(MESSAGE_EDIT_BOOK_SUCCESS, editBookedBook));
     }

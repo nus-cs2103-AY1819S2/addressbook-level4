@@ -69,19 +69,20 @@ E.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Adds a book to the Bookshelf +
 Format: `addBook n/BOOKNAME a/author m/RATING [t/TAG]…​`
 
+****
+* The book name is case sensitive
+* Two books with same book name are considered the same book
+* Trying to add a book which is already present on the bookshelf will result in duplicate book error, and the addBook command will fail
+* Take a look at <<Command-Format>> to see the valid format for each parameter
+****
+
 Examples:
 
 * `addBook n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale` +
 Adds a book named Alice in Wonderland to the record. The book is written by Lewis Carroll, rated 5 stars, and labeled with tags ‘fantasy’ and ‘fairy tale’.
-* `addBook n/Structure and Interpretation of Computer Programs a/Jerry Sussman m/4 t/textbook` +
-Adds a book named Structure and Interpretation of Computer Programs to the record. The book is written by Jerry Sussman, rated 4 stars, and labeled with tag ‘textbook’.
 
-****
-* The book name is case sensitive
-* Two books with same book name are considered the same book
-* Trying to add a book which is already present in the bookshelf will result in duplicate book error, and the addBook command will fail
-* Take a look at <<Command-Format>> to see the valid format for each parameter
-****
+image::AddBookDisplay.png[width="800"]
+Figure 1. Result display after successful execution of `addBook n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale`.
 
 ==== Editing book entry : `editBook`
 
@@ -90,7 +91,7 @@ Format: `editBook INDEX [n/BOOKNAME] [a/AUTHOR] [m/RATING] [t/TAG]...`
 
 ****
 * Edit the book at the specified INDEX. The index refers to the index number shown in the displayed Bookshelf. The index must be a positive integer 1, 2, 3, …​
-* Edit a book with a new name that  already exists in the bookshelf is not allowed
+* Edit a book with a new name that  already exists on the bookshelf is not allowed
 * At least one of the optional fields must be provided.
 * Take a look at <<Command Format>> to see the valid format for each parameter
 * Existing values will be updated to the input values
@@ -102,6 +103,13 @@ Examples:
 
 * `editBook 1 n/Alice in Wonderland a/some author t/some tag` +
 Change the name, author, tag of the first book to Alice in Wonderland, some author, some tag.
+
+image::EditBookBefore.png[width="800"]
+Figure 2.1 Result display before the the execution of `editBook 1 n/Alice in Wonderland a/some author t/some tag`.
+
+image::EditBookAfter.png[width="800"]
+Figure 2.2 Result display after the the execution of `editBook 1 n/Alice in Wonderland a/some author t/some tag`.
+
 * `editBook 2 t/` +
 Clear all the existing tags of the second book in the result list.
 
@@ -122,6 +130,12 @@ Examples:
 * `listBook n/Computer Security` +
 `deleteBook 1` +
 Deletes the 1st book in the results of the listBook command.
+
+image::DeleteBookBefore.png[width="800"]
+Figure 3.1 Result display before the the execution of `deleteBook 1`.
+
+image::DeleteBookAfter.png[width="800"]
+Figure 3.1 Result display after the the execution of `deleteBook 1`.
 // end::book[]
 
 // tag::list[]
@@ -131,37 +145,38 @@ Shows a list of all book entries, with the specified keywords of bookname, autho
 Format: `listBook [n/BOOKNAME] [a/AUTHOR] [t/TAG] [m/RATING]`
 
 ****
-* If no search criteria are given, the command will give the complete list of the books
-* Since the keyword matching search is done in a word-by-word manner, keywords should be words, not strings with white space in the middle. Though keywords with white space in between will not be rejected as invalid input, they will fail to return the searching result you are looking for. A following example will explain this constraint.
-* Prefixes should be provided for every keyword. For example, `n/Madame Ham` will not be recognized as two separate book name keywords 'Madame' and 'Ham'. but will be treated as a whole.
+* If no parameters are given, the command will give the complete list of all the books
+* Keywords should be single word, or will be rejected as an invalid input.
+* Keywords for every type should comply with the constraint enforced for this type.
+* Prefixes should be provided for every keyword. For example, `n/Madame Ham` will not be recognized as two separate book name keywords 'Madame' and 'Ham', but will be read as a whole.
 * The search is case insensitive. e.g `hans` will match `Hans`
-* There are no limits to the number of keywords of one type.
+* There are no limits of the number of keywords of one type.
 * The order of the keywords does not matter. e.g. `Alice Wonderland` will match `Wonderland Alice`
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Only books match at least one criteria for all kinds will be returned. For example, if two book name keywords and two tag keywords are provided, book that matches at least one name keyword and at least one tag keyword will be displayed. Books contain only one name keyword provided and no tag keyword provided will not be selected.
 * For book name searching, books matching at least one keyword will be returned. e.g. `Alice` will return `Alice in Wonderland`, `the Westminster Alice`
 * For author name searching, books whose author name matching at least one keyword will be returned. e.g. `James` will return books whose author name is `Henry James`
-* For tag searching, books containing at least one tag will be returned. e.g. `computer` will return `Computer Organisation`, `Computer Networks`
-* For rating search, books whose rating are included will be returned.
+* For tag searching, books containing at least one tag given will be returned. e.g. `computer` will return `Computer Organisation`, `Computer Networks`
+* For rating search, books whose rating is included will be returned.
 ****
 
 Examples:
 
 * `listBook t/textbook m/5` +
-Books with the rating `5` or the tag `textbook` will be displayed.
+Books with the rating _5_ or the tag _textbook_ will be displayed.
 * `listBook n/CS2104T t/textbook` +
-Books whose name contains the keyword `CS2104T` or tags include `textbook` will be displayed.
+Books whose name contains the keyword _CS2104T_ or tags include _textbook_ will be displayed.
 * `listBook m/5 m/6` +
-Books whose rating is 5 or 6 wil be displayed.
-* `listBook n/Madame n/Bovary` +
-The book `Madame Bovary` and `Madame Butterfly` will be displayed.
-* `listBook n/Madame Bovary` +
-The book Madame Bovary will not be displayed. As the input `Madame Bovary` will be considered as a single word, neither `Madame` nor `Bovary` equals to the `Madame Bovary`.
+Books whose rating is _5_ or _6_ wil be displayed.
+* `listBook n/Madame n/Prejudice m/6 m/8` +
+_Madame Bovary_ and _Pride and Prejudice_ will be displayed
+image:ListBookScreenShot.png[width="800"]
 
 // end::list[]
 
+// tag::sortBook[]
 ==== Sort books command : `sortBook`
-
+image::sortBook.png[width="790"]
 sort booklist in specify order. +
 Format: `sortBook st/TYPE... [o/ORDER] [o1/ORDER] [o2/ORDER] [o3/ORDER]`
 
@@ -185,6 +200,7 @@ sort bookList by the rating of the book in descending order and if they having t
 sort bookList by the author in descending order and if they having the same rating it will sort them by rating in des order. (o/des overwrite o2/asc)
 * `sortBook st/rating st/author st/name o1/des o3/asc`
 sort bookList by rating in descending order and since the o2 order is not specified, if the same rating it will consider author as ascending order.
+// end::sortBook[]
 
 // tag::reviews[]
 === Review Commands
@@ -318,6 +334,8 @@ Examples:
 `redo` +
 The `redo` command fails as there are no `undo` commands executed previously.
 
+// end::undoredo[]
+
 // tag::summary[]
 
 ==== Providing statistics of all the books read : `summary`
@@ -327,9 +345,9 @@ Format: `summary`
 
 ****
 * The summary will list out how many books you've read.
-* The summary will also list out authors appear more than once in your bookshelf.
+* The summary will also list out authors appear more than once on your bookshelf.
 * The summary will also list out books of the highest score.
-* The summary will also list out tags appear more than once in your bookshelf.
+* The summary will also list out tags appear more than once on your bookshelf.
 ****
 
 Examples:

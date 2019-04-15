@@ -53,10 +53,10 @@ public class BookUtil {
     public static String getListBookCommand(Book book) {
         StringBuilder sb = new StringBuilder();
         sb.append(ListBookCommand.COMMAND_WORD + " ");
-        sb.append(PREFIX_NAME + book.getBookName().fullName + " ");
-        sb.append(PREFIX_AUTHOR + book.getAuthor().fullName + " ");
+        sb.append(PREFIX_NAME + book.getBookName().fullName.split("\\s+")[0] + " ");
+        sb.append(PREFIX_AUTHOR + book.getAuthor().fullName.split("\\s+")[0] + " ");
         book.getTags().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.tagName + " "));
+            s -> sb.append(PREFIX_TAG + s.tagName.split("\\s+")[0] + " "));
         sb.append(PREFIX_RATING + book.getRating().value + " ");
         return sb.toString();
     }

@@ -428,6 +428,7 @@ PDF to the application.
 
 The implementation of the *MergeCommand* execution can be summarised in the following activity diagram:
 
+.Merge Command Activity Diagram
 image::MergeCommandActivityDiagram.png[width="600"]
 
 . The provided indices are checked to be valid i.e. referring to a specific Pdf in the PdfBook.
@@ -524,7 +525,7 @@ object. Upon parsing, the parser then creates a new *DeleteCommand* that will ex
 user's input.
 
 Step 3: The *DeleteCommand* is then executed. Successful execution will return a
-*CommandResult* indicating that the deadline has been set.
+*CommandResult* indicating that the changes has been made.
 
 .Delete Command Activity Diagram
 image::DeleteCommandActivityDiagram.png[width="600"]
@@ -564,43 +565,50 @@ This feature allows you to set or remove deadlines of the file specified by you 
 The deadlines will be recorded and displayed both in the list of files as well as in the information panel
 for each individual file.
 
-The `deadline` feature has the following syntax:
-
-[.big]#`deadline <INDEX> <ACTION>`#
-
-* `<INDEX>` refers to the index of the file in the list that you wish to perform the `action` on.
-* `<ACTION>` refers to the type of action that you wish to perform. There are 3 actions that you can perform
-** `date/<DATE>`
-*** `date/` refers to command immediately following after this prefix is a date
-*** `<DATE>` must be of `dd-mm-yyyy` format (E.g. 15-03-2019)
-** `done` assigns the file a *_DONE_* status
-** `remove` assigns the file a *_REMOVE_* status
-
-[NOTE]
-The index value can be referenced from the list in the main application, or from the
-result of the `Filter`, `Find` or `List` feature.
-
-==== Feature Breakdown
-Illustrated below is a sample usage scenario that provides a clear view to the inner
-workings of the `deadline` feature.
-
-Step 1: From the main interface, the user chooses a file that they wish to set a deadline,
-enters the `deadline` command into the CLI Interface, following the outlined Syntax mentioned.
-
-Step 2: Upon hitting enter to execute the command, the *DeadlineCommandParser* parses
-the input into relevant objects that are required to be executed by the *DeadlineCommand*
-object. Upon parsing, the parser then creates a new *DeadlineCommand* that will execute the
-user's input.
-
-Step 3: The *DeadlineCommand* is then executed. Successful execution will return a
-*CommandResult* indicating that the deadline has been set.
+The implementation of the *DeadlineCommand* execution can be summarised in the following activity diagram:
 
 .Deadline Command Activity Diagram
 image::DeadlineCommandActivityDiagram.png[width="600"]
 
+. The provided index is checked to be valid i.e. referring to a specific Pdf in the PdfBook.
+.. If the index is invalid, a *CommandException* will be thrown and the execution will be ended.
+. The required Pdf is retrieved from the PdfBook based on the index.
+. A duplicate Pdf of the required Pdf is created.
+. For cases of assigning a new deadline,
+.. The duplicate Pdf is assigned with new deadline attributes.
+. For cases of setting an existing deadline as done or removed,
+.. The existing deadline from the retrieved Pdf is tested to be a valid deadline.
+... If the existing deadline is a valid deadline, the duplicate Pdf is assigned with new deadline attributes.
+... If the existing deadline is not a valid deadline, a *CommandException* will be thrown and the execution will be ended.
+. The duplicate Pdf with new deadline attributes is recorded in the Model and the changes are committed.
+. *CommandResult* is returned upon successful execution.
+
+This sequence diagram demonstrates the interactions involved from start of *DeadlineCommandParser* to end of *DeadlineCommand* execution:
+
+.Deadline Command Sequence Diagram
+image::DeadlineCommandSequenceDiagram.png[width="600"]
+
 [TIP]
 After a deadline has been added to the PDF file specified, the date will be color coded according to days
 remaining from the current day until the deadline date.
+
+==== Considerations
+
+There are some discrepancy for the representation of a file without a deadline in the Jackson adapted storage and the Pdf book model.
+In the Pdf book model, files without a deadline will be assigned with the default deadline whereas the date is set to
+https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html[_LocalDate.MIN_].
+In the Jackson adapted storage, we simply set the deadline attribute of a file without a deadline as empty.
+In our previous implementation, we used to assign the default date LocalDate.MIN to the deadline attribute in the Jackson adapted Storage
+as well, however this might confuse the users if they read the _pdfplusplus.json_ and find out the non-existence deadline.
+Besides, this implementation also makes the displaying process of deadlines through the UI tedious.
+
+In order to comply with the two distinct representation of deadline model, we implemented a default deadline `toString` method that
+prints the Pdf book model version, and a modified `toJsonString` that prints the Jackson adapted storage version of deadline.
+
+==== Future Implementation
+
+Our current color coded deadlines is predefined based on the due date from the current date. Suggested improvement for this area
+would be providing user-defined color codes for a better user experience of our application.
 
 // end::deadline[]
 

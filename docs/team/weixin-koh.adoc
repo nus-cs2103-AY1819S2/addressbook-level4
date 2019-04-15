@@ -17,12 +17,6 @@ Through our *Software Engineering* module, CS2103T, my team and I chose to morph
 
 In this project, I was tasked with enhancing the user's experience by enabling them to display the average ratings from their reviews for each restaurant and sort the restaurants according to these ratings.
 
-The main features of *_The Food Diary_* include:
-
-* Adding, editing and deleting restaurants and reviews
-* Getting average ratings for restaurants based on personal reviews
-* Get recommendations to new restaurants nearby
-
 == Summary of Contributions
 
 The following shows a summary of the contributions I made to this team project.
@@ -48,7 +42,7 @@ The implementation was also challenging as it involved multiple components, name
 *** Changed logo and title of the application to *_The Food Diary_*. (https://github.com/CS2103-AY1819S2-W17-1/main/pull/74[#74], https://github.com/CS2103-AY1819S2-W17-1/main/pull/154[#154])
 ** *Documentation*:
 *** Did cosmetic tweaks to existing contents of the User Guide and Developer Guide (https://github.com/CS2103-AY1819S2-W17-1/main/pull/83[#83], https://github.com/CS2103-AY1819S2-W17-1/main/pull/77[#77], https://github.com/CS2103-AY1819S2-W17-1/main/pull/154[#154])
-**** Examples of my design: image:userguide.png[width="150"] image:Note.png[width="70"]
+**** Examples of my design: image:userguide.png[width="125"] image:Note.png[width="70"]
 ** *Community*:
 *** PRs reviewed (with non-trivial review comments) (https://github.com/CS2103-AY1819S2-W17-1/main/pull/95[#95], https://github.com/CS2103-AY1819S2-W17-1/main/pull/102[#102])
 *** Reported bugs and suggestions for other teams in the class (https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues?utf8=%E2%9C%93&q=author%3Aweixin-koh+[Issue Tracker])

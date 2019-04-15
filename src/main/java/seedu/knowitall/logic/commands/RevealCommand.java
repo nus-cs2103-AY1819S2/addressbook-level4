@@ -37,7 +37,6 @@ public class RevealCommand extends Command {
         Card scoredCard = model.createScoredCard(cardToMark, isAttemptCorrect);
         model.setCard(cardToMark, scoredCard);
         model.updateFilteredCard(PREDICATE_SHOW_ALL_CARDS);
-        model.commitActiveCardFolder();
 
         return new CommandResult(MESSAGE_REVEAL_SUCCESS, CommandResult.Type.ANSWER_REVEAL);
     }

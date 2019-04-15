@@ -70,8 +70,8 @@ image::startUI.png[]
 
 {bl}
 
-// tag::userinterface1[]
 <<<
+// tag::userinterface1[]
 [.text-justify]
 == Graphical User Interface Introduction
 {bl}
@@ -116,8 +116,10 @@ The menu bar can be used to:
 {bl}
 // tag::userinterface3[]
 === Records List Panel
+// end::userinterface3[]
 {bl}
 
+// tag::userinterface4[]
 .Record List Panel: Shows a list of your expense records
 image::Record_List_Panel.png[width="200"]
 {bl}
@@ -133,7 +135,7 @@ use the command `[fuchsia]#list#`.
 Each record is tagged with an *index number* before the record name.
 The index is used in commands such as `[fuchsia]#delete#`, `[fuchsia]#edit#` and `[fuchsia]#select#`.
 
-// end::userinterface3[]
+// end::userinterface4[]
 {bl}
 
 === Budget Panel
@@ -324,6 +326,7 @@ budgets are going to exceed it.
 [NOTE]
 ====
 * Amount entered cannot be larger than 100,000,000.
+* Category name can only be one word (no spaces allowed)
 * If you provide multiple categories ([navy]#e.g.# `[fuchsia]#allocate $/50.00 c/Food c/Clothes#`),
 only the last category you provided will be taken (in the previous e.g., the command will
 set budget for `[fuchsia]#Clothes#` category. Your last category must be of the correct format (see below).
@@ -940,6 +943,9 @@ It also allows users to easily perceive whether their spending is within their b
 Instead of using the `show` command to list the category budgets in the Result Display, _In-Credit-Ble_'s
 `allocate` command will immediately display the category budgets allocated on another Panel known as *CategoryBudget
 Panel* in v2.0 of _In-Credit-Ble_.
+
+We aim to include icons for the categories which will fill up in colour from the bottom according to how close
+the current spending is to the allocated budget in the category.
 
 // end::upcomingFeatures[]
 

@@ -1261,11 +1261,11 @@ Use case resumes at step 1.
 
 
 [discrete]
-=== Use case: Add New Medical History to Patient
+=== Use case: Add New Medical History
 
 *MSS*
 
-1.  User add a new medical history entry to a patient ID.
+1.  User adds a new medical history entry to a patient ID.
 2.  docX shows the details of the new medical history entry added.
 +
 Use case ends.

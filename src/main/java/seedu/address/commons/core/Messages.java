@@ -10,4 +10,6 @@ public class Messages {
 
     public static final String MESSAGE_BODY_LENGTH_TOO_LONG = "The battleship cannot fit into the space provided.";
 
+    private Messages() {}
+
 }

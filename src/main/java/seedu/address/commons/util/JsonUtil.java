@@ -27,6 +27,7 @@ import seedu.address.commons.exceptions.DataConversionException;
  * Converts a Java object instance to JSON and vice versa
  */
 public class JsonUtil {
+    private JsonUtil() {}
 
     private static final Logger logger = LogsCenter.getLogger(JsonUtil.class);
 

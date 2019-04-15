@@ -8,17 +8,18 @@ import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
-import seedu.address.ui.StatusBarFooter;
+import seedu.hms.ui.StatusBarFooter;
 
 /**
  * This rule makes the time stamp in the status bar predictable during a test.
  * Before the test starts, the rule replaces the clock in the status bar with a fixed clock.
  * At the end of the test, the rule restores the original clock.
+ *
  * @see Clock#fixed(Instant, ZoneId)
  */
 public class ClockRule implements TestRule {
-    private Clock injectedClock;
     private final Clock originalClock = StatusBarFooter.getClock();
+    private Clock injectedClock;
 
     protected void before() {
         setInjectedClockToCurrentTime();

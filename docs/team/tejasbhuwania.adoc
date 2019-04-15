@@ -1,0 +1,161 @@
+= Tejas Bhuwania - Project Portfolio
+:site-section: AboutUs
+:toclevels: 4
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+image:tejas2805.png[width="150", align="right"]
+
+
+== PROJECT: HMS+
+
+This project portfolio documents my individual contributions to the HMS+ project. It includes an overview of the project,
+ the summary of the features that I have implemented and my contributions to other features of the project.
+Some extracts of my documentation from the HMS+ User Guide and Developer Guide have also been included.
+
+== Project Overview
+
+The purpose of the project was to prepare us for the real world. The project was structured in a way that it resembled an intermediate stage of a non-trivial real-life software project. We had to optimize or morph an already existing AddressBook into a different product. Through this, we learned how to conceptualize and implement enhancements to a given product so that it could be used by future developers.
+
+== Application Overview
+
+HMS+ is a computer application that targets all the hotels around the world. It aims to make the life of the hotel management staff easy by giving them a single, integrated, and highly customizable hotel management system so that the tedious process of running a hotel can be made easier and more effective.
+
+Since HMS+ is for those who prefer using the keyboard over a mouse, it uses a Command Line Interface (CLI) for input. However, all the output is displayed in a traditional Graphical User Interface (GUI) - which is just a computer jargon for a display that includes panes, menus and message boxes. This has been done to keep the user engaged.
+
+*Main Features* :
+
+* Simple customer database management.
+* Effortless service booking and room reservation management.
+* Easy bill management.
+* Highly customizable services and room types.
+
+== Summary of contributions
+
+This section encompasses an overview of all the  enhancements I implemented in HMS+. I have encapsulated in a nutshell how
+each of these augmentations adds value to the overall system in order to enable it to run in a more efficient manner.
+
+* *Major enhancement*: This enhancement added the functionality to generate bills for the customers by the hotel management
+staff.
+** [underline]#What it does#: It allows the hotel staff to generate booking bills, reservation bills and the total bill for the customers.
+** [underline]#Justification#: Generally, hotels give a large number of bills in quantity to the customer to pay. This makes it very
+confusing for the customer to understand and pay the bills. This is also a very tedious task for the hotel management staff
+as they have to keep track of all customer spendings at the hotel at all times and make sure everything is accounted for.
+The `generate-bill` commands implemented do all this in one go making the lives of the customers and the hotel management staff
+easier.
+** [underline]#Highlights#: This enhancement is an end-to-end feature that allows the hotel staff to generate bills for a specific customer, a specific booking or a specific reservation. I had to make sure that I use the already implemented reservation and booking models while creating the newer bill model. I also had to make sure that this model has access to all bookings and reservations simultaneously so that it could generate the bill based on the command entered by the user.
+** [underline]#Credits#: I mainly used the concepts from the existing codebase and those that were taught in CS2103T to implement my features.
+** [underline]#Related Files#:
+*** https://github.com/cs2103-ay1819s2-t12-1/main/tree/master/src/main/java/seedu/hms/model/bill[Bill Model]
+
+* *Minor enhancements*:
+1. [underline]#Find Reservation Command#: This enhancement added the functionality that the hotel management staff can easily
+find a specific room reservation.
+** What it does: It allows the hotel staff to find a specific room reservation done by the customer based on the
+customer's Identification Number or Room Type or Dates of Reservation or all of the above.
+** Justification: Whenever the hotel staff needs to edit or delete a specific reservation, he or she needs to go through the entire reservation list to find that specific booking. This is a tedious process. Through the `FindReservationCommand`, the hotel staff can find the specific reservation in one go thereby reducing his or her workload.
+** Highlights: This enhancement is an end-to-end feature that allows the hotel staff to find specific bookings based on three filters - customer’s Identification number, the Room Type and the Dates of Reservation. While implementing this I had to ensure that I use the already placed prefixes so that it does not become confusing for the staff to handle too many prefixes and that the command is easy enough for them to use.
+** Relevant Pull Requests: https://github.com/cs2103-ay1819s2-t12-1/main/pull/147[#147] and https://github.com/cs2103-ay1819s2-t12-1/main/pull/165[#165]
+
+* *Code contributed*: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=Tej&sort=totalCommits&since=2019-02-10&until=2019-04-14&timeframe=day&reverse=true&repoSort=true[RepoSense]
+
+* *Other contributions*:
+
+** Project management on Github:
+*** Created necessary labels.
+*** Created a separate issue for all the user stories with labels, milestones and assignees(Issues https://github.com/cs2103-ay1819s2-t12-1/main/issues/82[#82] to https://github.com/cs2103-ay1819s2-t12-1/main/issues/110[#110]).
+*** Managed the jar release `of v1.3` for Dry Run of CS2103 Practical Exam.
+** Enhancements to existing features:
+*** Made the Address field of a customer optional for the user to input (Pull request  https://github.com/cs2103-ay1819s2-t12-1/main/pull/132[#132]).
+*** Made the UI more understandable for a first time user (Pull Requests https://github.com/cs2103-ay1819s2-t12-1/main/pull/145[#145], https://github.com/cs2103-ay1819s2-t12-1/main/pull/146[#146], and https://github.com/cs2103-ay1819s2-t12-1/main/pull/233[#233]).
+*** Wrote additional tests for existing features and features implemented by team-mates to increase coverage and
+ bring it above 70% (Pull Requests https://github.com/cs2103-ay1819s2-t12-1/main/pull/123[#123], https://github.com/cs2103-ay1819s2-t12-1/main/pull/126[#126], https://github.com/cs2103-ay1819s2-t12-1/main/pull/212[#212], https://github.com/cs2103-ay1819s2-t12-1/main/pull/219[#219], https://github.com/cs2103-ay1819s2-t12-1/main/pull/230[#230]
+ and https://github.com/cs2103-ay1819s2-t12-1/main/pull/234[#234]).
+*** Added aliases for each command so that the user can type a shorter version of the same command (Pull Request https://github.com/cs2103-ay1819s2-t12-1/main/pull/2[#2]).
+** Documentation:
+*** Kept on updating the user guide based on the features getting implemented in the application with relevant tips, notes
+and cautions (Pull Requests https://github.com/cs2103-ay1819s2-t12-1/main/pull/1/[#1], https://github.com/cs2103-ay1819s2-t12-1/main/pull/33/[#33], https://github.com/cs2103-ay1819s2-t12-1/main/pull/35/[#35],
+https://github.com/cs2103-ay1819s2-t12-1/main/pull/43/[#43], https://github.com/cs2103-ay1819s2-t12-1/main/pull/94/[#94], https://github.com/cs2103-ay1819s2-t12-1/main/pull/96/[#96],
+https://github.com/cs2103-ay1819s2-t12-1/main/pull/130/[#130], https://github.com/cs2103-ay1819s2-t12-1/main/pull/167/[#167], and
+https://github.com/cs2103-ay1819s2-t12-1/main/pull/235[#235]).
+*** Added Prefix list to the user guide so that the user can easily refer to the prefixes in case required. Also added
+color-coding to the user guide so that the user can easily understand the difference between the command word, the command prefix and the command parameters.
+(Pull Requests https://github.com/cs2103-ay1819s2-t12-1/main/pull/137[#137]).
+*** Added all user stories to developer guide (Pull Requests https://github.com/cs2103-ay1819s2-t12-1/main/pull/95/#[#95]).
+*** Added Glossary, Product Scope, Use Cases and Instructions for Manual Testing so that new developers coming to work on the project can easily understand what the project is about and how it works, so it becomes easier for them to do implement new features (Pull Request: https://github.com/cs2103-ay1819s2-t12-1/main/pull/238[#238]
+*** Updated the diagrams of the Ui Component and Storage Component to make them represent the current stage of the application.
+(Pull Request https://github.com/cs2103-ay1819s2-t12-1/main/pull/227/[#227]).
+** Community:
+*** Approved and reviewed several PRs with non-trivial comments (Pull Requests https://github.com/cs2103-ay1819s2-t12-1/main/pull/22[#22]
+https://github.com/cs2103-ay1819s2-t12-1/main/pull/26[#26], https://github.com/cs2103-ay1819s2-t12-1/main/pull/173[#173], https://github.com/cs2103-ay1819s2-t12-1/main/pull/222[#222] and https://github.com/cs2103-ay1819s2-t12-1/main/pull/225[#225]).
+*** Reported bugs along with suggestions for other teams in the class (Issues https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/66[#1], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/403[#2], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/664[#3], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/842[#4], and https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/962[#5]).
+** Tools:
+*** Set Up Asciidoctor. This helps in converting asciidocs to html files and viewing how will the file look as a Web page.
+*** Set Up Netlify.
+
+== Contributions to the User Guide
+
+|===
+|I have structured the user guide in a way such that the users of the system can work through it with ease. My purpose
+ was to explicitly instruct them regarding the process and functionality of the app with relevant examples
+ and respective screenshots of the software.
+|===
+
+=== Major Enhancement: Generate Bills for Customers
+
+This section contains an extract from the User Guide that shows how the users can use the `generate-bill` commands and help
+them understand the commands.
+
+[lime]#Start of Extract (from User Guide)#
+
+include::../UserGuide.adoc[tag=generation-bill-commands4]
+
+[lime]#End of Extract (from User Guide)#
+
+=== Minor Enhancement: Find Specific Room Reservation
+
+This section contains an extract from the User Guide that shows how I helped the users understand how the `FindReservationCommand`
+works and how to use it.
+
+[lime]#Start of Extract (from User Guide)#
+
+include::../UserGuide.adoc[tag=find-reservation]
+include::../UserGuide.adoc[tag=find-reservation2]
+
+[lime]#End of Extract (from User Guide)#
+
+== Contributions to the Developer Guide
+
+|===
+| The developer guide has been written by me, keeping in mind the information required by new developers, who would work on this app hereafter. I have stated the data needed by them to improve the system by extending the existing functions
+|===
+
+=== Major Enhancement: Generate Bills for Customers
+
+This section contains an extract from the Developer Guide that showcases how the `generate-bill` commands have been implemented by me
+so that a new developer can easily understand its implementation and accordingly extend its features.
+
+[lime]#Start of Extract (from Developer Guide)#
+
+include::../DeveloperGuide.adoc[tag=bill-generation]
+
+[lime]#End of Extract (from Developer Guide)#
+
+=== Minor Enhancement: Find Specific Room Reservation
+
+This section contains an extract from the Developer Guide that will help new developers understand how the `FindReservationCommand`
+has been implemented and make it easier for them to extend its features if they ever require.
+
+[lime]#Start of Extract (from Developer Guide)#
+
+include::../DeveloperGuide.adoc[tag=find-reservation]
+
+[lime]#End of Extract (from Developer Guide)#
+
+== Achievements and Learnings
+
+* Learned how to work on a large code base with more 10000 lines of code.
+* Learned how to effectively work in a team when everyone is working on the same project.
+
+
+

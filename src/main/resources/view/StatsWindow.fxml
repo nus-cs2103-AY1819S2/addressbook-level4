@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.geometry.Insets?>
+<fx:root xmlns:fx="http://javafx.com/fxml/1" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8"
+         title="Statistics" maximized="false">
+    <scene>
+        <Scene>
+            <HBox>
+                <padding>
+                    <Insets top="5" left="10" bottom="10" right="10"></Insets>
+                </padding>
+                <VBox minWidth="400">
+                    <Label fx:id="statsTextLabel" style="-fx-font-size: 16px">Text Report</Label>
+                    <TextArea fx:id="statsTextArea" prefHeight="700" style="-fx-font-family: monospace"/>
+                </VBox>
+                <VBox minWidth="10"></VBox>
+                <VBox minWidth="400" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                    <Label fx:id="statsChartsLabel" style="-fx-font-size: 16px">Charts</Label>
+                    <ScrollPane fx:id="statsChartsPane" hbarPolicy="NEVER" fitToWidth="true" prefHeight="700"></ScrollPane>
+                </VBox>
+            </HBox>
+        </Scene>
+    </scene>
+</fx:root>
+

@@ -1,8 +1,8 @@
-= AddressBook Level 4 - Developer Guide
+= HMS+ - Developer Guide
 :site-section: DeveloperGuide
-:toc:
-:toc-title:
-:toc-placement: preamble
+:toc: left
+:toc-title: Contents
+:toclevels: 3
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -13,11 +13,21 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/cs2103-ay1819s2-t12-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T12-1`      Since: `Feb 2019`      Licence: `MIT`
+
+== Introduction
+
+HMS+ is a Hotel Management System software that act as a *single, highly customizable integrated system* to manage all aspects of a hotelier's requirements.
+This guide aims to help all developers *get familiar with the codebase* and teach them *how to build upon it.*
+
+There are *many ways* to contribute towards the *development of the software: coding, testing, improving the build process and tools or contributing to the documentation.*
+This guide provides information that will not only help you *get started as a contributor*, but that you'll find useful to refer to even if you are already an *experienced contributor.*
 
 == Setting up
+
+Follow the simple steps below to set up the software and get it running for your system.
 
 === Prerequisites
 
@@ -32,6 +42,7 @@ Windows developers are highly recommended to use JDK `9`.
 [NOTE]
 IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+You can install AsciiDoc for live rendering of documentation.
 
 
 === Setting up the project in your computer
@@ -47,14 +58,14 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+. Open link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+. Repeat this for the test folder as well (e.g. check link:{repoURL}/blob/master/src/test/java/seedu/hms/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
-. Run the `seedu.address.MainApp` and try a few commands
+. Run the `seedu.hms.MainApp` and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
@@ -71,16 +82,6 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 * For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
-
-==== Updating documentation to match your fork
-
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
-
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
-
-. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
-
-. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
 
 ==== Setting up CI
 
@@ -103,6 +104,7 @@ When you are ready to start coding,
 1. Get some sense of the overall design by reading <<Design-Architecture>>.
 2. Take a look at <<GetStartedProgramming>>.
 
+// tag:architecture[]
 == Design
 
 [[Design-Architecture]]
@@ -111,12 +113,14 @@ When you are ready to start coding,
 .Architecture Diagram
 image::Architecture.png[width="600"]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of the App. It is designed to illustrate and identify the high level architecture systems used to design and implement the HMS+ Application.
 
 [TIP]
-The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
+The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/blob/master/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+Given below is a quick overview of each component.
+
+`Main` has only one class called link:{repoURL}/blob/master/src/main/java/seedu/hms/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -138,153 +142,534 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[width="800"]
-
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete-customer 1`.
 
-.Component interactions for `delete 1` command
-image::SDforDeletePerson.png[width="800"]
+.Component interactions for `delete-customer 1` command
+image::LogicComponentSequenceDiagram.png[width="600"]
 
 The sections below give more details of each component.
 
 [[Design-Ui]]
 === UI component
 
+// tag::ui-diagram[]
 .Structure of the UI Component
-image::UiClassDiagram.png[width="800"]
+image::UiClassDiagram.png[width:"1200"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/Ui.java[`Ui.java`]
+// end::ui-diagram[]
+The UI consists of a `MainWindow` that is made up of parts e.g.`StatsWindow`, `HelpWindow`, `ResultDisplay`, `CustomerListPanel`, `StatusBarFooter` etc.
+All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+==== How the UI executes commands
+This is handled by function `executeCommand` defined in MainWindow.
+The function `executeCommand` will be passed in `CommandBox` as a functional interface `CommandExecutor` which is defined in `CommandBox`.
+When adding text in `CommandBox` and pressed `Enter`, the command text will be passed to `Logic` component and be parsed and executed.
 
-The `UI` component,
+==== How the UI updates itself
+This is handled by the link:{repoURL}/blob/master/src/main/java/seedu/hms/commons/util/InvalidationListenerManager.java[`InvalidationListenerManager`].
+It is basically a list of `InvalidationListeners` linked to three lists - `UniqueCustomerList`, `BookingList`, `ReservationList`, `RoomTypeList` and `ServiceTypeList`.
+A listener is added for each of the five lists when the `HotelManagementSystem` is set up using the
+link:https://github.com/cs2103-ay1819s2-t12-1/main/blob/90e374cb6e0dbafa2854fbc82792444434744a42/src/main/java/seedu/hms/model/HotelManagementSystem.java#L251[`addListener()`] method.
+Whenever a change is made to any of these five lists of the `HotelManagementSystem`, all the listeners are called
+using the link:https://github.com/cs2103-ay1819s2-t12-1/main/blob/90e374cb6e0dbafa2854fbc82792444434744a42/src/main/java/seedu/hms/model/HotelManagementSystem.java#L263[`indicateModified()`] method.
+Thus, the internal listeners when called update the UI automatically.
 
-* Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+===== How the UI automatically filter by selected service type
+This is handled by the listener for selected serviceType/roomType inside the booking/reservation list panel.
+If the selected one is changed, the booking/reservation list panel will run a find command so that the list will be updated accordingly.
+
+===== How the UI automatically switch tab
+The BookingAndReservationPanel and ServiceTypeAndRoomType panel are numbered as 1 and 2. And the tabs inside them are numbered accordingly also.
+To switch to a certain tab, we need to specify which tab in which panel we want to go. There are two listeners for the two panel.
+If the selected tab is changed, the panel will switch accordingly. The selected tab can be changed by click and switch command.
+The selected tab will also be changed accordingly if the command executed is a `ReservationCommand` or a `BookingCommand`.
 
 [[Design-Logic]]
 === Logic component
 
 [[fig-LogicClassDiagram]]
-.Structure of the Logic Component
-image::LogicClassDiagram.png[width="800"]
+.Class Diagram of the Logic Component
+image::LogicClassDiagram.png[width="600"]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/blob/master/src/main/java/seedu/hms/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+`Logic` uses the `HotelManagementSystemParser` class to parse the user command and invoke the
+relevant `{Command Name}Parser` class.
+This results in a `Command` object which is executed by the `LogicManager` using the
+`CustomerModel`,`BookingModel`, etc. based on the type of command.
+Therefore command execution can affect the `CustomerModel`,`BookingModel`, etc.
+(e.g. adding a customer / editing a booking). Given below is the structure of the command classes.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+.Structure of the Command classes
+image::CommandClassDiagram.png[width:"800"]
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `UI`.
+In addition, the `CommandResult` object can also instruct the User-Interface to perform certain actions, such as displaying help to the user.
+
+==== Statistics
+The statistics features are implemented as a part of the Logic component, since it gathers information from all the models.
+The `Stats` object is a singleton that controls all calculations and updating of the individual items of the statistics.
+The `StatsItem` objects represent individual items to be displayed, e.g. the most popular room types and service types are two different `StatsItem`.
+The `ShowStatsCommand` emits a message for the `MainWindow` to open up a new `StatsWindow` and update its content.
+
+===== `Stats`
+The `Stats` object takes charge of all aspects of the statistics feature by doing the following:
+
+- Maintains a reference to the HMS.
+- Maintains a list of `StatItem` to be calculated.
+- Maintains a list for items that needs to be shown.
+- Provides a way for the items to be exported to one text report, which would show up in the `StatsWindow`.
+- Provides a way to update everything that needs to be shown.
+
+The `Stats` object is designed in a modular way.
+If one wants to add a new `StatsItem`, they simply need to add a new instance of that `StatsItem` to the items list.
+Everything else will be taken care of, including calculating and displaying.
+
+===== `StatsItem`
+`StatsItem` objects are individual items to be computed, or, small fields in the reports.  The following information is stored in each `StatsItem`:
+
+- The title of the item is stored in a `String`.
+- The results of the stats are stored in a `Map<String, Long>`.
+- The way to calculate the stats should be defined in the `calcResults` function, which would return that `Map<String, Long>`.
+- A `longest` variable which contains the length of the longest string in the keys of the map. This is useful in formatting.
+
+The abstract class also provides a few utility functions for easier creation of new `StatItem`:
+- `count` which turns an observable list (the returned value from all models) to a map of counting, in a way defined by the function provided.
+- `updateLongest` which iterates through the list and updates the `longest` variable.
+- `sortAndFormat` whose name suggests what it does.
+
+Usually, the developer only needs to provide the observable list and the function `f` for `count`. That `f` should transform items of the observable list into strings.
+Then, `count` will iterate through the observable list, map each element into a string with `f`, and count how many times the strings have appeared.
+For example, in the `CountRoomTypes` item, the observable list is the reservation list, and `f` maps each reservation into a string of its room type.
+Many reservations can have the same room type, and then the result will be a `Map<String, Long>`, the strings of the room types being the key, and the number they appear being the value.
+
+===== `ShowStatsCommand`
+To implement the `ShowStatsCommand`, which needs to emit messages to the `MainWindow`, two new arguments for `CommandResult` are added.
+One is a boolean value for whether the stats window should show up or not, the other a list for what items to display.
+Apart from that, the static variable `maxIndex` is set by the `Stats` object, for what the `maxIndex` should be is not known until run time.
+
 
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
+image::ModelClassDiagram.png[width:"600"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+
+.Structure of the CustomerModel Component
+image::CustomerModelDiagram.png[width="200"]
+
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/hms/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Hotel Management System data.
+* exposes an unmodifiable `ObservableList<Customer/Booking/Reservation/RoomType/ServiceType>` that can be 'observed'
+  e.g. the UI can be bound to this list so that the UI automatically updates when the
+  data in the list change.
 * does not depend on any of the other three components.
+* The `Reservation/Booking/Customer models` serve as the API for the application to modify the
+  `Reservation/Booking/Customer data`.
+* The `Bill model` serves the API for the application to generate bills for the customer. It cannot modify data at all. It only has access to `ObservableList` of the remaining models.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can reference a `ServiceType` in `Booking`. This would allow the
+`Hotel Management System` to only require one `ServiceType` instance per unique `ServiceType`,
+ instead of each `Booking` needing their own `Service` object. +
+Another example is how we store a `Tag` list in `Hotel Management System`, which `Customer` can reference. This would allow `Hotel Management System` to only require one `Tag` object per unique `Tag`, instead of each `Customer` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
-image:ModelClassBetterOopDiagram.png[width="800"]
+image:ModelClassBetterOopDiagram.png[width="950"]
 
 [[Design-Storage]]
 === Storage component
 
+// tag::storage-diagram[]
 .Structure of the Storage Component
-image::StorageClassDiagram.png[width="800"]
+image::StorageClassDiagram.png[width="1200"]
+// end::storage-diagram[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/hms/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Hotel Management System data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.hms.commons` package.
+// end:architecture[]
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::new-model[]
+=== How to include a new model
+==== Current Implementation using service booking
+
+In general, when adding any new model and its related commands, you need to work on 3 components
+compulsorily - Logic, Model and Storage. The UI component is modified based on how you
+want the user to be able to interact with our newly added model.
+
+You will start by working on the model component. You must create a more specific model which
+implements the existing `Model` interface and create a manager for this model. This constitutes
+the API for our new model how the `Logic` component will execute the commands related to the model.
+For Booking, there is a `BookingModel` interface and a `BookingManager` class which
+keeps track of a booking list. An 'observable booking list' is bounded to the UI using
+listeners so that the UI can be updated as the list changes. While the interface is a means of exposing the
+API, the manager class links with the system and performs the actions. We also create the relevant class files
+to represent the model we are implementing. For example, for representing our list of reservations,
+we create relevant classes like `ReservationList`, `Reservation`, `DateRange`, `RoomType`, etc.\
+
+.Changes in the Model Structure
+image::ModelComparison.png[width="600"]
+
+Then you need to add the command files and parser files so that the application can parse commands
+related to the model and execute them. The commands have been separated for different models
+by adding an interface in the middle. This interface makes sure the correct model is used to execute
+those commands. For example, there is a `CustomerCommand` and a `BookingCommand` interface which
+implements the `Command` interface. Moreover the `CustomerCommand` interface specifies that it uses
+the `CustomerModel` to execute itself. Then each command (eg. AddBookingCommand, EditBookingCommand, etc.)
+implements the `BookingCommand` interface. This makes sure that only the booking manager can be used to
+execute these commands as well. You also need to add parser classes for each command you implement
+(eg. AddBookingCommandParser). These classes are invoked in the `HotelManagementSystemParser`
+to get back the `CommandResult` which is used by the UI.
+
+.The new command structure
+image::MainCommandStructure.png[width="600"]
+
+If the new model needs to be stored, then you also need to define JSON adapted classes
+to represent these models. The `JsonSerializableHotelManagementSystem` has a list of
+`JsonAdaptedCustomer` and a list of `JsonAdaptedBooking` and these two lists are saved using
+`seedu.hms.commons.util.JsonUtil`. For each model class, you need to define a JSON-adapted
+class with a `toModelType` function so that the system can read the data back from the file.
+
+The modifications in the UI for a new model depend heavily on the functionality it
+provides. For booking and reservations, a panel was added to display all the bookings/reservations
+which can be filtered based on different parameters. You can see the addition, updating and deletion of
+bookings in real-time in the UI as has been explained before.
+
+==== Design Considerations
+
+===== Aspect: How should the API be structured
+
+* **Alternative 1 (current choice):** Every model has a separate interface which implements
+                                      the `Model` interface
+** Pros: Every model has access to the GUI and User Preferences.
+** Cons: Some models have unnecessary methods.
+* **Alternative 2:** All the model APIs will be separate and there will be no Model Interface.
+** Pros: Better separation and less scope for errors.
+** Cons: Lot of refactoring required.
+//end::new-model[]
+
+//tag::customizability[]
+=== Making a model customizable
+==== Current Implementation
+
+In this section a model is considered to be customizable if an instance of it can be:
+
+* Added
+* Edited
+* Deleted
+* Listed (or Displayed)
+
+[NOTE]
+You can relate this with the infamous CRUD cycle if you are familiar with it.
+
+Every model/manager has access to the `HotelManagementSystem` inside which resides all the
+lists (`BookingList`, `UniqueCustomerList`, etc.). These lists have methods to add an item,
+set or replace an item at a particular index and delete an item. Therefore, when you are
+implementing a model and its list wrapper (Eg. `ReservationList`), you must include these functions.
+You must also define equality between instances of a model created so that it is easy to find
+an instance and replace it. Include an instance of your list inside the `HotelManagementSystem`
+and add a listener to it to automatically update the UI every time the function `indicateModified` is called.
+Based on the action, you might want to update the shown list using the `updateFiltered#{Model Name}List` method.
+A sequence diagram is given below to make the following more clear.
+
+.Sequence diagram for `add-customer`
+image::AddCustomerSequenceDiagram.png[width="600"]
+
+==== Design Considerations
+===== Aspect: Editing a model object
+
+* **Alternative 1:** Allowing objects to be edited
+** Pros: We avoid recreating new instances and will have better performance.
+** Cons: It is very hard to update the UI every time an object is added or updated.
+* **Alternative 2 (current choice):** Replacing objects with a new object with edited parameters
+** Pros: Lot of instances are created and we need to make sure the old object doesn't reappear again.
+** Cons: It is easy to update the UI using a listener for each list.
+// end::customizability[]
+
+// tag::filteringBooking[]
+=== Filtering service booking functionality
+==== Current Implementation
+
+To find and filter the service bookings, we need to work on Logic, Model and Storage components. We can start
+on the Logic component. According to the current implementation, a command can only take in one model -- either
+a customer model or a booking model. Limited by this, we cannot get access to customer list and booking list at the
+same time in one command. To implement the function without changing the base abstraction, we used identification number
+to check whether the payer of the booking is the customer we are selecting instead of using the index of a customer.
+The reason we use identification number(ID) instead of name or other factors is that the ID of one customer is unique.
+
+The `FindBookingCommand` involves the use of multiple components of the HMS+ application. The figure below shows the
+high level [underline]#Sequence Diagram# for the `FindBookingCommand`.
+
+.High Level Sequence Diagram for the  `find-booking id/A0176684J` command
+image::FindBookingSequenceDiagram.png[width="600"]
+
+==== Design Considerations
+
+===== Aspect: How should the customer be stressed
+
+* **Alternative 1 (current choice):** Using identification number(ID) to check.
+** Pros: The command can be implemented as only getting access to one model.
+** Cons: The scalability of the program is low.
+* **Alternative 2:** Implementing new command interface which can interact with two models at the same time.
+** Pros: The scalability of the program is high
+** Cons: Requiring more work and the old abstraction may break.
+// end::filteringBooking[]
+
+// tag::find-reservation[]
+=== Filtering Room Reservation functionality
+==== Current Implementation
+
+The finding a specific room reservation functionality is facilitated by the `FindReservationCommand` class and is used whenever
+the hotel staff wants to find a specific reservation done by the customer. It reduces the tedious process that the hotel staff needs
+to do and helps them find the reservation in one go. To facilitate this, it depends on the `ReservationModel` interface which
+provides the API for the room reservation and room type component.
+
+The `FindReservationCommand` extends from the `ReservationCommand` class which in turn extends from the `Command` class. This is
+illustrated in the UML diagram shown below.
+
+.FindReservationCommand UML Diagram
+image::FindReservationCommandUMLDiagram.png[width="300"]
+
+The `FindReservationCommand` involves the use of multiple components of the HMS+ application. The figure below shows the
+high level [underline]#Sequence Diagram# for the `FindReservationCommand`.
+
+.High Level Sequence Diagram for the  `find-reservation id/A0176684J` command
+image::FindReservationLogicSequenceDiagram.png[width="500"]
+
+As seen from the above diagram, this command doesn't affect storage at all as the purpose of this command is to just find
+a specific reservation.
+
+The `Logic` is responsible for parsing `FindReservationCommand`. It return a `FindReservationCommand` object after parsing
+the filters provided by the hotel staff.
+
+The `FindReservationCommand#execute()` method invokes the `updateFilteredList(reservationPredicate)` method from the
+`ReservationModel`.
+
+The `ReservationModel` component filters the reservation list based on the filters given by the user and sends this filtered list
+back to the `Logic` which in turn sends it back to the `Ui` for displaying the specific room reservation.
+
+==== Design Consideration
+
+===== Aspect: How to find the customer whose specific reservation is to be found
+
+* **Alternative 1 (current choice):** We use the customer's identification number to find the particular customer
+** Pros: Identification number of a customer is unique making it easy to find the customer.
+** Cons: The extensibility of the program is low as it only uses identification number.
+* **Alternative 2:** We allow any customer field to be used as a filter.
+** Pros: The extensibility of the program is high as any customer field can be used a filter.
+** Cons: Filters for all customer fields need to be created and some customer fields like name or date of birth are not
+unique to customers.
+// end::find-reservation[]
+
+===== Aspect: How to implement the command
+* **Alternative 1 (current choice):** The command only has access to `ReservationModel` interface and can therefore only be used to
+filter reservations.
+** Pros: Follows the Single Responsibility Principle and maintains abstraction.
+** Cons: Each command only has access to one model, which causes scalability to low.
+* **Alternative 2:** Create an interface which allows commands to have access to two or more models together.
+** Pros: The scalability is high as each command can access various models.
+** Cons:: This might break abstraction and does not follow the Single Responsibility Principle.
+
+
+
+
+// tag::bill-generation[]
+=== Generating Bill for Customers
+==== Current Implementation
+
+The generate bill for customer functionality is facilitated by the `GenerateBillForCustomerCommand` class and is used whenever
+ the hotel staff wants to generate bills for its customers. It allows the hotel staff to generate bills for their customers in one
+ go. To facilitate this, it depends on the `BillModel` interface and the `CustomerModel` interface which provide the API
+ for the bill component.
+
+The `GenerateBillForCustomerCommand` extends from the `BillCommand` class which in turn extends from the `Command` class. This is
+illustrated in the UML diagram shown below.
+
+.GenerateBillForCustomerCommand UML Diagram
+image::GenerateBillForCustomerCommandUMLDiagram.png[width="300"]
+
+The `GenerateBillForCustomerCommand` involves the use of multiple components of the HMS+ application. The figure below shows the
+high level [underline]#Sequence Diagram# for the `GenerateBillForCustomerCommand`.
+
+.High Level Sequence Diagram for the  `generate-bill-customer 1` command
+image::GenerateBillLogicSequenceDiagram.png[width="500"]
+
+As seen from the above diagram, there is no storage created for the bill as a result of which the bill generated is
+never stored. Therefore, the bill needs to be generated every time.
+
+The `GenerateBillForCustomerCommandParser` is responsible for parsing the command. It return an `GenerateBillForCustomerCommand` object after parsing the index
+of the customer whose bill is to be generated. The figure below depicts the Sequence Diagram for interactions within the
+`Logic` component for the `execute(generate-bill-customer 1)` API call.
+
+.Interactions inside the Logic Component for the `generate-bill-customer 1` command
+image::gbcLogicDiagram.png[width="800"]
+
+The `GenerateBillForCustomerCommand#execute()` method invokes the `updateBill(bill)` method from the `BillModel`.
+ Complying with the rules of <<abstraction>>, the Logic component calls on Model to handle the internal details for updating.
+
+The code used for generating the [underline]#booking bill# for the customer is shown in the snippet below:
+
+[source,java]
+----
+public HashMap<ServiceType, Pair<Double, Integer>> generateHashMapForBooking(ObservableList<Booking>
+                                                                                bookingObservableList) {
+
+        HashMap<ServiceType, Pair<Double, Integer>> bookingBill = new HashMap<>();
+        for (ServiceType st: serviceTypeList) {
+            bookingBill.put(st, generateTotalBillBasedOnServiceType(bookingObservableList, st));
+        }
+        return bookingBill;
+    }
+
+ private Pair<Double, Integer> generateTotalBillBasedOnServiceType(ObservableList<Booking> bookingObservableList,
+                                                                      ServiceType serviceType) {
+        int totalTime = 0;
+        double totalAmount = 0.0;
+        for (Booking booking : bookingObservableList) {
+            if ((booking.getService().equals(serviceType))) {
+                TimeRange timeRange = booking.getTiming();
+                int hoursBooked = timeRange.numOfHours();
+                totalTime = totalTime + hoursBooked;
+                double ratePerHour = booking.getService().getRatePerHour();
+                double amount = hoursBooked * ratePerHour;
+                totalAmount = totalAmount + amount;
+            }
+        }
+        return new Pair<>(totalAmount, totalTime);
+    }
+
+----
+
+The [underline]#reservation bill# for the customer is also generated in the same manner and has therefore not been shown.
+The two bills are then combined and showed to the user.
+
+==== Design Consideration
+
+===== Aspect: How should bill generation be implemented
+
+* **Alternative 1 (current choice):** An entirely new model, `BillModel` has been implemented which helps in generating a bill.
+** Pros: The `BillModel` interface can be extended to perform other functions related to bill generation if required.
+If new features get added, the `BillModel` will help in extending them without hassle or changing already implemented functions.
+** Cons: Initially, a lot of work needs to go in implementing the model.
+* **Alternative 2:** Adding functions to the `HotelManagementSystem` class which will generate the bill.
+** Pros: Easy to implement. Takes less time and less work required.
+** Cons: Every-time a new feature is to be added, changes in the already implemented functions will also have to be done accordingly,
+creating more work.
+
+==== Aspect: Memory storage for bill
+
+* **Alternate 1 (current choice):** Bill doesn't get stored.
+** Pros: No work required to be done for storing the bills. Storage space is also saved.
+** Cons: While implementing new features that require history of bills, the system will not be able to provide it.
+* **Alternative 2:** Bill gets stored.
+** Pros: If bill history is required for a new feature, system will be able to provide it.
+** Cons: Storing of bills will create duplicates of most of the data, as bill uses only existing data to generate output to customer
+and doesn't add any new data. As a result of this, if bill gets stored it will just create duplication of data and cost the user more space.
+// end::bill-generation[]
+
+
+// tag::clearcommands[]
+
+=== Clear functionality
+==== Current Implementation
+
+The clearing mechanism of HMS+ is facilitated by 5 different commands - `ClearRoomTypeCommand`, `ClearServiceTypeCommand`,
+`ClearReservationCommand`,`ClearBookingCommand` and `ClearHotelManagementSystemCommand` - and each of these commands clear
+specific parts of the database.
+
+Let's first understand which commands clears which part of the database.
+
+* `ClearBookingCommand` clears all the bookings from the database.
+* `ClearServiceTypeCommand` clear all service types from the database.
+* `ClearReservationCommand` clears all the reservations from the database.
+* `ClearRoomTypeCommand` clear all room types from the database.
+* `ClearHotelManagementSystemCommand` clears the entire database.
+
+All the 5 commands have been implemented in the exact way. Therefore we will just go through the underlying structure of
+the `ClearHotelManagementSystemCommand`.
+
+Currently, the `ClearHotelManagementSystemCommand` extends from the `Command` class. The figure below shows the UML Diagram
+for the `ClearHotelManagementSystemCommand` class.
+
+
+// end::clearcommands[]
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedHotelManagementSystem`.
+It extends `HotelManagementSystem` with an undo/redo history, stored internally as an `hotelManagementSystemStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedHotelManagementSystem#commit()` -- Saves the current hotel management system state in its history.
+* `VersionedHotelManagementSystem#undo()` -- Restores the previous hotel management system state from its history.
+* `VersionedHotelManagementSystem#redo()` -- Restores a previously undone hotel management system state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitHotelManagementSystem()`, `Model#undoHotelManagementSystem()` and `Model#redoHotelManagementSystem()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedHotelManagementSystem` will be initialized with the initial hotel management system state, and the `currentStatePointer` pointing to that single hotel management system state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th customer in the hotel management system. The `delete` command calls `Model#commitHotelManagementSystem()`, causing the modified state of the hotel management system after the `delete 5` command executes to be saved in the `hotelManagementSystemStateList`, and the `currentStatePointer` is shifted to the newly inserted hotel management system state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new customer. The `add` command also calls `Model#commitHotelManagementSystem()`, causing another modified hotel management system state to be saved into the `hotelManagementSystemStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitHotelManagementSystem()`, so the hotel management system state will not be saved into the `hotelManagementSystemStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the customer was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoHotelManagementSystem()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous hotel management system state, and restores the hotel management system to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial hotel management system state, then there are no previous hotel management system states to restore. The `undo` command uses `Model#canUndoHotelManagementSystem()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoHotelManagementSystem()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the hotel management system to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `hotelManagementSystemStateList.size() - 1`, pointing to the latest hotel management system state, then there are no undone hotel management system states to restore. The `redo` command uses `Model#canRedoHotelManagementSystem()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the hotel management system, such as `list`, will usually not call `Model#commitHotelManagementSystem()`, `Model#undoHotelManagementSystem()` or `Model#redoHotelManagementSystem()`. Thus, the `hotelManagementSystemStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitHotelManagementSystem()`. Since the `currentStatePointer` is not pointing at the end of the `hotelManagementSystemStateList`, all hotel management system states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -296,29 +681,22 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire hotel management system.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the customer being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of hotel management system states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedHotelManagementSystem`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
@@ -358,7 +736,7 @@ See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to dep
 
 === Converting Documentation to PDF format
 
-We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
+We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in web pages.
 
 Here are the steps to convert the project documentation files to PDF format.
 
@@ -373,7 +751,7 @@ image::chrome_save_as_pdf.png[width="300"]
 [[Docs-SiteWideDocSettings]]
 === Site-wide Documentation Settings
 
-The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+The link:{repoURL}/blob/master/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
 
 [TIP]
 Attributes left unset in the `build.gradle` file will use their *default value*, if any.
@@ -431,15 +809,15 @@ _{asterisk} Official SE-EDU projects only_
 
 === Site Template
 
-The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
+The files in link:{repoURL}/blob/master/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
 You can modify them to change some properties of the site's design.
 
-The files in link:{repoURL}/docs/templates[`docs/templates`] controls the rendering of `.adoc` files into HTML5.
+The files in link:{repoURL}/blob/master/docs/templates[`docs/templates`] controls the rendering of `.adoc` files into HTML5.
 These template files are written in a mixture of https://www.ruby-lang.org[Ruby] and http://slim-lang.com[Slim].
 
 [WARNING]
 ====
-Modifying the template files in link:{repoURL}/docs/templates[`docs/templates`] requires some knowledge and experience with Ruby and Asciidoctor's API.
+Modifying the template files in link:{repoURL}/blob/master/docs/templates[`docs/templates`] requires some knowledge and experience with Ruby and Asciidoctor's API.
 You should only modify them if you need greater control over the site's layout than what stylesheets can provide.
 The SE-EDU team does not provide support for modified template files.
 ====
@@ -447,16 +825,26 @@ The SE-EDU team does not provide support for modified template files.
 [[Testing]]
 == Testing
 
+Testing your application is an *integral part* of the app development process. Testing allows you to *verify the correctness, functional behaviour, and usability of your app* before you release it publicly.
+
+*Consider this.* You have just implemented a new feature and want to test it. Or you want to add tests for an existing feature because you have decided that there are not enough tests.
+But the problem arises, when you have to think about where to start. What code or features do the current tests test? Do these overlap?
+Therefore, in short, you have to decide where to implement your new tests and what to cover in them.
+
+This document is a *starting point* for you, the contributors and the developers, to understand about the automated tests implemented and how to run them.
+
+Below you will find a short summary on the kind of tests already implemented and how to run them.
+
 === Running Tests
 
-There are three ways to run tests.
+There are three ways you can run tests in.
 
 [TIP]
 The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
 
 *Method 1: Using IntelliJ JUnit test runner*
 
-* To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
+* To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`. Currently it covers Customer and Booking related functions.
 * To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'ABC'`
 
 *Method 2: Using Gradle*
@@ -478,14 +866,14 @@ We have two types of tests:
 
 .  *GUI Tests* - These are tests involving the GUI. They include,
 .. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
-.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+.. _Unit tests_ that test the individual components. These are in `seedu.hms.ui` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
+e.g. `seedu.hms.commons.StringUtilTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.address.storage.StorageManagerTest`
+e.g. `seedu.hms.storage.StorageManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
+e.g. `seedu.hms.logic.LogicManagerTest`
 
 
 === Troubleshooting Testing
@@ -515,14 +903,14 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version number in link:{repoURL}/blob/master/src/main/java/seedu/hms/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
+A project often depends on third-party libraries. For example, Hotel Management System depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
 
 [loweralpha]
 . Include those libraries in the repo (this bloats the repo size)
@@ -551,14 +939,14 @@ Each individual exercise in this section is component-based (i.e. you would not 
 [TIP]
 Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
 
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
+. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all customers in the list.
 +
 ****
 * Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
+** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/blob/master/src/main/java/seedu/hms/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/blob/master/src/main/java/seedu/hms/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
+** link:{repoURL}/blob/master/src/main/java/seedu/hms/logic/parser/HotelManagementSystemParser.java[`HotelManagementSystemParser`] is responsible for analyzing command words.
 * Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
+** Modify the switch statement in link:{repoURL}/blob/master/src/main/java/seedu/hms/logic/parser/HotelManagementSystemParser.java[`HotelManagementSystemParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
 ** Add new tests for each of the aliases that you have added.
 ** Update the user guide to document the new aliases.
 ** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
@@ -567,21 +955,21 @@ Do take a look at <<Design-Logic>> before attempting to modify the `Logic` compo
 [discrete]
 ==== `Model` component
 
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
+*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the hotel management system, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
 
 [TIP]
 Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
 
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
+. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the hotel management system.
 +
 ****
 * Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
+** The link:{repoURL}/blob/master/src/main/java/seedu/hms/model/Model.java[`Model`] and the link:{repoURL}/blob/master/src/main/java/seedu/hms/model/HotelManagementSystem.java[`HotelManagementSystem`] API need to be updated.
 ** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
+**  Find out which of the existing API methods in  link:{repoURL}/blob/master/src/main/java/seedu/hms/model/HotelManagementSystem.java[`HotelManagementSystem`] and link:{repoURL}/blob/master/src/main/java/seedu/hms/model/customer/Customer.java[`Customer`] classes can be used to implement the tag removal logic. link:{repoURL}/blob/master/src/main/java/seedu/hms/model/HotelManagementSystem.java[`HotelManagementSystem`] allows you to update a customer, and link:{repoURL}/blob/master/src/main/java/seedu/hms/model/customer/Customer.java[`Customer`] allows you to update the tags.
 * Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
+** Implement a `removeTag(Tag)` method in link:{repoURL}/blob/master/src/main/java/seedu/hms/model/HotelManagementSystem.java[`HotelManagementSystem`]. Loop through each customer, and remove the `tag` from each customer.
+** Add a new API method `deleteTag(Tag)` in link:{repoURL}/blob/master/src/main/java/seedu/hms/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/blob/master/src/main/java/seedu/hms/model/ModelManager.java[`ModelManager`] should call `HotelManagementSystem#removeTag(Tag)`.
 ** Add new tests for each of the new public methods that you have added.
 ** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
 ****
@@ -589,12 +977,12 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 [discrete]
 ==== `Ui` component
 
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
+*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your hotel management system application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last customer in the list. Your job is to implement improvements to the UI to solve all these problems.
 
 [TIP]
 Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
 
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
+. Use different colors for different tags inside customer cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
 +
 **Before**
 +
@@ -606,16 +994,16 @@ image::getting-started-ui-tag-after.png[width="300"]
 +
 ****
 * Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
+** The tag labels are created inside link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/CustomerCard.java[the `CustomerCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
 ** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
+** You may wish to modify link:{repoURL}/blob/master/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
 * Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
+** You can modify the existing test methods for `CustomerCard` 's to include testing the tag's color as well.
 ** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
 *** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
 ****
 
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
+. Modify link:{repoURL}/blob/master/src/main/java/seedu/hms/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
 +
 **Before**
 +
@@ -627,19 +1015,19 @@ image::getting-started-ui-result-after.png[width="200"]
 +
 ****
 * Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
+** link:{repoURL}/blob/master/src/main/java/seedu/hms/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
+** Refer to link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
 * Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
+** Modify link:{repoURL}/blob/master/src/main/java/seedu/hms/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
+** Modify link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
 ** You can write two different kinds of tests to ensure that the functionality works:
 *** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
+*** The system tests link:{repoURL}/blob/master/src/test/java/systemtests/HotelManagementSystemSystemTest.java[`HotelManagementSystemSystemTest#assertCommandBoxShowsDefaultStyle() and HotelManagementSystemSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
 ** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
 *** Do read the commits one at a time if you feel overwhelmed.
 ****
 
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
+. Modify the link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the hotel management system.
 +
 **Before**
 +
@@ -651,30 +1039,30 @@ image::getting-started-ui-status-after.png[width="500"]
 +
 ****
 * Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
+** link:{repoURL}/blob/master/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
+** link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the hotel management system is updated.
 * Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
+** Modify the constructor of link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of customers when the application just started.
+** Use link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/StatusBarFooter.java[`StatusBarFooter#handleHotelManagementSystemChangedEvent(HotelManagementSystemChangedEvent)`] to update the number of customers whenever there are new changes to the hotel management system.
+** For tests, modify link:{repoURL}/blob/master/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
+** For system tests, modify link:{repoURL}/blob/master/src/test/java/systemtests/HotelManagementSystemSystemTest.java[`HotelManagementSystemSystemTest`] to also verify the new total number of customers status bar.
 ** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
 ****
 
 [discrete]
 ==== `Storage` component
 
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
+*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the hotel management system to the cloud. However, the current implementation of the application constantly saves the hotel management system after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the hotel management system storage.
 
 [TIP]
 Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
 
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
+. Add a new method `backupHotelManagementSystem(ReadOnlyHotelManagementSystem)`, so that the hotel management system can be saved in a fixed temporary location.
 +
 ****
 * Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/JsonAddressBookStorage.java[`JsonAddressBookStorage`] class.
+** Add the API method in link:{repoURL}/blob/master/src/main/java/seedu/hms/storage/HotelManagementSystemStorage.java[`HotelManagementSystemStorage`] interface.
+** Implement the logic in link:{repoURL}/blob/master/src/main/java/seedu/hms/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/blob/master/src/main/java/seedu/hms/storage/JsonHotelManagementSystemStorage.java[`JsonHotelManagementSystemStorage`] class.
 * Solution
 ** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
 ****
@@ -684,18 +1072,18 @@ Do take a look at <<Design-Storage>> before attempting to modify the `Storage` c
 
 By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
 
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
+*Scenario:* You are a software maintainer for `HMS+`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
 
 ==== Description
-Edits the remark for a person specified in the `INDEX`. +
+Edits the remark for a customer specified in the `INDEX`. +
 Format: `remark INDEX r/[REMARK]`
 
 Examples:
 
 * `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
+Edits the remark for the first customer to `Likes to drink coffee.`
 * `remark 1 r/` +
-Removes the remark for the first person.
+Removes the remark for the first customer.
 
 ==== Step-by-step Instructions
 
@@ -704,13 +1092,13 @@ Let's start by teaching the application how to parse a `remark` command. We will
 
 **Main:**
 
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
+. Add a `RemarkCommand` that extends link:{repoURL}/blob/master/src/main/java/seedu/hms/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
+. Modify link:{repoURL}/blob/master/src/main/java/seedu/hms/logic/parser/HotelManagementSystemParser.java[`HotelManagementSystemParser`] to accept a `RemarkCommand`.
 
 **Tests:**
 
 . Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
+. Add new test method to link:{repoURL}/blob/master/src/test/java/seedu/hms/logic/parser/HotelManagementSystemParserTest.java[`HotelManagementSystemParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
 
 ===== [Step 2] Logic: Teach the app to accept 'remark' arguments
 Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
@@ -719,50 +1107,50 @@ Let's teach the application to parse arguments that our `remark` command will ac
 
 . Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
 . Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
+. Modify link:{repoURL}/blob/master/src/main/java/seedu/hms/logic/parser/HotelManagementSystemParser.java[`HotelManagementSystemParser`] to use the newly implemented `RemarkCommandParser`.
 
 **Tests:**
 
 . Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
 . Add `RemarkCommandParserTest` that tests different boundary values
 for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
+. Modify link:{repoURL}/blob/master/src/test/java/seedu/hms/logic/parser/HotelManagementSystemParserTest.java[`HotelManagementSystemParserTest`] to test that the correct command is generated according to the user input.
 
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
+===== [Step 3] Ui: Add a placeholder for remark in `CustomerCard`
+Let's add a placeholder on all our link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/CustomerCard.java[`CustomerCard`] s to display a remark for each customer later.
 
 **Main:**
 
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
+. Add a `Label` with any random text inside link:{repoURL}/blob/master/src/main/resources/view/CustomerListCard.fxml[`CustomerListCard.fxml`].
+. Add FXML annotation in link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/CustomerCard.java[`CustomerCard`] to tie the variable to the actual label.
 
 **Tests:**
 
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
+. Modify link:{repoURL}/blob/master/src/test/java/guitests/guihandles/CustomerCardHandle.java[`CustomerCardHandle`] so that future tests can read the contents of the remark label.
 
 ===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
+We have to properly encapsulate the remark in our link:{repoURL}/blob/master/src/main/java/seedu/hms/model/customer/Customer.java[`Customer`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
 
 **Main:**
 
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
+. Add `Remark` to model component (you can copy from link:{repoURL}/blob/master/src/main/java/seedu/hms/model/customer/Address.java[`Address`], remove the regex and change the names accordingly).
 . Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
 
 **Tests:**
 
 . Add test for `Remark`, to test the `Remark#equals()` method.
 
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
+===== [Step 5] Model: Modify `Customer` to support a `Remark` field
+Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/blob/master/src/main/java/seedu/hms/model/customer/Customer.java[`Customer`].
 
 **Main:**
 
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `data/addressbook.json` so that the application will load the sample data when you launch it.)
+. Add `getRemark()` in link:{repoURL}/blob/master/src/main/java/seedu/hms/model/customer/Customer.java[`Customer`].
+. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the customer will be created without a remark).
+. Modify link:{repoURL}/blob/master/src/main/java/seedu/hms/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `data/hotelManagementSystem.json` so that the application will load the sample data when you launch it.)
 
-===== [Step 6] Storage: Add `Remark` field to `JsonAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/JsonAdaptedPerson.java[`JsonAdaptedPerson`] to include a `Remark` field so that it will be saved.
+===== [Step 6] Storage: Add `Remark` field to `JsonAdaptedCustomer` class
+We now have `Remark` s for `Customer` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/blob/master/src/main/java/seedu/hms/storage/JsonAdaptedCustomer.java[`JsonAdaptedCustomer`] to include a `Remark` field so that it will be saved.
 
 **Main:**
 
@@ -770,33 +1158,33 @@ We now have `Remark` s for `Person` s, but they will be gone when we exit the ap
 
 **Tests:**
 
-. Fix `invalidAndValidPersonAddressBook.json`, `typicalPersonsAddressBook.json`, `validAddressBook.json` etc., such that the JSON tests will not fail due to a missing `remark` field.
+. Fix `invalidAndValidCustomerHotelManagementSystem.json`, `typicalCustomersHotelManagementSystem.json`, `validHotelManagementSystem.json` etc., such that the JSON tests will not fail due to a missing `remark` field.
 
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
+===== [Step 6b] Test: Add withRemark() for `CustomerBuilder`
+Since `Customer` can now have a `Remark`, we should add a helper method to link:{repoURL}/blob/master/src/test/java/seedu/hms/testutil/CustomerBuilder.java[`CustomerBuilder`], so that users are able to create remarks when building a link:{repoURL}/blob/master/src/main/java/seedu/hms/model/customer/Customer.java[`Customer`].
 
 **Tests:**
 
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
+. Add a new method `withRemark()` for link:{repoURL}/blob/master/src/test/java/seedu/hms/testutil/CustomerBuilder.java[`CustomerBuilder`]. This method will create a new `Remark` for the customer that it is currently building.
+. Try and use the method on any sample `Customer` in link:{repoURL}/blob/master/src/test/java/seedu/hms/testutil/TypicalCustomers.java[`TypicalCustomers`].
 
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
+===== [Step 7] Ui: Connect `Remark` field to `CustomerCard`
+Our remark label in link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/CustomerCard.java[`CustomerCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
 
 **Main:**
 
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
+. Modify link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/CustomerCard.java[`CustomerCard`]'s constructor to bind the `Remark` field to the `Customer` 's remark.
 
 **Tests:**
 
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
+. Modify link:{repoURL}/blob/master/src/test/java/seedu/hms/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysCustomer(...)`] so that it will compare the now-functioning remark label.
 
 ===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
 We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
 
 **Main:**
 
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
+. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a customer.
 
 **Tests:**
 
@@ -809,106 +1197,708 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 [appendix]
 == Product Scope
 
-*Target user profile*:
+// tag::product-scope[]
+HMS+ is targeted at hotels which want to use a single, highly customizable integrated system to manage all the aspects
+ their requirements. +
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+Hotels have hundreds of customers with each customer having their own service bookings, room reservations and
+their payments. +
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+This is why these hotels use different software to keep a track of customer's bookings and reservations and
+accordingly their payments. With time, it becomes difficult to keep a track of everything using different software.
+
+HMS+ provides hotels with a one-stop shop for all their managerial and organization needs.
+
+*[underline]#Target user profile*#:
+
+* Hoteliers
+* Hotel Management Staff
+
+*[underline]#Value proposition#*: hotels can efficiently manage its entire database faster than a typical mouse/GUI driven app.
+// end::product-scope[]
 
 [appendix]
+
 == User Stories
+// tag::user-stories[]
+
+User stories are short, simple descriptions of a feature told from the perspective of the user who desires the new
+capability. This will help the existing and new developers understand the importance of each feature and how does it help
+our user.
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |new hotel management staff |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |hotel management staff |add a new customer |add a room reservation or a service booking for the customer
+// end::user-stories[]
+|`* * *` |hotel management staff |delete a customer |remove a customer
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |hotel management staff |edit a customer |update details of an already existing customer
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |hotel management staff|find a customer by name |locate details of customers without having to go through the entire list
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |hotel management staff |add a new room reservation |allocate a room to a customer
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |hotel management staff |delete a room reservation |remove a room reservation
+
+|`* * *` |hotel management staff |edit a room reservation |update details of an already existing room reservation
+
+|`* * *` |hotel management staff |add a new service booking |allocate a service to a customer
+
+|`* * *` |hotel management staff |delete a service booking |remove a service booking
+
+|`* * *` |hotel management staff |edit a service booking |update details of an already existing service booking
+
+|`* * *` |hotel management staff |generate bill |show the customer the remaining he has to pay for his stay at the hotel
+
+|`* *` |hotel management staff |sort reservations by date |see closer reservations first
+
+|`* *` |hotel management staff |sort customers by amount due |see which customer owes more first
+// tag::user-stories2[]
+|`* *` |hotel management staff |view all room reservations |know which rooms are occupied and when
+
+|`* *` |hotel management staff |view all service bookings |know which rooms are occupied and when
+// end::user-stories2[]
+|`* *` |hotel management staff |view all customers |know who all are customers in my hotel
+
+|`* *` |hotel management staff |view services provided by hotel |select which service to book for customer
+
+|`* *` |hotel management staff |view room types provided by hotel |select which room type to reserve for customer
+
+|`*` |hotel management staff |send people for cleaning a room |get a room cleaned and ready for next customer
+
+|`*` |hotel management staff |upgrade a customer to VIP status|give him VIP discounts
+
+|`*` |hotel management staff |add a new service |expand my service range
+
+|`*` |hotel management staff |change rates of a service |change their tariffs
+
+|`*` |hotel management staff |add a new room type |expand my room type range
+
+|`*` |hotel management staff |change rates of a room type |change their tariffs
+
+|`*` |hotel management staff |change capacity of a specific service |expand/shrink a specific service
+// tag::user-stories3[]
+|`*` |hotel management staff |sort customers by name |locate a customer easily
 |=======================================================================
+// end::user-stories3[]
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `HMS+` and the *Actor* is the Hotel Staff, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add reservation
 
-*MSS*
+*Main Success Scenario*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  The actor adds a reservation.
+2.  The system adds the reservation to its list of reservations.
 +
-Use case ends.
+Use case resumes at step 1.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. The actor tries to add invalid reservation.
++
+[none]
+** 1a1. The system shows an error.
++
+Steps 1 - 1a1 are repeated till a valid reservation is provided.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+[discrete]
+=== Use case: Edit reservation
+
+*Main Success Scenario*
+
+1.  The actor requests all the reservations in the system.
+2.  The system lists the reservations requested.
+3.  The actor requests to edit a reservation at a specified index.
+4.  The system edits the reservation.
++
+Use case resumes at step 3.
+
+*Extensions*
+
+[none]
+* 2a. The system has no reservations.
++
+Use case ends.
+
+* 3a. The index that the actor specified is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. The system shows an error message.
 +
-Use case resumes at step 2.
+Steps 3 - 3a1 are repeated till a valid index is provided.
 
-_{More to be added}_
+[discrete]
+=== Use case: List reservations
+
+*Main Success Scenario*
+
+1.  The actor requests to see all the reservations in the system.
+2.  The system lists the reservations requested.
+
+[discrete]
+=== Use case: Delete reservation
+
+*Main Success Scenario*
+
+1.  The actor requests all the reservations in the system.
+2.  The system lists the reservations requested.
+3.  The actor requests to delete a reservation at a specified index.
+4.  The system deletes the reservation.
++
+Use case resumes at step 3.
+
+*Extensions*
+
+[none]
+* 2a. The system has no reservations.
++
+Use case ends.
+
+* 3a. The index that the actor specified is invalid.
++
+[none]
+** 3a1. The system shows an error message.
++
+Steps 3 - 3a1 are repeated till a valid index is provided.
+
+[discrete]
+=== Use case: Add booking
+
+*Main Success Scenario*
+
+1.  The actor adds a booking.
+2.  The system adds the booking to its list of bookings.
++
+Use case resumes at step 1.
+
+*Extensions*
+
+[none]
+* 1a. The actor tries to add invalid booking.
++
+[none]
+** 1a1. The system shows an error.
++
+Steps 1 - 1a1 are repeated till a valid booking is provided.
++
+Use case ends.
+
+[discrete]
+=== Use case: Edit booking
+
+*Main Success Scenario*
+
+1.  The actor requests all the bookings in the system.
+2.  The system lists the bookings requested.
+3.  The actor requests to edit a booking at a specified index.
+4.  The system edits the booking.
++
+Use case resumes at step 3.
+
+*Extensions*
+
+[none]
+* 2a. The system has no bookings.
++
+Use case ends.
+
+* 3a. The index that the actor specified is invalid.
++
+[none]
+** 3a1. The system shows an error message.
++
+Steps 3 - 3a1 are repeated till a valid index is provided.
+
+[discrete]
+=== Use case: List bookings
+
+*Main Success Scenario*
+
+1.  The actor requests to see all the bookings in the system.
+2.  The system lists the bookings requested.
+
+[discrete]
+=== Use case: Delete booking
+
+*Main Success Scenario*
+
+1.  The actor requests all the bookings in the system.
+2.  The system lists the bookings requested.
+3.  The actor requests to delete a booking at a specified index.
+4.  The system deletes the booking.
++
+Use case resumes at step 3.
+
+*Extensions*
+
+[none]
+* 2a. The system has no bookings.
++
+Use case ends.
+
+* 3a. The index that the actor specified is invalid.
++
+[none]
+** 3a1. The system shows an error message.
++
+Steps 3 - 3a1 are repeated till a valid index is provided.
+
+[discrete]
+=== Use case: Add room-type
+
+*Main Success Scenario*
+
+1.  The actor adds a room-type.
+2.  The system adds the room-type to its list of room-types.
++
+Use case resumes at step 1.
+
+*Extensions*
+
+[none]
+* 1a. The actor tries to add invalid room-type.
++
+[none]
+** 1a1. The system shows an error.
++
+Steps 1 - 1a1 are repeated till a valid room-type is provided.
++
+Use case ends.
+
+[none]
+* 2a. The actor tries to add an already existing room type.
++
+[none]
+** 2a1. The system shows an error.
++
+Steps 2 - 2a1 are repeated till a new room-type is provided.
++
+Use case ends.
+
+[discrete]
+=== Use case: Edit room-type
+
+*Main Success Scenario*
+
+1.  The actor requests all the room-types in the system.
+2.  The system lists the room-types requested.
+3.  The actor requests to edit a room-type at a specified index.
+4.  The system edits the room-type.
++
+Use case resumes at step 3.
+
+*Extensions*
+
+[none]
+* 2a. The system has no room-types.
++
+Use case ends.
+
+* 3a. The index that the actor specified is invalid.
++
+[none]
+** 3a1. The system shows an error message.
++
+Steps 3 - 3a1 are repeated till a valid index is provided.
+
+[none]
+* 3b. The actor tries to edit the room type to an already existing room type.
++
+[none]
+** 3b1. The system shows an error.
++
+Steps 3 - 3b1 are repeated till a new room-type is provided.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete room-type
+
+*Main Success Scenario*
+
+1.  The actor requests all the room-types in the system.
+2.  The system lists the room-types requested.
+3.  The actor requests to delete a room-type at a specified index.
+4.  The system deletes the room-type.
++
+Use case resumes at step 3.
+
+*Extensions*
+
+[none]
+* 2a. The system has no room-types.
++
+Use case ends.
+
+* 3a. The index that the actor specified is invalid.
++
+[none]
+** 3a1. The system shows an error message.
++
+Steps 3 - 3a1 are repeated till a valid index is provided.
+
+[discrete]
+=== Use case: Add service
+
+*Main Success Scenario*
+
+1.  The actor adds a service.
+2.  The system adds the service to its list of services.
++
+Use case resumes at step 1.
+
+*Extensions*
+
+[none]
+* 1a. The actor tries to add invalid service.
++
+[none]
+** 1a1. The system shows an error.
++
+Steps 1 - 1a1 are repeated till a valid service is provided.
++
+Use case ends.
+
+[none]
+* 2a. The actor tries to add an already existing room type.
++
+[none]
+** 2a1. The system shows an error.
++
+Steps 2 - 2a1 are repeated till a new service is provided.
++
+Use case ends.
+
+[discrete]
+=== Use case: Edit service
+
+*Main Success Scenario*
+
+1.  The actor requests all the services in the system.
+2.  The system lists the services requested.
+3.  The actor requests to edit a service at a specified index.
+4.  The system edits the service.
++
+Use case resumes at step 3.
+
+*Extensions*
+
+[none]
+* 2a. The system has no services.
++
+Use case ends.
+
+* 3a. The index that the actor specified is invalid.
++
+[none]
+** 3a1. The system shows an error message.
++
+Steps 3 - 3a1 are repeated till a valid index is provided.
+
+[none]
+* 3b. The actor tries to edit the room type to an already existing room type.
++
+[none]
+** 3b1. The system shows an error.
++
+Steps 3 - 3b1 are repeated till a new service is provided.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete service
+
+*Main Success Scenario*
+
+1.  The actor requests all the services in the system.
+2.  The system lists the services requested.
+3.  The actor requests to delete a service at a specified index.
+4.  The system deletes the service.
++
+Use case resumes at step 3.
+
+*Extensions*
+
+[none]
+* 2a. The system has no services.
++
+Use case ends.
+
+* 3a. The index that the actor specified is invalid.
++
+[none]
+** 3a1. The system shows an error message.
++
+Steps 3 - 3a1 are repeated till a valid index is provided.
+
+=== Use case: Generate total bill for a specific customer
+
+*Main Success Scenario*
+
+1. The actor requests the list of all the customers.
+2. The system lists all the customers.
+3. The actor requests to generate total bill for a specific customer.
+4. The system generates the total bill for that specific customer.
+
+*Extensions*
+
+[none]
+* 2a. There are no customers
++
+Use case ends.
+
+* 3a. The command that the actor entered is invalid.
+** 3a1. The system shows an error message that the command is invalid.
++
+Use case resumes at step 3.
+
+* 3b. The index that the actor selected is invalid.
++
+[none]
+** 3b1. The system shows an error message that the index is invalid.
++
+Use case resumes at step 3.
+
+[none]
+* 3b. The index that the actor selected is wrong.
++
+[none]
+** 3b1. The system generates the bill for a different customer, not the intended one.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: Generate booking bill for a specific customer
+
+*Main Success Scenario*
+
+1.  The actor requests the list of all customers.
+2.  The system lists all the customers.
+3.  The actor requests to generate total bill for a specific customer.
+4.  The system generates the total bill for that specific customer.
++
+Use case resumes at step 3
+
+*Extensions*
+
+[none]
+* 2a. There are no customers
++
+Use case ends.
+
+* 3a. The command that the actor entered is invalid.
++
+[none]
+** 3a1. The system shows an error message that the command is invalid.
++
+Use case resumes at step 3.
+
+* 3b. The index that the actor selected is invalid.
++
+[none]
+** 3b1. The system shows an error message that the index is invalid.
++
+Use case resumes at step 3.
+
+[none]
+* 3b. The index that the actor selected is wrong.
++
+[none]
+** 3b1. The system generates the booking bill for a different customer, not the intended one.
++
+Use case resumes at step 3.
+
+
+[discrete]
+=== Use case: Finding the specific list of bookings
+
+*Main Success Scenario*
+
+1. The actor requests for the specific list of bookings.
+2. The system shows the specific list of bookings.
++
+Use case resumes at step 1.
+
+*Extensions*
+
+[none]
+* 1a. The command that the actor entered is invalid.
++
+[none]
+** 1a1. The system shows an error message that the command is invalid.
++
+Use case resumes at step 1.
+
+[none]
+* 1b. The identification number that the actor entered is in wrong format.
++
+[none]
+** 1b1. The system shows an error message that the identification number has been not entered in the correct format.
++
+Use case resumes at step 1.
+
+[none]
+* 1c. The identification number that the actor entered is wrong.
++
+[none]
+** 1c1. The system shows the specific list of bookings with the wrong identification number.
++
+Use case resumes at step 1.
+
+Use cases for `ServiceType` and `TimeRange` can be created in a similar manner like steps `1b` and `1c`.
+
+[discrete]
+=== Use case: Finding the specific list of reservations
+
+*Main Success Scenario*
+
+1. The actor requests for the specific list of reservations.
+2. The system shows the specific list of reservations.
++
+Use case resumes at step 1.
+
+*Extensions*
+
+[none]
+* 1a. The command that the actor entered is invalid.
++
+[none]
+** 1a1. The system shows an error message that the command is invalid.
++
+Use case resumes at step 1.
+
+[none]
+* 1b. The identification number that the actor entered is in wrong format.
++
+[none]
+** 1b1. The system shows an error message that the identification number has been not entered in the correct format.
++
+Use case resumes at step 1.
+
+[none]
+* 1c. The identification number that the actor entered is wrong.
++
+[none]
+** 1c1. The system shows the specific list of reservations with the wrong identification number.
++
+Use case resumes at step 1.
+
+Use cases for `RoomType` and `DateRange` can be created in a similar manner like steps `1b` and `1c`.
+
+[discrete]
+=== Use case: Clear all reservations
+
+*Main Success Scenario*
+
+1. The actor requests the list of all reservations.
+2. The system shows the list of all reservations.
+3. The actor requests to clear all reservations.
+4. The system clears all the reservations.
+
+*Extensions*
+
+[none]
+* 2a. The list of reservations is empty.
++
+Use case ends.
+
+[none]
+* 3a. The command that the actor entered is invalid.
++
+[none]
+** 3a1. The system shows an error message that the command is invalid.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: Clear all bookings
+
+*Main Success Scenario*
+
+1. The actor requests the list of all bookings.
+2. The system shows the list of all bookings.
+3. The actor requests to clear all bookings.
+4. The system clears all the bookings.
+
+*Extensions*
+
+[none]
+* 2a. The list of bookings is empty.
++
+Use case ends.
+
+[none]
+* 3a. The command that the actor entered is invalid.
++
+[none]
+** 3a1. The system shows an error message that the command is invalid.
++
+Use case resumes at step 3.
+
+
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 customers without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
 
 [appendix]
 == Glossary
+// tag::glossary[]
+[[abstraction]] Abstraction::
+In Object-oriented Programming, abstraction is the mechanism by which users are provided with only the functionality, and not the implementation details. So, abstraction provides users with information on what an object does, rather than how it does it.
+
+[[singleresprinciple]] Single Responsibility Principle::
+The single responsibility principle is a computer programming principle that states that every module, class, or
+function should have responsibility over a single part of the functionality provided by the software, and that
+responsibility should be entirely encapsulated by the class.
+// end::glossary[]
+
+[[cli]] CLI::
+Acronym for Command Line Interface. It is a purely text-based interface for software. User respond to visual prompts by typing single commands into the interface and receive results as text as well.
+[underline]#For example#: MS-DOS.
+
+[[gui]] GUI::
+Acronym for Graphical User Interface. In a GUI, the software interface consists of graphical icons, menus and/or other visual indicators to display information. Users can typically interact with these graphics, rather than just using text in the <<cli,command line>>. +
+[underline]#For example#: All Windows operating systems have a GUI.
+
+
+[[customer]] Customer::
+People who go to live in a hotel while they are on a vacation or stay-cation.
+
+[[hoteliers]] Hotelier::
+They are owners of the hotel who had initially invested money and now share in its profits.
+
+[[hotelstaff]] Hotel Management Staff::
+People who work in a hotel to earn livelihood and are concerned with the day to day activities of the  hotel.
+
+[[bookings]] Bookings::
+These refer to services which are blocked and paid for by the customers for a certain number of hours for their leisure or entertainment. +
+[underline]#For example#: A customer can book a service like gym for 2 hours.
+
+[[reservations]] Reservations::
+These refer to rooms which are blocked and paid for by the customers for a certain number of days so that they can have an enjoyable
+stay in the hotel. +
+[underline]#For example# : A customer can reserve a room for 3 days.
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -932,26 +1922,215 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Customers
+==== Adding a customer
 
-=== Deleting a person
+. Adding a customer with the `add-customer` command.
 
-. Deleting a person while all persons are listed
+.. Test case: `add-customer` +
+   Expected: No customer is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect commands to try: `addcustomer n/test name`, `addcustomer n/123 456`...
+.. Test case: `add-customer ...` followed by the details of an existing customer +
+   Expected: No customer is added. Message shows "This customer already exists in the hms book". Status bar remains the same.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
+==== Deleting a customer
+
+. Deleting a customer while all customers are listed.
+
+.. Prerequisites: List all customers using the `list-customers` command. Multiple customers in the list or at least 1.
+.. Test case: `delete-customer 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Test case: `delete-customer 0` +
+   Expected: No customer is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete-customer`, `delete-customer x` (where x is larger than the list size)... +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
 
-=== Saving data
+=== Reservations
+==== Adding a reservation
 
-. Dealing with missing/corrupted data files
+Adding a reservation with the `add-reservation` command
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Test case: `add-reservation` +
+   Expected: No reservation is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect commands to try: `add-reservation r/room-type`, `add-reservation r/room-type $/1`...
+.. Test case: `add-reservation d/5/5/19 - 4/5/19 ...` followed by the remaining details+
+   Expected: No reservation is added. Error details regarding the date range are shown. Status bar remains the same.
+..Other incorrect commands to try: `add-reservation d/5/5/1 - 4/5/19 ...`, `add-reservation d/5/13/19 - 4/5/19 ...`
 
-_{ more test cases ... }_
+==== Editing a reservation
+
+=Editing a reservation with the `edit-reservation` command
+
+.. Test case: `edit-reservation` +
+   Expected: No reservation is edited. Error details shown in the status message. Status bar remains the same.
+.. Test case: `edit-reservation 1 r/INVALID_ROOM_TYPE $/-1` +
+   Expected: No reservation is edited. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect commands to try: `edit-reservation 1 r/SINGLE ROOM $/1000`, `edit-reservation 1 r/SINGLE ROOM c/-1 c/1000`
+.. Test case: `edit-reservation 1 d/5/5/19 - 4/5/19 ...` followed by the remaining details+
+   Expected: No reservation is edited. Error details regarding the date range are shown. Status bar remains the same.
+
+==== Listing reservations
+
+Listing all reservations with the `list-reservation` command
+
+.. Test case: `list=reservations` +
+   Expected: All reservations are listed.  Timestamp in the status bar is updated.
+
+==== Deleting a reservation
+
+Deleting a reservation while all reservations are listed
+
+.. Prerequisites: List all reservations using the `list-reservations` command. Multiple reservations in the list.
+.. Test case: `delete-reservation 1` +
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete-reservation 0` +
+   Expected: No reservation is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete-reservation`, `delete-reservation x` (where x is larger than the list size)... +
+   Expected: Similar to previous.
+
+=== Bookings
+==== Adding a booking
+
+Adding a booking with the `add-booking` command
+
+.. Test case: `add-booking` +
+   Expected: No booking is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect commands to try: `add-booking s/service-type`, `add-booking s/service-type $/1`...
+.. Test case: `add-booking d/5/5/19 - 4/5/19 ...` followed by the remaining details+
+   Expected: No booking is added. Error details regarding the date range are shown. Status bar remains the same.
+..Other incorrect commands to try: `add-booking d/5/5/1 - 4/5/19 ...`, `add-booking d/5/13/19 - 4/5/19 ...`
+
+==== Editing a booking
+
+=Editing a booking with the `edit-booking` command
+
+.. Test case: `edit-booking` +
+   Expected: No booking is edited. Error details shown in the status message. Status bar remains the same.
+.. Test case: `edit-booking 1 s/INVALID_SERVICE_TYPE $/-1` +
+   Expected: No booking is edited. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect commands to try: `edit-booking 1 s/GYM $/1000`, `edit-booking 1 s/GYM c/-1 c/1000`
+.. Test case: `edit-booking 1 :/22 - 25 ...` followed by the remaining details+
+   Expected: No booking is edited. Error details regarding the time range are shown. Status bar remains the same.
+
+==== Listing bookings
+
+Listing all bookings with the `list-booking` command
+
+.. Test case: `list=bookings` +
+   Expected: All bookings are listed.  Timestamp in the status bar is updated.
+
+==== Deleting a booking
+
+Deleting a booking while all bookings are listed
+
+.. Prerequisites: List all bookings using the `list-bookings` command. Multiple bookings in the list.
+.. Test case: `delete-booking 1` +
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete-booking 0` +
+   Expected: No booking is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete-booking`, `delete-reservation x` (where x is larger than the list size)... +
+   Expected: Similar to previous.
+
+=== Service Types
+==== Adding a service Type
+
+Adding a service Type with the `add-service-type` command
+
+.. Test case: `add-service-type` +
+   Expected: No service type is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect commands to try: `add-service-type n/name cap/-1`...
+.. Test case: `add-service-type :/23 - 25 ...` followed by the remaining details+
+   Expected: No service type is added. Error details regarding the time range are shown. Status bar remains the same.
+
+==== Editing a service type
+
+=Editing a service type with the `edit-service-type` command
+
+.. Test case: `edit-service-type` +
+   Expected: No service type is edited. Error details shown in the status message. Status bar remains the same.
+.. Test case: `edit-service-type 1 rate/-1` +
+   Expected: No service type is edited. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect commands to try: `edit-service-type 1 cap/-1`, `edit-service-type rate/-2`
+.. Test case: `edit-service-type 1 :/22 - 25 ...` followed by the remaining details+
+   Expected: No service type is edited. Error details regarding the time range are shown. Status bar remains the same.
+
+==== Deleting a service type
+
+Deleting a service type while all service types are listed
+
+.. Test case: `delete-service-type 1` +
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete-service-type 0` +
+   Expected: No service type is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete-service-type`, `delete-reservation x` (where x is larger than the list size)... +
+   Expected: Similar to previous.
+
+=== Room Types
+==== Adding a room Type
+
+Adding a room Type with the `add-room-type` command
+
+.. Test case: `add-room-type` +
+   Expected: No room type is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect commands to try: `add-room-type n/name cap/-1`...
+
+==== Editing a room type
+
+=Editing a room type with the `edit-room-type` command
+
+.. Test case: `edit-room-type` +
+   Expected: No room type is edited. Error details shown in the status message. Status bar remains the same.
+.. Test case: `edit-room-type 1 rate/-1` +
+   Expected: No room type is edited. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect commands to try: `edit-room-type 1 cap/-1`, `edit-room-type rate/-2`
+
+==== Deleting a room type
+
+Deleting a room type while all room types are listed
+
+.. Test case: `delete-room-type 1` +
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete-room-type 0` +
+   Expected: No room type is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete-room-type`, `delete-reservation x` (where x is larger than the list size)... +
+   Expected: Similar to previous.
+
+=== Bill
+==== Generating bill for a customer
+
+. Generating total bill for a customer based on index.
+
+.. Prerequisites: At-least one customer who has at-least one booking or reservation in the database.
+.. Test case: `gb-c` +
+   Expected: Bill is not generated. Error details shown in the status message. Status bar remains the same.
+.. Test case: `gb-c 1` +
+   Expected: Bill is generated for customer at index 1. The respective status message is displayed. Timestamp in the status bar is updated.
+.. Other incorrect generate bill for customer commands to try: `gbc`, `g-b-c`, `gb-c x` (where x is larger than the list size).. +
+   Expected: Bill is not generated. Error details shown in the status message. Status bar remains the same.
+
+=== Generating booking bill for a customer.
+
+. Generating booking bill for a customer based on index, or service type, or booking hours.
+
+.. Prerequisites: At-least one customer who has at least one booking in the database.
+.. Test case: `gb-b` +
+   Expected: Bill is not generated. Error details shown in the status message. Status bar remains the same.
+.. Test case: `gb-b 1` +
+   Expected: Bill is generated for customer at index 1. The respective status message is displayed. Timestamp in the status bar is updated.
+.. Test case: `gb-b 1 s/GYM` +
+   Expected: Bill is generated for customer at index 1. The respective status message is displayed. Timestamp in the status bar is updated.
+.. Other incorrect generate bill for customer commands to try: `gbb`, `g-b-b`, `gb-b x` (where x is larger than the list size).. +
+   Expected: Bill is not generated. Error details shown in the status message. Status bar remains the same.
+
+
+=== Switching tab
+
+. Switching tabs in the application.
+
+.. Test case: `st 1 2` +
+   Expected : Switches to Reservation tab in first panel and the appropriate message is displayed. Status bar remains the same.
+.. Test case: `st 1 0` +
+   Expected : No switch is made. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect switch tab commands to try: `st`, `st 1`, `st 1 2 3` ... +
+   Expected: Similar to previous.

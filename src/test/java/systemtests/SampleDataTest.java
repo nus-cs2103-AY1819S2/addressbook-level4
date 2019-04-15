@@ -1,6 +1,6 @@
 package systemtests;
 
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
+import static seedu.hms.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,17 +8,17 @@ import java.nio.file.Path;
 
 import org.junit.Test;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.person.Person;
-import seedu.address.model.util.SampleDataUtil;
-import seedu.address.testutil.TestUtil;
+import seedu.hms.model.HotelManagementSystem;
+import seedu.hms.model.customer.Customer;
+import seedu.hms.model.util.SampleDataUtil;
+import seedu.hms.testutil.TestUtil;
 
-public class SampleDataTest extends AddressBookSystemTest {
+public class SampleDataTest extends HotelManagementSystemSystemTest {
     /**
      * Returns null to force test app to load data of the file in {@code getDataFileLocation()}.
      */
     @Override
-    protected AddressBook getInitialData() {
+    protected HotelManagementSystem getInitialData() {
         return null;
     }
 
@@ -44,8 +44,8 @@ public class SampleDataTest extends AddressBookSystemTest {
     }
 
     @Test
-    public void addressBook_dataFileDoesNotExist_loadSampleData() {
-        Person[] expectedList = SampleDataUtil.getSamplePersons();
-        assertListMatching(getPersonListPanel(), expectedList);
+    public void hotelManagementSystem_dataFileDoesNotExist_loadSampleData() {
+        Customer[] expectedList = SampleDataUtil.getSampleCustomers();
+        assertListMatching(getCustomerListPanel(), expectedList);
     }
 }

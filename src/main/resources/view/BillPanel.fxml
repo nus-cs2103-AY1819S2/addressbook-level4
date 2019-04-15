@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.StackPane?>
+<StackPane xmlns:fx="http://javafx.com/fxml/1" id="stackpane" fx:id="stackpane" xmlns="http://javafx.com/javafx/8">
+    <TextArea fx:id="textArea"/>
+</StackPane>

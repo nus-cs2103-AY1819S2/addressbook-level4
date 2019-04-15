@@ -1,0 +1,111 @@
+{
+  "customers" : [ {
+    "name" : "Alice Pauline",
+    "phone" : "94351253",
+    "dob" : "30/12/1999",
+    "email" : "alice@example.com",
+    "idnum" : "1231212A",
+    "tagged" : [ "friends" ],
+    "address" : "123, Jurong West Ave 6, #08-111"
+  }, {
+    "name" : "Benson Meier",
+    "phone" : "98765432",
+    "dob" : "30/12/2000",
+    "email" : "johnd@example.com",
+    "idnum" : "1233512A",
+    "tagged" : [ "owesMoney", "friends" ],
+    "address" : "311, Clementi Ave 2, #02-25"
+  }, {
+    "name" : "Carl Kurz",
+    "phone" : "95352563",
+    "dob" : "30/12/2001",
+    "email" : "heinz@example.com",
+    "idnum" : "10453512A",
+    "tagged" : [ ],
+    "address" : "wall street"
+  }, {
+    "name" : "Daniel Meier",
+    "phone" : "87652533",
+    "dob" : "30/12/2002",
+    "email" : "cornelia@example.com",
+    "idnum" : "1200512A",
+    "tagged" : [ "friends" ],
+    "address" : "10th street"
+  }, {
+    "name" : "Elle Meyer",
+    "phone" : "9482224",
+    "dob" : "30/12/2003",
+    "email" : "werner@example.com",
+    "idnum" : "12330012A",
+    "tagged" : [ ],
+    "address" : "michegan ave"
+  }, {
+    "name" : "Fiona Kunz",
+    "phone" : "9482427",
+    "dob" : "30/12/2004",
+    "email" : "lydia@example.com",
+    "idnum" : "1009512A",
+    "tagged" : [ ],
+    "address" : "little tokyo"
+  }, {
+    "name" : "George Best",
+    "phone" : "9482442",
+    "dob" : "30/12/2005",
+    "email" : "anna@example.com",
+    "idnum" : "123399912A",
+    "tagged" : [ ],
+    "address" : "4th street"
+  } ],
+  "bookings": [
+    {
+      "service": {
+        "name": "GYM"
+      },
+      "timing": {
+        "startTime": "14:00:00",
+        "endTime": "15:00:00"
+      },
+      "payer": {
+        "name": "Alice Pauline",
+        "phone": "94351253",
+        "dob": "30/12/1999",
+        "email": "alice@example.com",
+        "idnum": "1231212A",
+        "tagged": [
+          "friends"
+        ],
+        "address": "123, Jurong West Ave 6, #08-111"
+      },
+      "otherUsers": [],
+      "comment": ""
+    },
+    {
+      "service": {
+        "name": "GAMES ROOM"
+      },
+      "timing": {
+        "startTime": "12:00:00",
+        "endTime": "13:00:00"
+      },
+      "payer": {
+        "name": "Alice Pauline",
+        "phone": "94351253",
+        "dob": "30/12/1999",
+        "email": "alice@example.com",
+        "idnum": "1231212A",
+        "tagged": [
+          "friends"
+        ],
+        "address": "123, Jurong West Ave 6, #08-111"
+      },
+      "otherUsers": [],
+      "comment": ""
+    }
+  ],
+  "reservations": [
+  ],
+  "serviceTypes": [
+  ],
+  "roomTypes": [
+  ]
+}

@@ -5,7 +5,7 @@
 
 == Project Title: FomoFoto
 === Overview
-FomoFoto is a robust yet simple image-editing tool. Users interact with the application through worded commands from their keyboard, and receive visual feedback from it through the displayed image on the application. +
+FomoFoto is a robust yet simple image-editing tool. Users interact with the application through worded commands from their keyboard and receive visual feedback from it through the displayed image on the application. +
 
 Unlike other heavy image editors, FomoFoto has a gentle learning curve, removing clutter while still retaining essential features. All features and their implementations are well documented in guides for both users and developers respectively.
 
@@ -30,8 +30,8 @@ This enhancement is tough to implement as it requires many checks to ensure the 
 ** *What it does:*
 FomoFoto has an intuitive, human-centric design. Users are able to see the images they are editing, the information of images in the Album, their details and all edits applied.
 
-** *Justification:* A good user interface facilitates easy usage of the editor. Users are able to get a good overview on the edits they are doing simply by observing the image and information available on screen. This feature comprises of five components:
-*** `Initial Panel` - Contains a quick start message on FomoFoto's first start, giving users a high level overview on the commands available.
+** *Justification:* A good user interface facilitates easy usage of the editor. Users are able to get a good overview of the edits they are doing simply by observing the image and information available on the screen. This feature comprises of five components:
+*** `Initial Panel` - Contains a quick start message on FomoFoto's first start, giving users a high-level overview of the commands available.
 *** `Image Panel` - Displays the image currently opened for editing.
 *** `Album Images Panel` - Displays all images imported to FomoFoto's Album.
 *** `EXIF Profile Panel` - Displays core details such as Time and Location Taken about the opened image shown on the Image Panel.
@@ -41,7 +41,7 @@ FomoFoto has an intuitive, human-centric design. Users are able to see the image
 
 ==== Minor Enhancements:
 1. Tab Command.
-** Added a Tab Command that allows user to interact with the Information Panel without using a mouse.
+** Added a Tab Command that allows the user to interact with the Information Panel without using a mouse.
 
 2. Inclusion of `sample` image folder.
 ** Added a folder containing a list of valid and invalid images. These images can be used for command and feature testing.

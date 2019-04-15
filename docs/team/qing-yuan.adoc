@@ -68,7 +68,7 @@ Within the table feature, you will find many commands implemented to create and 
 ** _Highlights_: This command searches for smallest table to fit the given number of customers with the smallest table number.
  [[minorEnhancements]]
 . *Minor enhancement*: implemented the `[blue]#*RestaurantMode*#` to only accept commands for the table features only and morphed the `[blue]#*Logic*#` component to be compatible with RestOrRant's features.
-//* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=Qing-Yuan[Project Code Dashboard]]
 . *Other contributions*:
 
 ** Project management:
@@ -85,8 +85,10 @@ Within the table feature, you will find many commands implemented to create and 
 
 == Contributions to the User Guide
 
+This section shows the updates that I made to the *RestOrRant User Guide* for table features to ensure that it accurately documents the current features in the application.
+
 |===
-|This section shows the updates that I made to the *RestOrRant User Guide* for table features to ensure that it accurately documents the current features in the application.
+| In the User Guide, I wrote about the usages of the commands that can be used in `[blue]#*RestaurantMode*#
 |===
 
 include::../UserGuide.adoc[tag=restaurantmode]
@@ -94,7 +96,7 @@ include::../UserGuide.adoc[tag=restaurantmode]
 == Contributions to the Developer Guide
 
 |===
-|This section shows the updates that I made to the *RestOrRant Developer Guide* for table features to demonstrate the technical details of how they are implemented.
+| In the Developer Guide, I provided implementation details of the `[blue]#*EditPaxCommand*#` and its design considerations.
 |===
 
 include::../DeveloperGuide.adoc[tag=editpax]

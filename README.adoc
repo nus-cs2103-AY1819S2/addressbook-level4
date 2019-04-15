@@ -10,7 +10,7 @@ image::docs/images/Ui.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="600"]
+image::images/gen_ug_diagrams/cards.png[width="600"]
 endif::[]
 
 * TopDeck is a general purpose flash card application.

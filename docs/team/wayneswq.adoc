@@ -23,7 +23,7 @@ It is targeted at clinic receptionists who are comfortable with using Command Li
 * *Major enhancement*: added *patient management* feature
 ** What it does: allows the user to record and manage patients visiting the clinic.
 It also provides both simple and advanced features that can cater to both new and experienced users.
-** Justification: In a busy clinic with many patients, the user must be able to manage patient efficiently.
+** Justification: In a busy clinic with many patients, the user must be able to manage patients efficiently.
 The app provides an easy way to record a patient's personal details, and various search methods to quickly retrieve a patient's file.
 The patient's info, along with his upcoming appointment status, are then displayed in a concise, yet neat way for the user
 to efficiently manage patients and their upcoming appointments.

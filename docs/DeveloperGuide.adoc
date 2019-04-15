@@ -936,6 +936,12 @@ The manipulation feature is facilitated by `CurrentEdit`. It uses the following 
 
  * `Image#setWaterMark(boolean)` - Sets the `Image` object's `hasWaterMark` field accordingly, if the `Image` object has or does not have a watermark.
 
+ The diagram below illustrates how the WaterMark Command works:
+
+ .Sequence Diagram for WaterMark Command
+ image::WaterMarkCommandSequenceDiagram.png[width="800"]
+
+
 Given below is an example usage scenario and how the command should behave at each step:
 
 Step 1. When the user runs an open command to edit an image, it invokes a method which creates an instance of an `Image` that stores the filepath of the image, its history of edits `List<Command>` and its metadata. This `Image` object is saved under the variable name `tempImage` in `currentEdit` for editing.
@@ -1014,10 +1020,6 @@ Step 6. According to the above 3 conditions, the following combinations will res
 +
 * Throws an exception as there is already a watermark on `tempImage`
 
-The diagram below illustrates how the WaterMark Command works:
-
-.Sequence Diagram for WaterMark Command
-image::WaterMarkCommandSequenceDiagram.png[width="800"]
 //end::WaterMark[]
 ==== Design Considerations
 

@@ -10,7 +10,7 @@
 
 == Overview
 
-My team and I were tasked with enhancing a basic command line Address Book for our software engineering project. We decided to morph the project into a image editor. +
+My team and I were tasked with enhancing a basic command line Address Book for our software engineering project. We decided to morph the project into an image editor. +
 
 FomoFoto is a robust yet simple image-editing tool. Users interact with the application through worded commands from their keyboard, and receive visual feedback from it through the displayed image on the application. +
 

@@ -233,7 +233,7 @@ image::dg-consultation/consultation5.png[width="600"]
 
 ==== Design considerations
 
-1. In a neighbourhood clinic setting, doctors usually tend to only one patient at a time. This is why QuickDocs only allow a single
+1. In a family clinic setting, doctors usually tend to only one patient at a time. This is why QuickDocs only allow a single
 ongoing session in the consultation process.
 
 2. In Singapore, every person is given a unique NRIC / FIN number regardless of their citizenship statuses. As such the NRIC is used to
@@ -322,5 +322,5 @@ However, doctors can recover from erroneous commands very quickly by making use 
 While a consultation session is ongoing, doctors can still perform operations beyond the consultation module as well, and not just be
 restricted to diagnosing the patient or prescribing medicine.
 
-As the selected option guarantees the flexibility and efficiency QuickDocs aim to deliver for doctors in neighbourhood clinics,
+As the selected option guarantees the flexibility and efficiency QuickDocs aim to deliver for doctors in family clinics,
 it is currently implemented to help doctors conduct their consultation sessions much more smoothly.

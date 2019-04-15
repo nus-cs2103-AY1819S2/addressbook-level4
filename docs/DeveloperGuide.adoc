@@ -516,7 +516,7 @@ Lastly, if `listpat` is called without any search parameters, QuickDocs will sim
 The consultation module consists of:
 
 1. *The consultation process*
-2. Listing of past patient consultation records
+2. Listing of past patient <<consultation_records,consultation records>>
 
 The listing of past patient consultation records is similar to the listing of patient records explained earlier, the only difference
 being it can only be filtered down by NRIC and viewed using indexing.
@@ -2045,6 +2045,10 @@ A contact detail that is not meant to be shared with others
 [[patient_records]] Patient Records::
 A data entry consisting of a patient's particulars, which includes name, NRIC, email address, home address,
 gender, contact number, date of birth and the list tags assigned to him or her.
+
+[[consultation_records]] Consultation Records::
+A data entry consisting of the diagnosis given and medicine prescribed for a single patient during a consultation
+session with the doctor.
 
 [appendix]
 == Instructions for Manual Testing

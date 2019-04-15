@@ -13,10 +13,26 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* QuickDocs is a desktop clinic management application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java application intended for doctors operating in a family clinic in Singapore.
-* QuickDocs allow doctors to not only manage patient data and appointments, conduct consultation sessions, but also
-help to keep track of the clinic's medical inventory and statistical records.
+== What is QuickDocs
+
+*QuickDocs* is an all-in-one clinic management application intended for doctors operating family clinics in Singapore. It can
+facilitate and expedite clinical operations to help doctors overcome manpower limitations in their clinics, and improve the
+quality of healthcare services provided to the patients.
+
+*QuickDocs* is a desktop application with a graphical user interface (GUI) but most of the user interactions happen using
+a CLI (Command Line Interface). Therefore it is intended for doctors who can type fast and prefer a CLI to perform
+tasks.
+
+== What can QuickDocs do?
+
+*QuickDocs* can helps doctors with:
+
+* Managing patient data
+* Conducting consultation sessions with patients
+* Organizing patient appointment dates
+* Setting personal reminders
+* Maintaining the clinic's medicine inventory
+* Generating useful statistics on the clinic's operations
 
 == Site Map
 

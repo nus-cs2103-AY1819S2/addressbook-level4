@@ -53,6 +53,9 @@ include::../UserGuide.adoc[tag=reviews]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+include::../DeveloperGuide.adoc[tag=uidiagram]
+include::../DeveloperGuide.adoc[tag=logicdiagram]
+include::../DeveloperGuide.adoc[tag=modeldiagram]
 include::../DeveloperGuide.adoc[tag=addReview]
 include::../DeveloperGuide.adoc[tag=manualtesting]
 include::../DeveloperGuide.adoc[tag=manualtestreview]

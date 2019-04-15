@@ -257,7 +257,7 @@ This section describes some noteworthy details on how certain features are imple
 
 
 // tag::listUnvisitedDG[]
-=== `listUnvisited` feature which sorts `Restaurant` by distance to a specified postal code
+=== listUnvisited feature which sorts Restaurants by distance to a specified postal code
 ==== Current Implementation
 The `listUnvisited` feature accepts a postal code as user input and displays restaurants without reviews nearest to the user's inputted postal code.
 
@@ -269,14 +269,14 @@ The implementation of this feature can be broken down into 3 main components.
 
 *3) Logic Component*
 
-These implementations and scope of these components will be discussed below.
+The implementations of these components will be discussed below.
 
 
 *[.underline]#1. Storage Component#*
 
 The `Storage` component's function is to serialise the JSON data file `PostalData.json`, which contains the x and y-coordinates of every postal code in Singapore as of 13/03/2019.
 The data is serialised into `JsonSerializablePostalData` which contains a `List` of `JsonAdaptedPostalData`.
-This data can be retreived through the `StorageManager#getPostalData()` method.
+This data can be retrieved through the `StorageManager#getPostalData()` method.
 
 [NOTE]
 In order to update the PostalData.json, you can run the script found https://github.com/chanqingzhou/postalDataScript[here].
@@ -302,7 +302,7 @@ This sequence is illustrated in the activity diagram below.
 
 image::ListUnvisitedLogicActivityDiagram.png[width="800"]
 
-The `SortDistanceComparator<Restaurant>` class sorts the `Restaurant` based on the distance to the user inputted postal code.
+The `SortDistanceComparator<Restaurant>` class sorts the `Restaurant` based on the distance to the user's inputted postal code.
 It does this by first querying the `PostalData` of the postal code of the `Restaurant` from `PostalDataSet` then
 calculating the distance from the user inputted postal code.
 This result is then stored within the `Comparator` class.
@@ -318,10 +318,10 @@ through the `Storage` component.
 
 Step 2. The user calls `listUnvisited po/267951`. The `listUnvisitedCommand` class will be initialised.
 A new `SortDistanceComparator` will be created by the
-'listUnvisitedCommand` class containing the `PostalData` of '267951'.
+`listUnvisitedCommand` class containing the `PostalData` of '267951'.
 The command will then call the method `Model#filterAndSort(Predicate PREDICATE_SHOW_UNVISITED_RESTAURANTS, Comparator sortBy).`
 [NOTE]
-If the postal code provided by the user is invalid, there will be no change in ordering of the `Restaurant`. The `Restaurant` will be filtered to only show `Restaurant` without any `Review`
+If the postal code provided by the user is invalid, there will be no change in ordering of the `Restaurant`. The list of `Restaurant` will be filtered to only show `Restaurant` without any `Review`.
 
 
 Step 3. The `Model#filterAndSortByLocation()` will first filter the `filterList` to show all `Restaurants` with zero reviews.

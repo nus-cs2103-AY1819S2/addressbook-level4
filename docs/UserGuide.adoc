@@ -564,18 +564,17 @@ Format: `name n/YOUR_NAME`
 
 Examples:
 
-* `name n/Jack The Sheep`
+* `name n/Jack Stone`
 
 
 ==== View your profile and usage statistics : `view`
 
-Set the cuisine of a restaurant identified by the index number used in the list. +
+View your individual Food Diary profile and usage statistics. +
 Format: `view`
 
 Examples:
 
-`view` +
-`View personalised statistics for John Doe. You have a total of 7 reviews and a total of 11 restaurants.`
+* `view` +
 
 * Example of profile statistics is shown below:
 

@@ -27,7 +27,7 @@ It also contains a Graphical User Interface(GUI) created with JavaFX. It is writ
 ** Justification: This feature improves the product significantly because a user can receive recommendations based on their current location, making it a lot more convenient for them to find restaurants.
 ** Highlights: This enhancement required the creation of multiple components to function. Firstly, a Python script was used to collect
  the postal data and parse it into a json file. Secondly, a new storage system was created to parse the postal data json file.
-  Finally, this data was then used to sort the restaurants.
+  Finally, this data was then used to sort the restagiurants.
 ** Credits: https://docs.onemap.sg/[OneMap API] was used to generate the postal data.
 
 * *Minor enhancement*: I added a name command that allows users to *personalise The Food Diary with their own name.*

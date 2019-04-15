@@ -433,8 +433,8 @@ is true at any point in time. E.g., only one of inFolder, inHomeDir, inTest... c
 // end::state[]
 
 //tag::importexport[]
-=== Import/Export feature
-[discrete]
+=== Import/Export feature__
+[discrete]__
 ==== Current Implementation
 The Import and Export feature is facilitated by the Logic and model components, together
 with the addition of 3 new classes inside the csvmanager package defined under
@@ -448,13 +448,13 @@ class command, the Import and Export command likewise inherit from the command c
 
 [discrete]
 ===== Model
-The model component supports the addition of a new object attribute [red]#CsvManager#, that carries out the read and
+The model component supports the addition of a new object attribute `CsvManager`, that carries out the read and
 write logic of cards to external files.
 
-Additionally, model implements two new methods, [red]#Model#importCardFolders# and [red]#Model#exportCardFolders#.
+Additionally, model implements two new methods, `Model#importCardFolders` and `Model#exportCardFolders`.
 These two methods further call the CsvManager API to read and write card folders.
 
-Model also implements [red]#Model#setTestCsvPath# and the [red]#Model#getDefaultPath# which are only used during testing.
+Model also implements `Model#setTestCsvPath` and the `Model#getDefaultPath` which are only used during testing.
 
 [discrete]
 ===== csvmanager package:
@@ -463,13 +463,13 @@ the model.
 
 The classes include:
 
-* [red]#CsvManager# - Main class responsible for the writing and reading of .csv files during the import and export of files
-* [red]#CsvFile# - Wrapper class for file name input by user
-* [red]#CsvCommands# interface - API for import/export method in CsvManager
-* [red]#CsvUtils# - Utility class containing the default path and test paths used by the application.
+* `CsvManager` - Main class responsible for the writing and reading of .csv files during the import and export of files
+* `CsvFile` - Wrapper class for file name input by user
+* `CsvCommands` interface - API for import/export method in CsvManager
+* `CsvUtils` - Utility class containing the default path and test paths used by the application.
 
 The main logic for the import / export command is carried out inside the CsvManager class specified by it's
-API [red]#CsvManager#writeFoldersToCsv# and [red]#CsvManager#readFoldersToCsv#.
+API `CsvManager#writeFoldersToCsv` and `CsvManager#readFoldersToCsv`.
 
 
 [discrete]
@@ -478,22 +478,22 @@ API [red]#CsvManager#writeFoldersToCsv# and [red]#CsvManager#readFoldersToCsv#.
 Suppose that these two folders index as shown on the main application screen is 1 and 3 respectively.
 The user types ``export 1 3``
 
-2. The Export command parser extracts the indices, stores the indices into a [red]#List<Integer># and
-[red]#ExportCommand# object, which keeps track of the indices.
+2. The Export command parser extracts the indices, stores the indices into a `List<Integer>` and
+`ExportCommand` object, which keeps track of the indices.
 
 
-3. The Export command calls executes, resulting in a call to the  [red]#Model#exportCardFolders# method.
+3. The Export command calls executes, resulting in a call to the  `Model#exportCardFolders` method.
 
-4. [red]#Model#exportCardFolders# method checks that all card folders specified by user exists within the model.
+4. `Model#exportCardFolders` method checks that all card folders specified by user exists within the model.
    With reference to the diagram below, we can see that the indices specified by the user (1 and 3) corresponds to the
    (i - 1) th indexes of the list of card folders in the model,
    where 1 < i <= no.of card folders in model. +
-   The method throws [red]#CardFolderNotFoundException# if card folder index is not found in list.
+   The method throws `CardFolderNotFoundException` if card folder index is not found in list.
 +
 image::import_export_model_list1.png[width = "800"]
 
 
-5.  [red]#CsvManager# is called to carry out the main logic of writing the card folders to file.
+5.  `CsvManager` is called to carry out the main logic of writing the card folders to file.
     File exported will be created in the project root directory. +
     Names of the files created will correspond to the names of their corresponding card folders. +
     i.e `Human Anatomy.csv` and `Nervous System.csv`
@@ -502,17 +502,17 @@ image::import_export_model_list1.png[width = "800"]
 `Human Anatomy.csv` file contains flashcards represented in csv file format.
 User types `import Blood.csv` command
 
-7. Import command parser extracts file name, wraps file into a [red]#CsvFile# object and
-   parses the [red]#CsvFile# object into an Import Command object.
+7. Import command parser extracts file name, wraps file into a `CsvFile` object and
+   parses the `CsvFile` object into an Import Command object.
 
 8. Logic unit executes the import command.
-The execute method makes a call to [red]#Model#importCardFolder# method. The model checks that
-the card folder to import does not already exist within the model. Throws [red]#DuplicateCardFolderException#
+The execute method makes a call to `Model#importCardFolder` method. The model checks that
+the card folder to import does not already exist within the model. Throws `DuplicateCardFolderException`
 if card folder already exists.
 
 9. CsvManager is called to carry out the main logic of reading card folders to file.
-File imported will be serialized into a [red]#CardFolder# object and
-added to the [red]#folders# variable in model.
+File imported will be serialized into a `CardFolder` object and
+added to the `folders` variable in model.
 
 
 NOTE: Both Imported and Exported files have to be placed in the project root directory.

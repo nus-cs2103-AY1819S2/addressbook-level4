@@ -34,10 +34,9 @@ user and developer guides in relation to these enhancements.
 === Legend
 NOTE: This admonition contains important information pertaining to the usage of the commands.
 
-`command`: A monospace font indicates that this is a command
-that can be inputted into the command line and executed by the application.
-
-[red]#text# : represents methods, variables or classes found within the Java files.
+`command`: A monospace font has two meanings. For the user guide, it represents a command
+that can be inputted into the command line and executed by the application. In the Developer guide,
+it represents methods, variables or classes found within the Java files.
 
 
 == Summary of contributions

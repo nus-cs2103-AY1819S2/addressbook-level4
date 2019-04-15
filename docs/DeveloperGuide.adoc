@@ -14,12 +14,33 @@ ifdef::env-github[]
 :experimental:
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S2-T12-4/main
-:mainWindowURL: {repoURL}/blob/master/src/main/java/seedu/address/ui/MainWindow.java
-:helpWindowTestURL: {repoURL}/blob/master/src/test/java/seedu/address/ui/HelpWindowTest.java
+:mainWindowURL: {repoURL}/blob/master/src/main/java/seedu/pdf/ui/MainWindow.java
+:helpWindowTestURL: {repoURL}/blob/master/src/test/java/seedu/pdf/ui/HelpWindowTest.java
 
 By: `Team T12-4`      Since: `Feb 2019`      Licence: `MIT`
 
+== Introduction
+
+=== Software Overview
+
+* PDF++ is a all-in-one document management tool that allows users to easily manage and manipulate their files. +
+_The current version of this application only deals with PDF files_.
+
+* There are many unique features to the application such as the ability to search within the content of files,
+merging several files togeter, setting of deadlines and many more. These features can be referred to within the
+<<implementation, Implementation>> Section of this document.
+
+=== Developer Guide Usage
+
+* This document is for developers who aim to further improve upon the application or change it to suit the needs of
+your target audience.
+* Each feature and design component has its own sub-heading and can be referred through the links in the table-of-contents. +
+They contain sufficient diagrams and detailed explanations that will be extremely useful to you.
+
 == Setting up
+
+This section will assist you in setting up the project for the first time in you computer. This will allow you to work
+on the application without any issue in the future.
 
 === Prerequisites
 
@@ -74,16 +95,6 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
 
-==== Updating documentation to match your fork
-
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
-
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
-
-. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
-
-. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
-
 ==== Setting up CI
 
 Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
@@ -106,6 +117,9 @@ When you are ready to start coding,
 2. Take a look at <<GetStartedProgramming>>.
 
 == Design
+
+This section allows you to visualise the application in a top-down view, where you are able to see the general
+structure of the different components within PDF++.
 
 [[Design-Architecture]]
 === Architecture
@@ -154,6 +168,7 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 
 .Component interactions for `delete 1` command
 
+.Delete Image
 image::SDforDeletePdf.png[width="800"]
 
 The sections below give more details of each component.
@@ -194,7 +209,7 @@ link:{repoURL}/src/main/java/seedu/pdf/logic/Logic.java[`Logic.java`]
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
-image::SDforDeletePdf.png[width="800"]
+image::DeleteCommandSequenceDiagram.png[width="800"]
 
 [[Design-Model]]
 === Model component
@@ -213,9 +228,15 @@ The `Model`,
 
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Pdf Book`, which `Pdf` can reference. This would allow `Pdf Book` to only require one `Tag` object per unique `Tag`, instead of each `Pdf` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
+
 .OOP Diagram
-image:ModelClassBetterOopDiagram.png[width="800"]
+image::ModelClassBetterOopDiagram.png[width="800"]
+
+The Pdf Class Diagram below shows the structure of the Pdf class,
+which is the most used class throughout the application.
+
+.Pdf Class Diagram
+image::PdfClassDiagram.png[width="300"]
 
 [[Design-Storage]]
 === Storage component
@@ -235,6 +256,7 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.pdfbook.commons` package.
 
+[#implementation]
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
@@ -242,12 +264,12 @@ This section describes some noteworthy details on how certain features are imple
 * Items with `…`​ after them can be used multiple times including zero times e.g. `TAG...` can be used as `{nbsp}` (i.e. 0 times), `MyTag`, `TagA TagB TagC` etc.
 
 // tag::add[]
-=== Adding of files to application
+=== Add Feature
 ==== Current Implementation
 
 This feature is facilitated by both the *AddCommandParser* and *AddCommand*.
 This feature adds the PDF file to the app using the path specified by your users.
-Other features such as the <<Edit feature>> and <<Open feature>> can only be performed on files that
+Other features such as the <<Rename Feature>> and <<Open feature>> can only be performed on files that
 are added to the application.
 
 The *AddCommandParser* uses the prefixes defined in *CliSyntax* to identify the different types of arguments that are entered along with the
@@ -315,51 +337,62 @@ workings of the Open feature.
 Step 1: The user launches an application with either an existing set of `Pdf` or a
 new sample set of `Pdf` stored within as shown below.
 
-.Step 1
-image::OpenFeatureStep1Default.png[width="600"]
-
 Step 2: The user chooses a `Pdf` that they wish to open, in this case `a.pdf`, and
 enters the `open` command into the CLI Interface, following the outlined Syntax as
 illustrated below.
 
-.Step 2
-image::OpenFeatureStep2UserInput.png[width="600"]
-
 Step 3: Upon hitting enter to execute the command, the *OpenCommandParser* parses
-the input into relevant objects that are required to be executed by the *OpenCommand*
-object. Upon parsing, the parser then creates a new *OpenCommand* that will execute the
-user's input.
+the input in the following method:
 
-Step 4: Upon receiving the necessary information from the parser, the *OpenCommand*
-retrieves the directory of the Pdf listed in the Pdf Book. It then launches the Pdf
-with the user-default Pdf reader.
+* Extract the `INDEX` that is input that was entered by the user.
+* Verify that it contains a valid integer.
+** This is done by initialising the `Index` objects that verifies the above properties on
+instantiation.
+** If the supplied parameter is invalid a `ParseException` is thrown and the `open` command is
+terminated.
+* Upon successfully parsing the input `Index`, a `OpenCommand` object is created with the relevant index
+and returned to the `LogicManager` for execution.
+
+Step 4: The `LogicManager` attempts to execute the `OpenCommand` by supplying it the `model` and `commandHistory`.
+
+Step 5: The `OpenCommand` checks that the supplied `Index` matches a `Pdf` in the model and sources for the
+default application within the `Operating System` to open the file.
+
+Step 6: Finally, the `OpenCommand` supplies the default application with the file-path of the `Pdf` to open
+and returns a successful `CommandResult` to the `LogicManager`.
+
+* Should there be any issue with the parsing of the `Pdf` due to invalid directories or a corrupted `Pdf` file,
+the `CommandException` will be thrown and the `OpenCommand` will be terminated. A "Fail Message" will then be displayed to the user.
+
+The implementation of the *OpenCommand* execution can be summarised in the following activity diagram:
 
 .Open Command Activity Diagram
 image::OpenCommandActivityDiagram.png[width="600"]
 
 [NOTE]
-For more information about the behavior of launching the Pdf, please refer to Java SE 9 class Desktop.
+For more information about the behaviour of sourcing for the default application to open the
+Pdf, please refer to Java SE 9 class link:https://docs.oracle.com/javase/9/docs/api/java/awt/Desktop.html[Desktop].
 
 // end::open[]
 
-// tag::edit[]
-=== Edit feature
+// tag::rename[]
+=== Rename Feature
 ==== Current Implementation
 
-The `edit` feature is facilitated by both the *EditCommandParser* and *EditCommand*.
+The `rename` feature is facilitated by both the *RenameCommandParser* and *RenameCommand*.
 Essentially upon adding a Pdf to be tracked by the application, the user will be able to
-change certain attributes tied to the PDF such as the `Name` and `Tag` tied to a particular Pdf.
+change certain attributes tied to the PDF such as the `Name` and tied to a particular Pdf.
 
-.Edit Command Activity Diagram
-image::EditCommandActivityDiagram.png[width="600"]
+.Rename Command Activity Diagram
+image::RenameCommandActivityDiagram.png[width="600"]
 
-// end::edit[]
+// end::rename[]
 
 // tag::move[]
 === Move feature
 ==== Current Implementation
 The `move` feature is facilitated by both *MoveCommand* and *MoveCommandParser*.
-This feature functions as a simplified version of <<Edit feature>>, as in nature
+This feature functions as a simplified version of <<Rename Feature>>, as in nature
 it is making an edit to the directory of the file. However, in addition to making changes
 to the directory in the application storage, it also ensures that the directory changes
 are reflected in the local filesystem.
@@ -409,7 +442,7 @@ the user's input.
 Step 3: The `MoveCommand` is then executed. Successful execution of the command would return
 a *CommandResult* object, while unsuccessful execution due to validation failure will throw
 a *CommandException*.
-
+.Move Command Activity Diagram
 image::MoveCommandActivityDiagram.png[width="600"]
 
 // end::move[]
@@ -423,7 +456,7 @@ This feature utilises the
 https://pdfbox.apache.org/download.cgi#20x[_Apache PDFBox® library_], specifically the
 https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/multipdf/PDFMergerUtility.html[_PDFMergerUtility_]
 API to append two or more PDFs and create a new file with the merged content. As there will be one
-additional file added to the application, this feature also implicitly performs <<Adding of files to application>> to add the new
+additional file added to the application, this feature also implicitly performs <<Add Feature>> to add the new
 PDF to the application.
 
 The implementation of the *MergeCommand* execution can be summarised in the following activity diagram:
@@ -460,6 +493,7 @@ This sequence diagram demonstrates the interactions involved from start of *Merg
 .Merge Command Sequence Diagram
 image::MergeCommandSequenceDiagram.png[width="600"]
 
+
 ==== Considerations
 
 The default directory of the merged file is currently set to the directory of the first index of the files to be merged. There were considerations to make flexibility in the merge command input
@@ -486,6 +520,11 @@ https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/multipdf/PDFMerg
 The `delete` feature is facilitated by both *DeleteCommand* and *DeleteCommandParser*.
 This feature performs either a _soft_ or _hard_ remove operation on a file in the application
 based on the index provided.
+
+The implementation of the *DeleteCommand* execution can be summarised in the following activity diagram:
+
+.Delete Command Activity Diagram
+image::DeleteCommandActivityDiagram.png[width="600"]
 
 * _Soft_ delete is defined as removing a file from the application but not from the local filesystem;
 the physical file is left intact within the user's operating system, but the user will not be able to access or
@@ -529,6 +568,9 @@ Step 3: The *DeleteCommand* is then executed. Successful execution will return a
 
 .Delete Command Activity Diagram
 image::DeleteCommandActivityDiagram.png[width="600"]
+
+.Delete Command Sequence Diagram
+image::DeleteCommandSequenceDiagram.png[width="800"]
 
 // end::delete[]
 
@@ -591,6 +633,12 @@ image::DeadlineCommandSequenceDiagram.png[width="600"]
 [TIP]
 After a deadline has been added to the PDF file specified, the date will be color coded according to days
 remaining from the current day until the deadline date.
+
+.Deadline Class Diagram
+image::DeadlineClassDiagram.png[width="200"]
+
+Step 1: From the main interface, the user chooses a file that they wish to set a deadline,
+enters the `deadline` command into the CLI Interface, following the outlined Syntax mentioned.
 
 ==== Considerations
 
@@ -940,14 +988,17 @@ Given below is an example usage scenario and how the undo/redo mechanism behaves
 
 Step 1. The user launches the application for the first time. The `VersionedPdfBook` will be initialized with the initial pdf book state, and the `currentStatePointer` pointing to that single pdf book state.
 
+.Undo / Redo Step 1
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
 Step 2. The user executes `delete 5` command to delete the 5th pdf in the pdf book. The `delete` command calls `Model#commitPdfBook()`, causing the modified state of the pdf book after the `delete 5` command executes to be saved in the `pdfBookStateList`, and the `currentStatePointer` is shifted to the newly inserted pdf book state.
 
+.Undo / Redo Step 2
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
 Step 3. The user executes `add n/David ...` to add a new pdf. The `add` command also calls `Model#commitPdfBook()`, causing another modified pdf book state to be saved into the `pdfBookStateList`.
 
+.Undo / Redo Step 3
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
@@ -955,6 +1006,7 @@ If a command fails its execution, it will not call `Model#commitPdfBook()`, so t
 
 Step 4. The user now decides that adding the pdf was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoPdfBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous pdf book state, and restores the pdf book to that state.
 
+.Undo / Redo Step 4
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
@@ -962,6 +1014,7 @@ If the `currentStatePointer` is at index 0, pointing to the initial pdf book sta
 
 The following sequence diagram shows how the undo operation works:
 
+.Undo / Redo Sequence Diagram
 image::UndoRedoSequenceDiagram.png[width="800"]
 
 The `redo` command does the opposite -- it calls `Model#redoPdfBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the pdf book to that state.
@@ -971,14 +1024,17 @@ If the `currentStatePointer` is at index `pdfBookStateList.size() - 1`, pointing
 
 Step 5. The user then decides to execute the command `list`. Commands that do not modify the pdf book, such as `list`, will usually not call `Model#commitPdfBook()`, `Model#undoPdfBook()` or `Model#redoPdfBook()`. Thus, the `pdfBookStateList` remains unchanged.
 
+.Undo / Redo Step 5
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
 Step 6. The user executes `clear`, which calls `Model#commitPdfBook()`. Since the `currentStatePointer` is not pointing at the end of the `pdfBookStateList`, all pdf book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
+.Undo / Redo Step 6
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
+.Undo / Redo Activity Diagram
 image::UndoRedoActivityDiagram.png[width="650"]
 
 ==== Design Considerations
@@ -1024,6 +1080,7 @@ The `encrypt` feature is facilitated by both *EncryptCommand* and *EncryptComman
 
 The implementation of the *EncryptCommand* execution is summarised in the following activity diagram:
 
+.Encrypt Command Activity Diagram
 image::EncryptCommandActivityDiagram.png[width="600"]
 
 . The provided index is checked for validity i.e. referring to a specific Pdf in PdfBook.
@@ -1054,6 +1111,7 @@ are created. The password specified will be passed to `StandardProtectionPolicy`
 This sequence diagram demonstrates the <<main-success-scenario>> from the
 *LogicManager* to the end of *EncryptCommand* execution:
 
+.Encrypt Command Sequence Diagram
 image::EncryptCommandSequenceDiagram.png[width="800"]
 
 ===== Design Considerations
@@ -1100,6 +1158,7 @@ The `decrypt` feature is facilitated by both *DecryptCommand* and *DecryptComman
 
 The implementation of the `DecryptCommand` execution is summarised in the following activity diagram.
 
+.Decrypt Command Activity Diagram
 image::DecryptCommandActivityDiagram.png[width="600"]
 
 . The provided index is checked for validity i.e. referring to a specific Pdf in PdfBook.
@@ -1125,6 +1184,7 @@ Common reasons of error are:
 This sequence diagram demonstrates the <<main-success-scenario>> from the
 *LogicManager* to the end of *DecryptCommand* execution:
 
+.Decrypt Command Sequence Diagram
 image::DecryptCommandSequenceDiagram.png[width="800"]
 
 ===== Design Considerations
@@ -1431,10 +1491,12 @@ Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
 +
 **Before**
 +
+.UI Before Tag
 image::getting-started-ui-tag-before.png[width="300"]
 +
 **After**
 +
+.UI After Tag
 image::getting-started-ui-tag-after.png[width="300"]
 +
 ****
@@ -1452,10 +1514,12 @@ image::getting-started-ui-tag-after.png[width="300"]
 +
 **Before**
 +
+.Ui Before Result
 image::getting-started-ui-result-before.png[width="200"]
 +
 **After**
 +
+.UI After Result
 image::getting-started-ui-result-after.png[width="200"]
 +
 ****
@@ -1476,10 +1540,12 @@ image::getting-started-ui-result-after.png[width="200"]
 +
 **Before**
 +
+.UI Before Status
 image::getting-started-ui-status-before.png[width="500"]
 +
 **After**
 +
+.UI After Status
 image::getting-started-ui-status-after.png[width="500"]
 +
 ****
@@ -1691,31 +1757,52 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 [discrete]
 === Use case: Add new PDF file
+*System: PDF++*  +
+*Use case: Adding a Pdf to PDF++* +
+*Actor: Student* +
+*MSS* +
 
-*MSS*
+1.  User types `add f/FILEPATH` into the CLI Input.
+2.  User clicks enter.
+3.  PDF++ makes a record of the relevant attributes of the selected PDF.
 
-1.  User clicks on `Import PDF` button [top-left corner of the UI].
-2.  User navigates to directory of the PDF file to be added.
-3.  User clicks desired PDF file followed by `Add` button.
-4.  PDF++ makes a record of the relevant attributes of the selected PDF.
-+
 Use case ends.
+
+*Extensions* +
+3a. +
+  3a1. User loads an invalid file (not a pdf). +
+  3a2. PDF++ shows an error message to user. +
+  3a3. User repeats Step 1 and 2 to add a valid pdf into PDF++. +
+  Use Case resumes at step 3. +
 
 [discrete]
-=== Use case: Sort files within PDF++
+=== Use case: Find keyword in files within PDF++
+*System: PDF++*  +
+*Use case: Adding a Pdf to PDF++* +
+*Actor: Student* +
+*MSS* +
 
-*MSS*
-
-1.  User clicks on `Sort` dropdown box.
-2.  User clicks on sorting criteria based on dropdown box options.
-3.  User clicks on `Sort` button.
-4.  PDF++ sorts the list of files and displays sorted list to user.
+1.  Clicks on the CLI Input Area.
+2.  User types `find KEYWORD`.
+3.  User presses enter.
+4.  PDF++ Returns a list of files that contain the keyword in its names or content.
 +
 Use case ends.
+
+*Extensions* +
+3a. User input invalid data. +
+3a1. PDF++ throws an exception to alert the user. +
+3a2. User repeats Step 1 to 3 to search till a valid `KEYWORD` is entered. +
+
+3b. User inputs a `KEYWORD` that is not in any of the files. +
+3b1. PDF++ Returns an empty list. +
+Use Case ends.
+
 
 [discrete]
 === Use case: Delete pdf
 
+*System: PDF++*
 *MSS*
 
 1.  User requests to list pdfs
@@ -1824,20 +1911,232 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and directory is retained.
 
+=== Adding a pdf
+
+. Adding an actual pdf file that is on local device
+.. Prerequisites:
+... Have Read, Write and Execute permissions to access the file.
+... The file must be an unencrypted and uncorrupted pdf file.
+
+.. Test case: `add f/C:\Users\WeiTang\Desktop\test\validPdfFile.pdf`
+... Please make sure that your command is of this format: `add f/VALIDFILEPATH.pdf`.
+Note that the file path various for Operating Systems and devices.
+... Expected: The pdf is added to the last index of the list. Details of the added pdf shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `add f/invalidFilePath`
+... Expected: No pdf is added. Error details shown in the status message. Status bar remains the same.
+
+=== Sorting the list of pdf
+
+. Sorting the list of pdfs in a specified order
+
+.. Prerequisites: The pdf files in the list are uncorrupted and they exists in the system. The sort command works even for an empty list.
+.. Test case: `sort name up` +
+    Expected: The list of pdfs will be sorted according to name in an ascending order.
+.. Other correct sort commands to try: `sort name down` (sort the list by name in an descending order), `sort size up` (sort the list by size in an
+  ascending order), `sort size down` (sort the list by size in an descending order), `sort deadline up` (sort the list by deadline in an ascending order),
+  `sort deadline down` (sort the list by deadline in an descending order).
+
+  .. Test case: `sort invalidOperation up` +
+    Expected: The list of pdfs is not sorted. Error details shown in the status message. Status bar remains the same.
+  .. Other incorrect sort commands to try: `sort name wrongCriteria` (the order is wrong), `sort name` (sort order is not specified),
+  `sort up` (sort order is not specified).
+
+. Moving a pdf to a new specified directory
+
+.. Prerequisites: The pdf files in the list are uncorrupted and they exists in the system.
+.. Test case: `move 1` +
+    Expected: A GUI will show to allow you to select the directory that you want to move the first pdf to.
+... If the directory indicated is different from the current directory of pdf +
+    Expected: The pdf is moved to the new directory. Details of the deleted pdf shown in the status message. Timestamp in the status bar is updated.
+... If the directory indicated is same from the current directory of the pdf +
+    Expected: The first pdf is not moved. Error details shown in the status message. Status bar remains the same.
+
+.. Test case: `move 1 d/validPathToDirectory`
+... If the directory indicated is different from the current directory of pdf +
+    Expected: The pdf is moved to the new directory. Details of the deleted pdf shown in the status message. Timestamp in the status bar is updated.
+... If the directory indicated is same from the current directory of the pdf +
+    Expected: The first pdf is not moved. Error details shown in the status message. Status bar remains the same.
+    Expected: The first pdf is moved to the new directory. Details of the deleted pdf shown in the status message. Timestamp in the status bar is updated.
+
+.. Test case: `move d/validPathToDirectory`
+    Expected: No pdf is moved. Error details shown in the status message. Status bar remains the same.
+ .. Other incorrect move commands to try: `move`, `move 1 d/` (no directory specified), `move 1 validPathToDirectory` (no directory prefix),
+    `move 1 d/NotADirectory.pdf` (not directory path specified) +
+    Expected: Similar to previous.
+
+
+=== Open
+
+. Open the pdf by the specified index in the list.
+
+.. Prerequisites: The pdf files in the list are uncorrupted and they exists in the system.
+.. Test case: `open 1`
+    Expected: The first pdf is opened using the system default PDFReader. Details of the updated pdf shown in the status message. Timestamp in the status bar is updated.
+.. `open 0` +
+   Expected: No pdf is open. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect open commands to try: `open`, `open x` (where x is larger than the list size), `open y` (where y is any negative number)  +
+   Expected: Similar to previous.
+
+=== Rename a pdf file
+
+.. Prerequisites: The pdfs in the list are uncorrupted and they exists in the system.
+.. Test case: `rename 1 n/newName.pdf` +
+    Expected: First pdf is renamed to `newName.pdf`. Details of the updated pdf shown in the status message. Timestamp in the status bar is updated.
+
+.. Test case: `rename 1 n/pdf` +
+    Expected: First pdf is not renamed. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect rename commands to try: `rename 1 validName.pdf` (no prefix), `rename x n/validName.pdf`(where x is larger than the list size),
+`rename y n/validName.pdf` (where y is any negative number), `rename n/validName.pdf` (no index), `rename 1 wrong/validName.pdf` (wrong prefix)  +
+    Expected: Similar to previous.
+
+=== Tagging a pdf
+
+. Tagging a pdf that is in the list.
+
+.. Prerequisites: The pdf files in the list are uncorrupted and they exists in the system.
+.. Test case: `tag 1 -a t/SEROCKS` +
+    Expected: First pdf is tagged with SEROCKS. Details of the updated pdf shown in the status message. Timestamp in the status bar is updated.
+    The first file in the file section GUI has the `SEROCKS` tag.
+.. Other correct tag commands to try: `tag 1 -a t/SEROCKS t/CS2103T` (as tag supports for adding of multiple tags) +
+    Expected: Similar to previous.
+
+.. Test case: `tag 1 -r t/SEROCKS`
+... If the tag don't exists: +
+    Expected: The pdf is not tagged. Error details shown in the status message. Status bar remains the same.
+... If the tag exists: +
+    Expected: First pdf's tag is removed. Details of the updated pdf shown in the status message. Timestamp in the status bar is updated.
+
+.. Test case: `tag 1 -r SEROCKS` +
+    Expected: The pdf is not tagged. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect tag commands to try: `tag 1 -x t/SEROCKS` (invalid operation), `tag 1 -a t/` (no tag specified) +
+    Expected: Similar to previous.
+
 === Deleting a pdf
 
 . Deleting a pdf while all pdfs are listed
 
 .. Prerequisites: List all pdfs using the `list` command. Multiple pdfs in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First pdf is deleted from the list. Details of the deleted pdf shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No pdf is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size), `delete y` (where y is any negative number)  +
    Expected: Similar to previous.
+
+=== Move
+
+. Moving a pdf to a new specified directory
+
+.. Prerequisites: The pdf files in the list are uncorrupted and they exists in the system.
+.. Test case: `move 1` +
+    Expected: A GUI will show to allow you to select the directory that you want to move the first pdf to.
+... If the directory indicated is different from the current directory of pdf +
+    Expected: The pdf is moved to the new directory. Details of the deleted pdf shown in the status message. Timestamp in the status bar is updated.
+... If the directory indicated is same from the current directory of the pdf +
+    Expected: The first pdf is not moved. Error details shown in the status message. Status bar remains the same.
+
+.. Test case: `move 1 d/validPathToDirectory`
+... If the directory indicated is different from the current directory of pdf +
+    Expected: The pdf is moved to the new directory. Details of the deleted pdf shown in the status message. Timestamp in the status bar is updated.
+... If the directory indicated is same from the current directory of the pdf +
+    Expected: The first pdf is not moved. Error details shown in the status message. Status bar remains the same.
+    Expected: The first pdf is moved to the new directory. Details of the deleted pdf shown in the status message. Timestamp in the status bar is updated.
+
+.. Test case: `move d/validPathToDirectory`
+    Expected: No pdf is moved. Error details shown in the status message. Status bar remains the same.
+ .. Other incorrect move commands to try: `move`, `move 1 d/` (no directory specified), `move 1 validPathToDirectory` (no directory prefix),
+    `move 1 d/NotADirectory.pdf` (not directory path specified) +
+    Expected: Similar to previous.
+
+=== Deadline
+
+. Setting deadline of the pdf
+
+.. Prerequisites: The pdf files in the list are uncorrupted and they exists in the system.
+.. Test case: `deadline 1 date/14-4-2019` +
+    Expected: The first pdf is set with deadline 14-4-2019. Details of the edited pdf shown in the status message. Timestamp in the status bar is updated.
+.. Other correct deadline commands to try: `deadline 1 done` (set that the task has been completed), `deadline 1 remove` (remove the deadline)
+
+.. Test case: `deadline 1 date/20-20-2019` +
+    Expected: No deadline is set to the first pdf. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect deadline commands to try: `deadline x date/4-4-2019` (where x is larger than the list size), `deadline y date/4-4-2019`
+(where y is any negative number), `deadline 1 date/` (no date specified), `deadline 1 d` (wrong prefix), `deadline date` (no index specified)
+
+=== Filter
+
+. Filters the list of pdfs by the specified tag
+
+.. Prerequisites: The pdf files in the list are uncorrupted and they exists in the system.
+.. Test case: `filter t/SEROCKS` +
+    Expected: All pdfs with the same tag will be shown in the filtered list. Details of the number of pdf is shown in the status message. Timestamp in the status bar is updated.
+.. Other correct filter commands to try: `filter t/SEROCKS t/CS2103T` (more than 1 tag specified)
+    Expected: All pdfs with either of the tags will be shown in the filtered list.
+
+.. Test case: `filter t/` +
+    Expected: The list is not filtered. Error details shown in the status message. Status bar remains the same.
+
+=== Find
+
+. Finds the list of pdfs with the specified keyword(s)
+
+.. Prerequisites: The pdf files in the list are uncorrupted and they exists in the system.
+.. Test case: `find algorithm` +
+    Expected: All pdfs with the keyword as the name and in the file will be shown in the filtered list. Details of the the number of pdf listed is shown in the status message. Timestamp in the status bar is updated.
+.. Other correct find commands to try: `find algorithm SEROCK` (more than one keyword) +
+    Expected: All pdfs with at least one of the keywords as the name and in the file will be shown in the filtered list.
+
+.. Test case: `find` +
+    Expected: No pdf is filtered. Error details shown in the status message. Status bar remains the same.
+
+=== Encrypt
+
+. Encrypts the pdf by the specified index of the list with the specified password
+
+.. Prerequisites: The pdf files in the list are uncorrupted, unencrypted and they exists in the system.
+.. Test case: `encrypt 1 password/anyValidPassword` +
+    Expected: The first pdf will be encrypted with the password `anyValidPassword`. Details of the encryption is shown in the status message. Timestamp in the status bar is updated.
+
+.. Test case: `encrypt 1 password/` +
+    Expected: The first pdf is not encrypted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect encrypt commands to try: `encrypt 1 anyValidPassword` (no prefix), `encrypt 1 p/anyValidPassword` (wrong prefix),
+`encrypt password/anyValidPassword` (no index)
+    Expected: Similar to previous.
+
+=== Decrypt
+
+. Decrypts the pdf by the specified index of the list with the specified password.
+
+.. Prerequisites: The pdf files in the list are uncorrupted, protected and they exists in the system.
+.. Test case: `decrypt 1 password/anyValidPassword` +
+    Expected: The first pdf will be encrypted with the password `anyValidPassword`. Details of the decryption is shown in the status message. Timestamp in the status bar is updated.
+
+.. Test case: `decrypt 1 password/` +
+    Expected: The first pdf is not encrypted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect decrypt commands to try: `decrypt 1 anyValidPassword` (no prefix), `decrypt 1 p/anyValidPassword` (wrong prefix),
+`decrypt password/anyValidPassword` (no index)
+    Expected: Similar to previous.
+
+=== Merge
+
+. Merge 2 or more pdfs into 1 and adds the merged pdf to the back of the list.
+
+.. Prerequisites: The pdf files in the list are uncorrupted, unpotected and they exists in the system, and at least 2 indexes are specified.
+.. Test case: `merge 1 2` +
+    Expected: The first and second pdfs are merged into one pdf and put at the back of the list. Details of the merge is shown in the status message. Timestamp in the status bar is updated.
+.. Other correct merge commands to try: `merge 1 1 1 1 1` +
+    Expected: The first pdf is merged 5 times into 1 pdf and the merged pdf is added to the back of the list.
+
+.. Test case: `merge 0` +
+    Expected: No merged pdf is produced. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect merge commands to try: `merge 1`, (only 1 index is specified), `merge 1 x` (where x is larger than the list size),
+`merge 1 y` (where y is any negative number) +
+    Expected: Similar to previous.
 
 === Saving data
 
 . Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. When you have a corrupted data files in the application. You can follow the steps below:
+... Enter `open INDEX` to test that the file is really uncorrupted and cannot be accessed from
+the application
+... Enter `delete INDEX` to remove the file from the application
+... Enter `add f/PATHTOFILE.pdf` to add the file from the system to the application.

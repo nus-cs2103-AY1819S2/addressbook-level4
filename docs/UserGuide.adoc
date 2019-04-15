@@ -19,27 +19,34 @@ By: `Team T12-4`      Since: `Feb 2019`      Licence: `MIT`
 
 === PDF++ ?
 
-PDF++ is a desktop application that is meant for anyone who wants or needs a convenient tool that helps you manage all the documents in your computer.
-This application can be used by both *Text Input (TI)* and a Graphical *User Interface (GUI)*
-hence, both technical users and casual users can enjoy a comfortable experience using our program. All features provided by our application can be used via the *TI* and relevant feedback, based on your command, will be displayed in the Response Area of the application.
+PDF++ is a desktop application that is meant for anyone who wants or needs a convenient tool that helps them manage all the documents in their computer.
+This application can be used by both *Text Input (TI)* and a *Graphical User Interface (GUI)*
+hence, both technical users and casual users can enjoy a comfortable experience using our program. All the features provided by our application can be used via the *TI* and relevant feedback, based on your input, will be displayed in the <<app-layout, Output Area>> of the application.
 
 [NOTE]
-The current version of PDF++ supports PDF documents only. However, it is projected
-to support for all file types in the future.
+The current version of our application supports PDF documents only. However, we aim to provide
+support for many more file types in the future.
 
 === Proper Usage of PDF++
-As PDF++ aims to replace your existing File Management System, all operations should be done
-through the application. In order to ensure smooth user experience, you should not perform any
-operation, such as removing, renaming or replacing, on the files that was previously added into
-the application outside of the application.
+PDF++ aims to replace your existing File Management System, all operations concerning file management
+should be done through the application. In order to ensure smooth user experience, you should not perform any
+file manipulation actions on the files themselves. It is recommended that once you add a file to our application, you should
+only make changes to those files through our application to prevent the application from misbehaving.
 
-Furthermore, due to the properties of the Operating Systems, no operation can be performed on the
-files that are opened. Please ensure that your files are not opened before executing the command.
+Furthermore, due to security features provided by the Operating Systems, some actions cannot be performed on the
+files if they are currently opened (In any PDF Viewer). Please ensure that your files are closed prior to performing any actions
+on them.
 
 This File Management System plans to enhance your typical experience managing your documents and
 it strives to be the last document manager you will ever need. It includes a multitude of
-functions in elevating your PDF reading and management experience. There are many features offered by our application that you can refer to in the table of contents on the left side of this screen with many more to come! Are you fascinated by PDF++? What are you waiting for?
+functions that will elevate your PDF reading and management experience.
+You can refer to the table of contents on the left side of this screen to indulge in the many features provided by our app and with many more to come!
+Are you fascinated by PDF++? What are you waiting for?
 Jump to the <<Quick Start>> to get started. Enjoy!
+
+[NOTE]
+The words "app" and "application" are used interchangeably in this document and mainly refer to the PDF++
+Application.
 
 == Quick Start
 
@@ -48,18 +55,20 @@ Jump to the <<Quick Start>> to get started. Enjoy!
 .  Copy the file to the folder you want to use as the home folder for your PDF++.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
+[#app-layout]
+.PDF++ Layout
 image::UGAppOverview.png[width="800"]
+.Individual File Representation
 image::UGPdfCard.png[width="500"]
 +
 .  Type any commands in the Input Area, also known as the Command Box, highlighted by the Orange area and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* in the command box and pressing kbd:[Enter] will open this PDF++ User Guide.
 .  Some example commands you can try:
 
-* *`list`* : lists all files in PDF++
-* **`add`**`f/C:\Users\Raj\Documents\myfile.pdf` : adds a PDF file named `myfile`
-from the mentioned directory to the PDF++ list.
-* **`delete`**`index` : deletes the file indexed at `index` of the list and all relevant information from PDF++.
-* *`exit`* : exits the app
+* `list` : Lists all files currently managed in PDF++.
+* `help`: Opens the User Guide.
+* `delete INDEX`: deletes the file indexed at `index` on the list and all its relevant information from PDF++.
+* `exit` : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
@@ -67,33 +76,47 @@ from the mentioned directory to the PDF++ list.
 == Features
 
 CAUTION: Please ensure that you have the permissions to Read, Write and
-Execute the files that you wish to manage through our application. Please use
-a web search, like Google, to assist you in identifying if you possess the
+Execute the files that you wish to manage through our application. You may use
+a web search, like Google, to assist you in identifying if you possess the relavant
 permissions. If you are lacking these permissions our application may not be
-able to carry out the actions specified by you.
+able to carry out the actions you specify.
 
 WARNING: Please do not manipulate the files once you have added them to our
 application. Unforeseen actions such as moving, renaming and others might result
 in unexpected behaviour by the application. Our application is meant to replace
 the need for you to perform these actions manually on your files yourselves.
 
+[WARNING]
+If your file is open please close it before proceeding to perform ANY other actions in the application.
+If the file is kept open, the application may misbehave as it is sharing access to the file with other unknown applications.
+
+[TIP]
+Certain commands may take a longer time to run depending on the size of the files that you are dealing with. Hence the Operating System
+may wrongly detect that the application is not responding, when it infact is. Hence, should you see the "application not responding"
+pop-up from your operating system, it is actually still working in the background therefore please allow the application some time
+to complete the task that you have assigned it. Thank you.
+
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the additional information that you need to input e.g. in `add f/FILENAME`, `FILENAME` is a parameter which can be used as `add f/myfile`.
+* Texts such as `f/` or `t/` or `date/` and are prefixes that signify information that is required by a particular command.
+* Words in `UPPER_CASE` are the additional information that you need to input e.g. in `add f/FILENAME`, `FILENAME` is a parameter which you need to input.
 * Items with `…`​ after them can be used multiple times or zero times e.g. `t/TAG...` can be left blank or used multiple times, `t/TagA t/TagB t/TagC` etc.
-* ALL Commands are to be entered in the Input Area that is highlighted in Orange.
-* ALL Responses to your input Commands will be displayed in the Output area that is highlighted in blue.
+* ALL Commands are to be entered in the <<app-layout, Input Area>> that is highlighted in Orange.
+* ALL Responses to your input Commands will be displayed in the <<app-layout, Output Area>> that is highlighted in blue.
 ====
-=== Viewing help : `help`
+
+[#command-help]
+=== Viewing the User Guide : `help`
 
 Format: `help` +
-The help command displays this current page for any references you may need or questions that you may require answers to.
+The help command displays this page for any references you may need or questions that you may require answers to.
 
+[#command-add]
 === Adding a file: `add`
 
-The add command allows you to add a file through TI into to the application, or through the GUI. +
-The added file will appear in the Files Section, highlighted in green, shown above. +
+The add command allows you to add a file through *TI* into to the application, or through the *GUI*. +
+The added file will appear in the <<app-layout, Files Section>>, highlighted in green, shown above. +
 
 NOTE: Files with the same name can be added to our application provided that
 they are not in the same directory. Just as any Operating System would allow the
@@ -101,87 +124,13 @@ existence of files with the same name in different directories.
 
 The Add feature has the following syntax:
 
-[.big]#`add`#
+[.big]#Format: `add`#
 
-[.big]#`add f/<PATH_TO_FILE> t/<TAG>...`#
+[.big]#Format: `add f/PATH_TO_FILE`#
 
-* `f/` refers to the command immediately following after this prefix is a file
-* `<PATH_TO_FILE>` refers to the path to the `Pdf` you wish to add
-* `<TAG>...` refers to the new `Tag` you wish to add. Leave this portion empty if you
-do not wish to tag this file.
-* Entering `add` without `<INDEX>` or  `<NEWDIRECTORY>` will open the default file
-selection GUI for the user to add the file directly.
-
-[NOTE]
-Please ensure that you have entered the full `PATH_TO_FILE`. Please refer to
-`Step-by-Step Guide -- add` below for detailed explanation.
-
-==== Feature breakdown
-Illustrated below is a sample usage scenario that provides a clear view to the inner
-workings of the Add feature.
-
-Step 1: The user launches the application with either an existing set of `Pdf` or a new
-sample set of `Pdf` stored within as shown below.
-
-image::AddFeatureStep1Default.png[width="600"]
-
-Step 2: The user navigates to the folder with the file and copy the directory.
-
-* __For Windows__
-Once the user has navigated to the folder, click on the address bar and copy
-
-image::AddFeatureStep2CopyDirectory.png[width="600"]
-
-* __For Mac__
-Right click the file that you wish to add to our application and you should see
-the following menu pop up.
-
-image::UGAddPathMac1.png[width="200"]
-
-* When this menu appears, if you press kbd:[control] on your keyboard, you should
-see the menu change as shown in the image below.
-
-image::UGAddPathMac2.png[width="200"]
-
-* Now if you press the button highlighted in *blue*, you have successfully copied
-the path of the file you wish to add to the application.
-
-Step 3: You may now enter the `add` command into the CLI interface followed by the
-path of the file you wish to add to the application as illustrated below.
-
-[NOTE]
-Your users must type the file name **after** the directory copied at __Step 2__
-
-image::AddFeatureStep3UserInput.png[width="600"]
-
-[NOTE]
-You can enter `add` and hit kbd:[enter], to open up a GUI for you to select the file you
-wish to add.
-
-Step 4: Upon hitting kbd:[enter] to execute the command, the *AddCommandParser* parses the input
-into several components that are required to be executed by the *AddCommand*.
-
-Upon parsing, the parser then creates a new *AddCommand* that will be executed according to
-the your input.
-
-Step 5: Upon receiving the necessary information from the parser, the `AddCommand` first
-begins by checking for validity as shown below.
-
-* `Pdf` does not exist in directory
-
-image::AddFeatureStep5PdfNotFound.png[width="600"]
-
-* `Pdf` found and no duplication in PDF++
-
-image::AddFeatureStep5Sucess.png[width="600"]
-
-Step 6: If the validity check and the individual property check passes, the file is then
-added to PDF++
-
-[NOTE]
-As of v1.4, the Add feature is only capable of adding 1 `Pdf` file at a time. By v2.0,
-the feature will support adding multiple files.
-
+* `PATH_TO_FILE` refers to the path to the `Pdf` you wish to add
+* Entering `add` without `f/PATH_TO_FILE` will open the file
+selection *GUI* for the user to `add` a file to our application.
 * The file must be a *PDF* file (with .pdf extension).
 
 Example:
@@ -190,19 +139,89 @@ Example:
 * `add f//Users/raj/Desktop/CS2101 Lecture.pdf` [Mac / Linux Operating System]
 * `add` [Any Operating System]
 
+[NOTE]
+Please ensure that you have entered the full `PATH_TO_FILE`. Please refer to
+<<steps-add,`Step-by-Step Guide`>> below for a detailed guide on the steps necessary
+to obtain the full `PATH_TO_FILE`.
+
+[#steps-add]
+==== Step-by-Step Guide
+Illustrated below is a sample usage scenario that provides a clear view to the inner
+workings of the Add feature.
+
+Step 1: Launch the application by double clicking the `pdfplusplus.jar`. To view the following screen.
+
+[NOTE]
+You may see different files in your application based on the actions that you have carried out before.
+
+.Add Command Step 1
+image::AddFeatureStep1Default.png[width="600"]
+
+[#steps-add-2]
+Step 2: Once the application is opened you should navigate to the folder, which contains the file
+which you wish to add to the application, to obtain the path to the file through the following methods:
+
+* __For Windows__ +
+Once you have navigated to the necessary folder, click on the address bar and copy the path as shown below.
+
+.Add Command Step 2.1
+image::AddFeatureStep2CopyDirectory.png[width="600"]
+
+* __For Mac__ +
+Right click the file that you wish to add to our application and you should see
+the following menu pop up.
+
+.Add Command Step 2.2
+image::UGAddPathMac1.png[width="200"]
+
+* When this menu appears, if you press kbd:[option] on your keyboard, you should
+see the menu change to match the image shown below.
+
+.Add Command Step 2.3
+image::UGAddPathMac2.png[width="200"]
+
+* Now if you press the button highlighted in [big blue]#*blue*#, you would have successfully copied
+the path of the file you wish to add to the application.
+
+[NOTE]
+For Mac OS: These steps can be replicated to get the path to a particular folder on your computer as well. Instead of selecting a file,
+select the folder which you wish to get the path to and repeat the steps.
+
+Step 3: You may now enter the `add` command into the CLI interface followed by the
+path of the file you wish to add to the application as illustrated below.
+
+[NOTE]
+Windows users must type the file name *after* pasting the directory, which you copied in copied at <<#steps-add-2, __Step 2__>>,
+in to the application.
+
+.Add Command Step 3
+image::AddFeatureStep3UserInput.png[width="600"]
+
+[NOTE]
+You can simply type `add` and hit kbd:[enter], to open up a *GUI* for you to select the file you
+wish to add.
+
+Step 4: Upon hitting kbd:[enter] Your file is added into the application.
+
+[NOTE]
+As of v1.4, the Add command is only capable of adding 1 `Pdf` file at a time. By v2.0,
+the feature will support adding multiple files.
+
+[#command-list]
 === Listing all files : `list`
 
 The list command shows you a list of all files that are tracked by the application. +
-The files will be displayed in the Files Section of the application, highlighted in green. +
+The files will be displayed in the <<app-layout, Files Section>> of the application, highlighted in green. +
 
-Format: `list`
+[.big]#Format: `list`#
 
+[#command-sort]
 === Sorting all files : `sort`
 
 The sort command allows you to sort all the files in the application based on the input criteria. +
 Hence you may be able to, for example, sort the files by their name in ascending or descending order. +
 
-Format: `sort CRITERIA ORDER`
+[.big]#Format: `sort CRITERIA ORDER`#
 
 ****
 * CRITERIA: `name`, `deadline`, `size`. +
@@ -215,85 +234,82 @@ Example:
 * `sort deadline down` +
 * `sort size up` +
 
+[#command-open]
 === Opening a file : `open`
 
-The open command allows you to open an existing file, specified by the index of the file that is next to the name of the file in the Files Section, highlighted in green. +
+The open command allows you to open an existing file, specified by the index of the file that is next to the name of the file in the <<app-layout, Files Section>>, highlighted in green. +
 The selected file will then be opened with any application that you have set as the default for +
 your computer. +
 
-Format: `open INDEX`
+[.big]#Format: `open INDEX`#
+
+* `INDEX` refers to the index of the file that you wish to edit.
 
 Example:
 
 * `open 3` +
 
+[WARNING]
+Please close the opened file before proceeding to perform ANY other actions in the application.
+If the file is kept open, the application may misbehave as it is sharing access to the file with other unknown applications.
+
+[#command-rename]
 === Renaming a file : `rename`
 
-The rename command allows you to change the name of a file, specified by thr index of the file that is next to the name of the file in the Files Section, highlighted in green. +
+The rename command allows you to change the name of a file, specified by the index of the file that is next to the name of the file in the the <<app-layout, Files Section>>, highlighted in green. +
 
-The rename command has the following syntax:
+[.big]#Format: `rename INDEX n/NEWNAME`#
 
-[.big]#`rename <INDEX> n/<NEWNAME>#
-
-* `<INDEX>` refers to the index of the file that you wish to edit.
-* `n/` indicates that you are editing the name of the file
+* `INDEX` refers to the index of the file that you wish to edit.
+* `NEWNAME` refers to the new name that you wish to give your file.
 
 Example:
+
 * `rename 1 n/newname.pdf`
 
 ****
 * NAME: Must end with `.pdf` +
 * NAME: Must be a name that your Operating System deems valid.
+* NAME: Must be a name that no other file in the same directory of your selected file possesses. +
 * OUTPUT: If the rename is invalid, our application will notify you in the output area, +
 highlighted in blue.
 ****
 
+[#steps-rename]
+==== Step-By-Step Guide
+SStep 1: Launch the application by double clicking the `pdfplusplus.jar`. To view the following screen.
+
 [NOTE]
-The index value can be referenced from the list in the main application, or from the
-result of the `Filter`, `Find` or `List` feature.
+You may see different files in your application based on the actions that you have carried out before.
 
-==== Feature Breakdown
-Step 1: The user launches an application with either an existing set of `Pdf` or a
-new sample set of `Pdf` stored within as shown below.
-
+.Rename Command Step 1
 image::EdiFeatureStep1Default.png[width="600"]
 
-Step 2: The user chooses a `Pdf` that they wish to edit, in this case `g.pdf`, and
-enters the `rename` command into the CLI Interface, following the outlined Syntax as
+Step 2: The user chooses a `Pdf` that they wish to edit, in this case `Monday Grouping List.pdf`, and
+enters the `rename` command into the *TI* Interface, following the outlined Syntax as
 illustrated below.
 
+.Rename Command Step 2
 image::EditFeatureUserInput.png[width="600"]
 
-Step 3: Upon hitting enter to execute the command, the *EditCommandParser* parses
-the input into relevant objects that are required to be executed by the *EditCommand*
-object. Upon parsing, the parser then creates a new *EditCommand* that will execute the
-user's input.
-
-Step 4: Upon receiving the necessary information from the parser, the *EditCommand* first
-begins by checking for validity as shown below.
-
-image::EditFeatureNoDuplicate.png[width="700"]
-
-image::EditFeatureDuplicate.png[width="700"]
-
-Step 5: If the validity check and the individual property check passes, the file is then
-effectively renamed within PDF++ and in the actual directory, thus resulting in an output
+Step 3: If your inputs are deemed valid, the file is then
+effectively renamed within PDF++ and in your computer itself, thus resulting in an output
 as shown below.
 
+.Rename Command Step 3
 image::EditFeatureFinalOutput.png[width="600"]
 
-[NOTE]
-As of V1.2, the Edit Feature removes any existing `Tag` s and replaces them with those
-input by the user (If any). By `V1.4` The user will be able to select tags he wishes
-to remove or add.
-
+[#command-tag]
 === Tagging a file : `tag`
 
-The tag command allows you to add or remove a tag to a file, specified by the index of the file that is next to the name of the file in the Files Section, highlighted in green. +
-The prefixes `-a` refers to "add" and `-r` refers to "remove". +
+The tag command allows you to add or remove a tag to a file, specified by the index of the file that is next to the name of the file in the <<app-layout, Files Section>>, highlighted in green. +
 
-Format: `tag INDEX -a [t/TAG]...` [To add a tag] +
-Format: `tag INDEX -r [t/TAG]...` [To remove a tag]
+[.big]#Format: `tag INDEX -a [t/TAG]...` [To add a tag]#
+[.big]#Format: `tag INDEX -r [t/TAG]...` [To remove a tag]#
+
+* `INDEX` refers to the index of the file that you wish to edit.
+* `-a` is a prefix that tells the applicaton you wish to add a tag to the file.
+* `-r` is a prefix that tells the applicaton you wish to remove a tag from the file.
 
 Example:
 
@@ -306,27 +322,36 @@ Example:
 * TAG: You can only remove a tag that you have previously added.
 ****
 
+[#command-delete]
 === Deleting a file : `delete`
 
 The delete command lets you to delete a file from the application and/or your computer. +
 In order to delete the file completely from the computer, you must specify the `hard` parameter to the `delete` command.
-The file that is to be deleted must be specified by the index of the file that is next to the name of the file in the Files Section, highlighted in green. +
+The file that is to be deleted must be specified by the index of the file that is next to the name of the file in the <<app-layout, Files Section>>, highlighted in green. +
 
-Format: `delete INDEX`
-Format: `delete INDEX hard`
+[.big]#Format: `delete INDEX`# +
+[.big]#Format: `delete INDEX hard`#
+
+* `INDEX` refers to the index of the file that you wish to edit.
+* `hard` is a prefix that tells the application to remove the file from your computer completely.
 
 Example:
 
 * `delete 4` +
 * `delete 3 hard` +
 
+[#command-move]
 === Moving a file : `move`
 
-The move command allows you to move a file, specified by the index of the file that is next to the name of the file in the Files Section, highlighted in green. +
-The file can be moved from its current directory on your computer to another directory on your computer. +
-The move file also has a User Interface Option to allow for an easier file moving experience. +
+The `move` command allows you to move a file, specified by the index of the file that is next to the name of the file in the <<app-layout, Files Section>>, highlighted in green. +
+The file can be moved from its current folder on your computer to another folder on your computer. +
+The `move` command also has a *GUI* option to allow for an easier file moving experience. +
+To obtain the full path of a directory, you can follow the steps highlighted in the <<steps-add, Step-By-Step Guide>> of the `add` command.
 
-Format: `move INDEX d/DIRECTORY`
+[.big]#Format: `move INDEX d/DIRECTORY`#
+
+* `INDEX` refers to the index of the file that you wish to edit.
+* `DIRECTORY` refers to the new folder you wish to move your file to.
 
 Example:
 
@@ -334,48 +359,62 @@ Example:
 * `move 1 d//Users/jet/Documents/Important` [Mac / Linux Operating System]
 * `move 1` [Any Operating System]
 
+[#command-exit]
 === Exiting the program : `exit`
 
 This command lets you exit the program. +
 Format: `exit`
 
+[#command-select]
 === Retrieving information about a file: `select`
 
 Select a file to see a more information about file.
 
-Alternatively, clicking the file in the Files Section, highlighted in green, allows you to view more information pertaining to that file. +
-This information will be displayed in the Upcoming Deadlines Area, highlighted in red. +
+Alternatively, clicking the file in the <<app-layout, Files Section>>, highlighted in green, allows you to view more information pertaining to that file. +
+This information will be displayed in the <<app-layout, Upcoming Deadlines>> Area, highlighted in red. +
 
-Format: `select INDEX`
+[.big]#Format: `select INDEX`#
+
+* `INDEX` refers to the index of the file that you wish to edit.
 
 Example: `select 3`
 
+[#command-deadline]
 === Setting a deadline for the file : `deadline`
 
-Set or remove a deadline for the a file, specified by the index of the file that is next to the name of the file in the Files Section, highlighted in green. +
+Set or remove a deadline for the a file, specified by the index of the file that is next to the name of the file in the <<app-layout, Files Section>>, highlighted in green. +
 A file's deadline is located under its name and has 4 colours to indicate the amount of time you have before it is due. +
 
 The colour Green, indicates that there is more `7` days till the deadline is due, as shown below. +
 
+.Deadline Colour Green
 image::UGDeadlineFar.png[width="300"]
 
 The colour Orange, indicates that you have `7` or less days till it is due. As shown below. +
 
+.Deadline Colour Orange
 image::UGDeadlineNear.png[width="300"]
 
 The colour Red, indicates that you have reached or failed to complete the task by the due date, as shown below +
 
+.Deadline Colour Red
 image::UGDeadlineDue.png[width="300"]
 
 The colour Blue indicates that you have completed the set task. +
 
+.Deadline Colour Blue
 image::UGDeadlineDone.png[width='300']
 
-All deadlines are also displayed in the Deadlines Section of the application highlighted by Red. +
+All deadlines are also displayed in the <<app-layout, Deadlines Section>> of the application highlighted by Red. +
 
-Format: `deadline INDEX date/DATE` [To Set a Deadline] +
-Format: `deadline INDEX done` [To Complete a Deadline] +
-Format: `deadline INDEX remove` [To remove a Deadline] +
+[.big]#Format: `deadline INDEX date/DATE` [To Set a Deadline]# +
+[.big]#Format: `deadline INDEX done` [To Complete a Deadline]# +
+[.big]#Format: `deadline INDEX remove` [To remove a Deadline]# +
+
+* `INDEX` refers to the index of the file that you wish to edit.
+* `DATE` to the deadline you wish to assign the file.
+* `done` is the prefix that tells the application that you have completed the deadline.
+* `remove` is the prefix that tells the application that you wish to remove the deadline.
 
 Examples:
 
@@ -383,13 +422,17 @@ Examples:
 * `deadline 1 done` +
 * `deadline 1 remove` +
 
-WARNING: The date must be in the format of dd-mm-yyyy. +
+[WARNING]
+The date must be in the format of dd-mm-yyyy.
 
+[#command-filter]
 === Filter files by tags: `filter`
 
 The filter command shows you only the files that contain the tags specified in the `filter` command. +
 
-Format: `filter t/TAG...`
+[.big]#Format: `filter t/TAG...`#
+
+* `TAG` refers to the tag you wish to filter the files by. +
 
 Examples:
 
@@ -397,56 +440,65 @@ Examples:
 * `filter t/Lecture t/Week10`
 
 ****
-* The search is case insensitive. e.g `lecture` will match `LECTURE`
-* The order of the tags does not matter. e.g. `Lecture Week_1` will match `Week_1 Lecture`
-* Only full words will be matched e.g. `Urgent` will not match `UrgentFiles`
-* File matching at least one keyword will be returned
+* The search is case insensitive. e.g `lecture` will match `LECTURE`.
+* The order of the tags does not matter. e.g. `t/Lecture t/Week_1` will match `t/Week_1 t/Lecture`.
+* Only full words will be matched e.g. `Urgent` will not match `UrgentFiles`.
+* File matching at least one of the input tags will be shown.
 ****
 
-// tag::fileprotection[]
-[#find-feature]
+[#command-find]
 === Finding Content: `find`
 
 The find command allows you to `find` for files that contain a keyword or phrase
 OR `find` files which contain the entered keyword or phrase inside it.
 
 [#find-format]
-Format: `find KEYWORD`
+[.big]#Format: `find KEYWORD`#
+
+* `KEYWORD` refers to the word that you wish to search for within the files of the application.
 
 Examples:
 
 * `find Introduction` +
 * `find Author: George RR Martin`
 
+[#steps-find]
 ==== Step-By-Step Guide
 If, for example, you wish to locate the files that contain the word `Introduction`
 in its name or files that contain the word `Introduction` in its internal content.
-You may carry out the following steps in-order to get your desired list of files.
+You may carry out the following steps in-order to get your desired list of files. +
 
-* When you open the application, the image below illustrates the screen you might see initially.
+Step 1: Launch the application by double clicking the `pdfplusplus.jar`. To view the following screen.
 
 [NOTE]
 Files you observe may be different and depends on the actions you have previously carried out on our application
 
+.Find Command Step 1 & Step 2
 image::UGFindFeatureImage1.png[width="600"]
 
+Step 2:
+
 * As shown by the image, your application should contain an existing list of files.
-* Next you are to key in the `find` command followed by the keyword as illustrated by the command
-<<find-feature, format>>.
+* You are to key in the `find` command followed by the keyword as illustrated by the command
+<<command-find, format>>.
+
+Step 3:
+
 * Finally, press kbd:[Enter] and give the application a short time to sieve through all the files
 it manages and locate the relevant ones for you.
 * Once the application is done with the task, the following screen should be visible to you.
 
+.Find Command Step 3
 image::UGFindFeatureImage2.png[width="600"]
 
-* As seen in the image, the files that are relevant to your search will be displayed on the top
+As seen in the image, the files that are relevant to your search will be displayed on the top
 left. These files are those that contain the keyword `Introduction` in its name, and files which
-contain the keyword within its content.
+contain the keyword within its content. +
 
-* The application also shows you other useful information such as, the number of files that
-match the criteria you entered into the application.
+The application also shows you other useful information such as, the number of files that
+match the criteria you entered into the application as shown in the image above. +
 
-* And with that you have successfully utilized the `find` feature.
+And with that you have successfully utilized the `find` feature. +
 
 [CAUTION]
 When there are many files tracked by the application or if the files tracked by the application
@@ -456,14 +508,15 @@ to finish its operation.
 
 [WARNING]
 As part of a security measure, all files that are encrypted will not be subject to the `find` command.
-This will prevent any information about your secure files from being leaked.
+This will prevent any information about your secure files from being leaked to malicious users.
 
-//tag::dataencryption[]
+
+[#command-encdec]
 === File Protection: `encrypt` & `decrypt`
 
 PDF++ offers native support for file protection.
 The command `encrypt` allows you to protect your files with a password such that
-they cannot be accessed without a password that you had specified.
+they cannot be accessed without the password that you had specified.
 Similarly, the command `decrypt` allows you to remove the password that
 you had set for the file.
 
@@ -473,98 +526,60 @@ interchangeably.
 
 The *Encrypt* and *Decrypt* feature has the following syntax:
 
-Encryption: `encrypt INDEX password/PASSWORD`
-
-Decryption: `decrypt INDEX password/PASSWORD`
+[.big]#Format: `encrypt INDEX password/PASSWORD` [For Encryption]# +
+[.big]#Format: `decrypt INDEX password/PASSWORD` [For Decryption]#
 
 * `INDEX` refers to the index of the file on the list that you wish to encrypt/decrypt.
-it must be
-
-1. A positive number, and
-2. A number within the range of number of documents in PDF++.
-
-** For example, if there are 2 documents in the app,
-
-*** Valid index: 1, 2
-*** Invalid index: -1, 0, "NotANumber"
-
-* `password/` refers to the command immediately following after this prefix is the password
-of the file
-
-* `PASSWORD` refers to the password
-1. you wish to encrypt your file with, or
-2. of the encrypted file that you wish to decrypt
+* `PASSWORD` refers to the password which you wish to assign to the particular file.
 
 Examples:
 
 * `encrypt 2 password/ThisIsNotASecurePassword`
 * `decrypt 2 password/ThisIsNotASecurePassword`
 
-Please refer to <<Encryption Guide>> or <<Decryption Guide>>
+Please refer to <<steps-encrypt, Encryption Guide>> or <<steps-decrypt, Decryption Guide>>
 for help in using these features.
 
+[#steps-encrypt]
 ==== Encryption Guide
 Illustrated below is a sample usage scenario that provides a clear view to the inner workings
 of the Encrypt feature.
 
-Step 1: The user launches the application with either
+Step 1: Launch the application by double clicking the `pdfplusplus.jar`. To view the following screen.
 
-1. an empty list, or
-2. an existing set of `Pdf` as shown below
+[NOTE]
+Files you observe may be different and depends on the actions you have previously carried out on our application
 
-Please refer to <<Adding a file: `add`>> for guide
-in how you can add your files into PDF++ that you wish to encrypt.
-
+.Encrypt Command Step 1
 image::EncryptFeatureStep1Default.png[width="600"]
 
-Step 2: You select the file that you wish to encrypt via the INDEX on the list.
+Step 2: Select the file that you wish to encrypt via the `INDEX` on the list.
 
+.Encrypt Command Step 2
 image::EncryptFeatureStep2Index.png[width="600"]
 
 Step 3: Enter the `encrypt` command into the text box, following the outlined syntax as
 illustrated below.
 
+.Encrypt Command Step 3
 image::EncryptFeatureStep3UserInput.png[width="600"]
 
-Step 4: Upon hitting kbd:[enter] to execute the command, the `EncryptCommandParser`
-breaks down the input into several components that are required to be
-executed by the `EncryptCommand`.
+Step 4: Upon hitting kbd:[enter] to execute the command, your inputs are verified and if successful,
+your selected file is encrypted with the given password.
 
-Upon analysing the input, the parser then creates a new `EncryptCommand` that will be executed according
-to your input.
-
-Step 5: Upon receiving the necessary information from the parser, which includes the INDEX and
-PASSWORD, the `EncryptCommand` first checks if the INDEX is valid.
-
-* `INDEX` is not a number.
-
-image::EncryptFeatureStep5NotANumberIndex.png[width="600"]
-
-* `INDEX` is not within the number of documents in the list.
-
-image::EncryptFeatureStep5IndexOutOfBound.png[width="600"]
-
-Then checks if the PASSWORD is valid.
-
-* `PASSWORD` is empty or a space.
-
-image::EncryptFeatureStep5InvalidPassword.png[width="600"]
-
-* `INDEX` and `PASSWORD` are both valid. The file you selected will be encrypted with the
-password you specified.
-
-[NOTE]
+[TIP]
 Upon successful encryption, there will be a lock icon at the bottom right of the card
 to indicate that the file is an encrypted file.
 
 image::EncryptFeatureStep5Success.png[width="600"]
 
-Step 6: If the command passes the validity check, the file you have selected is encrypted.
+Step 5: If the command passes the validity check, the file you have selected is encrypted.
 You can open your file to see the result. Please refer to
 <<Opening a file : `open`>> for the `open` feature.
 
 image::EncryptFeatureStep6Open.png[width="600"]
 
+[#steps-decrypt]
 ==== Decryption Guide
 
 Illustrate below is a sample usage scenario that provides a clear view to the inner workings
@@ -576,112 +591,43 @@ of the Decrypt feature.
 [NOTE]
 `decrypt` feature will not work on files that are not encrypted.
 
-Step 1: The user launches the application with either
+Step 1: Launch the application, similar to the <<steps-encrypt, Step-By-Step>> Encrypt guide.
 
-1. an empty list, or
-2. an existing set of `Pdf` as shown below
-
-Please refer to <<Adding a file: `add`>> for guide
-in how you can add your files into PDF++ that you wish to encrypt.
-
+.Decrypt Command Step 1
 image::DecryptFeatureStep1Default.png[width="600"]
 
 Step 2: You select the file that you wish to decrypt via the INDEX on the list.
 
+.Decrypt Command Step 2
 image::DecryptFeatureStep2Index.png[width="600"]
 
 Step 3: Enter the `decrypt` command into the text box, following the outlined syntax as
 illustrated below.
 
+.Decrypt Command Step 3
 image::DecryptFeatureStep3UserInput.png[width="600"]
 
-Step 4: Upon hitting kbd:[enter] to execute the command, the `DecryptCommandParser`
-breaks down the input into several components that are required to be
-executed by the `DecryptCommand`.
-
-Upon analysing the input, the parser then creates a new `DecryptCommand` that will be executed according
-to your input.
-
-Step 5: Upon receiving the necessary information from the parser, which includes the INDEX and
-PASSWORD, the `DecryptCommand` first checks if the INDEX is valid.
-
-* `INDEX` is not a number.
-
-image::DecryptFeatureStep5NotANumberIndex.png[width="600"]
-
-* `INDEX` is not within the number of documents in the list.
-
-image::DecryptFeatureStep5IndexOutOfBound.png[width="600"]
-
-Then checks whether the file specified is encrypted
-
-* File is not encrypted.
-
-image::DecryptFeatureStep5NotEncrypted.png[width="600"]
-
-Finally, checks if the PASSWORD is valid.
-
-* `PASSWORD` is invalid
 [NOTE]
 Please enter the password of the encrypted file. You will not be able to decrypt the file
 without the password.
 
-image::DecryptFeatureStep5InvalidPassword.png[width="600"]
+Step 4: Upon hitting kbd:[enter], the application verifies that you have entered the correct password and
+decrypts your file as shown below.
 
-* `INDEX` and `PASSWORD` are both valid, and the file is encrypted.
-The file you selected will be decrypted with the
-password you specified.
-
+.Decrypt Command Step 4
 image::DecryptFeatureStep5Success.png[width="600"]
 
-Step 6: If the command passes the validity check, the file you have selected is decrypted.
-You can open your file to see the result. Please refer to
-<<Opening a file : `open`>> for the `open` feature.
-
-// end::fileprotection[]
-
+[#command-merge]
 === Merging Files: `merge`
 With the `merge` command , you can merge two or more files into a new single file.
 
 The Merge feature has the following syntax:
 
-[.big]#`merge <INDEX1> <INDEX2> ...`#
+[.big]#Format: `merge INDEX1 INDEX2 ...`#
 
-* `<INDEX>` refers to the index of the `Pdf` that you wish to merge.
-* Minimum of two indices have to be provided for the merge to be performed, up to as many
-indices as desired.
-* It is possible to repeat an index; the PDF would simply merge with a copy of itself.
-
-[NOTE]
-The index value can be referenced from the list in the main application, or from the
-result of the `Filter`, `Find` or `List` feature.
-
-==== Feature breakdown
-Illustrated below is a sample usage scenario that provides a clear view to the inner
-workings of the `merge` feature.
-
-Step 1: From the main interface of the application, the user chooses the file(s) that
-they wish to merge, and enters the `merge` command into the CLI Interface, following
-the outlined Syntax as illustrated below.
-
-image::MergeFeatureStep1.png[width="600"]
-
-Step 2: After executing the command, the *MergeCommandParser* parses the input into
-relevant objects that are required to be executed by the *MergeCommand* object. In
-particular, it ensures that there are two or more arguments passed as described in the
-above Syntax. Upon parsing, the parser then creates a new *MergeCommand* that will execute
-the user's input.
-
-In this case, the above two files will be merged, with the _"CS2103T_PDF++_UG_Intro.pdf"_
-file appended behind the other file.
-
-Step 3: The *MergeCommand* is then executed. During the execution, there are several levels
-of validation that, failing which would stop the execution and throw an exception.
-Here are the different cases:
-
-Step 4: Successful execution of the command would return a *CommandResult* object and create the
-a new file with the merged content. The new name of the merged file follows the format: "merged[hashcode].pdf". This is to ensure
-unique file name. The hashcode in the name will be modified if name already exists.
+* `INDEX` refers to the index of the `Pdf` that you wish to merge.
+* Minimum of two index values have to be provided to the application.
+* It is possible to repeat an index value, the PDF would simply merge with a copy of itself.
 
 Examples:
 
@@ -690,56 +636,90 @@ Examples:
 * `merge 1 1`
 
 [NOTE]
+The newly created file will be stored in the directory of the `INDEX` that was first specified.
+
+[WARNING]
 If the combined file size is > 100MB, the operation will take more than a minute to execute. Please
 give the application some time to completely execute the operation.
 
-****
-* A minimum of 2 files must be specified by their indexes
-* The same file can be merged with itself, hence creating a new file that is composed of the same file twice.
-* The newly created file will be stored in the directory of the `INDEX` that was first specified.
-****
+[#steps-merge]
+==== Step-By-Step Guide
+Illustrated below is a sample usage scenario that provides a clear view to the inner
+workings of the `merge` feature.
 
+Step 1: Launch the application by double clicking the `pdfplusplus.jar`. To view the following screen.
+
+[NOTE]
+Files you observe may be different and depends on the actions you have previously carried out on our application
+
+Step 2: From the main interface of the application, the user chooses the file(s) that
+they wish to merge, and enters the `merge` command into the *TI*, following
+the outlined syntax as illustrated below.
+
+.Merge Command Step 2
+image::MergeFeatureStep1.png[width="600"]
+
+Step 3: After executing the command, the above two files will be merged, with the _"CS2103T_PDF++_UG_Intro.pdf"_
+file attached behind your other selected file.
+
+Step 4: The *MergeCommand* is then executed. The new name of the merged file follows the format: "merged[hashcode].pdf",
+where hashcode is a random string of letters and numbers. This prevents any naming conflicts between files.
 
 === Saving the data
 
 PDF++ data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-
 == Command Summary
 
-* *Add* `add f/PATH_TO_FILE` +
+* <<command-add, *Add*>> `add f/PATH_TO_FILE` +
 e.g. `add f/C:\Users\Raj\Documents\Tutorial3.pdf`
-* *Rename* `rename INDEX n/NEW_NAME` +
+* <<command-rename, *Rename*>> `rename INDEX n/NEW_NAME` +
 e.g. `rename 2 n/Resume.pdf`
-* *List* : `list`
-* *Open* : `open INDEX`
+* <<command-list, *List*>> : `list`
+* <<command-open, *Open*>> : `open INDEX`
 e.g. `open 3`
-* *Delete* : `delete INDEX` +
+* <<command-delete, *Delete*>> : `delete INDEX` +
 e.g. `delete 4`
-* *Move* : `move INDEX d/LOCATION`
+* <<command-move, *Move*>> : `move INDEX d/LOCATION`
 e.g. `move 3 d/C:\User\Jeremy\Downloads`
-* *Tag* : `tag -a INDEX t/TAG…` or `tag -r INDEX t/TAG` +
+* <<command-tag, *Tag*>> : `tag -a INDEX t/TAG…` or `tag -r INDEX t/TAG` +
 e.g. `tag 3 -a t/DijkstraGraph t/Tutorial`, `tag 1 -r t/Homework`
-* *Filter* : `filter t/KEYWORD...` +
+* <<command-filter, *Filter*>> : `filter t/KEYWORD...` +
 e.g. `filter t/GraphsDFS`
-* *Deadline* : `deadline INDEX date/DATE` or `deadline INDEX done` or `deadline INDEX remove` +
+* <<command-deadline, *Deadline*>> : `deadline INDEX date/DATE` or `deadline INDEX done` or `deadline INDEX remove` +
 e.g. `deadline 3 date/20-02-2019` , `deadline 2 done`, `deadline 2 remove`
-* *Select* : `select INDEX` +
+* <<command-select, *Select*>> : `select INDEX` +
 e.g. `select 3`
-* *Encrypt* : `encrypt INDEX password/PASSWORD` +
+* <<command-encdec, *Encrypt*>> : `encrypt INDEX password/PASSWORD` +
 e.g. `encrypt 2 password/superPASSWORD`
-* *Decrypt* : `decrypt INDEX password/PASSWORD` +
+* <<command-encdec, *Decrypt*>> : `decrypt INDEX password/PASSWORD` +
 e.g. `decrypt 2 password/superPASSWORD`
-* *Merge* : `merge INDEX INDEX...` +
+* <<command-merge, *Merge*>> : `merge INDEX INDEX...` +
 e.g `merge 1 2 1`
-* *Sort* : `sort CRITERIA ORDER` +
+* <<command-sort, *Sort*>> : `sort CRITERIA ORDER` +
 e.g `sort name down`, `sort deadline up`, `sort size down`
-* *Help* : `help`
-* *Exit* : `exit`
+* <<command-help, *Help*>> : `help`
+* <<command-exit, *Exit*>> : `exit`
 
 == Glossary
-* *INDEX* : The number that references a file managed by the application.
 * *Command* : Keyword that tells the application what to do.
 * *GUI* : Graphical User Interface
 * *TI* : Text Input
+* *Merge* : Attach the contents of one PDF to another.
+* *Encrypt* : To lock a PDF with a password.
+* *Decrypt* : To remove the lock from a PDF. (Provided it already has one)
+* *Filter* : To sieve relevant files from irrelevant ones.
+* *Deadline* : To set a due date to a file.
+* *Tag* : A text label attached to a file for identification or providing more information.
+
+== Upcoming Features
+* Connection to External Servers: +
+We plan to allow you connect directly to your cloud servers to synchronize documents across several devices. +
+These servers include popular sites such as LumiNus.
+* Login Page: +
+We plan to include a Login Page to help authenticate you to the application so that you can access the app more securely.
+* Text-to-Speech: +
+We plan to implement a Text-to-Speech option that could potentially read the contents of your file or the name of your file to you.
+* Multiple File Formats: +
+We plan to allow you to use our application with file-types beyond `.pdf` files.

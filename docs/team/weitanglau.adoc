@@ -1,65 +1,161 @@
-= LAU WEI TANG - PDF++ Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+== Project Portfolio - Lau Wei Tang image:{imagesDir}/github-icon.png[width=30, link=https://github.com/WeiTangLau, top="70%"]
 
-Lau Wei Tang;
-National University of Singapore
-:doctype: book
-:stylesDir: ../stylesheets
-// Settings:
-ifdef::backend-pdf[]
-:title-logo-image: image:../images/github-icon.png[width=45, link=https://github.com/WeiTangLau, top="70%"]
-:source-highlighter: rouge
-//:rouge-style: github
-//:source-highlighter: pygments
-//:pygments-style: tango
-endif::[]
+
 // URIs:
-:uri-devoxx: https://devoxx.be
-:uri-devoxx-top-talks: https://www.youtube.com/watch?v=1OpAgZvYXLQ&list=PLRsbF2sD7JVq7fv1GZGORShSUIae1ZAPy&index=&#49;
-:uri-stbernardusabt12: http://www.sintbernardus.be/stbernardusabt12.php?l=en
-:uri-wolpertinger: http://en.wikipedia.org/wiki/Wolpertinger
 :uri-pdfplusplus: http://github.com/CS2103-AY1819S2-T12-4/main
+:uri-addressbook: https://github.com/nus-cs2103-AY1819S2/addressbook-level4
+:uri-aboutus: https://cs2103-ay1819s2-t12-4.github.io/main/AboutUs.html
+:uri-fileprotection: https://cs2103-ay1819s2-t12-4.github.io/main/UserGuide.html#file-protection-code-encrypt-code-code-decrypt-code
+:uri-add: https://cs2103-ay1819s2-t12-4.github.io/main/UserGuide.html#adding-a-file-code-add-code
+:uri-open: https://cs2103-ay1819s2-t12-4.github.io/main/UserGuide.html#opening-a-file-code-open-code
+:uri-youtube: https://www.youtube.com/watch?v=G0-u8qGX8yI&t=400s
 
-== [underline]#1. About me#
-I am a second year undergraduate student, pursuing a bachelor's degree in
-Computer Science from National University of Singapore. During the course of
-my education, I worked on a Software Engineering Project. We were required to
-implement several key features to enhance on the basic command line interface
-application. My team and I decided to morph the project into a file management
-system that manages all our files. However, given the limitation of the project,
-we decided to work on supporting PDF files, and the application is called
-see
+== [underline]#Introduction#
+Welcome to my Project Portfolio. This document provides you with an
+overview
+
+
 {uri-pdfplusplus}[((PDF++))]
 
-__Additional stuff to include in this portion__
-----
-Portfolio purpose: document my role and contributions
+== [underline]#About PDF++#
 
-Project name and description - what were my tasks, what I did do to meet task requirements
+=== Why PDF++?
+// Background info
+Most university students have one thing in common, messy desktop.
+As a student, I have to manage multiple new documents weekly.
+Furthermore, each file is categorised differently or has different unique purpose.
+For instance, I would look for files from my programming modules on certain algorithm
+concepts or look from my language module for files with writing tips. However, current
+File Management System (FMS), such as File Explorer in Windows, has its limitations
+in the categorisation of files. Even for organised users, it is ineffective to
+make a constant effort maintaining the documents in an orderly manner, and inefficient
+switching between folders to look for the files of their interest. My team and I
+recognised this limitation and decided to work on building an elaborated FMS, PDF++.
 
-Background info about the project scope
+=== Project Scope
+//Project scope
+For the team project, we were provided with an existing {uri-addressbook}[AddressBook]
+application. We decided to morph the application into PDF++, a sophisticated FMS
+targeting students who prefer working with command line interface (CLI). However,
+given the limitation of the project, our application currently supports PDF
+files only, and thus the name.
 
-A legend to the icons and formatting used in the document
-----
+=== Main role and contributions
+// main role and contributions
+I am one of the {uri-aboutus}[developers] for PDF++ that in charge of
+implementing {uri-fileprotection}[*File Protection*] feature and most of the
+test cases for the Logic component.
+
+// description - what were my tasks, what I did do to meet task requirements
+For File Protection feature, I have incorporated both `encrypt` and
+`decrypt` features
+
+=== Legend
+Please refer to the table below for the icons and formatting used in this document:
+
+|===
+
+| icon | description
+
+a| icon:tags[2x]
+| Tag
+
+a| icon:file[2x]
+| file
+
+a| icon:comment[2x]
+| comment
+
+a| image:{imagesDir}/lightbulb.png[width="30"]
+| Tip
+
+a|TIP: {sp}
+| tip
+
+a|NOTE: {sp}
+| note
+
+a|WARNING: {sp}
+| warning
+
+a|CAUTION: {sp}
+| caution
+
+a|IMPORTANT: {sp}
+| important
+
+
+//a |NOTE: {sp}
+// | important notes
+
+|===
+
 <<<
 
 
 === [underline]#2. Summary of contributions#
+
+This section highlights my key contributions to the documentation, coding and
+technical aspects for the PDF++ project.
+
 ==== [underline]#Robust File Protection System#
 
-Encrypt
+PDF++ not only supports several essential features, such as {uri-add}[add] and
+{uri-open}[open] features, it also has a built-in sophisticated
+{uri-fileprotection}[File Protection System] (FPS).
 
-Decrypt
+For File Protection System, I have incorporated both `encrypt` and
+`decrypt` features and other improvements that enforces the security of the application.
 
-==== [underline]#Test Cases for Commands and Command Parsers#
+
+* `Encrypt` command allows users to protect their PDF files that is in the application.
+
+
+
+
+
+Format: `Encrypt INDEX password/PASSWORD`
+
+Examples:
+
+* Valid Examples:
+** Encrypt 1 password/anyValidPassword
+
+* Invalid Examples:
+** Encrypt -1 password/anyValidPassword (invalid password)
+** Encrypt 1 password/ (no password specified)
+
+
+* `Decrypt` command allows users to remove the password of their protected PDF files
+
+
+
+
+
+
+Credit to {uri-youtube}[Java Mitra] for the tutorial guide in implementing the encrypt feature
+
+
+==== [underline]#Test Cases for Logic Component#
 The challenges faced and how I contributed in reviewing the code and suggested
 fixes to bugs found in code
 
 
+* *Code contributed*: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=weitanglau[Project Code Dashboard]
+
+
+image:{imagesDir}/lightbulb.png[width="30"] ttt
+
+
+icon:comment[2x]
+
 ==== [underline]#Technical Leadership#
-Show examples of code for team to reuse
+//Show examples of code for team to reuse
+
+Refactored Pdf class
 
 ----
 Enhancements
@@ -74,7 +170,22 @@ other contributions
 
 
 === [underline]#3. Contributions to the User Guide#
-Insert description as well as abstract from the User Guide
+//Insert description as well as abstract from the User Guide
+This section includes my contributions to the documentation of the User Guide
+
+==== File Protection System
+
+In order to ensure that our users' interest is not compromised, I have to
+
+
+
+.Lock icon on Encrypted Files
+image::EncryptFeatureStep5Success.png[width="400"]
+
+.File has been encrypted
+image::{imagesDir}/EncryptFeatureStep6Open.png[width="400"]
+
+
 ----
 Include some enhancement made using abstract from the Developer Guide
 
@@ -84,6 +195,10 @@ Proposed enhancement for v2.0
 
 === [underline]#4. Contributions to the Developer Guide#
 Insert description as well as abstract from the Developer Guide
+
+==== File Protection System
+
+image:{imagesDir}/EncryptCommandSequenceDiagram.png[width="800"]
 
 ----
 Include some enhancement made using abstract from the Developer Guide

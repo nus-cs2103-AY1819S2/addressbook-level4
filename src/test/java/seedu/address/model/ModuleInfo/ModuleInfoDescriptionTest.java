@@ -24,8 +24,7 @@ public class ModuleInfoDescriptionTest {
     @Test
     public void isValidModuleInfoDescription() {
         // null name
-        Assert.assertThrows(NullPointerException.class,
-                () -> ModuleInfoDescription.isValidModuleInfoDescription(null));
+        Assert.assertThrows(NullPointerException.class, () -> ModuleInfoDescription.isValidModuleInfoDescription(null));
 
         //Invalid Description
         assertFalse(ModuleInfoDescription.isValidModuleInfoDescription("")); //empty string

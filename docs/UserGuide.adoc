@@ -1099,14 +1099,14 @@ e.g. `back`
 e.g. `exit`
 
 * *Export* : `export FILE_PATH INDEX_RANGE`` +
-e.g. `export mnt/clinicRecords.txt 1,3-5`
+e.g. `export test.json 1,3-5`
 
 * *Help* : `help`
 
 * *History* : `history`
 
 * *Import* : `import FILE_PATH INDEX_RANGE` +
-e.g. `import \mnt\newData.json 1,3-5`
+e.g. `import test.json 1,3-5`
 
 * *List* : `list`
 
@@ -1114,7 +1114,7 @@ e.g. `import \mnt\newData.json 1,3-5`
 e.g `login kthSIM cavities!2`
 
 * *Open* : `open FILE_PATH` +
-e.g. `Open mnt/sample/newData.json`
+e.g. `open test.json`
 
 * *patientadd* : patientadd PARAMETERS [t/TAG]*…​* +
 e.g. `patientadd n/John Choo p/98425871 e/jonC@example.com a/IDA street, block
@@ -1145,8 +1145,8 @@ e.g. `find n/Alex`
 
 * *Redo* : `redo`
 
-* *Save* : `save FILE_PATH`` +
-e.g. `save mnt/clinicRecords.txt`
+* *Save* : `save FILE_PATH` +
+e.g. `save test.json`
 
 * *Sort* : `sort PARAM ORDER` +
 e.g. `sort name ascend` or `sort age descend`

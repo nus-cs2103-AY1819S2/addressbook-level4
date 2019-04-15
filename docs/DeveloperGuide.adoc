@@ -214,13 +214,13 @@ The `Model`,
 * PastJobs, KnownProgLang and InterviewScores are optional.
 * PastJobs, KnownProgLang and Major stores values as strings therefore, "Engineer, Data Scientist" are stored as one PastJobs.
 
+// end::model[]
 
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
 
-// end::model[]
 
 [[Design-Storage]]
 === Storage component
@@ -458,7 +458,7 @@ If valid inputs are provided, `ClearFilterCommandParser` will return a `ClearFil
 === Analytics Feature
 ==== Current Implementation
 
-The analytics is facilicated by the Analytics class. Analytics data are generated in real time depending on the specific job currently on display in the software by the user. Hence it will not be saved as states in the `versionedAddressBook`. It pulls required person list to generate data from Model, which consists of lists: `displayedFilter`, `activeJobAllApplicants`, `activeJobKiv`, `activeJobInterview`, `activeJobShortist`. An `Analytics` object will be created by Analytics class, storing the various required data generated, and pass it to Logic and UI for display.
+The analytics is facilitated by the Analytics class. Analytics data are generated in real time depending on the specific job currently on display in the software by the user. Hence it will not be saved as states in the `versionedAddressBook`. It pulls required person list to generate data from Model, which consists of lists: `displayedFilter`, `activeJobAllApplicants`, `activeJobKiv`, `activeJobInterview`, `activeJobShortist`. An `Analytics` object will be created by Analytics class, storing the various required data generated, and pass it to Logic and UI for display.
 
 Given below is the sequence diagram for `analytics`:
 
@@ -469,7 +469,7 @@ image::AnalyticsDiagram.png[width="790"]
 ==== Current Implementation
 
 The interviews and its functionalities are facilitated by the Interviews class.
-It is a field present in the versionedAddressBook, therefore it works naturally with the implemented undo/redo operation in slaveFinder().
+It is a private field present in the versionedAddressBook, to facilitate the integration of interviews and its functions with undo/redo operation in slaveFinder().
 (Show is not counted as an operation and hence it is not saved as a state).
 The reason for using Calendar over LocalDate is that in v2.0, the app can be upgrade to schedule interviews for any time instead of only scheduling by days.
 The Interview class acts as an association class between calendar and person.
@@ -495,6 +495,21 @@ Step 2. User sets the block out dates with setBlockOutDates command. User does n
 Step 3. User request for interviews to be generated.
 
 Step 4. Interviews are generated with the restriction based on the parameters and working hours of a normal working adult.
+
+Interviews also works with deletePerson, that is, when a person is deleted, he/she is also removed from his/her scheduled interview slots.
+
+image::InterviewsDeletePersonSequenceDiagram.png[width="650"]
+
+An example of deleting a person:
+
+Step 1. User launches the application and generates interviews.
+
+Step 2. User deletes the person from slaveFinder()
+
+Step 3. Person is removed from his/her scheduled interview date
+
+interviews.removePerson(p) is called. A collection of ArrayList of person is taken from the HashMap and since the collection is backed by the map, any changes to the collection will be reflected in the hashmap.
+Thus removal of person will be reflected in the hashmap. Therefore this method of removal was used.
 
 // end::interviews[]
 
@@ -790,7 +805,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -870,6 +884,8 @@ Use case ends.
 +
 Use case resumes at step 3.
 
+// tag::interviewsUseCases[]
+
 === Use case: Generate and show interview dates
 
 *MSS*
@@ -918,8 +934,13 @@ Use case ends.
 +
 Use case ends.
 
+// end::interviewsUseCases[]
+
+=== Use case: Search person
+
 // tag::filterUseCase[]
 === Use case: Filter person
+
 
 *MSS*
 
@@ -1002,6 +1023,21 @@ Given below are instructions to test the app manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+
+// tag::interviewsTestCommands[]
+For interviews test commands:
+
+* setMaxInterviewsADay 3
+* setBlockOutDates 22/04/2019 - 24/04/2019
+* generateInterviews
+* showInterviews
+* delete 1 (check that interviews works with delete)
+* showInterviews
+* clearInterviews
+* showInterviews
+* undo (check that interviews works with undo)
+* redo (check that interviews works with redo)
+// end::interviewsTestCommands[]
 
 === Launch and Shutdown
 

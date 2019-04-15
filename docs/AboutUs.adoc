@@ -30,22 +30,28 @@ Responsibilities::
 
 === Keith Sim
 image::kthsim.png[width="150", align="left"]
-{empty}[https://github.com/kthSim[github]] [<<kthsim#, portfolio>>]
+{nbsp} +
+*Keith Sim*,{nbsp} _Chief Developer / Tester_ {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``https://github.com/kthSim[GitHub]``{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``<<kthsim#, Portfolio>>``
+{nbsp} +
+{nbsp} +
 
-Role: Chief Developer +
-Responsibilities: Viewing of stored Data
+Responsibilities::
+ * Chief Developer
+ * Develop functions for viewing of stored data within the program
+ * Ensure project repo is properly maintained
+ * Apply proper issue and milestone tracking to the project
 
 '''
 
 === Lim Jia Hao
 image::jiahaolim.png[width="150", align="left"]
 {nbsp} +
-*Lim Jia Hao*,{nbsp} _Developer / Tester / Designer_ {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``[https://github.com/JiaHaoLim[Github]]``{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``[<<jiahaolim#, Portfolio>>]``
+*Lim Jia Hao*,{nbsp} _Developer / Tester / Designer_ {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``https://github.com/JiaHaoLim[GitHub]``{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``<<jiahaolim#, Portfolio>>``
 {nbsp} +
 {nbsp} +
 
 Responsibilities::
-* Develop functions and features for file management.
+* Develop functions and features for file management
 * Create images used for dental representation
 * Design pleasant looking user interfaces
 * Ensure user friendliness of all features
@@ -69,7 +75,14 @@ Responsibilities::
 
 === Wang Debang
 image::wsemis.png[width="150", aligh="left"]
-{empty}[https://github.com/wSemis[github]] [<<wsemis#, portfolio>>]
+{nbsp} +
+*Wang Debang*,{nbsp} _Developer / Tester_ {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``https://github.com/wSemis[GitHub]``{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``<<wsemis#, Portfolio>>``
+{nbsp} +
+{nbsp} +
 
-Role: Developer +
-Responsibilities: Record processing
+Responsibilities::
+* Implement copy methods
+
+* Contribute to task methods
+
+* Contribute to record methods

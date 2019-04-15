@@ -19,13 +19,12 @@ public class TaskCalendarCommand extends Command {
     public static final String COMMAND_WORD2 = "tcal";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " or " + COMMAND_WORD2
-                                                            + "Displays a Calendar that highlights days with tasks\n"
-                                                            + "Given date should be in dd-mm-yyyy format\n"
+                                                            + " Displays a Calendar that highlights days with tasks\n"
+                                                            + "Given date should be a valid date in dd-mm-yyyy format\n"
                                                             + "Example: " + COMMAND_WORD + " "
                                                             + "13-05-2019\n"
                                                             + "If no date is provided, the current date will be used\n";
 
-    public static final String MESSAGE_USING_CURRENT_DATE = "No date given, using current date\n";
     public static final String MESSAGE_DISPLAY_CALENDAR_SUCCESS = "Task Calendar displayed for Date: %1$s";
 
     private final DateCustom dateInput;
@@ -42,13 +41,10 @@ public class TaskCalendarCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         model.updateFilteredTaskList(predicate);
-        CalendarWindow.setDate(dateInput.toString());
-        if (dateInput.isToday()) {
-            return new CommandResult(String.format(MESSAGE_USING_CURRENT_DATE
-                    + MESSAGE_DISPLAY_CALENDAR_SUCCESS, dateInput.toString()), true);
-        } else {
-            return new CommandResult(String.format(MESSAGE_DISPLAY_CALENDAR_SUCCESS, dateInput.toString()), true);
+        if (!CalendarWindow.isDateClicked()) {
+            CalendarWindow.setDate(dateInput.toString());
         }
+        return new CommandResult(String.format(MESSAGE_DISPLAY_CALENDAR_SUCCESS, dateInput.toString()), true);
     }
 
     @Override

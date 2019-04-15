@@ -24,6 +24,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.TaskCalendarCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -41,6 +42,7 @@ public class CalendarWindow extends UiPart<Stage> {
     private static DatePicker datePicker;
     private static DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private static boolean runningCommand;
+    private static boolean dateClicked;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -147,6 +149,7 @@ public class CalendarWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         logic.displayAllTasks();
+        resultDisplay.setFeedbackToUser("");
         primaryStage.hide();
     }
 
@@ -277,7 +280,9 @@ public class CalendarWindow extends UiPart<Stage> {
             node.setOnMouseClicked(event -> {
                 try {
                     DateCell dateCell = (DateCell) node;
-                    logic.execute("taskcal " + dateCell.getItem().format(format));
+                    dateClicked = true;
+                    executeCommand("taskcal " + dateCell.getItem().format(format));
+                    dateClicked = false;
                 } catch (CommandException | ParseException e) {
                     logger.info("Invalid date");
                 }
@@ -292,8 +297,15 @@ public class CalendarWindow extends UiPart<Stage> {
     public static boolean isRunningCommand() {
         return runningCommand;
     }
+    public static boolean isDateClicked() {
+        return dateClicked;
+    }
     public static void setDate(String newDate) {
+        datePicker.setValue(null);
         datePicker.setValue(LocalDate.parse(newDate, format));
+    }
+    public void updateDateMessage(String newDate) {
+        resultDisplay.setFeedbackToUser(String.format(TaskCalendarCommand.MESSAGE_DISPLAY_CALENDAR_SUCCESS, newDate));
     }
 
 }

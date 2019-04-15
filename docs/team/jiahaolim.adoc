@@ -105,7 +105,6 @@ However, you can manage them manually with `open`, `save`, `import` and `export`
 *.json files hold data that TeethHub can read. Use this to "save" or "load" your progress.* +
 *.pdf files are easier for people to read. Use this if you are printing out a physical copy.* +
 
- +
 You can use `open` to open another .json file that you may have transferred over from another computer. +
  +
 You can use `save` to save specific patients to a .json or .pdf file. +

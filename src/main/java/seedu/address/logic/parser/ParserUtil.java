@@ -552,14 +552,18 @@ public class ParserUtil {
         String[] args = arg.trim().split("\\s+");
         String[] results = new String[] { "-1", "2" };
 
-        if (args.length > 2) { throw new ParseException("Wrong input numbers!"); }
+        if (args.length > 2) {
+            throw new ParseException("Wrong input numbers!");
+        }
 
         results[0] = parseIndex(args[0]).getOneBased() + "";
 
         if (args.length > 1) {
             try {
                 int days = Integer.parseInt(args[1]);
-                if (days < 1) { throw new ParseException("Rest for at least 1 day"); }
+                if (days < 1) {
+                    throw new ParseException("Rest for at least 1 day");
+                }
                 results[1] = days + "";
             } catch (NumberFormatException e) {
                 throw new ParseException("Invalid days of rest");

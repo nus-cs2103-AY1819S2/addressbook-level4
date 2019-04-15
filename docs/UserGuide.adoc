@@ -94,17 +94,6 @@ Displays the help text for all available commands.
 
 Format: `help`
 
-// tag::dentist_kyler[]
-
-==== dentist
-
-You can specify the name you want to reflect in your patients' dental record when you create them.
-
-* If there is no dentist name specified, the program will prompt you to enter one.
-
-* This should only happen once, during the first start-up of the application.
-// end::dentist_kyler[]
-
 ==== history
 Lists all the commands that have been entered since starting the
 application in reverse chronological order.
@@ -224,9 +213,8 @@ However, you can manage them manually with `open`, `save`, `import` and `export`
 *When we mention "data", we mean the patients list and their respective records plus the task list.* +
 
 *.json files hold data that TeethHub can read. Use this to "save" or "load" your progress.* +
-*.pdf files are easier for people to read. Use this if you are printing out a physical copy.* +
+*.pdf files are easier for people to read. Use this if you are printing out a physical copy.*
 
- +
 You can use `open` to open another .json file that you may have transferred over from another computer. +
  +
 You can use `save` to save specific patients to a .json or .pdf file. +
@@ -420,10 +408,8 @@ Format: `patientdelete INDEX` or `pdelete INDEX`
 
 Examples:
 
-* `delete 1` -- Deletes the patient shown with index 1 from the displayed list.
-
-[NOTE]
-If the patient index is invalid, the application will display an error message to the user.
+* `delete 1` +
+Deletes the patient shown with index 1 from the displayed list.
 
 ==== Patient Edit
 
@@ -459,7 +445,8 @@ Parameters that can be edited:
 
 Example:
 
-* `patientedit 1 ic/S1234567A` -- Edits the `NRIC` of the first patient in the patient list.
+* `patientedit 1 ic/S1234567A` +
+Edits the `NRIC` of the first patient in the patient list.
 
 ==== Patient Copy
 
@@ -510,34 +497,47 @@ Example:
 Show all the patients with an address containing the keyword Yishun.
 
 ==== Patient Clear
+
 Clears all patients, from TeethHub.
 
 * You will be prompted to confirm.
+
 * Input `y` to proceed to the patientclear all records or `n` to abort.
 
 Format: `patientclear`
 
-==== Go To
+==== Records Mode
 
-The goto command specifies a patient by index, and brings the user to the records mode, where all dental records of the specified patient are listed.
+The records mode allows users to access the dental records of a specified patient.
+In this mode, users can modify their patients' dental records and teeth information.
 
-Record-related commands can then be executed in this mode.
+===== Entering the Records Mode of a specified patient
 
-Format: `goto 1`
+Format: `goto INDEX`
 
-* Goes into records mode and displays all dental records of patient 1.
+* If the user is not in records mode, the goto command brings the user into records mode.
 
-* The given index must be a positive integer (e.g 1, 2 or 3…)
+* All dental records of the patient at the indicated index will be displayed.
 
-==== Back
+Example:
 
-The back command can only be run in records mode.
-It brings the user back to the patients mode, where all patients will be listed.
+* `goto 1` +
+Go into records mode with the patient at index 1.
 
-Format: `back` -- Brings the user back to patient mode.
+===== Exiting the Records Mode
 
-[NOTE]
-The `back` command will work with parameters, but they will be ignored.
+Format: `back`
+
+* If the user is in records mode, the back command will bring the user out of records mode.
+
+Example:
+
+* `back` +
+Brings the user back to patient mode.
+
+===== Visual Example
+
+image::RecordsModeTransition.png[width=""]
 
 ==== Record Add
 
@@ -548,11 +548,29 @@ This command adds a new dental record to the patient.
 
 Format: `recordadd pro/PROCEDURE desc/DETAILS or `radd pro/PROCEDURE desc/DETAILS`
 
-* The program assigns the name of the dentist stored in the dentist information
+* Procedures should be in the format of `Type-Subtype`.
 
-* The program assigns the date of record as the date the record is created.
+* While there is a list of valid procedure types, procedure subtypes are user defined.
 
-* When records of a patient is accessed, the stored records are sorted from newest to oldest.
+* Valid Procedure Types:
+
+[cols="4",options=""]
+|===
+|Consultation
+|Preventive
+|Filling
+|Crown Gum
+|Extraction
+|Replacement
+|Braces
+|Aesthetic
+|Implant
+|Other
+|===
+
+* Description allows our users to describe the dental session, and is also user defined.
+
+* The stored records are sorted from newest to oldest.
 
 * New dental records will appear on the top of the list upon entry.
 
@@ -560,7 +578,7 @@ Example
 
 * `<<goto, goto>> 1` - Displays dental records of the first patient in the list and hides the patient list.
 
-* `recordadd desc/Mouth was noticeably smelly, might have halitosis` - Adds a new dental record.
+* `recordadd pro/Other-Checkup desc/Mouth was noticeably smelly, might have halitosis` - Adds a new dental record.
 
 * `<<back, back>>` - Go back to the patient list.
 
@@ -653,6 +671,28 @@ Format: `recordclear` or `rclear`
 [NOTE]
 `recordclear` requires the application to first be in records mode, via the `goto` command.
 
+// tag::rmc[]
+==== Record MC creation
+Creates Medical Certificate (MC) for at patient based on description of the selected record. The MC is used as a proof for patient's undergoing procedure.
+
+Format: `recordmc INDEX [DaysToRest]` or `rmc INDEX [DaysToRest]`
+
+Note:
+
+* The MC is saved as a pdf file under `data/` folder.
+
+* By defualt the number of days suggested to rest is 2.
+
+Example:
+
+* `recordmc 1` - Creates mc for the first record, suggesting 2 days of rest.
+* `recordmc 1 3` - Create mc for the first record, suggesting 3 dyas of rest.
+
+Figure below shows a sample MC created.
+
+image::SampleMc.png[width='600']
+//end::rmc[]
+
 === Teeth Management
 ==== Teeth Create
 
@@ -725,9 +765,6 @@ You can also use the keyword `today` as an input which will use the current date
 
 Only *possible* dates are accepted as valid as the program follows the calendar strictly.
 For example, `31-04-2019` will be flagged as invalid as there are only 30 days in April.
-
-As of the current version, 29th of February in a leap year (29-02-2019) is not accepted as a valid input, but will be
-implemented in future versions.
 
 |sd/
 |sd/19-12-2019
@@ -897,6 +934,20 @@ Example:
 * `<<taskcal, taskcal>> 25-12-2019` +
   `taskdelete 2`
 
+//tag::tcopy[]
+==== taskcopy
+Makes one or multiple copies of a task in the task list. This is useful when adding multiple tasks share similar attributes.
+
+Format: `taskcopy INDEX [COUNT]` or `tcopy INDEX [COUNT]`
+
+Note: If the copied entry is modified, it will no longer be considered as a copy. Thus, it should be different from existing entries in the task list. If copies exist before existing, there will be a confirmation.
+
+Example:
+
+* `taskcopy 1` - Make one copy of the 1st task in task list.
+
+* `taskcopy 1 2` - Make two copies of the 1st task in task list.
+
 ==== tasklist
 Shows a list of all the task stored in the application.
 
@@ -905,13 +956,19 @@ Format: `tasklist` or `tlist`
 ==== tasksort
 Sort the tasks ascendingly or descendingly in some order.
 
-Format : 'tasksort priority/startime/endtime [asc/desc]'
+Format : `tasksort PARAMETER [asce/desc]` or `tsort PARAMETER [asce/desc]`
+
+Note :
+
+* `PARAMETER` can be `starttime`, `endtime` or  `priority`
+* The `asc/desc` is optional. It's sorted `ascendingly` by default
 
 Example:
 
-*`tasksort priority`
+* `tasksort priority`
 
-*`tasksort starttime desc`
+* `tasksort starttime desc`
+//end::tcopy[]
 
 // tag::task_ppp_cchj1995[]
 ==== taskdone
@@ -953,7 +1010,7 @@ There will also be a command box below the calendar, allowing you to execute tas
 [NOTE]
 Executing the command without specifying a date will cause the calendar to load into the current date.
 
-format: `taskcal` or `taskcal DD-MM-YYYY`
+Format: `taskcal` or `taskcal DD-MM-YYYY`
 
 Figure 3 below shows the the displayed window and its key components
 
@@ -1072,22 +1129,27 @@ download it from there.
 
 == Command Summary
 
-* *Patient Add* : `patientadd PARAMETERS…​` +
-e.g. `add n/John Choo p/98425871 e/jonC@example.com a/IDA street, block
-13, #02-05 ic/S1234567H age/32 dob/26021987 nokn/Jacky Choo
+* *Patient Add* : `patientadd PARAMETERS…` +
+e.g. `patientadd n/John Choo sex/M p/98425871 e/jonC@example.com a/IDA street, block
+13, #02-05 ic/S1234567H dob/26-02-1987 nokn/Jacky Choo
 nokp/84875215 nokr/Father noka/same`
 
 * *Patient Clear* : `patientclear` +
 e.g. `patientclear`
 
-* *copy* : `copy INDEX` +
-e.g. `copy 3`
+* *Patient Copy* : `patientcopy INDEX` +
+e.g. `patientcopy 3`
 
 * *Patient Delete* : `patientdelete INDEX` +
 e.g. `patientdelete 3`
 
 * *Patient Edit* : `patientedit INDEX PARAMETERS…` +
 e.g. `patientedit 2 p/12345 e/newemail@gmail.com`
+
+* *Patient List* : `patientlist`
+
+* *Patient Find* : `patientfind PREFIX/KEYWORD [MORE_KEYWORDS]` +
+e.g. `pfind n/Alex`
 
 * *Records Mode* : `goto INDEX` +
 e.g. `goto 1`
@@ -1108,40 +1170,23 @@ e.g. `export test.json 1,3-5`
 * *Import* : `import FILE_PATH INDEX_RANGE` +
 e.g. `import test.json 1,3-5`
 
-* *List* : `list`
-
-* *Login* : `login USERNAME PASSWORD` +
-e.g `login kthSIM cavities!2`
-
 * *Open* : `open FILE_PATH` +
 e.g. `open test.json`
 
-* *patientadd* : patientadd PARAMETERS [t/TAG]*…​* +
-e.g. `patientadd n/John Choo p/98425871 e/jonC@example.com a/IDA street, block
-13, #02-05 ic/S1234567H age/32 dob/26021987 nokn/Jacky Choo
-nokp/84875215 nokr/Father noka/same`
-
-* *patientclear* : `patientclear`
-
-* *patientcopy* : `patientcopy INDEX` +
-e.g. `patientcopy 3`
-
-* *Record Add* : `recordadd p/PROCEDURE det/DETAILS` +
-e.g. `recordadd p/Cleaning desc/Mouth was noticeably foul, might have halitosis`
+* *Record Add* : `recordadd pro/PROCEDURE desc/DESCRIPTION` +
+e.g. `recordadd pro/Braces-Top row desc/Mouth was noticeably foul, might have halitosis`
 
 * *Record Delete* : `recorddelete INDEX` +
 e.g. `recorddelete 4`
 
 * *Record Edit* : `recordedit INDEX PARAMETERS…` +
-e.g. `recordedit 1 ic/S1234657H`
+e.g. `recordedit 1 desc/Extraction of wisdom tooth completed.`
 
 * *Record Clear* : `recordclear` +
 e.g. `recordclear`
 
-* *Patient List* : `list`
-
-* *Patient Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find n/Alex`
+* *Record MC creation* : `recordmc INDEX [daysToRest]` +
+e.g. `recordmc 1`
 
 * *Redo* : `redo`
 
@@ -1149,7 +1194,7 @@ e.g. `find n/Alex`
 e.g. `save test.json`
 
 * *Sort* : `sort PARAM ORDER` +
-e.g. `sort name ascend` or `sort age descend`
+e.g. `sort name asce` or `sort dob desc`
 
 * *Task add*:  `taskadd PARAM` +
 e.g. `taskadd ti/Regular review of all patients' records sd/10-10-2019 ed/15-10-2019 st/1200 et/0800 pri/low`
@@ -1160,16 +1205,16 @@ e.g. `taskedit 1 ti/Tooth extraction for Alex pri/HIGH`
 * *Task delete*: `taskdelete INDEX` +
 e.g. `taskdelete 1`
 
+* *Task calendar*: `taskcal DATE` +
+e.g. `taskcal 11-11-2019`
+
+* *Task copy*: `taskcopy INDEX [COUNT]`+
+e.g. `taskcopy 1`
+
 * *Task complete*: `taskdone INDEX` +
 e.g. `taskdone 1`
 
-* *Task calendar*: `taskcal INDEX` +
-e.g. `taskcal 11-11-2019`
-
-* *Tasksort `tasksort starttime/endtime/priority [asc/desc]`
+* *Tasksort* `tasksort starttime/endtime/priority [asce/desc]`
 e.g. `tasksort endtime`
-
-* *Teeth* : `teeth patientadd <Template>` +
-e.g. `teeth patientadd primary`
 
 * *Undo* : `undo`

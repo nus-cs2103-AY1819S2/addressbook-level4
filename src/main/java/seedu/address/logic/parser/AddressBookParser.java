@@ -143,12 +143,10 @@ public class AddressBookParser {
             return new HistoryCommand();
 
         case UndoCommand.COMMAND_WORD:
-            checkCalendarCondition();
             notGoTo();
             return new UndoCommand();
 
         case RedoCommand.COMMAND_WORD:
-            checkCalendarCondition();
             notGoTo();
             return new RedoCommand();
 
@@ -210,6 +208,8 @@ public class AddressBookParser {
 
         //Commands that runs ONLY in both Patient Mode OR Calendar Window
         case TaskDoneCommand.COMMAND_WORD:
+        case TaskDoneCommand.COMMAND_WORD2:
+            notGoTo();
             return new TaskDoneCommandParser().parse(arguments);
         //Commands that should ONLY run in GoTo mode but not in Calendar Window
         case GoToCommand.COMMAND_WORD:

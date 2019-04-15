@@ -295,7 +295,7 @@ If the `back` command is entered while the window is already showing patients, a
 
 The following activity diagram summarizes what happens when a user executes the `goto` or `back` command:
 
-image::GotoActivityDiagram.png[width="800"]
+image::GotoActivityDiagram.png[width=""]
 {nbsp}
 
 ==== Patient's Teeth Feature
@@ -426,19 +426,18 @@ However, the patient class is mutable, and accidental changes to its attributes 
 *** Alternative Cons: Can be hard to understand by other programmers as integers are used to represent teeth statuses. Additionally, this is violating object-oriented principles.
 ** **Choice Justification:** An straightforward object-oriented solution and easy to understand by other collaborating programmers who are familiar with object-oriented programming.
 However, `Tooth` and `Teeth` objects, as well as their relevant methods takes a significant amount of time to be created. They will also require proper test cases to be implemented.
-
-===== Aspect: Implementing the Dentist class
-
-* **Current implementation:** Use a patient variable to store the patient specified by the command.
-** **Alternative:** Create a new immutable patient variable to store the specified patient.
-*** Alternative Pros: Ensures the the specified patient cannot be edited by other classes or methods.
-*** Alternative Cons: Major changes to the patient class would require the immutable patient class to be changed too.
-Furthermore, every time any record of the specified patient is modified, a new immutable patient needs to be created to update the currently stored immutable patient.
-** **Choice Justification:** An intuitive solution, as the specified patient is stored as an exact same class as a patient.
-Additionally, attributes of the specified patient can be accessed just like any other patient class.
-Changes to the patient class does not significantly affect the goto command.
-However, the patient class is mutable, and accidental changes to its attributes by other classes or methods can occur.
 // end::patient_kyler[]
+
+//tag::aspectDB[]
+===== Aspect: Not adding copies into local storage
+* **Current implementation:** Copies are not serialized into json file. It's only inside the memory. When copies exist before exit, program will ask for user's confirmation
+
+** **Alternative: ** Serialize copies into json file. Make changes to comparators of patient/task such that it accepts same entries with copy tag.
+
+*** Alternative Pros: Everything is on track. User does not need to make a confirmation before exiting with copies. And if the program exits accidentally, the copies are still there.
+*** Alternative Cons: User may be able to generate too many unnecessary entries easily, whose serialization is costly in time and space. The change of comparator also violates the design of unique list, bringing potential security issues as well.
+** **Choice Justification:** Serialization may need less code in the beginning. The maintenacne is more difficult, and the robustness of the program is compromised. On the other hand, creating copies for the user is not a hard task. Thus, creating copies on demand should be a better idea.
+//end::aspectDB[]
 
 // tag::taskDG1_cchj1995[]
 === Task Management and related commands
@@ -1452,13 +1451,16 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* is a dental practitioner
+* has a need to manage a significant number of patient information, records and tasks
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
+* prefers having graphical feedback from the application
+* has an occasional need to transfer chunks of information in and/or out of an app
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manages data faster than a typical mouse/GUI drive app while keeping the graphic benefits of GUI
 
 [appendix]
 == User Stories
@@ -1491,6 +1493,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |clear all dental records of a patient | protect the privacy of my patients
 // end::patient_user_stories_kyler[]
 
+
 // tag::task_user_stories_cchj1995[]
 
 |`* * *` |user |add a new task |keep track of what I need to do
@@ -1517,6 +1520,12 @@ edit them before exiting.
 |`* *` |user |see an overall statistics report on my patients |analyze potential trends
 
 |`* *` |user |copy a person |reduce the time needed to create a new person who has similar records to an existing person in the list
+
+//tag::userstoryDB[]
+|`* *` |user |copy a task |reduce the time needed to create a new task who has similar records to an existing task in the list
+
+|`* *` |user |create MC based on existing record |reduce the time needed to input existing data to another system.
+//end::userstoryDB[]
 
 // tag::storyuserJH[]
 
@@ -1700,6 +1709,7 @@ _{More to be added}_
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to provide all features even when working offline.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
@@ -1712,23 +1722,6 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 // tag::header_manual

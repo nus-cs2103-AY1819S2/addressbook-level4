@@ -7,7 +7,7 @@
 
 In a software engineering module in school, my team was given a brownfield development task to enhance an existing application: The AddressBook 4.
 
-My team and I took a step further, to morph the provided application into one of our choice. The result was TeethHub.
+In an ambitious attempt, my team and I took a step further, to morph the entire application into one of our choice. The result was TeethHub.
 
 This portfolio documents my contributions to TeethHub and showcases my technical writing and documentation skills.
 
@@ -16,15 +16,26 @@ This portfolio documents my contributions to TeethHub and showcases my technical
 TeethHub is a desktop application specially designed for tech-savvy dentists, who prefers to use the command line interface.
 
 The user interacts with the application through the type via the command line interface, and graphical representations of the stored data will be shown.
-The program is written in Java.
 
-As of version 1.4: +
-TeethHub allows Dentists to manage patient information, records of each patient and tasks for the dentist. TeethHub can also export them to a PDF file. +
-TeethHub displays the latest teeth information in the form of an image that follows the *Universal Numbering System* dental notation.
-TeethHub displays statistics generated from all patients and records stored in it.
+The GUI of TeethHub is created with JavaFX. TeethHub is written in Java, and has about 20,000 lines of code.
 
-The GUI of TeethHub is created with JavaFX. TeethHub is written in Java, and has about 20,000 lines of code. +
 TeethHub was morphed from AddressBook 4, which had about 10,000 lines of code.
+
+I actively participated in the development of TeethHub from version 1.1 to 1.4.
+
+As of version 1.4, some of the key features TeethHub can process/support:
+
+[cols="4",options=""]
+|===
+|Patient information
+|Dental records
+|Patients' teeth data
+|Graphical teeth data
+|Permanent teeth
+|File management
+|Task events
+|Patient statistics
+|===
 
 == Summary of contributions
 
@@ -60,7 +71,7 @@ The implementation too was demanding, as many factors need to be considered.
 
 ** Enhancements to existing features:
 *** Added a new GUI to allow users to interact with a specific patient's dental records.
-*** Wrote additional tests for new features to significantly increase coverage (~1%).
+*** Wrote additional tests for new features to significantly increase coverage (~5%).
 
 ** Contributions to team members' enhancements:
 *** Suggested the idea of using user-interface switching, which is essential to user experience.
@@ -85,55 +96,96 @@ This includes their personal particulars, next-of-kin information, dental record
 
 This command adds a patient to the patients list.
 
-Name, NRIC, and Date of Birth fields are compulsory.
+Name, NRIC, Sex and Date of Birth fields are compulsory.
 The rest are optional fields, and can be filled in later via the `recordedit` command.
 
 Format: `patientadd PARAMETERS …` or `padd PARAMETERS …`
 
+Parameters:
+
+[cols="3",options=""]
+|===
+|n/NAME
+|s/SEX
+|ic/NRIC
+|dob/DATE_OF_BIRTH
+|p/PHONE_NUMBER
+|e/EMAIL
+|a/ADDRESS
+|da/DRUG_ALLERGY
+|nokn/NEXT_OF_KIN_NAME
+|nokp/NEXT_OF_KIN_PHONE_NUMBER
+|nokr/NEXT_OF_KIN_RELATION
+|noka/NEXT_OF_KIN_ADDRESS
+|===
+
 [NOTE]
 TeethHub determines the uniqueness of patients based on their `NRIC`.
+
+[NOTE]
+============================================================
+While having a next of kin is optional, if you want to add details for a next of kin the fields `nokn/` & `nokr/`
+must be specified. Adding a next of kin address or phone number without both the name and relationship of the next of
+ kin is not possible.
+============================================================
 
 Example:
 
 * `patientadd n/John Choo sex/M ic/S1234567H dob/09-09-1995`
 
-==== Patient Edit
+* `patientadd n/John Choo sex/M p/98425871 e/jonC@example.com a/IDA street block 13
+#02-05 ic/S1234567H dob/26-02-1987 nokn/Jacky Choo nokp/84875215 nokr/Father noka/same desc/New Patient`
 
-This command edits the information of an existing patient.
+==== Patient Delete
 
-Format: `patientedit INDEX [PREFIX/KEYWORDS]` or `pedit INDEX [PREFIX/KEYWORDS]`
+This command deletes the patient specified by `index` from the patients list.
 
-* Edits the patient at the specified index shown from list or find command.
-Must be a positive integer (e.g 1, 2 or 3).
+Format: `patientdelete INDEX` or `pdelete INDEX`
 
-* Input the prefix followed by the new value to replace the existing data.
-** The full list of possible prefixes can be found in <<Breakdown of attributes used within TeethHub>>
+* Deletes the patient at the specified index.
 
-* The given index must be a positive integer (e.g. 1, 2, or 3…).
+* The index refers to the index number shown in the displayed patient list.
+
+* The given index must be a positive integer (e.g 1, 2 or 3…).
+
+Examples:
+
+* `delete 1` +
+Deletes the patient shown with index 1 from the displayed list.
+
+==== Records Mode
+
+The records mode allows users to access the dental records of a specified patient.
+In this mode, users can modify their patients' dental records and teeth information.
+
+===== Entering the Records Mode of a specified patient
+
+Format: `goto INDEX`
+
+* If the user is not in records mode, the goto command brings the user into records mode.
+
+* All dental records of the patient at the indicated index will be displayed.
 
 Example:
 
-* `patientedit 1 ic/S1234567A` -- Edits the `NRIC` of the first patient in the patient list.
+* `goto 1` +
+Go into records mode with the patient at index 1.
 
-==== Go To
+===== Exiting the Records Mode
 
-The goto command specifies a patient by index, and brings the user to the records mode, where all dental records of the specified patient are listed.
+Format: `back`
 
-Format: `goto 1`
+* If the user is in records mode, the back command will bring the user out of records mode.
 
-* Goes into records mode and displays all dental records of patient 1.
+Example:
 
-* The given index must be a positive integer (e.g 1, 2 or 3…)
+* `back` +
+Brings the user back to patient mode.
 
-==== Back
+===== Visual Example
 
-The back command can only be run in records mode.
-It brings the user back to the patients mode, where all patients will be listed.
-
-Format: `back` -- Brings the user back to patient mode.
-
-[NOTE]
-The `back` command will work with parameters, but they will be ignored.
+image::RecordsModeTransition.png[width=""]
+{nbsp}
 
 ==== Record Add
 
@@ -144,11 +196,29 @@ This command adds a new dental record to the patient.
 
 Format: `recordadd pro/PROCEDURE desc/DETAILS or `radd pro/PROCEDURE desc/DETAILS`
 
-* The program assigns the name of the dentist stored in the dentist information
+* Procedures should be in the format of `Type-Subtype`.
 
-* The program assigns the date of record as the date the record is created.
+* While there is a list of valid procedure types, procedure subtypes are user defined.
 
-* When records of a patient is accessed, the stored records are sorted from newest to oldest.
+* Valid Procedure Types:
+
+[cols="4",options=""]
+|===
+|Consultation
+|Preventive
+|Filling
+|Crown Gum
+|Extraction
+|Replacement
+|Braces
+|Aesthetic
+|Implant
+|Other
+|===
+
+* Description allows our users to describe the dental session, and is also user defined.
+
+* The stored records are sorted from newest to oldest.
 
 * New dental records will appear on the top of the list upon entry.
 
@@ -156,7 +226,30 @@ Example
 
 * `<<goto, goto>> 1` - Displays dental records of the first patient in the list and hides the patient list.
 
-* `recordadd desc/Mouth was noticeably smelly, might have halitosis` - Adds a new dental record.
+* `recordadd pro/Other-Checkup desc/Mouth was noticeably smelly, might have halitosis` - Adds a new dental record.
+
+* `<<back, back>>` - Go back to the patient list.
+
+==== Record Delete
+
+This command deletes a dental record of a specified patient.
+
+[NOTE]
+`recorddelete` requires the application to first be in records mode, via the `goto` command.
+
+Format: `recorddelete INDEX` or `rdelete INDEX`
+
+* Deletes the patient’s dental record at the specified index.
+
+* The index refers to the index number shown in the displayed dental record list.
+
+* The given index must be a positive integer (e.g 1, 2 or 3…)
+
+Example:
+
+* `<<goto, goto>> 1` - Displays dental records of the first patient in the list and hides the patient list.
+
+* `recorddelete 1` - patientdelete the latest dental record of the specified patient
 
 * `<<back, back>>` - Go back to the patient list.
 
@@ -185,11 +278,26 @@ Example:
 
 * `<<back, back>>` - Go back to the patient list.
 
+==== Record Clear
+
+Clears all of a patient's dental records.
+
+Format: `recordclear` or `rclear`
+
+[NOTE]
+`recordclear` requires the application to first be in records mode, via the `goto` command.
+
+=== Teeth Management
+
 ==== Teeth Create
 
 There is no command required for this feature, as the application automatically generates and stores a new set of all healthy permanent teeth for newly added patients.
 
 TeethHub complies with the most popular standard of the three the Dental Numbering Systems utilised in Dentistry - The Universal Numbering System.
+
+ifdef::env-github[]
+image::BaseLayer.png[width="200"]
+endif::[]
 
 The upper-case letters A through T are used for primary teeth and the
 numbers 1 - 32 are used for permanent teeth. The tooth designated "1" is
@@ -299,7 +407,7 @@ If the `back` command is entered while the window is already showing patients, a
 
 The following activity diagram summarizes what happens when a user executes the `goto` or `back` command:
 
-image::GotoActivityDiagram.png[width="400"]
+image::GotoActivityDiagram.png[width=""]
 
 ==== Patient's Teeth Feature
 
@@ -320,7 +428,7 @@ The `teethedit` command can only run after a patient is specified via the `goto`
 
 The following class diagram summarizes the `Teeth` class, which is a composition of the `Tooth` class:
 
-image::TeethClassDiagram.png[width="200"]
+image::TeethClassDiagram.png[width=""]
 
 ==== Dentist Feature
 
@@ -366,18 +474,6 @@ However, it may cause complications if MainWindow is no longer a singleton class
 ** **Choice Justification:** An straightforward object-oriented solution and easy to understand by other collaborating programmers who are familiar with object-oriented programming.
 However, `Tooth` and `Teeth` objects, as well as their relevant methods takes a significant amount of time to be created. They will also require proper test cases to be implemented.
 
-===== Aspect: Implementing the Dentist class
-
-* **Current implementation:** Use a patient variable to store the patient specified by the command.
-** **Alternative:** Create a new immutable patient variable to store the specified patient.
-*** Alternative Pros: Ensures the the specified patient cannot be edited by other classes or methods.
-*** Alternative Cons: Major changes to the patient class would require the immutable patient class to be changed too.
-Furthermore, every time any record of the specified patient is modified, a new immutable patient needs to be created to update the currently stored immutable patient.
-** **Choice Justification:** An intuitive solution, as the specified patient is stored as an exact same class as a patient.
-Additionally, attributes of the specified patient can be accessed just like any other patient class.
-Changes to the patient class does not significantly affect the goto command.
-However, the patient class is mutable, and accidental changes to its attributes by other classes or methods can occur.
-
 === Manual Tests
 
 ==== Patient and Record lists
@@ -397,7 +493,3 @@ However, the patient class is mutable, and accidental changes to its attributes 
    Expected: Shows the GUI with a set of sample patients. An alert box prompts for confirmation. The window size may not be optimum. Use the command: `goto 1` to revert to the dental record list.
 .. Test case: `goto` +
    Expected: No GUI elements changed. Error details shown in the status message. Status bar remains the same.
-
-=== User Stories
-
-* I have contributed numerous user stories on the Developer Guide, which are related to patients, dental records and teeth.

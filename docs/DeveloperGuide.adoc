@@ -1860,6 +1860,7 @@ lowest scoring flashcard question and hints are displayed. Answer the current qu
 .. Test case: `editfolder 1 x` (where x is a name not used by any existing folder) +
    Expected: The json with the original name of the edited folder is no longer present in the data directory, replaced with a json with the new folder name.  No other files in the directory are affected.
 
+
 === Navigating in and out of folders
 
 . Entering a folder
@@ -1880,6 +1881,8 @@ lowest scoring flashcard question and hints are displayed. Answer the current qu
 .. Other incorrect cd commands to try: `cd`, `cd Home` +
    Expected: Similar to previous.
 
+
+
 === Saving data
 
 . Dealing with missing/corrupted data files
@@ -1890,3 +1893,35 @@ lowest scoring flashcard question and hints are displayed. Answer the current qu
    Expected: The valid json files have folders with their corresponding names present. The non-json file/corrupted json file remains unaffected.
 
 //end::foldermanualtesting[]
+
+//tag::folderimportexporttesting[]
+. Importing a folder
+.. Prerequisites: +
+    You must be outside a folder (status bar should read `in home directory`. +
+    Ensure that you also have the file to import in the project root directory. +
+    file has to have a .csv extension format. +
+    The imported file has to comply with the csv file headers. +
+    Compulsary fields, like Question and Answer should not be left blank.
+
+.. Test case: `import Blood.csv` +
+Prerequisites: Ensure that Blood.csv exists within the project root directory. +
+Expected: Command box outputs a message `Successfully imported: Blood.csv` and
+a new folder with name Blood is added to the existing folders in the home directory,
+with the corresponding flashcards added to the folder
+
+.. Other incorrect commands to try: `import`,
+`import Blood.json`
+
+
+
+. Exporting a folder
+.. Prerequisites: You must be outside a folder (status bar should read `in home directory`) +
+ flashcard application
+.. Test case: `export 1` +
+Prerequisities: You must have at least one folder existing in the application. +
+   Expected: The command box outputs a message `Successfully exported card folders` and project root directory should contain a `x`.csv file where `x` is the name of the first folder in the application.
+.. Test case: `export 1 2 3` +
+Prerequisities: You must have at least 3 card folder existing in the application. +
+   Expected: The same message output in the command box as the previous test case and the corresponding files `x1.csv`, `x2.csv` and `x3.csv` created in project root directory, where `x1`, `x2`, `x3` corresponds to the name of the first, second and third folder
+.. Other incorrect cd commands to try: `export`, `export -1`, `export 12 13 14`, where `12` `13` and `14` are non existsnt card folder indexes.
+//end:folderimportexporttesting[]

@@ -86,6 +86,7 @@ include::../UserGuide.adoc[tag = advancedoperations]
 The following shows my addition to Know-It-All's developer guide for the import and export commmand.
 
 include::../DeveloperGuide.adoc[tag=importexport]
+include::../DeveloperGuide.adoc[tag=folderimportexporttesting]
 
 === Design Considerations
 ---
@@ -94,5 +95,4 @@ Designing the import and export features required me to
 make decisions not just in code design, but also to enable users to have a
 smooth experience in being able to import and export their flashcards.
 . The following is a brief summary of my analysis and decisions.
-
 include::../DeveloperGuide.adoc[tag=design_considerations_import_export]

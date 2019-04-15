@@ -112,4 +112,9 @@ include::../DeveloperGuide.adoc[tag=ship_aspect_1]
 == Instructions for Manual Testing
 include::../DeveloperGuide.adoc[tag=shiptest]
 
----
+== Use Cases
+include::../DeveloperGuide.adoc[tag=mssListTags]
+include::../DeveloperGuide.adoc[tag=mssListShip]
+
+
+

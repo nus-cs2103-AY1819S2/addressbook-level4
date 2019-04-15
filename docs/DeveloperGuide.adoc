@@ -1286,6 +1286,8 @@ Use case ends.
 [none]
 * 2a. If there are no ships deployed, inform the user.
 
+// tag::mssListTags[]
+
 === List all tags that ships have
 
 *MSS*
@@ -1295,6 +1297,10 @@ Use case ends.
 +
 Use case ends.
 
+// end::mssListTags[]
+
+// tag::mssListShip[]
+
 === List ships by tag
 
 *MSS*
@@ -1303,6 +1309,8 @@ Use case ends.
 2. Game shows all of the user's ships deployed on map that have certain tags.
 +
 Use case ends.
+
+// end::mssListShip[]
 
 *Extensions*
 
@@ -1556,4 +1564,5 @@ To test the statistics save and compare feature. We will use a debug command `sa
 .. Test case : Win the game +
     Expected: A comparison is made between your current game accuracy and the previous
     game accuracy which is 0. Your accuracy has improved.
+    
 //end::savetest[]

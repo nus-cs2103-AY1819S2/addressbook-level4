@@ -325,7 +325,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** e.g. for email field >email`, for skills field `>skill`
 * *`CRITERIA/CRITERION:`* These are the texts that are between 'PREFIX' and 'REVERSE PREFIX'
 ** e.g. for the input `filter and deg<bachelors>deg phone<95>phone`, the criterion are `bachelors` and `95`.
-** all the criterion possible for filtering are: NAME, PHONE, EMAIL, GPA, EDUCATION, DEGREE-LEVEL, ADDRESS, SKILLS (It can have multiple criterion inside of it, e.g. `skill<C++, Java>skill` has 2 criterion `C++ and Java`), POSITIONS (same situation with SKILLS), ENDORSEMENT-COUNT.
+** all the criterion possible for filtering are: `NAME, PHONE, EMAIL, GPA, EDUCATION, DEGREE-LEVEL, ADDRESS, SKILLS` (It can have multiple criterion inside of it, e.g. `skill<C++, Java>skill` has 2 criterion `C++ and Java`), `POSITIONS` (same situation with SKILLS), `ENDORSEMENT-COUNT`.
 
 *Differences of 4 Types of Filter Commands:*
 

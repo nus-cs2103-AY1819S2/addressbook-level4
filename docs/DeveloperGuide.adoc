@@ -228,33 +228,33 @@ This section describes some noteworthy details on how certain features are imple
 ==== Current Implementation
 
 The undo/redo mechanism is facilitated by `VersionedCardCollection`.
-It extends `CardCollection` with an undo/redo history, stored internally as a `cardCollectionStateList` and `currentStatePointer`.
+It extends `CardCollection` with an undo/redo history, stored internally as a `cardCollectionStateList`, `commandHistory` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedCardCollection#commit()` -- Saves the current card collection state in its history.
-* `VersionedCardCollection#undo()` -- Restores the previous card collection state from its history.
-* `VersionedCardCollection#redo()` -- Restores a previously undone card collection state from its history.
+* VersionedCardCollection#commit(String commandText)` -- Saves the current card collection state in its history, with `commandText` be the command that change the state.
+* `VersionedCardCollection#undo()` -- Restores the previous card collection state from its history and return the string represent the command that is undone.
+* `VersionedCardCollection#redo()` -- Restores a previously undone card collection state from its history and return the string represent the command that is redid.
 
 These operations are exposed in the `Model` interface as `Model#commitCardCollection()`, `Model#undoCardCollection()` and `Model#redoCardCollection()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedCardCollection` will be initialized with the initial card collection state, and the `currentStatePointer` pointing to that single card collection state.
+Step 1. The user launches the application for the first time. The `VersionedCardCollection` will be initialized with the initial card collection state, the initial command history, and the `currentStatePointer` pointing to that single card collection state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th flashcard in the card collection. The `delete` command calls `Model#commitCardCollection()`, causing the modified state of the card collection after the `delete 5` command executes to be saved in the `cardCollectionStateList`, and the `currentStatePointer` is shifted to the newly inserted card collection state.
+Step 2. The user executes `delete 5` command to delete the 5th flashcard in the card collection. The `delete` command calls `Model#commitCardCollection()`, causing the modified state of the card collection after the `delete 5` command executes to be saved in the `cardCollectionStateList`, String `delete` is added to the `commandHistory` and the `currentStatePointer` is shifted to the newly inserted card collection state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add f/Hello ...` to add a new flashcard. The `add` command also calls `Model#commitCardCollection()`, causing another modified card collection state to be saved into the `cardCollectionStateList`.
+Step 3. The user executes `add f/Hello ...` to add a new flashcard. The `add` command also calls `Model#commitCardCollection()`, causing another modified card collection state to be saved into the `cardCollectionStateList` and string `add` is added to `commandHistory`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitCardCollection()`, so the card collection state will not be saved into the `cardCollectionStateList`.
 
-Step 4. The user now decides that adding the flashcard was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoCardCollection()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous card collection state, and restores the card collection to that state.
+Step 4. The user now decides that adding the flashcard was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoCardCollection()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous card collection state, and restores the card collection to that state. Then, `Model#undoCardCollection()` returns the command that is undone.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
@@ -265,16 +265,16 @@ The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoCardCollection()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the card collection to that state.
+The `redo` command does the opposite -- it calls `Model#redoCardCollection()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, restores the card collection to that state, and returns the redid command from command history.
 
 [NOTE]
 If the `currentStatePointer` is at index `cardCollectionStateList.size() - 1`, pointing to the latest card collection state, then there are no undone card collection states to restore. The `redo` command uses `Model#canRedoCardCollection()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the card collection, such as `list`, will usually not call `Model#commitCardCollection()`, `Model#undoCardCollection()` or `Model#redoCardCollection()`. Thus, the `cardCollectionStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the card collection, such as `list`, will usually not call `Model#commitCardCollection()`, `Model#undoCardCollection()` or `Model#redoCardCollection()`. Thus, the `cardCollectionStateList` and `commandHistory` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitCardCollection()`. Since the `currentStatePointer` is not pointing at the end of the `cardCollectionStateList`, all card collection states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add f/Hello ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitCardCollection()`. Since the `currentStatePointer` is not pointing at the end of the `cardCollectionStateList`, all card collection states and all command histories after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add f/Hello ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -305,7 +305,6 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 // tag::quiz[]
 === Quiz feature
-==== Current Implementation
 
 ===== Quiz
 
@@ -396,6 +395,47 @@ image::ExitQuizSequenceDiagram.png[width="1000"]
 
 // end::quiz[]
 
+//tag::srs[]
+=== Spaced Repetition System (SRS) Feature
+SRS is an extension for quiz mode. The idea of SRS is for the app to keep track of when each flashcard can be tested. It allows the user to learn the flashcards effectively by showing more "hard to remember" flashcards more often.
+SRS is facilitated by `Proficiency` class. In this section, you will read the API from `Proficiency` class and the current implementation of SRS feature.
+
+==== Proficiency Class API
+`Proficiency` is an immutable attribute of `Flashcard` class. It keeps track the time a particular flashcard can be reviewed and the proficiency level to indicate how well user remember the flashcard. It stores two main data:
+
+* `timeUntilReview` -- a `Calendar` object to indicate the time a flashcard can be reviewed.
+* `proficiencyLevel`-- a non-negative integer to indicate the proficiency level of the user. Higher proficiency level means the user is more proficient.
+
+Additionally, `Proficiency` implements the following APIs:
+
+* `Proficiency#isIncludedInCurrentQuiz()` -- a method to check whether the current flashcard can be included in the current Quiz with SRS mode.
+* `Proficiency#quizAttempt(boolean isSuccess)` -- Returns a new `Proficiency` object that has the updated proficiency level and the next time a flashcard can be reviewed.
+* `Proficiency#getQuizSrsStatus()` -- Returns a string indicating when the flashcard can be reviewed.
+
+These operations are exposed in the higher level `Flashcard` API:
+
+ * `Flashcard#isIncludedInCurrentQuiz()`
+ * `Flashcard#quizAttempt(boolean isSuccess, boolean isQuizSrs)`
+ * `Flashcard#getQuizSrsStatus()`
+
+The way `Proficiency` updates is inspired by the Leitner System. Whenever a user successfully guesses a flashcard, the `proficiencyLevel` of that card is incremented by one and the current flashcard can only be reviewed after `proficiencyLevel` days in the future. For example, if the current flashcard's proficiency level is 3, and the user is successfully guessing this flashcard, the proficiency level will be updated to 4 and the card can only be reviewed after 4 days from now. If a user fails to guess the flashcard, the proficiency level will be dropped to zero and the card can be reviewed immediately.
+
+==== Current Implementation
+
+The notable difference between SRS and the vanilla quiz is how the app chooses the flashcards for the quiz and how the app updates the data of each flashcards.
+
+* when SRS mode is started, `QuizCommand` creates a list of flashcards to be quizzed; it consists of the current filtered flashcards that is filtered based on the card that can be included in the current quiz.
+
+* Next, `QuizCommand` will then pass the filtered list to `Model`, in which they will be stored. It also change the quiz state in the model and tells the model that the current quiz mode is SRS mode.
+
+* After the quiz session is done, `ExitCommand` is executed and it will check whether the quiz mode is SRS mode via `Model#getIsQuizSrs()`. If the mode is SRS, both proficiency and statistics of the flashcards will be updated, otherwise only the statistics of the flashcards are updated.
+
+The following is the sequence diagram illustrating when the quiz srs starts and ends.
+
+image::QuizStartSRSSequenceDiagram.png[width="800"]
+
+// end::srs[]
+
 // tag::imagesupport[]
 === Image Support
 ==== Current Implementation
@@ -458,7 +498,7 @@ implemented under the Logic component which in turn calls upon the Model compone
 the flashcards a user wishes to find.
 
 Users can filter the results based on several attributes of a flashcard including front face text, back face text,
-tags and success rate. Similar to the Add command, the input is expected to have predefined prefixes (`/f`, `/b`, `/t`, `/s`)
+tags and success rate. Similar to the Add command, the input is expected to have predefined prefixes (`f/`, `b/`, `t/`, `s/`)
 to specify the filter categories; followed by keywords on which a match is expected.
 The implementation as well as class interactions can be further explained with the
 following sequence diagram:
@@ -466,7 +506,7 @@ following sequence diagram:
 image::FindCommandSequenceDiagram1.png[width="800"]
 
 The `FindCommandParser` class takes the input string specified by the user and tokenizes it based on the prefixes to create
-a list of keywords associated with each of prefix. Unlike other prefixes, the `/s` prefix (which specifies the success rate range
+a list of keywords associated with each of prefix. Unlike other prefixes, the `s/` prefix (which specifies the success rate range
 which cards should be within), will not take a keyword as input. Instead, the range takes two doubles: lower bound and upper bound.
 
 After being parsed, these keyword lists, as well as the success rate range, are passed to construct a new `FlashcardPredicate` object which is
@@ -501,19 +541,40 @@ they correctly remember a keyword in either the front face text, back face text 
 
 // tag::statistics[]
 === Statistics feature
+
+The statistics command allows the user to filter his / her flashcards and calculate the success rate of the filtered flashcards based on the past attempts in quiz mode. In this section, you will read about `Statistics` class API followed by the current implementation of the `StatsCommand`.
+
+==== Statistics Class
+
+`Statistics` acts as an immutable container to store the data for calculating the success percentages from quiz mode. Each Flashcard object has exactly one `Statistics` attribute. `Statistics` stores two main data:
+
+* `successAttempt` -- the number of success attempt in quiz mode.
+* `attemptNumber`  -- the total number of attempt in quiz mode.
+
+Additionally, `Statistics` implements the following APIs:
+
+* `Statistics#getSuccessRate()` -- Return the success rate which is `successAttempt` divided by `attemptNumber`.
+* `Statistics#quizAttempt(bool isSuccess)` -- Returns a new statistics object that has the updated statistics based on the attempt from the quiz mode.
+* `Statistics#merge(Statistics other)` -- Return merged statistics of two given statistics, generally to be used to calculate the success rate from a bunch of flashcards.
+
+These operations (except the merge operation) are exposed in the higher level `Flashcard` API:
+
+ * `Flashcard#isIncludedInCurrentQuiz()`
+ * `Flashcard#quizAttempt(boolean isSuccess, boolean isQuizSrs)`
+
 ==== Current Implementation
 
-The current statistics logic is handled by `Statistics` and `StatsCommand`.
+Stats command is implemented under the `Logic` component which will calls the `Model` component to retrieve the flashcards the user wishes, followed by the calculation of the statistics by aggregating the statistics from the retrieved flashcards.
 
-`Statistics` acts as a container to store the data for calculating success percentages from quiz mode. +
-It stores `successAttempt` and `attemptNumber`.
+Users can filter the results based on several attributes of a flashcard including front face text, back face text, tags and success rate. Similar to the Add command, the input is expected to have predefined prefixes (`f/`, `b/`, `t/`, `s/`) to specify the filter categories; followed by keywords on which a match is expected.
 
-Additionally, `Statistics` implements the following operations:
+The implementation can be further explained with the aid of the following sequence diagram:
 
-* `Statistics#getSuccessRate()` -- Return the success rate.
-* `Statistics#quizAttempt(bool isSuccess)` -- Update the current statistics when there is an attempt in the quiz mode.
-* `Statistics#merge(Statistics other)` -- Return merged statistics of two given statistics, generally to be used to +
-calculate the success rate from a bunch of flashcards with a particular tag.
+image::StatsCommandSequenceDiagram.png[width="800"]
+
+The `StatsCommandParser` parses the input arguments in the same manner as `FindCommandParser`. `StatsCommandParser` passes the input string to `ParserUtil#filterByKeyword`, tokenize it and returns `FlashcardPredicate` for constructing `StatsCommand` object.
+
+During the execution, `StatsCommand` updates the filtered flashcard list based on the predicate defined earlier. Then, all statistics from the filtered flashcards are fetched and aggregated by using the `Statistics#merge` API. Lastly, the success rate of the cumulative statistics is returned and is printed for the user.
 
 When a user queries for statistics by using command `stats`, `StatsCommand` is the one to calculate the statistics. +
 Currently, `StatsCommand` only supports an overall success rate from all user's flashcards. It will ask `Model` to +

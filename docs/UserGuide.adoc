@@ -398,13 +398,122 @@ Type `exit` and press kbd:[Enter].
 To exit _Acquizition_, use the `exit` command twice: once to exit quiz mode,
 then once to exit _Acquizition_.
 
+// tag::find[]
+=== Finding flashcards by keyword(s): `find`
+* `find t/Chinese t/Japanese` +
+This will find and list all the flashcards that have the _Chinese_ or _Japanese_ tag.
+* `find f/Hello b/Hello` +
+This will find and list all the flashcards whose front or back text contains the word _Hello_.
+// end::find[]
+
+// tag::stats[]
+=== What if I want to know how good I am in the quiz mode?
+
+You can know your success rate in quiz mode by using `stats` command.
+
+Type `stats [f/FRONT_TEXT]... [b/BACK_TEXT]... [t/TAG]​...​` into the command box and
+press kbd:[Enter].
+
+This command will display your success rate on a filtered list based on the front text, back text and tags.
+If you don't specify anything, your success rate over the flashcards in your current filtered flashcards list is displayed instead.
+
+[NOTE]
+**Note:** You can use `find` followed by `stats` to show aggregate statistics for all the flashcards found
+          and listed by the find command.
+
+Examples:
+
+* `stats t/Chinese t/Japanese` +
+This will show aggregate statistics for all flashcards that have the _Chinese_ or _Japanese_ tag.
+* `find f/Kamusta` +
+`stats` +
+This will find and list all flashcards with _Kamusta_ in their front face then show aggregate
+statistics for all those flashcards.
+// end::stats[]
+
+// tag::select[]
+=== What if I want to know how good I am for a particular card?
+
+You can know your success rate for a particular card by using `select` command.
+
+Type `select INDEX` into the command box and
+press kbd:[Enter].
+
+This command will select a flashcard and display it on the flashcard view on the right pane.
+You can see the statistics of the selected flashcard on the command result box.
+Alternatively, you can select a flashcard by clicking it on the flashcard list panel.
+
+[NOTE]
+**Note:** The index refers to the index number shown in the displayed person list.
+
+[NOTE]
+**Note:** The index must be a positive integer `1, 2, 3, …`
+
+Examples:
+
+* `list` +
+`select 2` +
+Selects the second flashcard in the list.
+* `find t/chinese` +
+`select 1` +
+Selects the first flashcard in the filtered list with chinese tag.
+
+The figure below illustrates the select functionality.
+
+image::Select-Ui.png[width="790"]
+
+=== What if I want to when can I review a particular card in the SRS mode?
+
+You can know when to review by using `select` command.
+
+Type `select INDEX` into the command box and
+press kbd:[Enter].
+
+This command will select a flashcard and display it on the flashcard view on the right pane.
+You can see the time left of the selected flashcard on the command result box.
+Alternatively, you can select a flashcard by clicking it on the flashcard list panel.
+
+[NOTE]
+**Note:** The index refers to the index number shown in the displayed person list.
+
+[NOTE]
+**Note:** The index must be a positive integer `1, 2, 3, …`
+
+Examples:
+
+* `list` +
+`select 2` +
+Selects the second flashcard in the list.
+* `find t/chinese` +
+`select 1` +
+Selects the first flashcard in the filtered list with chinese tag.
+
+The figure below illustrates the select functionality.
+
+image::Select-Ui.png[width="790"]
+
+// end::select[]
+
+// tag::srs[]
+=== I memorized some flashcards better than the other, how can I address this?
+
+You can use our learning recommendation system. The system is called Spaced Repetition System or in short SRS. This system will schedule each flashcard a particular time to review. Additionally, based on your performance, SRS will adjust the frequency of the flashcards so that the "more hard to memorize" card will be shown more often.
+
+Type `quiz srs` into the command box and
+press kbd:[Enter].
+
+This command will trigger the SRS mode in the quiz instead of the normal quiz mode. You can refer to the <<Features (Quiz)>> for more info about vanilla quiz mode.
+
+After you finished a quiz session, our app will update your proficiency in each flashcard and schedule the next time you can review the card in SRS.
+// end::srs[]
+
+
 === What if I want to bring up this document again?
 
 You can bring up this document again using the `help` command.
 
 Type `help` and press kbd:[Enter].
 
-// tag::find[]
 === Finding flashcards by keyword(s): `find`
 
 Finds and lists all the flashcards whose front text, back text or collection tags
@@ -428,51 +537,6 @@ Examples:
 This will find and list all the flashcards that have the _Chinese_ or _Japanese_ tag.
 * `find f/Hello b/Hello` +
 This will find and list all the flashcards whose front or back text contains the word _Hello_.
-// end::find[]
-
-=== Selecting a flashcard : `select`
-
-Selects the flashcard identified by the index number used in the displayed flashcard list.
-
-Format: `select INDEX`
-
-****
-* Selects a flashcard and displays it on the flashcard view on the right pane.
-* The success rate of the selected flashcard will be shown on the command result box.
-* The index refers to the index number shown in the displayed person list.
-* The index must be a positive integer `1, 2, 3, …`
-* Alternatively, you can select a flashcard by clicking it on the flashcard list panel.
-****
-
-Examples:
-
-* `list` +
-`select 2` +
-Selects the second flashcard in the list.
-* `find t/chinese` +
-`select 1` +
-Selects the first flashcard in the filtered list with chinese tag.
-
-=== Showing aggregate statistics : `stats`
-
-Shows aggregate statistics for all the flashcards with any of the given tags. +
-If no tag is specified, it shows aggregate statistics for all flashcards currently in the list.
-
-Format: `stats [t/TAG]...`
-
-****
-* You can use `find` followed by `stats` to show aggregate statistics for all the flashcards found
-and listed by the find command.
-****
-
-Examples:
-
-* `stats t/Chinese t/Japanese` +
-This will show aggregate statistics for all flashcards that have the _Chinese_ or _Japanese_ tag.
-* `find f/Kamusta` +
-`stats` +
-This will find and list all flashcards with _Kamusta_ in their front face then show aggregate
-statistics for all those flashcards.
 
 // tag::share[]
 === Exporting flashcards to a text file : `share`
@@ -657,11 +721,13 @@ folder.
 * *Redo* : `redo`
 * *Select* : `select INDEX` +
 * *Share* : `share [f/FRONT_FACE]... [b/BACK_FACE]... [t/TAG]...`
-* *Stats* : `stats [t/TAG]...`
+* *Stats* : `stats [f/FRONT_FACE]... [b/BACK_FACE]... [t/TAG]...`
+* *Select* : `select INDEX`
 * *Undo* : `undo`
 
 === Commands (Quiz)
 * *Quiz* : `quiz`
+* *Quiz SRS mode* : `quiz srs`
 * *Good feedback* : `good`
 * *Bad feedback* : `bad`
 * *Show* : `show`

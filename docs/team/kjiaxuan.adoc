@@ -30,11 +30,10 @@ The figure below explains the symbols and formatting used in this document
 | `[fuchsia]#SortCommandParser#parse()#`| `[fuchsia]#parse()#` method in `[fuchsia]#SortCommandParser#`
 |===
 
-{bl}
-
 == Summary of contributions
 
 This section contains a description of some enhancements I made, and a summary of my contributions.
+
 
 === Enhancement added
 
@@ -82,6 +81,8 @@ https://github.com/CS2103-AY1819S2-W17-3/main/pull/106[#106],
 https://github.com/CS2103-AY1819S2-W17-3/main/pull/110[#110],
 https://github.com/CS2103-AY1819S2-W17-3/main/pull/229[#229])
 
+{bl}
+
 * Community:
 ** PRs reviewed: https://github.com/CS2103-AY1819S2-W17-3/main/pull/63[#63],
 https://github.com/CS2103-AY1819S2-W17-3/main/pull/64[#64],
@@ -101,6 +102,7 @@ include::../UserGuide.adoc[tag=reverse]
 
 {bl}
 
+<<<
 == Contributions to the Developer Guide
 
 These are additions I made to _In-Credit-Ble_'s Developer Guide for the `[fuchsia]#reverse#` and `[fuchsia]#sort#` features.

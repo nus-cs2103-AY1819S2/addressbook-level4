@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import seedu.hms.commons.core.LogsCenter;
 import seedu.hms.commons.core.index.Index;
 import seedu.hms.logic.commands.ShowStatsCommand;
 import seedu.hms.logic.stats.exceptions.ShownItemOutOfBoundException;
@@ -23,7 +21,6 @@ import seedu.hms.model.ReadOnlyHotelManagementSystem;
  * Provide stats for a specific hms
  */
 public class Stats {
-    private static final Logger logger = LogsCenter.getLogger(Stats.class);
     private final ReadOnlyHotelManagementSystem hms;
     private final ArrayList<StatsItem> statsitems;
     private ArrayList<Index> shown;
@@ -50,10 +47,6 @@ public class Stats {
         // initialize shown
         this.shown = new ArrayList<>();
         this.shown.addAll(defaultShown);
-    }
-
-    private static String fillOnLeft(String s, int n) {
-        return String.format("%-" + n + "s", s);
     }
 
     /**

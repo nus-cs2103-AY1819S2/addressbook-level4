@@ -37,13 +37,7 @@ public class StatsWindow extends UiPart<Stage> {
     public final Stats stats;
 
     @FXML
-    private Label statsTextLabel;
-
-    @FXML
     private TextArea statsTextArea;
-
-    @FXML
-    private Label statsChartsLabel;
 
     @FXML
     private ScrollPane statsChartsPane;

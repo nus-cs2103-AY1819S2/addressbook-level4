@@ -113,11 +113,9 @@ When you are adding in the Weblink, FoodDiary will check whether the Weblink is 
 the FoodDiary will proceed to add the restaurant without the Weblink.
 ====
 
-When adding a restaurant when there is no internet connection, the FoodDiary will add your restaurant without the Weblink.
-
 image:NoInternetAdd.PNG[width=640]
 
-_Image 1.1 Result of adding a Restaurant with Weblink but there is no internet connection_
+_Image 1.1 When there is no internet connection, adding a restaurant with weblink will display this result_
 
 ==== Editing details of a restaurant  : `edit`
 
@@ -142,7 +140,7 @@ the FoodDiary will not edit the Weblink for you.
 
 When you are changing a restaurant's Weblink to an invalid Weblink, you will receive the following error message.
 
-When you are editing a restaurant's Weblink with no internet connection, the FoodDiary will edit your restaurant without the Weblink.
+When you are editing a restaurant's Weblink with no internet connection, the FoodDiary will edit your restaurant but not the Weblink.
 
 // end::addedit[]
 

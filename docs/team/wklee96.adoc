@@ -2,7 +2,7 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-image::
+image::ppp-lwk.png[float=right, width="175"]
 = Lee Wei Kang - Project Portfolio
 == PROJECT: The Food Diary
 
@@ -20,6 +20,15 @@ It serves as a journal, allowing the users to give reviews and ratings to the re
 
 My role in this project is to implement a function that allows food lovers to visit the website of restaurants so that they
 can reference the website while writing a review.
+
+The following symbols can help you better understand the some considerations that I had as you read through
+my contributions to the User Guide and Developer Guide
+
+[NOTE]
+This is a *note*. A note indicates important additional information that should be read.
+
+[TIP]
+This is a *tip*. A tip indicates good to know information that would improve your user experience.
 
 
 == Summary of contributions
@@ -57,7 +66,7 @@ If there is no internet, Food Diary will proceed to add or edit the restaurant w
 
 
 |===
-|_The user guide acts as a instruction manual for new users. For my part, I have implemented the visitWeb command feature and below shows an excerpt of Food Diary's User Guide that I added, which explains the usage of visitWeb._
+|_The user guide acts as a instruction manual for new users. For my part, I enhanced the add and edit feature and implemented the visitWeb command feature. Below is an excerpt of Food Diary's User Guide that I added which shows my contributions to Food Diary and the documentations that I have written._
 |===
 
 include::../UserGuide.adoc[tag=addedit]
@@ -67,7 +76,7 @@ include::../UserGuide.adoc[tag=visitweb]
 == Contributions to the Developer Guide
 
 |===
-|_The following shows my addition to the developer guide for visitWeb feature._
+|_The following shows my addition to the developer guide for visitWeb feature. It also illustrates the considerations and the thought process that I had when I was designing and implementing this feature_
 |===
 
 include::../DeveloperGuide.adoc[tag=visitweb]

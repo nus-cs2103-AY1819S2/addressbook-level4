@@ -264,22 +264,32 @@ General commands can be called in any mode (for example help and exit)
 
 Currently the app has 2 modes of operation, namely member mode and activity mode.
 
-==== Design of operation mode control
-Each Command extends a CommandType, currently MemberCommand, ActivityCommand and GeneralCommand
-
-For each CommandType, there is an ArrayList of modes in where this category of command can operate in.
-When the Command is created, it instatiates the operation modes. And when the execute function of the Command is called, the app would allow the execution of the command if the current app mode can be found within the the allowed mode list of the command.
-If the mode does not match, it will throw an exception preventing the execution and prompting the user to change the app mode (by using the mode command) before calling such a function.
-
-A coloured label on the top right corner also indicates the mode of operation at any time to let the user easily track which mode the app is operating in.
+A coloured label on the top right corner indicates the mode of operation at any time to let the user easily track which mode the app is operating in.
 
 image::ModeMemberLabel.png[width="400"]
 
 image::ModeActivityLabel.png[width="400"]
 
+==== Design of operation mode control
+Each Command extends a CommandType, currently MemberCommand, ActivityCommand and GeneralCommand
+For each CommandType, there is an ArrayList of modes in where this category of command can operate in as seen in the class diagram.
+
+For example, for the MemberSelectCommand extends MemberCommands which the ArrayList of AppMode.Modes contains the MEMBER mode enumeration.
+Which means that the MemberSelectCommand can only operate when ClubManager is in MEMBER mode.
+
+
+image::memberCommandClassDiagram.png[width="800px"]
+
+When the Command is created, it instantiates the operation modes. And when the execute function of the Command is called, the app would allow the execution of the command if the current app mode can be found within the the allowed mode list of the command.
+If the mode does not match, it will throw an exception preventing the execution and prompting the user to change the app mode (by using the mode command) before calling such a function.
+
+For example if mLIst (alias of memberList) command is called the following process occurs to either execute the command or throw the InvalidCommandModeException exception for the case that the command is called in the wrong mode.
+
+image::commandModeControl.png[width="800px"]
+
 ==== Design Consideration to aid future expansion of app
 
-* The design approach of the mode of operation control allows easy expansion of the app to manage more categories if required.
+* The design approach of the mode of operation control allows easy expansion of the app to manage more categories if required as the allowed modes of operation can be added to the ArrayList.
 * The feature is designed with easy reuse in mind by allowing the checking of mode to be done dynamically.
 * Since the modes which the command can operate in is stored as an ArrayList, future implementation of more modes of operation, can be added to the list. The current function to check the allowed mode will still be valid.
 * The design also allows the type of command to operate in and not be restricted to either a single mode or all modes but also any combination of modes.

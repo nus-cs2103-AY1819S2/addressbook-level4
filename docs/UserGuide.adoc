@@ -155,7 +155,13 @@ Displays the *list of Members who is not attending or have not attended* the sel
 //tag::mode[]
 ==== Get / Set the mode of ClubManager: `mode`
 
-ClubManager operates in 2 modes. This function allows user to check the mode and change the mode +
+ClubManager operates in 2 modes. This function allows user to check the mode or change the mode +
+[NOTE]
+====
+The operation mode restricts the operations you can call in each mode.
+
+When using ClubManager, you can check the mode of operation on the top right hand corner of the window which will either state "MEMBER" or "ACTIVITY"
+====
 [width="100%",cols="25%,55%, <20%",options="header",]
 |=======================================================================
 |Mode| Definition | Example of allowed commands
@@ -167,6 +173,8 @@ This mode allows the user to manage members in ClubManager
 
  This mode allows the user to manage members in ClubManager
   | `activityAdd`, `activityList`, `activitySelect`
+
+  |[_any mode_]| In any mode, general functions can be called|`help`, `mode`, `exit` |
 |=======================================================================
 
 *Format:*

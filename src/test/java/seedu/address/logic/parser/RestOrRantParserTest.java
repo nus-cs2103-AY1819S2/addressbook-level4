@@ -19,7 +19,6 @@ import seedu.address.logic.commands.AddToMenuCommand;
 import seedu.address.logic.commands.AddToOrderCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ClearOrderCommand;
-import seedu.address.logic.commands.ClearTablesCommand;
 import seedu.address.logic.commands.DeleteFromMenuCommand;
 import seedu.address.logic.commands.DeleteFromOrderCommand;
 import seedu.address.logic.commands.EditPaxCommand;

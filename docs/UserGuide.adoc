@@ -103,19 +103,19 @@ A *property* can have any number of `TAG` (including 0).
 
 * *Seller:* +
 Format: `add c/seller n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS a/ADDRESS sp/SELLING_PRICE_OF_PROPERTY [t/TAG]...` +
-Example: `add c/seller n/James Ho p/98765432 e/jamesho@example.com r/need to sell by April 2018 a/Blk 345 Clementi Ave 5, #04-04, S120345 sp/500000 t/MRT t/newlyRenovated`
+Example: `add c/seller n/James Lee p/98765432 e/jameslee@example.com r/need to sell by April 2018 a/Blk 345 Clementi Ave 5, #04-04, S120345 sp/500000 t/MRT t/newlyRenovated`
 
 * *Buyer:* +
 Format: `add c/buyer n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS` +
-Example: `add c/buyer n/James Ho p/98765432 e/jamesho@example.com r/looking for 3-room apartment`
+Example: `add c/buyer n/James Ho p/87657252 e/jamesho@example.com r/looking for 3-room apartment`
 
 * *Landlord:* +
 Format: `add c/landlord n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS a/ADDRESS rp/RENTAL_PRICE_OF_PROPERTY [t/TAG]...` +
-Example: `add c/landlord n/James Ho p/98765432 e/jamesho@example.com r/family friend  a/Blk 345 Clementi Ave 5, #04-04, S120345 rp/1500 t/MRT t/newlyRenovated`
+Example: `add c/landlord n/Hans Tan p/90826522 e/hanstan@example.com r/family friend  a/Blk 345 Woodlands Street 32, #04-04, S730345 rp/1500 t/MRT t/newlyRenovated`
 
 * *Tenant:* +
 Format: `add c/tenant n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS` +
-Example: `add c/tenant n/James Ho p/98765432 e/jamesho@example.com r/looking for 4-room apartment`
+Example: `add c/tenant n/Bo Yang p/86541526 e/boyang@example.com r/looking for 4-room apartment`
 
 [NOTE]
 ====
@@ -210,8 +210,8 @@ Examples:
 
 * `search James` +
 Returns `James Lee` and `John James`
-* `search James Tan Young` +
-Returns any contact with information matching `James`, `Tan`, or `Young`
+* `search James Tan Yang` +
+Returns any contact with information matching `James`, `Tan`, or `Yang`
 * `search Woodlands Landlord` +
 Returns any contact with information matching `Woodlands` or `Landlord`
 // end::searchfeatures[]
@@ -231,23 +231,23 @@ Edits an existing contact and/or associated property (if any) in the contact boo
 
 * *Seller:* +
 Format: `edit INDEX_SELLER [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS] [a/ADDRESS] [sp/SELLING_PRICE_OF_PROPERTY] [t/TAG]...` +
-Example: `edit 2 n/James Lee e/jameslee@example.com sp/450000 t/`
-** Edits the name and email address of the 2nd contact to be `James Lee` and `jameslee@example.com` respectively. Edits selling price of the associated property to be `450000` and clears all existing tags.
+Example: `edit 2 n/James Li e/jamesli@example.com sp/450000 t/`
+** Edits the name and email address of the 2nd contact to be `James Li` and `jamesli@example.com` respectively. Edits selling price of the associated property to be `450000` and clears all existing tags.
 
 * *Buyer:* +
 Format: `edit INDEX_BUYER [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS]` +
-Example: `edit 2 n/James Lee e/jameslee@example.com r/looking for houses in Woodlands` +
-** Edits the name, email address and remarks of the 2nd contact to be `James Lee`, `jameslee@example.com` and `looking for houses in Woodlands` respectively.
+Example: `edit 2 n/James Tan e/jamestan@example.com r/looking for houses in Woodlands` +
+** Edits the name, email address and remarks of the 2nd contact to be `James Tan`, `jamestan@example.com` and `looking for houses in Woodlands` respectively.
 
 * *Landlord:* +
 Format: `edit INDEX_LANDLORD [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS] [a/ADDRESS] [rp/RENTAL_PRICE_OF_PROPERTY] [t/TAG]...` +
-Example: `edit 2 n/James Lee p/87654321 rp/1700 t/MRT t/Park`
-** Edits the name and phone number of the 2nd contact to be `James Lee` and `87654321` respectively. Edits rental price of the associated property to be `1700`, clears all existing tags and adds new tags `MRT` and `Park`.
+Example: `edit 2 n/Jim Lee p/87654321 rp/1700 t/MRT t/Park`
+** Edits the name and phone number of the 2nd contact to be `Jim Lee` and `87654321` respectively. Edits rental price of the associated property to be `1700`, clears all existing tags and adds new tags `MRT` and `Park`.
 
 * *Tenant:* +
 Format: `edit INDEX_TENANT [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS]` +
-Example: `edit 2 n/James Lee p/87654321 `
-** Edits the name and phone number of the 2nd contact to be `James Lee` and `87654321` respectively.
+Example: `edit 2 n/James p/87654322 `
+** Edits the name and phone number of the 2nd contact to be `James` and `87654322` respectively.
 
 [NOTE]
 ====
@@ -650,7 +650,7 @@ User can set a password, which will be required when logging into the app.
 * *Exit* : `exit`
 * *Search* : `search KEYWORD [KEYWORD]...`
 ** `KEYWORD` List: `CUSTOMER_TYPE`, `NAME`, `PHONE_NUMBER`, `EMAIL`, `REMARK`, `ADDRESS`, `t/TAG`
-** e.g. `search James Tan young`
+** e.g. `search James Tan yang`
 * *Help* : `help`
 * *History* : `history`
 * *Match* :

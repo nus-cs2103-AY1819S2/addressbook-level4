@@ -1830,20 +1830,232 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and directory is retained.
 
+=== Adding a pdf
+
+. Adding an actual pdf file that is on local device
+.. Prerequisites:
+... Have Read, Write and Execute permissions to access the file.
+... The file must be an unencrypted and uncorrupted pdf file.
+
+.. Test case: `add f/C:\Users\WeiTang\Desktop\test\validPdfFile.pdf`
+... Please make sure that your command is of this format: `add f/VALIDFILEPATH.pdf`.
+Note that the file path various for Operating Systems and devices.
+... Expected: The pdf is added to the last index of the list. Details of the added pdf shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `add f/invalidFilePath`
+... Expected: No pdf is added. Error details shown in the status message. Status bar remains the same.
+
+=== Sorting the list of pdf
+
+. Sorting the list of pdfs in a specified order
+
+.. Prerequisites: The pdf files in the list are uncorrupted and they exists in the system. The sort command works even for an empty list.
+.. Test case: `sort name up` +
+    Expected: The list of pdfs will be sorted according to name in an ascending order.
+.. Other correct sort commands to try: `sort name down` (sort the list by name in an descending order), `sort size up` (sort the list by size in an
+  ascending order), `sort size down` (sort the list by size in an descending order), `sort deadline up` (sort the list by deadline in an ascending order),
+  `sort deadline down` (sort the list by deadline in an descending order).
+
+  .. Test case: `sort invalidOperation up` +
+    Expected: The list of pdfs is not sorted. Error details shown in the status message. Status bar remains the same.
+  .. Other incorrect sort commands to try: `sort name wrongCriteria` (the order is wrong), `sort name` (sort order is not specified),
+  `sort up` (sort order is not specified).
+
+. Moving a pdf to a new specified directory
+
+.. Prerequisites: The pdf files in the list are uncorrupted and they exists in the system.
+.. Test case: `move 1` +
+    Expected: A GUI will show to allow you to select the directory that you want to move the first pdf to.
+... If the directory indicated is different from the current directory of pdf +
+    Expected: The pdf is moved to the new directory. Details of the deleted pdf shown in the status message. Timestamp in the status bar is updated.
+... If the directory indicated is same from the current directory of the pdf +
+    Expected: The first pdf is not moved. Error details shown in the status message. Status bar remains the same.
+
+.. Test case: `move 1 d/validPathToDirectory`
+... If the directory indicated is different from the current directory of pdf +
+    Expected: The pdf is moved to the new directory. Details of the deleted pdf shown in the status message. Timestamp in the status bar is updated.
+... If the directory indicated is same from the current directory of the pdf +
+    Expected: The first pdf is not moved. Error details shown in the status message. Status bar remains the same.
+    Expected: The first pdf is moved to the new directory. Details of the deleted pdf shown in the status message. Timestamp in the status bar is updated.
+
+.. Test case: `move d/validPathToDirectory`
+    Expected: No pdf is moved. Error details shown in the status message. Status bar remains the same.
+ .. Other incorrect move commands to try: `move`, `move 1 d/` (no directory specified), `move 1 validPathToDirectory` (no directory prefix),
+    `move 1 d/NotADirectory.pdf` (not directory path specified) +
+    Expected: Similar to previous.
+
+
+=== Open
+
+. Open the pdf by the specified index in the list.
+
+.. Prerequisites: The pdf files in the list are uncorrupted and they exists in the system.
+.. Test case: `open 1`
+    Expected: The first pdf is opened using the system default PDFReader. Details of the updated pdf shown in the status message. Timestamp in the status bar is updated.
+.. `open 0` +
+   Expected: No pdf is open. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect open commands to try: `open`, `open x` (where x is larger than the list size), `open y` (where y is any negative number)  +
+   Expected: Similar to previous.
+
+=== Rename a pdf file
+
+.. Prerequisites: The pdfs in the list are uncorrupted and they exists in the system.
+.. Test case: `rename 1 n/newName.pdf` +
+    Expected: First pdf is renamed to `newName.pdf`. Details of the updated pdf shown in the status message. Timestamp in the status bar is updated.
+
+.. Test case: `rename 1 n/pdf` +
+    Expected: First pdf is not renamed. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect rename commands to try: `rename 1 validName.pdf` (no prefix), `rename x n/validName.pdf`(where x is larger than the list size),
+`rename y n/validName.pdf` (where y is any negative number), `rename n/validName.pdf` (no index), `rename 1 wrong/validName.pdf` (wrong prefix)  +
+    Expected: Similar to previous.
+
+=== Tagging a pdf
+
+. Tagging a pdf that is in the list.
+
+.. Prerequisites: The pdf files in the list are uncorrupted and they exists in the system.
+.. Test case: `tag 1 -a t/SEROCKS` +
+    Expected: First pdf is tagged with SEROCKS. Details of the updated pdf shown in the status message. Timestamp in the status bar is updated.
+    The first file in the file section GUI has the `SEROCKS` tag.
+.. Other correct tag commands to try: `tag 1 -a t/SEROCKS t/CS2103T` (as tag supports for adding of multiple tags) +
+    Expected: Similar to previous.
+
+.. Test case: `tag 1 -r t/SEROCKS`
+... If the tag don't exists: +
+    Expected: The pdf is not tagged. Error details shown in the status message. Status bar remains the same.
+... If the tag exists: +
+    Expected: First pdf's tag is removed. Details of the updated pdf shown in the status message. Timestamp in the status bar is updated.
+
+.. Test case: `tag 1 -r SEROCKS` +
+    Expected: The pdf is not tagged. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect tag commands to try: `tag 1 -x t/SEROCKS` (invalid operation), `tag 1 -a t/` (no tag specified) +
+    Expected: Similar to previous.
+
 === Deleting a pdf
 
 . Deleting a pdf while all pdfs are listed
 
 .. Prerequisites: List all pdfs using the `list` command. Multiple pdfs in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First pdf is deleted from the list. Details of the deleted pdf shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No pdf is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size), `delete y` (where y is any negative number)  +
    Expected: Similar to previous.
+
+=== Move
+
+. Moving a pdf to a new specified directory
+
+.. Prerequisites: The pdf files in the list are uncorrupted and they exists in the system.
+.. Test case: `move 1` +
+    Expected: A GUI will show to allow you to select the directory that you want to move the first pdf to.
+... If the directory indicated is different from the current directory of pdf +
+    Expected: The pdf is moved to the new directory. Details of the deleted pdf shown in the status message. Timestamp in the status bar is updated.
+... If the directory indicated is same from the current directory of the pdf +
+    Expected: The first pdf is not moved. Error details shown in the status message. Status bar remains the same.
+
+.. Test case: `move 1 d/validPathToDirectory`
+... If the directory indicated is different from the current directory of pdf +
+    Expected: The pdf is moved to the new directory. Details of the deleted pdf shown in the status message. Timestamp in the status bar is updated.
+... If the directory indicated is same from the current directory of the pdf +
+    Expected: The first pdf is not moved. Error details shown in the status message. Status bar remains the same.
+    Expected: The first pdf is moved to the new directory. Details of the deleted pdf shown in the status message. Timestamp in the status bar is updated.
+
+.. Test case: `move d/validPathToDirectory`
+    Expected: No pdf is moved. Error details shown in the status message. Status bar remains the same.
+ .. Other incorrect move commands to try: `move`, `move 1 d/` (no directory specified), `move 1 validPathToDirectory` (no directory prefix),
+    `move 1 d/NotADirectory.pdf` (not directory path specified) +
+    Expected: Similar to previous.
+
+=== Deadline
+
+. Setting deadline of the pdf
+
+.. Prerequisites: The pdf files in the list are uncorrupted and they exists in the system.
+.. Test case: `deadline 1 date/14-4-2019` +
+    Expected: The first pdf is set with deadline 14-4-2019. Details of the edited pdf shown in the status message. Timestamp in the status bar is updated.
+.. Other correct deadline commands to try: `deadline 1 done` (set that the task has been completed), `deadline 1 remove` (remove the deadline)
+
+.. Test case: `deadline 1 date/20-20-2019` +
+    Expected: No deadline is set to the first pdf. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect deadline commands to try: `deadline x date/4-4-2019` (where x is larger than the list size), `deadline y date/4-4-2019`
+(where y is any negative number), `deadline 1 date/` (no date specified), `deadline 1 d` (wrong prefix), `deadline date` (no index specified)
+
+=== Filter
+
+. Filters the list of pdfs by the specified tag
+
+.. Prerequisites: The pdf files in the list are uncorrupted and they exists in the system.
+.. Test case: `filter t/SEROCKS` +
+    Expected: All pdfs with the same tag will be shown in the filtered list. Details of the number of pdf is shown in the status message. Timestamp in the status bar is updated.
+.. Other correct filter commands to try: `filter t/SEROCKS t/CS2103T` (more than 1 tag specified)
+    Expected: All pdfs with either of the tags will be shown in the filtered list.
+
+.. Test case: `filter t/` +
+    Expected: The list is not filtered. Error details shown in the status message. Status bar remains the same.
+
+=== Find
+
+. Finds the list of pdfs with the specified keyword(s)
+
+.. Prerequisites: The pdf files in the list are uncorrupted and they exists in the system.
+.. Test case: `find algorithm` +
+    Expected: All pdfs with the keyword as the name and in the file will be shown in the filtered list. Details of the the number of pdf listed is shown in the status message. Timestamp in the status bar is updated.
+.. Other correct find commands to try: `find algorithm SEROCK` (more than one keyword) +
+    Expected: All pdfs with at least one of the keywords as the name and in the file will be shown in the filtered list.
+
+.. Test case: `find` +
+    Expected: No pdf is filtered. Error details shown in the status message. Status bar remains the same.
+
+=== Encrypt
+
+. Encrypts the pdf by the specified index of the list with the specified password
+
+.. Prerequisites: The pdf files in the list are uncorrupted, unencrypted and they exists in the system.
+.. Test case: `encrypt 1 password/anyValidPassword` +
+    Expected: The first pdf will be encrypted with the password `anyValidPassword`. Details of the encryption is shown in the status message. Timestamp in the status bar is updated.
+
+.. Test case: `encrypt 1 password/` +
+    Expected: The first pdf is not encrypted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect encrypt commands to try: `encrypt 1 anyValidPassword` (no prefix), `encrypt 1 p/anyValidPassword` (wrong prefix),
+`encrypt password/anyValidPassword` (no index)
+    Expected: Similar to previous.
+
+=== Decrypt
+
+. Decrypts the pdf by the specified index of the list with the specified password.
+
+.. Prerequisites: The pdf files in the list are uncorrupted, protected and they exists in the system.
+.. Test case: `decrypt 1 password/anyValidPassword` +
+    Expected: The first pdf will be encrypted with the password `anyValidPassword`. Details of the decryption is shown in the status message. Timestamp in the status bar is updated.
+
+.. Test case: `decrypt 1 password/` +
+    Expected: The first pdf is not encrypted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect decrypt commands to try: `decrypt 1 anyValidPassword` (no prefix), `decrypt 1 p/anyValidPassword` (wrong prefix),
+`decrypt password/anyValidPassword` (no index)
+    Expected: Similar to previous.
+
+=== Merge
+
+. Merge 2 or more pdfs into 1 and adds the merged pdf to the back of the list.
+
+.. Prerequisites: The pdf files in the list are uncorrupted, unpotected and they exists in the system, and at least 2 indexes are specified.
+.. Test case: `merge 1 2` +
+    Expected: The first and second pdfs are merged into one pdf and put at the back of the list. Details of the merge is shown in the status message. Timestamp in the status bar is updated.
+.. Other correct merge commands to try: `merge 1 1 1 1 1` +
+    Expected: The first pdf is merged 5 times into 1 pdf and the merged pdf is added to the back of the list.
+
+.. Test case: `merge 0` +
+    Expected: No merged pdf is produced. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect merge commands to try: `merge 1`, (only 1 index is specified), `merge 1 x` (where x is larger than the list size),
+`merge 1 y` (where y is any negative number) +
+    Expected: Similar to previous.
 
 === Saving data
 
 . Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. When you have a corrupted data files in the application. You can follow the steps below:
+... Enter `open INDEX` to test that the file is really uncorrupted and cannot be accessed from
+the application
+... Enter `delete INDEX` to remove the file from the application
+... Enter `add f/PATHTOFILE.pdf` to add the file from the system to the application.

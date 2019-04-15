@@ -279,7 +279,7 @@ Format: `{[aqua]#add-reservation#/[aqua]#ar#} [blue]#r/# [lime]#ROOM_TYPE# [blue
 * `START_DATE` and `END_DATE` follows the `DD/MM/YYYY` format.
 * `COMMENTS` can contain any text without slash (/).
 * All reservations can only be done from current date to upto one year from current date.
-* We alloW the same person to reserve the same room for the same dates. In short, we allow duplicate reservations.
+* We allow the same person to reserve the same room for the same dates. In short, we allow duplicate reservations.
 * We allow different people to reserve the same room for the same date as someone else already has.
 ====
 

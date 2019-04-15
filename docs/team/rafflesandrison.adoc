@@ -50,7 +50,7 @@ You will find many commands implemented to manipulate the arrangement of the app
 . *Minor Enhancement to be added in v2*: pending *safety mechanism for clear command*.
 [[otherContributions]]
 . *Other Contributions*:
-** _Project Management_: <To Be Added>.
+** _Project Management_:
 *** _Set up team development environment_
 *** _Set up travis and coverall_
 *** Managed releases `v1.1` (1 release) on GitHub

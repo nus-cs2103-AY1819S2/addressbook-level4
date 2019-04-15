@@ -72,7 +72,7 @@ public class ReportDisplay extends UiPart<Region> {
         displayTitle(cardFolder.getFolderName());
         displayGraph(cardFolder.getFolderScores());
         displayQuestions(cardFolder.getCardList());
-        displayTagLine(cardFolder.getFolderScores().size());
+        displayTagLine(cardFolder.getCardList().size());
 
         reportDisplay.getChildren().clear();
         reportDisplay.getChildren().add(folderName);

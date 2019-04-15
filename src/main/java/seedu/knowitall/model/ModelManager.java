@@ -211,7 +211,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteFolder(int index) {
-        assert(index < folders.size());
+        assert(index >= 0 && index < folders.size());
 
         folders.remove(index);
         filteredCardsList.remove(index);
@@ -236,6 +236,8 @@ public class ModelManager implements Model {
 
     @Override
     public void renameFolder(int index, String newName) {
+        assert(index >= 0 && index < folders.size());
+
         CardFolder folderToRename = folders.get(index);
         folderToRename.rename(newName);
         indicateModified();
@@ -407,7 +409,9 @@ public class ModelManager implements Model {
     @Override
     public void endTestSession() {
         int minimumNumberAnswered = getActiveCardFolder().getCardList().size() / MIN_FRACTION_ANSWERED_TO_COUNT;
-        if (numAnsweredTotal >= minimumNumberAnswered) {
+        if (numAnsweredTotal <= 0) {
+            getActiveVersionedCardFolder().addFolderScore(0.0);
+        } else if (numAnsweredTotal >= minimumNumberAnswered) {
             getActiveVersionedCardFolder()
                     .addFolderScore((double) numAnsweredCorrectly / numAnsweredTotal);
         }

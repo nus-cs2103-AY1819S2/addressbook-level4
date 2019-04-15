@@ -412,6 +412,7 @@ Example:
 === Enabling notification: `notify` [Coming in v2.0]
 Notifies you when an equipment is due for preventive maintenance in 2 days. You can choose to get notifications or not.
 
+// tag::route[]
 === Route planning: `route`
 With multiple destinations that you plan to visit for preventive maintenance, using the route command can return you with the following details: +
 ****
@@ -437,6 +438,7 @@ The `origin address` must include the country name, and it is suggested to inclu
 Screen shot after typing command `route School of Computing, NUS, Singapore 117417`:
 
 image::route-planning-screenshot.png[width="800"]
+// end::route[]
 
 === Listing entered commands: `history`
 Lists all the commands that you have entered in reverse chronological order.

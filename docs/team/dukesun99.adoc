@@ -62,10 +62,8 @@ This project is morphed from link:https://github.com/nus-cs2103-AY1819S2/address
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are some example sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
-
-include::../UserGuide.adoc[tag=select]
 
 include::../UserGuide.adoc[tag=display]
 
@@ -74,15 +72,12 @@ include::../UserGuide.adoc[tag=route]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are some example sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=display]
 
 include::../DeveloperGuide.adoc[tag=route]
-
-include::../DeveloperGuide.adoc[tag=userstories]
-
 
 == PROJECT: Equipment Manager
 

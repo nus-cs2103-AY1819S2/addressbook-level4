@@ -383,8 +383,12 @@ The ship management feature handles the following:
 
 We can see the use case scenarios in the diagram below.
 
+// end::putShip1[]
+
 .Use case diagram for Ship Management
 image::ShipManagementUseCaseDiagram.png[]
+
+// tag::putShip2[]
 
 `Battleship` is a class representing a ship that can be placed on the map grid. A `FleetEntry` class is internally used to store the `Battleship` in a player's `Fleet`. `FleetEntry` is a nested class within `Fleet` that contains a `Battleship`, its head `Coordinates` and its `Orientation` on the map grid.
 
@@ -406,7 +410,7 @@ The management of ships can be carried out with three commands, namely `put`, `l
 
 The `put` command puts a ship on the map grid, specified by the __head coordinates__.
 
-// end::putShip1[]
+// end::putShip2[]
 
 // tag::putShipHeadCoordinates[]
 
@@ -421,7 +425,7 @@ image:BattleshipHeadExample.png[width=800]
 
 // end::putShipHeadCoordinates[]
 
-// tag::putShip2[]
+// tag::putShip3[]
 
 The following operations are called when the `put` command is called.
 
@@ -439,10 +443,10 @@ These methods check both the horizontal and vertical boundaries when a ship is b
 
 Once `BoundaryValueChecker` has finished its checks and there are no exceptions thrown, the `put` command proceeds to call the `putShip()` method of the `mapGrid` object to put the ship on the map grid. It then updates the `Fleet` in the human player. The following sequence diagram illustrates what happens when the `put` command is called.
 
+// end::putShip3[]
+
 .Sequence diagram of putting a ship on the map.
 image::PutShipSequenceDiagram.png[width=800, align="center"]
-
-// end::putShip2[]
 
 
 // tag::listTags[]
@@ -475,21 +479,20 @@ The set of unique tags and the set of unique names are presented to the `ListCom
 
 The `list` command can list certain ships with certain tags by filtering the list of deployed ships. The following sequence diagram shows how deployed ships are listed when the `list` command is entered into the command line.
 
+// end::listShips[]
+
 .Sequence diagram of listing ships deployed on the map.
 image::ListShipSequenceDiagram.png[ align="center"]
-
-// end::listShips[]
 
 // tag::ship_activity[]
 
 ==== Activity Diagram
 Ship management functions throughout the entirety of the game. As there are multiple states during the game, it is beneficial to visualise the operations of the `put`, `listTags` and `list` commands with respect to the different game states. The activity diagram below illustrates these operations.
 
-.Activity diagram of ship management throughout the game.
-image::ShipManagementActivityDiagram.png[height=400, align="center"]
-
 // end::ship_activity[]
 
+.Activity diagram of ship management throughout the game.
+image::ShipManagementActivityDiagram.png[height=400, align="center"]
 
 ==== Design Considerations
 

@@ -196,7 +196,7 @@ image::maplegend.png[width=400]
 
 // end::map[]
 
-// tag::ship[]
+// tag::ship1[]
 
 ==== Managing ships:
 ===== Placing a ship on the map: `put`
@@ -212,8 +212,12 @@ Examples:
 
 The head of a ship is the top-most and left-most cell of the ship. When coordinates are specified in the `put` command, it specifies the coordinates of the head of the ship, as shown in the figure below.
 
+// end::ship1[]
+
 .The coordinates of the `put` command refer to the coordinates of the ship head.
 image::BattleshipHeadExample2.png[width=400, align="center"]
+
+// tag::ship2[]
 
 The orientation of the ship can be `horizontal` or `vertical`. This may be shortened to `h` or `v`, respectively. The orientation of the ship must be specified. +
 
@@ -222,7 +226,7 @@ When putting a ship on the map grid, you should specify the head coordinates suc
 * The ship falls within the map grid.
 * The ship does not collide with another ship that is already on the map grid.
 
-// end::ship[]
+// end::ship2[]
 
 // tag::list[]
 ===== Listing all ships : `list`

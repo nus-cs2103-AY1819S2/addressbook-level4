@@ -453,7 +453,7 @@ Alternative 1 was chosen as creators are expected to have some skill in data edi
 // end::csvstorage[]
 
 // tag::evan-mgt[]
-[[mgtFeature]]
+[[mgtOverview]]
 === Management feature +
 Management feature provides users with the ability to add, edit and delete lessons in *Lesson View* and *Card View* modes.
 
@@ -480,6 +480,7 @@ In the subsequent sub-sections, I will discuss the 3 major model classes used to
 
 {empty} +
 
+[[cardClass]]
 ==== Card class +
 An instance of link:{repoURL}/src/main/java/seedu/address/model/card/Card.java[`Card.java`] represents a flashcard which contains 2 or more test values and 0 or more hint values. It takes in a list of test values, and optionally a list of hint values.
 
@@ -610,6 +611,7 @@ public void addCardToOpenedLesson(Card card) {
 
 {empty} +
 
+[[addCard]]
 ==== Add card command: `addCard` +
 The `addCard` command adds a card to the lesson which is being edited in *Card View*. +
 
@@ -630,6 +632,7 @@ image::sd_add_card.png[width="800"]
 
 {empty} +
 
+[[mgtConsiderations]]
 ==== Design consideration +
 
 ===== Aspect: contextual management commands +

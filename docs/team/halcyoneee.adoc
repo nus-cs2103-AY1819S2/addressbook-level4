@@ -6,52 +6,36 @@
 
 == PROJECT: BrainTrain
 
-This project portfolio page showcases my contributions to the BrainTrain project such as coding,
-documentation and other contributions.
+This project portfolio page showcases my coding, documentation and other contributions to the BrainTrain project.
 
 == Overview
 
-As part of the Software Engineering Module, CS2103T, at National University of Singapore, the
-team comprises of 5 members were tasked to develop and enhance an existing
-https://github.com/se-edu/addressbook-level4[address book application] within 7
-weeks.
+As a student of the CS2103T: Software Engineering module, I was tasked with working with 4 other students as a team to build a product from an existing https://github.com/se-edu/addressbook-level4[address book application] over 7 weeks. We were given a choice to morph the existing address book to any application we want and we chose to develop *BrainTrain* to further challenge ourselves.
 
-We were given a choice to morph the existing address book to any application we want and we chose
- to develop *BrainTrain*, which will be detailed below.
-
-BrainTrain is a spaced repetition flashcard application which makes memorizing easy and efficient.
-Research has shown that the Spaced-Repetition System (SRS) is more effective than traditional
-memorization techniques. With it, you will be able to learn more with less time. User interaction
-happens through Command Line Interface (CLI) and it has a minimal Graphical User Interface (GUI)
+BrainTrain is a spaced repetition flashcard application which makes memorizing easy and efficient. User interaction happens through Command Line Interface (CLI) and it has a minimal Graphical User Interface (GUI)
 created with JavaFX. It is written in Java, and has about 16 kLoC.
 
-My role in BrainTrain is to design and manage the app's Quiz mode. The following sections
-give a summary of how I have contributed to the project and showcases my ability to write both
-the user and developer guide.
+My role was to design and build the app's quiz mode. The following sections detail what I have contributed to the project, and showcases my ability to write user and developer documentation.
 
 == Summary of contributions
 
 * *Major enhancement*: Implementation of quiz mode
 
 ** *What it does*: Quiz mode manages user interaction during a quiz. It comprises of 6 commands
-which are only available in quiz mode. Quiz mode also reads in answer inputs.
+which are only available in this mode. It also reads in answer inputs.
 
-*** `[ANSWER]...` - An input without a prefix `\` is treated as an answer.
+*** `[ANSWER]...` - Answers the current question. All inputs without the prefix `\` are treated as answers.
 *** `\difficult` - Labels current question in quiz as difficult or not.
 *** `\help` - Lists all commands in quiz and inputs the program will accept.
 *** `\hint` - Reveals additional information to help user to solve the question.
 *** `\quit` - Quits a quiz and save attempted progress.
 *** `\status` - Lists current status and lesson progress of user.
 
-** *Justification*: To ensure that answers are not limited or excluded of certain keywords,
-BrainTrain supports two different modes, management and quiz mode. To differentiate the
-commands between the two modes, quiz mode commands start with a backslash `\`, whereas management
-commands are not.
+** *Justification*: Users need to be able to launch a lesson in quiz mode, where they will be tested on the lesson's flashcards, in order to use BrainTrain for memorization.
 
 ** *Highlights*: Pull request https://github.com/CS2103-AY1819S2-W14-1/main/pull/32[#32],
 https://github.com/CS2103-AY1819S2-W14-1/main/pull/43[#42],
 https://github.com/CS2103-AY1819S2-W14-1/main/pull/96[#96],
-https://github.com/CS2103-AY1819S2-W14-1/main/pull/108[#108],
 https://github.com/CS2103-AY1819S2-W14-1/main/pull/129[#129],
 https://github.com/CS2103-AY1819S2-W14-1/main/pull/175[#175],
 https://github.com/CS2103-AY1819S2-W14-1/main/pull/186[#186]
@@ -66,8 +50,7 @@ The user just need to focus solely on going through the flashcard without having
 the list of lesson available.
 
 ** *Highlights*: Pull request
-https://github.com/CS2103-AY1819S2-W14-1/main/pull/108[#108],
-https://github.com/CS2103-AY1819S2-W14-1/main/pull/186[#186]
+https://github.com/CS2103-AY1819S2-W14-1/main/pull/108[#108]
 
 * *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=halcyoneee[RepoSense]]
 
@@ -78,19 +61,16 @@ https://github.com/CS2103-AY1819S2-W14-1/main/pull/186[#186]
 
 ** Team contribution:
 *** Integrated `AddressBook` features with `BrainTrain` (https://github.com/CS2103-AY1819S2-W14-1/main/pull/33[#33])
-*** Contributed to `HelpCommand`, `ListLessonCommand`, `OpenLessonCommand` and `QuizAnswerCommand`
-system tests to increase coverage from 88% to 95%
-(https://github.com/CS2103-AY1819S2-W14-1/main/pull/175[#175])
-*** Implemented `ChangeThemeCommand` to change between light and dark theme that persists beyond
+*** Improved test coverage from 88% to 95% by writing all the BrainTrain system tests (https://github.com/CS2103-AY1819S2-W14-1/main/pull/175[#175])
+*** Implemented `ChangeThemeCommand` to change between light and dark theme which persists beyond
 app restart. (https://github.com/CS2103-AY1819S2-W14-1/main/pull/175[#175])
-*** Updated BrainTrain icon (https://github.com/CS2103-AY1819S2-W14-1/main/pull/96[#175])
 
 ** Documentation:
 *** Updated Architecture, Logic, UI and QuizModel component diagram to match the current
-implementation. https://github.com/CS2103-AY1819S2-W14-1/main/pull/186[#186]
+implementation. (https://github.com/CS2103-AY1819S2-W14-1/main/pull/186[#186])
 
 ** Community:
-*** PRs reviewed with comments:
+*** Reviewed pull requests with constructive feedback
 (examples: https://github.com/CS2103-AY1819S2-W14-1/main/pull/30[#30],
 https://github.com/CS2103-AY1819S2-W14-1/main/pull/85[#87],
 https://github.com/CS2103-AY1819S2-W14-1/main/pull/97[#97],
@@ -105,29 +85,25 @@ https://github.com/nus-cs2103-AY1819S2/forum/issues/51[#51])
 https://github.com/cs2103-ay1819s2-w09-1/main/issues/118[#118],
 https://github.com/cs2103-ay1819s2-w09-1/main/issues/140[#140])
 
+*** Assisted <<digipie#, Evan>> in adding a legend footer to his management mode (https://github.com/cs2103-ay1819s2-w09-1/main/issues/106[#106])
+
 == Contributions to the User Guide
 
 |===
-|_Given below are an extract of my contributions on Quiz Mode to the User Guide. They showcase my
- ability to write documentation targeting our end-user - Students and Creators._
+|_Given below is an extract of my contributions to the https://cs2103-ay1819s2-w14-1.github.io/main/UserGuide.html[user guide]._
 |===
 
 _Start of extract of quiz mode_
 include::../UserGuide.adoc[tag=quiz]
 _End of extract of quiz mode_
 
-Click to read the full https://cs2103-ay1819s2-w14-1.github.io/main/UserGuide.html[User Guide].
-
 == Contributions to the Developer Guide
 
 |===
-|_Given below are an extract of my contribution on Quiz Mode to the Developer Guide. They
-showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below is an extract of my contribution to the https://cs2103-ay1819s2-w14-1.github.io/main/DeveloperGuide.html[developer guide]._
 |===
 
 _Start of extract of quiz mode_
 
 include::../DeveloperGuide.adoc[tag=quiz]
 _End of extract of quiz mode_
-
-Click to read the full https://cs2103-ay1819s2-w14-1.github.io/main/DeveloperGuide.html[Developer Guide].

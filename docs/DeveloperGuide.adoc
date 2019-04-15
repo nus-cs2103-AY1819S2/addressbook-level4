@@ -1028,7 +1028,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and the location is retained.
 
-<<<<<<< HEAD
 === Adding a book
 
 . Adding a book to an empty bookshelf.
@@ -1048,7 +1047,19 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: Change the name, author, tag of the first book to test, some author, some tag.
 .. Test case: `editBook 1 t/` +
    Expected: Clear all the existing tags of the first book in the result list.
-=======
+
+=== Deleting a book
+
+. Deleting a book while all books are listed
+
+.. Prerequisites: List all book using the `listBook` command. All books present in the bookshelf are shown in the list.
+.. Test case: `deleteBook 1` +
+   Expected: First book is deleted from the list. Details of the deleted book shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `deleteBook 0` +
+   Expected: No book is deleted. Error details are shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `deleteBook` +
+   Expected: Similar to previous.
+
 === Listing books in the bookshelf
 
 . Search and display the books in the bookshelf
@@ -1071,20 +1082,6 @@ These instructions only provide a starting point for testers to work on; testers
     Prefix `c/` is not recognized, so `Madame c/nonsense` will be regarded as a whole keyword for book name. Since whitespace and '/' are not allowed for keywords, the input is invalid. Error is shown in the status message.
 ... `listBook m/12` +
     12 is not a valid range for the rating. Error is shown in the status message.
-
->>>>>>> 479d4fd35c25c742f3ef434eb27352e58f15e155
-
-=== Deleting a book
-
-. Deleting a book while all books are listed
-
-.. Prerequisites: List all book using the `listBook` command. All books present in the bookshelf are shown in the list.
-.. Test case: `deleteBook 1` +
-   Expected: First book is deleted from the list. Details of the deleted book shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `deleteBook 0` +
-   Expected: No book is deleted. Error details are shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `deleteBook` +
-   Expected: Similar to previous.
 
 === Sorting the booklist
 

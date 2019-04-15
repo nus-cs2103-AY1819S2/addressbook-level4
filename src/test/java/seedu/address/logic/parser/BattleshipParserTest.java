@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -9,11 +8,14 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.logic.commands.AttackCommand;
+import seedu.address.logic.commands.BeginCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.InitialiseMapCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListTagsCommand;
+import seedu.address.logic.commands.PutShipCommand;
 import seedu.address.logic.commands.SaveCommand;
 import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -43,16 +45,12 @@ public class BattleshipParserTest {
     }
 
     @Test
-    public void parseCommand_history() throws Exception {
-        assertTrue(parser.parseCommand(StatsCommand.COMMAND_WORD) instanceof StatsCommand);
-        assertTrue(parser.parseCommand(StatsCommand.COMMAND_WORD + " 3") instanceof StatsCommand);
-
-        try {
-            parser.parseCommand("histories");
-            throw new AssertionError("The expected ParseException was not thrown.");
-        } catch (ParseException pe) {
-            assertEquals(MESSAGE_UNKNOWN_COMMAND, pe.getMessage());
-        }
+    public void parseCommand_put() throws Exception {
+        assertTrue(parser.parseCommand(
+            PutShipCommand.COMMAND_WORD
+            + " n/destroyer"
+            + " r/vertical"
+            + " c/a1") instanceof PutShipCommand);
     }
 
     @Test
@@ -64,6 +62,22 @@ public class BattleshipParserTest {
     @Test
     public void parseCommand_listTags() throws Exception {
         assertTrue(parser.parseCommand(ListTagsCommand.COMMAND_WORD) instanceof ListTagsCommand);
+    }
+
+    @Test
+    public void parseCommand_begin() throws Exception {
+        assertTrue(parser.parseCommand(BeginCommand.COMMAND_WORD) instanceof BeginCommand);
+    }
+
+    @Test
+    public void parseCommand_attack() throws Exception {
+        assertTrue(parser.parseCommand(AttackCommand.COMMAND_WORD + " a1") instanceof AttackCommand);
+    }
+
+    @Test
+    public void parseCommand_stats() throws Exception {
+        assertTrue(parser.parseCommand(StatsCommand.COMMAND_WORD) instanceof StatsCommand);
+        assertTrue(parser.parseCommand(StatsCommand.COMMAND_WORD + " 3") instanceof StatsCommand);
     }
 
     @Test

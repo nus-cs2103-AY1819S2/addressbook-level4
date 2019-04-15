@@ -217,7 +217,7 @@ The `Model` component,
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[width="800"]
+image::StorageClassDiagram.png[width="600"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -939,7 +939,7 @@ The following use-case diagram captures the behaviour of the statistics feature.
 
 
 .Use case diagram on the statistics feature.
-image::StatsUseCaseDiag.PNG[width=250]
+image::StatsUseCaseDiag.PNG[width=150]
 
 
 ==== Design considerations

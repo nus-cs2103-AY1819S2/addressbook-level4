@@ -1,32 +1,46 @@
 {
-  "authors":
-  [
+  "authors": [
     {
       "githubId": "DanielDSSim",
-      "emails": ["danieldssim@gmail.com"],
+      "emails": [
+        "danieldssim@gmail.com"
+      ],
       "displayName": "DanielDSSim",
-      "authorNames": ["DanielDSSim", "Daniel"]
+      "authorNames": [
+        "DanielDSSim",
+        "Daniel"
+      ]
     },
     {
       "githubId": "chiuyuhua",
       "displayName": "chiuyuhua",
-      "authorNames": ["chiuyuhua"]
+      "authorNames": [
+        "chiuyuhua"
+      ]
     },
     {
       "githubId": "WeeSooJun",
       "displayName": "WeeSooJun",
-      "authorNames": ["WeeSooJun", "Wee Soo Jun"]
+      "authorNames": [
+        "WeeSooJun",
+        "Wee Soo Jun"
+      ]
     },
     {
       "githubId": "CaesarTY",
       "displayName": "CaesarTY",
-      "authorNames": ["CaesarTY"]
+      "authorNames": [
+        "CaesarTY"
+      ]
     },
     {
       "githubId": "COGnitiveAspian",
       "displayName": "COGnitiveAspian",
-      "authorNames": ["COGnitiveAspian", "Ong Suyi", "Suyi"]
+      "authorNames": [
+        "COGnitiveAspian",
+        "Ong Suyi",
+        "Suyi"
+      ]
     }
-    
   ]
 }

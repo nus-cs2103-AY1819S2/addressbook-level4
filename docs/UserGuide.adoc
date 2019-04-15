@@ -758,13 +758,13 @@ display. +
 The customer's receipt will be displayed in the main panel and the receipt will indicate the price, quantity and name of items ordered, along with the time, date and total amount the customer has to pay.
 
 a| a| As seen from the image below, Table 5 has 4 items in the Order Panel. Note that all items have been
-served.
+served. +
 
 image::Bill_AllServed.png[]
 
 When `bill` is called, the user interface changes to display the receipt as shown below: +
 
-image::Bill_Receipt.png[width="700",align="center"] +
+image::Bill_Receipt.png[width="700",align="center"]
 
 When you switch to Restaurant Mode using the <<RM, `restaurantMode`>> command, you will realise that the table
 has been updated to accomodate new customers. +

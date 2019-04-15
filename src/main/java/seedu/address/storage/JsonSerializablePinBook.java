@@ -41,7 +41,7 @@ class JsonSerializablePinBook {
     }
 
     /**
-     * Converts this pin book into the model's {@code PinBook} object.
+     * Converts this pin book into the model's {@code AddressBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

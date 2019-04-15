@@ -51,7 +51,7 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of archived persons */
     ObservableList<Person> getFilteredArchivedPersonList();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /** Returns an unmodifiable view of the filtered list of pinned persons */
     ObservableList<Person> getFilteredPinList();
 
     /**

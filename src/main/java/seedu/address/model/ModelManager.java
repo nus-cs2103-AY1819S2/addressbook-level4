@@ -204,7 +204,6 @@ public class ModelManager implements Model {
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-
         versionedAddressBook.setPerson(target, editedPerson);
     }
 
@@ -425,7 +424,7 @@ public class ModelManager implements Model {
                 && change.getAddedSize() == change.getRemovedSize()
                 && change.getRemoved().contains(selectedPinPerson.getValue());
             if (wasSelectedPinPersonReplaced) {
-                // Update selectedPerson to its new value.
+                // Update selectedPinPerson to its new value.
                 int index = change.getRemoved().indexOf(selectedPinPerson.getValue());
                 selectedPinPerson.setValue(change.getAddedSubList().get(index));
                 continue;
@@ -462,7 +461,7 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Ensures {@code selectedPerson} is a valid person in {@code filteredPersons}.
+     * Ensures {@code selectedArchivedPerson} is a valid person in {@code filteredArchivedPersons}.
      */
     private void ensureSelectedArchivedPersonIsValid(ListChangeListener.Change<? extends Person> change) {
         while (change.next()) {
@@ -475,7 +474,7 @@ public class ModelManager implements Model {
                     && change.getAddedSize() == change.getRemovedSize()
                     && change.getRemoved().contains(selectedArchivedPerson.getValue());
             if (wasSelectedArchivedPersonReplaced) {
-                // Update selectedPerson to its new value.
+                // Update selectedArchivedPerson to its new value.
                 int index = change.getRemoved().indexOf(selectedArchivedPerson.getValue());
                 selectedArchivedPerson.setValue(change.getAddedSubList().get(index));
                 continue;

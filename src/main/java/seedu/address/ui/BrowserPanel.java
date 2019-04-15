@@ -34,7 +34,7 @@ public class BrowserPanel extends UiPart<Region> {
     private static final String FXML = "BrowserPanel.fxml";
     private static final String NO_CONNECTION = "No Internet connection! Establish connection to display map";
     private static final String NO_CONTACT_SELECTED = "No contact selected";
-    private static final String NO_ADDRESS_AVAILABLE = "No map location to display!";
+    private static final String NO_ADDRESS_AVAILABLE = "No map location to display";
 
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -54,7 +54,7 @@ public class BrowserPanel extends UiPart<Region> {
 
         browserLabel.setText(NO_CONTACT_SELECTED);
 
-        // Load page when selected pin person changes.
+        // Load page when selected pinned person changes.
         selectedPinPerson.addListener((observable, oldValue, newValue) -> {
             // Test for internet connectivity
             try {

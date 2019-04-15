@@ -419,7 +419,7 @@ The following code snippet shows how the `memberAdd` command is executed:
 
 // end::memberadd[]
 
-// tag:memberfilter[]
+// tag::memberfilter[]
 ===== `memberFilter` Command
 *Logic Component*
 

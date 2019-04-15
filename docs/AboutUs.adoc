@@ -37,7 +37,7 @@ Responsibilities:
 
 === Tan Mei Yen
 image::bendymochi.png[width="150", align="left"]
-{empty}[https://github.com/bendymochi[github]] [https://cs2103-ay1819s2-w10-3.github.io/main/team/meiyen.html[portfolio]]
+{empty}[https://github.com/bendymochi[github]] [https://cs2103-ay1819s2-w10-3.github.io/main/team/bendymochi.html[portfolio]]
 
 Role: Developer +
 Responsibilities:

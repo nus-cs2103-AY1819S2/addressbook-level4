@@ -34,7 +34,7 @@ a|WARNING: {sp}
 
 This section highlights my documentation, coding and other noteworthy contributions to my team project.
 
-* *Major enhancement*: Added *`export` command support*
+* *Major enhancement: Added `export` command support*
 ** What it does: Allows the user to export the current medicine inventory data shown in the Graphical User Interface (GUI) to a spreadsheet file which is supported by commonly used spreadsheet applications such as Microsoft Excel.
 ** Justification: Allows the user to save the data so that it can be printed, organised or for advanced data analysis using a spreadsheet application such as Microsoft Excel. This is especially useful for the user, superior or supplier's reference.
 ** Highlights: This enhancement requires an indepth understanding of how each major components work and the methods available as it involves retrieving of data from the GUI and parsing the retrieved data. Despite using the Opencsv library, the implementation was still challenging as it required using methods from different components, parsing and organising the data such that the exported file contains only the essential information for easier reference.
@@ -57,6 +57,7 @@ This section highlights my documentation, coding and other noteworthy contributi
 *** Updated User Guide's Quick Start section and Developer Guide's Setting Up section to only allow Java version `9` and JDK `9` including references to the reason for the change: https://github.com/CS2103-AY1819S2-T12-3/main/pull/117[#117], https://github.com/CS2103-AY1819S2-T12-3/main/pull/123[#123]
 *** Updated User Guide Quick Start section with an additional step on how users can seek assistance: https://github.com/CS2103-AY1819S2-T12-3/main/pull/115[#115]
 *** Updated Storage component class diagram of Developer Guide to match our project: https://github.com/CS2103-AY1819S2-T12-3/main/pull/79[#79]
+*** Updated Developer Guide's Instructions for Manual Testing section to include instructions for testing the `export` command: https://github.com/CS2103-AY1819S2-T12-3/main/pull/197[#197]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-T12-3/main/pull/24[#24], https://github.com/CS2103-AY1819S2-T12-3/main/pull/27[#27], https://github.com/CS2103-AY1819S2-T12-3/main/pull/40[#40], https://github.com/CS2103-AY1819S2-T12-3/main/pull/42[#42]
 *** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1819S2/forum/issues/6[1], https://github.com/nus-cs2103-AY1819S2/forum/issues/9[2], https://github.com/nus-cs2103-AY1819S2/forum/issues/11[3])

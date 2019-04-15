@@ -1,6 +1,6 @@
 package systemtests;
 
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
+import static seedu.pdf.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,12 +8,12 @@ import java.nio.file.Path;
 
 import org.junit.Test;
 
-import seedu.address.model.PdfBook;
-import seedu.address.model.pdf.Pdf;
-import seedu.address.model.util.SampleDataUtil;
-import seedu.address.testutil.TestUtil;
+import seedu.pdf.model.PdfBook;
+import seedu.pdf.model.pdf.Pdf;
+import seedu.pdf.model.util.SampleDataUtil;
+import seedu.pdf.testutil.TestUtil;
 
-public class SampleDataTest extends AddressBookSystemTest {
+public class SampleDataTest extends PdfBookSystemTest {
     /**
      * Returns null to force test app to load data of the file in {@code getDataFileLocation()}.
      */

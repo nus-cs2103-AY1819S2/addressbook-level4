@@ -17,6 +17,10 @@ public class CommandBoxTest extends GuiUnitTest {
 
     private static final String COMMAND_THAT_SUCCEEDS = ListCommand.COMMAND_WORD;
     private static final String COMMAND_THAT_FAILS = "invalid command";
+    private static final String AUTOCOMPLETE_PREFIX_ONLY = "c/";
+    private static final String AUTOCOMPLETE_PREFIX_AND_WORDS = "oc/cas";
+    private static final String EXPECTED_TEXT_PREFIX_ONLY = "c/Western";
+    private static final String EXPECTED_TEXT_PREFIX_AND_WORDS = "oc/Casual";
 
     private ArrayList<String> defaultStyleOfCommandBox;
     private ArrayList<String> errorStyleOfCommandBox;
@@ -41,6 +45,15 @@ public class CommandBoxTest extends GuiUnitTest {
 
         errorStyleOfCommandBox = new ArrayList<>(defaultStyleOfCommandBox);
         errorStyleOfCommandBox.add(CommandBox.ERROR_STYLE_CLASS);
+    }
+
+    @Test
+    public void autoComplete_trimInput() {
+        commandBoxHandle.run(AUTOCOMPLETE_PREFIX_ONLY, KeyCode.DOWN);
+        assertEquals(commandBoxHandle.getInput(), EXPECTED_TEXT_PREFIX_ONLY);
+
+        commandBoxHandle.run(AUTOCOMPLETE_PREFIX_AND_WORDS, KeyCode.DOWN);
+        assertEquals(commandBoxHandle.getInput(), EXPECTED_TEXT_PREFIX_AND_WORDS);
     }
 
     @Test

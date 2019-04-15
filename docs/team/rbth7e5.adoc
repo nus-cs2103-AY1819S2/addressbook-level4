@@ -1,0 +1,85 @@
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+image::ppp-ccj.png[float=right, width="175"]
+= Chen Caijie - Project Portfolio for The Food Diary
+== Overview
+
+This portfolio showcases my contributions to a software engineering team project for our software engineering module.
+Our project, The Food Diary, is a food journal meant for tech-savvy food lovers looking to document
+their food adventures. You can get personalised recommendations, document your food adventures as well as organise the
+restaurants you have visited with categories so that you can easily filter them later.
+
+My role was to implement the categorisation of restaurants as well as manage the git workflow of members.
+The following sections illustrate these enhancements and the relevant sections I added to the User and Developer Guide.
+
+Note the following use of symbols and formatting in order to understand their meanings:
+
+[NOTE]
+====
+* This is a Note, indicating crucial information. Read it to understand why something works or does not work.
+====
+
+[TIP]
+====
+* This is a Tip, indicating nice-to-have information. Reading these will help you navigate the application better.
+====
+
+====
+* A grey highlight indicates a command line instruction or specific functionalities of the application.
+e.g. `setCategories`, `Cuisine`
+* A *bolded* word or phrase indicates important words that you should take note of.
+* A phrase in _italics_ indicates that it is either a Figure label or a reference to a Figure.
+====
+
+== Summary of contributions
+
+The following documents both the code enhancements and how I helped manage the project.
+
+* *Major enhancement*: I implemented *Restaurant Categorisation* for the Food Diary
+** Feature Description: Allows the users to set specific categories to restaurants.
+** Feature Importance: Allows food lovers to better organise their food diary.
+** Feature Highlights:
+*** One command that covers adding and editing categories. Categories are auto-capitalized.
+*** Autocomplete suggestions for categories for faster typing.
+
+* *Minor enhancement*: I added a filter command to display specific restaurants based on its categories
+** Feature Description: Allows food lovers to filter out restaurants based on categories.
+** Feature Importance: Helps food lovers locate and refer back to specific restaurants with specific categories set.
+
+* *Code contributed*: The code I contributed can be viewed at the link here: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=rbth7e5[Code Contributed]
+
+* *Other contributions*:
+
+** Project management:
+*** Set up project repository
+*** Managed merging of PR, issue tracking and handling of repository cleanups
+** Enhancements to existing features:
+*** Refactored existing address book classes (PR https://github.com/CS2103-AY1819S2-W17-1/main/pull/9[#9])
+** Documentation:
+*** Added user stories, use cases and Non-Functional Requirements (PR https://github.com/CS2103-AY1819S2-W17-1/main/pull/22[#22])
+*** Added details on Categorisation implementation (PR https://github.com/CS2103-AY1819S2-W17-1/main/pull/57[#57], https://github.com/CS2103-AY1819S2-W17-1/main/pull/88[#88])
+** Community:
+*** PRs reviewed (with non-trivial review comments): (PR https://github.com/CS2103-AY1819S2-W17-1/main/pull/103[#103])
+*** Fixed tutor PR comments and added AboutUs links: (PR https://github.com/CS2103-AY1819S2-W17-1/main/pull/76[#76], https://github.com/CS2103-AY1819S2-W17-1/main/pull/40[#40])
+*** Helped team members with git workflow
+*** Contributed to the forum: (FORUM https://github.com/nus-cs2103-AY1819S2/forum/issues/62[#62], https://github.com/nus-cs2103-AY1819S2/forum/issues/69[#69])
+
+== Contributions to the User Guide
+
+|===
+|_The following excerpt describes the contributions I made to the User Guide and shows my ability to document
+the Restaurant Categorization feature for end users._
+|===
+
+include::../UserGuide.adoc[tag=categorization]
+
+== Contributions to the Developer Guide
+
+|===
+|_For the Developer Guide, I documented how Categorization is implemented as shown below.
+It reflects my ability to articulate how I implemented my features_
+|===
+
+include::../DeveloperGuide.adoc[tag=categorisation]

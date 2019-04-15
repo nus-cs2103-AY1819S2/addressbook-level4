@@ -1,0 +1,70 @@
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+image::ppp-kwx.png[float=right, width="160"]
+= Koh Wei Xin - Project Portfolio for The Food Diary
+
+---
+
+== Overview
+
+This project portfolio page documents my contributions to *_The Food Diary_*, a software engineering project undertaken as part of the Software Engineering module, CS2103T, during my undergraduate studies in the National University of Singapore (NUS).
+This application is written in Java and has about 10,000 lines of code. It utilizes Command Line Interface (CLI) and has a Graphical User Interface (GUI) created using JavaFX.
+
+*_The Food Diary_* is a desktop application morphed from a basic CLI AddressBook.
+Through our *Software Engineering* module, CS2103T, my team and I chose to morph the AddressBook into a The Food Diary for food lovers of all ages to document their very own food adventure.
+
+In this project, I was tasked with enhancing the user's experience by enabling them to display the average ratings from their reviews for each restaurant and sort the restaurants according to these ratings.
+
+== Summary of Contributions
+
+The following shows a summary of the contributions I made to this team project.
+
+* *Major Enhancement*: I added the ability to *sort restaurants according to their average ratings*.
+** *What it does*: Sorts the list of restaurants according to their average ratings and allows users to filter to the top or bottom ranks of restaurants.
+** *Justification*: This feature significantly improves the product by allowing users to organise their Food Diary from most to least (or vice versa) liked restaurants and allow them to have easier access to their favourite restaurants.
+** *Highlights*: The creation of this feature required in-depth analysis of other alternatives before structuring its model.
+
+* *Minor Enhancement*: I implemented the *generation and display of average restaurant data*.
+** *What it does*: Generates average rating from all the reviews of a restaurant and displays it as part of the restaurant's information card as well as in its summary.
+** *Justification*: This feature improves the product significantly because a user can now immediately see his/her personal ratings across all the visits they have made for a restaurant.
+** *Highlights*: This enhancement relies heavily on XML-based user interface markup language, FXML. Thus, I had to learn pick up this language from scratch to display this new `UiPart`.
+The implementation was also challenging as it involved multiple components, namely `Model`, `Logic` and `Ui`.
+
+* *Other Contributions*:
+
+** *Project Management*:
+*** Recorded all of our team's user stories as issues. (https://github.com/CS2103-AY1819S2-W17-1/main/issues?q=is%3Aissue+author%3Aweixin-koh+label%3Atype.Story[Issues])
+*** Consistent utilization issue tracker in recording bugs. (https://github.com/CS2103-AY1819S2-W17-1/main/pull/89[#89], https://github.com/CS2103-AY1819S2-W17-1/main/pull/94[#94], https://github.com/CS2103-AY1819S2-W17-1/main/pull/112[#112], https://github.com/CS2103-AY1819S2-W17-1/main/pull/113[#113])
+** *Enhancements to Existing Features*:
+*** Enabled `Select` command to display not only the website for the restaurant, but also its list of reviews and summary. (https://github.com/CS2103-AY1819S2-W17-1/main/pull/74[#74])
+*** Changed logo and title of the application to *_The Food Diary_*. (https://github.com/CS2103-AY1819S2-W17-1/main/pull/74[#74], https://github.com/CS2103-AY1819S2-W17-1/main/pull/154[#154])
+** *Documentation*:
+*** Did cosmetic tweaks to existing contents of the User Guide and Developer Guide (https://github.com/CS2103-AY1819S2-W17-1/main/pull/83[#83], https://github.com/CS2103-AY1819S2-W17-1/main/pull/77[#77], https://github.com/CS2103-AY1819S2-W17-1/main/pull/154[#154])
+**** Examples of my design: image:userguide.png[width="125"] image:Note.png[width="70"]
+** *Community*:
+*** PRs reviewed (with non-trivial review comments) (https://github.com/CS2103-AY1819S2-W17-1/main/pull/95[#95], https://github.com/CS2103-AY1819S2-W17-1/main/pull/102[#102])
+*** Reported bugs and suggestions for other teams in the class (https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues?utf8=%E2%9C%93&q=author%3Aweixin-koh+[Issue Tracker])
+** *Tools*:
+*** Setup Reposense (https://github.com/CS2103-AY1819S2-W17-1/main/pull/83[#83])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. Since our project is a Food Diary targeted at food lovers, we have
+come up with instructions on how to use the application for users of all ages. The following is an excerpt about the `select`
+feature I enhanced, as well as the proposed features for sorting restaurants by rating and sharing reviews to Facebook._
+|===
+
+include::../UserGuide.adoc[tag=sort]
+include::../UserGuide.adoc[tag=select]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project,
+namely in the implementation of `sort` command and enhancement to `select` command._
+|===
+
+include::../DeveloperGuide.adoc[tag=selectSortDG]

@@ -4,19 +4,27 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OPENING_HOURS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_POSTAL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_WEBLINK;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.exceptions.NoInternetException;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.restaurant.Address;
+import seedu.address.model.restaurant.Email;
+import seedu.address.model.restaurant.Name;
+import seedu.address.model.restaurant.OpeningHours;
+import seedu.address.model.restaurant.Phone;
+import seedu.address.model.restaurant.Postal;
+import seedu.address.model.restaurant.Restaurant;
+import seedu.address.model.restaurant.Weblink;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -30,23 +38,61 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_POSTAL,
+                        PREFIX_TAG, PREFIX_WEBLINK, PREFIX_OPENING_HOURS);
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_POSTAL)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        Postal postal = ParserUtil.parsePostal(argMultimap.getValue(PREFIX_POSTAL).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, email, address, tagList);
+        // Optional fields
+        Email email;
+        Phone phone;
+        OpeningHours openingHours;
+        Weblink weblink;
+        Restaurant restaurant;
 
-        return new AddCommand(person);
+        if (!arePrefixesPresent(argMultimap, PREFIX_EMAIL)) {
+            email = Email.makeDefaultEmail();
+        } else {
+            email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+        }
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_PHONE)) {
+            phone = Phone.makeDefaultPhone();
+        } else {
+            phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+        }
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_OPENING_HOURS)) {
+            openingHours = OpeningHours.makeDefaultOpening();
+        } else {
+            openingHours = ParserUtil.parseOpeningHours(argMultimap.getValue(PREFIX_OPENING_HOURS).get());
+        }
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_WEBLINK)) {
+            weblink = Weblink.makeDefaultWeblink();
+        } else {
+            try {
+                weblink = ParserUtil.parseWeblink(argMultimap.getValue(PREFIX_WEBLINK).get());
+            } catch (NoInternetException e) {
+                weblink = Weblink.makeDefaultWeblink();
+                restaurant = new Restaurant(name, phone, email, address, postal, tagList,
+                        weblink, openingHours);
+                return new AddCommand(restaurant, Messages.MESSAGE_ADD_NO_INTERNET);
+            }
+        }
+
+        restaurant = new Restaurant(name, phone, email, address, postal, tagList, weblink, openingHours);
+        return new AddCommand(restaurant);
     }
 
     /**

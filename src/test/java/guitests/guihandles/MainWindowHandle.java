@@ -7,26 +7,30 @@ import javafx.stage.Stage;
  */
 public class MainWindowHandle extends StageHandle {
 
-    private final PersonListPanelHandle personListPanel;
+    private final RestaurantListPanelHandle restaurantListPanel;
     private final ResultDisplayHandle resultDisplay;
     private final CommandBoxHandle commandBox;
     private final StatusBarFooterHandle statusBarFooter;
     private final MainMenuHandle mainMenu;
-    private final BrowserPanelHandle browserPanel;
+    private final ReviewListPanelHandle reviewListPanel;
+    private final RestaurantSummaryPanelHandle restaurantSummaryPanel;
 
     public MainWindowHandle(Stage stage) {
         super(stage);
 
-        personListPanel = new PersonListPanelHandle(getChildNode(PersonListPanelHandle.PERSON_LIST_VIEW_ID));
+        restaurantListPanel = new RestaurantListPanelHandle(getChildNode(RestaurantListPanelHandle
+                .RESTAURANT_LIST_VIEW_ID));
         resultDisplay = new ResultDisplayHandle(getChildNode(ResultDisplayHandle.RESULT_DISPLAY_ID));
         commandBox = new CommandBoxHandle(getChildNode(CommandBoxHandle.COMMAND_INPUT_FIELD_ID));
         statusBarFooter = new StatusBarFooterHandle(getChildNode(StatusBarFooterHandle.STATUS_BAR_PLACEHOLDER));
         mainMenu = new MainMenuHandle(getChildNode(MainMenuHandle.MENU_BAR_ID));
-        browserPanel = new BrowserPanelHandle(getChildNode(BrowserPanelHandle.BROWSER_ID));
+        reviewListPanel = new ReviewListPanelHandle(getChildNode(ReviewListPanelHandle.REVIEW_LIST_VIEW_ID));
+        restaurantSummaryPanel = new RestaurantSummaryPanelHandle(
+                getChildNode(RestaurantSummaryPanelHandle.SUMMARY_PANE_ID));
     }
 
-    public PersonListPanelHandle getPersonListPanel() {
-        return personListPanel;
+    public RestaurantListPanelHandle getRestaurantListPanel() {
+        return restaurantListPanel;
     }
 
     public ResultDisplayHandle getResultDisplay() {
@@ -45,7 +49,11 @@ public class MainWindowHandle extends StageHandle {
         return mainMenu;
     }
 
-    public BrowserPanelHandle getBrowserPanel() {
-        return browserPanel;
+    public ReviewListPanelHandle getReviewListPanel() {
+        return reviewListPanel;
+    }
+
+    public RestaurantSummaryPanelHandle getRestaurantSummaryPanel() {
+        return restaurantSummaryPanel;
     }
 }

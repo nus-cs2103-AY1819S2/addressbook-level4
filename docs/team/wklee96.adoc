@@ -1,0 +1,79 @@
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+image::ppp-lwk.png[float=right, width="175"]
+= Lee Wei Kang - Project Portfolio
+== PROJECT: The Food Diary
+
+---
+
+== Overview
+
+This project portfolio page serves to document my contributions to The Food Diary, a software engineering project that
+was undertaken as part of the National University of Singapore (NUS) School of Computing’s Software Engineering module.
+In a team of five students, we worked on a well established application, Address Book 4, of ten thousand lines of code, and
+morphed it into the application we have now.
+
+The Food Diary is designed for food lovers whose wish to document their experiences at a restaurants in a fast and simple fashion.
+It serves as a journal, allowing the users to give reviews and ratings to the restaurant that they have been to.
+
+My role in this project is to implement a function that allows food lovers to visit the website of restaurants so that they
+can reference the website while writing a review.
+
+The following symbol can help you better understand the some considerations that I had as you read through
+my contributions to the User Guide and Developer Guide
+
+[NOTE]
+This is a *note*. A note indicates important additional information that should be read.
+
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to visit website of restaurants*
+** What it does: This feature allows users to view website of visited and unvisited restaurants.
+** Justification:
+*** Since users may not remember every details of the restaurant, the feature to display website of restaurants allow users to reference restaurant's website while writing a review for the restaurant.
+** Highlights: This feature requires understanding of java.net library and also handling tricky errors that can arise when connecting to the internet to load websites.
+** Credits: Used java.net package to validate websites before allowing users to add them into restaurant class.
+
+* *Minor enhancement*: Enhance add and edit function to validate weblink before adding restaurant into Food Diary.
+If there is no internet, Food Diary will proceed to add or edit the restaurant without the weblink. This way, no restaurants with invalid weblink will be added.
+
+* *Code contributed*: Here's a https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=wklee96&sort=displayName&since=2019-02-10&until=2019-04-04&timeframe=day&reverse=false&repoSort=true[link] to my code on the Project Code Dashboard.
+** Project management:
+*** Set-up GitHub organisation to fork Address Book 4
+*** Create a dummy GitHub account perform Continuous Integration for our project.
+*** Managed release of v1.2
+** Enhancements to existing features:
+*** Changed fields of add command to be optional so that users can add restaurants with minimal information. https://github.com/CS2103-AY1819S2-W17-1/main/pull/152[#152]
+*** Added Opening Hour class and Weblink class as new parameters for Restaurant https://github.com/CS2103-AY1819S2-W17-1/main/pull/29[#29], https://github.com/CS2103-AY1819S2-W17-1/main/pull/17[#17]
+*** Updated sample data https://github.com/CS2103-AY1819S2-W17-1/main/pull/17[#17]
+** Documentation:
+*** Updated README https://github.com/CS2103-AY1819S2-W17-1/main/pull/7[#7]
+*** Updated User Guide and Developer Guide on visitWeb feature https://github.com/CS2103-AY1819S2-W17-1/main/pull/106[#106] https://github.com/CS2103-AY1819S2-W17-1/main/pull/150[#150]
+** Community:
+*** Actively looked through and approved PRs, providing constructive comments to codes https://github.com/CS2103-AY1819S2-W17-1/main/pull/103[#103], https://github.com/CS2103-AY1819S2-W17-1/main/pull/95[#95], https://github.com/CS2103-AY1819S2-W17-1/main/pull/148[#148]
+*** Actively test and find bugs that the application can possibly have. Made used of GitHub issue tracker to organise these findings. https://github.com/CS2103-AY1819S2-W17-1/main/issues/145[#145], https://github.com/CS2103-AY1819S2-W17-1/main/issues/65[#65]
+** Tools:
+*** Enabled auto-publishing of documentation for our project.
+
+
+== Contributions to the User Guide
+
+
+|===
+|_The user guide acts as a instruction manual for new users. For my part, I enhanced the add and edit feature and implemented the visitWeb command feature. Below is an excerpt of Food Diary's User Guide that I added which shows my contributions to Food Diary and the documentations that I have written._
+|===
+
+include::../UserGuide.adoc[tag=addedit]
+
+include::../UserGuide.adoc[tag=visitweb]
+
+== Contributions to the Developer Guide
+
+|===
+|_The following shows my addition to the developer guide for visitWeb feature. It also illustrates the considerations and the thought process that I had when I was designing and implementing this feature_
+|===
+
+include::../DeveloperGuide.adoc[tag=visitweb]

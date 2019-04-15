@@ -13,6 +13,19 @@ import java.util.Arrays;
 public class StringUtil {
 
     /**
+     * Returns true if {@code string} contains the substring {@code substring}.
+     * Ignores case, full word match not required.
+     * {@code substring} must be shorter than {@code string}.
+     */
+    public static boolean containsSubstringIgnoreCase(String string, String substring) {
+        requireNonNull(string, substring);
+        if (substring.length() == string.length()) {
+            return false;
+        }
+        return string.toLowerCase().contains(substring.toLowerCase());
+    }
+
+    /**
      * Returns true if the {@code sentence} contains the {@code word}.
      *   Ignores case, but a full word match is required.
      *   <br>examples:<pre>
@@ -36,6 +49,29 @@ public class StringUtil {
 
         return Arrays.stream(wordsInPreppedSentence)
                 .anyMatch(preppedWord::equalsIgnoreCase);
+    }
+
+    /**
+     * Returns a string with the first letter of each word of the original string capitalized.
+     */
+    public static String capitalize(String string) {
+        requireNonNull(string);
+        char[] toArr = string.toCharArray();
+        for (int i = 0; i < string.length(); i++) {
+            boolean isFirstCharOfWordFound = (i == 0 && toArr[i] != ' ') || (toArr[i] != ' ' && toArr[i - 1] == ' ');
+            boolean isCharUpperCaseExceptFirstLetter = (toArr[i] >= 'A') && (toArr[i] <= 'Z');
+            if (isFirstCharOfWordFound) {
+                boolean isCharLowerCase = (toArr[i] >= 'a') && (toArr[i] <= 'z');
+                if (isCharLowerCase) {
+                    toArr[i] = (char) (toArr[i] - 'a' + 'A'); /* convert to upper case */
+                }
+            } else if (isCharUpperCaseExceptFirstLetter) {
+                toArr[i] = (char) (toArr[i] + 'a' - 'A'); /* convert to lower case */
+            }
+        }
+
+        String newString = new String(toArr);
+        return newString;
     }
 
     /**

@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= The Food Diary - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,9 +13,30 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/cs2103-ay1819s2-w17-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `W17-1`      Since: `Feb 2019`      Licence: `MIT`
+
+== Welcome to the Food Diary
+
+image::developerguide.png[float=right, width="450"]
+Welcome to the *Food Diary*! The *Food Diary* is a desktop app for storing your personal food reviews and obtain food recommendations based on your past reviews.
+
+This developer guide contains information on the mechanics of all of the features of the *Food Diary* and is thus suited for developers of all levels to learn the inner workings of our application and how to effectively build on them.
+
+If you would like to improve on the *Food Diary*, here's a good place to start!
+
+**Callouts**
+
+Callouts are boxes with important information regarding the usage of the Food Diary. These 3 callouts are used throughout our User Guide.
+[NOTE]
+This is a *note*. A note indicates important additional information that should be read.
+
+[TIP]
+This is a *tip*. A tip indicates good to know information that would improve your user experience
+
+[WARNING]
+This is a *warning*. A warning indicates critical information that would affect the functionality of this programme.
 
 == Setting up
 
@@ -89,7 +110,7 @@ Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingT
 After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#, UsingCoveralls.adoc>>).
 
 [NOTE]
-Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your personal fork.
+Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your restaurantal fork.
 
 Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingAppVeyor.adoc>>).
 
@@ -149,7 +170,7 @@ image::LogicClassDiagram.png[width="800"]
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command
-image::SDforDeletePerson.png[width="800"]
+image::SDforDeleteRestaurant.png[width="800"]
 
 The sections below give more details of each component.
 
@@ -157,11 +178,11 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[width="800"]
+image::UiClassDiagramV1.3.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `RestaurantListPanel`, `StatusBarFooter`, `BrowserPanel`, `ReviewListPanel`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -182,32 +203,32 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a restaurant).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+image::DeleteRestaurantSdForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
+image::ModelClassDiagramV1.3.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Food Diary data.
+* exposes an unmodifiable `ObservableList<Restaurant>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Food Diary`, which `Restaurant` can reference. This would allow `Food Diary` to only require one `Tag` object per unique `Tag`, instead of each `Restaurant` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
 
@@ -215,14 +236,14 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[width="800"]
+image::StorageClassDiagramV1.2.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Food Diary data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -233,58 +254,285 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
+
+// tag::listUnvisitedDG[]
+=== listUnvisited feature which sorts Restaurants by distance to a specified postal code
+==== Current Implementation
+The `listUnvisited` feature accepts a postal code as user input and displays restaurants without reviews nearest to the user's inputted postal code.
+
+The implementation of this feature can be broken down into 3 main components.
+
+*1) Storage Component*
+
+*2) Model Component*
+
+*3) Logic Component*
+
+The implementations of these components will be discussed below.
+
+
+*[.underline]#1. Storage Component#*
+
+The `Storage` component's function is to serialise the JSON data file `PostalData.json`, which contains the x and y-coordinates of every postal code in Singapore as of 13/03/2019.
+The data is serialised into `JsonSerializablePostalData` which contains a `List` of `JsonAdaptedPostalData`.
+This data can be retrieved through the `StorageManager#getPostalData()` method.
+
+[NOTE]
+In order to update the PostalData.json, you can run the script found https://github.com/chanqingzhou/postalDataScript[here].
+
+
+*[.underline]#2. Model Component#*
+
+The `Model` component's function is to allow the retrieval of the `PostalData` of a specific postal code.
+It contains a `PostalDataSet` which contains a `HashMap` of `String` representing the postal code mapped to the corresponding `PostalData`.
+This contains the x and y-coordinates of the corresponding postal code.
+The retrieval is done through the `PostalDataSet#getPostalData(int postal)` method.
+`PostalDataSet` is obtained through the `Model#getPostalDataSet()` interface.
+
+
+*[.underline]#3.Logic Component#*
+
+The `Logic` component consists of two key sub-components, the `Command` component and the `Comparator` component.
+The `Command` component parses the user input into a `Postal` and then checks if the `Postal` is within the `PostalDataSet`.
+If the postal code provided is not within `PostalDataSet`, the `ListUnvisitedCommand` will simply filter out unreviewed restaurants.
+Otherwise, if the postal code is valid, it will create a new `SortDistanceComparator<Restaurant>` class with the postal code and `PostalDataSet` inputted as the parameters.
+This `SortDistanceComparator` is then passed to the `Model` class to sort the `SortedList` which encapsulates the `FilteredList`.
+This sequence is illustrated in the activity diagram below.
+
+image::ListUnvisitedLogicActivityDiagram.png[width="800"]
+
+The `SortDistanceComparator<Restaurant>` class sorts the `Restaurant` based on the distance to the user's inputted postal code.
+It does this by first querying the `PostalData` of the postal code of the `Restaurant` from `PostalDataSet` then
+calculating the distance from the user inputted postal code.
+This result is then stored within the `Comparator` class.
+[NOTE]
+If a `Restaurant` 's postal code is not in `PostalDataSet`, the distance will be set to `Double.MAX_VALUE`.
+This implies that this `Restaurant` will appear at the bottom of the `SortedList`.
+
+
+Given below is an example usage scenario and how 3 components behaves at each step.
+
+Step 1. The user launches the application for the first time. The `PostalDataSet` will be initialised with data from `PostalData.json`
+through the `Storage` component.
+
+Step 2. The user calls `listUnvisited po/267951`. The `listUnvisitedCommand` class will be initialised.
+A new `SortDistanceComparator` will be created by the
+`listUnvisitedCommand` class containing the `PostalData` of '267951'.
+The command will then call the method `Model#filterAndSort(Predicate PREDICATE_SHOW_UNVISITED_RESTAURANTS, Comparator sortBy).`
+[NOTE]
+If the postal code provided by the user is invalid, there will be no change in ordering of the `Restaurant`. The list of `Restaurant` will be filtered to only show `Restaurant` without any `Review`.
+
+
+Step 3. The `Model#filterAndSortByLocation()` will first filter the `filterList` to show all `Restaurants` with zero reviews.
+
+Step 4. The `sortedList` which encapsulates the `filteredList` will then be sorted based on the `Comparator`
+provided to show the nearest `Restaurants` with zero review.
+
+The following sequence diagram summarizes what happens when the user executes a listUnvisited Command.
+
+image::ListUnvisitedSequenceDiagram.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: How is location data accessed for each postal code?
+
+* **Alternative 1 (current choice):** Preload the data from a json file
+** Pros: Internet Service is not required.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Making a API call to an external library e.g.Google API
+** Pros: Will use less memory and will always be updated and accurate.
+** Cons: Internet Service is required for the usage of the feature.
+
+===== Aspect: Accessing of local postal data
+
+* **Alternative 1 (current choice):** `PostalData` is retrieved for each `Restaurant` by the `Comparator`.
+** Pros: Easy to implement.
+** Cons: Increased coupling between `Logic` and `Model`. There might also be performance issues.
+* **Alternative 2:** Using the x and y coordinates as a field in the Restaurant class
+** Pros: Repeated calls to retrieve the `PostalData` from `PostalDataSet` is not required.
+** Cons: If incorrect postal data is provided, the incorrect x and y coordinates will be written to the data file. This may be difficult to correct.
+// end::listUnvisitedDG[]
+
+// tag::selectSortDG[]
+=== Display of Restaurants and Restaurant Details
+
+In order to enhance user's experience in the Food Diary, the `select` feature is enhanced and a new `sort` feature is implemented.
+These two features complete the diary aspect of the application by generating total visits and average ratings from the user's own reviews and allowing users to sort the restaurants to see their favourite ones.
+This section describes the implementation of these two features.
+
+==== Select Feature
+
+The `select` feature displays a restaurant's summary and reviews when it is selected.
+The restaurant's summary is made up its generated data, the average rating and total visits, which are calculated from the reviews of a restaurant in the `Summary` class.
+
+===== Current Implementation
+The `select` feature is a pre-existing one from AddressBook Level 4.
+The enhancement made is to display greater quantity and quality of restaurant information upon selection.
+
+You can refer to _Figure 1_ to see the chain of activities that happen when the `select` command is executed.
+
+image::SelectActivityDiagram.png[width="650"]
+_Figure 1. Activity Diagram for `select` command_
+
+The following describes how the `select` mechanism behaves at each step:
+
+Step 1. User executes `select INDEX` command, with `INDEX` as a positive integer within the range of indexes in the filtered restaurant list.
+
+Step 2. The `FoodDiaryParser` parses the user's input and constructs a `SelectCommandParser` object, which then parses the input index into an `Index` object and constructs a `SelectCommand` object.
+
+Step 3. The `SelectCommand` is executed and calls on `Model#setSelectedRestaurant()` to set the selected restaurant to be the restaurant with the target `Index` in the current filtered restaurant list.
+
+Step 4. The listeners in the `RestaurantSummaryPanel` and `ReviewListPanel` pick up the new value of the selected restaurant and loads the restaurant's summary and reviews respectively onto the GUI.
+The `RestaurantSummaryPanel` does so by calling its own `RestaurantSummaryPanel#loadSummary()` operation, which retrieves the selected restaurant's attributes such as `Summary`, and through it,
+the restaurant's `avgRating` and `totalVisit`.
+
+[NOTE]
+A restaurant with no reviews is indicated with `totalVisits` = 0 and `avgRating` = -1. The number -1 is chosen as all user input `Ratings` can only be a number between [0, 5], thus -1 is a clear
+indication that there is no `avgRating` for the particular restaurant. This is a clear check to decide whether the `avgRating` field displayed in the UI should be `N.A.`.
+
+[NOTE]
+There is no state change to the Food Diary as the `select` command only selects a restaurant from the current `FilteredList` of restaurants.
+As such, this command cannot be undone or redone through the `undo` and `redo` commands respectively.
+
+You can refer to _Figure 2_ for the internal implementation flow when a `select` command is executed.
+
+image::SelectSequenceDiagram.png[width="675"]
+_Figure 2. Sequence Diagram for `select` command_
+
+===== Design Considerations
+
+Two guiding design patterns are applied to this feature:
+
+- The Facade design pattern is used to allow access to `avgRating` and `totalVisits` of a `Restaurant` only through its `Summary` class.
+
+- The Observer pattern is also applied in the UI component as the `RestaurantSummaryPanel` and `ReviewListPanel` gets updated automatically once the selected restaurant is changed through the use of a listener for `selectedRestaurant`.
+
+====== Aspect: How to structure the Summary in the UI
+
+* **Alternative 1 (current choice):** Implement `Summary` as a class in the `Restaurant` package
+** Pros: Applies Observer pattern and reduces duplicate code as calculation of `avgRating` only has to be done once in `Summary` class to display it on both `RestaurantCard` and `RestaurantSummaryPanel`.
+** Cons: Results in coupling as it introduces dependency of `Summary` on `Review` class.
+* **Alternative 2:** Implement `Summary` as a class in the UI component that listens to changes in the `Review` of the `Restaurant`
+** Pros: Reduces dependency within Model component.
+** Cons: Increases duplicate code as `avgRating` of a Restaurant's `Summary` is displayed in both the `RestaurantCard` and `RestaurantSummaryPanel` and will thus have to be calculated twice.
+
+==== Sort Feature
+
+The `sort` feature allows users to sort the restaurants in the Food Diary in ascending or descending order of ratings, and even limit the number of top/bottom ranked Restaurants shown.
+
+===== Current Implementation
+The command format is `sort [or/ORDER] [l/LIMIT]` with optional `ORDER` and `LIMIT` parameters.
+By default, the restaurants would be sorted in descending order of ratings with no limit applied.
+
+You can refer to _Figure 3_ below for a better understanding of the activity flow of the `sort` command.
+
+image::SortActivityDiagram.png[width="700"]
+_Figure 3. Activity Diagram for `sort` command_
+
+The majors components involved in the implementation of this feature are:
+
+- `FoodDiaryParser`, which parses the user's input and constructs a `SelectCommandParser`, which then parses the input into `Order` and `Limit` and constructs a `SortCommand`.
+
+- `SortRating`, which implements `Comparator<Restaurant>`, serves as a comparator to sort the restaurants in the Food Diary by its `avgRating`.
+To construct this comparator, an `Order` has to be passed in to determine whether `SortRating#compare()` will be indicating ascending or descending order.
+
+- `SortCommand`, contains 2 sub-classes, `Order` and `Limit`, which are used for the construction of `SortCommand`.
+`SortCommand` is where the `SortRating` comparator is constructed and passed into the `Model#sortRestaurantList()` operation. The filtering of the sorted list to the `Limit`, if present, also takes place here.
+
+
+The following shows how the sort mechanism behaves at each step.
+
+Step 1. The user executes `sort [or/ORDER] [l/LIMIT]` command.
+
+Step 2. The `FoodDiaryParser` parses the user's input and constructs a `SortCommandParser` object, which then parses the inputs into `Order` and `Limit` objects, and constructs a `SortCommand` object using the `Order` and `Limit` constructed.
+
+[NOTE]
+If there is no order in the user's input, the default `Order` will be constructed using the String `"DES"`.
+
+[NOTE]
+If there is no limit in the user's input, an `Optional.empty()` object will be used in place of `Limit` in the construction of a `SortCommand` object.
+
+Step 3. The `SortCommand` is executed.
+
+- Step 3.1. A `SortRating` comparator is constructed and `Model#sortRestaurantList()` call to sort the list of restaurants in the Food Diary.
+
+- Step 3.2. If `Limit` is present, `SortCommand#filterToLimit()` is called to get a `uniqueRatings` list from `Model#getUniqueRatings()` to get the borderline of the `avgRatings` to be included in the filtered list.
+A predicate containing the borderline `avgRating` is then created and passed into `Model#updateFilteredRestaurantList()` to filter the sorted restaurant list. Else, if `Limit` is not present, the predicate passed
+into `Model#updateFilteredRestaurantList()` to display all restaurants.
+
+Step 4. The sorted restaurant list is then stored in the Food Diary via `Model#commitFoodDiary()`.
+
+You can refer to _Figure 4_ below for a more detailed idea of how `sort` command is implemented internally.
+
+image::SortSequenceDiagram.png[width="750"]
+_Figure 4. Sequence Diagram for `sort` command_
+
+
+===== Design Considerations
+
+====== Aspect: How to apply the `Limit`
+
+* **Alternative 1 (current choice):** Let `Limit` denote the number of ranks of restaurants to be displayed
+** Pros: Accurately shows the top/bottom ranked restaurants.
+** Cons: More expensive operations required to limit ranks of restaurants as a unique ratings list has to be stored to get the limited ranks.
+* **Alternative 2:** Let `Limit` denote the number of restaurants to be displayed
+** Pros: More intuitive to users.
+** Cons: Does not provide an accurate depiction of top/bottom restaurants as multiple restaurants with the same ratings may not be displayed.
+
+// end::selectSortDG[]
+
+
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedFoodDiary`.
+It extends `FoodDiary` with an undo/redo history, stored internally as an `foodDiaryStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedFoodDiary#commit()` -- Saves the current food diary state in its history.
+* `VersionedFoodDiary#undo()` -- Restores the previous food diary state from its history.
+* `VersionedFoodDiary#redo()` -- Restores a previously undone food diary state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitFoodDiary()`, `Model#undoFoodDiary()` and `Model#redoFoodDiary()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedFoodDiary` will be initialized with the initial food diary state, and the `currentStatePointer` pointing to that single food diary state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th restaurant in the food diary. The `delete` command calls `Model#commitFoodDiary()`, causing the modified state of the food diary after the `delete 5` command executes to be saved in the `foodDiaryStateList`, and the `currentStatePointer` is shifted to the newly inserted food diary state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new restaurant. The `add` command also calls `Model#commitFoodDiary()`, causing another modified food diary state to be saved into the `foodDiaryStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitFoodDiary()`, so the food diary state will not be saved into the `foodDiaryStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the restaurant was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoFoodDiary()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous food diary state, and restores the food diary to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial food diary state, then there are no previous food diary states to restore. The `undo` command uses `Model#canUndoFoodDiary()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoFoodDiary()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the food diary to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `foodDiaryStateList.size() - 1`, pointing to the latest food diary state, then there are no undone food diary states to restore. The `redo` command uses `Model#canRedoFoodDiary()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the food diary, such as `list`, will usually not call `Model#commitFoodDiary()`, `Model#undoFoodDiary()` or `Model#redoFoodDiary()`. Thus, the `foodDiaryStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitFoodDiary()`. Since the `currentStatePointer` is not pointing at the end of the `foodDiaryStateList`, all food diary states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -296,22 +544,310 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire food diary.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the restaurant being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of food diary states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedFoodDiary`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
+
+// tag::categorisation[]
+=== Restaurant Categorisation
+
+Restaurants can be classified using categories. Each restaurant can have each of the optional categories defined.
+Currently, 3 different types of categories are implemented in v1.4: `Cuisine`, `Occasion` and `Price Range`.
+
+==== Current Implementation
+
+Restaurant Categorisation is mainly implemented using the following commands:
+
+* `setCategories` -- sets the different categories of the restaurant using its respective prefixes.
+* `filter` -- filters out restaurants using keywords matching that of its categories.
+
+All supported categories are defined in the `seedu.address.model.restaurant.categories` package. A Facade design pattern
+is used to allow access to individual `Cuisine`, `Occasion` and `PriceRange` categories through the `Categories` class.
+
+_Figure 1_ below shows the chain of events when setting categories of a restaurant with the setCategories command:
+
+image::SetCategoriesActivityDiagram.png[width="800"]
+_Figure 1: setCategories Activity Diagram_
+
+The following elaborates in detail on how the setCategories mechanism behaves at each step:
+
+Step 1: User starts keying in the command into the command box. Once prefixes for either `Cuisine`, `Occasion` or `Price Range`
+are detected, suggestions for that Category type are retrieved by `CategoriesAutoCompleteTextField` and populated in the appearing
+context menu.
+
+Step 2: User finishes typing and submits command for execution. The keyed-in text is sent to the `Food Diary Parser` to be parsed
+into a `SetCategoriesCommand` object. The `SetCategoriesCommand` object contains the categories parsed from the text encapsulated
+in a `Categories` object as well as the target `Index`.
+
+Step 3: The `SetCategoriesCommand` is executed by calling `SetCategoriesCommand#execute()`. The target restaurant is retrieved
+from `Model` via `Model#getFilteredRestaurantList()`. The categories of the target restaurant are merged by calling
+`Categories#merge()` and the result is used to create a new restaurant, with all other restaurant data preserved.
+The new restaurant is then updated into the Food Diary via `Model#commitFoodDiary()`.
+
+You can refer to _Figure 2_ below to get a better understanding of how a typical valid setCategories command
+executes internally.
+
+image::SetCategoriesSequenceDiagram.png[width="1000"]
+_Figure 2: setCategories Sequence Diagram_
+
+==== Design Considerations
+
+You can find out more about why certain areas of the feature are implemented a certain way here. Other possible
+alternatives are also considered and reasons as to why they were not chosen are also explained here.
+
+===== How a restaurant's Price Range is categorised
+
+This section discusses the different ways price ranges could have been categorised.
+
+* Alternative 1: Use dollar signs to represent price (Current implementation)
+
+|=====================
+| Pros | It is easier for the user to type and also visually clearer to the viewer
+| Cons | Restricts the range of price between one and five
+|=====================
+
+* Alternative 2: Use words such as `cheap`, `expensive` to represent price range
+
+|=========
+| Pros | User has complete freedom as to how they want to key in the price range
+| Cons | Lacks proper structure, not very intuitive to the viewer if the user keys in something that does not make sense
+|=========
+
+I chose Alternative 1 because it offers a better user experience. Users just need to type in a few characters.
+It also ensures that all restaurants' price ranges are visually consistent.
+
+===== How categories are added and edited
+
+This section discusses how categories could have been handled.
+
+* Alternative 1: Use one single command to add and edit, only overriding the present categories keyed in (Current implementation)
+
+|=====================
+| Pros | User does not need to remember multiple commands to set categories.
+| Cons | Users are restricted to the preset types of categories they can set.
+|=====================
+
+* Alternative 2: Use separate commands for add and edit
+
+|=====================
+| Pros | User can add their own types of categories.
+| Cons | User needs to remember which restaurants do not have categories added yet, else add or edit commands might fail.
+|=====================
+
+I chose Alternative 1 because there are not many categories a restaurant can have. By having one command to set any category,
+users only need to remember one command, hence it is more intuitive for the user.
+
+// end::categorisation[]
+
+// tag::reviewcommandsdg[]
+
+=== Add/AddDefault/Edit/Delete Reviews
+
+Reviews are a core feature of the application. Each review is specific to a restaurant, and represents one visit/experience at that particular restaurant. This section describes the implementation of the functions dealing with creating, modifying and modifying reviews. There is also an enhancement in the form of adding default reviews which will be elaborated on.
+
+==== Add Reviews
+
+This command adds a review to a restaurant specified by the `INDEX` argument.
+
+Command format: `addReview INDEX re/(ENTRY) rr/(RATING)`
+
+===== Current Implementation
+
+The functionality of the addReview command can be better understood with the following activity diagram:
+
+image::AddReviewActivityDiagram.png[width="500"]
+
+The execution of this command involves:
+
+Step 1. Retrieving the last shown list from the `Model` and retrieving the restaurant indicated by the index from the last shown list.
+
+Step 2. Creating a new list of reviews that copies everything from the original restaurant's list of reviews and inserting the new review into the list and creating a new restaurant object with the new list.
+
+Step 3. Replacing the original restaurant with the new restaurant object in the model.
+
+Refer to the sequence diagram below for an illustration of how this command is executed.
+
+image::AddReviewSequenceDiagram.png[width="750"]
+
+===== Design considerations
+Plausible alternative implementations to the functionality are discussed in this section to illustrate the thought process and rationale behind our design decisions. You may wish to consider these ideas when further developing this application.
+
+* Alternative 1: Add reviews directly to the same restaurant object's list rather than creating a new restaurant by object copy
+|=====================
+| Pros | Less expensive operation to simply modify the same objects list of reviews
+| Cons | Requires modification of the `Restaurant` class to include a setter method for reviews and increases the risk of unauthorised modification of restaurant data.
+|=====================
+
+==== AddDefault Reviews
+
+This is a command to add pre-defined reviews with a shorter and simpler syntax. It is especially useful for people in a rush and who do not wish to enter the whole review.
+
+Users need only specify the `INDEX` of the restaurant they want to add the review to, and a `NUMBER` representing the default review they wish to leave. For example, "addR 1 2" will add the default review of rating 2 to the 1st restaurant on the list.
+
+Command format: `addR INDEX NUMBER`
+
+===== Current Implementation
+
+The Food Diary currently supports 5 default reviews, each corresponding to a rating from 1-5 inclusive. Do have a look at the User Guide for these 5 entries!
+
+The review `Entry`, which is composed of a String value, will be taken from the `AddDefaultReviewUtil` class. The review `Rating` used is the indicated `NUMBER` in the command. A new `Review` object is created from these two attributes and added.
+
+===== Design Considerations
+
+This alternative was considered as well:
+
+* Alternative 1: Adding a review directly from the new `AddDefaultReviewCommand` instead of creating an `AddReviewCommand`
+
+|=====================
+| However, this violates the DRY (Don't Repeat Yourself) Principle, as the code to add a review will be repeated.
+|=====================
+
+==== Edit Reviews
+
+This command allows the modification of exiting reviews in the Food Diary.
+
+Command format: `editReview INDEX [re/ENTRY] [rr/RATING]`, where `INDEX` refers to the index of the review to edit in the selected restaurant, `ENTRY` and `RATING` are optional, but at least one of the two fields must be specified.
+
+===== Current Implementation
+
+Do refer to the sequence diagram below for a clearer picture of the implementation of this command. Note that the interaction between the `EditReviewCommand` and the `Model` is left out as it is the same as the one in `AddReviewCommand` above.
+
+image::EditReviewSequenceDiagram.png[width="750"]
+
+The components involved in the execution of this command include the `FoodDiaryParser`, the `EditReviewCommandParser` and the `EditReviewCommand` class itself. The main difference from the `AddReviewCommand` is the `EditReviewDescriptor` class, which is used to store the changes for the review.
+
+The `EditReviewDescriptor` class can contain optional fields. This is so that the command does not have to modify every field in a review and users can specify which field they would like to modify.
+
+The steps involved in the execution of this command are:
+
+* Step 1: Creating the `EditReviewDescriptor` based on input arguments.
+
+* Step 2: Retrieving the currently selected restaurant from the model.
+
+* Step 3: Creating a new restaurant based on the currently selected restaurant and the `EditReviewDescriptor`
+
+* Step 4: Replacing the selected restaurant with the new restaurant object in the model.
+
+===== Design Considerations
+
+
+* Alternative 1: Have users input the index of the restaurant into the command instead of having to select a restaurant first
+
+|=====================
+| Considering the technical aspect, there is not much of a difference between the two implementations. However, this design decision took into account the fact that users most likely had to select the restaurant to look at the review they wish to edit before editing it. As such, it reduces the arguments input by the user, and makes use of what is likely going to happen anyways (the selection of the restaurant).
+|=====================
+
+// end::reviewcommandsdg[]
+
+==== Delete Reviews
+
+Similar to the command to edit reviews, execution of this command requires the user to select a restaurant from the displayed list.
+
+Command format: `deleteReview INDEX`, where `INDEX` refers to the index of the review to be deleted from the selected restaurant.
+
+The implementation is a combination of the add and edit review commands: the selected restaurant is copied to a new restaurant object with a new list of reviews without the review to be deleted. This new restaurant object then replaces the selected restaurant in the model.
+
+
+// tag::visitweb[]
+=== Visit Webpage Feature
+
+Website can be displayed on the `BrowserPanel` with `visitWeb` command.
+
+==== visitWeb `INDEX`
+Visits website of `Restaurant` selected by user.
+
+Restaurants contains a `Weblink` field which encapsulates the Url of the restaurant website.
+
+[NOTE]
+When restaurant is added to Food Diary with the `Add` feature, the `Weblink` added with the restaurant is checked by `WebUtil` to ensure that the `Weblink` is a Url that belongs to a website that exists.
+If the protocol is absent, `WebUtil` will check if the `Weblink` uses HTTP or HTTPS protocol and append to it. This will be hidden from the user.
+If there is no internet connection, `WebUtil` is unable to validate `Weblink` and Food Diary will add the restaurant without the `Weblink`.
+
+Upon `visitWeb INDEX` command, `Weblink` of the Restaurant at the selected index will be retrieved and passed into
+`BrowerPanel` of `UI` to load the website of the restaurant as a pop-up window.
+Since website of restaurant might be taken down after it has been added to the restaurant, there is a need to validate the `Weblink` again before passing it to `BrowserPanel`.
+
+The following steps illustrates the sequence to `visitWeb INDEX` command with reference to the sequence diagram below:
+
+1. `Weblink` is retrieved from the selectedRestaurant inside `Model` component.
+2. Using `WebUtil` utility class in `Commons` component, check if there is internet connection so validate and display the website.
+3. If there is no internet connection, inform user.
+4. Validate `Weblink` by pinging its Url and checking the HTTP response code.
+5. Pass `Weblink` to `BrowserPanel` through `CommandResult` and invoke `WebView` engine to display website.
+
+[NOTE]
+HTTP response codes: +
+2XX SUCCESS - Weblink is valid +
+3XX REDIRECTED - Weblink redirects user to the correct Website and hence is valid +
+4XX, 5XX (Error) - Weblink is invalid
+
+The following sequence diagram shows how the visitWeb `index` works:
+
+image::VisitWebSequenceDiagram.png[width="640"]
+_Figure 1.1 Sequence diagram of visitWeb `INDEX` command_
+
+==== visitWeb `weblink`
+Visits website entered by user.
+This allows user to visit website of restaurant that are not added to the Food Diary.
+
+The difference between this command and the previous is that, the `Weblink` is directly passed into `VisitWebCommand` instead of the `INDEX` of the restaurant.
+Thus, there is a need to validate this `Weblink` with the help of `WebUtil`.
+
+The following sequence diagram shows how the visitWeb `weblink` works:
+
+image::VisitWebUrlSequenceDiagram.png[width="640"]
+_Figure 2.1 Sequence diagram of visitWeb `weblink` command_
+
+
+To illustrate the level of checks done in visiting web further, the command is broken down into the following steps.
+
+Step 1. Food Lover enters visitWeb `Weblink` command.
+
+Step 2. Food Diary checks if the entered `Weblink` is in the correct Url form. Else, display error message and show example of the correct form of `Weblink`
+
+Step 2. Food Diary checks if internet connection is present. If not, throw `NoInternetException` and show error message.
+
+Step 3. Food Diary validates the weblink entered. If weblink does not exist, or it is not in the correct Url format, throw `ParseException` and show error message.
+
+Step 4. Display website on browser window.
+
+The following activity diagram shows the steps of visitWeb command:
+
+image::VisitWebUrlActivityDiagram.png[width="240"]
+_Figure 2.2 Activity diagram of visitWeb `weblink` command_
+
+==== Enhancements
+* Before loading the website, the `weblink` will be validated by checking it's HTTP response code.
+* If response code is above 400, it suggests that the `weblink` is not found and that there is an error requesting the website if response code is above 500
+* Also, a `NoInternetException` is thrown if internet is absent. This is done by pinging to a Google as a reliable web server. If application fails to get a response,
+we can say that there is high chance that there is no internet connection and hence `NoInternetException` is thrown.
+
+==== Design considerations
+* To reduce coupling of `Weblink` to `AddCommandParser`, `EditCommandParsers` in `Logic`, and also `BrowserPanel` in `UI` component, a `WebUtil` class is implemented under Util of Commons component.
+
+`WebUtil` supports the following functions:
+
+1. `hasInternetConnection()` - Check if there is internet connection by pinging Google.
+
+2. `isUrlValid(String url)` - Checks if the input String is a valid Url with successful response code.
+
+3. `validateAndAppend(String url)` - Checks input Url if it uses HTTP or HTTPS protocol and append it to the Url.
+
+
+// end::visitweb[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
@@ -319,6 +855,13 @@ image::UndoRedoActivityDiagram.png[width="650"]
 _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
+
+// tag::sharereviews[]
+=== [Proposed] Share Reviews to Facebook
+
+_{Explain here how the share reviews feature will be implemented}_
+
+// end::sharereviews[]
 
 === Logging
 
@@ -522,7 +1065,7 @@ Here are the steps to create a new release.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
+A project often depends on third-party libraries. For example, Food Diary depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
 
 [loweralpha]
 . Include those libraries in the repo (this bloats the repo size)
@@ -530,385 +1073,380 @@ A project often depends on third-party libraries. For example, Address Book depe
 
 [[GetStartedProgramming]]
 [appendix]
-== Suggested Programming Tasks to Get Started
-
-Suggested path for new programmers:
-
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
-=== Improving each component
-
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
-
-[discrete]
-==== `Logic` component
-
-*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
-
-[TIP]
-Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
-
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
-+
-****
-* Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
-* Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
-** Add new tests for each of the aliases that you have added.
-** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
-****
-
-[discrete]
-==== `Model` component
-
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
-
-[TIP]
-Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
-
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
-+
-****
-* Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
-* Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
-** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
-****
-
-[discrete]
-==== `Ui` component
-
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
-
-[TIP]
-Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
-
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
-+
-**Before**
-+
-image::getting-started-ui-tag-before.png[width="300"]
-+
-**After**
-+
-image::getting-started-ui-tag-after.png[width="300"]
-+
-****
-* Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
-** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
-* Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
-*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
-****
-
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
-+
-**Before**
-+
-image::getting-started-ui-result-before.png[width="200"]
-+
-**After**
-+
-image::getting-started-ui-result-after.png[width="200"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
-* Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
-** You can write two different kinds of tests to ensure that the functionality works:
-*** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
-*** Do read the commits one at a time if you feel overwhelmed.
-****
-
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
-+
-**Before**
-+
-image::getting-started-ui-status-before.png[width="500"]
-+
-**After**
-+
-image::getting-started-ui-status-after.png[width="500"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
-* Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
-****
-
-[discrete]
-==== `Storage` component
-
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
-
-[TIP]
-Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
-
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
-+
-****
-* Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/JsonAddressBookStorage.java[`JsonAddressBookStorage`] class.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
-****
-
-[[GetStartedProgramming-RemarkCommand]]
-=== Creating a new command: `remark`
-
-By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
-
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
-
-==== Description
-Edits the remark for a person specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
-
-Examples:
-
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
-* `remark 1 r/` +
-Removes the remark for the first person.
-
-==== Step-by-step Instructions
-
-===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
-Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
-
-**Main:**
-
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
-
-**Tests:**
-
-. Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
-
-===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
-
-**Main:**
-
-. Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
-. Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
-
-**Tests:**
-
-. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
-. Add `RemarkCommandParserTest` that tests different boundary values
-for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
-
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
-
-**Main:**
-
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
-
-===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
-
-**Main:**
-
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
-. Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
-
-**Tests:**
-
-. Add test for `Remark`, to test the `Remark#equals()` method.
-
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Main:**
-
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `data/addressbook.json` so that the application will load the sample data when you launch it.)
-
-===== [Step 6] Storage: Add `Remark` field to `JsonAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/JsonAdaptedPerson.java[`JsonAdaptedPerson`] to include a `Remark` field so that it will be saved.
-
-**Main:**
-
-. Add a new JSON field for `Remark`.
-
-**Tests:**
-
-. Fix `invalidAndValidPersonAddressBook.json`, `typicalPersonsAddressBook.json`, `validAddressBook.json` etc., such that the JSON tests will not fail due to a missing `remark` field.
-
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Tests:**
-
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
-
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
-
-**Main:**
-
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
-
-===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
-
-**Main:**
-
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
-
-**Tests:**
-
-. Update `RemarkCommandTest` to test that the `execute()` logic works.
-
-==== Full Solution
-
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
-
-[appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Food lovers who want to record their personal food reviews and at the same time obtain personalised food recommendations based on their food review, as well as decide quickly where to eat with personalised food recommendations.
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Allow all food lovers to have a centralised platform to document their food adventures and experience at each restaurant
 
 [appendix]
+
+// tag::userstories[]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+"Food lover" refers to the intended users of our application.
+
+[cols="1%,<13%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |Food lover |Update or delete restaurant data conveniently |Ensure all data are up to date
 
-|`* * *` |user |add a new person |
+|`* * *` |Food lover |Filter restaurants by cuisine |Easily refer back to specific cuisines I want to try
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |Food lover |Filter restaurants by suitable occasion |Easily refer back for suitable dining options during special occasions
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |Price savvy food lover |Add a price range to the restaurants I visited |Look for restaurants within budget
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |Food lover that is clumsy |Undo/redo any command |Quickly recover from a typo or wrong command
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |Food lover |Update and delete reviews for a restaurant |Ensure all reviews for a restaurant are up to date
+
+|`* *` |Food lover |View a summary my food adventure data |Show off to my friends the number of food places I went
+
+|`* *` |Food lover |View restaurants ranked by ratings |Refer to my friends the restaurants I feel that are good
+
+|`* *` |Food lover |Autocomplete categories I have keyed in before when setting categories|I can set categories faster
+
+|`*` |Food lover & influencer |Share my reviews on Facebook |Recommend my friends to food I’ve eaten
+
+|`*` |Curious Food lover |Go to the restaurant’s website |Visit the restaurant’s website easily
+
+|`*` |Food Lover |List unreviewed restaurants |Visit restaurants that I have added but yet to review
 |=======================================================================
-
-_{More to be added}_
+// end::userstories[]
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Food Diary` and the *Actor* is the `Food Lover`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Adding a restaurant by Food Lover to Food Diary
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. Food Lover enters command to add restaurant
+2. Food Diary adds restaurant
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a. Food Lover enters a name and location that already exists in Food Diary
+[none]
+** 2a1. Food Diary tells Food Lover that the restaurant already exists and asks user to enter another name and location
+
+[discrete]
+=== Use case: Deleting a restaurant from Food Diary
+
+*MSS*
+
+1. Food Lover enters command and index to delete restaurant
+2. Food Diary deletes restaurant
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+*Extensions*
 
-_{More to be added}_
+[none]
+* 1a. Food Lover enters an invalid index
+[none]
+** 1a1. Food Diary tells user that he has entered an invalid index and deletion of restaurant has failed.
++
+Use case ends
+
+[discrete]
+=== Use case: Selecting a Restaurant in Food Diary
+
+*MSS*
+
+1. Food Lover enters command and index to select restaurant
+2. Food Diary displays restaurant’s detailed information and reviews
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Food Lover enters an invalid index
+[none]
+** 1a1. Food Diary tells user that he has entered an invalid index and selection of restaurant has failed.
+
+[discrete]
+=== Use case: Filter Restaurants in Food Diary (cuisine, occasion, price)
+
+*MSS*
+
+1. Food Lover enters command, category to filter by (i.e. cuisine, occasion, price range) and keyword / price range (e.g.japanese, lunch, 5 10)
+2. Food Diary displays restaurant’s that fit the filter.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Food Lover enters an invalid category
+[none]
+** 1a1. Food Lover tells user that no such category exists.
++
+Use case ends.
+
+[none]
+* 1b. Food Lover enters an invalid price range (i.e. 1 number / 3 numbers input)
+[none]
+** 1b1. Food Lover tells user that an invalid price range is entered
+** 1b2. Food Lover displays the correct format to input command
++
+Use case ends.
+
+[none]
+* 1c. Food Lover enters an invalid price range (i.e. 1 number / 3 numbers input)
+[none]
+** 1c1. Food Lover tells user that an invalid price range is entered
+** 1c2. Food Lover displays the correct format to input command
++
+Use case ends.
+
+[discrete]
+=== Use case: Sort Restaurants in Food Diary (rating)
+
+*MSS*
+
+1. Food Lover enters command to sort restaurants by rating, order to sort it by and number of ranks to show
+2. Food Diary displays restaurants according to order and ranks specified
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Food Lover enters an invalid order/rank
+[none]
+** 1a1. Food Lover tells user that no such category exists.
++
+Use case ends.
+
+[discrete]
+=== Use case: Adding a review to a Restaurant in Food Diary
+
+*MSS*
+
+1. Food Lover lists all restaurants
+2. Food Diary displays all restaurants
+3. Food Lover enters command to add review and the index of the restaurant it should be added to
+4. Food Lover enters rating and comment in the command
+5. Food Diary adds review to restaurant selected
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Food Lover finds restaurants by criteria
+[none]
+** 1a1. Food Diary displays restaurants fulfilling criteria
++
+Use case resumes at step 3.
+
+[none]
+* 4a. Food Lover enters an invalid rating, such as a number out of the range of 0 - 5
+[none]
+** 4a1. Food Diary tells Food Lover that the rating is out of the valid range (0 - 5)
+** 4a2. Food Diary asks user to enter another rating
++
+Use case resumes at step 6 if rating is valid else repeat step 4a.
+
+[discrete]
+=== Use case: Deleting a review to a Restaurant in Food Diary
+
+*MSS*
+
+1. Food Lover lists all reviews
+2. Food Diary displays all reviews in chronological order
+3. Food Lover enters command to delete review and the index of the review to be deleted
+4. Food Diary deletes selected review
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Food Lover lists all restaurants
+[none]
+** 1a1. Food Diary displays all restaurants
+** 1a2. Food Lover selects the restaurant from which the reviews are to be deleted
+** 1a3. Food Diary displays all reviews for the restaurant selected
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: Editing a review to a Restaurant in Food Diary
+
+*MSS*
+
+1. Food Lover lists all reviews
+2. Food Diary displays all reviews in chronological order
+3. Food Lover enters command to edit review and the index of the review to be edited
+4. Food Lover enters rating and comment
+5. Food Diary updates selected review
++
+Use case ends.
+
+*Extension*
+
+[none]
+* 1a. Food Lover lists all restaurants
+[none]
+** 1a1. Food Diary displays all restaurants
+** 1a2. Food Lover selects the restaurant from which the reviews are to be deleted
+** 1a3. Food Diary displays all reviews for the restaurant selected
++
+Use case resumes at step 3.
+
+[none]
+* 1b. Food Lover finds restaurants by criteria
+[none]
+** 1b1. Food Diary displays restaurants fulfilling criteria
+** 1b2. Food Lover selects the restaurant from which the reviews are to be deleted
+** 1b3. Food Diary displays all reviews for the restaurant selected
++
+Use case resumes at step 3.
+
+[none]
+* 4a. Food Lover enters an invalid rating, such as a number out of the range of 0 - 5
+[none]
+** 4a1. Food Diary tells Food Lover that the rating is out of the valid range (0 - 5)
+** 4a2. Food Diary asks user to enter another rating
++
+Use case resumes at step 6 if rating is valid else repeat step 4a.
+
+[discrete]
+=== Use case: Share review on Facebook
+
+*MSS*
+
+1. Food Lover adds a new review
+2. Food Lover enters command to share review on Facebook
+3. Food Diary opens Facebook login page
+4. Food Lover enters Facebook login details
+5. Food Lover confirms Facebook sharing
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Food Lover lists all reviews
+[none]
+** 1a1. Food Diary displays all reviews in chronological order
+** 1a2. Food Lover enters command to share review and the index of the selected review
++
+Use case resumes at step 3.
+
+[none]
+* 1b. Food Lover lists all restaurants
+[none]
+** 1b1. Food Diary displays all restaurants
+** 1b2. Food Lover selects the restaurant from which the reviews are to be deleted
+** 1b3. Food Diary displays all reviews for the restaurant selected
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: Undo / Redo command
+
+*MSS*
+
+1. Food Lover enters command to undo / redo
+2. Food Diary undos / redos previous command, tells user that undo / redo successful.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There is no command to undo / redo
+[none]
+** 1a1. Food Diary tells Food Lover that there is no command to undo / redo.
++
+Use case ends.
+
+[discrete]
+=== Use case: Opening Restaurant’s website
+
+*MSS*
+
+1. Food Lover enters command and index of restaurant
+2. Food Diary displays website to User.
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. Food Lover enters command and website of any restaurant
+[none]
+** 2a. Website is valid and Food Diary displays website
+** 2b. Website is invalid and Food Diary tells Food Lover that the website he entered is invalid
++
++
+
+[none]
+* 2c. There is no website added for this restaurant
+[none]
+** 2c1. Food Diary tells Food Lover that there is no website for this restaurant
++
+Use case ends.
+
+// tag::useCaseDG[]
+[discrete]
+=== Use case: Getting unvisited restaurant recommendations
+
+*MSS*
+
+1. Food Lover enters command and his current postal code
+2. Food Diary displays a list of restaurants ranked based on his proximity to the provided postal code.
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 2a. Postal code entered is not valid.
+[none]
+** 2a1. Food Diary displays all the unreviewed restaurants.
++
+Use case ends.
+// end::useCaseDG[]
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  Food Lovers with fast typing speed should be able to accomplish tasks (such as adding, editing or deleting Restaurants or Reviews) with commands faster than with a mouse or GUI.
+.  All application data should be stored in a human editable text file locally
+.  Primary mode of input should be CLI.
+.  Should not require installation to use the application
 
 [appendix]
 == Glossary
+
+[[fooddiary]] Food Diary::
+The application that users interact with.
+
+[[foodlover]] Food Lover::
+The intended users of this application
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -934,24 +1472,172 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a restaurant
 
-. Deleting a person while all persons are listed
+. Deleting a restaurant while all restaurants are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all restaurants using the `list` command. Multiple restaurants in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No restaurant is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
 _{ more test cases ... }_
 
-=== Saving data
+// tag::selection[]
+=== Selecting a restaurant
 
-. Dealing with missing/corrupted data files
+. Selecting a restaurant while all restaurants are listed
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Prerequisites: List all restaurants using the `list` command. Multiple restaurants in the list.
+.. Test case: `select 1` +
+   Expected: First restaurant in the list is selected. Details of the selected restaurant is shown in the 2 panels next to the restaurant list panel.
+.. Test case: `select 0` +
+   Expected: No restaurant is selected. Error details shown in the status message.
+.. Other incorrect select commands to try: `select`, `select x` (where x is larger than the list size)
+   Expected: Similar to previous.
 
-_{ more test cases ... }_
+. Selecting a restaurant when `Filter` command is called
+
+.. Prerequisites: There is at least one restaurant in the list.
+.. Test case: `select 1` +
+   Expected: First restaurant in the list is selected. Details of the selected restaurant is shown in the 2 panels next to the restaurant list panel.
+.. Test case: `select 0` +
+   Expected: No restaurant is selected. Error details shown in the status message.
+.. Other incorrect select commands to try: `select`, `select x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+// end::selection[]
+
+// tag::sorting[]
+=== Sorting restaurant list
+
+. Sorting entire restaurant list
+
+.. Test case: `sort` +
+   Expected: All restaurants in the list are sorted in descending order of ratings.
+.. Test case: `sort or/ASC` +
+   Expected: All restaurants in the list are sorted in ascending order of ratings.
+.. Test case: `sort or/dEs` +
+   Expected: All restaurants in the list are sorted in descending order of ratings.
+.. Test case: `sort or/1` +
+   Expected: No restaurant is sorted. Error details shown in the status message to indicate wrong `ORDER` format.
+.. Other incorrect select commands to try: `sort 1`, `sort or/ASCENDIng`, `sort or/deSCENDING` +
+   Expected: Similar to previous.
+
+. Sorting restaurant list and limiting to top/bottom ranking restaurants
+
+.. Scenario: There are 6 restaurants in the list.
+.. Test case: `sort l/2` +
+   Expected: All restaurants in the list are sorted in descending order of ratings, restaurants with the 2 highest ratings are displayed in descending order of ratings.
+.. Test case: `sort or/ASC l/2` +
+   Expected: All restaurants in the list are sorted in ascending order of ratings, restaurants with the 2 lowest ratings are displayed in ascending order of ratings.
+.. Test case: `sort or/dEs l/10` +
+   Expected: All restaurants in the list are sorted in descending order of ratings. Status message indicates that restaurants with top 10 (the limit input by user) rankings are sorted in descending order.
+.. Test case: `sort l/-10` +
+   Expected: No restaurant is sorted. Error details shown in the status message to indicate wrong `LIMIT` format.
+.. Other incorrect select commands to try: `sort l/-20`, `sort or/asc l/1.567`, `sort or/des l/0` +
+   Expected: Similar to previous.
+// end::sorting[]
+
+=== Adding a Review to a restaurant
+
+. Adding a review to the first restaurant when all restaurants are listed
+
+.. Test case: `addReview 1 re/Nice food rr/4` +
+   Expected: A review of entry "Nice food" and rating "4" added to the first listed restaurant.
+.. Test case: `addReview 22 re/Nice food rr/4` +
+   Expected: No review is added. Error message shown indicating an invalid index specified.
+.. Test case: `addReview 1 re/Nice food` +
+   Expected: No review is added. Error message shown indicating an invalid command format.
+
+=== Adding a default Review to a restaurant
+
+. Adding a default review of rating 3 to the first restaurant when all restaurants are listed
+
+.. Test case: `addR 1 3` +
+   Expected: A new review of entry "Average, normal" and rating "3" is added to the first restaurant.
+.. Test case: `addR 1 6` +
+   Expected: No new review is added. Error message indicating an invalid command format will be shown.
+
+=== Editing the Review of a restaurant
+
+. Editing the first review of the first restaurant when all restaurants are listed
+
+.. Test case: `select 1`, followed by `editReview 1 re/poor` +
+   Expected: The first review's entry of the first restaurant will be changed to "poor".
+.. Test case: `select 1`, followed by `editReview 10 rr/5` +
+   Expected: No review is edited. Error message shown indicating an invalid review index.
+.. Test case: `select 1`, followed by `editReview 1` +
+   Expected: No review is edited. Error message shown indicating that at least one field to edit must be provided.
+
+=== Deleting the Review of a restaurant
+
+. Deleting the first review of the first restaurant when all restaurants are listed
+
+.. Test case: `select 1`, followed by `deleteReview 1` +
+   Expected: The first review of the first restaurant will be deleted.
+.. Test case: `select 1`, followed by `deleteReview` +
+   Expected: No review is deleted. Error message shown indicating an invalid command format.
+
+// tag::categorization[]
+=== Setting the categories of a restaurant
+
+. Setting categories to a listed restaurant that does not have categories set yet with `setCategories`
+
+.. Test case: `setCategories c/fast food oc/casual pr/$` +
+   Expected: `Cuisine` set as `Fast Food`, `Occasion` set as `Casual` and `Price Range` set as `$`.
+.. Test case: `setCategories c/$ oc/casual pr/expensive` +
+   Expected: No categories are set. Error details shown in the status message, indicating command invalid.
+
+. Setting categories to a listed restaurant that already has categories set with `setCategories`
+
+.. Test case: `setCategories c/fast food` +
+   Expected: Only the `Cuisine` is set to `Fast Food`. All other categories remain unchanged.
+.. Test case: `setCategories c/ oc/ pr/` +
+   Expected: No categories are set. Error details shown in status message.
+// end::categorization[]
+
+=== Visiting website of a restaurant
+
+==== Visiting website of restaurant inside the restaurant list
+
+Prerequisites:
+
+* The select restaurant must have a weblink.
+* There must be internet connection to display the weblink.
+
+.. Test case: `visitWeb 3` +
+   Expected: Website of Restaurant 3, Sunday Folks, from the sample data will be displayed on the pop-up window.
+.. Test case: `visitWeb 5` +
+   Expected: Since no weblink is added for Nipong Naepong, error message shown in the status message, indicating
+   that a weblink is not found.
+.. Test case: `visitWeb 21` +
+   Expected: Since there is only 20 restaurants in the sample data, an error message will be shown, indicating that the
+   index provided is invalid +
+
+
+
+==== Visiting website of restaurant that is not in the restaurant list
+
+Prerequisites:
+
+* The weblink you input must be in the correct form and is a valid Url.
+* There must be internet connection to display the weblink.
+
+.. Test case: `visitWeb www.kfc.com.sg` +
+   Expected: Website of KFC will be displayed on the pop-up window.
+.. Test case: `visitWeb asdjasdjasd` +
+   Expected: Since weblink provided is not in proper Url form, an error message indicating that the weblink is not in
+   the correct form and examples of weblinks will be provided.
+.. Test case: `visitWeb www.asdjasdjasd.com` +
+   Expected: Since weblink provided is invalid, an error message indicating that the weblink cannot be reached will be
+   displayed.
+
+==== You can test the following command in airplane mode on your device to mimic no internet connection
+
+.. Test case: `visitWeb 3` +
+   Expected: Error message showing no internet connection found is displayed in the status message.
+.. Test case: `visitWeb www.kfc.com.sg` +
+   Expected: Error message showing no internet connection found is displayed in the status message.

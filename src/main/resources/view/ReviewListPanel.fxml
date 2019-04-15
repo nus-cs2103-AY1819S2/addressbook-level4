@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <VBox fx:id="panel" styleClass="panel_title" minHeight="10" alignment="CENTER">
+    <Label fx:id="panelName" styleClass="cell_placeholder_label" text="Review List Panel" />
+  </VBox>
+  <ListView fx:id="reviewListView" VBox.vgrow="ALWAYS">
+    <placeholder>
+      <ImageView pickOnBounds="true" preserveRatio="true">
+        <Image url="@/images/reviews.png"/>
+      </ImageView>
+    </placeholder>
+  </ListView>
+</VBox>

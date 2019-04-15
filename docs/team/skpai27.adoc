@@ -1,0 +1,55 @@
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+image::ppp-psk.png[float=right, width="125"]
+= Pai Si Kai - Project Portfolio for The Food Diary
+---
+
+== Overview
+
+Welcome to my Personal Project Portfolio! This is a documentation of my contributions to the development of my group's application, The Food Diary, as part of a software engineering module (CS2103T) in the National University of Singapore. My role in this project was mainly to implement the functionality of reviews for each restaurant.
+
+The Food Diary is a desktop application that allows users to store their personal food reviews and obtain food recommendations. It is written in Java and is meant for people who prefer to work with a Command Line Interface (CLI), an example being people who type rapidly. It also gives users the benefit of having a clear and interactive Graphical User Interface (GUI) created with JavaFX.
+
+== Summary of contributions
+
+* *Core development*: I added the *core functionality* of *adding, editing and deleting reviews*
+** This feature is essential to the purpose of the application as it is the only way for users to store their personal review entries into the application. Users are also prone to mistakes when typing or a change in opinion. Hence, the ability to edit or delete previously created reviews will prove useful.
+
+* *Enhancement*: I considered the needs to users in a rush and *implemented default reviews*. This allows users to *quickly* add a review with a *shortened and simpler* command than the traditional addReview command. Default reviews that are pre-configured are added so that users do not have to face the hassle of manually entering every field needed.
+
+* *Code contributed*: Here is a https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=skpai27[link] to my code on the Project Code Dashboard (Reposense).
+
+* *Other contributions*:
+
+** Project management:
+*** Managed release `v1.2.1` (mid v1.3) and `v1.3` on GitHub
+** Enhancements to existing features:
+*** Created additional utility classes and methods for greater testability of code (Pull request https://github.com/CS2103-AY1819S2-W17-1/main/pull/73[#73]), from which other members of the team wrote test code.
+** Documentation:
+*** Modified and added our details and pictures into the About Us page: (Pull request https://github.com/CS2103-AY1819S2-W17-1/main/pull/3[#3])
+*** Updated our Contact Us page (same PR as above)
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W17-1/main/pull/95[#95], https://github.com/CS2103-AY1819S2-W17-1/main/pull/96[#96], https://github.com/CS2103-AY1819S2-W17-1/main/pull/115[#115], https://github.com/CS2103-AY1819S2-W17-1/main/pull/142[#142], https://github.com/CS2103-AY1819S2-W17-1/main/pull/152[#152]
+*** The utility classes I implemented were used by another team mate (https://github.com/CS2103-AY1819S2-W17-1/main/pull/94[1])
+
+
+== Contributions to the User Guide
+
+
+|===
+|_This section details my contributions to the User Guide pertaining to the functionality of Reviews. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=reviewcommands]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=reviewcommandsdg]
+

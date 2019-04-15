@@ -1,19 +1,25 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
+import seedu.address.model.restaurant.Restaurant;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Restaurant> PREDICATE_SHOW_ALL_RESTAURANTS = unused -> true;
+
+    Predicate<Restaurant> PREDICATE_SHOW_UNVISITED_RESTAURANTS = (r) ->
+            r.getReviews().size() == 0;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -26,6 +32,11 @@ public interface Model {
     ReadOnlyUserPrefs getUserPrefs();
 
     /**
+     *  return PostalData of the provided postal code
+     */
+    Optional<PostalDataSet> getPostalDataSet();
+
+    /**
      * Returns the user prefs' GUI settings.
      */
     GuiSettings getGuiSettings();
@@ -36,95 +47,133 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the name of the user
      */
-    Path getAddressBookFilePath();
+    String getName();
+
+    void setName(String name);
 
     /**
-     * Sets the user prefs' address book file path.
+     * Returns the sorted list of unique Average Ratings of all Restaurants.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    ArrayList<Float> getUniqueRatings();
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Returns the user prefs' food diary file path.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
-
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    Path getFoodDiaryFilePath();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Sets the user prefs' food diary file path.
      */
-    boolean hasPerson(Person person);
+    void setFoodDiaryFilePath(Path foodDiaryFilePath);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Replaces food diary data with the data in {@code foodDiary}.
      */
-    void deletePerson(Person target);
+    void setFoodDiary(ReadOnlyFoodDiary foodDiary);
+
+    /** Returns the FoodDiary */
+    ReadOnlyFoodDiary getFoodDiary();
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Returns true if a restaurant with the same identity as {@code restaurant} exists in the food diary.
      */
-    void addPerson(Person person);
+    boolean hasRestaurant(Restaurant restaurant);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Deletes the given restaurant.
+     * The restaurant must exist in the food diary.
      */
-    void setPerson(Person target, Person editedPerson);
-
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    void deleteRestaurant(Restaurant target);
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Adds the given restaurant.
+     * {@code restaurant} must not already exist in the food diary.
+     */
+    void addRestaurant(Restaurant restaurant);
+
+    /**
+     * Replaces the given restaurant {@code target} with {@code editedRestaurant}.
+     * {@code target} must exist in the food diary.
+     * The restaurant identity of {@code editedRestaurant} must not be the same as another existing restaurant
+     * in the food diary.
+     */
+    void setRestaurant(Restaurant target, Restaurant editedRestaurant);
+
+    /**
+     * Sorts the list of Restaurants in {@code versionedFoodDiary} using the given comparator
+     */
+    void sortRestaurantList(Comparator<Restaurant> sortBy);
+
+    /** Returns an unmodifiable view of the filtered restaurant list */
+    ObservableList<Restaurant> getFilteredRestaurantList();
+
+    /**
+     * Updates the filter of the filtered restaurant list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredRestaurantList(Predicate<Restaurant> predicate);
+
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Updates the filter of the filtered restaurant list to filter
+     * by the given {@code predicate} and sorts by the given (@code comparator}.
+     * @throws NullPointerException if {@code predicate} is null.
      */
-    boolean canUndoAddressBook();
+    void updateFilteredRestaurantListAndSort(Predicate<Restaurant> predicate, Comparator<Restaurant> sortBy);
+
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     *
+     * Returns the number of Restaurants in the Food Diary
      */
-    boolean canRedoAddressBook();
+    int getSize();
 
     /**
-     * Restores the model's address book to its previous state.
+     * Returns true if the model has previous food diary states to restore.
      */
-    void undoAddressBook();
+    boolean canUndoFoodDiary();
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Returns true if the model has undone food diary states to restore.
      */
-    void redoAddressBook();
+    boolean canRedoFoodDiary();
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Restores the model's food diary to its previous state.
      */
-    void commitAddressBook();
+    void undoFoodDiary();
 
     /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
+     * Restores the model's food diary to its previously undone state.
      */
-    ReadOnlyProperty<Person> selectedPersonProperty();
+    void redoFoodDiary();
 
     /**
-     * Returns the selected person in the filtered person list.
-     * null if no person is selected.
+     * Saves the current food diary state for undo/redo.
      */
-    Person getSelectedPerson();
+    void commitFoodDiary();
 
     /**
-     * Sets the selected person in the filtered person list.
+     * Selected restaurant in the filtered restaurant list.
+     * null if no restaurant is selected.
      */
-    void setSelectedPerson(Person person);
+    ReadOnlyProperty<Restaurant> selectedRestaurantProperty();
+
+    /**
+     * Returns the selected restaurant in the filtered restaurant list.
+     * null if no restaurant is selected.
+     */
+    Restaurant getSelectedRestaurant();
+
+    /**
+     * Sets the selected restaurant in the filtered restaurant list.
+     */
+    void setSelectedRestaurant(Restaurant restaurant);
+
+    /**
+     * Get the total number of reviews
+     */
+    int getNumReviews();
 }

@@ -4,53 +4,45 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
-We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+The Food Diary is a desktop food journal application. This is adapted and modified from Address Book Level 4
+by https://se-edu.github.io/docs/Team.html[se-edu] team.
+
+We are a team undertaking CS2103T Software Engineering module in the National University of Singapore.
+
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Lee Wei Kang
+image::wklee96.png[width="150", align="left"]
+{empty} [https://github.com/Wklee96[github]] [<<wklee96#, portfolio>>]
 
-Role: Project Advisor
+Role: Project Leader +
+Responsibilities: Model, system testing
 
-'''
+=== Chen Caijie
+image::rbth7e5.png[width="150", align="left"]
+{empty}[https://github.com/rbth7e5[github]] [<<rbth7e5#, portfolio>>]
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+Role: Restaurant Categorisation +
+Responsibilities: Logic, git expert
 
-Role: Team Lead +
-Responsibilities: UI
+=== Koh Wei Xin
+image::weixin-koh.png[width="150", align="left"]
+{empty}[http://github.com/weixin-koh[github]] [<<weixin-koh#, portfolio>>]
 
-'''
+Role: Restaurant Reviews +
+Responsibilities: UI, design
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Chan Qing Zhou
+image::chanqingzhou.png[width="150", align="left"]
+{empty}[https://github.com/chanqingzhou[github]] [<<chanqingzhou#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
+Role: Data management +
+Responsibilities: Storage, documentation
 
-'''
+=== Pai Si Kai
+image::skpai27.png[width="150", align="left"]
+{empty}[https://github.com/skpai27[github]] [<<skpai27#, portfolio>>]
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
-
-'''
-
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: UI
-
-'''
+Role: Restaurant Review Commands +
+Responsibilities: Commons, code quality

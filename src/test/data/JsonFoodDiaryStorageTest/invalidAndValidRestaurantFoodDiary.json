@@ -1,0 +1,23 @@
+{
+  "restaurants": [ {
+    "name": "Valid Restaurant",
+    "phone": "9482424",
+    "email": "hans@example.com",
+    "address": "4th street",
+    "reviewed" : [ {
+      "timeStamp" : "2019-03-03T23:55:48.043",
+      "entry" : "Loved it!",
+      "rating" : "5.0"
+    } ]
+  }, {
+    "name": "Restaurant With Invalid Phone Field",
+    "phone": "948asdf2424",
+    "email": "hans@example.com",
+    "address": "4th street",
+    "reviewed" : [ {
+      "timeStamp" : "2019-03-03T23:55:48.043",
+      "entry" : "Loved it!",
+      "rating" : "5.0"
+    } ]
+  } ]
+}

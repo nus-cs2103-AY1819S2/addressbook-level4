@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<BorderPane fx:id="summaryPane" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <VBox fx:id="placeholderVbox" styleClass="panel_title" minHeight="10" alignment="CENTER" BorderPane.alignment="CENTER" >
+         <Label fx:id="panelName" styleClass="cell_placeholder_label" text="Restaurant Summary Panel" textAlignment="CENTER" wrapText="true" />
+      </VBox>
+      <VBox fx:id="titleVbox" styleClass="vbox_background" minHeight="150.0" prefWidth="100.0" alignment="CENTER" BorderPane.alignment="CENTER" >
+         <Label fx:id="name" styleClass="vbox_name_label" text="\$name" wrapText="true"/>
+         <Label fx:id="avgRating" styleClass="vbox_rating_label" text="\$avgRating">
+            <graphic>
+               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@/images/star.png"/>
+               </ImageView>
+            </graphic>
+         </Label>
+         <Label fx:id="totalVisits" styleClass="vbox_visits_label" text="\$totalVisits" />
+      </VBox>
+   </top>
+   <center>
+      <ImageView fx:id="placeholderImg" pickOnBounds="true" preserveRatio="true" />
+      <VBox fx:id="infoVbox" prefHeight="200.0" prefWidth="100.0" alignment="CENTER" BorderPane.alignment="CENTER" >
+         <Label fx:id="addressPostal" styleClass="vbox_label" text="\$addressPostal" />
+         <Label fx:id="phone" styleClass="vbox_label" text="\$phone" />
+         <Label fx:id="openingHours" styleClass="vbox_label" text="\$openingHours" />
+         <Label fx:id="email" styleClass="vbox_label" text="\$email" />
+         <Label fx:id="weblink" styleClass="vbox_label" text="\$weblink" />
+      </VBox>
+   </center>
+</BorderPane>

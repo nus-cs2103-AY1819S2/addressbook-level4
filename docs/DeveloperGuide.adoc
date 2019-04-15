@@ -169,8 +169,7 @@ class.
 
 The `UI` component uses JavaFx UI framework.
 The layout of these UI parts are defined in matching `.fxml` files located in the `src/main/resources/view` folder.
-For example, the layout of the link: https://github
-.com/cs2103-ay1819s2-w10-4/main/blob/master/src/main/java/seedu/knowitall/ui/MainWindow.java[`MainWindow`] is
+For example, the layout of the link: https://github.com/cs2103-ay1819s2-w10-4/main/blob/master/src/main/java/seedu/knowitall/ui/MainWindow.java[`MainWindow`] is
 specified in link: https://github.com/cs2103-ay1819s2-w10-4/main/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,

@@ -178,33 +178,6 @@ public class Fleet {
     }
 
     /**
-     * Getter method for original number of destroyers.
-     *
-     * @return original number of destroyers.
-     */
-    public int getNumDestroyer() {
-        return this.numDestroyer;
-    }
-
-    /**
-     * Getter method for original number of cruisers.
-     *
-     * @return original number of cruisers.
-     */
-    public int getNumCruiser() {
-        return this.numCruiser;
-    }
-
-    /**
-     * Getter method for original number of aircraft carriers.
-     *
-     * @return original number of aircraft carriers.
-     */
-    public int getNumAircraftCarrier() {
-        return this.numAircraftCarrier;
-    }
-
-    /**
      * Gets all tags that have been used by all battleships in the fleet.
      *
      * @return set of all tags used by all battleships in the fleet.
@@ -314,7 +287,7 @@ public class Fleet {
      * Represents an entry in the fleet. To describe the orientation and coordinates
      * of a given battleship.
      */
-    public class FleetEntry {
+    public static class FleetEntry {
         private final Battleship battleship;
         private final Orientation orientation;
         private final Coordinates coordinates;

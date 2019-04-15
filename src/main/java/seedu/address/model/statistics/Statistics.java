@@ -141,41 +141,29 @@ public abstract class Statistics {
     /**
      * extracts the result from AttackResult string and add to stats.
      * @param res , the result of the attack made.
-     * @return the registered result string.
      */
-    public String addResultToStats(AttackResult res) {
-        String result = res.toString();
-        if (result.length() < 10) {
-            return result;
-        }
-        result = result.split(" ")[10];
-        switch (result) {
-        case "hit":
+    public void addResultToStats(AttackResult res) {
+        if (res.isHit()) {
             addHit();
-            break;
-        case "missed":
+            if (res.isDestroy()) {
+                enemyShipsDestroyed();
+            }
+        } else {
             addMiss();
-            break;
-        case "destroyed":
-            addHit();
-            enemyShipsDestroyed();
-            break;
-        default : break;
         }
-        return result;
     }
 
     /**
      * This will generate the required data format for the bar charts.
      * @return the formatted data.
      */
-    public XYChart.Series generateData() {
+    public XYChart.Series<String, Number> generateData() {
         logger.info("Generating Statistical Data");
-        XYChart.Series dataSeries1 = new XYChart.Series();
-        dataSeries1.getData().add(new XYChart.Data("Attacks", getAttacksMade()));
-        dataSeries1.getData().add(new XYChart.Data("Hits", getHitCount()));
-        dataSeries1.getData().add(new XYChart.Data("Misses", getMissCount()));
-        dataSeries1.getData().add(new XYChart.Data("Ships Destroyed", getEnemyShipsDestroyed()));
+        XYChart.Series<String, Number> dataSeries1 = new XYChart.Series<>();
+        dataSeries1.getData().add(new XYChart.Data<>("Attacks", getAttacksMade()));
+        dataSeries1.getData().add(new XYChart.Data<>("Hits", getHitCount()));
+        dataSeries1.getData().add(new XYChart.Data<>("Misses", getMissCount()));
+        dataSeries1.getData().add(new XYChart.Data<>("Ships Destroyed", getEnemyShipsDestroyed()));
         return dataSeries1;
     }
 

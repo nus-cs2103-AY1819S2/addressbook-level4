@@ -11,6 +11,7 @@ import seedu.address.commons.exceptions.DataConversionException;
  * A class for accessing the Config File.
  */
 public class ConfigUtil {
+    private ConfigUtil() {}
 
     public static Optional<Config> readConfig(Path configFilePath) throws DataConversionException {
         return JsonUtil.readJsonFile(configFilePath, Config.class);

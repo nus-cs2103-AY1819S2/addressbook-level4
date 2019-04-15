@@ -56,8 +56,16 @@ public class PlayerTest {
         Player newPlayer1 = new Player("Bob", 5, 2, 1);
         assertEquals(newPlayer1.getMapGrid(), testPlayer.getMapGrid());
     }
-    @Test public void test_getTargetHistory() {
+
+    @Test
+    public void test_getTargetHistory() {
         Player newPlayer1 = new Player("Bob", 5, 2, 1);
         assertEquals(newPlayer1.getTargetHistory(), testPlayer.getTargetHistory());
+    }
+
+    @Test
+    public void test_toString() {
+        Player newPlayer1 = new Player("Alice", 5, 2, 1);
+        assertEquals(newPlayer1.toString(), testPlayer.toString());
     }
 }

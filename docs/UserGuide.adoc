@@ -106,7 +106,7 @@ Having 2 input of the same field will take the last input. Edited patient name t
 * `edit-p 1 t/` +
 An empty tag field removes all the current tags of the patient with ID of '1'.
 
-=== Deleting an existing patient : `delete-p`
+=== Deleting a patient : `delete-p`
 
 Deletes the specified patient from docX. +
 Format: `delete-p [INDEX]`
@@ -162,7 +162,7 @@ Examples:
 * `search-pid 1` +
 Returns `Alex Martin` who has pid of `1`.
 
-=== Search patient by appt status: `search-p-status`
+=== Search patient by appointment status: `search-p-status`
 
 Search and return patient(s) whose appointment status matches the input status. +
 Format: `search-p-status [STATUS]`
@@ -212,7 +212,7 @@ Will return neither `Alex Martin` who has a `bloodclot` tag +
 nor `Alexander Fleming` who has a `highbloodpressure` tag
 
 
-=== Selecting an existing patient : `select-p`
+=== Selecting a patient : `select-p`
 
 Select the specified patient from docX. +
 Displays his/her full information on the browser panel.

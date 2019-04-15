@@ -42,7 +42,7 @@ slaveFinder() is a desktop address book application used for people in the HR de
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 * Usage related to Job functions
-* include::../UserGuide.adoc[tag=jobs]
+include::../UserGuide.adoc[tag=jobs]
 
 
 == Contributions to the Developer Guide
@@ -52,7 +52,7 @@ slaveFinder() is a desktop address book application used for people in the HR de
 |===
 * Updated use cases and user stories
 * Job Implementation details
-* include::../DeveloperGuide.adoc[tag=jobs]
+include::../DeveloperGuide.adoc[tag=jobs]
 
 
 

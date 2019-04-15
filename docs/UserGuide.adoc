@@ -41,6 +41,7 @@ Interested? Jump to <<Quick Start>> to get started. Enjoy!
 New files and folders will be generated after launching the app. +
 You are recommended to move the jar file into a new empty folder.
 
+// tag::explainui[]
 *Starting the app*
 
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
@@ -57,6 +58,8 @@ E.g. after successfully executing the `help` command, the following message will
  .  The pin list shows the contacts who has been pinned. It can be resized by clicking and dragging the borders of the box.
  .  The main contact list shows the active list of contacts. It can also be resized by clicking and dragging the borders of the box. You can toggle between the contact list view and the archive list view using commands `list` and `archivelist`.
  .  The browser window will display the property's location on Google Maps(TM) when an appropriate contact is selected. You can go to <<GoogleMaps>> for more details of the Google Maps(TM) display.
+
+// end::explainui[]
 
 *Using the app*
 
@@ -550,6 +553,7 @@ Examples:
 Selects the 2nd contact in the archive book.
 // end::archivefeatures[]
 
+// tag::archivesearch[]
 === Searching for archived contact(s) : `archivesearch`
 
 Searches the archive and finds contact(s) whose information contains any of the keyword(s). +
@@ -565,6 +569,8 @@ Example:
 
 * `archivesearch James Seller` +
 Returns any contact with information fields matching keywords `James` and/or `Seller`
+
+// end::archivesearch[]
 
 === Unarchiving a contact : `unarchive`
 

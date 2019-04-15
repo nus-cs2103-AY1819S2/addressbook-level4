@@ -1125,33 +1125,6 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-[discrete]
-=== Use case: Put equipment
-
-*MSS*
-
-1.  User requests to list WorkList
-2.  Equipment shows a list of WorkList
-3.  User requests to put a specific equipment into a specified WorkList
-4.  *Equipment Manager* puts the equipment into that WorkList
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The specified equipment is not found.
-+
-Use case ends.
-
-* 3b. The specified WorkList is not found.
-+
-Use case ends.
-
 //tag:: appendix[]
 [appendix]
 == Non Functional Requirements

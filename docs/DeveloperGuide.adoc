@@ -425,10 +425,42 @@ The current design makes it very simple for us to add another reader view style,
 
 // end::readerview[]
 
+[[Feed-Support]]
+// tag::feed-support[]
+=== Web Feed support
+
+To support the reading and subscription of web feeds, we decided to centralise various feed-related operations in a static class `FeedUtil`.
+
+==== Static class (chosen approach)
+
+We define a new static class `FeedUtil` in `commons.util`.
+`FeedUtil` is primarily in charge of fetching a web feed from a URL and serializing its contents into an `EntryBook`.
+The advantage of this approach, which is why we decided to use it, is because keeping all the feed handling code in a single class restricts the dependency of ROME at the program boundary, which is more maintainable.
+
+.Activity diagram for feed fetching.
+image::FeedUtilActivityDiagram.png[]
+
+** Pros: Relatively easy to write, and we minimise the number of classes that depend on the external library.
+** Cons: Increased coupling with the components that handle RSS feeds.
+
+
+==== Ad-hoc
+
+Another approach we can consider is to directly invoke ROME whenever we deal with web feeds.
+
+** Pros: Even easier to write, almost no code needed.
+** Cons: Bad cohesion, if we were to change the library for RSS parsing it requires changes in multiple components.
+
+==== Extending and generalising Storage component.
+
+Reading Entries from a web feed shares a major similarity with reading a stored EntryBook from disk. Both actions serialize an `EntryBook` from a source of external data.
+
+
+// end::feed-support[]
+
 [[Multiple-EntryBooks]]
 // tag::multiple-entrybooks[]
 === Multiple EntryBooks
-
 
 ModelManager used to have only a single `EntryBook`. However, managing feeds and archives subscription system means that we need to deal with more than a single `EntryBook`.
 Since we should only show a single `EntryBook` at a time, we have to make model contain multiple entrybooks.

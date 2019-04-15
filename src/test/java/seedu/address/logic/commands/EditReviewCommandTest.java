@@ -21,9 +21,6 @@ import seedu.address.testutil.EditReviewDescriptorBuilder;
 import seedu.address.testutil.RestaurantBuilder;
 import seedu.address.testutil.ReviewBuilder;
 
-
-
-
 public class EditReviewCommandTest {
     private Model model = new ModelManager(getTypicalFoodDiary(), new UserPrefs(), new PostalDataSet());
     private CommandHistory commandHistory = new CommandHistory();

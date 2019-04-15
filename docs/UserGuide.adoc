@@ -45,7 +45,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [skill/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Items in square brackets are optional e.g `n/NAME [skill/TAG]` can be used as `n/John Doe skill/friend
+position/Systems Analyst` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[skill/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `skill/Java`, `skill/Excel skill/leadership` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
@@ -58,7 +59,9 @@ Format: `help`
 === Adding a person: `add`
 
 Adds a candidate to Recruit Me +
+
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL  d/EDUCATION g/GPA a/ADDRESS deg/DEGREE-LEVEL [skill/SKILL]... [position/POSITION]...`
+
 
 ****
 * Name can have any character from English alphabet and also it can have `space`
@@ -76,6 +79,7 @@ Examples:
 * `add n/Betsy Crowe skill/statistics e/betsycrowe@example.com d/NTU g/2.4 deg/high school a/Newgate Prison p/1234567 skill/Java position/UIDeveloper`
 // end::add[]
 
+
 === Listing all persons : `list`
 
 Shows a list of all candidates in Recruit Me. If there is a filtering available, it lists all the persons that passes all the filtering conditions. +
@@ -92,7 +96,9 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [d/EDUCATION] [g/GPA] [deg/DEGR
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed (i.e adding of tags is not cumulative, both skills and positions will be changed after editing one of them) except for
 existing endorsement tags.
-* You can remove all the person's tags by typing `skill/` or `position/` without specifying any tags after it.
+
+* You can remove all the person's tags, except for endorsement tags, by typing `skill/` or 'position/' without
+specifying any tags after it.
 ****
 
 Examples:
@@ -100,7 +106,8 @@ Examples:
 * `edit 1 p/91234567 e/johndoe@example.com` +
 Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 * `edit 2 n/Betsy Crower skill/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags except endorsement tags.
+Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags except for endorsements.
+
 
 // tag::filter[]
 === Filtering Recruit Me: `filter`
@@ -166,20 +173,22 @@ Format: `filter reverse`
 // end::filter[]
 
 
-=== Approve persons by employee name: `endorse`
+=== Employee approval of candidates: `endorse`
 
 Endorses an existing candidate in RecruitMe. +
 Format: `endorse [clear] INDEX n/YOUR NAME`
 
+* Feature for employees to navigate the recruiting platform and choose candidates that they want hired
 ****
 * Endorses the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list.
 * The index *must be a positive integer* 1, 2, 3, ...
-* All ASCII characters accepted, not limited to alphanumeric
+* All ASCII characters accepted, not limited to alphanumeric characters
 * Error will be thrown if an employee tries to endorse a candidate more than once
 * When editing tags, the existing tags of the person will be removed (i.e adding of tags is not cumulative) except for
 existing endorsement tags.
-* Removes endorsement of a person at the specified index using `clear` keyword
-* Error will be thrown if an employee tries to unendorse a candidate he or she has not previously endorsed
+* Optional *clear* keyword will delete the employee endorsement at a specified index
+* Error will be thrown if an employee tries to un-endorse a candidate he or she has not previously endorsed
+* Compatible with filter and sorting methods for easy navigatio
 
 ****
 
@@ -492,6 +501,7 @@ There is no need to save manually.
 
 == Command Summary
 
+
 * *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL d/EDUCATION g/GPA deg/DEGREE-LEVEL a/ADDRESS [skill/TAG]... [position/TAG]...` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com d/NTU g/3.1 deg/Bachelors a/123, Clementi Rd, 1234665 skill/Java position/Manager`
 * *Clear* : `clear`
@@ -512,6 +522,9 @@ e.g. `filter or phone<9>phone edu<NUS>edu pos<Manager, Developer>pos deg<high sc
 * *Sort* : `sort [reverse] KEYWORD` +
 e.g. `sort name` +
 e.g. `sort reverse education`
+* *Endorse* : `endorse [clear] INDEX n/NAME` +
+e.g. `endorse 1 n/Bill Gates`+
+e.g. `endorse clear 1 n/Bill Gates`
 * *List* : `list`
 * *Help* : `help`
 * *Select* : `select INDEX` +

@@ -160,7 +160,7 @@ Books whose rating is _5_ or _6_ wil be displayed.
 
 // tag::sortBook[]
 ==== Sort books command : `sortBook`
-
+image::sortBook.png[width="790"]
 sort booklist in specify order. +
 Format: `sortBook st/TYPE... [o/ORDER] [o1/ORDER] [o2/ORDER] [o3/ORDER]`
 

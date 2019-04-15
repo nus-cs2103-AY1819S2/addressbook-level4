@@ -48,19 +48,19 @@ public class ModuleInfoDescriptionTest {
 
     @Test
     public void equals() {
-        ModuleInfoDescription descrip = new ModuleInfoDescription("Mathematics");
+        ModuleInfoDescription descrip = new ModuleInfoDescription("A full sentence to to be tested");
         ModuleInfoDescription descripCopy = descrip;
 
         assertTrue(descrip.equals(descripCopy));
 
-        ModuleInfoDescription diffdescrip = new ModuleInfoDescription("Science");
+        ModuleInfoDescription diffdescrip = new ModuleInfoDescription("This is full sentence.");
 
         assertFalse(descrip.equals(diffdescrip));
     }
 
     @Test
     public void hashcode() {
-        ModuleInfoDescription descrip = new ModuleInfoDescription("Mathematics");
+        ModuleInfoDescription descrip = new ModuleInfoDescription("A full sentence to to be tested");
         ModuleInfoDescription descripCopy = descrip;
 
         assertEquals(descrip.hashCode(), descripCopy.hashCode());

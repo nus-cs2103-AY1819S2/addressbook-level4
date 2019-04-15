@@ -294,7 +294,7 @@ image::EditFeatureUserInput.png[width="600"]
 
 Step 3: If your inputs are deemed valid, the file is then
 effectively renamed within PDF++ and in your computer itself, thus resulting in an output
-as shown below.
+that matches the image shown below.
 
 .Rename Command Step 3
 image::EditFeatureFinalOutput.png[width="600"]
@@ -425,6 +425,23 @@ Examples:
 [WARNING]
 The date must be in the format of dd-mm-yyyy.
 
+[#command-history]
+=== Referring to past commands: `History`
+
+The `history` command allows you to view the list of commands that are previously entered
+into the application.
+
+[.big]#Format: `history`# +
+
+Example:
+
+* `history` +
+
+[TIP]
+If you previous command was `encrypt` or `decrypt`, the commands will not be saved to the
+application as part of a security concern. A malicious user could potentially refer to the
+history to get your password, hence the ability to refer back to these commands was removed.
+
 [#command-filter]
 === Filter files by tags: `filter`
 
@@ -466,6 +483,11 @@ Examples:
 * `find Introduction` +
 * `find Author: George RR Martin`
 
+[NOTE]
+`find Author: George RR Martin` will not only search for the whole word but also parts of the word
+such as `George`, `RR`, `Martin` without regard for the upper or lowercase of the input text. Hence,
+a file with the word `correct` will also be flagged as containing `RR`.
+
 [#steps-find]
 ==== Step-By-Step Guide
 If, for example, you wish to locate the files that contain the word `Introduction`
@@ -502,11 +524,11 @@ contain the keyword within its content. +
 The application also shows you other useful information such as, the number of files that
 match the criteria you entered into the application as shown in the image above. +
 
-And with that you have successfully utilized the `find` feature. +
+And with that, you have successfully utilized the `find` feature. +
 
 [CAUTION]
 When there are many files tracked by the application or if the files tracked by the application
-are contain many pages, the `find` command might take a little longer to operate. Hence if your
+contain many pages, the `find` command might take a little longer to operate. Hence if your
 operating system warns you that the application is not responding, please give the application some time
 to finish its operation.
 
@@ -546,6 +568,10 @@ for help in using these features.
 
 [#steps-encrypt]
 ==== Encryption Guide
+
+[NOTE]
+`encrypt` feature will not work on files that are already encrypted.
+
 Illustrated below is a sample usage scenario that provides a clear view to the inner workings
 of the Encrypt feature.
 
@@ -703,7 +729,8 @@ e.g. `decrypt 2 password/superPASSWORD`
 e.g `merge 1 2 1`
 * <<command-sort, *Sort*>> : `sort CRITERIA ORDER` +
 e.g `sort name down`, `sort deadline up`, `sort size down`
-* <<command-help, *Help*>> : `help`
+* <<command-help, *Help*>> : `help` +
+* <<command-history, *History*>> : `history` +
 * <<command-exit, *Exit*>> : `exit`
 
 == Glossary
@@ -717,13 +744,18 @@ e.g `sort name down`, `sort deadline up`, `sort size down`
 * *Deadline* : To set a due date to a file.
 * *Tag* : A text label attached to a file for identification or providing more information.
 
-== Upcoming Features
+== Upcoming Features in v2.0
 * Connection to External Servers: +
 We plan to allow you connect directly to your cloud servers to synchronize documents across several devices. +
 These servers include popular sites such as LumiNus.
 * Login Page: +
-We plan to include a Login Page to help authenticate you to the application so that you can access the app more securely.
+We plan to include a Login Page to help authenticate you to the application so that you can access the app more securely. +
+Furthermore, together with the connection to external servers feature, this feature will allow you to access your documents
+anywhere you are.
 * Text-to-Speech: +
 We plan to implement a Text-to-Speech option that could potentially read the contents of your file or the name of your file to you.
 * Multiple File Formats: +
 We plan to allow you to use our application with file-types beyond `.pdf` files.
+* Undo/Redo: +
+Due to some security concerns that we faced with the undo/redo feature, it will be delayed until we have found a solution
+that will not compromise the privacy of our users.

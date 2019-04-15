@@ -417,8 +417,6 @@ selection GUI for the user to select the file directly.
 The index value can be referenced from the list in the main application, or from the
 result of the `Filter`, `Find` or `List` feature.
 
-All parts of the syntax are required.
-
 ==== Feature breakdown
 Illustrated below is a sample usage scenario that provides a clear view to the inner
 workings of the `move` feature.
@@ -563,7 +561,7 @@ object. Upon parsing, the parser then creates a new *DeleteCommand* that will ex
 user's input.
 
 Step 3: The *DeleteCommand* is then executed. Successful execution will return a
-*CommandResult* indicating that the deadline has been set.
+*CommandResult* indicating that the changes has been made.
 
 .Delete Command Activity Diagram
 image::DeleteCommandActivityDiagram.png[width="600"]
@@ -601,51 +599,64 @@ image::ClearCommandActivityDiagram.png[width="600"]
 // tag::deadline[]
 === Deadline feature
 ==== Current Implementation
-The `deadline` feature is facilitated by both *DeadlineCommand* and *DeadlineCommandParser*
+The `deadline` feature is facilitated by both *Deadline*, *DeadlineCommand* and *DeadlineCommandParser*
 This feature allows you to set or remove deadlines of the file specified by you from PDF++.
 The deadlines will be recorded and displayed both in the list of files as well as in the information panel
 for each individual file.
 
-The `deadline` feature has the following syntax:
-
-[.big]#`deadline <INDEX> <ACTION>`#
-
-* `<INDEX>` refers to the index of the file in the list that you wish to perform the `action` on.
-* `<ACTION>` refers to the type of action that you wish to perform. There are 3 actions that you can perform
-** `date/<DATE>`
-*** `date/` refers to command immediately following after this prefix is a date
-*** `<DATE>` must be of `dd-mm-yyyy` format (E.g. 15-03-2019)
-** `done` assigns the file a *_DONE_* status
-** `remove` assigns the file a *_REMOVE_* status
-
-[NOTE]
-The index value can be referenced from the list in the main application, or from the
-result of the `Filter`, `Find` or `List` feature.
-
-==== Feature Breakdown
-Illustrated below is a sample usage scenario that provides a clear view to the inner
-workings of the `deadline` feature.
+The implementation of the *Deadline* model can be represented in the following class diagram:
 
 .Deadline Class Diagram
 image::DeadlineClassDiagram.png[width="200"]
 
-Step 1: From the main interface, the user chooses a file that they wish to set a deadline,
-enters the `deadline` command into the CLI Interface, following the outlined Syntax mentioned.
+A *Deadline* model has a https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html[_Java.time.LocalDate_]
+`date` attribute and a `boolean isDone`. The `date` is the date for the deadline assigned to the file, the `isDone` attribute
+evaluates to `true` if the deadline is set to be done, `false` if it is not done.
 
-Step 2: Upon hitting enter to execute the command, the *DeadlineCommandParser* parses
-the input into relevant objects that are required to be executed by the *DeadlineCommand*
-object. Upon parsing, the parser then creates a new *DeadlineCommand* that will execute the
-user's input.
-
-Step 3: The *DeadlineCommand* is then executed. Successful execution will return a
-*CommandResult* indicating that the deadline has been set.
+The implementation of the *DeadlineCommand* execution can be summarised in the following activity diagram:
 
 .Deadline Command Activity Diagram
 image::DeadlineCommandActivityDiagram.png[width="600"]
 
+. The provided index is checked to be valid i.e. referring to a specific Pdf in the PdfBook.
+.. If the index is invalid, a *CommandException* will be thrown and the execution will be ended.
+. The required Pdf is retrieved from the PdfBook based on the index.
+. A duplicate Pdf of the required Pdf is created.
+. For cases of assigning a new deadline,
+.. The duplicate Pdf is assigned with new deadline attributes.
+. For cases of setting an existing deadline as done or removed,
+.. The existing deadline from the retrieved Pdf is tested to be a valid deadline.
+... If the existing deadline is a valid deadline, the duplicate Pdf is assigned with new deadline attributes.
+... If the existing deadline is not a valid deadline, a *CommandException* will be thrown and the execution will be ended.
+. The duplicate Pdf with new deadline attributes is recorded in the Model and the changes are committed.
+. *CommandResult* is returned upon successful execution.
+
+This sequence diagram demonstrates the interactions involved from start of *DeadlineCommandParser* to end of *DeadlineCommand* execution:
+
+.Interactions Inside the Logic Component for the `deadline 1 done` Command
+image::DeadlineCommandSequenceDiagram.png[width="600"]
+
 [TIP]
 After a deadline has been added to the PDF file specified, the date will be color coded according to days
 remaining from the current day until the deadline date.
+
+==== Considerations
+
+There are some discrepancy for the representation of a file without a deadline in the Jackson adapted storage and the Pdf book model.
+In the Pdf book model, files without a deadline will be assigned with the default deadline whereas the date is set to
+https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html[_LocalDate.MIN_].
+In the Jackson adapted storage, we simply set the deadline attribute of a file without a deadline as empty.
+In our previous implementation, we used to assign the default date LocalDate.MIN to the deadline attribute in the Jackson adapted Storage
+as well, however this might confuse the users if they read the _pdfplusplus.json_ and find out the non-existence deadline.
+Besides, this implementation also makes the displaying process of deadlines through the UI tedious.
+
+In order to comply with the two distinct representation of deadline model, we implemented a default deadline `toString` method that
+prints the Pdf book model version, and a modified `toJsonString` that prints the Jackson adapted storage version of deadline.
+
+==== Future Implementation
+
+Our current color coded deadlines is predefined based on the due date from the current date. Suggested improvement for this area
+would be providing user-defined color codes for a better user experience of our application.
 
 // end::deadline[]
 
@@ -714,11 +725,11 @@ This feature lists a subset of all the files in the application based on the key
 provided. Using the keyword(s), the application will check the names of all files, as
 well as the content of the text within the files prior to revealing the results.
 
-The `find` feature has to following syntax:
+The `find` feature has the following syntax:
 
 Format: [.big]#`find <KEYWORD> ...`#
 
-* `<KEYWORD>` refers to the word that the application will use as reference to find
+* `<KEYWORD>` refers to the word that the application will use as reference a to find
 files. There must be at least one provided.
 
 Example:
@@ -757,7 +768,7 @@ files that the user wishes to view.
 `PDFTextStripper` to extract the contents of the existing files.
 4. The extracted content is then checked to verify if it contains the `keyword` input by the user.
 5. Further checks are also done to confirm if each file's name contains the `keyword` as well.
-6. The `model` then updates itself and stores the current actiion in the `history`.
+6. The `model` then updates itself and stores the current actiion in the `history` object.
 7. Finally, the `FindCommand` returns a `CommandResult` back to the `LogicManager` for follow up
 action.
 
@@ -771,9 +782,9 @@ as malicious users might simply utilize the `FindCommand` to extract information
 
 ==== Future Implementation
 
-. A main issue with the current implementation of the `FindCommand` is it's slow speeds with respect to
+. The main issue with the current implementation of the `FindCommand` is its slow speeds with respect to
 large files or files that contain a large string of text files. Hence, a possible consideration you might
-wish to improve upon is to "upgrade" this feature by improving it's speed of this feature.
+wish to improve upon is to "upgrade" this feature by improving its speed of this feature.
 
 . Yet another enhancement to this feature you might wish to implement is the use of Optical Image Recognition,
 otherwise known as OCR. This will allow the application to translate images within the file to words which would further
@@ -959,94 +970,6 @@ The `history` feature has to following syntax:
 
 // end::History[]
 
-// tag::undoredo[]
-=== Undo/Redo feature [Coming in v2.0]
-==== Current Implementation
-
-The undo/redo mechanism is facilitated by `VersionedPdfBook`.
-It extends `PdfBook` with an undo/redo history, stored internally as an `pdfBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedPdfBook#commit()` -- Saves the current pdf book state in its history.
-* `VersionedPdfBook#undo()` -- Restores the previous pdf book state from its history.
-* `VersionedPdfBook#redo()` -- Restores a previously undone pdf book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitPdfBook()`, `Model#undoPdfBook()` and `Model#redoPdfBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedPdfBook` will be initialized with the initial pdf book state, and the `currentStatePointer` pointing to that single pdf book state.
-
-.Undo / Redo Step 1
-image::UndoRedoStartingStateListDiagram.png[width="800"]
-
-Step 2. The user executes `delete 5` command to delete the 5th pdf in the pdf book. The `delete` command calls `Model#commitPdfBook()`, causing the modified state of the pdf book after the `delete 5` command executes to be saved in the `pdfBookStateList`, and the `currentStatePointer` is shifted to the newly inserted pdf book state.
-
-.Undo / Redo Step 2
-image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
-
-Step 3. The user executes `add n/David ...` to add a new pdf. The `add` command also calls `Model#commitPdfBook()`, causing another modified pdf book state to be saved into the `pdfBookStateList`.
-
-.Undo / Redo Step 3
-image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitPdfBook()`, so the pdf book state will not be saved into the `pdfBookStateList`.
-
-Step 4. The user now decides that adding the pdf was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoPdfBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous pdf book state, and restores the pdf book to that state.
-
-.Undo / Redo Step 4
-image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial pdf book state, then there are no previous pdf book states to restore. The `undo` command uses `Model#canUndoPdfBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-.Undo / Redo Sequence Diagram
-image::UndoRedoSequenceDiagram.png[width="800"]
-
-The `redo` command does the opposite -- it calls `Model#redoPdfBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the pdf book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `pdfBookStateList.size() - 1`, pointing to the latest pdf book state, then there are no undone pdf book states to restore. The `redo` command uses `Model#canRedoPdfBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the pdf book, such as `list`, will usually not call `Model#commitPdfBook()`, `Model#undoPdfBook()` or `Model#redoPdfBook()`. Thus, the `pdfBookStateList` remains unchanged.
-
-.Undo / Redo Step 5
-image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
-
-Step 6. The user executes `clear`, which calls `Model#commitPdfBook()`. Since the `currentStatePointer` is not pointing at the end of the `pdfBookStateList`, all pdf book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-.Undo / Redo Step 6
-image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-.Undo / Redo Activity Diagram
-image::UndoRedoActivityDiagram.png[width="650"]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire pdf book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the pdf being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of pdf book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedPdfBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
 // tag::fileprotection[]
 === File Protection
 
@@ -1201,6 +1124,86 @@ In *PDF++* v2.0, the *DecryptCommand* will support for the 2FA feature as mentio
 If this feature is highly demanded, this feature will be implemented to *EncryptCommand* too.
 
 // end::fileprotection[]
+
+// tag::undoredo[]
+=== Undo/Redo feature [Coming in v2.0]
+==== Current Implementation
+
+The undo/redo mechanism is facilitated by `VersionedPdfBook`.
+It extends `PdfBook` with an undo/redo history, stored internally as an `pdfBookStateList` and `currentStatePointer`.
+Additionally, it implements the following operations:
+
+* `VersionedPdfBook#commit()` -- Saves the current pdf book state in its history.
+* `VersionedPdfBook#undo()` -- Restores the previous pdf book state from its history.
+* `VersionedPdfBook#redo()` -- Restores a previously undone pdf book state from its history.
+
+These operations are exposed in the `Model` interface as `Model#commitPdfBook()`, `Model#undoPdfBook()` and `Model#redoPdfBook()` respectively.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedPdfBook` will be initialized with the initial pdf book state, and the `currentStatePointer` pointing to that single pdf book state.
+
+image::UndoRedoStartingStateListDiagram.png[width="800"]
+
+Step 2. The user executes `delete 5` command to delete the 5th pdf in the pdf book. The `delete` command calls `Model#commitPdfBook()`, causing the modified state of the pdf book after the `delete 5` command executes to be saved in the `pdfBookStateList`, and the `currentStatePointer` is shifted to the newly inserted pdf book state.
+
+image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
+
+Step 3. The user executes `add n/David ...` to add a new pdf. The `add` command also calls `Model#commitPdfBook()`, causing another modified pdf book state to be saved into the `pdfBookStateList`.
+
+image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
+
+[NOTE]
+If a command fails its execution, it will not call `Model#commitPdfBook()`, so the pdf book state will not be saved into the `pdfBookStateList`.
+
+Step 4. The user now decides that adding the pdf was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoPdfBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous pdf book state, and restores the pdf book to that state.
+
+image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
+
+[NOTE]
+If the `currentStatePointer` is at index 0, pointing to the initial pdf book state, then there are no previous pdf book states to restore. The `undo` command uses `Model#canUndoPdfBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+
+The following sequence diagram shows how the undo operation works:
+
+image::UndoRedoSequenceDiagram.png[width="800"]
+
+The `redo` command does the opposite -- it calls `Model#redoPdfBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the pdf book to that state.
+
+[NOTE]
+If the `currentStatePointer` is at index `pdfBookStateList.size() - 1`, pointing to the latest pdf book state, then there are no undone pdf book states to restore. The `redo` command uses `Model#canRedoPdfBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the pdf book, such as `list`, will usually not call `Model#commitPdfBook()`, `Model#undoPdfBook()` or `Model#redoPdfBook()`. Thus, the `pdfBookStateList` remains unchanged.
+
+image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
+
+Step 6. The user executes `clear`, which calls `Model#commitPdfBook()`. Since the `currentStatePointer` is not pointing at the end of the `pdfBookStateList`, all pdf book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+
+image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::UndoRedoActivityDiagram.png[width="650"]
+
+==== Design Considerations
+
+===== Aspect: How undo & redo executes
+
+* **Alternative 1 (current choice):** Saves the entire pdf book.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for `delete`, just save the pdf being deleted).
+** Cons: We must ensure that the implementation of each individual command are correct.
+
+===== Aspect: Data structure to support the undo/redo commands
+
+* **Alternative 1 (current choice):** Use a list to store the history of pdf book states.
+** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedPdfBook`.
+* **Alternative 2:** Use `HistoryManager` for undo/redo
+** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+// end::undoredo[]
 
 === Logging
 
@@ -1992,8 +1995,8 @@ Note that the file path various for Operating Systems and devices.
 . Open the pdf by the specified index in the list.
 
 .. Prerequisites: The pdf files in the list are uncorrupted and they exists in the system.
-.. Test case: `open 1`
-    Expected: The first pdf is opened using the system default PDFReader. Details of the updated pdf shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `open 1` +
+   Expected: The first pdf is opened using the system default PDFReader. Details of the updated pdf shown in the status message. Timestamp in the status bar is updated.
 .. `open 0` +
    Expected: No pdf is open. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect open commands to try: `open`, `open x` (where x is larger than the list size), `open y` (where y is any negative number)  +
@@ -2023,7 +2026,7 @@ Note that the file path various for Operating Systems and devices.
     Expected: Similar to previous.
 
 .. Test case: `tag 1 -r t/SEROCKS`
-... If the tag don't exists: +
+... If the tag does not exists: +
     Expected: The pdf is not tagged. Error details shown in the status message. Status bar remains the same.
 ... If the tag exists: +
     Expected: First pdf's tag is removed. Details of the updated pdf shown in the status message. Timestamp in the status bar is updated.

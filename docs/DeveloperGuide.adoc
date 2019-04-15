@@ -2,7 +2,7 @@
 :site-section: DeveloperGuide
 :toc: left
 :toc-title: Contents
-:toc-placement: preamble
+:toclevels: 3
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets

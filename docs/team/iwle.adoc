@@ -48,13 +48,19 @@ You can find out more about the Battleship application https://cs2103-ay1819s2-w
 *** Reported bugs and suggestions for other teams in the class: https://bit.ly/2v4qari[bugs] found by me.
 ** Tools: Integrated Travis CI Bot and Coveralls Checker with team repository.
 
-== 3. Contributions to the User Guide
+== Contributions to the User Guide
 
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._.
 |===
+
+=== Introduction
+
 include::../UserGuide.adoc[tag=intro]
+
+=== Features
+
 include::../UserGuide.adoc[tag=ship1]
 
 .The coordinates of the `put` command refer to the coordinates of the ship head.

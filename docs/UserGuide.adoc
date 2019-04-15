@@ -18,9 +18,9 @@ endif::[]
 
 By: `Team W14-3`      Since: `Jan 2019`      Licence: `MIT`
 
-// tag::intro[]
-== Introduction
 
+== Introduction
+// tag::intro[]
 Ships ahoy! Battleship is a simple computer-based remake of the classic Battleship game.
 
 It is for people who want to experience the joy of playing Battleships without the hassle and fuss of dealing with physical game pieces.
@@ -198,7 +198,7 @@ image::maplegend.png[width=400]
 
 // tag::ship1[]
 
-==== Managing ships:
+==== Managing ships: `put`, `list`, `listTags`
 ===== Placing a ship on the map: `put`
 
 Adds a ship onto your map. The coordinates specified is the position of the ship's head. +

@@ -540,7 +540,7 @@ a| a| For example, in the sample layout we provided, the next available table th
 
 image::SpaceFor_Before.png[width="500",align="center"]
 
-Suppose, 3 customers enter your restaurant and you want to quickly locate an available table for them, you can simply use the `spaceFor 3` command. A success message will be displayed if there is an available table for 3 as shown below. 
+Suppose, 3 customers enter your restaurant and you want to quickly locate an available table for them, you can simply use the `spaceFor 3` command. A success message will be displayed if there is an available table for 3 as shown below.
 
 image::SpaceFor_RD.png[]
 In the Table Panel, you will see that Table 25 will have been updated to the correct occupancy and changed to a slightly darker colour to indicate that it is occupied.
@@ -568,7 +568,7 @@ ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
 You will see a success message in the Results Display.
 a| a| For example, after executing `reserve c/5 n/John Doe d/28 m/2 y/2019 t/1900`, the following confirmation message will appear:
-"Table 4 is available and has been reserved for John Doe at 1900H on 28/2/2019." 
+"Table 4 is available and has been reserved for John Doe at 1900H on 28/2/2019."
 |===
 
 // tag::tablemode[]
@@ -694,6 +694,7 @@ The Order Panel will now be empty, as seen in the image below.
 image::ClearOrder_After.png[width="300"]
 |===
 
+// tag::serve[]
 [[Serve]]
 ==== Marking an item in an order as served : `serve`
 
@@ -727,6 +728,7 @@ The Order Panel will also be updated and you can see from the image below that t
 
 image::Serve_After.png[width="300"]
 |===
+// end::serve[]
 
 // tag::bill[]
 [[Bill]]
@@ -756,16 +758,16 @@ display. +
 The customer's receipt will be displayed in the main panel and the receipt will indicate the price, quantity and name of items ordered, along with the time, date and total amount the customer has to pay.
 
 a| a| As seen from the image below, Table 5 has 4 items in the Order Panel. Note that all items have been
-served.
+served. +
 
 image::Bill_AllServed.png[]
 
-When `bill` is called, the user interface changes to display the receipt as shown below:
+When `bill` is called, the user interface changes to display the receipt as shown below: +
 
 image::Bill_Receipt.png[width="700",align="center"]
 
 When you switch to Restaurant Mode using the <<RM, `restaurantMode`>> command, you will realise that the table
-has been updated to accomodate new customers.
+has been updated to accomodate new customers. +
 
 image::Bill_UpdatedSeats.png[width="500",align="center"]
 |===
@@ -940,6 +942,8 @@ Now, if the ingredients for Lobster Burger are available again, executing `toggl
 // end::menumode[]
 
 // tag::statisticsmode[]
+
+// tag::smintro[]
 === Statistics Mode
 
 In Statistics Mode, you can obtain statistics related to your restaurant, such as the popularity of dishes and the
@@ -959,9 +963,9 @@ you have selected. This allows you to study trends in your restaurant's revenue.
 [NOTE]
 By default the Statistics Mode displays revenue up to 30 days in the Revenue Panel unless you execute
 <<Yearly, `yearly`>>, <<Monthly, `monthly`>> or <<Daily, `daily`>> commands to change its display.
-
+// end::smintro[]
 Here are the commands that you can use in this mode to study the statistical data of your restaurant.
-
+// tag::yearly[]
 [[Yearly]]
 ==== Changing the Revenue Panel to yearly view : `yearly`
 
@@ -986,7 +990,8 @@ scrolling through the rest of the record.
 image::SM_Yearly.png[width="700", align="center"]
 
 |===
-
+// end::yearly[]
+// tag::monthly[]
 [[Monthly]]
 ==== Changing the Revenue Panel to monthly view : `monthly`
 
@@ -1011,7 +1016,8 @@ scrolling through the rest of the record.
 image::SM_Monthly.png[width="700", align="center"]
 
 |===
-
+// end::monthly[]
+// tag::daily[]
 [[Daily]]
 ==== Changing the Revenue Panel to daily view : `daily`
 
@@ -1036,7 +1042,8 @@ scrolling through the rest of the record.
 image::SM_Daily.png[width="700", align="center"]
 
 |===
-
+// end::daily[]
+// tag::revenue[]
 [[Revenue]]
 ==== Getting the total revenue : `revenue`
 
@@ -1075,7 +1082,7 @@ image::Revenue_Month.png[]
 
 image::Revenue_Day.png[]
 |===
-
+// end::revenue[]
 // end::statisticsmode[]
 
 == FAQ

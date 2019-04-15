@@ -254,7 +254,7 @@ link:{repoURL}/blob/master/src/main/java/seedu/address/logic/Logic.java[[.java]#
 Given below is the Sequence Diagram for interactions within the [.java]#Logic# component for the [.java]#execute("addTable 2")# API call.
 
 .Interactions Inside the Logic Component for the `addTable 2` Command
-image::AddTableSdForLogic.png[width="800"]
+image::AddTableSdforLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
@@ -306,10 +306,10 @@ As ROR contains many features, users may find it complicated to handle all the f
 
 As such, we have decided to implement a mode system for ROR to organise the available commands into their respective features. ROR provides 4 different modes for the users, each displaying a different set of panels that are relevant to the mode:
 
-* *Restaurant Mode* - perform <<Tables feature, table-related operations>> across the entire restaurant
-* *Table Mode* - perform <<Orders feature, order-related operations>> for a specific table
-* *Menu Mode* - perform <<Menu feature, menu-related operations>> on the restaurant's menu
-* *Statistics Mode* - perform <<Statistics feature, queries>> to retrieve the restaurant's statistics
+* *Restaurant Mode* - perform <<Tablesf, table-related operations>> across the entire restaurant
+* *Table Mode* - perform <<Ordersf, order-related operations>> for a specific table
+* *Menu Mode* - perform <<Menuf, menu-related operations>> on the restaurant's menu
+* *Statistics Mode* - perform <<Statisticsf, queries>> to retrieve the restaurant's statistics
 
 To use the different features, we have also implemented commands for users to switch between the 4 user modes.
 
@@ -415,6 +415,7 @@ We decided to go ahead with this implementation as we feel that from a user's po
 |=======================================================================
 // end::changemode[]
 
+[[Tablesf]]
 === Tables feature
 
 The Table feature allows the users to add, edit and clear tables using the commands <<AddTable,`addTable`>>, <<EditPax,`editPax`>>, <<EditSeats, `editSeats`>> and <<ClearTables, `clearTables`>> to ensure that RestOrRant reflects their physical restaurant in terms of the number of tables and each table's occupancy. Also, the Tables feature provides a quick way to look for an available table that can accommodate the specified number of customers using the <<SpaceFor, `spaceFor`>> command. All of the table details are displayed in our UI for easy reference.
@@ -562,6 +563,7 @@ This functionality uses the `spaceFor` command and is facilitated by the [.java]
 // end::spacefor[]
 // end::tables[]
 
+[[Ordersf]]
 === Orders feature
 
 The Orders feature allows restaurant front-end staff to take orders from customers using the <<AddToOrder, `addToOrder`>> command,
@@ -715,6 +717,7 @@ If the [.java]#OrderItem# is found and the quantity served is valid, a new [.jav
 
 // end::serve[]
 
+[[Menuf]]
 === Menu feature
 The Menu feature allows restaurant managers to take add items to the menu using the <<AddToMenu, `addToMenu`>> command, as well as
 remove menu items as needed using the <<DeleteFromMenu, `deleteFromMenu`>> or <<ClearMenu, `clearMenu`>> commands. They can track the current list of
@@ -879,6 +882,7 @@ When [.java]#ClearMenuCommand#execute()# is called, it will check if the restaur
 // tag::statistics[]
 // tag::statisticsintro[]
 [[Statistics]]
+[[Statisticsf]]
 === Statistics feature
 
 The Statistics feature allows users to perform queries that deal with the restaurant's statistical data, mainly the
@@ -1145,7 +1149,7 @@ After which, the list of [.java]#DailyRevenue# is iterated to generate [.java]#D
 
 The current implementation uses the designs in Alternative 1. However, in version 2.0, the application will take the
 pros of Alternative 2 designs and incorporate them to the current implementation. To help users better study the
-revenue trends, v2.0 will allow users to call the commands with an argument that indicates the month or year that they want. 
+revenue trends, v2.0 will allow users to call the commands with an argument that indicates the month or year that they want.
 The display will arrange the [.java]#DailyStatisticsCard# in a calender view with 7 columns for each day. A limit
 of 31 [.java]#DailyStatisticsCard# will be used to replicate a calendar and prevent overflowing.
 
@@ -1854,16 +1858,64 @@ _{ more test cases ... }_
 
 === Tables feature
 
+****
+You can restore the original sample data by deleting the json files in the data folder and restarting the application.
+****
+
 . Adding a table
 
+.. Switch to Restaurant Mode (`restaurantMode`).
 .. Test case: `addTable 1` +
    Expected: Adds a table with table status of 0/1.
 .. Test case: `addTable` +
    Expected: No tables are added. Error message is shown in the Results Display. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+.. Test case: `addTable 4 4 8` +
+   Expected: Adds 3 tables with table statuses 0/4, 0/4 and 0/8 for tables 1, 2 and 3 respectively.
+.. Test case: `addTable @` +
+   Expected: No tables are added. Error message is shown in the Results Display.
+.. Test case: `addTable 1 2 3 $` +
+   Expected: No tables are added. Error message is shown in the Results Display.
 
-_{ more test cases ... }_
+. Editing pax in a table
+
+.. Switch to Restaurant Mode (`restaurantMode`).
+.. Test case: `editPax 2 2` +
+   Expected: Edits Table 2 to have 2 customers.
+.. Test case: `editPax @ 2` +
+   Expected: No tables are edited. Error message is shown in the Results Display.
+.. Test case: `editPax 2 @` +
+   Expected: No tables are edited. Error message is shown in the Results Display.
+
+. Editing seats in a table
+
+.. Switch to Restaurant Mode (`restaurantMode`).
+.. Test case: `editSeats 2 4` +
+   Expected: Edits Table 2 to have 4 seats.
+.. Test case: `editSeats @ 2` +
+   Expected: No tables are edited. Error message is shown in the Results Display.
+.. Test case: `editSeats 2 @` +
+   Expected: No tables are edited. Error message is shown in the Results Display.
+
+****
+You should restore all data in between every test for this section. After restoring, use `editPax` command to remove all customers from all the tables.
+****
+
+. Clear tables
+
+.. Switch to Restaurant Mode (`restaurantMode`).
+.. Test case: `clearTables` +
+   Expected: All tables have been cleared.
+.. Test case: `clearTables 2` +
+   Expected: All tables have been cleared.
+.. Test case: `clearTables @` +
+   Expected: All tables have been cleared
+
+. Space for specified number of customers
+
+.. Test case: `spaceFor 3` +
+   Expected: A table has been allocated for the customers.
+.. Test case: `spaceFor @` +
+   Expected: No tables have been allocated. Error message is shown in the Results Display.
 
 === Menu feature
 
@@ -1874,7 +1926,7 @@ You can restore the original sample data by deleting the json files in the data 
 . Adding to the menu
 
 .. Switch to Menu Mode (`menuMode`).
-.. For the following tst cases, `addToMenu` can be replaced with the shortcut `add`.
+.. For the following test cases, `addToMenu` can be replaced with the shortcut `add`.
 .. Test case: `addToMenu c/W09 n/Chicken Wings p/4.50` +
    Expected: Adds a menu item "Chicken Wings" with code W09 and price 4.50 to the menu.
 .. Test case: `addToMenu n/French Fries c/W12 p/2.50` +

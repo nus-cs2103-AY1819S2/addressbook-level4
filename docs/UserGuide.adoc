@@ -355,7 +355,7 @@ Examples:
 
 // end::upcomingPattern[]
 // tag::v2stats[]
-=== Statistics can display high score between games
+=== Display high score across games
 Display the high score across more than two games. +
 
 Format: `stats highscore t/[dataType]` +

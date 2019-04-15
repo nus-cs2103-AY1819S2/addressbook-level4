@@ -29,11 +29,8 @@ This app will not work with later major JDK releases such as JDK 10, 11, etc.
 [NOTE]
 If the tests are failing due to a system error with Java9, then try to run with Java8.
 
-+
-. *IntelliJ* IDE
-+
 [NOTE]
-IntelliJ by default has Gradle and JavaFx plugins installed. +
+Run the application through *IntelliJ* IDE. IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
 

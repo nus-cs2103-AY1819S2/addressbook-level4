@@ -15,11 +15,13 @@ ifdef::env-github[]
 :important-caption: :heavy_exclamation_mark:
 endif::[]
 :repoURL: https://github.com/cs2103-ay1819s2-w17-3/main
+:bl: pass:[ +]
 
 By: `Team W17-3`      Since: `March 2019`      Licence: `MIT`
 
 == Introduction
 
+{bl}
 [blue]#Welcome to the _In-Credit-Ble_ User Guide!# _In-Credit-Ble_ is your all-in-one application in managing and tracking your
 personal finances. Our user-friendly interface will make it easy for you to see how much you can safely spend within your budget and be more aware
 of your spending habits. If you are a *fast typer*, *prefer to type* over using your mouse and *like to get things done
@@ -29,8 +31,11 @@ efficiently*, then this is the product just for you! _In-Credit-Ble_ is designed
 This user guide shows you how to get started using _In-Credit-Ble_. It also provides in-depth documentation on the
 different features and shows you how to perform basic _In-Credit-Ble_ operations.
 
+{bl}
+
 // tag::quickstart[]
 == Quick Start
+{bl}
 [blue]#Follow these steps to get _In-Credit-Ble_ up and running on your computer in no time!#
 
 .  Ensure you have [teal]#Java# version `[fuchsia]#9#` or later installed in your computer. You can download and install the required
@@ -40,11 +45,13 @@ different features and shows you how to perform basic _In-Credit-Ble_ operations
 .  Copy the file to the folder you want to use as the home folder for your finance tracker.
 .  Double-click the file to start the app. The GUI should appear in a few seconds as shown below.
    The _In-Credit-Ble_ finance tracker is loaded with example expense records and budget is still not set.
-
+{bl}
+{bl}
 +
 .UI upon launching the application
 image::startUI.png[]
 +
+{bl}
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 [navy]#e.g.# typing *`[fuchsia]#help#`* and pressing kbd:[Enter] will open the help window and show the list of commands.
 .  [teal]#Some example commands you can try#:
@@ -54,35 +61,43 @@ image::startUI.png[]
 * *`[fuchsia]#set#`* : sets the total budget for Finance Tracker
 * *`[fuchsia]#allocate#`* : allocates budget to a certain category (within the total budget)
 * *`[fuchsia]#spend#`* : adds an expense record to the Finance Tracker
-
-
 .  Refer to <<Features>> for details of each command.
 // end::quickstart[]
+
+{bl}
 
 // tag::userinterface1[]
 
 == Graphical User Interface Introduction
+{bl}
 [blue]#This section will explain to you the Graphical User Interface (GUI) of _In-Credit-Ble_ Finance Tracker.#
 The theme of the application has been set to `[fuchsia]#Light#`, which is different from the start up theme `[fuchsia]#Dark#`.
+{bl}
+{bl}
 
 .Graphical User Interface (Upon using `summary` command)
 image::GUI_Diagram2.png[width="600"]
 
 // end::userinterface1[]
+{bl}
 
 .Graphical User Interface (When starting up)
 image::GUI_Diagram.png[width="600"]
 
 // tag::userinterface2[]
-
+{bl}
 There are a total of 7 elements in the Graphical User Interface in _In-Credit-Ble_ Finance Tracker
 as denoted by the different coloured boxes above. The elements will be explained below.
 
 // end::userinterface2[]
+{bl}
 
 === Menu Bar
+{bl}
+
 .Menu Bar
 image::Menu_bar.png[width="300"]
+{bl}
 This element is denoted by the [fuchsia]#pink# box.
 
 The menu bar can be used to:
@@ -92,11 +107,14 @@ The menu bar can be used to:
 * Change the colour theme of the application under btn:[Theme] tab
 
 // tag::userinterface3[]
+{bl}
 
 === Records List Panel
+{bl}
+
 .Record List Panel: Shows a list of your expense records
 image::Record_List_Panel.png[width="200"]
-
+{bl}
 This element is denoted by the [yellow]#yellow# box.
 
 In the Record List Panel, the list of all your expenditures are recorded here.
@@ -110,11 +128,14 @@ Each record is tagged with an *index number* before the record name.
 The index is used in commands such as `[fuchsia]#delete#`, `[fuchsia]#edit#` and `[fuchsia]#select#`.
 
 // end::userinterface3[]
+{bl}
 
 === Budget Panel
+{bl}
+
 .Budget Panel: Shows your total spending against your total budget so far
 image::BudgetPanel.png[width="250"]
-
+{bl}
 This element is denoted by the [green]#green# box.
 
 The budget panel gives you a simple yet effective overview of the total
@@ -128,48 +149,58 @@ See:
 * `[fuchsia]#set#` command to see how to set a budget in the finance tracker
 * `[fuchsia]#spend#` command to see how to add expense records into the finance tracker
 
+{bl}
 
 .Budget progress bar turns orange to give warning
 image::BudgetPanel_Orange.png[width="250"]
+{bl}
 
 .Budget progress bar turns red to give warning
 image::BudgetPanel_red.png[width="250"]
-
+{bl}
 * The budget progress bar will be [green]#*green*# if you are still within your budget as shown in Figure 6.
 * The budget progress bar will turn [orange]#*orange*# if your expenditure is above 80% of your total budget
 as shown in Figure 7.
 * The budget progress bar will turn [red]#*red*# if your expenditure exceeded your budget as shown in Figure 8.
 
+{bl}
 
 === Browser Panel
+{bl}
+
 .Browser Panel: Shows the budget left, current spending and total budget
 image::browserpanel.png[width="250"]
-
+{bl}
 This element is denoted by the [maroon]#brown# box in Figure 2.
 
 The browser panel gives you a numerical summary of your total budget.
-
+{bl}
 [NOTE]
 ====
 The current budget will show a negative number should you exceed your budget to let you know
 the amount you exceeded the budget set for yourself.
 ====
+{bl}
 
 === Summary Panel
+{bl}
+
 .Summary Panel: Shows you a pie chart illustration of your current expenses
 image::summarypanel.png[width="400"]
-
+{bl}
 This element is denoted by the [red]#red# box in Figure 3.
 
 The summary panel gives you a nice illustrated summary of your current spending so far in
 different categories. To change the browser panel to summary panel, use the `[fuchsia]#summary#` command.
 To change back to the browser panel, simply enter the `[fuchsia]#summary#` command once again.
-
+{bl}
 
 === Command Box and Result Display
+{bl}
+
 .Command Box and Result Display
 image::commandbox_resultdisplay.png[width="450"]
-
+{bl}
 These elements are denoted by the [black]#black# and [blue]#blue# boxes in Figures 2 and 3 respectively.
 
 The command box is the place for users to type in their commands.
@@ -177,14 +208,18 @@ Refer to <<Features>> for details of each command.
 
 The result box displays the results after each command is executed.
 This is where the allocated category budgets will be shown when `[fuchsia]#show#` command is executed.
+{bl}
 
 === Status Footer Bar
+{bl}
+
 .Status Footer Bar
 image::statusfooterbar.png[]
-
+{bl}
 This element is denoted by the [purple]#purple# box in Figures 2 and 3.
 The left side of the status footer bar shows the time and date of the last update to the finance tracker.
 The right side of the status footer bar shows where the storage file for the updated data is saved to.
+{bl}
 
 [[Features]]
 == Features

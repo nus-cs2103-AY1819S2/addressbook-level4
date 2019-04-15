@@ -400,11 +400,29 @@ image::ExitQuizSequenceDiagram.png[width="1000"]
 === Image Support
 ==== Current Implementation
 
-_Not yet implemented. Will be implemented by v1.3._ +
-When adding or editing a flashcard, the user is allowed to optionally specify a path to an image. _Acquizition_ makes a
-copy to its working directory and stores the path to this local copy in the image.
+All images must first be _imported_ into _Acquizition_ through the use of the `image` command. This command
+makes a copy of an image into _Acquizition_'s local `image/` directory, and works as the following sequence
+diagram shows:
 
-Each image has an optional path to an image. This path is stored within a special folder in the working directory.
+image::ImageSequenceDiagram.png[width="800"]
+
+Note that `image` does not go through VersionedCardCollection, as it does not affect any of the flashcards.
+It affects only a different file directory made specifically for the purpose of storing images. As a consequence,
+`image` is not an undoable command.
+
+Once an image has been imported, it can then be directly referenced in the `add` or `edit` commands by using the
+original file name. (For example, if one imported the image `C:\Users\Robin\Desktop\everest.jpg`, then it should be
+referred to in the future as `everest.jpg`.) _Acquizition_ will simply check to see whether that image really exists in the `images/`
+folder.
+
+Each flashcard has an ImagePath, which is essentially a wrapper for an `Optional<String>`, but for convenience' sake also contains
+many file-related functions. This allows us to abstract away details of file handling and properly use SLAP.
+
+Altogether, the following shows the activity diagram for an end-user who wants to add a flashcard, considering all possible
+fields that could be added:
+
+image::AddFlashcardActivityDiagram.png[width="800"]
+
 
 ==== Design Considerations
 
@@ -418,6 +436,17 @@ conflicts occurs on the working directory.
 * **Alternative 2:** Link to the absolute path in the user's directory when adding images.
 ** Pros: Simpler to implement.
 ** Cons: Breaks when the images in the user's directory are later deleted or moved.
+
+===== Aspect: Image Storage Version Control
+
+* **Alternative 1 (current choice):** Simply do not allow undo and redo of inserted images.
+** Pros: Simpler to implement.
+** Cons: May be slightly unintuitive.
+* **Alternative 2:** Make a version-controlled version of the images, similar to VersionedCardCollection,
+in order to make undo and redo possible.
+** Pros: More intuitive behavior.
+** Cons: Very complicated to implement, and may not be worth the effort. In the end, users can always
+remove flashcards directly by deleting images from the `images/` folder.
 
 // end::imagesupport[]
 
@@ -488,7 +517,7 @@ calculate the success rate from a bunch of flashcards with a particular tag.
 
 When a user queries for statistics by using command `stats`, `StatsCommand` is the one to calculate the statistics. +
 Currently, `StatsCommand` only supports an overall success rate from all user's flashcards. It will ask `Model` to +
-return all of the flashcards and then merge each `Statistics` from each flashcard to return an overall cummulative +
+return all of the flashcards and then merge each `Statistics` from each flashcard to return an overall cumulative +
 `Statistics`.
 
 ==== Design Considerations
@@ -572,7 +601,7 @@ the command terminates.
 ** Cons: Increases dependency between the import command classes and the add command classes.
 * **Alternative 2:** Validate flashcards at file level and append new flashcard data directly to the storage file
 ** Pros: Reduce dependency between classes, meaning that the import command is able to function without the add command.
-** Cons: Harder to implement and bypasses several project components to directly intect with the storage component. This does not follow the overall
+** Cons: Harder to implement and bypasses several project components to directly interact with the storage component. This does not follow the overall
          architectural design of the project.
 
 // end::share_import[]
@@ -1113,11 +1142,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |sociable user |upload flashcards shared with me |view, edit and be quizzed on these cards locally
 
-|`* *` |inexperienced user |have an intuitive GUI  |use the App without the command line
-
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -1171,9 +1196,10 @@ Use case ends.
 * 4a. User requests to add an image to a card.
 +
 [none]
-** 4a1. User inputs the path of the image.
+** 4a1. User specifies the path to an image through the import command.
 ** 4a2. _Acquizition_ makes a copy of the image to its working directory.
-** 4a3. _Acquizition_ lists the card to its working directory.
+** 4a3. User edits the flashcard and uses the name of the imported image.
+** 4a4. The image is added to the flashcard.
 
 * 4a1a. The given path is invalid.
 +
@@ -1341,23 +1367,6 @@ Windows, Linux, Unix, OS-X
 
 [[private-flashcard-detail]] Private flashcard detail::
 A flashcard detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing

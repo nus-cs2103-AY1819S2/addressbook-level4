@@ -4,53 +4,85 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+TeethHub was developed by the W17-02 Team
+
+The basis of our product, AddressBook - Level 4, was developed by the https://se-edu.github.io/docs/Team.html[se-edu]
+team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
+{nbsp} +
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+image::kylerwsm.png[width="150", align="left"]
+{nbsp} +
+*Kyler Wong Shen Meng*,{nbsp} _Developer / Tester_ {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``https://github.com/kylerwsm[GitHub]``{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``<<kylerwsm#, Portfolio>>``
+{nbsp} +
+{nbsp} +
 
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+Responsibilities::
+* Build efficient data structures that stores represented dental data
+* Develop dentistry-specific functions and features
+* Ensure intuitiveness of dentistry data to dentist users
+* Apply and conform to renowned dentistry standards
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Keith Sim
+image::kthsim.png[width="150", align="left"]
+{nbsp} +
+*Keith Sim*,{nbsp} _Chief Developer / Tester_ {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``https://github.com/kthSim[GitHub]``{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``<<kthsim#, Portfolio>>``
+{nbsp} +
+{nbsp} +
 
-Role: Developer +
-Responsibilities: Data
-
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities::
+ * Chief Developer
+ * Develop functions for viewing of stored data within the program
+ * Ensure project repo is properly maintained
+ * Apply proper issue and milestone tracking to the project
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Lim Jia Hao
+image::jiahaolim.png[width="150", align="left"]
+{nbsp} +
+*Lim Jia Hao*,{nbsp} _Developer / Tester / Designer_ {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``https://github.com/JiaHaoLim[GitHub]``{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``<<jiahaolim#, Portfolio>>``
+{nbsp} +
+{nbsp} +
 
-Role: Developer +
-Responsibilities: UI
+Responsibilities::
+* Develop functions and features for file management
+* Create images used for dental representation
+* Design pleasant looking user interfaces
+* Ensure user friendliness of all features
 
 '''
+
+=== Jonathan Choo
+image::cchj1995.png[width="150", align="left"]
+{nbsp} +
+*Choo Chun Hoe Jonathan*,{nbsp} _Developer / Tester_ {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``https://github.com/cchj1995[GitHub]``{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``<<cchj1995#, Portfolio>>``
+{nbsp} +
+{nbsp} +
+
+Responsibilities::
+* Create new Task data type to be managed by TeethHub
+* Develop functions and features for task management and interaction
+* Implement and update Graphical User Interface layout
+* Provide GUI elements to support features needing graphical feedback
+
+'''
+
+=== Wang Debang
+image::wsemis.png[width="150", aligh="left"]
+{nbsp} +
+*Wang Debang*,{nbsp} _Developer / Tester_ {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``https://github.com/wSemis[GitHub]``{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``<<wsemis#, Portfolio>>``
+{nbsp} +
+{nbsp} +
+
+Responsibilities::
+* Implement copy methods
+
+* Contribute to task methods
+
+* Contribute to record methods

@@ -1,0 +1,423 @@
+= Jia Hao Lim - TeethHub Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: TeethHub
+
+In a Software Engineering module, my team was given the brownfield task to morph the given AddressBook 4 into an application of our choice. The result was TeethHub.
+
+=== Overview
+
+TeethHub is designed for Dentists who prefer type commands over clicking on a Graphical User Interface(GUI). It is still possible to perform some actions by clicking on the GUI, but only in very limited capacity. For example, the user can select patients and records by clicking on them, but they would need to type the edit commands to edit them.
+
+As of version 1.4: +
+TeethHub allows Dentists to manage patient information, records of each patient and tasks for the dentist. +
+TeethHub allows Dentists to manage multiple databases through File Management. File Management also allows exporting to a PDF file. +
+TeethHub displays the latest teeth information in the form of an image that follows the *Universal Numbering System* dental notation. +
+TeethHub displays statistics generated from all patients and records stored in it.
+
+The GUI of TeethHub is created with JavaFX. TeethHub is written in Java, and has about 20,000 lines of code. +
+TeethHub was morphed from AddressBook 4, which had about 10,000 lines of code.
+
+=== Summary of contributions
+
+* *Major enhancement*: Added *the ability to open/import/save/export external .json files*
+** What it does: +
+`Open` allows the user to replace the TeethHub contents with the contents of a *.json file of their choice*. The .json file must be a .json file that was saved/exported using TeethHub. +
+`Import` allows the user to add *contents of their choice* of a *.json file of their choice* to the TeethHub contents. The .json file must be a .json file that was saved/exported using TeethHub. +
+`Save` allows the user to save all contents of TeethHub to an external .json file. +
+`Export` allows the user to save *contents of their choice* of TeethHub to an external .json file. +
+** Justification: This feature improves the product significantly because the user can store and access multiple different databases. +
+E.g. The user may save different databases of patients depending on which clinic he saw them. +
+E.g. Different users may share an account on the same computer. Each user may choose to use a different database.
+** Highlights: The code for reading and writing .json files was already implemented in AddressBook 4, in the form of an auto-load on start and auto-save on exit. However there was no way for the user to manually make use of that, short of closing TeethHub, replacing TeethHub.json and then re-opening TeethHub every time they wished to open another file. Furthermore, the user could not specify the patients they wished to access/save. This enhancement allows the users this choice and required an analysis of design alternatives.
+** Credits: AddressBook 4's code for reading and writing .json files.
+
+* *Major enhancement*: Added *the ability to save/export external .pdf files*
+** What it does: Allows the user to save/export PDF files which was more reader friendly when not using TeethHub.
+** Justification: This feature improves the product significantly because the user can view/print a more comprehensible version of their patients' data during/for the times when they have no access to TeethHub, as opposed to opening/printing a .json file.
+** Highlights: As opposed to the first enhancement, the code for reading and writing .pdf files was *not* implemented in AddressBook 4. The code for processing the data for PDF printing had to be coded from scratch. The writing and printing was done with the help of a third-party library, Apache PDFBox.
+** Credits: Apache PDFBox for writing and saving .pdf files.
+
+* *Minor enhancement*: Added shortcuts to the longer commands. E.g. Enter `padd` or `patientadd` to add a Patient.
+* *Minor enhancement*: Added Suggestion commands that advises the user when they input a "common" command. +
+E.g. The user enters `add`. TeethHub will ask them if they meant `patientadd` or `recordadd` or `taskadd`, depending on the context.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=jiahaolim[Reposense]]
+
+* *Other contributions*:
+** Contributions to team members' enhancements:
+*** Designed the current GUI of TeethHub.
+*** Came up with idea of the Copy feature.
+*** Came up with idea of overlaying images to display teeth for the Teeth feature.
+*** Created all images used by the Teeth feature.
+*** Reported bugs and suggestions for own team. (Example: https://github.com/CS2103-AY1819S2-W17-2/main/issues/106#issuecomment-480783456[Copy bug])
+
+** Enhancements to existing features:
+*** Wrote tests for new features to increase coverage by 6%~7%.
+*** Renamed AddressBook 4 to TeethHub.
+** Documentation:
+*** Renamed AddressBook 4 to TeethHub in User Guide.
+*** Added Welcome message to User Guide.
+*** Edited prerequisites, quick start guide in User Guide.
+*** Proofread User Guide.
+*** Reordered original order of Commands and Feature to the current version in User Guide.
+*** Edited Design Considerations for existing undo/redo feature to conform to the new format agreed on by my team in Developer Guide.
+*** Added Use Cases for File Management commands in Developer Guide.
+*** Added User Stories for File Management commands, Suggestion commands and adding user images to records[Planned Implementation v1.6] in Developer Guide.
+*** Added Manual Testing for Open and Export commands in Developer Guide.
+*** Proofread and edited README.adoc.
+** Community:
+*** Reported bugs and suggestions for other teams in the class. (Examples: https://github.com/cs2103-ay1819s2-w09-3/main/issues/181[1], https://github.com/cs2103-ay1819s2-w09-3/main/issues/183[2], https://github.com/cs2103-ay1819s2-w09-3/main/issues/176[3], https://github.com/cs2103-ay1819s2-w09-3/main/issues/177[4])
+** Tools:
+*** Integrated a third party library (Apache PDFBox) to the project.
+
+=== Contributions to the User Guide
+
+
+|====
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|====
+
+== Introduction
+
+Welcome to TeethHub!
+If you are a dental practitioner who prefers to use a Command Line Interface (CLI),
+then TeethHub is an application for you!
+
+TeethHub works primarily through a CLI while having elements of a Graphical User Interface (GUI).
+For example, you can select patients and records by clicking on them, but you would need to type the edit commands to edit them.
+TeethHub allows you to keep track of your patient's particulars along with their dental records.
+An image of each patient's teeth will also be displayed according to what you input for each tooth's status(Absent, Problem, Healthy).
+In addition to that, TeethHub also allows you to keep track of your upcoming tasks, just like a calendar.
+
+Interested in trying TeethHub out? Check out <<prerequisites>> to see what programs you need in order for TeethHub to work properly.
+If you’re confident in your computer set-up, jump to <<quick-start-guide>> to begin!
+
+=== File Management
+
+TeethHub automatically saves all data to TeethHub.json when you close the program.
+However, you can manage them manually with `open`, `save`, `import` and `export`. +
+ +
+*When we mention "data", we mean the patients list and their respective records plus the task list.* +
+
+*.json files hold data that TeethHub can read. Use this to "save" or "load" your progress.* +
+*.pdf files are easier for people to read. Use this if you are printing out a physical copy.* +
+
+You can use `open` to open another .json file that you may have transferred over from another computer. +
+ +
+You can use `save` to save specific patients to a .json or .pdf file. +
+ +
+You can use `import` to add specific patients from another .json file to your current data. +
+ +
+You can use `export` to save specific patients to a .json or .pdf file.
+
+[NOTE]
+============================================================
+Look for your *saved* or *exported* files in the "data" folder. +
+This is also where TeethHub looks for your files when you use `open` or `import`.
+============================================================
+
+[NOTE]
+============================================================
+The File Management Commands uses the following keywords!
+
+`FILE_PATH`: +
+Any letters in the English alphabet and numbers are allowed. +
+Allowed special characters are: +
+`! @ # $ % ^ & ( ) _ + - = { } [ ] ; ' , .` +
+Special characters *NOT* allowed are: +
+`< > : " | ? *`
+
+`INDEX_RANGE`: +
+Any positive integers (numbers with no decimals, must be greater than 0) are allowed.
+You can use commas (no space) to choose multiple individual indexes. e.g. `1,3,5` for 1 and 3 and 5 +
+You can use dash (no space) to choose a range of indexes. e.g. `3-5` for 3 to 5. `1-3-5` is not allowed, just use `1-5`. +
+You can use a combination of commas and dashes to choose a range as well. e.g. `1-3,5` for 1 to 3 and 5. +
+You can also type `all` instead to import/export everything.
+============================================================
+
+==== open
+
+image::OpenImportFeature3.png[width="522"]
+
+`open` Opens a file of your choice and overwrites the current data with the file contents. +
+** You can only open .json files.**
+
+Format: `open FILE_PATH`
+
+Examples:
+
+* `open data1.json` +
+This replaces the current data of TeethHub with the contents of "data1.json".
+
+* `open february/data2.json` +
+This replaces the current data of TeethHub with the contents of "data2.json" found in the "february" folder.
+
+
+==== save
+`save` Saves the current data to a file of your choice. +
+All Tasks are also saved to that file. +
+** You can only save to .json and .pdf.** +
+.json files allow you to `open` or `import` them. +
+.pdf files are easier to read, but you cannot open or import them with TeethHub.
+
+Format: `save FILE_PATH`
+
+Examples:
+
+* `save data1.json` +
+This saves the data currently in TeethHub to "data1.json".
+
+* `save february/data2.pdf` +
+This saves the data currently in TeethHub to "data2.json" in the "february" folder.
+
+
+==== import
+
+image::OpenImportFeature4.png[width="522"]
+
+`import` Opens a file of your choice and adds patients of your choice to the current data. +
+** You can only import .json files. **
+
+Format: `import FILE_PATH INDEX_RANGE`
+
+Examples:
+
+* `import data1.json 1` +
+This adds patient 1 from "data1.json" to the current data of TeethHub.
+
+* `import february/data1.json 1` +
+This adds patient 1 from "data1.json" found in the "february" folder to the current data of TeethHub.
+
+* `import data1.json 1,4` +
+This adds patient 1 and patient 4 from "data1.json" to the current data of TeethHub.
+
+* `import data1.json 1-4` +
+This adds patient 1 to patient 4 from "data1.json" to the current data of TeethHub.
+
+* `import data1.json 1,3-5` +
+This adds patient 1 and patient 3 to patient 5 from "data1.json" to the current data of TeethHub.
+
+* `import data1.json all` +
+This adds all patients from "data1.json" to the current data of TeethHub.
+
+==== export
+`export` Saves patients of your choice in the current data to a file of your choice. +
+All Tasks are also saved to that file. +
+** You can only export to .json and .pdf.** +
+.json files allow you to `open` or `import` them. +
+.pdf files are easier to read, but you cannot open or import them with TeethHub.
+
+Format: `export FILE_PATH INDEX_RANGE`
+
+Examples:
+
+* `export data1.json 1` +
+This saves patient 1 currently in TeethHub to "data1.json".
+
+* `export february/data1.pdf 1` +
+This saves patient 1 currently in TeethHub to "data1.pdf" in the "february" folder.
+
+* `export data1.json 1,4` +
+This saves patient 1 and patient 4 currently in TeethHub to "data1.json".
+
+* `export data1.pdf 1-4` +
+This saves patient 1 to patient 4 currently in TeethHub to "data1.pdf".
+
+* `export data1.pdf 1,3-5` +
+This saves patient 1 and patient 3 to patient 5 currently in TeethHub to "data1.pdf".
+
+* `export data1.json all` +
+This saves all patients currently in TeethHub to "data1.json".
+
+== Planned Implementations
+
+=== Patient Teeth per record [Coming in v1.5]
+Currently, TeethHub stores and displays the latest teeth image of each patient.
+We understand that you may want to see teeth changes over time.
+In v1.5, TeethHub will be able to store and display a teeth image for each record.
+
+=== Adding images to records [Coming in v1.6]
+Currently, TeethHub is not equipped to accept images from you.
+We understand that you may want to store x-rays of teeth or other relevant images you have taken.
+In v1.6, TeethHub will have a new command for you to upload images.
+
+=== Spell-Checker Functionality [Coming in v1.7]
+Currently, TeethHub does not have a spell checker.
+It would be great if TeethHub would automatically correct an improperly typed command(e.g. sirt to sort).
+In v1.7, TeethHub will have a spell checker functionality.
+
+=== Contributions to the Developer Guide
+
+|====
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|====
+
+== Implementation
+=== File Management
+Although TeethHub already has a built-in auto-load and auto-save, implementing file management would give the user more flexibility with managing data. +
+PDF export is also implemented so that the user would have an easier time making sense of the data when offline.
+
+The File Management features are: `Open`, `Import`, `Save`, `Export`.
+* If the file that is being opened/imported is corrupted, an error message is thrown and no change is made. +
+* If the user inputs an index range for import/export that does not exist, the current indexes that fall within the range are still imported/exported. This is because we want to make things easier on the user.
+
+[NOTE]
+============================================================
+These following two keywords will be used by various File Management features.
+
+`FILE_PATH`: The name and file type to be saved. `FILE_PATH` also allows the inclusion of folder names. If the indicated `FILE_PATH` does not exist, it will be created. +
+Any letters in the English alphabet and numbers are allowed. +
+Allowed special characters are: +
+`! @ # $ % ^ & ( ) _ + - = { } [ ] ; ' , .` +
+Special characters *NOT* allowed are: +
+`< > : " | ? *`
+
+`INDEX_RANGE`: +
+Any positive integers (no decimals, must be greater than 0) are allowed. +
+Use commas (no space) to indicate a break. e.g. `1,3,5` for 1 and 3 and 5 +
+Use dash (no space) to indicate a range. e.g. `3-5` for 3 to 5. `1-3-5` is not allowed, just use `1-5`. +
+Use a combination of commas and dashes to indicate a range as well. e.g. `1-3,5` for 1 to 3 and 5. +
+`all` can be used instead to include everything. e.g. `import test.json all` or `export test.json all`
+============================================================
+
+==== Open vs Import
+
+Suppose you have a `data.json` file with the following contents:
+
+image::OpenImportFeature1.png[width="174"]
+
+The following image illustrates the difference when you open or import `data.json`.
+
+image::OpenImportFeature2.png[width="870"]
+
+==== Open feature
+As TeethHub already has a built-in auto-load when starting the program, the implemented Open feature is simple. +
+*The Open feature opens the specified file and overwrites the current TeethHub data with the file data.* +
+The Open feature's format is: `open FILE_PATH`
+
+1. AddressBookParser creates OpenCommandParser. +
+2. The OpenCommandParser uses ParserUtil to parse the user input. +
+3. If the input is valid, ParserUtil creates a ParsedInOut object and returns it to OpenCommandParser. +
+4. OpenCommandParser creates OpenCommand initialized with the ParsedInOut object. +
+5. OpenCommand checks for if the requested file is a ".json" file, if the file exists, if it is a file, or if it can be read. +
+6. OpenCommand calls the existing readAddressBook().
+
+image::OpenCommandSequenceDiagram.png[width="870"]
+
+==== Import feature
+As TeethHub already has a built-in auto-load when starting the program, the implemented Import feature makes use of it. +
+*The Import feature opens the specified file and adds the file data to the current TeethHub data.* +
+The Import feature's format is: `import FILE_PATH INDEX_RANGE`
+
+1. AddressBookParser creates ImportCommandParser. +
+2. The ImportCommandParser uses ParserUtil to parse the user input. +
+3. If the input is valid, ParserUtil creates a ParsedInOut object and returns it to ImportCommandParser. +
+4. ImportCommandParser creates ImportCommand initialized with the ParsedInOut object. +
+5. ImportCommand checks for if the requested file is a ".json" file, if the file exists, if it is a file, or if it can be read. +
+6. ImportCommand calls the existing readAddressBook() on a temporary storage. +
+6a. ImportCommand adds contents from the temporary storage to the current storage based on the input INDEX_RANGE. +
+6b. ImportCommand adds all contents from the temporary storage to the current storage if INDEX_RANGE is `all`.
+
+==== Save feature
+As TeethHub already has a built-in auto-save when exiting the program, the implemented Save feature makes use of it. +
+*The Save feature saves all current TeethHub data to the specified file.* +
+In addition to that, the Save can also save to PDF, using the Apache PDFBox. +
+In the Open Command Sequence Diagram above, you can see that OpenCommand creates an InOutAddressBookStorage. The InOutAddressBookStorage has the capability to call the existing saveAddressBook() and also a new saveAsPdf(). +
+The Save feature's format is: `save FILE_PATH`
+
+1. AddressBookParser creates SaveCommandParser. +
+2. The SaveCommandParser uses ParserUtil to parse the user input. +
+3. If the input is valid, ParserUtil creates a ParsedInOut object and returns it to SaveCommandParser. +
+4. SaveCommandParser creates SaveCommand initialized with the ParsedInOut object. +
+5. SaveCommand checks for if the requested file is a ".json" file or ".pdf" file. It also checks if the file is Read-only. +
+5a. SaveCommand calls the existing saveAddressBook() if the requested file is a ".json" file. +
+5b. SaveCommand calls the new saveAsPdf() if the requested file is a ".pdf" file.
+
+==== Export feature
+As TeethHub already has a built-in auto-save when starting the program, the implemented Export feature makes use of it. +
+*The Export feature saves specified patients in the current TeethHub data to the specified file.* +
+The Export feature's format is: `export FILE_PATH INDEX_RANGE`
+
+image::ExportCommandActivityDiagram.png[width="870"]
+
+1. AddressBookParser creates ExportCommandParser. +
+2. The ExportCommandParser uses ParserUtil to parse the user input. +
+3. If the input is valid, ParserUtil creates a ParsedInOut object and returns it to ExportCommandParser. +
+4. ExportCommandParser creates ImportCommand initialized with the ParsedInOut object. +
+5. ExportCommand checks if INDEX_RANGE is `all`. +
+5a. ExportCommand calls SaveCommand if INDEX_RANGE is `all`. Refer to Save feature. +
+5b. Otherwise, ExportCommand add contents from the current storage to the temporary storage based on the input INDEX_RANGE. +
+6. ExportCommand checks for if the requested file is a ".json" file or ".pdf" file. It also checks if the file is Read-only. +
+6a. ExportCommand calls the existing saveAddressBook() if the requested file is a ".json" file. +
+6b. ExportCommand calls the new saveAsPdf() if the requested file is a ".pdf" file.
+
+==== Design Considerations
+===== Aspect: Reading or writing a file
+* **Current implementation:** (Open/Import/Save/Export)Command -> InOutAddressBookStorage -> JsonUtil -> FileUtil
+** **Alternative 1:** (Open/Import/Save/Export)Command -> Json Util -> FileUtil
+*** **Alternative Pros:** Less overhead and faster runtime as there are less classes to go through.
+*** **Alternative Cons:** InOutAddressBookStorage does some file reading/writing error handling. Bypassing InOutAddressBookStorage would require the same error handling in (Open/Import/Save/Export)Command. Since (Open/Import/Save/Export)Command is not called when the program starts, we cannot move the error handling from InOutAddressBookStorage to (Open/Import/Save/Export)Command. In that case, we would have to copy the error handling instead, which means that we now have a duplicate logic, which is also not ideal.
+** **Alternative 2:** (Open/Import/Save/Export)Command -> FileUtil
+*** **Alternative Pros:** Same as Alternative 1.
+*** **Alternative Cons:** Same as Alternative 1. In addition to that:
+The features of Json Util would need to be re-implemented in (Open/Import/Save/Export)Command, which would also lead to duplicate logic.
+** **Choice Justification:** +
+Since: +
+There already is a file reading/writing error handling implemented in InOutAddressBookStorage. +
+There already is .json handling implemented in JsonUtil. +
+It would be logical to make use of them instead of re-implementing them.
+
+* **Current implementation:** (Save/Export)Command -> InOutAddressBookStorage -> PdfUtil
+** **Alternative 1:** (Save/Export)Command -> PdfUtil
+*** **Alternative Pros:** Less overhead and faster runtime as there are less classes to go through.
+*** **Alternative Cons:** InOutAddressBookStorage does some file reading/writing error handling. Bypassing InOutAddressBookStorage would require the same error handling in (Open/Import/Save/Export)Command. Since (Open/Import/Save/Export)Command is not called when the program starts, we cannot move the error handling from InOutAddressBookStorage to (Open/Import/Save/Export)Command. In that case, we would have to copy the error handling instead, which means that we now have a duplicate logic, which is also not ideal.
+** **Alternative 2.1:** (Save/Export)Command -> PdfUtil -> FileUtil
+** **Alternative 2.2:** (Save/Export)Command -> FileUtil
+*** **Alternative Pros:** Same as Alternative 1.
+*** **Alternative Cons:** Same as Alternative 1. In addition to that:
+Passing the job to FileUtil would require implementing Pdf creation and saving that is already present in the third party library Apache PDFBox. Hence the job is passed to PdfUtil and stops there as it calls the already present writing methods of Apache PDFBox.
+** **Choice Justification:** +
+Since: +
+There already is a file reading/writing error handling implemented in InOutAddressBookStorage. +
+There already is .pdf handling implemented in Apache PDFBox. +
+It would be logical to make use of them instead of re-implementing them.
+
+===== Aspect: Index ranges of Import and Export
+* **Current implementation:** The Import/Export features accept index ranges that are larger than the actual index range of the content to be imported/exported. Indexes out of range are simply ignored. +
+E.g. There are patients from index 1 to index 30. User inputs `export test.json 10-40`. Patients with index 10 to 30 are exported, the requested 31 to 40 is ignored.
+** **Alternative:** Don't allow indexes out of range for Import/Export.
+*** **Alternative Pros:** User cannot input a very large index range. This prevents a scenario where a very large range causes slow runtime and increased memory due to the amount of indexes to process.
+*** **Alternative Cons:** User may feel frustration of being denied due to minor mistakes. e.g. `export data.json 1-31` being rejected when there are only 30 entries.
+** **Choice Justification:** As our goal when designing TeethHub was to make things easier for the user, we decided to allow the user to make some mistakes.
+
+* **Current implementation:** The Import/Export features accept the `all` keyword in place of an index range.
+** **Alternative:** Don't parse "all" keyword for Import/Export.
+*** **Alternative Pros:** Faster runtime as there are less characters in the regex to match.
+*** **Alternative Cons:** User would need to know the total amount of patients in the external file if importing. Otherwise, the user might resort to inputting a very large index range, which would slow down runtime and increase memory needed due to the amount of indexes to process.
+** **Choice Justification:** We chose the current implementation to provide an alternative so that it would discourage users from inputting a very large index range.
+
+* **Current implementation:** The Export feature calls the Save feature when the `all` keyword is detected.
+** **Alternative:** Don't parse `all` keyword for Export.
+*** **Alternative Pros:** Less overhead and faster runtime as there the regex would not need to look for `all`
+*** **Alternative Cons:** In the current implementation, Import and Export share the same parser as Import and Export share the same format of `command FILE_PATH INDEX_RANGE`. Since Import uses the `all` keyword, not parsing `all` would require an additional parser for Export.
+** **Choice Justification:** We chose the current implementation so as to reduce duplicate logic and improve user experience. As the accepted inputs of Open and Save are the same (except for .pdf), the user may expect the same accepted inputs for Import and Export as well.
+
+=== Suggestion feature
+As TeethHub contains commands that are similar, we decided to implement a Suggestion feature. +
+This feature was designed to help users who are familiar with older versions of TeethHub or Address Book 4, as they have the names of old commands. +
+When the user types a Common command, a suggestion will be displayed asking the user if they meant to type something else. +
+We define a Common command as a command whose name is used by the Patient commands, Record commands and/or Task commands. +
+For example, as there are `patientadd`, `recordadd` and `taskadd`, the Common command would be `add`. +
+As TeethHub has a Patient Mode and a Record Mode, only commands that can be used in the user's current mode will be displayed.
+
+image::SuggestionFeatureAddPatientMode.png[width="236"]
+
+==== Design Considerations
+* **Current implementation:** When the user types a Common command, suggestions are displayed. +
+** **Alternative:** Show Help window if the user inputs invalid commands `N` times in a row.
+*** **Alternative Pros:** Only 1 implementation, as opposed to an implementation for each Common command. +
+*** **Alternative Cons:** Might be rude.
+** **Choice Justification:** We chose the current implementation as we occasionally found ourselves and other users typing `add` to add something, `edit` to edit something and so on. This implementation was designed to tackle this issue.

@@ -8,9 +8,10 @@ lib/*
 *.log
 *.log.*
 *.csv
-config.json
-src/test/data/sandbox/
+/config.json
 preferences.json
+/preferences.json
+src/test/data/sandbox/
 .DS_Store
 ./screenshot*.png
 classes/
@@ -18,3 +19,11 @@ classes/
 /bin/
 src/main/resources/docs/
 out/
+.project
+*.class
+.classpath
+data/TeethHub.json
+.gitignore
+data/TeethHub.json
+data/test.pdf
+data/what.pdf

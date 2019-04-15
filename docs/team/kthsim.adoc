@@ -1,0 +1,109 @@
+= Keith Sim - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: TeethHub
+
+== Overview
+My teammates and I were assigned the task of either improving an existing Command-Line Interfaces (CLI) based program
+ by the name of AddressBook4 or to use it as the basis for our own program. We chose to transform it into TeethHub.
+
+TeethHub is a desktop patient-record application meant for tech-savvy dental practitioners who
+prefer interacting with Command-Line Interfaces (CLI) based programs over Graphical User Interface (GUI) based ones.
+The program allows dentists to enter patient data, manage records and teeth data tied to each patient, view
+information in a variety of ways, as well as import and export information into either .json or .pdf format.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX to display data for the user.  It is
+written in Java, and has about 20 kLoC.
+
+My responsibility was implement different ways the dentist could view the stored information within the program. To
+that end, I created the `sort` and `stat` commands as well as enhanced the existing functionality of the `find`
+program. The below segments go into greater detail of these implementations as well as the sections I have written
+within both the user guide and the developer guide.
+
+== Summary of contributions
+The segment below summarises the most pertinent improvements and enhancements I made towards the team's overall goals.
+
+* Added the ability to sort displayed data
+** What it does: allows the user to sort either patient or record data according to their desired parameter and sort
+order depending on the mode it's in.
+** Justification: A user can have large amounts of data stored within the program. This feature improves the product
+significantly by allow the user to view that data in the desired parameter order so that it becomes easier for the
+user to locate them.
+** Highlights: This feature automatically switches the type of data (patient or record) that it sorts
+depending on the mode the program is in. This feature reorders the stored data within the json storage
+                file as well.
+
+* Added the ability to find patients and records through all available parameters
+** What it does: allows the user to find a desired patient or record based on the specified parameter(s) and keywords.
+The user can additionally choose if they want the search to be case sensitive, and if the search should find data
+containing at least one keyword or if the search should find data that contains all keywords.
+
+** Justification: A user can have large amounts of data stored within the program. This feature allows the user
+greater refinement over the parameters to find a particular desired patient.
+** Highlights: This feature automatically switches the type of data (patient or record) that it searches through
+depending on the mode the program is in.
+
+* Added the ability to view a patient's statistics report
+** What it does: allows the user to view a detailed report of the select patient containing their latest teeth, all
+linked user information, as well as a breakdown of their associated records.
+** Justification: A patient might be a frequent visitor to the user's dental practice, hence the user may want a
+detailed report so that they can analyze potential trends.
+** Highlights: This feature has three different ways of record data visualization; a simple table; a bar chart, and a
+ pie chart.
+
+* Added a Next Of Kin class as an attribute for a patient.
+* Added a Procedure class as an attribute for a record.
+
+*Code contributed*: [http://tinyurl.com/yywtfzrn[Reposense]]
+
+*Other contributions*:
+
+** Project management:
+*** Created and maintained the group project repository
+*** Managed releases `v1.1` - `v1.4` (6 releases) on GitHub
+*** Responsible for approving and merging the Pull Requests of fellow teammates
+*** Created majority of open issues and distributed responsibilities for the issues to relevant team members
+*** Created and assigned relevant tags to issues within the project
+
+** Enhancements to existing features:
+*** Updated README to reflect information for TeethHub instead of AddressBook4
+** Community:
+*** Reported bugs and suggestions for other team members https://github.com/CS2103-AY1819S2-W17-2/main/issues/58[#58]
+https://github.com/CS2103-AY1819S2-W17-2/main/issues/106[#106]
+** Tools:
+*** Integrated a web page & documentation checker (Netlify) to the team repository
+*** Integrated a new Github plugin (TravisCI) to verify test cases to the team repo
+*** Integrated a new Github plugin (Coveralls) to determine the extend of test case coverage of our code to the team
+repo
+
+
+== Contributions to the User Guide
+
+|===
+|_The text below is the documentation done for the user guide that I feel highlights my ability to write end-user
+friendly documentation through the showcase of a few important sections._
+|===
+
+include::../UserGuide.adoc[tag=viewingInfo]
+
+include::../UserGuide.adoc[tag=rfindClear]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_The text below is the documentation done for the developer guide that I feel highlights my ability to write
+technical documentation through the showcase of the more important
+implementations I did during the creation of the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=findimplement]
+
+include::../DeveloperGuide.adoc[tag=sortimplement]
+
+include::../DeveloperGuide.adoc[tag=statimplement]
+
+---
+
+

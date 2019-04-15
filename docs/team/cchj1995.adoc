@@ -1,0 +1,82 @@
+= Jonathan Choo - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: TeethHub
+
+---
+
+== Overview
+
+As part of a Software Engineering module, my team and I were given an objective to enhance or morph an existing application known as AddressBoook4(AB4). We opted to transform the application and the product of our efforts was TeethHub.
+
+TeethHub was designed for dentists who are proficient with computers and comfortable with using a Command Line Interface(CLI) for interaction over a Graphical User Interface(GUI). Dentists can store, modify, interact and even export their patients, records and tasks, all the while enjoying clear graphical feedback. TeethHub was written in Java, building its graphical elements on JavaFX. As of v1.4, the application has roughly 20000 lines of codes, a difference of 10000 lines compared to AB4.
+
+In the next three sections, I will be detailing a summary of my contributions,
+excerpts from my documentation work for TeethHub's User Guide and Developer's Guide.
+
+== Summary of contributions
+
+|===
+|_This section provides a concise idea of my contributions to TeethHub's development.
+The contents follows a flow of major to minor contributions ending off with a list of other contributions._
+|===
+
+* *Major implementation*: added *the task class and all its attributes*
+** What it does: The entire task data structure enables TeethHub to store information pertaining to our users' tasks.
+** Justification: As dentists, aside from having patients and records, our users will have tasks that they are required to complete. By enabling TeethHub to handle the information for these tasks, users can enjoy the benefits of having all of their important information being in the one application.
+** Highlights: This implementation serves as a stepping stone for future developments to provide more interaction with task information. Comprehensive understanding of the existing application (AB4) was necessary for this implementation as it essentially creates a new type of data for the application.
+
+* *Major enhancement*: added *the ability to link a task to a patient*
+** What it does: This enhancement enables users to provide a link between a task and a patient by being specified as one of the task's attributes either upon creation of a task or by modifiying a task's information.
+** Justification: This enhancement allows users to experience a cohesion between the information they have on TeethHub. In the real world, a dentist's task often relates to a patient and by enabling TeethHub to emulate the same experience, the application can provide greater value to the user.
+** Highlights: This enhancement proved to be rather demanding as it involved augmenting and changing existing commands that modified or removed a patient. The challenge was in ensuring the linked task did not directly affect the linked patient when modified or deleted, while changing a linked patient had to change the task linked to it automatically.
+
+* *Major enhancement*: added *the ability to display a task calendar*
+** What it does: This enhancement allows the user to use a `taskcal` command to display a new popup window containing a calendar, a list of tasks and a commandbox. The displayed window provides users interactive information about their tasks, highlighting dates where tasks are present.
+** Justification: This enhancement provides additional value and meaning to the task information TeethHub stores for its users. By giving users context for the tasks in the form of a calendar, users can more accurately view and plan their schedules as they have a clearer view of when they have tasks and how important are these tasks.
+** Highlights: This was the most challenging enhancement I had made to the application because it involved in-depth understanding of the program's GUI, considering the best means of displaying the calendar and the logical approach to finding the right dates to highlight.
+
+* *Minor enhancement*: added taskadd, taskedit and taskdelete commands to provide users to have the most basic but essential interactions with the task information.
+
+* *Minor enhancement*: added a taskdone command to enable users to automatically set a task to complete and add a record to its linked patient (if any).
+
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=cchj1995[Reposense]]
+
+* *Other contributions*:
+
+** Enhancements to existing features:
+*** Modified GUI layout to fit TeethHub's own layout (layout designed by teammate)
+*** Added new implementations to existing patientedit and patiendelete commands to work with task
+*** Wrote tests for new features to increase coverage by ~7%
+
+** Contributions to team members' enhancements:
+*** Provided code to flatten and overlay images of teeth, resulting image used in teammates features.
+*** Added GUI panel to display Teeth feature using flattened image.
+*** Added GUI panel to display Patient and Record information.
+*** Reported, suggested solutions and fixed bugs for own team (E.g. https://github.com/CS2103-AY1819S2-W17-2/main/issues/106#issuecomment-478082206[Date bug], https://github.com/CS2103-AY1819S2-W17-2/main/issues/106#issuecomment-478637428[Record bug] and https://github.com/CS2103-AY1819S2-W17-2/main/pull/108[Bug fixes] )
+
+** Community:
+*** Reported bugs and suggestions for another team in a Practical Exam (PE) dry run. (E.g. https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/921[Sort suggestion], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/795[Error Message bug], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/175[UI display bug]
+
+== Contributions to the User Guide
+
+|===
+|_This section illustrates some of my contributions to TeethHub's User Guide.
+The excerpts are instructions for *taskdone* and **taskcal** commands
+that I believe strongly highlights my end-user focused documentation skills._
+|===
+
+include::../UserGuide.adoc[tag=task_ppp_cchj1995]
+
+== Contributions to the Developer Guide
+
+|===
+|_This section illustrates some of my contributions to TeethHub's Developer Guide.
+The excerpts are technical documentations for most of my **Task** features that I believe
+accurately showcases the technical depths of my contributions._
+|===
+
+include::../DeveloperGuide.adoc[tag=taskDG1_cchj1995]
+include::../DeveloperGuide.adoc[tag=taskDG2_cchj1995]

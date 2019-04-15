@@ -29,6 +29,7 @@ public class BrowserPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
+
     private WebView browser;
 
     public BrowserPanel(ObservableValue<Person> selectedPerson) {

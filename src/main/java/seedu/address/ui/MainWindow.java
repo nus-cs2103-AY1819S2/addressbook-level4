@@ -1,9 +1,14 @@
 package seedu.address.ui;
 
+import static seedu.address.commons.core.Messages.MESSAGE_CALENDAR_SHOWN;
+
+import java.time.LocalDate;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -16,6 +21,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.patient.Patient;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -23,7 +29,18 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class MainWindow extends UiPart<Stage> {
 
+    /**
+     * The patient of records to be shown
+     */
+    private static Patient recordPatient = null;
+
+    /**
+     * Indicates if current mode is showing patient records
+     */
+    private static boolean goToMode = false;
+
     private static final String FXML = "MainWindow.fxml";
+
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -31,13 +48,18 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+    private PatientInfoPanel patientInfoPanel;
+    private RecordListPanel recordListPanel;
     private PersonListPanel personListPanel;
+    private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatWindow statWindow;
+    private CalendarWindow calendarWindow;
+    private TeethPanel teethPanel;
 
     @FXML
-    private StackPane browserPlaceholder;
+    private StackPane patientInfoPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -54,12 +76,22 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
+    @FXML
+    private StackPane taskListPanelPlaceholder;
+
+    @FXML
+    private StackPane teethPanelPlaceholder;
+
+    @FXML
+    private StackPane recordListPanelPlaceholder;
+
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
+        logic.setMainWindow(this);
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -67,6 +99,12 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        statWindow = new StatWindow(new Stage(), this.logic);
+        calendarWindow = new CalendarWindow(new Stage(), this.logic, LocalDate.now());
+
+
+        // Hidden panel by default.
+        recordListPanelPlaceholder.setVisible(false);
     }
 
     public Stage getPrimaryStage() {
@@ -79,6 +117,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -111,12 +150,18 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedPersonProperty());
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        patientInfoPanel = new PatientInfoPanel(logic.selectedPersonProperty(), logic.selectedRecordProperty());
+        patientInfoPlaceholder.getChildren().add(patientInfoPanel.getRoot());
+
+        teethPanel = new TeethPanel(logic.selectedPersonProperty());
+        teethPanelPlaceholder.getChildren().add(teethPanel.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
                 logic::setSelectedPerson);
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
+        taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -124,7 +169,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
+        CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory(), false);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -152,15 +197,121 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens a stat window and closes the previous one if it's already opened
+     */
+    @FXML
+    public void handleStat() {
+        if (statWindow.isShowing()) {
+            statWindow.close();
+        }
+        statWindow = new StatWindow(new Stage(), this.logic);
+        statWindow.populateData();
+        statWindow.show();
+    }
+    /**
+     * Opens a Task Calendar window popup and focuses with new date if already showing
+     */
+    public void handleCalendar(String input) {
+        if (calendarWindow.isShowing()) {
+            resultDisplay.setFeedbackToUser(MESSAGE_CALENDAR_SHOWN);
+            calendarWindow.setDate(input);
+            calendarWindow.updateDateMessage(input);
+            calendarWindow.focus();
+        } else {
+            calendarWindow.setDate(input);
+            calendarWindow.show();
+        }
+    }
+
+    /**
+     * Opens the record panel and hides the patient list.
+     */
+    @FXML
+    public void handleRecord() {
+        populateRecords();
+        personListPanelPlaceholder.setVisible(false);
+        recordListPanelPlaceholder.setVisible(true);
+        patientInfoPanel.loadRecordTab();
+        goToMode = true;
+    }
+
+    /**
+     * Generates the record using the stored patient.
+     */
+    private void populateRecords() {
+        if (MainWindow.getRecordPatient() != null) {
+            recordListPanel = new RecordListPanel(logic.getFilteredRecordList(), logic.selectedRecordProperty(),
+                    logic::setSelectedRecord);
+            recordListPanelPlaceholder.getChildren().clear();
+            recordListPanelPlaceholder.getChildren().add(recordListPanel.getRoot());
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
 
     /**
-     * Closes the application.
+     * Returns records list to patient list.
+     */
+    @FXML
+    private void handleBack() {
+        backToPatientList();
+    }
+
+    /**
+     * If at GoTo mode -> Goes back to patient list.
+     * Else closes the application.
      */
     @FXML
     private void handleExit() {
+        boolean confirmExit = true;
+        if (calendarWindow.isShowing()) {
+            calendarWindow.close();
+        }
+        if (statWindow.isShowing()) {
+            statWindow.close();
+        }
+        if (!logic.checkNoCopy()) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                    "Copies will not be saved.\nConfirm exit?", ButtonType.YES, ButtonType.NO);
+            alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.NO) {
+                confirmExit = false;
+            }
+        }
+        if (confirmExit) {
+            exit();
+        }
+    }
+
+    /**
+     * Close the application.
+     */
+    @FXML
+    private void handleExit(boolean exitAnyway) {
+        if (exitAnyway) {
+            exit();
+        }
+    }
+
+    /**
+     * Returns to Patient list from Records list.
+     */
+    private void backToPatientList() {
+        personListPanelPlaceholder.setVisible(true);
+        recordListPanelPlaceholder.setVisible(false);
+        MainWindow.setRecordPatient(null);
+        patientInfoPanel.closeRecordTab();
+        goToMode = false;
+    }
+
+    /**
+     * Exit the application
+     */
+    private void exit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
@@ -187,8 +338,24 @@ public class MainWindow extends UiPart<Stage> {
                 handleHelp();
             }
 
+            if (commandResult.isShowStat()) {
+                handleStat();
+            }
+
+            if (commandResult.isShowRecord()) {
+                handleRecord();
+            }
+
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isBack()) {
+                handleBack();
+            }
+
+            if (commandResult.isShowCalendar()) {
+                handleCalendar(getDateInput(commandResult.getFeedbackToUser()));
             }
 
             return commandResult;
@@ -198,4 +365,26 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
+    /**
+     * Sets the patient who records are going to show.
+     *
+     * @param patient the patient who records will be shown.
+     */
+    public static void setRecordPatient(Patient patient) {
+        MainWindow.recordPatient = patient;
+    }
+
+    public static Patient getRecordPatient() {
+        return MainWindow.recordPatient;
+    }
+
+    public static boolean isGoToMode() {
+        return goToMode;
+    }
+
+    public static String getDateInput(String input) {
+        return input.substring(input.lastIndexOf(" ") + 1);
+    }
+
 }

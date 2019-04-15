@@ -2,45 +2,151 @@
   "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
   "persons" : [ {
     "name" : "Alice Pauline",
+    "nric" : "S1234567A",
+    "dateOfBirth" : "11-12-1990",
+    "sex" : "F",
     "phone" : "94351253",
     "email" : "alice@example.com",
     "address" : "123, Jurong West Ave 6, #08-111",
-    "tagged" : [ "friends" ]
+    "drugAllergy" : "NIL",
+    "teeth" : "0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0",
+    "tagged" : [ "teeth:Permanent Teeth", "status:Healthy Teeth" ],
+    "records" : [ ],
+    "nextOfKin" : {
+      "kinName" : "Joshua Pauline",
+      "kinRelation" : "Father",
+      "kinEmail" : "No email specified",
+      "kinPhone" : "96969696",
+      "kinAddress" : "123, Jurong West Ave 6, #08-111"
+    },
+    "description" : "Just another patient.",
+    "index" : 0
   }, {
     "name" : "Benson Meier",
+    "nric" : "S1234568A",
+    "dateOfBirth" : "12-12-1990",
+    "sex" : "M",
     "phone" : "98765432",
     "email" : "johnd@example.com",
     "address" : "311, Clementi Ave 2, #02-25",
-    "tagged" : [ "owesMoney", "friends" ]
+    "drugAllergy" : "Panadol",
+    "teeth" : "0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0",
+    "tagged" : [ "teeth:Permanent Teeth", "status:Healthy Teeth" ],
+    "records" : [ ],
+    "nextOfKin" : {
+      "kinName" : "Jane Meier",
+      "kinRelation" : "Sister",
+      "kinEmail" : "No email specified",
+      "kinPhone" : "98712345",
+      "kinAddress" : "311, Clementi Ave 2, #02-25"
+    },
+    "description" : "Just yet another patient.",
+    "index" : 1
   }, {
     "name" : "Carl Kurz",
+    "nric" : "S1234569A",
+    "dateOfBirth" : "11-12-1991",
+    "sex" : "F",
     "phone" : "95352563",
     "email" : "heinz@example.com",
     "address" : "wall street",
-    "tagged" : [ ]
+    "drugAllergy" : "asprin",
+    "teeth" : "0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0",
+    "tagged" : [ "teeth:Permanent Teeth", "status:Healthy Teeth" ],
+    "records" : [ ],
+    "nextOfKin" : {
+      "kinName" : "Charlie Kurz",
+      "kinRelation" : "Brother",
+      "kinEmail" : "No email specified",
+      "kinPhone" : "85214369",
+      "kinAddress" : "floor square"
+    },
+    "description" : "Needs special anesthetics",
+    "index" : 2
   }, {
     "name" : "Daniel Meier",
+    "nric" : "S2234569A",
+    "dateOfBirth" : "21-12-1991",
+    "sex" : "M",
     "phone" : "87652533",
     "email" : "cornelia@example.com",
     "address" : "10th street",
-    "tagged" : [ "friends" ]
+    "drugAllergy" : "Penicilin",
+    "teeth" : "0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0",
+    "tagged" : [ "teeth:Permanent Teeth", "status:Healthy Teeth" ],
+    "records" : [ ],
+    "nextOfKin" : {
+      "kinName" : "Denice Meier",
+      "kinRelation" : "Mother",
+      "kinEmail" : "No email specified",
+      "kinPhone" : "84456622",
+      "kinAddress" : "11th Strret"
+    },
+    "description" : "Requires different antibiotics",
+    "index" : 3
   }, {
     "name" : "Elle Meyer",
+    "nric" : "S2334569A",
+    "dateOfBirth" : "11-06-1991",
+    "sex" : "F",
     "phone" : "9482224",
     "email" : "werner@example.com",
     "address" : "michegan ave",
-    "tagged" : [ ]
+    "drugAllergy" : "NIL",
+    "teeth" : "0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0",
+    "tagged" : [ "teeth:Permanent Teeth", "status:Healthy Teeth" ],
+    "records" : [ ],
+    "nextOfKin" : {
+      "kinName" : "John Meyer",
+      "kinRelation" : "Grandfather",
+      "kinEmail" : "No email specified",
+      "kinPhone" : "87771222",
+      "kinAddress" : "Ohio Street"
+    },
+    "description" : "Just another patient.",
+    "index" : 4
   }, {
     "name" : "Fiona Kunz",
+    "nric" : "S3234569A",
+    "dateOfBirth" : "01-12-1991",
+    "sex" : "F",
     "phone" : "9482427",
     "email" : "lydia@example.com",
     "address" : "little tokyo",
-    "tagged" : [ ]
+    "drugAllergy" : "NIL",
+    "teeth" : "0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0",
+    "tagged" : [ "teeth:Permanent Teeth", "status:Healthy Teeth" ],
+    "records" : [ ],
+    "nextOfKin" : {
+      "kinName" : "Karly Kunz",
+      "kinRelation" : "Grandmother",
+      "kinEmail" : "No email specified",
+      "kinPhone" : "821355555",
+      "kinAddress" : "bigger tokyo"
+    },
+    "description" : "Buck teeth may need surgery in future.",
+    "index" : 5
   }, {
     "name" : "George Best",
+    "nric" : "S5234569A",
+    "dateOfBirth" : "11-01-1991",
+    "sex" : "M",
     "phone" : "9482442",
     "email" : "anna@example.com",
     "address" : "4th street",
-    "tagged" : [ ]
-  } ]
+    "drugAllergy" : "naproxen",
+    "teeth" : "0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0",
+    "tagged" : [ "teeth:Permanent Teeth", "status:Healthy Teeth" ],
+    "records" : [ ],
+    "nextOfKin" : {
+      "kinName" : "Nimrod Worst",
+      "kinRelation" : "Stepbrother",
+      "kinEmail" : "No email specified",
+      "kinPhone" : "89894215",
+      "kinAddress" : "1st Avenue"
+    },
+    "description" : "Sensitive teeth, should use Sensodyn.",
+    "index" : 6
+  } ],
+  "tasks" : [ ]
 }

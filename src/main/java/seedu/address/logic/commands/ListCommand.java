@@ -1,25 +1,27 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
+import seedu.address.ui.MainWindow;
 
 /**
- * Lists all persons in the address book to the user.
+ * Returns suggestions for the user when "list" is entered.
  */
 public class ListCommand extends Command {
-
     public static final String COMMAND_WORD = "list";
-
-    public static final String MESSAGE_SUCCESS = "Listed all persons";
-
+    public static final String MAIN_USAGE = "Did you mean:\n"
+        + "Listing all patients: \"patientlist\" or \"plist\"\n"
+        + "Listing all tasks: \"tasklist\" or \"tlist\"\n";
+    public static final String GOTO_USAGE = "Did you mean:\n"
+        + "Listing all records: \"recordlist\" or \"rlist\"\n"
+        + "Listing all tasks: \"tasklist\" or \"tlist\"\n";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
-        requireNonNull(model);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(MESSAGE_SUCCESS);
+        if (MainWindow.isGoToMode()) {
+            return new CommandResult(GOTO_USAGE);
+        } else {
+            return new CommandResult(MAIN_USAGE);
+        }
     }
 }

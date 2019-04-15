@@ -4,7 +4,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.PatientEditCommand.EditPersonDescriptor;
+import seedu.address.model.datetime.DateOfBirth;
+import seedu.address.model.patient.Nric;
+import seedu.address.model.patient.Patient;
+import seedu.address.model.patient.Sex;
+import seedu.address.model.patient.exceptions.PersonIsNotPatient;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -32,11 +37,18 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder(Person person) {
         descriptor = new EditPersonDescriptor();
-        descriptor.setName(person.getName());
-        descriptor.setPhone(person.getPhone());
-        descriptor.setEmail(person.getEmail());
-        descriptor.setAddress(person.getAddress());
-        descriptor.setTags(person.getTags());
+        if (person instanceof Patient) {
+            descriptor.setName(person.getName());
+            descriptor.setNric(((Patient) person).getNric());
+            descriptor.setDateOfBirth(((Patient) person).getDateOfBirth());
+            descriptor.setSex(((Patient) person).getSex());
+            descriptor.setPhone(person.getPhone());
+            descriptor.setEmail(person.getEmail());
+            descriptor.setAddress(person.getAddress());
+            descriptor.setTags(person.getTags());
+        } else {
+            throw new PersonIsNotPatient();
+        }
     }
 
     /**
@@ -44,6 +56,30 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Nric} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withNric(String nric) {
+        descriptor.setNric(new Nric(nric));
+        return this;
+    }
+
+    /**
+     * Sets the {@code dateOfBirth} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withDob(String dob) {
+        descriptor.setDateOfBirth(new DateOfBirth(dob));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Sex} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withSex(String sex) {
+        descriptor.setSex(new Sex(sex));
         return this;
     }
 

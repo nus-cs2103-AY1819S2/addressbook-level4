@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= TeethHub - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W17-2`      Since: `14 Mar 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -36,7 +36,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 
 === Setting up the project in your computer
 
-. Fork this repo, and clone the fork to your computer
+. Fork this repository, and clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
 . Set up the correct JDK version for Gradle
 .. Click `Configure` > `Project Defaults` > `Project Structure`
@@ -74,7 +74,7 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+After forking the repository, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repository.
 
 If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
 
@@ -233,10 +233,348 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::patient_kyler[]
+=== Patient Management
+==== Patient Feature
+
+The `Patient` class represents patients for our users on TeethHub.
+It extends `Person` with more patient-specific attributes, as well as methods.
+Various methods are also overridden in order for them to work appropriately with the new `Patient` class.
+
+The following class diagram summarizes the new `Patient` class, which extends from `Person`:
+
+image::PatientClassDiagram.png[width="800"]
+
+==== Dental Records Feature
+
+The `Record` class represents a dental record of a patient. Each `Patient` class has an list of `Record` as an attribute.
+
+The `Record` class is purposely implemented to be similar to that of `Person`.
+Just like person, record has associate classes for specific operations, such as storage.
+This ensures that the processing of records is streamlined with `Patient`, which extends `Person`.
+
+==== Records Mode Feature
+
+The current implementation to view a specified patient's dental records uses the `goto` command.
+
+The `GoToCommand` extends the `Command` abstract class.
+The valid form of the command is `goto INDEX`.
+The `INDEX` of the command specifies the patient in the patient list, based to their denoted indexes.
+
+On the other hand, the current implementation to go back to the patient list uses the `back` command.
+
+It also extends the `Command` abstract class.
+Unlike the `GoToCommand`, the `BackCommand` does not take in any parameters.
+The valid form of the command is `back`.
+
+Given below is an example usage scenario and how the goto/back mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time.
+All stored patients will be loaded and the user will be shown the patient list by default.
+
+Step 2. The user executes `goto 1` command to view the dental records of the first patient in the dental book.
+The `goto` command sets the specified patient in the MainWindow as the first patient.
+The patient list is now replaced by the dental record list of the specified patient.
+
+Step 3. The user can now add, edit, or delete dental records, which are tied to the specified patient.
+
+[NOTE]
+If the `goto` command is entered while the window is already showing dental records of a specified patient, an error message will be displayed on the window.
+
+Step 4. The user now decides that he wants to view the patient list.
+He do so by executing the `back` command.
+After which, the record list is replaced by the patient list.
+
+[NOTE]
+The `back` command will still work with parameters, but those parameters will be ignored.
+
+Step 5. The user can now add, edit, or delete patients' personal information.
+
+[NOTE]
+If the `back` command is entered while the window is already showing patients, an error message will be displayed on the window.
+
+The following activity diagram summarizes what happens when a user executes the `goto` or `back` command:
+
+image::GotoActivityDiagram.png[width=""]
+{nbsp}
+
+==== Patient's Teeth Feature
+
+The `Teeth` class represents patients' teeth for our users on TeethHub.
+It consist of an array of `Tooth` objects, which represents the individual tooth of patients.
+
+[NOTE]
+When a patient is added by the user, TeethHub automatically creates a new set of all healthy and present teeth for the new patient.
+At this point of time, only permanent teeth is supported.
+
+Each `Tooth` can be present or absent. If it is present, it can be on or off status.
+A tooth on status would mean that it is a problematic tooth (i.e. decaying tooth or dental prosthesis).
+A optional status message can be tied to each tooth on status, allowing our users to have a better overview of the tooth if necessary.
+
+The command to edit a specific tooth of a patient is: `teethedit INDEX`.
+
+[NOTE]
+The `teethedit` command can only run after a patient is specified via the `goto` command.
+
+
+The following class diagram summarizes the `Teeth` class, which is a composition of the `Tooth` class:
+
+{nbsp}
+
+image::TeethClassDiagram.png[width=""]
+{nbsp}
+
+==== Automatically Generated Tags Feature
+
+There are only two types of tags that are valid in the `Patient` class.
+They are `StatusTag` and `TeethTag`.
+At any time, there can only be one of each kind of those tags.
+Unlike in `Person`, users cannot added their own tags to patients.
+We have implemented patient tags to be fully automated by our application.
+
+`StatusTag`: Describes the condition of the patient's teeth. The valid options are "Healthy Teeth", "Status Teeth", and "Absent Teeth".
+The worst tooth status found in the patient's teeth will be reflected in the teeth status tag.
+
+The activity diagram below demonstrates how TeethHub automatically update the patient's status tag when his or her tooth is edited:
+
+image::StatusTagActivityDiagram.png[width=""]
+
+`TeethTag`: Describes the teeth type of the patient. The valid options are "Primary Teeth" or "Permanent Teeth".
+
+[NOTE]
+Since only permanent teeth is supported by TeethHub at the moment, `TeethTag` will always show "Permanent Teeth".
+
+==== Dentist Feature
+
+Following the single user policy, TeethHub only prompts the user once to acquire his or her name, which will then be used when creating new dental records for patients.
+
+Currently, the application prompts the user for his or her name during his or her first attempt when adding a new dental record to a specified patient via the `RecordAdd` command.
+
+[NOTE]
+Currently, the dentist's name is stored in a `.txt` file in TeethHub.
+It is possible for users to change their name from the `.txt` file, although they are not encouraged to do so.
+
+==== Other Relevant Features
+
+We have also created new commands that will facilitate the `Patient` class.
+
+[NOTE]
+The commands below can only be executed after a patient is specified via the `GoTo` command.
+
+`RecordAdd`: Adds a new record to a specified patient.
+
+`RecordEdit`: Edits an existing record of a specified patient.
+
+`RecordDelete`: Deletes an existing record of a specified patient.
+
+`RecordClear`: Clear all records of a specified patient.
+
+==== Design Considerations
+
+===== Aspect: Creating the Patient class
+
+* **Current implementation:** Create the `Patient` class by extending it from `Person`.
+** **Alternative:** Create the `Patient` class from the bottom-up.
+*** Alternative Pros: As `Patient` will not be a subclass of any other class, it will be less affected by changes in other classes.
+*** Alternative Cons: All existing classes and methods which currently work with `Person` needs to be re-written to work with the new `Patient` class.
+Attributes and methods cannot be reused, and must be re-implemented.
+Lastly, polymorphism cannot be applied in cases where there is a need to deal with both persons and patients.
+** **Choice Justification:** It is intuitive, as it is logical that all patients are persons as well.
+The code from `Person` can be reused in `Patient` through inheritance, and all existing classes and methods which work with `Person` will also work with `Patient`.
+Most importantly, it allows us to make use of the object-oriented programming principles we learnt in class.
+We assume that the Open-Closed Principle is applied on the `Person` class.
+
+===== Aspect: Picking the appropriate data structure to store dental records
+
+* **Current implementation:** Store the records using a list.
+** **Alternative:** Store the records using a hash table.
+*** Alternative Pros: It gives the fastest time complexity if a record search is required. It runs in O(1) time.
+*** Alternative Cons: It can be challenging for collaborators to understand, which can be detrimental for collaborative programming.
+It also creates an extra layer of complexity in order to display the stored records in the order they were first stored in the application by our users.
+** **Choice Justification:** It is easy to understand, which is crucial for collaborative programming as other programmers may require accessing the records in the list.
+It can also save new records in the order of when they are added, from most recent to oldest, simply using `List.add(0, Record)`.
+However, if the list gets long over time, it might cause additional waiting time for our users when they would to search for a specific record.
+This is because a linear search in a list is of O(n) time complexity.
+
+===== Aspect: How the goto command executes
+
+* **Current implementation:** Use a static variable to store the specified patient, with a public getter method, and a static boolean that denotes the current list viewing mode.
+** **Alternative:** Save the specified patient and list viewing mode as an instance variable of MainWindow.
+*** Alternative Pros: Will work properly even if MainWindow is no longer a singleton class.
+*** Alternative Cons: Challenging to implement as major revamp is required to most existing classes and tests.
+All new classes which wish to access the specified patient or list viewing mode will need to take in a reference to the MainWindow instance.
+** **Choice Justification:** This is relatively easy to implement and understand. Furthermore, other classes can easily access the current specified patient, and the current list viewing mode.
+However, it may cause complications if MainWindow is no longer a singleton class.
+
+===== Aspect: Data structure to support the goto command
+
+* **Current implementation:** Use a patient variable to store the patient specified by the command.
+** **Alternative:** Create a new immutable patient variable to store the specified patient.
+*** Alternative Pros: Ensures the the specified patient cannot be edited by other classes or methods.
+*** Alternative Cons: Major changes to the patient class would require the immutable patient class to be changed too.
+Furthermore, every time any record of the specified patient is modified, a new immutable patient needs to be created to update the currently stored immutable patient.
+** **Choice Justification:** An intuitive solution, as the specified patient is stored as an exact same class as a patient.
+Additionally, attributes of the specified patient can be accessed just like any other patient class.
+Changes to the patient class does not significantly affect the goto command.
+However, the patient class is mutable, and accidental changes to its attributes by other classes or methods can occur.
+
+===== Aspect: Data structure for Teeth
+
+* **Current implementation:** Create a `Tooth` object representing a tooth, and use an array to store a list of tooth which will represent the teeth of patients.
+** **Alternative:** Create an integer array representing teeth. Each integer value in the array indicates the status of a tooth.
+*** Alternative Pros: Simplest to implement.
+*** Alternative Cons: Can be hard to understand by other programmers as integers are used to represent teeth statuses. Additionally, this is violating object-oriented principles.
+** **Choice Justification:** An straightforward object-oriented solution and easy to understand by other collaborating programmers who are familiar with object-oriented programming.
+However, `Tooth` and `Teeth` objects, as well as their relevant methods takes a significant amount of time to be created. They will also require proper test cases to be implemented.
+// end::patient_kyler[]
+
+//tag::aspectDB[]
+===== Aspect: Not adding copies into local storage
+* **Current implementation:** Copies are not serialized into json file. It's only inside the memory. When copies exist before exit, program will ask for user's confirmation
+
+** **Alternative: ** Serialize copies into json file. Make changes to comparators of patient/task such that it accepts same entries with copy tag.
+
+*** Alternative Pros: Everything is on track. User does not need to make a confirmation before exiting with copies. And if the program exits accidentally, the copies are still there.
+*** Alternative Cons: User may be able to generate too many unnecessary entries easily, whose serialization is costly in time and space. The change of comparator also violates the design of unique list, bringing potential security issues as well.
+** **Choice Justification:** Serialization may need less code in the beginning. The maintenacne is more difficult, and the robustness of the program is compromised. On the other hand, creating copies for the user is not a hard task. Thus, creating copies on demand should be a better idea.
+//end::aspectDB[]
+
+// tag::taskDG1_cchj1995[]
+=== Task Management and related commands
+Our user can also utilize TeethHub to store manage and interact with tasks aside from patients. Dentists would often have tasks that needs to be completed or performed and the implementation of the `Task` data object allows TeethHub to provide its user with the ability to manage these tasks and have them interact with their patient's details when necessary as well. The main commands added with the data object serve to provide the user with a way to manage and view the tasks stored in the application.
+
+This segment will explain the main features of the a new data type `Task` that TeethHub handle. Key implementation details and the design considerations when designing these features will also be covered.
+
+==== Task storage and attributes
+The `Task` class is a new type of object that is meant to represent any task a dentist would have to perform. `Task` objects are kept in a list and handled by the `UniqueTaskList` class. This follows the same process as the `Patient` class and by extension, the `Person` class which has a `UniquePersonList` handling a list of `Person` objects.
+
+Storing information of all objects does not change between `Task` and `Person` classes and both are stored into a `TeethHub.json` file. Attributes for `Task` are instantiated as objects with their own methods to validate the user's input much like the current implementation of `Patient`/`Person` .
+
+
+[NOTE]
+Task has an attribute called `LinkedPatient` which stores the `NAME` and `NRIC` of a patient. This is to allow tasks to be bound to a patient and facilliate another implementation `taskdone` .
+
+
+The following class diagram details the attributes `Task` and the multiplicity association between the classes:
+
+image::TaskClassDiagramFinal.png[width=""]
+// end::taskDG1_cchj1995[]
+==== Task interaction feature (Basic)
+Essential commands for basic interaction with the tasks such as, `taskadd`, `taskedit` and `taskdelete` are implemented in a similar fashion as compared to existing commands. All three commands extend from the abstract class `Command` and follow the same execution flow as `patientadd`, `patientedit` and `patientdelete`.
+
+The generic execution flow of these commands mostly involve the `Logic` and `Model` component of the application and the order can be detailed as follows:
+
+. User's input command gets sent to LogicManager.
+. LogicManager sends to AddressBookParser to check command validity.
+. AddressBookParser creates a CommandParser(typically named `commandclassnameParser` like `TaskAddCommandParser`) to check the arguments.
+. CommandParser creates an instance of the Command and sends it back to LogicManager.
+. LogicManager calls the method to execute the Command.
+. Command executes and calls methods from Model to interact with the `Task` objects.
+. Result from the command's execution gets sent back to the UI and eventually the user.
+
+
+[NOTE]
+Adding and editing tasks may involved additional calls to `Model` if the user specifies a patient to link to the task as the application will have to extract unique information from the `Patient` to store in the task
+
+
+The following sequence diagram illustrates the stated generic command execution flow and the components involved:
+
+image::GenericSequenceDiagram.png[width=""]
+
+//tag::taskDG2_cchj1995[]
+==== Task Autocomplete feature
+
+The `taskdone` command is a feature implemented to allow the user to automatically complete a task of his/her choice, setting it to `COMPLETED`. The command also allows the user to automatically add a record to the task's `LinkedPatient` upon completion of the task. This feature makes use of the `Model` by calling its methods `setTask()` and `setPerson()` to perform additional interactions with both task and patient respectively.
+
+The general process followed during the command's execution is as follows:
+
+. User runs a valid `taskdone` command on a task with a linkedpatient
+. Command gets parsed properly and reaches the execution stage within `TaskDoneCommand`
+. New task gets created with the exact same attributes as the task to be completed.
+. New task is set to COMPLETED
+. setTask method is called to replace the task to be completed with the new task
+. TeethHub's stored list of patients is searched to look for a patient matching the task's linked patient's NRIC
+. Retrieves the found patient and adds a record to the patient.
+. setPerson method is called to replace the matching patient with the new patient who has the added record.
+. Command execution ends and result is returned back to the user.
+
+[NOTE]
+The current `patientedit` and `patientdelete` commands have been modified to update tasks linked to a patient when said patient gets modified or deleted. However, to keep in line with the concept of Defensive Programming, the execution still check and inform the user in an event where the `LinkedPatient` cannot be found.
+
+The following sequence diagram illustrates an example where command executes on task with the index `1`:
+
+image::TaskDoneSequenceDiagram.png[width=""]
+
+==== Task Calendar feature
+
+The `taskcal` command is a feature implemented to allow the user to view task related data in a more interactive and helpful manner. Executing the command creates a popup window with the list of tasks on the left side and a calendar on the right side. The popup window will also have a commandbox where the user is able to key in task related commands, dates in the format of `dd-mm-yyyy` to navigate the calendar or exit and help as miscelleanous commands.
+
+This feature also enables the user to find tasks depending on the `date` they provide in the commandbox or the date cell they click on such that the task list will update to show users the tasks with start dates and/or end dates on the selected date cell.
+
+[NOTE]
+Closing the Main Window whilst the Task Calendar popup is showing will also close the popup automatically. This is implemented intentionally as the popup is designed to be an extension of the Main Window, not a standalone window.
+
+The calendar is generated with modifications to the date cells being done during the generation process. Modifications to the date cells (e.g. changing font colors, overlaying a circle) are done to highlight date cells with the color of task priority.
+
+The class `CalendarWindow` uses a `HashMap` with the date, as the key and priority number, as a value,to store the start date and end date information from tasks stored in TeethHub, replacing the stored value with a highest priority value between the duplicates. This enables the date cells to be compared with the stored values amidst the generation process, choosing which date cells to highlight with the highest priority color.
+
+The UI components of this feature are implemented using classes from `JavaFX` with the most important component being `DatePicker` which allows a calendar to be drawn up and displayed to the user. The implementation overrides the `updateItem()` method from `DatePicker` to enable modifications to be done to the date cells in the calendar.
+
+[NOTE]
+Color scheme and certain font sizes of the Calendar are done using Cascading Style Sheets (CSS) in a `Calendar.CSS` file found under resources. Changes can be made to the CSS file to change color schemes of the calendar if needed
+
+The following swimlane activity diagram illustrates the process in which the application goes through to create and display the interactive calendar for the user:
+
+image::TaskCalendarSwimLaneDiagram.png[width=""]
+{nbsp}
+
+==== Design Considerations
+
+===== Aspect: Storing the task class
+
+* **Current implementation:** Tasks are stored in the same json file as patients.
+** **Alternative:** Store the tasks in a seperate json file
+*** Alternative Pros: Very unlikely to have a very large json file by saving different data types to a different file.The single json file that stores the data will not become too large if there are too many patients and/or tasks. Reduces the likelihood that the size of the json file will exceed the limit of certain file systems like FAT-32 with a limit of 4GB, which would result in the application being unable to save to the file.
+*** Alternative Cons: Increases time spent opening a seperate json file. This results in more I/O work for application, decreasing application load time.Complicated to implement and affects future storage and I/O features. Implementation would affect I/O features that may need to read from the files to export both patients and tasks. Sets a precedent where new data types added in the future should be stored seperately for consistency, which would affect `export` and `import` commands as they have to be changed to read a new file to export/import.
+** **Choice Justification**: Most operating systems these days utilize a filesystem that allows for filesizes far beyond 4GB. The limit can go up to 2^64 bytes in NTFS for example and in almost all cases, it is unlikely for the a dentist to have such a large number of patients and tasks. Compared to the cons of the alternative where performance and increased likelihood of issues in the futre, the pros that the alternative offers do not seem valid enough to justify using it over the current choice.
+
+
+===== Aspect: Representing the Priority class attribute for Task
+
+* **Current implementation:** Java's special Enumeration (Enum) class is used for the Priority class
+** **Alternative:** Use a normal class type, with string as inner attribute for Priority.
+*** Alternative Pros: Priorities can be named anything the user desires such as "code red", "code blue" for example. Easy to implement as it functions similarly to how `name` and `title` works.
+*** Alternative Cons: Priority tracking depends on the user's own memory of what he/she named them and sees as a higher priority, making it difficult for the program to display the appropriate color for priorities to benefit users. Goes against good programming practice which is to use enum for values that should not be changed and Enum is typically used to store priority types.
+** **Choice Justification**: Priorities being represented as "high", "med" and "low" is a common case and as such, most if not all people should be able to understand the naming convention. While giving freedom to the user is typically beneficial, in this case, it prevents the application from providing better more value to the user. The current choice uses terms that are understandable whilst providing benefits to the user by enabling a consistent colored display of priority tags.
+
+==== Aspect: Modifying task and patient when executing `taskdone` command
+
+* **Current implementation:** Target task and patient are replaced with new instances with priority changed and record added respectively.
+** **Alternative:** Modify the target task and linked patient directly.
+*** Alternative Pros: Easy to implement as they already have methods to perform the operations Requires less operations to execute the command, leading to performance increase.
+*** Alternative Cons: Completing a task does not work with undo and redo due to the way the model is implemented.
+** **Choice Justification**: The current choice enables undo and redo to work with the task autocomplete feature, enabling tasks to be un-completed by using the undo command. This is important as the user could potentially key the wrong index when completing a task and wish to undo the command without having to manually edit the task. From tests done with the alternative, the performance increase is also  negligible at best. The lack of a strong benefit does not make up for the inability to undo/redo making the alternative less desirable as compared to the current choice.
+
+==== Aspect: Data strcuture to support Task Calendar generation
+
+* **Current implementation:** HashMap is used to store dates that have task's starting and/or ending.
+** **Alternative:**  Use an ArrayList to store the dates instead.
+*** Alternative Pros: Does not require its stored values to have an `equals()` method. Lower memory consuption as there is no need to store both a key and a value. Retrieves elements with `get()` in O(1) time with a specified index.
+*** Alternative Cons: Checking if an element exists within is O(n) time as the entire arraylist needs to be checked. Requires knowing the actual index in order to utilize the benefit of an O(1) retrieval.
+** **Choice Justification**: The generation of the calendar page requires a data structure that can check if a particular date is contained within itself in order to decide whether a date cell should be highlighted or not. Arraylist would be slower in this case as it would have to peform an O(n) every time a task gets iterated compared to the O(1) a HashMap offers. There is also no need to implement an `equals()` method for the DateCustom object to be stored as it is already implemented to ensure that there are no duplicate tasks. In this case, the current choices is a much better fit as compared to arraylist to support the calendar feature.
+
+==== Aspect: Method of displaying Task Calendar
+
+* **Current implementation:** Task Calendar window is displayed in a seperate popup.
+** **Alternative:** Display the calendar in another pane in the Main Window.
+*** Alternative Pros: Everything can be shown at one glance to the user. No need to shuffle between windows. No need for a command to make the calendar show.
+*** Alternative Cons: Other elements displayed in the Main Window have to be shrunk along with the calendar's contents to make space for the task calendar to be viewed. Main Window would be displaying too many things.
+** **Choice Justification**: Shrinking all elements in the Main Window would adversely affect the visibility of other important features the application provdies such as the patient's information, the list of patients and list of tasks. This reduces the user experience as content cannot be clearly seen. Following the traditional usage of a calendar, most people typically look at a calendar when the need arises such as planning or scheduling. It would be better for a command to be provided and show the user a clear and distinct calendar only when he/she requires it, making the current choice ideal.
+
+// end::taskDG2_cchj1995[]
+
 // tag::undoredo[]
 === Undo/Redo feature
-==== Current Implementation
-
 The undo/redo mechanism is facilitated by `VersionedAddressBook`.
 It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
@@ -293,24 +631,21 @@ The following activity diagram summarizes what happens when a user executes a ne
 image::UndoRedoActivityDiagram.png[width="650"]
 
 ==== Design Considerations
-
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+* **Current implementation:** Saves the entire address book.
+** **Alternative:** Individual command knows how to undo/redo by itself.
+*** **Alternative Pros:** Will use less memory (e.g. for `delete`, just save the person being deleted).
+*** **Alternative Cons:** We must ensure that the implementation of each individual command are correct.
+** **Choice Justification:** We decided to go with the current implementation as it is simple and easier to fix.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+* **Current implementation:** Use a list to store the history of address book states.
+** **Alternative:** Use `HistoryManager` for undo/redo
+*** **Alternative Pros:** We do not need to maintain a separate list, and just reuse what is already in the codebase. Logic is not duplicated twice as a result.
+*** **Alternative Cons:** Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things. It is also harder for the new incoming developers of our project, who are new Computer Science student undergraduates, to understand.
+** **Choice Justification:** We decided to keep to the Single Responsibility Principle and Separation of Concerns, thus we chose the current implementation.
 // end::undoredo[]
 
 // tag::dataencryption[]
@@ -319,6 +654,311 @@ image::UndoRedoActivityDiagram.png[width="650"]
 _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
+
+=== Viewing Information
+// tag::findimplement[]
+==== Find feature
+The Find mechanism is facilitated through the use of predicates in conjunction with the
+`FilteredList` within `ModelManager`
+
+The below sequence diagram gives an overview of how a `Find` Command is created. When the proper string arguments for
+ a Find Command is entered into the user interface, the arguments are passed to the Logic Manager and then the
+ AddressBook parser to determine if the input is valid. If it valid, a new `FindCommandParser` object is then created
+  and handles the remaining user input.
+
+From FindCommandParser, it creates a `MultipleContainsKeywordsPredicate` before going into a loop that creates the
+respective parameter `ContainsKeywordsPredicate` if the parameter is present within the user input. The newly created
+ `ContainsKeywordsPredicate` objects are passed back to the `FindCommandParser` and stored within a list. Once the
+ loop has finished the list is passed over to the `MultipleContainKeywordsPredicate` object before it is used in the
+ creation of a `FindCommand` object. On success, the `FindCommand` object is returned to the LogicManager as per the
+ flow in the sequence diagram.
+
+On execution of the Find Command, `updateFilteredPersonList` is called with the predicate stored within the program
+itself. It subsequently calls `setPredicate(predicatte)` and updates the displayed person list to only show patients
+that matches the given predicate.
+
+image::FindCommandSequenceDiagram1.png[width="800"]
+
+==== Design Considerations
+===== Aspect: Creation of Predicate Classes
+
+* *Current Implementation:* Every associated parameter that is found within either a `Patient` or `Record`
+class has an associated parameter predicate classes extended from `ContainsKeywordsPredicate` class that handles the
+predicate testing when that parameter is specified to be searched. +
+(E.g. The predicate for Name is handled in `NameContainsKeywordsPredicate`)
+
+** *Alternative 1:* `Patient` and `Record` would each have an individually associated
+`PatientContainsKeywordsPredicate` and `RecordContainsKeywordsPredicate` that
+ contains each respective parameter predicate class within itself.
+
+*** *Alternative Pros:* Collates all parameter predicates relevant to either Patient or Record within a singular
+class. This makes it easier for future developers to discover which file to change should they require to add or
+remove additional parameter predicates from TeethHub.
+
+*** *Alternative Cons:* Violates *Open-Closed Principle* as every time a parameter predicate needs to be added or
+modified, we are forced to modify the code of either `PatientContainsKeywordsPredicate` or
+`RecordContainsKeywordsPredicate` in order to extend its behavior.
+
+** *Choice Justification:* Ultimately, while the current implementation can be considered more troublesome for future
+ developers as they would need to create a new java file for each new parameter, we decided that it was more
+ important for us to maintain proper software engineering principles.
+
+// end::findimplement[]
+
+// tag::sortimplement[]
+==== Sort feature
+The `Sort` mechanism is facilitated through the use of Comparators in conjunction with the Unique Lists for both
+record and patient depending on the programm's mode when the command is called.
+
+Upon parsing the arguments, `SortCommandParser` then checks which mode TeethHub currently is in. If it's in record /
+goTo mode, it creates a `RecordComparator` and returns a `SortRecordCommand`. Otherwise, a `PatientComparator` is called
+instead and returns a `SortPatientCommand` instead.
+
+When the comparator is retrieved,  SortCommandParser then calls `orderChecker` from itself to determine the
+`isReverse` boolean. Finally, the respective parameters are used to create the neccessary `SortCommand` and returns
+it to `AddressBookParser` and then `LogicManager`.
+
+On execution, there are two behaviours can occur depending on whether the `SortCommand` is a `SortPatientCommand` or
+`SortRecordCommand`.  Should it be an instance of `SortRecordCommand`, `sortRecordsBook(c,isReverse)` is called from
+ModelManager, which in turns called `sortRecords(c, isReverse)` from `VersionedAddressBook` and finally calls
+`sortStoredList (c, isReverse)` from `UniqueRecordList`. This sorts the records currently stored according to the
+parsed comparator and hence changes the order records are displayed to the user.
+
+Should it be a `SortPatientCommand` instead, the same logic flow occurs except it that calls the respective patient
+methods and classes instead.
+
+image::SortCommandSequenceDiagram.png[width="800"]
+
+==== Design Considerations
+===== Aspect: Implementation of sort
+
+* *Current Implementation:* `SortPatientCommand` & `SortRecordCommand` extends from a super `SortCommand` class and
+share a common `SortCommandParser`. They hence share the same command words and allows the user to simply enter
+`sort` to sort either the displayed patients or records.
+
+** *Alternative 1:* Create separate parsers and commands for sorting patients and records respectively.
+`PatientSortCommand` and `PatientSortParserCommand` could sort patients while in patients mode while
+`RecordSortCommand` and `RecordSortParserCommand` could sort records while in records mode.
+
+*** *Alternative Pros:* A clearer distinction of what mode the program is in would be made to the user. Additionally,
+ it would be easier to change the parser behavior if necessary in the future of either sort command without affecting
+ the other.
+
+*** *Alternative Cons:* It would no longer be possible to change any shared behavior of both sort commands simply by
+modifying the SortCommand super class.
+
+** *Choice Justification:* Ultimately, we decided on having a parent SortCommand with its two SortPatientCommand and
+SortRecordCommand children share a common SortCommandParser. Aside from the fact that `SortRecordCommand` calls the
+Record equivalent methods and classes that `SortPatientCommand` does, the behavior of both sort commands are
+essentially the same. As such, it made more sense for us to go ahead with our current implementation.
+
+// end::sortimplement[]
+
+// tag::statimplement[]
+==== Stat feature
+The `Stat` mechanism is facilitated through the use of the inbuilt JavaFx framework in conjunction with the data
+stored within each `Patient` object.
+
+Upon execution of the stat command, the patient to have statistics generated from is set to the `StatWindow` file
+which then uses it to create the report. As per the diagram below, `StatWindow` then obtains all attributes from the
+patient and sets the latest teeth image to itself.
+
+The `StatWindow` then creates a `Map<String, Integer>` with all the valid procedure values
+found in `Procedure` as the keys and the values set to 0. `StatWindow` subsequently iterates through all the records
+linked to the set patient checking for the record's procedure type, incrementing the value paired the respective
+procedure by 1 on a hit. It is from this Map that the records table is generated as well as the bar chart. The pie
+chart uses the Map as well while ignoring entries whose values have remained at 0.
+
+It is at this point that all necessary data has been populated within the statistics report and it is displayed to
+the user.
+
+image::StatActivityDiagram.png[width="800"]
+
+==== Design Considerations
+===== Aspect: Selecting the desired patient to stat
+* *Current Implementation:* The selected patient is determined by the Index number of the currently displayed
+patients within the `PatientListPanel`
+
+** *Alternative 1:* The selected patient is determined by a given keyword. Upon entering the keyword, the program
+then searches for the patients that match the keyword. Should multiple patients match the keyword, the command would
+fail and the user would be prompted to refine their search.
+*** *Alternative Pros:* Combines `patientfind` and `stat` together, giving the user greater convenience should they
+know enough unique details of the patient they wish to stat.
+
+*** *Alternative Cons:* Reduces the ease of use of the stat command. As the amount of patients stored within the
+program increases, so does the probability that the entered keywords would match multiple patients.
+
+** *Choice Justification:* Ultimately, we decided to stick with Index based selection as it increases the ease of use
+ for the user when there's a large number of patient entries. As the Index references the displayed patients, the user
+ can hence perform a `patientfind` operation beforehand and locate the desired patient.
+
+// end::statimplement[]
+
+=== File Management
+Although TeethHub already has a built-in auto-load and auto-save, implementing file management would give the user more flexibility with managing data. +
+PDF export is also implemented so that the user would have an easier time making sense of the data when offline.
+
+The File Management features are: `Open`, `Import`, `Save`, `Export`.
+* If the file that is being opened/imported is corrupted, an error message is thrown and no change is made. +
+* If the user inputs an index range for import/export that does not exist, the current indexes that fall within the range are still imported/exported. This is because we want to make things easier on the user.
+
+[NOTE]
+============================================================
+These following two keywords will be used by various File Management features.
+
+`FILE_PATH`: The name and file type to be saved. `FILE_PATH` also allows the inclusion of folder names. If the indicated `FILE_PATH` does not exist, it will be created. +
+Any letters in the English alphabet and numbers are allowed. +
+Allowed special characters are: +
+`! @ # $ % ^ & ( ) _ + - = { } [ ] ; ' , .` +
+Special characters *NOT* allowed are: +
+`< > : " | ? *`
+
+`INDEX_RANGE`: +
+Any positive integers (no decimals, must be greater than 0) are allowed. +
+Use commas (no space) to indicate a break. e.g. `1,3,5` for 1 and 3 and 5 +
+Use dash (no space) to indicate a range. e.g. `3-5` for 3 to 5. `1-3-5` is not allowed, just use `1-5`. +
+Use a combination of commas and dashes to indicate a range as well. e.g. `1-3,5` for 1 to 3 and 5. +
+`all` can be used instead to include everything. e.g. `import test.json all` or `export test.json all`
+============================================================
+
+==== Open vs Import
+
+Suppose you have a `data.json` file with the following contents:
+
+image::OpenImportFeature1.png[width="174"]
+
+The following image illustrates the difference when you open or import `data.json`.
+
+image::OpenImportFeature2.png[width="870"]
+
+==== Open feature
+As TeethHub already has a built-in auto-load when starting the program, the implemented Open feature is simple. +
+*The Open feature opens the specified file and overwrites the current TeethHub data with the file data.* +
+The Open feature's format is: `open FILE_PATH`
+
+1. AddressBookParser creates OpenCommandParser. +
+2. The OpenCommandParser uses ParserUtil to parse the user input. +
+3. If the input is valid, ParserUtil creates a ParsedInOut object and returns it to OpenCommandParser. +
+4. OpenCommandParser creates OpenCommand initialized with the ParsedInOut object. +
+5. OpenCommand checks for if the requested file is a ".json" file, if the file exists, if it is a file, or if it can be read. +
+6. OpenCommand calls the existing readAddressBook().
+
+image::OpenCommandSequenceDiagram.png[width="870"]
+
+==== Import feature
+As TeethHub already has a built-in auto-load when starting the program, the implemented Import feature makes use of it. +
+*The Import feature opens the specified file and adds the file data to the current TeethHub data.* +
+The Import feature's format is: `import FILE_PATH INDEX_RANGE`
+
+1. AddressBookParser creates ImportCommandParser. +
+2. The ImportCommandParser uses ParserUtil to parse the user input. +
+3. If the input is valid, ParserUtil creates a ParsedInOut object and returns it to ImportCommandParser. +
+4. ImportCommandParser creates ImportCommand initialized with the ParsedInOut object. +
+5. ImportCommand checks for if the requested file is a ".json" file, if the file exists, if it is a file, or if it can be read. +
+6. ImportCommand calls the existing readAddressBook() on a temporary storage. +
+6a. ImportCommand adds contents from the temporary storage to the current storage based on the input INDEX_RANGE. +
+6b. ImportCommand adds all contents from the temporary storage to the current storage if INDEX_RANGE is `all`.
+
+==== Save feature
+As TeethHub already has a built-in auto-save when exiting the program, the implemented Save feature makes use of it. +
+*The Save feature saves all current TeethHub data to the specified file.* +
+In addition to that, the Save can also save to PDF, using the Apache PDFBox. +
+In the Open Command Sequence Diagram above, you can see that OpenCommand creates an InOutAddressBookStorage. The InOutAddressBookStorage has the capability to call the existing saveAddressBook() and also a new saveAsPdf(). +
+The Save feature's format is: `save FILE_PATH`
+
+1. AddressBookParser creates SaveCommandParser. +
+2. The SaveCommandParser uses ParserUtil to parse the user input. +
+3. If the input is valid, ParserUtil creates a ParsedInOut object and returns it to SaveCommandParser. +
+4. SaveCommandParser creates SaveCommand initialized with the ParsedInOut object. +
+5. SaveCommand checks for if the requested file is a ".json" file or ".pdf" file. It also checks if the file is Read-only. +
+5a. SaveCommand calls the existing saveAddressBook() if the requested file is a ".json" file. +
+5b. SaveCommand calls the new saveAsPdf() if the requested file is a ".pdf" file.
+
+==== Export feature
+As TeethHub already has a built-in auto-save when starting the program, the implemented Export feature makes use of it. +
+*The Export feature saves specified patients in the current TeethHub data to the specified file.* +
+The Export feature's format is: `export FILE_PATH INDEX_RANGE`
+
+image::ExportCommandActivityDiagram.png[width="870"]
+
+1. AddressBookParser creates ExportCommandParser. +
+2. The ExportCommandParser uses ParserUtil to parse the user input. +
+3. If the input is valid, ParserUtil creates a ParsedInOut object and returns it to ExportCommandParser. +
+4. ExportCommandParser creates ImportCommand initialized with the ParsedInOut object. +
+5. ExportCommand checks if INDEX_RANGE is `all`. +
+5a. ExportCommand calls SaveCommand if INDEX_RANGE is `all`. Refer to Save feature. +
+5b. Otherwise, ExportCommand add contents from the current storage to the temporary storage based on the input INDEX_RANGE. +
+6. ExportCommand checks for if the requested file is a ".json" file or ".pdf" file. It also checks if the file is Read-only. +
+6a. ExportCommand calls the existing saveAddressBook() if the requested file is a ".json" file. +
+6b. ExportCommand calls the new saveAsPdf() if the requested file is a ".pdf" file.
+
+==== Design Considerations
+===== Aspect: Reading or writing a file
+* **Current implementation:** (Open/Import/Save/Export)Command -> InOutAddressBookStorage -> JsonUtil -> FileUtil
+** **Alternative 1:** (Open/Import/Save/Export)Command -> Json Util -> FileUtil
+*** **Alternative Pros:** Less overhead and faster runtime as there are less classes to go through.
+*** **Alternative Cons:** InOutAddressBookStorage does some file reading/writing error handling. Bypassing InOutAddressBookStorage would require the same error handling in (Open/Import/Save/Export)Command. Since (Open/Import/Save/Export)Command is not called when the program starts, we cannot move the error handling from InOutAddressBookStorage to (Open/Import/Save/Export)Command. In that case, we would have to copy the error handling instead, which means that we now have a duplicate logic, which is also not ideal.
+** **Alternative 2:** (Open/Import/Save/Export)Command -> FileUtil
+*** **Alternative Pros:** Same as Alternative 1.
+*** **Alternative Cons:** Same as Alternative 1. In addition to that:
+The features of Json Util would need to be re-implemented in (Open/Import/Save/Export)Command, which would also lead to duplicate logic.
+** **Choice Justification:** +
+Since: +
+There already is a file reading/writing error handling implemented in InOutAddressBookStorage. +
+There already is .json handling implemented in JsonUtil. +
+It would be logical to make use of them instead of re-implementing them.
+
+* **Current implementation:** (Save/Export)Command -> InOutAddressBookStorage -> PdfUtil
+** **Alternative 1:** (Save/Export)Command -> PdfUtil
+*** **Alternative Pros:** Less overhead and faster runtime as there are less classes to go through.
+*** **Alternative Cons:** InOutAddressBookStorage does some file reading/writing error handling. Bypassing InOutAddressBookStorage would require the same error handling in (Open/Import/Save/Export)Command. Since (Open/Import/Save/Export)Command is not called when the program starts, we cannot move the error handling from InOutAddressBookStorage to (Open/Import/Save/Export)Command. In that case, we would have to copy the error handling instead, which means that we now have a duplicate logic, which is also not ideal.
+** **Alternative 2.1:** (Save/Export)Command -> PdfUtil -> FileUtil
+** **Alternative 2.2:** (Save/Export)Command -> FileUtil
+*** **Alternative Pros:** Same as Alternative 1.
+*** **Alternative Cons:** Same as Alternative 1. In addition to that:
+Passing the job to FileUtil would require implementing Pdf creation and saving that is already present in the third party library Apache PDFBox. Hence the job is passed to PdfUtil and stops there as it calls the already present writing methods of Apache PDFBox.
+** **Choice Justification:** +
+Since: +
+There already is a file reading/writing error handling implemented in InOutAddressBookStorage. +
+There already is .pdf handling implemented in Apache PDFBox. +
+It would be logical to make use of them instead of re-implementing them.
+
+===== Aspect: Index ranges of Import and Export
+* **Current implementation:** The Import/Export features accept index ranges that are larger than the actual index range of the content to be imported/exported. Indexes out of range are simply ignored. +
+E.g. There are patients from index 1 to index 30. User inputs `export test.json 10-40`. Patients with index 10 to 30 are exported, the requested 31 to 40 is ignored.
+** **Alternative:** Don't allow indexes out of range for Import/Export.
+*** **Alternative Pros:** User cannot input a very large index range. This prevents a scenario where a very large range causes slow runtime and increased memory due to the amount of indexes to process.
+*** **Alternative Cons:** User may feel frustration of being denied due to minor mistakes. e.g. `export data.json 1-31` being rejected when there are only 30 entries.
+** **Choice Justification:** As our goal when designing TeethHub was to make things easier for the user, we decided to allow the user to make some mistakes.
+
+* **Current implementation:** The Import/Export features accept the `all` keyword in place of an index range.
+** **Alternative:** Don't parse "all" keyword for Import/Export.
+*** **Alternative Pros:** Faster runtime as there are less characters in the regex to match.
+*** **Alternative Cons:** User would need to know the total amount of patients in the external file if importing. Otherwise, the user might resort to inputting a very large index range, which would slow down runtime and increase memory needed due to the amount of indexes to process.
+** **Choice Justification:** We chose the current implementation to provide an alternative so that it would discourage users from inputting a very large index range.
+
+* **Current implementation:** The Export feature calls the Save feature when the `all` keyword is detected.
+** **Alternative:** Don't parse `all` keyword for Export.
+*** **Alternative Pros:** Less overhead and faster runtime as there the regex would not need to look for `all`
+*** **Alternative Cons:** In the current implementation, Import and Export share the same parser as Import and Export share the same format of `command FILE_PATH INDEX_RANGE`. Since Import uses the `all` keyword, not parsing `all` would require an additional parser for Export.
+** **Choice Justification:** We chose the current implementation so as to reduce duplicate logic and improve user experience. As the accepted inputs of Open and Save are the same (except for .pdf), the user may expect the same accepted inputs for Import and Export as well.
+
+=== Suggestion feature
+As TeethHub contains commands that are similar, we decided to implement a Suggestion feature. +
+This feature was designed to help users who are familiar with older versions of TeethHub or Address Book 4, as they have the names of old commands. +
+When the user types a Common command, a suggestion will be displayed asking the user if they meant to type something else. +
+We define a Common command as a command whose name is used by the Patient commands, Record commands and/or Task commands. +
+For example, as there are `patientadd`, `recordadd` and `taskadd`, the Common command would be `add`. +
+As TeethHub has a Patient Mode and a Record Mode, only commands that can be used in the user's current mode will be displayed.
+
+image::SuggestionFeatureAddPatientMode.png[width="236"]
+
+==== Design Considerations
+* **Current implementation:** When the user types a Common command, suggestions are displayed. +
+** **Alternative:** Show Help window if the user inputs invalid commands `N` times in a row.
+*** **Alternative Pros:** Only 1 implementation, as opposed to an implementation for each Common command. +
+*** **Alternative Cons:** Might be rude.
+** **Choice Justification:** We chose the current implementation as we occasionally found ourselves and other users typing `add` to add something, `edit` to edit something and so on. This implementation was designed to tackle this issue.
 
 === Logging
 
@@ -517,7 +1157,7 @@ Here are the steps to create a new release.
 
 .  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
-.  Tag the repo with the version number. e.g. `v0.1`
+.  Tag the repository with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
 === Managing Dependencies
@@ -525,7 +1165,7 @@ Here are the steps to create a new release.
 A project often depends on third-party libraries. For example, Address Book depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
 
 [loweralpha]
-. Include those libraries in the repo (this bloats the repo size)
+. Include those libraries in the repository (this bloats the repository size)
 . Require developers to download those libraries manually (this creates extra work for developers)
 
 [[GetStartedProgramming]]
@@ -555,7 +1195,7 @@ Do take a look at <<Design-Logic>> before attempting to modify the `Logic` compo
 +
 ****
 * Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
+** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/PatientFindCommand.java[`PatientFindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/PatientDeleteCommand.java[`PatientDeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `PatientFindCommand#COMMAND_ALIAS`).
 ** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
 * Solution
 ** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
@@ -674,7 +1314,7 @@ Do take a look at <<Design-Storage>> before attempting to modify the `Storage` c
 ****
 * Hint
 ** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/JsonAddressBookStorage.java[`JsonAddressBookStorage`] class.
+** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/InOutAddressBookStorage.java[`InOutAddressBookStorage`] class.
 * Solution
 ** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
 ****
@@ -759,7 +1399,7 @@ Now we have the `Remark` class, we need to actually use it inside link:{repoURL}
 
 . Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
 . You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `data/addressbook.json` so that the application will load the sample data when you launch it.)
+. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `data/TeethHub.json` so that the application will load the sample data when you launch it.)
 
 ===== [Step 6] Storage: Add `Remark` field to `JsonAdaptedPerson` class
 We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/JsonAdaptedPerson.java[`JsonAdaptedPerson`] to include a `Remark` field so that it will be saved.
@@ -811,13 +1451,16 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* is a dental practitioner
+* has a need to manage a significant number of patient information, records and tasks
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
+* prefers having graphical feedback from the application
+* has an occasional need to transfer chunks of information in and/or out of an app
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manages data faster than a typical mouse/GUI drive app while keeping the graphic benefits of GUI
 
 [appendix]
 == User Stories
@@ -827,20 +1470,88 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+// tag::patient_user_stories_kyler[]
+|`* * *` |user |add a new patient's particulars |know about their situation
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |edit my patient's particulars | their personal information remains updated
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |store my patient's teeth | track their teeth condition
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |modify my dental patients' teeth condition | understand and serve my dental patients'
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |isolate other patients' information |focus on the current patient in my clinic
+
+|`* * *` |user |view my patients' dental records | keep track of my patients' teeth health history
+
+|`* * *` |user |add a new dental record | store diagnosis and treatments of my patients
+
+|`* * *` |user |delete a dental record |remove records that have become redundant or irrelevant
+
+|`* * *` |user |edit a dental record | correct existing dental records
+
+|`* * *` |user |clear all dental records of a patient | protect the privacy of my patients
+// end::patient_user_stories_kyler[]
+
+
+// tag::task_user_stories_cchj1995[]
+
+|`* * *` |user |add a new task |keep track of what I need to do
+
+|`* * *` |user |delete a task |remove tasks that I have already completed or no longer need to do
+
+|`* * *` |user |edit a task |change details of certain tasks that I have already added
+
+|`* * *` |user |link a patient to a task | differentiate between tasks that are meant for a patient and normal tasks
+
+|`* * *` |user | set a task to complete | mark a task as done without needing to edit it again and add a record automatically if the task is linked to a patient
+
+|`* * *` |user | add a record automatically upon completing a task | save time after completing a task that relates a patient by having the record added automatically
+
+|`* * *` |user | view tasks in a calendar | see all the dates in which I have tasks starting or ending, keeping better track of urgency of tasks and deadlines
+
+// end::task_user_stories_cchj1995[]
+
+|`* * *` |user |see a statistics report on each patient's dental history |have an easier time understanding their potential problems
+
+|`* * *` |user |see a warning come up when I'm exiting the program if there exists duplicate entries |be reminded to
+edit them before exiting.
+
+|`* *` |user |see an overall statistics report on my patients |analyze potential trends
+
+|`* *` |user |copy a person |reduce the time needed to create a new person who has similar records to an existing person in the list
+
+//tag::userstoryDB[]
+|`* *` |user |copy a task |reduce the time needed to create a new task who has similar records to an existing task in the list
+
+|`* *` |user |create MC based on existing record |reduce the time needed to input existing data to another system.
+//end::userstoryDB[]
+
+// tag::storyuserJH[]
+
+|`* *` |user |open an external file |work with patients and tasks saved in another file
+
+|`* *` |user |import specific patients from an external file |add patients and tasks from another file
+
+|`* *` |user |save to an external file |have multiple files for cataloguing
+
+|`* *` |user |export specific patients to an external file |have multiple files for cataloguing
+
+|`* *` |user |save/export to PDF |have a more presentable format for reading
+
+|`* *` |user |see suggestions when I type common commands |do not have to keep consulting the Help page
+
+|`* *` |user |add my own images into records |keep track and store relevant images
+
+// end::storyuserJH[]
+
+|`* *` |user |see relevant dentistry tags on my patients' entries |have an overview of my patients' condition
+
+|`* *` |user with many persons in the address book |sort patients by desired parameter |locate a person easily
+
+|`*` |user with confidential patient information|log into the application with a password |prevent unauthorized access to the application when I am not around
+
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -873,6 +1584,124 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+=== Use case: Open file
+
+*MSS*
+
+1.  User requests to open a .json file
+2.  TeethHub opens the file and replaces the current contents with the file contents.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The specified path file is not a .json file.
++
+
+** 1a1. TeethHub shows an error message.
++
+Use case resumes at step 0.
+
+* 1b. The specified .json file contents to not conform to TeethHub's reading algorithm.
++
+[none]
+** 1b1. TeethHub shows an error message.
++
+Use case resumes at step 0.
+
+=== Use case: Save file
+
+*MSS*
+
+1.  User requests to save a .json file or a .pdf file.
+2.  TeethHub saves the file, overwriting if the specified file already exists.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The specified file path is not a .json file or a .pdf file.
++
+
+** 1a1. TeethHub shows an error message.
++
+Use case resumes at step 0.
+
+* 1b. The specified file path is read only.
++
+[none]
+** 1b1. TeethHub shows an error message.
++
+Use case resumes at step 0.
+
+=== Use case: Import file
+
+*MSS*
+
+1.  User requests to import a .json file.
+2.  TeethHub imports the file, adding the file contents to the current TeethHub contents.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The specified file path is not a .json file.
++
+
+** 1a1. TeethHub shows an error message.
++
+Use case resumes at step 0.
+
+* 1b. The specified file path is read only.
++
+[none]
+** 1b1. TeethHub shows an error message.
++
+Use case resumes at step 0.
+
+** 1c. The given index is invalid.
++
+[none]
+** 1c1. TeethHub shows an error message.
++
+Use case resumes at step 0.
+
+=== Use case: Export file
+
+*MSS*
+
+1.  User requests to export a .json file or a .pdf file.
+2.  TeethHub exports the specified contents to the file, overwriting if the specified file already exists.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The specified file path is not a .json file or a .pdf file.
++
+
+** 1a1. TeethHub shows an error message.
++
+Use case resumes at step 0.
+
+* 1b. The specified file path is read only.
++
+[none]
+** 1b1. TeethHub shows an error message.
++
+Use case resumes at step 0.
+
+** 1c. The given index is invalid.
++
+[none]
+** 1c1. TeethHub shows an error message.
++
+Use case resumes at step 0.
+
 _{More to be added}_
 
 [appendix]
@@ -880,6 +1709,7 @@ _{More to be added}_
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to provide all features even when working offline.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
@@ -894,29 +1724,14 @@ Windows, Linux, Unix, OS-X
 A contact detail that is not meant to be shared with others
 
 [appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
+// tag::header_manual
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+// end::header_manual
 
 === Launch and Shutdown
 
@@ -934,24 +1749,155 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+// tag::manual_patient_kyler[]
+=== Patient and Record lists
 
-. Deleting a person while all persons are listed
+. Switching of UI elements when `goto` command is run
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Prerequisites: List all patients using the `list` command. At least one patient should be displayed in the list.
+... Test case: `goto 1` (Patient of index 1) +
+   Expected: The patient list GUI is replaced by the record list GUI. Displays dental records of patient specified by index. The window size may not be optimum. Use the command: `back` to revert to the patient list.
+... Test case: `back` +
+   Expected: No GUI elements changed. Error details shown in the status message. Status bar remains the same.
+
+. Switching of UI elements when `back` command is run
+
+.. Prerequisites: Run the `goto 1` command. GUI displays dental record list.
+... Test case: `back` +
+   Expected: Shows the GUI with a set of sample patients. An alert box prompts for confirmation. The window size may not be optimum. Use the command: `goto 1` to revert to the dental record list.
+... Test case: `goto` +
+   Expected: No GUI elements changed. Error details shown in the status message. Status bar remains the same.
+
+=== Deleting a patient
+
+. Deleting a patient while all patients are listed
+
+.. Prerequisites: List all patients using the `list` command. Multiple patients should be displayed in the list.
+... Test case: `delete 1` +
+   Expected: First patient is deleted from the list. Details of the deleted patient shown in the status message. Timestamp in the status bar is updated.
+... Test case: `delete 0` +
+   Expected: No patient is deleted. Error details shown in the status message. Status bar remains the same.
+... Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size), `delete y` (where y is a negative number), `delete z` (where z is not an integer) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Deleting a dental record
 
-=== Saving data
+. Deleting a record while all dental records of a patient are listed
 
-. Dealing with missing/corrupted data files
+.. Prerequisites: List all dental records of a patient using the `goto x` command (x refers to the index of the patient to be tested). Multiple dental records should be displayed in the list.
+... Test case: `recorddelete 1` +
+   Expected: First dental record is deleted from the list. Details of the deleted dental record is shown in the status message. Timestamp in the status bar is updated.
+... Test case: `recorddelete 0` +
+   Expected: No record is deleted. Error details shown in the status message. Status bar remains the same.
+... Other incorrect recorddelete commands to try: `recorddelete`, `record delete`, `recorddelete x` (where x is larger than the list size), `recorddelete y` (where y is a negative number), `recorddelete z` (where z is not an integer) +
+   Expected: Similar to previous.
+// end::manual_patient_kyler[]
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+// tag::manualTesting_cchj1995[]
+=== Adding a task
 
+. Adding a new task while all tasks are listed
+
+.. Prerequisites: List all tasks using the `tasklist` command Tasks should all be displayed in the task list. No tasks with the exact same attributes as the test cases are present in the list.
+... Test case: `taskadd ti/Test task sd/today st/1200 et/1300 pri/HIGH` +
+   Expected: Task with the title "Test task" is added for with the current date as the start date and end date, a start time of 1200, end time of 1300 and a high priority tag displayed in red, should be added at the bottom of the list of all tasks.
+... Test case: `taskadd ti/Test task 2 sd/11-05-2019 ed/16-05-2019 ti/Test task 2 st/1200 et/1300` +
+   Expected: Task with the title "Test task 2" is added with a start date of 11-05-2019, an end date of 16-05-2019, a start time of 1200, end time of 1300 and a high priority tag displayed in red, should be added at the bottom of the list of all tasks.
+... Test case: `taskadd ti/Test task 2 st/1200 et/1300` +
+   Expected: No task is added. Error details shown in the status message showing proper command usage.
+... Test case: `taskaddti/Test task 2 st/1200 et/1300` +
+   Expected: No task is added. Error details shown in the status message stating an unknown command.
+... Other incorrect taskadd commands to try: `task add`, `taskad d ti/Test task sd/today st/1200 et/1300 pri/HIGH` +
+Expected: Similar to previous.
+
+=== Editing a task
+
+. Editing a new task while all tasks are listed
+
+.. Prerequisites: List all tasks using the `tasklist` command. There are more than 3 tasks present. Tasks should all be displayed in the task list. No tasks with the exact same attributes as the test cases are present in the list.
+... Test case: `taskedit 1 ti/New Edited Title` +
+   Expected: First task in the list of tasks has its title changed to "New Edited Title".
+... Test case: `taskedit 2 ti/New Edited Title 2 sd/today ed/today` +
+   Expected: Second task in the list of tasks has its title changed to "New Edited Title 2", its start date and end date changed to the current date.
+... Test case: `taskedit 3 ti/New Edited Title 3 sd/today ed/today st/1300 et/1200` +
+   Expected: No task is edited. Error details shown in the status message stating that start time cannot be before end time if start date is the same as the end date.
+... Test case: `taskedit x ti/New Edited Title` (where x is larger than the number of tasks listed) +
+   Expected: No task is edited. Error details shown in the status message stating that the task index provided is invalid.
+... Test case: `task edit 1 ti/New Edited Title 4` +
+Expected: No task is edited. Error details shown in the status message stating an unknown command.
+... Other incorrect taskadd commands to try: `tasedit`, `taskedit/ti/Test task sd/today st/1200 et/1300 pri/HIGH` +
+Expected: Similar to previous.
+
+=== Deleting a task
+
+. Deleting a task while all tasks are listed
+
+.. Prerequisites: List all tasks using the `tasklist` command Tasks should all be displayed in the task list.
+... Test case: `taskdelete 1` +
+   Expected: First task is deleted from the list. Details of the deleted task are shown in the result display box.
+... Test case: `taskdelete 0` +
+   Expected: No record is deleted. Error details shown in the status message showing invalid command format.
+... Test case: `taskdelete0` +
+   Expected: No record is deleted. Error details shown in the status message stating an unknown command.
+... Other incorrect recorddelete commands to try: `taskdel`, `task delete` +
+   Expected: Similar to previous.
+// end::manualTesting_cchj1995[]
+
+// tag::manualtestingJH[]
+=== Exporting data
+. Exporting specific patients to a .json or .pdf file.
+
+.. Prerequisites: List all patients using the list command. At least one patient should be displayed in the list.
+... Test case: `export test.json 1` +
+   Expected: A .json file named *test.json* is created/overwritten in the "data" folder. When opened in text viewer (like Notepad), only the patient that corresponds to index 1 in TeethHub should be present, along with all tasks.
+... Test case: `export test ! @ # $ % ^ & ( ) _ + - = { } [ ] ; ' , .json 1` +
+   Expected: Same as previous.
+... Test case: `export test < > : " | ? *.json 1` +
+   Expected: Error message "Special characters such as
+> < : " | ? *
+are not allowed." is shown in message box. No file is created/overwritten.
+... Test case: `export test.pdf 1` +
+   Expected: A .pdf file named *test.pdf* is created/overwritten in the "data" folder. When opened in PDF viewer (like Adobe Acrobat Reader DC), only the patient that corresponds to index 1 in TeethHub should be present, along with all tasks.
+... Test case: `export test.json 0` or `export test.json x` where x is an index not present in the patient list +
+   Expected: A .json file named *test.json* is created in the "data" folder. When opened in text viewer (like Notepad), no patient should be present, but all tasks are.
+... Test case: `export test.txt 1` +
+   Expected: Error message "Input file type is not a .json or .pdf." is shown in message box. No file is created/overwritten.
+... Test case: `export testfolder/test.json 1` +
+   Expected: A folder named "testfolder" is created in the "data" folder and a .json file named *test.json* is created/overwritten in the "testfolder" folder. When opened in text viewer (like Notepad), only the patient that corresponds to index 1 in TeethHub should be present, along with all tasks.
+... Test case: `export testfolder\test.json 1` +
+   Expected: Same as previous.
+... Test case: `export \testfolder/test.json 1` +
+   Expected: Same as previous.
+... Test case: `export testfolder\\\\\\\test.json 1` +
+   Expected: Same as previous.
+
+.. Prerequisites: List all patients using the list command. At least 3 patients should be displayed in the list.
+... Test case: `export test.json 1,3` +
+   Expected: A .json file named *test.json* is created/overwritten in the "data" folder. When opened in text viewer (like Notepad), only the patients that correspond to index 1 *and* index 3 in TeethHub should be present, along with all tasks.
+... Test case: `export test.json 1-3` +
+   Expected: A .json file named *test.json* is created/overwritten in the "data" folder. When opened in text viewer (like Notepad), only the patient that corresponds to index 1 *to* index 3 in TeethHub should be present, along with all tasks.
+
+.. Prerequisites: List all patients using the list command. At least 5 patients should be displayed in the list.
+... Test case: `export test.json 1,3,5` +
+   Expected: A .json file named *test.json* is created/overwritten in the "data" folder. When opened in text viewer (like Notepad), only the patients that correspond to index 1, index 3 *and* index 5 in TeethHub should be present, along with all tasks.
+... Test case: `export test.json 1,3-5` +
+   Expected: A .json file named *test.json* is created/overwritten in the "data" folder. When opened in text viewer (like Notepad), only the patient that corresponds to index 1 *and* index 3 *to* index 5 in TeethHub should be present, along with all tasks.
+... Test case: `export test.json 1-3-5` +
+   Expected: Error message "Invalid index range! Please input a positive unsigned index range." is shown in message box. No file is created/overwritten.
+... Test case: `export test.json 1,,5` +
+   Expected: Error message "Invalid index range! Please input a positive unsigned index range." is shown in message box. No file is created/overwritten.
+... Test case: `export test.json all` +
+   Expected: A .json file named *test.json* is created/overwritten in the "data" folder. When opened in text viewer (like Notepad), all in TeethHub should be present, along with all tasks. Result should be the same as using `save test.json`.
+
+=== Opening data
+
+. Trying to open missing/corrupted data files.
+
+.. Prerequisites: Save or Export a .json file with `save test.json`. Open the .json file in the "data" folder with a text editor (like Notepad). Delete the first line and save.
+... Test case: `open test.json` +
+   Expected: Error message "Data file is not in the correct format." is shown in message box.
+.. Prerequisites: Make sure there is no file in the "data" folder named "test.json".
+... Test case: `open test.json` +
+   Expected: Error message "File not found!" is shown in message box.
+// end::manualtestingJH[]
 _{ more test cases ... }_

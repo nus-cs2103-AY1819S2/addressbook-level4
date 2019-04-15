@@ -10,6 +10,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
+import seedu.address.model.record.Record;
+import seedu.address.model.task.Task;
+import seedu.address.ui.MainWindow;
 
 /**
  * API of the Logic component
@@ -34,6 +37,12 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
 
+    /** Returns an unmodifiable view of the filtered list of tasks */
+    ObservableList<Task> getFilteredTaskList();
+
+    /** Returns an unmodifiable view of the filtered list of tasks */
+    ObservableList<Record> getFilteredRecordList();
+
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
      * The list is ordered from the least recent command to the most recent command.
@@ -56,6 +65,21 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
+     * Selected record in the filtered record list.
+     * null if no record is selected.
+     *
+     * @see seedu.address.model.Model#selectedRecordProperty()
+     */
+    ReadOnlyProperty<Record> selectedRecordProperty();
+
+    /**
+     * Sets the selected record in the filtered record list.
+     *
+     * @see seedu.address.model.Model#setSelectedRecord(Record)
+     */
+    void setSelectedRecord(Record record);
+
+    /**
      * Selected person in the filtered person list.
      * null if no person is selected.
      *
@@ -69,4 +93,14 @@ public interface Logic {
      * @see seedu.address.model.Model#setSelectedPerson(Person)
      */
     void setSelectedPerson(Person person);
+
+    /**
+     * Sets the main window associated with this logic.
+     * @param mainWindow the associated main window.
+     */
+    void setMainWindow(MainWindow mainWindow);
+
+    void displayAllTasks();
+
+    boolean checkNoCopy();
 }

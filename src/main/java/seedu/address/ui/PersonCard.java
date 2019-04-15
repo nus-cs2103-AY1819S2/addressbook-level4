@@ -5,6 +5,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.patient.Patient;
+import seedu.address.model.patient.exceptions.PersonIsNotPatient;
 import seedu.address.model.person.Person;
 
 /**
@@ -27,9 +29,15 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
+    private Label id;
+    @FXML
     private Label name;
     @FXML
-    private Label id;
+    private Label sex;
+    @FXML
+    private Label nric;
+    @FXML
+    private Label dateOfBirth;
     @FXML
     private Label phone;
     @FXML
@@ -41,13 +49,19 @@ public class PersonCard extends UiPart<Region> {
 
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
-        this.person = person;
-        id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
-        person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        if (person instanceof Patient) {
+            this.person = person;
+            id.setText(displayedIndex + ". ");
+            name.setText(person.getName().fullName + " " + ((Patient) person).getSex().toString());
+            nric.setText(((Patient) person).getNric().toString());
+            dateOfBirth.setText(((Patient) person).getDateOfBirth().getDate());
+            phone.setText(person.getPhone().value);
+            address.setText(person.getAddress().value);
+            email.setText(person.getEmail().value);
+            person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        } else {
+            throw new PersonIsNotPatient();
+        }
     }
 
     @Override

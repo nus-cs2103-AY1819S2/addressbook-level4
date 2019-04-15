@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import seedu.address.logic.commands.EditPrescriptionCommand;
+import seedu.address.logic.commands.prescription.EditPrescriptionCommand;
 import seedu.address.model.prescription.Description;
 import seedu.address.model.prescription.Prescription;
 

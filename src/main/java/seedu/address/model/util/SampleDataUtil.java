@@ -1,6 +1,7 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -24,22 +25,179 @@ import seedu.address.model.tag.Specialisation;
 
 
 /**
- * Contains utility methods for populating {@code RequestBook} and {@code HealthWorkerBook}with sample data.
+ * Contains utility methods for populating {@code RequestBook} and {@code HealthWorkerBooknew  sample data.
  */
 public class SampleDataUtil {
 
     private static final String VALID_NRIC = "S8312942G";
 
+    public static final HealthWorker ANDY = new HealthWorker(
+            new Name("Andy Tan"),
+            new Nric("S8312942G"),
+            new Phone("94358253"),
+            new Organization("NUH"),
+            new Skills(new HashSet<>(Arrays.asList(Specialisation.PHYSIOTHERAPY,
+                    Specialisation.GENERAL_PRACTICE))));
+
+    public static final HealthWorker BETTY = new HealthWorker(
+            new Name("Betty Meier"),
+            new Nric("S8176952L"),
+            new Phone("98761232"),
+            new Organization("CGH"),
+            new Skills(new Skills(new HashSet<>(Arrays.asList(Specialisation
+                    .GENERAL_PRACTICE, Specialisation.ORTHOPAEDIC)))));
+
+    public static final HealthWorker CARLIE = new HealthWorker(
+            new Name("Carlie Kurz"),
+            new Nric("S9312942G"),
+            new Phone("95358463"),
+            new Organization("NUH"),
+            new Skills(new Skills(new HashSet<>(Arrays.asList(Specialisation.GYNAECOLOGY,
+                    Specialisation.GENERAL_PRACTICE)))));
+
+    public static final HealthWorker PANIEL = new HealthWorker(
+            new Name("Paniel Meier"),
+            new Nric("S9701568T"),
+            new Phone("87652133"),
+            new Organization("SGH"),
+            new Skills(new Skills(new HashSet<>(Arrays.asList(Specialisation.PHYSIOTHERAPY,
+                    Specialisation.HAEMATOLOGY)))));
+
+    public static final HealthWorker ELLA = new HealthWorker(
+            new Name("Ella Meyer"),
+            new Nric("S9112942G"),
+            new Phone("94824524"),
+            new Organization("SGH"),
+            new Skills(new Skills(new HashSet<>(Arrays.asList(Specialisation.ANAESTHESIOLOGY,
+                    Specialisation.PHYSIOTHERAPY)))));
+
+    public static final HealthWorker FIONE = new HealthWorker(
+            new Name("Fione Kunz"),
+            new Nric("S7812942G"),
+            new Phone("94822373"),
+            new Organization("TTSH"),
+            new Skills(new Skills(new HashSet<>(Arrays.asList(Specialisation.CARDIOLOGY,
+                    Specialisation.OCCUPATIONAL_THERAPY)))));
+
+    public static final HealthWorker GEORGE = new HealthWorker(
+            new Name("George Best"),
+            new Nric("S8812942G"),
+            new Phone("94824424"),
+            new Organization("TTSH"),
+            new Skills(new Skills(new HashSet<>(Arrays.asList(Specialisation.UROLOGY,
+                    Specialisation.PAEDIATRIC)))));
+
+ public static final Request ALICE_REQUEST = new Request(
+        new Name("Alice Pauline"),
+         new Nric("S9670515H"),
+         new Phone("94351253"),
+         new Address("123, Jurong West Ave 6, #08-111"),
+         new RequestDate("01-01-2019 10:00:00"),
+         getConditionSet("Physiotherapy"),
+         new RequestStatus("ONGOING"),
+            ANDY.getNric().toString()
+        );
+
+    public static final Request BENSON_REQUEST = new Request(
+            new Name("Benson Meier"),
+            new Nric("S9274100D"),
+            new Phone("98765432"),
+        new Address("311, Clementi Ave 2, #02-25"),
+            new RequestDate("02-01-2019 08:00:00"),
+        getConditionSet("Palliative"),
+            new RequestStatus("ONGOING"),
+        BETTY.getNric().toString());
+
+    public static final Request CARL_REQUEST = new Request(
+            new Name("Carl Kurz"),
+            new Nric("S9328723A"),
+            new Phone("87652533"),
+            new Address("wall street"),
+        new RequestDate("04-01-2019 14:00:00"),
+            getConditionSet("Palliative"),
+            new RequestStatus("ONGOING"),
+        CARLIE.getNric().toString());
+
+    public static final Request DANIEL_REQUEST = new Request(
+         new Name("Daniel Meier"),
+            new Nric("S2652663Z"),
+            new Phone("82015737"),
+            new Address("10th street"),
+            new RequestDate("02-01-2019 18:00:00"),
+            getConditionSet("Palliative"),
+        new RequestStatus("COMPLETED"),
+        PANIEL.getNric().toString());
+
+    public static final Request EMMANUEL_REQUEST = new Request(
+        new Name("Emmanuel Meier"),
+            new Nric("S2862663Z"),
+            new Phone("82205737"),
+            new Address("10th street"),
+            new RequestDate("02-01-2019 18:00:00"),
+            getConditionSet("Palliative"),
+        new RequestStatus("PENDING"));
+
+    public static final Request FRANCIS_REQUEST = new Request(
+        new Name("Francis Meier"),
+            new Nric("S2122663Z"),
+            new Phone("82655737"),
+            new Address("10th street"),
+            new RequestDate("02-01-2019 18:00:00"),
+            getConditionSet("Palliative"),
+        new RequestStatus("PENDING"));
+
+    public static final Request GLADYS_REQUEST = new Request(
+            new Name("Gladys Meier"),
+            new Nric("S2176663Z"),
+            new Phone("82659337"),
+            new Address("10th street"),
+            new RequestDate("02-01-2019 19:00:00"),
+        getConditionSet("Palliative"),
+        new RequestStatus("PENDING"));
+
+    public static final Request HEPZHI_REQUEST = new Request(
+            new Name("Hepzhi Meier"),
+            new Nric("S2176698Z"),
+            new Phone("82658937"),
+            new Address("10th street"),
+            new RequestDate("02-01-2019 16:00:00"),
+        getConditionSet("Palliative"),
+        new RequestStatus("PENDING"));
+
+    public static final Request INDIANA_REQUEST = new Request(
+            new Name("Indiana Meier"),
+            new Nric("S2184698Z"),
+            new Phone("82692937"),
+            new Address("10th street"),
+            new RequestDate("01-01-2019 08:00:00"),
+        getConditionSet("Palliative"),
+        new RequestStatus("PENDING"));
+
+    public static final Request JANE_REQUEST = new Request(
+            new Name("Jane Romero"),
+            new Nric("S2652663Z"),
+            new Phone("82845737"),
+            new Address("10th street"),
+            new RequestDate("02-01-2019 15:00:00"),
+            getConditionSet("Palliative"),
+            new RequestStatus("COMPLETED"),
+            ELLA.getNric().toString();
+    );
+
+    public static final Request NEA_REQUEST = new Request(
+            new Name("Nea Karlsson"),
+            new Nric("S8875613T"),
+            new Phone("88179352"),
+            new Address("480 Lorong 6 Toa Payoh"),
+            new RequestDate("25-03-2019 10:00:00"),
+            getConditionSet("Physiotherapy"),
+            new RequestStatus("ONGOING"),
+            ELLA.getNric().toString();
+    );
+
     public static HealthWorker[] getSampleHealthWorkers() {
         return new HealthWorker[] {
-            new HealthWorker(new Name("Alex Tan"), new Nric("T1234567J"), new Phone("98765432"),
-                        new Organization("SGH"), getSkillsFromString("PATHOLOGY")),
-            new HealthWorker(new Name("Betty Chua"), new Nric("T5857367J"), new Phone("98875432"),
-                        new Organization("SGH"), getSkillsFromString("GYNAECOLOGY")),
-            new HealthWorker(new Name("Charles Anderson"), new Nric("S5856787J"), new Phone("91234432"),
-                        new Organization("NUH"), getSkillsFromString("GENERAL_PRACTICE")),
-            new HealthWorker(new Name("John Peterson"), new Nric("T2334567J"), new Phone("90987432"),
-                        new Organization("SGH"), getSkillsFromString("UROLOGY"))
+           ANDY,BETTY,CARLIE,PANIEL,ELLA,FIONE,GEORGE
         };
     }
 
@@ -52,15 +210,7 @@ public class SampleDataUtil {
     }
     public static Request[] getSampleRequests() {
         return new Request[] {
-            new Request(new Name("Angie Lim"), new Nric("S9875432L"), new Phone("91665831"),
-                        new Address("39 Upper Boon Keng Road, #07-45"), new RequestDate("10-04-2019 10:00:00"),
-                        getConditionSet("Palliative"), new RequestStatus("PENDING")),
-            new Request(new Name("Benson Tan"), new Nric("S9878932L"), new Phone("84561267"),
-                        new Address("14, Bishan Ave 2, #11-90"), new RequestDate("05-04-2019 15:00:00"),
-                        getConditionSet("Palliative"), new RequestStatus("COMPLETED"), VALID_NRIC),
-            new Request(new Name("Rajuratnam"), new Nric("S8016757C"), new Phone("81654488"),
-                    new Address("108, McNair Road, #09-65"), new RequestDate("01-03-2019 08:00:00"),
-                    getConditionSet("Diabetic", "Kidney Dialysis"), new RequestStatus("COMPLETED"), VALID_NRIC)
+
         };
     }
 

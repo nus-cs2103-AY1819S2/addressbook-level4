@@ -512,7 +512,7 @@ Step 4. The bookshelf now set the fields of the first book to the new ones provi
 // end::book[]
 
 // tag::listBook[]
-=== ListBook Feature
+=== ListBook feature
 
 ==== Current Implementation
 
@@ -552,7 +552,7 @@ image::listBookSqDiagram.png[width="800"]
 // end::listBook[]
 
 // tag::summary[]
-=== Summary Feature
+=== Summary feature
 
 ==== Current Implementation
 
@@ -588,7 +588,7 @@ Step 5. The `SummaryCommand` executes. The command will traverse all books in th
 
 // tag::addReview[]
 
-=== AddReview Feature
+=== AddReview feature
 
 ==== Current Implementation
 
@@ -640,7 +640,7 @@ adding enhanced review input panel to make the review feature more user-friendly
 This feature is provided for the convenience of the user. An overloaded constructor
 is available where the date can be passed in as a parameter, to be used in testing.
 
-=== ListReview Feature
+=== ListReview feature
 
 ==== Current Implementation
 
@@ -658,7 +658,7 @@ Alternatively, the user can click the book to select it.
 
 ===== Aspect:
 
-=== ListAllReviews Feature
+=== ListAllReviews feature
 ==== Current Implementation
 
 The ListAllReviews Feature uses the same implementation as the ListBook feature:
@@ -680,7 +680,7 @@ Step 3. The ListAllReviewsCommand executes. Review list panel is updated to show
 ** Pros: Consistency.
 ** Cons: Command is not intuitive, and takes extra time to implement review predicates.
 
-=== SelectReview Feature
+=== SelectReview feature
 ==== Current Implementation
 
 Selection of review is implemented the same way as the selection of a book.
@@ -696,7 +696,7 @@ Step 3. The SelectReviewCommand executes. The review with the specified index is
 Step 4. The BookBrowserPanel listens to the change in the selected review and displays its review message.
 
 
-=== DeleteReview Feature
+=== DeleteReview feature
 ==== Current Implementation
 
 The review is deleted based on the index.
@@ -727,16 +727,16 @@ We use asciidoc for writing documentation.
 [NOTE]
 We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
 
-=== Editing Documentation
+=== Editing documentation
 
 See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
 Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
 
-=== Publishing Documentation
+=== Publishing documentation
 
 See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
 
-=== Converting Documentation to PDF format
+=== Converting documentation to PDF format
 
 We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting the document to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
 
@@ -751,7 +751,7 @@ Here are the steps to convert the project documentation files to PDF format.
 image::chrome_save_as_pdf.png[width="300"]
 
 [[Docs-SiteWideDocSettings]]
-=== Site-wide Documentation Settings
+=== Site-wide documentation settings
 
 The link:{repoURL}/build.gradle[`build.gradle`]  file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
 
@@ -809,7 +809,7 @@ _{asterisk} Official SE-EDU projects only_
 
 |===
 
-=== Site Template
+=== Site template
 
 The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
 You can modify them to change some properties of the site's design.
@@ -827,7 +827,7 @@ The SE-EDU team does not provide support for modified template files.
 [[Testing]]
 == Testing
 
-=== Running Tests
+=== Running tests
 
 There are three ways to run tests.
 
@@ -868,7 +868,7 @@ e.g. `seedu.address.storage.StorageManagerTest`
 e.g. `seedu.address.logic.LogicManagerTest`
 
 
-=== Troubleshooting Testing
+=== Troubleshooting testing
 **Problem: `HelpWindowTest` fails with a `NullPointerException`.**
 
 * Reason: One of its dependencies, `HelpWindow.html` in `src/main/resources/docs` is missing.
@@ -876,22 +876,22 @@ e.g. `seedu.address.logic.LogicManagerTest`
 
 == Dev Ops
 
-=== Build Automation
+=== Build automation
 
 See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
 
-=== Continuous Integration
+=== Continuous integration
 
 We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
 
-=== Coverage Reporting
+=== Coverage reporting
 
 We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
 
-=== Documentation Previews
+=== Documentation previews
 When a pull request has changed asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
 
-=== Making a Release
+=== Making a release
 
 Here are the steps to create a new release.
 
@@ -900,7 +900,7 @@ Here are the steps to create a new release.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
-=== Managing Dependencies
+=== Managing dependencies
 
 A project often depends on third-party libraries. For example, Bookshelf depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
 
@@ -1014,7 +1014,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 //end::manualtesting[]
 
-=== Launch and Shutdown
+=== Launch and shutdown
 
 . Initial launch
 

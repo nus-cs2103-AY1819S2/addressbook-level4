@@ -556,11 +556,6 @@ The following code snippet shows how `memberFind` command is executed:
 
 //end::memberFind[]
 
-[discrete]
-//tag::membersort[]
-=======
-// end::memberadd[]
-
 // tag::memberfilter[]
 ===== `memberFilter` Command
 *Logic Component*
@@ -658,7 +653,7 @@ There are various ways to cal the statistics methods from UI. Below are some opt
 //end::memberselect[]
 
 // tag::membersort[]
->>>>>>> 800b7dfe4f9f80237caca8a04968fda7192ab633
+
 === MemberSort
 
 ==== Current Implementation

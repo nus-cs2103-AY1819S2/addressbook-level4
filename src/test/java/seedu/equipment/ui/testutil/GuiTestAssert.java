@@ -27,6 +27,7 @@ public class GuiTestAssert {
         assertEquals(expectedCard.getDate(), actualCard.getDate());
         assertEquals(expectedCard.getName(), actualCard.getName());
         assertEquals(expectedCard.getPhone(), actualCard.getPhone());
+        assertEquals(expectedCard.getSerialNumber(), actualCard.getSerialNumber());
         assertEquals(expectedCard.getTags(), actualCard.getTags());
         assertEquals(expectedCard.getTags(), actualCard.getTags());
     }
@@ -47,10 +48,12 @@ public class GuiTestAssert {
      * Asserts that {@code actualCard} displays the details of {@code expectedEquipment}.
      */
     public static void assertCardDisplaysPerson(Equipment expectedEquipment, EquipmentCardHandle actualCard) {
-        assertEquals(expectedEquipment.getName().name, actualCard.getName());
-        assertEquals(expectedEquipment.getPhone().value, actualCard.getPhone());
-        assertEquals(expectedEquipment.getDate().toString(), actualCard.getDate());
-        assertEquals(expectedEquipment.getAddress().value, actualCard.getAddress());
+        assertEquals("Client Name: " + expectedEquipment.getName().name, actualCard.getName());
+        assertEquals("Phone: " + expectedEquipment.getPhone().value, actualCard.getPhone());
+        assertEquals("Date: " + expectedEquipment.getDate().toString(), actualCard.getDate());
+        assertEquals("Address: " + expectedEquipment.getAddress().value, actualCard.getAddress());
+        assertEquals("Serial Number: " + expectedEquipment.getSerialNumber().serialNumber,
+                actualCard.getSerialNumber());
         assertTagsEqual(expectedEquipment, actualCard);
     }
 

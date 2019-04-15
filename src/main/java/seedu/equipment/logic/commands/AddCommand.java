@@ -36,9 +36,6 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_EQUIPMENT = "Duplicated equipment serial number, "
             + "this equipment already exists in the equipment manager.";
 
-    public static final String MESSAGE_DUPLICATE_CLIENT = "Duplicated client name in client details.";
-
-
     private final Equipment toAdd;
 
     /**

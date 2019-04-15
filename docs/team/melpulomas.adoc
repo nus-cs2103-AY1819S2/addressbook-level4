@@ -1,0 +1,61 @@
+= Melvin Vito - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: MediTabs
+
+== Introduction
+This  Project Portfolio shows my contributions to the group project, such as features and documentation. I was in charge of the of the logic component, which mainly focus on the command features of the project. This project is under a core module of software engineering in the my school.
+
+
+== Overview
+
+The group project, Meditabs, is a medicine inventory management for pharmacist to streamline the process of handling the stick taking process. The user mainly uses the Command-Line Interface (CLI) to interact.
+Upon looking  at user case, we implemented a label function to allow the pharmacist to print out the medicine information. This is for easier management for the physical medicine itself.
+
+== Summary of contributions
+
+* *Major enhancement*: Added the `Label` command
+** What it does: Allows the user to output the information of the medicine onto a Portable Document Format (PDF).
+** Justification: Pharmacist would like to have the printed information of certain medicine and label the physical counterpart. With the PDF, the pharmacist may use external printers and print out the information on the label as a sticker. PDF is widely used as a file extension.
+** Highlights: Added security layer to the naming of the file (Auto include .pdf extension) such that users may not over write other important files. Also set a limit on the the length of filename.
+** Credits: Apache PDFBox external library is imported to help manipulate and output the stream of information to the PDF file. More information can be found under: https://pdfbox.apache.org/
+
+* *Minor enhancement*: -
+
+* *Code contributed*: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=melpulomas[Project Code Dashboard]
+
+* *Other contributions*:
+
+** Project management:
+*** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com/CS2103-AY1819S2-T12-3/main/pull/131[#131], https://github.com/CS2103-AY1819S2-T12-3/main/pull/142[#142])
+*** Refactor test cases: (Pull requests https://github.com/CS2103-AY1819S2-T12-3/main/pull/78[#78])
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-T12-3/main/pull/103[#103], https://github.com/CS2103-AY1819S2-T12-3/main/pull/124[#124]
+** Documentation:
+*** Added label command to the User Guide: (Pull requests https://github.com/CS2103-AY1819S2-T12-3/main/pull/106[#106], https://github.com/CS2103-AY1819S2-T12-3/main/pull/191[#191])
+*** Added label command to the Developer Guide: (Pull requests https://github.com/CS2103-AY1819S2-T12-3/main/pull/106[#106], https://github.com/CS2103-AY1819S2-T12-3/main/pull/191[#191])
+*** Changed About Us documentation to describe our group: https://github.com/CS2103-AY1819S2-T12-3/main/pull/24[#24], https://github.com/CS2103-AY1819S2-T12-3/main/pull/27[#27]
+** Tools:
+*** Integrated third party libraries (Apache PDFBox) to the project: https://github.com/CS2103-AY1819S2-T12-3/main/pull/40[#40]
+
+== Contributions to the User Guide
+
+
+|===
+|Below are my contributions to the user guide to showcase my technical skills on user end documentation.
+|===
+
+include::../UserGuide.adoc[tag=labelcommand]
+include::../UserGuide.adoc[tag=previewresults]
+include::../UserGuide.adoc[tag=importpictures]
+
+== Contributions to the Developer Guide
+
+|===
+|Below are my contributions to the developer guide to showcase my technical skills on developer end documentation.
+|===
+
+include::../DeveloperGuide.adoc[tag=labelcommand]
+include::../DeveloperGuide.adoc[tag=labeltest]

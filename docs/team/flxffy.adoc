@@ -1,0 +1,67 @@
+= Ong Ai Hui - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: MediTabs
+
+---
+
+== Introduction
+
+This project portfolio will give you an overview of the documentation, code and ideas I contributed to my team's project, MediTabs, as the team's front-end designer. This project was completed as part of an introductory software engineering module in the National University of Singapore (NUS).
+
+== Project Overview
+
+MediTabs is a desktop application built with the goal to streamline inventory management in a clinic for pharmacists. As part of the project's requirements, MediTabs targets users with a preference for command line interactions.
+
+To achieve this goal, we implemented several key features: a warning panel to view urgent issues, an information panel to display medicine information, and data exportation for data analysis.
+
+For this project, I was in-charge of implementing the warning panel and its related commands.
+
+== Summary of contributions
+
+This section highlights noteworthy contributions I made to the project's documentation and source code.
+
+* *Major enhancement*: Added a warning panel and related `warning` commands
++
+.MediTabs main interface with the warning panel boxed in red
+image::PPP_Ui_WarningPanel.png[width="600"]
+
+** What it does: The warning panel gives users an overview of what medicine batches are expiring/expired and what medicines are low in stock. Thresholds used to determine what is expiring and what is low in stock can be set by the user with simple commands.
+
+** Justification: Simplifies the process of sieving through an inventory to find expiring/expired medicine batches that need to be disposed of, and medicines that require replenishing. User-defined thresholds add to the user experience.
+
+** Highlights: This enhancement required an understanding of all major components to render and populate a column in the application's main interface with the correct lists of items, and to implement complementing commands to change its contents.
+
+* *Minor enhancement*: Changed the implementation of Expiry class so that it uses an updated library, (https://docs.oracle.com/javase/9/docs/api/java/util/Date.html[`java.time.LocalDate`]), instead of the deprecated (https://docs.oracle.com/javase/9/docs/api/java/util/Date.html[`java.util.Date`]).
+
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=flxffy&sort=displayName&since=2019-02-10&until=2019-04-14&timeframe=day&reverse=false&repoSort=true[Project Code Dashboard]]
+
+* *Other contributions*:
+
+** Source code
+*** Changed the application's colour scheme for a sleeker look: https://github.com/CS2103-AY1819S2-T12-3/main/pull/134[#134]
+*** Wrote additional tests for existing features to increase test coverage from 88% to 92%: https://github.com/CS2103-AY1819S2-T12-3/main/pull/139[#139], https://github.com/CS2103-AY1819S2-T12-3/main/pull/188[#188]
+** Documentation
+*** Restructured existing contents of the User Guide: https://github.com/CS2103-AY1819S2-T12-3/main/pull/151[#151]
+** Community
+*** Pull requests reviewed with suggestions to implementation style: https://github.com/CS2103-AY1819S2-T12-3/main/pull/77[#77], https://github.com/CS2103-AY1819S2-T12-3/main/pull/131[#131]
+
+== Contributions to the User Guide
+
+The following sections are my contributions to the User Guide. They showcase my ability to write documentation targeting end-users.
+
+include::../UserGuide.adoc[tag=uiwarningpanel]
+
+include::../UserGuide.adoc[tag=warningpanelcommand]
+
+== Contributions to the Developer Guide
+
+The following sections are my contributions to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+
+include::../DeveloperGuide.adoc[tag=warningpanel]
+
+include::../DeveloperGuide.adoc[tag=warningtest]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]

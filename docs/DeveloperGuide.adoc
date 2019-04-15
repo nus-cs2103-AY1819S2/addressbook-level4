@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= MediTabs - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,19 +13,46 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S2-T12-3/main/blob/master/
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T12-3`      Since: `Feb 2019`      Licence: `MIT`
 
+// tag::introduction[]
+== Introduction
+
+Welcome to the _MediTabs Developer Guide_. This guide contains step by step instructions on how to set up the MediTabs project on your computer and modify the project to suit your needs. You can also find out more about the technical aspects of MediTabs such as its design rationales and implementation details. Interested? You can jump to <<Setting up>> to get started. Enjoy!
+
+=== What is MediTabs
+
+MediTabs is a desktop application, developed using Java, for managing medicine stock taking. It was created to provide pharmacist with a straightforward and efficient way to keep track of and maintain their medicine inventory. With MediTabs, pharmacist can easily organize medicine details and take note of important information such as which medicines are low in stock, expiring soon or have expired. MediTabs also contains functionality to help pharmacists with tasks which require medicine data such as medicine labelling and inventory analysis.
+
+MediTabs supports Windows, Linux and macOS operating systems.
+
+=== Who is this guide for?
+
+Are you a developer who wants to learn how MediTabs is designed and implemented, contribute to the development of MediTabs or modify MediTabs for your needs? If so, this guide provides information that will not only help you better understand the inner workings of MediTabs but also the various classes provided which you can use when modifying MediTabs.
+// end::introduction[]
+
+// tag::settingup[]
 == Setting up
 
+Follow the step by step instructions below to set up MediTabs project with IntelliJ Integrated Development Environment (IDE).
+
+[NOTE]
+You are free to use any IDE which you are comfortable with but we *highly recommend* using IntelliJ. As we use IntelliJ in the development of MediTabs, the instructions to set up MediTabs will be catered for users of IntelliJ. You can download IntelliJ link:https://www.jetbrains.com/idea/download/[here]. If you are planning to use IntelliJ, both the community (free) and ultimate (paid) editions of IntelliJ can be used to set up MediTabs project.
+// end::settingup[]
+
+// tag::prerequisites[]
 === Prerequisites
 
-. *JDK `9`* or later
+. *JDK `9` (highly recommended) or `10`*
 +
+[NOTE]
+JDK `11` and later are not recommended due to some features being removed which were once available in JDK `9`. You can read more about the issue highlighted from the developers of the base source code which MediTabs is based on and improved upon link:https://github.com/se-edu/addressbook-level4/issues/951[here]
 [WARNING]
 JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
 Windows developers are highly recommended to use JDK `9`.
+// end::prerequisites[]
 
 . *IntelliJ* IDE
 +
@@ -34,9 +61,9 @@ IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
 
-=== Setting up the project in your computer
+=== Setting up the project on your computer
 
-. Fork this repo, and clone the fork to your computer
+. Fork this repository, and clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
 . Set up the correct JDK version for Gradle
 .. Click `Configure` > `Project Defaults` > `Project Structure`
@@ -46,7 +73,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `Open as Project`
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
-This will generate all resources required by the application and tests.
+This will generate all the resources required by the application and tests.
 . Open link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
@@ -74,9 +101,9 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, the documentation will still have the CS2103-AY1819S2-T12-3 branding and refer to the `CS2103-AY1819S2-T12-3/main` repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `CS2103-AY1819S2-T12-3/main`), you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
@@ -95,13 +122,6 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
-
-==== Getting started with coding
-
-When you are ready to start coding,
-
-1. Get some sense of the overall design by reading <<Design-Architecture>>.
-2. Take a look at <<GetStartedProgramming>>.
 
 == Design
 
@@ -149,21 +169,23 @@ image::LogicClassDiagram.png[width="800"]
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command
-image::SDforDeletePerson.png[width="800"]
+image::SDforDeleteMedicine.png[width="800"]
 
 The sections below give more details of each component.
 
+// tag::uicomponent[]
 [[Design-Ui]]
 === UI component
 
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
+// end::uicomponent[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `MedicineListPanel`, `StatusBarFooter`, `InformationPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFX UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -180,111 +202,247 @@ image::LogicClassDiagram.png[width="800"]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `InventoryParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a Medicine).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
-
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
-
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
+image::ModelClassDiagram.png[width="900"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Inventory data.
+* exposes an unmodifiable `ObservableList<Medicine>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
+// tag::modelcomponentobjectdiagram[]
+Given below is an object diagram to better illustrate how details of a medicine is stored in the `Model` component.
+
+.An example of how the medicine "Paracetamol" could be represented by the `Medicine` class.
+image::ModelMedicineObjectDiagram.png[width="900"]
+
+// end::modelcomponentobjectdiagram[]
+
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Inventory`, which `Medicine` can reference. This would allow `Inventory` to only require one `Tag` object per unique `Tag`, instead of each `Medicine` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
+// tag::storagecomponent[]
 === Storage component
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
+// end::storagecomponent[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the medicine inventory data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.address.commons` package.
 
 == Implementation
 
-This section describes some noteworthy details on how certain features are implemented.
+This section provides you with some description of how certain key features of our product are being implemented.
 
-// tag::undoredo[]
-=== Undo/Redo feature
+// tag::informationpanel[]
+=== Information Panel
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The information panel is mainly driven by `InformationPanel` which extends `UiPart` with an added mechanism to interact with the currently selected medicine and information panel settings.
+It implements the following main operations:
+
+* `InformationPanel#showSelectedInformation(Medicine medicine)` -- Creates and displays a `BatchTable` that contains information of the selected medicine and its batches. Values in the `BatchTable` are sorted according to `SortProperty` and `SortDirection` specified in `InformationPanelSettings` stored in `InformationPanel`.
+* `InformationPanel#emptyInformationPanel()` -- Deletes the `BatchTable` being displayed to show an empty pane.
+
+These operations are hidden and are only triggered when the value of the selected medicine or information panel settings changes. The `InformationPanel` is initialized with the selected medicine and information panel settings passed in as `ObservableValue<Medicine>` and `ObservableValue<InformationPanelSettings` objects and `ChangeListener` objects are added to them. `ChangeListener#changed(ObservableValue<? extends T> observable, T oldValue, T newValue)` is called whenever the values in either of the `ObservableValue` objects changes.
+
+Given below is a diagram showing the execution of `InformationPanel` when a change to the selected medicine occurs. `informationPanel` variable seen in the diagram is a `StackPane` object used to display the created `BatchTable` by adding it as a child node.
+
+.Sequence Diagram for InformationPanel when a change in selected medicine occurs
+image::InformationPanelSequenceDiagram.png[width="1000"]
+
+Given below is an example usage scenario and how the information panel behaves at each step when the selected medicine changes.
+
+Step 1. The user launches the application. The selected medicine is always null when the application is launched. An empty `InformationPanel` is displayed.
+
+Step 2. The user executes `select 1` command to select the 1st medicine in the inventory. Since the new value is not null, `InformationPanel#showSelectedInformation(Medicine medicine)` is called. A new `BatchTable` with information of the selected medicine is created and displayed.
+
+[NOTE]
+An `update` command will also cause `ChangeListener#changed(ObservableValue<? extends T> observable, T oldValue, T newValue)` to be called as although the same medicine is still selected, the medicine is replaced in the `Inventory` with updated fields.
+
+Step 3. The user executes `find n/Paracetamol`. The `find` command deselects the selected medicine and the new value is null. Only `InformationPanel#emptyInformationPanel()` is executed.
+
+Changes to the information panel settings results in a similar sequence of events, except the new value of `InformationPanelSettings` is saved in `InformationPanel` before `InformationPanel#display()` is called.
+
+Given below is another example usage scenario of how the information panel interacts with `InformationPanelSettings` and the `sort` command.
+
+Step 1. The user launches the application. `InformationPanelSettings` stored in `Model` is passed as an `ObservableValue<InformationPanelSettings>` to initialize the `InformationPanel`.
+
+Step 2. The user executes `sort p/quantity d/ascending` command to sort all batch tables by quantity in ascending order. The `sort` command calls `Model#setInformationPanelSettings(InformationPanelSettings informationPanelSettings))` which changes the value of the `InformationPanelSettings` in `Model`. The new `InformationPanelSettings` is saved in `InformationPanel`. If the selected medicine is not null, `InformationPanel#showSelectedInformation(Medicine medicine)` is called. Given below is an activity diagram to show how the saved `InformationPanelSettings` is used to sort the `BatchTable` during its initialization. A `TableView` object populated with the details of the selected medicine is created before the sorting takes place.
+
+.Activity Diagram demonstrating how BatchTable is sorted during initialization
+image::InformationPanelActivityDiagram.png[width="900"]
+
+[NOTE]
+For more information on the `TableView` class, you may refer to its API https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/TableView.html[here].
+
+==== Design Considerations
+
+===== Aspect: How the information panel executes
+
+* **Alternative 1 (current choice):** Creates a new `BatchTable` to be displayed every time a new medicine is selected.
+** Pros: Information can be taken from `Model` component during initialization so no extra memory is needed to store table information.
+** Cons: May have performance issues in terms of time needed to retrieve the information and build the table, especially if number of batches becomes huge.
+* **Alternative 2:** Save created `BatchTables` as a field in `Medicine`.
+** Pros: Save time needed for creating the `BatchTable` for faster response time.
+** Cons: More memory needed to store `BatchTable`. `BatchTable` may still have to be recreated if the details of the `Medicine` are changed after the `BatchTable` has been created.
+// end::informationpanel[]
+
+// tag::exportcommand[]
+=== Exporting as CSV file format
+
+This section provides you with an overview of how exporting as Comma-separated values (CSV) file format is implemented in MediTabs and the design considerations made by our team with regards to its implementation.
+
+==== Current Implementation
+
+The exporting as CSV file format mechanism is facilitated by `CsvWrapper`.
+It is built on top of the `Opencsv` Java CSV parser library, licensed under the `Apache 2 OSS License`, so that it integrates with our product. This is done by providing additional operations to support exporting the current medicine inventory data shown in the GUI to CSV file format.
+
+There are many additional operations added in `CsvWrapper` but we will only list the key operations which are the main drivers of the overall implementation of the feature for easier reference and understanding.
+
+The key operations are as follows:
+
+* `CsvWrapper#export()` -- Export the current medicine inventory data shown in the GUI to CSV file format.
+* `CsvWrapper#createCsvFile(String csvFileName)` -- Creates a CSV file with the file name based on the `csvFileName` input. The file is created in the default `exported` directory which is located in the same directory as our product application.
+[NOTE]
+If the default `exported` directory is not found, it will be automatically created.
+* `CsvWrapper#writeDataToCsv(List currentGuiList)` -- Writes the current medicine inventory data shown in the GUI to the CSV file created by the `CsvWrapper#createCsvFile(String csvFileName)` operation.
+
+[NOTE]
+Out of the three key operations stated above, *only* `CsvWrapper#export()` is a _public_ operation available for use by other components. It acts as the main interface which other components use to interact with `CsvWrapper` in order to integrate exporting to CSV file format feature into their own implementation.
+
+Given below is a sequence diagram overview of how these 3 key operations behave when the user executes the `export` command in order to export the current medicine inventory data shown in the GUI to CSV file format:
+
+.Export Command Sequence Diagram Overview
+image::ExportCommandSequenceDiagramOverview.png[width="800"]
+
+Given below is a brief description of how the exporting as CSV file format mechanism behaves as shown in the sequence diagram above:
+
+Step 1: When the user executes the `export` command, assuming parsing of the command line arguments have already been completed, the `ExportCommand#execute()` operation is called.
+
+Step 2: The `ExportCommand#execute()` operation initialises the `CsvWrapper` with the _file name of the CSV file to be stored_ and _the current model instance_ as its input parameters.
+
+Step 3: The `ExportCommand#execute()` operation then calls `CsvWrapper#export()` operation which is the first key operation implementing the export to CSV file format feature.
+
+Step 4: The `CsvWrapper#export()` operation retrieves the current medicine inventory data shown in the GUI by calling the `Model#getFilteredMedicineList()` operation.
+
+Step 5: After retrieving the data, the `CsvWrapper#createCsvFile(String csvFileName)` operation, which is the second key operation, is called. It creates an empty CSV file with the input file name in the default `exported` directory.
+
+[NOTE]
+If a CSV file with the input file name already exists in the `exported` directory, a `"Could not export data to csv file: {Input File Name} already exists in "exported" directory"` exception will be shown in the `ResultDisplay` panel of the GUI as a `CommandException` is thrown and the exporting process will stop executing. In other words, the current medicine inventory data shown in the GUI would not be exported.
+
+Step 6: After the empty CSV file is created, the `CsvWrapper#writeDataToCsv(List currentGuiList)`, which is the third key operation, is called to process the current medicine inventory data retrieved earlier in Step 4 and writes to the CSV file in an organised format for easier reference by the users of the exported CSV file.
+
+Step 7: The current medicine inventory data shown in the GUI is exported successfully to CSV file format.
+
+Step 8: The `ExportCommand#execute()` operation returns a `CommandResult` which shows the current list is exported to a CSV file with the input file name.
+
+The following activity diagram summarizes what happens when a user executes the `export` command:
+
+.Export Command Activity Diagram
+image::ExportCommandActivityDiagram.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: How exporting as CSV file format executes
+
+* **Alternative 1 (current choice):** Exports the current medicine inventory data shown in the GUI to CSV file format using the `export` command.
+** Pros: Easy to implement and users can preview the data before exporting.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Individual commands can add an additional `export` parameter to support exporting as CSV file format.
+** Pros: Users can export directly through individual commands which support the additional `export` parameter (e.g. The `find` command with its additional `export` parameter set to true, exports the filtered medicine inventory data immediately without having to retrieve from `Model#getFilteredMedicineList()` operation).
+** Cons: We must ensure that the implementation and integration of the exporting to CSV file of each individual commands are correct. Furthermore, users are not able to preview the data before exporting.
+
+===== Aspect: Data structure/Algorithm/Implementation to support the `export` command
+
+* **Alternative 1 (current choice):** Iterate through each of the medicine in the list retrieved from `Model#getFilterMedicineList()` operation to build the structure in which the data is organised when exported to CSV file format.
+** Pros: Easy for developers to understand, especially for those who want to modify the way in which the data is organised when exported to CSV file format but have no prior knowledge on `Opencsv` Java CSV parser library.
+** Cons: The time complexity of the algorithm is O(n) and might not be as efficient especially when a large amount of data is involved. Furthermore, it does not take full advantage of the more advanced features provided by the `Opencsv` Java CSV parser library.
+* **Alternative 2:** Use `Opencsv` Java CSV parser library's `StatefulBeanToCsvBuilder` operation for building the structure in which the data is organised from the list retrieved using the `Model#getFilterMedicineList()` operation when exporting to CSV file format.
+** Pros: Does not require iterating through the list and convert it to a String Array as we can use the library's `StatefulBeanToCsvBuilder` operation to build the structure from the list by passing the list as a parameter to the operation. Furthermore, the formatting process can be automated using the operation. It is also more efficient in terms of performance according to the library's documentation if the ordering of the data exported is not a concern to the developer.
+** Cons: Requires prior knowledge on the way in which the library's `StatefulBeanToCsvBuilder` operation works. If a developer wants to modify the data exported to be ordered in a specific format, it requires knowledge on the library's `MappingStrategy` related operations which may be complicated for developers new to the library.
+[NOTE]
+More information on `Opencsv` library's `StatefulBeanToCsvBuilder` operation can be found in the library's link:http://opencsv.sourceforge.net/[documentation].
+// end::exportcommand[]
+
+// tag::undoredo[]
+=== Undo/Redo
+==== Current Implementation
+
+The undo/redo mechanism is facilitated by `VersionedInventory`.
+It extends `Inventory` with an undo/redo history, stored internally as an `inventoryStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedInventory#commit()` -- Saves the current inventory state in its history.
+* `VersionedInventory#undo()` -- Restores the previous inventory state from its history.
+* `VersionedInventory#redo()` -- Restores a previously undone inventory state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitInventory()`, `Model#undoInventory()` and `Model#redoInventory()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedInventory` will be initialized with the initial inventory state, and the `currentStatePointer` pointing to that single inventory state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th medicine in the inventory. The `delete` command calls `Model#commitInventory()`, causing the modified state of the inventory after the `delete 5` command executes to be saved in the `inventoryStateList`, and the `currentStatePointer` is shifted to the newly inserted inventory state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/Paracetamol ...` to add a new medicine. The `add` command also calls `Model#commitInventory()`, causing another modified inventory state to be saved into the `inventoryStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitInventory()`, so the inventory state will not be saved into the `inventoryStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the medicine was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoInventory()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous inventory state, and restores the inventory to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial inventory state, then there are no previous inventory states to restore. The `undo` command uses `Model#canUndoInventory()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoInventory()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the inventory to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `inventoryStateList.size() - 1`, pointing to the latest inventory state, then there are no undone inventory states to restore. The `redo` command uses `Model#canRedoInventory()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the inventory, such as `list`, will usually not call `Model#commitInventory()`, `Model#undoInventory()` or `Model#redoInventory()`. Thus, the `inventoryStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitInventory()`. Since the `currentStatePointer` is not pointing at the end of the `inventoryStateList`, all inventory states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/Paracetamol ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -296,29 +454,211 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire inventory.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the medicine being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of inventory states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedInventory`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::labelcommand[]
+=== Medicine Label using Label Command
+
+Users can use the command to output medicines information to the PDF folder. Information will be in Portable Document Format (PDF).
+
+Current implementation:
+The label command uses Apache PDFBox, a 3rd party library capable of creating and editing PDF files. To import the library:
+Locate the build.gradle file under the main folder. Insert the new dependency implementation group: `org.apache.pdfbox`, name: `pdfbox`, version: `2.0.13`.
+This imports the library over to the project for use. You can look at <<Managing Dependencies>> for more information on 3rd party libraries.
+
+There are many classes available in the Apache PDFBox, the key operations that we are using are:
+
+* `PDDocument` - For creating a new blank PDF file for the medicine details to be exported to.
+* `PDPage` - Creates a new PDPage instance for embedding.
+* `PDPageContentStream` - Provides the ability to write a page content stream.
+
+The following sequence diagram shows how the label operation works:
+
+image::LabelUML.png[width="800"]
+Fig 4.4 UML sequence diagram
+
+==== Usage scenario example
+===== Label command without filename behaviour:
+
+.  The user launches the application for the first time. An empty InformationPanel is displayed. (Fig 4.4.1.1)
+
+.  The user executes the `label 2` to output the label of the 2nd medicine indexed in the inventory. Since no file name is included in the argument, the default filename 'to_print' is used instead.
+- Based on the UML diagram above, "label 2" will be passed onto the `InventoryParser`. LabelCommand will be created and returned to the logic manager.
+- Logic manager will `execute()` the `LabelCommand`. The PDF file will be created using the `PDFWrapper` class.
+
+.  The user can find the file `to_print` under the main folder. (Fig 4.5.3)
+
+image::label2_taken.png[width="790"]
+Fig 4.4.1.1
+
+image::folderPDF.png[width="790"]
+Fig 4.4.1.2 (PDF folder highlighted)
+
+===== Label command with filename behaviour:
+
+.  The user executes `label 1 f/file_to_print` to output the label of the 1st medicine indexed in the inventory. The `InventoryParser` class will be able to tokenize and read the desired file name. LabelCommand will be created and return to the logic manager.
+- Logic manager will `execute()` the `LabelCommand`. The PDF file will be created using the `PDFWrapper` class.
+
+.   The user can find a new file `file_to_print` under the same main folder.
+
+The following activity diagram shows the behaviours in summary (Fig 4.4.1.3):
+
+image::LabelActivityDiagram.png[width="790"]
+(Fig 4.4.1.3)
+
+[NOTE]
+If the user would execute another `label 1`, the original `to_print` file will be replaced. Users are warned in the User Guide to be caution about overwriting files.
+
+
+
+==== Design Consideration
+
+===== Aspect: How label executes
+
+* **Alternative 1 (current choice):** Creates a new `PDFDocument` every time a medicine it to be labeled.
+** Pros: Easy to implement.
+** Cons: Uses more of the user computer memory space as it creates the temporary file.
+* **Alternative 2:** Find the existing PDF file and edit.
+** Pros: Will use less memory.
+** Cons: We have to read the existing file which requires more time to execute. PDF files are also meant to not be edited once created.
+
+
+
+// end::labelcommand[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
-_{Explain here how the data encryption feature will be implemented}_
+Data encryption is likely to be implemented in future versions of the MediTabs if a reasonable implementation is found.
+
+==== Design Considerations
+
+===== Aspect: How data encryption is executed
+
+* **Alternative 1:** Encrypt the entire inventory.
+** Pros: Easy to implement. Use existing encryption libraries to encrypt the entire inventory.
+** Cons: May have performance issues when encrypting/decrypting large amounts of data.
+* **Alternative 2:** Only encrypt parts of the inventory user selects.
+** Pros: More efficient in terms of performance (cuts down on encryption/decryption time).
+** Cons: Add `encrypt` and `decrypt` command to allow user to choose what needs to be encrypted and decrypted respectively. Need to encrypt/decrypt different chunks of data correctly.
+
+===== Aspect: Data structure to support data encryption
+
+* **Alternative 1:** Save the entire inventory as encrypted data in the database.
+** Pros: Data is secure and not viewable without encryption key.
+** Cons: Implement log in page for decryption of inventory. Require alternative if encryption key is forgotten.
+* **Alternative 2:** Save encrypted parts of inventory and plaintext in database.
+** Pros: Able to salvage some information if encryption key is lost.
+** Cons: Need to implement packing/unpacking of encrypted data and plaintext during startup/shutdown.
 
 // end::dataencryption[]
+
+// tag::warningpanel[]
+=== Warning Panel
+==== Current Implementation
+
+The `WarningPanel` is created as part of the `MainWindow`, to be displayed in the GUI. Within the panel are two lists, expiring/expired and low in stock, represented by `WarningListView` objects. The purpose of this feature is to allow the user to view expiring/expired medicine batches and low quantity medicines easily.
+
+The following are some of the operations implemented:
+
+* `Logic#getWarningPanelPredicateAccessor()` -- Returns a `WarningPanelPredicateAccessor`. This gives the caller access to all predicates used to filter lists for the warning panel in the current session.
+
+* `WarningPanel#setUpVBox(ObservableList<Medicine>, ObservableList<Medicine>)` -- Sets up the `VBox` (vertical box) representing the warning panel by creating `WarningListView` objects from the `ObservableList` objects. Each `WarningListView` is a list to be displayed in the GUI.
+
+===== Initialising the warning panel
+
+Given below is how the warning panel GUI is initialised on start up.
+
+Step 1. User launches MediTabs, invoking `MainWindow#fillInnerPart`. The `MainWindow` class calls `Logic#getExpiringMedicinesList`, `Logic#getLowStockMedicinesList` and `Logic#getWarningPanelPredicateAccessor` to obtain the two `ObservableList<Medicine>` to be displayed in the warning panel and the predicate accessor used in this session.
+
+Step 2. The `WarningPanel` is initialised with the objects obtained in Step 1, and constructs a `VBox`.
+
+Step 3. The `WarningPanel` self-invokes `setUpVBox` to populate the `VBox` with `WarningListView` objects for display. There will be two `WarningListView` objects, each initialised with its corresponding `ObservableList<Medicine>`, a list descriptor and the predicate accessor.
+
+Step 4. The `WarningListView` configures a `ListView<Medicine>` object to display elements in the `ObservableList<Medicine>`. Every `ListView<Medicine>` cell is populated by a `WarningListViewCell` object.
+
+Step 5. The `WarningListViewCell` listens to updates to the `ObservableList<Medicine>` that would update the medicines/batches to be displayed in the respective list in the warning panel.
+
+The sequence diagram below summarises the above mentioned mechanism.
+
+[[fig-WarningPanelSequenceDiagram]]
+.Sequence diagram illustrating initialisation of the warning panel on start up
+image::WarningPanelSequenceDiagram.png[width="1000"]
+
+===== Input handling
+
+The basic flow of the `warning` command in two scenarios are as such:
+
+====== To change a threshold used by the warning panel
+
+Step 1. The user enters the command `warning e/10` to change the threshold for expiring medicine batches.
+
+Step 2. The command is parsed and a `WarningCommand` object is created with the type and value of the new threshold to be set.
+
+Step 3. The `WarningCommand#execute` method is invoked.
+
+Step 4. Threshold for expiring medicine batches is changed.
+
+Step 5. The expiring/expired batch list in the warning panel is updated accordingly.
+
+Step 6. The new set of thresholds is shown in the result display box.
+
+====== To display thresholds currently in use
+
+Step 1. The user enters the command `warning show`.
+
+Step 2. The command is parsed and a `WarningCommand` object is created to show current threshold levels.
+
+Step 3. The `WarningCommand#execute` method is invoked.
+
+Step 4. The current thresholds used are shown in the result display box.
+
+The activity diagram below summarises what happens when the `warning` command is executed:
+
+[[fig-WarningPanelActivityDiagram]]
+.Activity diagram illustrating what happens when a user executes the `warning` command
+image::WarningCommandActivityDiagram.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: Construction of the lists displayed by the warning panel
+
+Two `ObservableLists<Medicine>` objects are required, one to display medicine batches expiring soon and the other to display medicines low in stock.
+
+* **Alternative 1 (current choice):** Create the `ObservableList<Medicine>` objects in the `ModelManager` by filtering the main medicine list, and have `MainWindow` obtain them via `Logic`.
+** Pros: Easy to change predicates for filtration, making it possible to set user defined thresholds, thereby improving user experience.
+** Cons: Requires passing the two lists around, from `ModelManager` to `Logic` then `MainWindow`.
+
+* **Alternative 2:** Create the `ObservableList<Medicine>` objects in `Ui`.
+** Pros: Simple to implement. Filter the main medicine list with the default predicates (i.e. thresholds for expiration and low stock) within `WarningPanel`.
+** Cons: No separation of concerns. Not possible to set user defined thresholds for either list.
+
+===== Aspect: Implementation of predicates used for the warning panel
+
+* **Alternative 1 (current choice):** Singleton warning panel predicate accessor.
+** Pros: Easy to access and update all warning panel-related predicates.
+** Cons: Must pass the instance of the predicate accessor around to ensure there is only one instance of it at any time.
+
+* **Alternative 2:** Save all predicates in the `ModelManager`.
+** Pros: Easy to implement.
+** Cons: Predicate manipulation from `Logic` when new thresholds are set violates Dependency Inversion Principle.
+
+// end::warningpanel[]
 
 === Logging
 
@@ -334,6 +674,76 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `WARNING` : Can continue, but with caution
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+// tag::validationoffilename[]
+=== Validation of File Name
+
+We are using the `seedu.address.commons.FileName` class which is created by our team for the validation of file name specified by the user. This is important for commands in MediTabs which supports the file name field.
+
+[NOTE]
+File name *does not* include file extension such as `.csv` and `.pdf`.
+
+A list of reasons why we choose to create a `FileName` class for the validation of file name:
+
+* There are currently no third party libraries available for validating file name to ensure that the file name is platform independent. In other words, there are no public methods to validate the file name specified by the user to ensure that it is supported on Windows, Linux and macOS operating systems.
+[IMPORTANT]
+There are certain naming conventions which have to be followed on Windows operating system which are not necessary on Linux and macOS operating systems. You can read more about the naming conventions for Windows link:https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file#naming-conventions[here]. You can also refer to link:https://en.wikipedia.org/wiki/Filename#Comparison_of_filename_limitations[this] Wikipedia article for a detailed comparison between different naming conventions for different operating systems.
+* Ensure consistency by creating a file naming convention.
+* Ensure that files created with file names specified by the user can be used on Windows, Linux and macOS operating systems. This is to avoid potential bugs involving file names as MediTabs supports Windows, Linux and macOS operating systems hence, the user might switch between these operating systems when using MediTabs.
+
+==== Current Implementation
+
+The validation of file name mechanism is facilitated mainly by the `FileName#isValidFileName(String fileNameToCheck)` operation. The operation checks if the `fileNameToCheck` input is a valid file name based on the file naming convention we have created for MediTabs.
+
+The file naming convention used in MediTabs is as follows: +
+Format: `Start with an alphabet or number followed by alphabets, numbers, underscore or hyphen`
+
+[NOTE]
+In order to ensure that the validation of file name is platform independent, the validation is implemented such that it ensures that the specified file name not only follows the file naming convention used in MediTabs but also does not violate file naming conventions in any platform especially Windows which has a very strict file name conventions.
+
+[IMPORTANT]
+Based on manual testing by our team on Windows, it is discovered that `COM0` and `LPT0` are also part of the reserved names which are not allowed as file names in Windows. However, they are not reflected in the Windows documentation under the link:https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file#naming-conventions[naming conventions] section. In order to ensure that `FileName` class validation implementation is platform independent, we have included `COM0` and `LPT0` as reserved names when validating the specified file name.
+
+A full list of reserved names implemented in `FileName` class which are not allowed as file names is as follows:
+
+* `CON, PRN, AUX, NUL, COM0, COM1, COM2, COM3, COM4, COM5, COM6, COM7, COM8, COM9, LPT0, LPT1, LPT2, LPT3, LPT4, LPT5, LPT6, LPT7, LPT8, and LPT9`
+
+[NOTE]
+The reserved names listed above are *case insensitive*, in other words, names such as `prn` or `CoM0` are also reserved names.
+
+[WARNING]
+The argument passed to the `fileNameToCheck` parameter of the `FileName#isValidFileName(String fileNameToCheck)` operation *must not* be an empty string or a null argument. If the argument passed is an empty string, the specified file name will be declared as invalid. If a null argument is passed, a `NullPointerException` will be thrown.
+
+==== How to integrate it into new commands in MediTabs?
+
+If you are a developer looking to add new features to MediTabs which involves the creation of files, we recommend integrating the existing `FileName` class. This can easily be done by making use of `FileName#isValidFileName(String fileNameToCheck)` operation.
+
+You may wish to refer to the code snippet shown below, which is a modified version of the `ParserUtil#parseFileName(String fileName, boolean isEmptyFileNameAllowed)` operation used in MediTabs. The code snippet demonstrates how `FileName#isValidFileName(String fileNameToCheck)` operation can be used for easier reference.
+
+[source,java]
+----
+public static FileName parseFileName(String fileName) throws ParseException {
+    if (!FileName.isValidFileName(fileName)) { # <1>
+        throw new ParseException(FileName.MESSAGE_CONSTRAINTS); # <2>
+    }
+    return new FileName(fileName); # <3>
+}
+----
+<1> Validate the specified file name using the `FileName#isValidFileName(String fileNameToCheck)` operation.
+<2> If the specified file name is invalid, a `ParseException` is thrown.
+<3> If the specified file name is valid, a `FileName` object constructed from the specified file name is returned.
+
+[NOTE]
+In the code snippet above, we have modified the method signature from `ParserUtil#parseFileName(String fileName, boolean isEmptyFileNameAllowed)` to `ParserUtil#parseFileName(String fileName)` and also its implementation for easier reference and understanding.
+
+[IMPORTANT]
+We *highly recommend* complementing the `FileName` class with Java build in classes such as link:https://docs.oracle.com/javase/9/docs/api/java/io/File.html[`java.io.File`] or link:https://docs.oracle.com/javase/9/docs/api/java/nio/file/Files.html[`java.nio.file.Files`] and handling the exceptions thrown by the methods used in those classes when creating files with the validated file names. This is to allow potential exceptions involving but not limited to permissions, security and file name being too long which are outside the scope of `FileName` class to be handled.
+
+Examples of commands in MediTabs which uses the `FileName` class to validate the specified file name:
+
+* `export [FILE_NAME]`
+* `label INDEX [f/FILE_NAME]`
+// end::validationoffilename[]
 
 [[Implementation-Configuration]]
 === Configuration
@@ -522,393 +932,189 @@ Here are the steps to create a new release.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
+A project often depends on third-party libraries. For example, MediTabs depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
 
 [loweralpha]
 . Include those libraries in the repo (this bloats the repo size)
 . Require developers to download those libraries manually (this creates extra work for developers)
 
-[[GetStartedProgramming]]
 [appendix]
-== Suggested Programming Tasks to Get Started
-
-Suggested path for new programmers:
-
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
-=== Improving each component
-
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
-
-[discrete]
-==== `Logic` component
-
-*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
-
-[TIP]
-Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
-
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
-+
-****
-* Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
-* Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
-** Add new tests for each of the aliases that you have added.
-** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
-****
-
-[discrete]
-==== `Model` component
-
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
-
-[TIP]
-Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
-
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
-+
-****
-* Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
-* Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
-** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
-****
-
-[discrete]
-==== `Ui` component
-
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
-
-[TIP]
-Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
-
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
-+
-**Before**
-+
-image::getting-started-ui-tag-before.png[width="300"]
-+
-**After**
-+
-image::getting-started-ui-tag-after.png[width="300"]
-+
-****
-* Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
-** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
-* Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
-*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
-****
-
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
-+
-**Before**
-+
-image::getting-started-ui-result-before.png[width="200"]
-+
-**After**
-+
-image::getting-started-ui-result-after.png[width="200"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
-* Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
-** You can write two different kinds of tests to ensure that the functionality works:
-*** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
-*** Do read the commits one at a time if you feel overwhelmed.
-****
-
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
-+
-**Before**
-+
-image::getting-started-ui-status-before.png[width="500"]
-+
-**After**
-+
-image::getting-started-ui-status-after.png[width="500"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
-* Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
-****
-
-[discrete]
-==== `Storage` component
-
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
-
-[TIP]
-Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
-
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
-+
-****
-* Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/JsonAddressBookStorage.java[`JsonAddressBookStorage`] class.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
-****
-
-[[GetStartedProgramming-RemarkCommand]]
-=== Creating a new command: `remark`
-
-By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
-
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
-
-==== Description
-Edits the remark for a person specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
-
-Examples:
-
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
-* `remark 1 r/` +
-Removes the remark for the first person.
-
-==== Step-by-step Instructions
-
-===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
-Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
-
-**Main:**
-
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
-
-**Tests:**
-
-. Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
-
-===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
-
-**Main:**
-
-. Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
-. Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
-
-**Tests:**
-
-. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
-. Add `RemarkCommandParserTest` that tests different boundary values
-for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
-
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
-
-**Main:**
-
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
-
-===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
-
-**Main:**
-
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
-. Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
-
-**Tests:**
-
-. Add test for `Remark`, to test the `Remark#equals()` method.
-
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Main:**
-
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `data/addressbook.json` so that the application will load the sample data when you launch it.)
-
-===== [Step 6] Storage: Add `Remark` field to `JsonAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/JsonAdaptedPerson.java[`JsonAdaptedPerson`] to include a `Remark` field so that it will be saved.
-
-**Main:**
-
-. Add a new JSON field for `Remark`.
-
-**Tests:**
-
-. Fix `invalidAndValidPersonAddressBook.json`, `typicalPersonsAddressBook.json`, `validAddressBook.json` etc., such that the JSON tests will not fail due to a missing `remark` field.
-
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Tests:**
-
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
-
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
-
-**Main:**
-
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
-
-===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
-
-**Main:**
-
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
-
-**Tests:**
-
-. Update `RemarkCommandTest` to test that the `execute()` logic works.
-
-==== Full Solution
-
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
-
-[appendix]
-== Product Scope
-
-*Target user profile*:
-
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
-
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
-
-[appendix]
+// tag::userstories[]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="100%",cols="10%,<20%,<30%,<40%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |pharmacist |view the inventory easily |check stock levels
 
-|`* * *` |user |add a new person |
+|`* * *` |pharmacist |view the expiry dates of medicine easily |remove expired medicine
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |pharmacist |view batch details easily |get batch information quickly
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |pharmacist |add new medicine to the inventory |keep my inventory updated
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |pharmacist |delete medicine |remove medicine that have become obsolete
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |pharmacist |edit inventory level |keep my inventory updated
+
+|`* * *` |pharmacist |receive notifications when my inventory is low or there is expiring stock |will not forget to update the inventory
+
+|`* * *` |pharmacist |find a medicine by name |locate details of the medicine without having to go through the entire list
+
+|`* * *` |pharmacist |export inventory data |send the data to relevant personnel
+
+|`* * *` |pharmacist |print labels for the medicine |label the medicine for the patients' reference
+
+|`* *` |pharmacist |have an auto-completing search bar |do not have to type out the medicine's full name
+
+|`* *` |pharmacist |view purchase and sales history |forecast sales and performance
+
+|`*` |pharmacist |view manufacturers' contact details |find out who to contact for more stock quickly
+
+|`*` |pharmacist |be redirected to a mailer to email manufacturers |restock quickly
+
+|`*` |pharmacist |be recommended dosage |recommend dosage based on patient's profile
+
+|`*` |pharmacist |have a task list |set reminders for myself
+
+|`*` |pharmacist |save information on medicine's usage |remind myself of its usage
+
 |=======================================================================
-
-_{More to be added}_
+// end::userstories[]
 
 [appendix]
+// tag::usecase[]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `MediTabs` and the *Actor* is the `pharmacist`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use Case 1: View Complete Inventory
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  Upon start up, System displays the complete inventory of medicine.
+2.  Pharmacist navigates the list with arrow keys.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. Pharmacist used `find` function, filtered inventory is shown.
++
+[none]
+** 1a1. Pharmacist requests for complete inventory to be listed using `list` command.
+** 1a2. System displays complete inventory.
++
+Use case resume at step 2.
+
+
+[discrete]
+=== Use Case 2: Update Batch Details of a Medicine in Inventory
+
+*MSS*
+
+1.  Pharmacist notes the index of the medicine to be updated in the list.
+2.  Pharmacist request to update details of a batch of medicine using the index and the `update` command.
+3.  System displays updated details.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+*Extensions*
+
+[none]
+* 1a. Medicine is new and has not been added to the inventory.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 1a1. Pharmacist uses the `add` function to add a new entry to list.
+** 1a2. Pharmacist notes the index of the new medicine listing from the search result.
 +
-Use case resumes at step 2.
+Use case resume at step 2.
 
-_{More to be added}_
+[none]
+* 1b. Pharmacist cannot remember batch number of batch to be updated.
++
+[none]
+** 1b1. Pharmacist uses `select` command to select the medicine to be updated.
+** 1b2. System displays the batch table with information of all batches of the selected medicine.
+** 1b3. Pharmacist refers to the batch table while inputting batch details.
++
+Use case resume at step 2.
+
+[none]
+* 2a. Pharmacist did not enter expiry date and batch does not already exist.
++
+[none]
+** 2a1. An error message is shown.
+** 2a2. System requests both quantity and expiry date be entered for new batches.
+** 2a3. Pharmacist repeats request with the required input.
++
+Use case resume at step 3.
+
+[discrete]
+=== Use Case 3: Delete Medicine from Inventory
+
+*MSS*
+
+1.  Pharmacist notes the index of the medicine to be deleted in the list.
+2.  Pharmacist request to delete a medicine listing using the index and the `delete` command.
+3.  System displays updated list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Pharmacist cannot find the medicine listing manually from the list.
++
+[none]
+** 1a1. Pharmacist uses the `find` function to look for medicine listing.
+** 1a2. System lists the search results.
+** 1a3. Pharmacist notes the index of the medicine listing from the search result.
++
+Use case resume at step 2.
+// end::usecase[]
 
 [appendix]
+// tag::nonfunctionalreq[]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. User Constraints
+.. The product caters users with a preference for typing commands over the command line. Only limited GUI interactions are available as the focus is on the command line interface.
+.. The product is meant only for single user usage. i.e, any features (e.g. profile switching) should only be limited to a single user. Using such features to support multiple users is not recommended.
 
-_{More to be added}_
+. Data
+.. User should have read and write permissions for data stored on the local machine. i.e, expert users can edit the data file without the application.
+.. Third party database management systems (e.g. MySQL, Postgres) are not permitted.
+
+. Working Environment
+.. The product should work on all mainstream OS.
+.. Connection to external APIs is not recommended, although the usage of reliable external APIs is permissible. In such cases, a fallback should be implemented should the connection fail.
+
+. Portability
+.. The product should work without the need for additional software. `.jar` package will be used for the product release.
+
+. Testability
+.. Avoid implementing features that are difficult to test manually and automatically. i.e, avoid dependence on remote APIs as their behaviours are beyond our control.
+.. Due to the project's constraints, audio related features were not taken into consideration. Avoid any features using audio indicators.
+// end::nonfunctionalreq[]
+
 
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Windows, Linux, Unix, macOS
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[inventory]] Inventory::
+A complete list of goods in stock
 
-[appendix]
-== Product Survey
+[[batch]] Batch::
+A quantity or consignment of goods produced at one time
 
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -924,34 +1130,153 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Deleting a medicine
 
-=== Deleting a person
+. Deleting a medicine while all medicines are listed
 
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all medicines using the `list` command. Multiple medicines in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+Expected: First entry is deleted from the list. Details of the deleted entry shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+Expected: No medicine is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
+Expected: Similar to previous.
 
-_{ more test cases ... }_
+//tag::updatetesting[]
+=== Updating batch details of a medicine
 
-=== Saving data
+. Updating a medicine with a new batch while all medicines are listed
 
-. Dealing with missing/corrupted data files
+.. Prerequisites: List all medicines using the `list` command. Multiple medicines in the list. All batch numbers used for testing should not exist in the batch records of the selected medicine. Use `select 1` to load the information page.
+.. Test case: `update 1 b/A q/1 e/1/1/2020` (valid input) +
+Expected: New batch is added to the batch table shown in the information panel. Details of the added batch shown in the status message. Total quantity should increase by `1`. Next expiry of medicine should change if `01/01/2020` is earlier.
+.. Test case: `update 1 q/1 e/1/1/2020` (missing batch number) +
+Expected: Error details shown in the status message. No changes to medicine. Status bar remains the same.
+.. Test case: `update 1 b/B e/1/1/2020` (missing quantity) +
+Expected: Error details shown in the status message. No changes to medicine. Status bar remains the same.
+.. Test case: `update 1 b/B q/1`  (missing expiry) +
+Expected: Error details shown in the status message. No changes to medicine. Status bar remains the same.
+//end::updatetesting[]
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Test case: `update 1 b/- q/A e/1/1/2020` (invalid batch number) +
+Expected: Error details shown in the status message. No changes to medicine. Status bar remains the same.
+.. Test case: `update 1 b/B q/10000000000000 e/1/1/2020` (invalid quantity - max quantity exceeded) +
+Expected: Error details shown in the status message. No changes to medicine. Status bar remains the same.
+.. Test case: `update 1 b/B q/1 e/1/1/10000` (invalid expiry) +
+Expected: Error details shown in the status message. No changes to medicine. Status bar remains the same.
+.. Test case: `update 1 b/B q/0 e/1/1/2020` (zero quantity) +
+Expected: Error details shown in the status message. No changes to medicine. Status bar remains the same.
+.. Test case: `update 1 b/B q/1 e/1/1/1995` (passed date for expiry) +
+Expected: Error details shown in the status message. No changes to medicine. Status bar remains the same.
+.. Test case: `update 1 b/B q/1 e/29/2/2019` (invalid leap year) +
+Expected: Error details shown in the status message. No changes to medicine. Status bar remains the same.
+.. Test case: `update 1 b/B q/1 e/29/2/2020` (valid leap year)   +
+Expected: New batch is added to the batch table shown in the information panel. Details of the added batch shown in the status message. Total quantity should increase by `1`. Next expiry of medicine should change if `29/02/2020` is earlier.
+.. Test case: `update 1 e/29/2/2020 q/1 b/C` (different order of arguments)   +
+Expected: New batch is added to the batch table shown in the information panel. Details of the added batch shown in the status message. Total quantity should increase by `1`. Next expiry of medicine should change if `29/02/2020` is earlier.
 
-_{ more test cases ... }_
+. Updating a medicine with a existing batch while all medicines are listed
+
+.. Prerequisites: List all medicines using the `list` command. Multiple medicines in the list. Batch number used for testing should already exist in the batch records of the selected medicine (B is added in the tests above). Use `select 1` to load the information page.
+.. Test case: `update 1 b/B q/10` (missing expiry allowed) +
+Expected: batch is updated in batch table shown in the information panel with quantity changed to `10`. Details of the updated batch shown in the status message. Total quantity should increase by `9`. Next expiry should not change.
+.. Test case: `update 1 b/B e/1/1/2020` (missing quantity allowed) +
+Expected: batch is updated in batch table shown in the information panel with expiry changed to `01/01/2020`. Details of the updated batch shown in the status message. Total quantity should not change. Next expiry of medicine should change if `01/01/2020` is earlier.
+
+. Updating a medicine by removing an existing batch while all medicines are listed
+
+.. Prerequisites: List all medicines using the `list` command. Multiple medicines in the list. Batch number used for testing should already exist in the batch records of the selected medicine (B is added in the tests above). Use `select 1` to load the information page.
+.. Test case: `update 1 b/B q/0` (valid input) +
+Expected: batch is removed from batch table shown in the information panel. Details of the removed batch shown in the status message. Total quantity should be reduced by `10`. Next expiry should be updated if batch removed had the closest expiry date.
+
+. Updating a medicine by adding a new batch while medicine list is filtered
+
+.. Prerequisites: use `find` command to filter the list. Recommended `find t/ fever`. Batch number used for testing should not exist in the batch records of the selected medicine. Use `select 1` to load the information page.
+.. Test case: `update 1 b/D q/1 e/1/1/2020` (valid input) +
+Expected: batch is added to batch table shown in the information panel. Details of the added batch shown in the status message. Total quantity should increase by `1`. Next expiry should be updated if batch removed had the closest expiry date. Filtered list should remain filtered.
+.. Test case: `update 1 b/E q/1 e/1/1/2020 b/F b/G q/2 e/2/1/2020`  (more than one valid input) +
+Expected: batch `G` is added to batch table shown in the information panel as last valid input is taken. Details of the added batch shown in the status message. Total quantity should increase by `2`. Next expiry of medicine should change if `02/01/2020` is earlier. Filtered list should remain filtered.
+
+// tag::exportcommandtest[]
+=== Exporting as CSV file format
+
+. Exporting the current medicine inventory data shown in the GUI to CSV file format while all medicines are listed.
+
+.. Prerequisites: List all medicines using the `list` command.
+.. Test case: `export \` +
+Expected: An "Invalid command format! File Name (without including file extension) must start with an alphabet or number followed by alphabets, numbers, underscore or hyphen. It must not be a reserved word. You can type the help command to view the User Guide for more details. +
+export: exports the current list to a .csv file. Parameters: [FILE_NAME] +
+Example: export example" exception will be shown in the `ResultDisplay` panel of the GUI. *No* exported CSV file is created in the `exported` directory.
+
+. Exporting the current medicine inventory data shown in the GUI to CSV file format while all medicines are listed. There are *no cases* where there are no medicines or all medicines do not have batches in the current medicine inventory data shown in the GUI.
+
+.. Prerequisites: List all medicines using the `list` command. Multiple medicines *with batches* are in the list.
+.. Test case: `export` +
+Expected: The current medicine inventory data shown in the GUI is successfully exported to CSV file format. The exported CSV file has the default file name based on the date and time of export. The specific date and time format used if no file name is specified is `dd_MMM_yyyy_HH_mm_ss` e.g. `18_Mar_2019_10_28_00`. The exported CSV file's medicine inventory data will contain the header information with *only* the data of medicines with batches.
+.. Test case: `export example` +
+Expected: The current medicine inventory data shown in the GUI is successfully exported to CSV file format. The exported CSV file has the file name `example`. The exported CSV file's medicine inventory data will contain the header information with *only* the data of medicines with batches.
+
+. Exporting the current medicine inventory data shown in the GUI to CSV file format while all medicines are listed. There are either no medicines or all medicines do not have batches in the current medicine inventory data shown in the GUI.
+
+.. Prerequisites: List all medicines using the `list` command. No medicines or all medicines do not have batches in the current medicine inventory data.
+.. Test case: `export` +
+Expected: The current medicine inventory data shown in the GUI is successfully exported to CSV file format. The exported CSV file has the default file name based on the date and time of export. The specific date and time format used if no file name is specified is `dd_MMM_yyyy_HH_mm_ss` e.g. `18_Mar_2019_10_28_00`. The exported CSV file's medicine inventory data will contain *only* the header information with no medicine data.
+.. Test case: `export example` +
+Expected: The current medicine inventory data shown in the GUI is successfully exported to CSV file format. The exported CSV file has the file name `example`. The exported CSV file's medicine inventory data will contain *only* the header information with no medicine data.
+// end::exportcommandtest[]
+
+// tag::warningtest[]
+=== Changing warning panel thresholds
+
+. Changing the threshold for expiring medicine batches
+
+.. Prerequisites: Current expiry threshold is 10 days (default). Multiple medicines with batches in the list.
+.. Test case: `warning e/0` +
+Expected: All medicines batches that have expired or are expiring today are shown in the warning panel's "Expiring Soon/Expired" list. New thresholds are shown in status message.
+.. Test case: `warning e/-1` +
+Expected: No changes to warning panel. Error details shown in the status message.
+.. Other incorrect warning commands to try: `warning`, `warning e/x` (where x is not a positive integer), `warning {non-whitespace preamble} e/y` (where y is a positive integer) +
+Expected: Similar to previous.
+
+. Changing the threshold for medicines with low stock
+
+.. Prerequisites: Current low stock threshold is 20 (default). Multiple medicines with non-zero total quantities in the list.
+.. Test case: `warning q/0` +
+Expected: Warning panel's "Low in Stock" list empties and placeholder "Nothing to show" is displayed. New thresholds are shown in status message.
+.. Test case: `warning q/-1` +
+Expected: No changes to warning panel. Error details shown in the status message.
+.. Other incorrect warning commands to try: `warning`, `warning q/x` (where x is not a positive integer), `warning {non-whitespace preamble} q/y` (where y is a positive integer) +
+Expected: Similar to previous.
+
+// end::warningtest[]
+
+// tag::labeltest[]
+=== Labeling medicine information onto a PDF file
+
+. Output a medicine information onto a PDF file using default name.
+
+.. Prerequisites: List all medicines using the `list` command. There is at least a medicine in the first index
+
+.. Test case: `label 1` +
+Expected: Success message shown in the UI. Current medicine on index one is successfully output to a PDF file under the PDF folder. Filename is `to_print`.
+.. Test case: `label` +
+Expected: Unsuccessful message shown in the UI. No file will be output in the PDF folder.
+
+. Output a medicine information onto a PDF file with its name given by the user. Filename must follow Appendix A. Else, error message is shown.
+
+.. Prerequisites: List all medicines using the `list` command. There is at least a medicine in the first index
+
+.. Test case: `label 1 f/newfile` +
+Expected: Success message shown in the UI. Current medicine on index one is successfully output to a PDF file under the PDF folder. Filename is `newfile`.
+.. Test case: `label 1 f/^@#&` +
+Expected: Expected: Unsuccessful message shown in the UI. No file will be output in the PDF folder.
+
+// end::labeltest[]

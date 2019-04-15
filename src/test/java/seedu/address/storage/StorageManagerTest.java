@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalMedicines.getTypicalInventory;
 
 import java.nio.file.Path;
 
@@ -12,8 +12,9 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.commons.core.WarningPanelSettings;
+import seedu.address.model.Inventory;
+import seedu.address.model.ReadOnlyInventory;
 import seedu.address.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -25,9 +26,9 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
+        JsonInventoryStorage inventoryStorage = new JsonInventoryStorage(getTempFilePath("inv"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(inventoryStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -44,27 +45,28 @@ public class StorageManagerTest {
          */
         UserPrefs original = new UserPrefs();
         original.setGuiSettings(new GuiSettings(300, 600, 4, 6));
+        original.setWarningPanelSettings(new WarningPanelSettings(300, 600));
         storageManager.saveUserPrefs(original);
         UserPrefs retrieved = storageManager.readUserPrefs().get();
         assertEquals(original, retrieved);
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void inventoryReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * {@link JsonInventoryStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonInventoryStorageTest} class.
          */
-        AddressBook original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        Inventory original = getTypicalInventory();
+        storageManager.saveInventory(original);
+        ReadOnlyInventory retrieved = storageManager.readInventory().get();
+        assertEquals(original, new Inventory(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+    public void getInventoryFilePath() {
+        assertNotNull(storageManager.getInventoryFilePath());
     }
 
 }

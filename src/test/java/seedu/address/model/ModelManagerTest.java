@@ -3,11 +3,11 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_GABAPENTIN;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEDICINES;
+import static seedu.address.testutil.TypicalMedicines.GABAPENTIN;
+import static seedu.address.testutil.TypicalMedicines.IBUPROFEN;
+import static seedu.address.testutil.TypicalMedicines.PARACETAMOL;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -19,11 +19,17 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
-import seedu.address.testutil.AddressBookBuilder;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.commons.core.WarningPanelSettings;
+import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
+import seedu.address.commons.util.warning.WarningPanelPredicateType;
+import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.exceptions.MedicineNotFoundException;
+import seedu.address.model.medicine.predicates.MedicineExpiryThresholdPredicate;
+import seedu.address.model.medicine.predicates.MedicineLowStockThresholdPredicate;
+import seedu.address.model.medicine.predicates.NameContainsKeywordsPredicate;
+import seedu.address.model.threshold.Threshold;
+import seedu.address.testutil.InventoryBuilder;
+import seedu.address.testutil.MedicineBuilder;
 
 public class ModelManagerTest {
     @Rule
@@ -35,8 +41,10 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
-        assertEquals(null, modelManager.getSelectedPerson());
+        assertEquals(new WarningPanelSettings(), modelManager.getWarningPanelSettings());
+        assertEquals(new Inventory(), new Inventory(modelManager.getInventory()));
+        assertEquals(null, modelManager.getSelectedMedicine());
+        assertEquals(new WarningPanelPredicateAccessor(), modelManager.getWarningPanelPredicateAccessor());
     }
 
     @Test
@@ -48,14 +56,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setAddressBookFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setInventoryFilePath(Paths.get("inventory/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setInventoryFilePath(Paths.get("new/inventory/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -73,91 +81,143 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
+    public void setWarningPanelSettings_nullWarningPanelSettings_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.setAddressBookFilePath(null);
+        modelManager.setWarningPanelSettings(null);
     }
 
     @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
-        Path path = Paths.get("address/book/file/path");
-        modelManager.setAddressBookFilePath(path);
-        assertEquals(path, modelManager.getAddressBookFilePath());
+    public void setWarningPanelSettings_validWarningPanelSettings_setsWarningPanelSettings() {
+        WarningPanelSettings warningPanelSettings = new WarningPanelSettings(1, 2);
+        modelManager.setWarningPanelSettings(warningPanelSettings);
+        assertEquals(warningPanelSettings, modelManager.getWarningPanelSettings());
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void configureWarningPanelLists_expiryThresholdExceedsMax() {
+        WarningPanelSettings actualSetting = new WarningPanelSettings(Threshold.MAX_EXPIRY_THRESHOLD + 1, 2);
+        WarningPanelSettings expectedSetting = new WarningPanelSettings(Threshold.MAX_EXPIRY_THRESHOLD, 2);
+        modelManager.setWarningPanelSettings(actualSetting);
+        modelManager.configureWarningPanelLists();
+        assertEquals(expectedSetting, modelManager.getWarningPanelSettings());
+    }
+
+    @Test
+    public void setInventoryFilePath_nullPath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.hasPerson(null);
+        modelManager.setInventoryFilePath(null);
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasPerson(ALICE));
+    public void setInventoryFilePath_validPath_setsInventoryFilePath() {
+        Path path = Paths.get("inventory/file/path");
+        modelManager.setInventoryFilePath(path);
+        assertEquals(path, modelManager.getInventoryFilePath());
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.addPerson(ALICE);
-        assertTrue(modelManager.hasPerson(ALICE));
+    public void hasMedicine_nullMedicine_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.hasMedicine(null);
     }
 
     @Test
-    public void deletePerson_personIsSelectedAndFirstPersonInFilteredPersonList_selectionCleared() {
-        modelManager.addPerson(ALICE);
-        modelManager.setSelectedPerson(ALICE);
-        modelManager.deletePerson(ALICE);
-        assertEquals(null, modelManager.getSelectedPerson());
+    public void hasMedicine_medicineNotInInventory_returnsFalse() {
+        assertFalse(modelManager.hasMedicine(PARACETAMOL));
     }
 
     @Test
-    public void deletePerson_personIsSelectedAndSecondPersonInFilteredPersonList_firstPersonSelected() {
-        modelManager.addPerson(ALICE);
-        modelManager.addPerson(BOB);
-        assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredPersonList());
-        modelManager.setSelectedPerson(BOB);
-        modelManager.deletePerson(BOB);
-        assertEquals(ALICE, modelManager.getSelectedPerson());
+    public void hasMedicine_medicineInInventory_returnsTrue() {
+        modelManager.addMedicine(PARACETAMOL);
+        assertTrue(modelManager.hasMedicine(PARACETAMOL));
     }
 
     @Test
-    public void setPerson_personIsSelected_selectedPersonUpdated() {
-        modelManager.addPerson(ALICE);
-        modelManager.setSelectedPerson(ALICE);
-        Person updatedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
-        modelManager.setPerson(ALICE, updatedAlice);
-        assertEquals(updatedAlice, modelManager.getSelectedPerson());
+    public void deleteMedicine_medicineIsSelectedAndFirstMedicineInFilteredMedicineList_selectionCleared() {
+        modelManager.addMedicine(PARACETAMOL);
+        modelManager.setSelectedMedicine(PARACETAMOL);
+        modelManager.deleteMedicine(PARACETAMOL);
+        assertEquals(null, modelManager.getSelectedMedicine());
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void deleteMedicine_medicineIsSelectedAndSecondMedicineInFilteredMedicineList_firstMedicineSelected() {
+        modelManager.addMedicine(PARACETAMOL);
+        modelManager.addMedicine(GABAPENTIN);
+        assertEquals(Arrays.asList(GABAPENTIN, PARACETAMOL), modelManager.getFilteredMedicineList());
+        modelManager.setSelectedMedicine(PARACETAMOL);
+        modelManager.deleteMedicine(PARACETAMOL);
+        assertEquals(GABAPENTIN, modelManager.getSelectedMedicine());
+    }
+
+    @Test
+    public void setMedicine_medicineIsSelected_selectedMedicineUpdated() {
+        modelManager.addMedicine(PARACETAMOL);
+        modelManager.setSelectedMedicine(PARACETAMOL);
+        Medicine updatedParacetamol = new MedicineBuilder(PARACETAMOL).withExpiry(VALID_EXPIRY_GABAPENTIN).build();
+        modelManager.setMedicine(PARACETAMOL, updatedParacetamol);
+        assertEquals(updatedParacetamol, modelManager.getSelectedMedicine());
+    }
+
+    @Test
+    public void getFilteredMedicineList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        modelManager.getFilteredPersonList().remove(0);
+        modelManager.getFilteredMedicineList().remove(0);
     }
 
     @Test
-    public void setSelectedPerson_personNotInFilteredPersonList_throwsPersonNotFoundException() {
-        thrown.expect(PersonNotFoundException.class);
-        modelManager.setSelectedPerson(ALICE);
+    public void getExpiringMedicinesList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getExpiringMedicinesList().remove(0);
     }
 
     @Test
-    public void setSelectedPerson_personInFilteredPersonList_setsSelectedPerson() {
-        modelManager.addPerson(ALICE);
-        assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredPersonList());
-        modelManager.setSelectedPerson(ALICE);
-        assertEquals(ALICE, modelManager.getSelectedPerson());
+    public void getLowStockMedicinesList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getLowStockMedicinesList().remove(0);
+    }
+
+    @Test
+    public void updateFilteredMedicineList_nullPredicate_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.updateFilteredMedicineList(null);
+    }
+
+    @Test
+    public void updateFilteredExpiringMedicineList_nullPredicate_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.updateFilteredExpiringMedicineList(null);
+    }
+
+    @Test
+    public void updateFilteredLowStockMedicineList_nullPredicate_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.updateFilteredLowStockMedicineList(null);
+    }
+
+    @Test
+    public void setSelectedMedicine_medicineNotInFilteredMedicineList_throwsMedicineNotFoundException() {
+        thrown.expect(MedicineNotFoundException.class);
+        modelManager.setSelectedMedicine(PARACETAMOL);
+    }
+
+    @Test
+    public void setSelectedMedicine_medicineInFilteredMedicineList_setsSelectedMedicine() {
+        modelManager.addMedicine(PARACETAMOL);
+        assertEquals(Collections.singletonList(PARACETAMOL), modelManager.getFilteredMedicineList());
+        modelManager.setSelectedMedicine(PARACETAMOL);
+        assertEquals(PARACETAMOL, modelManager.getSelectedMedicine());
     }
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        AddressBook differentAddressBook = new AddressBook();
+        Inventory inventory = new InventoryBuilder().withMedicine(PARACETAMOL).withMedicine(IBUPROFEN).build();
+        Inventory differentInventory = new Inventory();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        modelManager = new ModelManager(inventory, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(inventory, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -169,20 +229,40 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        // different inventory -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentInventory, userPrefs)));
 
-        // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        // different filteredMedicineList -> returns false
+        String[] keywords = PARACETAMOL.getName().fullName.split("\\s+");
+        modelManager.updateFilteredMedicineList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        assertFalse(modelManager.equals(new ModelManager(inventory, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.updateFilteredMedicineList(PREDICATE_SHOW_ALL_MEDICINES);
+
+        // different filteredExpiringMedicineList -> returns false
+        Threshold threshold =
+                new Threshold(Integer.toString(Threshold.MAX_EXPIRY_THRESHOLD), WarningPanelPredicateType.EXPIRY);
+        modelManager.updateFilteredExpiringMedicineList(new MedicineExpiryThresholdPredicate(threshold));
+        assertFalse(modelManager.equals(new ModelManager(inventory, userPrefs)));
+
+        // resets modelManager to initial state for upcoming tests
+        modelManager.updateFilteredExpiringMedicineList(
+                new MedicineExpiryThresholdPredicate(Model.DEFAULT_EXPIRY_THRESHOLD));
+
+        // different filteredLowStockMedicineList -> returns false
+        threshold =
+                new Threshold(Integer.toString(Threshold.MAX_QUANTITY_THRESHOLD), WarningPanelPredicateType.LOW_STOCK);
+        modelManager.updateFilteredLowStockMedicineList(new MedicineLowStockThresholdPredicate(threshold));
+        assertFalse(modelManager.equals(new ModelManager(inventory, userPrefs)));
+
+        // resets modelManager to initial state for upcoming tests
+        modelManager.updateFilteredLowStockMedicineList(
+                new MedicineLowStockThresholdPredicate(Model.DEFAULT_LOW_STOCK_THRESHOLD));
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        differentUserPrefs.setInventoryFilePath(Paths.get("differentFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(inventory, differentUserPrefs)));
     }
 }

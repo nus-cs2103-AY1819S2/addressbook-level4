@@ -1,0 +1,87 @@
+{
+  "_comment": "Inventory save file which contains the same Medicine values as in TypicalMedicines#getTypicalInventory()",
+  "medicines" : [ {
+    "name" : "Acetaminophen",
+    "totalQuantity" : "0",
+    "nextExpiry" : "-",
+    "company" : "Pfizer",
+    "tagged" : [ ],
+    "batches" : [ ]
+  }, {
+    "name" : "Ibuprofen",
+    "totalQuantity" : "432",
+    "nextExpiry" : "21/09/2019",
+    "company" : "Novartis",
+    "tagged" : [ "inflammation", "fever" ],
+    "batches" : [ {
+      "batchNumber" : "HH073101",
+      "expiry" : "21/09/2019",
+      "quantity" : "432"
+    } ]
+  }, {
+    "name" : "Levothyroxine Sodium",
+    "totalQuantity" : "533",
+    "nextExpiry" : "31/07/2019",
+    "company" : "3M Pharmaceuticals",
+    "tagged" : [ "thyroid" ],
+    "batches" : [ {
+      "batchNumber" : "GKP1684",
+      "expiry" : "13/08/2019",
+      "quantity" : "233"
+    },
+      {
+        "batchNumber" : "GKP1685",
+        "expiry" : "15/08/2019",
+        "quantity" : "300"
+      },
+       {
+        "batchNumber" : "GKP1682",
+        "expiry" : "31/07/2019",
+        "quantity" : "5"
+      } ]
+  }, {
+    "name" : "Lipitor",
+    "totalQuantity" : "82",
+    "nextExpiry" : "25/01/2020",
+    "company" : "Johnson & Johnson",
+    "tagged" : [ ],
+    "batches" : [ {
+      "batchNumber" : "NDC 0777-3105-02",
+      "expiry" : "25/01/2020",
+      "quantity" : "82"
+    } ]
+  }, {
+    "name" : "Lisinopril",
+    "totalQuantity" : "94",
+    "nextExpiry" : "06/07/2019",
+    "company" : "Takeda Pharmaceutical Co.",
+    "tagged" : [ ],
+    "batches" : [ {
+      "batchNumber" : "307002",
+      "expiry" : "06/07/2019",
+      "quantity" : "94"
+    } ]
+  }, {
+    "name" : "Paracetamol",
+    "totalQuantity" : "312",
+    "nextExpiry" : "31/12/2019",
+    "company" : "GlaxoSmithKline",
+    "tagged" : [ "fever" ],
+    "batches" : [ {
+      "batchNumber" : "0042121",
+      "expiry" : "31/12/2019",
+      "quantity" : "312"
+    } ]
+  }, {
+    "name" : "Prednisone",
+    "totalQuantity" : "427",
+    "nextExpiry" : "19/11/2019",
+    "company" : "Gilead Sciences",
+    "tagged" : [ ],
+    "batches" : [ {
+      "batchNumber" : "A030F21",
+      "expiry" : "19/11/2019",
+      "quantity" : "427"
+    } ]
+  } ]
+}

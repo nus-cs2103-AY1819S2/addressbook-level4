@@ -9,6 +9,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -31,13 +32,14 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+    private InformationPanel informationPanel;
+    private MedicineListPanel medicineListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private WarningPanel warningPanel;
 
     @FXML
-    private StackPane browserPlaceholder;
+    private StackPane informationPanelPlaceHolder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -46,13 +48,16 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane medicineListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private VBox warningPanelPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -111,17 +116,21 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedPersonProperty());
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        informationPanel = new InformationPanel(logic.selectedMedicineProperty(), logic.getInformationPanelSetting());
+        informationPanelPlaceHolder.getChildren().add(informationPanel.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
-                logic::setSelectedPerson);
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        medicineListPanel = new MedicineListPanel(logic.getFilteredMedicineList(), logic.selectedMedicineProperty(),
+                logic::setSelectedMedicine);
+        medicineListPanelPlaceholder.getChildren().add(medicineListPanel.getRoot());
+
+        warningPanel = new WarningPanel(logic.getExpiringMedicinesList(), logic.getLowStockMedicinesList(),
+                logic.getWarningPanelPredicateAccessor());
+        warningPanelPlaceholder.getChildren().add(warningPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getInventoryFilePath(), logic.getInventory());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
@@ -168,8 +177,8 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public MedicineListPanel getMedicineListPanel() {
+        return medicineListPanel;
     }
 
     /**

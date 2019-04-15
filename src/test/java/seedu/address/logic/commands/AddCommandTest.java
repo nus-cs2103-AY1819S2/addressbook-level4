@@ -17,14 +17,19 @@ import org.junit.rules.ExpectedException;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.InformationPanelSettings;
+import seedu.address.commons.core.WarningPanelSettings;
+import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
+import seedu.address.commons.util.warning.WarningPanelPredicateType;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.Inventory;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyInventory;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.medicine.Medicine;
+import seedu.address.model.threshold.Threshold;
+import seedu.address.testutil.MedicineBuilder;
 
 public class AddCommandTest {
 
@@ -36,56 +41,56 @@ public class AddCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullMedicine_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new AddCommand(null);
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_medicineAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingMedicineAdded modelStub = new ModelStubAcceptingMedicineAdded();
+        Medicine validMedicine = new MedicineBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddCommand(validMedicine).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validMedicine), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validMedicine), modelStub.medicinesAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_duplicateMedicine_throwsCommandException() throws Exception {
+        Medicine validMedicine = new MedicineBuilder().build();
+        AddCommand addCommand = new AddCommand(validMedicine);
+        ModelStub modelStub = new ModelStubWithMedicine(validMedicine);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_MEDICINE);
         addCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Medicine paracetamol = new MedicineBuilder().withName("Paracetamol").build();
+        Medicine gabapentin = new MedicineBuilder().withName("Gabapentin").build();
+        AddCommand addParacetamolCommand = new AddCommand(paracetamol);
+        AddCommand addGabapentinCommand = new AddCommand(gabapentin);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addParacetamolCommand.equals(addParacetamolCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddCommand addParacetamolCommandCopy = new AddCommand(paracetamol);
+        assertTrue(addParacetamolCommand.equals(addParacetamolCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addParacetamolCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addParacetamolCommand.equals(null));
 
-        // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        // different medicine -> returns false
+        assertFalse(addParacetamolCommand.equals(addGabapentinCommand));
     }
 
     /**
@@ -113,140 +118,200 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public WarningPanelSettings getWarningPanelSettings() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setWarningPanelSettings(WarningPanelSettings warningPanelSettings) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addPerson(Person person) {
+        public void configureWarningPanelLists() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setInformationPanelSettings(InformationPanelSettings informationPanelSettings) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyProperty<InformationPanelSettings> getInformationPanelSettings() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasPerson(Person person) {
+        public Path getInventoryFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Person target) {
+        public void setInventoryFilePath(Path inventoryFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Person target, Person editedPerson) {
+        public void addMedicine(Medicine medicine) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Person> getFilteredPersonList() {
+        public void setInventory(ReadOnlyInventory newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
+        public ReadOnlyInventory getInventory() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canUndoAddressBook() {
+        public boolean hasMedicine(Medicine medicine) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canRedoAddressBook() {
+        public void deleteMedicine(Medicine target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoAddressBook() {
+        public void setMedicine(Medicine target, Medicine editedMedicine) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoAddressBook() {
+        public WarningPanelPredicateAccessor getWarningPanelPredicateAccessor() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitAddressBook() {
+        public ObservableList<Medicine> getFilteredMedicineList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyProperty<Person> selectedPersonProperty() {
+        public ObservableList<Medicine> getExpiringMedicinesList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Person getSelectedPerson() {
+        public ObservableList<Medicine> getLowStockMedicinesList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setSelectedPerson(Person person) {
+        public void updateFilteredMedicineList(Predicate<Medicine> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredExpiringMedicineList(Predicate<Medicine> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredLowStockMedicineList(Predicate<Medicine> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canUndoInventory() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedoInventory() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoInventory() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoInventory() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commitInventory() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<Medicine> selectedMedicineProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Medicine getSelectedMedicine() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedMedicine(Medicine medicine) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void changeWarningPanelListThreshold(WarningPanelPredicateType type, Threshold threshold) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Threshold getWarningPanelThreshold(WarningPanelPredicateType type) {
             throw new AssertionError("This method should not be called.");
         }
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single medicine.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithMedicine extends ModelStub {
+        private final Medicine medicine;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithMedicine(Medicine medicine) {
+            requireNonNull(medicine);
+            this.medicine = medicine;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasMedicine(Medicine medicine) {
+            requireNonNull(medicine);
+            return this.medicine.isSameMedicine(medicine);
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the medicine being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingMedicineAdded extends ModelStub {
+        final ArrayList<Medicine> medicinesAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasMedicine(Medicine medicine) {
+            requireNonNull(medicine);
+            return medicinesAdded.stream().anyMatch(medicine::isSameMedicine);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addMedicine(Medicine medicine) {
+            requireNonNull(medicine);
+            medicinesAdded.add(medicine);
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitInventory() {
             // called by {@code AddCommand#execute()}
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyInventory getInventory() {
+            return new Inventory();
         }
     }
 

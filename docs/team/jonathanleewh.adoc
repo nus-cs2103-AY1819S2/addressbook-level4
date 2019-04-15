@@ -1,0 +1,85 @@
+= LEE WEI HAO JONATHAN - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Introduction
+Welcome to my Project Portfolio which provides you with an overview of my technical skills in the writing of documentation, coding and other contributions to my team project, *MediTabs*, for a Software Engineering module in the National University of Singapore (NUS).
+
+== About the project
+
+The team project involved improving an existing link:https://github.com/nus-cs2103-AY1819S2/addressbook-level4/[Addressbook application] for users who prefer command line interfaces (CLI). My team and I chose to morph it into a medicine inventory management application called *MediTabs*. The goal is to streamline the medicine inventory management workflow in clinics by enabling pharmacists to keep track and manage medicine inventory easily; export the data for easier reference and data analysis; and print medicine labels containing essential medicine information.
+
+I am the team leader and in charge of designing and implementing the `export` feature.
+
+This document uses the following labels and formatting:
+
+|===
+|Label/Formatting |Description
+
+a|`Text`
+|Indicates command, format or code.
+
+a|NOTE: {sp}
+|Information to take note.
+
+a|IMPORTANT: {sp}
+|Important information.
+
+a|WARNING: {sp}
+|Indicates potential error message.
+|===
+
+== Summary of contributions
+
+This section highlights my documentation, coding and other noteworthy contributions to my team project.
+
+* *Major enhancement: Added `export` command support*
+** What it does: Allows the user to export the current medicine inventory data shown in the Graphical User Interface (GUI) to a spreadsheet file which is supported by commonly used spreadsheet applications such as Microsoft Excel.
+** Justification: Allows the user to save the data so that it can be printed, organised or for advanced data analysis using a spreadsheet application such as Microsoft Excel. This is especially useful for the user, superior or supplier's reference.
+** Highlights: This enhancement requires an indepth understanding of how each major components work and the methods available as it involves retrieving of data from the GUI and parsing the retrieved data. Despite using the Opencsv library, the implementation was still challenging as it required using methods from different components, parsing and organising the data such that the exported file contains only the essential information for easier reference.
+** Credits: link:http://opencsv.sourceforge.net/team.html[Opencsv Team]
+
+* *Minor enhancement*: As there are currently no third party libraries available which validate file name such that it adheres to the file naming conventions of the major operating systems (OS), Windows, Linux and macOS, I have created a `FileName` class which implements this feature to complement the `export` feature and is also used by the `label` feature. It requires an indepth knowledge of the different file naming conventions used in the various OS and also numerous testing as I discovered that some file name conventions were not documented and not allowed to be used as file names.
+
+* *Code contributed*: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=jonathanleewh[Project Code Dashboard]
+
+* *Other contributions*:
+
+** Project management:
+*** Set up team project GitHub repository including setting up the issue tracker, permissions, project page, milestones and labels.
+*** Managed releases `v1.1` - `v1.4` (9 releases) on GitHub
+** Documentation:
+*** Added Introduction sections to both User Guide and Developer Guide: https://github.com/CS2103-AY1819S2-T12-3/main/pull/115[#115], https://github.com/CS2103-AY1819S2-T12-3/main/pull/140[#140]
+*** Added Frequently Asked Question (FAQ) and File Naming Convention sections to User Guide: https://github.com/CS2103-AY1819S2-T12-3/main/pull/123[#123], https://github.com/CS2103-AY1819S2-T12-3/main/pull/135[#135]
+*** Added Validation of File Name section to Developer Guide which includes code snippet for reference on how to take advantage of the `FileName` class provided: https://github.com/CS2103-AY1819S2-T12-3/main/pull/140[#140]
+*** Updated stylesheet to Portable Document Format (PDF) printer friendly format: https://github.com/CS2103-AY1819S2-T12-3/main/pull/150[#150]
+*** Updated User Guide's Quick Start section and Developer Guide's Setting Up section to only allow Java version `9` and JDK `9` including references to the reason for the change: https://github.com/CS2103-AY1819S2-T12-3/main/pull/117[#117], https://github.com/CS2103-AY1819S2-T12-3/main/pull/123[#123]
+*** Updated User Guide Quick Start section with an additional step on how users can seek assistance: https://github.com/CS2103-AY1819S2-T12-3/main/pull/115[#115]
+*** Updated Storage component class diagram of Developer Guide to match our project: https://github.com/CS2103-AY1819S2-T12-3/main/pull/79[#79]
+*** Updated Developer Guide's Instructions for Manual Testing section to include instructions for testing the `export` command: https://github.com/CS2103-AY1819S2-T12-3/main/pull/197[#197]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-T12-3/main/pull/24[#24], https://github.com/CS2103-AY1819S2-T12-3/main/pull/27[#27], https://github.com/CS2103-AY1819S2-T12-3/main/pull/40[#40], https://github.com/CS2103-AY1819S2-T12-3/main/pull/42[#42]
+*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1819S2/forum/issues/6[1], https://github.com/nus-cs2103-AY1819S2/forum/issues/9[2], https://github.com/nus-cs2103-AY1819S2/forum/issues/11[3])
+*** Reported bugs and suggestions for other teams in the class (example: https://github.com/nus-cs2103-AY1819S2/addressbook-level4/pull/6#issuecomment-475968922[1], https://github.com/nus-cs2103-AY1819S2/forum/issues/73[2])
+** Tools:
+*** Integrated third party libraries (Opencsv and Apache Commons) to the project: https://github.com/CS2103-AY1819S2-T12-3/main/pull/57[#57], https://github.com/CS2103-AY1819S2-T12-3/main/pull/122[#122]
+*** Integrated GitHub plugins (Travis, Appveyor, Coveralls and Netlify) to the team repository: https://github.com/CS2103-AY1819S2-T12-3/main/pull/6[#6]
+
+== Contributions to the User Guide
+
+To showcase my ability to write documentation which targets end users, my contributions to the User Guide are shown below.
+
+---
+
+include::../UserGuide.adoc[tag=exportcommand]
+
+include::../UserGuide.adoc[tag=integrationaddon]
+
+== Contributions to the Developer Guide
+
+To showcase my ability to write technical documentation which targets developers and my technical knowledge on my project contributions, my contributions to the Developer Guide are shown below.
+
+---
+
+include::../DeveloperGuide.adoc[tag=exportcommand]

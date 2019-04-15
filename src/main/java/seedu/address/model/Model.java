@@ -6,14 +6,27 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
+import seedu.address.commons.core.InformationPanelSettings;
+import seedu.address.commons.core.WarningPanelSettings;
+import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
+import seedu.address.commons.util.warning.WarningPanelPredicateType;
+import seedu.address.model.medicine.Medicine;
+import seedu.address.model.threshold.Threshold;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
+    /** Default {@code Threshold} used for expiry */
+    Threshold DEFAULT_EXPIRY_THRESHOLD = new Threshold(Integer
+            .toString(WarningPanelSettings.DEFAULT_EXPIRY_THRESHOLD_VALUE), WarningPanelPredicateType.EXPIRY);
+
+    /** Default {@code Threshold} used for low stock */
+    Threshold DEFAULT_LOW_STOCK_THRESHOLD = new Threshold(Integer
+            .toString(WarningPanelSettings.DEFAULT_LOW_STOCK_THRESHOLD_VALUE), WarningPanelPredicateType.LOW_STOCK);
+
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Medicine> PREDICATE_SHOW_ALL_MEDICINES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -36,95 +49,151 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' WarningPanel settings.
      */
-    Path getAddressBookFilePath();
+    WarningPanelSettings getWarningPanelSettings();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Configures up warning panel thresholds with thresholds from userPrefs.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void configureWarningPanelLists();
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Sets the user prefs' GUI settings.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
-
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    void setWarningPanelSettings(WarningPanelSettings warningPanelSettings);
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns the user prefs' InformationPanel settings as a ReadOnlyProperty.
      */
-    boolean hasPerson(Person person);
+    ReadOnlyProperty<InformationPanelSettings> getInformationPanelSettings();
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Sets the user prefs' InformationPanel settings.
      */
-    void deletePerson(Person target);
+    void setInformationPanelSettings(InformationPanelSettings informationPanelSettings);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Returns the user prefs' inventory file path.
      */
-    void addPerson(Person person);
+    Path getInventoryFilePath();
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Sets the user prefs' inventory file path.
      */
-    void setPerson(Person target, Person editedPerson);
-
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    void setInventoryFilePath(Path inventoryFilePath);
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Replaces inventory data with the data in {@code inventory}.
+     */
+    void setInventory(ReadOnlyInventory inventory);
+
+    /** Returns the Inventory */
+    ReadOnlyInventory getInventory();
+
+    /**
+     * Returns true if a medicine with the same identity as {@code medicine} exists in the inventory.
+     */
+    boolean hasMedicine(Medicine medicine);
+
+    /**
+     * Deletes the given medicine.
+     * The medicine must exist in the inventory.
+     */
+    void deleteMedicine(Medicine target);
+
+    /**
+     * Adds the given medicine.
+     * {@code medicine} must not already exist in the inventory.
+     */
+    void addMedicine(Medicine medicine);
+
+    /**
+     * Replaces the given medicine {@code target} with {@code editedMedicine}.
+     * {@code target} must exist in the inventory.
+     * The identity of {@code editedMedicine} must not be the same as another existing medicine in the inventory.
+     */
+    void setMedicine(Medicine target, Medicine editedMedicine);
+
+    /** Returns predicates used by the warning panel */
+    WarningPanelPredicateAccessor getWarningPanelPredicateAccessor();
+
+    /** Returns an unmodifiable view of the filtered medicine list to be used for the medicine panel */
+    ObservableList<Medicine> getFilteredMedicineList();
+
+    /** Returns an unmodifiable view of the filtered medicine list for expiry date warning */
+    ObservableList<Medicine> getExpiringMedicinesList();
+
+    /** Returns an unmodifiable view of the filtered medicine list for low stock warning */
+    ObservableList<Medicine> getLowStockMedicinesList();
+
+    /**
+     * Updates the filter of the filtered medicine list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredMedicineList(Predicate<Medicine> predicate);
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Updates the filter of the medicine list filtered by expiry date by the give {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
      */
-    boolean canUndoAddressBook();
+    void updateFilteredExpiringMedicineList(Predicate<Medicine> predicate);
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Updates the filter of the medicine list filtered by quantity by the give {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
      */
-    boolean canRedoAddressBook();
+    void updateFilteredLowStockMedicineList(Predicate<Medicine> predicate);
 
     /**
-     * Restores the model's address book to its previous state.
+     * Returns true if the model has previous inventory states to restore.
      */
-    void undoAddressBook();
+    boolean canUndoInventory();
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Returns true if the model has undone inventory states to restore.
      */
-    void redoAddressBook();
+    boolean canRedoInventory();
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Restores the model's inventory to its previous state.
      */
-    void commitAddressBook();
+    void undoInventory();
 
     /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
+     * Restores the model's inventory to its previously undone state.
      */
-    ReadOnlyProperty<Person> selectedPersonProperty();
+    void redoInventory();
 
     /**
-     * Returns the selected person in the filtered person list.
-     * null if no person is selected.
+     * Saves the current inventory state for undo/redo.
      */
-    Person getSelectedPerson();
+    void commitInventory();
 
     /**
-     * Sets the selected person in the filtered person list.
+     * Selected medicine in the filtered medicine list.
+     * null if no medicine is selected.
      */
-    void setSelectedPerson(Person person);
+    ReadOnlyProperty<Medicine> selectedMedicineProperty();
+
+    /**
+     * Returns the selected medicine in the filtered medicine list.
+     * null if no medicine is selected.
+     */
+    Medicine getSelectedMedicine();
+
+    /**
+     * Sets the selected medicine in the filtered medicine list.
+     */
+    void setSelectedMedicine(Medicine medicine);
+
+    /**
+     * Changes threshold used in warning panel list.
+     */
+    void changeWarningPanelListThreshold(WarningPanelPredicateType type, Threshold threshold);
+
+    /**
+     * Returns current threshold used in warning panel, based on type requested.
+     */
+    Threshold getWarningPanelThreshold(WarningPanelPredicateType type);
 }

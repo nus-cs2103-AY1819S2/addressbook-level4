@@ -1,14 +1,16 @@
 package seedu.address.ui.testutil;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import guitests.guihandles.PersonCardHandle;
-import guitests.guihandles.PersonListPanelHandle;
+import guitests.guihandles.MedicineCardHandle;
+import guitests.guihandles.MedicineListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
-import seedu.address.model.person.Person;
+import guitests.guihandles.WarningCardHandle;
+import seedu.address.model.medicine.Medicine;
 
 /**
  * A set of assertion methods useful for writing GUI tests.
@@ -17,51 +19,59 @@ public class GuiTestAssert {
     /**
      * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
      */
-    public static void assertCardEquals(PersonCardHandle expectedCard, PersonCardHandle actualCard) {
+    public static void assertCardEquals(MedicineCardHandle expectedCard, MedicineCardHandle actualCard) {
         assertEquals(expectedCard.getId(), actualCard.getId());
-        assertEquals(expectedCard.getAddress(), actualCard.getAddress());
-        assertEquals(expectedCard.getEmail(), actualCard.getEmail());
+        assertEquals(expectedCard.getCompany(), actualCard.getCompany());
+        assertEquals(expectedCard.getExpiry(), actualCard.getExpiry());
         assertEquals(expectedCard.getName(), actualCard.getName());
-        assertEquals(expectedCard.getPhone(), actualCard.getPhone());
+        assertEquals(expectedCard.getQuantity(), actualCard.getQuantity());
         assertEquals(expectedCard.getTags(), actualCard.getTags());
     }
 
     /**
-     * Asserts that {@code actualCard} displays the details of {@code expectedPerson}.
+     * Asserts that {@code actualCard} displays the details of {@code expectedMedicine}.
      */
-    public static void assertCardDisplaysPerson(Person expectedPerson, PersonCardHandle actualCard) {
-        assertEquals(expectedPerson.getName().fullName, actualCard.getName());
-        assertEquals(expectedPerson.getPhone().value, actualCard.getPhone());
-        assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
-        assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
-        assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
+    public static void assertCardDisplaysMedicine(Medicine expectedMedicine, MedicineCardHandle actualCard) {
+        assertEquals(expectedMedicine.getName().fullName, actualCard.getName());
+        assertEquals(expectedMedicine.getTotalQuantity().toString(), actualCard.getQuantity());
+        assertEquals(expectedMedicine.getNextExpiry().toString(), actualCard.getExpiry());
+        assertEquals(expectedMedicine.getCompany().companyName, actualCard.getCompany());
+        assertEquals(expectedMedicine.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
                 actualCard.getTags());
     }
 
     /**
-     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and
+     * Asserts that {@code actualCard} displays the details of {@code expectedMedicine}.
+     */
+    public static void assertCardDisplaysMedicine(Medicine expectedMedicine, WarningCardHandle actualCard) {
+        assertEquals(expectedMedicine.getName().fullName, actualCard.getName());
+        assertTrue(actualCard.equals(expectedMedicine));
+    }
+
+    /**
+     * Asserts that the list in {@code medicineListPanelHandle} displays the details of {@code medicines} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, Person... persons) {
-        for (int i = 0; i < persons.length; i++) {
-            personListPanelHandle.navigateToCard(i);
-            assertCardDisplaysPerson(persons[i], personListPanelHandle.getPersonCardHandle(i));
+    public static void assertListMatching(MedicineListPanelHandle medicineListPanelHandle, Medicine... medicines) {
+        for (int i = 0; i < medicines.length; i++) {
+            medicineListPanelHandle.navigateToCard(i);
+            assertCardDisplaysMedicine(medicines[i], medicineListPanelHandle.getMedicineCardHandle(i));
         }
     }
 
     /**
-     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and
+     * Asserts that the list in {@code medicineListPanelHandle} displays the details of {@code medicines} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, List<Person> persons) {
-        assertListMatching(personListPanelHandle, persons.toArray(new Person[0]));
+    public static void assertListMatching(MedicineListPanelHandle medicineListPanelHandle, List<Medicine> medicines) {
+        assertListMatching(medicineListPanelHandle, medicines.toArray(new Medicine[0]));
     }
 
     /**
-     * Asserts the size of the list in {@code personListPanelHandle} equals to {@code size}.
+     * Asserts the size of the list in {@code medicineListPanelHandle} equals to {@code size}.
      */
-    public static void assertListSize(PersonListPanelHandle personListPanelHandle, int size) {
-        int numberOfPeople = personListPanelHandle.getListSize();
+    public static void assertListSize(MedicineListPanelHandle medicineListPanelHandle, int size) {
+        int numberOfPeople = medicineListPanelHandle.getListSize();
         assertEquals(size, numberOfPeople);
     }
 

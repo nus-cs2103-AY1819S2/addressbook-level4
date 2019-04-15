@@ -1,0 +1,63 @@
+= Tan Kian Wei Jason - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+Welcome to my Project Portfolio. Here you can find out more about my contributions in various projects to help you better evaluate my technical and communication skills.
+
+== PROJECT: MediTabs
+=== Introduction
+
+MediTabs is a desktop application for managing medicine stock taking. It was created to provide pharmacist with a straightforward and efficient way to keep track of and maintain their medicine inventory.
+MediTabs is a brownfield project that initially started as an address book application.
+It was developed in a team of 4 as part of a software engineering module which spanned a total of about 13 weeks.
+
+In this project, I was in charge of implementing the information panel feature.
+
+=== Summary of contributions
+
+* *Major enhancement*: added the information panel and the `sort` and `update` commands used to manipulate information on the panel.
+** What it does: allows users to add, edit and remove information of different batches of medicine. This information is displayed in a table format for easy reference in the information panel. The panel also collates the information and provides a summary of important details such as total quantity and next expiry date. The table can also be sorted by batch number, quantity or expiry date.
+** Justification: Organizing medicine by batch allows for quicker identification of problematic batches. With each medicine having multiple batches, a way to organize the information neatly to avoid confusion for the user is needed. The information panel provides a visual interface that is simple and well structured for users to refer to when updating their inventory.
+** Highlights: A large amount of planning was done to decide what information would be useful to the user. Implementation was challenging as it not only involved changing existing commands (`add` and `edit`) but also adding functionality to every component of the architecture, namely Logic, Storage, Model and UI.
+
+* *Minor enhancement*: Enhanced the existing `find` command to be able to search other fields. (Pull requests: https://github.com/CS2103-AY1819S2-T12-3/main/pull/180[#180])
+
+* *Code contributed*: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=jtankw3[code]
+
+* *Other contributions*:
+
+** Project management:
+*** Helped to manage issue tracker for the first few weeks before individual project boards were set up: (Issues: https://github.com/CS2103-AY1819S2-T12-3/main/issues/9[#9] https://github.com/CS2103-AY1819S2-T12-3/main/issues/2[#2] Project board: https://github.com/CS2103-AY1819S2-T12-3/main/projects/3[#3])
+** Enhancements to existing features:
+*** Did initial refactoring from address book to MediTabs (Pull request https://github.com/CS2103-AY1819S2-T12-3/main/pull/34[#34])
+*** UI enhancement - Moved tags to bottom of `MedicineCard` shown in the list to improve readability (Pull request https://github.com/CS2103-AY1819S2-T12-3/main/pull/193[#193])
+** Team contributions:
+*** Reviewed team's pull requests (Notable reviews: https://github.com/CS2103-AY1819S2-T12-3/main/pull/25[#25] https://github.com/CS2103-AY1819S2-T12-3/main/pull/115[#115] https://github.com/CS2103-AY1819S2-T12-3/main/pull/191[#191])
+*** Helped edit ContactUs.adoc to reflect our team's information (Pull request https://github.com/CS2103-AY1819S2-T12-3/main/pull/31[#31])
+
+=== Contributions to the User Guide
+Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
+
+include::../UserGuide.adoc[tag=informationpanelfeature]
+
+include::../UserGuide.adoc[tag=inventoryforecasting]
+
+include::../UserGuide.adoc[tag=find]
+
+include::../UserGuide.adoc[tag=select]
+
+include::../UserGuide.adoc[tag=sort]
+
+include::../UserGuide.adoc[tag=update]
+
+=== Contributions to the Developer Guide
+Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+
+include::../DeveloperGuide.adoc[tag=modelcomponentobjectdiagram]
+
+include::../DeveloperGuide.adoc[tag=informationpanel]
+
+include::../DeveloperGuide.adoc[tag=updatetesting]
+
+Click https://cs2103-ay1819s2-t12-3.github.io/main/DeveloperGuide.html#updating-batch-details-of-a-medicine[here] to see the remainder of the test cases.

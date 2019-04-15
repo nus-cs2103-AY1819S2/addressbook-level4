@@ -7,9 +7,13 @@ public class CliSyntax {
 
     /* Prefix definitions */
     public static final Prefix PREFIX_NAME = new Prefix("n/");
-    public static final Prefix PREFIX_PHONE = new Prefix("p/");
-    public static final Prefix PREFIX_EMAIL = new Prefix("e/");
-    public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
+    public static final Prefix PREFIX_QUANTITY = new Prefix("q/");
+    public static final Prefix PREFIX_EXPIRY = new Prefix("e/");
+    public static final Prefix PREFIX_COMPANY = new Prefix("c/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
+    public static final Prefix PREFIX_BATCHNUMBER = new Prefix("b/");
+    public static final Prefix PREFIX_FILE = new Prefix("f/");
+    public static final Prefix PREFIX_PROPERTY = new Prefix("p/");
+    public static final Prefix PREFIX_DIRECTION = new Prefix("d/");
 
 }

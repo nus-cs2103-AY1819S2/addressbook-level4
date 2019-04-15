@@ -13,9 +13,15 @@ public class UserPrefsTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
+    public void setWarningPanelSettings_nullWarningPanelSettings_throwsNullPointerException() {
+        UserPrefs userPref = new UserPrefs();
+        Assert.assertThrows(NullPointerException.class, () -> userPref.setWarningPanelSettings(null));
+    }
+
+    @Test
+    public void setInventoryFilePath_nullPath_throwsNullPointerException() {
         UserPrefs userPrefs = new UserPrefs();
-        Assert.assertThrows(NullPointerException.class, () -> userPrefs.setAddressBookFilePath(null));
+        Assert.assertThrows(NullPointerException.class, () -> userPrefs.setInventoryFilePath(null));
     }
 
 }

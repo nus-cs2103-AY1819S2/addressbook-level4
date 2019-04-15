@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Label?>
+<VBox id="warningCardPane" fx:id="warningCardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <HBox>
+        <Label fx:id="id" styleClass="cell_small_label"/>
+        <Label fx:id="name" styleClass="cell_small_label" text="\$name" />
+    </HBox>
+    <Label fx:id="field" styleClass="cell_small_label" text="\$field" />
+</VBox>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id = "batchTable" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            styleClass="table-view" minWidth="400" prefWidth="400">
+    <top>
+        <VBox minWidth="400" prefWidth="400">
+            <Label fx:id="name" alignment="TOP_LEFT" styleClass="information-panel-header" />
+            <Label fx:id="company" alignment="TOP_LEFT" styleClass="label-information-panel" />
+            <padding>
+                <Insets left="15.0" top="10" />
+            </padding>
+        </VBox>
+    </top>
+
+    <center>
+        <TableView fx:id="table" minWidth="400" prefWidth="400">
+            <columns>
+                <TableColumn fx:id = "numberColumn" text="Batch No.">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="batchNumber" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id = "quantityColumn" text="Quantity">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="quantity" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id = "expiryColumn" text="Expiry">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="expiry" />
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+    </center>
+
+    <bottom>
+        <HBox fx:id="footer" alignment="BOTTOM_CENTER" spacing="15.0" minWidth="400" prefWidth="400">
+            <Label fx:id="quantity" alignment="CENTER" styleClass="label-information-panel" />
+            <Label fx:id="expiry" alignment="CENTER" styleClass="label-information-panel" />
+        </HBox>
+    </bottom>
+</BorderPane>

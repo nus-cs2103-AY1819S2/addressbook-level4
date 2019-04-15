@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= MediTabs - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,147 +12,532 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S2-T12-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T12-3`      Since: `Feb 2019`      Licence: `MIT`
 
+// tag::introduction[]
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Welcome to the _MediTabs User Guide_! Over here, you can find step by step instructions on setting up MediTabs and learn ways to take advantage of the features provided to optimise your clinic's inventory management. Interested? You can jump to <<Quick Start>> to get started. Enjoy!
+
+=== What is MediTabs?
+
+MediTabs is a desktop application for managing medicine stock taking. Managing medicine can be time consuming and frustrating due to the overwhelming number of medicines in the market. Thus, MediTabs was created to provide pharmacist with a straightforward and efficient way to keep track of and maintain their inventory.
+
+With MediTabs, medicine data is organized in a format that helps you quickly locate the information you need. MediTabs also sieves out and provides you with critical information such as which medicines are low in stock, expiring soon or have expired so that you can ensure your inventory is well maintained. Functionality to help you with tasks which require medicine data such as medicine labelling and inventory analysis is also provided, making MediTabs the only application you need for all things inventory related.
+
+MediTabs supports Windows, Linux and macOS operating systems.
+
+=== Who is it for?
+
+If you are looking for a medicine stock taking application for clinics, MediTabs is the product for you. Whether you are an owner of a clinic or a pharmacist in charge of your clinic's medicine inventory, you can use MediTabs to help improve your workflow. It is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, MediTabs can get your medicine stock taking done faster than traditional GUI apps.
+// end::introduction[]
+
 
 == Quick Start
 
-.  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Ensure you have Java version `9` installed on your computer.
+.  Download the latest version of `meditabs.jar` link:{repoURL}/releases[here].
+.  Copy the `meditabs.jar` file to the folder you want to use as the home folder for your MediTabs application.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
+.MediTabs
 image::Ui.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
+[NOTE]
+====
+This program requires a minimum resolution of 1200*810. Best viewed in full screen.
+====
++
+.  Type a command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* *`list`* : lists all medicines in the inventory
+* *`add`* `n/Paracetamol c/3M Pharmaceuticals` : adds a new medicine named `Paracetamol` to the inventory with the manufacturing company `3M Pharmaceuticals`
+* *`delete`* `3` : deletes the 3rd entry shown in the current list
+* *`exit`* : exits the application
 
-.  Refer to <<Features>> for details of each command.
+.  You can refer to <<Commands>> for details of each command.
+.  Having trouble setting up MediTabs? You can refer to the <<Frequently Asked Questions (FAQ)>> for solutions to common problems you might encounter. Do you require further assistance? If so, you can also post your queries link:{repoURL}/issues[here] and our team will do our best to assist you.
+
+// tag::applicationinterface[]
+== Application Interface
+
+image::UserGuide_ApplicationInterface.png[width="1000"]
+
+*Command Box*
+
+* Type commands into the command box and press kbd:[Enter] to execute them.
+* You may refer to <<Commands Summary>> for a list of all possible commands.
+
+*Result Display*
+
+* The result from executing the command will be displayed in the Result Display.
+* If commands are entered incorrectly, error messages will be shown here.
+
+*Medicine List*
+
+* Medicine list provides a list view of the inventory.
+* The list may contain all medicine in the inventory, or a filtered view if the `find` command was executed.
+* The list is sorted lexicographically by medicine name, insensitive to casing.
+
+*Information Panel*
+
+* You can select a medicine from the medicine list by using the `select` command. e.g. `select 1` selects the first medicine in the list.
+* After selecting a medicine, information about the medicine will be displayed in the information panel.
+
+// tag::uiwarningpanel[]
+*Warning Panel*
+
+* The warning panel displays a list of medicines running low on stock and a list of expiring/expired medicine batches.
+* Warnings will be logged in the warnings panel until changes are made to medicines and/or batches displayed, or to the thresholds controlling what is displayed.
+* Image below shows the labelled components of the warning panel:
++
+.Labelled warning panel
+image::WarningPanelLabeled.png[width="500"]
+// end::uiwarningpanel[]
 
 [[Features]]
 == Features
 
+As an inventory management application, MediTabs supports basic functionalities (add, edit, delete, list). On top of these basic functions, MediTabs also boasts several features tailored to your needs. These features aim to streamline your inventory management process, thereby enhancing your user experience.
+
+// tag::informationpanelfeature[]
+=== Information Panel
+.Information panel
+image::UserGuide_InformationPanel.png[width="700"]
+
+Having a way to keep track of individual batches of medicine makes medicine management more efficient as problematic batches can easily be located and removed. However, with so many different batches of the same medicine, you need an effective way to organize them or it could get confusing.
+
+The information panel provides all the details and information you need about each batch of medicine in a neat and organized manner.
+
+You can easily refer to the batch table provided in the information panel while updating and managing your inventory. Simply select a medicine using the `select` command to view all its relevant details. You may refer to <<SelectCommand>> for more details.
+
+You can also sort the table by any of its columns with the `sort` command to suit your needs and preference. You may refer to <<SortCommand>> for more details.
+// end::informationpanelfeature[]
+
+// tag::warningpanelfeature[]
+=== Warning Panel
+
+.Warning panel
+image::UserGuide_WarningPanel.png[width="180"]
+
+The warning panel provides an overview of pressing issues that have to be taken care of. With a quick glance, you will be able to identify expiring or expired batches of medicine, and medicines running low in stock.
+
+On top of that, the warning panel features flexible thresholds that can be changed according your needs and preferences with a simple command, adding to your user experience.
+// end::warningpanelfeature[]
+
+You can learn about related commands related in <<WarningPanel>>.
+
+// tag::exportingascsvfileformat[]
+=== Exporting as CSV file format
+
+You can export the current medicine inventory data shown in the GUI as Comma-separated values (CSV) file format which is supported by many commonly used spreadsheet applications such as Microsoft Excel (Windows), LibreOffice (Linux) or Numbers (macOS).
+
+*Motivation* +
+This feature is especially useful if you want to save the current medicine inventory data shown in the GUI in a file so that it can be printed later or if you want to organise the medicine inventory data using a spreadsheet application for you, your superior or your supplier's reference.
+
+In addition, you can even use the spreadsheet application to convert the CSV file to Microsoft Excel format and use all the functionalities provided by Microsoft Excel such as drawing graphs or chart to display the overview of your clinic's medicine inventory.
+
+You can use the `export` command to take advantage of this feature. You can learn more about how to use the `export` command <<ExportCommand, here>>.
+// end::exportingascsvfileformat[]
+
+=== Coming in v2.0
+
+Our team is constantly working to improve your user experience. Here are some features to look forward to in our next release.
+
+==== Suggested medicine names
+
+When typing fields that include medicine name, a list of suggested medicine names will appear after you input the first letter. +
+
+[NOTE]
 ====
+Press the kbd:[&uarr;] and kbd:[&darr;] arrows to select from the generated list of suggestions.
+====
+
+// tag::inventoryforecasting[]
+==== Inventory Forecasting
+
+MediTabs will store information about your monthly stock level and predict the optimal amount of stock needed for the future. It will be possible to forecast inventory needs up to 3 months in advance with no extra effort from you as all analysis and calculations will take place with data already provided by routine use of MediTabs.
+It will also be possible to import past inventory data to increase accuracy of forecasting immediately without having to wait for the application to collect data.
+
+[NOTE]
+Importing or allowing MediTabs to collect data for 6 months or more will produce a more accurate forecast.
+// end::inventoryforecasting[]
+
+// tag::integrationaddon[]
+==== Integration Addon Support
+
+You can download and install integration addons created for MediTabs such as addons which allows MediTabs to integrate with different third party services which your clinic might currently be using. +
+Format: `install an/NAME_OF_ADDON`
+
+[NOTE]
+Only integration addons that have been verified by our team can be downloaded and installed in MediTabs. This is to ensure that the addons are secure and have no malicious code due to the increasing cybersecurity threat.
+
+Benefits of integration addon support are as follows:
+
+* Provides greater flexibility as as you might choose to integrate with different third-party services which are currently used by your clinic, to allow for easier transition between services.
+* Allows you to customise MediTabs with features that your clinic requires without any unnecessary features which might not be relevant to your clinic's workflow.
+
+An example of an integration addon which would be supported by MediTabs:
+
+* Singapore's Health Sciences Authority (HSA) - To integrate the Singapore HSA's medical database with MediTabs which allows easy retrieval of important information such as when medicine is requested to be recalled by the HSA.
+
+[NOTE]
+This feature can be improved to support medical databases of different countries.
+// end::integrationaddon[]
+
+// tag::dataencryption[]
+==== Encrypting data files
+
+Due to the nature of medical inventories, the integrity of data stored is of utmost importance. The next release will feature data encryption to keep your inventory safe and keep unauthorised users away. With this feature, you will be required to log in with a password to view and edit your inventory. This feature can be disabled if it is not required for your needs.
+// end::dataencryption[]
+
+// tag::previewresults[]
+==== Preview of results
+
+Preview of results for Export and Label Commands to be available in the UI.
+
+* Current implementation: You may have to manually search for the external files created in their respective folders. +
+* In v2.0, a snapshot of the resulting files will be previewed under the UI for easier reference. This further streamline the inventory management and improve your usability.
+* Below is a mock up on how the UI may look like with the features integrated.
+
+image::MockUp.png[width="790"]
+// end::previewresults[]
+
+// tag::importpictures[]
+==== Importing pictures
+
+Import of pictures to aid in the medicine identification.
+
+* Pictures and snapshot of the medicine may be added to MediTabs such that it is easier for you to identify what the physical medicine looks like.
+// end::importpictures[]
+
+
+[[Commands]]
+== Commands
+
+====
+
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/Paracetamol`.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/Paracetamol t/fever` or as `n/Paracetamol`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]…` can be used as `{nbsp}` (i.e. 0 times), `t/fever, t/painkiller t/inflammation` etc..
+* Parameters can be in any order e.g. if the command specifies `n/NAME c/COMPANY_NAME`, `c/COMPANY_NAME n/NAME` is also acceptable.
+* `INDEX` refers to the index number shown in the displayed medicine list. The index *must be a positive integer* 1, 2, 3, ...
+* If only one input is required but more than one valid input is entered, only the last input will be registered e.g. `n/Paracetamol n/Ibuprofen`, only `Ibuprofen` is registered.
+
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding a new medicine : `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds a new medicine to the inventory. +
+Format: `add n/NAME c/COMPANY_NAME [t/TAG]…​`
 
-[TIP]
-A person can have any number of tags (including 0)
+[WARNING]
+Medicines already in the inventory cannot be added again. A duplicate medicine is one with the same name and same manufacturing company.
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Paracetamol c/3M Pharmaceuticals`
+* `add n/Ibuprofen c/Takeda Pharmaceutical Co. t/fever`
 
-=== Listing all persons : `list`
+=== Listing all medicines : `list`
 
-Shows a list of all persons in the address book. +
+Shows a list of all medicine in the inventory. +
 Format: `list`
 
-=== Editing a person : `edit`
+****
+* The details of the medicine shown in the list include: name, company, total quantity, next expiry date and tags.
+****
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+// tag::find[]
+=== Locating medicines : `find`
+
+Finds medicine whose details contain any of the given keywords and displays them in the list. +
+Format: `find PREFIX KEYWORD [MORE_KEYWORDS]...`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+.Possible prefixes:
+* `n/` : name of medicine is searched.
+* `c/`: company name of medicine is searched.
+* `t/` : tags of medicine are searched.
+* `b/` : batch number of batches of medicine are searched.
+
+{nbsp}
+
+* Only the category indicated by the entered prefix will be searched. You can only enter one prefix at a time. Prefix must be entered before keywords.
+* The search is case insensitive. e.g `sodium` will match `Sodium`.
+* The order of the keywords does not matter. e.g. `Sodium Levothyroxine` will match `Levothyroxine Sodium`.
+* Only full words will be matched e.g. `Sod` will not match `Sodium`.
+* Medicines matching at least one keyword will be returned (i.e. `OR` search). e.g. `Sodium Ibuprofen` will return `Levothyroxine Sodium` and `Ibuprofen`.
+****
+
+Examples:
+
+* `find n/ Sodium` +
+`Levothyroxine Sodium` and `Naproxen Sodium` are displayed in the list.
+* `find c/ 3M Johnson Pharmaceutical` +
+All medicines from companies with names containing `3M`, `Johnson` or `Pharmaceutical` such as `3M Pharmaceuticals` are displayed in the list.
+* `find t/ fever` +
+All medicines with tag `fever` are displayed in the list.
+* `find b/ NDC` +
+All medicines with batches with batch number containing `NDC` such as `NDC 0777-3105-02` are displayed in the list.
+// end::find[]
+
+=== Editing a medicine : `edit`
+
+Edits an existing medicine in the inventory. +
+Format: `edit INDEX [n/NAME] [c/COMPANY_NAME] [t/TAG]...`
+
+****
+* Edits the medicine at the specified INDEX.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `list` +
+`edit 2 n/Prednisone c/Johnson & Johnson` +
+Edits the name of the 2nd medicine in the list to be `Prednisone` and company to be `Johnson & Johnson`.
+* `find n/ Prednisone` +
+`edit 1 t/` +
+Remove tags from the 1st medicine in the results of the `find` command.
 
-=== Locating persons by name: `find`
+=== Deleting a medicine : `delete`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
+Deletes the specified medicine from the inventory. +
 Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
 
 Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
+Deletes the 2nd medicine in the list.
+* `find n/ Gabapentin` +
 `delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 1st medicine in the results of the `find` command.
 
-=== Selecting a person : `select`
-
-Selects the person identified by the index number used in the displayed person list. +
+// tag::select[]
+[[SelectCommand]]
+=== Viewing medicine information page : `select`
+Selects a medicine and loads the information page of the medicine. +
 Format: `select INDEX`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
+* Loads the information page of the medicine at the specified `INDEX` in the information panel.
+* The information page consists of a table with details of all batches of the selected medicine.
+* These details include: batch number, quantity and expiry date.
+* The total quantity and next expiry date of the medicine is also displayed at the bottom of the table.
 ****
+
+.An example of the information page loaded when Aspirin is selected
+image::UserGuide_SelectCommand.png[width="800"]
 
 Examples:
 
 * `list` +
 `select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
+Selects the 2nd medicine in the inventory and loads its information page.
+* `find n/ Gabapentin` +
 `select 1` +
-Selects the 1st person in the results of the `find` command.
+Selects the 1st medicine in the results of the `find` command and loads its information page.
+// end::select[]
+
+// tag::sort[]
+[[SortCommand]]
+=== Sorting the batch table : `sort`
+Sorts the batch table in the medicine information page based on the entered property and direction +
+Format: `sort p/PROPERTY d/DIRECTION`
+
+****
+.Possible properties:
+* `batchnumber` : sorts the table by batch number (lexicographically).
+* `expiry`: sorts the table by expiry date.
+* `quantity` : sorts the table by quantity.
+
+.Possible directions:
+* `ascending`: sorts the table in ascending order.
+* `descending` : sorts the table in descending order.
+****
+
+Examples:
+
+* `sort p/expiry d/descending` +
+The table is sorted starting from the batch with the furthest expiry date.
+* `sort p/quantity d/ascending` +
+The table is sorted starting from the batch with the lowest quantity.
+// end::sort[]
+
+// tag::update[]
+=== Updating batch records : `update`
+
+Updates batch details of a medicine. +
+Format: `update INDEX b/BATCH_NUMBER [q/QUANTITY] [e/EXPIRY_DATE]`
+
+****
+* Updates details of a batch in the batch records of the medicine at specified `INDEX`.
+* At least one of the optional fields must be provided.
+* If the entered batch number does not already exist in the record, a new batch record is created. Both quantity and expiry date must be entered for new batches.
+* If the batch number already exists, the quantity or expiry date of the batch is replaced with the new information entered.
+* If quantity of a batch is updated to `0`, it will be removed.
+* The total quantity and next expiry date of the medicine will also be updated.
+* Note that in order to prevent confusion, you cannot set expiry date to a passed date. You also cannot add a new batch with 0 quantity.
+****
+
+Examples:
+
+* `list` +
+`update 2 b/NDC 0777-3105-02 q/30 e/11/2/2020` +
+Updates quantity and expiry date of batch `NDC 0777-3105-02` in the batch records of the 2nd medicine in the list to `30` and `11/2/2020`. A new record is created if batch `NDC 0777-3105-02` did not already exist.
+* `find n/ Gabapentin` +
+`update 1 b/GKP1684 q/50` +
+Updates quantity of batch `GKP1684` in the batch records of the 1st medicine in the results of the `find` command to `50`. An error message is shown if batch `GKP1684` did not already exist.
+* `list` +
+`update 1 b/HK85412 q/0` +
+Removes batch `HK85412` from the batch records of the 1st medicine in the list. An error message is shown if batch `HK85412` did not already exist.
+//end::update[]
+
+// tag::warningpanelcommand[]
+[[WarningPanel]]
+=== Managing the warning panel : `warning`
+
+Manage the threshold for expiry date and low stock warnings to alter the contents of the warning panel.
+
+Format: `warning [e/EXPIRY_THRESHOLD] [q/LOW_STOCK_THRESHOLD] [SHOW]` +
+Provide *only one* of the optional fields available. +
+If the thresholds are not set, the default threshold for expiry will be 10 days, and 20 for low stock. +
+Thresholds set by the user are saved and will be used when the application is launched again.
+
+[IMPORTANT]
+=======
+All thresholds must be positive integers.
+=======
+
+****
+* `EXPIRY_THRESHOLD` should be number of days before expiry date.
+* `LOW_STOCK_THRESHOLD` should be in number of stock remaining.
+* `SHOW` is case insensitive.
+****
+
+Examples:
+
+* `warning e/30` +
+Medicine batches that have expired or with expiry dates within 30 days to expiry from today will be displayed in the warning panel.
+
+* `warning q/10` +
+Medicines with a total quantity of less than or equal to 10 will be displayed in the warning panel.
+
+* `warning show` +
+Current thresholds used for the warning panel will be shown in the result display.
+// end::warningpanelcommand[]
+
+// tag::exportcommand[]
+[[ExportCommand]]
+=== Exporting as CSV file format : `export`
+
+Exports the current medicine inventory data shown in the GUI as CSV file format. +
+Format: `export [FILE_NAME]`
+
+****
+* The `FILE_NAME` field is optional. You can refer to <<Appendix A: File Naming Convention>> for supported file name format if you want to specify a file name for the exported CSV file.
+* If no file name is specified, the `export` command uses the default file name format according to the date and time of export.
+* The specific date and time format used if no file name is specified is `dd_MMM_yyyy_HH_mm_ss` e.g. `18_Mar_2019_10_28_00`
+* The file extension for a CSV file is `.csv`
+* The exported file can be found in the default `exported` folder which can be found in the home folder used for your MediTabs application.
+* If the default `exported` folder is not found in the home folder, MediTabs will automatically create the folder when the `export` command is executed.
+****
+
+[IMPORTANT]
+Medicines without any batches are *not included* in the exported CSV file as they would not have any useful information such as the quantity and expiry dates which are important in the keeping track of your medicine inventory. This is by design, as our team believes that the exported CSV file should only provide *useful detailed information*.
+
+Examples:
+
+* `export` +
+Exports the current medicine inventory data shown in the GUI to a CSV file which has a default file name format `{Date of export}_{Time of export}`. e.g. `18_Mar_2019_10_28_00`
+* `export example` +
+Exports the current medicine inventory data shown in the GUI to a CSV file which has the filename `example`.
+
+[WARNING]
+If a file with the specified file name already exists in the default `exported` folder, the file would not be exported and an error message `"Could not export data to csv file: {Specified File Name} already exists in "exported" directory"`
+
+A sample image of how the medicine inventory data in the exported CSV file is organised:
+
+.Sample of the exported CSV file
+image::SampleCSVFileImage.png[width="790"]
+
+[NOTE]
+From the image above, you can observe that the exported CSV file only contains essential information such as the medicine batches, quantity and expiry date for each batch of medicine and which medicines are low in stock, expiring soon or have expired for easier reference.
+// end::exportcommand[]
+
+// tag::labelcommand[]
+=== Printing labels : `label`
+
+- You can label any specific medicine information in the inventory through the Portable Document Format (PDF). +
+Open the PDF file under the PDF folder to view and print your selected medicine. +
+- Label will include name of medicine and standard label template. +
+This includes the company that manufactured it, expiry date and the tags that was set with it. +
+- Your format for using the command should follow: `label INDEX [f/FILE_NAME]`
+- File name is optional.
+****
+* Outputs the label for the medicine at the specified INDEX.
+* If no file name is specified, the default file name is `to_print`.
+* The index refers to the index number shown in the displayed medicine list.
+****
+
+All PDF files can be found under the PDF folder
+
+image::folderPDF.png[width="790"]
+
+Fig 5.12.1 PDF folder highlighted
+
+Examples:
+
+.  Open up the software interface. (Fig 5.12.2)
++
+image::Ui.png[width="790"]
++
+Fig 5.12.2 Software interface
++
+. Key in  `list` followed by +
+`label 1`. +
+This selects the 1st medicine in the inventory and output the information to a default PDF file named `to_print`.
+
+- A confirmation message will be shown to indicate to you that it have been successfully labeled.
++
+image::ConfirmationMessage.png[width="790"]
++
+.  You can open the file in the PDF folder (Fig 5.12.1) with your preferred PDF reader to print the medicine information.
++
+A example below of how the label information will look like (Fig 5.12.2)
++
+image::label1.png[width="790"]
++
+Fig 5.12.2 Medicine information
++
+.  If you want to name the output file, follow the steps below:
+* `find n/ Simvastatin` +
+`label 1 f/Simvastatin` +
+Similar to the example above, the 1st medicine information will be output to a file name `Simvastatin`. (Fig 5.12.3)
++
+image::label2.png[width="790"]
++
+Fig 5.12.3 Simvastatin medicine information
++
+[WARNING]
+The `label` command will overwrite the `to_print` file when filename is not specified. Do print the required file first before using the `label` command again.
+
+- Please follow Appendix A for naming conventions.
+
+// end::labelcommand[]
 
 === Listing entered commands : `history`
 
@@ -167,12 +552,12 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores the inventory to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the inventry's content (`add`, `delete`, `edit`, `update` and `clear`).
 ====
 
 Examples:
@@ -216,7 +601,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from the inventory. +
 Format: `clear`
 
 === Exiting the program : `exit`
@@ -226,35 +611,96 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Inventory data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+// tag::FAQ[]
+== Frequently Asked Questions (FAQ)
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+*Q*: Where can I find Java version `9`? +
+*A*: You can download Java version `9` link:https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html[here]. We recommend installing Java SE Development Kit `9.0.4` on your computer.
 
-== FAQ
+*Q*: (Windows Only) I followed the instructions in <<Quick Start>> but the GUI did not appear? +
+*A*: This is a commonly known issue with JDK on Windows. You can learn more about the issue here: link:https://bugs.java.com/bugdatabase/view_bug.do?bug_id=4912211[Link]
+
+We recommend following the steps below to solve this issue:
+
+.   Ensure that you *only* have Java version `9` installed on your computer. Uninstall any other versions of Java which might be present on your computer.
+.   Download the latest version of `jarfix.exe` link:https://johann.loefflmann.net/en/software/jarfix/[here].
+.   Double-click the file to allow the program to fix this issue.
+
+[NOTE]
+If you encounter any problems running `jarfix.exe`, you can read the documentation available on the link:https://johann.loefflmann.net/en/software/jarfix/[website] for more detailed instructions on how to run the program on your computer.
+// end::FAQ[]
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous MediTabs folder.
 
-== Command Summary
+== Commands Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add* `add n/NAME c/COMPANY_NAME [t/TAG]...` +
+e.g. `add n/Paracetamol c/3M Pharmaceuticals t/fever`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
+* *Edit* : `edit INDEX [n/NAME] [c/COMPANY_NAME] [t/TAG]...` +
+e.g. `edit 2 n/Amoxicillin c/GlaxoSmithKline t/antibiotic`
+* *Exit* : `exit`
+* *Export* : `export [FILE_NAME]` +
+e.g. export Records
+* *Find* : `find PREFIX KEYWORD [MORE_KEYWORDS]...` +
+e.g. `find n/ paracetamol`
 * *Help* : `help`
+* *History* : `history`
+* *Label* : `label INDEX` +
+e.g. `label 1`
+* *List* : `list`
+* *Redo* : `redo`
 * *Select* : `select INDEX` +
 e.g.`select 2`
-* *History* : `history`
+* *Sort* : `sort p/PROPERTY d/DIRECTION` +
+e.g.`sort p/quantity d/ascending`
 * *Undo* : `undo`
-* *Redo* : `redo`
+* *Update* : `update INDEX b/BATCH_NUMBER [q/QUANTITY] [e/EXPIRY_DATE]` +
+e.g.`update 2 b/A030F21 q/1000 e/25/1/2020`
+* *Warning* : `warning [e/EXPIRY_THRESHOLD] [s/LOW_STOCK_THRESHOLD] [SHOW]` +
+e.g. `warning e/20`, `warning s/10`, `warning show`
+
+== Terminology
+
+* *List:* This refers to the currently displayed list (possibly filtered).
+* *Inventory:* This refers to the storage containing all medicines that have been added. Display all medicines in the inventory by using the `list` command.
+* *Batch:* This refers to a group of medicine with the same name, medical properties and manufacturing date. There may be more than one batch of medicine with the same name, but they will have different batch numbers and manufacturing dates. View all batches of a medicine by using the `select` command.
+
+// tag::filenamingconvention[]
+== Appendix A: File Naming Convention
+
+MediTabs uses the following file naming convention when file name field is used e.g. The `export` command's optional `[FILE_NAME]` field. The file naming convention is to ensure consistency and to avoid potential bugs involving file names with different operating systems such as Windows, Linux and macOS +
+Format: `Start with an alphabet or number followed by alphabets, numbers, underscore or hyphen`
+
+[NOTE]
+File name *does not* include file extension such as `.csv` and `.pdf`. You do not have to include file extension when specifying the file name field such as in `export [FILE_NAME]`. MediTabs will handle the file name extension for you.
+
+Examples of correct and incorrect file names:
+|===
+|Correct |Incorrect
+
+|`myMedicalData`
+|`_myMedicalData`
+
+|`my_Medical_Data`
+|`my Medical Data`
+
+|`myMedicalData1`
+|`myMedicalData.txt`
+
+|`1myMedicalData`
+|`-MyMedicalData`
+|===
+
+[IMPORTANT]
+You must follow the file naming convention format when specifying the file name field for any commands that support file name as a field.
+
+[CAUTION]
+The characters of the file name cannot contain any spacing or symbols, including but not limited to, `\/:*?"<>|.+[]{};!@#$%^&~`` Reserved names, indicated in Windows documentation, are also *not allowed* to be used as file names such as `COM1` and `LPT8`. The reserved names are *case insensitive* for example, `com1` or `CoM1` are also reserved names. You can read more about file naming conventions in Windows link:https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file#naming-conventions[here].
+// end::filenamingconvention[]

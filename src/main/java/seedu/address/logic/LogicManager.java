@@ -7,15 +7,17 @@ import java.util.logging.Logger;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.InformationPanelSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.InventoryParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.ReadOnlyInventory;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.storage.Storage;
 
 /**
@@ -28,36 +30,36 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final CommandHistory history;
-    private final AddressBookParser addressBookParser;
-    private boolean addressBookModified;
+    private final InventoryParser inventoryParser;
+    private boolean inventoryModified;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         history = new CommandHistory();
-        addressBookParser = new AddressBookParser();
+        inventoryParser = new InventoryParser();
 
-        // Set addressBookModified to true whenever the models' address book is modified.
-        model.getAddressBook().addListener(observable -> addressBookModified = true);
+        // Set inventoryModified to true whenever the models' inventory is modified.
+        model.getInventory().addListener(observable -> inventoryModified = true);
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        addressBookModified = false;
+        inventoryModified = false;
 
         CommandResult commandResult;
         try {
-            Command command = addressBookParser.parseCommand(commandText);
+            Command command = inventoryParser.parseCommand(commandText);
             commandResult = command.execute(model, history);
         } finally {
             history.add(commandText);
         }
 
-        if (addressBookModified) {
-            logger.info("Address book modified, saving to file.");
+        if (inventoryModified) {
+            logger.info("Inventory modified, saving to file.");
             try {
-                storage.saveAddressBook(model.getAddressBook());
+                storage.saveInventory(model.getInventory());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
@@ -67,13 +69,28 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyInventory getInventory() {
+        return model.getInventory();
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public WarningPanelPredicateAccessor getWarningPanelPredicateAccessor() {
+        return model.getWarningPanelPredicateAccessor();
+    }
+
+    @Override
+    public ObservableList<Medicine> getFilteredMedicineList() {
+        return model.getFilteredMedicineList();
+    }
+
+    @Override
+    public ObservableList<Medicine> getExpiringMedicinesList() {
+        return model.getExpiringMedicinesList();
+    }
+
+    @Override
+    public ObservableList<Medicine> getLowStockMedicinesList() {
+        return model.getLowStockMedicinesList();
     }
 
     @Override
@@ -82,8 +99,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getInventoryFilePath() {
+        return model.getInventoryFilePath();
     }
 
     @Override
@@ -92,17 +109,22 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReadOnlyProperty<InformationPanelSettings> getInformationPanelSetting() {
+        return model.getInformationPanelSettings();
+    }
+
+    @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
     }
 
     @Override
-    public ReadOnlyProperty<Person> selectedPersonProperty() {
-        return model.selectedPersonProperty();
+    public ReadOnlyProperty<Medicine> selectedMedicineProperty() {
+        return model.selectedMedicineProperty();
     }
 
     @Override
-    public void setSelectedPerson(Person person) {
-        model.setSelectedPerson(person);
+    public void setSelectedMedicine(Medicine medicine) {
+        model.setSelectedMedicine(medicine);
     }
 }

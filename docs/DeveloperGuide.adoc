@@ -14,11 +14,12 @@ ifdef::env-github[]
 :experimental:
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S2-W17-3/main/tree/master
+:bl: pass:[ +]
 
 By: `Team W17-3`      Since: `March 2019`      Licence: `MIT`
 
 == Introduction
-
+{bl}
 [blue]#Welcome to the _In-Credit-Ble_ Developer Guide!#
 
 _In-Credit-Ble_ is a finance tracker application created to simplify the managing and tracking
@@ -31,9 +32,13 @@ this document is the developers, designers and software testers of our applicati
 Please continue on to the <<Setting Up, [underline blue]#Setting Up#>> section to get started. You can also read <<AboutUs#, [blue]#AboutUs.adoc#>>
 and <<ContactUs#, [blue]#ContactUs.adoc#>> for more information on how to contact us!
 
+{bl}
+
 == Setting Up
+{bl}
 
 === Prerequisites
+{bl}
 
 . *JDK `[fuchsia]#9#`* or later
 +
@@ -47,8 +52,10 @@ Windows developers are highly recommended to use JDK `[fuchsia]#9#`.
 IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them. If you have disabled them, go to menu:File[Settings > Plugins] to re-enable them.
 
-=== Setting up the project in your computer
+{bl}
 
+=== Setting up the project in your computer
+{bl}
 . Fork this repo, and clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen, click menu:File[Close Project] to close the existing project dialog first)
 . Set up the correct JDK version for Gradle
@@ -65,15 +72,19 @@ This will generate all resources required by the application and tests.
 .. To resolve this, place your cursor over any of the code section highlighted in [red]#red#. Press kbd:[ALT + ENTER], and select btn:[Add '--add-modules=...' to module compiler options] for each error
 . Repeat this for the test folder as well ([navy]#e.g.# check link:{repoURL}/src/test/java/seedu/finance/ui/HelpWindowTest.java[`[blue]#HelpWindowTest.java#`] for code errors, and if so, resolve it the same way)
 
-=== Verifying the setup
+{bl}
 
+=== Verifying the setup
+{bl}
 . Run `[fuchsia]#seedu.finance.MainApp#` and try a few commands
 . <<Testing,[underline blue]#Run the tests#>> to ensure they all pass.
 
+{bl}
+
 === Configurations to do before writing code
-
+{bl}
 ==== Configuring the coding style
-
+{bl}
 This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[[blue]#oss-generic coding standards#]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
 
 . Go to menu:File[Settings...] (Windows/Linux), or menu:IntelliJ IDEA[Preferences...] (macOS)
@@ -85,8 +96,10 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 
 Optionally, you can follow the <<UsingCheckstyle#, [blue]#UsingCheckstyle.adoc#>> document to configure Intellij to check style-compliance as you write code.
 
-==== Updating documentation to match your fork
+{bl}
 
+==== Updating documentation to match your fork
+{bl}
 After forking the repo, the documentation will still refer to the `[fuchsia]#CS2103-AY1819S2-W17-3/main#` repo.
 
 If you plan to develop this fork as a separate product (i.e. instead of contributing to `[fuchsia]#In-Credit-Ble#`), you should do the following:
@@ -95,9 +108,10 @@ If you plan to develop this fork as a separate product (i.e. instead of contribu
 
 . Replace the URL in the attribute `[fuchsia]#repoURL#` in link:{repoURL}/docs/DeveloperGuide.adoc[`[blue]#DeveloperGuide.adoc#`] and link:{repoURL}/docs/UserGuide.adoc[`[blue]#UserGuide.adoc#`] with the URL of your fork.
 
+{bl}
 
 ==== Setting up CI
-
+{bl}
 Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, [blue]#UsingTravis.adoc#>> to learn how to set it up.
 
 After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#, [blue]#UsingCoveralls.adoc#>>).
@@ -110,22 +124,28 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, [blue]
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
-==== Getting started with coding
+{bl}
 
+==== Getting started with coding
+{bl}
 When you are ready to start coding,
 
 1. Get some sense of the overall design by reading [underline blue]#<<Design-Architecture>>#.
 2. Take a look at [underline blue]#<<GetStartedProgramming>>#.
 
+{bl}
 
 == Design
+{bl}
 
 [[Design-Architecture]]
 === Architecture
+{bl}
 
 .Architecture Diagram
 image::Architecture.png[width="600"]
 
+{bl}
 The *_Architecture Diagram_* above explains the high-level design of _In-Credit-Ble_. Given below is a quick overview of each component.
 
 [TIP]
@@ -137,11 +157,13 @@ To update a diagram, modify the diagram in the pptx file, select the objects of 
 * App launch: Initializes the components in the correct sequence, and connects them up with each other.
 * App shut down: Shuts down the components and invokes cleanup method where necessary.
 
+{bl}
 <<Design-Commons,*`[underline blue]#Commons#`*>> represents a collection of classes used by multiple other components.
 The following class plays an important role at the architecture level:
 
 * `[fuchsia]#LogsCenter#` : Used by many classes to write log messages to the App's log file.
 
+{bl}
 The rest of the App consists of four components.
 
 * <<Design-Ui,*`[underline blue]#UI#`*>>: The UI of the App.
@@ -149,6 +171,7 @@ The rest of the App consists of four components.
 * <<Design-Model,*`[underline blue]#Model#`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`[underline blue]#Storage#`*>>: Reads data from, and writes data to, the hard disk.
 
+{bl}
 Each of the four components
 
 * Defines its _API_ in an `[fuchsia]#interface#` with the same name as the Component.
@@ -157,26 +180,38 @@ Each of the four components
 For example, the `[fuchsia]#Logic#` component (see the class diagram given below) defines its API in the `[fuchsia]#Logic.java#` interface and
 exposes its functionality using the `[fuchsia]#LogicManager.java#` class.
 
+{bl}
+
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[width="700"]
 
+{bl}
+
 [discrete]
 ==== How do the architecture components interact with each other?
+{bl}
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `[fuchsia]#delete 1#`.
+{bl}
 
 .Component interactions for `[fuchsia]#delete 1#` command
 image::SDforDeleteRecord.png[width="800"]
 
+{bl}
+
 The sections below give more details of each component.
+
+{bl}
 
 // tag::UI[]
 [[Design-Ui]]
 === UI component
+{bl}
 
 .Structure of the UI Component
 image::UiClassDiagram.png[width="700"]
 
+{bl}
 *API* : link:{repoURL}/src/main/java/seedu/finance/ui/Ui.java[`[blue]#Ui.java#`]
 
 The UI consists of a `[fuchsia]#MainWindow#` that is made up of parts [navy]#e.g.# `[fuchsia]#CommandBox#`, `[fuchsia]#ResultDisplay#`, `[fuchsia]#RecordListPanel#`,
@@ -192,14 +227,18 @@ The `[fuchsia]#UI#` component,
 * Listens for changes to `[fuchsia]#Model#` data so that the UI can be updated with the modified data.
 // end::UI[]
 
+{bl}
+
 // tag::logic[]
 [[Design-Logic]]
 === Logic component
+{bl}
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[width="700"]
 
+{bl}
 *API* :
 link:{repoURL}/src/main/java/seedu/finance/logic/Logic.java[`[blue]#Logic.java#`]
 
@@ -211,16 +250,22 @@ link:{repoURL}/src/main/java/seedu/finance/logic/Logic.java[`[blue]#Logic.java#`
 help to the user.
 // end::logic[]
 Given below is the Sequence Diagram for interactions within the `[fuchsia]#Logic#` component for the `[fuchsia]#execute("delete 1")#` API call.
+{bl}
 
 .Interactions Inside the Logic Component for the `[fuchsia]#delete 1#` Command
 image::DeletePersonSdForLogic.png[width="800"]
+
+{bl}
+
 // tag::model[]
 [[Design-Model]]
 === Model component
+{bl}
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="700"]
 
+{bl}
 *API* : link:{repoURL}/src/main/java/seedu/finance/model/Model.java[`[blue]#Model.java#`]
 
 The `[fuchsia]#Model#` component,
@@ -232,13 +277,17 @@ that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 // end::model[]
 
+{bl}
+
 // tag::storage[]
 [[Design-Storage]]
 === Storage component
+{bl}
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="700"]
 
+{bl}
 *API* : link:{repoURL}/src/main/java/seedu/finance/storage/Storage.java[`[blue]#Storage.java#`]
 
 The `[fuchsia]#Storage#` component,
@@ -247,12 +296,15 @@ The `[fuchsia]#Storage#` component,
 * can save the Finance Tracker data in json format and read it back.
 // end::storage[]
 
+{bl}
+
 [[Design-Commons]]
 === Common classes
+{bl}
 
 Classes used by multiple components are in the `[fuchsia]#seedu.financetracker.commons#` package.
 
-
+{bl}
 
 == Implementation
 

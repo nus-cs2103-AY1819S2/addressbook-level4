@@ -342,22 +342,26 @@ private Optional<CardSrsData> parseStringIntoCard(String[] cardArray) throws
 The lesson CSV storage feature implements the following functions:
 
 * Parsing lesson data into a list of string arrays, which is a format OpenCSV accepts for saving to CSV.
-* Parsing a list of string arrays back into lesson data, as retrieved from opencsv.
+* Parsing a list of string arrays back into lesson data, as retrieved from OpenCSV.
 
-Actual file I/O is handled in the CsvUtil class, which uses the opencsv library to read/write CSV files.
+Actual file I/O is handled in the CsvUtil class, which uses the OpenCSV library to read/write CSV files.
 
 ==== CSV Lesson Format
-.High-level sequence diagram for the `reloadLessons` command, an example of lesson loading
+.High-level sequence diagram for the `reload` command, an example of lesson loading
 image::CsvLessonStorageSequenceDiagram.png[width="800"]
 
 Lessons are parsed by CsvLessonListStorage, being converted between Lesson and List<String[]> formats. The List<String[]> format is the primary format handled by CsvUtil for reading and writing to CSV files.
 
 For lessons, there are three main sections when saved to a CSV file.
 
+{empty} +
+
 ===== Name
 A lesson's name in BrainTrain is equivalent to its file name.
 
 A lesson named "French" would be saved as French.csv, and vice-versa.
+
+{empty} +
 
 ===== Header
 The header is represented in the file as the first two lines. Each line represents a specific set of data, as outlined below.
@@ -407,9 +411,21 @@ The second line represents the name of each column as shown to the user. Any nam
 
 Any discrepancies in the number of types and the number of names will result in the lesson not being loaded.
 
+{empty} +
+
 ===== Card Data
 
 All remaining data is treated as card data. Any invalid data found in memory or from the file is skipped over.
+
+{empty} +
+
+===== Summary
+.Activity diagram for the `reload` command, highlighting failure conditions
+image::ReloadActivityDiagram.png[width="800"]
+
+As shown in the above diagram, data that is read in from a file goes through various checks before it is loaded into the application. Any invalid data is skipped over, with an entry in the logs explaining the cause of failure.
+
+{empty} +
 
 ==== Design Considerations
 
@@ -423,6 +439,8 @@ All remaining data is treated as card data. Any invalid data found in memory or 
 
 Alternative 1 was chosen as ease of use is a high priority for the project. Most computer users are familiar with the Microsoft Office suite of applications, such as Word and Excel. As Excel allows CSV files to be shown in a spreadsheet, it was intended that users use Excel alongside BrainTrain for easy lesson management.
 
+{empty} +
+
 ===== Aspect: Handling of invalid data
 * **Alternative 1 (current choice):** Skip over specific lesson/card
 ** Pros: User data is not automatically overwritten
@@ -432,6 +450,9 @@ Alternative 1 was chosen as ease of use is a high priority for the project. Most
 ** Cons: Automatic fix may not be as desired by user
 
 Alternative 1 was chosen as creators are expected to have some skill in data editing. Normal users would ideally only download lessons from a creator, and would not be familiar enough with the lesson data to fix any issues.
+
+{empty} +
+
 // end::csvstorage[]
 
 
@@ -1025,7 +1046,7 @@ remember it better
 
 . User downloads file from a source (e.g Internet, other users).
 . User moves the file to the lessons folder.
-. User enters `reloadLessons` command.
+. User enters `reload` command.
 . App loads the file as a lesson.
 . App shows loaded lessons in the UI.
 

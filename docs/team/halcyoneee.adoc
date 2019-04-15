@@ -49,16 +49,18 @@ https://github.com/CS2103-AY1819S2-W14-1/main/pull/129[#129],
 https://github.com/CS2103-AY1819S2-W14-1/main/pull/175[#175],
 https://github.com/CS2103-AY1819S2-W14-1/main/pull/186[#186]
 
-* *Minor enhancement*: Implementation of quiz mode display to user and changing between the
-two dark and light theme.
+* *Minor enhancement*: Implementation of quiz mode display to user.
 
 ** *What it does*: In order to cater for two different mode, there will be 2 different display.
-Display will switch smoothly between management mode and quiz mode. For users that prefers light
-over dark theme, they can choose either one easily that persists beyond app restart.
+Display will switch smoothly between management mode and quiz mode.
 
 ** *Justification*: This is to ensure that there is no unnecessary display to distract the user during a quiz mode.
 The user just need to focus solely on going through the flashcard without having to care about
 the list of lesson available.
+
+** *Highlights*: Pull request
+https://github.com/CS2103-AY1819S2-W14-1/main/pull/108[#108],
+https://github.com/CS2103-AY1819S2-W14-1/main/pull/186[#186]
 
 * *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=halcyoneee[RepoSense]]
 
@@ -72,6 +74,9 @@ the list of lesson available.
 *** Contributed to `HelpCommand`, `ListLessonCommand`, `OpenLessonCommand` and `QuizAnswerCommand`
 system tests to increase coverage from 88% to 95%
 (https://github.com/CS2103-AY1819S2-W14-1/main/pull/175[#175])
+*** Implemented `ChangeThemeCommand` to change between light and dark theme that persists beyond
+app restart. (https://github.com/CS2103-AY1819S2-W14-1/main/pull/175[#175])
+*** Updated BrainTrain icon (https://github.com/CS2103-AY1819S2-W14-1/main/pull/96[#175])
 
 ** Documentation:
 *** Updated Architecture, Logic, UI and QuizModel component diagram to match the current

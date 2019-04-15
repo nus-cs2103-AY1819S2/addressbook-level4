@@ -31,27 +31,33 @@ BrainTrain is a flashcard application that implements a https://en.wikipedia.org
 My role was to design and manage the storage of Lesson data in BrainTrain. The following sections will highlight some of the choices I made and the reasons behind them, and various other contributions to the administration and documentation of the project.
 
 === *Major enhancement*
-Added the ability to save and load Lesson data to Comma-Separated Value (CSV) files
+Added the ability to save and load Lesson data to Comma-Separated Value (CSV) files.
 
-** What it does: Allows the user to save and load flashcard lesson data to CSV files, which are easy to edit in a spreadsheet format.
-** Justification: `*TODO FROM HERE ONWARDS*` This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+** *What it does*: Allows the user to save and load flashcard lesson data to CSV files.
+** *Justification*: CSV files can be opened in an external editor, such as Excel. Given that a lesson may have up to hundreds of cards, managing the lesson through row by row editing would be tedious for a user. An external spreadsheet editor would be more suited to editing large amounts of data.
+** *Credits*: The OpenCSV library, which handles actual file I/O.
+** *Relevant pull requests*: https://github.com/CS2103-AY1819S2-W14-1/main/pull/28[#28], https://github.com/CS2103-AY1819S2-W14-1/main/pull/35[#35], https://github.com/CS2103-AY1819S2-W14-1/main/pull/78[#78], https://github.com/CS2103-AY1819S2-W14-1/main/pull/121[#121], https://github.com/CS2103-AY1819S2-W14-1/main/pull/179[#179]
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+{empty} +
 
-* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=eugenefdw[RepoSense]]
+=== *Minor enhancement*
+Added the `reload` command.
 
-* *Other contributions*:
+** *What it does*: Allows the user to manually reload lessons from their hard disk.
+** *Justification*: The user would be able to modify existing lessons or download new lessons without having to close and open the application.
+** *Relevant pull requests*: https://github.com/CS2103-AY1819S2-W14-1/main/pull/121[#121]
+
+{empty} +
+
+** *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=eugenefdw[RepoSense]]
+
+=== *Other contributions*:
 
 ** Project management:
 *** Led the team, setting deadlines for milestones and other tasks and contacting mentors as needed
-*** Set up the repository
+*** Set up team's Github repository
 *** Set up branch protection, issue labels, milestones on the repository
 *** Set up AppVeyor, Codacy, Coveralls, Travis on the repository
-
-
-** Enhancements to existing features:
 ** Documentation:
 *** Updated User Guide and Developer guide: https://github.com/CS2103-AY1819S2-W14-1/main/pull/78[#78], https://github.com/CS2103-AY1819S2-W14-1/main/pull/99[#99] , https://github.com/CS2103-AY1819S2-W14-1/main/pull/121[#121]
 ** Community:
@@ -64,77 +70,16 @@ Added the ability to save and load Lesson data to Comma-Separated Value (CSV) fi
 
 == Contributions to the User Guide
 
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
 {empty} +
 
-==== Reloading all lessons: `reloadLessons`
-Reloads all lessons from the lessons folder. The default folder is `/lessons/`, found next to `braintrain.jar`.
-
-Format: `reloadLessons`
-
-Steps:
-
-. You have a newly downloaded .csv lesson file, `new_lesson.csv`, with no lessons currently loaded.
-+
-.A new lesson file.
-[#img-csv]
-image::reloadLessons_0_csv.png[]
-.No lessons are currently loaded.
-[#img-csv]
-image::reloadLessons_1_empty.png[]
-
-. You drag the new file into the `/lessons/` folder.
-+
-.Dragging the file.
-[#img-csv]
-image::reloadLessons_2_drag.png[]
-
-. You enter `reloadLessons` into the app, and the new lesson appears.
-+
-.Reloading lessons.
-[#img-csv]
-image::reloadLessons_3_reload.png[]
-
-. You verify again with `listLessons`.
-+
-.New lesson has been loaded.
-[#img-csv]
-image::reloadLessons_4_list.png[]
-
-[NOTE]
-====
-Lessons are automatically reloaded when you open the application.
-====
-
-If the lesson does not appear, please check the <<Troubleshooting>> section.
-
-{empty} +
-
+[discrete]
+include::../UserGuide.adoc[tag=eugene]
 ---
-
-==== Troubleshooting
-
-{empty} +
-
-*Q*: Why are my card values shown as `?????`? +
-*A*: If your lesson contains non-English characters such as:
-
-* Characters with accents: `à`
-* Non-English words : `こんにちは` `السلام عليكم` `你好`
-
-This can be fixed by opening the lesson file in your preferred spreadsheet application (e.g. Excel), and then saving it as `CSV UTF-8 (Comma delimited) (*.csv)`. UTF encoding allows a computer to show non-English characters. +
-****
-The default encoding setting is unable to process special characters. As a result, you will need to save it as a `UTF-8` encoded file.
-
-Note that externally created lesson files have to be saved with UTF-8 encoding before using them in BrainTrain. +
-If the files are saved without `UTF-8` encoding, any non-English data may be saved as `?????`, and the data will be lost.
-****
-
----
-
-*Q*: Why are my lessons not loading? +
-*A*: Please verify if the location of BrainTrain is suitable. Depending on your computer's permissions and security settings, places such as the Desktop may not be usable, and your operating system may prevent BrainTrain from loading the lesson files.
-
-If BrainTrain still does not load lessons despite trying other locations, please contact Team BrainTrain at https://github.com/CS2103-AY1819S2-W14-1/main/issues[our issue tracker] or email us at eugenef@u.nus.edu, and attach any generated braintrain.log files.
+[discrete]
+include::../UserGuide.adoc[tag=eugene_troubleshoot]
 
 {empty} +
 
@@ -143,3 +88,7 @@ If BrainTrain still does not load lessons despite trying other locations, please
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+{empty} +
+
+include::../DeveloperGuide.adoc[tag=csvstorage]

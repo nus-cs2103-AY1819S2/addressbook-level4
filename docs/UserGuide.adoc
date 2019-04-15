@@ -416,6 +416,8 @@ image::AddTable_After.png[width="500",align="center"]
 a| a| Alternatively, you can also add just one table at a time. For example, you can use the command `addTable 4` to add one table with 4 seats.
 |===
 
+// end::restaurantmode[]
+
 [[EditPax]]
 ==== Editing the occupancy : `editPax`
 
@@ -449,6 +451,8 @@ The Table Panel will also be updated where Table 1 shows an updated table status
 
 image::EditPax_After.png[width="500",align="center"]
 |===
+
+// tag::editseats[]
 
 [[EditSeats]]
 ==== Editing the available seats : `editSeats`
@@ -548,7 +552,7 @@ In the Table Panel, you will see that Table 25 will have been updated to the cor
 image::SpaceFor_After.png[width="500",align="center"]
 |===
 
-// end::restaurantmode[]
+// end::editseats[]
 
 [[Reserve]]
 ==== Making a reservation : `reserve` _(Coming in v2.0)_

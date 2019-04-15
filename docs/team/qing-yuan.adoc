@@ -45,17 +45,17 @@ Within the table feature, you will find many commands implemented to create and 
 . *Adding Tables*: added *the ability to add tables to RestOrRant*
 ** _What it does_: It adds a table to RestOrRant with the specified number of seats at the table. This table is also stored in `[blue]#*Storage*#` component and displayed on the User Interface.
 ** _Justification_: This command is a fundamental feature to allow the user to begin using RestOrRant.
-** _Highlights_: This command allows the addition of multiple tables at once, specifying each table's number of seats individually.
+** _Highlights_: This command is configured to take in multiple arguments as well. This allows the users to add multiple tables at once thus making it more convenient to set up the application. 
  [[editPax]]
 . *Changing the occupancy*: added *the ability to change the number of customers seated at a table
 ** _What it does_: It updates the table in RestOrRant with the new occupancy of the table to reflect the current state of the physical restaurant.
 ** _Justification_: This command is important in allowing the user to keep track of the exact number of customers at each table.
-** _Highlights_: The number of customers seated at the table will not be allowed to exceed the number of seats at the table.
+** _Highlights_: Many restrictions and checks were put in place to ensure the integrity of the tables in RestOrRant are kept intact. An example would be ensuring that the number of customers seated at the table cannot be more than the number of seats at the table. 
  [[editSeats]]
 . *Changing the number of seats*: added *the ability to edit the number of seats at a table after it has been created*
 ** _What it does_: It updates the table in RestOrRant with the new number of seats.
 ** _Justification_: In the event that more chairs are pulled to a table or a table as has been replaced by one of different size, this command would enable the user to update RestOrRant to match its current physical state.
-** _Highlights_: This command is allowed to be use while customers are already seated at the table but will not allow the number of seats to be less than the current number of customers seated at the table.
+** _Highlights_: This command has additional restrictions on top of those in changing the occupancy as we allowed the changing of number of seats even when the table is occupied. Hence, we had to ensure that the number of seats at the table cannot be changed to be less than the number of customers already seated at the table.
  [[clearTable]]
 . *Clearing all tables*: added *the ability to delete all tables*
 ** _What it does_: It removes all tables from RestOrRant.
@@ -65,7 +65,7 @@ Within the table feature, you will find many commands implemented to create and 
 . *Checking for space*: added *the ability to search for available tables*
 ** _What it does_: It checks RestOrRant for the next available table for a given number of customers.
 ** _Justification_: Often users would have to physically check the restaurant or eyeball RestOrRant for available tables. In the event that there are large numbers of tables, that would be very inefficient. Hence, this command is menat to alleviate that problem by automating that process to quickly find the best available table.
-** _Highlights_: This command searches for smallest table to fit the given number of customers with the smallest table number.
+** _Highlights_: This command searches for the best fit table by looking for the table with the least number of seats to accommodate the customers. This allows the most efficient allocation of customers and most efficient use of space in the restaurant.
  [[minorEnhancements]]
 . *Minor enhancement*: implemented the `[blue]#*RestaurantMode*#` to only accept commands for the table features only and morphed the `[blue]#*Logic*#` component to be compatible with RestOrRant's features.
 * *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=Qing-Yuan[Project Code Dashboard]]
@@ -75,12 +75,12 @@ Within the table feature, you will find many commands implemented to create and 
 *** Encourage discussion during group meetings to ensure decisions considers all aspects
 *** Enforced standardised coding styles throughout the project
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote tests for table features (Pull requests https://github.com[#36], https://github.com[#38])
+*** Updated the GUI color scheme (Pull requests https://github.com/cs2103-ay1819s2-w09-3/main/pull/92[#92], https://github.com/cs2103-ay1819s2-w09-3/main/pull/131[#131], https://github.com/cs2103-ay1819s2-w09-3/main/pull/187[#187])
+*** Wrote tests for table features (Pull requests https://github.com/cs2103-ay1819s2-w09-3/main/pull/111[#111], https://github.com/cs2103-ay1819s2-w09-3/main/pull/121[#121], https://github.com/cs2103-ay1819s2-w09-3/main/pull/187[#187])
 ** Documentation:
-*** Wrote up the READme for the project: https://github.com[#14]
+*** Wrote up the READme for the project
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** PRs reviewed with non-trivial review comments (Pull requests https://github.com/cs2103-ay1819s2-w09-3/main/pull/62[#62], https://github.com/cs2103-ay1819s2-w09-3/main/pull/69[#69])
 
 
 == Contributions to the User Guide
@@ -88,15 +88,22 @@ Within the table feature, you will find many commands implemented to create and 
 This section shows the updates that I made to the *RestOrRant User Guide* for table features to ensure that it accurately documents the current features in the application.
 
 |===
-| In the User Guide, I wrote about the usages of the commands that can be used in `[blue]#*RestaurantMode*#
+| In the User Guide, I wrote about the usages of the commands that can be used in `[blue]#*RestaurantMode*#.
 |===
 
 include::../UserGuide.adoc[tag=restaurantmode]
+include::../UserGuide.adoc[tag=editseats]
 
 == Contributions to the Developer Guide
 
 |===
-| In the Developer Guide, I provided implementation details of the `[blue]#*EditPaxCommand*#` and its design considerations.
+| In the Developer Guide, I provided implementation details of the `[blue]#*EditPaxCommand*#` and its design considerations which are described in detail below.
 |===
 
 include::../DeveloperGuide.adoc[tag=editpax]
+
+|===
+| Another implementation I provided are details of the `[blue]#*SpaceForCommand*#` and its design considerations which are described in detail below.
+|===
+
+include::../DeveloperGuide.adoc[tag=spacefor]

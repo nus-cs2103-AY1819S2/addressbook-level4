@@ -19,11 +19,11 @@
 
 * *Major enhancement*: implement *the pin/unpin feature*
 ** What it does:
-***The *pin* command allows the user to put some contacts from the normal contact list to the topped pin list. The `pinselect` command will select some contact in the pin list, which will displays all the contact and property information, as well as the address location of the associated property on the Google Maps(TM) browser panel.
+*** The *pin* command allows the user to put some contacts from the normal contact list to the topped pin list. The `pinselect` command will select some contact in the pin list, which will displays all the contact and property information, as well as the address location of the associated property on the Google Maps(TM) browser panel.
 ** Justification:
-*** This feature improves the product significantly because a user can put important contacts into the topped list, which can save much time for searching.
+***  This feature improves the product significantly because a user can put important contacts into the topped list, which can save much time for searching.
 ** Highlights:
-***This enhancement does not affect commands that will not touch pin list. Since the pin list is apart from the original one and works as a fast and detailed look-up manual towards someone the agent currently working with or extremely important contacts. The most challenging part is about the connection requires to build between the brand-new storage for pin list and the other parts. Another point is the UI part displayed in the main window.
+*** This enhancement does not affect commands that will not touch pin list. Since the pin list is apart from the original one and works as a fast and detailed look-up manual towards someone the agent currently working with or extremely important contacts. The most challenging part is about the connection requires to build between the brand-new storage for pin list and the other parts. Another point is the UI part displayed in the main window.
 *** It required an in-depth analysis of design alternatives.
 
 * *Minor enhancement*: Apply `undo` `redo` command to the new commands. So user can directly use `undo` to reverse the changes and use `redo` to reverse the most recent changes made by `undo` command.

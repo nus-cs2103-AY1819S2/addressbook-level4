@@ -27,8 +27,8 @@ Recruit Me is a Java Desktop GUI application that is specifically designed for a
 *** It makes the searching and classification process easier for the app users.
 ** *Highlights:*
 *** This new feature affects all the commands already implemented and all other commands that will be implemented in the future. Thus, the interaction of this command with other commands are strongly investigated and minor changes for other commands are also made to make the other commands compatible with filtering.
-** *Related Pull Requests for This Feature:*
-*** EMPTY
+** *Some of the Related Pull Requests for This Feature:*
+*** https://github.com/CS2103-AY1819S2-W16-4/main/pull/139[#139] ,
 
 * *Major enhancement*: added *CV representation* for selected persons
 ** *What it does:*

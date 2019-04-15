@@ -120,7 +120,7 @@ color-coding to the user guide so that the user can easily understand the differ
 *** Added Glossary, Product Scope, Use Cases and Instructions for Manual Testing so that new developers coming to work on the
 project can easily understand what the project is about and how it works, so it becomes easier for their to do implement new
 features (Pull Request:
-*** Updated the diagrams of the Ui Component and Storage Component to make them represent the current stage of the application
+*** Updated the diagrams of the Ui Component and Storage Component to make them represent the current stage of the application.
 (Pull Request https://github.com/cs2103-ay1819s2-t12-1/main/pull/227/[#227]).
 ** Community:
 *** Approved and reviewed several PRs with non-trivial comments (Pull Requests https://github.com/cs2103-ay1819s2-t12-1/main/pull/22[#22]
@@ -140,8 +140,8 @@ https://github.com/cs2103-ay1819s2-t12-1/main/pull/26[#26], https://github.com/c
 
 === Major Enhancement: Generate Bills for Customers
 
-This section contains an extract from the User Guide that shows how I guided the users regarding how to use the
-`generate-bill` commands.
+This section contains an extract from the User Guide that shows how the users can use the `generate-bill` commands and help
+them understand the commands.
 
 [lime]#Start of Extract (from User Guide)#
 
@@ -192,7 +192,8 @@ include::../DeveloperGuide.adoc[tag=find-reservation]
 [appendix]
 == Other sections in the User Guide
 
-Preface:
+This section contains all my other additions to User Guide which will help the user understand the software and use it
+more efficiently.
 
 === A.1 Introduction
 
@@ -203,6 +204,10 @@ include::../UserGuide.adoc[tag=introduction]
 [lime]#End of Extract (from User Guide)#
 
 === A.2 Prefix List
+
+The Prefix List was added by me keeping in mind that our software has a large number of prefixes and it might become confusing
+for the user as to which prefix to use when. This list will help the users understand which prefix to use when and the constraints
+that each of the prefixes have.
 
 The extract shown below is just an excerpt from the Prefix List and not the entire glossary. To see the full list refer to
 https://github.com/cs2103-ay1819s2-t12-1/main/blob/master/docs/UserGuide.adoc#5-prefix-list[Prefix List in User Guide].
@@ -216,9 +221,14 @@ include::../UserGuide.adoc[tag=prefixlist]
 [appendix]
 == Other sections in the Developer Guide
 
-Preface:
+This section contains all my other additions to the Developer Guide which will help the incoming developers understand the
+motives behind the software and how they all fit well together into a single product. This well help them dive into the software
+with full preparation and work on it in an efficient manner.
 
 === B.1 Glossary
+
+The Glossary section was added by me to help the developers understand the different terms used in the Developer Guide.
+In case, a developer is unsure about a specific term he/she can easily refer to it in the glossary and understand what it means.
 
 The extract shown below is just an excerpt from the Glossary and not the entire list. To see the full list refer to
 https://github.com/cs2103-ay1819s2-t12-1/main/blob/master/docs/DeveloperGuide.adoc#appendix-f-glossary[Glossary in Developer Guide].
@@ -238,13 +248,16 @@ include::../DeveloperGuide.adoc[tag=product-scope]
 [lime]#End of Extract (from Developer Guide)#
 
 === B.3 User Stories
+
+I added User Stories to the Developer Guide to help the incoming developers understand the purpose of each feature and how
+will it actually help the user, so that they can keep them in the mind while implementing new features or enhancing existing ones.
+
 The extract shown below is just an excerpt from the User Stories and not all the user stories. To see the full list refer to
 https://github.com/cs2103-ay1819s2-t12-1/main/blob/master/docs/DeveloperGuide.adoc#appendix-c-user-stories[User Stories in Developer Guide].
 
 [lime]#Start of Extract (from Developer Guide)#
 
 include::../DeveloperGuide.adoc[tag=user-stories]
-include::../DeveloperGuide.adoc[tag=user-stories2]
 include::../DeveloperGuide.adoc[tag=user-stories3]
 
 [lime]#End of Extract (from Developer Guide)#
@@ -253,7 +266,8 @@ include::../DeveloperGuide.adoc[tag=user-stories3]
 
 ==== Ui Component Diagram
 
-Updated the Ui Component Diagram to make it represent the current stage of Ui.
+I also updated the `Ui Component Diagram` to make it represent the current stage of Ui. The current stage of Ui can be seen
+below:
 
 [lime]#Start of Extract (from Developer Guide)#
 
@@ -263,7 +277,8 @@ include::../DeveloperGuide.adoc[tag=ui-diagram]
 
 ==== Storage Component Diagram
 
-Updated the Storage Component Diagram to make it represent the current stage of Storage.
+I also updated the `Storage Component Diagram` to make it represent the current stage of Storage. The current stage of Storage
+can be seen below:
 
 [lime]#Start of Extract (from Developer Guide)#
 
@@ -273,8 +288,8 @@ include::../DeveloperGuide.adoc[tag=storage-diagram]
 
 == Achievements and Learnings
 
-* Learnt how to work on a large code base with more 8000 lines of code.
-* Learnt how to effectively work in a team when everyone is working on the same project.
+* Learned how to work on a large code base with more 8000 lines of code.
+* Learned how to effectively work in a team when everyone is working on the same project.
 
 
 

@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.EligibleModulePredicate;
-import seedu.address.model.GradTrak;
 import seedu.address.model.ReadOnlyGradTrak;
 import seedu.address.model.course.Course;
 import seedu.address.model.course.CourseReqType;

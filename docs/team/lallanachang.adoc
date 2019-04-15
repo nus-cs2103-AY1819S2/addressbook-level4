@@ -62,6 +62,8 @@ Besides designing and writing codes, I also contributed to the project in the fo
 ** Reported bugs and offered suggestion for the project. (examples: https://github.com/CS2103-AY1819S2-W14-1/main/issues/98[#98], https://github.com/CS2103-AY1819S2-W14-1/main/issues/128[#128])
 
 {empty} +
+{empty} +
+{empty} +
 
 == Contributions to the User Guide
 

@@ -13,13 +13,13 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S2-W14-3/main/tree/master
 
 By: `Team W14-3`      Since: `Jan 2019`      Licence: `MIT`
 
-== Setting up
+== Setup
 
-=== Prerequisites
+To set up the project, the following must be installed on your machine:
 
 . *JDK `9`* or later
 +
@@ -57,7 +57,7 @@ This will generate all resources required by the application and tests.
 . Run the `seedu.address.MainApp` and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
 
-=== Configurations to do before writing code
+=== Configuring the project writing code
 
 ==== Configuring the coding style
 
@@ -74,9 +74,9 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, the documentation will still have the Battleships branding and refer to the `CS2103-AY1819S2-W14-3/main` repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `CS2103-AY1819S2-W14-3/main`), you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
@@ -180,16 +180,16 @@ image::LogicClassDiagram.png[width="800"]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `BattleshipParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. putting a ship).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("listTags")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+.Interactions Inside the Logic Component for the `listTags` Command
+image::ListTagsSdForLogic.png[width="800"]
 
 [[Design-Model]]
 // tag::model[]
@@ -200,11 +200,11 @@ image::ModelClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
-The `Model`,
+The `Model` component,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores a `PlayerStatistics` object that represents the user's statistics.
+* manages the players, maps and battleships in the game
 * does not depend on any of the other three components.
 
 // end::model[]
@@ -249,15 +249,15 @@ this component cannot be reduced to just one interface class of `Battle`.
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.address.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::map[]
-=== Map Feature
-==== Current Implementation
+=== Map feature
+==== Current implementation
 The map feature is facilitated by `MapGrid` and `Cell`.
 The map grid is stored internally in `MapGrid` as a 2D array of `Cell` objects.
 `MapGrid` implements the following method to initialise the map.
@@ -295,7 +295,7 @@ image::InitActivityDiagram.png[width=800]
 
 {empty} +
 
-==== Design Considerations
+==== Design considerations
 ===== Aspect: How the maps are initialised
 * **Alternative 1 (current choice):** `MapGrid` will have an initialise method that takes in a 2D array of `Cell` objects.
 The initialise method in `MapGrid` will then do a deep copy of the passed in 2D array to initialise the internal 2D array of `Cell`.
@@ -330,8 +330,8 @@ Simpler implementation means the likelihood of bugs being introduced is less whe
 
 // tag::ship[]
 
-=== Ship Management Feature
-==== Current Implementation
+=== Ship Management feature
+==== Current implementation
 The ship management feature handles the following:
 
 * Putting ships on the map grid and ensuring that ships are placed in valid areas on the map grid.
@@ -419,13 +419,13 @@ The `list` command can list certain ships with certain tags by filtering the lis
 .Sequence diagram of listing battleships deployed on the map.
 image::ListShipSequenceDiagram.png[]
 
-==== Activity Diagram
+==== Activity diagram
 Ship management functions throughout the entirety of the game. As there are multiple states during the game, it is beneficial to visualise the operations of the `put`, `listTags` and `list` commands with respect to the different game states. The activity diagram below illustrates these operations.
 
 .Activity diagram of ship management throughout the game.
 image::ShipManagementActivityDiagram.png[]
 
-==== Design Considerations
+==== Design considerations
 ===== Aspect: How a ship is placed on the map
 * **Current choice:** +
  The same `Battleship` object is put in multiple cells. Each cell contains a reference to the same `Battleship` object. When a battleship on the `Cell` needs to be modified, the `Battleship` attribute in the `Cell` is accessed.
@@ -452,7 +452,7 @@ An `ArrayList` of `FleetEntry` objects is used for storage, where `FleetEntry` c
 // end::ship_aspect_2[]
 
 // tag::battle[]
-=== Battle Feature
+=== Battle feature
 The Battle feature handles the following:
 
 * keeping track of the stage of the battle, and ensuring that the player does not
@@ -600,7 +600,7 @@ image::BeginSequenceDiagram.png[width=800]
 .Sequence diagram of `attack a1`.
 image::AttackSequenceDiagram.png[width=800]
 
-==== Design Considerations
+==== Design considerations
 * **Alternative 1 (current choice):** +
   `BattleManager` is stored under `Model`. Every time `Attack`, `EndTurn` or `Begin` commands
   are executed, they will use this `BattleManager` to actually perform the actions,
@@ -635,8 +635,8 @@ for the advantages of Option 1.
 
 // end::battle[]
 
-=== Enemy AI Feature
-==== Current Implementation
+=== Enemy AI feature
+==== Current implementation
 The Enemy AI feature is currently implemented as an extension of the Player class,
 and serves as the opponent player since `Battleship` is a single-player game.
 The Enemy AI can automatically perform initialising actions similar to the human player.
@@ -737,7 +737,7 @@ __Note: All actions taken by the Enemy AI are seeded by a pseudo-random generato
 Thus, its behaviour will be different for every game session.__
 
 
-==== Design Considerations
+==== Design considerations
 * **Alternative 1 (current choice):** seed all methods with pseudo-random seed/
 ** Pros: each game will be a different experience
 ** Cons: testing will be more difficult
@@ -746,8 +746,8 @@ Thus, its behaviour will be different for every game session.__
 ** Cons: games would be less dynamic since the enemy's behaviour is non-organic
 
 // tag::stats[]
-=== Statistics Feature
-==== Current Implementation
+=== Statistics feature
+==== Current implementation
 The statistics feature allows users to view their current gameplay information. This information will be displayed in a
 pop-up window that includes: Number of Attacks Made, Number of Successful Hits, Number of Misses and Number of Enemy Ships
  Destroyed. The statistics command can be called at any juncture of the game.
@@ -766,7 +766,7 @@ The following operations are invoked upon the calling of the `stats` command.
 ** `getAccuracy()` Returns the current Hit-Miss Ratio of the User based on the game so far.
 ** `generateData()` Formats the current statistical data into a json serializable format.
 
-==== Display Statistics
+==== Display statistics
 
 Given below is an example usage scenario and how the `stats` command behaves at each step.
 
@@ -805,7 +805,7 @@ The following sequence diagram summarizes what happens when a User invokes the `
 
 image::StatsSequenceDiagram.PNG[width=800]
 
-==== Save and Compare
+==== Save and compare
 Given below is an example usage scenario of the automatic save and compare feature.
 
 1. Upon winning a game, a user will be presented with the following screen.
@@ -829,12 +829,12 @@ image::SaveSequenceDiag.PNG[width=800]
 The following sequence diagram summarizes what happens when a previous statistic data is read and compared.
 
 
-==== Activity Diagram
+==== Activity diagram
 The following Activity Diagram shows when the `stats` command can be used.
 
 <Include activity diagram>
 
-==== Design Considerations
+==== Design considerations
 * **Alternative 1:** The methods that are responsible for incrementing the relevant game data is placed
 in whichever command is required to be tracked. This meant that there would be a method call to the statistics class
 from within every method itself.
@@ -853,7 +853,7 @@ performing the analysis of data in the Storage component instead. By implementin
 Result, will make ... more modular... less dependencies especially when working with other components..(Edit)
 //end::stats[]
 
-=== Logging
+=== Logs
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
@@ -880,16 +880,16 @@ We use asciidoc for writing documentation.
 [NOTE]
 We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
 
-=== Editing Documentation
+=== Editing documentation
 
 See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
 Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
 
-=== Publishing Documentation
+=== Publishing documentation
 
 See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
 
-=== Converting Documentation to PDF format
+=== Converting documentation to PDF format
 
 We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
 
@@ -904,7 +904,7 @@ Here are the steps to convert the project documentation files to PDF format.
 image::chrome_save_as_pdf.png[width="300"]
 
 [[Docs-SiteWideDocSettings]]
-=== Site-wide Documentation Settings
+=== Site-wide documentation settings
 
 The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
 
@@ -934,7 +934,7 @@ This will render the SE-EDU navigation bar at the top of the page, and add some 
 |===
 
 [[Docs-PerFileDocSettings]]
-=== Per-file Documentation Settings
+=== Per-file documentation settings
 
 Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
 
@@ -951,9 +951,7 @@ Attributes left unset in `.adoc` files will use their *default value*, if any.
 |`site-section`
 |Site section that the document belongs to.
 This will cause the associated item in the navigation bar to be highlighted.
-One of: `UserGuide`, `DeveloperGuide`, ``LearningOutcomes``{asterisk}, `AboutUs`, `ContactUs`
-
-_{asterisk} Official SE-EDU projects only_
+One of: `UserGuide`, `DeveloperGuide`, `AboutUs`, `ContactUs`
 |_not set_
 
 |`no-site-header`
@@ -962,7 +960,7 @@ _{asterisk} Official SE-EDU projects only_
 
 |===
 
-=== Site Template
+=== Site template
 
 The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
 You can modify them to change some properties of the site's design.
@@ -974,13 +972,13 @@ These template files are written in a mixture of https://www.ruby-lang.org[Ruby]
 ====
 Modifying the template files in link:{repoURL}/docs/templates[`docs/templates`] requires some knowledge and experience with Ruby and Asciidoctor's API.
 You should only modify them if you need greater control over the site's layout than what stylesheets can provide.
-The SE-EDU team does not provide support for modified template files.
+The CS2103-AY1819S2-W14-3 team does not provide support for modified template files.
 ====
 
 [[Testing]]
-== Testing
+== Tests
 
-=== Running Tests
+=== Running tests
 
 There are three ways to run tests.
 
@@ -1016,12 +1014,12 @@ We have two types of tests:
 ..  _Unit tests_ targeting the lowest level methods/classes. +
 e.g. `seedu.address.commons.StringUtilTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.address.storage.StorageManagerTest`
+e.g. `seedu.address.storage.BattleManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
 e.g. `seedu.address.logic.LogicManagerTest`
 
 
-=== Troubleshooting Testing
+=== Troubleshooting testing
 **Problem: `HelpWindowTest` fails with a `NullPointerException`.**
 
 * Reason: One of its dependencies, `HelpWindow.html` in `src/main/resources/docs` is missing.
@@ -1029,22 +1027,22 @@ e.g. `seedu.address.logic.LogicManagerTest`
 
 == Dev Ops
 
-=== Build Automation
+=== Build automation
 
 See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
 
-=== Continuous Integration
+=== Continuous integration
 
 We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
 
-=== Coverage Reporting
+=== Coverage reporting
 
 We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
 
-=== Documentation Previews
+=== Documentation previews
 When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
 
-=== Making a Release
+=== Making a release
 
 Here are the steps to create a new release.
 
@@ -1053,7 +1051,7 @@ Here are the steps to create a new release.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
-=== Managing Dependencies
+=== Managing dependencies
 
 A project often depends on third-party libraries. For example, Address Book depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
 
@@ -1248,12 +1246,11 @@ _{More to be added}_
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-. Should not use up too much memory for the application and application data for typical usage.
+. The app should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
+. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. The app should not use up too much memory for the application and application data for typical usage.
 . Versions should be backward compatible with each other.
-. Should be usable by a novice who has never played Battleship before.
+. The app should be usable by a novice who has never played Battleship before.
 . The map grid should be large enough for gameplay.
 
 [appendix]

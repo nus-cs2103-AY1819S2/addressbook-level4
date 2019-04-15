@@ -92,11 +92,11 @@ image::mapSizeFleetSize.png[width=550]
 *Ready, aim, fire!*
 
 The Player will always be given the first turn.
-The Player may fire shots at the enemy map through the command `shoot <a1>`.
+The Player may fire shots at the enemy map through the command `shoot`, for example `shoot a1`.
 
-If the shot hit a ship, the Player may continue taking shots til a miss.
+If the shot hits a ship, the Player may continue taking shots until they miss.
 Upon a miss, the turn will be handed over to the enemy.
-The same goes for the enemy. The enemy will take its shot automatically, firing until a miss, before
+The same goes for the enemy - the enemy will take its shot automatically, firing until it misses, before
 passing the turn back to the Player.
 ====
 
@@ -126,16 +126,30 @@ This section will describe the features of the game in more detail.
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-=== Viewing help : `help`
+[NOTE]
+====
+Some commands can only be executed at some part of the game, e.g. `attack` can only be executed
+when the battle is ongoing. If you try to enter a command that is not allowed at that point in
+time, the program will tell you so.
+====
+
+=== General commands
+
+==== Viewing help : `help`
 Opens a help window that displays this User Guide. +
 Format: `help`
 
+==== Exiting the program : `exit`
+
+Exits the program. +
+Format: `exit`
+
 // tag::map[]
 
-=== Preparation Phase
+=== Preparation phase
 This section describes the commands used in the preparation phase.
 
-==== Map : `init`
+==== Initialising the map : `init`
 
 Initialises both player's maps to the specified size. The size of the maps must be between 6 and 10, inclusive. +
 
@@ -177,7 +191,7 @@ image::maplegend.png[width=400]
 
 // tag::ship[]
 
-==== Ship Management:
+==== Managing ships:
 ===== Placing a ship on the map: `put`
 
 Adds a battleship onto the player's map. The coordinates specified is the position of the ship's head. +
@@ -231,7 +245,7 @@ Output:     destroyer (3/3) at g5 vertical [redFleet][blueFleet][greenFleet]
 // end::list[]
 
 // tag::listTags[]
-===== List all tags: `listTags`
+===== Listing all tags: `listTags`
 
 Lists all the tags that have been used to tag the battleships deployed on the map. +
 
@@ -243,7 +257,7 @@ The list of tags is given in square brackets.
 // end::listTags[]
 
 // tag::battle[]
-=== Battle Phase
+=== Battle phase
 
 ==== Beginning the battle: `begin`
 
@@ -262,9 +276,10 @@ Launches an attack against given coordinate on the enemy's map. +
 Format: `shoot COORDINATES` +
 Alternative commands: `attack`, `fire`, `hit`
 
-Example:
+Examples:
 
-* `shoot A6`
+* `shoot a6`
+* `attack b5`
 
 ****
 * The program will prevent you from attacking an invalid coordinate.
@@ -276,7 +291,7 @@ Example:
 // end::battle[]
 
 // tag::stats[]
-=== Retrieving game statistics: `stats`
+==== Retrieving game statistics: `stats`
 
 Prints a list of statistics related to gameplay, such as accuracy and current hits. +
 Format: `stats`
@@ -286,15 +301,10 @@ Example:
 * `stats`
 // end::stats[]
 
-=== Exiting the program : `exit`
-
-Exits the program. +
-Format: `exit`
-
 == Coming in v2.0
 
 // tag::upcomingmap[]
-=== Special Map Shapes
+=== Special map shapes
 The player will be allowed to use maps that are randomised in shape. This adds an extra layer of challenge and fun for the player.
 
 The player will not be able to place their ships on the black tiles. The enemy AI will also have a randomised map that will not be the same as the player. The player will not be able to see the shape of the enemy map and can shoot black cells which will be counted as a miss.
@@ -314,17 +324,17 @@ image::randommap.png[width="300"]
 //tag::commandsummary[]
 == Command Summary
 
-[width="200%",cols="<30%,<70%,50%, 50",options="header",]
+[width="200%",cols="<30%,<40%,50%,20%",options="header",]
 |=======================================================================
 |Feature |Format |Purpose   | Example
-|*Attack*| `attack [coordinate]` |Attacks a selected cell on the enemy map.| `attack c1`
-|*Game manual*| `help` |Opens up the help guide window. | `help`
-|*Create map of size 6-10*| `init [integer_size]` | Initializes the map grid. | `init 8`
-|*List ships*| `list` |List all available battleships | `list`
-|*List tags*| `listTags` |List all available battleships by tags | `listTags`
-|*Put ship on map*| `put n/NAME r/ORIENTATION c/COORDINATE [optional]t/TAG` |Place your battleship on the map. | `put n/Destroyer r/vertical c/a1 t/myfleet`
-|*View statistics*| `stats` |Opens a Statistics Window. | `stats`
-|*Start game*| `start game` |Let enemy place ships on enemy grid. | `start game`
+|*Attack*| `attack COORDINATE` |Attacks a selected cell on the enemy map.| `attack c1`
+|*Display manual*| `help` |Opens up the help guide window. | `help`
+|*Create map of size 6-10*| `init MAP_SIZE` | Initializes the map grid. | `init 8`
+|*List ships*| `list [n/NAME] [t/TAG]…` |Lists all available battleships, optionally filtering by name and tag(s)| `list`
+|*List tags*| `listTags` |Lists all tags.| `listTags`
+|*Put ship on map*| `put n/NAME r/ORIENTATION c/COORDINATE [t/TAG]…` | Places a battleship on the specified position on the map, optionally adding tag(s). | `put n/Destroyer r/vertical c/a1 t/myfleet`
+|*View statistics*| `stats` | Opens the Statistics window. | `stats`
+|*Start battle*| `start` | Begins the battle. | `start`
 |=======================================================================
 //end::commandsummary[]
 

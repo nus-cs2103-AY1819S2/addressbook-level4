@@ -160,9 +160,9 @@ Deletes the second lesson in the numbered list displayed by `listLessons`.
 // tag::eugene[]
 
 ==== Reloading all lessons: `reloadLessons`
-Reloads all lessons from the lessons folder. The default folder is `/lessons/`, found next to `braintrain.jar`.
+Reloads all lessons from the lessons folder. The default lessons folder is `/lessons/`, found next to `braintrain.jar`.
 
-Format: `reloadLessons`
+Format: `reload`
 
 Steps:
 
@@ -178,7 +178,7 @@ image::reloadLessons_1_empty.png[]
 .Dragging the file.
 image::reloadLessons_2_drag.png[]
 
-. You enter `reloadLessons` into the app, and the new lesson appears.
+. You enter `reload` into the app, and the new lesson appears.
 +
 .Reloading lessons.
 image::reloadLessons_3_reload.png[]
@@ -400,7 +400,8 @@ Example : import User l/[INSERT_DESIRED_LINK_HERE]
 
 {empty} +
 
-// TODO
+// tag::eugene_troubleshoot[]
+
 == Troubleshooting
 
 *Q*: Why are my card values shown as `?????`? +
@@ -423,6 +424,8 @@ If the files are saved without `UTF-8` encoding, any non-English data may be sav
 If BrainTrain still does not load lessons despite trying other locations, please contact Team BrainTrain at https://github.com/CS2103-AY1819S2-W14-1/main/issues[our issue tracker] or email us at eugenef@u.nus.edu, and attach any generated braintrain.log files.
 
 {empty} +
+
+// end::eugene_troubleshoot[]
 
 == FAQ
 

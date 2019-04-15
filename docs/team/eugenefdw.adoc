@@ -40,7 +40,7 @@ Added the ability to save and load Lesson data to Comma-Separated Value (CSV) fi
 
 {empty} +
 
-=== *Minor enhancements*
+=== *Minor enhancement*
 Added the `reload` command.
 
 ** *What it does*: Allows the user to manually reload lessons from their hard disk.
@@ -71,74 +71,14 @@ Added the `reload` command.
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 {empty} +
 
-==== Reloading all lessons: `reloadLessons`
-Reloads all lessons from the lessons folder. The default folder is `/lessons/`, found next to `braintrain.jar`.
-
-Format: `reloadLessons`
-
-Steps:
-
-. You have a newly downloaded .csv lesson file, `new_lesson.csv`, with no lessons currently loaded.
-+
-.A new lesson file.
-image::reloadLessons_0_csv.png[]
-.No lessons are currently loaded.
-image::reloadLessons_1_empty.png[]
-
-. You drag the new file into the `/lessons/` folder.
-+
-.Dragging the file.
-image::reloadLessons_2_drag.png[]
-
-. You enter `reloadLessons` into the app, and the new lesson appears.
-+
-.Reloading lessons.
-image::reloadLessons_3_reload.png[]
-
-. You verify again with `listLessons`.
-+
-.New lesson has been loaded.
-image::reloadLessons_4_list.png[]
-
-[NOTE]
-====
-Lessons are automatically reloaded when you open the application.
-====
-
-If the lesson does not appear, please check the <<Troubleshooting>> section.
-
-{empty} +
-
+include::../UserGuide.adoc[tag=eugene]
 ---
-
-==== Troubleshooting
-
-{empty} +
-
-*Q*: Why are my card values shown as `?????`? +
-*A*: If your lesson contains non-English characters such as:
-
-* Characters with accents: `à`
-* Non-English words : `こんにちは` `السلام عليكم` `你好`
-
-This can be fixed by opening the lesson file in your preferred spreadsheet application (e.g. Excel), and then saving it as `CSV UTF-8 (Comma delimited) (*.csv)`. UTF encoding allows a computer to show non-English characters. +
-****
-The default encoding setting is unable to process special characters. As a result, you will need to save it as a `UTF-8` encoded file.
-
-Note that externally created lesson files have to be saved with UTF-8 encoding before using them in BrainTrain. +
-If the files are saved without `UTF-8` encoding, any non-English data may be saved as `?????`, and the data will be lost.
-****
-
----
-
-*Q*: Why are my lessons not loading? +
-*A*: Please verify if the location of BrainTrain is suitable. Depending on your computer's permissions and security settings, places such as the Desktop may not be usable, and your operating system may prevent BrainTrain from loading the lesson files.
-
-If BrainTrain still does not load lessons despite trying other locations, please contact Team BrainTrain at https://github.com/CS2103-AY1819S2-W14-1/main/issues[our issue tracker] or email us at eugenef@u.nus.edu, and attach any generated braintrain.log files.
+[discrete]
+include::../UserGuide.adoc[tag=eugene_troubleshoot]
 
 {empty} +
 
@@ -150,121 +90,4 @@ If BrainTrain still does not load lessons despite trying other locations, please
 
 {empty} +
 
-// tag::csvstorage[]
-=== CSV lesson storage feature
-==== Current Implementation
-The lesson CSV storage feature implements the following functions:
-
-* Parsing lesson data into a list of string arrays, which is a format OpenCSV accepts for saving to CSV.
-* Parsing a list of string arrays back into lesson data, as retrieved from OpenCSV.
-
-Actual file I/O is handled in the CsvUtil class, which uses the OpenCSV library to read/write CSV files.
-
-==== CSV Lesson Format
-.High-level sequence diagram for the `reload` command, an example of lesson loading
-image::CsvLessonStorageSequenceDiagram.png[width="800"]
-
-Lessons are parsed by CsvLessonListStorage, being converted between Lesson and List<String[]> formats. The List<String[]> format is the primary format handled by CsvUtil for reading and writing to CSV files.
-
-For lessons, there are three main sections when saved to a CSV file.
-
-{empty} +
-
-===== Name
-A lesson's name in BrainTrain is equivalent to its file name.
-
-A lesson named "French" would be saved as French.csv, and vice-versa.
-
-{empty} +
-
-===== Header
-The header is represented in the file as the first two lines. Each line represents a specific set of data, as outlined below.
-
-The first line represents the type of the corresponding column. Each column can have three types:
-
-. *Tested* +
-This marks the column as a core value. The first two instances of *Tested* in the file will be used in quizzes, and all remaining Tested values are treated as *Not Tested*.
-. *Not Tested* +
-This marks the column as a core value. However, unlike *Tested*, they will not be tested in quizzes, but can be chosen to be tested.
-. *Hint* +
-The values here will appear when the user uses the hint command during the quiz. However, values here are strictly optional, and can be left empty.
-
-NOTE: Core values require every value in that column to be non-empty. This guarantees that the user will be tested on something should they change which fields are tested.
-
-This is a code snippet from the parsing of the header data.
-
-    for (int i = 0; i < headerArray.length; i++) {
-        if (headerArray[i].isEmpty()) {
-            headerArray[i] = " ";
-        }
-    }
-    int coreCount = 0;
-    int index = 0;
-    while (index < headerArray.length) {
-        String headerChar = headerArray[index].toLowerCase().substring(0, 1);
-        if (headerChar.equals(HEADER_CORE_QA)) {
-            if (questionIndex == -1) {
-                questionIndex = index;
-            } else if (answerIndex == -1) {
-                answerIndex = index;
-            }
-            coreCount++;
-        } else if (headerChar.equals(HEADER_CORE_NOT_QA)) {
-            coreCount++;
-        } else if (!headerChar.equals(HEADER_OPTIONAL)) {
-            return returnValues;
-        }
-        index++;
-    }
-
-As seen at the beginning of the while loop, header values are actually treated as single case-insensitive characters. This means an experienced user may simply enter those letters as a shortcut.
-
-{empty} +
-
-The second line represents the name of each column as shown to the user. Any names left blank are automatically replaced with Unnamed.
-
-Any discrepancies in the number of types and the number of names will result in the lesson not being loaded.
-
-{empty} +
-
-===== Card Data
-
-All remaining data is treated as card data. Any invalid data found in memory or from the file is skipped over.
-
-{empty} +
-
-===== Summary
-.Activity diagram for the `reload` command, highlighting failure conditions
-image::ReloadActivityDiagram.png[width="800"]
-
-As shown in the above diagram, data that is read in from a file goes through various checks before it is loaded into the application. Any invalid data is skipped over, with an entry in the logs explaining the cause of failure.
-
-{empty} +
-
-==== Design Considerations
-
-===== Aspect: Choice of file type
-* **Alternative 1 (current choice):** Save as CSV
-** Pros: User is able to modify lesson data in a more advanced external spreadsheet tool like Excel
-** Cons: Lack of data verification within the file, JSON is already implemented in original code
-* **Alternative 2:** Save as JSON
-** Pros: All values can be verified through the file
-** Cons: Difficult for user to edit manually
-
-Alternative 1 was chosen as ease of use is a high priority for the project. Most computer users are familiar with the Microsoft Office suite of applications, such as Word and Excel. As Excel allows CSV files to be shown in a spreadsheet, it was intended that users use Excel alongside BrainTrain for easy lesson management.
-
-{empty} +
-
-===== Aspect: Handling of invalid data
-* **Alternative 1 (current choice):** Skip over specific lesson/card
-** Pros: User data is not automatically overwritten
-** Cons: User has to manually fix any issues with their data
-* **Alternative 2:** Automatically fix data
-** Pros: Ease of use for user
-** Cons: Automatic fix may not be as desired by user
-
-Alternative 1 was chosen as creators are expected to have some skill in data editing. Normal users would ideally only download lessons from a creator, and would not be familiar enough with the lesson data to fix any issues.
-
-{empty} +
-
-// end::csvstorage[]
+include::../DeveloperGuide.adoc[tag=csvstorage]

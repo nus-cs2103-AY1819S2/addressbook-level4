@@ -327,7 +327,7 @@ Steps: +
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete")` API call.
 
-When a user executes `delete-p 1`
+When a user executes `delete-p 1`,
 
 Steps: +
 

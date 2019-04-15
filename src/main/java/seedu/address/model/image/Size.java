@@ -30,7 +30,7 @@ public class Size {
      * Returns true if a given string is a valid height.
      */
     public static boolean isValidSize(String test) {
-        boolean check = Integer.parseInt(test) <= 0 && Integer.parseInt(test) <= MAX_FILE_SIZE ? false : true;
+        boolean check = Integer.parseInt(test) <= 0 ? false : true;
         return check;
     }
 

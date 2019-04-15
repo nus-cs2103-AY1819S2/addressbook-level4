@@ -712,6 +712,31 @@ image::gbc1.png[width="800"]
 // end::generation-bill-commands4[]
 
 
+=== [underline]#Show Statistics command# : `show-stats`, `ss`
+
+Effect: Displays an individual window for statistics, including a text report and the charts.
+Format: `{[aqua]#show-stats#/[aqua]#ss#} [black]#[# [lime]#INDICES_OF_ITEMS…# [black]#]#`
+
+[NOTE]
+====
+* Simply `show-stats` or `ss` will display all stats items available.
+* `INDICES_OF_ITEMS` should be integers between one and the largest index of the stats items.
+====
+
+Example:
+
+* `ss` +
+This displays all stats items available.
+
+.Example for the `ss` command
+image::ss.png[width="800"]
+
+* `ss 1 3` +
+This displays the 1st and the 3rd stats items.
+
+.Example for the `ss 1 3` command
+image::ss-1-3.png[width="800"]
+
 === [underline]#Switch tab command# : `switch-tab`, `st`
 
 Effect: Switches the panel and the tab based on input by the user. +

@@ -52,6 +52,8 @@ image::PPP_Ui_WarningPanel.png[width="600"]
 
 The following sections are my contributions to the User Guide. They showcase my ability to write documentation targeting end-users.
 
+include::../UserGuide.adoc[tag=uiwarningpanel]
+
 include::../UserGuide.adoc[tag=warningpanelcommand]
 
 == Contributions to the Developer Guide
@@ -59,5 +61,7 @@ include::../UserGuide.adoc[tag=warningpanelcommand]
 The following sections are my contributions to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 
 include::../DeveloperGuide.adoc[tag=warningpanel]
+
+include::../DeveloperGuide.adoc[tag=warningtest]
 
 include::../DeveloperGuide.adoc[tag=dataencryption]

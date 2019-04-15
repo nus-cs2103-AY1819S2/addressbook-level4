@@ -1166,6 +1166,7 @@ Expected: The current medicine inventory data shown in the GUI is successfully e
 .. Test case: `export example` +
 Expected: The current medicine inventory data shown in the GUI is successfully exported to CSV file format. The exported CSV file has the file name `example`. The exported CSV file's medicine inventory data will contain *only* the header information with no medicine data.
 
+// tag::warningtest[]
 === Changing warning panel thresholds
 
 . Changing the threshold for expiring medicine batches
@@ -1187,3 +1188,4 @@ Expected: Warning panel's "Low in Stock" list empties and placeholder "Nothing t
 Expected: No changes to warning panel. Error details shown in the status message.
 .. Other incorrect warning commands to try: `warning`, `warning q/x` (where x is not a positive integer), `warning {non-whitespace preamble} q/y` (where y is a positive integer) +
 Expected: Similar to previous.
+// end::warningtest[]

@@ -20,12 +20,14 @@ public class EquipmentCardHandle extends NodeHandle<Node> {
     private static final String PHONE_FIELD_ID = "#phone";
     private static final String DATE_FIELD_ID = "#date";
     private static final String TAGS_FIELD_ID = "#tags";
+    private static final String SERIALNUMBER_FIELD_ID = "#serialNumber";
 
     private final Label idLabel;
     private final Label nameLabel;
     private final Label addressLabel;
     private final Label phoneLabel;
     private final Label dateLabel;
+    private final Label serialNumberLabel;
     private final List<Label> tagLabels;
 
     public EquipmentCardHandle(Node cardNode) {
@@ -35,6 +37,7 @@ public class EquipmentCardHandle extends NodeHandle<Node> {
         nameLabel = getChildNode(NAME_FIELD_ID);
         addressLabel = getChildNode(ADDRESS_FIELD_ID);
         phoneLabel = getChildNode(PHONE_FIELD_ID);
+        serialNumberLabel = getChildNode(SERIALNUMBER_FIELD_ID);
         dateLabel = getChildNode(DATE_FIELD_ID);
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
@@ -70,6 +73,10 @@ public class EquipmentCardHandle extends NodeHandle<Node> {
         return phoneLabel.getText();
     }
 
+    public String getSerialNumber() {
+        return serialNumberLabel.getText();
+    }
+
     public String getDate() {
         return dateLabel.getText();
     }
@@ -85,10 +92,11 @@ public class EquipmentCardHandle extends NodeHandle<Node> {
      * Returns true if this handle contains {@code equipment}.
      */
     public boolean equals(Equipment equipment) {
-        return getName().equals(equipment.getName().name)
-                && getAddress().equals(equipment.getAddress().value)
-                && getPhone().equals(equipment.getPhone().value)
-                && getDate().equals(equipment.getDate().toString())
+        return getName().equals("Client Name: " + equipment.getName().name)
+                && getAddress().equals("Address: " + equipment.getAddress().value)
+                && getPhone().equals("Phone: " + equipment.getPhone().value)
+                && getDate().equals("Date: " + equipment.getDate().toString())
+                && getSerialNumber().equals("Serial Number: " + equipment.getSerialNumber().serialNumber)
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(equipment.getTags().stream()
                         .map(tag -> tag.tagName)
                         .collect(Collectors.toList())));

@@ -23,7 +23,7 @@ public class AddWorkListCommand extends Command {
             + CliSyntax.PREFIX_ID + "ID \n"
             + "Example: " + COMMAND_WORD + " "
             + CliSyntax.PREFIX_DATE + "12-12-2019 "
-            + CliSyntax.PREFIX_ASSIGNEE + "Mei Yen "
+            + CliSyntax.PREFIX_ASSIGNEE + "Mary "
             + CliSyntax.PREFIX_ID + "13 ";
 
     public static final String MESSAGE_SUCCESS = "New WorkList created: %1$s";

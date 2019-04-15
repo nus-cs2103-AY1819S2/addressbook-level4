@@ -35,6 +35,6 @@ public class YearTest {
         assertTrue(Year.isValidYear("0"));
         assertTrue(Year.isValidYear("55"));
         assertTrue(Year.isValidYear("2")); // one digit
-        assertTrue(Year.isValidYear("150")); // three digits
+        assertTrue(Year.isValidYear("100")); // three digits
     }
 }

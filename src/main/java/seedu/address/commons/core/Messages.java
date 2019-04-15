@@ -28,9 +28,7 @@ public class Messages {
                                                         + "please exit the Records mode using the back command first.";
     public static final String MESSAGE_IN_PATIENT_MODE = "Already in Patients Mode.";
     public static final String MESSAGE_NOTHING_DONE = "Cancelled, nothing has been done.";
-    public static final String MESSAGE_CALENDAR_SHOWN = "Task Calendar is already displayed.";
-    public static final String MESSAGE_CANNOT_RUN_IN_GOTO = "This command cannot be used in this mode as the Patients"
-                                        + " list needs to be seen. Use the back command to return to the right mode.";
+    public static final String MESSAGE_CALENDAR_SHOWN = "Task Calendar is already displayed. Selected date updated.";
     public static final String MESSAGE_EMPTY_KEYWORD = "Keyword cannot be blank!";
     public static final String MESSAGE_NO_SEARCH_PARAMETER = "Find needs at least 1 parameter for searching!";
 }

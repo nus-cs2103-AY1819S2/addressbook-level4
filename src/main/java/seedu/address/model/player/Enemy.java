@@ -322,14 +322,14 @@ public class Enemy extends Player {
                 updatedCoord = new Coordinates(oldRow - 1, oldCol);
                 addCardinal(updatedCoord);
             }
-            if (oldCol - 1 >= 0) {
-                //add cardinal WEST to watchlist   COL MINUS ONE
-                updatedCoord = new Coordinates(oldRow, oldCol - 1);
-                addCardinal(updatedCoord);
-            }
             if (oldRow + 1 < mapSize) {
                 //add cardinal SOUTH to watchlist  ROW PLUS ONE
                 updatedCoord = new Coordinates(oldRow + 1, oldCol);
+                addCardinal(updatedCoord);
+            }
+            if (oldCol - 1 >= 0) {
+                //add cardinal WEST to watchlist   COL MINUS ONE
+                updatedCoord = new Coordinates(oldRow, oldCol - 1);
                 addCardinal(updatedCoord);
             }
             if (oldCol + 1 < mapSize) {

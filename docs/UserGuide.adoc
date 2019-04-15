@@ -29,13 +29,13 @@ of your spending habits. If you are a *fast typer*, *prefer to type* over using 
 efficiently*, then this is the product just for you! _In-Credit-Ble_ is designed for *students* who prefer to work with a
 *Command Line Interface (CLI)*.
 
-
 This user guide shows you how to get started using _In-Credit-Ble_. It also provides in-depth documentation on the
 different features and shows you how to perform basic _In-Credit-Ble_ operations.
 
 {bl}
 
 // tag::quickstart[]
+<<<
 [.text-justify]
 == Quick Start
 {bl}
@@ -65,12 +65,13 @@ image::startUI.png[]
 * *`[fuchsia]#set#`* : sets the total budget for Finance Tracker
 * *`[fuchsia]#allocate#`* : allocates budget to a certain category (within the total budget)
 * *`[fuchsia]#spend#`* : adds an expense record to the Finance Tracker
-.  Refer to <<Features>> for details of each command.
+.  Refer to [underline blue]#<<Features>># for details of each command.
 // end::quickstart[]
 
 {bl}
 
 // tag::userinterface1[]
+<<<
 [.text-justify]
 == Graphical User Interface Introduction
 {bl}
@@ -189,6 +190,7 @@ the amount you exceeded the budget set for yourself.
 
 {bl}
 
+<<<
 === Summary Panel
 {bl}
 
@@ -219,6 +221,7 @@ This is where the allocated category budgets will be shown when `[fuchsia]#show#
 
 {bl}
 
+<<<
 === Status Footer Bar
 {bl}
 
@@ -231,6 +234,7 @@ The right side of the status footer bar shows where the storage file for the upd
 
 {bl}
 
+<<<
 [.text-justify]
 [[Features]]
 == Features
@@ -253,6 +257,7 @@ step-by-step instructions on how to use the different commands.
 ====
 {bl}
 
+<<<
 === Budget Management
 {bl}
 
@@ -351,6 +356,7 @@ shown in Result Display if you attempt to do so.
 // end::allocate[]
 {bl}
 
+<<<
 // tag::show[]
 ==== Showing allocated budget and spending in categories: `[fuchsia]#show#`
 
@@ -389,8 +395,8 @@ image::show_example.png[width ="300"]
 to let you know so
 ====
 // end::show[]
-{bl}
 
+<<<
 === Expense Entry Management
 
 {bl}
@@ -431,6 +437,7 @@ and cannot contain special characters such as `*:<>;\/|?~^%$#@*`
 // end::spend[]
 {bl}
 
+<<<
 // tag::edit[]
 ==== Editing an entry: `[fuchsia]#edit#`
 
@@ -501,6 +508,7 @@ image::RemoveDescriptionExample.png[width ="600"]
 // end::select[]
 {bl}
 
+<<<
 // tag::delete[]
 ==== Deleting an entry: `[fuchsia]#delete#`
 
@@ -526,6 +534,7 @@ Deleted entries can be recovered via the `undo` command.
 // end::delete[]
 {bl}
 
+<<<
 === Records Management
 {bl}
 
@@ -582,6 +591,7 @@ image::TotalSpentInResultDisplay.png[width ="600"]
 
 {bl}
 
+<<<
 // tag::sort[]
 ==== Sorting the entries according to name/amount/date/category: `[fuchsia]#sort#`
 
@@ -638,6 +648,7 @@ List will be sorted by name in reverse lexicographical order.
 
 {bl}
 
+<<<
 // tag::reverse[]
 ==== Reversing the entries: `[fuchsia]#reverse#`
 
@@ -655,6 +666,7 @@ image::reverseExample.png[width ="600"]
 
 {bl}
 
+<<<
 // tag::summary[]
 ==== Showing summary of records: `[fuchsia]#summary#`
 
@@ -706,6 +718,7 @@ Shows summary of expenses in the past 7 months
 
 {bl}
 
+<<<
 === Miscellaneous
 
 {bl}
@@ -745,8 +758,6 @@ in the file will be loaded into the Finance Tracker.
 ====
 
 //end::setfile[]
-
-{bl}
 
 // tag::help[]
 ==== Viewing help: `[fuchsia]#help#`
@@ -796,6 +807,7 @@ _Undoable_ commands:
 
 {bl}
 
+<<<
 ==== Redoing the previously undone command : `[fuchsia]#redo#`
 
 [navy]#You can reverse the most recent `undo` command.#
@@ -825,6 +837,7 @@ The `[fuchsia]#redo#` command fails as there are no `[fuchsia]#undo#` commands e
 
 {bl}
 
+<<<
 // tag::theme[]
 ==== Changing theme of application: `[fuchsia]#theme#`
 
@@ -861,6 +874,7 @@ image::themeMenuBar.png[]
 
 {bl}
 
+<<<
 ==== Listing entered commands: `[fuchsia]#history#`
 
 [navy]#You can list all the commands you have entered in reverse chronological order.#
@@ -898,6 +912,7 @@ the data. There is no need for you to save manually.
 
 {bl}
 
+<<<
 // tag::upcomingFeatures[]
 === Upcoming Features
 
@@ -928,6 +943,8 @@ Panel* in v2.0 of _In-Credit-Ble_.
 
 // end::upcomingFeatures[]
 
+{bl}
+
 ==== Separate expenditures based on methods of payment (Cash, Visa, DBS PayLah) `[yellow]#[coming in v2.0]#`
 
 _In-Credit-Ble_ will link up with secure methods of payment to allow tracking of your cashless transactions.
@@ -955,6 +972,7 @@ related articles for you to view.
 
 {bl}
 
+<<<
 [.text-justify]
 == FAQ
 
@@ -974,9 +992,9 @@ _In-Credit-Ble_  aims to support multi-currency transactions in `[yellow]#v2.0#`
 
 {bl}
 
+<<<
 [.text-justify]
 == Command Summary
-{bl}
 
 [blue]#All of _In-Credit-Ble's_ commands are listed here!#
 
@@ -1030,6 +1048,7 @@ Shows summary for past 5 days
 **Valid orders: `-asc` -> ascending order; `-desc` -> descending order
 {bl}
 
+<<<
 === Miscellaneous
 {bl}
 
@@ -1048,6 +1067,7 @@ Shows summary for past 5 days
 |=======================================================================
 {bl}
 
+<<<
 [.text-justify]
 == Glossary
 {bl}

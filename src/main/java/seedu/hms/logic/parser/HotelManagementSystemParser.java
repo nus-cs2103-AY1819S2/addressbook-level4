@@ -41,7 +41,7 @@ import seedu.hms.logic.commands.ListCustomerCommand;
 import seedu.hms.logic.commands.ListReservationCommand;
 import seedu.hms.logic.commands.RedoCommand;
 import seedu.hms.logic.commands.SelectCustomerCommand;
-import seedu.hms.logic.commands.StatsCommand;
+import seedu.hms.logic.commands.ShowStatsCommand;
 import seedu.hms.logic.commands.SwitchTabCommand;
 import seedu.hms.logic.commands.UndoCommand;
 import seedu.hms.logic.parser.exceptions.ParseException;
@@ -192,9 +192,9 @@ public class HotelManagementSystemParser {
             return new GenerateBillForReservationCommandParser().parse(arguments, customerModel, billModel,
                 reservationModel);
 
-        case StatsCommand.COMMAND_WORD:
-        case StatsCommand.COMMAND_ALIAS:
-            return new StatsCommand();
+        case ShowStatsCommand.COMMAND_WORD:
+        case ShowStatsCommand.COMMAND_ALIAS:
+            return new ShowStatsCommand();
 
         case ListCustomerCommand.COMMAND_WORD:
         case ListCustomerCommand.COMMAND_ALIAS:

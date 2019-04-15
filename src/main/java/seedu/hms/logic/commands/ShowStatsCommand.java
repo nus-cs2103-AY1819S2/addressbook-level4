@@ -9,9 +9,9 @@ import seedu.hms.model.Model;
 /**
  * Show a new window containing all stats.
  */
-public class StatsCommand extends Command {
-    public static final String COMMAND_ALIAS = "sts";
-    public static final String COMMAND_WORD = "stats";
+public class ShowStatsCommand extends Command {
+    public static final String COMMAND_ALIAS = "ss";
+    public static final String COMMAND_WORD = "show-stats";
     public static final String MESSAGE_SUCCESS = "Successfully generated stats.";
     public static final String MESSAGE_FAILURE = "Failed generating stats.";
 

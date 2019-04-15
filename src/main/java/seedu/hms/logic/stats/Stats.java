@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import seedu.hms.commons.core.LogsCenter;
+import seedu.hms.commons.core.index.Index;
 import seedu.hms.logic.stats.statsitems.CountPayersForReservations;
 import seedu.hms.logic.stats.statsitems.CountPayersForServices;
 import seedu.hms.logic.stats.statsitems.CountRoomTypes;
@@ -19,7 +22,8 @@ import seedu.hms.model.ReadOnlyHotelManagementSystem;
 public class Stats {
     private static final Logger logger = LogsCenter.getLogger(Stats.class);
     private final ReadOnlyHotelManagementSystem hms;
-    private final List<StatsItem> statsitems;
+    private final ArrayList<StatsItem> statsitems;
+    private ArrayList<Index> shown;
 
     public Stats(ReadOnlyHotelManagementSystem hms) {
         this.hms = hms;
@@ -29,6 +33,10 @@ public class Stats {
                 new CountPayersForReservations(this),
                 new CountPayersForServices(this)
         ));
+
+        this.shown = new ArrayList<>();
+        List<Integer> defaultShown = IntStream.range(0, 4).boxed().collect(Collectors.toList());
+        defaultShown.forEach(n -> shown.add(Index.fromZeroBased(n)));
     }
 
     private static String fillOnLeft(String s, int n) {
@@ -41,7 +49,8 @@ public class Stats {
      */
     public String toTextReport() {
         final StringBuilder sb = new StringBuilder();
-        for (StatsItem si : statsitems) {
+        for (Index i : shown) {
+            StatsItem si = statsitems.get(i.getZeroBased());
             sb.append("*** " + si.getTitle() + "\n");
             sb.append(si.toTextReport());
             sb.append("\n");

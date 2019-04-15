@@ -16,12 +16,13 @@ import seedu.hms.logic.stats.Stats;
  */
 public abstract class StatsItem {
     protected String title;
+
     protected int longest;
     protected Map<String, Long> map;
     protected final Stats stats;
 
-    public StatsItem(Stats s) {
-        this.stats = s;
+    public StatsItem(Stats stats) {
+        this.stats = stats;
         this.longest = 15;
         this.map = calcResult();
     }

@@ -834,9 +834,11 @@ include::../src/main/java/seedu/address/model/player/Enemy.java[lines=85..105]
 
 __Note: All actions taken by the Enemy AI are seeded by a pseudo-random generator.
 Thus, its behaviour will be different for every game session.__
+
 // end::enemyShoot[]
 
 // tag::enemyDesign[]
+
 ==== Design considerations
 * **Current choice:** seed all methods with pseudo-random seed
 ** Pros: each game will be a different experience

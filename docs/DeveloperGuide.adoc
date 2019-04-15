@@ -155,11 +155,12 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
+// tag::ui-diagram[]
 .Structure of the UI Component
 image::UiClassDiagram.png[width:"1200"]
 
 *API* : link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/Ui.java[`Ui.java`]
-
+// end::ui-diagram[]
 The UI consists of a `MainWindow` that is made up of parts e.g.`StatsWindow`, `HelpWindow`, `ResultDisplay`, `CustomerListPanel`, `StatusBarFooter` etc.
 All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
@@ -220,12 +221,13 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Hotel Management System data.
-* exposes an unmodifiable `ObservableList<Customer/Booking>` that can be 'observed'
+* exposes an unmodifiable `ObservableList<Customer/Booking/Reservation/RoomType/ServiceType>` that can be 'observed'
   e.g. the UI can be bound to this list so that the UI automatically updates when the
   data in the list change.
 * does not depend on any of the other three components.
-* The Booking/Customer models serve as the API for the application to modify the
-  Booking/Customer data.
+* The `Reservation/Booking/Customer models` serve as the API for the application to modify the
+  `Reservation/Booking/Customer data`.
+* The `Bill model` serves the API for the application to generate bills for the customer. It cannot modify data at all. It only has access to `ObservableList` of the remaining models.
 
 [NOTE]
 As a more OOP model, we can reference a `ServiceType` in `Booking`. This would allow the
@@ -238,8 +240,10 @@ image:ModelClassBetterOopDiagram.png[width="950"]
 [[Design-Storage]]
 === Storage component
 
+// tag::storage-diagram[]
 .Structure of the Storage Component
-image::storage-class-diagram.png[width="600"]
+image::StorageClassDiagram.png[width="1200"]
+// end::storage-diagram[]
 
 *API* : link:{repoURL}/blob/master/src/main/java/seedu/hms/storage/Storage.java[`Storage.java`]
 
@@ -372,28 +376,194 @@ The reason we use identification number(ID) instead of name or other factors is 
 
 * **Alternative 1 (current choice):** Using identification number(ID) to check.
 ** Pros: The command can be implemented as only getting access to one model.
-** Cons: The scalablity of the program is low.
+** Cons: The scalability of the program is low.
 * **Alternative 2:** Implementing new command interface which can interact with two models at the same time.
-** Pros: The scalablity of the program is high
+** Pros: The scalability of the program is high
 ** Cons: Requiring more work and the old abstraction may break.
 // end::filteringBooking[]
 
-// tag::bill-generation[]
-=== Generating Bill for Customer functionality
+// tag::find-reservation[]
+=== Filtering Room Reservation functionality
 ==== Current Implementation
 
-The generate bill for customer function is facilitated by the interface `BillModel` which extends the interface `Model`.
-The `BillModel` constitutes the API for our bill component which is used by `Logic` component to execute the commands related to this model.
-There is also the `BillManager` which implements the `BillModel` and consists of functions required for generating the bill.
+The finding a specific room reservation functionality is facilitated by the `FindReservationCommand` class and is used whenever
+the hotel staff wants to find a specific reservation done by the customer. It reduces the tedious process that the hotel staff needs
+to do and helps them find the reservation in one go. To facilitate this, it depends on the `ReservationModel` interface which
+provides the API for the room reservation and room type component.
 
-Then the `GenerateBillForCustomerCommand` is implemented along with its parser `GenerateBillForCustomerCommandParser`.
-This parser class makes sure that the user has given the command in the correct format, and executes the command accordingly.
-If the user doesn't type the command correctly, the parser class `throws ParseException` and tells user to input in correct format.
+The `FindReservationCommand` extends from the `ReservationCommand` class which in turn extends from the `Command` class. This is
+illustrated in the UML diagram shown below.
 
-The command class extends `BillCommand` which uses a single model, the  `BillModel`, to execute all the commands.
-This ensure that only the `BillManager` can execute commands related to bill.
+.FindReservationCommand UML Diagram
+image::FindReservationCommandUMLDiagram.png[width="600"]
 
-There is no storage created for the bill as a result of which the bill generated is never stored.
+The `FindReservationCommand` involves the use of multiple components of the HMS+ application. The figure below shows the
+high level [underline]#Sequence Diagram# for the `FindReservationCommand`.
+
+.High Level Sequence Diagram for the  `find-reservation id/A0176684J` command
+image::FindReservationLogicSequenceDiagram.png[width="600"]
+
+As seen from the above diagram, this command doesn't affect storage at all as the purpose of this command is to just find
+a specific reservation.
+
+The `Logic` is responsible for parsing `FindReservationCommand`. It return a `FindReservationCommand` object after parsing
+the filters provided by the hotel staff.
+
+The `FindReservationCommand#execute()` method invokes the `updateFilteredList(reservationPredicate)` method from the
+`ReservationModel`.
+
+The `ReservationModel` component filters the reservation list based on the filters given by the user and sends this filtered list
+back to the `Logic` which in turn sends it back to the `Ui` for displaying the specific room reservation.
+
+This code snippet below shows how the `reservationPredicate` is generated based on the filters given by the hotel staff.
+
+[source,java]
+----
+public FindReservationCommand parse(String args, ReservationModel reservationModel) throws ParseException {
+
+        // ... logging ...
+
+        ReservationContainsPayerPredicate reservationContainsPayerPredicate;
+        if (argMultimap.getValue(PREFIX_IDENTIFICATION_NUMBER).isPresent()) {
+            reservationContainsPayerPredicate = new ReservationContainsPayerPredicate(
+                ParserUtil.parseIdNum(argMultimap.getValue(PREFIX_IDENTIFICATION_NUMBER).get()).toString());
+        } else {
+            reservationContainsPayerPredicate = new ReservationContainsPayerPredicate("");
+        }
+
+        ReservationWithTypePredicate reservationWithTypePredicate;
+        if (argMultimap.getValue(PREFIX_ROOM).isPresent()) {
+            reservationWithTypePredicate = new ReservationWithTypePredicate(
+                ParserUtil.parseRoom(argMultimap.getValue(PREFIX_ROOM).get(), reservationModel).getName());
+        } else {
+            reservationWithTypePredicate = new ReservationWithTypePredicate("");
+        }
+
+        // ... logging ...
+
+        DateRange dateRange = ParserUtil.parseDates(argMultimap.getValue(PREFIX_DATES)
+            .orElse(currentDay + "-" + oneYearAfterCurrentDay));
+        ReservationWithDatePredicate reservationWithDatePredicate =
+            new ReservationWithDatePredicate(dateRange);
+
+        return new FindReservationCommand(reservationContainsPayerPredicate,
+            reservationWithTypePredicate, reservationWithDatePredicate);
+    }
+----
+
+==== Design Consideration
+
+===== Aspect: How to find the customer whose specific reservation is to be found
+
+* **Alternative 1 (current choice):** We use the customer's identification number to find the particular customer
+** Pros: Identification number of a customer is unique making it easy to find the customer.
+** Cons: The extensibility of the program is low as it only uses identification number.
+* **Alternative 2:** We allow any customer field to be used as a filter.
+** Pros: The extensibility of the program is high as any customer field can be used a filter.
+** Cons: Filters for all customer fields need to be created and some customer fields like name or date of birth are not
+unique to customers.
+
+===== Aspect: How to implement the command
+* **Alternative 1 (current choice):** The command only has access to `ReservationModel` interface and can therefore only be used to
+filter reservations.
+** Pros: Follows the Single Responsibility Principle and maintains abstraction.
+** Cons: Each command only has access to one model, which causes scalability to low.
+* **Alternative 2:** Create an interface which allows commands to have access to two or more models together.
+** Pros: The scalability is high as each command can access various models.
+** Cons:: This might break abstraction and does not follow the Single Responsibility Principle.
+// end::find-reservation[]
+
+
+
+// tag::bill-generation[]
+=== Generating Bill for Customers
+==== Current Implementation
+
+The generate bill for customer functionality is facilitated by the `GenerateBillForCustomerCommand` class and is used whenever
+ the hotel staff wants to generate bills for its customers. It allows the hotel staff to generate bills for their customers in one
+ go. To facilitate this, it depends on the `BillModel` interface and the `CustomerModel` interface which provide the API
+ for the bill component.
+
+The `GenerateBillForCustomerCommand` extends from the `BillCommand` class which in turn extends from the `Command` class. This is
+illustrated in the UML diagram shown below.
+
+.GenerateBillForCustomerCommand UML Diagram
+image::GenerateBillForCustomerCommandUMLDiagram.png[width="600"]
+
+The `GenerateBillForCustomerCommand` involves the use of multiple components of the HMS+ application. The figure below shows the
+high level [underline]#Sequence Diagram# for the `GenerateBillForCustomerCommand`.
+
+.High Level Sequence Diagram for the  `generate-bill-customer 1` command
+image::GenerateBillLogicSequenceDiagram.png[width="600"]
+
+As seen from the above diagram, there is no storage created for the bill as a result of which the bill generated is
+never stored. Therefore, the bill needs to be generated every time.
+
+The `GenerateBillForCustomerCommandParser` is responsible for parsing the command. It return an `GenerateBillForCustomerCommand` object after parsing the index
+of the customer whose bill is to be generated. The figure below depicts the Sequence Diagram for interactions within the
+`Logic` component for the `execute(generate-bill-customer 1)` API call.
+
+.Interactions inside the Logic Component for the `generate-bill-customer 1` command
+image::gbcLogicDiagram.png[width="800"]
+
+The `GenerateBillForCustomerCommand#execute()` method invokes the `updateBill(bill)` method from the `BillModel`.
+ Complying with the rules of <<abstraction>>, the Logic component calls on Model to handle the internal details for updation.
+
+The code used for generating the [underline]#booking bill# for the customer is shown in the snippet below:
+
+[source,java]
+----
+public HashMap<ServiceType, Pair<Double, Integer>> generateHashMapForBooking(ObservableList<Booking>
+                                                                                bookingObservableList) {
+
+        HashMap<ServiceType, Pair<Double, Integer>> bookingBill = new HashMap<>();
+        for (ServiceType st: serviceTypeList) {
+            bookingBill.put(st, generateTotalBillBasedOnServiceType(bookingObservableList, st));
+        }
+        return bookingBill;
+    }
+
+ private Pair<Double, Integer> generateTotalBillBasedOnServiceType(ObservableList<Booking> bookingObservableList,
+                                                                      ServiceType serviceType) {
+        int totalTime = 0;
+        double totalAmount = 0.0;
+        for (Booking booking : bookingObservableList) {
+            if ((booking.getService().equals(serviceType))) {
+                TimeRange timeRange = booking.getTiming();
+                int hoursBooked = timeRange.numOfHours();
+                totalTime = totalTime + hoursBooked;
+                double ratePerHour = booking.getService().getRatePerHour();
+                double amount = hoursBooked * ratePerHour;
+                totalAmount = totalAmount + amount;
+            }
+        }
+        return new Pair<>(totalAmount, totalTime);
+    }
+
+----
+
+The actual displaying of the booking bill is then done by `BillPanel` object by the following code snippet
+in the `Ui` component:
+[source,java]
+----
+if (newValue.getBookingCount() > 0) {
+                stringBuilder.append("Service Booking(s) :\n");
+                for (ServiceType st: newValue.getServiceTypes()) {
+                    if (newValue.getServiceTypeBookingCount(st) > 0) {
+                        stringBuilder.append(String.format("%14s", "[" + st.getName() + "]")
+                                + String.format("  Rate per hour:%2.1f", st.getRatePerHour()) + "\n"
+                                + String.format("  Number of hour(s):%2d", newValue.getServiceTypeBookingCount(st))
+                                + String.format("  Amount:%4.1f", newValue.getServiceTypeBill(st)) + "\n\n");
+                    }
+                }
+                stringBuilder.append(String.format("---------------------Sub-Total: %6.1f",
+                        newValue.getAmountBooking()) + "\n");
+                stringBuilder.append("--------------------------------------\n");
+            } //if count of bookings is greater than 0
+----
+
+The [underline]#reservation bill# for the customer is also generated in the same manner and has therefore not been shown.
+The two bills are then combined and showed to the user.
 
 ==== Design Consideration
 
@@ -411,15 +581,40 @@ creating more work.
 ==== Aspect: Memory storage for bill
 
 * **Alternate 1 (current choice):** Bill doesn't get stored.
-** Pros: No work required to be done for storing the bills.
-** Cons: If a new feature gets implemented, which requires history of bills, system will not be able to provide it.
+** Pros: No work required to be done for storing the bills. Storage space is also saved.
+** Cons: While implementing new features that require history of bills, the system will not be able to provide it.
 * **Alternative 2:** Bill gets stored.
 ** Pros: If bill history is required for a new feature, system will be able to provide it.
-** Cons: Lot of work needs to be done for creating the storage of bills.
-
-.Component interactions for `generate-bill-customer 1` command
-image::GenerateBillLogicSequenceDiagram.png[width="600"]
+** Cons: Storing of bills will create duplicates of most of the data, as bill uses only existing data to generate output to customer
+and doesn't add any new data. As a result of this, if bill gets stored it will just create duplication of data and cost the user more space.
 // end::bill-generation[]
+
+
+// tag::clearcommands[]
+
+=== Clear functionality
+==== Current Implementation
+
+The clearing mechanism of HMS+ is facilitated by 5 different commands - `ClearRoomTypeCommand`, `ClearServiceTypeCommand`,
+`ClearReservationCommand`,`ClearBookingCommand` and `ClearHotelManagementSystemCommand` - and each of these commands clear
+specific parts of the database.
+
+Let's first understand which commands clears which part of the database.
+
+* `ClearBookingCommand` clears all the bookings from the database.
+* `ClearServiceTypeCommand` clear all service types from the database.
+* `ClearReservationCommand` clears all the reservations from the database.
+* `ClearRoomTypeCommand` clear all room types from the database.
+* `ClearHotelManagementSystemCommand` clears the entire database.
+
+All the 5 commands have been implemented in the exact way. Therefore we will just go through the underlying structure of
+the `ClearHotelManagementSystemCommand`.
+
+Currently, the `ClearHotelManagementSystemCommand` extends from the `Command` class. The figure below shows the UML Diagram
+for the `ClearHotelManagementSystemCommand` class.
+
+
+// end::clearcommands[]
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -1000,20 +1195,30 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 [appendix]
 == Product Scope
 
-*Target user profile*:
+// tag::product-scope[]
+HMS+ is targeted at hotels which want to use a single, highly customizable integrated system to manage all the aspects
+ their requirements. +
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+Hotels have hundreds of customers with each customer having their own service bookings, room reservations and
+their payments. +
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+This is why these hotels use different softwares to keep a track of customer's bookings and reservations and
+accordingly their payments. With time, it becomes difficult to keep a track of everything using different softwares.
+
+HMS+ provides hotels with a one-stop shop for all their managerial and organization needs.
+
+*[underline]#Target user profile*#:
+
+* Hoteliers
+* Hotel Management Staff
+
+*[underline]#Value proposition#*: hotels can efficiently manage its entire database faster than a typical mouse/GUI driven app.
+// end::product-scope[]
 
 [appendix]
-// tag::user-stories[]
-== User Stories
 
+== User Stories
+// tag::user-stories[]
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
@@ -1021,9 +1226,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new hotel management staff |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |hotel management staff |add a new customer |add a room reservation or a service booking
+|`* * *` |hotel management staff |add a new customer |add a room reservation or a service booking for the customer
 
 |`* * *` |hotel management staff |delete a customer |remove a customer
+// end::user-stories[]
 
 |`* * *` |hotel management staff |edit a customer |update details of an already existing customer
 
@@ -1041,16 +1247,16 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |hotel management staff |edit a service booking |update details of an already existing service booking
 
-|`* * *` |hotel management staff |generate bill |show the customer the remaining amount he has to pay for his stay at the hotel
+|`* * *` |hotel management staff |generate bill |show the customer the remaining he has to pay for his stay at the hotel
 
 |`* *` |hotel management staff |sort reservations by date |see closer reservations first
 
 |`* *` |hotel management staff |sort customers by amount due |see which customer owes more first
-
+// tag::user-stories2[]
 |`* *` |hotel management staff |view all room reservations |know which rooms are occupied and when
 
 |`* *` |hotel management staff |view all service bookings |know which rooms are occupied and when
-
+// end::user-stories2[]
 |`* *` |hotel management staff |view all customers |know who all are customers in my hotel
 
 |`* *` |hotel management staff |view services provided by hotel |select which service to book for customer
@@ -1068,13 +1274,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |hotel management staff |add a new room type |expand my room type range
 
 |`*` |hotel management staff |change rates of a room type |change their tariffs
-
+// tag::user-stories3[]
 |`*` |hotel management staff |change capacity of a specific service |expand/shrink a specific service
 
 |`*` |hotel management staff |sort customers by name |locate a customer easily
 |=======================================================================
+// end::user-stories3[]
 
-// end::user-stories[]
 
 [appendix]
 == Use Cases
@@ -1433,6 +1639,42 @@ Use case ends.
 +
 Steps 3 - 3a1 are repeated till a valid index is provided.
 
+=== Use case: Generate bill for a specific customer
+
+*Main Success Scenario*
+
+1. The actor requests the list of all the customers.
+2. The system lists all the customers.
+3. The actor requests to generate total bill for a specific customer.
+4. The system generates the total bill for that specific customer.
+
+*Extensions*
+
+[none]
+* 2a. There are no customers
++
+Use case ends.
+
+* 3a. The command that the actor entered is invalid.
+** 3a1. The system shows an error message that the command is invalid.
++
+Use case resumes at step 3.
+
+* 3b. The index that the actor selected is invalid.
++
+[none]
+** 3b1. The system shows an error message that the index is invalid.
++
+Use case resumes at step 3.
+
+[none]
+* 3b. The index that the actor selected is wrong.
++
+[none]
+** 3b1. The system generates the bill for a different customer, not the intended one.
++
+Use case resumes at step 3.
+
 [appendix]
 == Non Functional Requirements
 
@@ -1442,6 +1684,36 @@ Steps 3 - 3a1 are repeated till a valid index is provided.
 
 [appendix]
 == Glossary
+// tag::glossary[]
+[[abstraction]] Abstraction::
+In Object-oriented Programming, abstraction is the mechanism by which users are provided with only the functionality, and not the implementation details. So, abstraction provides users with information on what an object does, rather than how it does it.
+
+[[cli]] CLI::
+Acronym for Command Line Interface. It is a purely text-based interface for software. User respond to visual prompts by typing single commands into the interface and receive results as text as well.
+[underline]#For example#: MS-DOS.
+
+[[gui]] GUI::
+Acronym for Graphical User Interface. In a GUI, the software interface consists of graphical icons, menus and/or other visual indicators to display information. Users can typically interact with these graphics, rather than just using text in the <<cli,command line>>. +
+[underline]#For example#: All Windows operating systems have a GUI.
+// end::glossary[]
+
+[[customer]] Customer::
+People who go to live in a hotel while they are on a vacation or stay-cation.
+
+[[hoteliers]] Hotelier::
+They are owners of the hotel who had initially invested money and now share in its profits.
+
+[[hotelstaff]] Hotel Management Staff::
+People who work in a hotel to earn livelihood and are concerned with the day to day activities of the  hotel.
+
+[[bookings]] Bookings::
+These refer to services which are blocked and paid for by the customers for a certain number of hours for their leisure or entertainment. +
+[underline]#For example#: A customer can book a service like gym for 2 hours.
+
+[[reservations]] Reservations::
+These refer to rooms which are blocked and paid for by the customers for a certain number of days so that they can have an enjoyable
+stay in the hotel. +
+[underline]#For example# : A customer can reserve a room for 3 days.
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
@@ -1663,7 +1935,7 @@ Deleting a room type while all room types are listed
 
 . Generating bill for a customer based on index
 
-.. Prerequisites: At-least one customer in database.
+.. Prerequisites: At-least one customer who has atleast one booking or reservation in the database.
 .. Test case: `gb-c` +
    Expected: Bill is not generated. Error details shown in the status message. Status bar remains the same.
 .. Test case: `gb-c 1` +

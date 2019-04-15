@@ -5,8 +5,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.hms.testutil.TypicalCustomers.getTypicalCustomers;
 import static seedu.hms.testutil.TypicalIndexes.INDEX_SECOND_CUSTOMER;
-import static seedu.hms.ui.testutil.GuiTestAssert.assertCardDisplaysCustomer;
-import static seedu.hms.ui.testutil.GuiTestAssert.assertCardEquals;
+import static seedu.hms.ui.testutil.GuiTestAssert.assertCustomerCardDisplaysCustomer;
+import static seedu.hms.ui.testutil.GuiTestAssert.assertCustomerCardEquals;
 
 import java.util.Collections;
 
@@ -45,7 +45,7 @@ public class CustomerListPanelTest extends GuiUnitTest {
             Customer expectedCustomer = TYPICAL_CUSTOMERS.get(i);
             CustomerCardHandle actualCard = customerListPanelHandle.getCustomerCardHandle(i);
 
-            assertCardDisplaysCustomer(expectedCustomer, actualCard);
+            assertCustomerCardDisplaysCustomer(expectedCustomer, actualCard);
             assertEquals((i + 1) + ". ", actualCard.getId());
         }
     }
@@ -59,7 +59,7 @@ public class CustomerListPanelTest extends GuiUnitTest {
         CustomerCardHandle expectedCustomer =
             customerListPanelHandle.getCustomerCardHandle(INDEX_SECOND_CUSTOMER.getZeroBased());
         CustomerCardHandle selectedCustomer = customerListPanelHandle.getHandleToSelectedCard();
-        assertCardEquals(expectedCustomer, selectedCustomer);
+        assertCustomerCardEquals(expectedCustomer, selectedCustomer);
     }
 
     /**

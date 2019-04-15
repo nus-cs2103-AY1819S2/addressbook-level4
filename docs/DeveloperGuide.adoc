@@ -1770,6 +1770,19 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
+=== Adding a member
+
+You are adding a new member to Club Manager
+
+Instructions:
+
+.. *Test case:* `memberAdd n/Lim Sun Yong mn/A0187456N p/87961012 e/johnd@example.com a/311, Tiong Bahru Ave 5, #12-03 g/Male y/2 m/Law t/Tennis
+` +
+   *Expected:* New member added: Lim Sun Yong Matric Number: A0187456N Phone: 87961012 Email: johnd@example.com Address: 311, Tiong Bahru Ave 5, #12-03 Gender: Male Year of Study: Year 2 Major: Law Tags: [Tennis]
+.. *Test case:* `memberAdd n/Tan Xun Song mn/A0192595N p/811619921 e/txs@example.com a/311, Jurong West Ave 3, #12-03 g/Female y/2 m/Medicine t/Archery` +
+   *Expected:* Phone numbers should only start with 6, 8 or 9, and it should be only be 8 digits long.
+
+
 === Deleting a person
 
 . Deleting a person while all persons are listed

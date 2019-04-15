@@ -487,12 +487,12 @@ member in the `filteredPersonList`.
 
 The `memberSelect` command is naturally tied with the User Interface.
 
-image::updatedUIcomponent.png[width=100%]
+image::updatedUIcomponent.png[width=50%]
 
 When a member is selected, the `memberDetailPanel` will populate the information of the selected person. The `ActivitiesAttendedByMemberPanel` will also populate the activities that are attended by member.
 For the population of member statistics, it is less straightforward. The calling flow is UI to Logic to Model. This is illustrated in the diagram below.
 
-image::memberselect_sequence.png[width=100%]
+image::memberselect_sequence.png[width=50%]
 
 ===== Design Considerations
 *Aspect:* UI calling methods from the AddressBook class
@@ -520,7 +520,7 @@ and the `memberSort` command will sort the members in the `uniquePersonList` bas
 If the sorting criteria is not name, the `memberSort` command will
 will conduct an additional sort (by name). For example, `memberSort yearOfStudy 2` will be sorted by member's yearOfStudy, followed by member's name.
 
-image::MemberSortCommand_LogicComponentSequenceDiagram.png[width=100%]
+image::MemberSortCommand_LogicComponentSequenceDiagram.png[width=50%]
 
 * *Step 1:* The user executes the `memberSort` command by specifying the sorting criteria in which the user would like to sort the list.
 * *Step 2:* The `memberSort` command will call `model#sortAddressBook` to retrieve the member's list.

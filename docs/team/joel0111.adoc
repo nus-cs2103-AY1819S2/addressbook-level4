@@ -18,10 +18,9 @@ Club Manager is catered for *CCA leaders* and is used for managing CCA members a
 
 ** *What it does:*
 *** *Add* member to the existing list of members (`memberAdd`).
-*** *Lists* all of the members in Club Manager (`memberList`).
-*** *Filters* the list of members based on a given filter criteria. This allows the user to shortlist members for activities (e.g. competition) based on a particular member's attribute (`memberFilter`).
+*** *Lists* all of the members in Club Manager (`memberList`). *Filters* the list of members based on a given filter criteria. This allows the user to shortlist members for activities (e.g. competition) based on a particular member's attribute (`memberFilter`).
+*Sorts* the members' list based on a given sorting criteria (`memberSort`). This allows the user to be able to organise their members based on a particular member attribute, facilitating the attendance list preparation, keying in CCA points as well as the export list function.
 *** *Select* a specific member to view the complete members' information page which includes statistics pertaining to the selected member (`memberSelect`).
-*** *Sorts* the members' list based on a given sorting criteria (`memberSort`). This allows the user to be able to organise their members based on a particular member attribute, facilitating the attendance list preparation, keying in CCA points as well as the export list function.
 ** *Justification:* This feature improves the product significantly because as a CCA leader, the user needs to be able to view the entire set of member's information and statistics, as well as manage the member's list to prepare the list to be exported and printed for attendance taking in the CCA activities. CCA leaders could also use the information to plan out their activities (e.g. logistics).
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 * *Minor enhancements*:
@@ -39,6 +38,7 @@ Club Manager is catered for *CCA leaders* and is used for managing CCA members a
 * Designed a logo for the Club Manager Application.
 * Made cosmetic changes to the command summary in User Guide by categorising the commands.
 * Did up the user stories, non-functional requirements, glossary, and product survey in the Developer Guide.
+
 *Community Contributions*
 
 * Actively reviewed teammates' PRs.

@@ -812,7 +812,7 @@ shows each health condition’s related number of occurrences.
 
 [NOTE]
 ====
-statistics will only show any useful information related to frequency of health conditions after you have added at least
+`statistics` will only show any useful information related to frequency of health conditions after you have added at least
 1 request for homecare on HealthHub. If there are no homecare requests made, the statistics panel will display the
 following:
 ====
@@ -822,7 +822,7 @@ image::empty_statistics.PNG[]
 Example of usage:
 
 Let’s say that no commands have been issued yet and HealthHub is on a clean slate with no prior records of requests.
-Suppose as an administrative staff, you input the following commands as your first 2 requests for homecare into
+Suppose as an administrative staff, you input the following commands as your first 2 requests for home care into
 HealthHub:
 
 `add request n/John Doe i/S8974421C p/98765432 a/123 Brick Road, #01-01 dt/01-01-2019 14:50:00 c/Diabetes
@@ -840,12 +840,39 @@ you can expect to see after typing in the 3 commands.
 
 image::normal_statistics.PNG[]
 
-As you can see, based on the requests already registered in the request panel on the left, the statistics command shows
-that the health condition Physiotherapy has showed up twice, whereas both Diabetes and AIDS have showed up once each.
-It is also worth noting that `statistics` is fully integrated with all request-related commands. This means that
-regardless of how many commands you may decide to employ (such as `add`, `edit`, `delete`, `undo`, `redo`, `clr`),
-`statistics` will automatically update itself and always provide real-time accurate statistical data of the health
-conditions.
+==== Updating of statistics
+
+Every time you decide to add a request, edit a request, delete a request or even undo and redo a request, it is
+important that the statistics display automatically keeps updating itself so that real-time accurate data is always
+showed whenever you type in `statistics`
+
+Example of usage:
+
+Let’s assume you still have the requests of John Doe and Dohn Joe (requests that you had placed into HealthHub from the
+previous section) in the request panel. You just received news that John Doe’s mobility has miraculously improved and
+you no longer need to tag him with the ‘Physiotherapy’ health condition in his health request record. You, thus, decided
+to edit John Doe’s health conditions from Diabetes and Physiotherapy to just Diabetes by issuing the following command:
+
+`edit r 1 c/Diabetes`
+
+image::statistics_before_edit.PNG[]
+
+You can then subsequently type in the following command to gather accurate statistical data,
+which reflects the deletion of one of the ‘Physiotherapy’ health conditions:
+
+`statistics`
+
+image::statistics_after_edit.PNG[]
+
+After issuing the aforementioned commands, you now receive news that John Doe had not really recovered entirely yet,
+and he still requires Physiotherapy treatment. Fret not! You can always issue the `undo` command to revert your changes to
+John’s earlier set of health conditions (Physiotherapy and Diabetes) and then the `statistics` command to view the new
+data.
+
+In essence, the `statistics` command is fully integrated with all request-related commands (`add`, `edit`, `delete`,
+`undo`, `redo`, `clr`) in its pursuit of always providing accurate, real-time statistical information.
+
+==== Application of `statistics` in the workplace
 
 Upon collating such data, you can feedback and make suggestions to the hospital to increase or decrease training in
 certain departments. Furthermore, you can even use this data as a basis for the health sector to ramp up efforts in its

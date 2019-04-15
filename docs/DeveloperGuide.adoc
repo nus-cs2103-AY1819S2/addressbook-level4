@@ -234,20 +234,19 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== CRUD of patients
+=== Patient Management Features
 
 Patients is one of the two valid types of Persons to be stored in the docX record.
-The following features are implemented or will be implemented for patients of docX:
+The following features are implemented for patients of docX:
 
 * Add patient
 * List all patients
 * Edit existing patients
-* Search patients by keywords
-* Delete existing patients
+* Various search patients by keywords
+* Delete patients
+* Select patient
 
-==== Patient management features
-
-===== Current(Proposed) Implementation
+=== Features
 
 ==== Add Patient feature
 When a user executes 'add-p n/John Doe g/Male a/21 p/98765432 adr/Utown College 2'
@@ -274,6 +273,10 @@ image::AddPatientSdForLogic.png[width="700"]
 
 ==== List Patient feature
 When a user executes 'list-p', the full patient list will be displayed.
+
+. `LogicManager` calls execute() of `ListPatientCommand`.
+
+. execute() will call `Model` to `updateFilterPatientList` by setting the predicate to show all the patients in the DocX currently.
 
 ==== Edit Patient feature
 
@@ -310,8 +313,27 @@ When a user executes `search-p-name`
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete")` API call.
 
-.Interactions Inside the Logic Component for the `delete-patient` Command
+.Interactions Inside the Logic Component for the `delete-p` Command
 image::DeletePatientSdForLogic.png[width="700"]
+
+When a user executes `delete-p 1`
+
+Steps: +
+
+. LogicManager calls parseCommand("delete-p") in `DocXParser`.
+
+. Based on the COMMAND_WORD, `DocXParser` builds a new DeletePatientCommandParser() and call function parse("1") of DeletePatientCommandParser.
+
+. DeletePatientCommandParser parses the argument and get the relative list index of the patient to be deleted.
+        Then, DeletePatientCommandParser calls DeletePatientCommand(index).
+
+. LogicManager calls execute() of DeletePatientCommand.
+
+. execute() calls getFilteredPatientList() of `ModelManager` and gets the patient to be deleted.
+DeletePatientCommand calls deletePatient(patientToDelete) of `ModelManager`.
+
+. `ModelManager` later commitDocX and the patient is successfully deleted.
+
 
 ==== Appointment Status Display feature
 The patient card will show the appointment status of a patient. It will display any one of the four enum values: `ACTIVE, COMPLETED, CANCELLED, MISSED`.

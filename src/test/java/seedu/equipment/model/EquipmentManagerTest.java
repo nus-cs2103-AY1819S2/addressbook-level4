@@ -9,7 +9,7 @@ import static seedu.equipment.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.equipment.testutil.TypicalEquipments.AMY;
 import static seedu.equipment.testutil.TypicalEquipments.ANCHORVALECC;
 import static seedu.equipment.testutil.TypicalEquipments.BOB;
-import static seedu.equipment.testutil.TypicalEquipments.getTypicalAddressBook;
+import static seedu.equipment.testutil.TypicalEquipments.getTypicalEquipmentManager;
 
 import static seedu.equipment.testutil.TypicalWorkLists.LISTA;
 import static seedu.equipment.testutil.TypicalWorkLists.LISTB;
@@ -44,7 +44,7 @@ public class EquipmentManagerTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), equipmentManager.getPersonList());
+        assertEquals(Collections.emptyList(), equipmentManager.getEquipmentList());
     }
 
     @Test
@@ -54,14 +54,14 @@ public class EquipmentManagerTest {
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        EquipmentManager newData = getTypicalAddressBook();
+    public void resetData_withValidReadOnlyEquipmentManager_replacesData() {
+        EquipmentManager newData = getTypicalEquipmentManager();
         equipmentManager.resetData(newData);
         assertEquals(newData, equipmentManager);
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
+    public void resetData_withDuplicatePersons_throwsDuplicateEquipmentException() {
         // Two equipment with the same identity fields
         Equipment editedAlice = new EquipmentBuilder(ANCHORVALECC).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
@@ -73,9 +73,9 @@ public class EquipmentManagerTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasEquipment_nullEquipment_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        equipmentManager.hasPerson(null);
+        equipmentManager.hasEquipment(null);
     }
 
     @Test
@@ -91,13 +91,13 @@ public class EquipmentManagerTest {
     }
 
     @Test
-    public void hasEquipmentWithSerialNumber_equipmentNotInAddressBook_returnsFalse() {
+    public void hasEquipmentWithSerialNumber_equipmentNotInEquipmentManager_returnsFalse() {
         assertFalse(equipmentManager.hasEquipmentWithSerialNumber(ANCHORVALECC.getSerialNumber()));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(equipmentManager.hasPerson(ANCHORVALECC));
+    public void hasEquipment_equipmentNotInEquipmentManager_returnsFalse() {
+        assertFalse(equipmentManager.hasEquipment(ANCHORVALECC));
     }
     @Test
     public void hasWorkList_workListNotInEquipmentManager_returnsFalse() {
@@ -105,9 +105,9 @@ public class EquipmentManagerTest {
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasEquipment_equipmentInEquipmentManager_returnsTrue() {
         equipmentManager.addPerson(ANCHORVALECC);
-        assertTrue(equipmentManager.hasPerson(ANCHORVALECC));
+        assertTrue(equipmentManager.hasEquipment(ANCHORVALECC));
     }
 
     @Test
@@ -135,17 +135,17 @@ public class EquipmentManagerTest {
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    public void hasEquipment_equipmentWithSameIdentityFieldsInEquipmentManager_returnsTrue() {
         equipmentManager.addPerson(ANCHORVALECC);
         Equipment editedAlice = new EquipmentBuilder(ANCHORVALECC).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(equipmentManager.hasPerson(editedAlice));
+        assertTrue(equipmentManager.hasEquipment(editedAlice));
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getEquipmentList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        equipmentManager.getPersonList().remove(0);
+        equipmentManager.getEquipmentList().remove(0);
     }
 
     @Test
@@ -186,7 +186,7 @@ public class EquipmentManagerTest {
         }
 
         @Override
-        public ObservableList<Equipment> getPersonList() {
+        public ObservableList<Equipment> getEquipmentList() {
             return equipment;
         }
 

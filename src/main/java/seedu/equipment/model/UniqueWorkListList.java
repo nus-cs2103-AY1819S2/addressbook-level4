@@ -50,6 +50,12 @@ public class UniqueWorkListList implements Iterable<WorkList> {
             throw new DuplicateEquipmentException();
         }
         internalList.add(toAdd);
+        internalList.sort(new Comparator<WorkList>() {
+            @Override
+            public int compare(WorkList o1, WorkList o2) {
+                return Integer.compare(Integer.valueOf(o1.getId().value), Integer.valueOf(o2.getId().value));
+            }
+        });
     }
 
     /**

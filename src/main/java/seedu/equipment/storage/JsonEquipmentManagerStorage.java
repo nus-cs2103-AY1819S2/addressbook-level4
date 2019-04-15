@@ -27,32 +27,32 @@ public class JsonEquipmentManagerStorage implements EquipmentManagerStorage {
         this.filePath = filePath;
     }
 
-    public Path getAddressBookFilePath() {
+    public Path getEquipmentManagerFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyEquipmentManager> readAddressBook() throws DataConversionException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyEquipmentManager> readEquipmentManager() throws DataConversionException {
+        return readEquipmentManager(filePath);
     }
 
     /**
-     * Similar to {@link #readAddressBook()}.
+     * Similar to {@link #readEquipmentManager()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyEquipmentManager> readAddressBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyEquipmentManager> readEquipmentManager(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableEquipmentManager> jsonAddressBook = JsonUtil.readJsonFile(
+        Optional<JsonSerializableEquipmentManager> jsonEquipmentManager = JsonUtil.readJsonFile(
                 filePath, JsonSerializableEquipmentManager.class);
-        if (!jsonAddressBook.isPresent()) {
+        if (!jsonEquipmentManager.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonAddressBook.get().toModelType());
+            return Optional.of(jsonEquipmentManager.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -60,21 +60,20 @@ public class JsonEquipmentManagerStorage implements EquipmentManagerStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyEquipmentManager addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveEquipmentManager(ReadOnlyEquipmentManager equipmentManager) throws IOException {
+        saveEquipmentManager(equipmentManager, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyEquipmentManager)}.
+     * Similar to {@link #saveEquipmentManager(ReadOnlyEquipmentManager)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyEquipmentManager addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveEquipmentManager(ReadOnlyEquipmentManager equipmentManager, Path filePath) throws IOException {
+        requireNonNull(equipmentManager);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableEquipmentManager(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableEquipmentManager(equipmentManager), filePath);
     }
-
 }

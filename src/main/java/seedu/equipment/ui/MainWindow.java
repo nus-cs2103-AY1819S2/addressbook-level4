@@ -135,7 +135,8 @@ public class MainWindow extends UiPart<Stage> {
                 logic::setSelectedWorkList);
         workListPanelPlaceholder.getChildren().add(workListListPanel.getRoot());
 
-        clientListPanel = new ClientListPanel(logic.getFilteredClientList());
+        clientListPanel = new ClientListPanel(logic.getFilteredClientList(), logic.selectedClientProperty(),
+                logic::setSelectedClient);
         clientListPanelPlaceholder.getChildren().add(clientListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -190,6 +191,19 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Lists the client's equipments in equipment details panel.
+     */
+    @FXML
+    private void handleSelectClient() throws ParseException {
+        try {
+            logic.execute("filter n/" + logic.getSelectedClient());
+        } catch (CommandException ce) {
+            System.err.println("Error in parsing filter command.");
+        }
+    }
+
+
+    /**
      * Opens the map window or focuses on it if it's already opened.
      */
     @FXML
@@ -235,6 +249,7 @@ public class MainWindow extends UiPart<Stage> {
         try {
             setCommand(commandText);
             CommandResult commandResult = logic.execute(commandText);
+
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
@@ -252,6 +267,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isRoute()) {
                 handleRoute(commandResult.getRouteAddress());
+            }
+
+            if (commandResult.isSelectClient()) {
+                handleSelectClient();
             }
 
             return commandResult;

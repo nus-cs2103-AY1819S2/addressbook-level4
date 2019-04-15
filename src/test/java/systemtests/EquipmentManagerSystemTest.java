@@ -89,7 +89,7 @@ public abstract class EquipmentManagerSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected EquipmentManager getInitialData() {
-        return TypicalEquipments.getTypicalAddressBook();
+        return TypicalEquipments.getTypicalEquipmentManager();
     }
 
     /**
@@ -107,8 +107,8 @@ public abstract class EquipmentManagerSystemTest {
         return mainWindowHandle.getCommandBox();
     }
 
-    public EquipmentListPanelHandle getPersonListPanel() {
-        return mainWindowHandle.getPersonListPanel();
+    public EquipmentListPanelHandle getEquipmentListPanel() {
+        return mainWindowHandle.getEquipmentListPanel();
     }
 
     public MainMenuHandle getMainMenu() {
@@ -143,11 +143,11 @@ public abstract class EquipmentManagerSystemTest {
     }
 
     /**
-     * Displays all persons in the equipment book.
+     * Displays all equipment in the equipment book.
      */
     protected void showAllPersons() {
         executeCommand(ListEquipmentCommand.COMMAND_WORD);
-        assertEquals(getModel().getEquipmentManager().getPersonList().size(), getModel().getFilteredPersonList()
+        assertEquals(getModel().getEquipmentManager().getEquipmentList().size(), getModel().getFilteredPersonList()
                 .size());
     }
 
@@ -156,17 +156,17 @@ public abstract class EquipmentManagerSystemTest {
      */
     protected void showAllWorkList() {
         executeCommand(ListWorkListCommand.COMMAND_WORD);
-        assertEquals(getModel().getEquipmentManager().getPersonList().size(), getModel().getFilteredWorkListList()
+        assertEquals(getModel().getEquipmentManager().getEquipmentList().size(), getModel().getFilteredWorkListList()
                 .size());
     }
 
     /**
-     * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
+     * Displays all equipment with any parts of their names matching {@code keyword} (case-insensitive).
      */
     protected void showPersonsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredPersonList().size()
-                < getModel().getEquipmentManager().getPersonList().size());
+                < getModel().getEquipmentManager().getEquipmentList().size());
     }
 
     /**
@@ -174,28 +174,28 @@ public abstract class EquipmentManagerSystemTest {
      */
     protected void selectPerson(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-        assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(index.getZeroBased(), getEquipmentListPanel().getSelectedCardIndex());
     }
 
     /**
-     * Deletes all persons in the equipment book.
+     * Deletes all equipment in the equipment book.
      */
     protected void deleteAllPersons() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getEquipmentManager().getPersonList().size());
+        assertEquals(0, getModel().getEquipmentManager().getEquipmentList().size());
     }
 
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
      * {@code expectedResultMessage}, the storage contains the same equipment objects as {@code expectedModel}
-     * and the equipment list panel displays the persons in the model correctly.
+     * and the equipment list panel displays the equipment in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new EquipmentManager(expectedModel.getEquipmentManager()), testApp.readStorageAddressBook());
-        assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
+        assertEquals(new EquipmentManager(expectedModel.getEquipmentManager()), testApp.readStorageEquipmentManager());
+        assertListMatching(getEquipmentListPanel(), expectedModel.getFilteredPersonList());
     }
 
     /**
@@ -207,7 +207,7 @@ public abstract class EquipmentManagerSystemTest {
         getBrowserPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
-        getPersonListPanel().rememberSelectedPersonCard();
+        getEquipmentListPanel().rememberSelectedPersonCard();
     }
 
     /**
@@ -217,7 +217,7 @@ public abstract class EquipmentManagerSystemTest {
      */
     protected void assertSelectedCardDeselected() {
         assertEquals(BrowserPanel.DEFAULT_PAGE.toString(), getBrowserPanel().getLoadedUrl().toString());
-        assertFalse(getPersonListPanel().isAnyCardSelected());
+        assertFalse(getEquipmentListPanel().isAnyCardSelected());
     }
 
     /**
@@ -227,7 +227,7 @@ public abstract class EquipmentManagerSystemTest {
      * @see EquipmentListPanelHandle#isSelectedPersonCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
-        getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
+        getEquipmentListPanel().navigateToCard(getEquipmentListPanel().getSelectedCardIndex());
         URL expectedUrl;
         try {
             GeoApiContext context = new GeoApiContext.Builder()
@@ -236,14 +236,14 @@ public abstract class EquipmentManagerSystemTest {
             String expectedUrlString = BrowserPanel.MAP_PAGE_BASE_URL;
             try {
                 GeocodingResult[] results = GeocodingApi.geocode(context,
-                        getPersonListPanel().getHandleToSelectedCard().getAddress().toString()).await();
+                        getEquipmentListPanel().getHandleToSelectedCard().getAddress().toString()).await();
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
                 if (results.length > 0) {
                     System.out.println();
                     expectedUrlString = BrowserPanel.MAP_PAGE_BASE_URL + "?coordinates=[["
                             + results[0].geometry.location.lng + ","
                             + results[0].geometry.location.lat + "]]&title=[\""
-                            + getPersonListPanel().getHandleToSelectedCard().getName()
+                            + getEquipmentListPanel().getHandleToSelectedCard().getName()
                             + "\"]&icon=[\"monument\"]";
                 } else {
                     expectedUrlString = getBrowserPanel().getLoadedUrl().toString();
@@ -267,7 +267,7 @@ public abstract class EquipmentManagerSystemTest {
         waitUntilBrowserLoaded(getBrowserPanel());
         //assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
-        assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(expectedSelectedCardIndex.getZeroBased(), getEquipmentListPanel().getSelectedCardIndex());
     }
 
     /**
@@ -277,7 +277,7 @@ public abstract class EquipmentManagerSystemTest {
      */
     protected void assertSelectedCardUnchanged() {
         assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
+        assertFalse(getEquipmentListPanel().isSelectedPersonCardChanged());
     }
 
     /**
@@ -285,7 +285,7 @@ public abstract class EquipmentManagerSystemTest {
      * @see EquipmentListPanelHandle#isSelectedPersonCardChanged()
      */
     protected void assertSelectedPersonCardUnchanged() {
-        assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
+        assertFalse(getEquipmentListPanel().isSelectedPersonCardChanged());
     }
 
     /**
@@ -329,7 +329,7 @@ public abstract class EquipmentManagerSystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
+        assertListMatching(getEquipmentListPanel(), getModel().getFilteredPersonList());
         assertEquals(BrowserPanel.DEFAULT_PAGE.toString(), getBrowserPanel().getLoadedUrl().toString());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());

@@ -19,18 +19,15 @@ import seedu.equipment.model.equipment.Equipment;
 @JsonRootName(value = "addressbook")
 class JsonSerializableEquipmentManager {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate equipment(s).";
+    public static final String MESSAGE_DUPLICATE_EQUIPMENT = "Equipment list contains duplicate equipment.";
 
-    private final List<JsonAdaptedEquipment> persons = new ArrayList<>();
-
+    private final List<JsonAdaptedEquipment> equipment = new ArrayList<>();
     /**
-     * Constructs a {@code JsonSerializableEquipmentManager} with the given persons.
+     * Constructs a {@code JsonSerializableEquipmentManager} with the given equipment.
      */
     @JsonCreator
-
-
-    public JsonSerializableEquipmentManager(@JsonProperty("persons") List<JsonAdaptedEquipment> persons) {
-        this.persons.addAll(persons);
+    public JsonSerializableEquipmentManager(@JsonProperty("equipment") List<JsonAdaptedEquipment> equipment) {
+        this.equipment.addAll(equipment);
     }
 
     /**
@@ -39,7 +36,8 @@ class JsonSerializableEquipmentManager {
      * @param source future changes to this will not affect the created {@code JsonSerializableEquipmentManager}.
      */
     public JsonSerializableEquipmentManager(ReadOnlyEquipmentManager source) {
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedEquipment::new).collect(Collectors.toList()));
+        equipment.addAll(source.getEquipmentList().stream()
+                .map(JsonAdaptedEquipment::new).collect(Collectors.toList()));
     }
 
     /**
@@ -49,10 +47,10 @@ class JsonSerializableEquipmentManager {
      */
     public EquipmentManager toModelType() throws IllegalValueException {
         EquipmentManager equipmentManager = new EquipmentManager();
-        for (JsonAdaptedEquipment jsonAdaptedEquipment : persons) {
+        for (JsonAdaptedEquipment jsonAdaptedEquipment : equipment) {
             Equipment equipment = jsonAdaptedEquipment.toModelType();
-            if (equipmentManager.hasPerson(equipment)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+            if (equipmentManager.hasEquipment(equipment)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_EQUIPMENT);
             }
             equipmentManager.addPerson(equipment);
         }

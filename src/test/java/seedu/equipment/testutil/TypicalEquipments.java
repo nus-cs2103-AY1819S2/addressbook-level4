@@ -67,17 +67,17 @@ public class TypicalEquipments {
     private TypicalEquipments() {} // prevents instantiation
 
     /**
-     * Returns an {@code EquipmentManager} with all the typical persons.
+     * Returns an {@code EquipmentManager} with all the typical equipment.
      */
-    public static EquipmentManager getTypicalAddressBook() {
+    public static EquipmentManager getTypicalEquipmentManager() {
         EquipmentManager em = new EquipmentManager();
-        for (Equipment equipment : getTypicalPersons()) {
+        for (Equipment equipment : getTypicalEquipment()) {
             em.addPerson(equipment);
         }
         return em;
     }
 
-    public static List<Equipment> getTypicalPersons() {
+    public static List<Equipment> getTypicalEquipment() {
         return new ArrayList<>(Arrays.asList(ANCHORVALECC, HWIYOHCC, TECKGHEECC, AYERRAJAHCC, BUKITGCC, CHENGSANCC,
                 JURONGREENCC));
     }

@@ -75,14 +75,14 @@ public class MainApp extends Application {
      * or an empty equipment book will be used instead if errors occur when reading {@code storage}'s equipment book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyEquipmentManager> addressBookOptional;
+        Optional<ReadOnlyEquipmentManager> equipmentManagerOptional;
         ReadOnlyEquipmentManager initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
+            equipmentManagerOptional = storage.readEquipmentManager();
+            if (!equipmentManagerOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample EquipmentManager");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = equipmentManagerOptional.orElseGet(SampleDataUtil::getSampleEquipmentManager);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. "
                     + "Will be starting with an empty EquipmentManager");

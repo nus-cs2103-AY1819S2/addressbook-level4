@@ -53,12 +53,12 @@ public interface Model {
     /**
      * Sets the user prefs' equipment book file path.
      */
-    void setEquipmentManagerFilePath(Path addressBookFilePath);
+    void setEquipmentManagerFilePath(Path equipmentManagerFilePath);
 
     /**
-     * Replaces equipment book data with the data in {@code addressBook}.
+     * Replaces equipment book data with the data in {@code equipmentManager}.
      */
-    void setEquipmentManager(ReadOnlyEquipmentManager addressBook);
+    void setEquipmentManager(ReadOnlyEquipmentManager equipmentManager);
 
     /** Returns the EquipmentManager */
     ReadOnlyEquipmentManager getEquipmentManager();
@@ -214,6 +214,12 @@ public interface Model {
     ReadOnlyProperty<Equipment> selectedEquipmentProperty();
 
     /**
+     * Selected client in the filtered equipment list.
+     * null if no client is selected.
+     */
+    ReadOnlyProperty<Name> selectedClientProperty();
+
+    /**
      * Selected WorkList in the filtered WorkList list.
      * null if no WorkList is selected.
      */
@@ -224,6 +230,13 @@ public interface Model {
      * null if no equipment is selected.
      */
     Equipment getSelectedEquipment();
+
+
+    /**
+     * Returns the selected client in the filtered equipment list.
+     * null if no client is selected.
+     */
+    Name getSelectedClient();
 
     /**
      * Returns the selected WorkList in the filtered WorkList list.
@@ -237,9 +250,15 @@ public interface Model {
     void setSelectedEquipment(Equipment equipment);
 
     /**
+     * Sets the selected client in the filtered equipment list.
+     */
+    void setSelectedClient(Name equipment);
+
+    /**
      * Unset the selected equipment in the filtered equipment list.
      */
     void unsetSelectedEquipment();
+
 
     /**
      * Sets the selected WorkList in the filtered WorkList list.

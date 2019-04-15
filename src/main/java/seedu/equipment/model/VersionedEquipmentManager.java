@@ -8,14 +8,14 @@ import java.util.List;
  */
 public class VersionedEquipmentManager extends EquipmentManager {
 
-    private final List<ReadOnlyEquipmentManager> addressBookStateList;
+    private final List<ReadOnlyEquipmentManager> equipmentManagerStateList;
     private int currentStatePointer;
 
     public VersionedEquipmentManager(ReadOnlyEquipmentManager initialState) {
         super(initialState);
 
-        addressBookStateList = new ArrayList<>();
-        addressBookStateList.add(new EquipmentManager(initialState));
+        equipmentManagerStateList = new ArrayList<>();
+        equipmentManagerStateList.add(new EquipmentManager(initialState));
         currentStatePointer = 0;
     }
 
@@ -25,13 +25,13 @@ public class VersionedEquipmentManager extends EquipmentManager {
      */
     public void commit() {
         removeStatesAfterCurrentPointer();
-        addressBookStateList.add(new EquipmentManager(this));
+        equipmentManagerStateList.add(new EquipmentManager(this));
         currentStatePointer++;
         indicateModified();
     }
 
     private void removeStatesAfterCurrentPointer() {
-        addressBookStateList.subList(currentStatePointer + 1, addressBookStateList.size()).clear();
+        equipmentManagerStateList.subList(currentStatePointer + 1, equipmentManagerStateList.size()).clear();
     }
 
     /**
@@ -42,7 +42,7 @@ public class VersionedEquipmentManager extends EquipmentManager {
             throw new NoUndoableStateException();
         }
         currentStatePointer--;
-        resetData(addressBookStateList.get(currentStatePointer));
+        resetData(equipmentManagerStateList.get(currentStatePointer));
     }
 
     /**
@@ -53,7 +53,7 @@ public class VersionedEquipmentManager extends EquipmentManager {
             throw new NoRedoableStateException();
         }
         currentStatePointer++;
-        resetData(addressBookStateList.get(currentStatePointer));
+        resetData(equipmentManagerStateList.get(currentStatePointer));
     }
 
     /**
@@ -67,7 +67,7 @@ public class VersionedEquipmentManager extends EquipmentManager {
      * Returns true if {@code redo()} has equipment book states to redo.
      */
     public boolean canRedo() {
-        return currentStatePointer < addressBookStateList.size() - 1;
+        return currentStatePointer < equipmentManagerStateList.size() - 1;
     }
 
     @Override
@@ -86,7 +86,7 @@ public class VersionedEquipmentManager extends EquipmentManager {
 
         // state check
         return super.equals(otherVersionedEquipmentManager)
-                && addressBookStateList.equals(otherVersionedEquipmentManager.addressBookStateList)
+                && equipmentManagerStateList.equals(otherVersionedEquipmentManager.equipmentManagerStateList)
                 && currentStatePointer == otherVersionedEquipmentManager.currentStatePointer;
     }
 
@@ -95,7 +95,7 @@ public class VersionedEquipmentManager extends EquipmentManager {
      */
     public static class NoUndoableStateException extends RuntimeException {
         private NoUndoableStateException() {
-            super("Current state pointer at start of addressBookState list, unable to undo.");
+            super("Current state pointer at start of equipmentManagerState list, unable to undo.");
         }
     }
 
@@ -104,7 +104,7 @@ public class VersionedEquipmentManager extends EquipmentManager {
      */
     public static class NoRedoableStateException extends RuntimeException {
         private NoRedoableStateException() {
-            super("Current state pointer at end of addressBookState list, unable to redo.");
+            super("Current state pointer at end of equipmentManagerState list, unable to redo.");
         }
     }
 }

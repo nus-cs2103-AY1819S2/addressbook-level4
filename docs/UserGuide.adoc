@@ -50,7 +50,7 @@ The exclamation mark icon indicates any warnings that users can take note of whi
 // tag::quickstart[]
 == Quick Start
 
-To get Equipment manager up and running, simply follow these few steps.
+To get Equipment Manager up and running, simply follow these few steps.
 
 === Setting up of Equipment Manager
 
@@ -71,26 +71,27 @@ The GUI for _Equipment Manager_ as shown in <<GUI>> consists of nine regions:
 | [1] *Menu Bar* | Allow users to click `File` > `Exit` to exit the application and click `Help` to navigate to our User Guide page.
 | [2] *Command Box* | User enters the command in the command box. Refer to *User Guide* to learn all the available commands.
 | [3] *Message box* | The message box that shows the result after a command has been executed.
-| [4] *Status Bar* |
-| [5] *Google Map*  | Google map serves as a visual representation for where equipments are at as well as showing user the possible routes to take.
-| [6] *Equipment Result Panel* | This panel shows summarized details on equipment
+| [4] *Status Bar* | Show the total number of equipment in the *Equipment Manager*.
+| [5] *Google Map*  | Google map serves as a visual representation for where equipment are at as well as showing user the possible routes to take.
+| [6] *Equipment Details* panel | This panel shows summarized details on equipment
 | [7] *Equipment Details Page* | This is a HTML page where it shows more detailed information on an equipment.
-| [8] *Client Result Panel* | This panel shows specifically information related to client such as the name and how many equipment the client owns.
-| [9] *Work list Result Panel* | This panels shows the work schedule of a person when the user assigns equipments whom the user want to carry out preventive maintenance work.
+| [8] *Client Details* panel | This panel shows specifically information related to client such as the name and how many equipment the client owns.
+| [9] *My Work List* panel | This panels shows the work schedule of a person when the user assigns equipment whom the user want to carry out preventive maintenance work.
 |===
 
-|===
-| image:exclamation.png[width="40"] |Please remember the naming convention for the different regions in GUI as they will be used to explain when explaining Equipment Manager.
-|===
+[TIP]
+Please remember the naming convention for the different regions in GUI as they will be used to explain when explaining Equipment Manager.
 
-=== About an equipment
+[[EquipmentPara]]
+=== About Equipment Parameters
 |===
-| *Attributes* | *Description* | *Things to Note*
-| Name | The client's name who owns the equipment. |
-| Phone | The contact number of the client that owns the equipment. |
-| Date | The due date for which maintenance work on the equipment should be carried out by then. |
-| Address | The address of the client that owns the equipment. |
-| Serial Number | The serial number of an equipment | All equipments have unique serial number and there should not be duplicated serial number.
+| *Parameters* | *Description* | *Things to Note*
+| NAME | The client's name who owns the equipment. | Name should only contain alphanumeric characters and spaces, and it should not be blank.
+| PHONE | The contact number of the client that owns the equipment. | Phone numbers should only contain numbers, and it should be at least 3 digits long
+| DATE | The due date for which maintenance work on the equipment should be carried out by then. | Should only contain numbers and hyphens, no blanks allowed. The correct format is  dd-MM-yyyy. For example, 03-05-2019 which means 3 May 2019.
+| ADDRESS | The address of the client that owns the equipment. |
+| SERIAL_NUMBER | The serial number of an equipment | All equipment have unique serial number and there should not be duplicated serial number.
+| TAG | Tag provides user with desired labels without any restriction on labelling format in *Equipment Manager*. An equipment can any number of tags (including 0).
 |===
 
 === Entering a command
@@ -101,7 +102,7 @@ Type the command in the Command Box and press kbd:[Enter] to execute it. +
 
 * *`help`*: opens up user guide
 * *`list-e`*: lists all equipment details
-* **`add-e`**`n/Clementi CC p/98765432 d/01-05-2019 a/Pending Rd s/X14DH9283` : adds a contact named `Clementi CC` to the *Equipment Manager*.
+* **`add-e`**`n/Clementi CC p/67762517 pm/01-05-2019 a/220 Clementi Ave 4, Singapore 129880 Rd s/X14DH9283` : adds a contact named `Clementi CC` to the *Equipment Manager*.
 * **`delete-e`**`3`: deletes the 3rd equipment detail shown in the current list
 * *`exit`*: exits the app
 
@@ -115,10 +116,10 @@ Refer to <<Features>> for details of each command.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/urgent` or as `n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add-e n/NAME`, `NAME` is a parameter which can be used as `add-e n/Clementi CC`.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/Clementi CC t/urgent` or as `n/Clementi CC`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE`, `p/PHONE n/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
@@ -131,49 +132,45 @@ You can view help by click the `Help button on the Menu Bar.
 
 If it is your first time reading this, then good job on opening the User Guide!
 
+// tag::add-e[]
 === Adding an equipment: `add-e`
-Adds an equipment to the *Equipment Manager*. The result of adding an equipment will be reflected on the panel labelled under *Equipment details*.  +
-Format: `add-e n/NAME p/PHONE_NUMBER pm/DATE a/ADDRESS s/SERIAL_NUMBER t/TAG`
+Adds an equipment to the *Equipment Manager*. The result of adding an equipment will be reflected on the panel labelled under *Equipment details* and *Client details*.  +
+Format: `add-e n/NAME p/PHONE pm/DATE a/ADDRESS s/SERIAL_NUMBER t/TAG`
 
 [NOTE]
-An equipment can any number of tags (including 0). +
-DATE is the annual due date for maintenance work to be carried out by and it should be entered in a numerical date format of `DD-MM-YYY` including the hyphens.
-
-[TIP]
-In the panel under the *Equipment details* label, duplicated names could be added and displayed on the panel because the name refer to a client's name who owns multiple equipments as long as the serial numbers of equipment are different.
+Refer to <<EquipmentPara>> to understand each equipment's parameter when adding an equipment detail.
 
 [TIP]
 Equipment that has overdue preventative maintenance dates are allowed to be added for tracking purposes.
 
-Example:
-
-The following shows user adding 1 equipment that is own by the client called  Serangoon CC
-
-* `add-e n/Serangon CC p/64738499 pm/11-06-2019 a/10 Serangoon North Ave 2, Singapore 555877 s/A0293838X t/north-east`
-
-
-The following shows user adding 2 equipments that are own by the same client called  Clementi CC
-
-* `add-e n/Clementi CC p/67762517 pm/10-06-2019  a/220 Clementi Ave 4, Singapore 129880 s/A008844L t/west` +
-`add-e n/Clementi CC p/67762517 pm/10-06-2019 a/220 Clementi Ave 4, Singapore 129880 s/A007723L t/west`
-
-// tag::addclient[]
-=== Adding a client: `add-c`
-Adds a client to the *Equipment Manager*. The result of adding a client will be reflected on the panel labelled under *Client details*. +
-Format: `add-c n/NAME`
-
-[NOTE]
-Client is a person or organization that owns the equipment.
-
 [TIP]
-In the panel under *Client details* label, there should not be any duplicated client names. +
+As seen in <<duplicate>> below, under *Equipment details* panel, duplicated client details such as name, phone, address could be added and displayed because the details refer to a client's details who owns multiple equipment as long as the serial numbers of equipment are different. +
+Under *Client details* panel, duplicated client names will not appear in the panel because the *Client details* panel will only show distinct number of clients in the *Equipment Manager*.
+
 
 Example:
 
-*  `add-c n/Clementi CC`
-// end::addclient[]
+The following shows user adding 1 equipment that is owned by the client called Serangoon CC.
 
-=== Creating a new worklist: `add-w`
+* `add-e n/Serangoon CC p/64738499 pm/11-06-2019 a/10 Serangoon North Ave 2, Singapore 555877 s/A0293838X t/northeast`
+
+.UI Result after adding an equipment own by Serangoon CC
+image::SerangoonCC.png[width="800"]
+
+
+The following shows user adding 2 equipment that are owned by the same client called  Pending CC.
+Under *Equipment details* panel, 2 equipment of the same name Pending CC are displayed. Only the serial number is different which indicates 2 different equipment owned by Pending CC.
+Under *Client details* panel, Pending CC is added to the panel after entering the `add-e` command.
+
+* `add-e n/Pending CC p/65060900 pm/22-04-2019 a/8 Pending Rd, Singapore 678295 s/A23234567X t/northwest` +
+`add-e n/Pending CC p/65060900 pm/22-04-2019 a/8 Pending Rd, Singapore 678295 s/61672453X t/northwest`
+
+[[duplicate]]
+.UI Result after adding 2 equipment owned by the same client
+image::PendingCC.png[width="800"]
+// end::add-e[]
+
+=== Creating a new work list: `add-w`
 Create a worklist in the Equipment Manager by giving the worklist an ID +
 Format: `add-w d/DATE a/ASSIGNEE i/ID`
 
@@ -189,7 +186,7 @@ Example:
 
 === Putting an equipment into a work list: `put`
 Adds an equipment into a working list in the Equipment Manager +
-Format: `put i/WorkListID s/EquipmentSerialNumber`
+Format: `put i/WorkListID s/SERIAL_NUMBER`
 
 [NOTE]
 Please make sure that the respective Equipment and WorkList exist in the equipment manager.
@@ -200,7 +197,7 @@ Example:
 
 === Removing an equipment from a work list: `remove`
 Removes an equipment from a working list in the Equipment Manager +
-Format: `remove i/WorkListID s/EquipmentSerialNumber`
+Format: `remove i/WorkListID s/SERIAL_NUMBER`
 
 [NOTE]
 Please make sure that the respective Equipment and WorkList exist in the equipment manager.
@@ -230,8 +227,8 @@ Edits the client's phone number and address of the 1st equipment to be 91234567 
 * `edit 2 n/Hougang CC t/` +
 Edits the client name of the 2nd equipment to be Huogang CC and clears all existing tags.
 
-=== List all equipments:  `list-e`
-Shows a list of all equipments in the Equipment Manager. The result will be displayed in the panel labelled under *Equipment details*. +
+=== List all equipment:  `list-e`
+Shows a list of all equipment in the Equipment Manager. The result will be displayed in the panel labelled under *Equipment details*. +
 Format: `list-e`
 
 Example:
@@ -270,28 +267,24 @@ Selects the 1st worklist in the equipment manager.
 Selects the 1st equipment in the results of the find command.
 // end::select[]
 
-// tag::find[]
-=== Locating equipment by location: `find`
-Finds equipment whose location contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+// tag::select-c[]
+=== Selecting a client: `select-c`
+Selects the client identified by the index number used in the displayed client list panel. All the equipment owned by the client will be displayed under *Equipment details* panel. +
+Format: `select-c INDEX`
 
-****
-* The search is case insensitive. e.g `clementi` will match `Clementi`
-* The order of the keywords does not matter.
-* Only the name is searched.
-* Only full words will be matched e.g. `Clem` will not match `Clementi`
-* Equipment matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+* Selects the client at the specified INDEX and loads the client's equipment in the *Equipment details* panel. +
+* The index refers to the index number shown in the *Client details* panel. +
+* The index must be a positive integer 1, 2, 3, …​ +
 
 Examples:
 
-* `find Clementi` +
-Returns `Clementi Police Station` and `Clementi CC`
-// end::find[]
+* `select 2` +
+Selects the 2nd client in the equipment manager.
+// end::select-c[]
 
 // tag::display[]
 === Show in map: `display`
-Display entries on the list to the map. Addresses of the equipment will be taken to plot marker on map.
+Display entries on the list to the map. Addresses of the equipment will be taken to plot marker on map. +
 Format: `display`
 
 Example:
@@ -310,87 +303,120 @@ Screen shot after typing command `display`:
 image::display-screenshot.png[width="800"]
 // end::display[]
 
+
+=== Route planning: `route`
+With multiple destinations that you plan to visit for preventive maintenance, using the route command can return you with the following details: +
+****
+* A visual representation on the map of the most efficient route you can take
+* A list of location to visit in order.
+****
+Format: `route [worklist id]`
+
+Examples:
+
+* `list-w` +
+`route 120`
+
+    Note to editor: add a png example of the routing of worklist id 120.
+
+
 // tag::sort[]
-=== Sort the list: `sort`
-Sort the current shown list.
+=== Sorting the equipment list: `sort`
+Sort the equipment list.
 
 Format: `sort [FIELD_NAME to be sorted by]`
 
-The user can sort the current shown list with specified field.
+The user can sort the equipment list with specified field.
 
 The sort parameters are case-insensitive.
 
 By default, `sort` sorts the list by name in lexicographical order.
 
 [TIP]
-Equipment, client, and work list can only be sorted by preventive maintenance date of the equipment and phone number of the client.
+Equipment list can only be sorted by `name`, `date`, `phone` and `serial`.
 
 For example,
 
-* `sort` +
-Returns the list sorted by name.
+image::sortName.png[width="800"]
+* `sort name` +
+Returns the list sorted in alphabetical order of the client's name.
 
-
+image::sortDate.png[width="800"]
 * `sort date` +
-Returns the list sorted according to the preventative maintenance date of the equipment.
+Returns the list sorted in an ascending order of the preventative maintenance date of the equipment.
 
+image::sortPhone.png[width="800"]
 * `sort phone` +
 Returns the list sorted by phone number of the client.
+
+image::sortSerial.png[width="800"]
+* `sort serial` +
+Returns the list sorted by serial number of the equipment.
+
+|===
+| image:exclamation.png[width="40"] |This command only works on the overall equipment list and not the current shown equipment list.
+|===
 
 
 // end::sort[]
 
 // tag::filter[]
-=== Filtering the list: `filter`
+=== Filtering the equipment list: `filter`
 Filter the current shown list which match the given keywords.
 
 Format: `filter [n/NAME_KEYWORD]...[t/TAG_KEYWORD]...[a/ADDRESS_KEYWORD]`
 
 - At least *one* keyword must be provided.
-- Filtering multiple keywords of the same prefix will return equipment/client whose attribute corresponding to the prefix contain
+- Filtering multiple keywords of the same prefix will return equipment whose attribute corresponding to the prefix contain
  any one of the keywords.
-- Filtering with keywords of different prefixes will return only equipment/client that matches with any of the keywords of
+- Filtering with keywords of different prefixes will return only equipment that matches with any of the keywords of
  the different prefixes.
-- The filter is case insensitive, e.g. jurong will match Jurong.
+- The filter is case insensitive, e.g. hougang will match Hougang.
 
 
 [TIP]
-* The user can filter the list with any specified fields, and can filter by multiple fields and keywords.
-* Equipment, client, and work list can all be filtered, by any fields of them.
+* The user can filter the equipment list with any specified fields, and can filter by multiple fields and keywords.
 
 |===
-| image:exclamation.png[width="40"] |This command only works on the overall list and not the current shown list.
+| image:exclamation.png[width="40"] |This command only works on the overall equipment list and not the current shown equipment list.
 |===
 
 For example,
 
-* `filter n/jurong` +
-Returns any equipment whose name contains jurong.
+image::filtername.png[width="800"]
+* `filter n/hougang` +
+Returns any equipment whose name consists of 'hougang'.
 
-* `filter a/bedok north` +
-Returns any equipment whose address contains bedok north.
+image::filteraddress.png[width="800"]
+* `filter a/bedok` +
+Returns any equipment whose address consists of 'bedok'.
 
-* `filter pm/20 May` +
-Returns any equipment whose preventative maintenance date contains 20 May.
+image::filterdate.png[width="800"]
+* `filter pm/27-09` +
+Returns any equipment whose preventative maintenance date consists of '27-09'.
 
-* `filter s/9888` +
-Returns any equipment whose phone number contains 9888.
+image::filterphone.png[width="800"]
+* `filter p/6783` +
+Returns any equipment whose phone number consists of 6783.
 
-* `filter s/A200` +
-Returns any equipment whose serial number contains A200.
+image::filterserial.png[width="800"]
+* `filter s/03071` +
+Returns any equipment whose serial number consists of 03071.
 
+image::filtertags.png[width="800"]
 * `filter t/urgent t/west` +
-Returns any equipment whose tags contains urgent and west.
+Returns any equipment details whose tags consists of urgent or west.
 
-* `filter n/jurong a/blk 123 t/urgent` +
-Returns any equipment whose names that either contains jurong, address that contains blk 123, or whose tags contains urgent.
+image::filtermultiple.png[width="800"]
+* `filter n/tampines a/41 t/urgent` +
+Returns any equipment details that either consists of tampines, address that consists of 41, or whose tags consists of urgent.
 
 // end::filter[]
 
 === Autocomplete: kbd:[tab] [Coming in v2.0]
 If you have forgotten how to type a command, do not worry!  By typing in the first letter of the command in the command and pressing the kbd:[tab] key, it will display the full format of the command.
 
-=== Deleting equipment: `delete-e`
+=== Deleting an equipment: `delete-e`
 Deletes the specified equipment from the equipment list and the whole details contained under the equipment specified by INDEX
 
 Format: `delete-e INDEX`
@@ -400,8 +426,8 @@ Example:
 * `list-e` +
 `delete-e 1`
 
-=== Deleting work list: `delete-w`
-Deletes the specified work list from the work list.
+=== Deleting a work list: `delete-w`
+Deletes the specified work list from the work list. +
 Format: `delete-w INDEX`
 
 Example:
@@ -450,28 +476,28 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 // tag::undoredo[]
 === Undoing previous command: `undo`
-Restores Equipment Manager to the state before the previous undoable command was executed.
+Restores *Equipment Manager* to the state before the previous undoable command was executed.
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the equipment manager's content (`add-e`, `delete-e`, `edit-e` and `clear`).
 ====
 
 Examples:
 
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
+* `delete-e 1` +
+`list-e` +
+`undo` (reverses the `delete-e 1` command) +
 
-* `select 1` +
-`list` +
+* `select-e 1` +
+`list-e` +
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
 
-* `delete 1` +
+* `delete-e 1` +
 `clear` +
 `undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
+`undo` (reverses the `delete-e 1` command) +
 
 === Redoing all the previously undone command: `redo`
 Reverses the most recent `undo` command. +
@@ -479,19 +505,19 @@ Format: `redo`
 
 Examples:
 
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+* `delete-e 1` +
+`undo` (reverses the `delete-e 1` command) +
+`redo` (reapplies the `delete-e 1` command) +
 
-* `delete 1` +
+* `delete-e 1` +
 `redo` +
 The `redo` command fails as there are no `undo` commands executed previously.
 
-* `delete 1` +
+* `delete-e 1` +
 `clear` +
 `undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+`undo` (reverses the `delete-e 1` command) +
+`redo` (reapplies the `delete-e 1` command) +
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
@@ -505,7 +531,7 @@ Format: `exit`
 
 === Saving the data
 
-Equipment Manager data are saved in the hard disk automatically after any command that changes the data. +
+*Equipment Manager* data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
@@ -550,75 +576,96 @@ Unsure of a few technical terms? We got you covered. Refer to [underline]#<<tech
 == Command Summary
 
 This is the last section of the User Guide, but the most useful if you just want a list of commands to try.
-Refer to <<generaltable>> for general commands and <<managetable>> for Equipment Manager.
+Refer to <<generaltable>> for a summary of all the commands with quick command format guide.
 For more details on what each command does, please refer to <<Features>>.
 
 .General Commands
 [[generaltable]]
 |===
-|Command |Format
+|Command |Format |Example
 
 |*Help*
 |help
+|help
 
-|*Add Equipment*
-|add-e
+|*Adding an equipment*
+|add-e n/NAME p/PHONE_NUMBER pm/DATE a/ADDRESS s/SERIAL_NUMBER t/TAG
+|add-e n/Clementi CC p/67762517 pm/10-06-2019 a/220 Clementi Ave 4, Singapore 129880 s/A008844L t/west
 
-|*Add Client*
-|add-e
+|*Creating a new Work List*
+|add-w d/DATE a/ASSIGNEE i/ID
+|add-w d/09-05-2019 a/Mei Yen i/13
 
-|*Add Work List*
-|add-w
+|*Putting an equipment into work list*
+|put i/WorkListID s/SERIAL_NUMBER
+|put i/1 s/A008812X
 
-|*List Equipment*
+|*Removing an equipment from work list*
+|remove i/WorkListID s/SERIAL_NUMBER
+|remove i/1 s/A008866X
+
+|*Editing an equipment*
+|edit INDEX n/NAME p/PHONE pm/DATE a/ADDRESS s/SERIAL_NUMBER t/TAG…​
+|edit 1 n/Clementi Community Center
+
+|*List all equipment*
+|list-e
 |list-e
 
-|*List Work List*
+|*List all work list*
+|list-w
 |list-w
 
-|*Delete Equipment*
-|delete-e
+|*Selecting an Equipment or work list*
+|select INDEX
+|select 1
 
-|*Delete Work List*
-|delete-w
+|*Selecting a client*
+|select-c INDEX
+|select-c 2
 
-|*Undo*
-|undo
+|*Show equipment location(s) in map*
+|display
+|display
 
-|*Redo*
-|redo
+|*Route planning*
+|route /[worklist id]
+|route 120
 
-|*Clear*
-|clear
+|*Sort the equipment list*
+|sort [FIELD_NAME to be sorted by]
+|sort name
 
-|*History*
+|*Filtering the equipment list*
+|filter [n/NAME_KEYWORD]…​[t/TAG_KEYWORD]…​[a/ADDRESS_KEYWORD]
+|filter n/hougang
+
+|*Deleting an equipment*
+|delete-e INDEX
+|delete-e 1
+
+|*Deleting a work list*
+|delete-w INDEX
+|delete-w 2
+
+|*Listing entered commands*
+|history
 |history
 
-|*Exit*
+|*Undoing previous commands*
+|undo
+|undo
+
+|*Redoing all the previously undone command*
+|redo
+|redo
+
+|*Clearing all entries*
+|clear
+|clear
+
+|*Exit the program*
+|exit
 |exit
 |===
-
-.Equipment Manager
-[[managetable]]
-[cols="^.^1,^.^4,^.^2"]
-|===
-|Command |Format |Example
-
-|*Select*
-|select INDEX
-|s 2
-
-|*Put*
-|put INDEX [worklist id]
-|put 1 120
-
-|*Find*
-|find KEYWORD [MORE_KEYWORDS]
-|fin punggol
-
-|*Filter*
-|filter [n/NAME_KEYWORD] [pm/DATE_KEYWORD] [t/TAG_KEYWORD]
-|fil punggol november ongoing
-|===
-
 // end::commandsummary[]

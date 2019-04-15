@@ -18,203 +18,203 @@ import seedu.equipment.testutil.EquipmentManagerBuilder;
 
 public class VersionedEquipmentManagerTest {
 
-    private final ReadOnlyEquipmentManager addressBookWithAmy = new EquipmentManagerBuilder().withPerson(AMY).build();
-    private final ReadOnlyEquipmentManager addressBookWithBob = new EquipmentManagerBuilder().withPerson(BOB).build();
-    private final ReadOnlyEquipmentManager addressBookWithCarl = new EquipmentManagerBuilder()
+    private final ReadOnlyEquipmentManager equipManagerWithAmy = new EquipmentManagerBuilder().withPerson(AMY).build();
+    private final ReadOnlyEquipmentManager equipManagerWithBob = new EquipmentManagerBuilder().withPerson(BOB).build();
+    private final ReadOnlyEquipmentManager equipManagerWithCarl = new EquipmentManagerBuilder()
             .withPerson(TECKGHEECC).build();
-    private final ReadOnlyEquipmentManager emptyAddressBook = new EquipmentManagerBuilder().build();
+    private final ReadOnlyEquipmentManager emptyEquipmentManager = new EquipmentManagerBuilder().build();
 
     @Test
-    public void commit_singleAddressBook_noStatesRemovedCurrentStateSaved() {
-        VersionedEquipmentManager versionedEquipmentManager = prepareAddressBookList(emptyAddressBook);
+    public void commit_singleEquipmentManager_noStatesRemovedCurrentStateSaved() {
+        VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(emptyEquipmentManager);
 
         versionedEquipmentManager.commit();
-        assertAddressBookListStatus(versionedEquipmentManager,
-                Collections.singletonList(emptyAddressBook),
-                emptyAddressBook,
+        assertEquipmentManagerListStatus(versionedEquipmentManager,
+                Collections.singletonList(emptyEquipmentManager),
+                emptyEquipmentManager,
                 Collections.emptyList());
     }
 
     @Test
-    public void commit_multipleAddressBookPointerAtEndOfStateList_noStatesRemovedCurrentStateSaved() {
-        VersionedEquipmentManager versionedEquipmentManager = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void commit_multipleEquipmentManagerPointerAtEndOfStateList_noStatesRemovedCurrentStateSaved() {
+        VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(
+                emptyEquipmentManager, equipManagerWithAmy, equipManagerWithBob);
 
         versionedEquipmentManager.commit();
-        assertAddressBookListStatus(versionedEquipmentManager,
-                Arrays.asList(emptyAddressBook, addressBookWithAmy, addressBookWithBob),
-                addressBookWithBob,
+        assertEquipmentManagerListStatus(versionedEquipmentManager,
+                Arrays.asList(emptyEquipmentManager, equipManagerWithAmy, equipManagerWithBob),
+                equipManagerWithBob,
                 Collections.emptyList());
     }
 
     @Test
-    public void commit_multipleAddressBookPointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
-        VersionedEquipmentManager versionedEquipmentManager = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void commit_multipleEquipmentManagerPointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
+        VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(
+                emptyEquipmentManager, equipManagerWithAmy, equipManagerWithBob);
         shiftCurrentStatePointerLeftwards(versionedEquipmentManager, 2);
 
         versionedEquipmentManager.commit();
-        assertAddressBookListStatus(versionedEquipmentManager,
-                Collections.singletonList(emptyAddressBook),
-                emptyAddressBook,
+        assertEquipmentManagerListStatus(versionedEquipmentManager,
+                Collections.singletonList(emptyEquipmentManager),
+                emptyEquipmentManager,
                 Collections.emptyList());
     }
 
     @Test
-    public void canUndo_multipleAddressBookPointerAtEndOfStateList_returnsTrue() {
-        VersionedEquipmentManager versionedEquipmentManager = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void canUndo_multipleEquipmentManagerPointerAtEndOfStateList_returnsTrue() {
+        VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(
+                emptyEquipmentManager, equipManagerWithAmy, equipManagerWithBob);
 
         assertTrue(versionedEquipmentManager.canUndo());
     }
 
     @Test
-    public void canUndo_multipleAddressBookPointerAtStartOfStateList_returnsTrue() {
-        VersionedEquipmentManager versionedEquipmentManager = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void canUndo_multipleEquipmentManagerPointerAtStartOfStateList_returnsTrue() {
+        VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(
+                emptyEquipmentManager, equipManagerWithAmy, equipManagerWithBob);
         shiftCurrentStatePointerLeftwards(versionedEquipmentManager, 1);
 
         assertTrue(versionedEquipmentManager.canUndo());
     }
 
     @Test
-    public void canUndo_singleAddressBook_returnsFalse() {
-        VersionedEquipmentManager versionedEquipmentManager = prepareAddressBookList(emptyAddressBook);
+    public void canUndo_singleEquipmentManager_returnsFalse() {
+        VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(emptyEquipmentManager);
 
         assertFalse(versionedEquipmentManager.canUndo());
     }
 
     @Test
-    public void canUndo_multipleAddressBookPointerAtStartOfStateList_returnsFalse() {
-        VersionedEquipmentManager versionedEquipmentManager = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void canUndo_multipleEquipmentManagerPointerAtStartOfStateList_returnsFalse() {
+        VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(
+                emptyEquipmentManager, equipManagerWithAmy, equipManagerWithBob);
         shiftCurrentStatePointerLeftwards(versionedEquipmentManager, 2);
 
         assertFalse(versionedEquipmentManager.canUndo());
     }
 
     @Test
-    public void canRedo_multipleAddressBookPointerNotAtEndOfStateList_returnsTrue() {
-        VersionedEquipmentManager versionedEquipmentManager = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void canRedo_multipleEquipmentManagerPointerNotAtEndOfStateList_returnsTrue() {
+        VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(
+                emptyEquipmentManager, equipManagerWithAmy, equipManagerWithBob);
         shiftCurrentStatePointerLeftwards(versionedEquipmentManager, 1);
 
         assertTrue(versionedEquipmentManager.canRedo());
     }
 
     @Test
-    public void canRedo_multipleAddressBookPointerAtStartOfStateList_returnsTrue() {
-        VersionedEquipmentManager versionedEquipmentManager = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void canRedo_multipleEquipmentManagerPointerAtStartOfStateList_returnsTrue() {
+        VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(
+                emptyEquipmentManager, equipManagerWithAmy, equipManagerWithBob);
         shiftCurrentStatePointerLeftwards(versionedEquipmentManager, 2);
 
         assertTrue(versionedEquipmentManager.canRedo());
     }
 
     @Test
-    public void canRedo_singleAddressBook_returnsFalse() {
-        VersionedEquipmentManager versionedEquipmentManager = prepareAddressBookList(emptyAddressBook);
+    public void canRedo_singleEquipmentManager_returnsFalse() {
+        VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(emptyEquipmentManager);
 
         assertFalse(versionedEquipmentManager.canRedo());
     }
 
     @Test
-    public void canRedo_multipleAddressBookPointerAtEndOfStateList_returnsFalse() {
-        VersionedEquipmentManager versionedEquipmentManager = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void canRedo_multipleEquipmentManagerPointerAtEndOfStateList_returnsFalse() {
+        VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(
+                emptyEquipmentManager, equipManagerWithAmy, equipManagerWithBob);
 
         assertFalse(versionedEquipmentManager.canRedo());
     }
 
     @Test
-    public void undo_multipleAddressBookPointerAtEndOfStateList_success() {
-        VersionedEquipmentManager versionedEquipmentManager = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void undo_multipleEquipmentManagerPointerAtEndOfStateList_success() {
+        VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(
+                emptyEquipmentManager, equipManagerWithAmy, equipManagerWithBob);
 
         versionedEquipmentManager.undo();
-        assertAddressBookListStatus(versionedEquipmentManager,
-                Collections.singletonList(emptyAddressBook),
-                addressBookWithAmy,
-                Collections.singletonList(addressBookWithBob));
+        assertEquipmentManagerListStatus(versionedEquipmentManager,
+                Collections.singletonList(emptyEquipmentManager),
+                equipManagerWithAmy,
+                Collections.singletonList(equipManagerWithBob));
     }
 
     @Test
-    public void undo_multipleAddressBookPointerNotAtStartOfStateList_success() {
-        VersionedEquipmentManager versionedEquipmentManager = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void undo_multipleEquipmentManagerPointerNotAtStartOfStateList_success() {
+        VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(
+                emptyEquipmentManager, equipManagerWithAmy, equipManagerWithBob);
         shiftCurrentStatePointerLeftwards(versionedEquipmentManager, 1);
 
         versionedEquipmentManager.undo();
-        assertAddressBookListStatus(versionedEquipmentManager,
+        assertEquipmentManagerListStatus(versionedEquipmentManager,
                 Collections.emptyList(),
-                emptyAddressBook,
-                Arrays.asList(addressBookWithAmy, addressBookWithBob));
+                emptyEquipmentManager,
+                Arrays.asList(equipManagerWithAmy, equipManagerWithBob));
     }
 
     @Test
-    public void undo_singleAddressBook_throwsNoUndoableStateException() {
-        VersionedEquipmentManager versionedEquipmentManager = prepareAddressBookList(emptyAddressBook);
+    public void undo_singleEquipmentManager_throwsNoUndoableStateException() {
+        VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(emptyEquipmentManager);
 
         assertThrows(VersionedEquipmentManager.NoUndoableStateException.class, versionedEquipmentManager::undo);
     }
 
     @Test
-    public void undo_multipleAddressBookPointerAtStartOfStateList_throwsNoUndoableStateException() {
-        VersionedEquipmentManager versionedEquipmentManager = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void undo_multipleEquipmentManagerPointerAtStartOfStateList_throwsNoUndoableStateException() {
+        VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(
+                emptyEquipmentManager, equipManagerWithAmy, equipManagerWithBob);
         shiftCurrentStatePointerLeftwards(versionedEquipmentManager, 2);
 
         assertThrows(VersionedEquipmentManager.NoUndoableStateException.class, versionedEquipmentManager::undo);
     }
 
     @Test
-    public void redo_multipleAddressBookPointerNotAtEndOfStateList_success() {
-        VersionedEquipmentManager versionedEquipmentManager = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void redo_multipleEquipmentManagerPointerNotAtEndOfStateList_success() {
+        VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(
+                emptyEquipmentManager, equipManagerWithAmy, equipManagerWithBob);
         shiftCurrentStatePointerLeftwards(versionedEquipmentManager, 1);
 
         versionedEquipmentManager.redo();
-        assertAddressBookListStatus(versionedEquipmentManager,
-                Arrays.asList(emptyAddressBook, addressBookWithAmy),
-                addressBookWithBob,
+        assertEquipmentManagerListStatus(versionedEquipmentManager,
+                Arrays.asList(emptyEquipmentManager, equipManagerWithAmy),
+                equipManagerWithBob,
                 Collections.emptyList());
     }
 
     @Test
-    public void redo_multipleAddressBookPointerAtStartOfStateList_success() {
-        VersionedEquipmentManager versionedEquipmentManager = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void redo_multipleEquipmentManagerPointerAtStartOfStateList_success() {
+        VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(
+                emptyEquipmentManager, equipManagerWithAmy, equipManagerWithBob);
         shiftCurrentStatePointerLeftwards(versionedEquipmentManager, 2);
 
         versionedEquipmentManager.redo();
-        assertAddressBookListStatus(versionedEquipmentManager,
-                Collections.singletonList(emptyAddressBook),
-                addressBookWithAmy,
-                Collections.singletonList(addressBookWithBob));
+        assertEquipmentManagerListStatus(versionedEquipmentManager,
+                Collections.singletonList(emptyEquipmentManager),
+                equipManagerWithAmy,
+                Collections.singletonList(equipManagerWithBob));
     }
 
     @Test
-    public void redo_singleAddressBook_throwsNoRedoableStateException() {
-        VersionedEquipmentManager versionedEquipmentManager = prepareAddressBookList(emptyAddressBook);
+    public void redo_singleEquipmentManager_throwsNoRedoableStateException() {
+        VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(emptyEquipmentManager);
 
         assertThrows(VersionedEquipmentManager.NoRedoableStateException.class, versionedEquipmentManager::redo);
     }
 
     @Test
-    public void redo_multipleAddressBookPointerAtEndOfStateList_throwsNoRedoableStateException() {
-        VersionedEquipmentManager versionedEquipmentManager = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void redo_multipleEquipmentManagerPointerAtEndOfStateList_throwsNoRedoableStateException() {
+        VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(
+                emptyEquipmentManager, equipManagerWithAmy, equipManagerWithBob);
 
         assertThrows(VersionedEquipmentManager.NoRedoableStateException.class, versionedEquipmentManager::redo);
     }
 
     @Test
     public void equals() {
-        VersionedEquipmentManager versionedEquipmentManager = prepareAddressBookList(addressBookWithAmy,
-                addressBookWithBob);
+        VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(equipManagerWithAmy,
+                equipManagerWithBob);
 
         // same values -> returns true
-        VersionedEquipmentManager copy = prepareAddressBookList(addressBookWithAmy, addressBookWithBob);
+        VersionedEquipmentManager copy = prepareEquipmentManagerList(equipManagerWithAmy, equipManagerWithBob);
         assertTrue(versionedEquipmentManager.equals(copy));
 
         // same object -> returns true
@@ -227,13 +227,13 @@ public class VersionedEquipmentManagerTest {
         assertFalse(versionedEquipmentManager.equals(1));
 
         // different state list -> returns false
-        VersionedEquipmentManager differentAddressBookList = prepareAddressBookList(addressBookWithBob,
-                addressBookWithCarl);
-        assertFalse(versionedEquipmentManager.equals(differentAddressBookList));
+        VersionedEquipmentManager differentEquipmentManagerList = prepareEquipmentManagerList(equipManagerWithBob,
+                equipManagerWithCarl);
+        assertFalse(versionedEquipmentManager.equals(differentEquipmentManagerList));
 
         // different current pointer index -> returns false
-        VersionedEquipmentManager differentCurrentStatePointer = prepareAddressBookList(
-                addressBookWithAmy, addressBookWithBob);
+        VersionedEquipmentManager differentCurrentStatePointer = prepareEquipmentManagerList(
+                equipManagerWithAmy, equipManagerWithBob);
         shiftCurrentStatePointerLeftwards(versionedEquipmentManager, 1);
         assertFalse(versionedEquipmentManager.equals(differentCurrentStatePointer));
     }
@@ -244,10 +244,10 @@ public class VersionedEquipmentManagerTest {
      * {@code expectedStatesBeforePointer}, and states after {@code versionedEquipmentManager#currentStatePointer}
      * is equal to {@code expectedStatesAfterPointer}.
      */
-    private void assertAddressBookListStatus(VersionedEquipmentManager versionedEquipmentManager,
-                                             List<ReadOnlyEquipmentManager> expectedStatesBeforePointer,
-                                             ReadOnlyEquipmentManager expectedCurrentState,
-                                             List<ReadOnlyEquipmentManager> expectedStatesAfterPointer) {
+    private void assertEquipmentManagerListStatus(VersionedEquipmentManager versionedEquipmentManager,
+                                                  List<ReadOnlyEquipmentManager> expectedStatesBeforePointer,
+                                                  ReadOnlyEquipmentManager expectedCurrentState,
+                                                  List<ReadOnlyEquipmentManager> expectedStatesAfterPointer) {
         // check state currently pointing at is correct
         assertEquals(new EquipmentManager(versionedEquipmentManager), expectedCurrentState);
 
@@ -257,15 +257,15 @@ public class VersionedEquipmentManagerTest {
         }
 
         // check states before pointer are correct
-        for (ReadOnlyEquipmentManager expectedAddressBook : expectedStatesBeforePointer) {
-            assertEquals(expectedAddressBook, new EquipmentManager(versionedEquipmentManager));
+        for (ReadOnlyEquipmentManager expectedEquipmentManager : expectedStatesBeforePointer) {
+            assertEquals(expectedEquipmentManager, new EquipmentManager(versionedEquipmentManager));
             versionedEquipmentManager.redo();
         }
 
         // check states after pointer are correct
-        for (ReadOnlyEquipmentManager expectedAddressBook : expectedStatesAfterPointer) {
+        for (ReadOnlyEquipmentManager expectedEquipmentManager : expectedStatesAfterPointer) {
             versionedEquipmentManager.redo();
-            assertEquals(expectedAddressBook, new EquipmentManager(versionedEquipmentManager));
+            assertEquals(expectedEquipmentManager, new EquipmentManager(versionedEquipmentManager));
         }
 
         // check that there are no more states after pointer
@@ -276,15 +276,16 @@ public class VersionedEquipmentManagerTest {
     }
 
     /**
-     * Creates and returns a {@code VersionedEquipmentManager} with the {@code addressBookStates} added into it, and the
+     * Creates and returns a {@code VersionedEquipmentManager} with the {@code equipmentManagerStates} added into it,
+     * and the
      * {@code VersionedEquipmentManager#currentStatePointer} at the end of list.
      */
-    private VersionedEquipmentManager prepareAddressBookList(ReadOnlyEquipmentManager... addressBookStates) {
-        assertFalse(addressBookStates.length == 0);
+    private VersionedEquipmentManager prepareEquipmentManagerList(ReadOnlyEquipmentManager... equipmentManagerStates) {
+        assertFalse(equipmentManagerStates.length == 0);
 
-        VersionedEquipmentManager versionedEquipmentManager = new VersionedEquipmentManager(addressBookStates[0]);
-        for (int i = 1; i < addressBookStates.length; i++) {
-            versionedEquipmentManager.resetData(addressBookStates[i]);
+        VersionedEquipmentManager versionedEquipmentManager = new VersionedEquipmentManager(equipmentManagerStates[0]);
+        for (int i = 1; i < equipmentManagerStates.length; i++) {
+            versionedEquipmentManager.resetData(equipmentManagerStates[i]);
             versionedEquipmentManager.commit();
         }
 

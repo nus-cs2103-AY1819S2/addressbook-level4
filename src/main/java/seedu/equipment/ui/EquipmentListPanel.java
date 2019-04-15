@@ -52,6 +52,36 @@ public class EquipmentListPanel extends UiPart<Region> {
         });
     }
 
+
+    public EquipmentListPanel(ObservableList<Equipment> equipmentList, ObservableValue<Equipment> selectedPerson,
+                              Consumer<Equipment> onSelectedPersonChange, boolean ex) {
+        super(FXML);
+        //System.out.println(personListView.getEditingIndex());
+        personListView.setItems(equipmentList);
+        personListView.setCellFactory(listView -> new EquipmentListViewCell());
+        personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            logger.fine("Selection in equipment list panel changed to : '" + newValue + "'");
+            onSelectedPersonChange.accept(newValue);
+        });
+        selectedPerson.addListener((observable, oldValue, newValue) -> {
+            logger.fine("Selected equipment changed to: " + newValue);
+
+            // Don't modify selection if we are already selecting the selected equipment,
+            // otherwise we would have an infinite loop.
+            if (Objects.equals(personListView.getSelectionModel().getSelectedItem(), newValue)) {
+                return;
+            }
+
+            if (newValue == null) {
+                personListView.getSelectionModel().clearSelection();
+            } else {
+                int index = personListView.getItems().indexOf(newValue);
+                personListView.scrollTo(index);
+                personListView.getSelectionModel().clearAndSelect(index);
+            }
+        });
+    }
+
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Equipment} using a {@code EquipmentCard}.
      */

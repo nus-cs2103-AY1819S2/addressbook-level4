@@ -8,7 +8,6 @@ import static seedu.equipment.testutil.TestUtil.getLastIndex;
 import static seedu.equipment.testutil.TestUtil.getMidIndex;
 import static seedu.equipment.testutil.TestUtil.getPerson;
 import static seedu.equipment.testutil.TypicalEquipments.KEYWORD_MATCHING_HWI;
-//import static seedu.equipment.testutil.TypicalEquipments.KEYWORD_MATCHING_CC;
 import static seedu.equipment.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.Test;
@@ -69,7 +68,7 @@ public class DeleteCommandSystemTest extends EquipmentManagerSystemTest {
          * list -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_HWI);
-        int invalidIndex = getModel().getEquipmentManager().getPersonList().size();
+        int invalidIndex = getModel().getEquipmentManager().getEquipmentList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_EQUIPMENT_DISPLAYED_INDEX);
 
@@ -100,7 +99,7 @@ public class DeleteCommandSystemTest extends EquipmentManagerSystemTest {
 
         /* Case: invalid index (size + 1) -> rejected */
         Index outOfBoundsIndex = Index.fromOneBased(
-                getModel().getEquipmentManager().getPersonList().size() + 1);
+                getModel().getEquipmentManager().getEquipmentList().size() + 1);
         command = DeleteCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
         assertCommandFailure(command, MESSAGE_INVALID_EQUIPMENT_DISPLAYED_INDEX);
 

@@ -40,7 +40,7 @@ public class UniqueEquipmentListTest {
     }
 
     @Test
-    public void contains_personNotInList_returnsFalse() {
+    public void contains_equipmentNotInList_returnsFalse() {
         assertFalse(uniqueEquipmentList.contains(ANCHORVALECC));
     }
 
@@ -50,7 +50,7 @@ public class UniqueEquipmentListTest {
     }
 
     @Test
-    public void contains_personInList_returnsTrue() {
+    public void contains_equipmentInList_returnsTrue() {
         uniqueEquipmentList.add(ANCHORVALECC);
         assertTrue(uniqueEquipmentList.contains(ANCHORVALECC));
     }
@@ -74,7 +74,7 @@ public class UniqueEquipmentListTest {
     }
 
     @Test
-    public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
+    public void contains_equipmentWithSameIdentityFieldsInList_returnsTrue() {
         uniqueEquipmentList.add(ANCHORVALECC);
         Equipment editedAlice = new EquipmentBuilder(ANCHORVALECC).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
@@ -82,38 +82,38 @@ public class UniqueEquipmentListTest {
     }
 
     @Test
-    public void add_nullPerson_throwsNullPointerException() {
+    public void add_nullEquipment_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueEquipmentList.add(null);
     }
 
     @Test
-    public void add_duplicatePerson_throwsDuplicatePersonException() {
+    public void add_duplicateEquipment_throwsDuplicatePersonException() {
         uniqueEquipmentList.add(ANCHORVALECC);
         thrown.expect(DuplicateEquipmentException.class);
         uniqueEquipmentList.add(ANCHORVALECC);
     }
 
     @Test
-    public void setPerson_nullTargetPerson_throwsNullPointerException() {
+    public void setEquipment_nullTargetPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueEquipmentList.setEquipment(null, ANCHORVALECC);
     }
 
     @Test
-    public void setPerson_nullEditedPerson_throwsNullPointerException() {
+    public void setEquipment_nullEditedPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueEquipmentList.setEquipment(ANCHORVALECC, null);
     }
 
     @Test
-    public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
+    public void setEquipment_targetPersonNotInList_throwsPersonNotFoundException() {
         thrown.expect(EquipmentNotFoundException.class);
         uniqueEquipmentList.setEquipment(ANCHORVALECC, ANCHORVALECC);
     }
 
     @Test
-    public void setPerson_editedPersonIsSamePerson_success() {
+    public void setEquipment_editedEquipmentIsSamePerson_success() {
         uniqueEquipmentList.add(ANCHORVALECC);
         uniqueEquipmentList.setEquipment(ANCHORVALECC, ANCHORVALECC);
         UniqueEquipmentList expectedUniqueEquipmentList = new UniqueEquipmentList();
@@ -122,7 +122,7 @@ public class UniqueEquipmentListTest {
     }
 
     @Test
-    public void setPerson_editedPersonHasSameIdentity_success() {
+    public void setEquipment_editedPersonHasSameIdentity_success() {
         uniqueEquipmentList.add(ANCHORVALECC);
         Equipment editedAlice = new EquipmentBuilder(ANCHORVALECC).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
@@ -133,7 +133,7 @@ public class UniqueEquipmentListTest {
     }
 
     @Test
-    public void setPerson_editedPersonHasDifferentIdentity_success() {
+    public void setEquipment_editedPersonHasDifferentIdentity_success() {
         uniqueEquipmentList.add(ANCHORVALECC);
         uniqueEquipmentList.setEquipment(ANCHORVALECC, BOB);
         UniqueEquipmentList expectedUniqueEquipmentList = new UniqueEquipmentList();
@@ -142,7 +142,7 @@ public class UniqueEquipmentListTest {
     }
 
     @Test
-    public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
+    public void setEquipment_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
         uniqueEquipmentList.add(ANCHORVALECC);
         uniqueEquipmentList.add(BOB);
         thrown.expect(DuplicateEquipmentException.class);
@@ -150,13 +150,13 @@ public class UniqueEquipmentListTest {
     }
 
     @Test
-    public void remove_nullPerson_throwsNullPointerException() {
+    public void remove_nullEquipment_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueEquipmentList.remove(null);
     }
 
     @Test
-    public void remove_personDoesNotExist_throwsPersonNotFoundException() {
+    public void remove_equipmentDoesNotExist_throwsPersonNotFoundException() {
         thrown.expect(EquipmentNotFoundException.class);
         uniqueEquipmentList.remove(ANCHORVALECC);
     }
@@ -176,7 +176,7 @@ public class UniqueEquipmentListTest {
     }
 
     @Test
-    public void setPersons_uniquePersonList_replacesOwnListWithProvidedUniquePersonList() {
+    public void setEquipment_uniqueEquipmentList_replacesOwnListWithProvidedUniqueEquipmentList() {
         uniqueEquipmentList.add(ANCHORVALECC);
         UniqueEquipmentList expectedUniqueEquipmentList = new UniqueEquipmentList();
         expectedUniqueEquipmentList.add(BOB);
@@ -185,13 +185,13 @@ public class UniqueEquipmentListTest {
     }
 
     @Test
-    public void setPersons_nullList_throwsNullPointerException() {
+    public void setEquipment_nullList_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueEquipmentList.setEquipments((List<Equipment>) null);
     }
 
     @Test
-    public void setPersons_list_replacesOwnListWithProvidedList() {
+    public void setEquipment_list_replacesOwnListWithProvidedList() {
         uniqueEquipmentList.add(ANCHORVALECC);
         List<Equipment> equipmentList = Collections.singletonList(BOB);
         uniqueEquipmentList.setEquipments(equipmentList);
@@ -201,7 +201,7 @@ public class UniqueEquipmentListTest {
     }
 
     @Test
-    public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
+    public void setEquipment_listWithDuplicatePersons_throwsDuplicatePersonException() {
         List<Equipment> listWithDuplicateEquipments = Arrays.asList(ANCHORVALECC, ANCHORVALECC);
         thrown.expect(DuplicateEquipmentException.class);
         uniqueEquipmentList.setEquipments(listWithDuplicateEquipments);

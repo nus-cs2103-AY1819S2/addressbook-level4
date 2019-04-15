@@ -35,6 +35,7 @@ public class ModelManager implements Model {
     private final FilteredList<WorkList> filteredWorkList;
     private final SimpleObjectProperty<Equipment> selectedEquipment = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<WorkList> selectedWorkList = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Name> selectedClient = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given equipmentManager and userPrefs.
@@ -47,7 +48,7 @@ public class ModelManager implements Model {
 
         versionedEquipmentManager = new VersionedEquipmentManager(equipmentManager);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredEquipments = new FilteredList<>(versionedEquipmentManager.getPersonList());
+        filteredEquipments = new FilteredList<>(versionedEquipmentManager.getEquipmentList());
         filteredEquipments.addListener(this::ensureSelectedPersonIsValid);
         filteredWorkList = new FilteredList<>(versionedEquipmentManager.getWorkListList());
         filteredClient = new FilteredList<>(versionedEquipmentManager.getClientList());
@@ -105,10 +106,11 @@ public class ModelManager implements Model {
         return versionedEquipmentManager;
     }
 
+
     @Override
     public boolean hasEquipment(Equipment equipment) {
         requireNonNull(equipment);
-        return versionedEquipmentManager.hasPerson(equipment);
+        return versionedEquipmentManager.hasEquipment(equipment);
     }
 
     @Override
@@ -185,21 +187,18 @@ public class ModelManager implements Model {
     @Override
     public void setEquipment(Equipment target, Equipment editedEquipment) {
         CollectionUtil.requireAllNonNull(target, editedEquipment);
-
         versionedEquipmentManager.setPerson(target, editedEquipment);
     }
 
     @Override
     public void setClient(Name target, Name editedEquipment) {
         CollectionUtil.requireAllNonNull(target, editedEquipment);
-
         versionedEquipmentManager.setClient(target, editedEquipment);
     }
 
     @Override
     public void updateEquipment(Equipment target, Equipment editedEquipment) {
         CollectionUtil.requireAllNonNull(target, editedEquipment);
-
         versionedEquipmentManager.updateEquipment(target, editedEquipment);
     }
 
@@ -325,6 +324,26 @@ public class ModelManager implements Model {
             throw new EquipmentNotFoundException();
         }
         selectedEquipment.setValue(equipment);
+    }
+
+    //=========== Selected client ===========================================================================
+
+    @Override
+    public ReadOnlyProperty<Name> selectedClientProperty() {
+        return selectedClient;
+    }
+
+    @Override
+    public Name getSelectedClient() {
+        return selectedClient.getValue();
+    }
+
+    @Override
+    public void setSelectedClient(Name equipment) {
+        if (equipment != null && !filteredClient.contains(equipment)) {
+            throw new EquipmentNotFoundException();
+        }
+        selectedClient.setValue(equipment);
     }
 
     @Override

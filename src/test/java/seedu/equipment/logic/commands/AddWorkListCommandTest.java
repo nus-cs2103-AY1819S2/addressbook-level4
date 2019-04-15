@@ -133,7 +133,7 @@ public class AddWorkListCommandTest {
         }
 
         @Override
-        public void setEquipmentManagerFilePath(Path addressBookFilePath) {
+        public void setEquipmentManagerFilePath(Path equipmentManagerFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -156,7 +156,7 @@ public class AddWorkListCommandTest {
         }
 
         @Override
-        public void setEquipmentManager(ReadOnlyEquipmentManager newData) {
+        public void setEquipmentManager(ReadOnlyEquipmentManager equipmentManager) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -227,6 +227,11 @@ public class AddWorkListCommandTest {
 
         @Override
         public void setClient(Name target, Name editedEquipment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedClient(Name name) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -311,12 +316,23 @@ public class AddWorkListCommandTest {
         }
 
         @Override
+        public ReadOnlyProperty<Name> selectedClientProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyProperty<WorkList> selectedWorkListProperty() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public Equipment getSelectedEquipment() {
+
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Name getSelectedClient() {
 
             throw new AssertionError("This method should not be called.");
         }

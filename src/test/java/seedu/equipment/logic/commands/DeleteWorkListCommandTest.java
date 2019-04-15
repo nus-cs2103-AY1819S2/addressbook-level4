@@ -4,7 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.equipment.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.equipment.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.equipment.testutil.TypicalEquipments.getTypicalAddressBook;
+import static seedu.equipment.testutil.TypicalEquipments.getTypicalEquipmentManager;
 import static seedu.equipment.testutil.TypicalIndexes.INDEX_FIRST_WORKLIST;
 import static seedu.equipment.testutil.TypicalIndexes.INDEX_SECOND_WORKLIST;
 
@@ -23,7 +23,7 @@ import seedu.equipment.model.WorkList;
  */
 public class DeleteWorkListCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalEquipmentManager(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

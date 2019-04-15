@@ -59,7 +59,7 @@ public class SelectCommandSystemTest extends EquipmentManagerSystemTest {
          * list -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_HWI);
-        int invalidIndex = getModel().getEquipmentManager().getPersonList().size();
+        int invalidIndex = getModel().getEquipmentManager().getEquipmentList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex,
                 MESSAGE_INVALID_EQUIPMENT_DISPLAYED_INDEX);
 
@@ -119,7 +119,7 @@ public class SelectCommandSystemTest extends EquipmentManagerSystemTest {
         Model expectedModel = getModel();
         String expectedResultMessage = String.format(
                 MESSAGE_SELECT_EQUIPMENT_SUCCESS, expectedSelectedCardIndex.getOneBased());
-        int preExecutionSelectedCardIndex = getPersonListPanel().getSelectedCardIndex();
+        int preExecutionSelectedCardIndex = getEquipmentListPanel().getSelectedCardIndex();
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);

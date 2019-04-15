@@ -12,7 +12,7 @@ import static seedu.equipment.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.equipment.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.equipment.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.equipment.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.equipment.testutil.TypicalEquipments.getTypicalAddressBook;
+import static seedu.equipment.testutil.TypicalEquipments.getTypicalEquipmentManager;
 import static seedu.equipment.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.equipment.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
@@ -34,7 +34,7 @@ import seedu.equipment.testutil.EquipmentBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalEquipmentManager(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -120,9 +120,9 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit equipment in filtered list into a duplicate in equipment book
-        Equipment equipmentInList = model.getEquipmentManager().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        Equipment equipInList = model.getEquipmentManager().getEquipmentList().get(INDEX_SECOND_PERSON.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
-                new EditEquipmentDescriptorBuilder(equipmentInList).build());
+                new EditEquipmentDescriptorBuilder(equipInList).build());
 
         assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_EQUIPMENT);
     }
@@ -146,7 +146,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of equipment book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getEquipmentManager().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getEquipmentManager().getEquipmentList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditEquipmentDescriptorBuilder().withName(VALID_NAME_BOB).build());
@@ -167,7 +167,7 @@ public class EditCommandTest {
         // edit -> first equipment edited
         editCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered equipment list to show all persons
+        // undo -> reverts equipmentmanager back to previous state and filtered equipment list to show all equipment
         expectedModel.undoEquipmentManager();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -213,7 +213,7 @@ public class EditCommandTest {
         // edit -> edits second equipment in unfiltered equipment list / first equipment in filtered equipment list
         editCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered equipment list to show all persons
+        // undo -> reverts equipmentmanager back to previous state and filtered equipment list to show all equipment
         expectedModel.undoEquipmentManager();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 

@@ -80,31 +80,31 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
+    public void setEquipmentManagerFilePath_nullPath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         modelManager.setEquipmentManagerFilePath(null);
     }
 
     @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
+    public void setEquipmentManagerFilePath_validPath_setsEquipmentManagerFilePath() {
         Path path = Paths.get("equipment/book/file/path");
         modelManager.setEquipmentManagerFilePath(path);
         assertEquals(path, modelManager.getEquipmentManagerFilePath());
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasEquipment_nullEquipment_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         modelManager.hasEquipment(null);
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasEquipment_personNotInEquipmentManager_returnsFalse() {
         assertFalse(modelManager.hasEquipment(ANCHORVALECC));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasEquipment_personInEquipmentManager_returnsTrue() {
         modelManager.addEquipment(ANCHORVALECC);
         modelManager.addClient(ANCHORVALECC.getName());
         assertTrue(modelManager.hasEquipment(ANCHORVALECC));
@@ -133,7 +133,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void deletePerson_personIsSelectedAndFirstPersonInFilteredPersonList_selectionCleared() {
+    public void deleteEquipment_equipmentIsSelectedAndFirstEquipmentInFilteredEquipmentList_selectionCleared() {
         modelManager.addEquipment(ANCHORVALECC);
         modelManager.setSelectedEquipment(ANCHORVALECC);
         modelManager.deleteEquipment(ANCHORVALECC);
@@ -141,7 +141,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void deletePerson_personIsSelectedAndSecondPersonInFilteredPersonList_firstPersonSelected() {
+    public void deleteEquipment_equipmentIsSelectedAndSecondEquipmentInFilteredEquipmentList_firstEquipmentSelected() {
         modelManager.addEquipment(ANCHORVALECC);
         modelManager.addEquipment(BOB);
         assertEquals(Arrays.asList(ANCHORVALECC, BOB), modelManager.getFilteredPersonList());
@@ -151,7 +151,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setPerson_personIsSelected_selectedPersonUpdated() {
+    public void setEquipment_equipmentIsSelected_selectedEquipmentUpdated() {
         modelManager.addEquipment(ANCHORVALECC);
         modelManager.setSelectedEquipment(ANCHORVALECC);
         Equipment updatedAlice = new EquipmentBuilder(ANCHORVALECC).withDate(VALID_DATE_BOB).build();

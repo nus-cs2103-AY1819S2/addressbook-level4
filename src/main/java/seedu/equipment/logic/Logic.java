@@ -81,11 +81,35 @@ public interface Logic {
     ReadOnlyProperty<WorkList> selectedWorkListProperty();
 
     /**
+     * Selected client in the filtered client list.
+     * null if no client is selected.
+     *
+     * @see Model#selectedClientProperty()
+     */
+    ReadOnlyProperty<Name> selectedClientProperty();
+
+
+    /**
      * Sets the selected equipment in the filtered equipment list.
      *
      * @see Model#setSelectedEquipment(Equipment)
      */
     void setSelectedPerson(Equipment equipment);
+
+    /**
+     * Sets the selected client in the filtered client list.
+     *
+     * @see Model#setSelectedClient(Name)
+     */
+    void setSelectedClient(Name name);
+
+
+    /**
+     * Gets the selected client in the filtered client list.
+     *
+     * @see Logic#getSelectedClient()
+     */
+    Name getSelectedClient();
 
     /**
      * Sets the selected WorkList in the filtered WorkList list.

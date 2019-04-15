@@ -45,7 +45,7 @@ public class TestApp extends MainApp {
         if (initialDataSupplier.get() != null) {
             JsonEquipmentManagerStorage jsonEquipmentManagerStorage = new JsonEquipmentManagerStorage(saveFileLocation);
             try {
-                jsonEquipmentManagerStorage.saveAddressBook(initialDataSupplier.get());
+                jsonEquipmentManagerStorage.saveEquipmentManager(initialDataSupplier.get());
             } catch (IOException ioe) {
                 throw new AssertionError(ioe);
             }
@@ -72,9 +72,9 @@ public class TestApp extends MainApp {
     /**
      * Returns a defensive copy of the equipment book data stored inside the storage file.
      */
-    public EquipmentManager readStorageAddressBook() {
+    public EquipmentManager readStorageEquipmentManager() {
         try {
-            return new EquipmentManager(storage.readAddressBook().get());
+            return new EquipmentManager(storage.readEquipmentManager().get());
         } catch (DataConversionException dce) {
             throw new AssertionError("Data is not in the EquipmentManager format.", dce);
         } catch (IOException ioe) {
@@ -86,7 +86,7 @@ public class TestApp extends MainApp {
      * Returns the file path of the storage file.
      */
     public Path getStorageSaveLocation() {
-        return storage.getAddressBookFilePath();
+        return storage.getEquipmentManagerFilePath();
     }
 
     /**

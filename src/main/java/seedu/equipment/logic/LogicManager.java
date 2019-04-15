@@ -33,6 +33,8 @@ public class LogicManager implements Logic {
     private final EquipmentManagerParser equipmentManagerParser;
     private boolean equipmentManagerModified;
 
+    private Name name;
+
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
@@ -59,7 +61,7 @@ public class LogicManager implements Logic {
         if (equipmentManagerModified) {
             logger.info("Equipment Manager modified, saving to file.");
             try {
-                storage.saveAddressBook(model.getEquipmentManager());
+                storage.saveEquipmentManager(model.getEquipmentManager());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
@@ -114,6 +116,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReadOnlyProperty<Name> selectedClientProperty() {
+        return model.selectedClientProperty();
+    }
+
+    @Override
     public ReadOnlyProperty<WorkList> selectedWorkListProperty() {
         return model.selectedWorkListProperty();
     }
@@ -122,6 +129,19 @@ public class LogicManager implements Logic {
     public void setSelectedPerson(Equipment equipment) {
         model.setSelectedEquipment(equipment);
     }
+
+    @Override
+    public void setSelectedClient(Name name) {
+        this.name = name;
+        model.setSelectedClient(name);
+    }
+
+    @Override
+    public Name getSelectedClient() {
+        return name;
+    }
+
+
 
     @Override
     public void setSelectedWorkList(WorkList workList) {

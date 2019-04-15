@@ -111,14 +111,15 @@ public class Equipment {
             System.err.println(e.getMessage());
         } catch (IOException e) {
             System.err.println(e.getMessage());
+
         } finally {
             return coordiantes;
         }
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both equipment have the same identity and data fields.
+     * This defines a stronger notion of equality between two equipment.
      */
     @Override
     public boolean equals(Object other) {

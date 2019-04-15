@@ -44,5 +44,5 @@ Responsibilities: Storage, documentation
 image::skpai27.png[width="150", align="left"]
 {empty}[https://github.com/skpai27[github]] [<<skpai27#, portfolio>>]
 
-Role: Restaurant Reviews Categorisation +
+Role: Restaurant Review Commands +
 Responsibilities: Commons, code quality

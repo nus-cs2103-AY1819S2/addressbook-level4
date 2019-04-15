@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -24,6 +25,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String MAIN_LIST_DISPLAYED = "Your Contacts";
+    private static final String ARCHIVE_LIST_DISPLAYED = "Archived Contacts";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -33,8 +36,10 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
+    private ArchiveListPanel archiveListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private PinListPanel pinListPanel;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -47,6 +52,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane pinListPanelPlaceholder;
+
+    @FXML
+    private Label displayedList;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -111,17 +122,26 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedPersonProperty());
+        browserPanel = new BrowserPanel(logic.selectedPersonProperty(), logic.selectedArchivedPersonProperty(),
+                logic.selectedPinPersonProperty());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
+
+        pinListPanel = new PinListPanel(logic.getFilteredPinList(), logic.selectedPinPersonProperty(),
+                logic::setSelectedPinPerson);
+        pinListPanelPlaceholder.getChildren().add(pinListPanel.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
                 logic::setSelectedPerson);
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        archiveListPanel = new ArchiveListPanel(logic.getFilteredArchivedPersonList(),
+                logic.selectedArchivedPersonProperty(), logic::setSelectedArchivedPerson);
+        personListPanelPlaceholder.getChildren().addAll(archiveListPanel.getRoot(), personListPanel.getRoot());
+        displayedList.setText(MAIN_LIST_DISPLAYED);
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(),
+                logic.getArchiveBookFilePath(), logic.getPinBookFilePath(), logic.getAddressBook());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
@@ -172,6 +192,14 @@ public class MainWindow extends UiPart<Stage> {
         return personListPanel;
     }
 
+    public PinListPanel getPinListPanel() {
+        return pinListPanel;
+    }
+
+    public ArchiveListPanel getArchiveListPanel() {
+        return archiveListPanel;
+    }
+
     /**
      * Executes the command and returns the result.
      *
@@ -191,11 +219,39 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandResult.isSwapList()) {
+                removeSelectedNonPinnedPerson();
+                personListPanelPlaceholder.getChildren().get(0).toFront();
+                swapListTitle();
+            }
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        }
+    }
+
+    /**
+     * Swaps the title of the displayed list.
+     */
+    private void swapListTitle() {
+        if (displayedList.getText().equals(MAIN_LIST_DISPLAYED)) {
+            displayedList.setText(ARCHIVE_LIST_DISPLAYED);
+        } else {
+            displayedList.setText(MAIN_LIST_DISPLAYED);
+        }
+    }
+
+    /**
+     * Removes the current selection of a non-pinned person before swapping list.
+     */
+    private void removeSelectedNonPinnedPerson() {
+        if (displayedList.getText().equals(MAIN_LIST_DISPLAYED)) {
+            logic.removeSelectedPerson();
+        } else {
+            logic.removeSelectedArchivedPerson();
         }
     }
 }

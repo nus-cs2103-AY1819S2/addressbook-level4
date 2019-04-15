@@ -138,12 +138,112 @@ public class AddCommandTest {
         }
 
         @Override
+        public Path getArchiveBookFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setArchiveBookFilePath(Path archiveBookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setArchiveBook(ReadOnlyAddressBook archiveBook) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyAddressBook getArchiveBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyAddressBook getPinBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getPinBookFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setPinBookFilePath(Path pinBookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setPinBook(ReadOnlyAddressBook pinBook) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public boolean hasPersonArchive(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPersonPin(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasEditedPerson(Person referencePerson, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasEditedPersonArchive(Person referencePerson, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasEditedPersonPin(Person referencePerson, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasSameIdentityField(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasSameIdentityFieldArchive(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasSameIdentityFieldPin(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deletePerson(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void archivePerson(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void unarchivePerson(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void pinPerson(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void unpinPerson(Person target) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -163,27 +263,47 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean canUndoAddressBook() {
+        public ObservableList<Person> getFilteredArchivedPersonList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canRedoAddressBook() {
+        public void updateFilteredArchivedPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoAddressBook() {
+        public ObservableList<Person> getFilteredPinnedPersonList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoAddressBook() {
+        public void updateFilteredPinnedPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitAddressBook() {
+        public boolean canUndoBooks() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedoBooks() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoBooks() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoBooks() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commitBooks() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -199,6 +319,36 @@ public class AddCommandTest {
 
         @Override
         public void setSelectedPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<Person> selectedPinPersonProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<Person> selectedArchivedPersonProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Person getSelectedPinPerson() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Person getSelectedArchivedPerson() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedPinPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedArchivedPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -234,19 +384,58 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasPersonArchive(Person person) {
+            requireNonNull(person);
+            return personsAdded.stream().anyMatch(person::isSamePerson);
+        }
+
+        @Override
+        public boolean hasPersonPin(Person person) {
+            requireNonNull(person);
+            return personsAdded.stream().anyMatch(person::isSamePerson);
+        }
+
+        @Override
         public void addPerson(Person person) {
             requireNonNull(person);
             personsAdded.add(person);
         }
 
         @Override
-        public void commitAddressBook() {
+        public boolean hasSameIdentityField(Person person) {
+            requireNonNull(person);
+            return personsAdded.stream().anyMatch(person::hasSameIdentityField);
+        }
+
+        public boolean hasSameIdentityFieldArchive(Person person) {
+            requireNonNull(person);
+            return personsAdded.stream().anyMatch(person::hasSameIdentityField);
+        }
+
+        @Override
+        public boolean hasSameIdentityFieldPin(Person person) {
+            requireNonNull(person);
+            return personsAdded.stream().anyMatch(person::hasSameIdentityField);
+        }
+
+        @Override
+        public void commitBooks() {
             // called by {@code AddCommand#execute()}
         }
 
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
+        }
+
+        @Override
+        public void setSelectedPinPerson(Person person) {
+            // called by {@code AddCommand#execute()}
+        }
+
+        @Override
+        public void setSelectedPerson(Person person) {
+            // called by {@code AddCommand#execute()}
         }
     }
 

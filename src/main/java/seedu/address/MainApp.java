@@ -23,8 +23,12 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.ArchiveBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonArchiveBookStorage;
+import seedu.address.storage.JsonPinBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.PinBookStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
@@ -36,7 +40,7 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Version VERSION = new Version(1, 4, 0, false);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -48,7 +52,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing TheRealApp ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -57,7 +61,9 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        ArchiveBookStorage archiveBookStorage = new JsonArchiveBookStorage(userPrefs.getArchiveBookFilePath());
+        PinBookStorage pinBookStorage = new JsonPinBookStorage(userPrefs.getPinBookFilePath());
+        storage = new StorageManager(addressBookStorage, archiveBookStorage, pinBookStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -76,6 +82,11 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyAddressBook> archiveBookOptional;
+        ReadOnlyAddressBook initialArchiveData;
+        Optional<ReadOnlyAddressBook> pinBookOptional;
+        ReadOnlyAddressBook initialPinData;
+
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
@@ -90,7 +101,35 @@ public class MainApp extends Application {
             initialData = new AddressBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        try {
+            archiveBookOptional = storage.readArchiveBook();
+            if (!archiveBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample ArchiveBook");
+            }
+            initialArchiveData = archiveBookOptional.orElseGet(SampleDataUtil::getSampleArchiveBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty ArchiveBook");
+            initialArchiveData = new AddressBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty ArchiveBook");
+            initialArchiveData = new AddressBook();
+        }
+
+        try {
+            pinBookOptional = storage.readPinBook();
+            if (!pinBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample PinBook");
+            }
+            initialPinData = pinBookOptional.orElseGet(SampleDataUtil::getSamplePinBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty PinBook");
+            initialPinData = new AddressBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty PinBook");
+            initialPinData = new AddressBook();
+        }
+
+        return new ModelManager(initialData, initialArchiveData, initialPinData, userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -167,13 +206,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting TheRealApp " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping TheRealApp ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

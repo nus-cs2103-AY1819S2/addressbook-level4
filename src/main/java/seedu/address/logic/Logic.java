@@ -31,8 +31,28 @@ public interface Logic {
      */
     ReadOnlyAddressBook getAddressBook();
 
+    /**
+     * Returns the ArchiveBook.
+     *
+     * @see seedu.address.model.Model#getArchiveBook()
+     */
+    ReadOnlyAddressBook getArchiveBook();
+
+    /**
+     * Returns the PinBook.
+     *
+     * @see seedu.address.model.Model#getPinBook()
+     */
+    ReadOnlyAddressBook getPinBook();
+
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered list of archived persons */
+    ObservableList<Person> getFilteredArchivedPersonList();
+
+    /** Returns an unmodifiable view of the filtered list of pinned persons */
+    ObservableList<Person> getFilteredPinList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -44,6 +64,16 @@ public interface Logic {
      * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();
+
+    /**
+     * Returns the user prefs' archive book file path.
+     */
+    Path getArchiveBookFilePath();
+
+    /**
+     * Returns the user prefs' pin book file path.
+     */
+    Path getPinBookFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
@@ -69,4 +99,45 @@ public interface Logic {
      * @see seedu.address.model.Model#setSelectedPerson(Person)
      */
     void setSelectedPerson(Person person);
+
+    /**
+     * Selected pin person in the filtered pin list.
+     * null if no person is selected.
+     *
+     * @see seedu.address.model.Model#selectedPinPersonProperty()
+     */
+    ReadOnlyProperty<Person> selectedPinPersonProperty();
+
+    /**
+     * Sets the selected person in the filtered pin list.
+     *
+     * @see seedu.address.model.Model#setSelectedPinPerson(Person)
+     */
+    void setSelectedPinPerson(Person person);
+
+    /**
+     * Selected archived person in the filtered archived person list.
+     * null if no archived person is selected.
+     *
+     * @see seedu.address.model.Model#selectedArchivedPersonProperty()
+     */
+    ReadOnlyProperty<Person> selectedArchivedPersonProperty();
+
+    /**
+     * Sets the selected archived person in the filtered archived person list.
+     *
+     * @see seedu.address.model.Model#setSelectedArchivedPerson(Person)
+     */
+    void setSelectedArchivedPerson(Person person);
+
+    /**
+     * Removes the selection of person in the filtered person list.
+     */
+    void removeSelectedPerson();
+
+    /**
+     * Removes the selection of archived person in the filtered archived person list.
+     */
+    void removeSelectedArchivedPerson();
+
 }

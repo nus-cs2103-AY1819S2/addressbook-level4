@@ -24,6 +24,7 @@ public class JsonSerializableAddressBookTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
+
     @Test
     public void toModelType_typicalPersonsFile_success() throws Exception {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,

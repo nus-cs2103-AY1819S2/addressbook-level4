@@ -13,10 +13,20 @@ public class HelpCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
+    public static final String SHOWING_HELP_MESSAGE = "Opened help window.\nDisplaying main person list!";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
-        return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
+        return new CommandResult(SHOWING_HELP_MESSAGE, true, false, false);
+    }
+
+    @Override
+    public boolean requiresMainList() {
+        return false;
+    }
+
+    @Override
+    public boolean requiresArchiveList() {
+        return false;
     }
 }

@@ -5,10 +5,12 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BUYER;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_SELLER;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BUYER;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalArchiveBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalPinBook;
 
 import org.junit.Test;
 
@@ -23,16 +25,18 @@ import seedu.address.model.UserPrefs;
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
  */
 public class SelectCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalArchiveBook(),
+            getTypicalPinBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalArchiveBook(),
+            getTypicalPinBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Index lastPersonIndex = Index.fromOneBased(model.getFilteredPersonList().size());
 
-        assertExecutionSuccess(INDEX_FIRST_PERSON);
-        assertExecutionSuccess(INDEX_THIRD_PERSON);
+        assertExecutionSuccess(INDEX_FIRST_BUYER);
+        assertExecutionSuccess(INDEX_FIRST_SELLER);
         assertExecutionSuccess(lastPersonIndex);
     }
 
@@ -45,18 +49,18 @@ public class SelectCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
+        showPersonAtIndex(model, INDEX_FIRST_BUYER);
+        showPersonAtIndex(expectedModel, INDEX_FIRST_BUYER);
 
-        assertExecutionSuccess(INDEX_FIRST_PERSON);
+        assertExecutionSuccess(INDEX_FIRST_BUYER);
     }
 
     @Test
     public void execute_invalidIndexFilteredList_failure() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
+        showPersonAtIndex(model, INDEX_FIRST_BUYER);
+        showPersonAtIndex(expectedModel, INDEX_FIRST_BUYER);
 
-        Index outOfBoundsIndex = INDEX_SECOND_PERSON;
+        Index outOfBoundsIndex = INDEX_SECOND_BUYER;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
@@ -65,14 +69,14 @@ public class SelectCommandTest {
 
     @Test
     public void equals() {
-        SelectCommand selectFirstCommand = new SelectCommand(INDEX_FIRST_PERSON);
-        SelectCommand selectSecondCommand = new SelectCommand(INDEX_SECOND_PERSON);
+        SelectCommand selectFirstCommand = new SelectCommand(INDEX_FIRST_BUYER);
+        SelectCommand selectSecondCommand = new SelectCommand(INDEX_SECOND_BUYER);
 
         // same object -> returns true
         assertTrue(selectFirstCommand.equals(selectFirstCommand));
 
         // same values -> returns true
-        SelectCommand selectFirstCommandCopy = new SelectCommand(INDEX_FIRST_PERSON);
+        SelectCommand selectFirstCommandCopy = new SelectCommand(INDEX_FIRST_BUYER);
         assertTrue(selectFirstCommand.equals(selectFirstCommandCopy));
 
         // different types -> returns false

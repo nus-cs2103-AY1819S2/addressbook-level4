@@ -11,4 +11,6 @@
   </columnConstraints>
   <Label fx:id="syncStatus" />
   <Label fx:id="saveLocationStatus" GridPane.columnIndex="1" />
+  <Label fx:id="archiveSaveLocationStatus" GridPane.columnIndex="2" />
+  <Label fx:id="pinSaveLocationStatus" GridPane.columnIndex="3" />
 </GridPane>

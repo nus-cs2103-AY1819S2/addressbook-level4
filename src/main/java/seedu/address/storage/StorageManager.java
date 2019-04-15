@@ -18,12 +18,17 @@ public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
+    private ArchiveBookStorage archiveBookStorage;
+    private PinBookStorage pinBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, ArchiveBookStorage archiveBookStorage,
+                          PinBookStorage pinBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
+        this.archiveBookStorage = archiveBookStorage;
+        this.pinBookStorage = pinBookStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -74,4 +79,61 @@ public class StorageManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
+    // ================ ArchiveBook methods ==============================
+
+    @Override
+    public Path getArchiveBookFilePath() {
+        return archiveBookStorage.getArchiveBookFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyAddressBook> readArchiveBook() throws DataConversionException, IOException {
+        return readArchiveBook(archiveBookStorage.getArchiveBookFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyAddressBook> readArchiveBook(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return archiveBookStorage.readArchiveBook(filePath);
+    }
+
+    @Override
+    public void saveArchiveBook(ReadOnlyAddressBook archiveBook) throws IOException {
+        saveArchiveBook(archiveBook, archiveBookStorage.getArchiveBookFilePath());
+    }
+
+    @Override
+    public void saveArchiveBook(ReadOnlyAddressBook archiveBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        archiveBookStorage.saveArchiveBook(archiveBook, filePath);
+    }
+
+    // ============================= PinBook methods ==============================
+
+    @Override
+    public Path getPinBookFilePath() {
+        return pinBookStorage.getPinBookFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyAddressBook> readPinBook() throws DataConversionException, IOException {
+        return readPinBook(pinBookStorage.getPinBookFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyAddressBook> readPinBook(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return pinBookStorage.readPinBook(filePath);
+    }
+
+    @Override
+    public void savePinBook(ReadOnlyAddressBook pinBook) throws IOException {
+        savePinBook(pinBook, pinBookStorage.getPinBookFilePath());
+    }
+
+    @Override
+    public void savePinBook(ReadOnlyAddressBook pinBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        pinBookStorage.savePinBook(pinBook, filePath);
+    }
 }

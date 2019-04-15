@@ -1,0 +1,87 @@
+= Chong Yong Xiang - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: The Real App
+
+---
+
+== Overview
+
+*The Real App* is an enhanced desktop address book designed primarily for *real estate agents*. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major Enhancement*: Added the ability to *archive/unarchive contacts*
+** Related commands: `archive`, `archivelist`, `archiveselect`, `archiveclear`, `unarchive`
+** What it does:
+*** Allows the user to archive existing contacts which are deleted from the main working contact book, but kept as storage which can be displayed, or even unarchived when needed in the future.
+** Justification:
+*** This feature improves the product significantly because users who want to remove their contacts can remove them from their main contact book without permanently deleting them.
+*** They can keep these contacts in a separate archive storage in case of future need, and these archived contacts can be restored back into the main contact book when needed.
+** Highlights:
+*** This enhancement affects almost all existing commands and new commands to be added in future. Each command has be to defined whether the main address book list or the archive list is displayed before and/or after the execution of the command.
+*** It required an in-depth analysis of design alternatives.
+*** The implementation too was challenging as it required modifications to existing commands, especially the undo/redo commands.
+** Credits:
+*** Existing implementation of the AddressBook storage in AddressBook-Level4 was used to create the ArchiveBook storage.
+
+* *Minor Enhancements*:
+** Added a Google Maps query in the browser panel that allows the user to view the location of a selected contact's address on Google Maps.
+** Refined the selection of contacts across all features.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=yongxiang1095[Project Code Dashboard]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
+*** Tracked issues and milestones on GitHub
+** Enhancements to existing features:
+*** Updated the GUI color scheme: https://github.com/CS2103-AY1819S2-W16-2/main/pull/86[#86]
+*** Wrote tests for new and existing features to increase coverage from 79% to 86% (Pull requests https://github.com/CS2103-AY1819S2-W16-2/main/pull/144[#144], https://github.com/CS2103-AY1819S2-W16-2/main/pull/147[#147], https://github.com/CS2103-AY1819S2-W16-2/main/pull/149[#149])
+** Documentation:
+*** Ported all commands (basic form) and the command summary into the User Guide: https://github.com/CS2103-AY1819S2-W16-2/main/pull/16[#16], https://github.com/CS2103-AY1819S2-W16-2/main/pull/23[#23], https://github.com/CS2103-AY1819S2-W16-2/main/pull/34[#34]
+*** Ported all User Stories and Use Cases into the Developer Guide: https://github.com/CS2103-AY1819S2-W16-2/main/pull/16[#16], https://github.com/CS2103-AY1819S2-W16-2/main/pull/17[#17], https://github.com/CS2103-AY1819S2-W16-2/main/pull/23[#23], https://github.com/CS2103-AY1819S2-W16-2/main/pull/34[#34]
+*** Set up 'About Us', 'Contact Us' and 'README': https://github.com/CS2103-AY1819S2-W16-2/main/pull/3[#3], https://github.com/CS2103-AY1819S2-W16-2/main/pull/15[#15]
+** Community:
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S2-W17-1/main/issues/129[1], https://github.com/CS2103-AY1819S2-W17-1/main/issues/130[2], https://github.com/CS2103-AY1819S2-W17-1/main/issues/137[3])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users. The following only contains an abbreviated version of the `archive` and `select` related features. Refer to the full User Guide for more details._
+|===
+
+include::../UserGuide.adoc[tag=archivefeatures]
+
+include::../UserGuide.adoc[tag=selectfeatures]
+
+include::../UserGuide.adoc[tag=googlemapsfeature]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project. The following only shows extracts of the User Stories and Use Cases related to the features I implemented. I also added Instructions for Manual Testing in Appendix F. Refer to the full Developer Guide for more details._
+|===
+
+include::../DeveloperGuide.adoc[tag=archive]
+
+include::../DeveloperGuide.adoc[tag=select]
+
+include::../DeveloperGuide.adoc[tag=userstoriestitle]
+
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+include::../DeveloperGuide.adoc[tag=archiveuserstories]
+|=======================================================================
+
+include::../DeveloperGuide.adoc[tag=usecasestitle]
+
+include::../DeveloperGuide.adoc[tag=archiveusecases]
+
+== PROJECT: PowerPointLabs
+
+---

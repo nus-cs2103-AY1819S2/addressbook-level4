@@ -3,12 +3,10 @@ package seedu.address.ui;
 import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BUYER;
 import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
-
-import java.util.Collections;
 
 import org.junit.Test;
 
@@ -17,11 +15,11 @@ import guitests.guihandles.PersonListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
 
 public class PersonListPanelTest extends GuiUnitTest {
     private static final ObservableList<Person> TYPICAL_PERSONS =
@@ -49,11 +47,11 @@ public class PersonListPanelTest extends GuiUnitTest {
     @Test
     public void selection_modelSelectedPersonChanged_selectionChanges() {
         initUi(TYPICAL_PERSONS);
-        Person secondPerson = TYPICAL_PERSONS.get(INDEX_SECOND_PERSON.getZeroBased());
+        Person secondPerson = TYPICAL_PERSONS.get(INDEX_SECOND_BUYER.getZeroBased());
         guiRobot.interact(() -> selectedPerson.set(secondPerson));
         guiRobot.pauseForHuman();
 
-        PersonCardHandle expectedPerson = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
+        PersonCardHandle expectedPerson = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_BUYER.getZeroBased());
         PersonCardHandle selectedPerson = personListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedPerson, selectedPerson);
     }
@@ -81,9 +79,9 @@ public class PersonListPanelTest extends GuiUnitTest {
         for (int i = 0; i < personCount; i++) {
             Name name = new Name(i + "a");
             Phone phone = new Phone("000");
-            Email email = new Email("a@aa");
-            Address address = new Address("a");
-            Person person = new Person(name, phone, email, address, Collections.emptySet());
+            Email email = new Email("a@aa.com");
+            Remark remark = new Remark("a");
+            Person person = new Person(name, phone, email, remark);
             backingList.add(person);
         }
         return backingList;

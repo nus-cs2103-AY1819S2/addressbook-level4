@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes a person identified using its displayed index from the address book list.
  */
 public class DeleteCommand extends Command {
 
@@ -42,8 +42,19 @@ public class DeleteCommand extends Command {
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deletePerson(personToDelete);
-        model.commitAddressBook();
+        model.commitBooks();
+        model.setSelectedPerson(null);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+    }
+
+    @Override
+    public boolean requiresMainList() {
+        return true;
+    }
+
+    @Override
+    public boolean requiresArchiveList() {
+        return false;
     }
 
     @Override

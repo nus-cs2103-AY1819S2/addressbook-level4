@@ -1,4 +1,6 @@
 build/
+_mac/
+codestyles/
 .gradle/
 .checkstyle
 .settings/
@@ -8,7 +10,9 @@ lib/*
 *.log
 *.log.*
 *.csv
-config.json
+*.schemes
+*.xml
+/config.json
 src/test/data/sandbox/
 preferences.json
 .DS_Store

@@ -13,6 +13,8 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
+import seedu.address.model.property.Price;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -120,5 +122,35 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String price} into an {@code Price}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code price} is invalid.
+     */
+    public static Price parsePrice(String price) throws ParseException {
+        requireNonNull(price);
+        String trimmedPrice = price.trim();
+        if (!Price.isValidPrice(trimmedPrice)) {
+            throw new ParseException(Price.MESSAGE_CONSTRAINTS);
+        }
+        return new Price(trimmedPrice);
+    }
+
+    /**
+     * Parses a {@code String remark} into an {@code Remark}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code remark} is invalid.
+     */
+    public static Remark parseRemark(String remark) throws ParseException {
+        requireNonNull(remark);
+        String trimmedRemark = remark.trim();
+        if (!Remark.isValidRemark(trimmedRemark)) {
+            throw new ParseException(Remark.MESSAGE_CONSTRAINTS);
+        }
+        return new Remark(trimmedRemark);
     }
 }

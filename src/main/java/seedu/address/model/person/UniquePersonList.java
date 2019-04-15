@@ -33,7 +33,26 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public boolean contains(Person toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePerson);
+        return internalList.stream().anyMatch(toCheck::equals);
+    }
+
+    /**
+     * Returns true if the list contains a person with same identity field as {@code toCheck} but is
+     * not the {@code referencePerson}.
+     */
+    public boolean containsSamePerson(Person referencePerson, Person toCheck) {
+        requireNonNull(referencePerson);
+        requireNonNull(toCheck);
+        return internalList.stream().filter(person -> !person.equals(referencePerson))
+                .anyMatch(toCheck::hasSameIdentityField);
+    }
+
+    /**
+     * Returns true if the list contains a person with same identity field as {@code toCheck}.
+     */
+    public boolean containsSameIdentity(Person toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::hasSameIdentityField);
     }
 
     /**
@@ -127,7 +146,7 @@ public class UniquePersonList implements Iterable<Person> {
     private boolean personsAreUnique(List<Person> persons) {
         for (int i = 0; i < persons.size() - 1; i++) {
             for (int j = i + 1; j < persons.size(); j++) {
-                if (persons.get(i).isSamePerson(persons.get(j))) {
+                if (persons.get(i).equals(persons.get(j))) {
                     return false;
                 }
             }

@@ -3,23 +3,26 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Address App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="The Real App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
-    <Image url="@/images/address_book_32.png" />
+    <Image url="@/images/the_real_app_32.png" />
   </icons>
   <scene>
     <Scene>
       <stylesheets>
-        <URL value="@DarkTheme.css" />
+        <URL value="@BlueTheme.css" />
         <URL value="@Extensions.css" />
       </stylesheets>
 
@@ -47,12 +50,37 @@
         </StackPane>
 
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-          <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-          </VBox>
+          <SplitPane id="listPanel" fx:id="listPanel" orientation="VERTICAL" dividerPositions="0.3"
+                     SplitPane.resizableWithParent="false">
+            <GridPane id="pinListPane" fx:id="pinListPane" prefHeight="150" SplitPane.resizableWithParent="false">
+              <Label fx:id="pinTitle" styleClass="list_title_label" GridPane.halignment="CENTER" text=" Contacts">
+                <graphic>
+                  <ImageView fitWidth="20" preserveRatio="true">
+                    <image>
+                      <Image url="@/images/pin-icon.png"/>
+                    </image>
+                  </ImageView>
+                </graphic>
+              </Label>
+              <VBox fx:id="pinList" minWidth="340" prefWidth="340" GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS"
+                    GridPane.rowIndex="1">
+                <padding>
+                  <Insets top="5" right="10" bottom="10" left="10" />
+                </padding>
+                <StackPane fx:id="pinListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+              </VBox>
+            </GridPane>
+            <GridPane id="listPane" fx:id="listPane" SplitPane.resizableWithParent="false">
+              <Label fx:id="displayedList" styleClass="list_title_label" GridPane.halignment="CENTER"/>
+              <VBox fx:id="personList" minWidth="340" prefWidth="340" GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS"
+                    GridPane.rowIndex="1">
+                <padding>
+                  <Insets top="5" right="10" bottom="10" left="10" />
+                </padding>
+                <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+              </VBox>
+            </GridPane>
+          </SplitPane>
 
           <StackPane fx:id="browserPlaceholder" prefWidth="340" >
             <padding>

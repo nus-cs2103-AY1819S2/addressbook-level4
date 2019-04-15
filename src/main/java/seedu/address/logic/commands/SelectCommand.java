@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Selects a person identified using it's displayed index from the address book.
+ * Selects a person identified using its displayed index from the address book list.
  */
 public class SelectCommand extends Command {
 
@@ -41,9 +41,20 @@ public class SelectCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
+        model.setSelectedPinPerson(null);
         model.setSelectedPerson(filteredPersonList.get(targetIndex.getZeroBased()));
         return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
 
+    }
+
+    @Override
+    public boolean requiresMainList() {
+        return true;
+    }
+
+    @Override
+    public boolean requiresArchiveList() {
+        return false;
     }
 
     @Override

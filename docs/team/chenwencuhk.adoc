@@ -1,0 +1,66 @@
+= Chen Wen - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: The Real App
+
+---
+
+== Overview
+
+*The Real App* is an enhanced desktop address book APP. The enhanced application enables the *real estate agents* to store large amount of customer contacts, together with property information; provide fleet retrieval commands among tons of property information; and utilize storage better to provide reminder, archive and corresponding features. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+|===
+|This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
+|===
+
+* *Major enhancement*: implement *the pin/unpin feature*
+** What it does:
+*** The *pin* command allows the user to put some contacts from the normal contact list to the topped pin list. The `pinselect` command will select some contact in the pin list, which will displays all the contact and property information, as well as the address location of the associated property on the Google Maps(TM) browser panel.
+** Justification:
+***  This feature improves the product significantly because a user can put important contacts into the topped list, which can save much time for searching.
+** Highlights:
+*** This enhancement does not affect commands that will not touch pin list. Since the pin list is apart from the original one and works as a fast and detailed look-up manual towards someone the agent currently working with or extremely important contacts. The most challenging part is about the connection requires to build between the brand-new storage for pin list and the other parts. Another point is the UI part displayed in the main window.
+*** It required an in-depth analysis of design alternatives.
+
+* *Minor enhancement*: Apply `undo` `redo` command to the new commands. So user can directly use `undo` to reverse the changes and use `redo` to reverse the most recent changes made by `undo` command.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=chenwencuhk[Project Code Dashboard]]
+
+* *Other contributions*:
+
+** Documentation:
+*** Make improvements to the existing User Guide and Developer Guide to make it more reader friendly.(Pull requests https://github.com/CS2103-AY1819S2-W16-2/main/pull/90[#90], https://github.com/CS2103-AY1819S2-W16-2/main/pull/148[#148], https://github.com/CS2103-AY1819S2-W16-2/main/pull/153[#153])
+*** Resolve command concatenation problem.(Pull requests https://github.com/CS2103-AY1819S2-W16-2/main/pull/130[#130])
+*** Wrote tests for new and existing features to increase coverage greatly (Pull requests https://github.com/CS2103-AY1819S2-W16-2/main/pull/122[#122], https://github.com/CS2103-AY1819S2-W16-2/main/pull/133[#133], https://github.com/CS2103-AY1819S2-W16-2/main/pull/142[#142], https://github.com/CS2103-AY1819S2-W16-2/main/pull/143[#143])
+** Community:
+*** Reported bugs and suggestions for other teams in the class. (Pull requests https://github.com/CS2103-AY1819S2-W09-4/main/issues/148[#148], https://github.com/CS2103-AY1819S2-W09-4/main/issues/155[#155], https://github.com/CS2103-AY1819S2-W09-4/main/issues/158[#158])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=pinunpinfeatures]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+*
+
+include::../DeveloperGuide.adoc[tag=pinunpinfeatures]
+
+include::../DeveloperGuide.adoc[tag=pinusecases]
+
+include::../DeveloperGuide.adoc[tag=pinmanualtesting]
+
+== PROJECT: PowerPointLabs
+
+---

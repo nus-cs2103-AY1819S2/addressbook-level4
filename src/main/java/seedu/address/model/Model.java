@@ -54,15 +54,115 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
+     * Returns the user prefs' archive book file path.
+     */
+    Path getArchiveBookFilePath();
+
+    /**
+     * Sets the user prefs' archive book file path.
+     */
+    void setArchiveBookFilePath(Path archiveBookFilePath);
+
+    /**
+     * Replaces archive book data with the data in {@code archiveBook}.
+     */
+    void setArchiveBook(ReadOnlyAddressBook archiveBook);
+
+    /** Returns the ArchiveBook */
+    ReadOnlyAddressBook getArchiveBook();
+
+    /**
+     * Returns the user prefs' pin book file path.
+     */
+    Path getPinBookFilePath();
+
+    /**
+     * Sets the user prefs' pin book file path.
+     */
+    void setPinBookFilePath(Path pinBookFilePath);
+
+    /**
+     * Replaces pin book data with the data in {@code pinBook}.
+     */
+    void setPinBook(ReadOnlyAddressBook pinBook);
+
+    /** Returns the PinBook */
+    ReadOnlyAddressBook getPinBook();
+
+    /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
     boolean hasPerson(Person person);
+
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the archive book.
+     */
+    boolean hasPersonArchive(Person person);
+
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the pin book.
+     */
+    boolean hasPersonPin(Person person);
+
+    /**
+     * Returns true if a person with the same identity as {@code editedPerson} exists in the address book.
+     */
+    boolean hasEditedPerson(Person referencePerson, Person editedPerson);
+
+    /**
+     * Returns true if a person with the same identity as {@code editedPerson} exists in the archive book.
+     */
+    boolean hasEditedPersonArchive(Person referencePerson, Person editedPerson);
+
+    /**
+     * Returns true if a person with the same identity as {@code editedPerson} exists in the pin book.
+     */
+    boolean hasEditedPersonPin(Person referencePerson, Person editedPerson);
+
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     */
+    boolean hasSameIdentityField(Person person);
+
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the archive book.
+     */
+    boolean hasSameIdentityFieldArchive(Person person);
+
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the pin book.
+     */
+    boolean hasSameIdentityFieldPin(Person person);
 
     /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
     void deletePerson(Person target);
+
+    /**
+     * Archives the given person.
+     * The person must exist in the address book.
+     */
+    void archivePerson(Person target);
+
+    /**
+     * Unarchives the given person.
+     * The person must exist in the archive book.
+     */
+    void unarchivePerson(Person target);
+
+    /**
+     * Pins the given person.
+     * The person must exist in the address book.
+     */
+    void pinPerson(Person target);
+
+    /**
+     * Unpins the given person.
+     * The person must exist in the pin book.
+     */
+    void unpinPerson(Person target);
 
     /**
      * Adds the given person.
@@ -86,30 +186,48 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    /**
-     * Returns true if the model has previous address book states to restore.
-     */
-    boolean canUndoAddressBook();
+    /** Returns an unmodifiable view of the filtered archived list */
+    ObservableList<Person> getFilteredArchivedPersonList();
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Updates the filter of the filtered archived list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
      */
-    boolean canRedoAddressBook();
+    void updateFilteredArchivedPersonList(Predicate<Person> predicate);
+
+    /** Returns an unmodifiable view of the filtered pinned list */
+    ObservableList<Person> getFilteredPinnedPersonList();
 
     /**
-     * Restores the model's address book to its previous state.
+     * Updates the filter of the filtered pinned list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
      */
-    void undoAddressBook();
+    void updateFilteredPinnedPersonList(Predicate<Person> predicate);
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Returns true if the model has previous book states to restore.
      */
-    void redoAddressBook();
+    boolean canUndoBooks();
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Returns true if the model has undone book states to restore.
      */
-    void commitAddressBook();
+    boolean canRedoBooks();
+
+    /**
+     * Restores all the model's books to its previous state.
+     */
+    void undoBooks();
+
+    /**
+     * Restores all the model's books to its previously undone state.
+     */
+    void redoBooks();
+
+    /**
+     * Saves the current book states for undo/redo.
+     */
+    void commitBooks();
 
     /**
      * Selected person in the filtered person list.
@@ -127,4 +245,39 @@ public interface Model {
      * Sets the selected person in the filtered person list.
      */
     void setSelectedPerson(Person person);
+
+    /**
+     * Selected person in the filtered pin list.
+     * null if no person is selected.
+     */
+    ReadOnlyProperty<Person> selectedPinPersonProperty();
+
+    /**
+     * Returns the selected person in the filtered pin list.
+     * null if no person is selected.
+     */
+    Person getSelectedPinPerson();
+
+    /**
+     * Sets the selected person in the filtered pin list.
+     */
+    void setSelectedPinPerson(Person person);
+
+    /**
+     * Selected archived person in the filtered archived person list.
+     * null if no archived person is selected.
+     */
+    ReadOnlyProperty<Person> selectedArchivedPersonProperty();
+
+    /**
+     * Returns the selected archived person in the filtered archived person list.
+     * null if no archived person is selected.
+     */
+    Person getSelectedArchivedPerson();
+
+    /**
+     * Sets the selected archived person in the filtered archived person list.
+     */
+    void setSelectedArchivedPerson(Person person);
+
 }

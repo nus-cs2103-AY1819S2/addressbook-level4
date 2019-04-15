@@ -14,12 +14,21 @@ public class ClearCommand extends Command {
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
 
-
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.setAddressBook(new AddressBook());
-        model.commitAddressBook();
+        model.commitBooks();
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public boolean requiresMainList() {
+        return true;
+    }
+
+    @Override
+    public boolean requiresArchiveList() {
+        return false;
     }
 }

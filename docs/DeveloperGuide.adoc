@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= The Real App - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,9 +13,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/cs2103-ay1819s2-w16-2/main/blob/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team CS2103-AY1819S2-W16-2`      Since: `Mar 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -32,7 +32,6 @@ Windows developers are highly recommended to use JDK `9`.
 [NOTE]
 IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
-
 
 === Setting up the project in your computer
 
@@ -74,9 +73,7 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
-
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product, you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
@@ -98,10 +95,7 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 
 ==== Getting started with coding
 
-When you are ready to start coding,
-
-1. Get some sense of the overall design by reading <<Design-Architecture>>.
-2. Take a look at <<GetStartedProgramming>>.
+When you are ready to start coding, get some sense of the overall design by reading <<Design-Architecture>>.
 
 == Design
 
@@ -161,7 +155,7 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PinListPanel`, `PersonListPanel`, `ArchiveListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -177,8 +171,7 @@ The `UI` component,
 .Structure of the Logic Component
 image::LogicClassDiagram.png[width="800"]
 
-*API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+*API* : link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
@@ -191,6 +184,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeletePersonSdForLogic.png[width="800"]
 
+// tag::modelcomponent[]
 [[Design-Model]]
 === Model component
 
@@ -202,14 +196,15 @@ image::ModelClassDiagram.png[width="800"]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the Address Book, Archive Book and Pin Book data as 3 separate instances of the AddressBook class.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Address Book`, which `Property` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Property` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
+// end::modelcomponent[]
 
 [[Design-Storage]]
 === Storage component
@@ -223,6 +218,9 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in json format and read it back.
+* can save the Archive Book data in json format and read it back.
+* can save the Pin Book data in json format and read it back.
+* maintains separate data files for each of the books.
 
 [[Design-Commons]]
 === Common classes
@@ -232,6 +230,99 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+// tag::modeltransformation[]
+=== Transformation of AddressBook4 to The Real App
+==== Current Implementation
+
+To allow *The Real App* to store client contact and property information, the model of *AB4* must be modified.
+The `Person` class has been modified to only contain the following 4 information: +
+
+* `Name` -- Encapsulates the name of a client in the model.
+* `Phone` -- Encapsulates the phone of a client in the model.
+* `Email` -- Encapsulates the email of a client in the model.
+* `Remark` -- Encapsulates the remark associated with a client in the model.
+
+The `Person` class has also been extended to the following 4 sub-classes to encapsulate the customer type and related information: +
+
+* `Buyer` -- Represents a client who is a buyer in the model.
+* `Seller` -- Represents a client who is a seller in the model, contains additional property information.
+* `Tenant` -- Represents a client who is a tenant in the model.
+* `Landlord` -- Represents a client who is a landlord in the model, contains additional property information.
+
+The abstraction of the property information is done through a `Property` class. The `Property` class encapsulates property information through the following 3 classes:
+
+* `Address` -- Encapsulates the address of a property in the model.
+* `Price` -- Encapsulates the price of a property in the model.
+* `Tag` -- Encapsulates short keywords associated with a property in the model.
+
+There are 2 ways through which client information can be added into the model. One is through user input in the `add` command, the other is through reading the storage json files at launch. +
+
+Given below is an example scenario of how client information can be added into the model via the 2 ways described above. +
+
+*From storage*
+
+Step 1. The user launches the application.
+
+Step 2. `MainApp` will find the `addressbook`, `archivebook` and `pinbook` json files in the data folder and get them as `JsonAddressBookStorage` objects.
+
+Step 3. The `JsonAddressBookStorage` objects are used to initialise `StorageManager`.
+
+Step 4. The `MainApp` calls `initModelManager` method which will eventually return a `ModelManager` object.
+
+Step 5. To build the model, the `StorageManager` will build three `AddressBook` objects which are collections of all the `Person` objects stored in the `addressbook`, `archivebook` and `pinbook` json files.
+
+Step 6. The three `AddressBook` objects are used to initialise the `ModelManager`, which creates the model.
+
+The following sequence diagram summarizes how the model is created from json files when a user launches The Real App:
+
+image::LaunchSequenceDiagram.png[width="800"]
+
+*Through add command*
+
+Step 1. The user launches the application.
+
+Step 2. The user enters the `add` command with the correct parameters into the Command Box. +
+e.g. `add c/seller n/James Tan p/97652456 e/jamestan@example.com r/need to sell by April 2018 a/Blk 345 Clementi Ave 5, #04-04, S120345 sp/500000 t/MRT t/newlyRenovated`
+
+Step 3. The `LogicManager` handles the user input and creates an `AddCommand` object.
+
+Step 4. The `AddCommand` object is executed by the `LogicManager`.
+
+Step 5. The `ModelManager` updates the model to add the contact into the `AddressBook`.
+
+The following sequence diagram summarizes how a contact is added to the `AddressBook` using the `add` command:
+
+image::AddSequenceDiagram.png[width="800"]
+
+==== Other Improvements
+
+To allow for modification and retrieval of information, the `edit` and `search` commands have been expanded to fit the new model.
+
+**Edit command**
+
+Edit command has been improved to handle the different types of contacts safely.
+Object type checking is done during the execution of the command to ensure that only the correct information associated with the customer type is edited. This also ensures that the returned object is the same class as the original object being edited.
+
+**Search command**
+
+The original `find` command in AB4 has been renamed to `search` command to better reflect its new functionality. `search` command can now search through multiple information fields to look for matches to the input keywords.
+This allows users to quickly retrieve contacts using whatever limited information they may have at hand.
+
+==== Design Considerations
+
+===== Aspect: Abstraction of different customer types
+
+* **Alternative 1 (current choice):** The four customer types are abstracted as sub-classes which extends the `Person` class
+** Pros: Allows for subclass polymorphism.
+** Cons: Legacy code from AB4 is not optimised for runtime polymorphism.
+* **Alternative 2:** Encapsulate customer type information in `Person` class using a `CustomerType` class.
+** Pros: Easy to implement.
+** Cons: Requires rigorous checking of customer type to ensure each contact is handled appropriately.
+* **Alternative 3:** Refactor `Person` class into an abstract class and extend the 4 subclasses from it
+** Pros: Prevents the initialisation of a `Person` object, which is not required in our application.
+** Cons: Much of the legacy code of AB4 has strong dependence on the instantiation of the `Person` objects.
+// end::modeltransformation[]
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -246,6 +337,9 @@ Additionally, it implements the following operations:
 * `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
 
 These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+
+[NOTE]
+The archiveBook and pinBook use the VersionedAddressBook as well to facilitate the undo/redo mechanism by running in parallel with addressBook.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
@@ -303,7 +397,8 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
-===== Aspect: Data structure to support the undo/redo commands
+
+===== Aspect:
 
 * **Alternative 1 (current choice):** Use a list to store the history of address book states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
@@ -313,12 +408,124 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::pinunpinfeatures[]
+=== Pin/Unpin feature
 
-_{Explain here how the data encryption feature will be implemented}_
+This feature allows users to move person between contact list and pin list. To use this feature, the user need to enter `pin` or `unpin` command, with the `INDEX`(in the contact list and pin list) of the contact to be pinned/unpinned.
 
-// end::dataencryption[]
+* `pin 2`
+
+The command above put the 2nd contact in the contact list to the topped pin list.
+
+* `unpin 1`
+
+The command above put the 1st contact in the pin list back to the contact list.
+
+
+What's more, it also allow users to select some contact in the pin list and display address location on the Google Maps(TM) browser window. To use this feature, the users need to enter `pinselect` command, with the `INDEX`(in the pin list) of the contact to be selected.
+
+* `pinselect 3`
+
+The command above will select the 3rd contact in the pin list and the address location is displayed on the Google maps(TM) browser window.
+
+==== Current Implementation
+This section explains the implementation of all pin related features.
+
+===== Pin/Unpin
+The following sequence diagram shows how the pin operation works:
+
+image::PinUnpinSequenceDiagram.png[width="800"]
+
+* The command is recognized by `parserCommand()` and an `PinCommandParser` is created, then a `PinCommand` object is created with the parsed index.
+
+* The command object is then executed by `Logic` and `pinPerson` is called from the `PinCommand` object. Then `pinPerson` will call `ModelManager` to create two `VersionedAddressBook` object: `versionedPinBook` and `versionedAddressBook`.
+
+* The `versionedPinBook` call `addPerson()` and the `versionedAddressBook` call `removePerson()`.
+
+* Both objects will call `commit()` after execution.
+
+The `unpin` command does the opposite -- it calls `removePerson()` of the `versionedPinBook` and `addPerson()` of the `versionedAddressBook` instead.
+
+===== PinSelect
+
+The `pinselect` command is implemented the same as `select`.
+
+When `pin` and `unpin` are performed, the pinned/unpinned contact is being selected automatically.
+
+==== Design Considerations
+
+===== Aspect: How pin & unpin executes
+
+* **Alternative 1 (current choice):** Saves the entire address book and pin book.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2 (current choice):** Commands excepts `pin`, `unpin`, `pinselect` command doesn't work on the pinned person.
+** Pros: Easy to implement.
+** Cons: Users must filter pin list contacts' information through eyes.
+
+===== Aspect: How undo & redo executes
+* **Alternative 1 (current choice):** Saves the entire address book and pin book.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+// end::pinunpinfeatures[]
+
+// tag::archive[]
+=== Archive features
+
+==== Current Implementation
+
+This section explains the implementation of all archive related features.
+
+To implement the archive features, an `archiveBook` is created in the `Model` and `Storage` to facilitate the archiving of contacts. The `archiveBook` implements the `AddressBook` class in the `Model` since it works similarly, and has its own `ArchiveBookStorage` class in the `Storage` to facilitate the storage of a separate data file.
+
+===== Archive/Unarchive
+
+The following sequence diagram shows how the `archive` command operation works:
+
+image::ArchiveSequenceDiagram.png[width="800"]
+
+The `unarchive` command does the opposite -- it calls `addPerson(p)` of the `versionedAddressBook` and `removePerson(p)` of the `versionedArchiveBook` instead.
+
+===== Archive List
+
+The `archivelist` command displays the list of persons in the `archiveBook`. This has to be carefully implemented to work hand-in-hand with the list of persons in the `addressBook`, as well as the `list` command.
+
+More importantly, to have a separate archive list that can be swapped back and forth with the main list in the UI display requires careful designs and implementations in the `Logic` and `Ui` components.
+
+===== Archive Select
+
+The `archiveselect` command is implemented the same as 'select'.
+
+When `unarchive` is performed on a person that has been selected by `archiveselect`, `archiveselect` is set to be `null`, so no person will be selected.
+
+===== Archive Clear
+The `archiveclear` command is implemented the same as `clear` where a new empty `archiveBook` is created by calling `Model#setArchiveBook(new AddressBook())`.
+
+==== Design Considerations
+// end::archive[]
+
+// tag::select[]
+=== Select feature
+
+==== Current Implementation
+
+The select feature requires careful implementation:
+
+* As there are 3 separate lists (main contact list, archive list, pin list) that can be selected from, having a unique command for each list (i.e. `select`, `archiveselect`, `pinselect`) ensures that the person is selected from the correct list.
+
+* Only at most 1 person can be selected at any point in time from each list.
+** However, having 3 separate lists means that there will be overlapping selections which will cause errors in the `Ui` component in displaying the browser panel.
+** To avoid overlapping of selections from each of the select commands, previous selections from another list are set to null.
+
+* Adding and editing a person will select that person.
+
+* Deleting, archiving and unarchiving a selected contact will set the selection to null.
+
+* Changing lists will set the selected person in the list that is swapped away to be set to null.
+
+* Selection of a pinned person will remain regardless of which of the two lists are displayed.
+
+// end::select[]
 
 === Logging
 
@@ -418,9 +625,8 @@ Attributes left unset in `.adoc` files will use their *default value*, if any.
 |`site-section`
 |Site section that the document belongs to.
 This will cause the associated item in the navigation bar to be highlighted.
-One of: `UserGuide`, `DeveloperGuide`, ``LearningOutcomes``{asterisk}, `AboutUs`, `ContactUs`
+One of: `UserGuide`, `DeveloperGuide`, `AboutUs`, `ContactUs`
 
-_{asterisk} Official SE-EDU projects only_
 |_not set_
 
 |`no-site-header`
@@ -441,7 +647,6 @@ These template files are written in a mixture of https://www.ruby-lang.org[Ruby]
 ====
 Modifying the template files in link:{repoURL}/docs/templates[`docs/templates`] requires some knowledge and experience with Ruby and Asciidoctor's API.
 You should only modify them if you need greater control over the site's layout than what stylesheets can provide.
-The SE-EDU team does not provide support for modified template files.
 ====
 
 [[Testing]]
@@ -522,358 +727,660 @@ Here are the steps to create a new release.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
+A project often depends on third-party libraries. For example, The Real App depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
 
 [loweralpha]
 . Include those libraries in the repo (this bloats the repo size)
 . Require developers to download those libraries manually (this creates extra work for developers)
 
-[[GetStartedProgramming]]
-[appendix]
-== Suggested Programming Tasks to Get Started
-
-Suggested path for new programmers:
-
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
-=== Improving each component
-
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
-
-[discrete]
-==== `Logic` component
-
-*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
-
-[TIP]
-Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
-
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
-+
-****
-* Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
-* Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
-** Add new tests for each of the aliases that you have added.
-** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
-****
-
-[discrete]
-==== `Model` component
-
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
-
-[TIP]
-Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
-
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
-+
-****
-* Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
-* Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
-** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
-****
-
-[discrete]
-==== `Ui` component
-
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
-
-[TIP]
-Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
-
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
-+
-**Before**
-+
-image::getting-started-ui-tag-before.png[width="300"]
-+
-**After**
-+
-image::getting-started-ui-tag-after.png[width="300"]
-+
-****
-* Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
-** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
-* Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
-*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
-****
-
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
-+
-**Before**
-+
-image::getting-started-ui-result-before.png[width="200"]
-+
-**After**
-+
-image::getting-started-ui-result-after.png[width="200"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
-* Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
-** You can write two different kinds of tests to ensure that the functionality works:
-*** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
-*** Do read the commits one at a time if you feel overwhelmed.
-****
-
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
-+
-**Before**
-+
-image::getting-started-ui-status-before.png[width="500"]
-+
-**After**
-+
-image::getting-started-ui-status-after.png[width="500"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
-* Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
-****
-
-[discrete]
-==== `Storage` component
-
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
-
-[TIP]
-Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
-
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
-+
-****
-* Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/JsonAddressBookStorage.java[`JsonAddressBookStorage`] class.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
-****
-
-[[GetStartedProgramming-RemarkCommand]]
-=== Creating a new command: `remark`
-
-By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
-
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
-
-==== Description
-Edits the remark for a person specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
-
-Examples:
-
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
-* `remark 1 r/` +
-Removes the remark for the first person.
-
-==== Step-by-step Instructions
-
-===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
-Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
-
-**Main:**
-
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
-
-**Tests:**
-
-. Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
-
-===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
-
-**Main:**
-
-. Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
-. Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
-
-**Tests:**
-
-. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
-. Add `RemarkCommandParserTest` that tests different boundary values
-for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
-
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
-
-**Main:**
-
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
-
-===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
-
-**Main:**
-
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
-. Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
-
-**Tests:**
-
-. Add test for `Remark`, to test the `Remark#equals()` method.
-
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Main:**
-
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `data/addressbook.json` so that the application will load the sample data when you launch it.)
-
-===== [Step 6] Storage: Add `Remark` field to `JsonAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/JsonAdaptedPerson.java[`JsonAdaptedPerson`] to include a `Remark` field so that it will be saved.
-
-**Main:**
-
-. Add a new JSON field for `Remark`.
-
-**Tests:**
-
-. Fix `invalidAndValidPersonAddressBook.json`, `typicalPersonsAddressBook.json`, `validAddressBook.json` etc., such that the JSON tests will not fail due to a missing `remark` field.
-
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Tests:**
-
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
-
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
-
-**Main:**
-
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
-
-===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
-
-**Main:**
-
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
-
-**Tests:**
-
-. Update `RemarkCommandTest` to test that the `execute()` logic works.
-
-==== Full Solution
-
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
-
 [appendix]
 == Product Scope
 
-*Target user profile*:
+*Target User Profile*:
 
+* manage buying/selling/leasing of properties
 * has a need to manage a significant number of contacts
+* has a need to maintain an accurate record of property addresses
+* has a need to store essential information of properties
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value Proposition*:
 
+* *What problem does this product solve?* +
+This product aims to help real estate agents manage large amount of customer and property information within the same app. The app will also help to safeguard the sensitive information through encryption.
+* *How does it make the the user's life easier?* +
+With a proper address book app, real estate agents can quickly and conveniently search for their customers’ contact details, as well as essential property information to speed up their business process.
+
+// tag::userstoriestitle[]
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
-
+// end::userstoriestitle[]
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the app
 
-|`* * *` |user |add a new person |
+|`* * *` |real estate agent |add a new contact with contact and associated property details |record an entry of the contact and the associated property
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |clean user |delete a contact |remove entries that I no longer need
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |efficient user |search for a contact by using any details (e.g. name/phone/tags etc.) |locate details of contacts without having to go through the entire list
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |real estate agent |add property information to each contact |link my customers to the property that they buying/selling/renting
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |real estate agent |search and filter contacts by the address of their associated property |find all properties within the same area, e.g. search for "Woodlands" should return all contacts with "Woodlands" in their address
+
+|`* * *` |real estate agent |add and update financial information of properties that can be bought/sold/rented |use the information to better determine which properties to buy/sell based on price, and match customers who are looking for certain prices
+
+|`* * *` |organised user |categorise my contacts into different groups (i.e. buyers, sellers, landlords, tenants) |keep track of my customers better
+
+// tag::archiveuserstories[]
+|`* * *` |clean user |archive contacts when I currently do not need them |keep contacts for later use
+
+|`* * *` |efficient user |see the list of contacts which I have archived |check which contacts I have in my archive
+
+|`* * *` |real estate agent |unarchive contacts |retrieve contacts which I need again
+// end::archiveuserstories[]
+
+|`* * *` |forgetful user |pin important contacts to the top of the lists |see which contacts are the most important for me to attend to
+
+|`* * *` |efficient user |unpin contacts from the top of the lists when they are no longer of priority |focus on the other important contacts which have not yet been attended to
+
+|`* * *` |user who prefers visuals |select a contact and see the address (if any) of the contact on the Google Map applet within the app |visualise the location of the property and search for directions to the location
+
+|`* *` |sloppy user |add and edit a contact in the app without having to specify certain information (i.e. some fields are optional) |add and edit a contact even if I do not have the complete contact information
+
+|`* *` |forgetful user |add rental period information for tenants |be reminded when the rental agreement is expiring
+
+|`* *` |efficient user |display contacts sorted by specific categories |locate contacts and/or properties easily
+
+|`* *` |efficient user |search and filter by financial information of properties |see which properties can meet my customers' expectation, as well as my own, in terms of price
+
+|`* *` |efficient user |check all my properties sorted in ascending or descending order by price or size |compare across my properties to buy/sell based on price or size
+
+|`* *` |real estate agent |link sellers to buyers, and landlords to tenants through properties |see all customers linked to a certain property
+
+|`* *` |efficient user |search for properties with address within a 1 km radius of a specific address |filter out properties near a given location
+
+|`*` |responsible user |password-protect the app and/or encrypt individual data |protect my contacts' personal information from access by unauthorised people
+
+|`*` |efficient user |link multiple properties for each contact |keep track of all the properties linked to a contact
+
+|`*` |lazy user |send automated email and/or SMS reminder notifications to my customers |do not have to send individual notifications manually
+
+|`*` |lazy user |have the app start on boot up and minimise to tray |have the app open at all times without having to open it manually all the time
+
+|`*` |real estate agent |search online for current market trends and prices of properties similar to mine |check the competitiveness of my properties to make improvements on my properties and make adjustments to my prices
+
+|`*` |user who prefers visuals |upload and store photos of a specific property |view the property on-the-go
 |=======================================================================
 
-_{More to be added}_
-
+// tag::usecasestitle[]
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `TheRealApp` and the *Actor* is the `User`, unless specified otherwise)
+// end::usecasestitle[]
 
 [discrete]
-=== Use case: Delete person
+=== Use case: View help
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to view help.
+2. TheRealApp displays the User Guide.
++
+Use case ends.
+
+[discrete]
+=== Use case: Add contact
+
+*MSS*
+
+1. User requests to add contact, with any additional information.
+2. TheRealApp adds contact into the contact list and displays the added contact in the displayed contact list.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. A field is invalid.
+[none]
+** 1a1. The RealApp shows an error message.
++
+Use case resumes at step 1.
+
+* 1b. The list displayed is invalid.
++
+[none]
+** 1b1. TheRealApp shows an error message.
+** 1b2. User requests for the valid list.
+** 1b3. TheRealApp displays the requested list.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Display contact list
+
+*MSS*
+
+1. User requests to list contacts.
+2. TheRealApp shows a list of contacts.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The contact list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: Select contact
+
+*MSS*
+
+1. User requests to select a contact.
+2. TheRealApp selects the contact and shows the information of the contact.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given index is invalid.
+[none]
+** 1a1. TheRealApp shows an error message.
++
+Use case resumes at step 1.
+
+* 1b. The list displayed is invalid.
++
+[none]
+** 1b1. TheRealApp shows an error message.
+** 1b2. User requests for the valid list.
+** 1b3. TheRealApp displays the requested list.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Display contact list sorted in a specific category
+
+*MSS*
+
+1. User requests to list contacts sorted in a specific category.
+2. TheRealApp shows a list of contacts sorted in the requested category.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The contact list is empty.
++
+Use case ends.
+
+* 1b. The category is invalid.
++
+[none]
+** 1b1. TheRealApp shows an error message.
++
+Use case resumes at step 1.
+
+* 1c. The list displayed is invalid.
++
+[none]
+** 1c1. TheRealApp shows an error message.
+** 1c2. User requests for the valid list.
+** 1c3. TheRealApp displays the requested list.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Search for contact
+
+*MSS*
+
+1. User requests to search for a contact by entering keyword(s).
+2. TheRealApp shows a list of contacts with information containing the keywords(s).
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The keyword(s) is invalid.
+[none]
+** 1a1. The RealApp shows an error message.
++
+Use case resumes from step 1.
+
+* 1b. The list displayed is invalid.
++
+[none]
+** 1b1. TheRealApp shows an error message.
+** 1b2. User requests for the valid list.
+** 1b3. TheRealApp displays the requested list.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Edit contact
+
+*MSS*
+
+1. User requests to edit a contact, with new information.
+2. TheRealApp edits the contact in the contact list and displays the edited contact in the displayed contact list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. A field is invalid.
+[none]
+** 1a1. The RealApp shows an error message.
++
+Use case resumes at step 1.
+
+* 1b. The given index is invalid.
++
+[none]
+** 1b1. TheRealApp shows an error message.
++
+Use case resumes at step 1.
+
+* 1c. The list displayed is invalid.
++
+[none]
+** 1c1. TheRealApp shows an error message.
+** 1c2. User requests for the valid list.
+** 1c3. TheRealApp displays the requested list.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Match contacts
+
+*MSS*
+
+1. User requests to list contacts.
+2. TheRealApp shows a list of contacts.
+3. User requests to match 2 contacts in the list.
+4. TheRealApp links the 2 contact.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The contact list is empty.
 +
 Use case ends.
 
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. TheRealApp shows an error message.
 +
-Use case resumes at step 2.
+Use case resumes at step 3.
 
-_{More to be added}_
+* 3b. The 2 contacts are not matchable.
++
+[none]
+** 3b1. TheRealApp shows an error message.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: Delete contact
+
+*MSS*
+
+1. User requests to list contacts.
+2. TheRealApp shows a list of contacts.
+3. User requests to delete a specific contact in the list.
+4. TheRealApp deletes the contact.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The contact list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. TheRealApp shows an error message.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: Clear contact list
+
+*MSS*
+
+1. User requests to clear the contact list.
+2. TheRealApp clears the entire contact list.
++
+Use case ends.
+
+[none]
+* 1a. The list displayed is invalid.
++
+[none]
+** 1a1. TheRealApp shows an error message.
+** 1a2. User requests for the valid list.
+** 1a3. TheRealApp displays the requested list.
++
+Use case resumes at step 1.
+
+// tag::pinusecases[]
+[discrete]
+=== Use case: Pin contact
+
+*MSS*
+
+1. User requests to list contacts.
+2. TheRealApp shows a list of contacts.
+3. User requests to pin a specific contact in the list.
+4. TheRealApp pins the contact.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The contact list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. TheRealApp shows an error message.
++
+Use case resumes at step 3.
+
+* 3b. There are already 5 contacts in the pinned list.
++
+[none]
+** 3b1. TheRealApp shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Unpin contact
+
+*MSS*
+
+1. User requests to unpin a specific pinned contact in the pinned list.
+2. TheRealApp unpins the contact.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The pinned list is empty.
++
+Use case ends.
+
+* 1b. The given index is invalid.
++
+[none]
+** 1b1. TheRealApp shows an error message.
++
+Use case resumes at step 1.
+
+* 1c. The list displayed is invalid.
++
+[none]
+** 1c1. TheRealApp shows an error message.
+** 1c2. User requests for the valid list.
+** 1c3. TheRealApp displays the requested list.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: select pinned contact
+
+*MSS*
+
+1. User requests to select an pinned contact.
+2. TheRealApp selects the contact and shows the information of the pinned contact.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given index is invalid.
+[none]
+** 1a1. TheRealApp shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+// end::pinusecases[]
+
+// tag::archiveusecases[]
+[discrete]
+=== Use case: Archive contact
+
+*MSS*
+
+1. User requests to list contacts.
+2. TheRealApp shows a list of contacts.
+3. User requests to archive a specific contact in the list.
+4. TheRealApp archives the contact.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The contact list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. TheRealApp shows an error message.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: Display archived contact list
+
+*MSS*
+
+1. User requests to list archived contacts.
+2. TheRealApp shows a list of archived contacts.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The archived contact list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: Select archived contact
+
+*MSS*
+
+1. User requests to select an archived contact.
+2. TheRealApp selects the contact and shows the information of the archived contact.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given index is invalid.
+[none]
+** 1a1. TheRealApp shows an error message.
++
+Use case resumes at step 1.
+
+* 1b. The list displayed is invalid.
++
+[none]
+** 1b1. TheRealApp shows an error message.
+** 1b2. User requests for the valid list.
+** 1b3. TheRealApp displays the requested list.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Search for archived contact
+
+*MSS*
+
+1. User requests to search for an archived contact by entering keyword(s).
+2. TheRealApp shows a list of archived contacts with information containing the keywords(s).
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The keyword(s) is invalid.
+[none]
+** 1a1. The RealApp shows an error message.
++
+Use case resumes from step 1.
+
+* 1b. The list displayed is invalid.
++
+[none]
+** 1b1. TheRealApp shows an error message.
+** 1b2. User requests for the valid list.
+** 1b3. TheRealApp displays the requested list.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Unarchive contact
+
+*MSS*
+
+1. User requests to list archived contacts.
+2. TheRealApp shows a list of archived contacts.
+3. User requests to unarchive a specific contact in the archived list.
+4. TheRealApp unarchives the contact.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The archived contact list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. TheRealApp shows an error message.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: Clear archived contact list
+
+*MSS*
+
+1. User requests to clear the archived contact list.
+2. TheRealApp clears the entire archived contact list.
++
+Use case ends.
+
+* 1a. The list displayed is invalid.
++
+[none]
+** 1a1. TheRealApp shows an error message.
+** 1a2. User requests for the valid list.
+** 1a3. TheRealApp displays the requested list.
++
+Use case resumes at step 1.
+// end::archiveusecases[]
+
+[discrete]
+=== Use case: View history
+
+*MSS*
+
+1. User requests to view the history of previous commands.
+2. TheRealApp displays a history of previous commands in reverse chronological order.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The history list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: Undo
+
+*MSS*
+
+1. User requests to undo the previous undoable command.
+2. TheRealApp undoes the previous undoable command.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There is no previous undoable command.
++
+Use case ends.
+
+[discrete]
+=== Use case: Redo
+
+*MSS*
+
+1. User requests to redo the previous undo.
+2. TheRealApp redoes the undo.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There is no previous undo command.
++
+Use case ends.
+
+[discrete]
+=== Use case: Exit app
+
+*MSS*
+
+1. User requests to exit the app.
+2. TheRealApp requests to confirm the exit.
+3. User confirms the exit.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
@@ -882,34 +1389,13 @@ _{More to be added}_
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-_{More to be added}_
-
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
+// tag::manualtestingtitle[]
 [appendix]
 == Instructions for Manual Testing
 
@@ -917,6 +1403,7 @@ Given below are instructions to test the app manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+// end::manualtestingtitle[]
 
 === Launch and Shutdown
 
@@ -932,7 +1419,53 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+// tag::addmanualtesting[]
+=== Adding a client
+. Adding a client to the app.
+.. Prerequisite: The app must be launched and the client does not already exist in the database.
+.. Test case: `add c/seller n/James Tan p/97652456 e/jamestan@example.com r/need to sell by April 2018 a/Blk 345 Clementi Ave 5, #04-04, S120345 sp/500000 t/MRT t/newlyRenovated` +
+   Expected: A new contact appears at the end of the contact list with all the relevant information added. Address location of the added contact is displayed on the Google Maps(TM) window panel(if applicable).
+.. Test case: `add c/buyer n/James Ho e/jamesho@example.com r/looking for 3-room apartment` +
+   Expected: Contact cannot be added as there are missing parameters. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect add commands to try: `add c/seller p/86567123`, `add c/buyer n/James Ho`.
+   Expected: Similar to previous.
+// end::addmanualtesting[]
+
+// tag::editmanualtesting[]
+=== Edit a contact
+. Editing an existing contact in the app.
+.. Prerequisite: The app must be launched and there are contacts currently in the database.
+.. Test case: `edit x n/James Han e/jameshan@example.com r/looking for houses in Woodlands` (where x is the index of a buyer contact) +
+   Expected: The buyer contact as index x will be edited with new name `James Han`, new email `jameshan@example.com` and new remark `looking for houses in Woodlands`. Other information remains the same.
+.. Test case: `edit x n/James Li e/jamesli@example.com sp/450000 t/` (where x is the index of a contact who is not a seller) +
+   Expected: Contact cannot be edited as there are parameters that are not applicable to this customer type. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect edit commands to try: `edit n/James`, `edit 1`.
+   Expected: Invalid command format.
+// end::editmanualtesting[]
+
+// tag::searchmanualtesting[]
+=== Edit a contact
+. Searching for a contact in the app.
+.. Prerequisite: The app must be launched and there are contacts currently in the database.
+.. Test case: `search James` +
+   Expected: The contact list will be updated to display all contacts with information matching the keyword `james`.
+.. Test case: `search ^&$%^$#`
+   Expected: No contacts listed as `^&$%^$#` does not match any of the valid information field in a contact.
+.. Other incorrect search commands to try: `search `.
+   Expected: Invalid command format.
+// end::searchmanualtesting[]
+
+// tag::archivesearchmanualtesting[]
+=== Edit a contact
+. Searching for an archived contact in the app.
+.. Prerequisite: The app must be launched and the archive contact list view is active with existing archived contacts..
+.. Test case: `archivesearch James` +
+   Expected: The archive contact list will be updated to display all archived contacts with information matching the keyword `james`.
+.. Test case: `archivesearch ^&$%^$#`
+   Expected: No archived contacts listed as `^&$%^$#` does not match any of the valid information field in a contact.
+.. Other incorrect archivesearch commands to try: `archivesearch `.
+   Expected: Invalid command format.
+// end::archivesearchmanualtesting[]
 
 === Deleting a person
 
@@ -943,15 +1476,133 @@ _{ more test cases ... }_
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete one`, `delete x` (where x is larger than the list size), `delete n` (where n is a name of an existing contact), `delete .`, `delete list` +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+// tag::selectmanualtesting[]
+=== Selecting a person
 
-=== Saving data
+. Selecting a person while all persons are listed
 
-. Dealing with missing/corrupted data files
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: `select 2` +
+   Expected: 2nd contact in the list is selected. Address location of the selected contact is displayed on the Google Maps(TM) browser window panel (if applicable).
+.. Test case: `select 0` +
+   Expected: No person is selected. Error details shown in the status message.
+.. Other incorrect select commands to try: `select`, `select one`, `select x` (where x is larger than the list size), `select n` (where n is a name of an existing contact), `select .` +
+   Expected: Similar to previous.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+. Selecting a person from a search command result
 
-_{ more test cases ... }_
+.. Prerequisites: Enter `list`. Search for persons using the `search` command. Persons that match the search are displayed in the list.
+.. Test case: `select 1` +
+   Expected: 1st contact in the list is selected. Address location of the selected contact is displayed on the Google Maps(TM) browser window panel (if applicable).
+.. Test case: `select 0` +
+   Expected: No person is selected. Error details shown in the status message.
+.. Other incorrect select commands to try: `select`, `select one`, `select x` (where x is larger than the list size), `select n` (where n is a name of an existing contact), `select .` +
+   Expected: Similar to previous.
+// end::selectmanualtesting[]
+
+// tag::archivemanualtesting[]
+=== Archiving a person
+
+. Archiving a person while all persons are listed
+
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: `archive 2` +
+   Expected: 2nd contact in the list is selected. Details of the archived contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `archive 0` +
+   Expected: No person is archived. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect archive commands to try: `archive`, `archive one`, `archive x` (where x is larger than the list size), `archive n` (where n is a name of an existing contact), `archive .` +
+   Expected: Similar to previous.
+
+. Archiving a person from a search command result
+
+.. Prerequisites: Enter `list`. Search for persons using the `search` command. Persons that match the search are displayed in the list.
+.. Test case: `archive 1` +
+   Expected: 1st contact in the list is archived. Details of the archived contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `archive 0` +
+   Expected: No person is archived. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect archive commands to try: `archive`, `archive one`, `archive x` (where x is larger than the list size), `archive n` (where n is a name of an existing contact), `archive .` +
+   Expected: Similar to previous.
+
+=== Selecting an archived person
+
+. Selecting a person while all *archived* persons are listed
+
+.. Prerequisites: List all archived persons using the `archivelist` command. Multiple persons in the list.
+.. Test case: `archiveselect 2` +
+   Expected: 2nd contact in the list is selected. Address location of the selected contact is displayed on the Google Maps(TM) browser window panel (if applicable).
+.. Test case: `archiveselect 0` +
+   Expected: No person is selected. Error details shown in the status message.
+.. Other incorrect archiveselect commands to try: `archiveselect`, `archiveselect one`, `archiveselect x` (where x is larger than the list size), `archiveselect n` (where n is a name of an existing archived contact), `archiveselect .` +
+   Expected: Similar to previous.
+
+. Selecting a person from an archivesearch command result
+
+.. Prerequisites: Enter `archivelist`. Search for archived persons using the `archivesearch` command. Persons that match the search are displayed in the list.
+.. Test case: `archiveselect 1` +
+   Expected: 1st contact in the list is selected. Address location of the selected contact is displayed on the Google Maps(TM) browser window panel (if applicable).
+.. Test case: `archiveselect 0` +
+   Expected: No person is selected. Error details shown in the status message.
+.. Other incorrect archiveselect commands to try: `archiveselect`, `archiveselect one`, `archiveselect x` (where x is larger than the list size), `archiveselect n` (where n is a name of an existing archived contact), `archiveselect .` +
+   Expected: Similar to previous.
+
+=== Unarchiving a person
+
+. Unrchiving a person while all *archived* persons are listed
+
+.. Prerequisites: List all archived persons using the `archivelist` command. Multiple persons in the list.
+.. Test case: `unarchive 2` +
+   Expected: 2nd contact in the list is unarchived. Details of the unarchived contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `unarchive 0` +
+   Expected: No person is unarchived. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect unarchive commands to try: `unarchive`, `unarchive x` (where x is larger than the list size), `unarchive n` (where n is a name of an existing contact), `unarchive .` +
+   Expected: Similar to previous.
+
+. Unarchiving a person from an archivesearch command result
+
+.. Prerequisites: Enter `archivelist`. Search for archived persons using the `archivesearch` command. Persons that match the search are displayed in the list.
+.. Test case: `unarchive 1` +
+   Expected: 1st contact in the list is unarchived. Details of the unarchived contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `unarchive 0` +
+   Expected: No person is unarchived. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect unarchive commands to try: `unarchive`, `unarchive x` (where x is larger than the list size), `unarchive n` (where n is a name of an existing contact), `unarchive .` +
+   Expected: Similar to previous.
+// end::archivemanualtesting[]
+
+// tag::pinmanualtesting[]
+=== Pinning a person
+
+. Pinning a person from contact list to pin list.
+.. Prerequisite: There are multiple persons in the contact list.
+.. Test case: `pin 3` +
+   Expected: Third contact in the contact list is put to the pin list. Address location of the pinned contact is displayed on the Google Maps(TM) window panel(if applicable).
+.. Test case: `pin 0` +
+   Expected: No person is pinned. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect unpin commands to try: `pin`, `pin x`(where x is larger than the contact list size)
+   Expected: Similar to previous.
+
+=== Unpinning a person
+
+. Unpinning a person from pin list to contact list.
+.. Prerequisite: There are multiple persons in the pin list.
+.. Test case: `unpin 1` +
+   Expected: First contact in the pin list is put back to the contact list. Address location of the unpinned contact is displayed on the Google Maps(TM) window panel(if applicable).
+.. Test case: `unpin 0` +
+   Expected: No person is unpinned. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect unpin commands to try: `unpin`, `unpin x`(where x is larger than the pin list size)
+   Expected: Similar to previous.
+
+=== Selecting a person in the pin list
+
+. Selecting a person in the pin list
+.. Prerequisite: There are multiple persons in the pin list.
+.. Test case: `pinselect 2` +
+   Expected: Second contact in the pin list is selected. Address location of the selected contact is displayed on the Google Maps(TM) window panel(if applicable).
+.. Test case: `pinselect 0` +
+   Expected: No person is selected. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect pinselect commands to try: `pinselect`, `pinselect x`(where x is larger than the pin list size)
+   Expected: Similar to previous.
+// end::pinmanualtesting[]
+

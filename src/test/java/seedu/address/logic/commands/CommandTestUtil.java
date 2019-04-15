@@ -3,9 +3,13 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RENTALPRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLINGPRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
@@ -28,15 +32,23 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
+    public static final String VALID_CUSTOMER_AMY = "seller";
+    public static final String VALID_CUSTOMER_BOB = "landlord";
     public static final String VALID_PHONE_AMY = "11111111";
     public static final String VALID_PHONE_BOB = "22222222";
     public static final String VALID_EMAIL_AMY = "amy@example.com";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_TAG_MRT = "mrt";
+    public static final String VALID_TAG_HDB = "hdb";
+    public static final String VALID_SELLINGPRICE_AMY = "750000";
+    public static final String VALID_RENTALPRICE_BOB = "2500";
+    public static final String VALID_REMARK_AMY = "remark for amy";
+    public static final String VALID_REMARK_BOB = "remark for bob";
 
+    public static final String CUSTOMER_DESC_AMY = " " + PREFIX_CUSTOMER + VALID_CUSTOMER_AMY;
+    public static final String CUSTOMER_DESC_BOB = " " + PREFIX_CUSTOMER + VALID_CUSTOMER_BOB;
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
@@ -45,14 +57,25 @@ public class CommandTestUtil {
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String TAG_DESC_HDB = " " + PREFIX_TAG + VALID_TAG_HDB;
+    public static final String TAG_DESC_MRT = " " + PREFIX_TAG + VALID_TAG_MRT;
+    public static final String SELLINGPRICE_DESC_AMY = " " + PREFIX_SELLINGPRICE + VALID_SELLINGPRICE_AMY;
+    public static final String RENTALPRICE_DESC_BOB = " " + PREFIX_RENTALPRICE + VALID_RENTALPRICE_BOB;
+    public static final String REMARK_DESC_AMY = " " + PREFIX_REMARK + VALID_REMARK_AMY;
+    public static final String REMARK_DESC_BOB = " " + PREFIX_REMARK + VALID_REMARK_BOB;
 
+    public static final String INVALID_CUSTOMER_DESC = " " + PREFIX_CUSTOMER + "random";
+    // customer type can only by buyer, seller, landlord or tenant
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "mrt*"; // '*' not allowed in tags
+    public static final String INVALID_REMARK_DESC = " " + PREFIX_REMARK; // empty string not allowed for remark
+    public static final String INVALID_SELLINGPRICE_DESC = " " + PREFIX_SELLINGPRICE + "price";
+    // price must be a string of digits
+    public static final String INVALID_RENTALPRICE_DESC = " " + PREFIX_RENTALPRICE + "price";
+    // price must be a string of digits
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -62,11 +85,13 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
+                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withRemark(VALID_REMARK_AMY)
+                .withAddress(VALID_ADDRESS_AMY).withSellingPrice(VALID_SELLINGPRICE_AMY)
+                .withTags(VALID_TAG_HDB).build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withRemark(VALID_REMARK_BOB)
+                .withAddress(VALID_ADDRESS_BOB).withRentalPrice(VALID_RENTALPRICE_BOB)
+                .withTags(VALID_TAG_MRT, VALID_TAG_HDB).build();
     }
 
     /**
@@ -142,12 +167,26 @@ public class CommandTestUtil {
     }
 
     /**
+     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showArchivedPersonAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredArchivedPersonList().size());
+
+        Person person = model.getFilteredArchivedPersonList().get(targetIndex.getZeroBased());
+        final String[] splitName = person.getName().fullName.split("\\s+");
+        model.updateFilteredArchivedPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredArchivedPersonList().size());
+    }
+
+    /**
      * Deletes the first person in {@code model}'s filtered list from {@code model}'s address book.
      */
     public static void deleteFirstPerson(Model model) {
         Person firstPerson = model.getFilteredPersonList().get(0);
         model.deletePerson(firstPerson);
-        model.commitAddressBook();
+        model.commitBooks();
     }
 
 }

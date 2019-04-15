@@ -45,7 +45,8 @@ public class StatusBarFooterTest extends GuiUnitTest {
 
     @Before
     public void setUp() {
-        StatusBarFooter statusBarFooter = new StatusBarFooter(STUB_SAVE_LOCATION, addressBook);
+        StatusBarFooter statusBarFooter = new StatusBarFooter(STUB_SAVE_LOCATION, STUB_SAVE_LOCATION,
+                STUB_SAVE_LOCATION, addressBook);
         uiPartRule.setUiPart(statusBarFooter);
 
         statusBarFooterHandle = new StatusBarFooterHandle(statusBarFooter.getRoot());
@@ -54,11 +55,12 @@ public class StatusBarFooterTest extends GuiUnitTest {
     @Test
     public void display() {
         // initial state
-        assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(), SYNC_STATUS_INITIAL);
+        assertStatusBarContent("AddressBook: " + RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(),
+                SYNC_STATUS_INITIAL);
 
         // after address book is updated
         guiRobot.interact(() -> addressBook.addPerson(ALICE));
-        assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(),
+        assertStatusBarContent("AddressBook: " + RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(),
                 String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()));
     }
 

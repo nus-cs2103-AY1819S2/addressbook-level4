@@ -3,6 +3,8 @@ package seedu.address.storage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalArchiveBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalPinBook;
 
 import java.nio.file.Path;
 
@@ -26,8 +28,10 @@ public class StorageManagerTest {
     @Before
     public void setUp() {
         JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
+        JsonArchiveBookStorage archiveBookStorage = new JsonArchiveBookStorage(getTempFilePath("arb"));
+        JsonPinBookStorage pinBookStorage = new JsonPinBookStorage(getTempFilePath("apb"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(addressBookStorage, archiveBookStorage, pinBookStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -63,8 +67,44 @@ public class StorageManagerTest {
     }
 
     @Test
+    public void archiveBookReadSave() throws Exception {
+        /*
+         * Note: This is an integration test that verifies the StorageManager is properly wired to the
+         * {@link JsonAddressBookStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         */
+        AddressBook original = getTypicalArchiveBook();
+        storageManager.saveArchiveBook(original);
+        ReadOnlyAddressBook retrieved = storageManager.readArchiveBook().get();
+        assertEquals(original, new AddressBook(retrieved));
+    }
+
+    @Test
+    public void pinBookReadSave() throws Exception {
+        /*
+         * Note: This is an integration test that verifies the StorageManager is properly wired to the
+         * {@link JsonAddressBookStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         */
+        AddressBook original = getTypicalPinBook();
+        storageManager.savePinBook(original);
+        ReadOnlyAddressBook retrieved = storageManager.readPinBook().get();
+        assertEquals(original, new AddressBook(retrieved));
+    }
+
+    @Test
     public void getAddressBookFilePath() {
         assertNotNull(storageManager.getAddressBookFilePath());
+    }
+
+    @Test
+    public void getArchiveBookFilePath() {
+        assertNotNull(storageManager.getArchiveBookFilePath());
+    }
+
+    @Test
+    public void getPinBookFilePath() {
+        assertNotNull(storageManager.getPinBookFilePath());
     }
 
 }

@@ -18,20 +18,22 @@ user and developer guides in relation to these enhancements.
 This section shows a summary of my coding, documentation, and other helpful contributions to the
 team project.
 
-* *Enhancement added*: support CRUD of book object
-** What it does: allows the user to add, edit, delete book in the book shelf and check reviews of selected book.
+* *Major enhancement*: Support CRUD of book object.
+** What it does: Allows the user to add, edit, delete book in the book shelf and check reviews of selected book
 ** Justification: This feature is the basis of the application. As our app is viewed as a big book shelf
 that keeps numerous books and the reviews related to each book. The CRUD features of book object is necessary to support
 all the other operations.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth
 analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 
+* *Minor enhancement*: Modified the UI to make it better suit our product
+
 * *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=0blivious[Link to Code]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 *** Setting up Travis, Coveralls, Codacy for code checking purpose.
 *** Managing Issue Tracker and merging of PRs.
 ** Enhancements to existing features:

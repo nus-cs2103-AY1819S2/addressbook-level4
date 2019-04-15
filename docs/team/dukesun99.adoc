@@ -25,6 +25,8 @@ This project is morphed from link:https://github.com/nus-cs2103-AY1819S2/address
 
 == Summary of contributions
 
+* *Code contributed*: link:https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=dukesun99[Project Code Dashboard]
+
 * *Enhancement 1*: added *the map display feature*
 ** What it does: allows the user to view equipments on the map displayed on the right hand side of the application window.
 ** Justification: The display feature adds great value to the project in the following aspects:

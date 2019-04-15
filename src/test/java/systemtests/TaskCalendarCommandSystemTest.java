@@ -50,7 +50,8 @@ public class TaskCalendarCommandSystemTest extends AddressBookSystemTest {
         } else if (DateCustom.isValidDate(arg)) {
             expectedResultMessage = String.format(TaskCalendarCommand.MESSAGE_DISPLAY_CALENDAR_SUCCESS, arg);
         } else {
-            expectedResultMessage = String.format(TaskCalendarCommand.MESSAGE_DISPLAY_CALENDAR_SUCCESS, DateCustom.getToday());
+            expectedResultMessage = String.format(TaskCalendarCommand
+                    .MESSAGE_DISPLAY_CALENDAR_SUCCESS, DateCustom.getToday());
         }
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);

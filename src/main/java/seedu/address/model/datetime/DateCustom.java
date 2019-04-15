@@ -4,9 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDate;
-import java.time.chrono.IsoChronology;
-import java.time.format.DateTimeParseException;
-import java.time.format.ResolverStyle;
 
 /**
  * Represents a date for tasks.
@@ -47,7 +44,7 @@ public class DateCustom implements DateBuilder, Comparable<DateCustom> {
     }
 
     public static boolean isValidDate(String test) {
-        return test.matches(VALIDATION_REGEX) && dateExists(test);
+        return test.matches(VALIDATION_REGEX) && isValidFeb29(test);
     }
 
     /**
@@ -83,11 +80,15 @@ public class DateCustom implements DateBuilder, Comparable<DateCustom> {
         return firstDate.isBefore(secondDate);
     }
 
-    private static boolean dateExists(String test) {
+    /**
+     * Checks for cases where 29 February is given. Returns true if its on a leap year.
+     * @param test
+     */
+    private static boolean isValidFeb29(String test) {
         String[] date = test.split("-");
-        LocalDate aa = LocalDate.parse(test, DATE_FORMATTER);
         if (Integer.valueOf(date[0]) == 29 && Integer.valueOf(date[1]) == 2) {
-            return aa.isLeapYear();
+            LocalDate year = LocalDate.parse(test, DATE_FORMATTER);
+            return year.isLeapYear();
         }
         return true;
     }

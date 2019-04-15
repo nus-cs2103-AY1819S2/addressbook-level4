@@ -69,13 +69,13 @@ https://github.com/CS2103-AY1819S2-W16-2/main/issues/117[#117],
 |===
 include::../UserGuide.adoc[tag=AWalkThrough]
 
-include::../UserGuide.adoc[tag=CropCommand]
-
-include::../UserGuide.adoc[tag=ResizeCommand]
-
 include::../UserGuide.adoc[tag=RotateCommand]
 
 include::../UserGuide.adoc[tag=WaterMarkCommand]
+
+=== Other Works Contributed
+* Crop Command
+* Resize Command
 
 == Contributions to the Developer Guide
 

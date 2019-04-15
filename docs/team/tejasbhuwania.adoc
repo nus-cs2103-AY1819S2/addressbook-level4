@@ -15,20 +15,13 @@ Some extracts of my documentation from the HMS+ User Guide and Developer Guide h
 
 == Project Overview
 
-The purpose of the project was to prepare us for the real world. The project was structured to resemble an
- intermediate stage of a non-trivial real-life software project. We had to optimize or morph an already existing AddressBook
-into a different product. Through this project we learned how to conceptualize and implement enhancements
-to a given product and have it ready to be carried forward by future developers.
+The purpose of the project was to prepare us for the real world. The project was structured in a way that it resembled an intermediate stage of a non-trivial real-life software project. We had to optimize or morph an already existing AddressBook into a different product. Through this, we learned how to conceptualize and implement enhancements to a given product so that it could be used by future developers.
 
 == Application Overview
 
-HMS+ is a computer application targeted at hotels all around the world. It aims to make the life of the hotel management
-staff easy by giving them a single, integrated, and highly customizable hotel management system. It's goal is to make the
-tedious process of running a hotel easier and more effective.
+HMS+ is a computer application that targets all the hotels around the world. It aims to make the life of the hotel management staff easy by giving them a single, integrated, and highly customizable hotel management system so that the tedious process of running a hotel can be made easier and more effective.
 
-Since HMS+ is for those who prefer using the keyboard over a mouse, it uses a Command Line Interface (CLI) for input.
-However, all the output is displayed in a traditional Graphical User Interface (GUI) - which is just a computer jargon
-for a display that includes panes, menus and message boxes. This has been done to keep the user experience engaging.
+Since HMS+ is for those who prefer using the keyboard over a mouse, it uses a Command Line Interface (CLI) for input. However, all the output is displayed in a traditional Graphical User Interface (GUI) - which is just a computer jargon for a display that includes panes, menus and message boxes. This has been done to keep the user engaged.
 
 *Main Features* :
 
@@ -50,9 +43,7 @@ confusing for the customer to understand and pay the bills. This is also a very 
 as they have to keep track of all customer spendings at the hotel at all times and make sure everything is accounted for.
 The `generate-bill` commands implemented do all this in one go making the lives of the customers and the hotel management staff
 easier.
-** [underline]#Highlights#: This enhancement is an end-to-end feature that allows the hotel staff to generate bills for a specific customer, a specific booking or a specific reservation. I had
-to make sure that I use the already implemented reservation and booking models while creating the newer bill model and make sure that this model has access to all bookings and reservations
-simultaneously so that it can generate the bill based on the command entered by the user.
+** [underline]#Highlights#: This enhancement is an end-to-end feature that allows the hotel staff to generate bills for a specific customer, a specific booking or a specific reservation. I had to make sure that I use the already implemented reservation and booking models while creating the newer bill model. I also had to make sure that this model has access to all bookings and reservations simultaneously so that it could generate the bill based on the command entered by the user.
 ** [underline]#Credits#: I mainly used the concepts from the existing codebase and those that were taught in CS2103T to implement my features.
 ** [underline]#Related Files#:
 *** https://github.com/cs2103-ay1819s2-t12-1/main/tree/master/src/main/java/seedu/hms/model/bill[Bill Model]
@@ -62,27 +53,11 @@ simultaneously so that it can generate the bill based on the command entered by 
 find a specific room reservation.
 ** What it does: It allows the hotel staff to find a specific room reservation done by the customer based on the
 customer's Identification Number or Room Type or Dates of Reservation or all of the above.
-** Justification: Whenever the hotel staff need to edit or delete a specific reservation, they need to go through
-the entire reservation list to find that specific booking. This is a tedious process. Through `the FindReservationCommand`
-the hotel staff can find the specific reservation in one go, saving them extra work.
-** Highlights: This enhancement is an end-to-end feature that allows the hotel staff to find specific bookings
-based on three filters - customer's Identification number, the Room Type and the Dates of Reservation. While implementing
-this I had to ensure that I use already placed prefixes so that it doesn't become confusing for the staff with too many prefixes
-and also that the command is intuitive enough for easy use of the staff.
+** Justification: Whenever the hotel staff needs to edit or delete a specific reservation, he or she needs to go through the entire reservation list to find that specific booking. This is a tedious process. Through the `FindReservationCommand`, the hotel staff can find the specific reservation in one go thereby reducing his or her workload.
+** Highlights: This enhancement is an end-to-end feature that allows the hotel staff to find specific bookings based on three filters - customer’s Identification number, the Room Type and the Dates of Reservation. While implementing this I had to ensure that I use the already placed prefixes so that it does not become confusing for the staff to handle too many prefixes and that the command is easy enough for them to use.
 ** Relevant Pull Requests: https://github.com/cs2103-ay1819s2-t12-1/main/pull/147[#147] and https://github.com/cs2103-ay1819s2-t12-1/main/pull/165[#165]
 
-2. [underline]#Clear Commands#: This enhancement added the functionality to clear the whole database or parts of it as and
-when required by the hotel staff.
-** What it does: It allows the hotel staff to clear their entire database or specific parts of it as and when required.
-** Justification: There are many times when hotels go through an overall revamp. For such purposes, the staff
-generally clean the database manually or do so by re-installing the software again. With the clear commands implemented,
-they can do so in one go without hassle.
-** Highlights: This enhancement is an end-to-end feature that allows the user to clear his/her database as and how they want
-to. I had to make sure that while clearing certain parts of the database, I removed the parts associated with it too while keeping
-the other parts intact.
-** Relevant Pull Requests: https://github.com/cs2103-ay1819s2-t12-1/main/pull/124[#124], https://github.com/cs2103-ay1819s2-t12-1/main/pull/131[#131], https://github.com/cs2103-ay1819s2-t12-1/main/pull/134[#134], and https://github.com/cs2103-ay1819s2-t12-1/main/pull/228[#228]
-
-3. [underline]#Customer fields#: This enhancement added two customer fields - `Date of Birth` and `Identification Number` -
+2. [underline]#Customer fields#: This enhancement added two customer fields - `Date of Birth` and `Identification Number` -
 to a customer's data.
 ** What it does: This enhancement added two new fields - `Date of Birth` and `Identification Number` - to identify a customer.
 ** Justification: Running a hotel management system, `Date of Birth` and `Identification Number` are two important fields required by the hotel management to identify
@@ -102,7 +77,7 @@ so that a similar structure is maintained throughout the codebase and it becomes
 *** Managed the jar release `of v1.3` for Dry Run of CS2103 Practical Exam.
 ** Enhancements to existing features:
 *** Made the Address field of a customer optional for the user to input (Pull request  https://github.com/cs2103-ay1819s2-t12-1/main/pull/132[#132]).
-*** Made the UI more understandable to a first time user (Pull Requests https://github.com/cs2103-ay1819s2-t12-1/main/pull/145[#145], https://github.com/cs2103-ay1819s2-t12-1/main/pull/146[#146], and https://github.com/cs2103-ay1819s2-t12-1/main/pull/233[#233]).
+*** Made the UI more understandable for a first time user (Pull Requests https://github.com/cs2103-ay1819s2-t12-1/main/pull/145[#145], https://github.com/cs2103-ay1819s2-t12-1/main/pull/146[#146], and https://github.com/cs2103-ay1819s2-t12-1/main/pull/233[#233]).
 *** Wrote additional tests for existing features and features implemented by team-mates to increase coverage and
  bring it above 70% (Pull Requests https://github.com/cs2103-ay1819s2-t12-1/main/pull/123[#123], https://github.com/cs2103-ay1819s2-t12-1/main/pull/126[#126], https://github.com/cs2103-ay1819s2-t12-1/main/pull/212[#212], https://github.com/cs2103-ay1819s2-t12-1/main/pull/219[#219], https://github.com/cs2103-ay1819s2-t12-1/main/pull/230[#230]
  and https://github.com/cs2103-ay1819s2-t12-1/main/pull/234[#234]).
@@ -117,9 +92,7 @@ https://github.com/cs2103-ay1819s2-t12-1/main/pull/235[#235]).
 color-coding to the user guide so that the user can easily understand the difference between the command word, the command prefix and the command parameters.
 (Pull Requests https://github.com/cs2103-ay1819s2-t12-1/main/pull/137[#137]).
 *** Added all user stories to developer guide (Pull Requests https://github.com/cs2103-ay1819s2-t12-1/main/pull/95/#[#95]).
-*** Added Glossary, Product Scope, Use Cases and Instructions for Manual Testing so that new developers coming to work on the
-project can easily understand what the project is about and how it works, so it becomes easier for their to do implement new
-features (Pull Request:
+*** Added Glossary, Product Scope, Use Cases and Instructions for Manual Testing so that new developers coming to work on the project can easily understand what the project is about and how it works, so it becomes easier for them to do implement new features (Pull Request: https://github.com/cs2103-ay1819s2-t12-1/main/pull/238[#238]
 *** Updated the diagrams of the Ui Component and Storage Component to make them represent the current stage of the application.
 (Pull Request https://github.com/cs2103-ay1819s2-t12-1/main/pull/227/[#227]).
 ** Community:
@@ -146,6 +119,9 @@ them understand the commands.
 [lime]#Start of Extract (from User Guide)#
 
 include::../UserGuide.adoc[tag=generation-bill-commands]
+include::../UserGuide.adoc[tag=generation-bill-commands2]
+include::../UserGuide.adoc[tag=generation-bill-commands3]
+include::../UserGuide.adoc[tag=generation-bill-commands4]
 
 [lime]#End of Extract (from User Guide)#
 
@@ -163,8 +139,7 @@ include::../UserGuide.adoc[tag=find-reservation]
 == Contributions to the Developer Guide
 
 |===
-|The developer guide has been written by me, keeping in mind the information required by new developers, who who would work on this app hereafter. I have
-stated the data needed by them to ameliorate or add value to the system by extending the existing functions.
+| The developer guide has been written by me, keeping in mind the information required by new developers, who would work on this app hereafter. I have stated the data needed by them to improve the system by extending the existing functions
 |===
 
 === Major Enhancement: Generate Bills for Customers
@@ -195,15 +170,7 @@ include::../DeveloperGuide.adoc[tag=find-reservation]
 This section contains all my other additions to User Guide which will help the user understand the software and use it
 more efficiently.
 
-=== A.1 Introduction
-
-[lime]#Start of Extract (from User Guide)#
-
-include::../UserGuide.adoc[tag=introduction]
-
-[lime]#End of Extract (from User Guide)#
-
-=== A.2 Prefix List
+=== A.1 Prefix List
 
 The Prefix List was added by me keeping in mind that our software has a large number of prefixes and it might become confusing
 for the user as to which prefix to use when. This list will help the users understand which prefix to use when and the constraints
@@ -239,41 +206,7 @@ include::../DeveloperGuide.adoc[tag=glossary]
 
 [lime]#End of Extract (from Developer Guide)#
 
-=== B.2 Product Scope
-
-[lime]#Start of Extract (from Developer Guide)#
-
-include::../DeveloperGuide.adoc[tag=product-scope]
-
-[lime]#End of Extract (from Developer Guide)#
-
-=== B.3 User Stories
-
-I added User Stories to the Developer Guide to help the incoming developers understand the purpose of each feature and how
-will it actually help the user, so that they can keep them in the mind while implementing new features or enhancing existing ones.
-
-The extract shown below is just an excerpt from the User Stories and not all the user stories. To see the full list refer to
-https://github.com/cs2103-ay1819s2-t12-1/main/blob/master/docs/DeveloperGuide.adoc#appendix-c-user-stories[User Stories in Developer Guide].
-
-[lime]#Start of Extract (from Developer Guide)#
-
-include::../DeveloperGuide.adoc[tag=user-stories]
-include::../DeveloperGuide.adoc[tag=user-stories3]
-
-[lime]#End of Extract (from Developer Guide)#
-
-=== B.4 Other Additions
-
-==== Ui Component Diagram
-
-I also updated the `Ui Component Diagram` to make it represent the current stage of Ui. The current stage of Ui can be seen
-below:
-
-[lime]#Start of Extract (from Developer Guide)#
-
-include::../DeveloperGuide.adoc[tag=ui-diagram]
-
-[lime]#End of Extract (from Developer Guide)#
+=== B.2 Other Additions
 
 ==== Storage Component Diagram
 

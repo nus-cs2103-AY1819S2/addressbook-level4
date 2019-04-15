@@ -164,7 +164,7 @@ public class MainWindow extends UiPart<Stage> {
         ObservableList<Flashcard> filteredFlashcardList = logic.getFilteredFlashcardList();
         int index = filteredFlashcardList.indexOf(flashcard) + 1;
         String messageDisplay = String.format(MESSAGE_SELECT_FLASHCARD_SUCCESS, index,
-            filteredFlashcardList.get(index - 1).getStatistics().getSuccessRate() * 100);
+            flashcard.getSuccessRate(), flashcard.getQuizSrsStatus());
         resultDisplay.setFeedbackToUser(messageDisplay);
         logic.setSelectedFlashcard(flashcard);
     }

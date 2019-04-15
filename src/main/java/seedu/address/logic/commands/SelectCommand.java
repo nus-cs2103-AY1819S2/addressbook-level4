@@ -24,7 +24,8 @@ public class SelectCommand extends Command {
         + "Parameters: INDEX (must be a positive integer)\n"
         + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_FLASHCARD_SUCCESS = "Selected Flashcard: %1$s, %2$.2f%% success";
+    public static final String MESSAGE_SELECT_FLASHCARD_SUCCESS = "Selected Flashcard: %1$s, %2$.2f%% success.\n"
+        + "SRS Status: %3$s";
     private static final String MESSAGE_IN_QUIZ = "Cannot select in quiz mode.";
 
     private final Index targetIndex;
@@ -46,9 +47,10 @@ public class SelectCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
         }
 
-        model.setSelectedFlashcard(filteredFlashcardList.get(targetIndex.getZeroBased()));
+        Flashcard flashcard = filteredFlashcardList.get(targetIndex.getZeroBased());
+        model.setSelectedFlashcard(flashcard);
         return new CommandResult(String.format(MESSAGE_SELECT_FLASHCARD_SUCCESS, targetIndex.getOneBased(),
-            filteredFlashcardList.get(targetIndex.getZeroBased()).getStatistics().getSuccessRate() * 100));
+            flashcard.getSuccessRate(), flashcard.getQuizSrsStatus()));
 
     }
 

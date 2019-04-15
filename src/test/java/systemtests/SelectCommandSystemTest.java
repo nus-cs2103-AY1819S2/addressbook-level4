@@ -16,6 +16,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
+import seedu.address.model.flashcard.Flashcard;
 
 public class SelectCommandSystemTest extends CardCollectionSystemTest {
     @Test
@@ -119,10 +120,10 @@ public class SelectCommandSystemTest extends CardCollectionSystemTest {
      */
     private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
+        Flashcard flashcard = expectedModel.getFilteredFlashcardList().get(expectedSelectedCardIndex.getZeroBased());
         String expectedResultMessage = String.format(
             MESSAGE_SELECT_FLASHCARD_SUCCESS, expectedSelectedCardIndex.getOneBased(),
-            expectedModel.getFilteredFlashcardList().get(
-                expectedSelectedCardIndex.getZeroBased()).getStatistics().getSuccessRate() * 100);
+            flashcard.getSuccessRate(), flashcard.getQuizSrsStatus());
         int preExecutionSelectedCardIndex = getFlashcardListPanel().getSelectedCardIndex();
 
         executeCommand(command);

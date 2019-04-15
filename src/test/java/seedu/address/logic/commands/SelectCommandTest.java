@@ -18,6 +18,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.flashcard.Flashcard;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
@@ -92,8 +93,9 @@ public class SelectCommandTest {
      */
     private void assertExecutionSuccess(Index index) {
         SelectCommand selectCommand = new SelectCommand(index);
+        Flashcard flashcard = model.getFilteredFlashcardList().get(index.getZeroBased());
         String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_FLASHCARD_SUCCESS, index.getOneBased(),
-            model.getFilteredFlashcardList().get(index.getZeroBased()).getStatistics().getSuccessRate() * 100);
+            flashcard.getSuccessRate(), flashcard.getQuizSrsStatus());
         expectedModel.setSelectedFlashcard(model.getFilteredFlashcardList().get(index.getZeroBased()));
 
         assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);

@@ -82,6 +82,20 @@ public class Flashcard {
     }
 
     /**
+     * @return success rate of the flashcard in quiz or review in percentage.
+     */
+    public Double getSuccessRate() {
+        return getStatistics().getSuccessRate() * 100;
+    }
+
+    /**
+     * @return the status of this flashcard in the quiz.
+     */
+    public String getQuizSrsStatus() {
+        return getProficiency().getQuizSrsStatus();
+    }
+
+    /**
      * Returns a flashcard with updated statistics and SRS info based on the result of the quiz.
      *
      * @param isSuccess success in quiz mode

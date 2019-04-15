@@ -3,6 +3,7 @@ package seedu.address.model.flashcard;
 import java.util.Calendar;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Represents a Flashcard's proficiency level on how well the user does in the quiz mode.
@@ -10,7 +11,13 @@ import java.util.Scanner;
 public class Proficiency {
     public static final String VALIDATION_REGEX = "inactive until \\d+ proficiency level \\d+$";
     public static final String MESSAGE_CONSTRAINTS = "Proficiency string format must be in the form of: "
-            + "inactive until <date until card can be reviewed> proficiency level <proficiency level>";
+        + "inactive until <date until card can be reviewed> proficiency level <proficiency level>";
+
+    public static final String NOW_ACTIVE = "Active";
+    public static final String INACTIVE_UNTIL_IN_DAYS = "Inactive until %d day(s)";
+    public static final String INACTIVE_UNTIL_IN_HOURS = "Inactive until %d hour(s)";
+    public static final String INACTIVE_UNTIL_IN_MINUTES = "Inactive until %d minute(s)";
+    public static final String ACTIVE_IN_UNDER_A_MINUTE = "Will be active in under a minute.";
 
     private final Calendar timeUntilReview;
     private final int proficiencyLevel;
@@ -61,6 +68,34 @@ public class Proficiency {
     }
 
     /**
+     *
+     * @return The quiz status, either active or inactive. Will display the time until it became active.
+     */
+    public String getQuizSrsStatus() {
+        long millis = timeUntilReview.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
+        if (millis <= 0) {
+            return NOW_ACTIVE;
+        }
+
+        long daysLeft = TimeUnit.MILLISECONDS.toDays(millis);
+        if (daysLeft > 0) {
+            return String.format(INACTIVE_UNTIL_IN_DAYS, daysLeft);
+        }
+
+        long hoursLeft = TimeUnit.MILLISECONDS.toHours(millis);
+        if (hoursLeft > 0) {
+            return String.format(INACTIVE_UNTIL_IN_HOURS, hoursLeft);
+        }
+
+        long minutesLeft = TimeUnit.MILLISECONDS.toMinutes(millis);
+        if (minutesLeft > 0) {
+            return String.format(INACTIVE_UNTIL_IN_MINUTES, minutesLeft);
+        }
+
+        return ACTIVE_IN_UNDER_A_MINUTE;
+    }
+
+    /**
      * update the proficiency after a quiz is finished.
      *
      * @param isSuccess does the user guess the card from the quiz correctly.
@@ -89,15 +124,15 @@ public class Proficiency {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Proficiency // instanceof handles nulls
-                && isAlmostEqualCalendar(timeUntilReview, ((Proficiency) other).timeUntilReview)
-                && proficiencyLevel == ((Proficiency) other).proficiencyLevel); // state check
+            || (other instanceof Proficiency // instanceof handles nulls
+            && isAlmostEqualCalendar(timeUntilReview, ((Proficiency) other).timeUntilReview)
+            && proficiencyLevel == ((Proficiency) other).proficiencyLevel); // state check
     }
 
     @Override
     public String toString() {
         return String.format("inactive until %d proficiency level %d", timeUntilReview.getTimeInMillis(),
-                proficiencyLevel);
+            proficiencyLevel);
     }
 
     private boolean isAlmostEqualCalendar(Calendar a, Calendar b) {

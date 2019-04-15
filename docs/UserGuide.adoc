@@ -94,6 +94,8 @@ image::mapSizeFleetSize.png[width=550]
 ====
 *Ready, aim, fire!*
 
+After you have placed all your ships, enter `begin` to start the battle.
+
 You will always be given the first turn.
 You may fire shots at the enemy map through the command `shoot`, for example `shoot a1`.
 
@@ -169,7 +171,7 @@ Example: `init 10`
 
 _Figure 1_ below shows how the maps will be displayed in the UI.
 
-.The game maps
+.The maps as displayed in the UI
 image::initmapresult.png[width=750]
 
 {empty} +
@@ -259,8 +261,7 @@ Output:     destroyer (3/3) at g5 vertical [redFleet][blueFleet][greenFleet]
 
 Lists all the tags that have been used to tag the ship deployed on the map. +
 
-Format: `listTags` +
-Examples: `listTags`
+Format: `listTags`
 
 // end::listTags[]
 
@@ -305,15 +306,10 @@ Retrieves the gameplay statistics data displays them on a pop-up window.
 
 Format: `stats`
 
-Example:
-
-* `stats`
-
 ****
 * The pop-up window will contain a bar chart visualisation of your game play data
 * To reload the statistics data, you must close the current pop-up window and call the `stats` command again
 to display the updated values.
-values.
 ****
 // end::stats[]
 
@@ -324,7 +320,7 @@ This section describes features that have not been implemented yet and are sched
 === Special map shapes
 You will be allowed to use maps that are randomised in shape. This adds an extra layer of challenge and fun.
 
-Both yourself and the computer AI will not be able to place ships on the grey tiles. The enemy AI will also have a randomised map that will not be the same as your map. You will not be able to see the shape of the enemy map and can shoot grey cells which will be counted as a miss.
+Both yourself and the enemy AI will not be able to place ships on the grey tiles. The enemy AI will also have a randomised map that will not be the same as your map. You will not be able to see the shape of the enemy map and can shoot grey cells which will be counted as a miss.
 
 The image below shows an example of a randomised map.
 
@@ -335,10 +331,9 @@ image::randommap.png[width="300"]
 
 // tag::upcomingQuickStart[]
 === Quick start
-Randomly deploys the all of your ships onto the map. +
+Randomly deploys the all of your ships onto the map and starts the battle. +
 
-Format: `quickStart` +
-Example: `quickStart`
+Format: `quickStart`
 
 // end::upcomingQuickStart[]
 
@@ -346,18 +341,18 @@ Example: `quickStart`
 === Save and load pattern of deployed ships
 Save and load the pattern that you used to deploy your ships. +
 
-Format: `pattern i/[OPTION] p/[PATTERN]` +
+Format: `pattern i/OPTION p/PATTERN]` +
 Examples:
 
 * `pattern i/save`
-* `pattern i/load f/circle`
+* `pattern i/load p/circle`
 
 // end::upcomingPattern[]
 // tag::v2stats[]
 === Display high score across games
 Display the high score across more than two games. +
 
-Format: `stats highscore t/[dataType]` +
+Format: `stats highscore t/ATTRIBUTE` +
 Examples:
 
 * `stats highscore t/time` +

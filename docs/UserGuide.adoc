@@ -609,12 +609,18 @@ sessions are run for cards in a folder, the <<testscore, test scores>> are track
 ==== Display a test score report : `report`
 
 Displays a full-screen <<testscore, test score>> report for the current folder.
-The report comprises a graph showing the last 10 <<testscore, test scores>>,
-the latest score change, and the top 3 lowest individual scoring cards and their individual <<cardscore, card scores>>.
+The report comprises a graph showing a maximum of the last 10 <<testscore, test scores>>,
+the latest score change, and a maximum of 3 lowest individual scoring cards and their individual <<cardscore, card scores>>.
 An example is shown below:
 
 .Report display
 image::ReportDisplay.png[width="790"]
+
+**Displays response time for each card** `Coming in v2.0`
+
+With the timer feature coming in v2.0, we are also able to track the time taken to provide the correct response to the
+ question. This provides yet another metric, in addition to correctness, to judge your understanding of the topic.
+
 
 Format: `report`
 
@@ -622,7 +628,7 @@ Format: `report`
 This command is only valid inside a folder.
 
 [NOTE]
-There must be at least two test attempts for a graph to be drawn.
+There must be at least two test attempts for the line graph to be drawn.
 
 ==== End the current report session : `end`
 

@@ -196,10 +196,13 @@ image::ListTagsSdForLogic.png[width="800"]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
+image::ModelClassDiagram.png[width="400", align="center"]
+
+// end::model[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
+// tag::model2[]
 The `Model` component,
 
 * stores a `UserPref` object that represents the user's preferences.
@@ -207,7 +210,7 @@ The `Model` component,
 * manages the players, maps and battleships in the game
 * does not depend on any of the other three components.
 
-// end::model[]
+// end::model2[]
 
 [[Design-Storage]]
 // tag::storage[]
@@ -328,10 +331,10 @@ Simpler implementation means the likelihood of bugs being introduced is less whe
 
 {empty} +
 
-// tag::ship[]
+// tag::putShip[]
 
-=== Ship Management feature
-==== Current implementation
+=== Ship Management Feature
+==== Current Implementation
 The ship management feature handles the following:
 
 * Putting ships on the map grid and ensuring that ships are placed in valid areas on the map grid.
@@ -367,7 +370,7 @@ The `put` command puts a ship on the map grid, specified by the __head coordinat
 
 The head coordinates are the coordinates of the top-most and left-most cell of a ship. When coordinates are specified in the `put` command, they refer to the head coordinates of the ship.
 
-image:BattleshipHeadExample.png[width=400]
+image:BattleshipHeadExample.png[width=400, align="center"]
 ====
 
 The following operations are called when the `put` command is called.
@@ -387,7 +390,12 @@ These methods check both the horizontal and vertical boundaries when a ship is b
 Once `BoundaryValueChecker` has finished its checks and if there are no exceptions thrown, the `put` command proceeds to call the `putShip()` method of the `mapGrid` object to put the ship on the map grid. It then updates the `Fleet` in the human player. The following sequence diagram illustrates what happens when the `put` command is called.
 
 .Sequence diagram of putting a battleship on the map.
-image::PutShipSequenceDiagram.png[width=800]
+image::PutShipSequenceDiagram.png[width=800, align="center"]
+
+// end::putShip[]
+
+
+// tag::listTags[]
 
 ===== 3.2.1.2 Listing tags
 
@@ -395,13 +403,20 @@ Ships can be tagged. You can list all the tags used by battleships that have bee
 
 [source,java]
 ----
-include::../src/main/java/seedu/address/model/Player/Fleet.java[lines=170..180]
+include::../src/main/java/seedu/address/model/Player/Fleet.java[lines=212..222]
 ----
+
+
+// end::listTags[]
+
 
 The sequence diagram below shows how the tags are listed.
 
 .Sequence diagram of listing battleship tags.
-image::ListTagsSequenceDiagram.png[width=800]
+image::ListTagsSequenceDiagram.png[width=800, align="center"]
+
+
+// tag::listShips[]
 
 ===== 3.2.1.3 Listing ships
 
@@ -417,15 +432,23 @@ The set of unique tags and the set of unique names are presented to the `ListCom
 The `list` command can list certain ships with certain tags by filtering the list of deployed ships. The following sequence diagram shows how deployed battleships are listed when the `list` command is entered into the command line.
 
 .Sequence diagram of listing battleships deployed on the map.
-image::ListShipSequenceDiagram.png[]
+image::ListShipSequenceDiagram.png[ align="center"]
 
-==== Activity diagram
+// end::listShips[]
+
+// tag::ship_activity[]
+
+==== Activity Diagram
 Ship management functions throughout the entirety of the game. As there are multiple states during the game, it is beneficial to visualise the operations of the `put`, `listTags` and `list` commands with respect to the different game states. The activity diagram below illustrates these operations.
 
 .Activity diagram of ship management throughout the game.
-image::ShipManagementActivityDiagram.png[]
+image::ShipManagementActivityDiagram.png[height=400, align="center"]
 
-==== Design considerations
+// end::ship_activity[]
+
+// tag::ship_aspect_1[]
+
+==== Design Considerations
 ===== Aspect: How a ship is placed on the map
 * **Current choice:** +
  The same `Battleship` object is put in multiple cells. Each cell contains a reference to the same `Battleship` object. When a battleship on the `Cell` needs to be modified, the `Battleship` attribute in the `Cell` is accessed.
@@ -436,7 +459,7 @@ Two separate `Battleship` and `BattleshipPart` objects are used. The `Battleship
 ** Pros: Clearer separation between the body of the Battleship and the Battleship itself.
 ** Cons: Difficult to handle hits on the cell.
 
-// end::ship[]
+// end::ship_aspect_1[]
 
 // tag::ship_aspect_2[]
 

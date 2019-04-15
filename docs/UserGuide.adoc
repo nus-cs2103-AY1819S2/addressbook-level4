@@ -206,7 +206,7 @@ Examples:
 The head of a battleship is the top-most and left-most cell of the battleship. When coordinates are specified in the `put` command, it specifies the coordinates of the head of the battleship, as shown in the figure below.
 
 .The coordinates of the `put` command refer to the coordinates of the battleship head.
-image::BattleshipHeadExample2.png[width=800]
+image::BattleshipHeadExample2.png[width=400, align="center"]
 
 The orientation of the ship can be `horizontal` or `vertical`. This may be shortened to `h` or `v`, respectively. The orientation of the battleship must be specified. +
 

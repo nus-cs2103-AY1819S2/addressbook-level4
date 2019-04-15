@@ -26,7 +26,7 @@ public class AnswerCommand extends Command {
             + "Example: " + COMMAND_WORD + " Mitochondrion";
 
     public static final String MESSAGE_ANSWER_SUCCESS = "Answer sent successfully";
-    public static final String MESSAGE_INT_EXPECTED_NOT_STRING = "MCQ question expects option number as answer";
+    public static final String MESSAGE_OPTION_NUMBER_EXPECTED = "MCQ question expects option number as answer";
 
     private final Answer attemptedAnswer;
 
@@ -51,9 +51,12 @@ public class AnswerCommand extends Command {
         case MCQ:
             try {
                 int answerIndex = Integer.parseInt(attemptedAnswer.fullAnswer);
+                if (answerIndex < 1 || answerIndex > cardToMark.getOptions().size() + 1) {
+                    throw new CommandException(MESSAGE_OPTION_NUMBER_EXPECTED);
+                }
                 isAttemptCorrect = model.markAttemptedMcqAnswer(answerIndex);
             } catch (NumberFormatException e) {
-                throw new CommandException(MESSAGE_INT_EXPECTED_NOT_STRING);
+                throw new CommandException(MESSAGE_OPTION_NUMBER_EXPECTED);
             }
             break;
         case SINGLE_ANSWER:

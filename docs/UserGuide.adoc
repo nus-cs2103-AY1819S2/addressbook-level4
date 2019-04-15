@@ -712,13 +712,13 @@ eg. `delete-d 2`
 
 MEDICAL HISTORY COMMANDS
 
-* *Add a new medical history* `add-med-hist pid/PATIENT_ID did/DOCTOR_ID d/DATE sw/SHORT_WRITEUP` +
+* *Add a new medical history* :`add-med-hist pid/PATIENT_ID did/DOCTOR_ID d/DATE sw/SHORT_WRITEUP` +
 e.g. `add-med-hist pid/1 did/7 d/2019-03-03 sw/Had a fever with sorethroat. Sleeps late.`
-* *List medical histories : `list-med-hist [pid/PATIENT_ID] [did/DOCTOR_ID] [d/DATE]` +
+* *List medical histories* : `list-med-hist [pid/PATIENT_ID] [did/DOCTOR_ID] [d/DATE]` +
 e.g. `list-med-hist d/2019-03-03`
 * *Edit write up of an existing medical history* : `edit-med-hist INDEX sw/EDITED_WRITEUP` +
 e.g. `edit-med-hist 1 sw/The patient came this morning with high fever. In the afternoon, he came with higher fever.`
-* *Sort medical histories by date : `sort-med-hist [ASC/DESC]`+
+* *Sort medical histories by date* : `sort-med-hist [ASC/DESC]` +
 e.g. `sort-med-hist DESC`
 * *Search a medical history* : `search-med-hist KEYWORD` +
 e.g. `search-med-hist fever`

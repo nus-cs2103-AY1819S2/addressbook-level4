@@ -33,10 +33,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* **`add-p`**` n/John Doe p/98765432 a/22 g/M adr/Utown College  : adds a patient named `John Doe` to docX.
-* **`delete-d`**`3` : deletes the 3rd doctor shown in the current list
-* **`list-med-hist`* : lists all medical histories
-* **`add-med-hist`**` pid/2 did/8 d/2018-12-09 sw/The patient had a cough. I told him to have a good rest : adds a medical history of patient with specified id(pid) and doctor with specified id(did).
+* **`add-p`**`n/John Doe p/98765432 a/22 g/M adr/Utown College` : adds a patient named `John Doe` to docX.
+* *`list-med-hist`* : lists all medical histories
+* **`add-med-hist`**`pid/2 did/8 d/2018-12-09 sw/The patient had a cough. I told him to have a good rest` : adds a medical history of patient with specified id(pid) and doctor with specified id(did).
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.

@@ -140,7 +140,7 @@ Shows all persons whose school is NUS in All Applicants List.
 Shows all persons in All Applicants List.
 * `filter Interview fn/nus s/nus` +
 Shows all persons whose school is NUS in Interview List in Job Detail Screen.
-* `deleteFilter Interview ` +
+* `deleteFilter Interview fn/nus` +
 Shows all persons in Interview List in Job Detail Screen.
 
 ==== Clear a Filter List: `clearFilter`
@@ -160,12 +160,12 @@ Examples:
 * `filter fn/nus s/nus` +
 `filter fn/CS m/CS`
 Shows all persons whose school is NUS and major is CS in All Applicants List.
-* `clearFilter `
+* `clearFilter`
 Shows all persons in All Applicants List.
 * `filter Interview fn/nus s/nus` +
 `filter Interview fn/CS m/CS`
 Shows all persons whose school is NUS and major is CS in Interview List in Job Detail Screen.
-* `clearFilter ` +
+* `clearFilter Interview` +
 Shows all persons in Interview List in Job Detail Screen.
 
 

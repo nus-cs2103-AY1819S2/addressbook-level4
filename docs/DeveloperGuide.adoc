@@ -201,18 +201,14 @@ image::LogicClassDiagram.png[width="600"]
 link:{repoURL}/blob/master/src/main/java/seedu/hms/logic/Logic.java[`Logic.java`]
 
 `Logic` uses the `HotelManagementSystemParser` class to parse the user command and invoke the
-relevant `{Command Name}Parser` class. Given below is the structure of the parser classes.
-
-.Structure of the Parser classes
-image::parser-structure.png[width:"800"]
-
+relevant `{Command Name}Parser` class.
 This results in a `Command` object which is executed by the `LogicManager` using the
 `CustomerModel`,`BookingModel`, etc. based on the type of command.
 Therefore command execution can affect the `CustomerModel`,`BookingModel`, etc.
 (e.g. adding a customer / editing a booking). Given below is the structure of the command classes.
 
 .Structure of the Command classes
-image::command-structure.png[width:"800"]
+image::CommandClassDiagram.png[width:"800"]
 
 The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `UI`.
 In addition, the `CommandResult` object can also instruct the User-Interface to perform certain actions, such as displaying help to the user.
@@ -476,42 +472,6 @@ The `FindReservationCommand#execute()` method invokes the `updateFilteredList(re
 The `ReservationModel` component filters the reservation list based on the filters given by the user and sends this filtered list
 back to the `Logic` which in turn sends it back to the `Ui` for displaying the specific room reservation.
 
-This code snippet below shows how the `reservationPredicate` is generated based on the filters given by the hotel staff.
-
-[source,java]
-----
-public FindReservationCommand parse(String args, ReservationModel reservationModel) throws ParseException {
-
-        // ... logging ...
-
-        ReservationContainsPayerPredicate reservationContainsPayerPredicate;
-        if (argMultimap.getValue(PREFIX_IDENTIFICATION_NUMBER).isPresent()) {
-            reservationContainsPayerPredicate = new ReservationContainsPayerPredicate(
-                ParserUtil.parseIdNum(argMultimap.getValue(PREFIX_IDENTIFICATION_NUMBER).get()).toString());
-        } else {
-            reservationContainsPayerPredicate = new ReservationContainsPayerPredicate("");
-        }
-
-        ReservationWithTypePredicate reservationWithTypePredicate;
-        if (argMultimap.getValue(PREFIX_ROOM).isPresent()) {
-            reservationWithTypePredicate = new ReservationWithTypePredicate(
-                ParserUtil.parseRoom(argMultimap.getValue(PREFIX_ROOM).get(), reservationModel).getName());
-        } else {
-            reservationWithTypePredicate = new ReservationWithTypePredicate("");
-        }
-
-        // ... logging ...
-
-        DateRange dateRange = ParserUtil.parseDates(argMultimap.getValue(PREFIX_DATES)
-            .orElse(currentDay + "-" + oneYearAfterCurrentDay));
-        ReservationWithDatePredicate reservationWithDatePredicate =
-            new ReservationWithDatePredicate(dateRange);
-
-        return new FindReservationCommand(reservationContainsPayerPredicate,
-            reservationWithTypePredicate, reservationWithDatePredicate);
-    }
-----
-
 ==== Design Consideration
 
 ===== Aspect: How to find the customer whose specific reservation is to be found
@@ -523,6 +483,7 @@ public FindReservationCommand parse(String args, ReservationModel reservationMod
 ** Pros: The extensibility of the program is high as any customer field can be used a filter.
 ** Cons: Filters for all customer fields need to be created and some customer fields like name or date of birth are not
 unique to customers.
+// end::find-reservation[]
 
 ===== Aspect: How to implement the command
 * **Alternative 1 (current choice):** The command only has access to `ReservationModel` interface and can therefore only be used to
@@ -532,7 +493,7 @@ filter reservations.
 * **Alternative 2:** Create an interface which allows commands to have access to two or more models together.
 ** Pros: The scalability is high as each command can access various models.
 ** Cons:: This might break abstraction and does not follow the Single Responsibility Principle.
-// end::find-reservation[]
+
 
 
 

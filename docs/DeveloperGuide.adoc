@@ -922,7 +922,7 @@ image::ReadSequenceDiagram.PNG[width=500]
 The following Activity Diagram shows when the `stats` command can be used.
 
 .Activity Diagram of the statistics feature.
-image::StatisticsActivityDiagram.png[width=1000]
+image::StatisticsActivityDiagram.png[width=700]
 
 
 ==== Use Case Diagram
@@ -930,7 +930,7 @@ The following use-case diagram captures the behaviour of the statistics feature.
 
 
 .Use case diagram on the statistics feature.
-image::StatsUseCaseDiag.PNG[width=500]
+image::StatsUseCaseDiag.PNG[width=400]
 
 
 ==== Design considerations

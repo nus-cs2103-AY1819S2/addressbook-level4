@@ -17,8 +17,12 @@ QuickDocs is a desktop application that provides doctors with greater control in
 It assists them in their daily tasks such as facilitating patient consultations, managing medicine inventory,
 scheduling appointments, keeping track of reminders and monitoring financial statistics.
 
-These features can be summarized into four main modules: *Patients and Consultations*, *Medicine inventory*,
-*Appointments and Reminders* and *Administration and Statistics* modules.
+These features can be summarized into four main modules:
+
+* Patients and Consultations
+* Medicine inventory
+* Appointments and Reminders
+* Administration and Statistics
 
 QuickDocs has a Graphical User Interface (GUI), however most of the user interaction takes place via a Command
 Line Interface (CLI). It was built in Java and JavaFX and was morphed from an existing Address Book application.
@@ -40,14 +44,18 @@ This is a note, to provide you with any additional information about a feature.
 throughout the development of QuickDocs.
 |===
 
-*Appointments and Reminders* +
 Out of the four main modules that comprises QuickDocs, I was in charge of developing the Appointments and Reminders
-module. This module allows doctors to schedule appointments with their patients and ensure that they are organised
-neatly, with no conflicting timings with existing ones. Additionally, doctors will no longer forget about upcoming
-to-dos or appointments in the midst of their busy schedule, as they can note them down and be notified of them
-through their reminder sidebar.
+module.
 
-*Appointments and Reminders module features* +
+*Appointments* +
+Doctors are able to schedule appointments with their patients and ensure that they are organised
+neatly, with no conflicting timings with existing ones.
+
+*Reminders* +
+Doctors will no longer forget about upcoming to-dos or appointments in the midst of their busy schedule! They can
+simply note their tasks down and be notified of them through their reminder sidebar.
+
+*Appointments and Reminders features* +
 The following are the summarized features of this module:
 
 * `add`, `delete` and `list` commands for both Appointments and Reminders to register them into QuickDocs.
@@ -91,24 +99,23 @@ the doctor.
 that is currently implemented.
 
 * *Team Collaboration:*
-** At the initial stages of the QuickDocs, the Storage mechanism was not yet implemented and we had to manually
+** During the initial stages of the project, the Storage mechanism was not yet implemented and we had to manually
 execute commands to load QuickDocs with sample data for every new session. Hence I helped to create sample Patient,
-Appointment, and Reminder data that were loaded at every QuickDocs launch -
-https://github.com/CS2103-AY1819S2-W09-4/main/pull/55/commits/99d3b8767dafcd254ee53a47764f7365d7fce199[Sample Data]
-** Helped to write the test cases for the Storage component after it was implemented by my teammate -
-https://github.com/CS2103-AY1819S2-W09-4/main/pull/123/commits/4b332c1dfb308c1abd1612b7ca13a3635e4e69aa[JsonSerializableQuickDocsTest],
-https://github.com/CS2103-AY1819S2-W09-4/main/pull/123/commits/472b3acf6e724fde67282388bd34397de0fb9275[JsonQuickDocsStorageTest]
+Appointment, and Reminder data that were loaded at every QuickDocs launch:
+ https://github.com/CS2103-AY1819S2-W09-4/main/pull/55/commits/99d3b8767dafcd254ee53a47764f7365d7fce199[Sample Data]
+** Helped to write the test cases for the Storage component after it was implemented by my teammate:
+ link:https://github.com/CS2103-AY1819S2-W09-4/main/pull/123/commits/4b332c1dfb308c1abd1612b7ca13a3635e4e69aa[JsonSerializableQuickDocsTest],
+link:https://github.com/CS2103-AY1819S2-W09-4/main/pull/123/commits/472b3acf6e724fde67282388bd34397de0fb9275[JsonQuickDocsStorageTest]
 
 * *Documentation:*
 ** Documented the implementation of the Storage component in the Developer Guide.
 ** Provided formatting suggestions and implemented them for the User Guide and Developer Guide.
 
 * *Community Involvement:*
-** Reviewed and merged Pull Requests (PR) made by team members, providing non-trivial comments -
-https://github.com/CS2103-AY1819S2-W09-4/main/pull/105[#105]
-** Tested another team's application, reporting bugs found and offering suggestions -
-https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/906[1],
-https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/734[2],
+** Reviewed Pull Requests (PR) made by team members, providing non-trivial comments: https://github.com/CS2103-AY1819S2-W09-4/main/pull/105[#105]
+** Tested another team's application, reporting bugs found and offering suggestions:
+ https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/906[1],
+https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/734[2] and
 https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/567[3]
 
 * *Setting Up Tools:*
@@ -116,7 +123,7 @@ https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/567[3]
 
 === Code Contributed:
 You can view all my code contributions to QuickDocs in full by clicking the link
-https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=ongaaron96[here].
+ https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=ongaaron96[here].
 
 == Contributions to the User Guide
 
@@ -124,7 +131,7 @@ https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=ongaar
 |This section consists of my additions to QuickDoc's User Guide, showcasing my ability to write documentation targeted
 at end users that might have limited technical knowledge. I will only be showcasing a truncated version of the
 commands relating to Appointments, however the full User Guide can be found
-https://github.com/CS2103-AY1819S2-W09-4/main/blob/master/docs/UserGuide.adoc[here].
+ https://github.com/CS2103-AY1819S2-W09-4/main/blob/master/docs/UserGuide.adoc[here].
 |===
 
 
@@ -162,7 +169,7 @@ If unsure, you may refer to the example below.
 {sp} +
 *Example and results:*
 
-* `addapp r/S9534567B d/2019-07-23 s/16:00 e/17:00 c/Weekly checkup` +
+* `addapp r/S6394980I d/2019-07-23 s/16:00 e/17:00 c/Weekly checkup` +
 
 This adds an appointment allocated to the patient with NRIC S6394980I, on 23rd July 2019, from 4pm to 5pm. You can
 include any comments or notes you want to this appointment, which is 'Weekly checkup' in this case.
@@ -173,12 +180,19 @@ main display as demonstrated in the diagram below:
 .The main display after adding an appointment
 image::ug-app_rem/addapp_success.png[width="600"]
 
+{sp} +
 The addition of the appointment could have failed as there is a conflict in timing with another existing appointment.
 QuickDocs will display a message in the input feedback box notifying you of this error, as demonstrated in the diagram below.
 
 .Adding an appointment that has conflicting timing with an existing appointment
 image::ug-app_rem/addapp_clash.png[width="600"]
 
+{sp} +
+Another reason for failing to add an appointment could be due to the appointment timing being outside of office hours
+which is from 9am to 6pm. QuickDocs will alert you of this error, as demonstrated in the diagram below:
+
+.Adding an appointment that is not within the office hours, from 9am to 6pm
+image::ug-app_rem/addapp_officehour.png[width="600"]
 
 '''
 [[freeapp]]
@@ -333,6 +347,8 @@ all existing appointments using `listapp` and then figuring out what timings are
 range of dates to search, and can simply specify a rough date and be provided with information for the neighbouring
 dates if the `FORMAT` given is `week` or `month`. Moreover, if the user wants to list all free slots for the whole
 month, they do not have to check what the last date of the month is in order to specify the end date.
+
+{sp} +
 
 ==== Alternatives Considered
 Listed below are the methods considered to implement the `freeapp` command.

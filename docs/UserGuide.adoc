@@ -924,7 +924,7 @@ If unsure, you may refer to the example below.
 {sp} +
 *Example and results:*
 
-* `addapp r/S9534567B d/2019-07-23 s/16:00 e/17:00 c/Weekly checkup` +
+* `addapp r/S6394980I d/2019-07-23 s/16:00 e/17:00 c/Weekly checkup` +
 
 This adds an appointment allocated to the patient with NRIC S6394980I, on 23rd July 2019, from 4pm to 5pm. You can
 include any comments or notes you want to this appointment, which is 'Weekly checkup' in this case.

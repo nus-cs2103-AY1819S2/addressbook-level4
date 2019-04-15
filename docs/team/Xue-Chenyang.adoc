@@ -10,13 +10,13 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S2-W09-4/main/tree/master
 
-I am **Xue Chenyang**, a Computer Science undergraduate student form NUS School of Computing. This project portfolio page describes my contribution in my school project: QuickDocs in module CS2103T.
+I am **Xue Chenyang**, a Computer Science undergraduate student from NUS School of Computing. This project portfolio page describes my contribution in my school project: QuickDocs in module CS2103T.
 
 == PROJECT: QuickDocs
 
 == What is QuickDocs?
 
-QuickDocs is an one-user all in one clinic management application developed by my team consisting of 4 students. +
+QuickDocs is a one-user all in one clinic management application developed by my team consisting of 4 students. +
 
 My team was assigned to transform an existing application (of around 10,000 lines of code) to a new application that has real-world applications. +
 
@@ -46,13 +46,13 @@ This is a note. Additional information that further explains a feature will be w
 
 * *Enhancement 1:* I designed and implemented the medicine management module. +
 ** *What it does:* Medicine management is a key aspect of clinic management. My medicine management module allows the doctors to customize his/her medicine organization. It also supports a variety of commands to facilitate users in clinic management. +
-** *Why is it needed:* With QuickDocs, doctors no longer need to go through tons of paperwork or sheets and sheets of Excel files to keep track of his medicine storage. All additions, modifications, prescriptions and organizations of medicines could be done on one single interface so that QuickDocs provides its users with the most convenience possible in managing their clinics. +
+** *Why is it needed:* With QuickDocs, doctors no longer need to go through tons of paperwork or sheets and sheets of Excel files to keep track of his medicine storage. All additions, modifications, prescriptions, and organizations of medicines could be done on one single interface so that QuickDocs provides its users with the most convenience possible in managing their clinics. +
 ** *Highlights:* The medicine module is designed is in a directory format,  which supports quick search of medicines and mass operation of medicines without the need to type in lengthy commands. This will be explained further in details in <<Developer_Guide, Contribution to Developer Guide>>.
 ** *Who / what to acknowledge:* My inspiration for organizing medicines in a directory format is adapted from the folder system in most of the common Operating systems such as Windows.
 
 * *Enhancement 2:* I added automatic completion feature to facilitate command typing.
-** *What it does:* With this feature, when typing commands related to medicine storage, the users no longer need to remember and type in the path by themselves; instead, they can press page-up and page-down to iterate through all possible sub-directories. This feature is added to bring maximum convenience to the users+
-** *Highlights:* This feature requires seamless integration among three components of the product, namely the UI component, Logic component and the Model component. In my implementation, I followed the principle of abstraction closely, so that this feature is independent from the implementations of lower level modules and will work well with both existing commands and possible future commands. +
+** *What it does:* With this feature, when typing commands related to medicine storage, the users no longer need to remember and type in the path by themselves; instead, they can press page-up and page-down to iterate through all possible sub-directories. This feature is added to bring maximum convenience to the users. +
+** *Highlights:* This feature requires seamless integration among three components of the product, namely the UI component, Logic component, and the Model component. In my implementation, I followed the principle of abstraction closely, so that this feature is independent of the implementations of lower level modules and will work well with both existing commands and possible future commands. +
 
 * *Code contributed:* [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=Xue-Chenyang[Functional code]]
 
@@ -63,8 +63,8 @@ This is a note. Additional information that further explains a feature will be w
 |===
 
 * *Minor features implemented:*
-** I implemented automatic alarm system so that whenever a medicine's amount falls below a threshold set by the user, an automatic reminder will appear in the side bar to remind the user to stock up that medicine. +
-** In some commands in medicine management module, to accommodate to users who know their medicines really well, I supported identifying medicines by their names only. +
+** I implemented an automatic alarm system so that whenever a medicine's amount falls below a threshold set by the user, an automatic reminder will appear in the sidebar to remind the user to stock up that medicine. +
+** In some commands in medicine management module, to accommodate users who know their medicines really well, I supported identifying medicines by their names only. +
 * *Project management:*
 ** I assisted setting up of milestone objectives from v1.2 to v1.4. +
 ** Working with my team, I managed issue trackers on GitHub page regarding to medicine management module. +
@@ -318,4 +318,4 @@ Combined with the <<suggestion_mode, suggestion mode>>, the current design is th
 
 {nbsp} +
 
-Click https://github.com/CS2103-AY1819S2-W09-4/main/blob/master/docs/DeveloperGuide.adoc[here] to see the full Developer Guide.
+_Click https://github.com/CS2103-AY1819S2-W09-4/main/blob/master/docs/DeveloperGuide.adoc[here] to see the full Developer Guide._

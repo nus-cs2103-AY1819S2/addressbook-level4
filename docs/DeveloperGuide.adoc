@@ -901,7 +901,7 @@ image::StatsCommandBox.PNG[width=400]
 The following sequence diagram summarizes what happens when a User invokes the `stats` command.
 
 .Sequence diagram of `stats` command.
-image::StatsSequenceDiagram.PNG[width=700 ]
+image::StatsSequenceDiagram.PNG[width=500 ]
 
 ==== Save and Compare
 Given below is an example usage scenario of the automatic save and compare feature.
@@ -921,13 +921,13 @@ The following sequence diagram summarizes what happens at the end of a game and 
 performed.
 
 .Sequence diagram of how the statistics data is saved.
-image::SaveSequenceDiag.PNG[width=400]
+image::SaveSequenceDiag.PNG[width=350]
 
 The following sequence diagram summarizes what happens at the end of the game where an automatic reading of previous
 statistics data is performed.
 
 .Sequence diagram of how the previous statistics data is read from storage.
-image::ReadSequenceDiagram.PNG[width=400]
+image::ReadSequenceDiagram.PNG[width=350]
 
 ==== Activity Diagram
 The following Activity Diagram shows when the `stats` command can be used.

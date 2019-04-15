@@ -27,7 +27,7 @@ import seedu.pdf.model.pdf.Size;
 import seedu.pdf.model.tag.Tag;
 
 /**
- * Edits the details of an existing pdf in the pdfBook.
+ * Renames an existing pdf in the pdfBook.
  */
 public class RenameCommand extends Command {
 

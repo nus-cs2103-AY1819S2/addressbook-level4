@@ -1,7 +1,6 @@
 package seedu.pdf.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.pdf.logic.commands.RenameCommand.MESSAGE_EDIT_PDF_SUCCESS;
 import static seedu.pdf.logic.parser.CliSyntax.PREFIX_DEADLINE_DONE;
 import static seedu.pdf.logic.parser.CliSyntax.PREFIX_DEADLINE_NEW;
 import static seedu.pdf.logic.parser.CliSyntax.PREFIX_DEADLINE_REMOVE;

@@ -15,12 +15,11 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/cs2103-ay1819s2-w17-1/main
 
-image::developerguide.png[width="600"]
-
 By: `W17-1`      Since: `Feb 2019`      Licence: `MIT`
 
 == Welcome to the Food Diary
 
+image::developerguide.png[float=right, width="450"]
 Welcome to the *Food Diary*! The *Food Diary* is a desktop app for storing your personal food reviews and obtain food recommendations based on your past reviews.
 
 This developer guide contains information on the mechanics of all of the features of the *Food Diary* and is thus suited for developers of all levels to learn the inner workings of our application and how to effectively build on them.
@@ -31,7 +30,7 @@ If you would like to improve on the *Food Diary*, here's a good place to start!
 
 Callouts are boxes with important information regarding the usage of the Food Diary. These 3 callouts are used throughout our User Guide.
 [NOTE]
-This is a *note*. A warning indicates important additional information that should be read.
+This is a *note*. A note indicates important additional information that should be read.
 
 [TIP]
 This is a *tip*. A tip indicates good to know information that would improve your user experience

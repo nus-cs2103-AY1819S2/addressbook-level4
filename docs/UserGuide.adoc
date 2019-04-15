@@ -16,13 +16,12 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/cs2103-ay1819s2-w17-1/main
 
-image::userguide.png[width="600"]
-
 By: `W17-1`      Since: `Feb 2019`      Licence: `MIT`
 
 // tag::introductionUG[]
 == Welcome to The Food Diary
 
+image::userguide.png[float=right, width="450"]
 If you would like to get use the Food Diary straightaway, jump to the <<Quick Start>> to get started
 
 **What is the Food Diary? **
@@ -45,7 +44,7 @@ Some of the features that can look forward to:
 
 Callouts are boxes with important information regarding the usage of the Food Diary. These 3 callouts are used throughout our User Guide.
 [NOTE]
-This is a *note*. A warning indicates important additional information that should be read.
+This is a *note*. A note indicates important additional information that should be read.
 
 [TIP]
 This is a *tip*. A tip indicates good to know information that would improve your user experience.

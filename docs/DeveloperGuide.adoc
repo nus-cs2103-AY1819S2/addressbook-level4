@@ -258,76 +258,98 @@ Classes used by multiple components are in the `seedu.hms.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::booking[]
+// tag::new-model[]
 === How to include a new model
 ==== Current Implementation using service booking
 
-In general, when adding any new model and its related commands, we need to work on 3 components
-compulsorily - Logic, Model and Storage. The UI component is modified based on how we
+In general, when adding any new model and its related commands, you need to work on 3 components
+compulsorily - Logic, Model and Storage. The UI component is modified based on how you
 want the user to be able to interact with our newly added model.
 
-We start by working on the model component. We create a more specific model which
+You will start by working on the model component. You must create a more specific model which
 implements the existing `Model` interface and create a manager for this model. This constitutes
 the API for our new model how the `Logic` component will execute the commands related to the model.
-For Booking, we create a `BookingModel` interface and a `BookingManager` class which
+For Booking, there is a `BookingModel` interface and a `BookingManager` class which
 keeps track of a booking list. An 'observable booking list' is bounded to the UI using
 listeners so that the UI can be updated as the list changes. While the interface is a means of exposing the
-API, the manager class links with the system and performs the actions.
+API, the manager class links with the system and performs the actions. We also create the relevant class files
+to represent the model we are implementing. For example, for representing our list of reservations,
+we create relevant classes like `ReservationList`, `Reservation`, `DateRange`, `RoomType`, etc.\
 
-Then we add the command files and parser files so that the application can parse commands
-related to the model and execute them. We have seperated the commands for different models
-by adding an interface in the middle. For example, we have a `CustomerCommand` and a
-`BookingCommand` interface which implements the `Command` interface. Then each command
-(eg. AddBookingCommand, EditBookingCommand, etc.) implements the `BookingCommand` interface.
-This makes sure that only the booking manager can be used to execute these commands as well.
-We also need to add parser classes for each command we implement (eg. AddBookingCommandParser).
-These classes are invoked in the `HotelManagementSystemParser` to get back the
-`CommandResult` which is used by the UI.
+.Changes in the Model Structure
+image::ModelComparison.png[width="600"]
 
-If the new model needs to be stored, then we also need to define JSON adapted classes
+Then you need to add the command files and parser files so that the application can parse commands
+related to the model and execute them. The commands have been separated for different models
+by adding an interface in the middle. This interface makes sure the correct model is used to execute
+those commands. For example, there is a `CustomerCommand` and a `BookingCommand` interface which
+implements the `Command` interface. Moreover the `CustomerCommand` interface specifies that it uses
+the `CustomerModel` to execute itself. Then each command (eg. AddBookingCommand, EditBookingCommand, etc.)
+implements the `BookingCommand` interface. This makes sure that only the booking manager can be used to
+execute these commands as well. You also need to add parser classes for each command you implement
+(eg. AddBookingCommandParser). These classes are invoked in the `HotelManagementSystemParser`
+to get back the `CommandResult` which is used by the UI.
+
+.The new command structure
+image::MainCommandStructure.png[width="600"]
+
+If the new model needs to be stored, then you also need to define JSON adapted classes
 to represent these models. The `JsonSerializableHotelManagementSystem` has a list of
 `JsonAdaptedCustomer` and a list of `JsonAdaptedBooking` and these two lists are saved using
-`seedu.hms.commons.util.JsonUtil`. For each model class, we need to define a JSON-adapted
-class with a `toModelType` function so that we can read the data back from the file.
+`seedu.hms.commons.util.JsonUtil`. For each model class, you need to define a JSON-adapted
+class with a `toModelType` function so that the system can read the data back from the file.
 
 The modifications in the UI for a new model depend heavily on the functionality it
-provides. In this case we decided to add a panel to display all the bookings/reservations
-which can be filtered based on the selected customer, service type and timing (to-do by v1.4).
-One can see the addition, updation and deletion of bookings in real-time in the UI as has
-been explained before.
+provides. For booking and reservations, a panel was added to display all the bookings/reservations
+which can be filtered based on different parameters. You can see the addition, updating and deletion of
+bookings in real-time in the UI as has been explained before.
 
 ==== Design Considerations
 
 ===== Aspect: How should the API be structured
 
 * **Alternative 1 (current choice):** Every model has a seperate interface which implements
-                                      the `Model`
+                                      the `Model` interface
 ** Pros: Every model has access to the GUI and User Preferences.
-** Cons: There is no specific model for GUI actions and the Customer Model is used
-         for these purposes.
+** Cons: Some models have unnecessary methods.
 * **Alternative 2:** All the model APIs will be seperate and there will be no Model Interface.
-** Pros: Better separation and less scope for errors
-** Cons: Lot of refactoring required
+** Pros: Better separation and less scope for errors.
+** Cons: Lot of refactoring required.
+//end:new-model[]
 
-=== Allowing addition and editing of service and room types
+//tag:customizability[]
+=== Making a model customizable
 ==== Current Implementation
 
-The booking model has a list of unique service types and it is similar to the setup
-between reservation model and room types. Refactoring the code from an ENUM allowed us
-to make commands for these two new models within booking and reservation. Each command is
-executed using the booking or reservation manager.
+In this section a model is considered to be customizable if an instance of it can be:
+
+* Added
+* Edited
+* Deleted
+* Listed (or Displayed)
+
+[NOTE]
+You can relate this with the infamous CRUD cycle if you are familiar with it.
+
+Every model/manager has access to the `HotelManagementSystem` inside which resides all the
+lists (`BookingList`, `UniqueCustomerList`, etc.). These lists have methods to add an item,
+set or replace an item at a particular index and delete an item. Therefore, when you are
+implementing a model and its list wrapper (Eg. `ReservationList`), you must include these functions. You must also define equality
+between instances of a model created so that it is easy to find an instance and replace it.
+Include an instance of your list inside the `HotelManagementSystem` and add a listener to it
+to automatically update the UI everytime the function `indicateModified` is called.
+
 
 ==== Design Considerations
+===== Aspect: Editing a model object
 
-===== Aspect: Implementing Services (and Room Types)
-
-* **Alternative 1:** Using ENUM
-** Pros: It is safer as it makes sure every booking has a valid service
-** Cons: Reduces flexibility of services and uses string matching in command parsing.
-* **Alternative 2 (current choice):** Using a class
-** Pros: Makes it easier for staff to add and edit new services.
-** Cons: Requires more error handling and safety measures
-// end::booking[]
+* **Alternative 1:** Allowing objects to be edited
+** Pros: We avoid recreating new instances and will have better performance.
+** Cons: It is very hard to update the UI every time an object is added or updated.
+* **Alternative 2 (current choice):** Replacing objects with a new object with edited parameters
+** Pros: Lot of instances are created and we need to make sure the old object doesn't reappear again.
+** Cons: It is easy to update the UI using a listener for each list.
+// end::customizability[]
 
 // tag::filteringBooking[]
 === Filtering service booking functionality

@@ -11,7 +11,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_PREAMBLE = "The preamble information has wrong format.\n%1$s";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_COMMAND_CANNOT_USE =
-        "This command cannot use in Jobs Detail Showing Screen";
+        "This command should not be used in the Jobs Detail Showing Screen";
 
 
 }

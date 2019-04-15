@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_COMMAND_CANNOT_USE;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
@@ -52,7 +53,7 @@ public class AddressBookParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput) throws ParseException {
+    public Command parseCommand(String userInput, boolean isAllJobScreen) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -63,15 +64,27 @@ public class AddressBookParser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
+            if (!isAllJobScreen) {
+                throw new ParseException(MESSAGE_COMMAND_CANNOT_USE);
+            }
             return new AddCommandParser().parse(arguments);
 
         case AddCommand.COMMAND_ALIAS:
+            if (!isAllJobScreen) {
+                throw new ParseException(MESSAGE_COMMAND_CANNOT_USE);
+            }
             return new AddCommandParser().parse(arguments);
 
         case ImportResumesCommand.COMMAND_WORD:
+            if (!isAllJobScreen) {
+                throw new ParseException(MESSAGE_COMMAND_CANNOT_USE);
+            }
             return new ImportResumesCommandParser().parse(arguments);
 
         case ImportResumesCommand.COMMAND_ALIAS:
+            if (!isAllJobScreen) {
+                throw new ParseException(MESSAGE_COMMAND_CANNOT_USE);
+            }
             return new ImportResumesCommandParser().parse(arguments);
 
         case CreateJobCommand.COMMAND_WORD:
@@ -81,9 +94,15 @@ public class AddressBookParser {
             return new CreateJobCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
+            if (!isAllJobScreen) {
+                throw new ParseException(MESSAGE_COMMAND_CANNOT_USE);
+            }
             return new EditCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_ALIAS:
+            if (!isAllJobScreen) {
+                throw new ParseException(MESSAGE_COMMAND_CANNOT_USE);
+            }
             return new EditCommandParser().parse(arguments);
 
         case DeleteFilterCommand.COMMAND_WORD:
@@ -99,15 +118,27 @@ public class AddressBookParser {
             return new ClearFilterCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
+            if (!isAllJobScreen) {
+                throw new ParseException(MESSAGE_COMMAND_CANNOT_USE);
+            }
             return new DeleteCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_ALIAS:
+            if (!isAllJobScreen) {
+                throw new ParseException(MESSAGE_COMMAND_CANNOT_USE);
+            }
             return new DeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
+            if (!isAllJobScreen) {
+                throw new ParseException(MESSAGE_COMMAND_CANNOT_USE);
+            }
             return new ClearCommand();
 
         case ClearCommand.COMMAND_ALIAS:
+            if (!isAllJobScreen) {
+                throw new ParseException(MESSAGE_COMMAND_CANNOT_USE);
+            }
             return new ClearCommand();
 
         case FilterCommand.COMMAND_WORD:

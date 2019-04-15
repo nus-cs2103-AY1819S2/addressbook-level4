@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Vector;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -60,6 +61,10 @@ public class Analytics {
      * */
     public String generateMeanGradeData() {
         DecimalFormat df = new DecimalFormat("#.00");
+        Float meanGrade = meanGrade();
+        if (meanGrade.isNaN()) {
+            return "No Record";
+        }
         return df.format(meanGrade());
     }
 
@@ -69,23 +74,14 @@ public class Analytics {
     public ObservableList<XYChart.Series<String, Float>> generateInterviewScoresData() {
         ObservableList<XYChart.Series<String, Float>> data = FXCollections.observableArrayList();
         ArrayList<Float> scores = meanInterviewScores();
-        XYChart.Series<String, Float> q1 = new XYChart.Series<>();
-        XYChart.Series<String, Float> q2 = new XYChart.Series<>();
-        XYChart.Series<String, Float> q3 = new XYChart.Series<>();
-        XYChart.Series<String, Float> q4 = new XYChart.Series<>();
-        XYChart.Series<String, Float> q5 = new XYChart.Series<>();
-        q1.setName("Q1");
-        q2.setName("Q2");
-        q3.setName("Q3");
-        q4.setName("Q4");
-        q5.setName("Q5");
-        q1.getData().add(new XYChart.Data<>("", scores.get(0)));
-        q2.getData().add(new XYChart.Data<>("", scores.get(1)));
-        q3.getData().add(new XYChart.Data<>("", scores.get(2)));
-        q4.getData().add(new XYChart.Data<>("", scores.get(3)));
-        q5.getData().add(new XYChart.Data<>("", scores.get(4)));
-        data.addAll(q1, q2, q3, q4, q5);
-
+        Vector<XYChart.Series<String, Float>> charts = new Vector<>();
+        for (int i = 1; i < 6; i++) {
+            XYChart.Series<String, Float> question = new XYChart.Series<>();
+            question.setName("Q" + i);
+            question.getData().add(new XYChart.Data<>("", scores.get(i - 1)));
+            charts.add(question);
+        }
+        data.addAll(charts);
         return data;
     }
 

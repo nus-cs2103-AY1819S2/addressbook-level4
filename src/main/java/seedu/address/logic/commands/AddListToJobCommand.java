@@ -34,10 +34,11 @@ public class AddListToJobCommand extends Command {
             + "applicant "
             + PREFIX_JOBNAME + "Helper ";
 
-    public static final String MESSAGE_SUCCESS = "All people added to job: %1$s.";
+    public static final String MESSAGE_SUCCESS = "All non-duplicated people added to job: %1$s.";
     public static final String MESSAGE_MISSING_JOB = "This job does not exist";
     public static final String MESSAGE_NO_ACTIVE_JOB = "No active Job, please provide a JobName with prefix jn/";
     public static final String MESSAGE_NO_DESTINATION = "Please provide a destination list\n";
+    public static final String MESSAGE_IDENTICAL_LISTS = "Destination and source lists cannot be the same\n";
 
     private final JobListName to;
     private final JobListName from;
@@ -57,7 +58,7 @@ public class AddListToJobCommand extends Command {
         requireNonNull(model);
 
         if (toAdd == null) {
-            if (model.getActiveJob() == null) {
+            if (model.getIsAllJobScreen()) {
                 throw new CommandException(MESSAGE_NO_ACTIVE_JOB);
             }
             toAdd = model.getActiveJob().getName();
@@ -66,6 +67,10 @@ public class AddListToJobCommand extends Command {
         Job tempJob = new Job(toAdd);
         if (!model.hasJob(tempJob)) {
             throw new CommandException(MESSAGE_MISSING_JOB);
+        }
+
+        if (to == from) {
+            throw new CommandException(MESSAGE_IDENTICAL_LISTS);
         }
 
         model.addFilteredPersonsToJob(toAdd, from, to);

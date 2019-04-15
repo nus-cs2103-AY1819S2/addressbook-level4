@@ -12,9 +12,10 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Chiu Yu Hua
 image::chiuyuhua.png[width="150", align="left"]
-{empty}[http://www.chiuyuhua.com[homepage]] [https://github.com/chiuyuhua[github]] [<<chiuyuhua#, portfolio>>]
+[https://github.com/chiuyuhua[github]] [https://github.com/CS2103-AY1819S2-W15-3/main/blob/master/docs/team/chiuyuhua.adoc[portfolio]]
 
-Role: Project Advisor
+Role: Software and User Interface Developer
+Responsibilities: Develop Analytics feature and responsible for the UI of the main app and its various interactions.
 
 '''
 

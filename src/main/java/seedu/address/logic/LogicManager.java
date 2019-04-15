@@ -44,13 +44,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException {
+    public CommandResult execute(String commandText, boolean isAllJobScreen) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         addressBookModified = false;
 
         CommandResult commandResult;
         try {
-            Command command = addressBookParser.parseCommand(commandText);
+            Command command = addressBookParser.parseCommand(commandText, isAllJobScreen);
             commandResult = command.execute(model, history);
         } finally {
             history.add(commandText);

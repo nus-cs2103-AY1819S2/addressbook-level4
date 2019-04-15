@@ -15,6 +15,7 @@ import seedu.address.logic.commands.BillCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ClearMenuCommand;
 import seedu.address.logic.commands.ClearOrderCommand;
+import seedu.address.logic.commands.ClearTablesCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DailyCommand;
 import seedu.address.logic.commands.DeleteFromMenuCommand;

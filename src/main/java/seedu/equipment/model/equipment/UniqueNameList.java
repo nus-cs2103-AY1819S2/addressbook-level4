@@ -84,11 +84,14 @@ public class UniqueNameList implements Iterable<Name> {
     public void setClient(List<Name> equipmentName) {
         requireAllNonNull(equipmentName);
 
-        for (int i = 0; i < equipmentName.size(); i++) {
-            if (!internalList.contains(equipmentName.get(i))) {
-                internalList.add(equipmentName.get(i));
+        if (equipmentName.size() != 0) {
+            for (int i = 0; i < equipmentName.size(); i++) {
+                if (!internalList.contains(equipmentName.get(i))) {
+                    internalList.add(equipmentName.get(i));
+                }
             }
-
+        } else {
+            internalList.clear();
         }
     }
 

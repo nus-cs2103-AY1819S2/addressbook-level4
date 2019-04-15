@@ -60,11 +60,16 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
      */
     public void setEquipment(List<Equipment> equipment) {
         this.equipment.setEquipments(equipment);
-        List<Name> nameList = new ArrayList<>();
-        for (Equipment eqpt : equipment) {
-            nameList.add(eqpt.getName());
-        }
 
+        List<Name> nameList = new ArrayList<>();
+
+        if (equipment.size() != 0) {
+            for (Equipment eqpt : equipment) {
+                nameList.add(eqpt.getName());
+            }
+        } else {
+            nameList.clear();
+        }
         this.name.setClient(nameList);
         indicateModified();
     }

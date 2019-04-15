@@ -95,6 +95,7 @@ image::ModelClassDiagram.png[width="600"]
 include::../DeveloperGuide.adoc[tag=map]
 
 ---
+=== Use Case
 
 include::../DeveloperGuide.adoc[tag=mapuse]
 

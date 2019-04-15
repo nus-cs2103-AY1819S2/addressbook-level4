@@ -1210,8 +1210,8 @@ a|<<Daily, `daily`>> a|`*d*` a|`daily` a|
 Displays the revenue from up to the past 30 days in the Revenue Panel
 a|<<Revenue, `revenue`>> a|`*r*` a|`revenue` or +
  `revenue y/YEAR` or +
- `revenue y/YEAR m/MONTH` or + 
- `revenue y/YEAR m/MONTH d/DAY` 
+ `revenue y/YEAR m/MONTH` or +
+ `revenue y/YEAR m/MONTH d/DAY`
 a|`revenue y/2019 m/1 d/1` +
 Returns the revenue earned on 01 January 2019
 |=======================================================================

@@ -41,7 +41,7 @@ These legends alert reader on special information such as tips, notes and warnin
 The more information icon indicates any additional tips users can consider while using *Equipment Manager* application.
 
 [TIP]
-lightbulb ICON
+A light bulb icon indicates a special tip or advanced knowledge for users to take note of.
 
 [WARNING]
 The exclamation mark icon indicates any warnings that users can take note of while using *Equipment Manager* application.

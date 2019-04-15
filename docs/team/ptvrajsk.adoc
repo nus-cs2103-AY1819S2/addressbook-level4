@@ -279,3 +279,4 @@ in ensuring that the product works as advertised. Some of which are listed below
 * Implementation of a majority of the TestCases as well as
 revamping old TestCases from the previous project to suite new project direction. link:https://github.com/CS2103-AY1819S2-T12-4/main/pull/281[#218]
 * Proof-Reading and Enhancement of the Entire User-Guide Document. link:https://github.com/CS2103-AY1819S2-T12-4/main/pull/313[#313]
+* Several Developer Guide Entries link:https://github.com/CS2103-AY1819S2-T12-4/main/pull/316[#316]

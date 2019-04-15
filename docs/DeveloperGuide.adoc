@@ -570,7 +570,7 @@ to `PLAYER_ATTACK`.
 
 
 ==== Implementation of the `BattleManager` class
-
+// end::battle[]
 The `BattleManager` class contains four important methods, detailed as follows.
 
 ===== `void startGame()`
@@ -585,6 +585,7 @@ see next section for more details).
 which causes the enemy to place its ships and set up other data structures.
 For more information, please see the "Enemy AI Feature" section below.
 
+// tag::battle[]
 ===== `AttackResult performAttack(Player, Player, Coordinates)`
 
 .Sequence diagram of the `performAttack` method
@@ -597,6 +598,7 @@ the attacked `Coordinates`, and returns an `AttackResult`. (See section
 
 This method is an internal method, used by both `humanPerformAttack` and
 `takeComputerTurn`.
+// end::battle[]
 
 ===== `AttackResult humanPerformAttack(Coordinates)`
 
@@ -610,6 +612,7 @@ This method simply calls `performAttack` with the human player as the
 attacker, the computer player as the target and the argument coordinate
 as the attacked coordinate.
 
+// tag::battle[]
 ===== `List<AttackResult> takeComputerTurn()`
 
 .Sequence diagram of the `takeComputerTurn` method
@@ -675,7 +678,7 @@ image::BeginSequenceDiagram.png[width=800]
 image::AttackSequenceDiagram.png[width=800]
 
 ==== Design considerations
-* **Alternative 1 (current choice):** +
+* **Current choice:** +
   `BattleManager` is stored under `Model`. Every time `Attack`, `EndTurn` or `Begin` commands
   are executed, they will use this `BattleManager` to actually perform the actions,
   with the logic in the `Command`-s mostly being error handling. +
@@ -689,7 +692,7 @@ image::AttackSequenceDiagram.png[width=800]
     which call the lowest level classes `Map` and `Player`)
 ** Cons:
 *** The `Model` component now contains game logic (`BattleManager`) within it.
-* **Alternative 2:** +
+* **Alternative** +
   `BattleManager` is stored under `Logic`. Every time `Attack`, `EndTurn` or `Begin` commands
   are executed, they will perform the action using the logic coded within themselves, not
   interfacing with `BattleManager`. +
@@ -1272,7 +1275,7 @@ Use case ends.
 *MSS*
 
 1. User requests to list ships deployed on map.
-2. Shows all of the user's ships deployed on map.
+2. Game shows all of the user's ships deployed on map.
 +
 Use case ends.
 
@@ -1286,7 +1289,7 @@ Use case ends.
 *MSS*
 
 1. User requests to list tags of ships that have already been deployed on map.
-2. Shows all of the tags of ships that have already been deployed on map.
+2. Game shows all of the tags of ships that have already been deployed on map.
 +
 Use case ends.
 
@@ -1295,7 +1298,7 @@ Use case ends.
 *MSS*
 
 1. User requests to list ships deployed on map that have certain tags.
-2. Shows all of the user's ships deployed on map that have certain tags.
+2. Game shows all of the user's ships deployed on map that have certain tags.
 +
 Use case ends.
 
@@ -1303,6 +1306,49 @@ Use case ends.
 
 [none]
 * 2a. If there are no ships deployed, inform the user.
+
+=== Begin the battle
+
+*MSS*
+
+1. User requests to begin the battle.
+2. Game instructs the enemy to place their ships.
+3. Game displays that the battle has begun.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The user has not placed any ships.
+[none]
+** 2a1. The game prevents the user from starting the battle, and
+        informs them to place at least one ship.
+
+=== Attack the enemy
+
+*MSS*
+
+1. User requests to attack a specific cell.
+2. Game performs an attack on the specified cell on the enemy map.
+3. Game displays the result of the user's attacks, and the enemy's attack(s) if any.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The user has already attacked the cell before.
++
+[none]
+** 2a1. The game prevents the user from attacking the cell and prompts them for another.
+[none]
+* 2b. The user attacks a cell that is invalid, or a cell that is not on the map.
++
+[none]
+** 2b1. The game prevents the user from attacking the cell and prompts them for another.
+[none]
+
 //tag::StatsUseCase[]
 === See game statistics
 *MSS*

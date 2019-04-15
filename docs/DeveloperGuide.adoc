@@ -411,55 +411,47 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 // tag::pinunpinfeatures[]
 === Pin/Unpin feature
+
+This feature allows users to move person between contact list and pin list. To use this feature, the user need to enter `pin` or `unpin` command, with the `INDEX`(in the contact list and pin list) of the contact to be pinned/unpinned.
+
+* `pin 2`
+
+The command above put the 2nd contact in the contact list to the topped pin list.
+
+* `unpin 1`
+
+The command above put the 1st contact in the pin list back to the contact list.
+
+
+What's more, it also allow users to select some contact in the pin list and display address location on the Google Maps(TM) browser window. To use this feature, the users need to enter `pinselect` command, with the `INDEX`(in the pin list) of the contact to be selected.
+
+* `pinselect 3`
+
+The command above will select the 3rd contact in the pin list and the address location is displayed on the Google maps(TM) browser window.
+
 ==== Current Implementation
+This section explains the implementation of all pin related features.
 
-The pin/unpin mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an pin/unpin history, stored internally as an `pinBookStateList`.
-Additionally, it implements the following operations:
+===== Pin/Unpin
+The following sequence diagram shows how the pin operation works:
 
-* `VersionedPinBook#commit()` -- Saves the current pin book state in its history.
+image::PinUnpinSequenceDiagram.png[width="800"]
 
-These operations are exposed in the `Model` interface as `Model#commitPinBook()` and `Model#undoPinBook()` respectively.
+* The command is recognized by `parserCommand()` and an `PinCommandParser` is created, then a `PinCommand` object is created with the parsed index.
 
-Given below is an example usage scenario and how the pin/unpin mechanism behaves at each step.
+* The command object is then executed by `Logic` and `pinPerson` is called from the `PinCommand` object. Then `pinPerson` will call `ModelManager` to create two `VersionedAddressBook` object: `versionedPinBook` and `versionedAddressBook`.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial pin book state, and the `currentStatePointer` pointing to that single pin book state.
+* The `versionedPinBook` call `addPerson()` and the `versionedAddressBook` call `removePerson()`.
 
-image::PinUnpinStartingStateListDiagram.png[width="800"]
+* Both objects will call `commit()` after execution.
 
-Step 2. The user executes `pin 5` command to pin the 5th person in the address book. The `pin` command calls `Model#commitBooks()`, causing the modified state of the address book and pin book after the `pin 5` command executes to be saved in the `addressBookStateList` and `pinBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book and pin book state.
+The `unpin` command does the opposite -- it calls `removePerson()` of the `versionedPinBook` and `addPerson()` of the `versionedAddressBook` instead.
 
-image::PinUnpinNewCommand1StateListDiagram.png[width="800"]
+===== PinSelect
 
-Step 3. The user executes `unpin 2` to unpin a person in the pin list. The `unpin` command also calls `Model#commitAddressBook()` and `Model#commitPinBook()`, causing another modified address book and pin book state to be saved into the `addressBookStateList` and `pinBookStateList`.
+The `pinselect` command is implemented the same as `select`.
 
-image::PinUnpinNewCommand2StateListDiagram.png[width="800"]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()` or `Model#commitPinBook()`, so the address book state and pin book state will not be saved into the `addressBookStateList` and `pinBookStateList`.
-
-Step 4. The user now decides that unpinning the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoPinBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::PinUnpinExecuteUndoStateListDiagram.png[width="800"]
-
-[NOTE]
-If the `currentStatePointer` of AddressBook is at index 0, pointing to the initial address book state, then there are no previous address book/pin book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::PinUnpinSequenceDiagram.png[width="1200"]
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book or pin book, such as `list`, will usually not call `Model#commitAddressBook()` and `Model#commitPinBook()`, `Model#undoAddressBook()` or `Model#undoPinBook()`. Thus, the `addressBookStateList` and `pinBookStateList` remain unchanged.
-
-image::PinUnpinNewCommand3StateListDiagram.png[width="800"]
-
-Step 6. The user executes `clear`, which calls only `Model#commitAddressBook()` and make no influence to `VersionedPinBook`.
-
-image::PinUnpinNewCommand4StateListDiagram.png[width="800"]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::PinUnpinActivityDiagram.png[width="1200"]
+When `pin` and `unpin` are performed, the pinned/unpinned contact is being selected automatically.
 
 ==== Design Considerations
 
@@ -468,18 +460,14 @@ image::PinUnpinActivityDiagram.png[width="1200"]
 * **Alternative 1 (current choice):** Saves the entire address book and pin book.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+* **Alternative 2 (current choice):** Commands excepts `pin`, `unpin`, `pinselect` command doesn't work on the pinned person.
+** Pros: Easy to implement.
+** Cons: Users must filter pin list contacts' information through eyes.
 
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+===== Aspect: How undo & redo executes
+* **Alternative 1 (current choice):** Saves the entire address book and pin book.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
 // end::pinunpinfeatures[]
 
 // tag::archive[]
@@ -1441,7 +1429,7 @@ _{ more test cases ... }_
 . Pinning a person from contact list to pin list.
 .. Prerequisite: There are multiple persons in the contact list.
 .. Test case: `pin 3` +
-   Expected: Third contact in the contact list is put back to the pin list. Address location of the pinned contact is displayed on the Google Maps(TM) window panel(if applicable).
+   Expected: Third contact in the contact list is put to the pin list. Address location of the pinned contact is displayed on the Google Maps(TM) window panel(if applicable).
 .. Test case: `pin 0` +
    Expected: No person is pinned. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect unpin commands to try: `pin`, `pin x`(where x is larger than the contact list size)

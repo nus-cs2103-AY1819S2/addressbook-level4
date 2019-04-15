@@ -25,6 +25,10 @@ By: `RecruitMe`      Since: `January 2019`      Licence: `MIT`
 [NOTE]
 Only JDK 9 is supported. +
 This app will not work with later major JDK releases such as JDK 10, 11, etc.
+
+[NOTE]
+If the tests are failing due to a system error with Java9, then try to run with Java8.
+
 +
 . *IntelliJ* IDE
 +
@@ -308,6 +312,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+
 // tag::filter[]
 
 === Colored Tag Feature
@@ -363,58 +368,114 @@ separate tags featured on different lines instead of the current List of tags th
 * The new view will improve the UI design to make the tags more organized and clear.
 
 
-=== Filter or/and/clear feature
-==== Current Implementation
-
 image::filterDiagram.png[width="800"]
 .Sequence Diagram of the Filtering Command
+=======
+=== Filter or/and/clear/reverse feature
 
-Filtering mechanism is facilitated by `AddressBook`.
-In the AddressBook class, we have added a new `UniquePersonsList` parameter called `allPersonsStorage` and this parameter stores also the persons in the application.
-When the filtering method is used, the `persons` parameter in the class is updated according to the filtering criterion (the persons that are not matching the conditions are removed)
-but the list in the new parameter `allPersonsStorage` are not changed. At the end, when the filtering is cleared, the `persons` parameter is updated with the information in `allPersonsStorage`.
-If user exits the program when filtering is active, in the `stop` method of `MainApp` class, a new method is called that clears the filtering and saves all the persons to the `JSON` file, rather than filtered contacts.
-In filtering system, important processes are as follows:
 
-* `filter or [CRITERION]` -- Filters the persons and includes the ones that has at least one match from the criterion.
+*Usage Format Regarding Current Implementation:*
 
-Every single one of the persons in the `persons` parameter is traversed.
-There is a flag that returns true for each person, if a criteria matches. For each criteria,
-the persons are investigated with contains method in a case insensitive manner. With case insensitivity,
-if one of the criterion is `Ale` for the name parameter, every person that contains `Ale` in their names are
-selected.
+* *Format 1:* `filter or/and [name<NAME>name] [phone<PHONE>phone] [email<EMAIL>email] [gpa<GPA>gpa] [edu<EDUCATION>edu] [deg<DEGREE-LEVEL>deg] [addr<ADDRESS>addr] [skill<SKILL1, SKILL2, ... >skill][pos<POSITION1, POSITION2, ... >pos] [end<ENDORSEMENT-COUNT>end]`
+* *Format 2:* `filter clear/reverse`
 
-* `filter and [CRITERION]` -- Filters the persons and removes the ones that does not match even one of the criterion.
+*Basic Definitions Before the Actual Implementation Explanation:*
 
-Every single one of the persons in the `persons` parameter is traversed.
-There is a flag that returns false for each person, if a criteria does not match. For each criteria,
-the persons are investigated with contains method in a case insensitive manner. With case insensitivity,
-if one of the criterion is `Ale` for the name parameter, every person that contains `Ale` in their names are
-passed successfully from the name criteria.
+* *`PREFIX:`* For every single field (name, phone, email etc.), the leading combination of characters which indicate that the data for that field will be entered beginning from that location of the input.
+** e.g. for name field `name<`, for gpa field `gpa<`
+* *`REVERSE PREFIX:`* For every single field, the combination of terminating characters which indicate that the data for that field will be stopped after that location of the input.
+** e.g. for email field >email`, for skills field `>skill`
+* *`CRITERIA/CRITERION:`* These are the texts that are between 'PREFIX' and 'REVERSE PREFIX'
+** e.g. for the input `filter and deg<bachelors>deg phone<95>phone`, the criterion are `bachelors` and `95`.
+** all the criterion possible for filtering are: `NAME, PHONE, EMAIL, GPA, EDUCATION, DEGREE-LEVEL, ADDRESS, SKILLS` (It can have multiple criterion inside of it, e.g. `skill<C++, Java>skill has 2 criterion C++ and Java`), `POSITIONS` (same situation with SKILLS), `ENDORSEMENT-COUNT`.
 
-* `filter clear` -- Clears all the filtering that are active in current case
+*Differences of 4 Types of Filter Commands:*
 
-As explained in the beginning part of the filtering method, the filter is cleared with restoring all the persons
-who are not in `persons` parameter but included in `allPersonsStorage` parameter
+* *`AND:`* This type of command is used for only showing the persons that passes all the criterion given in the input.
+** e.g. if input is `filter and edu<NUS>edu pos<Manager, Developer>pos`, only the persons, who have studied in `NUS` and applied for both `Manager and Developer` positions, will be shown.
+* *`OR:`* This type of command is used for only showing the persons that passes at least one of the criterion given in the input.
+** e.g. if input is `filter or` `addr<Singapore>addr` `skill<C, Java>skill`, only the persons who live in `Singapore` or knows about the skills that contain `C or Java` will be shown
+* *`CLEAR:`* If a filtering is applied before and the currently viewed list is a filtered list of persons, then this type clears all the active filtering and shows all the persons in the storage.
+* *`REVERSE:`* If a filtering is applied before, this command shows only the persons that are eliminated with the previous filtering conditions. Basically, it reverses the filter.
+** e.g. if input is `filter reverse` and if there are 11 persons in the total storage but only 7 are shown since there is a filtering, this type shows only the 4 other persons that were not shown.
 
-==== Working Principle of `FilterCommandParser` Class
+*Filtering Approaches for Every Single Field:*
 
-Filtering command is taken from the user as follows:
+[TIP]
+Although in some fields, any ASCII character can be taken as inputs, using `< or >` can cause false results. Please do not use them in your filtering inputs for the criterion fields.
 
-* `filter or/and [n/NAME/n] [p/PHONE/p] [e/EMAIL/e] [g/GPA/g] [d/EDUCATION/d] [a/ADDRESS/a] [skill/ SKILL1, SKILL2, …​ /skill] [position/ POSITION1, POSITION2, ... /position]`
-* `filter clear`
+[TIP]
+All the text searches are case-insensitive. That means, if the input is `in` for example, all these texts will be matched with the input: `In, in, iN, IN`.
 
-To process the input from user, these steps are followed in the code:
+[TIP]
+Below, the word *contained* is used a lot. This word means that, if the input is a substring of the searched value for the looked person, the input is contained. +
+e.g. if the input is `ale` for the name, all the persons will be chosen, who have at least one of the uppercase and lowercase combination of the input `ale` in their names as a substring. +
+e.g. if the input is `ale`, the person with the name `Alex, aLex, ALEX, alexandra etc.` will be matched.
 
-* first the input is cleared from multiple spaces or any unwanted additional forms.
-* after that according to the first couple of the characters, the exact process is determined (If it is `add` or `or` or `clear`)
-* if it is clear, the FilterCommand function is called fo that method. If it is not, followings take place.
-* following that, the prefixes are searched. 5 flags are stored in `String` form for 5 different filtering conditions and
-if the prefix itself exists and the reverse version also exist and the prefix itself is before the reverse one the flag is turned
-to `available`
-* for the available parameters, the input is trimmed and separated from the prefixes. If the parameters does not match with the validity of the given type of the criteria,
-a message is printed to the screen and no action is made.
-* FilterCommand function is called. In the parameters passed to the function, the process type, criterion flags and criterion contexts are included.
+* *`NAME:`* It can take any English alphabet character and also `space` character. It checks if the entered criteria is *contained* in the names of the persons in the list.
+* *`PHONE:`* It can take any positive number, controls if the entered criteria is *contained* in the phones of the persons in the list.
+* *`EMAIL and ADDRESS:`* It can take any number of ASCII characters more than 0. Controls if the entered criteria is *contained* in the emails/addresses of the persons in the list.
+* *`GPA:`* It takes a positive `integer` or `float` value between 0 and 4. Shows the persons with higher or equal GPA values from the given criteria.
+* *`EDUCATION:`* It can take any English alphabet character and also `space` character. It checks if the entered criteria is *contained* in the school/education of the persons in the list.
+* *`SKILLS and POSITIONS:`*
+** It can take any number of ASCII characters more than 0 (except "," in the `skill/position` itself).
+** Multiple `skills/positions` can be entered with using one `PREFIX` and one `REVERSE PREFIX` as long as the `skills/positions` are separated with ",".
+** Controls, if the given `skills/positions` are *contained* in the actual `skills/positions` of the persons in the list.
+* *`ENDORSEMENT-COUNT:`* It takes a positive `integer`. If the given number as an input is less than or equal to the number of endorsements (it is just the process, where a person recommended by someone) the person has, then this person is shown.
+* *`DEGREE-LEVEL:`*
+** The input for this field can take an `integer` between 0 and 4 (they are included) or a text, which can be either `highschool` or `associates` or `bachelors` or `masters` or `phd`.
+** Order of `integers` are matched with the order of texts given. In other words, input 0 also means `highschool`, 1 means `associates`, 2 means `bachelors` etc.
+** In this filtering field, it is controlled that if the entered degree level is a lower or an equal level than the one for the searched person, the person will be shown in the list.
+
+// tag::filter[]
+==== Current Implementation of Filter Command
+
+*Implementation Details:*
+
+* *Class Diagram of the Filtering Command:*
+
+image::class-diagram-filter.png[width="800"]
+
+* *Sequence Diagram of the Filtering Command:*
+
+image::sequence-diagram-filter.png[width="800"]
+
+* Filtering is parsed in `FilterCommandParser` class, directed in `FilterCommand` class for further processing and actual filtering process took place in `AddressBook` class.
+
+* *Working Principle of `FilterCommandParser` Class*
+. The input is trimmed (spaces at the beginning and at the end are cleaned), cleared from multiple spaces and turned into lowercase form.
+. By checking the first number of characters of the input, the type of the process is determined (`and`, `or`, `clear` or `reverse`) and stored in an `integer` value. If the input has none of them, an invalid input message is shown.
+. Since there are 10 different fields that can be filtered, a `String array` with size 10, called *criterion*, is created and the values are set to " " in initialization.
+. If the type is `clear` or `reverse`, a new `FilterCommand` object is called with passing the `criterion` array and the `process-type-holding-integer` for that method. If it is not, followings take place.
+. The prefixes are searched. For each of the fields, these controls are made:
+** Checked if the `PREFIX` exists in the input for the searched field.
+** If it is, then `REVERSE PREFIX` for that field is also searched and if that is also found, it is checked that if the `PREFIX` is placed before `REVERSE PREFIX`.
+** If it is not, or if the search cannot reach to this step, then an invalid input message is shown.
+** If the steps are passed successfully, the element in the `criterion` array for this field will be changed to the value `"available"` +
+e.g. if the input is `filter or phone<57>phone`, then the `PREFIX` and `REVERSE PREFIX` locations are correct, the 21st index (related index for the phone in the array) of the `criterion` will be set to `"available"`.
+** Since the parser looks for the first occurrence of `PREFIX` and `REVERSE PREFIX`, if there are multiple filtering parts for the searched criteria, then the first one will be taken.
+. For the available fields (the ones with the regarding `criterion` indexes are set to `"available"`), an input check is made for the the text between the `PREFIX` and `REVERSE PREFIX`. For the non-available filtering conditions, the value in `criterion` for the related field is set to `null`.
+. If the parameters does not pass the input check, an error is thrown, which says the input is in invalid form. If they passes the input check, then the index for the regarding field in `criterion` array is set to the text value between the `PREFIX` and `REVERSE PREFIX`. +
+e.g. the 1st index of `criterion` is set to `57` regarding to the example above.
+. FilterCommand function is called. In the parameters `criterion` and `process-type-holding-integer` passed to the object constructor.
+
+* *Working Principle of `FilterCommand` Class*
+. For each 10 fields of the filter command criterion, a `string` parameter is constructed and the values are set regarding the values in `criterion` array. If no value for that field is present, the parameter in the `FilterCommand` class is set to `null`.
+. Since `SKILLS` and `POSITIONS` fields can contain more than one criterion inside (all the criterion are separated with ", " for these), the string values in `criterion` array regarding to those fields are split through "," usage and the data for these are stored in `String[]` parameters created in `FilterCommand` class, instead of `String` parameters.
+. Also the type of the process (`and`, `or`, `clear` or `reverse`) is stored in a parameter in `FilterCommand`, too.
+. According to the process type, one of the methods `filterAnd()`, `filterOr()`, `clearFilter()` or `reverseFilter()` is called through `Model` interface and these methods in `Model` also called the one of these methods in `AddressBook` class with the same name.
+. For `filterAnd()` and `filterOr()` methods, the values for every single field are passed through the method call.
+
+* *Working Principle of `AddressBook` Class for Filtering Purposes*
+** In the AddressBook class, a new `UniquePersonsList` parameter called `allPersonsStorage` is added.
+** When the filtering method is used, the `persons` parameter in the class is updated according to the filtering criterion (the persons that are not matching the conditions are removed). However, in order not to lose data, the new added `allPersonsStorage` parameter is not being changed with the filtering processes. It still continues to store every single person in the application storage.
+** *When clearFilter() method is called*, if there is a filtering available, every single person who is not in `persons` parameter but in `allPersonsStorage` are added to the `persons` storage. So basically, it is right to say that `persons` parameter only holds the persons we expect to see in the GUI.
+** *When reverseFilter() method is called*, if there is a filtering available, every single person who is in `persons` parameter is replaced with the persons who were not stored in this parameter before.
+** *When filterOr() method is called*, every single person in `persons` parameter is traversed and the ones that do not contain *none* of the criterion set through input are removed from `persons`.
+** *When filterAnd() method is called*, every single person in `persons` parameter is traversed and the ones that do not contain *even one* of the criterion set through input are removed from `persons`.
+** The information if there is a filtering available in the application, is also stored in a boolean parameter in `AddressBook` and set true with `filterAnd() and filterOr()` methods, set false with the initial launch of the application, `clearFilter()` call and `Add Command call` (because it increases the size of the data and it is not know that if the newly added person fits the filtering criterion or not).
+** Filter-keeping-parameter is important, because with `undo and redo commands`, it is important to maintain the filtering state in order not to lose any data and in order to use `clearFilter()` method.
+
 
 ==== Alternative Approaches
 
@@ -422,24 +483,24 @@ In this title, both Command implementation and Parser implementation will be dis
 
 ===== Command Implementation
 
-Instead of adding another parameter in `AddressBook` called `allPersonsStorage`, another approach would be letting `persons` parameter to hold
-all the unfiltered information and updating `filteredPersons` parameter in the `ModelManager` class. However, in order to implement that approach
-we had to update the list in every time user uses filtering with a `Predicate` approach. Because, `FilteredList` class (the type of the `filteredPersons`
-parameter) uses these in very crucial parts of its implementation.
+Instead of adding another parameter in `AddressBook` class called `allPersonsStorage`, another approach would be letting `persons` parameter to hold
+all the unfiltered information and updating `filteredPersons` parameter in the `ModelManager` class. `filteredPersons` is a list of persons that is defined in `ModelManager`.
+It is especially used in `FindCommand`, that applies a basic filter to the list of persons in the application with only one criteria `NAME`.
+However, `filteredPersons` is implemented with `Predicate` approach.
 
 * **Pros of this approach:**
-** Does not need any additional parameter to be created in AddressBook class.
+** Does not need any additional permanent parameter to be created in AddressBook class.
 ** Decreases the number of changes made in each list changing method of the AddressBook class. Because, if any additional
 parameter is added to AddressBook class, all the functions have to be changed considering the new parameter.
 
 * **Cons of this approach:**
-** It is hard and time consuming to implement this approach. Actually that's why we did not choose that approach.
-** It may require some changes in the `Model` class.
+** It is hard and time consuming to implement this approach because `Predicates` are used. In `AddressBook` class itself, we can directly reach to the persons and their all fields easily. But with `Predicate` approach,
+it requires additional data to be built (`Predicates` may need to be created before adding new persons to the parameter). Moreover, we do not have much knowledge about `Predicate` usage and because of these reasons, our job may take more time to finish.
 
 ===== Parser Implementation
 
-Instead of putting the criterion contents between both prefixes and reverse prefixes, like the addition process we
-could only add the content after the prefix (without any reverse prefix usage).
+Instead of putting the criterion contents between both `PREFIXES` and `REVERSE PREFIXES`, we
+could only add the content after `PREFIX` (without any `REVERSE PREFIX` usage) like the addition process .
 
 * **Pros of this approach:**
 ** User would need to write less number of characters
@@ -447,29 +508,7 @@ could only add the content after the prefix (without any reverse prefix usage).
 * **Cons of this approach:**
 ** Using also reverse prefix makes the job much easier, because it simply marks also the end of the content.
 ** In currently implemented version, no order of the criterion is necessary. So, first phone number and then name etc. can be added for filtering condition.
-However in the alternative approach, implementing the input taking with no order is harder.
-
-==== Combining the Command With Other Commands
-
-Since a new parameter is added to the `AddressBook` class, some changes should have done to adjust the existing processes to
-be used at the same time with filtering commands.
-
-===== Undo/Redo Command
-
-* To save the filtering information at each step, a new list is created to hold the filtering information at current stage (active or not)
-whenever the current AddressBook is pushed to the list.
-* `resetData` method is modified in order to reset the `allPersonsStorage` parameter if needed.
-
-===== Add, Edit and Delete Commands
-
-* `commit` method is modified for transferring the filtering information to the stage after committing is made and also the filtering information is pushed to the list here
-* `delete` and `edit` processes are working without clearing the filter.
-* `add` method clears the filter when a new person is added. Because, all the previous filtering are not saved in anywhere, so we cannot control if the newly added person matches
-with the filtering criterion. Thus, all the filtering is cleared.
-
-===== Other Commands
-
-These are the ones that requires almost no changes or only small amount of changes to be compatible with filtering.
+However in the alternative approach, implementing the input taking with no order is harder and time consuming.
 
 ==== Testing of Filter Command Design
 
@@ -477,53 +516,26 @@ The testing methods for filtering is written for 3 different parts:
 
 ===== FilterCommandParserTests
 
-Currently implemented test cases are below:
-
-* for missing parts of the input by the user, a test method runs. This method covers the situations where process type or field parameter or both are missing.
-* second test method includes the cases where the prefix itself and the reverse prefix does not match with each other.
-
-For future release test cases:
-
-* Division of the unordered input for different criterion will be tested
+* This test class is prepared for unit testing of FilterCommandParser cass. With the tests:
+** The validity of inputs with single and multiple field are present are checked.
+** The given order of inputs are checked in case of any possibility for an error.
+** Empty command or `filter` command without any type specification are checked.
+** The exceptions thrown are controlled, when the criterion are empty.
+** For `number` type of criterion, the negative and positive out of bound values, entering string values and entering valid values are checked.
+** For `String` type of criterion, the type of characters allowed are checked.
 
 ===== FilterCommandTests
 
-This test class is prepared for unit testing of Filtering Command. Currently implemented test cases are below:
-
-* executing filtering with only 1 condition
-* executing filtering with multiple conditions
-* executing filtering with all the criterion are given
-* clearing the filtering when one filter is active
-* clearing the filtering when multiple filters are active
+* This test class is prepared for unit testing of Filtering Command. With these tests Filtering process are checked:
+** when a single or multiple criterion are given,
+** when filtering occurs multiple times,
+** when type is `clear` or `reverse` and there are no/one/multiple filters are applied before.
 
 ===== FilterCommandIntegrationTests
 
-This test class contains integration tests (interaction with the Model, UndoCommand, RedoCommand, AddCommand, DeleteCommand, SortCommand) for FilterCommand.
-Currently, no test cases are prepared but next release these test methods will be implemented:
-
-* executing sorting after filtering once
-* executing sorting after filtering twice
-* executing undo and redo after filtering once
-* executing undo and redo after filtering twice
-* executing undo after filtering is cleared
-* executing delete after filtering once
-* executing delete after filtering twice
-* executing add after filtering once
-* executing add after filtering twice
-* a complex case of different processes combined: The flow will be as follows for the next test:
-** 1- filter and
-** 2- filter or
-** 3- sort alphabetical
-** 4- delete 1
-** 5- undo
-** 6- undo
-** 7- redo
-** 8- filter clear
-** 9- undo
-** 10- add ...
-** 11- filter clear
-** 12-undo
-** 13- filter clear
+* This test class contains integration tests and investigates the interaction of `FilterCommand` with: `UndoCommand`, `RedoCommand`, `AddCommand`, `DeleteCommand`,`SortCommand`, `FindCommand`, `SelectCommand`, and cases, when all of them are together.
+* Each test case at least contains filtering with `or - success` or `and - success`, `clear - success` and `clear - failure`, `reverse - success` and `reverse - failure`.
+* Also for every interacting command, *failure* and *success* cases are both investigated.
 // end::filter[]
 
 // tag::sort[]

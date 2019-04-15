@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEGREE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EDUCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GPA;
@@ -22,6 +23,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Degree;
 import seedu.address.model.person.Education;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Gpa;
@@ -46,6 +48,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_EDUCATION + "EDUCATION] "
             + "[" + PREFIX_GPA + "Gpa] "
+            + "[" + PREFIX_DEGREE + "DEGREE] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_SKILL + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -94,7 +97,8 @@ public class EditCommand extends Command {
         Set<SkillsTag> editedTags = new HashSet<>(changedPerson.getTags());
         editedTags.addAll(endorsements);
         Person editedPerson = new Person(changedPerson.getName(), changedPerson.getPhone(), changedPerson.getEmail(),
-                changedPerson.getEducation(), changedPerson.getGpa(), changedPerson.getAddress(), editedTags);
+                changedPerson.getEducation(), changedPerson.getGpa(), changedPerson.getDegree(),
+                changedPerson.getAddress(), editedTags);
 
 
         if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
@@ -118,11 +122,12 @@ public class EditCommand extends Command {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Education updatedEducation = editPersonDescriptor.getEducation().orElse(personToEdit.getEducation());
         Gpa updatedGpa = editPersonDescriptor.getGpa().orElse(personToEdit.getGpa());
+        Degree updatedDegree = editPersonDescriptor.getDegree().orElse(personToEdit.getDegree());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<SkillsTag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedEducation,
-                updatedGpa, updatedAddress, updatedTags);
+                updatedGpa, updatedDegree, updatedAddress, updatedTags);
     }
 
     @Override
@@ -153,6 +158,7 @@ public class EditCommand extends Command {
         private Email email;
         private Education education;
         private Gpa gpa;
+        private Degree degree;
         private Address address;
         private Set<SkillsTag> tags;
 
@@ -168,6 +174,7 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setEducation(toCopy.education);
             setGpa(toCopy.gpa);
+            setDegree(toCopy.degree);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
         }
@@ -176,7 +183,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, education, gpa, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, education, gpa, degree, address, tags);
         }
 
         public void setName(Name name) {
@@ -217,6 +224,14 @@ public class EditCommand extends Command {
 
         public Optional<Gpa> getGpa() {
             return Optional.ofNullable(gpa);
+        }
+
+        public void setDegree(Degree degree) {
+            this.degree = degree;
+        }
+
+        public Optional<Degree> getDegree() {
+            return Optional.ofNullable(degree);
         }
 
         public void setAddress(Address address) {
@@ -264,6 +279,7 @@ public class EditCommand extends Command {
                     && getEmail().equals(e.getEmail())
                     && getEducation().equals(e.getEducation())
                     && getGpa().equals(e.getGpa())
+                    && getDegree().equals(e.getDegree())
                     && getAddress().equals(e.getAddress())
                     && getTags().equals(e.getTags());
         }

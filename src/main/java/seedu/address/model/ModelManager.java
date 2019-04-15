@@ -163,15 +163,17 @@ public class ModelManager implements Model {
 
     @Override
     public void filterAnd(String name, String phone, String email, String address, String[] skillList,
-                          String[] posList, String endorseCount, String gpa, String education) {
-        versionedAddressBook.filterAnd(name, phone, email, address, skillList, posList, endorseCount, gpa, education);
+                          String[] posList, String endorseCount, String gpa, String education, String degreeLevel) {
+        versionedAddressBook.filterAnd(name, phone, email, address, skillList, posList,
+                endorseCount, gpa, education, degreeLevel);
         logger.info("Persons are filtered according to 'AND' condition.");
     }
 
     @Override
     public void filterOr(String name, String phone, String email, String address, String[] skillList,
-                         String[] posList, String endorseCount, String gpa, String education) {
-        versionedAddressBook.filterOr(name, phone, email, address, skillList, posList, endorseCount, gpa, education);
+                         String[] posList, String endorseCount, String gpa, String education, String degreeLevel) {
+        versionedAddressBook.filterOr(name, phone, email, address, skillList, posList,
+                endorseCount, gpa, education, degreeLevel);
         logger.info("Persons are filtered according to 'OR' condition.");
     }
 
@@ -184,6 +186,8 @@ public class ModelManager implements Model {
     public void setFilterInfo(boolean status) {
         versionedAddressBook.setFilterInfo(status);
     }
+
+    //=========== Sorting Processes =======================================================================
 
     @Override
     public boolean getSortInfo() {

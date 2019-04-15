@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Degree;
 import seedu.address.model.person.Education;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Gpa;
@@ -24,6 +25,7 @@ public class PersonBuilder {
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_EDUCATION = "NUS";
     public static final String DEFAULT_GPA = "3";
+    public static final String DEFAULT_DEGREE = "Bachelors";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
     private Name name;
@@ -31,6 +33,7 @@ public class PersonBuilder {
     private Email email;
     private Education education;
     private Gpa gpa;
+    private Degree degree;
     private Address address;
     private Set<SkillsTag> tags;
 
@@ -40,6 +43,7 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         education = new Education(DEFAULT_EDUCATION);
         gpa = new Gpa(DEFAULT_GPA);
+        degree = new Degree(DEFAULT_DEGREE);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
     }
@@ -70,9 +74,15 @@ public class PersonBuilder {
      * and set it to the {@code Person} that we are building.
      */
     public PersonBuilder withSkills(String ... skills) {
-        Set otherTags = this.tags;
-        Set newTags = SampleDataUtil.getTagSet(Arrays.asList(skills), null, null);
-        otherTags.addAll(newTags);
+        this.tags.addAll(SampleDataUtil.getTagSet(Arrays.asList(skills), null, null));
+        return this;
+    }
+
+    /**
+     * Changes the skills to directly given values
+     */
+    public PersonBuilder changeSkills(String ... skills) {
+        this.tags = SampleDataUtil.getTagSet(Arrays.asList(skills), null, null);
         return this;
     }
 
@@ -139,10 +149,18 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code GPA} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withDegree(String degree) {
+        this.degree = new Degree(degree);
+        return this;
+    }
+
+    /**
      * {@code Person} that we are building.
      */
     public Person build() {
-        return new Person(name, phone, email, education, gpa, address, tags);
+        return new Person(name, phone, email, education, gpa, degree, address, tags);
     }
 
 }

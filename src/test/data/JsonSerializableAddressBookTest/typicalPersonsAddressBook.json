@@ -6,6 +6,7 @@
     "email" : "alice@example.com",
     "education" : "NUS",
     "gpa" : "3.4",
+    "degree": "Bachelors",
     "address" : "123, Jurong West Ave 6, #08-111",
     "tagged" : [ "s:C++", "s:Debugging", "p:Software Engineer"]
   }, {
@@ -14,6 +15,7 @@
     "email" : "johnd@example.com",
     "education" : "NTU",
     "gpa" : "3.1",
+    "degree": "Bachelors",
     "address" : "311, Clementi Ave 2, #02-25",
     "tagged" : [ "s:C++", "s:Debugging", "s:JavaScript", "p:Website Developer" ]
   }, {
@@ -22,6 +24,7 @@
     "email" : "heinz@example.com",
     "education" : "NTU",
     "gpa" : "3.2",
+    "degree": "Bachelors",
     "address" : "wall street",
     "tagged" : [ "s:Python", "s:Photography", "s:Cyber Crime", "s:Finance", "s:JavaScript", "p:Systems Analyst", "p:UI Developer"]
   }, {
@@ -30,6 +33,7 @@
     "email" : "cornelia@example.com",
     "education" : "NUS",
     "gpa" : "2.6",
+    "degree": "Bachelors",
     "address" : "10th street",
     "tagged" : [ "s:C++", "s:Debugging", "s:Linux", "e:Bill Gates", "e:Mark Cuban", "e:Elon Musk", "e:Barak Obama", "p:UI Developer" ]
   }, {
@@ -38,6 +42,7 @@
     "email" : "werner@example.com",
     "education" : "Harvard",
     "gpa" : "1.3",
+    "degree": "Bachelors",
     "address" : "michegan ave",
     "tagged" : [ "s:C++", "s:C#", "s:Java", "s:excel", "e:Elon Musk", "e:Mark Cuban" ]
   }, {
@@ -46,6 +51,7 @@
     "email" : "lydia@example.com",
     "education" : "HARVARD",
     "gpa" : "4.0",
+    "degree": "Bachelors",
     "address" : "little tokyo",
     "tagged" : [ "s:C++", "s:Java", "s:MATlab", "p:Civil Servant", "p:Project Manager", "e:Stan Lee", "e:Barak Obama" ]
   }, {
@@ -54,6 +60,7 @@
     "email" : "anna@example.com",
     "education" : "NUS",
     "gpa" : "0.0",
+    "degree": "Bachelors",
     "address" : "4th street",
     "tagged" : [ "s:Linux", "s:PHP", "p:Data Analyst", "e:Mark Zuckerberg" ]
   } ]

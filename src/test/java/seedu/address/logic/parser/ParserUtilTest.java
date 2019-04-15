@@ -17,7 +17,10 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Degree;
+import seedu.address.model.person.Education;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Gpa;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.SkillsTag;
@@ -28,12 +31,18 @@ public class ParserUtilTest {
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
+    private static final String INVALID_EDUCATION = " ";
+    private static final String INVALID_GPA = "a";
+    private static final String INVALID_DEGREE = " ";
     private static final String INVALID_COLOR = "black";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
+    private static final String VALID_EDUCATION = "NUS";
+    private static final String VALID_GPA = "3.0";
+    private static final String VALID_DEGREE = "Bachelors";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
     private static final String VALID_COLOR = "teal";
@@ -156,6 +165,75 @@ public class ParserUtilTest {
         String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
         Email expectedEmail = new Email(VALID_EMAIL);
         assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
+    }
+
+    @Test
+    public void parseEducation_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseEducation((String) null));
+    }
+
+    @Test
+    public void parseEducation_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseEducation(INVALID_EDUCATION));
+    }
+
+    @Test
+    public void parseEducation_validValueWithoutWhitespace_returnsEducation() throws Exception {
+        Education expectedEducation = new Education(VALID_EDUCATION);
+        assertEquals(expectedEducation, ParserUtil.parseEducation(VALID_EDUCATION));
+    }
+
+    @Test
+    public void parseEducation_validValueWithWhitespace_returnsTrimmedEducation() throws Exception {
+        String educationWithWhitespace = WHITESPACE + VALID_EDUCATION + WHITESPACE;
+        Education expectedEducation = new Education(VALID_EDUCATION);
+        assertEquals(expectedEducation, ParserUtil.parseEducation(educationWithWhitespace));
+    }
+
+    @Test
+    public void parseGpa_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseGpa((String) null));
+    }
+
+    @Test
+    public void parseGpa_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseGpa(INVALID_GPA));
+    }
+
+    @Test
+    public void parseGpa_validValueWithoutWhitespace_returnsEmail() throws Exception {
+        Gpa expectedGpa = new Gpa(VALID_GPA);
+        assertEquals(expectedGpa, ParserUtil.parseGpa(VALID_GPA));
+    }
+
+    @Test
+    public void parseGpa_validValueWithWhitespace_returnsTrimmedGpa() throws Exception {
+        String gpaWithWhitespace = WHITESPACE + VALID_GPA + WHITESPACE;
+        Gpa expectedGpa = new Gpa(VALID_GPA);
+        assertEquals(expectedGpa, ParserUtil.parseGpa(gpaWithWhitespace));
+    }
+
+    @Test
+    public void parseDegree_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseDegree((String) null));
+    }
+
+    @Test
+    public void parseDegree_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseDegree(INVALID_DEGREE));
+    }
+
+    @Test
+    public void parseDegree_validValueWithoutWhitespace_returnsEmail() throws Exception {
+        Degree expectedDegree = new Degree(VALID_DEGREE);
+        assertEquals(expectedDegree, ParserUtil.parseDegree(VALID_DEGREE));
+    }
+
+    @Test
+    public void parseDegree_validValueWithWhitespace_returnsTrimmedDegree() throws Exception {
+        String degreeWithWhitespace = WHITESPACE + VALID_DEGREE + WHITESPACE;
+        Degree expectedDegree = new Degree(VALID_DEGREE);
+        assertEquals(expectedDegree, ParserUtil.parseDegree(degreeWithWhitespace));
     }
 
     @Test

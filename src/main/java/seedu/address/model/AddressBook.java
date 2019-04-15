@@ -167,7 +167,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Makes the filtering process according to and command
      */
     public void filterAnd(String name, String phone, String email, String address, String[] skillList,
-                          String[] posList, String endorseCount, String gpa, String education) {
+                          String[] posList, String endorseCount, String gpa, String education, String degreeLevel) {
 
         isFilterExist = true;
         List<Person> listToRemove = new ArrayList();
@@ -222,6 +222,10 @@ public class AddressBook implements ReadOnlyAddressBook {
                 ifExcluded = true;
             }
 
+            if (degreeLevel != null && Integer.parseInt(degreeLevel) > person.getDegreeAsInteger()) {
+                ifExcluded = true;
+            }
+
             if (ifExcluded) {
                 listToRemove.add(person);
             }
@@ -235,7 +239,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Makes the filtering process according to or command
      */
     public void filterOr(String name, String phone, String email, String address, String[] skillList,
-                         String[] posList, String endorseCount, String gpa, String education) {
+                         String[] posList, String endorseCount, String gpa, String education, String degreeLevel) {
 
         isFilterExist = true;
         List<Person> listToRemove = new ArrayList();
@@ -287,6 +291,10 @@ public class AddressBook implements ReadOnlyAddressBook {
             }
 
             if (gpa != null && Float.parseFloat(gpa) <= Float.parseFloat(person.getGpa().toString())) {
+                ifIncluded = true;
+            }
+
+            if (degreeLevel != null && Integer.parseInt(degreeLevel) > person.getDegreeAsInteger()) {
                 ifIncluded = true;
             }
 

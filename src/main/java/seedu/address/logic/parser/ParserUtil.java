@@ -10,6 +10,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Degree;
 import seedu.address.model.person.Education;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Gpa;
@@ -141,6 +142,21 @@ public class ParserUtil {
             throw new ParseException(Education.MESSAGE_CONSTRAINTS);
         }
         return new Education(trimmedEducation);
+    }
+
+    /**
+     * Parses the degree field
+     * @param degree
+     * @return
+     * @throws ParseException
+     */
+    public static Degree parseDegree(String degree) throws ParseException {
+        requireNonNull(degree);
+        String trimmedDegree = degree.trim();
+        if (!Degree.isValidDegree(trimmedDegree)) {
+            throw new ParseException(Degree.MESSAGE_CONSTRAINTS);
+        }
+        return new Degree(trimmedDegree);
     }
 
     /**

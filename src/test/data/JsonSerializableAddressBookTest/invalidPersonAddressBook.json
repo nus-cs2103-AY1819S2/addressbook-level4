@@ -5,6 +5,7 @@
     "email": "invalid@email!3e",
     "education" : "NUS",
     "gpa" : "4.0",
+    "degree": "Bachelors",
     "address": "4th street"
   } ]
 }

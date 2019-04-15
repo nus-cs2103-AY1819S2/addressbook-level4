@@ -85,10 +85,8 @@ https://github.com/CS2103-AY1819S2-W14-2/main/issues/224[#224]
 
 == Contributions to the User Guide
 
+This section highlights my contributions to the User Guide. It showcases my ability to write documentation targeting end-users.
 
-|===
-|_Given below are sections I that contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
 === *Features*
 '''
 include::../UserGuide.adoc[tag=FeaturesHeader]
@@ -104,9 +102,7 @@ include::../UserGuide.adoc[tag=UGSave]
 
 == Contributions to the Developer Guide
 
-|===
-|_Given below are sections that I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
+The section highlights my contributions to the Developer Guide. It showcases my ability to write technical documentation and the technical depth of my contributions to the project.
 
 === *Open Feature*
 '''

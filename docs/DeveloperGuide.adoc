@@ -681,7 +681,7 @@ The following is an example usage scenario of how `save` behaves at each step as
 
 Step 1. The user executes `save`.
 
-Step 2. `CurrentEdit#tempImageExist()` is called to check if an image was previously opened. If `open` was not called previously, `CommandException` is thrown.
+Step 2. `CurrentEdit#tempImageDoNotExist()` is called to check if an image was previously opened. If `open` was not called previously, `CommandException` is thrown.
 
 Step 3. `CurrentEdit#getTempImage()` is called to retrieve the `tempImage` from `CurrentEdit`.
 

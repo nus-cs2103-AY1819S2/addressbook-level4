@@ -39,12 +39,10 @@ https://github.com/CS2103-AY1819S2-W16-4/main/pull/59[#59] , https://github.com/
 
 * About multiple person addition (planned for v2.0) a new section is added.
 * Filtering process is added to the User guide as a new section: `UserGuide -> Features -> Filtering Recruit Me: filter`
-* For the newly implemented CV showing process, a section is added: `UserGuide -> Features -> Showing and Updating the CV for a Person`
+* For the newly implemented CV showing process, a section is added (Not linked below, you can check from the User Guide): `UserGuide -> Features -> Showing and Updating the CV for a Person`
 * Updated `Add Command / List Command / Select Command Sections`.
 
 include::../UserGuide.adoc[tag=filter]
-
-include::../UserGuide.adoc[tag=cvview]
 
 == Contributions to the Developer Guide:
 

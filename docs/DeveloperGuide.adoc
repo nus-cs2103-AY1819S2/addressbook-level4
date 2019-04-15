@@ -155,8 +155,9 @@ For example, the `Logic` component (see the class diagram given below) defines i
 image::LogicClassDiagram.png[width="800"]
 
 [discrete]
-// tag::ArchiInteraction[]
+
 ==== How the Architecture Components Interact with Each Other
+// tag::ArchiInteraction[]
 
 The _Sequence Diagrams_ below show how the components interact with each other for the scenarios where the user keys in the commands `import C:\Users\XXX\Desktop\Pictures` and `rotate 90`.
 

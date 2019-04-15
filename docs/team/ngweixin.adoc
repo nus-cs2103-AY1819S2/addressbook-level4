@@ -8,7 +8,7 @@
 :sourceDir: https://cs2103-ay1819s2-w09-1.github.io/main/
 :xrefstyle: short
 
-image::ngweixin.png[width="200", align="left"]
+image::ngweixin.png[width="100", align="left"]
 {empty}[https://github.com/ngweixin[GitHub]]
 
 Hi there! I am Ng Wei Xin (Xavier), a Year 2 Undergraduate of NUS majoring in Computer Science.

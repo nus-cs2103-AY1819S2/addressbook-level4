@@ -309,11 +309,68 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // end::undoredo[]
 
 // tag::filter[]
-=== Filter or/and/clear feature
+=== Filter or/and/clear/reverse feature
 ==== Current Implementation
 
-image::filterDiagram.png[width="800"]
-.Sequence Diagram of the Filtering Command
+*Usage Format Regarding Current Implementation:*
+
+* *Format 1:* `filter or/and [name<NAME>name] [phone<PHONE>phone] [email<EMAIL>email] [gpa<GPA>gpa] [edu<EDUCATION>edu] [deg<DEGREE-LEVEL>deg] [addr<ADDRESS>addr] [skill<SKILL1, SKILL2, ... >skill][pos<POSITION1, POSITION2, ... >pos] [end<ENDORSEMENT-COUNT>end]`
+* *Format 2:* `filter clear/reverse`
+
+*Basic Definitions Before the Actual Implementation Explanation:*
+
+* *PREFIX:* For every single field (name, phone, email etc.), the leading combination of characters which indicate that the data for that field will be entered beginning from that location of the input.
+** e.g. for name field `name<`, for gpa field `gpa<`
+* *REVERSE PREFIX:* For every single field, the combination of terminating characters which indicate that the data for that field will be stopped after that location of the input.
+** e.g. for email field >email`, for skills field `>skill`
+* *CRITERIA/CRITERION:* These are the texts that are between 'PREFIX' and 'REVERSE PREFIX'
+** e.g. for the input `filter and deg<bachelors>deg phone<95>phone`, the criterion are `bachelors` and `95`.
+
+*Differences of 4 Types of Filter Commands*
+
+* `AND:` This type of command is used for only showing the persons that passes all the criterion given in the input.
+** e.g. if input is `filter and edu<NUS>edu pos<Manager, Developer>pos`, only the persons, who have studied in `NUS` and applied for both `Manager and Developer` positions, will be shown.
+* `OR:` This type of command is used for only showing the persons that passes at least one of the criterion given in the input.
+** e.g. if input is `filter or addr<Singapore>addr skill<C++, Java>skill`, only the persons, who live in `Singapore` or knows about `C++ or Java`, will be shown
+* `CLEAR:` If a filtering is applied before and the currently viewed list is a filtered list of persons, then this type clears all the active filtering and shows all the persons in the storage.
+* `REVERSE:` If a filtering is applied before, this command shows only the persons that are eliminated with the previous filtering conditions. Basically, it reverses the filter.
+** e.g. if input is `filter reverse` and if there are 11 persons in the total storage but only 7 are shown since there is a filtering, this type shows only the 4 other persons that were not shown.
+
+*Filtering Approaches for Every Single Field:*
+
+[TIP]
+Although in some fields, any ASCII character can be taken as inputs, using `< or >` can cause false results. Please do not use them in your filtering inputs for the criterion fields.
+
+[TIP]
+All the text searches are case-insensitive. That means, if the input is `in` for example, all these texts will be matched with the input: `In, in, iN, IN`.
+
+[TIP]
+Below, the word *contained* is used a lot. This word means that, if the input is a substring of the searched value for the looked person, the input is contained. +
+e.g. if the input is `ale` for the name, all the persons will be chosen, who have at least one of the uppercase and lowercase combination of the input `ale` in their names as a substring. +
+e.g. if the input is `ale`, the person with the name `Alex, aLex, ALEX, alexandra etc.` will be matched.
+
+* `NAME:` It can take any English alphabet character and also 'space' character. It checks if the entered criteria is *contained* in the names of the persons in the list.
+* `PHONE:` It can take any positive number, controls if the entered criteria is *contained* in the phones of the persons in the list.
+* `EMAIL and ADDRESS:` It can take any number of ASCII characters more than 0. Controls if the entered criteria is *contained* in the emails/addresses of the persons in the list.
+* `GPA:` It takes a positive `integer` or `float` value between 0 and 4. Shows the persons with higher or equal GPA values from the given criteria.
+* `EDUCATION:` It can take any English alphabet character and also 'space' character. It checks if the entered criteria is *contained* in the school/education of the persons in the list.
+* `SKILLS and POSITIONS:` It can take any number of ASCII characters more than 0 (except "," in the skill/position itself). Multiple skills/positions can be entered with using one `PREFIX` and one `REVERSE PREFIX` as long as the skills/positions are separated with ", ". Controls, if the given skills/positions are *contained* in the actual skills/positions of the persons in the list.
+* `ENDORSEMENT-COUNT:` It takes a positive `integer`. If the given number as an input is less than or equal to the number of endorsements (it is just the process, where a person recommended by someone) the person has, then this person is shown.
+* `DEGREE-LEVEL:`
+** The input for this field can take an `integer` between 0 and 4 (they are included) or a text, which can be either `highschool` or `associates` or `bachelors` or `masters` or `phd`.
+** Order of `integers` are matched with the order of texts given. In other words, input 0 also means `highschool`, 1 means `associates`, 2 means `bachelors` etc.
+** In this filtering field, it is controlled that if the entered degree level is a lower or an equal level than the one for the searched person, the person will be shown in the list.
+
+*Implementation Details:*
+
+* *Class Diagram of the Filtering Command:*
+
+image::class-diagram-filter.png[width="800"]
+
+* *Sequence Diagram of the Filtering Command:*
+
+image::sequence-diagram-filter.png[width="800"]
+
 
 Filtering mechanism is facilitated by `AddressBook`.
 In the AddressBook class, we have added a new `UniquePersonsList` parameter called `allPersonsStorage` and this parameter stores also the persons in the application.

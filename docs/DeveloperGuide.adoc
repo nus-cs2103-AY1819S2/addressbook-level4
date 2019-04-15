@@ -491,7 +491,7 @@ member in the `filteredPersonList`.
 
 The `memberSelect` command is naturally tied with the User Interface.
 
-.Ui Component Class Diagram
+.Updated Ui Component Class Diagram
 image::updatedUIcomponent.png[width=50%]
 
 When a member is selected, the `memberDetailPanel` will populate the information of the selected person. The `ActivitiesAttendedByMemberPanel` will also populate the activities that are attended by member.

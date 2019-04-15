@@ -5,7 +5,9 @@
 
 == PROJECT: docX
 
----
+This portfolio aims to document my contribution to the project *__docX__*.
+
+Github: https://github.com/cs2103-ay1819s2-w13-1/main
 
 == Overview
 
@@ -13,32 +15,30 @@ docX is a desktop clinic data management application used to maintain clinic's d
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to find relevant and available doctors based on specialisation and available date and time*
-** What it does: allows the user to find doctors who are relevant to the illness of the patient based on user's judgement, and those who are available at the desired date and time for an appointment.
-** Justification: This feature improves the product significantly because a user can now find available doctors that match with the required specialisation with just one line of command, instead of having to scroll through the list of doctors to find them manually.
-** Highlights: This enhancement required an in-depth analysis of design alternatives. The implementation too was challenging as it required access to another class' information and temporary changes made to the model during implementation.
-** Credits: originally done by siyingpoof.
+* *Major enhancement*: added the ability to *find relevant and available doctors based on specialisation and the desired date and time*
+** What it does: Allows the user to find doctors whose specialisation matches the input and are available at the desired date and time for an appointment.
+** Justification: This feature improves the product significantly because the user can now find available doctor(s) that match(es) the required specialisation with just one command, instead of the traditional method, where the user has to scroll through the list of doctors to find them manually.
+** Highlights: This enhancement required an in-depth analysis of design alternatives. The implementation too was challenging as it required access to another class' information (Appointment list under ModelManager) and temporary changes made to the Appointment Filtered List under Model Manager during implementation.
 
 * *Minor enhancement*: making searching of doctors by keywords more convenient with the usage of just 1 command.
+** What it does: Allows the user to find doctors whose fields matches the keyword(s) inputted.
+** Justification: This feature allows the user to intuitively use the same command word for different functions. `list-d` now can be used to list the full original list of doctors and `list-d 10` will list doctors whose field(s) contains '10'. Hence, the user just needs to remember 1 command word for listing and searching of the doctors.
+** Highlights: This enhancement although minor, proved to be a challenge because the parser for this command has to accept any number of keywords (0 to infinitely many). Hence, the parser must be prepared to take in null arguments and many arguments too.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: Find my code contributed https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=siyingpoof[here].
 
 * *Other contributions*:
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** Enhancements to existing features:
 *** Allowing the display of doctors' information on the browser panel. (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from __% to __% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Wrote additional tests for existing features to increase coverage by 8%. (Pull requests https://github.com/cs2103-ay1819s2-w13-1/main/pull/198[#198], https://github.com/cs2103-ay1819s2-w13-1/main/pull/202[#202], https://github.com/cs2103-ay1819s2-w13-1/main/pull/205[#205])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+As of 15 April 2019,
 
-_{you can add/remove categories in the list above}_
+*** https://github.com/cs2103-ay1819s2-w13-1/main/pulls?q=is%3Apr+is%3Aclosed+author%3Asiyingpoof)[Pull Requests (PRs)] on *__docX__*'s GitHub = 25
+*** https://github.com/cs2103-ay1819s2-w13-1/main/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3Asiyingpoof[PRs reviewed] with non-trivial review comments = 3 (https://github.com/cs2103-ay1819s2-w13-1/main/pull/212[#212], https://github.com/cs2103-ay1819s2-w13-1/main/pull/113[#113], https://github.com/cs2103-ay1819s2-w13-1/main/pull/93[#93])
+*** https://github.com/cs2103-ay1819s2-w13-1/main/issues?q=is%3Aissue+is%3Aclosed+author%3Asiyingpoof[Issues] raised on *__docX__*'s GitHub = 5
+*** https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/created_by/siyingpoof[Reported bugs and suggestions] for other teams in the class (examples: https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/311[1], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/809[2],  https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/265[3])
 
 == Contributions to the User Guide
 
@@ -47,9 +47,7 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-//include::../UserGuide.adoc[tag=doctorcommands]
-
-//include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=doctorcommands]
 
 == Contributions to the Developer Guide
 
@@ -57,13 +55,4 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-//include::../DeveloperGuide.adoc[tag=undoredo]
-
-//include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=doctorcommands]

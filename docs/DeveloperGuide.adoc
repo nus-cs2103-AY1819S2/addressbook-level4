@@ -1558,6 +1558,41 @@ finance tracker. +
 .. Other incorrect sort commands to try: `[fuchsia]#sort -desc -amount#`, `[fuchsia]#sort -amount -inc#`, `[fuchsia]#sort -name -amount#` +
    Expected: Similar to previous.
 
+=== Obtaining a summary of entries
+
+. Entering `summary` command when _In-Credit-Ble_ is empty
+
+.. Prerequisites: No existing entries in _In-Credit-Ble_
+.. Test case: `summary` +
+   Expected: Error message is shown.
+.. Test case: `summary #/6 p/d` +
+   Expected: Error message is shown.
+.. Test case: `summary #/10 p/m` +
+   Expected: Error message is shown.
+
+. Entering `summary` command when there are entries listed in the records list panel.
+.. Prerequisites: There is at least one entry that exists in the specified report period.
+.. Test case: `summary` +
+   Expected: Entries that have been entered in _In-Credit-Ble_ in the past 7 days will be displayed in the pie chart.
+             A success message will also be displayed in the result box.
+.. Test case: `summary #/9 p/d` +
+   Expected: Entries that have been entered in _In-Credit-Ble_ in the past 9 days will be displayed in the pie chart.
+             A success message will also be displayed in the result box.
+.. Test case: `summary #/5 p/m` +
+   Expected: Entries that have been entered in _In-Credit-Ble_ in the past 5 months will be displayed in the pie chart.
+             A success message will also be displayed in the result box.
+
+On the other hand, if there are no existing entries in the specified report period (but _In-Credit-Ble_ has other existing entries):
+
+.. Test case: `summary #/9 p/m` +
+   Expected: Error message is shown.
+
+=== Saving data
+
+. Dealing with missing/corrupted data files
+
+.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+
 === Changing the Finance Tracker data storage location
 [NOTE]
 In order to test this command, please take note the name of the [fuchsia]#json# file you are currently on. The name of the file can
@@ -1568,3 +1603,4 @@ be seen at the right side of the status bar. By default, the json file is "[fuch
    Expected: A new finance tracker file will be created with no records in the records list and the budget will be shown
    as $0.00. You can type in the command `[fuchsia]#setfile f/finance#` (or the name of the previous file) to retrieve the original
    finance tracker that you were previously on.
+

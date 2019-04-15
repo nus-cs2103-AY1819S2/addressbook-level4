@@ -31,10 +31,7 @@ public class BookingListPanel extends UiPart<Region> {
 
     public BookingListPanel(ObservableList<Booking> bookingList,
                             ObservableValue<Booking> selectedBooking,
-                            Consumer<Booking> onSelectedBookingChange,
-                            //ObservableValue<Customer> selectedCustomer,
-                            ObservableValue<ServiceType> selectedServiceType,
-                            CommandBox.CommandExecutor commandExecutor) {
+                            Consumer<Booking> onSelectedBookingChange) {
         super(FXML);
         bookingListView.setItems(bookingList);
         bookingListView.setCellFactory(listView -> new BookingListViewCell());
@@ -59,6 +56,15 @@ public class BookingListPanel extends UiPart<Region> {
                 bookingListView.getSelectionModel().clearAndSelect(index);
             }
         });
+    }
+
+    public BookingListPanel(ObservableList<Booking> bookingList,
+                            ObservableValue<Booking> selectedBooking,
+                            Consumer<Booking> onSelectedBookingChange,
+                            //ObservableValue<Customer> selectedCustomer,
+                            ObservableValue<ServiceType> selectedServiceType,
+                            CommandBox.CommandExecutor commandExecutor) {
+        this(bookingList, selectedBooking, onSelectedBookingChange);
         //selectedCustomer.addListener((observable, oldValue, newValue) -> {
         //    logger.fine("Selected customer changed to: " + newValue);
 

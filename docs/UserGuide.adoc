@@ -69,19 +69,20 @@ E.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Adds a book to the Bookshelf +
 Format: `addBook n/BOOKNAME a/author m/RATING [t/TAG]…​`
 
-Examples:
-
-* `addBook n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale` +
-Adds a book named Alice in Wonderland to the record. The book is written by Lewis Carroll, rated 5 stars, and labeled with tags ‘fantasy’ and ‘fairy tale’.
-* `addBook n/Structure and Interpretation of Computer Programs a/Jerry Sussman m/4 t/textbook` +
-Adds a book named Structure and Interpretation of Computer Programs to the record. The book is written by Jerry Sussman, rated 4 stars, and labeled with tag ‘textbook’.
-
 ****
 * The book name is case sensitive
 * Two books with same book name are considered the same book
 * Trying to add a book which is already present on the bookshelf will result in duplicate book error, and the addBook command will fail
 * Take a look at <<Command-Format>> to see the valid format for each parameter
 ****
+
+Examples:
+
+* `addBook n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale` +
+Adds a book named Alice in Wonderland to the record. The book is written by Lewis Carroll, rated 5 stars, and labeled with tags ‘fantasy’ and ‘fairy tale’.
+
+image::AddBookDisplay.png[width="800"]
+Figure 1. Result display after successful execution of `addBook n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale`.
 
 ==== Editing book entry : `editBook`
 
@@ -102,6 +103,13 @@ Examples:
 
 * `editBook 1 n/Alice in Wonderland a/some author t/some tag` +
 Change the name, author, tag of the first book to Alice in Wonderland, some author, some tag.
+
+image::EditBookBefore.png[width="800"]
+Figure 2.1 Result display before the the execution of `editBook 1 n/Alice in Wonderland a/some author t/some tag`.
+
+image::EditBookAfter.png[width="800"]
+Figure 2.2 Result display after the the execution of `editBook 1 n/Alice in Wonderland a/some author t/some tag`.
+
 * `editBook 2 t/` +
 Clear all the existing tags of the second book in the result list.
 
@@ -122,6 +130,12 @@ Examples:
 * `listBook n/Computer Security` +
 `deleteBook 1` +
 Deletes the 1st book in the results of the listBook command.
+
+image::DeleteBookBefore.png[width="800"]
+Figure 3.1 Result display before the the execution of `deleteBook 1`.
+
+image::DeleteBookAfter.png[width="800"]
+Figure 2.1 Result display before the the execution of `deleteBook 1`.
 // end::book[]
 
 // tag::list[]

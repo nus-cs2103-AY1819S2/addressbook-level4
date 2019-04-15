@@ -920,7 +920,7 @@ Each image can only have 1 watermark. If the user would like to edit the waterma
 
 ==== Current Implementation
 
-The manipulation feature is facilitated by `CurrentEdit`. It uses the following operations:
+The manipulation feature is facilitated by `CurrentEdit` and `Image`. It uses the following operations:
 
  * `CurrentEdit#tempImageDoNotExist()` - Returns `true` if `tempImage` in `CurrentEdit` is null. `tempImage` is null only if `open` command is never called.
 
@@ -959,15 +959,15 @@ Step 5. The `execute` method then checks for a few conditions listed below:
 
 . `isNewCommand`: Checks if the `WaterMark` command is from an input by the user, from an `undo/redo` command or from a `SetPreset` command.
 . `isPreset`: Checks if the `WaterMark` command is from a Preset.
-. `initialImage#hasWaterMark()`: Checks if the `tempImage` already has a watermark.
+. `tempImage#hasWaterMark()`: Checks if the `tempImage` already has a watermark.
 
 
 Step 6. According to the above 3 conditions, the following combinations will result in different actions:
 
-. `isNewCommand` = `True` and `initialImage#hasWaterMark()` = `False`:
+. `isNewCommand` = `True` and `tempImage#hasWaterMark()` = `False`:
 
 +
-* Invokes `initialImage#setWaterMark(True)` to indicate that the image has a watermark. +
+* Invokes `tempImage#setWaterMark(True)` to indicate that the image has a watermark. +
 +
 
 +
@@ -982,7 +982,7 @@ Step 6. According to the above 3 conditions, the following combinations will res
 * Invokes `currentEdit#addCommand(this)` to add this command to the `List<Command>` in `tempImage` for the `undo/redo` function and `currentEdit#displayTempImage()` is used to display the edited image on the graphical user interface.
 +
 
-.  `isNewCommand` = `True` and `initialImage#hasWaterMark()` = `True`:
+.  `isNewCommand` = `True` and `tempImage#hasWaterMark()` = `True`:
 
 +
 * Throws an exception as there is already a watermark on `tempImage`.
@@ -995,20 +995,20 @@ Step 6. According to the above 3 conditions, the following combinations will res
 +
 
 +
-* Invokes `initialImage#setWaterMark(true)` to indicate that the image has a watermark.
+* Invokes `tempImage#setWaterMark(true)` to indicate that the image has a watermark.
 +
 
 +
 * Invokes `currentEdit#updateTempImage()` to save the newly edited `BufferedImage` and replace the previous image in the filepath of the `tempImage`.
 +
 
-.  `isNewCommand` = `False` and `isPreset` = `True` and `initialImage#hasWaterMark()` = `False`:
+.  `isNewCommand` = `False` and `isPreset` = `True` and `tempImage#hasWaterMark()` = `False`:
 +
-* Indicates that a preset is added to a image with no watermark.
+* Indicates that a preset is added to an image with no watermark.
 +
 
 +
-* Invokes `initialImage#setWaterMark(true)` to indicate that the image has a watermark.
+* Invokes `tempImage#setWaterMark(true)` to indicate that the image has a watermark.
 +
 
 +

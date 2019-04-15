@@ -526,6 +526,7 @@ and the `memberSort` command will sort the members in the `uniquePersonList` bas
 If the sorting criteria is not name, the `memberSort` command will
 will conduct an additional sort (by name). For example, `memberSort yearOfStudy 2` will be sorted by member's yearOfStudy, followed by member's name.
 
+.Sequence Diagram of MemberSortCommand
 image::membersort_sequencediagram.png[width=70%]
 
 * *Step 1:* The user executes the `memberSort` command by specifying the sorting criteria in which the user would like to sort the list.

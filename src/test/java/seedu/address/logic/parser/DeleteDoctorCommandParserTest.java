@@ -7,7 +7,8 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.DeleteDoctorCommand;
+import seedu.address.logic.commands.doctor.DeleteDoctorCommand;
+import seedu.address.logic.parser.doctor.DeleteDoctorCommandParser;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations

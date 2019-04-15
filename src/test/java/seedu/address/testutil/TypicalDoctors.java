@@ -18,7 +18,7 @@ import java.util.List;
 //import javax.print.Doc;
 
 import seedu.address.model.DocX;
-import seedu.address.model.person.Doctor;
+import seedu.address.model.person.doctor.Doctor;
 
 /**
  * A utility class containing a list of {@code Doctor} objects to be used in tests.

@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.ui.doctor;
 
 import java.util.logging.Logger;
 
@@ -10,7 +10,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Doctor;
+import seedu.address.model.person.doctor.Doctor;
+import seedu.address.ui.UiPart;
 
 /**
  * The Doctor Browser Panel of the App.

@@ -1,4 +1,4 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.doctor;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
@@ -10,14 +10,19 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddDoctorCommand;
+import seedu.address.logic.commands.doctor.AddDoctorCommand;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.Year;
-import seedu.address.model.tag.Specialisation;
+import seedu.address.model.person.doctor.Doctor;
+import seedu.address.model.person.doctor.Year;
+import seedu.address.model.person.specialisation.Specialisation;
 
 
 /**

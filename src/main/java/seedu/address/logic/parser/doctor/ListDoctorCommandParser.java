@@ -1,12 +1,15 @@
 /* @@author: siyingpoof */
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.doctor;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.ListDoctorCommand;
+import seedu.address.logic.commands.doctor.ListDoctorCommand;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.DoctorContainsKeywordsPredicate;
+import seedu.address.model.person.doctor.DoctorContainsKeywordsPredicate;
 
 /**
  * Parses the given {@code String} of arguments in the context of the ListDoctorCommand

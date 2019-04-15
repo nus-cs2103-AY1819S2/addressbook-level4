@@ -6,7 +6,7 @@
 //import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX;
 //import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 //import static seedu.address.logic.commands.patient.SelectPatientCommand.MESSAGE_SELECT_PERSON_SUCCESS;
-//import static seedu.address.logic.commands.SelectDoctorCommand.MESSAGE_SELECT_DOCTOR_SUCCESS;
+//import static seedu.address.logic.commands.doctor.SelectDoctorCommand.MESSAGE_SELECT_DOCTOR_SUCCESS;
 //import static seedu.address.testutil.TestUtil.getDoctorLastIndex;
 //import static seedu.address.testutil.TestUtil.getDoctorMidIndex;
 //import static seedu.address.testutil.TestUtil.getLastIndex;
@@ -19,7 +19,7 @@
 //import seedu.address.commons.core.index.Index;
 //import seedu.address.logic.commands.RedoCommand;
 //import seedu.address.logic.commands.patient.SelectPatientCommand;
-//import seedu.address.logic.commands.SelectDoctorCommand;
+//import seedu.address.logic.commands.doctor.SelectDoctorCommand;
 //import seedu.address.logic.commands.UndoCommand;
 //import seedu.address.model.Model;
 //

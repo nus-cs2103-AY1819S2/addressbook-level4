@@ -15,10 +15,11 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.doctor.ListDoctorCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.DoctorContainsKeywordsPredicate;
+import seedu.address.model.person.doctor.DoctorContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListDoctorCommand.

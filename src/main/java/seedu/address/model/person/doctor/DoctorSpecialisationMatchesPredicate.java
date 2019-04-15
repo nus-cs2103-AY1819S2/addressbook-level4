@@ -1,12 +1,12 @@
 /** author: @siyingpoof **/
-package seedu.address.model.person;
+package seedu.address.model.person.doctor;
 
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.appointment.AppointmentDate;
 import seedu.address.model.appointment.AppointmentTime;
-import seedu.address.model.tag.Specialisation;
+import seedu.address.model.person.specialisation.Specialisation;
 
 /**
  * Tests that a {@code Doctor}'s {@code Specialisation} matches any of the keywords given.

@@ -7,7 +7,9 @@ import org.junit.Test;
 
 import seedu.address.model.appointment.AppointmentDate;
 import seedu.address.model.appointment.AppointmentTime;
-import seedu.address.model.tag.Specialisation;
+import seedu.address.model.person.doctor.DoctorMatch;
+import seedu.address.model.person.doctor.DoctorSpecialisationMatchesPredicate;
+import seedu.address.model.person.specialisation.Specialisation;
 import seedu.address.testutil.DoctorBuilder;
 
 public class DoctorSpecialisationMatchesPredicateTest {

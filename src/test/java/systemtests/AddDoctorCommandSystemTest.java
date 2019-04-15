@@ -32,14 +32,14 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddDoctorCommand;
+import seedu.address.logic.commands.doctor.AddDoctorCommand;
 import seedu.address.model.Model;
-import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.Year;
-import seedu.address.model.tag.Specialisation;
+import seedu.address.model.person.doctor.Doctor;
+import seedu.address.model.person.doctor.Year;
+import seedu.address.model.person.specialisation.Specialisation;
 import seedu.address.testutil.DoctorBuilder;
 import seedu.address.testutil.DoctorUtil;
 

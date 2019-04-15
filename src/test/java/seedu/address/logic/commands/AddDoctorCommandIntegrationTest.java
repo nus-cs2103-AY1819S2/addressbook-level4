@@ -8,10 +8,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.doctor.AddDoctorCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Doctor;
+import seedu.address.model.person.doctor.Doctor;
 import seedu.address.testutil.DoctorBuilder;
 
 /**

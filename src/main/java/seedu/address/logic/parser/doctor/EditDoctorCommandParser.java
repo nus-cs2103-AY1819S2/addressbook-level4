@@ -1,4 +1,4 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.doctor;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -9,8 +9,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SPECIALISATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditDoctorCommand;
-import seedu.address.logic.commands.EditDoctorCommand.EditDoctorDescriptor;
+import seedu.address.logic.commands.doctor.EditDoctorCommand;
+import seedu.address.logic.commands.doctor.EditDoctorCommand.EditDoctorDescriptor;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

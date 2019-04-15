@@ -12,18 +12,19 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.doctor.DoctorMatchCommand;
 import seedu.address.model.DocX;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.appointment.AppointmentDate;
 import seedu.address.model.appointment.AppointmentTime;
-import seedu.address.model.person.AppointmentContainsDoctorPredicate;
-import seedu.address.model.person.DoctorHasAppointmentPredicate;
-import seedu.address.model.person.DoctorMatch;
-import seedu.address.model.person.DoctorSpecialisationMatchesPredicate;
-import seedu.address.model.person.DoctorsMatch;
-import seedu.address.model.tag.Specialisation;
+import seedu.address.model.person.doctor.AppointmentContainsDoctorPredicate;
+import seedu.address.model.person.doctor.DoctorHasAppointmentPredicate;
+import seedu.address.model.person.doctor.DoctorMatch;
+import seedu.address.model.person.doctor.DoctorSpecialisationMatchesPredicate;
+import seedu.address.model.person.doctor.DoctorsMatch;
+import seedu.address.model.person.specialisation.Specialisation;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for DoctorMatchCommand.

@@ -1161,17 +1161,17 @@ e.g. `back`
 e.g. `exit`
 
 * *Export* : `export FILE_PATH INDEX_RANGE`` +
-e.g. `export clinicRecords.json 1,3-5`
+e.g. `export test.json 1,3-5`
 
 * *Help* : `help`
 
 * *History* : `history`
 
 * *Import* : `import FILE_PATH INDEX_RANGE` +
-e.g. `import newData.json 1,3-5`
+e.g. `import test.json 1,3-5`
 
 * *Open* : `open FILE_PATH` +
-e.g. `open sample/newData.json`
+e.g. `open test.json`
 
 * *Record Add* : `recordadd pro/PROCEDURE desc/DESCRIPTION` +
 e.g. `recordadd pro/Braces-Top row desc/Mouth was noticeably foul, might have halitosis`
@@ -1190,8 +1190,8 @@ e.g. `recordmc 1`
 
 * *Redo* : `redo`
 
-* *Save* : `save FILE_PATH`` +
-e.g. `save clinicRecords.json`
+* *Save* : `save FILE_PATH` +
+e.g. `save test.json`
 
 * *Sort* : `sort PARAM ORDER` +
 e.g. `sort name asce` or `sort dob desc`

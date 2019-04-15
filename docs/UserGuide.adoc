@@ -232,7 +232,11 @@ Format: `list <type>`
 
 ==== Showing all health workers
 
-Format: `list healthworker/h/1`
+Format: `list healthworker`
+
+*Shortcut(s)*: +
+-  `list h` +
+- `list 1`
 
 Upon entering the command to list health workers, all currently registered
 health workers in the Health Hub system will be displayed on the list on the
@@ -241,7 +245,11 @@ right side of the GUI.
 
 ==== Showing all requests
 
-Format: `list request/r/2`
+Format: `list request`
+
+Shortcut(s): +
+- `list r` +
+- `list 2`
 
 After entering the command to list requests, you should see the list on the
 left side of the GUI being populated with all requests that are added to
@@ -795,15 +803,17 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 ====
 
 
-=== Viewing a request : `sr`
+=== Viewing a request : `select`
 
 With the flexibility in managing and adding, editing and deleting requests,
 existing functionality for the user to view the details of requests in
 Health Hub has also been implemented to improve the user experience.
 
-Format: `sr <request_index>`
+Format: `select <request_index>`
 
-Entering the `sr` command allows the application to select the request at the
+Shortcut: `sr <request_index>`
+
+Entering the `select` command allows the application to select the request at the
  specified `<request_index>`, and displays the full details of the selected
  request on the GUI.
 

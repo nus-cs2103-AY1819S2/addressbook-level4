@@ -629,7 +629,7 @@ If the input is invalid (e.g. user did not provide a folder name or provided one
 * Step 3. The `LogicManager` executes the `AddFolderCommand`, Before transferring control to the Model component with the `ModelManager#addFolder()` method, a few checks are performed to ensure that the user is inside a folder and the model does not already have a folder with the same name (not shown in sequence diagram).
 
 [NOTE]
-If any of the aforementioned checks do not success, Step 3 would end in a Command Exception being thrown and would not proceed. Model and Storage components would not be modified.
+If any of the aforementioned checks do not succeed, Step 3 would end in a Command Exception being thrown and would not proceed. Model and Storage components would not be modified.
 
 * Step 4. The `ModelManager` creates a `VersionedCardFolder` to represent the newly created folder, storing a reference to its currently empty list of cards. Before returning control to the Logic component, `ModelManager#indicateModified()` is invoked to notify listeners in the `LogicManager` that the list of `CardFolders` have changed.
 
@@ -719,7 +719,7 @@ image::EnterFolderGUISequenceDiagram.png[width="800"]
 ** Pros: Has the advantages but not the disadvantages of Alternatives 1 and 2.
 ** Cons: More difficult to implement, developers will need to pay special attention to understand this behaviour.
 
-*Evaluation*: Alternative 3 is the most logical decision because it achieves the important objectives of retaining non-corrupted user data, while always ensuring there is data for the user to work with even if he/she is starting the application for the first time.
+*Evaluation*: Alternative 3 was deemed the most logical choice because it achieves the important objectives of retaining non-corrupted user data, while always ensuring there is data for the user to work with even if he/she is starting the application for the first time.
 
 === Navigating folders
 
@@ -738,7 +738,7 @@ To keep track of navigation state, an enum `State` is maintained by the `ModelMa
 
 ===== Change Directory Command
 
-Folder navigation is achieved by the user through the use of the `change` command. As navigating folders do not actually modify folders and their cards, folder navigation does not involve the Storage Component.
+Folder navigation is achieved by the user through the use of the `cd` command. As navigating folders do not actually modify folders and their cards, folder navigation does not involve the Storage Component.
 
 The change directory command has the following formats:
 
@@ -1945,7 +1945,7 @@ lowest scoring flashcard question and hints are displayed. Answer the current qu
 . Dealing with missing/corrupted data files
 .. Prerequisites: You must know where the data files are stored. By default, this will be at the `data/` directory at the path of the jar file.
 .. Test case: Delete the data directory and launch the app +
-   Expected: A sample folder is present when the app launches.
+   Expected: A sample folder is present when the app launches (although it is not committed to storage until a persistent change is made).
 .. Test case: Insert a non-json file/corrupted json file in the data directory and launch the app +
    Expected: The valid json files have folders with their corresponding names present. The non-json file/corrupted json file remains unaffected.
 

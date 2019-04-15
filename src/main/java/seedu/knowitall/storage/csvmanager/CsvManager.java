@@ -167,9 +167,7 @@ public class CsvManager implements CsvCommands {
             for (Card card : cardList) {
                 String cardRepresentation = getCardString(card);
                 fileWriter.append(cardRepresentation);
-                if (card != cardList.get(cardList.size() - 1)) {
-                    fileWriter.append(NEW_LINE_SEPARATOR);
-                }
+                fileWriter.append(NEW_LINE_SEPARATOR);
             }
             fileWriter.flush();
             fileWriter.close();

@@ -120,7 +120,7 @@ public class ImportCommandTest {
     }
 
     /**
-     * this helper method checks whether the two models have the same card folders
+     * Checks whether the two models have the same card folders
      */
     private boolean isSameCardFolderList(List<ReadOnlyCardFolder> cardFolders,
                                          List<ReadOnlyCardFolder> expectedCardFolders) {
@@ -133,7 +133,7 @@ public class ImportCommandTest {
     }
 
     /**
-     * this helper method checks whether the two card folders have the same cards
+     * Checks whether the two card folders have the same cards
      */
     private boolean sameCardsInFolder(ReadOnlyCardFolder folder, ReadOnlyCardFolder expected) {
         List<Card> folderCardList = folder.getCardList();
@@ -149,7 +149,7 @@ public class ImportCommandTest {
     }
 
     /**
-     * this helper method checks that the two cards are the same. Two cards are the same if they have the same question,
+     * Checks that the two cards are the same. Two cards are the same if they have the same question,
      * answer, options and hint
      */
     private boolean isSameCard(Card card, Card expected) {

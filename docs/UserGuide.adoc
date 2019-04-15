@@ -940,6 +940,8 @@ Now, if the ingredients for Lobster Burger are available again, executing `toggl
 // end::menumode[]
 
 // tag::statisticsmode[]
+
+// tag::smintro[]
 === Statistics Mode
 
 In Statistics Mode, you can obtain statistics related to your restaurant, such as the popularity of dishes and the
@@ -959,9 +961,9 @@ you have selected. This allows you to study trends in your restaurant's revenue.
 [NOTE]
 By default the Statistics Mode displays revenue up to 30 days in the Revenue Panel unless you execute
 <<Yearly, `yearly`>>, <<Monthly, `monthly`>> or <<Daily, `daily`>> commands to change its display.
-
+// end::smintro[]
 Here are the commands that you can use in this mode to study the statistical data of your restaurant.
-
+// tag::yearly[]
 [[Yearly]]
 ==== Changing the Revenue Panel to yearly view : `yearly`
 
@@ -986,7 +988,8 @@ scrolling through the rest of the record.
 image::SM_Yearly.png[width="700", align="center"]
 
 |===
-
+// end::yearly[]
+// tag::monthly[]
 [[Monthly]]
 ==== Changing the Revenue Panel to monthly view : `monthly`
 
@@ -1011,7 +1014,8 @@ scrolling through the rest of the record.
 image::SM_Monthly.png[width="700", align="center"]
 
 |===
-
+// end::monthly[]
+// tag::daily[]
 [[Daily]]
 ==== Changing the Revenue Panel to daily view : `daily`
 
@@ -1036,7 +1040,8 @@ scrolling through the rest of the record.
 image::SM_Daily.png[width="700", align="center"]
 
 |===
-
+// end::daily[]
+// tag::revenue[]
 [[Revenue]]
 ==== Getting the total revenue : `revenue`
 
@@ -1075,7 +1080,7 @@ image::Revenue_Month.png[]
 
 image::Revenue_Day.png[]
 |===
-
+// end::revenue[]
 // end::statisticsmode[]
 
 == FAQ

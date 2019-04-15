@@ -31,6 +31,14 @@ Other skills useful for contributing to BrainTrain are as follows: +
 
 Whether you have any, none or all of the skills above, you will first need to set up a few things before being able to start work on the project.
 
+=== How does BrainTrain work +
+
+This is a brief explanation of how BrainTrain works:
+
+. You can attempt cards in quiz mode, these cards whereby a *question* is displayed to you, and you type in the *answer*.
+. You can group multiple cards in a single package called a *lesson*. You can have multiple lessons.
+. You can manage lessons in management mode or alternatively do so in your preferred spreadsheet application.
+
 == Setting up +
 
 === Prerequisites +
@@ -1314,6 +1322,8 @@ Use case ends.
 .  Should be able to hold up to 1000 cards in multiple lessons without a noticeable sluggishness in
 performance for typical usage.
 .  Should be able to load 1000 cards within 7 seconds.
+.  Product is not required to handle mass data editing (i.e no spreadsheet editing functionality)
+.  User data (both lessons and SRS data) should be easily portable
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 [appendix]
@@ -1363,11 +1373,93 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Changing theme +
 
-. Changing from light theme to dark theme
-.. `changeTheme` +
+Changing from light theme to dark theme.
 
-.. Exit and start `BrainTrain` again. +
+. `changeTheme` +
+
+. Exit and start `BrainTrain` again. +
    Expected: The theme have changed to dark theme and persist beyond restart.
+
+=== Adding a lesson +
+
+. Test case (successful): `addLesson n/Capitals of the world t/Country t/Capital t/Language h/Hint` +
+    Expected: The lesson is added and appears on the user interface. +
+    Exit the BrainTrain app, and launch it again. +
+    Expected: The lesson 'Capitals of the world' is loaded on app launch.
+. Test case (unsuccessful): `addLesson t/Country t/Capital t/Language h/Hint` +
+    Expected: No lesson is added because name is missing. Error details are shown to the user.
+. Test case (unsuccessful): `addLesson n/Capitals t/Country h/Language h/Hint` +
+    Expected: No lesson is added because there is only 1 test value. Error details are shown to the user.
+
+=== Deleting a lesson +
+
+. Prerequisite: There is at least 1 lesson loaded in-memory.
+. Test case (successful): `deleteLesson 1` +
+    Expected: The first lesson is deleted and no longer appears on the user interface. +
+    Exit the BrainTrain app, and launch it again. +
+    Expected: The lesson is permanently gone and does not re-appear on app restart.
+. Test case (unsuccessful): `deleteLesson 0` +
+    Expected: No lesson is deleted because of invalid index. Error details are shown to the user.
+. Other incorrect `deleteLesson` commands to try: `deleteLesson`, `deleteLesson x` where x is larger than the number of lessons loaded in-memory
+
+=== Editing a lesson +
+
+. Prerequisite: There is at least 1 lesson loaded in-memory.
+. Test case (successful): `edit 1` +
+    Expected: The first lesson is opened in Card View for editing. +
+. Test case (unsuccessful): `edit 0` +
+    Expected: No lesson is opened for editing because of invalid index. Error details are shown to the user.
+. Other incorrect `edit` commands to try: `edit`, `edit x` where x is larger than the number of lessons loaded in-memory.
+
+=== Setting a lesson's test pair +
+
+. Prerequisite steps:
+.. Enter `addLesson n/Capitals of the world t/Country t/Capital t/Language h/Hint` to create a lesson
+.. Enter `edit x` where x is the number of the lesson added
+.. Enter `addCard t/Australia t/Canberra t/English h/Starts with C` to add a card
+.. Enter `addCard t/Korea t/Seoul t/Korean` to add another card
+. Test case (successful): `set 1 3` +
+    Expected: The user interface indicates that 'Country' and 'Language' are the 2 test values to be tested.
+. Test case (successful): `set 3 2` +
+    Expected: The user interface indicates that 'Language' and 'Capital' are the 2 test values to be tested.
+. Test case (unsuccessful): `set 0 2` +
+    Expected: No setting is done because of invalid index. Error details are shown to the user.
+. Test case (unsuccessful): `set 1 5` +
+    Expected: No setting is done because the lesson only has 3 test values, and there is no test value at index 5. Error details are shown to the user.
+. Other incorrect `set` commands to try: `set`, `set x y` where x or y is larger than the number of test values the lesson has.
+
+=== Adding a card +
+
+Adding a card.
+
+. Prerequisite steps:
+.. Enter `addLesson n/Capitals of the world t/Country t/Capital t/Language h/Hint` to create a lesson
+.. Enter `edit x` where x is the number of the lesson added
+. Test case (successful): `addCard t/Australia t/Canberra t/English h/Starts with C` +
+    Expected: The card is added and appears on the user interface. +
+. Test case (successful): `addCard t/Korea t/Seoul t/Korean` +
+    Expected: The card is added and appears on the user interface. +
+. Test case (unsuccessful): `addCard t/English h/Starts with C` +
+    Expected: No card is added because there is only 1 test value and all cards require at least 2 test values. Error details are shown to the user.
+. Test case (unsuccessful): `addCard t/Australia t/Canberra h/Starts with C` +
+    Expected: No card is added because there is only 2 test value but the lesson requires 3. Error details are shown to the user.
+
+=== Deleting a card +
+
+Deleting a card.
+
+. Prerequisite steps:
+.. Enter `addLesson n/Capitals of the world t/Country t/Capital t/Language h/Hint` to create a lesson
+.. Enter `edit x` where x is the number of the lesson added
+.. Enter `addCard t/Australia t/Canberra t/English h/Starts with C` to add a card
+.. Enter `addCard t/Korea t/Seoul t/Korean` to add another card
+. Test case (successful): `deleteCard 1` +
+    Expected: The first card is deleted and no longer appears on the user interface. +
+. Test case (unsuccessful): `deleteCard 0` +
+    Expected: No card is deleted because of invalid index. Error details are shown to the user.
+. Test case (unsuccessful): `deleteCard 100` +
+    Expected: No card is deleted because of invalid index. Error details are shown to the user.
+. Other incorrect `deleteCard` commands to try: `deleteCard`, `deleteCard x` where x is larger than the number of cards in the opened lesson.
 
 //tag::session[]
 === Starting a new quiz +

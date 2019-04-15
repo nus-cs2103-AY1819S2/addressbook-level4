@@ -1,5 +1,7 @@
 package seedu.pdf.model;
 
+import static java.util.Comparator.reverseOrder;
+
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.function.Predicate;
@@ -8,8 +10,6 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.pdf.commons.core.GuiSettings;
 import seedu.pdf.model.pdf.Pdf;
-
-import static java.util.Comparator.reverseOrder;
 
 /**
  * The API of the Model component.

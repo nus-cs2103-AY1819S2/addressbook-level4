@@ -1,13 +1,13 @@
 package seedu.pdf.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Comparator;
 
 import seedu.pdf.logic.CommandHistory;
 import seedu.pdf.model.Model;
 import seedu.pdf.model.PdfBook;
 import seedu.pdf.model.pdf.Pdf;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Sorts all PDF files in alphabetical or deadline or file size order.

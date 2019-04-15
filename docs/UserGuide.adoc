@@ -37,7 +37,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * **`add`**`n/Cool Tshirt c/Green t/Top` : adds an apparel named `Cool Tshirt` to Fashion Match.
 * **`delete`**`3` : deletes the 3rd apparel shown in the current list
 * *`exit`* : exits Fashion Match
-`
+
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
@@ -92,8 +92,8 @@ Format: `add n/NAME c/COLOR t/CLOTHINGTYPE`
 
 Examples:
 
-* `add n/Zara Shirt c/Red t/Top
-* `add n/Desigual Tailored Pants c/Grey t/Bottom
+* `add n/Zara Shirt c/Red t/Top`
+* `add n/Desigual Tailored Pants c/Grey t/Bottom`
 
 // tag::sort[]
 === Sort all apparels that matches the given option : `sort [OPTION]`
@@ -329,12 +329,12 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Clears all entries from FM. +
 Format: `clear`
 
-=== Recommend Outfit : `recommendation`
+=== Recommend outfit : `recommendation`
 
 Lists a recommended outfit based on what matches in your closet. The matching is done based on what colors match. The matching matrix is displayed below. Green means match and red means not match. The algorithm will search for a random outfit that meets the color requirements. The outfit must have a `TOP`, `BOTTOM`, `SHOES`. If a matching belt exists, an outfit may be recommended with a BELT. +
 Format: `recommendation`
 
-=== Something Color Select : `something [COLOR]`
+=== Something color : `something [COLOR]`
 image::CM.png[width="1000"]
 
 Returns random apparel of specified COLOR FM. +
@@ -354,7 +354,7 @@ Returns a RED apparel from FM.
 * `something BLACK` +
 Returns a BLACK apparel from FM.
 
-=== Random Item Type Select : `random [TYPE]`
+=== Random item type : `random [TYPE]`
 
 Returns random specified TYPE of apparel from FM. +
 Format: `random TYPE`
@@ -414,12 +414,12 @@ There is no need to save manually.
 
 Fashion Match would be able to recommend suitable apparels based on whatever occasion the user is preparing for. For example, if the user is preparing for a formal event, FM will only recommend apparels that match the formal occasion.
 
-=== Matched Colors
+=== Matched colors
 
 Fashion Match would also be able to establish relations between certain colors so that it will not recommend conflicting colors. +
 Examples: red on red, yellow on yellow, etc
 
-=== Save Favourite Apparels/Outfits
+=== Save favourite apparels/outfits
 
 Users would be able to save their favourite outfits or apparels so that they can quickly identify their favourite clothes for future use.
 
@@ -449,12 +449,14 @@ e.g. `list top`
 e.g. `random TOP`
 * *Redo* : `redo`
 * *Recommendation* : `recommendation`
-* *Sort* : `sort [OPTION]` +
-e.g. `sort color`
 * *Select* : `select INDEX` +
 e.g. `select 2`
 * *Something* : `something COLOR` +
 e.g. `something RED`
+* *Sort* : `sort [OPTION]` +
+e.g. `sort color`
+* *Swap* : `swap [INDEX_X] [INDEX_Y]` +
+e.g. `swap 2 5`
 * *Stats* : `stats`
 * *Undo* : `undo`
 * *Wash* : `wash INDEX` +

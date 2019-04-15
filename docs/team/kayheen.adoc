@@ -71,6 +71,7 @@ https://github.com/CS2103-AY1819S2-W16-2/main/issues/117[#117],
 '''
 include::../UserGuide.adoc[tag=AWalkThrough]
 
+
 ==== 3.2 Rotate an Image : `rotate`
 '''
 include::../UserGuide.adoc[tag=RotateCommand]

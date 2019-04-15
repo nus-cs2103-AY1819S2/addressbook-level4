@@ -507,21 +507,21 @@ image::quiz-command-examples/quit.PNG[width="500"]
 
 ==== Viewing the status of the current quiz: `\status`
 
-Displays information on the current quiz's status such as questions progress (i.e. number of
+Displays information on the current quiz's status such as question progress (i.e. number of
 correct questions). +
 Format: `\status`
 
 ****
 
-What does a status displays:
+What does status display:
 
 * Total attempts refers to the number of times you have attempted this card, regardless of
-whether you were answered it correctly.
+whether you answered it correctly.
 
-* Total correct answer refers to the numbers of time you have gotten correct, regardless of the
+* Total correct answers refers to the number of times you correctly answered, regardless of the
 streak.
 
-* Current progress refers to which card are you currently on out of all the cards in the quiz.
+* Current progress refers to which card are you currently on, out of all the cards in the quiz.
 ****
 
 
@@ -547,7 +547,7 @@ You can use BrainTrain across different devices. This is an in-built feature tha
 
 To transfer your files: +
 
-. Store the `userdata` and `lessons` folder into your transfer device(thumbdrive etc.).
+. Store the `userdata` and `lessons` folder into your transfer device (thumbdrive etc.).
 . On another device, ensure that BrainTrain has been executed `at least once`.
 . Transfer and overwrite the `userdata` and `lessons` folder.
 . Your progress will be automatically imported on that device.
@@ -574,6 +574,9 @@ User will see a 10 seconds timer countdown when answering a question (e.g. learn
 BrainTrain will auto generate a list of mcq options depending on the list of values in the
 user specified lesson.
 
+=== Support other spreadsheet formats such as .xlsx [Coming in v2.0]
+BrainTrain will be able to accept more robust spreadsheet file formats.
+
 {empty} +
 
 // tag::eugene_troubleshoot[]
@@ -593,6 +596,8 @@ The default encoding setting is unable to process special characters. As a resul
 Note that externally created lesson files have to be saved with UTF-8 encoding before using them in BrainTrain. +
 If the files are saved without `UTF-8` encoding, any non-English data may be saved as `?????`, and the data will be lost.
 ****
+
+{empty} +
 
 *Q*: Why are my lessons not loading? +
 *A*: Please verify if the location of BrainTrain is suitable. Depending on your computer's permissions and security settings, places such as the Desktop may not be usable, and your operating system may prevent BrainTrain from loading the lesson files.

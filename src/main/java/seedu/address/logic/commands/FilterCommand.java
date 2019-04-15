@@ -145,8 +145,6 @@ public class FilterCommand extends Command {
         boolean hasListName = listName != EMPTY;
         checkException(isAllJobScreen, hasListName);
 
-        int size = model.getJobsList(listName).size();
-
         switch (listName) {
         case APPLICANT:
             try {
@@ -191,9 +189,9 @@ public class FilterCommand extends Command {
                 throw new CommandException(MESSAGE_REDUNDANT_FILTERNAME);
             }
             model.updateFilteredPersonList();
-            size = model.getFilteredPersonList().size();
             predicateList = model.getPredicateLists(EMPTY);
         }
+        int size = model.getJobsList(listName).size();
         return new CommandResult(
             String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, size), listName,
             predicateList);

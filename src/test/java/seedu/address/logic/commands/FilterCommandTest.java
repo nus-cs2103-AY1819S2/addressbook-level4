@@ -35,7 +35,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.predicate.NameContainsKeywordsPredicate;
 
 
 /**
@@ -53,9 +52,7 @@ public class FilterCommandTest {
         FilterCommand.PredicatePersonDescriptor secondDescriptor =
             preparePredicatePersonDescriptor("second");
         FilterCommand secondCommand = new FilterCommand("", EMPTY, secondDescriptor);
-        NameContainsKeywordsPredicate findPredicate =
-            new NameContainsKeywordsPredicate(Collections.singletonList("first"));
-        FindCommand findCommand = new FindCommand(findPredicate);
+        DeleteFilterCommand deleteFilterCommand = new DeleteFilterCommand(EMPTY, VALID_FILTERNAME);
 
         // same object -> returns true
         assertEquals(firstCommand, firstCommand);
@@ -71,7 +68,7 @@ public class FilterCommandTest {
         assertNotEquals(firstCommand, secondCommand);
 
         // different command type -> returns false
-        assertNotEquals(firstCommand, findCommand);
+        assertNotEquals(firstCommand, deleteFilterCommand);
     }
 
     @Test

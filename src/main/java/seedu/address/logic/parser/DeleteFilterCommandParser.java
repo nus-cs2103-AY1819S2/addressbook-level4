@@ -1,5 +1,10 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.commands.DeleteFilterCommand.MESSAGE_LACK_FILTERNAME;
+import static seedu.address.logic.commands.DeleteFilterCommand.MESSAGE_USAGE_ALLJOB_SCREEN;
+import static seedu.address.logic.commands.DeleteFilterCommand.MESSAGE_USAGE_DETAIL_SCREEN;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTERNAME;
+
 import seedu.address.logic.commands.DeleteFilterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.job.JobListName;
@@ -16,24 +21,24 @@ public class DeleteFilterCommandParser implements Parser<DeleteFilterCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteFilterCommand parse(String args) throws ParseException {
+        ArgumentMultimap argMultimap =
+            ArgumentTokenizer.tokenize(args, PREFIX_FILTERNAME);
         JobListName listName;
-        String trimedString = args.trim();
-        boolean hasListName = trimedString.split("\\s+").length == 2;
-        String listNameString;
         String commandName;
-        if (!hasListName) {
-            listNameString = "";
-            commandName = trimedString.split("\\s+")[0].trim();
+        if (argMultimap.getValue(PREFIX_FILTERNAME).isPresent()) {
+            commandName = argMultimap.getValue(PREFIX_FILTERNAME).get().trim();
         } else {
-            listNameString = trimedString.split("\\s+")[0].trim();
-            commandName = trimedString.split("\\s+")[1].trim();
+            throw new ParseException(String.format(MESSAGE_LACK_FILTERNAME,
+                MESSAGE_USAGE_ALLJOB_SCREEN + MESSAGE_USAGE_DETAIL_SCREEN));
         }
+        String preambleString = argMultimap.getPreamble();
+        String listNameString = preambleString.trim();
         try {
             listName = ParserUtil.parseJobListName(listNameString);
             return new DeleteFilterCommand(listName, commandName);
         } catch (ParseException pe) {
             throw new ParseException(String.format(pe.getMessage(),
-                DeleteFilterCommand.MESSAGE_USAGE_ALLJOB_SCREEN + DeleteFilterCommand.MESSAGE_USAGE_DETAIL_SCREEN), pe);
+                MESSAGE_USAGE_ALLJOB_SCREEN + MESSAGE_USAGE_DETAIL_SCREEN), pe);
         }
     }
 

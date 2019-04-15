@@ -1,0 +1,279 @@
+= Teng Yun - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: slaveFinder()
+
+---
+
+== Overview
+
+slaveFinder() is a desktop recruiting software tracking all resumes from the company and helps HR managers manage most of their hiring process. It allows HR to easily import resumes and transform applicants' information into concise and organized format. It helps HR Manager to find the best talent by filter almost all information and automaticaly do analytics and statistics. During the hiring processing, this software will always visualize all stages and it also can help you auto schedule the interviews. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java and has about 15 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *a convenient and controlable filter system to filter applicants on their information*
+** What it does:
+***Allows the user to filter base on the various fields data of the applicants.
+***Filter is visble and can be combined.
+***Filter can be deleted by their name or cleared all in one command
+***Each Applicants list has an independent filter list.
+** Justification: HR manager always faces a lot of resumes and applicants' information, a powerful filter system can save them a lot of time and find the perfect candidates in different needs. It can also be used combining with analytic and deliver more insights to user.
+** Highlights: A visble filter system will be convenient for HR manager to manage the filter process, it makes filter process more controlable.
+
+image::filter.png[width="790"]
+
+* *Minor enhancement*: Add Person field: PastJob(https://github.com/CS2103-AY1819S2-W15-3/main/pull/62[#62]) and ListName class.
+
+
+* *Code contributed*: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=caesarty[Link to RepoSense]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.2` on GitHub
+** Enhancements to existing features:
+*** Ensure user cannot using some delete features such as tag and find.(https://github.com/CS2103-AY1819S2-W15-3/main/pull/243[#243])
+*** Refine Message system and add more detailed error handling in commands such as add and filter (https://github.com/CS2103-AY1819S2-W15-3/main/pull/229[#229])
+***  Make sure commands will not be used in unmatched Screen(mode)(https://github.com/CS2103-AY1819S2-W15-3/main/pull/248[#248])
+*** Wrote additional tests for existing features and my own features. Test code(including system test code) coverage over ninety percent on filter related features.
+** Documentation:
+*** Reformat the User Guide: (https://github.com/CS2103-AY1819S2-W15-3/main/pull/257[#257])
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W15-3/main/pull/71[#71]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/881[1], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/798[2], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/676[3], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/417[4], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/220[5])
+
+
+== Contributions to the User Guide
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+=== Applicants Related Features
+==== Open CV for potential applicants : `openCV` `Coming in v2.0`
+
+Opens the real CV provided in Resume Form of applicants +
+Format: `openCV [FILTERLISTNAME] INDEX `
+
+****
+* This command can be used in both All Jobs Screen and Job Detail Screen, when Screen is All JOb Showing Screen, *FILTERLISTNAME should be empty*.
+* When Screen is Job Detail Screen (four applicants lists shows), *FILTERLISTNAME is needed*.
+* FILTERLISTNAME indicate which Job list this command will be used.
+* Opens the CV of applicants at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Pontential candidate will be confirmed by FILTERLISTNAME (if any) and index and his/her CV will be opened for reference.
+****
+
+Examples:
+
+* `openCV 1` +
+Opens the CV of the 1st applicants showing on All Allicants List
+* `openCV applicant 2` +
+Opens the CV of the 2nd applicants showing on Allicants List in Job Detail Screen.
+
+=== Filter Related Features
+==== Filter results : `filter`
+
+Filter the people displayed on the Person List. Each filer has a name and can be delete, diplay result always base on all filter request. +
+Format: `filter [FILTERLISTNAME] fn/FILTERNAME [n/NAME] pp/PHONE_NUMBER] [nric/NRIC] [e/EMAIL] [a/ADDRESS] [g/GENDER] [r/RACE] [m/MAJOR] [s/SCHOOL] [gr/GRADE] [is1/INTERVIEWSCORESQ1] [is2/INTERVIEWSCORESQ2] [is3/INTERVIEWSCORESQ3] [is4/INTERVIEWSCORESQ4] [is5/INTERVIEWSCORESQ5] [j/JOBS_APPLY]... [kpl/KnowPROGLANG]... [pj/PASTJOB]...`
+
+****
+* This command can be used in both All Jobs Screen and Job Detail Screen, when Screen is All JOb Showing Screen, *FILTERLISTNAME should be empty*.
+* When Screen is Job Detail Screen (four applicants lists shows), *FILTERLISTNAME is needed*.
+* FILTERLISTNAME indicate which Job list this command will used.
+* FILTERLISTNAME can be full name of the job lists such as "Applicant", "KIV", "Interview", "Shortlist".
+* FILTERLISTNAME also can be prefix of the job lists such as "a", "k", "i", "s".
+* Multiple filters can be added to filter people. All the filter labels will show on the Filter Panel.
+* Applicant List always display people base on all undeleted filters. Persons matching all filters will be returned (i.e. `AND`)
+* The filter can be an empty filter without any filtering parameter. e.g. `filter fn/empty` All applicants will be matched in empty filter.
+* Filter Name can be any valid String except the String cotaining parameter's prefixes
+** For example, `^_^`, `Gender: Male, School: NUS`, `naming is difficult!` can all be a valid filter name.
+** But `s/nus`, `valid filtername n/` can not be a valid filter name and the string after the prefix will be regraded as corresponded information and parse into System.
+* For grade field (Grade and Interview Scores):
+** The Interview has five questions and all the value can be filter by `gr/` or `is[num]/` (num = {1,2,3,4,5})
+** The keyword is a range and splitted by `;`.
+** The keyword should be in correct format. e.g. `3.2-4.3` `5 - 6` `3 - 1`.
+** Persons' grade or scores are exactly equal to the Upper bound or lower bound will return.
+** The Upper bound can lower than lower bound, and no applicants will be matched.
+** Persons matching at least one keyword (range) will be returned (i.e. `OR` ). e.g. `gr/3-4; 4-5` will match person with grade in range [3,4] and [4,5].
+* For other field:
+** The keyword can be any string and splitted by space.
+** The match is case insensitive. e.g `hans` will match `Hans`
+** The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+** Only full words will be matched e.g. `Han` will not match `Hans`
+** Persons matching at least one keyword will be returned (i.e. `OR` ). e.g. `Hans Bo` will match `Hans Gruber`, `Bo Yang`
+****
+
+Examples:
+
+* `filter fn/nus s/nus` +
+Shows all persons whose school is NUS in All Applicants List.
+* `filter fn/nus s/nus m/CS` +
+Shows all persons whose school is NUS and major is CS in All Applicants List.
+* `filter fn/nus s/nus` +
+`filter fn/CS m/CS`
+Shows all persons whose school is NUS and major is CS in All Applicants List.
+* `filter fn/grade gr/4.8-5.0;3.0-3.1` +
+Shows all persons whose grade in range of [4.8,5.0] or [3.0,3.1] in All Applicants List.
+* `filter Interview fn/nus s/nus` +
+Shows all persons whose school is NUS in Interview List in Job Detail Screen.
+
+==== Delete a Filter : `deleteFilter`
+
+Delete a filter showing on the display board and renew the update display people list. +
+Format: `deleteFilter [FILTERLISTNAME] FILTERNAME`
+
+****
+* This command can be used in both All Jobs Screen and Job Detail Screen, when Screen is All JOb Showing Screen, *FILTERLISTNAME should be empty*.
+* When Screen is Job Detail Screen (four applicants lists shows), *FILTERLISTNAME is needed*.
+* FILTERLISTNAME indicate which Job list this command will used.
+* FILTERLISTNAME can be full name of the job lists such as "Applicant", "KIV", "Interview", "Shortlist".
+* FILTERLISTNAME also can be prefix of the job lists such as "a", "k", "i", "s".
+* You can only delete one filter perin one command. The filter label you delete will disappear on the Filter Panel.
+* Applicants List always display people base on all undeleted filters.Persons matching all filters will be returned (i.e. `AND`)
+****
+Examples:
+
+* `filter fn/nus s/nus` +
+Shows all persons whose school is NUS in All Applicants List.
+* `deleteFilter nus`
+Shows all persons in All Applicants List.
+* `filter Interview fn/nus s/nus` +
+Shows all persons whose school is NUS in Interview List in Job Detail Screen.
+* `deleteFilter Interview ` +
+Shows all persons in Interview List in Job Detail Screen.
+
+==== Clear a Filter List: `clearFilter`
+
+Clear a filter showing on the display board and renew the update display people list. +
+Format: `clearFilter [FILTERLISTNAME]`
+
+****
+* This command can be used in both All Jobs Screen and Job Detail Screen, when Screen is All JOb Showing Screen, *FILTERLISTNAME should be empty*.
+* When Screen is Job Detail Screen (four applicants lists shows), *FILTERLISTNAME is needed*.
+* FILTERLISTNAME indicate which Job list this command will used.
+* FILTERLISTNAME can be full name of the job lists such as "Applicant", "KIV", "Interview", "Shortlist".
+* FILTERLISTNAME also can be prefix of the job lists such as "a", "k", "i", "s".
+****
+Examples:
+
+* `filter fn/nus s/nus` +
+`filter fn/CS m/CS`
+Shows all persons whose school is NUS and major is CS in All Applicants List.
+* `clearFilter `
+Shows all persons in All Applicants List.
+* `filter Interview fn/nus s/nus` +
+`filter Interview fn/CS m/CS`
+Shows all persons whose school is NUS and major is CS in Interview List in Job Detail Screen.
+* `clearFilter ` +
+Shows all persons in Interview List in Job Detail Screen.
+
+include::../UserGuide.adoc[tag=filter]
+
+include::../UserGuide.adoc[tag=openCV]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+=== Filter Feature
+
+With the filter feature, users can input specific parameters that act as conditions for slaveFinder() to conditionally update the `UniqueFilterList` and filter the `UniquePeronList`. Using these parameters, slaveFinder() shows applicants contains the specified parameters. Filter is visble and can combine or be deleted.
+
+Command Format:
+**`filter [FILTERLISTNAME] fn/FILTERNAME [<prefix>/<parameter>]...`
+**`deleteFilter [FILTERLISTNAME] fn/FILTERNAME`
+**`clearFilter [FILTERLISTNAME]`
+
+[NOTE]
+* FILTERLISTNAME indicate which Job list this command will used.
+
+==== Add Filter
+
+The command format for Adding a Filter is:
+
+Format: `filter [FILTERLISTNAME] fn/FILTERNAME [n/NAME] pp/PHONE_NUMBER] [nric/NRIC] [e/EMAIL] [a/ADDRESS] [g/GENDER] [r/RACE] [m/MAJOR] [s/SCHOOL] [gr/GRADE] [is1/INTERVIEWSCORESQ1] [is2/INTERVIEWSCORESQ2] [is3/INTERVIEWSCORESQ3] [is4/INTERVIEWSCORESQ4] [is5/INTERVIEWSCORESQ5] [j/JOBS_APPLY]... [kpl/KnowPROGLANG]... [pj/PASTJOB]...`
+
+[NOTE]
+====
+* If multiple fields are provided, this command will filter the `UniquePersonList` by `AND` logic among multiple fields.
+* If multiple keywords are provided in one command, this command will filter the `UniquePersonList` by `OR` logic among multiple keywords.
+* Example: `filter fn/filter1 m/CS s/NUS` changes the UI to display applicants whose school is NUS *AND* major is CS. `filter fn/filter2 s/NUS NTU` changes the UI to display applicants whose school is NUS *OR* NTU.
+====
+
+
+Upon entering the `filter` command, the `filter` command word is stripped from the input and the argument fields are passed into the `FilterCommandParser` class. The FilterListName will be stripped from the argument and parse to `LISTNAME` object. `FilterCommandParser` tokenizes the other argument string using `ArgumentTokenizer` object, The regular expressions will be checked and mapping each parameter to it's respective prefix in an `ArgumentMultiMap` object. `FilterCommandParser` then creates a `predicatePersonDescriptor` object using the parameter
+values in `ArgumentMultiMap` for each filter. If invalid parameters are specified by the user, or if an invalid `FILTERLISTNAME` was be inputed, or there is no filter name is provided, then `FilterCommandParser` throws a `ParseException` and displays an error message to the user.
+
+If valid inputs are provided, `predicatePersonDescriptor` will be created and `FilterCommandParser` will return a `FilterCommand` with parameters `predicatePersonDescriptor` and `FilterName` and `FilterListName`. `FilterCommand` then creates a Predicate Manager object (implements Java 8’s Predicate interface) using the parameter values in `predicatePersonDescriptor` for each filter condition, and combines them into one single Predicate using the and() function in Predicate interface. After that, `FilterCommand` calls the addPredicate method in Model to set the Predicate List (indicated by FilterListName).In the end  `FilterCommand` calls the updateFilteredPersonList method in Model to update applicants using all current undeleted PredicateManager object. UI will change and displaying all undeleted Filter name label and the Person who evaluates the set Predicate to true.
+
+===== Current Implementation
+
+The following sequence diagram shows the flow of events when the `filter fn/nus` command is entered by the user:
+
+image::FilterSD.png[width=800]
+Figure: Sequence diagram illustrating the interactions between the
+`Logic` and `Model` components when `filter` command is called.
+
+==== Delete Filter
+
+The command format for Adding a Filter is:
+
+Format: `deleteFilter [FILTERLISTNAME] FILTERNAME`
+
+
+Upon entering the `deleteFilter` command, the `filter` command word is stripped from the input and the argument fields are passed into the `DeleteFilterCommandParser` class. The FilterListName will be stripped from the argument and parse to `LISTNAME` object. `DeleteFilterCommandParser` tokenizes the FILTERNAME.  If an invalid `FILTERLISTNAME` was be inputed, or there is no filter name is provided, then `DeleteFilterCommandParser` throws a `ParseException` and displays an error message to the user.
+
+If valid inputs are provided, `DeleteFilterCommandParser` will return a `DeleteFilterCommand` with parameters `FilterName` and `FilterListName`. `FilterCommand`. After that, `DeleteFilterCommand` calls the removePredicate method in Model to set the Predicate List (indicated by FilterListName).In the end  `FilterCommand` calls the updateFilteredPersonList method in Model to update applicants using all current undeleted PredicateManager object. UI will change and displaying all undeleted Filter name label and the Person who evaluates the set Predicate to true.
+
+==== Clear Filter
+
+The command format for Adding a Filter is:
+
+Format: `clearFilter [FILTERLISTNAME] `
+
+
+Upon entering the `clearFilter` command, the `filter` command word is stripped from the input and the argument fields are passed into the `ClearFilterCommandParser` class. The FilterListName will be stripped from the argument and parse to `LISTNAME` object. `ClearFilterCommandParser` tokenizes the FILTERNAME.  If an invalid `FILTERLISTNAME` was be inputed, then `ClearFilterCommandParser` throws a `ParseException` and displays an error message to the user.
+
+If valid inputs are provided, `ClearFilterCommandParser` will return a `ClearFilterCommand` with parameters `FilterName` and `FilterListName`. `FilterCommand`. After that, `ClearFilterCommand` calls the clearPredicate method in Model to set the Predicate List (indicated by FilterListName).In the end  `ClearFilterCommand` calls the updateFilteredPersonList method in Model to update applicants using an always true PredicateManager object. UI will change and displaying an empty filter panel and the all Persons will show.
+
+==== Design Considerations
+
+===== Aspect: How to parse parameters in filter command
+
+* **Alternative 1 (current choice):** `FilterCommandParse` Create a `predicatePersonDescriptor` object and parse it to `FilterCommand`
+** Pros:
+*** Make filterCommand more comparable. We can compare `predicatePersonDescriptor` to say whether two filter Command is same.
+*** Have better contol on a Filtercommand.
+** Cons: Logic is indirect.
+* **Alternative 2:** `FilterCommandParse` combine all conditions (parameters) in a Predicate and parse it to `FilterCommand`
+** Pros: Logic is direct.
+** Cons: Predicate interface is incomparable so this make test more difficult.
+
+===== Aspect: How to design a filter name restricted format
+
+* **Alternative 1 (current choice):** Filter name can be any String.
+** Pros:
+*** Make Filter name more flexible.
+*** A filter may include many information. But user can only see this filter by it's Filter name label. So it should allow user make a more detailed name for memory and control.
+** Cons: Because user can take unpredictable signas their filter name, so it may cause unpredictable bugs.
+* **Alternative 2:** Filter name should only be restricted in the specified format
+** Pros: Easy to control and handle error.
+** Cons: User more need more complicated filter name.
+
+===== Aspect: How to handle filter grade and interview scores
+
+* **Alternative 1 (current choice):** Filter parameter become a value range and person's score in this range will be returned.
+** Pros:
+*** Make more sense on filtering value related field.
+*** HR manager like to know peron's score in a range, not exactly in a specified value.
+** Cons: May add additional logic and error handling.
+* **Alternative 2:** Same logic as other field
+** Pros: Easy to implement.
+** Cons: HR manager like to know peron's score in a range, not exactly equal to a specified value.
+
+include::../DeveloperGuide.adoc[tag=filter]
+
+

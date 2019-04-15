@@ -77,9 +77,7 @@ public class RestaurantCardHandle extends NodeHandle<Node> {
      */
     public boolean equals(Restaurant restaurant) {
         return getName().equals(restaurant.getName().fullName)
-                && getAddress().equals(restaurant.getAddress().value)
-                && getPhone().equals(restaurant.getPhone().value)
-                && getEmail().equals(restaurant.getEmail().value)
+                && getAddress().equals(restaurant.getAddress().toString())
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(restaurant.getTags().stream()
                         .map(tag -> tag.tagName)
                         .collect(Collectors.toList())));

@@ -1665,6 +1665,49 @@ _{ more test cases ... }_
    Expected: No categories are set. Error details shown in status message.
 // end::categorization[]
 
+=== Visiting website of a restaurant
+
+==== Visiting website of restaurant inside the restaurant list
+
+Prerequisites:
+
+* The select restaurant must have a weblink.
+* There must be internet connection to display the weblink.
+
+.. Test case: `visitWeb 3` +
+   Expected: Website of Restaurant 3, Sunday Folks, from the sample data will be displayed on the pop-up window.
+.. Test case: `visitWeb 5` +
+   Expected: Since no weblink is added for Nipong Naepong, error message shown in the status message, indicating
+   that a weblink is not found.
+.. Test case: `visitWeb 21` +
+   Expected: Since there is only 20 restaurants in the sample data, an error message will be shown, indicating that the
+   index provided is invalid +
+
+
+
+==== Visiting website of restaurant that is not in the restaurant list
+
+Prerequisites:
+
+* The weblink you input must be in the correct form and is a valid Url.
+* There must be internet connection to display the weblink.
+
+.. Test case: `visitWeb www.kfc.com.sg` +
+   Expected: Website of KFC will be displayed on the pop-up window.
+.. Test case: `visitWeb asdjasdjasd` +
+   Expected: Since weblink provided is not in proper Url form, an error message indicating that the weblink is not in
+   the correct form and examples of weblinks will be provided.
+.. Test case: `visitWeb www.asdjasdjasd.com` +
+   Expected: Since weblink provided is invalid, an error message indicating that the weblink cannot be reached will be
+   displayed.
+
+==== You can test the following command in airplane mode on your device to mimic no internet connection
+
+.. Test case: `visitWeb 3` +
+   Expected: Error message showing no internet connection found is displayed in the status message.
+.. Test case: `visitWeb www.kfc.com.sg` +
+   Expected: Error message showing no internet connection found is displayed in the status message.
+
 === Saving data
 
 . Dealing with missing/corrupted data files

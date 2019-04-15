@@ -149,21 +149,21 @@ Format: `exit`
 === Preparation phase
 This section describes the commands used in the preparation phase.
 
-==== Initialising the map : `init`
+==== Initialising the maps : `init`
 
-Initialises both player's maps to the specified size. The size of the maps must be between 6 and 10, inclusive. +
+The `init` command initialises both your map and the enemy AI's map to the size that you specify. The size of the maps must be between 6 and 10, inclusive. +
 
 Format: `init MAP_SIZE` +
 Example: `init 10`
 
 ****
 * The `init` command can be used at any point in time during gameplay. When used in the middle of a game, the `init` command functions like a "new game" command and will reset the board to a clean state.
-* Each cell is represented by its coordinates e.g "b1".
+* Each cell is represented by its coordinates e.g "b1". The coordinates will be used by the other commands to refere to a cell.
 ****
 
 _Figure 1_ below shows how the maps will be displayed in the UI.
 
-.Player and enemy maps
+.The game maps
 image::initmapresult.png[width=750]
 
 {empty} +
@@ -306,9 +306,9 @@ Example:
 This section describes features that have not been implemented yet and are scheduled to be released in version 2.0.
 
 === Special map shapes
-The player will be allowed to use maps that are randomised in shape. This adds an extra layer of challenge and fun for the player.
+You will be allowed to use maps that are randomised in shape. This adds an extra layer of challenge and fun.
 
-The player will not be able to place their ships on the black tiles. The enemy AI will also have a randomised map that will not be the same as the player. The player will not be able to see the shape of the enemy map and can shoot black cells which will be counted as a miss.
+Both yourself and the computer AI will not be able to place ships on the black tiles. The enemy AI will also have a randomised map that will not be the same as your map. You will not be able to see the shape of the enemy map and can shoot black cells which will be counted as a miss.
 
 The image below shows an example of a randomised map.
 

@@ -484,7 +484,7 @@ This includes the company that manufactured it, expiry date and the tags that wa
 
 All PDF files can be found under the PDF folder
 
-image::PDFfolder.png[width="790"]
+image::folderPDF.png[width="790"]
 
 Fig 5.12.1 PDF folder highlighted
 

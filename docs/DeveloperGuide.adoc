@@ -496,7 +496,7 @@ Fig 4.4 UML sequence diagram
 image::label2_taken.png[width="790"]
 Fig 4.4.1.1
 
-image::PDFfolder.png[width="790"]
+image::folderPDF.png[width="790"]
 Fig 4.4.1.2 (PDF folder highlighted)
 
 ===== Label command with filename behaviour:

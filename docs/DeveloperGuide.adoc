@@ -282,7 +282,7 @@ calculating the distance from the user inputted postal code.
 This result is then stored within the `Comparator` class.
 [NOTE]
 If a `Restaurant` postal code is invalid or not in `PostalDataSet`, the distance will be set to `Double.MAX_VALUE`.
-This implies that these `Restaurant` will appear at the bottom of the list
+This implies that these `Restaurant` will appear at the bottom of the `SortedList`.
 
 
 Given below is an example usage scenario and how 3 components behaves at each step.
@@ -320,12 +320,12 @@ image::ListUnvisitedSequenceDiagram.png[width="800"]
 
 ===== Aspect: Accessing of local postal data
 
-* **Alternative 1 (current choice):** Comparator constructor is done in the `listUnvisitedCommand`.
+* **Alternative 1 (current choice):** `PostalData` is retrieved for each `Restaurant` by the `Comparator`.
 ** Pros: Easy to implement.
-** Cons: Increased coupling between `Command` and `Model`.
+** Cons: Increased coupling between `Logic` and `Model`. There might also be performance issues.
 * **Alternative 2:** Using the x and y coordinates as a field in the Restaurant class
-** Pros: r
-** Cons: If incorrect postal data
+** Pros: Repeated calls to retrieve the `PostalData` from `PostalDataSet` is not required.
+** Cons: If incorrect postal data is provided, the incorrect x and y coordinates will be written to the data file.
 // end::listUnvisitedDG[]
 
 // tag::selectDG[]

@@ -7,6 +7,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
+:plus: &#43;
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -440,8 +441,6 @@ the user's input.
 Step 3: The `MoveCommand` is then executed. Successful execution of the command would return
 a *CommandResult* object, while unsuccessful execution due to validation failure will throw
 a *CommandException*.
-.Move Command Activity Diagram
-image::MoveCommandActivityDiagram.png[width="600"]
 
 // end::move[]
 
@@ -982,7 +981,7 @@ https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/encrypti
 https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/encryption/StandardProtectionPolicy.html[_StandardProtectionPolicy_].
 
 [NOTE]
-An <<encrypted-file>> is a file that is protected with a password. The terms `protect` and `encrypt` will be used interchangeably.
+An <<encrypted-file, encrypted file>> is a file that is protected with a password. The terms `protect` and `encrypt` will be used interchangeably.
 
 You can visit <<Encryption feature>> and <<Decryption feature>> to understand more about the respective feature.
 
@@ -1746,57 +1745,53 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `PDF++` and the *Actor* is the `user`, unless specified otherwise)
-
 [discrete]
 === Use case: Add new PDF file
-*System: PDF++*  +
-*Use case: Adding a Pdf to PDF++* +
+*System: PDF{plus}{plus}*  +
 *Actor: Student* +
 *MSS* +
 
 1.  User types `add f/FILEPATH` into the CLI Input.
-2.  User clicks enter.
+2.  User presses enter.
 3.  PDF++ makes a record of the relevant attributes of the selected PDF.
 
 Use case ends.
 
 *Extensions* +
-3a. +
-  3a1. User loads an invalid file (not a pdf). +
-  3a2. PDF++ shows an error message to user. +
-  3a3. User repeats Step 1 and 2 to add a valid pdf into PDF++. +
-  Use Case resumes at step 3. +
+3a. User loads an invalid file (not a pdf). +
+
+- 3a1. PDF++ shows an error message to user.
+- 3a2. User repeats Step 1 and 2 to add a valid pdf into PDF++. +
+  Use Case resumes at step 3.
 
 [discrete]
 === Use case: Find keyword in files within PDF++
-*System: PDF++*  +
-*Use case: Adding a Pdf to PDF++* +
+*System: PDF{plus}{plus}*  +
 *Actor: Student* +
 *MSS* +
 
-1.  Clicks on the CLI Input Area.
-2.  User types `find KEYWORD`.
-3.  User presses enter.
-4.  PDF++ Returns a list of files that contain the keyword in its names or content.
-+
+1.  User types `find KEYWORD`.
+2.  User presses enter.
+3.  PDF++ Returns a list of files that contain the keyword in its names or content. +
 Use case ends.
 
 *Extensions* +
-3a. User input invalid data. +
-3a1. PDF++ throws an exception to alert the user. +
-3a2. User repeats Step 1 to 3 to search until a valid `KEYWORD` is entered. +
+2a. User input invalid data. +
 
-3b. User inputs a `KEYWORD` that is not in any of the files. +
-3b1. PDF++ Returns an empty list. +
+- 2a1. PDF++ throws an exception to alert the user.
+- 2a2. User repeats Step 1 to 3 to search till a valid `KEYWORD` is entered.
+
+2b. User inputs a `KEYWORD` that is not in any of the files. +
+
+- 2b1. PDF++ Returns an empty list. +
 Use Case ends.
 
 
 [discrete]
-=== Use case: Delete pdf
-
-*System: PDF++*
-*MSS*
+=== Use case: Delete PDF file within PDF++
+*System: PDF{plus}{plus}*  +
+*Actor: Student* +
+*MSS* +
 
 1.  User requests to list pdfs
 2.  PdfBook shows a list of pdfs
@@ -1819,7 +1814,44 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: Merge PDF files within PDF++
+*System: PDF{plus}{plus}*  +
+*Actor: Student* +
+*MSS* +
+
+1.  User types `list` in CLI to list all pdfs.
+2.  PdfBook shows a list of pdfs.
+3.  User types `merge [INDEXES]` in CLI where INDEXES refer to displayed list index of pdfs to be merged in their desired order.
+4.  PdfBook merges the specified pdfs into new pdf.
+5.  PdfBook updates the list to show the merged pdf.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. One of the indexes provided is invalid.
+
+[none]
+** 3a1. PDF++ throws an exception to alert the user.
+** 3a2. User repeats Step 1 to 3 to merge with valid indexes provided. +
+Use case ends.
+
+[none]
+* 4a. One or more of the files referenced by indexes provided are encrypted.
+
+[none]
+** 4a1. PDF++ throws an exception to alert the user.
+** 4a2. User removes encryption on files to be merged before restarting from Step 1. +
+Use case ends.
+
+[none]
+* 4b. One or more of the files fail to be opened or merged, throwing a *Java FileIOException*.
+
+[none]
+** 4b1. PDF++ throws an exception to alert the user.
+** 4b2. User ensures that files to be merged are working before restarting from Step 1. +
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
@@ -2066,7 +2098,7 @@ Note that the file path various for Operating Systems and devices.
     Expected: All pdfs with either of the tags will be shown in the filtered list.
 
 .. Test case: `filter t/` +
-    Expected: The list is not filtered. Error details are shown in the status message. Status bar remains the same.
+    Expected: An empty list will be displayed.
 
 === Find
 

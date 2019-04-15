@@ -87,7 +87,7 @@ image::UserGuide_ApplicationInterface.png[width="1000"]
 // tag::uiwarningpanel[]
 *Warning Panel*
 
-* Displays a list of medicines running low on stock and a list of expiring/expired medicine batches.
+* The warning panel displays a list of medicines running low on stock and a list of expiring/expired medicine batches.
 * Warnings will be logged in the warnings panel until changes are made to medicines and/or batches displayed, or to the thresholds controlling what is displayed.
 * Image below shows the labelled components of the warning panel:
 +
@@ -407,8 +407,7 @@ Thresholds set by the user are saved and will be used when the application is la
 
 [IMPORTANT]
 =======
-All thresholds must be positive integers. +
-If the maximum threshold is set for a list, all medicines and/or batches will be displayed in that list.
+All thresholds must be positive integers.
 =======
 
 ****
@@ -426,7 +425,7 @@ Medicine batches that have expired or with expiry dates within 30 days to expiry
 Medicines with a total quantity of less than or equal to 10 will be displayed in the warning panel.
 
 * `warning show` +
-Current thresholds used for the warning panel will be shown in the result display as shown in figure below.
+Current thresholds used for the warning panel will be shown in the result display.
 // end::warningpanelcommand[]
 
 // tag::exportcommand[]

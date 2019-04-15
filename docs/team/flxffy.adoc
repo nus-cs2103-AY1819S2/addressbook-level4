@@ -34,9 +34,9 @@ image::PPP_Ui_WarningPanel.png[width="600"]
 
 ** Highlights: This enhancement required an understanding of all major components to render and populate a column in the application's main interface with the correct lists of items, and to implement complementing commands to change its contents.
 
-* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=flxffy&sort=displayName&since=2019-02-10&until=2019-04-14&timeframe=day&reverse=false&repoSort=true[Project Code Dashboard]]
+* *Minor enhancement*: Changed the implementation of Expiry class so that it uses an updated library, (https://docs.oracle.com/javase/9/docs/api/java/util/Date.html[`java.time.LocalDate`]), instead of the deprecated (https://docs.oracle.com/javase/9/docs/api/java/util/Date.html[`java.util.Date`]).
 
-* *Minor enhancement*: Changed the implementation of the `Expiry` class. Previous implementation used a deprecated library (https://docs.oracle.com/javase/9/docs/api/java/util/Date.html[`java.util.Date`]) so it was changed to an updated one (https://docs.oracle.com/javase/9/docs/api/java/util/Date.html[`java.time.LocalDate`]).
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=flxffy&sort=displayName&since=2019-02-10&until=2019-04-14&timeframe=day&reverse=false&repoSort=true[Project Code Dashboard]]
 
 * *Other contributions*:
 

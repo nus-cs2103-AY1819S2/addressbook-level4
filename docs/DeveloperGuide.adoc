@@ -1140,6 +1140,7 @@ Expected: No medicine is deleted. Error details shown in the status message. Sta
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
 Expected: Similar to previous.
 
+// tag::exportcommandtest[]
 === Exporting as CSV file format
 
 . Exporting the current medicine inventory data shown in the GUI to CSV file format while all medicines are listed.
@@ -1165,6 +1166,7 @@ Expected: The current medicine inventory data shown in the GUI is successfully e
 Expected: The current medicine inventory data shown in the GUI is successfully exported to CSV file format. The exported CSV file has the default file name based on the date and time of export. The specific date and time format used if no file name is specified is `dd_MMM_yyyy_HH_mm_ss` e.g. `18_Mar_2019_10_28_00`. The exported CSV file's medicine inventory data will contain *only* the header information with no medicine data.
 .. Test case: `export example` +
 Expected: The current medicine inventory data shown in the GUI is successfully exported to CSV file format. The exported CSV file has the file name `example`. The exported CSV file's medicine inventory data will contain *only* the header information with no medicine data.
+// end::exportcommandtest[]
 
 // tag::warningtest[]
 === Changing warning panel thresholds

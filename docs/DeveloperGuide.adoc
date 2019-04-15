@@ -849,6 +849,7 @@ image::inputStatsCommandSS.png[width=400]
 Pop-up window for `stats` :
 
 image::StatsWindowSS.png[width=800]
+Figure 33. Screenshot of empty statistics pop-up window.
 
 There should not be any valid data at the moment as the game as not started.
 
@@ -857,6 +858,7 @@ Step 4. Now proceed with the game and perform an attack. Input `attack a1`.
 Step 5. Invoke the `stats` command again to view the updated statistics of the attack result.
 
 image::StatsWindowUpdatedSS.PNG[width=800]
+Figure 34. Screenshot of populated statistics pop-up window.
 
 Besides the pop-up window, the data is also captured in the command-line result box.
 
@@ -865,6 +867,7 @@ image::StatsCommandBox.PNG[width=400]
 The following sequence diagram summarizes what happens when a User invokes the `stats` command.
 
 image::StatsSequenceDiagram.PNG[width=1000 ]
+Figure 35. Sequence diagram of `stats` command.
 
 ==== Save and compare
 Given below is an example usage scenario of the automatic save and compare feature.
@@ -884,14 +887,23 @@ The following sequence diagram summarizes what happens at the end of a game and 
 performed.
 
 image::SaveSequenceDiag.PNG[width=1000]
+Figure 36. Sequence diagram of how the statistics data is saved.
 
-The following sequence diagram summarizes what happens when a previous statistic data is read and compared.
+The following sequence diagram summarizes what happens at the end of the game and an automatic reading of previous
+statistics data is performed.
 
+Figure 37. Sequence diagram of how the previous statistics data is read from storage.
 
-==== Activity diagram
+==== Activity Diagram
 The following Activity Diagram shows when the `stats` command can be used.
 
-<Include activity diagram>
+Figure 38. Activity Diagram of the statistics feature.
+
+==== Use Case Diagram
+The following use-case diagram captures the behaviour of the statistics feature.
+
+Figure 39. Use case diagram on the statistics feature.
+
 
 ==== Design considerations
 * **Alternative 1:** The methods that are responsible for incrementing the relevant game data is placed

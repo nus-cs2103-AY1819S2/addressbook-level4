@@ -50,14 +50,14 @@ image::Ui.png[width="790"]
 This program requires a minimum resolution of 1200*810. Best viewed in full screen.
 ====
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
+.  Type a command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all medicines in the inventory
 * *`add`* `n/Paracetamol c/3M Pharmaceuticals` : adds a new medicine named `Paracetamol` to the inventory with the manufacturing company `3M Pharmaceuticals`
 * *`delete`* `3` : deletes the 3rd entry shown in the current list
-* *`exit`* : exits the app
+* *`exit`* : exits the application
 
 .  You can refer to <<Commands>> for details of each command.
 .  Having trouble setting up MediTabs? You can refer to the <<Frequently Asked Questions (FAQ)>> for solutions to common problems you might encounter. Do you require further assistance? If so, you can also post your queries link:{repoURL}/issues[here] and our team will do our best to assist you.
@@ -102,7 +102,7 @@ As an inventory management application, MediTabs supports basic functionalities 
 // tag::informationpanelfeature[]
 === Information Panel
 .Information panel
-image::UserGuide_InformationPanel.png[width="715"]
+image::UserGuide_InformationPanel.png[width="700"]
 
 Having a way to keep track of individual batches of medicine makes medicine management more efficient as problematic batches can easily be located and removed. However, with so many different batches of the same medicine, you need an effective way to organize them or it could get confusing.
 
@@ -194,16 +194,18 @@ Due to the nature of medical inventories, the integrity of data stored is of utm
 
 ==== Preview of results
 
-. Preview of results for Export and Label Commands to be available in the UI.
-- Current implementation: You may have to manually search for the external files created in their respective folders. +
-- In v2.0, a snapshot of the resulting files will be previewed under the UI for easier reference. This further streamline the inventory management and improve your usability.
-- Below is a mock up on how the UI may look like with the features integrated.
+Preview of results for Export and Label Commands to be available in the UI.
+
+* Current implementation: You may have to manually search for the external files created in their respective folders. +
+* In v2.0, a snapshot of the resulting files will be previewed under the UI for easier reference. This further streamline the inventory management and improve your usability.
+* Below is a mock up on how the UI may look like with the features integrated.
 
 image::MockUp.png[width="790"]
 
 ==== Importing pictures
-. Import of pictures to aid in the medicine identification.
-- Pictures and snapshot of the medicine may be added to MediTabs such that it is easier for you to identify what the physical medicine looks like.
+Import of pictures to aid in the medicine identification.
+
+* Pictures and snapshot of the medicine may be added to MediTabs such that it is easier for you to identify what the physical medicine looks like.
 
 [[Commands]]
 == Commands
@@ -213,8 +215,8 @@ image::MockUp.png[width="790"]
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/Paracetamol`.
-* Items in square brackets are optional e.g `e.g n/NAME [t/TAG] can be used as n/Paracetamol t/fever` or as `n/Paracetamol`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]…` can be used as `{nbsp}` (i.e. 0 times), t/fever, t/painkiller t/inflammation etc..
+* Items in square brackets are optional e.g `e.g n/NAME [t/TAG] can be used as `n/Paracetamol t/fever` or as `n/Paracetamol`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]…` can be used as `{nbsp}` (i.e. 0 times), `t/fever, t/painkiller t/inflammation` etc..
 * Parameters can be in any order e.g. if the command specifies `n/NAME c/COMPANY_NAME`, `c/COMPANY_NAME n/NAME` is also acceptable.
 * `INDEX` refers to the index number shown in the displayed medicine list. The index *must be a positive integer* 1, 2, 3, ...
 * If only one input is required but more than one valid input is entered, only the last input will be registered e.g. `n/Paracetamol n/Ibuprofen`, only `Ibuprofen` is registered.
@@ -244,7 +246,7 @@ Shows a list of all medicine in the inventory. +
 Format: `list`
 
 ****
-* The details of the medicine shown in the list include: name, company, total quantity, closest expiry date and tags.
+* The details of the medicine shown in the list include: name, company, total quantity, next expiry date and tags.
 ****
 
 // tag::find[]
@@ -262,11 +264,11 @@ Format: `find PREFIX KEYWORD [MORE_KEYWORDS]...`
 
 {nbsp}
 
-* Only the category indicated by the entered prefix will be searched. You can only enter one prefix at a time.
-* The search is case insensitive. e.g `sodium` will match `Sodium`
-* The order of the keywords does not matter. e.g. `Sodium Levothyroxine` will match `Levothyroxine Sodium`
-* Only full words will be matched e.g. `Sod` will not match `Sodium`
-* Medicines matching at least one keyword will be returned (i.e. `OR` search). e.g. `Sodium Ibuprofen` will return `Levothyroxine Sodium` and `Ibuprofen`
+* Only the category indicated by the entered prefix will be searched. You can only enter one prefix at a time. Prefix must be entered before keywords.
+* The search is case insensitive. e.g `sodium` will match `Sodium`.
+* The order of the keywords does not matter. e.g. `Sodium Levothyroxine` will match `Levothyroxine Sodium`.
+* Only full words will be matched e.g. `Sod` will not match `Sodium`.
+* Medicines matching at least one keyword will be returned (i.e. `OR` search). e.g. `Sodium Ibuprofen` will return `Levothyroxine Sodium` and `Ibuprofen`.
 ****
 
 Examples:
@@ -325,11 +327,11 @@ Format: `select INDEX`
 * Loads the information page of the medicine at the specified `INDEX` in the information panel.
 * The information page consists of a table with details of all batches of the selected medicine.
 * These details include: batch number, quantity and expiry date.
-* The total quantity and closest expiry date of the medicine is also displayed at the bottom of the table.
+* The total quantity and next expiry date of the medicine is also displayed at the bottom of the table.
 ****
 
 .An example of the information page loaded when Aspirin is selected
-image::UserGuide_SelectCommand.png[width="715"]
+image::UserGuide_SelectCommand.png[width="800"]
 
 Examples:
 
@@ -358,9 +360,6 @@ Format: `sort p/PROPERTY d/DIRECTION`
 * `descending` : sorts the table in descending order.
 ****
 
-.An example of the batch table sorted by expiry date in ascending order
-image::UserGuide_SortCommand.png[width="715"]
-
 Examples:
 
 * `sort p/expiry d/descending` +
@@ -381,12 +380,9 @@ Format: `update INDEX b/BATCH_NUMBER [q/QUANTITY] [e/EXPIRY_DATE]`
 * If the entered batch number does not already exist in the record, a new batch record is created. Both quantity and expiry date must be entered for new batches.
 * If the batch number already exists, the quantity or expiry date of the batch is replaced with the new information entered.
 * If quantity of a batch is updated to `0`, it will be removed.
-* The total quantity and closest expiry date of the medicine will also be updated.
+* The total quantity and next expiry date of the medicine will also be updated.
 * Note that in order to prevent confusion, you cannot set expiry date to a passed date. You also cannot add a new batch with 0 quantity.
 ****
-
-[NOTE]
-We recommend only updating one field at a time when editing existing batches. This is to prevent accidentally adding a new batch if the wrong batch number is used.
 
 Examples:
 
@@ -419,9 +415,9 @@ Thresholds set are saved as a user preference, and will be used when the applica
 
 Examples:
 
-* `warning e/20` +
+* `warning e/10` +
 Medicine batches with expiry dates within 10 days to expiry from today will be displayed in the warning panel.
-* `warning q/10` +
+* `warning q/20` +
 Medicines with a total quantity of less than or equal to 20 will be displayed in the warning panel.
 * `warning show` +
 Current thresholds used for the warning panel will be shown.
@@ -632,7 +628,7 @@ e.g. `add n/Paracetamol c/3M Pharmaceuticals t/fever`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
 * *Edit* : `edit INDEX [n/NAME] [c/COMPANY_NAME] [t/TAG]...` +
-e.g. `edit 2 n/Amoxicillin c/GlaxoSmithKline t/antibiotic'
+e.g. `edit 2 n/Amoxicillin c/GlaxoSmithKline t/antibiotic`
 * *Exit* : `exit`
 * *Export* : `export [FILE_NAME]` +
 e.g. export Records

@@ -261,68 +261,68 @@ There are 2 ways through which client information can be added into the model. O
 
 Given below is an example scenario of how client information can be added into the model via the 2 ways described above. +
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+*From storage*
 
-image::UndoRedoStartingStateListDiagram.png[width="800"]
+Step 1. The user launches the application.
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. `MainApp` will find the `addressbook`, `archivebook` and `pinbook` json files in the data folder and get them as `JsonAddressBookStorage` objects.
 
-image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
+Step 3. The `JsonAddressBookStorage` objects are used to initialise `StorageManager`.
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 4. The `MainApp` calls `initModelManager` method which will eventually return a `ModelManager` object.
 
-image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
+Step 5. To build the model, the `StorageManager` will build three `AddressBook` objects which are collections of all the `Person` objects stored in the `addressbook`, `archivebook` and `pinbook` json files.
 
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+Step 6. The three `AddressBook` objects are used to initialise the `ModelManager`, which creates the model.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+The following sequence diagram summarizes how the model is created from json files when a user launches The Real App:
 
-image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
+image::LaunchSequenceDiagram.png[width="800"]
 
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+*Through add command*
 
-The following sequence diagram shows how the undo operation works:
+Step 1. The user launches the application.
 
-image::UndoRedoSequenceDiagram.png[width="800"]
+Step 2. The user enters the `add` command with the correct parameters into the Command Box. +
+e.g. `add c/seller n/James Tan p/97652456 e/jamestan@example.com r/need to sell by April 2018 a/Blk 345 Clementi Ave 5, #04-04, S120345 sp/500000 t/MRT t/newlyRenovated`
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+Step 3. The `LogicManager` handles the user input and creates an `AddCommand` object.
 
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+Step 4. The `AddCommand` object is executed by the `LogicManager`.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The `ModelManager` updates the model to add the contact into the `AddressBook`.
 
-image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
+The following sequence diagram summarizes how a contact is added to the `AddressBook` using the `add` command:
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+image::AddSequenceDiagram.png[width="800"]
 
-image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
+==== Other Improvements
 
-The following activity diagram summarizes what happens when a user executes a new command:
+To allow for modification and retrieval of information, the `edit` and `search` commands have been expanded to fit the new model.
 
-image::UndoRedoActivityDiagram.png[width="650"]
+**Edit command**
+
+Edit command has been improved to handle the different types of contacts safely.
+Object type checking is done during the execution of the command to ensure that only the correct information associated with the customer type is edited. This also ensures that the returned object is the same class as the original object being edited.
+
+**Search command**
+
+The original `find` command in AB4 has been renamed to `search` command to better reflect its new functionality. `search` command can now search through multiple information fields to look for matches to the input keywords.
+This allows users to quickly retrieve contacts using whatever limited information they may have at hand.
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+===== Aspect: Abstraction of different customer types
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** The four customer types are abstracted as sub-classes which extends the `Person` class
+** Pros: Allows for subclass polymorphism.
+** Cons: Legacy code from AB4 is not optimised for runtime polymorphism.
+* **Alternative 2:** Encapsulate customer type information in `Person` class using a `CustomerType` class.
 ** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+** Cons: Requires rigorous checking of customer type to ensure each contact is handled appropriately.
+* **Alternative 3:** Refactor `Person` class into an abstract class and extend the 4 subclasses from it
+** Pros: Prevents the initialisation of a `Person` object, which is not required in our application.
+** Cons: Much of the legacy code of AB4 has strong dependence on the instantiation of the `Person` objects.
 // end::modeltransformation[]
 
 // tag::undoredo[]
@@ -398,7 +398,8 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
-===== Aspect: Data structure to support the undo/redo commands
+
+===== Aspect:
 
 * **Alternative 1 (current choice):** Use a list to store the history of address book states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.

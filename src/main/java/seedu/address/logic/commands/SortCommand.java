@@ -49,11 +49,11 @@ public class SortCommand extends Command {
      */
     public SortCommand(Order order, Optional<Limit> limit) {
         this.order = order;
-        boolean limitIsPresent = limit.isPresent();
+        boolean isLimitPresent = limit.isPresent();
         boolean isOrderAsc = order.equals(new Order(ORDER_ASC));
         boolean isOrderDes = order.equals(new Order(ORDER_DES));
 
-        if (limitIsPresent) {
+        if (isLimitPresent) {
             this.limit = Optional.ofNullable(limit.get());
 
             if (isOrderAsc) {
@@ -74,13 +74,13 @@ public class SortCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
-        boolean limitIsPresent = limit != null;
+        boolean isLimitPresent = limit != null;
 
         requireNonNull(model);
         model.sortRestaurantList(new SortRating(order));
 
         // Filter the sorted list to only show those within the limited range
-        if (!limitIsPresent) {
+        if (!isLimitPresent) {
             model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
         } else {
             filterToLimit(model, limit, order);

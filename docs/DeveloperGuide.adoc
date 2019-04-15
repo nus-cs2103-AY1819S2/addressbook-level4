@@ -1187,6 +1187,11 @@ HMS+ provides hotels with a one-stop shop for all their managerial and organizat
 
 == User Stories
 // tag::user-stories[]
+
+User stories are short, simple descriptions of a feature told from the perspective of the user who desires the new
+capability. This will help the existing and new developers understand the importance of each feature and how does it help
+our user.
+
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
@@ -1472,13 +1477,16 @@ Use case resumes at step 3.
 .  Should be able to hold up to 1000 customers without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-
-
 [appendix]
 == Glossary
 // tag::glossary[]
 [[abstraction]] Abstraction::
 In Object-oriented Programming, abstraction is the mechanism by which users are provided with only the functionality, and not the implementation details. So, abstraction provides users with information on what an object does, rather than how it does it.
+
+[[singleresprinciple]] Single Responsibility Principle::
+The single responsibility principle is a computer programming principle that states that every module, class, or
+function should have responsibility over a single part of the functionality provided by the software, and that
+responsibility should be entirely encapsulated by the class.
 
 [[cli]] CLI::
 Acronym for Command Line Interface. It is a purely text-based interface for software. User respond to visual prompts by typing single commands into the interface and receive results as text as well.
@@ -1511,23 +1519,6 @@ stay in the hotel. +
 Windows, Linux, Unix, OS-X
 
 [appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
@@ -1551,7 +1542,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Adding a customer
 
-. Adding a customer with the `add-customer` command
+. Adding a customer with the `add-customer` command.
 
 .. Test case: `add-customer` +
    Expected: No customer is added. Error details shown in the status message. Status bar remains the same.
@@ -1561,9 +1552,9 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Deleting a customer
 
-. Deleting a customer while all customers are listed
+. Deleting a customer while all customers are listed.
 
-.. Prerequisites: List all customers using the `list-customers` command. Multiple customers in the list.
+.. Prerequisites: List all customers using the `list-customers` command. Multiple customers in the list or atleast 1.
 .. Test case: `delete-customer 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete-customer 0` +
@@ -1571,17 +1562,32 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect delete commands to try: `delete-customer`, `delete-customer x` (where x is larger than the list size)... +
    Expected: Similar to previous.
 
-=== Generating bill for a customer
+=== Generating total bill for a customer
 
-. Generating bill for a customer based on index
+. Generating total bill for a customer based on index.
 
-.. Prerequisites: At-least one customer who has atleast one booking or reservation in the database.
+.. Prerequisites: At-least one customer who has at-least one booking or reservation in the database.
 .. Test case: `gb-c` +
    Expected: Bill is not generated. Error details shown in the status message. Status bar remains the same.
 .. Test case: `gb-c 1` +
-   Expected: Bill is generated for customer at index 1. Bill amount for reservation and booking and total amount shown in the status message. Timestamp in the status bar is updated.
+   Expected: Bill is generated for customer at index 1. The respective status message is displayed. Timestamp in the status bar is updated.
 .. Other incorrect generate bill for customer commands to try: `gbc`, `g-b-c`, `gb-c x` (where x is larger than the list size).. +
    Expected: Bill is not generated. Error details shown in the status message. Status bar remains the same.
+
+=== Generating booking bill for a customer.
+
+. Generating booking bill for a customer based on index, or service type, or booking hours.
+
+.. Prerequisites: At-least one customer who has atleast one booking in the database.
+.. Test case: `gb-b` +
+   Expected: Bill is not generated. Error details shown in the status message. Status bar remains the same.
+.. Test case: `gb-b 1` +
+   Expected: Bill is generated for customer at index 1. The respective status message is displayed. Timestamp in the status bar is updated.
+.. Test case: `gb-b 1 s/GYM` +
+   Expected: Bill is generated for customer at index 1. The respective status message is displayed. Timestamp in the status bar is updated.
+.. Other incorrect generate bill for customer commands to try: `gbb`, `g-b-b`, `gb-b x` (where x is larger than the list size).. +
+   Expected: Bill is not generated. Error details shown in the status message. Status bar remains the same.
+
 
 === Switching tab
 

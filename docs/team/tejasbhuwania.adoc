@@ -10,7 +10,7 @@ image:tejas2805.png[width="150", align="right"]
 == PROJECT: HMS+
 
 This project portfolio documents my individual contributions to the HMS+ project. It includes an overview of the project,
-the summary of the features that I implemented and my other contributions to the project.
+ the summary of the features that I have implemented and my contributions to other features of the project.
 Some extracts of my documentation from the HMS+ User Guide and Developer Guide have also been included.
 
 == Project Overview

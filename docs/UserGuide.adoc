@@ -60,6 +60,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items with `…` after them can be used multiple times including zero times. For example, `[t/TAG]…` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order. For example, if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 * If you enter the same prefix twice, the data in the second prefix is recorded. For example, `n/Tejas Bhuwania n/Sanjay Bhuwania` will take in Sanjay Bhuwania inside the database.
+* All commands using indexes refer to the displayed list. For example, if the displayed customer list has 2 customers and
+you try to delete customer at index 3, it is an invalid command, though there are total of five customers in the database.
 ====
 
 [NOTE]
@@ -96,14 +98,14 @@ Examples:
 * `ac n/John Doe p/98765432 dob/28/05/1999 e/johnd@example.com id/A5525261 a/John street, block 123, #01-01 t/Student`
    Adds the customer John Doe with the given details.
 
-.Example for the `above` command
+.Example for the above 'add-customer` command
 image::JohnDoeadd.png[width="800"]
 
 
 * `ac n/Betsy Crowe e/betsy.crowe@example.com p/98321012 id/A3452521Q`
    Adds the customer Betsy Crowe with the given details.
 
-.Example for the `above` command
+.Example for the above `add-customer` command
 image::BetsyCroweadd.png[width="800"]
 
 ==== Listing all customers : `list-customers`, `lc`
@@ -116,7 +118,7 @@ Examples:
 * `lc` +
    Lists all the customers present in the database.
 
-.Example for the `above` command
+.Example for the `lc` command
 image::lc.png[width="800"]
 
 ==== Editing a customer : `edit-customer`, `ec`
@@ -136,16 +138,13 @@ You can remove all the customer's tags by typing `t/` without specifying any tag
 
 Examples:
 
-* `list-customers`, then `edit-customer 1 p/91234567 e/johnny@example.com` +
-Edits the phone number and email address of the 1st customer to be 91234567 and johnny@example.com respectively.
-
-.Example for the `above` command
-image::ec1.png[width="800"]
-
 * `lc`, then `ec 2 n/Roshani Venkatesh t/` +
 Edits the name of the 2nd customer to be `Roshani Venkatesh` and clears all existing tags.
 
-.Example for the `above` command
+.Example before the above `ec` command
+image::ec1.png[width="800"]
+
+.Example after the above `ec` command
 image::ec2.png[width="800"]
 
 ==== Finding customers by name: `find-name`, `fn`
@@ -166,13 +165,13 @@ Examples:
 * `find-name Vidhi` +
 Returns any person having name `Vidhi`.
 
-.Example for the `above` command
+.Example for the `find-name Vidhi` command
 image::fn1.png[width="800"]
 
 * `fn Tejas Vidhi Ayushi` +
 Returns any person having names `Tejas`, `Vidhi` and `Ayushi`.
 
-.Example for the `above` command
+.Example for the `fn Tejas Vidhi Ayushi` command
 image::fn2.png[width="800"]
 
 ==== Deleting a customer : `delete-customer`, `dc`
@@ -191,10 +190,10 @@ Examples:
 * `list-customers`, then `delete-customer 2` +
 Deletes the 2nd person of the customer database.
 
-.Example before the `above` command
+.Example before the `delete-customer 2` command
 image::dc1a.png[width="800"]
 
-.Example after the `above` command
+.Example after the `delete-customer 2` command
 image::dc1b.png[width="800"]
 
 * `find-name Betsy Tejas`, then `delete-customer 2` +
@@ -226,8 +225,11 @@ Format: `{[aqua]#add-room-type#/[aqua]#art#} [blue]#n/# [lime]#ROOM_TYPE# [blue]
 
 Example:
 
-* `art n/SINGLE ROOM cap/50 rate/300.0` +
-Adds a room type with name SINGLE ROOM, with a rate of 300.0 and capacity of 50
+* `art n/FUN ROOM cap/50 rate/300.0` +
+Adds a room type with name FUN ROOM, with a rate of 300.0 and capacity of 50
+
+.Example after the `art n/FUN ROOM cap/50 rate/300.0` command
+image::ast1.png[width="800"]
 
 ==== Deleting a room type : `delete-room-type`, `drt`
 
@@ -242,7 +244,13 @@ Deleting a room type also deletes all its related reservations.
 Example:
 
 * `drt 2` +
-Deletes the room type at index 2
+Deletes the room type at index 2.
+
+.Example before the `drt 2` command
+image::drt1.png[width="800"]
+
+.Example after the `drt 2` command
+image::drt2.png[width="800"]
 
 ==== Clearing all room types: `clear-room-type`, `crt`
 Effect: Removes all room types and room reservations from the database. +
@@ -252,6 +260,12 @@ Examples:
 
 * `crt` +
 Clears all room types and reservations from the database.
+
+.Example before the `crt` command
+image::crta.png[width="800"]
+
+.Example after the `crt` command
+image::crtb.png[width="800"]
 
 ==== Editing a room type : `edit-room-type`, `ert`
 
@@ -263,6 +277,11 @@ Example:
 * `ert 2 cap/100` +
 Edits the room type at index 2 by changing the number of rooms to 100.
 
+.Example before the `ert 2 cap/100` command
+image::erta.png[width="800"]
+
+.Example after the `ert 2 cap/100` command
+image::ertb.png[width="800"]
 
 // tag::reservation-commands[]
 === [underline]#Room Reservation commands#
@@ -287,9 +306,16 @@ Examples: +
 Assume current date is 10 May, 2019. +
 * `list-customers`, then `ar r/SINGLE ROOM d/20/5/2019-25/5/2019 $/5` +
 Adds a reservation of Single Room in the name of the 5th customer from 20 May 2019 to 25 May 2019.
-* `find-name Jack Rose`, then `add-reservation r/DELUXE ROOM d/14/05/2019-15/05/2019 $/1 c/2` +
-Adds a reservation of Deluxe Room, in the name of the first customer for both him/her and the second customer, from 14 Feb 2019 to 15 Feb 2019.
 
+.Example after the `above` command
+image::ar1.png[width="800"]
+
+* `list-customers`, then `ar r/SHARING ROOM d/23/5/2019-25/5/2019 $/4 c/2 c/3` +
+Adds a reservation of Sharing Room in the name of the 4th customer along with the 2nd and 3rd customers
+ from 23 May 2019 to 25 May 2019.
+
+.Example after the `above` command
+image::ar2.png[width="800"]
 
 ==== Listing all reservations : `list-reservations`, `lr`
 Effect: Displays a reservation list, which lists all the reservations. +
@@ -299,6 +325,9 @@ Examples:
 
 * `lr` +
   Lists all reservations.
+
+.Example after the `lr` command
+image::lr.png[width="800"]
 
 ==== Editing a room reservation : `edit-reservation`, `er`
 
@@ -319,6 +348,14 @@ Examples:
 
 * `lr`, then `er 1 r/DOUBLE ROOM` +
 Edits the room type of the 1st reservation to be DOUBLE ROOM.
+
+.Example before the `er 1 r/DOUBLE ROOM` command
+image::era.png[width="800"]
+
+.Example after the `er 1 r/DOUBLE ROOM` command
+image::erb.png[width="800"]
+
+
 * `lr`, then `er 2 d/14/02/2020-14/03/2020 com/` +
 Edits the date of the 2nd reservation to be from 14 Feb 2020 to 14 Mar 2020 and clears all existing comments related to it.
 
@@ -336,6 +373,12 @@ Examples:
 * `lr`, then `dr 2` +
 Deletes the 2nd entry of the reservation database.
 
+.Example before the `dr 2` command
+image::dr1.png[width="800"]
+
+.Example after the `dr 2` command
+image::dr2.png[width="800"]
+
 ==== Clearing all reservations: `clear-reservations`, `cr`
 Effect: Removes all room reservations from the database. +
 Format: `{[aqua]#clear-reservations#/[aqua]#cr#}`
@@ -344,6 +387,12 @@ Examples:
 
 * `cr` +
 Clears all reservations from the database.
+
+.Example before the `cr` command
+image::lr.png[width="800"]
+
+.Example after the `cr` command
+image::cr.png[width="800"]
 
 // tag::find-reservation[]
 ==== Find a reservation: `find-reservation`, `fr`
@@ -415,7 +464,13 @@ Format: `{[aqua]#delete-service-type#/[aqua]#dst#} [lime]#INDEX#
 Example:
 
 * `dst 2` +
-Deletes the service type at index 2
+Deletes the service type at index 2.
+
+.Example before the `dst 2` command
+image::dst1.png[width="800"]
+
+.Example after the `dst 2` command
+image::dst2.png[width="800"]
 
 ==== Clearing all service types: `clear-service-type`, `cst`
 Effect: Removes all service types and service bookings from the database. +
@@ -425,6 +480,12 @@ Examples:
 
 * `cst` +
 Clears all service types and service bookings from the database.
+
+.Example before the `cst` command
+image::cst1.png[width="800"]
+
+.Example after the `cst` command
+image::cst2.png[width="800"]
 
 ==== Editing a service type : `edit-service-type`, `est`
 
@@ -436,6 +497,11 @@ Example:
 * `est 2 cap/100` +
 Edits the service type at index 2 by changing the capacity of the service to 100.
 
+.Example before the `est 2` command
+image::est1.png[width="800"]
+
+.Example after the `est 2` command
+image::est2.png[width="800"]
 
 // tag::booking-commands[]
 === [underline]#Service Booking commands#
@@ -455,10 +521,11 @@ Format: `{[aqua]#add-booking#/[aqua]#ab#} [blue]#s/# [lime]#SERVICE_NAME# [blue]
 
 Examples:
 
-* `lc`, then `add-booking s/GYM :/20-23 $/2`
-Adds a booking for service GYM, for the 2nd customer from the complete customer list, from 20:00 to 23:00 if the service is available.
-* `fn Jack Rose`, then `add-booking s/GYM h/14-15 $/1 c/2`
-Adds a booking of service GYM in the name for first customer for him/her , from 14:00 to 15:00.
+* `lc`, then `add-booking s/SWIMMING POOL :/12-14 $/2`
+Adds a booking for service SWIMMING POOL, for the 2nd customer from the complete customer list, from 12:00 to 14:00 if the service is available.
+
+.Example for the `above` command
+image::ab1.png[width="800"]
 
 ==== Listing all booked services: `list-bookings`,`lb`
 Effect: Displays a booking list, which lists all the bookings made till now.
@@ -468,6 +535,9 @@ Example:
 
 * `lb` +
 Lists all bookings.
+
+.Example for the `lb` command
+image::lb.png[width="800"]
 
 ==== Editing a booked service: `edit-booking`, `eb`
 
@@ -486,8 +556,15 @@ You can remove all the booking's comments by typing `com/` without specifying an
 
 Examples:
 
-* `lb`, then `eb 1 s/GYM`
+* `lb`, then `eb 1 s/TRANSPORT`
 Edits the service type of the 1st booking to be GYM.
+
+.Example before the `eb 1 s/TRANSPORT` command
+image::eb1.png[width="800"]
+
+.Example after the `eb 1 s/TRANSPORT` command
+image::eb2.png[width="800"]
+
 * `lb`, then `edit-booking 2 :/14-15 com/`
 Edits the timing of the 2nd booking to be 14:00 - 15:00 and clears all existing comments.
 
@@ -506,6 +583,12 @@ Example:
  `lb`, then `delete-booking 2` +
 Deletes the 2nd booking of the booking database
 
+.Example before the `delete-booking 2` command
+image::db1.png[width="800"]
+
+.Example after the `delete-booking 2` command
+image::db2.png[width="800"]
+
 ==== Clearing all bookings: `clear-bookings`, `cb`
 
 Effect: Removes all service bookings from the database. +
@@ -515,6 +598,12 @@ Example:
 
 * `cb` +
 Clears all bookings from the database.
+
+.Example before the `cb` command
+image::lb.png[width="800"]
+
+.Example after the `cb` command
+image::lb.png[width="800"]
 
 ==== Find a specific booking: `find-booking`, `fb`
 
@@ -529,11 +618,14 @@ Format: `{[aqua]#find-booking#/[aqua]#fb#} [black]#[# [blue]#id/# [lime]#IDENTIF
 
 Example:
 
-* `fb id/A0124422` +
-Returns all bookings for customer with identification number, A0124422.
+* `fb id/A0176884J` +
+Returns all bookings for customer with identification number, A0176884J.
 
-* `fb id/A0124422 s/GYM` +
-Returns all gym bookings for customer with identification number, A0124422.
+.Example before the `fb id/A0176884J` command
+image::fb1.png[width="800"]
+
+* `fb id/A0176884J s/SPA` +
+Returns all spa bookings for customer with identification number, A0176884j.
 
 // end::booking-commands[]
 
@@ -639,6 +731,8 @@ Example:
 * `s 1` +
 Selects the customer at index 1.
 
+.Example for the `s 11` command
+image::s1.png[width="800"]
 
 === [underline]#Listing entered commands# : `history`,`hs`
 

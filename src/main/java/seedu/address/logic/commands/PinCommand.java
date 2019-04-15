@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 
@@ -41,7 +40,6 @@ public class PinCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
 
         requireNonNull(model);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         List<Person> lastShownList = model.getFilteredPersonList();
         List<Person> lastShownPinList = model.getFilteredPinnedPersonList();
         Person personToPin;

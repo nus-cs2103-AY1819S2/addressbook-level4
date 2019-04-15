@@ -359,7 +359,7 @@ Format: `unpin INDEX`
 
 ****
 * Unpins the contact at the specified `INDEX`.
-* The index refers to the index number *shown in the pinned list* on the side panel.
+* The index refers to the index number *shown in the pin list* on the side panel.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 

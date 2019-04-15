@@ -37,7 +37,7 @@ Responsibilities: Battle management feature
 
 '''
 
-=== Ian Wu
+= === Ian Wu
 image::iwle.png[width="150", align="left"]
 {empty}[http://github.com/iwle[github]] [<<iwle#, portfolio>>]
 

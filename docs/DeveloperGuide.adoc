@@ -806,7 +806,7 @@ consist of at least one of each White or Black coordinates.
 The Black-White groupings of Coordinates through the concept of parity is illustrated here in the following diagram:
 
 .Checkered Board illusrating concept of parity
-image::CheckeredBoard.png[width=650]
+= image::CheckeredBoard.png[width=650]
 
 Once the Enemy hits a Coordinate that has a ship on it, it will note down every valid Coordinate that is cardinal (to the North, South, East and West) to the
 cell that was discovered to hold a ship.
@@ -824,7 +824,7 @@ map for another part of the Player ship, by randomly targeting coordinates in th
 The following code snippet gives a clearer view of how the algorithm flows for the enemy shooting strategy:
 [source,java]
 ----
-include::../src/main/java/seedu/address/model/Player/Enemy.java[lines=81..101]
+include::../src/main/java/seedu/address/model/Player/Enemy.java[lines=85..105]
 ----
 
 

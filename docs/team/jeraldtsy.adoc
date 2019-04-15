@@ -8,13 +8,15 @@
 This project portfolio page showcases my contributions to the BrainTrain project such as coding,
 documentation and other contributions.
 
-My role in BrainTrain is to design and manage the app's user data. The following sections
-give a summary of how I have contributed to the project and showcases my ability to write both
-the user and developer guide.
-
 == Overview
+As part of the Software Engineering Module, CS2103T, at National University of Singapore, our
+team comprises of 5 members were tasked to develop and enhance an existing
+https://github.com/se-edu/addressbook-level4[address book application] within 7
+weeks.
 
-BrainTrain is a spaced repetition flashcard application which makes memorising key learning concepts easy and efficient.
+We were given a choice to morph the existing address book to any application we want and we chose
+to develop *BrainTrain*, which will be detailed below.
+
 BrainTrain uses Spaced-Repetition System (SRS), a more effective and efficient memorisation technique compared to hardcore
 memorisation techniques. Users will be able to learn more with less time. User interaction
 happens through Command Line Interface (CLI) and it has a minimal Graphical User Interface (GUI)
@@ -51,17 +53,20 @@ https://github.com/CS2103-AY1819S2-W14-1/main/pull/139[#139]
 ** Documentation:
 *** Updated class and sequence diagrams to match the current implementation
 *** Reported bugs and suggestion for other team in the class
-(examples: https://github.com/CS2103-AY1819S2-W16-1/main/issues/172[#172],
+(examples: https://github.com/CS2103-AY1819S2-W16-1/main/issues/143[#143],
+https://github.com/CS2103-AY1819S2-W16-1/main/issues/152[#152],
 https://github.com/CS2103-AY1819S2-W16-1/main/issues/163[#163],
-https://github.com/CS2103-AY1819S2-W16-1/main/issues/143[#143],
-https://github.com/CS2103-AY1819S2-W16-1/main/issues/152[#152])
+https://github.com/CS2103-AY1819S2-W16-1/main/issues/172[#172])
 
 == Contributions to the User Guide
 
+_Start of extract of user mode_
 include::../UserGuide.adoc[tag=jeraldtsy]
+_End of extract of quiz mode_
 
 == Contributions to the Developer Guide
 
+_Start of extract of data storage_
 include::../DeveloperGuide.adoc[tag=datastorage]
-
+_End of extract of data storage_
 

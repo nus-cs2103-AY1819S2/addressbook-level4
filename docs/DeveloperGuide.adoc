@@ -522,7 +522,7 @@ The class `CalendarWindow` uses a `HashMap` with the date, as the key and priori
 The UI components of this feature are implemented using classes from `JavaFX` with the most important component being `DatePicker` which allows a calendar to be drawn up and displayed to the user. The implementation overrides the `updateItem()` method from `DatePicker` to enable modifications to be done to the date cells in the calendar.
 
 [NOTE]
-Color sceheme and certain font sizes of the Calendar are done using Cascading Style Sheets (CSS) in a `Calendar.CSS` file found under resources. Changes can be made to the CSS file to change color schemes of the calendar if needed
+Color scheme and certain font sizes of the Calendar are done using Cascading Style Sheets (CSS) in a `Calendar.CSS` file found under resources. Changes can be made to the CSS file to change color schemes of the calendar if needed
 
 The following swimlane activity diagram illustrates the process in which the application goes through to create and display the interactive calendar for the user:
 
@@ -1491,10 +1491,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |clear all dental records of a patient | protect the privacy of my patients
 // end::patient_user_stories_kyler[]
 
-<<<<<<< HEAD
 // tag::task_user_stories_cchj1995[]
-=======
->>>>>>> b9fb0223463b82e5a0cae61472649c312488ef34
+
 |`* * *` |user |add a new task |keep track of what I need to do
 
 |`* * *` |user |delete a task |remove tasks that I have already completed or no longer need to do

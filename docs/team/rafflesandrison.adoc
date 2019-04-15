@@ -37,6 +37,7 @@ Fashion Match is a desktop apparels matching application that recommends user th
 
 ** Project management:
 *** Set up team development environment.
+*** Set up travis and coverall.
 *** Managed releases `v1.1` (1 release) on GitHub
 ** Graphical User Interface:
 *** Created all apparel icons with all valid colours.

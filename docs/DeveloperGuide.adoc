@@ -1017,7 +1017,7 @@ Step 6. According to the above 3 conditions, the following combinations will res
 . Anything else:
 
 +
-* Throws an exception as there is already a watermark on `tempImage`
+* Throws an exception as there is already a watermark on `tempImage`.
 
 //end::WaterMark[]
 ==== Design Considerations

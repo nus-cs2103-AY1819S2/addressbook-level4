@@ -47,6 +47,7 @@ Note the following symbols and formatting used in this document:
 ** Justification: These features are necessary for the product, and allows the administrator manage all patient requests by assigning the relevant healthworker with the appropriate skill sets.
 ** Highlights: Creation of these features required thorough understanding of how the existing details of the [blue]`Logic` and [blue]`Model` components,
 as knowledge of how information is cached in the application's memory was essential to allow for rapid assigning. Also implemented a scheduling algorithm that allows users to ensure that requests assigned to `HealthWorker`s are at least 2 hours apart.
+This prevents the user from accidentally assigning the same Healthworker to requests with clashing times.
 
 * *Minor enhancement*: added a filter command that allows the user to navigate through all requests stored by filtering by a specific value.
 
@@ -85,12 +86,12 @@ show you all the requests you are looking for.
 
 Before:
 
-image::filterrequestbefore.png[width=300]
+image::filterrequestbefore.png[width=250]
 Figure 5.5.2.1 shows the request list prior to executing the `filter request` command
 
 After:
 
-image::filterrequestafter.png[width=300]
+image::filterrequestafter.png[width=250]
 
 Figure 5.5.2.2 shows the request list after executing `filter request i/S9123456A st/COMPLETED`
 
@@ -198,8 +199,8 @@ to that healthWorker are less than 2 hours apart), a `CommandException` is throw
 
 ===== Aspect: Algorithm in ensuring no clashing requests assigned to healthworkers - Data Structure and implementation
 * Alternative 1 (current choice): Using a Balanced Binary Search Tree (java `TreeSet`) to keep track of the [blue]`RequestDate` of each request attended to by a particular `healthWorker`.
-** Reasoning: Since the allowed time interval between 2 consecutive requests should be at least 2 hours, this allows us to take advantage
-of the fact that we only need to keep track of the start time of requests. Hence we can utilise the `ceiling()`, `contains()` and `floor()` methods of the `TreeSet`, which runs effeciently in O(log N) time. Here is the code snippet that implements this:
+** Reasoning: Since the allowed time interval between 2 consecutive requests should be at least 2 hours, we can take advantage
+of of this by only keeping track of the start time of requests. Hence we can utilise the `ceiling()`, `contains()` and `floor()` methods of the `TreeSet`, which runs effeciently in O(log N) time (where N is the number of requests). Here is the code snippet that implements this:
 ```
     // Note: healthWorkerAppointments is the TreeSet that stores the appointment dates
     Date date = request.getRequestDate().getDate();
@@ -218,6 +219,11 @@ of the fact that we only need to keep track of the start time of requests. Hence
 
     healthWorkerAppointments.add(date);
 ```
+
+image::assignRegionCheck.png[]
+Figure 3.3.1.5 Shows visualisation of time ranges that are valid.
+
+The above mentioned code snippet checks that there are not clashing requests that fall within the red region, as depicted in Figure 3.3.1.5.
 
 * Alternative 2: For each request to be assigned, manually iterate through the Request list to ensure that there are not clashing dates.
 Pros: Easy to implement

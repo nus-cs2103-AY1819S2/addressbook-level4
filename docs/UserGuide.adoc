@@ -727,7 +727,7 @@ Format: `clr`
 
 [WARNING]
 ====
-Clearing requests would delete all records of completed requests.
+Clearing requests would delete all records of completed and pending requests.
 
 If you would like to delete just one particular request, consider using the
 `delete` command instead.

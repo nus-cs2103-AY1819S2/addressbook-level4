@@ -415,8 +415,7 @@ public enum Specialisation {
 
 ```
 
-==== Adding a Request
-
+=== Add Request feature
 
 ==== Current Implementation
 The `add request` command allows the `LogicManager` to create a new request and add it to the list of requests. Adding a new request requires the
@@ -426,7 +425,7 @@ add request n/NAME p/PHONE i/NRIC a/ADDRESS dt/DATETIME c/CONDITION.
 The following sequence shows the sequence when the add command is execute by the LogicManager:
 
 image::addrequest.png[width=800]
-Figure 3.1.3.1 Sequence Diagram for `add request` command
+Figure 3.2.1.1 Sequence Diagram for `add request` command
 
 From the diagram above:
 
@@ -584,43 +583,71 @@ The assign request feature allows an administrator to assign a request to a part
 
 The following sequence diagram shows the sequence flow from the `LogicManager` to the `ModelManager` when a user enters a `assign request` command:
 
-image::assignreq.png[width=800]
+image::assignreq.png[]
 Figure 3.3.1.1 Sequence diagram to illustrate `Logic` component interactions for `assign request` command.
 
-image::assignreq1.png[width=800]
+image::assignReqToHw.png[]
 Figure 3.3.1.2 Sequence diagram to illustrate `Logic` and `Model` component interactions for [blue]`AssignRequestCommand`.
 
-1. When `LogicManager` receives the `execute` command, it calls the `parseCommand` method in `HealthHubParser`.
-2. `HealthHubParser` will receive `assign` as the command and instantiate `AssignRequestCommandParser` to further parse the command.
+image::addHwRequestDates.png[]
+Figure 3.3.1.3 Sequence diagram illustrates addition of the relevant `Date` objects into the `TreeSet<Date>` of the `healthWorker`.
+
+image::checkConflictingRequests.png[]
+Figure 3.3.1.4 Sequence diagram illustrates interaction between `AssignRequestCommand` and `healthWorkerAppointments`
+
+1. When `LogicManager` receives the `execute` command, it calls the `parseCommand` method in `RequestBookParser`.
+2. `RequestBookParser` will receive `assign` as the command and instantiate `AssignRequestCommandParser` to further parse the command.
 3. If the arguments specified in the `assign` command are invalid, a `AssignCommand` will be created and returned back to the `LogicManager`.
 4. `LogicManager` will proceed to call the `execute` command of `AssignCommand`
 5. `AssignRequestCommand` will proceed to call the `getFilteredRequestList` method of `Model`.
 6. Iterate through the `requestIds`, if valid, add the `request` corresponding to that `index` to the set of `Request`.
-7. Writes the updated request to the `RequestBook` in `ModelManager`
+7. Iterates through all the requests already assigned to that `healthWorker`. If there is a conflict of schedule (i.e Requests assigned
+to that healthWorker are less than 2 hours apart), a `CommandException` is thrown.
+8. Writes the updated request to the `RequestBook` in `ModelManager`, if all the request timings are valid.
 
 ==== Design Consideration
 
-===== Aspect: Implementation of the `AssignRequestCommand` feature
-* Alternative 1 (current choice): Index-based assigning, where the user assigns a request based on the index number of that list item they see in the UI.
-** Pros: Effecient - since the storage of `HealthWorker` and `Request` are in lists, index-based assigning optimises effeciency, by reducing runtime to O(1) time.
-** Pros: Simple to implement, `Request` and `HealthWorker` details can easily be retrieved from the `filteredRequestList` and `filteredHealthWorkerList` in `ModelManager`.
-** Cons: May not be very user friendly as index-based assigning may not be intuitive. (This has been circumvented by using 1-based indexing, instead of the traditional 0-based indexing).
+===== Aspect: Algorithm in ensuring no clashing requests assigned to healthworkers - Data Structure and implementation
+* Alternative 1 (current choice): Using a Balanced Binary Search Tree (java `TreeSet`) to keep track of the [blue]`RequestDate` of each request attended to by a particular `healthWorker`.
+** Reasoning: Since the allowed time interval between 2 consecutive requests should be at least 2 hours, we can take advantage
+of of this by only keeping track of the start time of requests. Hence we can utilise the `ceiling()`, `contains()` and `floor()` methods of the `TreeSet`, which runs effeciently in O(log N) time (where N is the number of requests). Here is the code snippet that implements this:
+```
+    // Note: healthWorkerAppointments is the TreeSet that stores the appointment dates
+    Date date = request.getRequestDate().getDate();
+    calendar.setTime(date);
+    calendar.add(Calendar.HOUR_OF_DAY, -MIN_REQUEST_DURATION); // MIN_REQUEST_DURATION = 2 hours
+    Date lowerLimit = calendar.getTime();
+    calendar.add(Calendar.HOUR_OF_DAY, 2 * MIN_REQUEST_DURATION);
+    Date upperLimit = calendar.getTime();
 
-* Alternative 2: Assign by making a query using another unique identifier, like the name or NRIC of the patient and healthworker.
-** Pros: Perhaps more user friendly, as the commands are more straightforward to pick up.
-** Cons: Not effecient, as each query would run in O(n + m) time, where n is the number of requests and m is the number of healthworkers.
-Although this can be further optimised by using other data structures like a Balanced Binary Search Tree (Java `TreeSet`)
- (to add while maintaining some ordering), the cost of eventually filtering it to display to the user would still run in O(n + m) time.
+    if (healthWorkerAppointments.contains(date) || (healthWorkerAppointments.lower(date) != null
+          && healthWorkerAppointments.lower(date).after(lowerLimit))
+          || (healthWorkerAppointments.higher(date) != null
+          && healthWorkerAppointments.ceiling(date).before(upperLimit))) {
+              throw new CommandException(Messages.MESSAGE_HEALTHWORKER_OCCUPIED_CANNOT_ASSIGN);
+    }
 
-===== Aspect: Relationship between `Request` and `Healthworker`
-* Alternative 1 (current choice): The `Request` holds only some of the details of the healthworker (e.g name) assigned to it.
+    healthWorkerAppointments.add(date);
+```
+
+image::assignRegionCheck.png[]
+Figure 3.3.1.5 Shows visualisation of time ranges that are valid.
+
+The above mentioned code snippet checks that there are not clashing requests that fall within the red region, as depicted in Figure 3.3.1.5.
+
+* Alternative 2: For each request to be assigned, manually iterate through the Request list to ensure that there are not clashing dates.
+Pros: Easy to implement
+Cons: Slow - in the worst case, if all the requests get assigned at once, this operation will run in O(n^2) time.
+
+===== Aspect: Relationship between [blue]`Request` and [blue]`Healthworker`
+* Alternative 1 (current choice): The [blue]`Request` holds a unique identifier of the [blue]`HealthWorker` (i.e the `NRIC`) assigned to it.
 ** Pros: Simplification of implementation.
 ** Pros: Cleaner implementation, low level of dependencies on other modules. This also makes it easier to test, and easier to maintain.
-** Cons: Makes it difficult to obtain all details of a `HealthWorker` from a `Request` object.
+** Cons: Makes it difficult to obtain all details of the `healthWorker` assigned from a [blue]`Request` object. The healthworker with the unique NRIC will have the be queried from the `healthWorkerList`
 
 * Alternative 2: The `Request` holds a `HealthWorker` object and the `HealthWorker` keeps track of a list of `Request`s.
 ** Pros: Can quickly access details of a `HealthWorker` from a `Request`, and can quickly access the `Requests` assigned to a `HealthWorker` from the `Request`.
-** Cons: Increases coupling by adding additional dependencies to the code. This makes the code base more difficult to maintain.
+** Cons: Increases complexity of code base, adding additional dependencies to the code. This makes the code base more verbose and more difficult to maintain.
 
 // end::assignrequest[]
 === List Feature

@@ -87,7 +87,7 @@ public class Enemy extends Player {
                 logger.info(String.format("++++++++WATCHLIST EMPTY " + "enemy shoot parity: " + newTarget.toString()));
             } else {
                 newTarget = drawFromAllTargets();
-                logger.info(String.format("++++++++Partity EMPTY "));
+                logger.info(String.format("++++++++Parity EMPTY "));
             }
         } else {
             newTarget = drawFromWatchList();

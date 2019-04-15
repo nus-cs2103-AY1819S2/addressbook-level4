@@ -78,6 +78,9 @@ public interface Model {
      */
     int getMapSize();
 
+    /**
+     * Returns the initialized player statistics used in the game.
+     */
     PlayerStatistics getPlayerStats();
 
     Fleet getFleet();

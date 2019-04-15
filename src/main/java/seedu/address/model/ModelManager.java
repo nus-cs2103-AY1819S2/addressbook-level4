@@ -149,6 +149,10 @@ public class ModelManager implements Model {
     }
 
     //=========== Statistics ===============================================================================
+
+    /**
+     * Returns the initialized player statistics used in the game.
+     */
     @Override
     public PlayerStatistics getPlayerStats() {
         return this.playerStats;

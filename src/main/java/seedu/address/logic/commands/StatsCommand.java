@@ -14,7 +14,7 @@ import seedu.address.ui.StatisticView;
 
 /**
  * Lists all the commands entered by user from the start of app launch.
- *
+ * @author bos10
  */
 public class StatsCommand extends Command {
 
@@ -41,6 +41,7 @@ public class StatsCommand extends Command {
         outputStatistics.add(shipsDestroyed);
         outputStatistics.add(accuracy);
 
+        // Create a pop-up display
         new StatisticView(new Stage(), playerStats.generateData()).show();
         return new CommandResult(String.format(MESSAGE_SUCCESS, String.join("\n", outputStatistics)));
     }

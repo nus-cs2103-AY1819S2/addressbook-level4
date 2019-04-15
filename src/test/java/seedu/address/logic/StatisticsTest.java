@@ -20,6 +20,7 @@ import seedu.address.model.statistics.PlayerStatistics;
 /**
  * The StatisticsTest will test the methods of the statistics class.
  * Contains integration tests (interaction with Model, Player, Storage and Battleship commands)
+ * @author bos10
  */
 public class StatisticsTest {
 
@@ -112,16 +113,7 @@ public class StatisticsTest {
     // Setup
     @Before
     public void setUpStats(){
-        //        AppParameters appParameters = AppParameters.parse(getParameters());
-        //        config = initConfig(appParameters.getConfigPath());
-        //        UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
-        //
-        //        UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        //
-        //        AddressBookStorage addressBookStorage =
-        //        new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        //        StatisticsStorage statisticsStorage = new JsonStatisticsStorage(userPrefs.getStatisticsFilePath());
-        //        Storage storageTest = new StorageManager(map,user,stats);
+        // test
     }
 
     // take in statsData void

@@ -198,11 +198,11 @@ Adds a flashcard to the current folder. *Know-It-All* supports 2 types of flashc
 
 Format **(Single answer)**: `add q/QUESTION a/ANSWER [h/HINT]` +
 Results in the following card: +
-image:singleAnswerCard.PNG[width="400"] +
+image:singleAnswerCard.PNG[width="250"] +
 
 Format **(MCQ)**: `add q/QUESTION a/ANSWER [i/INCORRECT_OPTION]... [h/HINT]` +
 Results in the following card: +
-image:mcqCard.PNG[width="400"]
+image:mcqCard.PNG[width="250"]
 
 ====
 * The question, answer, incorrect option, and hint fields can take any character, but cannot be blank.

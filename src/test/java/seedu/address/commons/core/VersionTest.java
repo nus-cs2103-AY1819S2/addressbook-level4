@@ -1,6 +1,7 @@
 package seedu.address.commons.core;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Rule;
@@ -98,6 +99,11 @@ public class VersionTest {
         another = new Version(2, 15, 0, false);
         assertTrue(one.compareTo(another) < 0);
 
+        // Tests not early access vs early access on same version number
+        another = new Version(2, 15, 0, true);
+        one = new Version(2, 15, 0, false);
+        assertTrue(one.compareTo(another) > 0);
+
         // Tests early access lower version vs not early access higher version compare by version number first
         one = new Version(2, 15, 0, true);
         another = new Version(2, 15, 5, false);
@@ -135,5 +141,17 @@ public class VersionTest {
     private void verifyVersionParsedCorrectly(String versionString,
                                               int major, int minor, int patch, boolean isEarlyAccess) {
         assertEquals(new Version(major, minor, patch, isEarlyAccess), Version.fromString(versionString));
+    }
+
+    @Test
+    public void equals() {
+        Version one;
+        Version another;
+
+        one = new Version(0, 0, 0, false);
+        another = new Version(0, 0, 0, false);
+        assertFalse(one.equals(null));
+        assertFalse(one.equals(5));
+        assertTrue(one.equals(another));
     }
 }

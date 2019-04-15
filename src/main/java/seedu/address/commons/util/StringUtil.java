@@ -11,6 +11,7 @@ import java.util.Arrays;
  * Helper functions for handling strings.
  */
 public class StringUtil {
+    private StringUtil() {}
 
     /**
      * Returns true if the {@code sentence} contains the {@code word}.

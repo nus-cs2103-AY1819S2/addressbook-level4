@@ -80,12 +80,12 @@ public abstract class Map extends UiPart<Region> {
         return sp;
     }
 
-    private StackPane getColumnLabelCell() {
+    public StackPane getColumnLabelCell() {
         StackPane sp = getUiCell(String.valueOf(rowLabel++), Color.WHITE);
         return sp;
     }
 
-    private StackPane getRowLabelCell() {
+    public StackPane getRowLabelCell() {
         StackPane sp = getUiCell(String.valueOf(columnLabel++), Color.WHITE);
         return sp;
     }

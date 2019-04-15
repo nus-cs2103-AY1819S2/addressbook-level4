@@ -21,8 +21,8 @@ public class ListCommandParserTest {
         Set<Tag> tagSet = new HashSet<>();
         Set<Name> nameSet = new HashSet<>();
 
-        Optional optionalTagSet = Optional.of(tagSet);
-        Optional optionalNameSet = Optional.of(nameSet);
+        Optional<Set<Tag>> optionalTagSet = Optional.of(tagSet);
+        Optional<Set<Name>> optionalNameSet = Optional.of(nameSet);
 
         assertParseSuccess(parser, "list", new ListCommand(Optional.empty(), Optional.empty()));
         tagSet.add(new Tag("amazing"));

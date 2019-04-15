@@ -84,10 +84,16 @@ image::UserGuide_ApplicationInterface.png[width="1000"]
 * You can select a medicine from the medicine list by using the `select` command. e.g. `select 1` selects the first medicine in the list.
 * After selecting a medicine, information about the medicine will be displayed in the information panel.
 
-*Warnings Panel*
+// tag::uiwarningpanel[]
+*Warning Panel*
 
-* The list of medicine running low on stock or expiring soon medicine will be displayed in the warning panel to notify the user.
-* Warnings will be logged in the warnings panel until action has been taken to either remove or update the medicine.
+* Displays a list of medicines running low on stock and a list of expiring/expired medicine batches.
+* Warnings will be logged in the warnings panel until changes are made to medicines and/or batches displayed, or to the thresholds controlling what is displayed.
+* Image below shows the labelled components of the warning panel:
++
+.Labelled warning panel
+image::WarningPanelLabeled.png[width="500"]
+// end::uiwarningpanel[]
 
 [[Features]]
 == Features
@@ -388,11 +394,18 @@ Updates quantity of batch `8937v1x7` in batch records of the 1st medicine in the
 [[WarningPanel]]
 === Managing the warning panel : `warning`
 
-Manage the threshold for expiry date and low stock warnings. +
+Manage the threshold for expiry date and low stock warnings to alter the contents of the warning panel.
+
 Format: `warning [e/EXPIRY_THRESHOLD] [q/LOW_STOCK_THRESHOLD] [SHOW]` +
 Provide *only one* of the optional fields available. +
 If the thresholds are not set, the default threshold for expiry will be 10 days, and 20 for low stock. +
 Thresholds set by the user are saved and will be used when the application is launched again.
+
+[IMPORTANT]
+=======
+All thresholds must be positive integers. +
+If the maximum threshold is set for a list, all medicines and/or batches will be displayed in that list.
+=======
 
 ****
 * `EXPIRY_THRESHOLD` should be number of days before expiry date.
@@ -402,12 +415,14 @@ Thresholds set by the user are saved and will be used when the application is la
 
 Examples:
 
-* `warning e/20` +
-Medicine batches with expiry dates within 10 days to expiry from today will be displayed in the warning panel.
+* `warning e/30` +
+Medicine batches that have expired or with expiry dates within 30 days to expiry from today will be displayed in the warning panel.
+
 * `warning q/10` +
-Medicines with a total quantity of less than or equal to 20 will be displayed in the warning panel.
+Medicines with a total quantity of less than or equal to 10 will be displayed in the warning panel.
+
 * `warning show` +
-Current thresholds used for the warning panel will be shown.
+Current thresholds used for the warning panel will be shown in the result display as shown in figure below.
 // end::warningpanelcommand[]
 
 // tag::exportcommand[]
@@ -461,7 +476,6 @@ This includes the company that manufactured it, expiry date and the tags that wa
 * Outputs the label for the medicine at the specified INDEX.
 * If no file name is specified, the default file name is `to_print`.
 * The index refers to the index number shown in the displayed medicine list.
-
 ****
 
 All PDF files can be found under the PDF folder

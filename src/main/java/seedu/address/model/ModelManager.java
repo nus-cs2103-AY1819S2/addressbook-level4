@@ -158,6 +158,7 @@ public class ModelManager implements Model {
     @Override
     public void deleteExpense(Expense target) {
         versionedFinanceTracker.removeExpense(target);
+        // update totalSpent of budget of respective category
         int index = -1;
         for (Budget budget : filteredBudgets) {
             if (budget.getCategory() == target.getCategory()) {
@@ -182,6 +183,7 @@ public class ModelManager implements Model {
     public void addExpense(Expense expense) {
         versionedFinanceTracker.addExpense(expense);
         updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
+        // update totalSpent of budget of respective category
         unfilteredExpenses = versionedFinanceTracker.getExpenseList();
         int index = -1;
         for (Budget budget : filteredBudgets) {
@@ -207,8 +209,9 @@ public class ModelManager implements Model {
     public void setExpense(Expense target, Expense editedExpense) {
         requireAllNonNull(target, editedExpense);
         versionedFinanceTracker.setExpense(target, editedExpense);
+        // update totalSpent of budget of respective category
         unfilteredExpenses = versionedFinanceTracker.getExpenseList();
-        // find budget of initial category
+        // identify budget of category of target
         int index = -1;
         for (Budget budget : filteredBudgets) {
             if (budget.getCategory() == target.getCategory()) {
@@ -216,7 +219,7 @@ public class ModelManager implements Model {
                 break;
             }
         }
-        // find budget of edited category
+        // identify budget of category of editedExpense
         int index2 = -1;
         for (Budget budget : filteredBudgets) {
             if (budget.getCategory() == editedExpense.getCategory()) {
@@ -231,14 +234,12 @@ public class ModelManager implements Model {
             return;
         }
 
-        // NOW YOU KNOW THAT AT LEAST ONE OF AMOUNT, CATEGORY AND DATE HAS BEEN CHANGED
-
         Budget targetBudget = filteredBudgets.get(index);
         Budget updatedBudget = new Budget(filteredBudgets.get(index));
         Budget targetBudget2 = filteredBudgets.get(index2);
         Budget updatedBudget2 = new Budget(filteredBudgets.get(index2));
 
-        // only amount changed. index != -1, index1 == -1.
+        // case where only amount is edited.
         if (target.getAmount() != editedExpense.getAmount()
                 && target.getCategory() == editedExpense.getCategory()
                 && target.getDate() == editedExpense.getDate()) {
@@ -247,16 +248,16 @@ public class ModelManager implements Model {
             updatedBudget.updatePercentage();
         }
 
-        // date changed, category unchanged. index != -1, index1 == -1.
+        // date changed, category unchanged.
         if (target.getDate() != editedExpense.getDate() && target.getCategory() == editedExpense.getCategory()) {
-            // initial date and edited date both not within budget's time frame
+            // target date and editedExpense date both not within budget's time frame
             if ((target.getDate().getLocalDate().isBefore(targetBudget.getStartDate().getLocalDate())
                     || target.getDate().getLocalDate().isAfter(targetBudget.getEndDate().getLocalDate()))
                     && (editedExpense.getDate().getLocalDate().isBefore(targetBudget.getStartDate().getLocalDate())
                     || editedExpense.getDate().getLocalDate().isAfter(targetBudget.getEndDate().getLocalDate()))) {
                 return;
             }
-            // initial date not within budget time frame but edited date is, add to totalSpent
+            // target date not within budget time frame but editedExpense date is, add to totalSpent of updatedBudget2
             if ((target.getDate().getLocalDate().isBefore(targetBudget.getStartDate().getLocalDate())
                     || target.getDate().getLocalDate().isAfter(targetBudget.getEndDate().getLocalDate()))
                     && !(editedExpense.getDate().getLocalDate().isBefore(targetBudget.getStartDate().getLocalDate())
@@ -267,24 +268,24 @@ public class ModelManager implements Model {
                     || target.getDate().getLocalDate().isAfter(targetBudget.getEndDate().getLocalDate()))
                     && (editedExpense.getDate().getLocalDate().isBefore(targetBudget.getStartDate().getLocalDate())
                     || editedExpense.getDate().getLocalDate().isAfter(targetBudget.getEndDate().getLocalDate()))) {
-                // initial date is within budget time frame but edited date is no longer within budget's duration
+                // target date is within budget time frame but editedExpense date is no longer within budget's duration
                 updatedBudget.updateTotalSpent(0 - target.getAmount().value);
                 updatedBudget.updatePercentage();
             } else if (!(target.getDate().getLocalDate().isBefore(targetBudget.getStartDate().getLocalDate())
                     || target.getDate().getLocalDate().isAfter(targetBudget.getEndDate().getLocalDate()))
                     && !(editedExpense.getDate().getLocalDate().isBefore(targetBudget.getStartDate().getLocalDate())
                     || editedExpense.getDate().getLocalDate().isAfter(targetBudget.getEndDate().getLocalDate()))) {
-                // initial date and edited date are both within budget time frame
+                // target date and editedExpense date are both within budget time frame
                 double diff = editedExpense.getAmount().value - target.getAmount().value;
                 updatedBudget.updateTotalSpent(diff);
                 updatedBudget.updatePercentage();
             }
         }
 
-        // category changed
+        // category of expense changed
         if (target.getCategory() != editedExpense.getCategory()) {
             if (index != -1) {
-                // check if initial date is within budget1 time frame
+                // check if target date is within budget1 time frame
                 if (!(target.getDate().getLocalDate().isBefore(targetBudget.getStartDate().getLocalDate())
                         || target.getDate().getLocalDate().isAfter(targetBudget.getEndDate().getLocalDate()))) {
                     updatedBudget.updateTotalSpent(0 - target.getAmount().value);

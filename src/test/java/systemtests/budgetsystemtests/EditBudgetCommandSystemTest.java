@@ -76,7 +76,7 @@ public class EditBudgetCommandSystemTest extends FinanceTrackerSystemTest {
         assertCommandSuccess(command, category, BUDGET);
 
         /* Case: edit a budget with new values same as another budget's values -> edited
-         * In this case, test edits travel budget with values to be the same as food budget except for the category
+         * In this case, test edits travel budget with values to be the same as food budget
          */
         assertTrue(getModel().getFinanceTracker().getBudgetList().contains(BUDGET));
         category = FOOD;
@@ -109,21 +109,6 @@ public class EditBudgetCommandSystemTest extends FinanceTrackerSystemTest {
         editedBudget = new BudgetBuilder(BUDGET).withCategory(category.toString()).withAmount(VALID_AMOUNT_EXPENSE)
                 .build();
         assertCommandSuccess(command, category, editedBudget);
-
-        /* --------------------- Performing edit operation while a budget card is selected -------------------------*/
-        /* Case: selects first card in the budget list, edit a budget -> edited, card selection remains unchanged but
-         * browser url changes
-         */
-        /*
-        selectBudget(TRAVEL);
-
-        command = EditBudgetCommand.COMMAND_WORD + " " + CATEGORY_DESC_BUDGET + AMOUNT_DESC_EXPENSE
-                + STARTDATE_DESC_BUDGET_2 + ENDDATE_DESC_BUDGET_2 + REMARKS_DESC_BUDGET;
-        // this can be misleading: card selection actually remains unchanged but the
-        // browser's url is updated to reflect the new budget's amount, start date and end date
-        assertCommandSuccess(command, category, BUDGET, category);
-        */
-
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 

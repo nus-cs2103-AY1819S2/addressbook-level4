@@ -112,15 +112,6 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
      */
     public void addExpense(Expense p) {
         expenses.add(p);
-        /*
-        int index = budgets.getIndex(p.getCategory());
-        if (index != -1) {
-            Budget targetBudget = budgets.get(p.getCategory());
-            Budget updatedBudget = budgets.get(p.getCategory());
-            updatedBudget.updateTotalSpent(p.getAmount().value);
-            updatedBudget.updatePercentage();
-            budgets.setBudget(targetBudget, updatedBudget);
-        }*/
         indicateModified();
     }
 
@@ -140,17 +131,6 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
      */
     public void removeExpense(Expense key) {
         expenses.remove(key);
-
-        /*
-        int index = budgets.getIndex(key.getCategory());
-        if (index != -1) {
-            Budget targetBudget = budgets.get(key.getCategory());
-            Budget updatedBudget = budgets.get(key.getCategory());
-            double diff = 0 - key.getAmount().value;
-            updatedBudget.updateTotalSpent(diff);
-            updatedBudget.updatePercentage();
-            budgets.setBudget(targetBudget, updatedBudget);
-        }*/
         indicateModified();
     }
 
@@ -223,7 +203,6 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
         indicateModified();
     }
 
-
     /**
      * Removes {@code key} from this {@code FinanceTracker}.
      * {@code key} must exist in the budget list in the finance tracker.
@@ -232,7 +211,6 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
         budgets.removeBudget(key);
         indicateModified();
     }
-
 
     //// recurring-level operations =====================================================================
 
@@ -292,7 +270,7 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
         invalidationListenerManager.callListeners(this);
     }
 
-    //// util methods
+    //// util methods ==========================================================================
 
     @Override
     public String toString() {

@@ -11,6 +11,8 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.budgetcommands.DeleteBudgetCommand;
+import seedu.address.logic.commands.generalcommands.RedoCommand;
+import seedu.address.logic.commands.generalcommands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.attributes.Category;
 import seedu.address.model.budget.Budget;
@@ -35,36 +37,15 @@ public class DeleteBudgetCommandSystemTest extends FinanceTrackerSystemTest {
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
         /* Case: undo deleting the travel budget in the list -> travel budget restored */
-        /*command = UndoCommand.COMMAND_WORD;
+        command = UndoCommand.COMMAND_WORD;
         expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, modelBeforeDeletingTravel, expectedResultMessage);
 
         /* Case: redo deleting the travel budget in the list -> travel budget deleted again */
-        /*command = RedoCommand.COMMAND_WORD;
+        command = RedoCommand.COMMAND_WORD;
         removeBudget(modelBeforeDeletingTravel, category);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, modelBeforeDeletingTravel, expectedResultMessage);
-
-        /* --------------------- Performing delete operation while a budget card is selected ---------------------- */
-        //implement selectbudget first
-        /* Case: delete the selected budget -> budget list panel selects the budget before the deleted budget */
-        /*showAllExpenses();
-        expectedModel = getModel();
-        Category categorySelected = SHOPPING;
-        int selectedIndex = -1;
-        for (Budget budget : expectedModel.getFilteredBudgetList()) {
-            if (budget.getCategory() == categorySelected) {
-                selectedIndex = expectedModel.getFilteredBudgetList().indexOf(budget);
-                break;
-            }
-        }
-        int expectedIndex = selectedIndex - 1;
-        Category expectedCategory = expectedModel.getFilteredBudgetList().get(expectedIndex).getCategory();
-        //selectBudget(categorySelected);
-        command = DeleteBudgetCommand.COMMAND_WORD + " " + categorySelected.toString();
-        deletedBudget = removeBudget(expectedModel, categorySelected);
-        expectedResultMessage = String.format(MESSAGE_DELETE_BUDGET_SUCCESS, deletedBudget);
-        assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedCategory);
 
         /* --------------------------------- Performing invalid delete operation ------------------------------------ */
 

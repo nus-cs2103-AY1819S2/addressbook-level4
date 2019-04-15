@@ -5,9 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.EnumSet;
 import java.util.List;
 
-import seedu.address.logic.CommandHistory;
 import seedu.address.battle.result.AttackResult;
 import seedu.address.battle.state.BattleState;
+import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.cell.Coordinates;

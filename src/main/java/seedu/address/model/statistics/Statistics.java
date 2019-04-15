@@ -3,8 +3,8 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 import javafx.scene.chart.XYChart;
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.battle.result.AttackResult;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.storage.Storage;
 
 /**

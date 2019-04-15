@@ -41,8 +41,6 @@ Duty Planner is a desktop application used to organise and plan duties for army 
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undo]
-
 include::../UserGuide.adoc[tag=viewDuty]
 
 include::../UserGuide.adoc[tag=logout]
@@ -64,10 +62,6 @@ include::../DeveloperGuide.adoc[tag=storagediagram]
 include::../DeveloperGuide.adoc[tag=dutyCalendar]
 
 include::../DeveloperGuide.adoc[tag=userstories]
-
-include::../DeveloperGuide.adoc[tag=usecase1]
-
-include::../DeveloperGuide.adoc[tag=usecase2]
 
 include::../DeveloperGuide.adoc[tag=usecase5]
 

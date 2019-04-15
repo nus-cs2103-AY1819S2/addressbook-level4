@@ -29,6 +29,9 @@ public class DateOfBirthTest {
         assertFalse(DateOfBirth.isValidDob("01/11/2020").getKey()); // year can't be greater than current year
         assertFalse(DateOfBirth.isValidDob("01/11/11").getKey()); // yy not taken
         assertFalse(DateOfBirth.isValidDob("31/04/11").getKey()); //this month can't have 31 days
+        assertFalse(DateOfBirth.isValidDob("31/09/11").getKey());
+        assertFalse(DateOfBirth.isValidDob("31/11/11").getKey());
+        assertFalse(DateOfBirth.isValidDob("15/05/2019").getKey());
 
 
         // valid dob

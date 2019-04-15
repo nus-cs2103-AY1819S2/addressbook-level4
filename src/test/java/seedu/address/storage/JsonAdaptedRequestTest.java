@@ -32,18 +32,16 @@ public class JsonAdaptedRequestTest {
         assertEquals(req, BENSON_REQUEST);
     }
 
-/*
     @Test
     public void toModelType_validRequestStrings_returnsRequest() throws Exception {
-        JsonAdaptedRequest request = new JsonAdaptedRequest(ALICE_REQUEST.getName().fullName,
+        JsonAdaptedRequest request = new JsonAdaptedRequest(ALICE_REQUEST.getName().toString(),
             ALICE_REQUEST.getNric().toString(), ALICE_REQUEST.getPhone().value,
             ALICE_REQUEST.getAddress().value,
-            ALICE_REQUEST.getRequestDate().toString(), ALICE_REQUEST.getConditions().toString(),
-            new RequestStatus("PENDING").toString(), ALICE_REQUEST.getHealthStaff());
+            ALICE_REQUEST.getRequestDate().toString(), "Physiotherapy",
+            new RequestStatus("ONGOING").toString(), ALICE_REQUEST.getHealthStaff());
         Request req = request.toModelType();
         assertEquals(req, ALICE_REQUEST);
     }
-    */
 
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {

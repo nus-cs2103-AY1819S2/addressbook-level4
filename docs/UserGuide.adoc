@@ -646,7 +646,7 @@ Examples:
 * `select-presc 1` +
 List details of the prescription with index 1 in displayed prescription list.
 
-=== Sorting medical history by date: `sort-med-hist`
+=== Sorting precriptions by date: `sort-presc`
 
 Sort prescriptions by date in ascending order or descending order. +
 Format: `sort-presc [ASC/DESC]`

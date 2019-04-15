@@ -82,15 +82,4 @@ targeted at developers and project managers. They also serve to show the technic
 
 include::../DeveloperGuide.adoc[tag=findfeature]
 
-==== Use case: Find cards
-include::../DeveloperGuide.adoc[tag=findfeatureMSS]
-
 include::../DeveloperGuide.adoc[tag=share_import]
-
-==== Use case: Share a collection of cards
-include::../DeveloperGuide.adoc[tag=sharefeatureMSS]
-
-==== Use case: Import a collection of cards
-include::../DeveloperGuide.adoc[tag=importfeatureMSS]
-
-

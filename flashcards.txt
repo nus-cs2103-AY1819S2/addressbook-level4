@@ -1,0 +1,7 @@
+﻿ f/Hola b/你好 tc/chinese t/spanish
+ f/鉅細靡遺 b/Meticulous in both small and large matters t/Idioms t/Chinese
+ f/不懂装懂 b/To pretend to understand t/Idioms t/Chinese
+ f/肆无忌惮 b/Act recklessly without regard for others t/Idioms t/Chinese
+ f/若隱若現 b/Partly hidden and partly visible t/Idioms t/Chinese
+ f/莫名其妙 b/Without rhyme or reason t/Idioms t/Chinese
+ f/滔滔不絕 b/Spout endlessly (of talking) t/Idioms t/Chinese

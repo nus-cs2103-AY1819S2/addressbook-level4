@@ -2,7 +2,7 @@ package seedu.address.model.flashcard;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.model.flashcard.FlashcardContainsKeywordsPredicate.IS_FRONT_FACE;
+import static seedu.address.model.flashcard.FlashcardPredicate.IS_FRONT_FACE;
 
 import java.util.Arrays;
 import java.util.Collections;

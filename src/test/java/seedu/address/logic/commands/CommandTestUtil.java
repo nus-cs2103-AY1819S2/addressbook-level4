@@ -18,7 +18,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.CardCollection;
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.Flashcard;
-import seedu.address.model.flashcard.FlashcardContainsKeywordsPredicate;
+import seedu.address.model.flashcard.FlashcardPredicate;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditFlashcardDescriptorBuilder;
 
@@ -34,6 +34,11 @@ public class CommandTestUtil {
     public static final String VALID_BACKFACE_HITBAG = "打包";
     public static final String VALID_TAG_INDONESIAN = "indonesian";
     public static final String VALID_TAG_CHINESE = "chinese";
+    public static final String VALID_MIN_BOUND_STRING = "0";
+    public static final String VALID_MAX_BOUND_STRING = "100";
+    public static final double VALID_MIN_BOUND = 0;
+    public static final double VALID_MAX_BOUND = 100;
+    public static final double VALID_BOUND_75 = 75;
 
     public static final Optional<String> VALID_IMAGE_NONE = Optional.empty();
 
@@ -143,9 +148,10 @@ public class CommandTestUtil {
         for (Tag tag : tagSet) {
             splitTag.add(tag.tagName);
         }
+        final double[] successRateRange = {VALID_MIN_BOUND, VALID_MAX_BOUND};
 
         model.updateFilteredFlashcardList(
-            new FlashcardContainsKeywordsPredicate(Arrays.asList(splitFront), Arrays.asList(splitBack), splitTag));
+            new FlashcardPredicate(Arrays.asList(splitFront), Arrays.asList(splitBack), splitTag, successRateRange));
 
         assertEquals(1, model.getFilteredFlashcardList().size());
     }

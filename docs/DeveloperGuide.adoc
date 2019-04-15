@@ -353,19 +353,50 @@ conflicts occurs on the working directory.
 
 // tag::findfeature[]
 === Find Feature
+==== Current Implementation
+The find command allows users to find and list a specific set of flashcards. It is
+implemented under the Logic component which in turn calls upon the Model component to retrieve
+the flashcards a user wishes to find.
 
-The Find command is implemented under the Logic component which in turn calls upon the Model component to retrieve
-the flashcards a user wishes to find (based on user specified keywords). The implementation can be further explained
-with the aid of the following sequence diagram:
+Users can filter the results based on several attributes of a flashcard including front face text, back face text,
+tags and success rate. Similar to the Add command, the input is expected to have predefined prefixes (`/f`, `/b`, `/t`, `/s`)
+to specify the filter categories; followed by keywords on which a match is expected.
+The implementation as well as class interactions can be further explained with the
+following sequence diagram:
 
-image::FindCommandSequenceDiagram.png[width="800"]
+image::FindCommandSequenceDiagram1.png[width="800"]
 
-The `FindCommandParser` class takes the input arguments specified by the user and tokenises them based on predefined
-flashcard prefixes to create a list of keywords associated with each of these prefixes (`/f`, `/b`, `/t`). These lists
-are passed to construct a new `FlashcardContainsKeywordPredicate` object which is then passed to the constructor of `FindCommand`.
-The execution of the `FindCommand` calls upon the `Model` object to update the filtered flashcard list based on the predicate defined.
-This is done through the use of the test method in the predicate classes which evaluate matches between the keywords and a
-specific attribute of the flashcard. If a match exists, the flashcard will be displayed to the user.
+The `FindCommandParser` class takes the input string specified by the user and tokenizes it based on the prefixes to create
+a list of keywords associated with each of prefix. Unlike other prefixes, the `/s` prefix (which specifies the success rate range
+which cards should be within), will not take a keyword as input. Instead, the range takes two doubles: lower bound and upper bound.
+
+After being parsed, these keyword lists, as well as the success rate range, are passed to construct a new `FlashcardPredicate` object which is
+then used to define the `FindCommand`. The execution of the `FindCommand` calls upon the `Model` object to update the
+filtered flashcard list based on the predicate defined. This is done through the use of the test method in the predicate classes
+which evaluate matches between the keywords and a specific attribute of the flashcard. A flashcard will be selected if it is within
+the success rate range and has matching keyword(s) in at least one of the three categories: front face text, back face text and tags.
+The logic of evaluation can be seen from the following code snippet:
+
+----
+return ((frontFacePredicate.test(flashcard)
+        || backFacePredicate.test(flashcard)
+        || tagPredicate.test(flashcard))
+        && (flashcard.getStatistics().getSuccessRate() * 100 >= lowerBound
+        && flashcard.getStatistics().getSuccessRate() * 100 <= upperBound));
+----
+
+==== Design Considerations
+
+===== Aspect: The evaluation of keyword matches
+
+* **Alternative 1 (current choice):** has matching keyword(s) in at least one of the three categories: front face text,
+back face text and tags.
+** Pros: Able to show cards in multiple categories when the input has multiple tags. Users will get the set of cards as long as
+they correctly remember a keyword in either the front face text, back face text or the tags of flashcards.
+** Cons: Cannot narrow down to choose the intersection of all filters.
+* **Alternative 2:** has matching keyword(s) in all specified categories.
+** Pros: Able to show a very specific set of flashcards
+** Cons: May not be able to find the wanted set of flashcards when some keywords are remembered wrongly.
 
 // end::findfeature[]
 
@@ -402,6 +433,88 @@ return all of the flashcards and then merge each `Statistics` from each flashcar
 ** Cons: User has less flexibility in term of querying the statistics (User cannot know the statistics of a certain flashcard)
 
 // end::statistics[]
+
+
+// tag::share_import[]
+===  Share & Import feature
+==== Current Implementation: Share
+
+the share command is implemented under the Logic component and allows users to share the collection of flashcards currently being displayed.
+This is done by saving information of the cards to a text file; thereafter allowing users to manually distribute the
+file to others.
+
+The information which is saved by this command includes: front face text, back face text and
+tags of each flashcard.
+
+The share command takes `DIRECTORY_PATH` as the only argument, which specifies where the file should be saved.
+The user's input is parsed by the `ShareCommandParser` class to make sure that the path specified exists and that it is
+indeed a directory. The current implementation of the share command does not allow users to specify what
+the file should be named. Instead, all files created by the command will be saved as _flashcards.txt_.
+
+Since the share command only shares flashcards currently being displayed, it will often be used in
+conjunction with the find command to update the model component before the share command is invoked by the user.
+For example, if a user wants to share only chinese cards, the user will first enter `find t/chinese` followed by
+`share DIRECTORY_PATH`.
+
+The structure of the text file created by the command can be explained with the aid of the following screenshot:
+
+image::ShareCommandTextFile.png[width="800"]
+
+As shown form the screenshot, each line holds information for a single flashcard. The information is stored in the form
+of add command arguments to ultimately simplify the import process _(see import feature)_.
+
+It is important to note that the current implementation of the share command does not support the sharing of images.
+This means that a flashcard containing an image will lose its image once shared as only the front face text, back face text
+and tags are saved to the text file. However, sharing a card containing an image will not result in any error
+or exception being thrown. Furthermore, the statistics of each flashcard are not shared as this would not make practical sense.
+
+==== Current Implementation: Import
+
+The import command is implemented under the logic component and allows users to add a collection of flashcards
+from a text file to their existing collection.
+
+The command takes `FILE_PATH` as the only argument which specifies the location of the file containing the cards to be imported.
+The user's input is parsed by the `ImportCommandParser` class to make sure that the file specified exists and that it is
+a text file.
+
+The file used by the import command should be strictly limited to the file generated by the share command
+and should not be altered. Altering the file in any way may effect the ability of the import command to read
+in the cards correctly.
+
+The implementation of the import command can be better visualised with the aid of the following sequence diagram:
+
+image::ImportCommandSequenceDiagram.png[width="800"]
+
+As shown from the sequence diagram, the `ImportCommand` class will read each line of the text file and call the `AddCommandParser` class to verify
+the validity of the flashcard to be added. Once verified, the `execute` method of the `AddCommand` class will be
+invoked to add the flashcard to the existing collection.
+
+The import command will also keep track
+of how many flashcards were successfully added in order to provide feedback to the user once the execution of
+the command terminates.
+
+==== Design Considerations
+
+===== Aspect: How to validate flashcards
+
+* **Alternative 1 (current choice):** Validate flashcards at the Logic level using the `addCommandParser` class.
+** Pros: Keeps the command contained at the Logic level of the project and is easier to implement.
+** Cons: Increases dependency between the import command classes and the add command classes.
+* **Alternative 2:** Validate flashcards at file level and append new flashcard data directly to the storage file
+** Pros: Reduce dependency between classes, meaning that the import command is able to function without the add command.
+** Cons: Harder to implement and bypasses several project components to directly intect with the storage component. This does not follow the overall
+         architectural design of the project.
+
+// end::share_import[]
+
+
+// tag::dataencryption[]
+=== [Proposed] Data Encryption
+
+_{Explain here how the data encryption feature will be implemented}_
+
+// end::dataencryption[]
+
 
 === Logging
 
@@ -1049,54 +1162,68 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Find card
 
+=== Use case: Find cards
+// tag::findfeatureMSS[]
 *MSS*
 
-1.  User requests to find a card with some keywords and tags.
-2.  Acquizition shows a list of cards that contain all of the keyword and tags
+1.  User requests to find a set of cards containing some keywords and within a specified success rate range
+2.  _Acquizition_ shows a list of cards that contain any of the keywords and which also have a success rate within
+the specified range
 +
 Use case ends.
 
 [discrete]
-=== Use case: Export a collection of cards
+// end::findfeatureMSS[]
 
+=== Use case: Share a collection of cards
+// tag::sharefeatureMSS[]
 *MSS*
 
-1.  User requests to export a collection of cards
-2.  User specify some tags
-3.  Acquizition finds the cards with the given tags
-4.  User specify a file path and a file name
-5.  Acquizition writes the information about the cards to the file specified
+1.  User requests to find a set of cards
+2.  _Acquizition_ lists the cards
+3.  User requests to share the currently listed cards
+4.  User specifies the directory to save the cards
+5.  _Acquizition_ creates a text file containing the information about the cards
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 3a. There is no card with the tags specified
+* 3a. There are no cards currently listed
 +
 [none]
-** 3a1. Acquizition shows an error message.
+** 3a1. _Acquizition_ shows an error message.
 +
 Use case ends.
 
 [none]
-* 5a. Acquizition has no permission to edit the file
+* 4a. The directory does not exist
 +
 [none]
-** 5a1. Acquizition shows an error message.
+** 4a1. _Acquizition_ shows an error message.
++
+Use case ends.
+
+[none]
+* 5a. _Acquizition_ has no permission to add the file
++
+[none]
+** 5a1. _Acquizition_ shows an error message.
 +
 Use case ends.
 
 [discrete]
-=== Use case: Import a collection of cards
+// end::sharefeatureMSS[]
 
+=== Use case: Import a collection of cards
+// tag::importfeatureMSS[]
 *MSS*
 
-1.  User requests to export a collection of cards
-2.  User specify a file path
-3.  Acquizition builds the cards from the given file.
+1.  User requests to import a set of flashcards
+2.  User specifies the path of the text file
+3.  _Acquizition_ adds the cards from the given file
 +
 Use case ends.
 
@@ -1116,6 +1243,15 @@ Use case ends.
 ** 3b1. Acquizition shows an error message.
 +
 Use case ends.
+
+* 3c. Some of the cards are corrupted or already exist locally
++
+[none]
+** 3c1. _Acquizition_ adds cards which do not already exist and which are not corrupted.
+** 3c2. _Acquizition_ shows how many cards were successfully imported
++
+Use case ends.
+// end::importfeatureMSS[]
 
 
 [appendix]

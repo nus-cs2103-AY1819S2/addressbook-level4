@@ -22,9 +22,10 @@ public class ImportCommand extends Command {
 
     public static final String COMMAND_WORD = "import";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Uploads flashcards from a text file. \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds flashcards from a text file to the existing "
+        + "collection. \n"
         + "Parameters: "
-        + "FILE_PATH (optional - leaving path empty will prompt the File Explorer)";
+        + "FILE_PATH\n";
 
     public static final String MESSAGE_IMPORT_SUCCESS = " flashcards successfully imported from files.";
     public static final String MESSAGE_IMPORT_PARTIAL_SUCCESS_INFO = "*Unsuccessfully imported flashcards may "

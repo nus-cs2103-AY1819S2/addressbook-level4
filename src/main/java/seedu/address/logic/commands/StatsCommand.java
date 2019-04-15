@@ -13,7 +13,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.Flashcard;
-import seedu.address.model.flashcard.FlashcardContainsKeywordsPredicate;
+import seedu.address.model.flashcard.FlashcardPredicate;
 import seedu.address.model.flashcard.Statistics;
 
 /**
@@ -37,7 +37,7 @@ public class StatsCommand extends Command {
             + PREFIX_TAG + "Spanish \n";
     private static final String MESSAGE_IN_QUIZ = "Cannot stats in quiz mode.";
 
-    private final Optional<FlashcardContainsKeywordsPredicate> optPredicate;
+    private final Optional<FlashcardPredicate> optPredicate;
 
 
     /**
@@ -50,7 +50,7 @@ public class StatsCommand extends Command {
     /**
      * Creates a StatsCommand with a predicate. The predicate will be used to filter the entire flashcards list.
      */
-    public StatsCommand(FlashcardContainsKeywordsPredicate predicate) {
+    public StatsCommand(FlashcardPredicate predicate) {
         requireNonNull(predicate);
         this.optPredicate = Optional.of(predicate);
     }

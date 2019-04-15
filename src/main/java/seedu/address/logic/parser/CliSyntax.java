@@ -10,5 +10,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_BACK_FACE = new Prefix("b/");
     public static final Prefix PREFIX_IMAGE = new Prefix("i/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
+    public static final Prefix PREFIX_SUCCESS_RATE_RANGE = new Prefix("s/");
 
 }

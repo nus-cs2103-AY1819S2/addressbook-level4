@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BACK_FACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FRONT_FACE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SUCCESS_RATE_RANGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.flashcard.Face;
-import seedu.address.model.flashcard.FlashcardContainsKeywordsPredicate;
+import seedu.address.model.flashcard.FlashcardPredicate;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -25,7 +26,14 @@ import seedu.address.model.tag.Tag;
  */
 public class ParserUtil {
 
+    public static final double MIN_BOUND = 0;
+    public static final double MAX_BOUND = 100;
+
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_RANGE_FORMAT = "The success rate range must be two numbers separated"
+            + " by a space.";
+    public static final String MESSAGE_INVALID_RANGE = "The success rate range must be between 0 to 100 (inclusive)."
+            + " The first number must not be greater than the second.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -96,24 +104,60 @@ public class ParserUtil {
     }
 
     /**
-     * Parses the given {@code String} of arguments and returns a FlashcardContainsKeywordsPredicate
+     * Parses a {@code String range} into an {@code Array}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code range} is invalid.
+     */
+    public static double[] parseStatRange(String range) throws ParseException {
+        requireNonNull(range);
+        String trimmedRange = range.trim();
+        double lowerBound;
+        double upperBound;
+        if (trimmedRange.isEmpty()) {
+            throw new ParseException(MESSAGE_INVALID_RANGE_FORMAT);
+        }
+
+        String[] rangeBounds = trimmedRange.split("\\s+");
+        if (rangeBounds.length != 2) {
+            throw new ParseException(MESSAGE_INVALID_RANGE_FORMAT);
+        } else if (!rangeBounds[0].matches("-?\\d+(\\.\\d+)?")
+                || !rangeBounds[1].matches("-?\\d+(\\.\\d+)?")) {
+            throw new ParseException(MESSAGE_INVALID_RANGE_FORMAT);
+        } else {
+            lowerBound = Double.parseDouble(rangeBounds[0]);
+            upperBound = Double.parseDouble(rangeBounds[1]);
+            if (lowerBound < MIN_BOUND || upperBound > MAX_BOUND || lowerBound > upperBound) {
+                throw new ParseException(MESSAGE_INVALID_RANGE);
+            }
+        }
+
+        double[] parsedRange = {lowerBound, upperBound};
+        return parsedRange;
+    }
+
+    /**
+     * Parses the given {@code String} of arguments and returns a FlashcardPredicate
      * object.
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    static FlashcardContainsKeywordsPredicate filterByKeyword(String args, String messageUsage)
-            throws ParseException {
-        ArgumentMultimap argMultimap;
-        argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_FRONT_FACE, PREFIX_BACK_FACE, PREFIX_TAG);
+    static FlashcardPredicate filterByKeyword(String args, String messageUsage) throws ParseException {
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_FRONT_FACE, PREFIX_BACK_FACE, PREFIX_TAG,
+                PREFIX_SUCCESS_RATE_RANGE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_FRONT_FACE) && !arePrefixesPresent(argMultimap, PREFIX_BACK_FACE)
-                && !arePrefixesPresent(argMultimap, PREFIX_TAG) || !argMultimap.getPreamble().isEmpty()) {
+                && !arePrefixesPresent(argMultimap, PREFIX_TAG)
+                && !arePrefixesPresent(argMultimap, PREFIX_SUCCESS_RATE_RANGE)
+                || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, messageUsage));
         }
 
         Set<Face> frontFaceKeywordSet = ParserUtil.parseFaces(argMultimap.getAllValues(PREFIX_FRONT_FACE));
         Set<Face> backFaceKeywordSet = ParserUtil.parseFaces(argMultimap.getAllValues(PREFIX_BACK_FACE));
         Set<Tag> tagKeywordSet = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        double[] statRange = ParserUtil.parseStatRange(argMultimap.getValue(PREFIX_SUCCESS_RATE_RANGE).isPresent()
+                ? argMultimap.getValue(PREFIX_SUCCESS_RATE_RANGE).get() : MIN_BOUND + " " + MAX_BOUND);
 
         ArrayList<String> frontFaceKeywords = new ArrayList<>();
         ArrayList<String> backFaceKeywords = new ArrayList<>();
@@ -133,7 +177,7 @@ public class ParserUtil {
             tagKeywords.add(tag.tagName);
         }
 
-        return new FlashcardContainsKeywordsPredicate(frontFaceKeywords, backFaceKeywords, tagKeywords);
+        return new FlashcardPredicate(frontFaceKeywords, backFaceKeywords, tagKeywords, statRange);
     }
 
     /**

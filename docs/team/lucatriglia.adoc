@@ -3,70 +3,94 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 4
+== PROJECT: ACQUIZITION
 
 ---
 
 == Overview
 
-AddressBook - Level 4 is a desktop card collection application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+_Acquizition_ is a desktop flashcard application used for language acquisition and training.
+
+Through the use of a Spaced Repetition System, _Acquizition_ maximises user retention
+by testing vocabulary most likely to be forgotten by a user.
+
+The application has an intuitive and simplistic interface, making it great for both inexperienced and more proficient computer users.
+
+Developed at the National University of Singapore, _Acquizition_ was created as part of a software engineering team project (module code: CS2103T).
+As such, this application was not entirely developed by me. This portfolio serves to
+outline my own contributions towards the project.
+
+
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *the ability find specific flashcards*
+** What it does: allows the user to find and list flashcards based on specific properties such as front face text,
+back face text, tags and success rate.
+** Justification: This feature represents the core of the application, as many other commands like the quiz command
+depend on the find feature. For instance, if a user wants to be quizzed on chinese, the user must first find the corresponding chinese cards.
+** Highlights: This enhancement touches upon multiple components of the project architecture and as a result, was challenging
+to implement. Since many other features of the application depend on this functionality, I had to consider many design
+implementations to make it as user centric as possible.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+** Credits: This feature was enhanced from the existing codebase of the CS2103T project.
+** Related code: https://github.com/CS2103-AY1819S2-T12-2/main/pull/29[Enhance Find Command], https://github.com/CS2103-AY1819S2-T12-2/main/pull/85[Find Command - Filter by Success Rate]
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Major enhancement*: added *the ability share and import flashcards*
+** What it does: allows the user to save locally created flashcards to a text file so that they can be distributed and used by other _Acquizition_ users.
+** Justification: This application is targeted at language students. As such, this feature would prove beneficial to
+users who wish to make use of another persons card collection without needing to manually re-create the flashcards.
+
+** Related code: https://github.com/CS2103-AY1819S2-T12-2/main/pull/12[Add Import Functionality], https://github.com/CS2103-AY1819S2-T12-2/main/pull/43[Add Share Functionality],
+https://github.com/CS2103-AY1819S2-T12-2/main/pull/85[Tweak Import and Share Functionality]
+
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Updated AboutUs and ContactUs project pages (Pull request https://github.com/CS2103-AY1819S2-T12-2/main/pull/1[#1])
+*** Created Project Portfolio Pages for each team member
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Verified the quality of project documentation (User Guide and Developer Guide).
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/719[1],
+https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/875[2], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/400[3])
 
-_{you can add/remove categories in the list above}_
+A comprehensive summary of all the code contributed can be found https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=lucatriglia[here].
 
 == Contributions to the User Guide
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Maintaining a comprehensive and coherent User Guide is essential for any Software Engineering project.
+Given below are sections I contributed to the User Guide of Acquizition. They showcase my ability to write user-centric documentation._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=find]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=share]
+
+include::../UserGuide.adoc[tag=import]
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide of Acquizition. They showcase my ability to write technical documentation
+targeted at developers and project managers. They also serve to show the technical depth of my contributions._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=findfeature]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+==== Use case: Find cards
+include::../DeveloperGuide.adoc[tag=findfeatureMSS]
+
+include::../DeveloperGuide.adoc[tag=share_import]
+
+==== Use case: Share a collection of cards
+include::../DeveloperGuide.adoc[tag=sharefeatureMSS]
+
+==== Use case: Import a collection of cards
+include::../DeveloperGuide.adoc[tag=importfeatureMSS]
 
 
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

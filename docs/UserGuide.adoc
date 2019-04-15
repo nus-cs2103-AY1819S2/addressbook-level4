@@ -154,22 +154,31 @@ Example:
 * `delete 2` +
 The second flashcard will be deleted.
 
+// tag::find[]
 === Finding flashcards by keyword(s): `find`
 
 Finds and lists all the flashcards whose front text, back text or collection tags
-contain _any_ of the given keywords. +
+contain _any_ of the given keywords. You can also specify a success rate range which
+will filter the flashcards to have a success rate within the given range.
 
-Format: ​`find [f/FRONT_FACE]... [b/BACK_FACE]... [t/TAG]...`
+Format: ​`find [f/FRONT_FACE]... [b/BACK_FACE]... [t/TAG]... [s/SUCCESS_RATE_RANGE]`
 
 ****
 * You must specify at least _one_ keyword.
 * Multiple keywords can be specified for the front text, back text and tags by
 specifying multiple prefixes. For example, `find f/Kamusta f/Terima kasih` finds
-and lists _all_ the flashcards whose front face contains the word _Kamusta_ or _Terima_ or _kasih_. +
-Keywords are not case sensitive: `f/Kamusta` will match `kamusta`, `kAmUsTa` or `KAMUSTA`.
-** Multiple tags must specifically be specified with multiple prefixes. `t/Tagalog Japanese` is forbidden;
+and lists _all_ the flashcards whose front face contains the word _Kamusta_ or _Terima_ or _kasih_.
+** Multiple collection tags must be specified with multiple prefixes. `t/Tagalog Japanese` is invalid;
 use `t/Tagalog t/Japanese` instead.
+* Keywords are not case sensitive: `f/Kamusta` will match `kamusta`, `kAmUsTa` or `KAMUSTA`.
+* Specifying a success rate range will filter the flashcards to be listed to be within
+the specified range (inclusive) and is in the form of [s/LOWEBOUND UPPERBOUND] separated by a single space character.
+** Specifying a success rate range on its own with no other prefixes will display _all_ flashcards
+having a success rate within that range.
+* All prefixes must be followed by a keyword or value and cannot be left blank.
 ****
+
+image::Ui-find.png[width="790"]
 
 Examples:
 
@@ -177,6 +186,13 @@ Examples:
 This will find and list all the flashcards that have the _Chinese_ or _Japanese_ tag.
 * `find f/Hello b/Hello` +
 This will find and list all the flashcards whose front or back text contains the word _Hello_.
+* `find t/chinese s/0 50` +
+This will find and list all the flashcards that have the _Chinese_ tag and which have a success rate less than or
+equal to 50%.
+* `find s/25 100` +
+This will find and list all the flashcards that have a success rate more than or equal to 25%
+and less than or equal to 100%.
+// end::find[]
 
 === Selecting a flashcard : `select`
 
@@ -304,45 +320,56 @@ This will show aggregate statistics for all flashcards that have the _Chinese_ o
 This will find and list all flashcards with _Kamusta_ in their front face then show aggregate
 statistics for all those flashcards.
 
+// tag::share[]
 === Exporting flashcards to a text file : `share`
-Creates a text file containing a collection of flashcards to be shared.
+Creates a text file _flashcards.txt_ containing all the flashcards currently being listed.
 
-Format: `share [f/FRONT_FACE]... [b/BACK_FACE]... [t/TAG]...`
+Format: `share DIRECTORY_PATH`
 
 ****
-* This creates a text file containing all the flashcards who match any of the
-front face, back face or tag keywords, in the same manner as `find`.
-* The text file created by the share command will be saved locally in the main application directory; you should share
+* The text file created by the share command will be saved in the specified directory; you can then share
  this text file with your friends.
-* Once your friend has a copy of the text file, he can import the flashcards using the `import` command
-* **Images will not be shared.**
-****
-
-Example:
-
-* `share t/Chinese` +
-This will create a text file of all the flashcards that contain the _Chinese_ tag.
-
-=== Importing flashcards from a text file : `import`
-Adds flashcards to your collection from a text file.
-
-Format: `import [FILE_PATH]`
-
-****
-* This imports all the cards from a text file (produced by `share`) to your collection.
-** This does not replace your card collection; it simply adds all the cards from the text file
-one-by-one.
-** This command will also report the number of cards successfully imported.
-* If no `FILE_PATH` is specified, you will be prompted to select it through the File Explorer.
+* Once your friends have a copy of the text file, they can import the flashcards using the `import` command.
+* **Images are not shared.**
+* Calling the share command multiple times on the same directory will overwrite the previous version of the file.
 ****
 
 Examples:
 
-* `import` +
-This will prompt the File Explorer and you should select the text file containing the cards
-you want to import.
-* `import C:\Users\Luca\Desktop\cards.txt` +
-This will import the cards from `cards.txt` to your collection.
+* `find t\Chinese` +
+`share C:\Users\Alice\Desktop` +
+This will create a text file called _flashcards.txt_ at the specified location containing all the flashcards that
+have the _Chinese_ tag.
+** (Note that DIRECTORY_PATH is user specific)
+
+* In the illustrated example below, one of the cards in the text file already existed locally. So only 6 out of
+the 7 flashcards in the file successfully imported.
+
+image::Ui-preImport.png[width="790"]
+image::Ui-postImport.png[width="790"]
+// end::share[]
+
+
+// tag::import[]
+=== Importing flashcards from a text file : `import`
+Adds flashcards from a text file to your existing collection.
+
+Format: `import FILE_PATH`
+
+****
+* This imports all the cards from a text file (produced by the `share` command) to your collection.
+** This does not replace your existing card collection; it simply adds new cards from the text file.
+** This command will also report the number of cards successfully imported.
+** Unsuccessfully imported cards may have already existed locally or may be corrupted.
+****
+
+Example:
+
+* `import C:\Users\Alice\Desktop\flashcards.txt` +
+This will import the cards from _flashcards.txt_ to your collection.
+// end::import[]
+
+
 
 === Deleting all flashcards : `clear`
 
@@ -480,7 +507,7 @@ e.g. `add f/さようなら b/Goodbye i/images/goodbye.jpg t/Japanese t/Greeting
 e.g. `delete 3`
 * *Edit* : `edit INDEX [f/FRONT_TEXT] [b/BACK_TEXT] [i/IMAGE_PATH] [t/TAG]...` +
 e.g. `edit 2 f/Halo`, `edit 3 i/ t/`
-* *Find* : `find [f/FRONT_FACE]... [b/BACK_FACE]... [t/TAG]...` +
+* *Find* : `find [f/FRONT_FACE]... [b/BACK_FACE]... [t/TAG]... [s/0 50]` +
 e.g. `find t/Chinese t/Japanese`
 * *Select* : `select INDEX` +
 e.g.`select 2`
@@ -489,8 +516,8 @@ e.g.`select 2`
 * *Redo* : `redo`
 * *Image* : `image FILE_PATH`
 * *Stats* : `stats [t/TAG]...`
-* *Share* : `share [f/FRONT_FACE]... [b/BACK_FACE]... [t/TAG]...`
-* *Import* : `import [FILE_PATH]`
+* *Share* : `share DIRECTORY_PATH`
+* *Import* : `import FILE_PATH`
 * *Exit* : `exit`
 
 === Quiz mode

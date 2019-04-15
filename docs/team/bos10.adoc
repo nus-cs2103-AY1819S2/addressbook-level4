@@ -15,7 +15,7 @@ will use to play the game.
 
 My role was to design and implement a method to track and monitor the progress of the game. I managed to achieve this by
 introducing the 'Statistics' feature of Battleships. By allowing the player to view their gameplay data, performance and
- score at any time during the game, players are able to plan their moves strategically.
+ score at any time during the game players are able to plan their moves strategically.
 
 The following sections will illustrate the feature and its implementation in more detail.
 
@@ -41,6 +41,9 @@ highscore feature in the game.
 * *Minor enhancement*: added the *elapsed time panel to update the duration of the game in real-time*
 
 * *Code contributed*: View my https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=bos10[Project Dashboard] and my Github https://github.com/CS2103-AY1819S2-W14-3/main/commits/master?author=bos10[commits].
+
+* *Minor enhancement*: added the *elapsed time panel to update the duration of the game in real-time*
+
 
 * *Other contributions*:
 

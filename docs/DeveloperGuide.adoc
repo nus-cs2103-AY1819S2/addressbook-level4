@@ -416,26 +416,24 @@ The [.java]#TableNumber# runs sequentially and is kept track of by the [.java]#T
 
 ===== Current Implementation
 
-The edit pax mechanism is facilitated by `UniqueTableList`. It stores all tables currently in ROR and ensures that there are no duplicated tables. Additionally, it implements the following operations:
+The edit pax mechanism is facilitated by [.java]#UniqueTableList#. It stores all tables currently in ROR and ensures that there are no duplicated tables. Additionally, it implements the following operations:
 
-* `UniqueTableList#contains(targetTable)` -- Checks if the target table exists within the unique list of tables.
-* `UniqueTableList#setTable(targetTable, editedTable)` -- Replaces the target table in the list with the new table with the updated `TableStatus`.
+* [.java]#UniqueTableList#contains(targetTable)# -- Checks if the target table exists within the unique list of tables.
+* [.java]#UniqueTableList#setTable(targetTable, editedTable)# -- Replaces the target table in the list with the new table with the updated [.java]#TableStatus#.
 
-These operations are exposed in the Model interface as `Model#setTable(targetTable, editedTable)` and `Model#hasTable(targetTable)`.
+These operations are exposed in the Model interface as [.java]#Model#setTable(targetTable, editedTable)# and [.java]#Model#hasTable(targetTable)#.
 
 Given below is an example usage scenario and how the edit pax mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `UniqueTableList` will be initialised to be empty.
+Step 1. Suppose the user launches the application for the first time, the sample data has 35 tables and are stored in the [.java]#UniqueTableList# as shown below. Focus your attention on the [.java]#Table# orange markup as this will be our target table in this example.
 
-image::EditPaxStartingStateListDiagram.png[width="800"]
+image::EditPaxStateListDiagram_Before.png[width="800]
 
-Step 2. The user executes `addTable 4` command to add a table to the RestOrRant application. Since it is the first new table, it will be labelled table `1` and not be occupied thus having a table status of `0/4`. The `UniqueTableList` will now contain 1 table.
+Step 2. Suppose the user decides to have 2 customers sit at table 2 and executes `editPax 2 2` command to update the table labelled 2 with 2 customers. The `editPax` command calls [.java]#Model#setTable(targeTable, editedTable)#, causing the ROR to create a new table with the updated [.java]#TableStatus# and replace the current target table in the [.java]#UniqueTableList#. As shown below, the index of the replaced table now points to a new [.java]#Table# which is highlighted orange.
 
-image::EditPaxAddTableStateListDiagram.png[width="800]
+image::EditPaxStateListDiagram_After.png[width="800"]
 
-Step 3. The user then has 4 customers enter his/her restaurant and executes `editPax 1 4` command to update the table labelled 1 with 4 customers. The `editPax` command calls `Model#setTable(targeTable, editedTable)`, causing the RestOrRant to create a new table with the updated `TableStatus` and replace the current target table in the UniqueTableList. At this point, the UniqueTableList still has only 1 table the original table was replaced by the updated table. The `Storage` detects this change in the UniqueTableList and also updates itself.
-
-image::EditPaxEditPaxStateListDiagram.png[width="800"]
+The [.java]#Storage# detects the above change in the [.java]#UniqueTableList# and also updates itself.
 
 The following sequence diagram shows how the edit pax operation works:
 

@@ -15,7 +15,7 @@ My role in the team was to design and implement the Ship Management feature. The
 
 [TIP]
 ====
-You can find out more about the Battleship application https://cs2103-ay1819s2-w14-3.github.io/main/[here].
+You can find out more about the Battleship application https://cs2103-ay1819s2-w14-3.github.io/main/[here.]
 ====
 
 == Summary of contributions
@@ -54,7 +54,6 @@ You can find out more about the Battleship application https://cs2103-ay1819s2-w
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._.
 |===
 include::../UserGuide.adoc[tag=intro]
-include::../UserGuide.adoc[tag=quickstart]
 include::../UserGuide.adoc[tag=ship]
 include::../UserGuide.adoc[tag=list]
 include::../UserGuide.adoc[tag=listTags]
@@ -74,14 +73,14 @@ include::../UserGuide.adoc[tag=upcomingPattern]
 _I co-authored the class diagram for the `Model` component with my team mate Erjill._
 
 .Model diagram
-image::ModelClassDiagram.png[width="400", width="center"]
+image::ModelClassDiagram.png[width="400", align="left"]
 include::../DeveloperGuide.adoc[tag=putShip1]
 ====
 *__What are the head coordinates?__*
 
 The head coordinates are the coordinates of the top-most and left-most cell of a ship. When coordinates are specified in the `put` command, they refer to the head coordinates of the ship.
 
-image:BattleshipHeadExample.png[width=400, align="center"]
+image:BattleshipHeadExample.png[width=400, align="left"]
 ====
 
 include::../DeveloperGuide.adoc[tag=putShip2]

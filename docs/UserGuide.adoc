@@ -25,6 +25,7 @@ Ships ahoy! Battleship is a simple computer-based remake of the classic Battlesh
 It is for people who want to experience the joy of playing Battleships without the hassle and fuss of dealing with physical game pieces.
 
 Battleship is optimised for people who want to use a Command Line Interface (CLI), while still retaining the benefits of a Graphical User Interface (GUI).
+
 It's a single-player game, and provides a fully functional computerised enemy player for the player to play against, guaranteeing many hours of fun! Can't wait to get started? Head over to <<Quick Start>> to fire away!
 
 [NOTE]
@@ -199,7 +200,7 @@ image::maplegend.png[width=400]
 ==== Managing ships:
 ===== Placing a ship on the map: `put`
 
-Adds a battleship onto the player's map. The coordinates specified is the position of the ship's head. +
+Adds a battleship onto your map. The coordinates specified is the position of the ship's head. +
 
 Format: `put n/NAME c/COORDINATES r/ORIENTATION [t/TAGS]` +
 
@@ -225,7 +226,7 @@ When putting a ship on the map grid, you should specify the head coordinates suc
 // tag::list[]
 ===== Listing all ships : `list`
 
-Shows a list of all the player's battleships that are have been deployed on the map. There are four ways of using the `list` command:
+Shows a list of all of your battleships that have been deployed on the map. There are four ways of using the `list` command:
 
 1. List all ships: `list`.
 2. List ships that match certain tags: `list t/[TAGS]`.

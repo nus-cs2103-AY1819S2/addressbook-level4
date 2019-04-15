@@ -1,10 +1,9 @@
-= Pai Si Kai - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: The Food Diary
-
+image::ppp-psk.png[float=right, width="125"]
+= Pai Si Kai - Project Portfolio for The Food Diary
 ---
 
 == Overview

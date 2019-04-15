@@ -94,17 +94,6 @@ Displays the help text for all available commands.
 
 Format: `help`
 
-// tag::dentist_kyler[]
-
-==== dentist
-
-You can specify the name you want to reflect in your patients' dental record when you create them.
-
-* If there is no dentist name specified, the program will prompt you to enter one.
-
-* This should only happen once, during the first start-up of the application.
-// end::dentist_kyler[]
-
 ==== history
 Lists all the commands that have been entered since starting the
 application in reverse chronological order.
@@ -1021,7 +1010,7 @@ There will also be a command box below the calendar, allowing you to execute tas
 [NOTE]
 Executing the command without specifying a date will cause the calendar to load into the current date.
 
-format: `taskcal` or `taskcal DD-MM-YYYY`
+Format: `taskcal` or `taskcal DD-MM-YYYY`
 
 Figure 3 below shows the the displayed window and its key components
 
@@ -1172,17 +1161,17 @@ e.g. `back`
 e.g. `exit`
 
 * *Export* : `export FILE_PATH INDEX_RANGE`` +
-e.g. `export mnt/clinicRecords.txt 1,3-5`
+e.g. `export clinicRecords.json 1,3-5`
 
 * *Help* : `help`
 
 * *History* : `history`
 
 * *Import* : `import FILE_PATH INDEX_RANGE` +
-e.g. `import \mnt\newData.json 1,3-5`
+e.g. `import newData.json 1,3-5`
 
 * *Open* : `open FILE_PATH` +
-e.g. `Open mnt/sample/newData.json`
+e.g. `open sample/newData.json`
 
 * *Record Add* : `recordadd pro/PROCEDURE desc/DESCRIPTION` +
 e.g. `recordadd pro/Braces-Top row desc/Mouth was noticeably foul, might have halitosis`
@@ -1191,7 +1180,7 @@ e.g. `recordadd pro/Braces-Top row desc/Mouth was noticeably foul, might have ha
 e.g. `recorddelete 4`
 
 * *Record Edit* : `recordedit INDEX PARAMETERS…` +
-e.g. `recordedit 1 ic/S1234657H`
+e.g. `recordedit 1 desc/Extraction of wisdom tooth completed.`
 
 * *Record Clear* : `recordclear` +
 e.g. `recordclear`
@@ -1202,7 +1191,7 @@ e.g. `recordmc 1`
 * *Redo* : `redo`
 
 * *Save* : `save FILE_PATH`` +
-e.g. `save mnt/clinicRecords.txt`
+e.g. `save clinicRecords.json`
 
 * *Sort* : `sort PARAM ORDER` +
 e.g. `sort name asce` or `sort dob desc`
@@ -1216,19 +1205,16 @@ e.g. `taskedit 1 ti/Tooth extraction for Alex pri/HIGH`
 * *Task delete*: `taskdelete INDEX` +
 e.g. `taskdelete 1`
 
+* *Task calendar*: `taskcal DATE` +
+e.g. `taskcal 11-11-2019`
+
 * *Task copy*: `taskcopy INDEX [COUNT]`+
 e.g. `taskcopy 1`
 
 * *Task complete*: `taskdone INDEX` +
 e.g. `taskdone 1`
 
-* *Task calendar*: `taskcal INDEX` +
-e.g. `taskcal 11-11-2019`
-
 * *Tasksort* `tasksort starttime/endtime/priority [asce/desc]`
 e.g. `tasksort endtime`
-
-* *Teeth* : `teeth patientadd <Template>` +
-e.g. `teeth patientadd primary`
 
 * *Undo* : `undo`

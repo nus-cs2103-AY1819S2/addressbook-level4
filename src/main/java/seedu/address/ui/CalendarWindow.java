@@ -24,6 +24,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.TaskCalendarCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -281,6 +282,7 @@ public class CalendarWindow extends UiPart<Stage> {
                     DateCell dateCell = (DateCell) node;
                     dateClicked = true;
                     executeCommand("taskcal " + dateCell.getItem().format(format));
+                    dateClicked = false;
                 } catch (CommandException | ParseException e) {
                     logger.info("Invalid date");
                 }
@@ -299,7 +301,11 @@ public class CalendarWindow extends UiPart<Stage> {
         return dateClicked;
     }
     public static void setDate(String newDate) {
+        datePicker.setValue(null);
         datePicker.setValue(LocalDate.parse(newDate, format));
+    }
+    public void updateDateMessage(String newDate) {
+        resultDisplay.setFeedbackToUser(String.format(TaskCalendarCommand.MESSAGE_DISPLAY_CALENDAR_SUCCESS, newDate));
     }
 
 }

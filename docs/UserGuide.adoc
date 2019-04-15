@@ -663,8 +663,8 @@ Directories and medicines under the same directory are now allowed to share the 
 After you enter the command, if it is executed successfully, a confirmation message will appear.
 
 [[addmed_newmedicien_after]]
-.Sucess message of sample addmed command
-image::addmed_newmedicien_after.png[align="center" width="600"]
+.Success message of sample addmed command
+image::addmed_newmedicien_after.png[width="600"]
 
 {sp} +
 
@@ -695,7 +695,7 @@ After you enter the command, if it is executed successfully, a confirmation mess
 
 [[addmed_existing]]
 .Success message of sample addmed command
-image::addmed_existing.png[align="center" width="600"]
+image::addmed_existing.png[width="600"]
 
 {sp} +
 
@@ -705,7 +705,7 @@ If you entered a medicine name that has not existed in the storage in this forma
 
 [[addmed_existing_nonExisting]]
 .Error message for adding new medicine in wrong format
-image::addmed_existing_nonExisting.png[align="center" width="600"]
+image::addmed_existing_nonExisting.png[width="600"]
 
 In this case, no medicine called aspirin has yet existed in the storage.
 
@@ -735,7 +735,7 @@ You will be able to view a detailed description of all the medicines and directo
 
 [[listmed_after]]
 .Response for a sample listmed command viewing a directory
-image::listmed_after.png[align="center" width="600"]
+image::listmed_after.png[width="600"]
 
 {sp} +
 
@@ -749,7 +749,7 @@ You will be displayed a detailed description of medicine paracetamol which is pl
 
 [[listmed_med_after]]
 .Response for a sample listmed command viewing a medicine
-image::listmed_med_after.png[align="center" width="600"]
+image::listmed_med_after.png[width="600"]
 
 - - -
 
@@ -783,7 +783,7 @@ As the storage only has 50 units of aspirin, a reminder is shown on the right.
 
 [[alarm_medicine_after]]
 .Response for the sample alarm command
-image::alarm_medicine_after.png[width='600]
+image::alarm_medicine_after.png[width='600']
 
 {sp} +
 

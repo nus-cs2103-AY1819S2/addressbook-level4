@@ -141,28 +141,16 @@ public abstract class Statistics {
     /**
      * extracts the result from AttackResult string and add to stats.
      * @param res , the result of the attack made.
-     * @return the registered result string.
      */
-    public String addResultToStats(AttackResult res) {
-        String result = res.toString();
-        if (result.length() < 10) {
-            return result;
-        }
-        result = result.split(" ")[10];
-        switch (result) {
-        case "hit":
+    public void addResultToStats(AttackResult res) {
+        if (res.isHit()) {
             addHit();
-            break;
-        case "missed":
+            if (res.isDestroy()) {
+                enemyShipsDestroyed();
+            }
+        } else {
             addMiss();
-            break;
-        case "destroyed":
-            addHit();
-            enemyShipsDestroyed();
-            break;
-        default : break;
         }
-        return result;
     }
 
     /**

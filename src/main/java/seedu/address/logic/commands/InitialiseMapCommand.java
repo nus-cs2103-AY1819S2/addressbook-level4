@@ -21,6 +21,7 @@ public class InitialiseMapCommand extends Command {
 
     public static final String COMMAND_WORD = "init";
     public static final String COMMAND_ALIAS = "i";
+    public static final String COMMAND_ALIAS1 = "initialise";
 
     public static final int MAXIMUM_MAP_SIZE = 10;
     public static final int MINIMUM_MAP_SIZE = 6;

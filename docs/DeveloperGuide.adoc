@@ -254,10 +254,12 @@ With the implementation of modes of operations which only allows commands to be 
 
 For example when ClubManager is in Member Mode, only member commands can be called (for example memberAdd, memberEdit etc.)
 
+.ClubManager in MEMBER mode
 image::appInMemberMode.png[width="800"]
 
 Calling an activity command will result in an error.
 
+.Error when Activity Command is called in MEMBER mode
 image::appInMemberModeCallingActivityCmd.png[width="800"]
 
 General commands can be called in any mode (for example help and exit)
@@ -266,9 +268,10 @@ Currently the app has 2 modes of operation, namely member mode and activity mode
 
 A coloured label on the top right corner indicates the mode of operation at any time to let the user easily track which mode the app is operating in.
 
-image::ModeMemberLabel.png[width="400"]
+image::ModeMemberLabel.png[width="200"]
 
-image::ModeActivityLabel.png[width="400"]
+.Indicator for mode in the Window
+image::ModeActivityLabel.png[width="200"]
 
 ==== Design of operation mode control
 Each Command extends a CommandType, currently MemberCommand, ActivityCommand and GeneralCommand
@@ -277,7 +280,7 @@ For each CommandType, there is an ArrayList of modes in where this category of c
 For example, for the MemberSelectCommand extends MemberCommands which the ArrayList of AppMode.Modes contains the MEMBER mode enumeration.
 Which means that the MemberSelectCommand can only operate when ClubManager is in MEMBER mode.
 
-
+.Example of Class Diagram for Member Commands
 image::memberCommandClassDiagram.png[width="800px"]
 
 When the Command is created, it instantiates the operation modes. And when the execute function of the Command is called, the app would allow the execution of the command if the current app mode can be found within the the allowed mode list of the command.
@@ -285,6 +288,7 @@ If the mode does not match, it will throw an exception preventing the execution 
 
 For example if mLIst (alias of memberList) command is called the following process occurs to either execute the command or throw the InvalidCommandModeException exception for the case that the command is called in the wrong mode.
 
+.Sequence diagram of mode control
 image::commandModeControl.png[width="800px"]
 
 ==== Design Consideration to aid future expansion of app
@@ -542,7 +546,9 @@ image::membersort_sequencediagram.png[width=70%]
 === MemberExport
 
 ==== Current Implementation
+.Sequence diagram for export function
 image::MemberExportCommand_LogicComponentSequenceDiagram.png[width="800"]
+
 * The `memberExport` command extends from command and retrieves the Person object from the Model based on the specified index
 
 * The `exportPerson` command is called with the Person object being pass into the function as a parameter. The function will get the formatting as defined in resources/exportutil personInfo.html
@@ -555,11 +561,13 @@ image::MemberExportCommand_LogicComponentSequenceDiagram.png[width="800"]
 
 * For large screens (diagram below)
 
+.Exported file on large screens
 image::MemberExportExample.png[width="1000"]
 
 * For smaller mobile screens (diagram below)
 
-image::MemberExportExampleMobile.png[width="800"]
+.Exported file on mobile screens
+image::MemberExportExampleMobile.png[width="300"]
 
 ==== Future Implementation
 * For future implementation, the `memberExport` would be able to take in an additional parameter for the selection of export format.

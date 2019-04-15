@@ -981,6 +981,23 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and the location is retained.
 
+=== Listing books in the bookshelf
+
+. Search and display the books in the bookshelf
+
+.. Test case: `listBook` +
+   Expected: All books in the bookshelf are shown in the leftmost column
+.. Test case: `listBook n/Madame` +
+   Expected: If you have not deleted the book _Madame Bovary_ from the bookshelf after you first launched the bookshelf, _Madame Bovary_ should de displayed in the left column. Any other book whose name contains _Madame_ will also be displayed
+.. Some incorrect listBook commands to try
+... `listBook n/Madame Bovary` +
+    Keyword given is not a single word. Error details are shown in the status message.
+... `listBook n/Madame c/nonsense` +
+    Prefix `c/` is not recognized. Error details are shown in the status message.
+... `listBook m/12` +
+    12 is not a valid range for the rating. Error details are shown in the status message.
+
+
 === Deleting a book
 
 . Deleting a book while all books are listed

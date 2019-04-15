@@ -465,7 +465,8 @@ image::Blood.png[width = "800"]
 Format: `import FILENAME`
 
 NOTE: unlike the export command the importing of multiple csv files
-is not supported in *Know-It-All*.
+is not supported in *Know-It-All*. +
+Filename imported is case insensitive.
 
 Examples:
 

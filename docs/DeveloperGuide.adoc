@@ -1955,7 +1955,8 @@ lowest scoring flashcard question and hints are displayed. Answer the current qu
     Ensure that you also have the file to import in the project root directory. +
     file has to have a .csv extension format. +
     The imported file has to comply with the csv file headers. +
-    Compulsary fields, like Question and Answer should not be left blank.
+    Compulsary fields, like Question and Answer should not be left blank. +
+    folder should not already exist within the model.
 
 .. Test case: `import Blood.csv` +
 Prerequisites: Ensure that Blood.csv exists within the project root directory. +

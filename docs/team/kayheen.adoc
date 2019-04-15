@@ -67,13 +67,26 @@ https://github.com/CS2103-AY1819S2-W16-2/main/issues/117[#117],
 |_The sections below are my contributions to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-==== 3.1 Rotate an Image : `rotate`
+==== 3.1 Crop an Image : `crop`
 '''
+include::../UserGuide.adoc[tag=CropCommand]
+
+==== 3.2 Rotate an Image : `rotate`
+'''
+
 include::../UserGuide.adoc[tag=RotateCommand]
 
-==== 3.2 WaterMark : `wm`
+==== 3.3 Resize an Image : `resize`
+'''
+
+include::../UserGuide.adoc[tag=ResizeCommand]
+
+==== 3.4 WaterMark : `wm`
 '''
 include::../UserGuide.adoc[tag=WaterMarkCommand]
+
+==== 3.5 Other contributions
+* A Walk Through of the image editor
 
 === 4. Contributions to the Developer Guide
 
@@ -93,8 +106,8 @@ include::../DeveloperGuide.adoc[tag=ImageManipulation]
 '''
 include::../DeveloperGuide.adoc[tag=WaterMark]
 
-=== 5. Other Works Contributed to the User Guide and Developer Guide not Mentioned Above
+==== 4.4 Other Contributions
 
-* Crop Command in both User and Developer Guides
-* Resize Command in both User and Developer Guides
-* Architecture Diagrams in the Developer Guide
+* Crop Command
+* Resize Command
+* Architecture Diagrams

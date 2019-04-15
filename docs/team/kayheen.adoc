@@ -46,8 +46,8 @@ This section provides a summary of my coding, documentation and miscellaneous co
 *** Wrote tests for image manipulation and watermark commands to increase coverage: https://github.com/CS2103-AY1819S2-W14-2/main/pull/188[#188], https://github.com/CS2103-AY1819S2-W14-2/main/pull/208[#208], https://github.com/CS2103-AY1819S2-W14-2/main/pull/222[#222])
 
 ** Documentation:
-*** Did Developer Guide architecture and sequence diagram for the overall application: https://github.com/CS2103-AY1819S2-W14-2/main/pull/84[#84], https://github.com/CS2103-AY1819S2-W14-2/main/pull/118[#118]
-*** Did the Developer Guide documentation for image manipulation and watermark commands: https://github.com/CS2103-AY1819S2-W14-2/main/pull/59;#59], https://github.com/CS2103-AY1819S2-W14-2/main/pull/123/[#123], https://github.com/CS2103-AY1819S2-W14-2/main/pull/229[#229], https://github.com/CS2103-AY1819S2-W14-2/main/pull/234[#234]
+*** Did Developer Guide architecture and sequence diagrams for the overall application: https://github.com/CS2103-AY1819S2-W14-2/main/pull/84[#84], https://github.com/CS2103-AY1819S2-W14-2/main/pull/118[#118]
+*** Did the Developer Guide documentation for image manipulation and watermark commands: https://github.com/CS2103-AY1819S2-W14-2/main/pull/59[#59], https://github.com/CS2103-AY1819S2-W14-2/main/pull/123/[#123], https://github.com/CS2103-AY1819S2-W14-2/main/pull/229[#229], https://github.com/CS2103-AY1819S2-W14-2/main/pull/234[#234]
 *** Did the User Guide documentation for image manipulation and watermark commands: https://github.com/CS2103-AY1819S2-W14-2/main/pull/61/[#61], https://github.com/CS2103-AY1819S2-W14-2/main/pull/120/[#120], https://github.com/CS2103-AY1819S2-W14-2/main/pull/221[#221]
 *** Did the the User Guide documentation for the overall walk through: https://github.com/CS2103-AY1819S2-W14-2/main/pull/65[#65]
 
@@ -87,5 +87,6 @@ include::../DeveloperGuide.adoc[tag=ImageManipulation]
 include::../DeveloperGuide.adoc[tag=WaterMark]
 
 == 5. Other Works Contributed to the User Guide and Developer Guide not Mentioned Above
+
 * Crop Command
 * Resize Command

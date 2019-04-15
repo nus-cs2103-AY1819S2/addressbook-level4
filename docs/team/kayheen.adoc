@@ -3,16 +3,14 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: FomoFoto
-
+== PROJECT: FomoFoto: an Image Editor
+Hi, I am Kay Heen.
 ---
 
 == 1. Overview of the Project
 My team and I were tasked with enhancing a basic command line AddressBook for our Software Engineering project. We decided to morph the project into an image editor. +
 
-FomoFoto is a robust yet simple image-editing tool. Users interact with the application through worded commands from their keyboard, and receive visual feedback from it through the displayed image on the application. Unlike other heavy image editors, FomoFoto has a very gentle learning curve as it abstracts out clutter by providing the more essential features (complex editing can still be done with special commands). The features and implementations are well documented in guides for users and developers respectively. +
-
-In addition, FomoFoto is well maintained with high reliability and code quality as it is covered by rigorous tests and checks.
+FomoFoto is a robust yet simple image-editing tool. Users interact with the application through worded commands from their keyboard, and receive visual response through the displayed image on the application. Unlike other heavy image editors, FomoFoto has a gentle learning curve as it removes clutter by providing the more essential features. The features and implementations are well documented in guides for users and developers respectively. In addition, FomoFoto is well maintained with high reliability and code quality as it is covered by rigorous tests and checks.
 
 == 2. Summary of Contributions
 This section provides a summary of my coding, documentation and miscellaneous contributions to FomoFoto, our team project.
@@ -33,7 +31,7 @@ This section provides a summary of my coding, documentation and miscellaneous co
 
 ** _Justification:_ This feature improves the product significantly because it helps users such as professional photographers protect their images after editing it on our image editor. The copyright watermark prevents unauthorised third parties from using the images for their own private purposes.
 
-** _Highlights:_ It was especially challenging to integrate this command with all other commands acting on the same image, because a watermark should only be allowed to be added once to an image. This implied that we had to ensure that the `Image` class contains a flag that indicates the presence of a watermark on the image, and this flag had to be constantly updated accurately in every command that can possibly add or remove a watermark from an image, which includes the watermark command, setpreset command and undo-redo commands.
+** _Highlights:_ It was especially challenging to integrate this command with all other commands acting on the same image, because a watermark should only be allowed to be added once to an image. This implied that we had to ensure that the `Image` class contains a flag that indicates the presence of a watermark on the image, and this flag had to be constantly updated accurately in every command that can possibly add or remove a watermark from an image, which includes the watermark command, setpreset command and undo/redo commands.
 
 * *Minor Enhancement*: I added a feature where the `Image` returns a file type (e.g. JPEG, PNG), because edits to images are affected by the file type.
 
@@ -43,20 +41,20 @@ This section provides a summary of my coding, documentation and miscellaneous co
 
 ** Project Management:
 *** Ensured that we were on task with our project documentation by allocating roles and ensuring consistency with our words and diagrams. (User Guide and Developer Guide)
+*** Integrated Codacy to our GitHub repository: https://github.com/CS2103-AY1819S2-W14-2/main/pull/249[#249]
 
 ** Enhancements to Existing Features:
-*** Wrote tests for image manipulation and watermark commands to increase coverage. (Pull requests https://github.com/CS2103-AY1819S2-W14-2/main/pull/188[#188], https://github.com/CS2103-AY1819S2-W14-2/main/pull/208[#208], https://github.com/CS2103-AY1819S2-W14-2/main/pull/222[#222])
+*** Wrote tests for image manipulation and watermark commands to increase coverage: https://github.com/CS2103-AY1819S2-W14-2/main/pull/188[#188], https://github.com/CS2103-AY1819S2-W14-2/main/pull/208[#208], https://github.com/CS2103-AY1819S2-W14-2/main/pull/222[#222])
 
 ** Documentation:
-*** Did Developer Guide architecture and sequence diagram for the overall application: https://github.com/CS2103-AY1819S2-W14-2/main/pull/118[#118]
-*** Did the Developer Guide documentation for image manipulation: https://github.com/CS2103-AY1819S2-W14-2/main/pull/123/files[#123]
-*** Did the Devloper Guide documentation for the watermark command: https://github.com/CS2103-AY1819S2-W14-2/main/pull/229[#229]
-*** Did the overall walkthrough for the User Guide: https://github.com/CS2103-AY1819S2-W14-2/main/pull/65[#65]
+*** Did Developer Guide architecture and sequence diagram for the overall application: https://github.com/CS2103-AY1819S2-W14-2/main/pull/84[#84], https://github.com/CS2103-AY1819S2-W14-2/main/pull/118[#118]
+*** Did the Developer Guide documentation for image manipulation and watermark commands: https://github.com/CS2103-AY1819S2-W14-2/main/pull/59;#59], https://github.com/CS2103-AY1819S2-W14-2/main/pull/123/[#123], https://github.com/CS2103-AY1819S2-W14-2/main/pull/229[#229], https://github.com/CS2103-AY1819S2-W14-2/main/pull/234[#234]
+*** Did the User Guide documentation for image manipulation and watermark commands: https://github.com/CS2103-AY1819S2-W14-2/main/pull/61/[#61], https://github.com/CS2103-AY1819S2-W14-2/main/pull/120/[#120], https://github.com/CS2103-AY1819S2-W14-2/main/pull/221[#221]
+*** Did the the User Guide documentation for the overall walk through: https://github.com/CS2103-AY1819S2-W14-2/main/pull/65[#65]
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments):
-https://github.com/CS2103-AY1819S2-W14-2/main/pull/220[#220],
-https://github.com/CS2103-AY1819S2-W14-2/main/pull/225[#225], https://github.com/CS2103-AY1819S2-W14-2/main/pull/235[#235],
+https://github.com/CS2103-AY1819S2-W14-2/main/pull/220[#220], https://github.com/CS2103-AY1819S2-W14-2/main/pull/235[#235], https://github.com/CS2103-AY1819S2-W14-2/main/pull/238[#238], https://github.com/CS2103-AY1819S2-W14-2/main/pull/239[#239]
 *** Reported bugs and suggestions for other teams in the class:  https://github.com/CS2103-AY1819S2-W16-2/main/issues/102[#102], https://github.com/CS2103-AY1819S2-W16-2/main/issues/112[#112],
 https://github.com/CS2103-AY1819S2-W16-2/main/issues/115[#115],
 https://github.com/CS2103-AY1819S2-W16-2/main/issues/117[#117],
@@ -71,13 +69,13 @@ https://github.com/CS2103-AY1819S2-W16-2/main/issues/117[#117],
 |===
 include::../UserGuide.adoc[tag=AWalkThrough]
 
-include::../UserGuide.adoc[tag=CropCommand]
-
-include::../UserGuide.adoc[tag=ResizeCommand]
-
 include::../UserGuide.adoc[tag=RotateCommand]
 
 include::../UserGuide.adoc[tag=WaterMarkCommand]
+
+=== Other Works Contributed
+* Crop Command
+* Resize Command
 
 == Contributions to the Developer Guide
 

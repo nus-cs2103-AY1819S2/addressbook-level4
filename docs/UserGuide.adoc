@@ -64,7 +64,7 @@ In this section, we'll walk you through the primary user interface of the applic
 To use a command, type the command in the command box and press kbd:[enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[enter] will open the help window. +
 
-. When booting up the app for the first time, you should see the home directory much like the screengrab below. The first and only <<folder, folder>> present is a sample folder.
+. When booting up the app for the first time, you should see the <<homedirectory, home directory>> much like the screengrab below. The first and only <<folder, folder>> present is a sample folder.
 +
 image::AnnotatedStartupUI.png[width="500"]
 
@@ -118,7 +118,7 @@ image:StatusBarInHomeDirectory.png[width ="150"]
 
 ==== Enter folder : `cd`
 
-Enters the folder specified by index. Panel on the left will display the list of cards in that folder.
+Enters the folder specified by <<index, index>>. Panel on the left will display the list of cards in that folder.
 
 Format: `cd FOLDER_INDEX`
 
@@ -141,7 +141,7 @@ Examples:
 
 * `cd 2` +
 `cd ..` +
-The first command enters the second folder in the folder list on the <<homedirectory, home directory>>. The second command then returns you back to the home directory by exiting the folder.
+The first command enters the second folder in the folder list on the home directory. The second command then returns you back to the home directory by exiting the folder.
 
 //tag::addfolder[]
 [[addfolder]]
@@ -267,7 +267,7 @@ Example:
 // tag::edit[]
 ==== Editing a flashcard : `edit`
 
-Edits the flashcard specified by the <<index, index>> in the current folder.
+Edits the flashcard specified by the index in the current folder.
 
 Format: `edit INDEX [q/QUESTION] [a/ANSWER] [h/HINT]`
 
@@ -292,7 +292,7 @@ Replaces the hint of the current card with "organs" only.
 
 ==== Selecting a flashcard : `select`
 
-Displays flashcard details (question, answer, hint, card score) on the right panel on selection by index.
+Displays flashcard details (question, answer, hint, <<cardscore, card score>>) on the right panel on selection by index.
 
 Format: `select INDEX`
 
@@ -408,8 +408,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 ==== Export flashcards : `export`
 Exporting flashcards is a great way to start sharing your flashcards with others.
 
-The export command creates a csv file containing the flashcards from the specified folder in your project root
-directory.
+The export command creates a csv file containing the flashcards from the specified folder in your <<projrootdirectory, project root directory>>.
 
 
 Format: `export FOLDER_INDEX FILENAME [MORE_INDEXES]`
@@ -694,7 +693,7 @@ this number is automatically calculated and recorded.
 * [[testscore]] **Test Score**: The number of cards correctly answered over number of cards attempted during a test session. This number is automatically recorded after each test session.
 * [[homedirectory]] **Home Directory**: The home page where all the folders are listed. From here, users can enter folders to view cards.
 * [[index]] **Index**: The unique number associated with an item in a list. The first item in a list has an index of 1.
-* **project root directory**: The directory where Know-It-All's .jar file is located
+* [[projrootdirectory]]**project root directory**: The directory where Know-It-All's .jar file is located
 
 //tag::cmdsummary[]
 == Command Summary

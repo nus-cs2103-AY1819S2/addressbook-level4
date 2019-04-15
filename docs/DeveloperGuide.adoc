@@ -256,22 +256,25 @@ into `JsonSerializablePostalData` which contains a `List` of `JsonAdaptedPostalD
 This contains the x and y-coordinates of every postal code in Singapore as of 13/03/2019.
 This can data be retreived through the `StorageManager#getPostalData()` method.
 [Note]
-    In order to update the PostalData.json, you can run the script found at ....
+    In order to update the PostalData.json, you can run the script found https://github.com/chanqingzhou/postalDataScript[here].
 
 *[.underline]#2.Model Component#*
 
 The `Model` component's function is to allow the retrieval of the `PostalData` of a specific postal code.
-`PostalDataSet` contains a `HashMap` of `String` representing the postal code mapped to the corresponding `PostalData`.
+`PostalDataSet` contains a `HashMap` of `String` representing the postal code mapped to the corresponding `PostalData`, which contains the
+x and y-coordinates of the corresponding postal code.
 The retrieval is done through the `PostalDataSet#getPostalData(int postal)` method.
 `PostalDataSet` is obtained through the `Model#getPostalDataSet()` interface which returns of a `Optional<PostalDataSet>`.
 
 *[.underline]#3.Logic Component#*
-The logic component consists of two key sub-components, the `Command` component and the `Comparator` component.
+The `Logic` component consists of two key sub-components, the `Command` component and the `Comparator` component.
 The `Command` component parses the user input into a postal code. It then checks if the postal code is within the `PostalDataSet`
 If the postal code provided is invalid, it will simply filter out unreviewed restaurants.
 Otherwise, if the postal code is valid, it will creates a new `SortDistanceComparator<Restaurant>` class with the postal code and `PostalDataSet` inputted as the parameters.
 This `SortDistanceComparator` is then passed to the `Model` class to sort the `SortedList` which encapsulates the `FilteredList`.
+This sequence is illustrated in the activity diagram below.
 
+image::ListUnvisitedLogicActivityDiagram.png[width="800"]
 
 The `SortDistanceComparator<Restaurant>` class sorts the `Restaurant` based on the distance to the user inputted postal code.
 It does this by first querying the `PostalData` of the postal code of the `Restaurant` from `PostalDataSet` then

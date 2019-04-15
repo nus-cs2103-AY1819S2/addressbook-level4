@@ -188,8 +188,7 @@ public abstract class FoodDiarySystemTest {
 
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
-     * {@code expectedResultMessage}, the storage contains the same restaurant objects as {@code expectedModel}
-     * and the restaurant list panel displays the restaurants in the model correctly.
+     * {@code expectedResultMessage} and the restaurant list panel displays the restaurants in the model correctly.
      */
     protected void assertApplicationDisplaysExpectedForSorting(String expectedCommandInput, String expectedResultMessage,
                                                      Model expectedModel) {

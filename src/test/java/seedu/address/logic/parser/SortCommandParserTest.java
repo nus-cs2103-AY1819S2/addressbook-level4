@@ -53,7 +53,7 @@ public class SortCommandParserTest {
     public void parse_validParam_success() {
         try {
             parser.parse("name descc");
-            fail( "Should fail" );
+            fail("Should fail");
         } catch (ParseException e) {
             // nothing here
         }

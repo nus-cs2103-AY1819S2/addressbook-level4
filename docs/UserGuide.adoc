@@ -594,7 +594,7 @@ Deletes the 1st place in the results of the `search` command.
 [reftext="Figure 4.12.1"]
 [caption="Figure 4.12.1: "]
 .An example of the `deletem` command
-image::deletemExample.png[width="400"]
+image::deletemExample1.png[width="400"]
 
 *Examples:* Given below are some examples on how to utilize the `deletem` command:
 
@@ -663,7 +663,7 @@ image::historyCommand.png[width="400"]
 
 [NOTE]
 ====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+Pressing the up and down arrows will display the previous and next input respectively in the command box.
 ====
 // end::history[]
 

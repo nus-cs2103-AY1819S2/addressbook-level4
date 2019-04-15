@@ -704,7 +704,7 @@ entered.
 [reftext="Figure 4.3.1.1"]
 [caption="Figure 4.3.1.1: "]
 .Execution sequence of the `add` command
-image::AddCommandSequenceDiagram.png[width="800"]
+image::AddCommandSequenceDiagram1.png[width="800"]
 
 `add n/NUS Computing cc/SGP dv/10/10/2017 r/3 d/My School a/13 Computing Drive,
 117417 t/faculty`
@@ -912,7 +912,7 @@ JavaFX `Image` object, which is then displayed in a `ImageView` panel at the top
 [reftext="Figure 4.4.1.1"]
 [caption="Figure 4.4.1.1: "]
 .Activity diagram for photo feature
-image::AddPhotoActivityDiagram.png[width="600"]
+image::AddPhotoActivityDiagram1.png[width="600"]
 
 ===== Example: Using `add` to include a photo
 

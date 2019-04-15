@@ -78,7 +78,7 @@ public class PersonnelDatabaseParser {
             return new BlockDateCommandParser().parse(arguments, userType, userName);
 
         case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+            return new ClearCommand(userName);
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments, userType, userName);

@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalApparels.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalApparels.getTypicalAddressBookSortedByColor;
-import static seedu.address.testutil.TypicalApparels.getTypicalAddressBookSortedByColorDesc;
 import static seedu.address.testutil.TypicalApparels.getTypicalAddressBookSortedByName;
 import static seedu.address.testutil.TypicalApparels.getTypicalAddressBookSortedByNameCaseInsensitive;
 import static seedu.address.testutil.TypicalApparels.getTypicalAddressBookSortedByNameDesc;

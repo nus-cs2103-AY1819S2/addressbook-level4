@@ -66,7 +66,7 @@ added a section to teach oncoming developers how to add new models to the codeba
 
 |===
 |This section displays the main sections of the User Guide added or edited by me. They showcase my ability to write documentation
-which can be understood by the targeted end-users._
+which can be understood by the targeted end-users.
 |===
 
 include::../UserGuide.adoc[tag=reservation-commands]

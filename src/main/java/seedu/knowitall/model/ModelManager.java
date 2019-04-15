@@ -211,7 +211,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteFolder(int index) {
-        assert(index < folders.size());
+        assert(index >= 0 && index < folders.size());
 
         folders.remove(index);
         filteredCardsList.remove(index);
@@ -236,6 +236,8 @@ public class ModelManager implements Model {
 
     @Override
     public void renameFolder(int index, String newName) {
+        assert(index >= 0 && index < folders.size());
+
         CardFolder folderToRename = folders.get(index);
         folderToRename.rename(newName);
         indicateModified();

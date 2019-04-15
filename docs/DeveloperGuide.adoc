@@ -442,7 +442,7 @@ image::AddBookHighLevelSequenceDiagram.png[width="800"]
 
 The following activity diagram summarizes what happens when a user executes an AddBook command:
 
-image::AddBookActivityDiagram.png[width="800"]
+image::AddBookActivityDiagram.PNG[width="800"]
 
 ==== Design Considerations
 

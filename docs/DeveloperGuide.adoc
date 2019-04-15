@@ -273,8 +273,9 @@ image::StorageClassDiagram.png[width="800"]
 
 The [.java]#Storage# component:
 
-* can save [.java]#UserPref# objects in json format and read it back.
-* can save the [.java]#Tables#, [.java]#Orders#, [.java]#Menu# and [.java]#Statistics# data in json format and read it back.
+* saves [.java]#UserPref# objects in json format and reads it back.
+* [.java]#LogicManager# calls for each of [.java]#Tables#, [.java]#Orders#, [.java]#Menu# and [.java]#Statistics# to be saved when they are modified.
+* saves the [.java]#Tables#, [.java]#Orders#, [.java]#Menu# and [.java]#Statistics# data in json format and reads it back.
 
 [[Design-Commons]]
 === Common classes
@@ -311,6 +312,7 @@ Although the `bill` command is used in Table Mode, it is considered a <<Statisti
 // tag::changemode[]
 ==== Current Implementation
 
+[[ChangingModes]]
 ===== Changing modes in general
 
 The modes of the application are defined using a [.java]#Mode# enum and the current mode of the application is stored as a private attribute [.java]#mode# in [.java]#LogicManager#. Users can switch between modes in ROR using the `{XXX}Mode` command, such as `menuMode` and `tableMode`. When the mode of the application is changed, we need to update the:
@@ -596,48 +598,164 @@ If the [.java]#OrderItem# is found and the quantity served is valid, a new [.jav
 
 
 === Menu feature
+The Menu feature allows restaurant managers to take add items to the menu using the `addToMenu` command, as well as
+remove menu items as needed using the `deleteFromMenu` or `clearMenu` commands. They can track the current list of
+available items in the menu (with the UI displays in Table Mode and Menu Mode).
+
+This feature works in support of
+
+* Orders feature: Adding and removing items from the menu would in turn affect items to be ordered.
+* Statistics feature: Popular menu items are listed in descending order of quantities ordered. This is supported by storing the quantities ordered in the json file and internally updating it when orders are confirmed.
+
+// tag::menu[]
+[[MenuClasses]]
+==== Classes for Menu feature in Model
+
+The Menu feature was implemented with the introduction of a new set of classes to [.java]#Model#. A new [.java]#Menu# class encapsulates all the methods and classes related to this feature. It also contains a listener that is used to update the storage when any modification is made to the orders. The [.java]#Menu# object is stored in [.java]#RestOrRant# and it exposes a read-only interface [.java]#ReadOnlyMenu# to allow the other components to retrieve menu-related information while maintaining data integrity.
+
+[.java]#Menu# contains a [.java]#UniqueMenuItemList#, which contains a list of all the items in the menu, represented by [.java]#MenuItem# objects. Each [.java]#MenuItem# object consists of 3 objects:
+
+* [.java]#Name# indicates the item name and is used for display in the UI
+* [.java]#Code# indicates the item code and is used to identify the menu item
+* [.java]#Price# indicates the item price and is used for display in the UI and calculation of bill
+
+[.java]#MenuItem# objects are uniquely identified by [.java]#Code#. As such, each menu item should have distinct item codes.
+
+The Menu Class Diagram below shows the relationship between the classes.
+
+.Menu Class Diagram in the Model component
+image::MenuModelClassDiagram.png[width="800"]
+// end::menu[]
 
 // tag::addtomenu[]
 [[AddToMenu]]
 ==== Adding to menu
+
+The user may want to add new menu items to the menu and this can be done with the `addToMenu` command.
+
 ===== Current Implementation
 
 The menu items in the menu are stored as a list. Adding a new menu item to the menu is done by adding to the existing list.
 
-The command is read as a text string from the command box and then is executed by calling `executeCommand`, which passes this string to the Logic component by calling `execute`.
+The command is read as a text string from the command box in the UI and then is executed by calling [.java]#MainWindow#executeCommand()#, which passes this string to the [.java]#Logic# component by calling [.java]#Logic#execute()#.
 
-The `execute` method in the logic component then creates a command from the text string input by parsing the string to identify the command word (done by the `parse` method in the `RestOrRantParser` class) and other parameters, in this case the details of the menu item (done by the `parse` method in the `AddToMenuCommandParser` class). The text string is then converted to Name, Code, and Price after parsing and then passed to Model component.
+The sequence diagram for interactions between the [.java]#Logic#, [.java]#Model# and [.java]#Storage# components when a user executes the `addToMenu` command is shown below.
 
-In the model component, the validity of the name, code and price of the menu item is checked, and the menu item is only added to the current menu items list if all three parameters are valid (i.e. in the specified format). The new menu item is added to the list in the Model component after ensuring that the menu item does not already exist in the list and that it does not have the same name and code as another menu item already in the list.
+.Component interactions for `addToMenu` command
+image::AddToMenuSequenceDiagram.png[width="800"]
 
-After adding to the list in the Model component, the `indicateModified` method is called, which then triggers the Logic component to save the menu, by calling `saveMenu` in the Storage Component.
+The [.java]#Logic#execute()# method then creates a command from the text string input
+ by parsing the string to identify the command word (done by the [.java]#RestOrRantParser#parse()# method) and other parameters, in this case the attributes of the [.java]#MenuItem# (done by the [.java]#AddToMenuCommandParser#parse()# method, omitted from the sequence diagram). After parsing, the text string is then converted to [.java]#Name#, [.java]#Code#, and [.java]#Price# and a new [.java]#MenuItem# is created with these attributes and then passed to Model component.
+
+In the [.java]#Model# component, firstly the validity of the [.java]#Name#, [.java]#Code# and [.java]#Price# of the [.java]#MenuItem# is checked. The three attributes must follow the specified format for them to be valid. The [.java]#MenuItem# is only added to the [.java]#UniqueMenuItemList# after ensuring that the same menu item does not already exist in the list. For this to be true, the new menu item should not have the same [.java]#Code# as any other  item in the list.
+
+After adding to the list in the [.java]#Model# component, the [.java]#Menu#indicateModified()# method is called, which then triggers the Logic component to save the state of the menu, by calling [.java]#Storage#saveMenu()#.
 
 The User Interface also updated by adding the new menu item to the list panel.
 
 [NOTE]
-This action can only be done in Menu Mode. If not in Menu Mode currently , users can first change mode by typing `MenuMode` or `MM` in the command box.
-
-Given below is an example usage scenario and how the `addToMenu` mechanism behaves at each step.
-
-Step 1. The user executes the `addToMenu` command by typing the name, code and price of the menu item (e.g.: `addToMenu n/French Fries c/W12 p/2.50`).
-
-Step 2. After ensuring that all parameters is valid and that the new menu item is unique, the change is reflected in the User Interface, where the list panel displays the newly added menu item. A success message is also displayed to the users at the Results Display box.
+This action can only be done in Menu Mode. If not in Menu Mode currently , users can first change mode by typing
+<<ChangingModes, switching over to Menu Mode>>.
 
 ===== Design Considerations
 
-====== Aspect: Saving changes from `AddToMenu` command
+[width="90%",cols="20%,40%,40%",options="header",]
+|=======================================================================
+| Aspect | Alternative 1 | Alternative 2
+| Saving changes from addition of menu items
+| Save only the menu, using the [.java]#Menu#indicateModified()# and [.java]#Storage#saveMenu()# methods. +
+- *Pros*: Uses less memory as any update to the menu will only save the menu. +
+- *Cons*: An increase in the number of variables during runtime, as every feature will need a listener and a boolean (for instance, menu feature would have a listener and a boolean [.java]#menuModified# to call storage#saveMenu() when the boolean evaluates to true).
 
-* **Alternative 1 (current choice):** Saves only the menu.
-** Pros: Uses less memory as any update to the menu will only save the menu. This is implemented by adding a listener to menu, which detects any changes to the menu when the `indicateModified` method is called. This then triggers Storage component to save the state of the menu.
-** Cons: An increase in the number of variables during runtime, as every feature will need a listener and a boolean (for instance, menu feature would have a listener and a boolean `menuModified` to trigger call storage#saveMenu() when the boolean evaluates to true).
+We decided to choose this option because we realise that there would be bigger performance issues such as lagging in
+the long run if we were to save every instance of the restaurant for every update to each feature.
+| Save the whole restaurant instance, by just having two methods ([.java]#RestOrRant#indicateModified()# and [
+.java]#Storage#saveRestOrRant()#) overall. +
+- *Pros*: Fewer variables during runtime, easier to call just one boolean upon any change to restaurant features. +
+- *Cons*: There is no need to save another feature if only menu is being updated, may cause lagging instead of improving performance. +
 
-* **Alternative 2:** Save the whole restaurant instance.
-** Pros: Fewer variables during runtime, easier to call just one boolean upon any change to restaurant features.
-** Cons: There is no need to save another feature if only menu is being updated, may cause lagging instead of improving performance.
-
-The pros outweighs the cons as despite the number of variables during runtime, in the long run saving every instance of the restaurant would cause bigger performance issues such as lagging especially if there are constant and multiple changes to every feature of the restaurant. This implementation is also more scalable for future developments.
-
+|=======================================================================
 // end::addtomenu[]
+
+// tag::deletefrommenu[]
+[[DeleteFromMenu]]
+==== Deleting from menu
+
+The user may want to remove a menu item from the menu and this can be done using the `deleteFromMenu` command.
+
+===== Current Implementation
+
+As mentioned above, deleting a menu item from the menu is done by removing from the existing list.
+
+The interactions between all four components when a user executes the `deleteFromMenu` command is very similar to the interactions when <<AddToMenu, adding to menu>>:
+
+One specific difference is that deleting from menu only requires item [.java]#Code#, whereas adding to menu requires [.java]#Name#, [.java]#Code# and [.java]#Price#. For this reason, we have decided to not use any prefixes (such as `c/` to denote item code).
+
+After parsing the input text string by the [.java]#RestOrRantParser#parse()# method, the [.java]#DeleteFromMenuCommand# object is created.
+
+[.java]#DeleteFromMenuCommand# then makes use of the method [.java]#Menu#getItemFromCode()# to retrieve the menu item from the item [.java]#Code# input. The code snippet of the method is shown below:
+
+[source, java]
+----
+public Optional<MenuItem> getItemFromCode(Code code) {
+    Iterator<MenuItem> iterator = menuItems.iterator();
+    while (iterator.hasNext()) { <1>
+        MenuItem menuItem = iterator.next();
+        if (menuItem.getCode().equals(code)) {
+            return Optional.of(menuItem); <2>
+        }
+    }
+    return Optional.empty(); <3>
+}
+----
+
+The [.java]#MenuItem# is retrieved from the [.java]#Code# by searching through the [.java]#UniqueMenuItemList#, called [.java]#menuItems# in this snippet. Optional is used as a means of defensive programming so that a null [.java]#Code# would not result in a null pointer exception but would be safely handled by showing an error message to the user for incorrect [.java]#Code# input.
+
+<1> The method first loops through all items in the list.
+<2> If a [.java]#MenuItem# with the same code is found, it is returned as an Optional.
+<3> If no such [.java]#MenuItem# is found, an Optional.empty() is returned, to safely handle nulls.
+
+The retrieved [.java]#MenuItem# is then passed to Model component to be removed from the [.java]#UniqueMenuItemList#.
+
+As above, after removing from the list in the [.java]#Model# component, the [.java]#Menu#indicateModified()# method is called, which then triggers the Logic component to save the state of the menu, by calling [.java]#Storage#saveMenu()#.
+
+The User Interface also updated by removing the menu item on the list panel.
+
+[NOTE]
+This action can only be done in Menu Mode. If not in Menu Mode currently , users can first change mode by typing <<ChangingModes, switching over to Menu Mode>>.
+
+===== Design Considerations
+The above design considerations under <<AddToMenu, Adding to Menu>> on saving changes to the menu also holds when deleting menu items.
+
+[width="90%",cols="20%,40%,40%",options="header",]
+|=======================================================================
+| Aspect | Alternative 1 | Alternative 2
+| Retrieving the [.java]#MenuItem# from the [.java]#Code#
+| Handle this operation with the already existing [.java]#UniqueMenuItemList#. +
+- *Pros*: Uses less memory as using another data structure would take up twice the space, since [
+.java]#UniqueMenuItemList# is required for ease of implementations of display in the UI. +
+- *Cons*: Takes more time to loop through all menu items in the [.java]#UniqueMenuItemList#, especially if the list
+is extensive.
+
+We decided to choose this option because we realise that the system would be able to support a typical restaurant's
+menu with close to no lagging, and chose to optimise memory over speed.
+| Create a new HashTable to map item codes to menu items, and search through this HashTable to retrieve the item. +
+- *Pros*: Less time taken to search in HashTable than in List. +
+- *Cons*: Uses more memory as all menu items will be saved in two data structures. Moreover, there is a need to
+reflect any changes to the menu in both of the data structures. +
+|=======================================================================
+// end::deletefrommenu[]
+
+[[ClearMenu]]
+==== Clearing the menu
+
+The user may want to remove all the menu items from the menu and this can be done with the `clearMenu` command.
+
+The interaction between the components for this function is similar to <<ClearOrder, clearing an order>>. A small difference is that `clearMenu` clears all menu items, while `clearOrder` only clears orders within a specific table.
+
+When `clearMenu` is keyed in, the command is parsed by [.java]#RestOrRantParser# and a [.java]#ClearMenuCommand# object is returned by the parser.
+
+When [.java]#ClearMenuCommand#execute()# is called, it will check if the restaurant is occupied, and if the menu is empty. [.java]#CommandException# with respective error messages will be thrown if either of the conditions are true. After ensuring that the restaurant is unoccupied and the menu is non-empty, the menu will be cleared by initializing the menu with an empty ArrayList, with the [.java]#Model#setMenuItems() method.
 
 // tag::statistics[]
 // tag::statisticsintro[]
@@ -1241,6 +1359,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |waiter |change status of tables |update the availability of tables
 
+|`* * *` |manager|add items to the menu|accurately reflect the available dishes
+
+|`* * *`|manager|delete items from the menu|update changes to the menu
+
 |`* * *` |waiter |add orders to a table |know which orders to serve to each table
 
 |`* * *` |waiter |delete orders from a table |update changes to the orders of each table
@@ -1419,38 +1541,48 @@ Use case ends.
 [discrete]
 === Use case: UC7 - Adding items to menu
 
-*Preconditions:* Program mode should be in Menu Mode. Item to be added cannot exist in the menu.
+*Preconditions:* Item to be added cannot exist in the menu.
 
 *MSS*
 
-1.  User enters the addToMenu command along with the item's code, name and price.
-2.  RestOrRant updates the menu to include the added menu item.
+1.  User [underline]#switches to Menu Mode (UC2)#.
+2.  RestOrRant switches to Menu Mode.
+3.  User enters the item's code, name and price.
+4.  RestOrRant updates the list of menu items in the side panel to include the added menu item.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. The menu already contains the item to be added.
+* 1a. The menu already contains the item to be added (same item code).
 +
 [none]
-** 1a1. RestOrRant prints out "Invalid arguments, item already exists in the menu!".
-+
-Use case ends.
-
-[none]
-* 1b. The item code already exists in the menu.
-+
-[none]
-** 1b1. RestOrRant prints out "Invalid arguments, item code exists in the menu!".
+** 1a1. RestOrRant returns an error message saying that duplicate menu items cannot be added.
 +
 Use case ends.
 
 [none]
-* 1c. The item code does not follow the standard alphanumeric format.
+* 1b. The item code does not follow the specified alphanumeric format.
 +
 [none]
-** 1c1. RestOrRant prints out "Invalid code. Please use an alphanumeric code. Example: W09".
+** 1b1. RestOrRant returns an error message saying that the item code is in invalid format.
++
+Use case ends.
+
+[none]
+* 1c. The item name does not follow the standard alphanumeric format.
++
+[none]
+** 1b1. RestOrRant returns an error message saying that the item name is in invalid format.
++
+Use case ends.
+
+[none]
+* 1d. The item price does not follow the specified format of rational number with two decimal digits.
++
+[none]
+** 1d1. RestOrRant returns an error message saying that the item price is in invalid format.
 +
 Use case ends.
 
@@ -1532,6 +1664,7 @@ Use case ends.
 .  Should be able to respond within two seconds, even with a large number of tables and order items.
 .  Number of tables in the restaurant will not be greater than 400.
 .  Quantity of an item ordered by a table will not be greater than 2,000,000,000.
+.  Number of menu items in the menu will not be greater than 200.
 .  Not required to handle the printing of receipts.
 
 [appendix]
@@ -1639,7 +1772,41 @@ _{ more test cases ... }_
 
 === Menu feature
 
+****
+You can restore the original sample data by deleting the json files in the data folder and restarting the application.
+****
 
+. Adding to the menu
+
+.. Switch to Menu Mode (`menuMode`).
+.. For the following tst cases, `addToMenu` can be replaced with the shortcut `add`.
+.. Test case: `addToMenu c/W09 n/Chicken Wings p/4.50` +
+   Expected: Adds a menu item "Chicken Wings" with code W09 and price 4.50 to the menu.
+.. Test case: `addToMenu n/French Fries c/W12 p/2.50` +
+   Expected: Adds a menu item "French Fries" with code W12 and price 2.50 to the menu.
+.. Test case: `addToMenu p/4.00 n/Beef Burger c/W04` +
+   Expected: Adds a menu item "Beef Burger" with code W04 and price 4.00 to the menu.
+.. Test case for invalid name format: `addToMenu n/N@me c/W12 p/2.50` +
+   Expected: No menu items are added. Error message is shown in the Results Display.
+.. Test case for invalid code format: `addToMenu n/French Fries c/102W p/2.50` +
+   Expected: Similar to previous.
+.. Test case for invalid price format: `addToMenu n/French Fries c/W12 p/2.505` +
+   Expected: Similar to previous.
+
+. Deleting from the menu
+.. Switch to Menu Mode (`menuMode`).
+.. For the following tst cases, `deleteFromMenu` can be replaced with the shortcut `del`.
+.. Test case: `deleteFromMenu W09` +
+   Expected: Deletes the menu item "Chicken Wings" with code W09 from the menu.
+.. Test case for invalid code format: `deleteFromMenu 102W` +
+   Expected: No items are deleted from the menu. Error message is shown in the Results Display.
+.. Test case for item does not exist in the menu: `deleteFromMenu A01` +
+   Expected: Similar to previous.
+
+. Clearing the menu
+.. Switch to Menu Mode (`menuMode`).
+.. Test case: `clearMenu` or `clear`
+   Expected: All the menu items are deleted.
 
 === Orders feature
 

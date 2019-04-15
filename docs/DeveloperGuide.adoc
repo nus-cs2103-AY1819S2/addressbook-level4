@@ -166,9 +166,10 @@ image::SDforDeletePlace.png[width="800"]
 The sections below give more details of each component.
 
 [[Design-Ui]]
-=== UI Component
 
 // tag::uiArchitecture[]
+
+=== UI Component
 
 *API* :
 link:{repoURL}/tree/master/src/main/java/seedu/travel/ui/Ui.java[`Ui.java`]
@@ -177,7 +178,7 @@ link:{repoURL}/tree/master/src/main/java/seedu/travel/ui/Ui.java[`Ui.java`]
 [reftext="Figure 3.2.1"]
 [caption="Figure 3.2.1: "]
 .Structure of the UI component
-image::UiClassDiagram.png[width="800"]
+image::UiClassDiagram.png[width="400"]
 
 The `UI` component, as seen in <<UiClassDiagram>>, uses the JavaFX UI framework. The *layout* of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/travel/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -842,8 +843,9 @@ requirements of adding any country code.  Alternative 1's speed is only slightly
 
 // end::countrycode[]
 
-=== Photos Feature
 // tag::photosFeature[]
+
+=== Photos Feature
 
 The Photo feature gives users the ability to attach an existing image file to any `Place` object,
 which is then displayed in the `ExpandedPlacePanel` when the `select` command is called on a particular Place.
@@ -910,7 +912,7 @@ JavaFX `Image` object, which is then displayed in a `ImageView` panel at the top
 [reftext="Figure 4.4.1.1"]
 [caption="Figure 4.4.1.1: "]
 .Activity diagram for photo feature
-image::AddPhotoActivityDiagram.PNG[width="800"]
+image::AddPhotoActivityDiagram.PNG[width="600"]
 
 ===== Example: Using `add` to include a photo
 
@@ -922,7 +924,7 @@ Step 1. Input `add n/Himeiji Castle cc/JPN dv/15/12/2017 r/5 d/Wow. a/Kyoto t/ca
 [reftext="Figure 4.4.1.2"]
 [caption="Figure 4.4.1.2: "]
 .Before the `add` command is executed
-image::addPhotoBefore.png[width="800"]
+image::addPhotoBefore.png[width="400"]
 
 Step 2. The user inputs `selects 4`.
 
@@ -930,7 +932,7 @@ Step 2. The user inputs `selects 4`.
 [reftext="Figure 4.4.1.3"]
 [caption="Figure 4.4.1.3: "]
 .After the `add` command is executed and the newly added Place "Himeiji Castle" is selected
-image::addPhotoAfter.png[width="800"]
+image::addPhotoAfter.png[width="400"]
 
 ==== Design Considerations
 

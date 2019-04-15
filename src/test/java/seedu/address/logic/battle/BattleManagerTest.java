@@ -16,6 +16,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.player.Player;
+import seedu.address.testutil.EvilEnemy;
 import seedu.address.testutil.InterceptedEnemy;
 import seedu.address.testutil.TypicalIndexes;
 
@@ -114,6 +115,23 @@ public class BattleManagerTest {
     public void humanPerformAttack_miss_misses() {
         AttackResult res = batMan.humanPerformAttack(TypicalIndexes.COORDINATES_LAST_CELL);
         assertTrue(res instanceof AttackMissed);
+    }
+
+    /**
+     * Setup:
+     *     Enemy throws an exception while computing move
+     * Expected result:
+     *     A singleton list containing a non-success AttackResult is returned
+     */
+    @Test
+    public void takeComputerTurn_exceptionThrown_returnsAttackFailed() {
+        enemy = new EvilEnemy();
+        batMan = new BattleManager(player, enemy);
+
+        List<AttackResult> res = batMan.takeComputerTurns();
+        assertTrue(res.size() == 1);
+        assertFalse(res.get(0).isSuccessful());
+        assertTrue(res.get(0) instanceof AttackFailed);
     }
 
     /**

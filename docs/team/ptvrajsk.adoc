@@ -1,7 +1,15 @@
 :imagesdir: ../images
 :stylesDir: ../stylesheets
+:numbered:
+:chapter-label:
 = Projects Portfolio
 Prithivi Raj
+ifdef::backend-pdf[:notitle:]
+
+ifdef::backend-pdf[]
+[discrete]
+= Prithivi Raj's Projects Portfolio
+endif::[]
 
 == Introduction
 
@@ -29,7 +37,7 @@ Although not built to its final form, it boasts a large feature set such as:
 set passwords to open even if accessed outside the application.
 - Merging multiple documents into a single document.
 
-=== Summary of Contributions
+=== Summary of Major Contributions
 
 My Enhancements to the Project Consists of: +
 
@@ -45,21 +53,20 @@ to it.
 PDF++ and would require minimal to no overhauls should any new aspects of the
 application require upgrading.
 
-* *Introduction of Find Feature*
-** *What*: The Deadline feature is one of the core features that we had planned
-to introduce in our application. It is a means for the target audience to
-manage their documents along with their current schedules.
+* *Formulation and Introduction of Find Feature*
+** *What*: The Enhanced Find feature is one of the core features that we had
+planned to introduce in our application. It is a means for the target audience
+to search for documents not just by their file name but also by the content
+within them.
 ** *Justification*: Although the application was working well as a Document
 Management System, analysis of the needs and wants of our target audience
-was necessary. Following several informal discussions, a key feature that
-many took interest in was the ability to set Deadlines to documents thus
-allowing the application to assist in 'reminding' the User.
-** *Highlights* The deadline feature required drastic changes to the existing
-`storage` and `model` components as they were a key feature tied to each and
-every document managed by our application. As such there was key attention
-to the the parsing of the Deadline between components in out application. An
-example of which would be the translation of the Deadline between the `Java`
-and `Json` frameworks.
+was necessary. Following several informal discussions, a key feature that many
+felt was lacking was the ability to easily find files that many, more powerful,
+file managers were lacking.
+** *Highlights* The find feature required drastic changes to the existing
+`model` components as a menial version of it was already partly implemented.
+As such there was key attention paid to the enhancement of the feature so as to
+ensure that no other features would break because of it.
 
 ==== User Guide Contributions
 
@@ -79,73 +86,86 @@ https://github.com/CS2103-AY1819S2-T12-4/main/issues/152[#152]. +
 {nbsp} +
 The scripted UI is attached below:
 
-image::Ui.png[width="500", align="center"]
+.User Interface
+image::Ui.png[width="450", align="center"]
 
 To illustrate to a new User, the UI also had to be broken down into digestible
 chunks that could be easily comprehended by the user. As such the following
 diagrams were also added to the Introductory paragraphs of the User Guide.
 
-image::UGAppOverview.png[width="600", align="center"]
-image::UGPdfCard.png[width="300", align="center"]
+.User Interface Breakdown
+image::UGAppOverview.png[width="550", align="center"]
+
+.Individual File Breakdown
+image::UGPdfCard.png[width="350", align="center"]
 
 The information was further colour coded to ensure the simplicity of the
 diagrammatical explanations.
 
-===== Find
+===== Find Feature
 
-As for the Deadline, there were several aspects that had to be communicated to
-the end user namely, the usage style of the feature, additional requirements,
-definitions to the colour coded labels and so on. Hence the following excerpt
-was inserted into the User Guide. +
+As for the Find Feature, there were several aspects that had to be communicated
+to the end user namely, the number of files that were detected by the `find`
+command as well as the careful use of third-party libraries. +
 The relevant pull requests pertaining to this feature can be
 referenced in the following _Github_ issue
-https://github.com/CS2103-AY1819S2-T12-4/main/issues/124[#124]. +
+https://github.com/CS2103-AY1819S2-T12-4/main/issues/161[#161]. +
 
 '''
 
 [#find-feature]
-=== Finding Content: `find`
+====== Excerpt from UserGuide: Finding Content: `find`
 
 The find command allows you to `find` for files that contain a keyword or phrase
 OR `find` files which contain the entered keyword or phrase inside it.
 
 [#find-format]
-Format: `find KEYWORD`
+[.big]#Format: `find KEYWORD`#
+
+* `KEYWORD` refers to the word that you wish to search for within the files of the application.
 
 Examples:
 
 * `find Introduction` +
 * `find Author: George RR Martin`
 
-==== Step-By-Step Guide
+[#steps-find]
+====== Step-By-Step Guide
 If, for example, you wish to locate the files that contain the word `Introduction`
 in its name or files that contain the word `Introduction` in its internal content.
-You may carry out the following steps in-order to get your desired list of files.
+You may carry out the following steps in-order to get your desired list of files. +
 
-* When you open the application, the image below illustrates the screen you might see initially.
+Step 1: Launch the application by double clicking the `pdfplusplus.jar`. To view the following screen.
 
 [NOTE]
 Files you observe may be different and depends on the actions you have previously carried out on our application
 
-image::UGFindFeatureImage1.png[width="600"]
+.Find Command Step 1 & Step 2
+image::UGFindFeatureImage1.png[width="500" align="center"]
+
+Step 2:
 
 * As shown by the image, your application should contain an existing list of files.
-* Next you are to key in the `find` command followed by the keyword as illustrated by the command
-<<find-feature, format>>.
+* You are to key in the `find` command followed by the keyword as illustrated by the command
+<<command-find, format>>.
+
+Step 3:
+
 * Finally, press kbd:[Enter] and give the application a short time to sieve through all the files
 it manages and locate the relevant ones for you.
 * Once the application is done with the task, the following screen should be visible to you.
 
-image::UGFindFeatureImage2.png[width="600"]
+.Find Command Step 3
+image::UGFindFeatureImage2.png[width="500" align="center"]
 
-* As seen in the image, the files that are relevant to your search will be displayed on the top
+As seen in the image, the files that are relevant to your search will be displayed on the top
 left. These files are those that contain the keyword `Introduction` in its name, and files which
-contain the keyword within its content.
+contain the keyword within its content. +
 
-* The application also shows you other useful information such as, the number of files that
-match the criteria you entered into the application.
+The application also shows you other useful information such as, the number of files that
+match the criteria you entered into the application as shown in the image above. +
 
-* And with that you have successfully utilized the `find` feature.
+And with that you have successfully utilized the `find` feature. +
 
 [CAUTION]
 When there are many files tracked by the application or if the files tracked by the application
@@ -155,7 +175,7 @@ to finish its operation.
 
 [WARNING]
 As part of a security measure, all files that are encrypted will not be subject to the `find` command.
-This will prevent any information about your secure files from being leaked.
+This will prevent any information about your secure files from being leaked to malicious users.
 
 '''
 
@@ -167,8 +187,8 @@ Guide.
 
 '''
 
-=== Find feature
-==== Current Implementation
+====== Excerpt From Developer Guide: Find feature
+====== Current Implementation
 The `find` feature is facilitated by *FindCommand* and *FindCommandParser*.
 This feature lists a subset of all the files in the application based on the keyword(s)
 provided. Using the keyword(s), the application will check the names of all files, as
@@ -185,16 +205,17 @@ Example:
 * `find Resume`
 * `find Introduction`
 
-==== Feature Breakdown
+====== Feature Breakdown
 
+[.text-center]
 .Find Command Activity Diagram
-image::FindCommandActivityDiagram.png[width="600"]
+image::FindCommandActivityDiagram.png[width="500" align="center"]
 
 The following image briefly summarises the interactions of the `find` command with
 some of its immediate components.
 
 .General Internal Illustration of Find Command.
-image::FindCommandSequenceDiagram.png[width="600"]
+image::FindCommandSequenceDiagram.png[width="600" align="center"]
 
 When the user enters the CLI Input for the find command, the command is first passed
 from the `LogicManager` to the `PdfBookParser` will carry out the following steps.
@@ -217,19 +238,19 @@ files that the user wishes to view.
 `PDFTextStripper` to extract the contents of the existing files.
 4. The extracted content is then checked to verify if it contains the `keyword` input by the user.
 5. Further checks are also done to confirm if each file's name contains the `keyword` as well.
-6. The `model` then updates itself and stores the current actiion in the `history`.
+6. The `model` then updates itself and stores the current action in the `history`.
 7. Finally, the `FindCommand` returns a `CommandResult` back to the `LogicManager` for follow up
 action.
 
 This is a brief explanation of the inner workings of the `FindCommmand` and its execution method.
 
-==== Considerations
+====== Considerations
 Our application also implements several security features such as the ability of users to `Encrypt` and
 `Decrypt` their files. Hence, a major security concern was to prevent the `FindCommand` from searching
 through the contents of files that are previously encrypted. This is crucial to prevent the leakage of data
 as malicious users might simply utilize the `FindCommand` to extract information from the tracked files.
 
-==== Future Implementation
+====== Future Implementation
 
 . A main issue with the current implementation of the `FindCommand` is it's slow speeds with respect to
 large files or files that contain a large string of text files. Hence, a possible consideration you might
@@ -238,3 +259,14 @@ wish to improve upon is to "upgrade" this feature by improving it's speed of thi
 . Yet another enhancement to this feature you might wish to implement is the use of Optical Image Recognition,
 otherwise known as OCR. This will allow the application to translate images within the file to words which would further
 improve the ability of the application to look through content even if they are images.
+
+'''
+=== Summary of Minor Contributions
+
+* Setup `JSON` file storage format for the revamped project.
+* Implemented the `Add` Command for both *GUI* and *CLI* mode. link:https://github.com/CS2103-AY1819S2-T12-4/main/pull/141[#141]
+** Increase ease of use for less technical users.
+* Implemented the *GUI* Mode for the Move Command. link:https://github.com/CS2103-AY1819S2-T12-4/main/pull/144[#144]
+* Implementation of a majority of the TestCases as well as
+revamping old TestCases from previous projects to suite new project direction. link:https://github.com/CS2103-AY1819S2-T12-4/main/pull/281[#218]
+* Proof-Reading and Enhancing of the Entire User-Guide Document. link:https://github.com/CS2103-AY1819S2-T12-4/main/pull/313[#313]

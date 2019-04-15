@@ -21,7 +21,7 @@ import seedu.address.model.course.PrimitiveRequirement;
 public class SampleCourseRequirement {
     //University Level Requirement
     public static final String GEH_PATTERN = "GEH1[0-9]{3}[A-Z]?";
-    public static final String GEQ_PATTERN = "GEQ1000[A-Z]?";
+    public static final String GEQ_PATTERN = "(GEQ1000[A-Z]?)|(GEQ1917)";
     public static final String GER_PATTERN = "GER1000[A-Z]?";
     public static final String GES_PATTERN = "GES1[0-9]{3}[A-Z]?";
     public static final String GET_PATTERN = "GET1[0-9]{3}[A-Z]?";

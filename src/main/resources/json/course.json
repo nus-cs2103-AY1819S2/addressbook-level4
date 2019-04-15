@@ -12,7 +12,7 @@
         "pattern" : "GEH1[0-9]{3}[A-Z]?"
       }, {
         "minToSatisfy" : "1",
-        "pattern" : "GEQ1000[A-Z]?"
+        "pattern" : "(GEQ1000[A-Z]?)|(GEQ1917)"
       }, {
         "minToSatisfy" : "1",
         "pattern" : "GER1000[A-Z]?"
@@ -226,7 +226,7 @@
         "pattern" : "GEH1[0-9]{3}[A-Z]?"
       }, {
         "minToSatisfy" : "1",
-        "pattern" : "GEQ1000[A-Z]?"
+        "pattern" : "(GEQ1000[A-Z]?)|(GEQ1917)"
       }, {
         "minToSatisfy" : "1",
         "pattern" : "GER1000[A-Z]?"
@@ -440,7 +440,7 @@
         "pattern" : "GEH1[0-9]{3}[A-Z]?"
       }, {
         "minToSatisfy" : "1",
-        "pattern" : "GEQ1000[A-Z]?"
+        "pattern" : "(GEQ1000[A-Z]?)|(GEQ1917)"
       }, {
         "minToSatisfy" : "1",
         "pattern" : "GER1000[A-Z]?"

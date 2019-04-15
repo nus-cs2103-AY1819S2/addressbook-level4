@@ -21,6 +21,7 @@ import seedu.hms.logic.commands.CommandResult;
 import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.logic.stats.Stats;
+import seedu.hms.logic.stats.exceptions.ShownItemOutOfBoundException;
 
 /**
  * The Main Window. Provides the basic application layout containing

@@ -10,6 +10,8 @@ import java.util.stream.IntStream;
 
 import seedu.hms.commons.core.LogsCenter;
 import seedu.hms.commons.core.index.Index;
+import seedu.hms.logic.commands.ShowStatsCommand;
+import seedu.hms.logic.stats.exceptions.ShownItemOutOfBoundException;
 import seedu.hms.logic.stats.statsitems.CountPayersForReservations;
 import seedu.hms.logic.stats.statsitems.CountPayersForServices;
 import seedu.hms.logic.stats.statsitems.CountRoomTypes;
@@ -36,6 +38,9 @@ public class Stats {
                 new CountPayersForServices(this)
         ));
 
+        // initialize the max index for parsing commands
+        ShowStatsCommand.setMaxIndex(this.statsitems.size());
+
         // initialize defaultShown
         ArrayList<Index> tempDefaultShown = new ArrayList<>();
         List<Integer> defaultShownIntList = IntStream.range(0, 4).boxed().collect(Collectors.toList());
@@ -56,14 +61,18 @@ public class Stats {
      * @return A string of the text report.
      */
     public String toTextReport() {
-        final StringBuilder sb = new StringBuilder();
-        for (Index i : shown) {
-            StatsItem si = statsitems.get(i.getZeroBased());
-            sb.append("*** " + si.getTitle() + "\n");
-            sb.append(si.toTextReport());
-            sb.append("\n");
+        try {
+            final StringBuilder sb = new StringBuilder();
+            for (Index i : shown) {
+                StatsItem si = statsitems.get(i.getZeroBased());
+                sb.append("*** " + i.getOneBased() + ". " + si.getTitle() + "\n");
+                sb.append(si.toTextReport());
+                sb.append("\n");
+            }
+            return sb.toString();
+        } catch (IndexOutOfBoundsException e) {
+            throw new ShownItemOutOfBoundException();
         }
-        return sb.toString();
     }
 
     /**

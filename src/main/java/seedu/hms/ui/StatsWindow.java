@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 import seedu.hms.commons.core.LogsCenter;
 import seedu.hms.commons.core.index.Index;
 import seedu.hms.logic.stats.Stats;
+import seedu.hms.logic.stats.exceptions.ShownItemOutOfBoundException;
 import seedu.hms.logic.stats.statsitems.StatsItem;
 
 /**
@@ -113,13 +114,17 @@ public class StatsWindow extends UiPart<Stage> {
      */
     public void updateCharts(ArrayList<Index> indexList) {
         Platform.runLater(() -> {
-            VBox pane = new VBox();
-            pane.setFillWidth(true);
-            List<StatsItem> statsitems = stats.getStatsitems();
-            for (Index i : indexList) {
-                pane.getChildren().add(generateChart(statsitems.get(i.getZeroBased())));
+            try {
+                VBox pane = new VBox();
+                pane.setFillWidth(true);
+                List<StatsItem> statsitems = stats.getStatsitems();
+                for (Index i : indexList) {
+                    pane.getChildren().add(generateChart(statsitems.get(i.getZeroBased())));
+                }
+                statsChartsPane.setContent(pane);
+            } catch (IndexOutOfBoundsException e) {
+                throw new ShownItemOutOfBoundException();
             }
-            statsChartsPane.setContent(pane);
         });
     }
 

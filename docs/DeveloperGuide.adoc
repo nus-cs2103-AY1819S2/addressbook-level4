@@ -342,8 +342,21 @@ When the user inputs the sort command in the CLI, the input is parsed, and the s
 
 LogicManager executes SortCommand which calls Model to sort the apparels in the list by color, and commits the changes to Storage.
 
-.Sequence Diagram for Wash command
-image::washCommand.jpg[width="800"]
+
+// end::sort[]
+
+// tag::swap[]
+=== Sort Apparel feature
+Swap any two apparels.
+Simulating an event in the real world where users swap the position of two apparels.
+
+==== Current Implementation
+The sort command takes in two parameters: INDEX_A and INDEX_B
+
+* Index_A  : The first apparel to be swapped.
+* Index_B : The second apparel to be swapped.
+
+e.g `swap 2 5` will swap the apparels at index 2 and 5.
 
 // end::sort[]
 

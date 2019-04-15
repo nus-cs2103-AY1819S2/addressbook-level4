@@ -267,7 +267,7 @@ The map feature handles the interactions of the game in the map level. The map f
 * Allow placing of battleships in the cells.
 * Allow attacking of cells.
 
-==== Current implementation of map initialisation
+==== Implementation of map initialisation
 The map feature is facilitated by `MapGrid` and `Cell`.
 The map grid is stored internally in `MapGrid` as a 2D array of `Cell` objects.
 `MapGrid` implements the following method to initialise the map:
@@ -304,6 +304,34 @@ The following activity diagram shows when the "initialise map" command can be us
 image::InitActivityDiagram.png[width=800]
 
 {empty} +
+
+==== Implementation of the `Cell` class
+The cells are the lowest-level feature of the game and is represented by the `Cell` class. Each `Cell` allows one ship to be placed on it but the same ship can be referenced from multiple `Cell` objects. `Cell` also allows receiving of an attack and will propagate the attack call to the `Battleship` in it. To support the above, the following methods are available:
+
+* `void putShip(Battleship battleship)` - places a ship in the `Cell`.
+* `boolean receiveAttack()` - receives an attack and returns true if it's a hit, false otherwise.
+
+Also, each `Cell` has a `Status` attribute which is an `enum` of the following:
+
+[cols="1,3", options="header"]
+|===
+| Status | Description
+| HIDDEN | This cell has not been hit. 
+| EMPTY | This cell is empty and has not been hit.
+| EMPTYHIT | This cell has been hit before, and is empty;
+| SHIP | This cell has a ship in it.
+| SHIPHIT | This cell has been hit before, and there is a damaged ship here.
+| DESTROYED | This cell has been hit before, and the ship here has been destroyed.
+|===
+
+The `Status` ofa `Cell` can be checked through the following method:
+
+* `Status getStatus()` - returns the `Status` of the `Cell`.
+
+The `Status` is used by several higher level functionality such as:
+
+* the UI to know what colour should a `Cell` be displayed as.
+* placing ships to check whether a ship has already been placed.
 
 ==== Design considerations
 ===== Aspect: How the maps are initialised

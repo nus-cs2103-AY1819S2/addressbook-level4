@@ -343,8 +343,8 @@ The color attribute is then modeled as a JsonAdaptedTag in the Storage component
 attribute that represents what tag type the object is. The strings 's:', 'p:', and 'e:' are prepended to each respective
  skill, position, or endorse tag's tagName attribute.
 
- Other commands such as filtering and sorting are currently integrated with this design approach and parse out the
- prefixes to get the correct tag names. This design helps the filter and sort commands differentiate between the three
+Other commands such as filtering and sorting are currently integrated with this design approach and parse out the
+prefixes to get the correct tag names. This design helps the filter and sort commands differentiate between the three
  tag types in order to properly display the results of their commands and improve user readability.
 
 ==== Alternate Implementation

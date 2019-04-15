@@ -9,9 +9,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.management.ChangeThemeCommand.MESSAGE_SUCCESS;
 import static seedu.address.logic.commands.management.HistoryCommand.MESSAGE_NO_HISTORY;
 import static seedu.address.logic.commands.quiz.QuizAnswerCommand.MESSAGE_CORRECT;
-import static seedu.address.logic.parser.Syntax.PREFIX_CORE_ANSWER;
-import static seedu.address.logic.parser.Syntax.PREFIX_CORE_QUESTION;
 import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_NAME;
+import static seedu.address.logic.parser.Syntax.PREFIX_TEST;
 import static seedu.address.testutil.LessonBuilder.DEFAULT_CORE_HEADER_1;
 import static seedu.address.testutil.LessonBuilder.DEFAULT_CORE_HEADER_2;
 import static seedu.address.testutil.LessonBuilder.DEFAULT_NAME;
@@ -19,6 +18,7 @@ import static seedu.address.testutil.TypicalSession.SESSION_DEFAULT_2;
 import static seedu.address.testutil.TypicalSession.SESSION_DEFAULT_2_ACTUAL;
 
 import java.io.File;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -29,16 +29,16 @@ import org.junit.rules.TemporaryFolder;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.management.AddLessonCommand;
-import seedu.address.logic.commands.management.CloseLessonCommand;
 import seedu.address.logic.commands.management.DeleteLessonCommand;
+import seedu.address.logic.commands.management.EditLessonCommand;
 import seedu.address.logic.commands.management.ExitCommand;
 import seedu.address.logic.commands.management.HelpCommand;
 import seedu.address.logic.commands.management.HistoryCommand;
-import seedu.address.logic.commands.management.OpenLessonCommand;
+import seedu.address.logic.commands.management.QuitLessonCommand;
 import seedu.address.logic.commands.management.ReloadLessonsCommand;
+import seedu.address.logic.commands.management.StartCommand;
 import seedu.address.logic.commands.quiz.QuizAnswerCommand;
 import seedu.address.logic.commands.quiz.QuizQuitCommand;
-import seedu.address.logic.commands.quiz.QuizStartCommand;
 import seedu.address.logic.commands.quiz.QuizStatusCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.UserPrefs;
@@ -48,6 +48,7 @@ import seedu.address.model.modelmanager.ManagementModelManager;
 import seedu.address.model.modelmanager.QuizModel;
 import seedu.address.model.modelmanager.QuizModelManager;
 import seedu.address.model.quiz.Quiz;
+import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.user.User;
 import seedu.address.storage.CsvLessonListStorage;
 import seedu.address.storage.CsvUserStorage;
@@ -109,9 +110,9 @@ public class LogicManagerTest {
         assertCommandSuccess(ReloadLessonsCommand.COMMAND_WORD , ReloadLessonsCommand.MESSAGE_SUCCESS, managementModel);
         CommandResult expected = new CommandResult(LogicManager.FAIL_SAVE_LESSONS_MESSAGE
             + LogicManager.CHECK_LOGS_MESSAGE);
-        logic.execute(OpenLessonCommand.COMMAND_WORD + " 1");
+        logic.execute(EditLessonCommand.COMMAND_WORD + " 1");
         assertEquals(expected.getFeedbackToUser(),
-            logic.execute(CloseLessonCommand.COMMAND_WORD).getFeedbackToUser());
+            logic.execute(QuitLessonCommand.COMMAND_WORD).getFeedbackToUser());
     }
 
     @Test
@@ -138,8 +139,8 @@ public class LogicManagerTest {
         managementModel = new ManagementModelManager(new UserPrefs(), lessonList, new User());
         logic = new LogicManager(managementModel, quizModel, storage);
 
-        assertCommandSuccess(QuizStartCommand.COMMAND_WORD + " n/Capitals c/2 m/PREVIEW",
-                "Starting new quiz", expectedMgmtMgr);
+        assertCommandSuccess(StartCommand.COMMAND_WORD + " 1 c/2 m/PREVIEW",
+                "Starting new quiz\nCurrent lesson: Capitals", expectedMgmtMgr);
     }
 
     @Test
@@ -227,15 +228,22 @@ public class LogicManagerTest {
         assertCommandSuccess("", "", expectedModel);
         assertEquals(LogicManager.Mode.QUIZ, logic.getMode());
 
-        // after quiz ended
+        // view result display
         quizModel.getNextCard();
         quizModel.getNextCard();
         quizModel.getNextCard();
         quizModel.getNextCard();
+        expectedModel.setResultDisplay(true);
         new QuizAnswerCommand("japan").execute(quizModel, history);
+
+        assertEquals(LogicManager.Mode.QUIZ, logic.getMode());
+
+        // after quiz ended
+        new QuizAnswerCommand("").execute(quizModel, history);
 
         assertEquals(LogicManager.Mode.MANAGEMENT, logic.getMode());
     }
+
     @Test
     public void getLessons() {
         LessonList lessonList = new LessonList();
@@ -280,6 +288,33 @@ public class LogicManagerTest {
 
         assertCommandSuccess("Brussels", MESSAGE_CORRECT, expectedModel);
         assertEquals(expectedResult, logic.getTotalCorrectAndTotalAttempts());
+    }
+
+    @Test
+    public void getEndResult() {
+        expectedModel.init(quizExpected, SESSION_DEFAULT_2);
+        quizModel.init(quizActual, SESSION_DEFAULT_2_ACTUAL);
+
+        expectedModel.getNextCard();
+        expectedModel.getNextCard();
+        expectedModel.getNextCard();
+        expectedModel.getNextCard();
+        expectedModel.getNextCard();
+        expectedModel.getNextCard();
+        expectedModel.updateTotalAttemptsAndStreak(1, "japan");
+        expectedModel.setResultDisplay(true);
+        List<QuizCard> expectedResult = expectedModel.getQuizCardList();
+        String expectedMessage = MESSAGE_CORRECT + QuizAnswerCommand.MESSAGE_SUCCESS;
+
+        quizModel.getNextCard();
+        quizModel.getNextCard();
+        quizModel.getNextCard();
+        quizModel.getNextCard();
+        quizModel.getNextCard();
+        quizModel.getNextCard();
+
+        assertCommandSuccess("japan", expectedMessage, expectedModel);
+        assertEquals(expectedResult, logic.getQuizCardList());
     }
 
     @Test
@@ -393,8 +428,8 @@ public class LogicManagerTest {
     public void testManagementInputOutput() {
         String command = AddLessonCommand.COMMAND_WORD + " "
                 + PREFIX_LESSON_NAME + DEFAULT_NAME + " "
-                + PREFIX_CORE_QUESTION + DEFAULT_CORE_HEADER_1 + " "
-                + PREFIX_CORE_ANSWER + DEFAULT_CORE_HEADER_2;
+                + PREFIX_TEST + DEFAULT_CORE_HEADER_1 + " "
+                + PREFIX_TEST + DEFAULT_CORE_HEADER_2;
 
         try {
             CommandResult commandResult = logic.execute(command);

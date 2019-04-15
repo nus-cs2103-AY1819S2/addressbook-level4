@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.management;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_LESSON_COMMANDS;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
@@ -11,26 +12,29 @@ import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.Model;
 
 /**
- * This implements a {@link ManagementCommand} which closes the opened {@link Lesson} in the
- * {@code List<Lesson> lessons} loaded in memory.
+ * This implements a {@link ManagementCommand} which saves changes made to the {@link Lesson}
+ * opened in Card View, before returning to Lesson View.
  *
  * It requires a {@link ManagementModel} to be passed into the {@link #execute(Model, CommandHistory)}
  * command.
  */
-public class CloseLessonCommand extends ManagementCommand {
+public class QuitLessonCommand extends ManagementCommand {
     /**
      * The word a user must enter to call this command.
      */
-    public static final String COMMAND_WORD = "closeLesson";
+    public static final String COMMAND_WORD = "quit";
     /**
      * Instructions on command usage and parameters.
      */
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Closes the opened lesson.\n"
-            + "Example: " + COMMAND_WORD;
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Quits Card View and returns to Lesson View.\n"
+            + "Example: " + COMMAND_WORD
+            + "\nNote: Changes made in Card View will be saved.";
     /**
      * Feedback message displayed to the user upon successful execution of this command
      */
-    public static final String MESSAGE_SUCCESS = "Closed lesson and saved changes: %1$s";
+    public static final String MESSAGE_SUCCESS = "Changes saved for lesson: %1$s\n"
+            + MESSAGE_LESSON_COMMANDS;
 
     /**
      * Executes the command which closes the opened {@link Lesson} in the {@code List<Lesson> lessons}
@@ -52,21 +56,21 @@ public class CloseLessonCommand extends ManagementCommand {
             String lessonName = mgtModel.closeLesson();
             return new CommandResult(String.format(MESSAGE_SUCCESS, lessonName), CommandResult.UpdateStorage.SAVE);
         } catch (NullPointerException e) {
-            throw new CommandException(Messages.MESSAGE_NO_OPENED_LESSON, e);
+            throw new CommandException(Messages.MESSAGE_CARD_VIEW_COMMAND, e);
         }
     }
 
     /**
-     * Returns true if {@code other} is the same object or if it is also an {@link CloseLessonCommand}.
-     * All {@link CloseLessonCommand} objects are the same.
+     * Returns true if {@code other} is the same object or if it is also an {@link QuitLessonCommand}.
+     * All {@link QuitLessonCommand} objects are the same.
      *
      * @param other the other object to compare this object to
-     * @return true if {@code other} is the same object or if it is also an {@link CloseLessonCommand}.
-     * All {@link CloseLessonCommand} objects are the same.
+     * @return true if {@code other} is the same object or if it is also an {@link QuitLessonCommand}.
+     * All {@link QuitLessonCommand} objects are the same.
      */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof CloseLessonCommand);
+                || (other instanceof QuitLessonCommand);
     }
 }

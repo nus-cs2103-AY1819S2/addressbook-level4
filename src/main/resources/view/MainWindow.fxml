@@ -19,8 +19,8 @@
   <scene>
     <Scene>
       <stylesheets>
-        <URL value="@DarkTheme.css" />
         <URL value="@Extensions.css" />
+        <URL value="@DarkTheme.css" />
       </stylesheets>
 
       <VBox>
@@ -51,7 +51,6 @@
                 SplitPane.resizableWithParent="false">
             <StackPane fx:id="lessonListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
-
           <StackPane fx:id="mainPanelPlaceholder" >
           </StackPane>
         </SplitPane>

@@ -83,6 +83,14 @@ public interface ManagementModel extends Model {
     List<String> getOpenedLessonOptionalHeaders();
 
     /**
+     * Sets the opened lesson's question and answer indices.
+     *
+     * @param questionIndex the index of the core to set as question
+     * @param answerIndex the index of the core to set as answer
+     */
+    void setOpenedLessonTestValues(int questionIndex, int answerIndex);
+
+    /**
      * Adds a {@link Card} to the opened {@link Lesson} object.
      *
      * @param card {@link Card} to be added to the opened {@link Lesson} object

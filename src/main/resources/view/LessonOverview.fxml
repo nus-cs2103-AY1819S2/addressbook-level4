@@ -21,8 +21,8 @@
       <HBox spacing="5" alignment="CENTER_LEFT">
         <Label fx:id="name" text="\$first" styleClass="cell_XXL_label" />
       </HBox>
-      <FlowPane fx:id="bigHeaders" />
-      <Label fx:id="count" styleClass="cell_big_label" text="0 card" />
+      <Label fx:id="count" styleClass="cell_normal_label" text="0 card" />
+      <FlowPane fx:id="bigHeaders" orientation="VERTICAL"/>
     </VBox>
   </GridPane>
 </HBox>

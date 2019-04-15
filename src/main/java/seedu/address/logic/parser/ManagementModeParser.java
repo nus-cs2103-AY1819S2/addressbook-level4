@@ -8,17 +8,18 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.management.AddCardCommand;
 import seedu.address.logic.commands.management.AddLessonCommand;
 import seedu.address.logic.commands.management.ChangeThemeCommand;
-import seedu.address.logic.commands.management.CloseLessonCommand;
 import seedu.address.logic.commands.management.DeleteCardCommand;
 import seedu.address.logic.commands.management.DeleteLessonCommand;
+import seedu.address.logic.commands.management.EditLessonCommand;
 import seedu.address.logic.commands.management.ExitCommand;
 import seedu.address.logic.commands.management.HelpCommand;
 import seedu.address.logic.commands.management.HistoryCommand;
 import seedu.address.logic.commands.management.ListCardsCommand;
 import seedu.address.logic.commands.management.ListLessonsCommand;
-import seedu.address.logic.commands.management.OpenLessonCommand;
+import seedu.address.logic.commands.management.QuitLessonCommand;
 import seedu.address.logic.commands.management.ReloadLessonsCommand;
-import seedu.address.logic.commands.quiz.QuizStartCommand;
+import seedu.address.logic.commands.management.SetLessonTestValuesCommand;
+import seedu.address.logic.commands.management.StartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -51,7 +52,7 @@ public class ManagementModeParser implements Parser<Command> {
         //        case FindCommand.COMMAND_WORD:
         //            return new FindCommandParser().parse(arguments);
         // TODO use parser here
-        case QuizStartCommand.COMMAND_WORD:
+        case StartCommand.COMMAND_WORD:
             return new StartCommandParser().parse(arguments);
 
         case HistoryCommand.COMMAND_WORD:
@@ -72,11 +73,14 @@ public class ManagementModeParser implements Parser<Command> {
         case ListLessonsCommand.COMMAND_WORD:
             return new ListLessonsCommand();
 
-        case OpenLessonCommand.COMMAND_WORD:
+        case EditLessonCommand.COMMAND_WORD:
             return new OpenLessonParser().parse(arguments);
 
-        case CloseLessonCommand.COMMAND_WORD:
-            return new CloseLessonCommand();
+        case QuitLessonCommand.COMMAND_WORD:
+            return new QuitLessonCommand();
+
+        case SetLessonTestValuesCommand.COMMAND_WORD:
+            return new SetTestParser().parse(arguments);
 
         case AddCardCommand.COMMAND_WORD:
             return new AddCardParser().parse(arguments);

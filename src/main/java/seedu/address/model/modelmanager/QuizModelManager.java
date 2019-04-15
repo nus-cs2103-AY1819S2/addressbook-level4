@@ -23,6 +23,7 @@ public class QuizModelManager implements QuizModel {
     private ManagementModel managementModel;
     private Quiz quiz;
     private Session session;
+    private boolean isResultDisplay;
 
     /**
      * Initialises QuizModelManager with ManagementModel
@@ -50,6 +51,10 @@ public class QuizModelManager implements QuizModel {
     public QuizMode getMode() {
         return session.getMode();
     }
+    @Override
+    public int getIndex() {
+        return session.getLessonIndex();
+    }
 
     @Override
     public int getCount() {
@@ -69,7 +74,6 @@ public class QuizModelManager implements QuizModel {
     public void updateUserProfile(List<List<Integer>> quizInformation) {
         List<CardSrsData> cardSrsDataList = session.updateUserProfile(quizInformation);
 
-        // TODO addCardSrsData should support add list of cards.
         for (CardSrsData cardSrsData : cardSrsDataList) {
             managementModel.addCardSrsData(cardSrsData);
         }
@@ -82,6 +86,7 @@ public class QuizModelManager implements QuizModel {
         requireAllNonNull(quiz, session);
         this.quiz = quiz;
         this.session = session;
+        this.isResultDisplay = false;
     }
 
     @Override
@@ -102,6 +107,11 @@ public class QuizModelManager implements QuizModel {
     @Override
     public QuizCard getCurrentQuizCard() {
         return quiz.getCurrentQuizCard();
+    }
+
+    @Override
+    public List<QuizCard> getQuizCardList() {
+        return quiz.getOriginalQuizCardList();
     }
 
     @Override
@@ -140,6 +150,20 @@ public class QuizModelManager implements QuizModel {
     }
 
     @Override
+    public boolean isResultDisplay() {
+        return isResultDisplay;
+    }
+
+    @Override
+    public void setResultDisplay(boolean resultDisplay) {
+        if (!resultDisplay) {
+            quiz.setQuizDone();
+        }
+
+        isResultDisplay = resultDisplay;
+    }
+
+    @Override
     public List<List<Integer>> end() {
         return quiz.end();
     }
@@ -149,7 +173,6 @@ public class QuizModelManager implements QuizModel {
         return managementModel.getUser();
     }
 
-    // TODO include session and mgmt model as well
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object

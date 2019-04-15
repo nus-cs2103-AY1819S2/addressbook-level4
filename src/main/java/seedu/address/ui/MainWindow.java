@@ -40,9 +40,11 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private ResultDisplay resultDisplay;
     private MainPanel mainPanel;
+    private QuizResultPanel quizResultPanel;
     private HelpWindow helpWindow;
     private LessonListPanel lessonListPanel;
     private FlashcardPanel flashcardPanel;
+    private StatusBarFooter statusBarFooter;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -132,6 +134,9 @@ public class MainWindow extends UiPart<Stage> {
         lessonListPanel = new LessonListPanel(logic.getLessons());
         lessonListPanelPlaceholder.getChildren().add(lessonListPanel.getRoot());
 
+        splitPane.lookupAll(".split-pane-divider")
+                .forEach(div -> div.setMouseTransparent(true));
+
         mainPanel = new MainPanel();
         mainPanelPlaceholder.getChildren().add(mainPanel.getRoot());
 
@@ -144,6 +149,9 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        statusBarFooter = new StatusBarFooter();
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
     }
 
     /**
@@ -166,15 +174,18 @@ public class MainWindow extends UiPart<Stage> {
             splitPane.setDividerPosition(0, 0.1);
             sidePanel.setMinWidth(340);
             sidePanel.setPrefWidth(340);
+
             mainPanelPlaceholder.getChildren().clear();
             mainPanelPlaceholder.getChildren().add(flashcardPanel.getRoot());
             resultDisplay.setFeedbackToUser(MESSAGE_LESSON_COMMANDS);
+            statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
         } else {
             splitPane.setDividerPosition(0, 0);
             sidePanel.setMinWidth(0);
             sidePanel.setPrefWidth(0);
             mainPanelPlaceholder.getChildren().clear();
             mainPanelPlaceholder.getChildren().add(mainPanel.getRoot());
+            statusbarPlaceholder.getChildren().clear();
         }
     }
 
@@ -182,7 +193,15 @@ public class MainWindow extends UiPart<Stage> {
      * Sets the display for quiz mode.
      */
     private void handleQuiz() {
-        mainPanel.setFeedbackToUser(logic.getCurrentQuizCard(), logic.getTotalCorrectAndTotalAttempts());
+        if (logic.getQuizCardList() != null) {
+            quizResultPanel = new QuizResultPanel();
+            mainPanelPlaceholder.getChildren().clear();
+            mainPanelPlaceholder.getChildren().add(quizResultPanel.getRoot());
+            quizResultPanel.setFeedbackToUser(logic.getQuizCardList());
+        } else {
+            mainPanel.setFeedbackToUser(logic.getCurrentQuizCard(), logic.getTotalCorrectAndTotalAttempts());
+        }
+
     }
 
     /**
@@ -217,7 +236,7 @@ public class MainWindow extends UiPart<Stage> {
      * Sets stylesheet according to the current theme from {@link UserPrefs} object.
      */
     private void setTheme() {
-        primaryStage.getScene().getStylesheets().clear();
+        primaryStage.getScene().getStylesheets().remove(1);
         primaryStage.getScene().getStylesheets().add(logic.getTheme());
     }
 
@@ -231,6 +250,7 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            resultDisplay.setStyleToDefault();
             LogicManager.Mode currentMode = logic.getMode();
             setTheme();
 
@@ -263,6 +283,7 @@ public class MainWindow extends UiPart<Stage> {
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
+            resultDisplay.setStyleToIndicateCommandFailure();
             throw e;
         }
     }

@@ -3,7 +3,7 @@ package seedu.address.logic.commands.management;
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_OPENED_LESSON;
+import static seedu.address.commons.core.Messages.MESSAGE_LESSON_VIEW_COMMAND;
 import static seedu.address.logic.commands.management.ManagementCommand.MESSAGE_EXPECTED_MODEL;
 import static seedu.address.model.lesson.LessonList.EXCEPTION_INVALID_INDEX;
 import static seedu.address.testutil.TypicalLessonList.LESSON_DEFAULT;
@@ -24,9 +24,9 @@ import seedu.address.model.modelmanager.ManagementModelStub;
 import seedu.address.model.modelmanager.QuizModelStub;
 
 /**
- * Unit tests for the {@link OpenLessonCommand}.
+ * Unit tests for the {@link EditLessonCommand}.
  */
-public class OpenLessonCommandTest {
+public class EditLessonCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -43,10 +43,10 @@ public class OpenLessonCommandTest {
         // opens a lesson which exists in model -> lesson opened successfully
         Index toOpenIndex = Index.fromZeroBased(0);
         CommandResult commandResult =
-                new OpenLessonCommand(toOpenIndex).execute(modelStub, commandHistory);
+                new EditLessonCommand(toOpenIndex).execute(modelStub, commandHistory);
 
         // lesson opened successfully -> success feedback
-        assertEquals(String.format(OpenLessonCommand.MESSAGE_SUCCESS, LESSON_DEFAULT.getName()),
+        assertEquals(String.format(EditLessonCommand.MESSAGE_SUCCESS, LESSON_DEFAULT.getName()),
                 commandResult.getFeedbackToUser());
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
 
@@ -61,13 +61,13 @@ public class OpenLessonCommandTest {
 
         // opens a lesson which exists in model -> lesson opened successfully
         Index toOpenIndex = Index.fromZeroBased(0);
-        new OpenLessonCommand(toOpenIndex).execute(modelStub, commandHistory);
+        new EditLessonCommand(toOpenIndex).execute(modelStub, commandHistory);
 
         // opens another lesson again -> lesson open unsuccessful, need to close first
         toOpenIndex = Index.fromZeroBased(1);
         thrown.expect(CommandException.class);
-        thrown.expectMessage(MESSAGE_OPENED_LESSON);
-        new OpenLessonCommand(toOpenIndex).execute(modelStub, commandHistory);
+        thrown.expectMessage(MESSAGE_LESSON_VIEW_COMMAND);
+        new EditLessonCommand(toOpenIndex).execute(modelStub, commandHistory);
     }
 
     @Test
@@ -77,44 +77,44 @@ public class OpenLessonCommandTest {
 
         // opens a lesson which does not exist in model -> CommandException thrown
         thrown.expect(CommandException.class);
-        new OpenLessonCommand(toOpenIndex).execute(modelStub, commandHistory);
+        new EditLessonCommand(toOpenIndex).execute(modelStub, commandHistory);
     }
 
     @Test
     public void execute_incorrectModel_throwsCommandException() throws Exception {
         QuizModelStub modelStub = new QuizModelStub();
         Index toOpenIndex = Index.fromZeroBased(0);
-        OpenLessonCommand openLessonCommand = new OpenLessonCommand(toOpenIndex);
+        EditLessonCommand editLessonCommand = new EditLessonCommand(toOpenIndex);
 
-        // attempting to execute OpenLessonCommand on a QuizModel instead of a ManagementModel ->
+        // attempting to execute EditLessonCommand on a QuizModel instead of a ManagementModel ->
         // CommandException thrown
         thrown.expect(CommandException.class);
         thrown.expectMessage(MESSAGE_EXPECTED_MODEL);
-        openLessonCommand.execute(modelStub, commandHistory);
+        editLessonCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
         Index toOpenIndex1 = Index.fromZeroBased(0);
         Index toOpenIndex2 = Index.fromZeroBased(1);
-        OpenLessonCommand openLessonCommand1 = new OpenLessonCommand(toOpenIndex1);
-        OpenLessonCommand openLessonCommand2 = new OpenLessonCommand(toOpenIndex2);
+        EditLessonCommand editLessonCommand1 = new EditLessonCommand(toOpenIndex1);
+        EditLessonCommand editLessonCommand2 = new EditLessonCommand(toOpenIndex2);
 
         // same object -> returns true
-        assertEquals(openLessonCommand1, openLessonCommand1);
+        assertEquals(editLessonCommand1, editLessonCommand1);
 
         // same values -> returns true
-        OpenLessonCommand openLessonCommandCopy = new OpenLessonCommand(toOpenIndex1);
-        assertEquals(openLessonCommand1, openLessonCommandCopy);
+        EditLessonCommand editLessonCommandCopy = new EditLessonCommand(toOpenIndex1);
+        assertEquals(editLessonCommand1, editLessonCommandCopy);
 
         // different types -> returns false
-        assertNotEquals(openLessonCommand1, 1);
+        assertNotEquals(editLessonCommand1, 1);
 
         // null -> returns false
-        assertNotEquals(openLessonCommand1, null);
+        assertNotEquals(editLessonCommand1, null);
 
         // different lesson -> returns false
-        assertNotEquals(openLessonCommand1, openLessonCommand2);
+        assertNotEquals(editLessonCommand1, editLessonCommand2);
     }
 
     /**

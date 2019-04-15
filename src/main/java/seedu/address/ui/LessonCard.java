@@ -1,7 +1,10 @@
 package seedu.address.ui;
 
+import static seedu.address.commons.util.StringUtil.truncateString;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import seedu.address.model.lesson.Lesson;
@@ -10,8 +13,12 @@ import seedu.address.model.lesson.Lesson;
  * An UI component that displays information of a {@link Lesson}.
  */
 public class LessonCard extends UiPart<Region> {
-
     private static final String FXML = "LessonListCard.fxml";
+
+    /**
+     * Maximum length of label text before truncation occurs.
+     */
+    private static final int labelMaxLen = 14;
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -37,6 +44,7 @@ public class LessonCard extends UiPart<Region> {
     public LessonCard(Lesson lesson, int displayedIndex) {
         super(FXML);
         this.lesson = lesson;
+
         id.setText(displayedIndex + ". ");
         name.setText(lesson.getName());
 
@@ -47,12 +55,14 @@ public class LessonCard extends UiPart<Region> {
         int questionIndex = lesson.getQuestionCoreIndex();
         int answerIndex = lesson.getAnswerCoreIndex();
         for (String s: lesson.getCoreHeaders()) {
-            Label label = new Label(s);
+            Label label = new Label(truncateString(s, labelMaxLen));
 
             if (i == questionIndex || i == answerIndex) {
                 label.getStyleClass().add("questionAnswer");
+                label.setTooltip(new Tooltip("Tested: " + s));
             } else {
                 label.getStyleClass().add("core");
+                label.setTooltip(new Tooltip("Not tested: " + s));
             }
 
             headers.getChildren().add(label);
@@ -60,18 +70,22 @@ public class LessonCard extends UiPart<Region> {
         }
 
         for (String s: lesson.getOptionalHeaders()) {
-            Label label = new Label(s);
+            Label label = new Label(truncateString(s, labelMaxLen));
             label.getStyleClass().add("opt");
+            label.setTooltip(new Tooltip("Hint: " + s));
             headers.getChildren().add(label);
         }
     }
 
     public static String getCountString(int count) {
+        StringBuilder sb = new StringBuilder("Contains ").append(count);
         if (count > 1) {
-            return count + " cards";
+            sb.append(" cards");
         } else {
-            return count + " card";
+            sb.append(" card");
         }
+
+        return sb.toString();
     }
 
     @Override

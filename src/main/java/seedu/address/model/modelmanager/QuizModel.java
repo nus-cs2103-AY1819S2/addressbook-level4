@@ -15,17 +15,21 @@ import seedu.address.model.user.User;
 public interface QuizModel extends Model {
 
     /**
-     * Return mode of {@code session}.
+     * Return mode of {@link Session}.
      */
     QuizMode getMode();
+    /**
+     *
+     */
+    int getIndex();
 
     /**
-     * Return card count of {@code session}.
+     * Return card count of {@link Session}.
      */
     int getCount();
 
     /**
-     * Return name of {@code session}.
+     * Return name of {@link Session}.
      */
     String getName();
 
@@ -35,67 +39,67 @@ public interface QuizModel extends Model {
     List<SrsCard> getQuizSrsCards();
 
     /**
-     * Sets the {@code Quiz} and {@code Session} information.
+     * Sets the {@link Quiz} and {@link Session} information.
      */
     void init(Quiz quiz, Session session);
 
     /**
-     * Returns if there is still card left in {@code Quiz}.
+     * Returns if there is still {@link QuizCard} left in {@link Quiz}.
      */
     boolean hasCardLeft();
 
     /**
-     * Returns the next card in line for {@code Quiz}.
+     * Returns the next {@link QuizCard} in line for {@link Quiz}.
      */
     QuizCard getNextCard();
 
     /**
-     * Returns the user current progress in {@code Quiz}.
+     * Returns the user current progress in {@link Quiz}.
      */
     String getCurrentProgress();
 
     /**
-     * Returns the current QuizCard in {@code Quiz}.
+     * Returns the current {@link QuizCard} in {@link Quiz}.
      */
     QuizCard getCurrentQuizCard();
 
     /**
-     * Update the totalAttempts and streak of a specified card in the current session.
-     * @param index of the current {@code QuizCard}
+     * Update the totalAttempts and streak of a specified {@link QuizCard} in the current quiz.
+     * @param index of the current {@link QuizCard}
      * @param answer user input
      * @return true if correct
      */
     boolean updateTotalAttemptsAndStreak(int index, String answer);
 
     /**
-     * Returns total attempts in this {@code Quiz}.
+     * Returns total attempts in this {@link Quiz}.
      */
     int getQuizTotalAttempts();
 
     /**
-     * Returns the total correct questions attempted in this {code Quiz}.
+     * Returns the total correct questions attempted in this {@link Quiz}.
      */
     int getQuizTotalCorrectQuestions();
 
     /**
      * Toggles between if the card labeled difficult.
-     * @param index of the current {@code QuizCard}
+     * @param index of the current {@link QuizCard}
      * @return result after toggling
      */
     boolean toggleIsCardDifficult(int index);
 
     /**
-     * Returns list of optional of the original {@code QuizCard} with index != -1.
+     * Returns list of optional of the {@link QuizCard}.
      */
     List<String> getOpt();
 
     /**
-     * Returns if User is done with {@code Quiz}.
+     * Returns if User is done with {@link Quiz}.
      */
     boolean isQuizDone();
 
     /**
-     * Returns data needed by {@code Session} when {@code Quiz} end.
+     * Returns data needed by {@link Session} when {@link Quiz} end.
      */
     List<List<Integer>> end();
 
@@ -106,7 +110,22 @@ public interface QuizModel extends Model {
     void updateUserProfile(List<List<Integer>> quizInformation);
 
     /**
-     * Returns user {@link User} from {@link ManagementModel}.
+     * Returns the list of original {@link QuizCard} that includes streak and total attempts.
+     */
+    List<QuizCard> getQuizCardList();
+
+    /**
+     * Returns true to display quiz result, otherwise false.
+     */
+    boolean isResultDisplay();
+
+    /**
+     * Sets result display to display quiz result or not.
+     */
+    void setResultDisplay(boolean resultDisplay);
+
+    /**
+     * Returns {@link User} data from {@link ManagementModel}.
      */
     User getManagementModelUser();
 }

@@ -25,7 +25,7 @@ public class Weblink {
     private static final String LOCAL_PART_REGEX = "[\\w" + SPECIAL_CHARACTERS + "]+";
     private static final String AT_LEAST_ONE_DOMAIN_REGEX = "\\.";
     private static final String DOMAIN_FIRST_CHARACTER_REGEX = "[^\\W_]"; // alphanumeric characters except underscore
-    private static final String DOMAIN_MIDDLE_REGEX = "[a-zA-Z0-9.-]*"; // alphanumeric, period and hyphen
+    private static final String DOMAIN_MIDDLE_REGEX = "[a-zA-Z0-9.-/]*"; // alphanumeric, period and hyphen
     private static final String DOMAIN_LAST_CHARACTER_REGEX = "[^\\W_]$";
     public static final String VALIDATION_REGEX = OPTIONAL_PROTOCOL_REGEX + LOCAL_PART_REGEX
             + AT_LEAST_ONE_DOMAIN_REGEX + DOMAIN_FIRST_CHARACTER_REGEX + DOMAIN_MIDDLE_REGEX

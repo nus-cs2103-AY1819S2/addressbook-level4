@@ -188,11 +188,6 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("listTags")` API call.
-
-.Interactions Inside the Logic Component for the `listTags` Command
-image::ListTagsSdForLogic.png[width="800"]
-
 [[Design-Model]]
 // tag::model[]
 === Model component
@@ -327,7 +322,7 @@ Also, each `Cell` has a `Status` attribute which is an `enum` of the following:
 | DESTROYED | This cell has been hit before, and the ship here has been destroyed.
 |===
 
-The `Status` ofa `Cell` can be checked through the following method:
+The `Status` of a `Cell` can be checked through the following method:
 
 * `Status getStatus()` - returns the `Status` of the `Cell`.
 
@@ -371,7 +366,7 @@ Simpler implementation means the likelihood of bugs being introduced is less whe
 
 // tag::putShip1[]
 
-=== Ship Management Feature
+=== Ship Management feature
 
 [NOTE]
 ====
@@ -715,6 +710,8 @@ for the advantages of Option 1.
 
 === Enemy AI feature
 
+The enemy player serves as a computerised opponent for this single-player game.
+
 // tag::enemyCurrentImplementation[]
 ==== Current implementation
 The Enemy AI feature is currently implemented as an extension of the Player class,
@@ -743,7 +740,7 @@ magic in the background.
 
 // tag::enemyInitialiseMap[]
 
-==== Initialising Enemy MapGrid
+==== Initialisation of Enemy MapGrid
 
 The Enemy AI has the method `populateMapGrid()` which is called by the method `prepEnemy()`,
 which is in turn called by the Battle Manager when the Player enters the command `start game`.
@@ -786,7 +783,7 @@ a formula that is based on the map size specified by the player in the `init` co
 // end::enemyInitialiseMap[]
 
 // tag::enemyShoot[]
-==== Calculating Coordinate to Attack
+==== Calculation of Coordinate to Attack
 
 The Enemy AI has the method `enemyShootAt()` that is invoked when the player ends their turn upon a miss.
 The Enemy AI will attempt to generate a random Coordinate to attack,
@@ -1208,13 +1205,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` | player | put a ships on the map | play the game
 
-|`* * *` | player | see where my ships are on the map |have a visual representation of the game
+|`* *` | player | see where my ships are on the map |have a visual representation of the game
 
-|`* * *` | player | tag my ships | manage my ships during the game
+|`* *` | player | tag my ships | manage my ships during the game
 
-|`* * *` | player | list my ships | check the status of my ships during the game
+|`* *` | player | list my ships | check the status of my ships during the game
 
-|`* * *` | player | list my ships by tag | check the status of specific ships during the game
+|`* *` | player | list my ships by tag | check the status of specific ships during the game
 
 |`* * *` | player | begin the battle | fight the enemy
 
@@ -1228,12 +1225,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |=======================================================================
 
-_{More to be added}_
-
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `Battleship` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Battleship` application and the *Actor* is the `user`, unless specified otherwise)
 
 // tag::mapuse[]
 
@@ -1413,7 +1408,6 @@ Use case ends.
 3. Enemy turn ends.
 4. Control is given back to Player
 
-_{More to be added}_
 
 [appendix]
 == Non Functional Requirements
@@ -1455,7 +1449,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 // tag::maptest[]
 
-=== Initialising the maps
+=== Initialise the maps
 . Initialising the maps after launching the game
 
 .. Test case: `init 7` +

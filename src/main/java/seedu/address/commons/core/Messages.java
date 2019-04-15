@@ -20,8 +20,10 @@ public class Messages {
                                                                 + "To return to Patients mode, use the back command.";
     public static final String MESSAGE_ONLY_PATIENT_MODE_COMMANDS = "This command can only be used in Records mode. "
                                                                 + "To go to the Records mode, use the GoTo command.";
-    public static final String MESSAGE_ONLY_TASK_OR_DATE_COMMANDS = "This command cannot be ran here. Only task related"
-                                                                + " commands and dates should be used here.";
+    public static final String MESSAGE_ONLY_TASK_OR_DATE_COMMANDS = "This command cannot be ran here.\n"
+                                                                + "Only task related commands,"
+                                                                + " dates (in dd-mm-yyyy format)\n help, exit, undo and"
+                                                                + " redo commands can be used in this mode.";
     public static final String MESSAGE_IN_GO_TO_MODE = "Already in Records mode, "
                                                         + "please exit the Records mode using the back command first.";
     public static final String MESSAGE_IN_PATIENT_MODE = "Already in Patients Mode.";

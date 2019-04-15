@@ -1176,7 +1176,7 @@ e.g. `find n/Alex`
 e.g. `save mnt/clinicRecords.txt`
 
 * *Sort* : `sort PARAM ORDER` +
-e.g. `sort name ascend` or `sort age descend`
+e.g. `sort name asce` or `sort dob desc`
 
 * *Task add*:  `taskadd PARAM` +
 e.g. `taskadd ti/Regular review of all patients' records sd/10-10-2019 ed/15-10-2019 st/1200 et/0800 pri/low`

@@ -1,6 +1,7 @@
 package seedu.pdf.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.pdf.commons.exceptions.IllegalValueException;
 import seedu.pdf.model.tag.Tag;
@@ -16,15 +17,20 @@ class JsonAdaptedTag {
      * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
      */
     @JsonCreator
-    JsonAdaptedTag(String tagName) {
+    public JsonAdaptedTag(String tagName) {
         this.tagName = tagName;
     }
 
     /**
      * Converts a given {@code Tag} into this class for Jackson use.
      */
-    JsonAdaptedTag(Tag source) {
+    public JsonAdaptedTag(Tag source) {
         tagName = source.tagName;
+    }
+
+    @JsonValue
+    public String getTagName() {
+        return tagName;
     }
 
     /**
@@ -32,7 +38,7 @@ class JsonAdaptedTag {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
      */
-    Tag toModelType() throws IllegalValueException {
+    public Tag toModelType() throws IllegalValueException {
         if (!Tag.isValidTagName(tagName)) {
             throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
         }

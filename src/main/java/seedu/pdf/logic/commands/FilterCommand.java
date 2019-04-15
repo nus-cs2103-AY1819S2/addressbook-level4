@@ -8,14 +8,14 @@ import seedu.pdf.model.Model;
 import seedu.pdf.model.pdf.TagContainsKeywordsPredicate;
 
 /**
- * Filters and lists all persons in pdf book which has matching tag(s) specified.
+ * Filters and lists all pdfs in pdf book which has matching tag(s) specified.
  * Tag matching is case sensitive.
  */
 public class FilterCommand extends Command {
 
     public static final String COMMAND_WORD = "filter";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filters and displays all persons whose "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filters and displays all pdfs whose "
             + "names contain any of the specified keywords (case-sensitive) and displays them as a "
             + "list with index numbers.\n"
             + "Parameters: t/TAG [t/MORE_TAGS]...\n"

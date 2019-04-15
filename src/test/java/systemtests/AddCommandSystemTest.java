@@ -55,7 +55,7 @@ public class AddCommandSystemTest extends PdfBookSystemTest {
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty pdf book -> added */
-        deleteAllPersons();
+        deleteAllPdf();
         assertCommandSuccess(SAMPLE_PDF_1);
 
         /*
@@ -71,14 +71,14 @@ public class AddCommandSystemTest extends PdfBookSystemTest {
         ------ *//*
 
         *//* Case: filters the pdf list before adding -> added *//*
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showPdfWithName(KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(IDA);
 
         *//* ------------------------ Perform add operation while a pdf card is selected ------------------------
         --- *//*
 
         *//* Case: selects first card in the pdf list, add a pdf -> added, card selection remains unchanged *//*
-        selectPerson(Index.fromOneBased(1));
+        selectPdf(Index.fromOneBased(1));
         assertCommandSuccess(CARL);
 
         *//* ----------------------------------- Perform invalid add operations ---------------------------------

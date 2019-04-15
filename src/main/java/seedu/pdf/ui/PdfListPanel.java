@@ -14,39 +14,39 @@ import seedu.pdf.commons.core.LogsCenter;
 import seedu.pdf.model.pdf.Pdf;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of pdfs.
  */
 public class PdfListPanel extends UiPart<Region> {
     private static final String FXML = "PdfListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(PdfListPanel.class);
 
     @FXML
-    private ListView<Pdf> personListView;
+    private ListView<Pdf> pdfListView;
 
-    public PdfListPanel(ObservableList<Pdf> pdfList, ObservableValue<Pdf> selectedPerson,
-                        Consumer<Pdf> onSelectedPersonChange) {
+    public PdfListPanel(ObservableList<Pdf> pdfList, ObservableValue<Pdf> selectedPdf,
+                        Consumer<Pdf> onSelectedPdfChange) {
         super(FXML);
-        personListView.setItems(pdfList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
-        personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        pdfListView.setItems(pdfList);
+        pdfListView.setCellFactory(listView -> new PdfListViewCell());
+        pdfListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             logger.fine("Selection in pdf list panel changed to : '" + newValue + "'");
-            onSelectedPersonChange.accept(newValue);
+            onSelectedPdfChange.accept(newValue);
         });
-        selectedPerson.addListener((observable, oldValue, newValue) -> {
+        selectedPdf.addListener((observable, oldValue, newValue) -> {
             logger.fine("Selected pdf changed to: " + newValue);
 
             // Don't modify selection if we are already selecting the selected pdf,
             // otherwise we would have an infinite loop.
-            if (Objects.equals(personListView.getSelectionModel().getSelectedItem(), newValue)) {
+            if (Objects.equals(pdfListView.getSelectionModel().getSelectedItem(), newValue)) {
                 return;
             }
 
             if (newValue == null) {
-                personListView.getSelectionModel().clearSelection();
+                pdfListView.getSelectionModel().clearSelection();
             } else {
-                int index = personListView.getItems().indexOf(newValue);
-                personListView.scrollTo(index);
-                personListView.getSelectionModel().clearAndSelect(index);
+                int index = pdfListView.getItems().indexOf(newValue);
+                pdfListView.scrollTo(index);
+                pdfListView.getSelectionModel().clearAndSelect(index);
             }
         });
     }
@@ -54,7 +54,7 @@ public class PdfListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Pdf} using a {@code PdfCard}.
      */
-    class PersonListViewCell extends ListCell<Pdf> {
+    class PdfListViewCell extends ListCell<Pdf> {
         @Override
         protected void updateItem(Pdf pdf, boolean empty) {
             super.updateItem(pdf, empty);

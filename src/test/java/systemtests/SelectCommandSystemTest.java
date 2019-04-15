@@ -30,9 +30,9 @@ public class SelectCommandSystemTest extends PdfBookSystemTest {
         assertCommandSuccess(command, INDEX_FIRST_PDF);
 
         /* Case: select the last card in the pdf list -> selected */
-        Index personCount = getLastIndex(getModel());
-        command = SelectCommand.COMMAND_WORD + " " + personCount.getOneBased();
-        assertCommandSuccess(command, personCount);
+        Index pdfCount = getLastIndex(getModel());
+        command = SelectCommand.COMMAND_WORD + " " + pdfCount.getOneBased();
+        assertCommandSuccess(command, pdfCount);
 
         /* Case: undo previous selection -> rejected */
         command = UndoCommand.COMMAND_WORD;
@@ -57,7 +57,7 @@ public class SelectCommandSystemTest extends PdfBookSystemTest {
         /* Case: filtered pdf list, select index within bounds of pdf book but out of bounds of pdf list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showPdfWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getPdfBook().getPdfList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PDF_DISPLAYED_INDEX);
 
@@ -93,7 +93,7 @@ public class SelectCommandSystemTest extends PdfBookSystemTest {
         assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: select from empty pdf book -> rejected */
-        deleteAllPersons();
+        deleteAllPdf();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PDF.getOneBased(),
                 MESSAGE_INVALID_PDF_DISPLAYED_INDEX);
     }

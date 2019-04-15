@@ -65,12 +65,12 @@ class JsonAdaptedPdf {
      * @throws IllegalValueException if there were any data constraints violated in the adapted pdf.
      */
     Pdf toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<Tag> pdfTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            pdfTags.add(tag.toModelType());
         }
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Set<Tag> modelTags = new HashSet<>(pdfTags);
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));

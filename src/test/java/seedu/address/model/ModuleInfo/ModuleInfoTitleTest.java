@@ -1,5 +1,6 @@
 package seedu.address.model.ModuleInfo;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -37,6 +38,12 @@ public class ModuleInfoTitleTest {
         assertTrue(ModuleInfoTitle.isValidModuleInfoTitle("TITLE")); //All in upper case
         assertTrue(ModuleInfoTitle.isValidModuleInfoTitle("title")); //all in lower case
 
+    }
+
+    @Test
+    public void toStringTest() {
+        ModuleInfoTitle title = new ModuleInfoTitle("Software Engineering");
+        assertEquals("Software Engineering", title.toString());
     }
 
 }

@@ -289,7 +289,7 @@ Steps: +
 
 . `Patient` constructor will invoke the constructor of the parent `Person` class, which will call `PersonIdCounter` to generate a new unique Pid for this patient.
 
-. A new `Patient` object is thus created with the specified fields with a pid and default appointment status of completed.
+. A new `Patient` object is thus created with the specified fields with a `pid` and default appointment status of `COMPLETED`.
 
 . Then, `AddPatientCommandParser` calls AddPatientCommand(Patient).
 
@@ -356,10 +356,23 @@ When a user executes 'list-p', the full patient list will be displayed.
 . execute() will call `Model` to `updateFilterPatientList` by setting the predicate to show all the patients in the DocX currently.
 
 ==== Search Patient feature
-There are various search commands available for patients. The internal workings of the search commands can be described under this section.
+There are various search commands available for patients. The internal workings of the search commands are similar and can be described together under this section.
 Search commands: `search-p-name, search-pid, search-p-status, search-p-advanced`.
 
-When a user executes `search-p-name`
+When a user executes `search-p-status`,
+
+Steps: +
+
+. LogicManager calls parseCommand("search-p-status") in `DocXParser`.
+
+. Based on the COMMAND_WORD, `DocXParser` builds a new `SearchPatientApptStatusCommandParser` and calls function parse("ACTIVE") of `SearchPatientApptStatusCommandParser`.
+
+. `SearchPatientApptStatusCommandParser` parses the argument and checks if the entered argument is one of the four enum values: `ACTIVE, COMPLETED, CANCELLED, MISSED`.
+
+. If the entered argument is valid, the command proceeds to execute. Otherwise, it will throw a ParseException and display the correct usage to the user.
+
+.Activity Diagram showing search-p-status
+image::activitydiagramforsearchpatientstatus.png[width="800"]
 
 ==== Select Patient feature
 When a user executes 'select-p [INDEX]', the full patient info will be displayed on the browser panel.

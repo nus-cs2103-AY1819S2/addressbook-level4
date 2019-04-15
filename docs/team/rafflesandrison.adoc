@@ -27,10 +27,10 @@ Within the Wardrobe Management Feature, you will find many commands implemented 
 * <<swap, Swap the position of any two apparels>>
 
 [[list]]
-. *List apparels*: added *the ability to list apparels based on the options you*
-** _What it does_: It list the apparels based on  to RestOrRant with the specified number of seats at the table. This table is also stored in `[blue]#*Storage*#` component and displayed on the User Interface.
-** _Justification_: This command is a fundamental feature to allow the user to begin using RestOrRant.
-** _Highlights_: This command allows the addition of multiple tables at once, specifying each table's number of seats individually.
+. *List apparels*: added *the ability to list the apparels you want to see*
+** _What it does_: It lists the apparels based on a specific category.
+** _Justification_: This command is a fundamental feature to allow the user to limit the apparels shown on the UI. This is for easy viewing.
+** _Highlights_: This command takes in option and only show apparels based on the option given.
 
 
 * *Major enhancement*: added the Apparel Management feature which comprises of sort and list. Sort feature allows user to sort by name, colour or clothing type. As for list, it is an improved version of the previous list feature. The new list allows user to supply options in order to list the apparels according to the parameter supplied by the user.

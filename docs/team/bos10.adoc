@@ -27,9 +27,11 @@ the number of successful hits, number of misses, number of enemy ships destroyed
 accuracy.
 ** Justification: This feature is crucial to user experience in the game as it allows players to track and keep up with the progress of the game. It is also fundamental as a basis for deploying strategies in the gameplay.
 
+** Highlight: This feature can be invoked at any point of the game.
+
 * *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=bos10[Functional code]]
 
-* *Minor enhancement*: added the *ability to compare the game scores between two games.*
+* *Major enhancement*: added the *ability to compare the game scores between two games.*
 ** What it does: Upon winning a game, the game will automatically save the current game statistics into the storage folder
 of the application. At the same time, the game will perform a comparison with the previous game statistics data (if any)
 and will reflect if there are improvements from the previous game.
@@ -40,6 +42,9 @@ highscore functionality in the game.
 
 * *Code contributed*: [https://github.com[Functional code]]
 
+* *Minor enhancement*: added the *elapsed time panel to update the duration of the game in real-time*
+
+
 * *Other contributions*:
 
 ** Project management:
@@ -47,17 +52,21 @@ highscore functionality in the game.
 (Pull requests https://github.com/CS2103-AY1819S2-W14-3/main/pull/147[#147], https://github.com/CS2103-AY1819S2-W14-3/main/pull/365[#365], https://github.com/CS2103-AY1819S2-W14-3/main/pull/375[#375])
 *** Managed the progress of the Developer Guide by delegating the required tasks and ensuring it is completed on time.
 (Issue https://github.com/CS2103-AY1819S2-W14-3/main/issues/360[#360])
+
 ** Enhancements to existing features:
 *** Repurposed HistoryCommand into StatsCommand to be used by rest of the team(Pull request https://github.com/CS2103-AY1819S2-W14-3/main/pull/43[#43])
 *** Restructured Storage component to accommodate saving of statistics data (Pull request https://github.com/CS2103-AY1819S2-W14-3/main/pull/289[#289])
 *** Introduced an elapsed time functionality in the Graphical User Interface (GUI). (Pull request https://github.com/CS2103-AY1819S2-W14-3/main/pull/108[#108], https://github.com/CS2103-AY1819S2-W14-3/main/pull/123[#123] )
+*** Wrote tests for the statistics feature and storage component and increased coverage by 5.6%. (Pull Requests __)
+
 ** Documentation:
 *** Added detailed implementation documentation for the statistics feature in the Developer Guide and User Guide, including screenshots
 and diagrams.
 *** Added detailed implementation documentation for the storage feature in the Developer Guide and User Guide, including diagrams.
+*** Added the command summary table into the Developer Guide.
 
 ** Community:
-*** Reviewed team member's Pull Requests and gave suggestions for improvements
+*** Reviewed team member's pull requests (With suggestions for improvements)
 (Pull requests : https://github.com/CS2103-AY1819S2-W14-3/main/pull/365[#365], https://github.com/CS2103-AY1819S2-W14-3/main/pull/375[#375])
 (Issues https://github.com/CS2103-AY1819S2-W14-3/main/issues/376[#376] (Suggested renaming key components), https://github.com/CS2103-AY1819S2-W14-3/main/issues/377[#377](Organization of DG))
 
@@ -77,6 +86,8 @@ include::../UserGuide.adoc[tag=commandsummary]
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+___
 
 include::../DeveloperGuide.adoc[tag=stats]
 

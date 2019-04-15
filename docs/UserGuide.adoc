@@ -207,6 +207,7 @@ image:mcqCard.PNG[width="250"]
 ====
 * The question, answer, incorrect option, and hint fields can take any character, but cannot be blank.
 * Each question, answer, incorrect option and hint must be 256 characters or less (including spaces).
+* If the card to be added has the same question and answer as an existing card, the card to be added will be considered a duplicate card, and the add attempt will be invalid.
 * A card can have at most 1 hint (including 0).
 * A card can have at most 3 incorrect options to denote an MCQ card.
 * A card with 0 incorrect options will automatically be denoted as a Single answer card.

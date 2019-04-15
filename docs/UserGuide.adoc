@@ -700,8 +700,8 @@ this number is automatically calculated and recorded.
 [width="100%",cols="20%,<30%",options="header",]
 |=======================================================================
 |Command | Summary
-|`add q/QUESTION a/ANSWER [h/HINT]` | Adds a flashcard to the current folder.
-|`edit i/INDEX [q/QUESTION] [a/ANSWER] [h/HINT]` | Edits the flashcard specified by the index in the current folder.
+|`add q/QUESTION a/ANSWER [h/HINT] [i/INCORRECT_OPTION]...` | Adds a flashcard to the current folder.
+|`edit INDEX [q/QUESTION] [a/ANSWER] [h/HINT] [i/INCORRECT_OPTION]...` | Edits the flashcard specified by the index in the current folder.
 |`select INDEX` | Displays flashcard details (question, answer, hint, card score) on the right panel on selection by index.
 |`delete INDEX` | Deletes the flashcard identified by index from the current folder.
 |`sort` | Displays all flashcards sorted such that the lowest scoring cards are at the top temporarily.

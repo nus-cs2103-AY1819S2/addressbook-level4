@@ -30,10 +30,14 @@ image::travis.png[66,70]
 
 == Overview
 
-_In-Credit-Ble_ is a desktop Finance Tracker tailored to help users manage their finances
-and keep track of their budget in an *easy and efficient* manner. It is designed for those who
-prefer to work with a Command Line Interface (CLI), especially for *students* who prefer to type over
-using their mouse.
+_In-Credit-Ble_ is a desktop application designed to help university
+students who have difficulty managing their finances due to their many daily transactions. It is also important for these
+students to manage their finances due to their inflexibility to spend frivolously as they lack a formal income.
+
+_In-Credit-Ble_ provides you with features such as having a budget bar to show how much you have spent compared to a budget
+that you have previously set, and showing of a summary of your transactions in a pie chart. Our user-friendly interface
+will make it easier for you to see how much you can safely spend within your budget and be more aware of your spending habits.
+If you are an individual who prefers to type using a Command Line Interface(CLI), then _In-Credit-Ble_ is the application for you!
 
 As part of the module requirement, my team and I (of 5 students from NUS)
 had to morph an existing application and develop a functional product in a short

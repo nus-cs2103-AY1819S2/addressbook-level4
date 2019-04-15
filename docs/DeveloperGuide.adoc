@@ -295,7 +295,7 @@ If the `back` command is entered while the window is already showing patients, a
 
 The following activity diagram summarizes what happens when a user executes the `goto` or `back` command:
 
-image::GotoActivityDiagram.png[width="800"]
+image::GotoActivityDiagram.png[width=""]
 {nbsp}
 
 ==== Patient's Teeth Feature
@@ -426,18 +426,6 @@ However, the patient class is mutable, and accidental changes to its attributes 
 *** Alternative Cons: Can be hard to understand by other programmers as integers are used to represent teeth statuses. Additionally, this is violating object-oriented principles.
 ** **Choice Justification:** An straightforward object-oriented solution and easy to understand by other collaborating programmers who are familiar with object-oriented programming.
 However, `Tooth` and `Teeth` objects, as well as their relevant methods takes a significant amount of time to be created. They will also require proper test cases to be implemented.
-
-===== Aspect: Implementing the Dentist class
-
-* **Current implementation:** Use a patient variable to store the patient specified by the command.
-** **Alternative:** Create a new immutable patient variable to store the specified patient.
-*** Alternative Pros: Ensures the the specified patient cannot be edited by other classes or methods.
-*** Alternative Cons: Major changes to the patient class would require the immutable patient class to be changed too.
-Furthermore, every time any record of the specified patient is modified, a new immutable patient needs to be created to update the currently stored immutable patient.
-** **Choice Justification:** An intuitive solution, as the specified patient is stored as an exact same class as a patient.
-Additionally, attributes of the specified patient can be accessed just like any other patient class.
-Changes to the patient class does not significantly affect the goto command.
-However, the patient class is mutable, and accidental changes to its attributes by other classes or methods can occur.
 // end::patient_kyler[]
 
 // tag::taskDG1_cchj1995[]

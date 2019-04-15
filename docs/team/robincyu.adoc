@@ -1,72 +1,98 @@
-= Robin Christopher Cham Yu - Project Portfolio
+= Robin Christopher Yu - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:toc:
+:toc-title: Table of Contents
+:sectnums:
 
-== PROJECT: AddressBook - Level 4
+image::robincyu.png[width="200", align="left"]
 
----
+== Project Portfolio: Introduction
 
-== Overview
+As an undergraduate student at the National University of Singapore (NUS) taking the communication and software engineering modules CS2101 and CS2103T, I
+worked on _Acquizition_, an application borne out of _AddressBook Level 4_, for the better half of a semester.
 
-AddressBook - Level 4 is a desktop card collection application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+_Acquizition_ is a desktop flashcard application for language acquisition. It sports the following major features:
+
+* A fully-fledged **quiz** functionality, equipped with a scientifically-grounded spaced repetition system (SRS) to maximize
+retention rates.
+* Comprehensive **statistics**, both by card individually and by tag in aggregate.
+* Support for adding **images** onto flashcards in order to further strengthen connections between concepts in a way words
+alone cannot do.
+* Convenient **sharing** of flashcards amongst friends studying the same language.
+
+These features were, of course, not all developed by me. You may be more interested in what I have
+contributed as an individual.
+
+In this case, I hope to use this project portfolio to make it clear to you exactly what my contributions to this project
+were.
+
+I hope to demonstrate to you my contributions to the following aspects of _Acquizition_:
+
+1. Code Contributions
+2. User Guide Contributions
+3. Developer Guide Contributions
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+=== Code Contributions
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Major contribution*: I developed in its entirety the ability to insert images into flashcards.
+** This feature improves the product quite significantly, as the ability to add images allows one
+to more directly relate concepts to vocabularies.
+** Implementing this feature required a focus on user-centric design, as I thought about how to
+implement it such that it would be most intuitive to an end-user.
+*** In the process, many alternatives were considered and scrapped. For example, adding images to
+_Acquizition_ required importing the images first. This seemed more intuitive than making the flashcard
+depend on files on the user's computer, and images suddenly not working when these image files were
+moved.
+** The implementation was also not straightforward; full image support required modifying both
+the Graphical User Interface (GUI) aspect, to show the image, and the file storage aspect, to store
+the images. These two tend to be particularly hard to work with, as they tend to have lots of dependencies
+that need to be carefully considered. +
+[NOTE]
+**Code:** https://github.com/CS2103-AY1819S2-T12-2/main/pull/50[[PR\] Image support] +
+**Code:** https://github.com/CS2103-AY1819S2-T12-2/main/pull/92[[PR\] Image support fixes] +
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Minor contribution*: I kick-started development by refactoring the majority of the code, removing a vast majority of the
+references to AddressBook Level 4. +
+[NOTE]
+**Code:** https://github.com/CS2103-AY1819S2-T12-2/main/pull/14[[PR\] Refactor AddressBook to CardCollection, Person to Flashcard]
 
-* *Other contributions*:
+=== User Guide Contributions
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+* **Major contribution**: I overhauled the User Guide in order to make it more user-friendly.
+** I restructured the way in which commands were introduced (directly addressing end-user's issues rather than listing each command individually).
+** I rewrote the "Introduction" and "Quick Start" sections to be more inviting, including illustrations and screenshots to further emphasize
+user-friendliness.
+** I used _tips_ and _notes_ to attract the reader's attention to important points.
+** I added the user guide sections for issues related to image support.
 
-_{you can add/remove categories in the list above}_
+=== Developer Guide Contributions
 
-== Contributions to the User Guide
+* *Major contribution*:
+** I added the developer guide sections for developing code related to image support.
 
-
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
-
-include::../UserGuide.adoc[tag=undoredo]
-
-include::../UserGuide.adoc[tag=dataencryption]
-
-== Contributions to the Developer Guide
+== Excerpts from the User Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|These are the excerpts of the User Guide that I have contributed. They reflect what I have learned in writing documentation that targets end-users.
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=introduction]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=qs]
 
+== Excerpts from the Developer Guide
 
-== PROJECT: PowerPointLabs
+|===
+|These are the excerpts of the Developer Guide that I have contributed. They reflect what I have learned in writing technical documentation and the technical depth of my contributions to the project.
+|===
 
----
+include::../DeveloperGuide.adoc[tag=imagesupport]
 
-_{Optionally, you may include other projects in your portfolio.}_
+== Learning Outcomes
+* Able to work in a team with responsibilities of different part of code
+* Learned how to implement features based on user stories
+

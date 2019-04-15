@@ -31,11 +31,13 @@ public class MapGrid {
         copy2dArray(cellGrid, mapGrid.cellGrid);
     }
 
+
     // 2D map grid operations
     /**
      * Initialises the 2D Map from the given 2D Cell array
      * @param map to initialise the map from.
      */
+    // tag::init[] to display in DG
     public void initialise(Cell[][] map) {
         this.size = map.length;
 
@@ -44,6 +46,7 @@ public class MapGrid {
         copy2dArray(cellGrid, map);
         updateUi();
     }
+    // end::init[]
 
     /**
      * Returns a copy of the MapGrid in a 2D array format.
@@ -96,6 +99,7 @@ public class MapGrid {
      * @param output 2D array to copy to.
      * @param toBeCopied 2D array to copy from.
      */
+    // tag::copyarray[] to display in DG
     private void copy2dArray(Cell[][] output, Cell[][] toBeCopied) {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -103,6 +107,7 @@ public class MapGrid {
             }
         }
     }
+    // end::copyarray[]
 
     /**
      * Returns map size.

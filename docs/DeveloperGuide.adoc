@@ -267,7 +267,7 @@ The map grid is stored internally in `MapGrid` as a 2D array of `Cell` objects.
 Below is the code snippet for the `initialise` method
 [source,java]
 ----
-include::../src/main/java/seedu/address/model/MapGrid.java[lines=38..45]
+include::../src/main/java/seedu/address/model/MapGrid.java[tag=init]
 ----
 `cellGrid` is the internal 2D array comprising of `Cell` objects. +
 The method `copy2dArray` copies the `map` parameter passed in to the internal `cellGrid`
@@ -275,7 +275,7 @@ The method `copy2dArray` copies the `map` parameter passed in to the internal `c
 Below is the code snippet for the `copy2dArray` method.
 [source,java]
 ----
-include::../src/main/java/seedu/address/model/MapGrid.java[lines=92..98]
+include::../src/main/java/seedu/address/model/MapGrid.java[tag=copyarray]
 ----
 
 The `copy2dArray` method creates a new `Cell` object for each of the input `Cell` objects.

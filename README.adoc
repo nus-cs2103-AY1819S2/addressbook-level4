@@ -39,6 +39,7 @@ Follow the instructions in the <<UserGuide#Quick-start, User guide: Quick start>
 == Acknowledgements
 * BrainTrain is built upon the _AddressBook-Level4_ project created by the link:https://github.com/se-edu/[SE-EDU initiative].
 * Parts of this application were inspired by _Marco Jakob_'s http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial].
+* BrainTrain icon is made by https://www.freepik.com/[Freepik] from https://www.flaticon.com/[Flaticon]
 * Libraries used: https://github.com/TestFX/TestFX[TextFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5], http://opencsv.sourceforge.net/[OpenCSV]
 
 == Licence : link:LICENSE[MIT]

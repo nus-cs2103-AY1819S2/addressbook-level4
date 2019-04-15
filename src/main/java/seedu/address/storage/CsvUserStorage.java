@@ -23,6 +23,7 @@ import seedu.address.model.user.User;
 public class CsvUserStorage implements UserStorage {
     private static final Logger logger = LogsCenter.getLogger(CsvLessonListStorage.class);
     private static final int MAX_SIZE = 5;
+    private static final int ZERO = 0;
 
     private Path filePath;
 
@@ -146,17 +147,17 @@ public class CsvUserStorage implements UserStorage {
             srs = Instant.parse(cardArray[3]);
             isDifficult = cardArray[4].equals("true");
 
-            if (hashCode == 0) {
+            if (hashCode == ZERO) {
                 logger.warning("Hashcode cannot be 0 in " + filePath.toString());
                 return Optional.empty();
             }
 
-            if (numOfAttempts < 0) {
+            if (numOfAttempts < ZERO) {
                 logger.warning("Number of attempts cannot be 0 in " + filePath.toString());
                 return Optional.empty();
             }
 
-            if (streak < 0) {
+            if (streak < ZERO) {
                 logger.warning("Streak cannot be 0 in " + filePath.toString());
                 return Optional.empty();
             }

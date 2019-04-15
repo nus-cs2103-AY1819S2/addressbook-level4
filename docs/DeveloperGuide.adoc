@@ -993,10 +993,15 @@ and extra cases for switch statements.| Supports commands that change multiple b
 === Set Reminder Feature
 
 The `setreminder` command gives the user an option to set a reminder with a customised message.
-The reminder is in the form of an `AlertDialog` and is scheduled to show on the UI by a `TimerTask` at time
-`t + current time`. +
+The reminder is in the form of an `AlertDialog` and is scheduled to display on the UI by a `TimerTask` at time
+`t + current time`, where `t` is time in the format `hh:mm:ss`. +
 
-The alert only pop ups when the application is running in the background.
+==== Current Implementation
+
+The following sequence diagram shows the sequence flow from when the `SetReminderCommandParser` receives the command and
+parses it to a `SetReminderCommand`.
+
+image::SetReminderSequenceDiagram.png[width="800"]
 // end::setreminder[]
 
 // tag::statistics[]

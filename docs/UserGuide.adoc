@@ -171,21 +171,21 @@ With the release of version 1.4, we decided to improve our current features by m
 // tag::releasenotes-2.0[]
 === v2.0 Release Notes
 
-After the release of v1.4, the team have planned for future enhancements to Health Hub to improve its existing functionalities,
-by also considering different aspects such as the ethical part of handling sensititve patient information within and outside of the app.
+After the release of v1.4, the team have planned for future enhancements to Health Hub to improve its existing
+functionalities, by also considering different aspects such as the ethical part of handling sensitive patient information within and outside of the app.
 
-For data management, it will be upgraded to an even higher level of encryption by professional standards to ensure that sensitive
+For *data management*, it will be upgraded to an even higher level of encryption by professional standards to ensure that sensitive
 information is handled cautiously to prevent data leaks.
 
-For account management, hospital administrative staff will have to start logging in to their accounts (accounts which are given to them when they
+For *account management*, hospital administrative staff will have to start logging in to their accounts (accounts which are given to them when they
 first joined the department) in order to use the app. These accounts are created and managed by a higher authority personnel, to add a
 second layer of security.
 
 So far, with the releases of v1.2 to v1.4, the focus is on registering the requests into the system and assigning them. In v2.0, there will be additional details
-added to health workers such as their availability to visit the home care patients, that will add value to when the user is assigning an open request.
+added to health workers such as their *availability to visit the home care patients*, that will add value to when the user is assigning an open request.
 
 Last but not least, it is important that we gather our users' feedback from time to time to understand their frustrations and needs with the app. As such,
-there will be a "Feedback" option in v2.0 for users to submit their feedback to the developers of Health Hub.
+there will be a *"Feedback"* option in v2.0 for users to submit their feedback to the developers of Health Hub.
 // end::releasenotes-2.0[]
 
 [[Features]]
@@ -843,10 +843,14 @@ own message that you can customise to remind yourself.
 The alert only shows for when Health Hub is running in the background process.
 ====
 
-In the example below, a reminder has been set to notify the user at 1.30PM with
-the customised message to "to call patient John Doe for his appointment".
+In the example below, a reminder has been set to notify the user at 6.30PM with
+the customised message to "to call patient Tan Ah Hock for his appointment later at night".
 
-image::reminder_command.png[]
+image::SetReminderCommandTextField.png[]
+Figure 5.14.1 shows the format of the `setreminder` command in the text field.
+
+image::SetReminderResult.png[]
+Figure 5.14.2 shows the result of the reminder alert in the GUI after it is time for the app to notify the user.
 // end::setreminder[]
 
 // tag::statistics[]

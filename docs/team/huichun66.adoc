@@ -2,6 +2,7 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:icons: font
 
 == Project: Health Hub
 My team and I were tasked with enhancing a basic command line interface addressbook application for one of our modules CS2103

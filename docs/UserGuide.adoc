@@ -38,7 +38,7 @@ Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 .  Copy the file to the folder you want to use as the home folder for your UltiStudent.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::Ui.png[width="700"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -173,7 +173,7 @@ remember it for us by using `add-hw mc/CS1101S hw/Tutorial 1 d/01/05/2019` in th
 and do make sure that you are in the homework manager by checking if the Homework icon is highlighted in the
 nagivation bar (white highlighted box) as shown below.
 
-image::Add-Hw UG.png[width="790"]
+image::Add-Hw UG.png[width="700"]
 
 When CS1101S tutorial 1 has been successfully added, the Result Box (green highlighted box) would display
 `New homework added: CS1101S; Tutorial 1; 01/05/2019;`.
@@ -211,7 +211,7 @@ So you already have a homework entry in the homework manager which has these
 Now let's say our professor has decided to extend the deadline by a week upon requests by students.
 Simply type `edit-hw 1 d/08/05/2019` and the update will be reflected in your homework entry.
 
-image::edit-hw UG.png[width="790"]
+image::edit-hw UG.png[width="700"]
 
 After entering your `edit-hw` command, the message you see in the green highlighted box
 in the diagram above indicates that you have successfully done it.
@@ -254,7 +254,7 @@ The format of this command is simple. `find-mod [KEYWORDS]`.
 As you can see from the diagram below, after adding a module code as part of a keyword,
 you will be able to see only homework from the module in the homework list.
 
-image::find-mod UG.png[width="790"]
+image::find-mod UG.png[width="700"]
 
 As you can see from the diagram above, even though there are a total of four modules with homework in the module list,
 only homework from the modules CS1101S is shown after the common `find-mod CS1101S` is used.
@@ -291,12 +291,12 @@ First, we will need to be in the Note Manager. To open Notes Manager,
 enter `open Notes Manager` into the Command Box (red). You will see the
 Result Box (green) prompting that the Notes Mananger is opened.
 
-image::UI_notes_manager.png[width="790", align="center"]
+image::UI_notes_manager.png[width="700", align="center"]
 
 In this case, we need to add a new note. We will need to enter the following
 command into the Command Box: `add-note mc/CS2103T n/Week 7 Lecture`.
 
-image::UI_add_notes.png[width="790", align="center"]
+image::UI_add_notes.png[width="700", align="center"]
 
 The new note will be added to the bottom of the list.
 
@@ -316,7 +316,7 @@ Hurray! We've successfully added a note therefore it is time for us to learn how
 But first! we got to make sure we are in the Notes Manager by looking at the Notes icon in the Navigation Box (white
 highlighted box) as shown below.
 
-image::Edit&Save-Note UG.png[width="790"]
+image::Edit&Save-Note UG.png[width="700"]
 
 Now that we are in the Notes Manager. It is time for us to start editing our note! First off, we have to use
 `edit-note INDEX` to select the notes that we want to edit.
@@ -370,7 +370,7 @@ It has an index of `12` in the list.
 
 As such, we will need to enter the following command: `delete-note 12`.
 
-image::UI_delete_notes.png[width="790", align="center"]
+image::UI_delete_notes.png[width="700", align="center"]
 
 Viola! The note is deleted.
 
@@ -391,7 +391,7 @@ Let's say you are looking for a tutorial note. We will enter `find-note
 tutorial` in the Command Box (red). The resulting list will be displayed in
 the Notes List (light blue box).
 
-image::UI_find_notes.png[width="790", align="center"]
+image::UI_find_notes.png[width="700", align="center"]
 
 [TIP]
 You are not restricted to only one keyword for the `[KEYWORDS]` in the command.
@@ -418,7 +418,7 @@ help you with keeping count. All you need to do is to key in your grades and TAD
 CAP Manager's interface is split into a few key sections. Do refer to the image below to familiarise yourself with
 Cap Manager!
 
-image::CapManagerInterface.png[width="790"]
+image::CapManagerInterface.png[width="700"]
 
 Now that you're all set, let's see how Cap Manager can help us!
 
@@ -453,11 +453,11 @@ command to input to the Command Box would be:
 
 Before adding
 
-image::OpenCapManager.png[width="790"]
+image::OpenCapManager.png[width="700"]
 
 After entering `add-cap mc/CS2101 g/B+ mcs/4 sem/Y2S2` into the command box.
 
-image::AddCapManager.png[width="790"]
+image::AddCapManager.png[width="700"]
 
 And just like that your CAP Manager will now include the module you just added!
 Your CAP score will also be updated right away!
@@ -491,12 +491,12 @@ Let's put it to use!
 
 Before editing:
 
-image::AddCapManager.png[width="790"]
+image::AddCapManager.png[width="700"]
 
 
 After editing:
 
-image::EditedCapManager.png[width="790"]
+image::EditedCapManager.png[width="700"]
 
 Just like that, all changes you have made will be reflected straightaway in the CAP manager.
 This of course includes the module list, semester list and your CAP score!
@@ -537,11 +537,11 @@ In this case, we would enter:
 * `delete-cap 14`
 
 Before deleting:
-image::EditedCapManager.png[width="790"]
+image::EditedCapManager.png[width="700"]
 
 After entering the delete command:
 
-image::DeletedCapManager.png[width="790"]
+image::DeletedCapManager.png[width="700"]
 
 With that the module has been deleted. Once again, your CAP will be updated rightaway in the CAP Indicator!
 
@@ -559,7 +559,7 @@ Let's say you would like to view all the modules that you took in Year 1 Semeste
 Simply type `find-sem Y1S2` into the Command Box and the module list will be updated rightaway to show the modules ou took in the
 semester you entered!
 
-image::FindCapManager.png[width="790"]
+image::FindCapManager.png[width="700"]
 
 [TIP]
 Psst..! You can use the find-sem command to view more than 1 semester of modules if you wish!

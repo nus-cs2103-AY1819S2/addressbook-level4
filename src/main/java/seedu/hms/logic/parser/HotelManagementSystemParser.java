@@ -194,7 +194,7 @@ public class HotelManagementSystemParser {
 
         case ShowStatsCommand.COMMAND_WORD:
         case ShowStatsCommand.COMMAND_ALIAS:
-            return new ShowStatsCommand();
+            return new ShowStatsCommandParser().parse(arguments);
 
         case ListCustomerCommand.COMMAND_WORD:
         case ListCustomerCommand.COMMAND_ALIAS:

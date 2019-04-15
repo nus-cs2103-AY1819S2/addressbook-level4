@@ -1,5 +1,7 @@
 package seedu.hms.ui;
 
+import java.util.ArrayList;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -12,6 +14,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.hms.commons.core.GuiSettings;
 import seedu.hms.commons.core.LogsCenter;
+import seedu.hms.commons.core.index.Index;
 import seedu.hms.logic.Logic;
 import seedu.hms.logic.LogicManager;
 import seedu.hms.logic.commands.CommandResult;
@@ -192,8 +195,8 @@ public class MainWindow extends UiPart<Stage> {
      * Opens the stats window or focuses on it if it's already opened.
      */
     @FXML
-    public void handleStats() {
-        //StatsWindow.createStage();
+    public void handleStats(Optional<ArrayList<Index>> optionalIndexList) {
+        statsWindow.update(optionalIndexList);
         if (!statsWindow.isShowing()) {
             statsWindow.show();
         } else {
@@ -267,7 +270,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isShowStats()) {
-                handleStats();
+                handleStats(commandResult.getIndexList());
             }
 
             if (commandResult.isExit()) {

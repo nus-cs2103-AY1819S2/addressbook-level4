@@ -2,8 +2,11 @@ package seedu.hms.ui;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
@@ -19,6 +22,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.hms.commons.core.LogsCenter;
+import seedu.hms.commons.core.index.Index;
 import seedu.hms.logic.stats.Stats;
 import seedu.hms.logic.stats.statsitems.StatsItem;
 
@@ -107,12 +111,13 @@ public class StatsWindow extends UiPart<Stage> {
     /**
      * Updates the charts in the stats window.
      */
-    public void updateCharts() {
+    public void updateCharts(ArrayList<Index> indexList) {
         Platform.runLater(() -> {
             VBox pane = new VBox();
             pane.setFillWidth(true);
-            for (StatsItem si : stats.getStatsitems()) {
-                pane.getChildren().add(generateChart(si));
+            List<StatsItem> statsitems = stats.getStatsitems();
+            for (Index i : indexList) {
+                pane.getChildren().add(generateChart(statsitems.get(i.getZeroBased())));
             }
             statsChartsPane.setContent(pane);
         });
@@ -121,10 +126,14 @@ public class StatsWindow extends UiPart<Stage> {
     /**
      * Updates everything in the stats window.
      */
-    public void update() {
-        stats.update();
+    public void update(Optional<ArrayList<Index>> optionalIndexList) {
+        stats.update(optionalIndexList);
         updateTextReport();
-        updateCharts();
+        updateCharts(stats.getShown());
+    }
+
+    public void update() {
+        update(Optional.empty());
     }
 
     /*---- Window related ----*/

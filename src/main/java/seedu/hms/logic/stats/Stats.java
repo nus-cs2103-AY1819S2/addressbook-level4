@@ -3,6 +3,7 @@ package seedu.hms.logic.stats;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -24,6 +25,7 @@ public class Stats {
     private final ReadOnlyHotelManagementSystem hms;
     private final ArrayList<StatsItem> statsitems;
     private ArrayList<Index> shown;
+    private final ArrayList<Index> defaultShown;
 
     public Stats(ReadOnlyHotelManagementSystem hms) {
         this.hms = hms;
@@ -34,9 +36,15 @@ public class Stats {
                 new CountPayersForServices(this)
         ));
 
+        // initialize defaultShown
+        ArrayList<Index> tempDefaultShown = new ArrayList<>();
+        List<Integer> defaultShownIntList = IntStream.range(0, 4).boxed().collect(Collectors.toList());
+        defaultShownIntList.forEach(n -> tempDefaultShown.add(Index.fromZeroBased(n)));
+        this.defaultShown = new ArrayList<>(tempDefaultShown);
+
+        // initialize shown
         this.shown = new ArrayList<>();
-        List<Integer> defaultShown = IntStream.range(0, 4).boxed().collect(Collectors.toList());
-        defaultShown.forEach(n -> shown.add(Index.fromZeroBased(n)));
+        this.shown.addAll(defaultShown);
     }
 
     private static String fillOnLeft(String s, int n) {
@@ -61,10 +69,19 @@ public class Stats {
     /**
      * Update all StatsItems.
      */
-    public void update() {
+    public void update(Optional<ArrayList<Index>> optionalIndexList) {
+        if (optionalIndexList.isPresent()) {
+            shown = optionalIndexList.get();
+        } else {
+            shown = defaultShown;
+        }
         for (StatsItem si : statsitems) {
             si.updateMap();
         }
+    }
+
+    public ArrayList<Index> getShown() {
+        return this.shown;
     }
 
     public ReadOnlyHotelManagementSystem getHms() {

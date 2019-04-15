@@ -326,14 +326,14 @@ image::UndoRedoActivityDiagram.png[width="650"]
 * *CRITERIA/CRITERION:* These are the texts that are between 'PREFIX' and 'REVERSE PREFIX'
 ** e.g. for the input `filter and deg<bachelors>deg phone<95>phone`, the criterion are `bachelors` and `95`.
 
-*Differences of 4 Types of Filter Commands*
+*Differences of 4 Types of Filter Commands:*
 
-* `AND:` This type of command is used for only showing the persons that passes all the criterion given in the input.
+* *AND:* This type of command is used for only showing the persons that passes all the criterion given in the input.
 ** e.g. if input is `filter and edu<NUS>edu pos<Manager, Developer>pos`, only the persons, who have studied in `NUS` and applied for both `Manager and Developer` positions, will be shown.
-* `OR:` This type of command is used for only showing the persons that passes at least one of the criterion given in the input.
+* *OR:* This type of command is used for only showing the persons that passes at least one of the criterion given in the input.
 ** e.g. if input is `filter or addr<Singapore>addr skill<C++, Java>skill`, only the persons, who live in `Singapore` or knows about `C++ or Java`, will be shown
-* `CLEAR:` If a filtering is applied before and the currently viewed list is a filtered list of persons, then this type clears all the active filtering and shows all the persons in the storage.
-* `REVERSE:` If a filtering is applied before, this command shows only the persons that are eliminated with the previous filtering conditions. Basically, it reverses the filter.
+* *CLEAR:* If a filtering is applied before and the currently viewed list is a filtered list of persons, then this type clears all the active filtering and shows all the persons in the storage.
+* *REVERSE:* If a filtering is applied before, this command shows only the persons that are eliminated with the previous filtering conditions. Basically, it reverses the filter.
 ** e.g. if input is `filter reverse` and if there are 11 persons in the total storage but only 7 are shown since there is a filtering, this type shows only the 4 other persons that were not shown.
 
 *Filtering Approaches for Every Single Field:*
@@ -349,10 +349,10 @@ Below, the word *contained* is used a lot. This word means that, if the input is
 e.g. if the input is `ale` for the name, all the persons will be chosen, who have at least one of the uppercase and lowercase combination of the input `ale` in their names as a substring. +
 e.g. if the input is `ale`, the person with the name `Alex, aLex, ALEX, alexandra etc.` will be matched.
 
-* `NAME:` It can take any English alphabet character and also 'space' character. It checks if the entered criteria is *contained* in the names of the persons in the list.
-* `PHONE:` It can take any positive number, controls if the entered criteria is *contained* in the phones of the persons in the list.
-* `EMAIL and ADDRESS:` It can take any number of ASCII characters more than 0. Controls if the entered criteria is *contained* in the emails/addresses of the persons in the list.
-* `GPA:` It takes a positive `integer` or `float` value between 0 and 4. Shows the persons with higher or equal GPA values from the given criteria.
+* *`NAME:`* It can take any English alphabet character and also 'space' character. It checks if the entered criteria is *contained* in the names of the persons in the list.
+* *`PHONE:`* It can take any positive number, controls if the entered criteria is *contained* in the phones of the persons in the list.
+* *`EMAIL and ADDRESS:`* It can take any number of ASCII characters more than 0. Controls if the entered criteria is *contained* in the emails/addresses of the persons in the list.
+* *`GPA:`* It takes a positive `integer` or `float` value between 0 and 4. Shows the persons with higher or equal GPA values from the given criteria.
 * `EDUCATION:` It can take any English alphabet character and also 'space' character. It checks if the entered criteria is *contained* in the school/education of the persons in the list.
 * `SKILLS and POSITIONS:` It can take any number of ASCII characters more than 0 (except "," in the skill/position itself). Multiple skills/positions can be entered with using one `PREFIX` and one `REVERSE PREFIX` as long as the skills/positions are separated with ", ". Controls, if the given skills/positions are *contained* in the actual skills/positions of the persons in the list.
 * `ENDORSEMENT-COUNT:` It takes a positive `integer`. If the given number as an input is less than or equal to the number of endorsements (it is just the process, where a person recommended by someone) the person has, then this person is shown.

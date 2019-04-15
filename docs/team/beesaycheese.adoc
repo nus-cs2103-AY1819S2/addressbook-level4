@@ -92,7 +92,7 @@ Code Dashboard]]
 *** Wrote tests for bill and statistics features
 
 ** Documentation:
-*** Reorganise the User Guide according to modes: https://github.com/cs2103-ay1819s2-w09-3/main/pull/123[#123]
+*** Reorganise the User Guide according to modes: [PR: https://github.com/cs2103-ay1819s2-w09-3/main/pull/123[#123]]
 
 ** Community:
 *** Reported bugs for other teams in the class [Examples: https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/827[1], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/791[2]]

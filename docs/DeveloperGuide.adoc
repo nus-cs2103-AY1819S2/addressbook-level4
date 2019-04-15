@@ -1641,11 +1641,4 @@ Prerequisites:
    Expected: Error message showing no internet connection found is displayed in the status message.
 .. Test case: `visitWeb www.kfc.com.sg` +
    Expected: Error message showing no internet connection found is displayed in the status message.
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+   

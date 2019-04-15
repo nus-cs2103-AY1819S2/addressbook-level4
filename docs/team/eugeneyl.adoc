@@ -2,6 +2,7 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:bl: pass:[ +]
 
 [#img-ProfilePhoto]
 image::eugeneyl.png[width="75",float = left]

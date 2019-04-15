@@ -1677,17 +1677,54 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-// === Deleting a card
+//tag::cardmanualtesting[]
+=== Card operations
+. Adding a single-answer card
+.. Prerequisites: Enter a folder using the `cd` command. For example, `cd 1` will enter the first folder. The folder may or may not be empty.
+.. Test case: `add q/What is the largest organ of the human body? a/Skin h/Anatomy` +
+   Expected: A new card with question "What is the largest organ of the human body?", answer "Skin" and hint "Anatomy" is created. Status message confirms this and the card list panel UI on the left updates to show the new card.
+.. Test case: `add a/Alexander Fleming q/Who discovered Penicillin?` +
+   Expected: A new card with question "Who discovered Penicillin?" and answer "Alexander Fleming" is created. Note that this card has no hint, as none was specified. Status message confirms this and UI is updated.
+.. Test case: `add q/ a/Some answer` +
+   Expected: The card is not created. Error details shown in the status message.
+.. Other incorrect `add` commands to try for single-answer cards: +
+   `add`, `add some question`, `add q/ a/ h/`, `add q/Some question a/`. +
+   Expected: Similar to previous.
 
-// . Deleting a card while all cards are listed
+. Adding an MCQ card
+.. Prerequisites: Enter a folder using the `cd` command.
+.. Test case: `add q/What does MRI stand for? a/Magnetic Resonance Imaging i/Medical Resource Image` +
+   Expected: A new card with question "What does MRI stand for?", answer "Magnetic Resonance Imaging" and incorrect option "Medical Resource Image" is created. Status message confirms this and UI is updated.
+.. Test case: (After executing step 1c) `add a/Alexander Fleming q/Who discovered Penicillin? i/Hippocrates` +
+   Expected: The card is not created. Error details shown in the status message.
+.. Other incorrect `add` commands to try for MCQ cards: +
+   `add q/ a/ i/ i/`, `add q/Some question a/Some answer, i/`, `add q/question a/answer i/answer` +
+   Expected: Similar to previous.
 
-// .. Prerequisites: List all cards using the `list` command. Multiple cards in the list.
-// .. Test case: `delete 1` +
-//    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-// .. Test case: `delete 0` +
-//    Expected: No card is deleted. Error details shown in the status message. Status bar remains the same.
-// .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-//    Expected: Similar to previous.
+. Editing a card
+.. Prerequisites: Enter a folder using the `cd` command. Ensure that cards already exist in the folder. For example, `select 1` should execute and display a card in right-side panel.
+.. Test case: `edit 1 a/Sigmund Freud h/Psychology` +
+   Expected: First card in the folder is edited to have answer "Sigmund Freud" and hint "Psychology".
+.. Test case: `edit 1 h/` +
+   Expected: First card in the folder is edited to have no hint.
+.. Test case: `edit 1 i/Hippocrates i/Carl Jung` +
+   Expected: First card in the folder is edited to have incorrect options "Hippocrates", "Carl Jung", and is converted to an MCQ card if it was originally a single-answer card.
+.. Test case: `edit 1 i/` +
+   Expected: First card in the folder is edited to have no incorrect options, and is converted back to a single-answer card.
+.. Test case: `edit 1 q/` +
+   Expected: The card is not edited. Error details shown in the status message.
+.. Other incorrect `edit` commands to try: `edit x`, `edit`, `edit 1 q/ a/` +
+   Expected: Similar to previous.
+
+. Deleting a card
+.. Prerequisites: Enter a folder using the `cd` command. Ensure that cards already exist in the folder.
+.. Test case: `delete 1` +
+   Expected: First card in the folder is deleted.
+.. Test case: `delete` +
+   Expected: No card is deleted. Error details shown in the status message.
+.. Other incorrect `delete` commands to try: `delete 0`, `delete this` +
+   Expected: Similar to previous.
+//tag::cardmanualtesting[]
 
 // tag::testmanualtesting[]
 === Starting and ending a test session
@@ -1822,56 +1859,6 @@ lowest scoring flashcard question and hints are displayed. Answer the current qu
    Expected: The folder is not exited. Error details shown in the status message.
 .. Other incorrect cd commands to try: `cd`, `cd Home` +
    Expected: Similar to previous.
-//end::foldermanualtesting[]
-
-//tag::cardmanualtesting[]
-=== Card operations
-. Adding a single-answer card
-.. Prerequisites: Enter a folder using the `cd` command. For example, `cd 1` will enter the first folder. The folder may or may not be empty.
-.. Test case: `add q/What is the largest organ of the human body? a/Skin h/Anatomy` +
-   Expected: A new card with question "What is the largest organ of the human body?", answer "Skin" and hint "Anatomy" is created. Status message confirms this and the card list panel UI on the left updates to show the new card.
-.. Test case: `add a/Alexander Fleming q/Who discovered Penicillin?` +
-   Expected: A new card with question "Who discovered Penicillin?" and answer "Alexander Fleming" is created. Note that this card has no hint, as none was specified. Status message confirms this and UI is updated.
-.. Test case: `add q/ a/Some answer` +
-   Expected: The card is not created. Error details shown in the status message.
-.. Other incorrect `add` commands to try for single-answer cards: +
-   `add`, `add some question`, `add q/ a/ h/`, `add q/Some question a/`. +
-   Expected: Similar to previous.
-
-. Adding an MCQ card
-.. Prerequisites: Enter a folder using the `cd` command.
-.. Test case: `add q/What does MRI stand for? a/Magnetic Resonance Imaging i/Medical Resource Image` +
-   Expected: A new card with question "What does MRI stand for?", answer "Magnetic Resonance Imaging" and incorrect option "Medical Resource Image" is created. Status message confirms this and UI is updated.
-.. Test case: (After executing step 1c) `add a/Alexander Fleming q/Who discovered Penicillin? i/Hippocrates` +
-   Expected: The card is not created. Error details shown in the status message.
-.. Other incorrect `add` commands to try for MCQ cards: +
-   `add q/ a/ i/ i/`, `add q/Some question a/Some answer, i/`, `add q/question a/answer i/answer` +
-   Expected: Similar to previous.
-
-. Editing a card
-.. Prerequisites: Enter a folder using the `cd` command. Ensure that cards already exist in the folder. For example, `select 1` should execute and display a card in right-side panel.
-.. Test case: `edit 1 a/Sigmund Freud h/Psychology` +
-   Expected: First card in the folder is edited to have answer "Sigmund Freud" and hint "Psychology".
-.. Test case: `edit 1 h/` +
-   Expected: First card in the folder is edited to have no hint.
-.. Test case: `edit 1 i/Hippocrates i/Carl Jung` +
-   Expected: First card in the folder is edited to have incorrect options "Hippocrates", "Carl Jung", and is converted to an MCQ card if it was originally a single-answer card.
-.. Test case: `edit 1 i/` +
-   Expected: First card in the folder is edited to have no incorrect options, and is converted back to a single-answer card.
-.. Test case: `edit 1 q/` +
-   Expected: The card is not edited. Error details shown in the status message.
-.. Other incorrect `edit` commands to try: `edit x`, `edit`, `edit 1 q/ a/` +
-   Expected: Similar to previous.
-
-. Deleting a card
-.. Prerequisites: Enter a folder using the `cd` command. Ensure that cards already exist in the folder.
-.. Test case: `delete 1` +
-   Expected: First card in the folder is deleted.
-.. Test case: `delete` +
-   Expected: No card is deleted. Error details shown in the status message.
-.. Other incorrect `delete` commands to try: `delete 0`, `delete this` +
-   Expected: Similar to previous.
-//tag::cardmanualtesting[]
 
 === Saving data
 

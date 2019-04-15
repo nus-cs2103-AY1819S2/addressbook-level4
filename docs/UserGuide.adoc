@@ -234,6 +234,7 @@ Format: `clear`
 * This command can only be used when All Jobs Screen shows. You can clear all applicants in All Aplicants list
 ****
 
+// tag::jobs[]
 === Job Related Features
 
 
@@ -291,7 +292,7 @@ addAll adds all in applied list to kiv list in lecturer
 Format : `movePeople TO FROM INDEXES [jn/JOBNAME]`
 
 ****
-* `FROM` input is optional and if not given, input list will be the displayed list of the entire directory.
+* `FROM` input can only be given if a job is displayed, input list will be the displayed list of the entire directory.
 * `JOBNAME` input is required only if there isn't a displayed job. Should be omitted otherwise.
 * `FORM` and `TO` can only be one of the following `applied, kiv, interview, shortlist`
 ****
@@ -305,6 +306,16 @@ moves persons with index 1 and 2 to applied list in Lecturer
 * `displayJob jn/Lecturer`
 * `movePeople kiv applied 2` +
 moves person 2 in applied list to kiv list in Lecturer
+
+==== Adds people using by index to a selected list in a Job : `remove`
+
+ Removes people from a specific list in Job+
+Format : `remove FROM INDEXES [jn/JOBNAME]`
+
+****
+* Only usage if on display job screen
+****
+
 
 ==== Select people into "Interview" List: `selectInterview` `Coming in v2.0`
 
@@ -598,5 +609,6 @@ e.g. `filter r/Chinese`
 * *Display Job* : `displayJob [jn/JOBNAME]`
 * *Add All* : `addAll TO FROM(OPTIONAL) [jn/JOBNAME](OPTIONAL)`
 * *Move People* : `movePeople TO FROM(OPTIONAL) INDEXES [jn/JOBNAME](ONLY ON DEFAULT SCREEN)`
+* *Remove* : 'remove FROM INDEXES [jn/JOBNAME]'
 
 

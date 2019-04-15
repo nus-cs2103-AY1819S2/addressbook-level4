@@ -34,7 +34,7 @@ public class AddListToJobCommand extends Command {
             + "applicant "
             + PREFIX_JOBNAME + "Helper ";
 
-    public static final String MESSAGE_SUCCESS = "All people added to job: %1$s.";
+    public static final String MESSAGE_SUCCESS = "All non-duplicated people added to job: %1$s.";
     public static final String MESSAGE_MISSING_JOB = "This job does not exist";
     public static final String MESSAGE_NO_ACTIVE_JOB = "No active Job, please provide a JobName with prefix jn/";
     public static final String MESSAGE_NO_DESTINATION = "Please provide a destination list\n";

@@ -330,17 +330,17 @@ This implementation is under `[fuchsia]#Logic#` and `[fuchsia]#Model#` Component
 {bl}
 
 ==== Current Implementation
-The search command uses predicates that implement `[fuchsia]#java.util.Predicate#` interface which will be used to filter the records
-that are inputted into the finance tracker. Each of these predicates contains a `[fuchsia]#List<String>#` of keywords and a `[fuchsia]#test()#`
+The search command uses predicates that implement the `[fuchsia]#java.util.Predicate#` interface. These predicates are
+ used to filter the records that are inputted into the finance tracker. Each of these predicates contain a `[fuchsia]#List<String>#` of keywords and a `[fuchsia]#test()#`
 command that is used to test if a record satisfy the conditions set in the predicate. These predicates are found in the `[fuchsia]#Model#` component.
 
 .Predicates implemented in `[fuchsia]#Model#` component
 [cols="1,1"]
 |===
 |Types of predicate |Functions|
-`[fuchsia]#CategoryContainsKeywordsPredicate#` | Filter out records by a given category |
-`[fuchsia]#DateContainsKeywordsPredicate#` | Filter out records by a given date |
-`[fuchsia]#NameContainsKeywordPredicate#` | Filter out records with names that matches a keyword |
+`[fuchsia]#CategoryContainsKeywordsPredicate#` | Filters out records by a given category |
+`[fuchsia]#DateContainsKeywordsPredicate#` | Filters out records by a given date |
+`[fuchsia]#NameContainsKeywordPredicate#` | Filters out records with names that matches a keyword |
 |===
 
 Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.
@@ -382,9 +382,9 @@ This feature can be implemented in different ways in terms of how the records ar
 * *Alternative 1* : Check through all records and select those with the matched keywords based on the flag.
 
 ** Pros: Easy to implement without changing original architecture.
-** Cons: Slow. Tend to take a long time to search through large number of records.
+** Cons: Slow. Tends to take a long time to search through large number of records.
 
-* *Alternative 2* : Each time a new category/date is called when making a record, create a new list. Each of these list
+* *Alternative 2* : Each time a new category/date is called when making a record, create a new list. Each of these lists
 will hold all the records that correspond to these category or dates.
 
 ** Pros: Very efficient, each time the command is called, just need to retrieve the list of the wanted field.

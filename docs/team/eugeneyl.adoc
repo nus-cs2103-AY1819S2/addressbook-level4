@@ -51,8 +51,8 @@ Having the total sum of money spent on these records will allow the user to have
 spending for a particular category, date or item.
 
 *Highlights*: This enhancement can be triggered using the 'search' command. This feature is also expandable in
-filtering out different kind of records by adding additional predicates in which the user can search with.
-(Searching based on amount).
+filtering out different kind of records by adding additional predicates in which the user can search with
+(eg. Searching based on amount).
 
 ==== Minor Enhancement:
 1. Introduced the function to add, edit or delete the `description` parameter of the entries using the already
@@ -63,7 +63,7 @@ into _In-Credit-Ble_.
 the need to create a new entry. Furthermore, being able to delete the description will allow the user to remove
 unnecessary information shown on the record card in _In-Credit-Ble_ so that he/ she can view his/ her transaction
 easier.
-** Highlights*: This enhancement can be triggered using the `edit` command. In order to make changes to the description,
+** *Highlights*: This enhancement can be triggered using the `edit` command. In order to make changes to the description,
 the user can add the necessary changes after the description prefix(`r/`). If the user wants to remove the description,
 he/ she can input the description prefix with nothing after it.
 
@@ -73,9 +73,8 @@ automatically be taken as the `date` instead.
 ** *Justification*: Since a transaction will usually be inputted into _In-Credit_Ble_ on the day of the transaction,
 having this function allow the user to key in one less parameter when recording his/ her numerous transactions, making
 it easier and enticing to record his/ her transactions.
-** Highlights*: This enhancement can be triggered using the `spend` command. If the user did not include any date, by
-default the local current date will be taken.
-**
+** *Highlights*: This enhancement can be triggered using the `spend` command. Having this functionality will make
+addition of entries easier and more accurate.
 
 === Other Notable Contributions:
 * Enhancements to existing features:
@@ -106,12 +105,12 @@ https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=eugeneyl[Code Con
 == Contributions to the User Guide
 |===
 |_This next section will include my contribution to the User Guide. This showcases my ability in documenting a
-reader-friendly User Guide that is designed for new users of _In-Credit-Ble_ to understand the different functionality
+reader-friendly User Guide that is designed for new users of In-Credit-Ble to understand the different functionality
 available in our application._
 |===
 
-I documented the `edit` and `search` command in the user guide. These portions highlights the functions,
-usage and other relevant information about the 2 commands and it is explained in ways that a new user will be able to
+I documented the `edit` and `search` command in the user guide. These portions highlight the functions,
+usage and other relevant information about the 2 commands and is explained in ways that a new user will be able to
 grasps.
 
 === 1) Description of Search Command
@@ -124,8 +123,8 @@ include::../UserGuide.adoc[tag=edit]
 
 == Contributions to the Developer Guide
 |===
-|_This last section will include my contribution to the Developer Guide. It showcases my ability in writing a technical
-documentation and also demonstrate the technical depth of my code contribution._
+|_This last section will include my contribution to the Developer Guide. It showcases my ability in writing technical
+documentation and also demonstrates the technical depth of my code contribution._
 |===
 
 === Application Design
@@ -141,6 +140,7 @@ please visit the links below.
 |===
 
 include::../DeveloperGuide.adoc[tag=logic]
+
 include::../DeveloperGuide.adoc[tag=model]
 
 

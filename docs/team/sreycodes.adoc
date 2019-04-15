@@ -3,6 +3,9 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
+This portfolio serves to document my contributions and learning while building
+HMS+
+
 == PROJECT: HMS+
 
 ---

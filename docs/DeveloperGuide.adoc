@@ -1109,6 +1109,7 @@ Expected: No medicine is deleted. Error details shown in the status message. Sta
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
 Expected: Similar to previous.
 
+//tag::updatetesting[]
 === Updating batch details of a medicine
 
 . Updating a medicine with a new batch while all medicines are listed
@@ -1122,6 +1123,8 @@ Expected: Error details shown in the status message. No changes to medicine. Sta
 Expected: Error details shown in the status message. No changes to medicine. Status bar remains the same.
 .. Test case: `update 1 b/B q/1`  (missing expiry) +
 Expected: Error details shown in the status message. No changes to medicine. Status bar remains the same.
+//end::updatetesting[]
+
 .. Test case: `update 1 b/- q/A e/1/1/2020` (invalid batch number) +
 Expected: Error details shown in the status message. No changes to medicine. Status bar remains the same.
 .. Test case: `update 1 b/B q/10000000000000 e/1/1/2020` (invalid quantity - max quantity exceeded) +
@@ -1156,7 +1159,7 @@ Expected: batch is removed from batch table shown in the information panel. Deta
 . Updating a medicine by adding a new batch while medicine list is filtered
 
 .. Prerequisites: use `find` command to filter the list. Recommended `find t/ fever`. Batch number used for testing should not exist in the batch records of the selected medicine. Use `select 1` to load the information page.
-.. Test case: `update 1 b/D q/1 e/1/1/2020`  +
+.. Test case: `update 1 b/D q/1 e/1/1/2020` (valid input) +
 Expected: batch is added to batch table shown in the information panel. Details of the added batch shown in the status message. Total quantity should increase by `1`. Next expiry should be updated if batch removed had the closest expiry date. Filtered list should remain filtered.
 .. Test case: `update 1 b/E q/1 e/1/1/2020 b/F b/G q/2 e/2/1/2020`  (more than one valid input) +
 Expected: batch `G` is added to batch table shown in the information panel as last valid input is taken. Details of the added batch shown in the status message. Total quantity should increase by `2`. Next expiry of medicine should change if `02/01/2020` is earlier. Filtered list should remain filtered.

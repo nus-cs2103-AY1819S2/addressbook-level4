@@ -76,7 +76,10 @@ public class UpdateCommand extends Command {
         }
 
         Medicine medicineToUpdate = lastShownList.get(targetIndex.getZeroBased());
-        Batch batchToUpdate = getBatchToUpdate(medicineToUpdate);
+        Batch batchToUpdate = medicineToUpdate.getBatches().get(newBatchDetails.getBatchNumber());
+        if (batchToUpdate == null) {
+            assertCanAddNewBatchToMedicine(medicineToUpdate);
+        }
 
         Batch updatedBatch = createUpdatedBatch(batchToUpdate);
         Medicine updatedMedicine = createUpdatedMedicine(medicineToUpdate, batchToUpdate, updatedBatch);
@@ -86,14 +89,6 @@ public class UpdateCommand extends Command {
         model.setSelectedMedicine(updatedMedicine);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, updatedBatch));
-    }
-
-    private Batch getBatchToUpdate(Medicine medicineToUpdate) throws CommandException {
-        Batch batchToUpdate = medicineToUpdate.getBatches().get(newBatchDetails.getBatchNumber());
-        if (batchToUpdate == null) {
-            assertCanAddNewBatchToMedicine(medicineToUpdate);
-        }
-        return batchToUpdate;
     }
 
     /**

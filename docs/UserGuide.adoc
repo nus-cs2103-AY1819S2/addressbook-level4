@@ -188,12 +188,13 @@ Examples:
 
 === Crop an Image : `crop`
 // tag::CropCommand[]
-Crops an image based on given top left hand corner coordinates, width and height of final cropped image wanted. +
+Crops an image based on the given top left-hand corner coordinates, width and height of final cropped image wanted. +
 Format: `crop X_POINTCOORD Y_POINTCOORD WIDTH HEIGHT`
 
-****
-* The point coordinates must be separated by a space each.
-****
+[NOTE]
+====
+The point coordinates must be separated by a space each.
+====
 
 Example:
 

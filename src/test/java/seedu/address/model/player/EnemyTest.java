@@ -38,7 +38,6 @@ public class EnemyTest {
     public static <T> boolean isSameListContents(List<T> list1, List<T> list2) {
         return new HashSet<>(list1).equals(new HashSet<>(list2));
     }
-    
 
     @Test
     public void test_getName() {

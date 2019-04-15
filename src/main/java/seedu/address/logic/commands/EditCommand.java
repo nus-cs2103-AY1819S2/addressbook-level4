@@ -280,7 +280,6 @@ public class EditCommand extends Command {
 
             // state check
             EditRestaurantDescriptor e = (EditRestaurantDescriptor) other;
-
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())

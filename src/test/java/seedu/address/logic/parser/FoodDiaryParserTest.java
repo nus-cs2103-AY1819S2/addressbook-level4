@@ -94,6 +94,7 @@ public class FoodDiaryParserTest {
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_RESTAURANT.getOneBased() + " "
                 + RestaurantUtil.getEditRestaurantDescriptorDetails(descriptor));
+
         assertEquals(new EditCommand(INDEX_FIRST_RESTAURANT, descriptor), command);
     }
 

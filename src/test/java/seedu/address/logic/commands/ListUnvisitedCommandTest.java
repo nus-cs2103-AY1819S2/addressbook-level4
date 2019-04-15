@@ -21,6 +21,8 @@ import seedu.address.model.restaurant.Postal;
  */
 public class ListUnvisitedCommandTest {
 
+    private static final String INVALID_POSTAL_CODE = "000000";
+    private static final String VALID_POSTAL_CODE = "267951";
     private Model model;
     private Model expectedModel;
     private CommandHistory commandHistory = new CommandHistory();
@@ -36,8 +38,18 @@ public class ListUnvisitedCommandTest {
     @Test
     public void execute_listIsFiltered_invalidPostal() {
         showRestaurantAtIndex(model, INDEX_FIRST_RESTAURANT);
-        assertCommandSuccess(new ListUnvisitedCommand((new Postal("000000"))), model, commandHistory,
-                ListUnvisitedCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListUnvisitedCommand(new Postal(INVALID_POSTAL_CODE)), model, commandHistory,
+                ListUnvisitedCommand.MESSAGE_INVALID_POSTAL_CODE, expectedModel);
     }
+
+    @Test
+    public void execute_listIsFiltered_missingPostalData() {
+        model = new ModelManager(getTypicalFoodDiary(), new UserPrefs(), null);
+        expectedModel = new ModelManager(model.getFoodDiary(), new UserPrefs(), null);
+        showRestaurantAtIndex(model, INDEX_FIRST_RESTAURANT);
+        assertCommandSuccess(new ListUnvisitedCommand(new Postal(VALID_POSTAL_CODE)), model, commandHistory,
+                ListUnvisitedCommand.MESSAGE_INVALID_POSTAL_DATA, expectedModel);
+    }
+
 
 }

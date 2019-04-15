@@ -77,6 +77,7 @@ public class EditCommandSystemTest extends FoodDiarySystemTest {
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
                 + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + POSTAL_DESC_BOB + " "
                 + TAG_DESC_HUSBAND + " " + WEBLINK_DESC_BOB + OPENING_HOURS_DESC;
+
         Restaurant editedRestaurant = new RestaurantBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
         assertCommandSuccess(command, index, editedRestaurant);
 

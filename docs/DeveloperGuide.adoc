@@ -1311,22 +1311,18 @@ Use case ends.
 ** Use case ends.
 
 [discrete]
-=== Use case 16: View statistics
+=== Use case 16: View statistics summary
 
 *MSS*
 
 1. User chooses to view statistics
-2. PFT prompts user for mode
-3. User enters mode
-4. PFT prompts user for category
-5. User enters category
-6. PFT prompts user for start date
-7. User enters start date
-8. PFT prompts user for end date
-9. User enters end date
-10. PFT prompts user for visual representation method
-11. User enters visual representation method
-12. PFT displays the statistics requested
+2. PFT prompts user for start date
+3. User enters start date
+4. PFT prompts user for end date
+5. User enters end date
+6. PFT prompts user for visual representation method
+7. User enters visual representation method
+8. PFT displays the statistics requested
 +
 Use case ends
 
@@ -1334,36 +1330,29 @@ Use case ends
 [none]
 * 1a. User enters <<complex-command,complex command>>
 [none]
-** Use case resumes from step 12
+** Use case resumes from step 8
 * 1b. User enters complex command with missing parameters
 [none]
 ** 1b1. Use case ends
-* 3(5,7,9,11)a. PFT detects wrong format or incorrect data
+* 3(5)a. PFT detects wrong format or incorrect data
 [none]
-** 3(5,7,9,11)a1. PFT requests for correct format
-** 3(5,7,9,11)a2. User enters correct data
-** Use case resumes from step 4(6,8,10,12)
-* 3b. User chooses to display statistics by the mode of categories
-[none]
-** Use case resumes from step 6
+** 3(5)a1. PFT requests for correct format
+** 3(5)a2. User enters correct data
+** Use case resumes from step 4(6)
 
 [discrete]
-=== Use case 17: View trend macro statistics
+=== Use case 17: View statistics trend
 
 *MSS*
 
-1. User chooses to view trend macro statistics
+1. User chooses to view statistics trend
 2. PFT prompts user for start date
 3. User enters start date
 4. PFT prompts user for end date
 5. User enters end date
 6. PFT prompts user for period
 7. User enters period
-8. PFT prompts user for category
-9. User enters category
-10. PFT prompts user for visual representation method
-11. User enters visual representation method
-12. PFT displays the statistics requested
+8. PFT displays the statistics requested
 +
 Use case ends
 
@@ -1371,39 +1360,29 @@ Use case ends
 [none]
 * 1a. User enters <<complex-command,complex command>>
 [none]
-** Use case resumes from step 12.
+** Use case resumes from step 8.
 * 1b. User enters complex command with missing parameters
 [none]
 ** Use case ends.
-* 3(5,7,9,11)a. PFT detects wrong format or incorrect data
+* 3(5,7)a. PFT detects wrong format or incorrect data
 [none]
-** 3(5,7,9,11)a1. PFT requests for correct format
-** 3(5,7,9,11)a2. User enters correct data
-** Use case resumes from step 4(6,8,10,12).
+** 3(5,7)a1. PFT requests for correct format
+** 3(5,7)a2. User enters correct data
+** Use case resumes from step 4(6,8).
 
 [discrete]
-=== Use case 18: View compare macro statistics
+=== Use case 18: Compare 2 statistic summaries
 
 *MSS*
 
-1. User chooses to view compare macro statistics
+1. User chooses to compare statistics
 2. PFT prompts user for date 1
 3. User enters date
 4. PFT prompts user for date 2
 5. User enters date
-6. PFT prompts user for date 3
-7. User enters date
-8. PFT prompts user for date 4
-9. User enters date
-10. PFT prompts user for date 5
-11. User enters date
-12. PFT prompts user for period
-13. User enters period
-14. PFT prompts user for category
-15. User enters category
-16. PFT prompts user for visual representation method
-17. User enters visual representation method
-18. PFT displays the statistics requested
+6. PFT prompts user for period
+7. User enters period
+8. PFT displays the statistics requested
 +
 Use case ends.
 
@@ -1411,18 +1390,15 @@ Use case ends.
 [none]
 * 1a. User enters <<complex-command,complex command>>
 [none]
-** Use case resumes from step 12.
+** Use case resumes from step 8.
 * 1b. User enters complex command with missing parameters
 [none]
 ** Use case ends.
-* 3(5,7,9,11,13,15,17)a. PFT detects wrong format or incorrect data
+* 3(5,7)a. PFT detects wrong format or incorrect data
 [none]
-** 3(5,7,9,11,13,15,17)a1. PFT requests for correct format
-** 3(5,7,9,11,13,15,17)a2. User enters correct data
-** Use case resumes from step 4(6,8,10,12,14,16,18)
-* 7(9)b User enters data that is not a date
-[none]
-** Use case resumes from step 12.
+** 3(5,7)a1. PFT requests for correct format
+** 3(5,7)a2. User enters correct data
+** Use case resumes from step 4(6,8)
 
 
 [discrete]

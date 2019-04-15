@@ -36,7 +36,7 @@ Look out for the following icons and formatting used!
 Important information that should be noted.
 
 [TIP]
-Useful tips that can help if you get stuck.
+Tips that can help if you get stuck.
 
 `test`: Command to be executed or less commonly, a component, class or object in the architecture of the application.
 

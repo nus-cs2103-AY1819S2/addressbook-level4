@@ -1945,7 +1945,7 @@ lowest scoring flashcard question and hints are displayed. Answer the current qu
 . Dealing with missing/corrupted data files
 .. Prerequisites: You must know where the data files are stored. By default, this will be at the `data/` directory at the path of the jar file.
 .. Test case: Delete the data directory and launch the app +
-   Expected: A sample folder is present when the app launches.
+   Expected: A sample folder is present when the app launches (although it is not committed to storage until a persistent change is made).
 .. Test case: Insert a non-json file/corrupted json file in the data directory and launch the app +
    Expected: The valid json files have folders with their corresponding names present. The non-json file/corrupted json file remains unaffected.
 

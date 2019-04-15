@@ -710,12 +710,12 @@ which is invoked by the command `start game`.
 
 We can see these scenarios here:
 
-image::EnemyDeployingUseCaseDiagram.png[width=650]
+image::EnemyDeployingUseCaseDiagram.png[width=600]
 
 The Enemy AI also supports the ability for the enemy to automatically and intelligently shoot
 the player's map when the player ends their turn, encapsulated by these scenarios:
 
-image::EnemyShootingUseCaseDiagram.png[width=650]
+image::EnemyShootingUseCaseDiagram.png[width=600]
 
 Note that the Enemy AI feature does not contain any explicit commands to be
 entered by the Player. Its methods are called by other features instead, and does its
@@ -799,7 +799,15 @@ whether they have not been hit before. If these two conditions are satisfied, th
 will from that point shoot everything in the `watchlist`, until the ship that it is targeting is destroyed.
 
 When the Enemy AI detects that it has successfully destroyed the Player ship, it will empty out the `watchlist`, and go back to scouting the
-map for another part of the Player ship, by randomly targetting coordinates in the Black cells, as illustrated in the previous image.
+map for another part of the Player ship, by randomly targeting coordinates in the Black cells, as illustrated in the previous image.
+
+image::CardinalCoordinates.png[width=650]
+
+The following code snippet gives a clearer view of how the algorithm flows for the enemy shooting strategy:
+[source,java]
+----
+include::../src/main/java/seedu/address/model/Player/Enemy.java[lines=81..101]
+----
 
 
 __Note: All actions taken by the Enemy AI are seeded by a pseudo-random generator.

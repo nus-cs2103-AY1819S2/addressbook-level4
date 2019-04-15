@@ -24,7 +24,7 @@ endif::[]
 * One can play the classic Battleship game against the computer on this app.
 * This application is designed for people who want to play Battleship but prefer to use the command-line or are otherwise unable to operate a GUI.
 ** This project is written in an OOP style.
-** Support for _Build Automation_ using Gradle and for _Continuous Integration_ using Travis CI.
+** This project supports _Build Automation_ using Gradle and _Continuous Integration_ using Travis CI.
 
 == Site Map
 

@@ -1,4 +1,4 @@
-﻿= Quickdocs - User Guide
+﻿= QuickDocs - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:

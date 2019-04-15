@@ -275,41 +275,73 @@ The following features are implemented or will be implemented for patients of do
 * Search patients by keywords
 * Delete existing patients
 
-==== CRUD Patient features
+==== Patient management features
 
-===== Current Implementation
+===== Current(Proposed) Implementation
 
-When a user executes 'add-patient n/John Doe g/Male a/21 p/98765432 adr/Utown College 2'
+==== Add Patient feature
+When a user executes 'add-p n/John Doe g/Male a/21 p/98765432 adr/Utown College 2'
 
-Step1. LogicManager calls parseCommand("add-patient") in AddressBookParser.
+Steps: +
 
-Step2. Based on the COMMAND_WORD, AddressBookParser builds a new AddCommandParser() and call function parse(arguments) of AddCommandParser;
+. `LogicManager` calls parseCommand("add-p") in `DocXParser`.
 
-Step3. AddCommandParser parses the argument and get patient name, patient gender, age, phone, address and an optional tag. AddCommandParser calls constructors of Age, Gender, Phone, Address and Tag and then calls the constructor of Patient.
-	   Then, AddPatientCommandParser calls AddPatientCommand(Patient).
+. Based on the COMMAND_WORD, `DocXParser` builds a new `AddPatientCommandParser` and call function parse(arguments) of `AddPatientCommandParser`.
 
-Step4. LogicManager calls execute() of AddCPatientommand.
+. `AddPatientCommandParser` parses the argument and get patient's name, gender, age, phone, address and an optional tag. `AddPatientCommandParser` calls constructors of Age, Gender, Phone, Address and Tag and then calls the constructor of `Patient`.
 
-Step5. execute() calls hasPatient() of Model. If patient does not exist, call addPatient() of Model.
+. `Patient` constructor will invoke the constructor of the parent `Person` class, which will call `PersonIdCounter` to generate a new unique Pid for this patient.
+
+. A new `Patient` object is thus created with the specified fields with a pid and default appointment status of completed.
+
+. Then, `AddPatientCommandParser` calls AddPatientCommand(Patient).
+
+. LogicManager calls execute() of `AddPatientCommand`.
+
+. The execute() calls hasPatient() of `Model`. If patient does not exist in the current DocX, the `Model` will call addPatient() and the patient will be successfully added.
+
+image::AddPatientSdForLogic.png[width="700"]
 
 ==== List Patient feature
-
-list-patient
+When a user executes 'list-p', the full patient list will be displayed.
 
 ==== Edit Patient feature
 
-edit-patient
+When a user executes edit-p 1 n/Betty Sim
+
+Steps: +
+
+. `LogicManager` calls parseCommand("edit-p") in `DocXParser`.
+
+. Based on the COMMAND_WORD, `DocXParser` builds a new `EditPatientCommandParser` and calls function parse(arguments) of `EditPatientCommandParser`.
+
+. `EditPatientCommandParser` parses the argument and get the relative index of the patient to be edited
+ and the respective field(s) to be changed. It will call `EditPatientDescriptor` and change the field(s) accordingly.
+
+. `LogicManager` calls execute() of `EditPatientCommand`.
+
+. execute() calls `getFilteredPatientList()` of `ModelManager` and then get the patient to be edited based on the specified index.
+
+. A new editedPatient `Patient` object will be created based on the EditPatientDescriptor.
+
+. Then, the execute() command continues to check if the patientToEdit and the editedPatient are the same, and if `model` contains the editedPatient.
+
+. If both are the conditions are false, the `model` will set the editedPatient to replace the patientToEdit and the patient will be successfully edited.
 
 ==== Search Patient feature
+There are various search commands available for patients. The internal workings of the search commands can be described under this section.
+Search commands: `search-p-name, search-pid, search-p-status, search-p-advanced`.
 
-search-patient
+When a user executes `search-p-name`
+
+
 
 ==== Delete Patient feature
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete")` API call.
 
 .Interactions Inside the Logic Component for the `delete-patient` Command
-image::DeletePersonSdForLogic.png[width="700"]
+image::DeletePatientSdForLogic.png[width="700"]
 
 // tag::doctorcommands[]
 === CRUD of Doctors
@@ -504,6 +536,16 @@ Step5. execute() calls hasMedHist() of Model. If medical history doesn't exist, 
 {Explain here how view medical history will be implemented}
 
 
+==== Appointment Status Display feature
+The patient card will show the appointment status of a patient. It will display any one of the four enum values: `ACTIVE, COMPLETED, CANCELLED, MISSED`.
+When an appointment is added, or marked, the execution of the command will cascade and alter the status display of the patient.
+It follows the following rules:
+. If the patient still has any other active appointments, a patient status will show `ACTIVE`
+. Else, a patient status will reflect the latest status change to any of his appointment.
+
+The UML diagram will illustrate the `updatePatient` method call in `MarkAppointmentCommand`.
+
+
 
 === Add Appointment Feature
 Appointments are created to facilitate future appointments between patients and doctors.
@@ -550,6 +592,7 @@ The appointment object is then sent to the Model layer.
 . The Logic layer will be notified that the model has been modified through an `InvalidationListener` and then it stores the new appointment to disk using the Storage layer.
 The Storage layer will convert the appointment Java object into the JSON file format using the format specified in `JsonAdaptedAppointment`.
 The next time the application is opened, the Storage layer will use `JsonAdaptedAppointment` again to convert appointments in the JSON file back into appointment objects.
+
 
 === Appointments
 

@@ -134,7 +134,7 @@ Search and return patient(s) whose pid matches the input pid. +
 Format: `search-pid [pid]`
 
 ****
-* Only one pid can be entered and searched.
+* Only one pid can be searched.
 * Only full pid will be matched e.g. `12` will not match `120`
 ****
 
@@ -207,7 +207,7 @@ Format: `select-p [INDEX]`
 Examples:
 
 * `list-p` +
-* `select-p 3` +
+`select-p 3` +
 Selects the patient with current list index of '3' in the docX +
 The patient's full detail can be easily viewed in the browser panel.
 

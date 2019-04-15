@@ -43,8 +43,6 @@ public class VisitWebCommandParser implements Parser<VisitWebCommand> {
         try {
             Weblink weblink = ParserUtil.parseWeblink(args);
             return new VisitWebCommand(weblink);
-        } catch (ParseException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, VisitWebCommand.MESSAGE_USAGE));
         } catch (NoInternetException e) {
             throw new ParseException(e.getMessage());
         }

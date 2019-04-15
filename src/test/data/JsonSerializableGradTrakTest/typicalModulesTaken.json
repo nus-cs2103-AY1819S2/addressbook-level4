@@ -3,7 +3,7 @@
   "modulesTaken" : [ {
     "moduleInfoCode" : "CS1010S",
     "semester" : "Y5S2",
-    "expectedMinGrade" : "D",
+    "expectedMinGrade" : "F",
     "expectedMaxGrade" : "A",
     "lectureHour" : "0",
     "tutorialHour" : "0",
@@ -13,7 +13,7 @@
     "tagged" : [ ]
   }, {
     "moduleInfoCode" : "CS1010X",
-    "semester" : "Y4S2",
+    "semester" : "Y5S2",
     "expectedMinGrade" : "F",
     "expectedMaxGrade" : "A",
     "lectureHour" : "0",

@@ -612,7 +612,7 @@ The diagram below illustrates how the `Rotate` Command works:
 .Sequence Diagram for Rotate Command
 image::RotateCommandSequenceDiagram.png[width="800"]
 
-Given below is an example usage scenario and how the command should behave at each step [This applies to the other image manipulation commands as well.]:
+Given below is an example usage scenario and how the command should behave at each step (This applies to the other image manipulation commands as well.):
 
 Step 1. When the user runs an open command to edit an image, it invokes a method which creates an instance of an `Image` that stores the filepath of the image, its history of edits `List<Command>` and its metadata. This `Image` object is saved under the variable name `tempImage` in `currentEdit` for editing.
 

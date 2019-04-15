@@ -111,8 +111,8 @@ image::cropSuccess.PNG[width="918"]
 +
 
 .  Save your edits by typing command: `save`.
-// end::AWalkThrough[]
 
+// end::AWalkThrough[]
 
 [[Features]]
 == Features
@@ -185,9 +185,9 @@ Examples:
 * `contrast 0.3` (reduces contrast)
 // end::ContrastCommand[]
 
-// tag::CropCommand[]
-=== Crop an Image : `crop`
 
+=== Crop an Image : `crop`
+// tag::CropCommand[]
 Crops an image based on given top left hand corner coordinates, width and height of final cropped image wanted. +
 Format: `crop X_POINTCOORD Y_POINTCOORD WIDTH HEIGHT`
 
@@ -303,9 +303,9 @@ Example:
 * `rotate 90`
 // end::RotateCommand[]
 
-// tag::ResizeCommand[]
-=== Resize an Image : `resize`
 
+=== Resize an Image : `resize`
+// tag::ResizeCommand[]
 Resizes the image to a given width and height provided by the user. +
 Format: `resize WIDTH HEIGHT`
 
@@ -402,12 +402,12 @@ Undoable commands: those commands that modify the image (`rotate`, `crop`, `resi
 
 === WaterMark : `wm`
 // tag::WaterMarkCommand[]
-Adds a watermark to the image with a (C) at the start of the input message. Should the message be too long to fit within the width of the image, the message will be cut off. +
+Adds a watermark to the image with a (C) at the start of the input message. Messages can contain spaces. Should the message be too long to fit within the width of the image, the message will be cut off. +
 Format: `wm MESSAGE`
 
 [NOTE]
 ====
-A watermark can only be added once to an image.
+Each image can only have one watermark.
 ====
 
 Example:

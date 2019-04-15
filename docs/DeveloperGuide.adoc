@@ -627,6 +627,9 @@ result of the `Filter`, `Find` or `List` feature.
 Illustrated below is a sample usage scenario that provides a clear view to the inner
 workings of the `deadline` feature.
 
+.Deadline Class Diagram
+image::DeadlineClassDiagram.png[width="200"]
+
 Step 1: From the main interface, the user chooses a file that they wish to set a deadline,
 enters the `deadline` command into the CLI Interface, following the outlined Syntax mentioned.
 
@@ -1744,10 +1747,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 [discrete]
 === Use case: Add new PDF file
-*System: PDF++*
-*Use case: Adding a Pdf to PDF++*
-*Actor: Student*
-*MSS*
+*System: PDF++*  +
+*Use case: Adding a Pdf to PDF++* +
+*Actor: Student* +
+*MSS* +
 
 1.  User types `add f/FILEPATH` into the CLI Input.
 2.  User clicks enter.
@@ -1755,24 +1758,36 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 Use case ends.
 
-*Extensions*
-3a.
-  3a1. User loads an invalid file (not a pdf).
-  3a2. PDF++ shows an error message to user.
-  3a3. User repeats Step 1 and 2 to add a valid pdf into PDF++.
-  Use Case resumes at step 3.
+*Extensions* +
+3a. +
+  3a1. User loads an invalid file (not a pdf). +
+  3a2. PDF++ shows an error message to user. +
+  3a3. User repeats Step 1 and 2 to add a valid pdf into PDF++. +
+  Use Case resumes at step 3. +
 
 [discrete]
-=== Use case: Sort files within PDF++
-*System: PDF++*
-*MSS*
+=== Use case: Find keyword in files within PDF++
+*System: PDF++*  +
+*Use case: Adding a Pdf to PDF++* +
+*Actor: Student* +
+*MSS* +
 
-1.  User clicks on `Sort` dropdown box.
-2.  User clicks on sorting criteria based on dropdown box options.
-3.  User clicks on `Sort` button.
-4.  PDF++ sorts the list of files and displays sorted list to user.
+1.  Clicks on the CLI Input Area.
+2.  User types `find KEYWORD`.
+3.  User presses enter.
+4.  PDF++ Returns a list of files that contain the keyword in its names or content.
 +
 Use case ends.
+
+*Extensions* +
+3a. User input invalid data. +
+3a1. PDF++ throws an exception to alert the user. +
+3a2. User repeats Step 1 to 3 to search till a valid `KEYWORD` is entered. +
+
+3b. User inputs a `KEYWORD` that is not in any of the files. +
+3b1. PDF++ Returns an empty list. +
+Use Case ends.
+
 
 [discrete]
 === Use case: Delete pdf

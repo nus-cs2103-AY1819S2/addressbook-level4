@@ -43,8 +43,9 @@ endif::[]
 
 == Summary of contributions
 
-Overall, my role in this project encompasses managing the UI components, Statistics feature, project deadline and
-deliverable. The following provides a detailed summary of the coding, documentation and other helpful contributions
+Overall, my role in this project encompasses managing the UI components, Statistics feature, documentation, project
+deadline and deliverable. The following provides a detailed summary of the coding, documentation and other helpful
+contributions
  I have contributed to the team project.
 
 . *Major Commands implemented*

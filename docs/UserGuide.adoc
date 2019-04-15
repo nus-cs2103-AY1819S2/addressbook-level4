@@ -44,7 +44,7 @@ Some of the features that can look forward to:
 
 Callouts are boxes with important information regarding the usage of the Food Diary. These 3 callouts are used throughout our User Guide.
 [NOTE]
-This is a *note*. A warning indicates important additional information that should be read.
+This is a *note*. A note indicates important additional information that should be read.
 
 [TIP]
 This is a *tip*. A tip indicates good to know information that would improve your user experience.

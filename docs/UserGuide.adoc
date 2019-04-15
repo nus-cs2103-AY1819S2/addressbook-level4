@@ -31,16 +31,16 @@ you are certainly not alone in your struggles. Is there a solution to all your 2
 Introducing *TravelBuddy*. TravelBuddy is a desktop journal app that curates all your travel moments! Here are 4 ways to use TravelBuddy:
 
 * *_TravelBuddy Records_*: Helps you capture, store, organize and edit info about the places you've been to. +
-More info here: <<Adding a place: `add`>>
+More info starting from here: <<addFeature>>
 
 * *_TravelBuddy Search_*: Helps you search through your list of places quickly to find what you were looking for. +
-More info starting from here: <<Searching places by name: `search`>>
+More info starting from here: <<searchFeature>>
 
 * *_TravelBuddy Photos_*: Helps you attach photos to your list of places. +
-More info here: <<Including a photo when adding a place with `p/`>>
+More info here: <<attachPhotoFeature>>
 
 * *_TravelBuddy Analytics_*: Helps you gather insights into your travel patterns and behavior. +
-More info here: <<Generating charts: `generate`>>
+More info here: <<generateFeature>>
 
 Best of all, you can accomplish any of these tasks with just _a single command_. So, are you ready to _redefine traveling_?
 // end::intro[]
@@ -104,7 +104,7 @@ Below are other example commands you may try:
 == Features
 // end::features[]
 
-=== Standardizing command formats
+=== Standardizing Command Formats
 
 The following covers the standard format to be used for all the commands in TravelBuddy and the syntax that follows:
 
@@ -129,7 +129,7 @@ The code in this section is merely for illustrative purposes. It is kept brief t
 * _Some parameters have a specific input format_ +
 *Example:* For `dv/DATE_VISITED`, the `DATE_VISITED` needs to follow the `DD/MM/YYYY` format.
 
-=== Seeking help: `help`
+=== Seeking Help: `help`
 
 *Description:* The `help` command opens up a help page.
 
@@ -145,14 +145,21 @@ around. This can be useful to refer to when using the app.
 A quick alternative way to seek help is to hit the kbd:[F1] key.
 
 // tag::crudAdd[]
-=== Adding a place: `add`
+[[addFeature]]
+=== Adding a Place: `add`
 
 *Description:* The `add` command adds a place to TravelBuddy.
 
 *Shortcut:* `a`
-// TODO: label table
-The table below shows the parameters that require a specific input format to be added.
-[width="100%",cols="20%,20%,<60%"]
+
+*Format*: `add [n/NAME] [cc/COUNTRY_CODE] [dv/DATE_VISITED] [r/RATING] [d/DESCRIPTION] [a/ADDRESS] [p/FILE_PATH]
+[t/TAG]…`
+
+The <<SpecificParameters>> below shows the parameters that require a specific input format to be added.
+
+[[SpecificParameters]]
+[width="100%",cols="20%,20%,<60%"reftext="Table 4.3.1", caption="Table 4.3.1: "]
+.Parameters that Require a Specific Format
 |=======================================================================
 |*Parameter*
 |*Parameter Prefix*
@@ -166,7 +173,7 @@ The table below shows the parameters that require a specific input format to be 
 |`cc/`
 |A valid ISO-3166 three-letter country code +
 e.g. `JPN` to represent `Japan` +
-The full list of country codes can be found link:https://cs2103-ay1819s2-w11-3.github.io/main/CountryCodes.html[here]
+The full list of country codes can be found <<start, here>>
 
 |`DATE_VISITED`
 |`dv/`
@@ -182,7 +189,6 @@ Adds Raffles Hotel to the list of places you have visited into TravelBuddy.
 
 <<addFigure>> below shows the outcome of a specific `add` command
 [[addFigure]]
-// TODO: update photo
 [reftext="Figure 4.3.1"]
 [caption="Figure 4.3.1: "]
 .Adding a place to TravelBuddy
@@ -191,9 +197,10 @@ image::addCommand.png[width="400"]
 [TIP]
 A place can have any number of tags (including 0 tags).
 
-// end::crudEdit[]
+// end::crudAdd[]
 
 // tag::addphoto[]
+[[attachPhotoFeature]]
 ==== Including a photo when adding a place with `p/`
 
 *Description:* The `add` command can also include attach a single photo
@@ -282,7 +289,7 @@ Currently, TravelBuddy supports the following image *file formats/extensions*:
 
 // tag::crudList[]
 
-=== Listing all places: `list`
+=== Listing All Places: `list`
 
 *Description:* The `list` command displays a list of all the places in TravelBuddy.
 
@@ -292,18 +299,13 @@ Currently, TravelBuddy supports the following image *file formats/extensions*:
 
 [NOTE]
 Calling the `list` command returns a list of all the places in TravelBuddy as shown in <<listFigure>> below.
-// TODO: Update screenshot
-[[listFigure]]
-[reftext="Figure 4.4.1"]
-[caption="Figure 4.4.1: "]
-.Listing all the places in TravelBuddy
-image::listCommand.png[width="400"]
+
 
 // end::crudList[]
 
 // tag::crudEdit[]
 
-=== Editing a place: `edit`
+=== Editing a Place: `edit`
 
 *Description:* The `edit` command edits an existing place in TravelBuddy.
 
@@ -322,7 +324,8 @@ image::listCommand.png[width="400"]
 * Preconditions for changing the photo file [FILE_PATH] are in <<Replacing the photo of a place with `edit p/`>>
 
 *Examples:* Given below are some examples on how to utilize the `edit` command:
-// TODO: Consider revising below.
+
+
 * `edit 1 r/3 d/No description` +
 Edits the rating and description of the 1st entry in the list to be `3` and `No description` respectively.
 * `edit 2 n/Raffles Hotel t/` +
@@ -383,7 +386,8 @@ specifications laid out in <<Including a photo when adding a place with `p/`>>
 // end::editPhoto[]
 
 // tag::search[]
-=== Searching places by name: `search`
+[[searchFeature]]
+=== Searching Places by Name: `search`
 
 *Description:* The `search` command searches for places whose names contain any of the given keywords.
 
@@ -417,7 +421,7 @@ In this case, the following are returned as they contain `Singapore` in their na
 .Search results of `search Singapore`
 image::UIsearchresults.png[width="400"]
 
-=== Searching places by ratings: `searchr`
+=== Searching places by Ratings: `searchr`
 
 *Description:* The `searchr` command searches for places whose ratings match the specified rating from 1 to 5. +
 
@@ -442,7 +446,7 @@ From <<searchRatingFigure>> below, using `searchr 4` will return all places in y
 .Search results of `searchr 4`
 image::UIsearchratingresults.png[width="400"]
 
-=== Searching places by tags: `searcht`
+=== Searching Places by Tags: `searcht`
 
 *Description:* The `searcht` command searches for places whose tags correspond to any given keywords. +
 
@@ -468,7 +472,7 @@ From <<searchTagFigure>> below, using `searcht distillery` will return all place
 .Search results of `searcht distillery`
 image::UIsearchtagsresults.png[width="400"]
 
-=== Searching places by country: `searchc`
+=== Searching places by Country: `searchc`
 
 *Description:* The `searchc` command searches for places whose country matches the specified ISO-3166 3-letter country code. +
 
@@ -493,7 +497,7 @@ From <<searchCountryFigure>> below, using `searchc JPN` will return all places i
 .Search results of `searchc JPN`
 image::UIsearchcountryresults.png[width="400"]
 
-=== Searching places by year of visit: `searchyear`
+=== Searching Places by Year of Visit: `searchyear`
 
 *Description:* The `searchyear` command searches for places whose year of visit matches the specified year of interest.
 
@@ -521,7 +525,7 @@ image::UIsearchyearresults.png[width="400"]
 // end::search[]
 
 // tag::crudDelete[]
-=== Deleting a place: `delete`
+=== Deleting a Place: `delete`
 
 *Description:* The `delete` command deletes the specified place from TravelBuddy.
 
@@ -551,6 +555,7 @@ image::deleteCommandBefore.png[width="400"]
 .After the `delete` command is used
 image::deleteCommandAfter.png[width="400"]
 
+
 *Examples:* Given below are some examples on how to utilize the `delete` command:
 
 * `list` +
@@ -565,7 +570,7 @@ Deletes the 1st place in the results of the `search` command.
 // end::crudDelete[]
 
 // tag::deleteMultiple[]
-=== Deleting multiple places: `deletem`
+=== Deleting Multiple Places: `deletem`
 
 *Description:* The `deletem` command deletes multiple places from TravelBuddy's currently displayed list on the left.
 
@@ -601,7 +606,7 @@ Deletes the 1st, 2nd and 3rd place in the results of the `search Singapore` comm
 // end::deleteMultiple[]
 
 // tag::select[]
-=== Selecting a place: `select`
+=== Selecting a Place: `select`
 
 *Description:* The `select` command selects the place identified by the index number used in the currently displayed list on the left,
 which loads expanded details of the selected place on the right of the displayed list.
@@ -637,7 +642,7 @@ Selects the 1st place in the results of the `search` command.
 // end::select[]
 
 // tag::history[]
-=== Listing previously entered commands: `history`
+=== Listing Previously Entered Commands: `history`
 
 *Description:* The `history` command lists all the commands that you have entered in reverse chronological order. +
 
@@ -660,7 +665,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // end::history[]
 
 // tag::undoredo[]
-=== Undoing previous command: `undo`
+=== Undoing Previous Command: `undo`
 
 *Description:* The `undo` command restores TravelBuddy to the state before the previous _undoable_ command was executed. +
 
@@ -692,7 +697,7 @@ Reverses the `clear` command +
 `undo` +
 Reverses the `delete 1` command +
 
-=== Redoing the previously undone command: `redo`
+=== Redoing the Previously Undone Command: `redo`
 
 *Description:* The `redo` command reverses the most recent `undo` command. +
 
@@ -727,7 +732,8 @@ Reapplies the `clear` command +
 // end::undoredo[]
 
 // tag::generate[]
-=== Generating charts: `generate`
+[[generateFeature]]
+=== Generating Charts: `generate`
 
 *Description:* The `generate` command generates charts based on the list of places in TravelBuddy. TravelBuddy serves up three charts (<<Chart_Combined>>) that are the most relevant to you as a traveler:
 
@@ -753,12 +759,8 @@ image::Chart_Combined.png[width="800", caption="Figure 4.17.1: ", reftext="Figur
 * You can type in any parameters after the `generate` command, TravelBuddy will simply ignore them (<<Generate_BeforeParamAfterParam>>).
 
 [[Generate_BeforeParamAfterParam]]
-.Before and after a parameter was used in the `generate` command
+.Before and after a parameter is used in the `generate` command
 image::Generate_BeforeParamAfterParam.png[width="800", caption="Figure 4.17.2: ", reftext="Figure 4.17.2"]
-
-[[Generate_Successful]]
-.The charts were successfully generated
-image::Generate_Successful.png[width="400", caption="Figure 4.17.3: ", reftext="Figure 4.17.3"]
 
 *Examples:* Given below are some examples on how to utilize the `generate` command:
 
@@ -767,12 +769,14 @@ Selects the 1st place in the current list displayed. +
 `generate` +
 Generates the charts.  +
 *_Outcome:_* The charts were successfully generated, as seen in <<Generate_Successful>> +
+[[Generate_Successful]]
+.The charts were successfully generated
+image::Generate_Successful.png[width="400", caption="Figure 4.17.3: ", reftext="Figure 4.17.3"]
 * `clear` +
 Clears all places in the list. +
 `generate` +
 Generates the charts.  +
-*_Outcome:_* Unable to generate the charts as the list is empty, as seen in <<Generate_ListIsEmpty>>
-
+*_Outcome:_* Unable to generate the charts as the list is empty, as seen in <<Generate_ListIsEmpty>> +
 [[Generate_ListIsEmpty]]
 .Unable to generate the charts as the list is empty
 image::Generate_ListIsEmpty.png[width="400", caption="Figure 4.17.4: ", reftext="Figure 4.17.4"]
@@ -780,7 +784,7 @@ image::Generate_ListIsEmpty.png[width="400", caption="Figure 4.17.4: ", reftext=
 // end::generate[]
 
 // tag::clear[]
-=== Clearing all entries: `clear`
+=== Clearing All Entries: `clear`
 
 *Description:* The `clear` command clears all place entries from TravelBuddy. +
 
@@ -798,7 +802,7 @@ image::clearCommand.png[width="400"]
 // end::clear[]
 
 // tag::exit[]
-=== Exiting the program: `exit`
+=== Exiting the Program: `exit`
 
 *Description:* The `exit` command exits the program. +
 
@@ -816,13 +820,13 @@ An alternative way to exit TravelBuddy is to click kbd:[FILE] > kbd:[EXIT], as s
 image::exit.png[width="400"]
 // end::exit[]
 
-=== Saving of data
+=== Saving of Data
 
 TravelBuddy data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 == Frequently Asked Questions (FAQ)
 
-=== Setting up
+=== Setting Up
 *Q*: Can the application be used even without internet connection? +
 *A*: Yes, the application works without internet connection.
 
@@ -833,7 +837,7 @@ TravelBuddy data is saved in the hard disk automatically after any command that 
 *A*: If you are just starting out, TravelBuddy will be empty for you to add places that you have been to.
 If you have been using it frequently, please refer to Data and Storage Issues.
 
-=== Data and storage issues
+=== Data and Storage Issues
 *Q*: How do I transfer my data to another computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous TravelBuddy folder.
 
@@ -847,7 +851,7 @@ If you have been using it frequently, please refer to Data and Storage Issues.
 *A*: If you are just starting out, please refer to Setting Up section. An empty TravelBuddy means that your data has been cleared either by commands or invalid json file.
 Please do check the file that contains the data of your TravelBuddy.
 
-=== Command issues
+=== Command Issues
 
 *Q*: How do I view the full address book after searching or selecting an entry? +
 *A*: Use the command `list` to retrieve the full address book.
@@ -879,7 +883,7 @@ Please do check the file that contains the data of your TravelBuddy.
 // end::cheatsheet[]
 
 // tag::commandGlossaryAndShortcuts[]
-=== Command glossary and shortcuts
+=== Command Glossary and Shortcuts
 
 Below is a summarized list of all the command glossary and shortcuts that TravelBuddy supports:
 
@@ -966,7 +970,7 @@ Below is a summarized list of all the command glossary and shortcuts that Travel
 // end::commandGlossaryAndShortcuts[]
 
 // tag::commandFormats[]
-=== Command formats
+=== Command Formats
 
 Below is a summarized list of all the command formats that TravelBuddy supports:
 
@@ -1063,7 +1067,6 @@ _Example:_ +
 |*Undo*
 |`undo`
 
-
 |=======================================================================
-
 // end::commandFormats[]
+[[start]]

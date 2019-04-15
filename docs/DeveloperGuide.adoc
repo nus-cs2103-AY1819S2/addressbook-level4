@@ -163,6 +163,8 @@ image::SDforDeletePlace.png[width="800"]
 
 The sections below give more details of each component.
 
+// tag::uiArchitecture[]
+
 [[Design-Ui]]
 === UI Component
 
@@ -213,6 +215,8 @@ contains helper methods for switching functionality, interacts with model and lo
 * `BrowserPanel`: *_Deprecated._* Opens on clicking the PlaceListCard, on the right of the PlaceListPanel.
 
 *All CSS code can be found in `LightTheme.css` and `Extensions.css`
+
+// end::uiArchitecture[]
 
 [[Design-Logic]]
 === Logic Component
@@ -677,82 +681,263 @@ Given below is a comparison between the alternatives of the data structure used 
 // tag::countrycode[]
 === Add Feature
 The `add` command is used to add a place into TravelBuddy. The user can add the following details related to the
-place:
+place: name, country code, date visited, rating, address, description, photo (Optional) and
+Tag (Optional).
 
-* Name
-* Country Code
-* Date Visited
-* Rating
-* Address
-* Description
-* Photo (Optional)
-* Tag (Optional)
-
-// TODO: Update link for CountryCodes.adoc
 [NOTE]
 The country code adheres to the three-letter ISO-3166 standard. The full list of country codes can be found
 link:https://cs2103-ay1819s2-w11-3.github.io/main/CountryCodes.html[here].
 
 ==== Current Implementation
-// TODO: Add numbering in the diagram.
-Given below is a sequence of steps, illustrating the interaction between various classes when the add command is
+<<addSeqDiagram>> is a sequence of steps that illustrates the interaction between various classes when the `add`
+command is
 entered.
-
+[[addSeqDiagram]]
+[reftext="Figure 4.3.1"]
+[caption="Figure 4.3.1: "]
+.Execution sequence of the `add` command
 image::AddCommandSequenceDiagram.PNG[width="800"]
-Figure 10: Add Command Sequence Diagram
 
-Step 1: The user enters the command `add n/NUS Computing cc/SGP dv/10/10/2017 r/3 d/My School a/13 Computing Drive,
-117417 t/faculty`.
+`add n/NUS Computing cc/SGP dv/10/10/2017 r/3 d/My School a/13 Computing Drive,
+117417 t/faculty`
 
-Step 2: The command is processed by the Logic component, which will then call `LogicManager#execute()`.
+1) The `String` user input is passed into the `LogicManager::execute` method of the LogicManager instance as the
+only parameter.
 
-Step 3: `TravelBuddyParser#parseCommand()` is invoked, which is also located in the Logic component.
+2) The `LogicManager::execute` method calls `TravelBuddyParser::parseCommand` which receives the user input as a
+parameter.
 
-Step 4: `AddCommandParser`'s constructor is invoked.
+** The user input is formatted: the first `String` token is taken as the command word and the rest of the  String is
+grouped as arguments to be used later by the `AddCommandParser`.
+** From the command word, the `TravelBuddyParser` instance identifies the user input as an `add` command and
+constructs an instance of `AddCommandParser`.
 
-Step 5: The `AddCommandParser#parse()` is called and receives the command with the arguments given as a string.
+3) TravelBuddyParser calls the `AddCommandParser::parse` method. The `AddCommandParser` takes in the rest of the
+string, which is
+`n/NUS Computing cc/SGP dv/10/10/2017 r/3 d/My School a/13 Computing Drive, 117417 t/faculty`
 
-Step 6: The `AddCommandParser` interprets the arguments and constructs an `AddCommand`.
+** The string is tokenised to arguments based on their prefixes.
 
-Step 7: The `AddCommand` with a `Place` specified by the user is returned.
+[source, java]
+ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME,
+     PREFIX_COUNTRY_CODE, PREFIX_DATE_VISITED, PREFIX_RATING,
+     PREFIX_DESCRIPTION, PREFIX_ADDRESS, PREFIX_PHOTO, PREFIX_TAG);
 
-Step 8: The `AddCommand#execute()` method is invoked.
+** A check is made on the presence of the relevant prefixes `n/`, `cc/`, `dv/`, `r/`, `d/`, `a/`, `p/` and `t/`.
 
-Step 9: The `Model#addPlace()` method is invoked with the argument `toAdd`. The `Model#commitTravelBuddy()` method is
- also invoked.
+** When the mandatory prefixes are not present, a `ParseException` will be thrown with an error message on the
+proper
+usage of
+the `add` command.
 
-Step 10: The `TravelBuddy#addPlace()` method is invoked by `Model` with the argument `toAdd`.
+[source,java]
+// Mandatory fields in "add" command
+ if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_COUNTRY_CODE,
+     PREFIX_DATE_VISITED, PREFIX_ADDRESS, PREFIX_RATING, PREFIX_DESCRIPTION)
+     || !argMultimap.getPreamble().isEmpty()) {
+     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+         AddCommand.MESSAGE_USAGE));
+ }
 
-Step 11: A result object is returned.
-// TODO: Add code snippet.
+
+** Otherwise, a `Place` object is constructed and used as a field in the creation of a `AddCommand` object.
+
+4) The newly created `AddCommand` object is returned to back to the `LogicManager` instance through the
+`AddCommandParser` and `TravelBuddyParser` objects.
+
+5) Once the control is returned to the `LogicManager` object, it calls the `AddCommand::execute` method.
+
+** The method takes in a Model object to access the application’s data context, the stored data of all places.
+
+** The code snippet below shows the `AddCommand::execute` method.
+
+[source,java]
+ public CommandResult execute(Model model, CommandHistory history)
+     throws CommandException {
+     requireNonNull(model);
+     if (model.hasPlace(toAdd)) {
+         throw new CommandException(MESSAGE_DUPLICATE_PLACE);
+     }
+     model.addPlace(toAdd);
+     model.commitTravelBuddy();
+     return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+ }
+
+** A check is made on whether the place already exists in TravelBuddy. If it already exists,
+a `CommandException` will be thrown with an error message on the duplicate entry of the place.
+
+6) The `Place` data is added into TravelBuddy.
+
+** Here the `Model::addPlace` method is called, and it subsequently calls the `TravelBuddy::addPlace` method.
+** Following which the `Model::commitTravelBuddy` method is called.
+
+7) The `AddCommand::execute` execution completes by returning a new CommandResult that contains a success message to
+its calling method which is `LogicManager::execute`.
+
+8) Finally, the `CommandResult` is returned to the caller of `LogicManager::execute` and the execution sequence ends.
+
 ===== Add Command
 Given below is an example usage scenario and what the user will see in the GUI.
-// TODO: The app starts with some sample data already populated. Update screenshot accordingly.
-Step 1. The user launches the application and sees the GUI with no places.
 
-image::AddCommandStep1.png[width="800"]
+The user launches the application and enters the full add command `add n/Raffles Hotel cc/SGP dv/05/05/2016 t/hotel d/This place is lovely a/Raffles Road r/5 t/staycation
+117417 t/faculty`. TravelBuddy will start executing the steps mentioned in
+<<addSeqDiagram>> and the output is shown below in <<output>>.
 
-Step 2. The user enters the full add command `add n/NUS Computing cc/SGP dv/10/10/2017 r/3 d/My School a/13 Computing Drive,
-117417 t/faculty` to add the place to TravelBuddy and presses kbd:[ENTER]. TravelBuddy will start executing the steps mentioned in Figure 10.
+[[output]]
+[reftext="Figure 4.3.2"]
+[caption="Figure 4.3.2: "]
+image::addCommand.png[width="400"]
 
-image::AddCommandStep2.png[width="800"]
 
 [NOTE]
 The command `add` is in lower-case. Mixed-case or upper-case commands are not recognised by TravelBuddy.
 
 
 ==== Design Considerations
-// TODO: Learn from Chung Ming's portion. Change to table. Make sure to bold the starting words.
-===== Aspect: Data structure to store Country Codes
-* **Alternative 1 (current choice):** Use `enum` specified in `java.util.Locales`.
-** Pros: Easy to implement and contains all three-letter country codes as specified in ISO-3166.
-** Cons: Slightly slow in searching for country code.
-* **Alternative 2:** Create a data structure containing the most commonly traveled countries in the world.
-** Pros: Locating country code in data structure would be faster than Alternative 1.
-** Cons: Tedious process of typing out country codes in the data structure.
 
-// TODO: Add decision.
+===== Aspect: Data structure to store Country Codes
+
+[width="100%",cols="16%,<50%,<50%",options="header"]
+|=======================================================================
+
+|
+|*Alternative 1 (current choice)*
+|*Alternative 2*
+
+|*Description*
+|Use `enum` specified in `java.util.Locales`.
+|Create a data structure containing only the top 30 commonly traveled countries in the world.
+
+|*Pros*
+|*Ease-of-use*. This approach simply requires the importing of `java.util.Locales` to get the country codes. +
+*Comprehensive*. `java.util.Locales` contains all of the 250 three-letter country codes as specified in ISO-3166.
+
+|*Fast*. This approach is computationally less intensive than Alternative 1. This is because there are only 30 country
+codes in the data structure.
+
+|*Cons*
+|*Slightly slow*. This approach is computationally more intensive than Alternative 1. This is because there are 250
+country codes to search from.
+
+|*Tedious*. This approach requires the coder to search for the top 30 visited countries in the world and type out all
+ the 30, three-letter country codes as specified in ISO-3166. +
+*Not User-friendly*. If the user visited a country that is not in the top 30 list of countries visited, the user
+would not be able to add it into TravelBuddy.
+
+|=======================================================================
+
+*Decision:* Alternative 1. Alternative 2 may not fulfill all of the user requirements of adding any country code, but Alternative 1 does.  Alternative 1's speed is only slightly slower than Alternative 2.
+
+
 // end::countrycode[]
+
+// tag::photosFeature[]
+
+=== Photos Feature
+
+The Photo feature gives users the ability to attach an existing image file to any Place object,
+which is then displayed in the `ExpandedPlacePanel` when the `select` command is called on a particular Place.
+
+==== Current Implementation
+
+This feature is currently integrated as part of the `add` and `edit` commands. It works by accepting the user entered
+absolute file path of the image as an `add` and `edit` command parameter, specified by the prefix `p/`.
+
+<<Figure 4.4.1>> below is a sequence of steps, illustrating the interaction between various classes when the add command is
+used to include a photo with a newly created place.
+
+[[AddPhotoActivityDiagram]]
+[reftext="Figure 4.2.1.1"]
+[caption="Figure 4.4.1: Add Photo Activity Diagram"]
+.Activity diagram for photo feature
+image::AddPhotoActivityDiagram.PNG[width="800"]
+
+Step 1: The user enters the command `add n/Himeiji Castle cc/JPN dv/15/12/2017 r/5 d/Wow.
+a/Kyoto t/castle p/C:\Users\Shaun\Pictures\castle-photo.jpg`.
+
+Step 2 - 5: Identical to `add` command sequence, please refer to <<<Add Feature>>> for details
+
+Step 6: The `AddCommandParser` interprets the arguments, and checks the file path input using `ParserUtil.parsePhoto()`.
+
+Step 7: `parsePhoto()` then trims any leading whitespace. It also trims a single leading and trailing double quotation mark `"`.
+This is for ease of use with the Windows 10 File Explorer *Copy Path* Home menu function, which returns the filepath of the selected file
+wrapped with double quotation marks `"`.
+
+Step 8.1: As the `photo` parameter is optional for `add` command, if photo prefix `p/` is not used, `AddCommandParser`
+calls the 2nd overloaded `Place()` constructor to create a `Place` with a special string `EMPTY_PHOTO_PATH` in the `Photo` attribute.
+
+Step 8.2.1: If photo prefix 'p/' is used, he validity of the filepath is then checked with the `Photo.isValidPhotoFilepath()` method.
+The method relies on using `ImageIO.read()` to try opening the file using the provided `filepath` string.
+If the filepath is invalid or the file cannot be opened, then `ImageIO.read()` throws a `IOException`.
+The exception is caught, control returns to parsePhoto() and a ParseException is thrown.
+
+Step 8.2.2: Else, control returns to `parseUtil.parsePhoto()`. It uses the all-parameter `Place()` constructor to create
+a `Place` object, using the `Photo` parameter and other parameters.
+
+[NOTE]
+A valid filepath must be an absolute file path; it starts with the drive-letter (eg. `C:\\`), and ends with the file name and extension (eg. `castle-photo.jpg`).
+Supported filepaths are `.jpg` `.png` and `.bmp`, which are filepaths supported by `ImageIO.read()` and the Java `Image` class.
+
+// TODO: code snippet comparing
+
+Step 9: When the `select` command is executed, the UI component `ExpandedPlacePanel` receives the `Place` object. It then uses the `photo.filepath` attribute to create a
+JavaFX `Image` object, which is then displayed in a ImageView panel at the top of `ExpandedPlacePanel` using the `setImage()` method.
+
+===== Example: Using `add` to include a photo
+
+Given below is an example usage scenario and what the user will see in the GUI.
+
+Step 1.Input `add n/Himeiji Castle cc/JPN dv/15/12/2017 r/5 d/Wow. a/Kyoto t/castle p/C:\Users\Michael\Pictures\castle-photo.jpg`
+
+[[addPhotoBefore]]
+[reftext="Figure 4.4.2"]
+[caption="Figure 4.4.2: "]
+.Before the `add` command is executed
+image::addPhotoBefore.png[width="800"]
+
+Step 2. The user inputs `selects 4`.
+
+[[addPhotoAfter]]
+[reftext="Figure 4.4.3"]
+[caption="Figure 4.4.3: "]
+.After the `add` command is executed and the newly added Place "Himeiji Castle" is selected
+image::addPhotoAfter.png[width="800"]
+
+==== Design Considerations
+
+===== Decision: What type of file path input should the `add` and `edit` command accept for the photo parameter (prefix `p/`)?
+
+[width="100%",cols="16%,<50%,<50%",options="header"]
+|=======================================================================
+
+|
+|*Implementation 1: Absolute Filepath +
+(current choice)*
+|*Implementation 2: Filename and Extension Only*
+
+|*Description*
+|Accept the entire absolute file path of the image to be added/replaced
+|Accept only file name and file extension of the image to be added/replaced, but requiring the images to be located in the
+directory of the JAR executable, or some other pre-defined directory.
+
+|*Pros*
+|*Ease-of-use*. This approach is more user-friendly, as users do not need to type an additional `generate` command after changes are made to the Place list. +
+
+|*Scalability*. This approach is does not require images to be copied or moved from their existing directory to a new directory. Instead, by using
+`Alt-Tab`, Windows 10 File Explorer `Copy Path` function, `Ctrl-C` + `Ctrl-V`, and the `edit` command, users can quickly attach multiple photos to existing places.
+
+|*Cons*
+|*Ease-of-use*. This approach is Less user-friendly as users will  have to manually type in the name and extension of each image file added, +
+or otherwise rename the file to `Ctrl-C` + `Ctrl-V` the file name, and manually type in the extension.
+
+|*Scalability*. For a large number of image files, this approach requires the user spent extra time moving files from their existing directory to
+the new pre-specified directory. If moving files is not an option, then addition storage space is required for all the copied files. +
+
+|=======================================================================
+
+
+// end::photosFeature[]
+
 
 // tag::chartFeature[]
 === Chart Feature
@@ -779,17 +964,13 @@ include::{sourceDir}/seedu/travel/logic/commands/GenerateCommand.java[tags=execu
 
 In the snippet, the operations implemented are:
 
-* `GenerateCommand#setChartDisplayed(chartDisplayed)` - Signals to the UI to display the charts.
-* `GenerateCommand#commitTravelBuddy()` - Saves the current TravelBuddy state from its history.
-* `GenerateCommand#getFilteredPlaceList()` - Verifies if the list is empty.
+. `Model#setChartDisplayed(chartDisplayed)` - Signals to the UI to display the charts.
+. `Model#commitTravelBuddy()` - Saves the current TravelBuddy state from its history.
+. `Model#getFilteredPlaceList()` - Verifies if the list is empty.
 
 These operations are exposed in the `Model` interface as `Model#setChartDisplayed(chartDisplayed)`, `Model#commitTravelBuddy()` and `Model#getFilteredPlaceList()`.
 
 *Model:* The chart generation mechanism is facilitated by `VersionedTravelBuddy`, which extends from `TravelBuddy`, as seen in the Model Class Diagram in <<ModelClassDiagram>>.
-
-[[chartOopDiagramFigure]]
-.OOP Diagram
-image::Chart_ModelClassBetterOopDiagram.png[width="590", caption="Figure 4.4.1: ", reftext="Figure 4.4.1"]
 
 For this section on Charts, the focus is on the <<class-diagram, class diagram>> as seen in <<chartOopDiagramFigure>>. The step-by-step explanation of the class diagram can be found below:
 
@@ -800,7 +981,15 @@ For this section on Charts, the focus is on the <<class-diagram, class diagram>>
 . `countryChartList` is a container for one or more `CountryChart` objects. Similarly, `ratingChartList` is a container for one or more `RatingChart` objects and `yearChartList` is a container for one or more `YearChart` objects.
 . `CountryChart` consists of a `CountryCode` object and a `Total` object. Similarly, `RatingChart` consists of a `Rating` object and a `Total` object and `YearChart` consists of a `Year` object and a `Total` object.
 
+[[chartOopDiagramFigure]]
+.OOP Diagram
+image::Chart_ModelClassBetterOopDiagram.png[width="590", caption="Figure 4.4.1: ", reftext="Figure 4.4.1"]
+
 *Logic & Model Interaction:* Having discussed Logic and Model, we can now model the workflow of the `generate` command. This can be accomplished using an <<activity-diagram, activity diagram>>, as seen in <<GenerateCommandActivityDiagram>>.
+
+[[GenerateCommandActivityDiagram]]
+.Activity Diagram for the `generate` command
+image::GenerateCommandActivityDiagram.png[width="370", caption="Figure 4.4.2: ", reftext="Figure 4.4.2"]
 
 Additionally, we want to be able to capture the interaction between multiple objects for the `generate` command. This can be accomplished using a <<sequence-diagram, sequence diagram>>, as seen in <<GenerateCommandSeqDiagramFigure>> below. The step-by-step explanation of the sequence diagram is as follows:
 
@@ -812,21 +1001,19 @@ Additionally, we want to be able to capture the interaction between multiple obj
 . The `ChartBook#commitChart()` method is invoked by `TravelBuddy`.
 . A result object is returned.
 
-[[GenerateCommandActivityDiagram]]
-.Activity Diagram for the `generate` command
-image::GenerateCommandActivityDiagram.png[width="370", caption="Figure 4.4.2: ", reftext="Figure 4.4.2"]
+
 
 [[GenerateCommandSeqDiagramFigure]]
 .Sequence Diagram for the `generate` command
 image::GenerateCommandSeqDiagram.png[width="700", caption="Figure 4.4.3: ", reftext="Figure 4.4.3"]
 
-*Storage:* The Chart's storage is handled by `JsonChartBookStorage`, which implements from `ChartBookStorage`. The three main methods it implements are:
+*Storage:* The Chart's storage is handled by `JsonChartBookStorage`, which implements from `ChartBookStorage`. The three main data-storage methods it implements are:
 
 * `saveCountryChart(filePath)` - Saves the countries data into a JSON file.
 * `saveRatingChart(filePath)` - Saves the ratings data into a JSON file.
 * `saveYearChart(filePath)` - Saves the years data into a JSON file.
 
-A code snippet for `saveCountryChart(filePath)` is shown below.
+As an example, a code snippet for `saveCountryChart(filePath)` is shown below.
 
 [source,java]
 ----
@@ -835,12 +1022,13 @@ include::{sourceDir}/seedu/travel/storage/JsonChartBookStorage.java[tags=saveCou
 
 In the snippet, a third-party library called Gson was used to convert Java Objects into JSON and back. The Gson API can be found https://www.javadoc.io/doc/com.google.code.gson/gson/2.8.5[here]. A step-by-step explanation is as follows:
 
-. The method accepts two parameters, namely a `ReadOnlyCountryChart` object, which supplies the data for the Country Chart, and a `Path` object, which specifies the file path for the `FileWriter` to write into.
-. Both parameters are checked by `requireAllNonNull` to make sure they are not empty.
-. A `Gson` object is instantiated using the `GsonBuilder` 's `create` method.
-. A `FileWriter` object is instantiated with the `Path` object as its parameter. If an `IOException` occurs, a warning message will be displayed by the `Logger` object.
-. Assuming there are no exceptions, `Gson#toJson()` will serialize the `ReadOnlyCountryChart` data as a `JsonObject` and places the stream on `FileWriter`.
-. The `FileWriter#flush()` flushes the stream.
+. `saveCountryChart` accepts a `ReadOnlyCountryChart` object, which supplies data for the Country Chart, and a `Path` object, which specifies the file path for the `FileWriter` to write into.
+. Both objects are checked by `requireAllNonNull` to make sure they are not empty.
+. A `Gson` object is instantiated using the `GsonBuilder#setPrettyPrinting()#create()` object.
+. A `FileWriter` object is instantiated with the `Path` object as its parameter.
+. Assuming there are no exceptions, `Gson#toJson()` object will serialize the `ReadOnlyCountryChart` data as a `JsonObject` and place the stream on `FileWriter`.
+. The `FileWriter#flush()` will flush the stream.
+. If an `IOException` occurs, a warning message will be displayed by the `Logger#warning` object.
 
 ==== Generate Command
 
@@ -1129,8 +1317,6 @@ A project often depends on third-party libraries. For example, TravelBuddy depen
 [appendix]
 == Product Scope
 
-
-
 *Target user profile*:
 The target audience that we have identified are stated below.
 
@@ -1344,21 +1530,17 @@ Use case resumes at step 2.
 // end::use-cases[]
 
 [appendix]
-== Non Functional Requirements
+== Non-Functional Requirements
 
-.  Should work on any <<mainstream-os, mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 places without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-.  Business/domain rules: e.g. the size of the minefield cannot be smaller than five.
-.  Constraints: e.g. the system should be backward compatible with data produced by earlier versions of the system;
-.  system testers are available only during the last month of the project; the total project cost should not exceed $1
-.5 million.
-.  Technical requirements: e.g. the system should work on both 32-bit and 64-bit environments.
-.  Performance requirements: e.g. the system should respond within two seconds.
-.  Quality requirements: e.g. the system should be usable by a novice who has never carried out an online purchase.
-.  Process requirements: e.g. the project is expected to adhere to a schedule that delivers a feature set every one month.
-.  Notes about project scope: e.g. the product is not required to handle the printing of reports.
-.  Any other noteworthy points: e.g. the game should not use images deemed offensive to those injured in real mine clearing activities.
+The non-functional requirements of the system are listed below:
+
+.  *Operating System (OS) Compatability:* Should work on any <<mainstream-os, mainstream OS>> as long as it has Java `9` or higher installed.
+.  *Storage Requirements:* Should store up to 1,000 places without a noticeable sluggishness in performance for typical usage.
+.  *Usage Efficiency:* A user with above average typing speed for regular english text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  *Constraints:* Should be backward compatible with data produced by earlier versions of the system;
+.  *Technical Requirements:* Should work on both 32-bit and 64-bit environments.
+.  *Speed Requirements:* Should respond within two seconds.
+.  *Quality Requirements:* Should be usable by a novice who has never used a travel log
 
 [appendix]
 == Glossary
@@ -1451,4 +1633,3 @@ These instructions only provide a starting point for testers to work on. Testers
    Expected: No place is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size)  +
    Expected: Similar to previous.
-

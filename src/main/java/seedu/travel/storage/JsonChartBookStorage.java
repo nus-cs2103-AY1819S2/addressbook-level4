@@ -60,6 +60,7 @@ public class JsonChartBookStorage implements ChartBookStorage {
      * Similar to {@link #readCountryChart()}.
      *
      * @param filePath location of the data. Cannot be null.
+     * @throws FileNotFoundException if the file is not found.
      */
     @SuppressWarnings("unchecked")
     @Override
@@ -81,6 +82,7 @@ public class JsonChartBookStorage implements ChartBookStorage {
      * Similar to {@link #readRatingChart()}.
      *
      * @param filePath location of the data. Cannot be null.
+     * @throws FileNotFoundException if the file is not found.
      */
     @SuppressWarnings("unchecked")
     @Override
@@ -102,6 +104,7 @@ public class JsonChartBookStorage implements ChartBookStorage {
      * Similar to {@link #readYearChart()}.
      *
      * @param filePath location of the data. Cannot be null.
+     * @throws FileNotFoundException if the file is not found.
      */
     @SuppressWarnings("unchecked")
     @Override
@@ -126,15 +129,15 @@ public class JsonChartBookStorage implements ChartBookStorage {
      */
     @Override
     // tag::saveCountryChart[]
-    public void saveCountryChart(ReadOnlyCountryChart countryChart, Path filePath) {
-        requireAllNonNull(countryChart, filePath);
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    public void saveCountryChart(ReadOnlyCountryChart countryChart, Path filePath) { // <1>
+        requireAllNonNull(countryChart, filePath); // <2>
+        Gson gson = new GsonBuilder().setPrettyPrinting().create(); // <3>
         try {
-            FileWriter fileWriter = new FileWriter(String.valueOf(filePath));
-            gson.toJson(countryChart, fileWriter);
-            fileWriter.flush();
+            FileWriter fileWriter = new FileWriter(String.valueOf(filePath)); // <4>
+            gson.toJson(countryChart, fileWriter); // <5>
+            fileWriter.flush(); // <6>
         } catch (IOException ioe) {
-            logger.warning(ioe.getMessage());
+            logger.warning(ioe.getMessage()); // <7>
         }
     }
     // end::saveCountryChart[]

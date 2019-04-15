@@ -1125,7 +1125,6 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-//tag:: appendix[]
 [appendix]
 == Non Functional Requirements
 Non-functional requirements specify the constraints under which system is developed and operated.
@@ -1161,7 +1160,6 @@ If you do not understand a technical term used in this document, refer to [under
 |*User Interface (UI)*
 |Allows the user to interact with the application through inputs and outputs of data.
 |===
-//end:: appendix[]
 
 [appendix]
 == Instructions for Manual Testing

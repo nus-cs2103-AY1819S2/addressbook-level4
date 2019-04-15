@@ -1,0 +1,8 @@
+{
+  "records": [ {
+    "name": "Record with invalid name field: Ha!m Bu@rger",
+    "amount": "123",
+    "date": "12/02/2019",
+    "description": ""
+  } ]
+}

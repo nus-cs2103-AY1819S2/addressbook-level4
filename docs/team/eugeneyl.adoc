@@ -1,0 +1,171 @@
+= Eugene Yong - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:bl: pass:[ +]
+
+[#img-ProfilePhoto]
+image::eugeneyl.png[width="75",float = left]
+--
+This page aims to showcase my contribution to the project _In-Credit-Ble_ done in tandem with the software engineering
+module (CS2103T). I will first give an introduction to _In-Credit-Ble_, followed by highlighting the key contributions
+that i have made in the application. Lastly, I will be including the relevant sections of the User Guide(UG) and
+Development Guide(DG) that I documented.
+--
+
+{bl}
+
+== PROJECT: In-Credit-Ble
+
+== Overview
+
+_In-Credit-Ble_ is a Finance Tracker created in order to assist fellow university students who have difficulty keeping
+track of their daily expenses due to the multitude of micro-transactions that they encounter in their daily life. By
+creating a finance tracker with an intuitive and easy-to-use User Interface (UI), we hope to help these students by
+providing them with a hassle-free platform to manage their expenses.
+
+_In-Credit-Ble_ was developed by a team of five students from the National University of Singapore
+as part of a Software Engineering module (CS2103T). In a short span of 3 months, we understood the basic
+structure of a software and adapted the source code of an address book into our finance tracker application.
+I will be documenting my contributions to this project through the major and minor features implemented for
+_In-Credit-Ble_.
+
+== Summary of Contributions
+
+|===
+|_This section will provide a summary of my contributions to In-Credit-Ble._
+|===
+
+=== Features Enhancements
+
+==== Major Enhancement: Implementation of the search feature
+
+I added the ability to find records based on name, category or dates.
+
+*What it does*: The `search` command allows the user to search for entries based on keyword that correspond to the
+entries' name, category or date depending on the user's choice. The total sum of money spent on all the
+filtered entries of the search is also displayed to allow user to know how much money he/ she has spent on a
+particular type of transaction.
+
+*Justification*: In the midst of numerous entries that the user has recorded in the application, this function will
+allow the user to filter out certain transactions record that he/ she is interested in or wants to review.
+Having the total sum of money spent on these records will allow the user to have a better understanding of his/ her
+spending for a particular category, date or item.
+
+*Highlights*: This enhancement can be triggered using the 'search' command. This feature is also expandable in
+filtering out different kind of records by adding additional predicates in which the user can search with
+(eg. Searching based on amount).
+
+==== Minor Enhancement:
+1. Introduced the function to add, edit or delete the `description` parameter of the entries using the already
+implemented `edit` command.
+** *What it does*: Allows user to make changes to the description of the any of the entries that he/ she has inputted
+into _In-Credit-Ble_.
+** *Justification*: This functionality allow the user to make any changes to the description easily, without having
+the need to create a new entry. Furthermore, being able to delete the description will allow the user to remove
+unnecessary information shown on the record card in _In-Credit-Ble_ so that he/ she can view his/ her transaction
+easier.
+** *Highlights*: This enhancement can be triggered using the `edit` command. In order to make changes to the description,
+the user can add the necessary changes after the description prefix(`r/`). If the user wants to remove the description,
+he/ she can input the description prefix with nothing after it.
+
+2. Improved the `Spend` command to take in current date by default.
+**  *What it does*: If the user does not key in the `date` field when using the `spend` command, the current date will
+automatically be taken as the `date` instead.
+** *Justification*: Since a transaction will usually be inputted into _In-Credit_Ble_ on the day of the transaction,
+having this function allow the user to key in one less parameter when recording his/ her numerous transactions, making
+it easier and enticing to record his/ her transactions.
+** *Highlights*: This enhancement can be triggered using the `spend` command. Having this functionality will make
+addition of entries easier and more accurate.
+
+=== Other Notable Contributions:
+* Enhancements to existing features:
+** Updated the restrictions for `amount`, `date` to prevent the user from inputted an unwanted value for the
+2 fields by accident. (Pull request: https://github.com/CS2103-AY1819S2-W17-3/main/pull/64[#68],
+https://github.com/CS2103-AY1819S2-W17-3/main/pull/191[#191])
+** Changed all instances of person to record when adapting the address book application to the finance tracker
+   application. (Pull request https://github.com/CS2103-AY1819S2-W17-3/main/pull/58[#58])
+** Wrote the automated tests for the `set` command and added additional tests for `allocate` command.
+(Pull Request: https://github.com/CS2103-AY1819S2-W17-3/main/pull/194[#194])
+* Documentation:
+** Edited the user guide to ensure consistency between the application and the documentations. (Pull Request:
+https://github.com/CS2103-AY1819S2-W17-3/main/pull/146[#146])
+** Updated the application description in the ReadMe document so that users know what In-Credit-Ble is for.
+(Pull Request: https://github.com/CS2103-AY1819S2-W17-3/main/pull/9[#9])
+* Issue Managements:
+** Resolved issues surfaced by peers after testing the codes.
+* Community:
+** PR Reviews: To view the pull requests reviewed by me, click
+https://github.com/CS2103-AY1819S2-W17-3/main/pulls?q=is%3Apr+reviewed-by%3Aeugeneyl+is%3Aclosed[here].
+
+
+=== Code Contribution
+Please click on this link to see the code that I contributed to In-Credit-Ble ->
+https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=eugeneyl[Code Contributions].
+
+
+== Contributions to the User Guide
+|===
+|_This next section will include my contribution to the User Guide. This showcases my ability in documenting a
+reader-friendly User Guide that is designed for new users of In-Credit-Ble to understand the different functionality
+available in our application._
+|===
+
+I documented the `edit` and `search` command in the user guide. These portions highlight the functions,
+usage and other relevant information about the 2 commands and is explained in ways that a new user will be able to
+grasps.
+
+=== 1) Description of Search Command
+
+include::../UserGuide.adoc[tag=search]
+
+=== 2) Description of Edit Command
+include::../UserGuide.adoc[tag=edit]
+
+
+== Contributions to the Developer Guide
+|===
+|_This last section will include my contribution to the Developer Guide. It showcases my ability in writing technical
+documentation and also demonstrates the technical depth of my code contribution._
+|===
+
+=== Application Design
+|===
+|I constructed the class diagrams for the different components of the _In-Credit-Ble_ and explained the interaction
+within these components. This will allow developers who wish to contribute to our project to easily understand how our
+application is designed. Due to page constraints, I will only be showing the edits that I made to the `Logic`
+and the `Model` component. To see the contributions I made in documenting the other components of the application,
+please visit the links below.
+
+1) https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/DeveloperGuide.adoc#Design-Ui[UI] +
+2) https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/DeveloperGuide.adoc#Design-Storage[Storage]
+|===
+
+include::../DeveloperGuide.adoc[tag=logic]
+
+include::../DeveloperGuide.adoc[tag=model]
+
+
+=== Implementation of Search Command
+|===
+|I also documented the design of `Search` command to give the readers a better understanding of how the `search` command
+is implemented and the interactions between the various components of the application in order for the `search` command
+to be executed. I also listed the design considerations of the `search` command in order to explain why the current
+implementation is chosen instead of the alternative.
+|===
+
+include::../DeveloperGuide.adoc[tag=search]
+
+
+
+
+
+
+
+
+
+
+
+
+
+

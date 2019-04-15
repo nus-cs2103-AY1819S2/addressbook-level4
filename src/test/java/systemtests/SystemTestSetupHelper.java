@@ -8,23 +8,27 @@ import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.MainWindowHandle;
 import javafx.stage.Stage;
-import seedu.address.TestApp;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.finance.TestApp;
+import seedu.finance.model.ReadOnlyFinanceTracker;
+
 
 /**
  * Contains helper methods that system tests require.
  */
+
 public class SystemTestSetupHelper {
     private TestApp testApp;
     private MainWindowHandle mainWindowHandle;
 
+
     /**
      * Sets up a new {@code TestApp} and returns it.
      */
-    public TestApp setupApplication(Supplier<ReadOnlyAddressBook> addressBook, Path saveFileLocation) {
+
+    public TestApp setupApplication(Supplier<ReadOnlyFinanceTracker> financeTracker, Path saveFileLocation) {
         try {
             FxToolkit.registerStage(Stage::new);
-            FxToolkit.setupApplication(() -> testApp = new TestApp(addressBook, saveFileLocation));
+            FxToolkit.setupApplication(() -> testApp = new TestApp(financeTracker, saveFileLocation));
         } catch (TimeoutException te) {
             throw new AssertionError("Application takes too long to set up.", te);
         }
@@ -32,9 +36,11 @@ public class SystemTestSetupHelper {
         return testApp;
     }
 
+
     /**
      * Initializes TestFX.
      */
+
     public static void initialize() {
         try {
             FxToolkit.registerPrimaryStage();
@@ -44,9 +50,11 @@ public class SystemTestSetupHelper {
         }
     }
 
+
     /**
      * Encapsulates the primary stage of {@code TestApp} in a {@code MainWindowHandle} and returns it.
      */
+
     public MainWindowHandle setupMainWindowHandle() {
         try {
             FxToolkit.setupStage((stage) -> {
@@ -61,9 +69,11 @@ public class SystemTestSetupHelper {
         return mainWindowHandle;
     }
 
+
     /**
      * Tears down existing stages.
      */
+
     public void tearDownStage() {
         try {
             FxToolkit.cleanupStages();

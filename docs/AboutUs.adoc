@@ -4,53 +4,58 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
-We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+In-Credit-Ble is a Finance Tracker desktop application developed by https://github.com/orgs/cs2103-ay1819s2-w17-3/people[W17-3] team for the CS2103 Software Engineering project.
+
+'''
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Jeremy Loye
+image::jeremyloye.png[width="150", align="left"]
+{empty}[https://github.com/JeremyLoye[github]]
+{empty}[https://cs2103-ay1819s2-w17-3.github.io/main/team/jeremyloye.html[portfolio]]
 
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+Role: Team Lead, Developer +
+Responsibilities: Code Quality
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Louise Lee
+image::geezlouisee.png[width="150", align="left"]
+{empty}[http://github.com/geezlouisee[github]]
+{empty}[https://cs2103-ay1819s2-w17-3.github.io/main/team/geezlouisee.html[portfolio]]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Deliverables and Deadlines, Integration
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Eugene Yong
+image::eugeneyl.png[width="150", align="left"]
+{empty}[http://github.com/eugeneyl[github]]
+{empty}[https://cs2103-ay1819s2-w17-3.github.io/main/team/eugeneyl.html[portfolio]]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Testing
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Jia Xuan
+image::kjiaxuan.png[width="150", align="left"]
+{empty}[http://github.com/kjiaxuan[github]]
+{empty}[https://cs2103-ay1819s2-w17-3.github.io/main/team/kjiaxuan.html[portfolio]]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: Scheduling and Tracking
+
+'''
+
+=== Jack Chen
+image::jackimaru96.png[width="150", align="left"]
+{empty}[http://github.com/Jackimaru96[github]]
+{empty}[https://cs2103-ay1819s2-w17-3.github.io/main/team/jackimaru96.html[portfolio]]
+
+Role: Developer +
+Responsibilities: Documentation and Project Management
 
 '''

@@ -1,0 +1,135 @@
+:profile-caption: :computer:
+= Jeremy Loye Hean Wei - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:bl: pass:[ +]
+
+[PROFILE]
+====
+--
+image::jeremyloye.png[121,90,float="left"]
+--
+I am Jeremy Loye, a Year 2 Computer Science student currently taking _CS2103T_.
+This page is written to detail my contributions to the project _In-Credit-Ble_
+undertaken in the module. I will be giving a brief introduction about the project,
+ followed by describing my contributions to the project. Finally, I will be presenting
+ the sections of the User and Developer Guide that I have documented. +
+====
+
+== PROJECT: In-Credit-Ble (Finance Tracker)
+
+---
+
+== Overview
+
+_In-Credit-Ble_ is a desktop Finance Tracker that helps user to keep track of their
+ finances and set budgets for themselves. We tailored it to users who wanted to manage
+ their finance in a efficient and effective manner without any frills. It is made
+ to cater for users who prefer typing over using the mouse since the App operates with
+ a Command-Line Interface (CLI).
+
+_In-Credit-Ble_ was developed by a team consisting of me and four other students from the
+ National University of Singapore as part of a Software Engineering module (CS2103T).
+ Through the module, we adapted an existing Java codebase to develop our very own functional
+ product, _In-Credit-Ble_, within the span of 13 weeks while learning basic software engineering
+ concepts. In the subsequent sections, I will be documenting my contributions to this project
+ through the major and minor features implemented for _In-Credit-Ble_.
+
+== Summary of Contributions
+|===
+|The Summary of Contributions will detail my meaningful contributions to the Project. Within this first section,
+I will detail the features that I have implemented as well as other project-related contributions in the way of
+_Project Management_ and _Community_.
+|===
+
+=== Contributed Features
+
+==== *Major enhancement*: Implementing a `Budget` feature
+* *_What it does_*: The feature lets the user set a budget for the App to give themselves a target of how
+much to spend. Through the feature, the user can monitor their current expenditure based on the expense records
+they keyed in and check how close it is to reaching the budget they set in the Budget Panel of the User Interface.
+* *_Justification_*: The feature is part of the core of the App that my team was aiming at. It is essential in
+helping users to keep track of their overall expenditure and giving them a visible budget goal to work towards.
+Furthermore, the `Budget` feature forms the basis for the implementation of add-on budget features like the
+`CategoryBudget`.
+* Highlights of feature:
+** The budget of the Finance Tracker can be set rather easily with the `set` function and can be changed multiple
+times. Implementation of the feature is comprehensive, covering four major components of the Application. The commands
+are implemented in the `Logic` component along with the logic behind the execution of command and the `Budget` class itself
+is implemented in the `Model` component. The `Storage` part of the App saves changes to budget data in terms of
+current spending and budget set while the `UI` displays the budget to the user.
+** The current expenditure and budget is easily viewed in the Budget Panel of the App with a simple budget bar to show
+how much of the budget a user has currently spent. The data for current expenditure and budget is updated immediately
+each time a user sets a budget or keys in an expenditure.
+
+==== *Minor enhancements*:
+* Changing data files for different users through `setfile`
+** _What it does_:
+The feature lets a user change the file that is used to read and store expense and budget data.
+Essentially, it allows a user to maintain multiple expenditure and budget profiles or for multiple users to use
+the same Finance Tracker without overwriting of each others' records.
+** _Justification_:
+It is limiting to just have one user profile when there could be multiple users of the
+same FinanceTracker app as multiple users cannot be tracked. A single user could want to maintain multiple
+FinanceTracker profiles for different purposes such as personal and business. Furthermore, since only one budget
+can be set per instance of the FinanceTracker App, different files can be used to keep track of budgets and
+ expenses for different months.
+** Highlights of feature:
+*** This feature is called by the `setfile` command. The command will load the file designated by the filename.
+If the file was not previously created, a default data set will be created.
+
+* Adding *undo/redo* support for commands that make changes to the FinanceTracker.
+** I have improved on the undo and redo commands provided by the original addressbook to support undo-ing and
+redo-ing of all the new commands added in the development of _In-Credit-Ble_ that modify the FinanceTracker.
+** List of commands supported: `set`, `allocate`, `spend`, `edit`, `delete`, `sort`, `reverse`, `setfile`,
+`clear`, `description`
+
+* Improvement of `Storage` logic to store budget data
+** I added several classes to enable the Finance Tracker to store budget data in its data files. This ties
+in and supports both the `Budget` feature and `setfile` feature since it ensures that when the Finance Tracker
+is reloaded or the data file is changed, the user budget data remains and is loaded correctly.
+
+=== *Other Contributions:*
+==== Code Contributed:
+All of my code contributions to the project has been collated by RepoSense and can be found
+link:https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=JeremyLoye[here].
+
+==== *_Project Management_*
+* *Manging Issue Tracker*
+** Managed issue trackers:
+To view the full list of issues I have managed, click
+https://github.com/CS2103-AY1819S2-W17-3/main/issues?utf8=%E2%9C%93&q=is%3Aissue+author%3AJeremyLoye[this].
+
+==== *_Community_*
+* PRs Reviews:
+To view the full list of reviews that I made, click
+https://github.com/CS2103-AY1819S2-W17-3/main/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3AJeremyLoye[this].
+
+== Contributions to the User Guide
+|===
+| In this section, I will be displaying what I have written for the User Guide. The User Guide is an important
+document that assists new users in getting acquitted with our application so that they can operate it. It is
+important to make the User Guide reader-friendly to the less tech-savvy. Thus, I hope that I can demonstrate
+those skills in what I have written for the User Guide.
+|===
+
+include::../UserGuide.adoc[tag=set]
+
+include::../UserGuide.adoc[tag=setfile]
+
+{bl}
+
+== Contributions to the Developer Guide
+|===
+| This final section will include the sections of my contribution to the Developer Guide.
+The Developer Guide is a document used to specify the design and implementation of our project for new developers
+to understand our codebase. Through my contributions to the Developer Guide, I hope to illustrate my capacity
+to write technical documentation that is comprehensive and easy to understand for new developers.
+
+Due to page constraints, the following is not listed in this document:
+https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/DeveloperGuide.adoc#changing-the-finance-tracker-data-storage-location[`setFile` Manual Testing]
+|===
+
+include::../DeveloperGuide.adoc[tag=budget]
+include::../DeveloperGuide.adoc[tag=budgetupdateui]

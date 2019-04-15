@@ -1,0 +1,50 @@
+{
+  "records" : [ {
+    "name" : "Apple",
+    "amount" : "1.00",
+    "date" : "12/02/2017",
+    "description" : "",
+    "tagged" : "Groceries"
+  }, {
+    "name" : "Banana Donut",
+    "amount" : "2.50",
+    "date" : "12/02/2015",
+    "description" : "",
+    "tagged" : "Food"
+  }, {
+    "name" : "Cap",
+    "amount" : "15.00",
+    "date" : "12/05/2017",
+    "description" : "",
+    "tagged" : "Clothes"
+  }, {
+    "name" : "Chocolate Donut",
+    "amount" : "0.90",
+    "date" : "12/02/2007",
+    "description" : "",
+    "tagged" : "Food"
+  }, {
+    "name" : "Earrings",
+    "amount" : "12.99",
+    "date" : "12/12/2017",
+    "description" : "",
+    "tagged" : "Accessories"
+  }, {
+    "name" : "Fruits",
+    "amount" : "20.00",
+    "date" : "02/02/2017",
+    "description" : "",
+    "tagged" : "Food"
+  }, {
+    "name" : "Gift",
+    "amount" : "24.90",
+    "date" : "12/02/2019",
+    "description" : "",
+    "tagged" : "Gift"
+  } ],
+  "budget" : {
+    "totalBudget" : "500.0",
+    "currentBudget" : "422.71000000000004",
+    "categoryBudgets" : [ ]
+  }
+}

@@ -1,13 +1,16 @@
 package guitests.guihandles;
 
+import static seedu.finance.testutil.EventsUtil.postNow;
+
 import javafx.stage.Stage;
+import seedu.finance.commons.events.SwapBrowserPanelEvent;
 
 /**
  * Provides a handle for {@code MainWindow}.
  */
 public class MainWindowHandle extends StageHandle {
 
-    private final PersonListPanelHandle personListPanel;
+    private final RecordListPanelHandle recordListPanel;
     private final ResultDisplayHandle resultDisplay;
     private final CommandBoxHandle commandBox;
     private final StatusBarFooterHandle statusBarFooter;
@@ -17,16 +20,17 @@ public class MainWindowHandle extends StageHandle {
     public MainWindowHandle(Stage stage) {
         super(stage);
 
-        personListPanel = new PersonListPanelHandle(getChildNode(PersonListPanelHandle.PERSON_LIST_VIEW_ID));
+        recordListPanel = new RecordListPanelHandle(getChildNode(RecordListPanelHandle.RECORD_LIST_VIEW_ID));
         resultDisplay = new ResultDisplayHandle(getChildNode(ResultDisplayHandle.RESULT_DISPLAY_ID));
         commandBox = new CommandBoxHandle(getChildNode(CommandBoxHandle.COMMAND_INPUT_FIELD_ID));
         statusBarFooter = new StatusBarFooterHandle(getChildNode(StatusBarFooterHandle.STATUS_BAR_PLACEHOLDER));
         mainMenu = new MainMenuHandle(getChildNode(MainMenuHandle.MENU_BAR_ID));
         browserPanel = new BrowserPanelHandle(getChildNode(BrowserPanelHandle.BROWSER_ID));
+        postNow(new SwapBrowserPanelEvent(SwapBrowserPanelEvent.PanelType.SUMMARY));
     }
 
-    public PersonListPanelHandle getPersonListPanel() {
-        return personListPanel;
+    public RecordListPanelHandle getRecordListPanel() {
+        return recordListPanel;
     }
 
     public ResultDisplayHandle getResultDisplay() {
@@ -48,4 +52,5 @@ public class MainWindowHandle extends StageHandle {
     public BrowserPanelHandle getBrowserPanel() {
         return browserPanel;
     }
+
 }

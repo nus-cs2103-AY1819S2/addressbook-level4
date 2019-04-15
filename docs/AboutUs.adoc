@@ -30,7 +30,10 @@ Responsibilities::
 
 === Keith Sim
 image::kthsim.png[width="150", align="left"]
-{empty}[https://github.com/kthSim[github]] [<<kthsim#, portfolio>>]
+{nbsp} +
+*Keith Sim*,{nbsp} _Chief Developer / Tester_ {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``https://github.com/kthSim[GitHub]``{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``<<kthsim#, Portfolio>>``
+{nbsp} +
+{nbsp} +
 
 Responsibilities::
  * Chief Developer
@@ -43,7 +46,7 @@ Responsibilities::
 === Lim Jia Hao
 image::jiahaolim.png[width="150", align="left"]
 {nbsp} +
-*Lim Jia Hao*,{nbsp} _Developer / Tester / Designer_ {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``[https://github.com/JiaHaoLim[Github]]``{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``[<<jiahaolim#, Portfolio>>]``
+*Lim Jia Hao*,{nbsp} _Developer / Tester / Designer_ {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``https://github.com/JiaHaoLim[GitHub]``{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``<<jiahaolim#, Portfolio>>``
 {nbsp} +
 {nbsp} +
 
@@ -74,5 +77,11 @@ Responsibilities::
 image::wsemis.png[width="150", aligh="left"]
 {empty}[https://github.com/wSemis[github]] [<<wsemis#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Record processing
+Role: Developer /Tester
+
+Responsibilities::
+* Implement copy methods
+
+* Contribute to task methods
+
+* Contribute to record methods

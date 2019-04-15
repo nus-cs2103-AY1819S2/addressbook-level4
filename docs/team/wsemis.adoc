@@ -11,18 +11,18 @@ This portfolio summarizes my contribution to *Project: TeethHub*
 
 My teammates and I was morphed this program in a software engineering module. In a brownfield manner, we enhanced and expanded features in Addressbook Level 4.
 
-The name of our program is TeethHub. It is a desktop application aimed for dentists who needs better data organization tools. Our program have functionalities in adding and editting patients, tasks and records, as well as other auxillary functions. Our program interacts with the user in both command line interface (CLI) and graphical user interface (GUI).
+The name of our program is TeethHub. It is a desktop application aimed for dentists who needs better data organization tools. Our program have functions in adding and editing patients, tasks and records, as well as other auxiliary functions. Our program interacts with the user in both command line interface (CLI) and graphical user interface (GUI).
 
 Our program takes uses of libraries including TextFX, Jackson, Guava, JUnit5, Apache PDFBox and Apache Commons Logging. The GUI is written in JavaFX. In total, there are approximately 20k line of codes written in Java.
 
-I have implemented several functionalities for the application including copy patients, copy tasks, sort tasks, list tasks and create medical certificate from a record. I also coded test cases for my implementations using JUnit. To facilitate the project, I have also made changes in GUI.
+I have implemented several functions for the application including copy patients, copy tasks, sort tasks, list tasks and create medical certificate from a record. I also coded test cases for my implementations using JUnit. To facilitate the project, I have also made changes in GUI.
 
 == Summary of contributions
 
 * *Major enhancement*: added *the ability to copy patients and tasks*
-** What it does: Allows user to make temporary copies of existing data entries for easy editting. The copy function does not violate the uniqueness of the data list as the copies are temporary. Exit with uneditted copies will need user's confirmation.
+** What it does: Allows user to make temporary copies of existing data entries for easy editing. The copy function does not violate the uniqueness of the data list as the copies are temporary. Exit with unedited copies will need user's confirmation.
 ** Justification: This feature improves the product significantly because inputting data in the program is painful. In actual scenarios, entries sharing similar attributes are commonly seen. This function will improves the usability of our application in a large scale.
-** Highlights: The implementation of the function needs coordination with logic, model and storage. It also needs to confront to the design rule of uniquene data list. A prompt is also added when user tries to exit without editting existing copies.
+** Highlights: The implementation of the function needs coordination with logic, model and storage. It also needs to confront to the design rule of unique data list. A prompt is also added when user tries to exit without editing existing copies.
 
 * *Major enhancement*: added *the ability to generate an MC based on existing record*
 ** What it does: Allows user to generate MCs from our application directly without the need of inputting existing data again.

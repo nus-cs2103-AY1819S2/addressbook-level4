@@ -835,10 +835,10 @@ you can archive parts of your reading list by a search criteria.
 . `list`
 
 .Filtering then archiving all infoTheory entries (steps 1-3)
-image::find_archiveall.png[width="1200"]
+image::find_archiveall.png[width="650"]
 
 .Reading list now no longer has any infoTheory entries (step 4)
-image::find_archiveall_list.png[width="290"]
+image::find_archiveall_list.png[width="190"]
 // end::archiveallcommand[]
 
 ==== Deleting an entry: `delete`

@@ -1,5 +1,6 @@
 package seedu.address.model.ModuleInfo;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -39,5 +40,10 @@ public class ModuleInfoDescriptionTest {
 
     }
 
+    @Test
+    public void toStringTest() {
+        ModuleInfoDescription descrip = new ModuleInfoDescription("A full sentence to to be tested");
+        assertEquals("A full sentence to to be tested", descrip.toString());
+    }
 
 }

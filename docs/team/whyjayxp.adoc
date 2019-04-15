@@ -28,6 +28,7 @@ a| [.java]#name# | A blue highlight with monospaced font indicates a reference t
 a| icon:check[role="green", size="2x"] | A green tick indicates the expected result that you should see after executing a command in the application.
 a| icon:lightbulb-o[role="icon-tip", size="2x"] | A lightbulb indicates tips and tricks that might be useful to the user.
 a| icon:info-circle[role="icon-note", size="2x"] | A blue information symbol indicates additional information for that section that is good to know.
+a| icon:exclamation-circle[role="icon-important", size="2x"] | Important pointers to take note
 |===
 
 

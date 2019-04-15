@@ -173,7 +173,7 @@ When you are ready to use RestOrRant in your restaurant, use the commands in the
 * For example, if your restaurant has 3 tables, and Table 1 and 2 have 4 seats while Table 3 has 8 seats, you can type in `addTable 4 4 8`.
 [TIP]
 You can add all the tables with just a single command!
-. <<MenuMode, *`menuMode`*>>: Switch over to Menu Mode to fill up the menu in RestOrRant with your restaurant's menu information.
+. <<MM, *`menuMode`*>>: Switch over to Menu Mode to fill up the menu in RestOrRant with your restaurant's menu information.
 . <<AddToMenu, *`addToMenu`*>> (in Menu Mode): Add each item into the menu by specifying the item code, name and price.
 * For example, `addToMenu c/A05 n/Salad p/4.50` will add a new salad item to the menu in RestOrRant.
 
@@ -1112,7 +1112,7 @@ These commands can be used in any mode.
 [width="90%",cols="^25%,^15%,30%,30%",options="header",]
 |=======================================================================
 ^|Command ^|Shortcut ^|Usage ^|Example
-a|<<Help, `help`>> a| kbd:[F1] a| `help` a| Shows the user guide
+a|<<Help, `help`>> a| kbd:[F1] a| `help` a| Shows the User Guide
 a|<<History, `history`>> a| `*h*` a| `history` a| Shows the past commands
 a|<<ClearRestOrRant, `clearRestOrRant`>> a| - a| `clearRestOrRant` a| Clears all the data in RestOrRant
 a|<<Exit, `exit`>> a| - a| `exit` a| Exits RestOrRant
@@ -1139,10 +1139,10 @@ These commands can only be used in Restaurant Mode.
 [width="90%",cols="^25%,^15%,30%,30%",options="header",]
 |=======================================================================
 ^|Command ^|Shortcut ^|Usage ^|Example
-a|<<AddTable, `addTable`>> a| `*add*` a| `addTable NUMBER_OF_SEATS [NUMBER_OF_SEATS] ...` a| `addTable 2 4 6 8` +
+a|<<AddTable, `addTable`>> a| `*add*` a| `addTable NUMBER_OF_SEATS [NUMBER_OF_SEATS]...` a| `addTable 2 4 6 8` +
 Adds 4 tables with 2, 4, 6 and 8 seats
 a|<<EditPax, `editPax`>> a| - a| `editPax TABLE_NUMBER NUMBER_OF_CUSTOMERS` a| `editPax 1 2` +
-Updates Table 1 to have 2 diners
+Updates Table 1 to have 2 customers
 a|<<EditSeats, `editSeats`>> a| - a| `editSeats TABLE_NUMBER NUMBER_OF_SEATS` a| `editSeats 1 5` +
 Updates Table 1 to have 5 seats
 a|<<ClearTables, `clearTables`>> a| `*clear*` a| `clearTables` a| Clears all the tables in RestOrRant
@@ -1161,7 +1161,7 @@ These commands can only be used in Table Mode.
 [width="90%",cols="^25%,^15%,30%,30%",options="header",]
 |=======================================================================
 ^|Command ^|Shortcut ^|Usage ^|Example
-a|<<AddToOrder, `addToOrder`>> a| `*add*` a| `addToOrder ITEM_CODE QUANTITY [ITEM_CODE QUANTITY] …` a| `addToOrder W07 1 W13 1` +
+a|<<AddToOrder, `addToOrder`>> a| `*add*` a| `addToOrder ITEM_CODE QUANTITY [ITEM_CODE QUANTITY]...` a| `addToOrder W07 1 W13 1` +
 Adds 1 W07 and 1 W13 to the current table's order
 a|<<DeleteFromOrder, `deleteFromOrder`>> a| `*del*` a| `deleteFromOrder ITEM_CODE` a| `deleteFromOrder W09` +
 Removes W09 from the current table's order
@@ -1182,7 +1182,7 @@ These commands can only be used in Menu Mode.
 [width="90%",cols="^25%,^15%,30%,30%",options="header",]
 |=======================================================================
 ^|Command ^|Shortcut ^|Usage ^|Example
-a|<<AddToMenu, `addToMenu`>> a| `*add*` a| `addToMenu c/ITEM_CODE n/ITEM_NAME p/ITEM_PRICE …` a| `addToMenu c/A02 n/French Fries p/2.00` +
+a|<<AddToMenu, `addToMenu`>> a| `*add*` a| `addToMenu c/ITEM_CODE n/ITEM_NAME p/ITEM_PRICE` a| `addToMenu c/A02 n/French Fries p/2.00` +
 Adds A02 to the menu
 a|<<DeleteFromMenu, `deleteFromMenu`>> a| `*del*` a| `deleteFromMenu ITEM_CODE` a| `deleteFromMenu A02` +
 Removes A02 from the menu

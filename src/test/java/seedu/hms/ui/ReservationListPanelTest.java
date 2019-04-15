@@ -61,7 +61,7 @@ public class ReservationListPanelTest extends GuiUnitTest {
      */
     @Test
     public void performanceTest() {
-        ObservableList<Reservation> backingList = createBackingList(1000000);
+        ObservableList<Reservation> backingList = createBackingList(100000);
 
         assertTimeoutPreemptively(ofMillis(CARD_CREATION_AND_DELETION_TIMEOUT), () -> {
             initUi(backingList);

@@ -6,12 +6,18 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.logic.parser.ParserUtil.isLeapYear;
 import static seedu.address.logic.parser.ParserUtil.isValidDate;
+import static seedu.address.logic.parser.ParserUtil.isValidDateRange;
+import static seedu.address.logic.parser.ParserUtil.parseBlockOutDates;
 import static seedu.address.logic.parser.ParserUtil.parseMaxInterviewsADay;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Rule;
@@ -46,10 +52,16 @@ public class ParserUtilTest {
     private static final String INVALID_MAX_INTERVIEWS_NONINTEGER = "HELLO";
     private static final String INVALID_MAX_INTERVIEWS_NEGINTEGER = "-1";
 
+    private static final String VALID_BLOCK_OUT_DATES = "01/01/2020 - 04/01/2020";
+    private static final List<Calendar> BLOCK_OUT_DATES = new ArrayList<>();
+    private static final String INVALID_BLOCK_OUTDATES = "00/01/2020 - 03/01/2020";
     private static final String VALID_DATE = "01/01/2020";
     private static final String VALID_DATE_31 = "31/01/2020";
     private static final String VALID_DATE_30 = "30/04/2020";
     private static final String VALID_DATE_LEAP_YEAR = "29/02/2020";
+    private static final String VALID_DATE_RANGE = "01/01/2020 - 31/12/2020";
+    private static final String INVALID_DATE_RANGE_SYNTAX = "-1/01/2020 - 31/12/2020";
+    private static final String INVALID_DATE_RANGE_INVALID_DATE = "00/01/2020 - 31/12/2020";
     private static final String INVALID_DATE_SYNTAX = "1/1/2020";
     private static final String INVALID_DATE_NON_LEAP_YEAR = "29/02/2019";
     private static final String INVALID_DATE_MONTH = "01/13/2020";
@@ -258,6 +270,25 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseBlockOutDates_validBlockOutDates_returnsBlockOutDates() throws Exception {
+        List<Calendar> actual = parseBlockOutDates(VALID_BLOCK_OUT_DATES);
+        Calendar date = new GregorianCalendar(2020, 0, 1, 0, 0, 0);
+        date.set(Calendar.MILLISECOND, 0);
+        for (int i = 0; i < 4; i++) {
+            BLOCK_OUT_DATES.add(date);
+            date = (Calendar) date.clone();
+            date.add(Calendar.DATE, 1);
+        }
+        assertEquals(BLOCK_OUT_DATES, actual);
+    }
+
+    @Test
+    public void parseBlockOutDates_invalidBlockOutDates_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        parseBlockOutDates(INVALID_BLOCK_OUTDATES);
+    }
+
+    @Test
     public void isValidDate_validDate_returnsTrue() {
         boolean actual = isValidDate(VALID_DATE);
         assertTrue(actual);
@@ -314,6 +345,24 @@ public class ParserUtilTest {
     @Test
     public void isValidDate_invalidDate0_returnsFalse() {
         boolean actual = isValidDate(INVALID_DAY_0);
+        assertFalse(actual);
+    }
+
+    @Test
+    public void isValidDateRange_validDateRange_returnsTrue() {
+        boolean actual = isValidDateRange(VALID_DATE_RANGE);
+        assertTrue(actual);
+    }
+
+    @Test
+    public void isValidDateRange_invalidDateRangeSyntax_returnsFalse() {
+        boolean actual = isValidDate(INVALID_DATE_RANGE_SYNTAX);
+        assertFalse(actual);
+    }
+
+    @Test
+    public void isValidDateRange_invalidDateRangeinvalidDate_returnsFalse() {
+        boolean actual = isValidDate(INVALID_DATE_RANGE_INVALID_DATE);
         assertFalse(actual);
     }
 

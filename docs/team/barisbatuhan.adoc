@@ -28,8 +28,8 @@ Recruit Me is a Java Desktop GUI application that is specifically designed for a
 ** *Highlights:*
 *** This new feature affects all the commands already implemented and all other commands that will be implemented in the future. Thus, the interaction of this command with other commands are strongly investigated and minor changes for other commands are also made to make the other commands compatible with filtering.
 ** *Some of the Related Pull Requests for This Feature:*
-*** https://github.com/CS2103-AY1819S2-W16-4/main/pull/139[#139] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/119[#119] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/121[#121] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/119[#119] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/115[#115] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/101/files[#101] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/100/files[#100] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/70/files[#70] ,
-https://github.com/CS2103-AY1819S2-W16-4/main/pull/59/files[#59] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/54[#54] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/37[#37] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/30[#30] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/27[#27] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/26[#26] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/19[#19] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/2[#2]
+*** https://github.com/CS2103-AY1819S2-W16-4/main/pull/139[#139] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/119[#119] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/121[#121] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/119[#119] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/115[#115] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/101[#101] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/100[#100] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/70[#70] ,
+https://github.com/CS2103-AY1819S2-W16-4/main/pull/59[#59] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/54[#54] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/37[#37] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/30[#30] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/27[#27] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/26[#26] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/19[#19] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/2[#2]
 
 * *Major enhancement*: added *CV representation* for selected persons
 ** *What it does:*
@@ -48,9 +48,10 @@ https://github.com/CS2103-AY1819S2-W16-4/main/pull/59/files[#59] , https://githu
 * *Minor enhancement*:
 ** Managed releases `v1.3`, `v1.3.1` and `v1.4`
 ** Some minor changes are made for the methods in `AddressBook, ModelManager and VersionedAddressBook` classes that `AddCommand, DeleteCommand and EditCommand` uses for the compatibility with filtering process.
-** Fixed almost all failing `system tests / GUI related tests / Edit Command tests` in every update process of the process: https://github.com/CS2103-AY1819S2-W16-4/main/pull/140[#140] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/133[#133] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/113[#113], https://github.com/CS2103-AY1819S2-W16-4/main/pull/73/files[#73],
-** `Travis Checkstyle errors` are fixed mostly by me: https://github.com/CS2103-AY1819S2-W16-4/main/pull/138/files[#138] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/136/files [#136] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/105[#105-#104-#103] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/55[#58-#57-#56-#55]
+** Fixed almost all failing `system tests / GUI related tests / Edit Command tests` in every update process of the process: https://github.com/CS2103-AY1819S2-W16-4/main/pull/140[#140] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/133[#133] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/113[#113], https://github.com/CS2103-AY1819S2-W16-4/main/pull/73[#73]
+** `Travis Checkstyle errors` are fixed mostly by me: https://github.com/CS2103-AY1819S2-W16-4/main/pull/138[#138] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/136 [#136] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/105[#105-#104-#103] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/55[#58-#57-#56-#55]
 ** Coveralls and Codacy is implemented for the repository: https://github.com/CS2103-AY1819S2-W16-4/main/pull/123[#123]
+
 == Contributions to the User Guide:
 
 * Filtering process is added to the User guide as a new section.

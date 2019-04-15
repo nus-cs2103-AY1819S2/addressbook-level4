@@ -2,7 +2,9 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static seedu.address.testutil.SizeTenMapGrid.initialisePlayerSizeTen;
+import static seedu.address.testutil.SizeTenMapGrid.setUpSingleShip;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -33,15 +35,28 @@ public class BeginCommandTest {
         initialisePlayerSizeTen(player);
         initialisePlayerSizeTen(enemy);
         model = new ModelManager(new BattleManager(player, enemy));
+        model.setBattleState(BattleState.PLAYER_PUT_SHIP);
     }
 
     @Test
-    public void execute_userPutShipState_callsEnemyPrepAndSetsState() throws CommandException {
-        model.setBattleState(BattleState.PLAYER_PUT_SHIP);
+    public void execute_oneShipPlaced_callsEnemyPrepAndSetsState() throws CommandException {
+        setUpSingleShip(player);
         CommandResult res = new BeginCommand().execute(model, new CommandHistory());
         assertTrue(enemy.isPrepCalled());
         assertEquals(model.getBattleState(), BattleState.PLAYER_ATTACK);
         assertEquals(res.getFeedbackToUser(), BeginCommand.MESSAGE_BEGIN_SUCCESS);
+    }
+
+    @Test
+    public void execute_noShipsPlaced_throwCommandException() {
+        try {
+            BeginCommand cmd = new BeginCommand();
+            cmd.execute(model, new CommandHistory());
+            fail();
+        } catch (CommandException ex) {
+            assertEquals(ex.getMessage(), BeginCommand.MESSAGE_NO_SHIPS);
+            assertEquals(model.getBattleState(), BattleState.PLAYER_PUT_SHIP);
+        }
     }
 
     @Test

@@ -22,7 +22,7 @@ By: `CS2103-AY2018/19s2-W10-4 Team`      Since: `Mar 2019`      Licence: `MIT`
 
 *Know-It-All* is a flashcard application that helps users store and organise their learning material. With an easy to use interface and convenient content sharing functionality, *Know-It-All* is designed to help students perform rote learning more efficiently. From cramming in between lessons to focused study, the interactive test session boosts the effectiveness of repetition and recall for memorisation. *Know-It-All* targets medicine students as their studies involve a considerable amount of memory work, and deals with content that is suitable for the bite-sized flashcard format.
 
-image::UI.png[width="790"]
+image::Ui.png[width="790"]
 
 == How To Use This Guide
 
@@ -251,9 +251,9 @@ Allows you to add a card with blanks for multiple answers to be given during a t
 
 Format: ``add q/QUESTION_WITH_BLANKS a/ANSWER_1/ANSWER_2/ANSWER_3...`
 
-Example:
+Example: +
 
-`add q/The quick brown _ jumps over the lazy _. a/fox/dog`
+* `add q/The quick brown _ jumps over the lazy _. a/fox/dog`
 
 **Adding images to cards** `Coming in v2.0`
 
@@ -261,8 +261,9 @@ Allows you to add images to cards to supplement the text content of the card.
 
 Format: `add q/QUESTION a/ANSWER [img/IMAGE_FILE_PATH]...`
 
-Example:
-`add q/Hello? a/World img/diagram.jpg`
+Example: +
+
+* `add q/Hello? a/World img/diagram.jpg`
 // end::add[]
 
 // tag::edit[]
@@ -358,6 +359,10 @@ Format: `undo`
 ====
 Undoable commands: commands that modify a card folder's content (`add`, `delete` and `edit`).
 ====
+
+[NOTE]
+At the end of a successful test session, scores are final and you will not be able to perform an `undo` to
+restore the previous states before the test session.
 
 Examples:
 
@@ -479,6 +484,10 @@ directory after execution of this command.
 //tag::testoperations[]
 === Test Operations
 After memorising the content of the flashcards, it is helpful to test how much information have been internalised and retained in a timed setting. The following commands show just how this can be done with the <<testsession, Test Session>> functionality of *Know-It-All*.
+
+[NOTE]
+At the end of a successful test session, scores are final and you will not be able to perform an `undo` to restore the
+previous states before the test session.
 
 ==== Test flashcards in a folder : `test`
 
@@ -623,10 +632,9 @@ Format: `end`
 For the final <<testscore, test score>> to be recorded, you must have attempted at least 1/4 of cards in the
  card folder. If there are less than 4 cards, any number of cards attempted will be recorded.
 
-
 //tag::reportoperations[]
 === Report Operations
-After testing, you can track your how you scored against previous attempts using our report feature. Because test
+After testing, you can track how you scored against previous attempts using our report feature. Because test
 sessions are run for cards in a folder, the <<testscore, test scores>> are tracked per folder.
 
 ==== Display a test score report : `report`

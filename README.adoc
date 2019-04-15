@@ -14,7 +14,7 @@ image::images/Ui.png[width="600"]
 endif::[]
 
 ifdef::env-github[]
-:imagesdir: https://raw.githubusercontent.com/dlqs/main/refactorMisc/docs/images
+:imagesdir: https://raw.githubusercontent.com/cs2103-ay1819s2-w10-4/main/master/docs/images
 endif::[]
 
 {nbsp} +

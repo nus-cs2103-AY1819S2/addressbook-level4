@@ -24,7 +24,7 @@ public class BrowserPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
-    private ScrollPane scrollPane;
+    private ScrollPane cardScrollPane;
     @FXML
     private GridPane cardPage;
     @FXML

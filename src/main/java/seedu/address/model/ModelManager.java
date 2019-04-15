@@ -249,27 +249,6 @@ public class ModelManager implements Model {
         versionedAddressBook.setPerson(target, editedPerson);
     }
 
-    @Override
-    public UniqueFilterList getPredicateLists(JobListName listName) {
-        switch (listName) {
-        case APPLICANT:
-            return filterListJobAllApplicants;
-        case KIV:
-            return filterListJobKiv;
-        case INTERVIEW:
-            return filterListJobInterview;
-        case SHORTLIST:
-            return filterListJobShortlist;
-        default:
-            return filterListAllPersons;
-        }
-    }
-
-    @Override
-    public UniquePersonList getJobList(JobName name, Integer listNumber) {
-        Job job = getJob(name);
-        return job.getList(listNumber);
-    }
 
     public ObservableList<Job> getAllJobs() {
         return allJobsList;
@@ -295,13 +274,13 @@ public class ModelManager implements Model {
     public Job getJob(JobName name) {
         this.activeJob = versionedAddressBook.getJob(name);
         this.activeJobAllApplicants =
-                new FilteredList<>(activeJob.getList(0).asUnmodifiableObservableList());
+            new FilteredList<>(activeJob.getList(0).asUnmodifiableObservableList());
         this.activeJobKiv =
-                new FilteredList<>(activeJob.getList(1).asUnmodifiableObservableList());
+            new FilteredList<>(activeJob.getList(1).asUnmodifiableObservableList());
         this.activeJobInterview =
-                new FilteredList<>(activeJob.getList(2).asUnmodifiableObservableList());
+            new FilteredList<>(activeJob.getList(2).asUnmodifiableObservableList());
         this.activeJobShortlist =
-                new FilteredList<>(activeJob.getList(3).asUnmodifiableObservableList());
+            new FilteredList<>(activeJob.getList(3).asUnmodifiableObservableList());
         return activeJob;
     }
 
@@ -323,11 +302,6 @@ public class ModelManager implements Model {
         return originalFilteredPersons;
     }
 
-    @Override
-    public UniqueFilterList getPredicateList(JobName name, Integer listNumber) {
-        Job job = getJob(name);
-        return job.getPredicateList(listNumber);
-    }
 
     @Override
     public void updateBaseFilteredPersonList(Predicate<Person> predicate) {
@@ -336,149 +310,97 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateJobAllApplicantsFilteredPersonList() {
+    public void updateFilteredPersonLists(JobListName listname) {
         Predicate<Person> predicater = new PredicateManager();
-        for (Filter filter : filterListJobAllApplicants) {
+        for (Filter filter : getPredicateLists(listname)) {
             predicater = predicater.and(filter.getPredicate());
         }
-        activeJobAllApplicants.setPredicate(predicater);
+        getPersonsLists(listname).setPredicate(predicater);
     }
 
     @Override
-    public void updateJobKivFilteredPersonList() {
-        Predicate<Person> predicater = new PredicateManager();
-        for (Filter filter : filterListJobKiv) {
-            predicater = predicater.and(filter.getPredicate());
+    public UniqueFilterList getPredicateLists(JobListName listName) {
+        switch (listName) {
+        case APPLICANT:
+            return filterListJobAllApplicants;
+        case KIV:
+            return filterListJobKiv;
+        case INTERVIEW:
+            return filterListJobInterview;
+        case SHORTLIST:
+            return filterListJobShortlist;
+        default:
+            return filterListAllPersons;
         }
-        activeJobKiv.setPredicate(predicater);
     }
 
-    @Override
-    public void updateJobInterviewFilteredPersonList() {
-        Predicate<Person> predicater = new PredicateManager();
-        for (Filter filter : filterListJobInterview) {
-            predicater = predicater.and(filter.getPredicate());
+    public FilteredList<Person> getPersonsLists(JobListName listname) {
+
+        switch (listname) {
+        case APPLICANT:
+            return activeJobAllApplicants;
+        case KIV:
+            return activeJobKiv;
+        case INTERVIEW:
+            return activeJobInterview;
+        case SHORTLIST:
+            return activeJobShortlist;
+        default:
+            return displayedFilteredPersons;
         }
-        activeJobInterview.setPredicate(predicater);
     }
 
-    @Override
-    public void updateJobShortlistFilteredPersonList() {
-        Predicate<Person> predicater = new PredicateManager();
-        for (Filter filter : filterListJobShortlist) {
-            predicater = predicater.and(filter.getPredicate());
-        }
-        activeJobShortlist.setPredicate(predicater);
-    }
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         displayedFilteredPersons.setPredicate(predicate);
     }
-    @Override
-    public void updateFilteredPersonList() {
-        Predicate<Person> predicater = new PredicateManager();
-        for (Filter filter : filterListAllPersons) {
-            predicater = predicater.and(filter.getPredicate());
-        }
-        displayedFilteredPersons.setPredicate(predicater);
-    }
 
     @Override
     public void clearJobFilteredLists() {
-        clearJobFilteredListsApplicant();
-        clearJobFilteredListsKiv();
-        clearJobFilteredListsInterview();
-        clearJobFilteredListsShortlist();
-    }
-    @Override
-    public void clearJobFilteredListsApplicant() {
-        filterListJobAllApplicants = new UniqueFilterList();
-    }
-    @Override
-    public void clearJobFilteredListsKiv() {
-        filterListJobKiv = new UniqueFilterList();
-    }
-    @Override
-    public void clearJobFilteredListsInterview() {
-        filterListJobInterview = new UniqueFilterList();
-    }
-    @Override
-    public void clearJobFilteredListsShortlist() {
-        filterListJobShortlist = new UniqueFilterList();
+        clearJobFilteredLists(JobListName.APPLICANT);
+        clearJobFilteredLists(JobListName.KIV);
+        clearJobFilteredLists(JobListName.INTERVIEW);
+        clearJobFilteredLists(JobListName.SHORTLIST);
+        clearJobFilteredLists(JobListName.EMPTY);
     }
 
     @Override
-    public void clearPredicateAllPersons() {
-        filterListAllPersons = new UniqueFilterList();
+    public void clearJobFilteredLists(JobListName listName) {
+        switch (listName) {
+        case APPLICANT:
+            filterListJobAllApplicants = new UniqueFilterList();
+            break;
+        case KIV:
+            filterListJobKiv = new UniqueFilterList();
+            break;
+        case INTERVIEW:
+            filterListJobInterview = new UniqueFilterList();
+            break;
+        case SHORTLIST:
+            filterListJobShortlist = new UniqueFilterList();
+            break;
+        default:
+            filterListAllPersons = new UniqueFilterList();
+            break;
+        }
     }
 
     @Override
-    public void addPredicateJobShortlist(String predicateName, Predicate<Person> predicate) {
+    public void addPredicate(String predicateName, Predicate<Person> predicate, JobListName listName) {
         requireNonNull(predicate);
-        filterListJobShortlist.add(new Filter(predicateName, predicate));
-    }
-
-    @Override
-    public void addPredicateJobInterview(String predicateName, Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filterListJobInterview.add(new Filter(predicateName, predicate));
-    }
-
-    @Override
-    public void addPredicateJobKiv(String predicateName, Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filterListJobKiv.add(new Filter(predicateName, predicate));
-    }
-
-    @Override
-    public void addPredicateJobAllApplicants(String predicateName, Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filterListJobAllApplicants.add(new Filter(predicateName, predicate));
-    }
-
-    @Override
-    public void addPredicateAllPersons(String predicateName, Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filterListAllPersons.add(new Filter(predicateName, predicate));
-    }
-
-    @Override
-    public void removePredicateAllPersons(String predicateName) {
+        requireNonNull(listName);
         requireNonNull(predicateName);
-        filterListAllPersons.remove(new Filter(predicateName));
+        getPredicateLists(listName).add(new Filter(predicateName, predicate));
     }
 
+
     @Override
-    public void removePredicateJobShortlist(String predicateName) {
+    public void removePredicate(String predicateName, JobListName listName) {
         requireNonNull(predicateName);
-        filterListJobShortlist.remove(new Filter(predicateName));
+        getPredicateLists(listName).remove(new Filter(predicateName));
     }
 
-    @Override
-    public void removePredicateJobInterview(String predicateName) {
-        requireNonNull(predicateName);
-        filterListJobInterview.remove(new Filter(predicateName));
-    }
-
-    @Override
-    public void removePredicateJobKiv(String predicateName) {
-        requireNonNull(predicateName);
-        filterListJobKiv.remove(new Filter(predicateName));
-    }
-
-    @Override
-    public void removePredicateJobAllApplicants(String predicateName) {
-        requireNonNull(predicateName);
-        filterListJobAllApplicants.remove(new Filter(predicateName));
-    }
-
-    @Override
-    public void changeFilteredPersonList(UniquePersonList list) {
-        requireNonNull(list);
-
-        this.displayedFilteredPersons = new FilteredList<>(list.asUnmodifiableObservableList());
-    }
 
     @Override
     public void revertList() {
@@ -599,7 +521,7 @@ public class ModelManager implements Model {
             }
 
             boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedPerson.getValue());
+                && change.getRemoved().contains(selectedPerson.getValue());
             if (wasSelectedPersonReplaced) {
                 // Update selectedPerson to its new value.
                 int index = change.getRemoved().indexOf(selectedPerson.getValue());
@@ -608,7 +530,7 @@ public class ModelManager implements Model {
             }
 
             boolean wasSelectedPersonRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPerson -> selectedPerson.getValue().isSamePerson(removedPerson));
+                .anyMatch(removedPerson -> selectedPerson.getValue().isSamePerson(removedPerson));
             if (wasSelectedPersonRemoved) {
                 // Select the person that came before it in the list,
                 // or clear the selection if there is no such person.
@@ -628,7 +550,7 @@ public class ModelManager implements Model {
             }
 
             boolean wasSelectedJobChanged = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedJob.getValue());
+                && change.getRemoved().contains(selectedJob.getValue());
             if (wasSelectedJobChanged) {
                 // Update selectedJob to its new value.
                 int index = change.getRemoved().indexOf(selectedJob.getValue());
@@ -637,7 +559,7 @@ public class ModelManager implements Model {
             }
 
             boolean wasSelectedJobRemoved = change.getRemoved().stream()
-                    .anyMatch(removedJob -> selectedJob.getValue().isSameJob(removedJob));
+                .anyMatch(removedJob -> selectedJob.getValue().isSameJob(removedJob));
             if (wasSelectedJobChanged) {
                 // Select the job that came before it in the list,
                 // or clear the selection if there is no such job.
@@ -717,9 +639,9 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
-                && userPrefs.equals(other.userPrefs)
-                && originalFilteredPersons.equals(other.originalFilteredPersons)
-                && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
+            && userPrefs.equals(other.userPrefs)
+            && originalFilteredPersons.equals(other.originalFilteredPersons)
+            && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
 
 }

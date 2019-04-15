@@ -9,7 +9,6 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.commandExecute;
 import static seedu.address.logic.commands.DeleteFilterCommand.MESSAGE_CANOT_FOUND_TARGET_FILTER;
 import static seedu.address.logic.commands.DeleteFilterCommand.MESSAGE_LACK_LISTNAME;
-import static seedu.address.logic.commands.DeleteFilterCommand.MESSAGE_USAGE_ALLJOB_SCREEN;
 import static seedu.address.logic.commands.DeleteFilterCommand.MESSAGE_USAGE_DETAIL_SCREEN;
 import static seedu.address.model.job.JobListName.APPLICANT;
 import static seedu.address.model.job.JobListName.EMPTY;
@@ -50,8 +49,8 @@ public class DeleteFilterCommandTest {
         String expectedMessage = String.format(DeleteFilterCommand.MESSAGE_DELETE_FILTER_SUCCESS, VALID_FILTERNAME);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addPredicateAllPersons(VALID_FILTERNAME, predicator);
-        expectedModel.removePredicateAllPersons(VALID_FILTERNAME);
+        expectedModel.addPredicate(VALID_FILTERNAME, predicator, EMPTY);
+        expectedModel.removePredicate(VALID_FILTERNAME, EMPTY);
 
         assertCommandSuccess(deleteFilterCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -69,8 +68,8 @@ public class DeleteFilterCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setIsAllJobScreen(false);
-        expectedModel.addPredicateAllPersons(VALID_FILTERNAME, predicator);
-        expectedModel.removePredicateAllPersons(VALID_FILTERNAME);
+        expectedModel.addPredicate(VALID_FILTERNAME, predicator, EMPTY);
+        expectedModel.removePredicate(VALID_FILTERNAME, EMPTY);
 
         assertCommandSuccess(deleteFilterCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -88,8 +87,8 @@ public class DeleteFilterCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setIsAllJobScreen(false);
-        expectedModel.addPredicateAllPersons(VALID_FILTERNAME, predicator);
-        expectedModel.removePredicateAllPersons(VALID_FILTERNAME);
+        expectedModel.addPredicate(VALID_FILTERNAME, predicator, EMPTY);
+        expectedModel.removePredicate(VALID_FILTERNAME, EMPTY);
 
         assertCommandSuccess(deleteFilterCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -107,8 +106,8 @@ public class DeleteFilterCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setIsAllJobScreen(false);
-        expectedModel.addPredicateAllPersons(VALID_FILTERNAME, predicator);
-        expectedModel.removePredicateAllPersons(VALID_FILTERNAME);
+        expectedModel.addPredicate(VALID_FILTERNAME, predicator, EMPTY);
+        expectedModel.removePredicate(VALID_FILTERNAME, EMPTY);
 
         assertCommandSuccess(deleteFilterCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -126,8 +125,8 @@ public class DeleteFilterCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setIsAllJobScreen(false);
-        expectedModel.addPredicateAllPersons(VALID_FILTERNAME, predicator);
-        expectedModel.removePredicateAllPersons(VALID_FILTERNAME);
+        expectedModel.addPredicate(VALID_FILTERNAME, predicator, EMPTY);
+        expectedModel.removePredicate(VALID_FILTERNAME, EMPTY);
 
         assertCommandSuccess(deleteFilterCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -143,7 +142,7 @@ public class DeleteFilterCommandTest {
     @Test
     public void execute_filterNameNotFoundAllJob_fail() {
         DeleteFilterCommand deleteFilterCommand = new DeleteFilterCommand(EMPTY, VALID_FILTERNAME);
-        String expectedMessage = String.format(MESSAGE_CANOT_FOUND_TARGET_FILTER, MESSAGE_USAGE_ALLJOB_SCREEN);
+        String expectedMessage = MESSAGE_CANOT_FOUND_TARGET_FILTER;
         assertCommandFailure(deleteFilterCommand, model, commandHistory, expectedMessage);
     }
 
@@ -154,7 +153,7 @@ public class DeleteFilterCommandTest {
         DeleteFilterCommand deleteFilterCommandInterview = new DeleteFilterCommand(INTERVIEW, VALID_FILTERNAME);
         DeleteFilterCommand deleteFilterCommandKiv = new DeleteFilterCommand(KIV, VALID_FILTERNAME);
         DeleteFilterCommand deleteFilterCommandShortList = new DeleteFilterCommand(SHORTLIST, VALID_FILTERNAME);
-        String expectedMessage = String.format(MESSAGE_CANOT_FOUND_TARGET_FILTER, MESSAGE_USAGE_DETAIL_SCREEN);
+        String expectedMessage = MESSAGE_CANOT_FOUND_TARGET_FILTER;
         assertCommandFailure(deleteFilterCommandApplicant, model, commandHistory, expectedMessage);
         assertCommandFailure(deleteFilterCommandInterview, model, commandHistory, expectedMessage);
         assertCommandFailure(deleteFilterCommandKiv, model, commandHistory, expectedMessage);

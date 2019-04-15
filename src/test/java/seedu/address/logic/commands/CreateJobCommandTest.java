@@ -31,7 +31,6 @@ import seedu.address.model.job.Job;
 import seedu.address.model.job.JobListName;
 import seedu.address.model.job.JobName;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.predicate.UniqueFilterList;
 import seedu.address.testutil.JobBuilder;
 
@@ -166,71 +165,6 @@ public class CreateJobCommandTest {
         }
 
         @Override
-        public void updateJobAllApplicantsFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateJobKivFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateJobInterviewFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateJobShortlistFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addPredicateJobAllApplicants(String predicateName, Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addPredicateJobKiv(String predicateName, Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addPredicateJobInterview(String predicateName, Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addPredicateJobShortlist(String predicateName, Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void removePredicateJobAllApplicants(String predicateName) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void removePredicateJobKiv(String predicateName) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void removePredicateJobInterview(String predicateName) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void removePredicateJobShortlist(String predicateName) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public UniqueFilterList getPredicateList(JobName name, Integer listNumber) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public UniqueFilterList getPredicateLists(JobListName listName) {
             throw new AssertionError("This method should not be called.");
         }
@@ -246,24 +180,20 @@ public class CreateJobCommandTest {
         }
 
         @Override
-        public void clearJobFilteredListsApplicant() {
+        public void clearJobFilteredLists(JobListName listName) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void clearJobFilteredListsInterview() {
+        public void removePredicate(String predicateName, JobListName listName) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void clearJobFilteredListsKiv() {
+        public void updateFilteredPersonLists(JobListName listname) {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public void clearJobFilteredListsShortlist() {
-            throw new AssertionError("This method should not be called.");
-        }
 
         @Override
         public ReadOnlyProperty<Job> selectedJobProperty() {
@@ -410,20 +340,12 @@ public class CreateJobCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public void changeFilteredPersonList(UniquePersonList list) {
-            throw new AssertionError("This method should not be called.");
-        }
 
         @Override
         public void revertList() {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public UniquePersonList getJobList(JobName name, Integer listNumber) {
-            throw new AssertionError("This method should not be called.");
-        }
 
         @Override
         public Integer movePerson(Job job, Person person, Integer source, Integer dest) {
@@ -451,22 +373,7 @@ public class CreateJobCommandTest {
         }
 
         @Override
-        public void addPredicateAllPersons(String predicateName, Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void removePredicateAllPersons(String predicateName) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void clearPredicateAllPersons() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPersonList() {
+        public void addPredicate(String predicateName, Predicate<Person> predicate, JobListName listname) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -517,6 +424,10 @@ public class CreateJobCommandTest {
         }
 
         @Override
+        public void updateFilteredPersonLists(JobListName listname) {
+        }
+
+        @Override
         public void addJob(Job job) {
             requireNonNull(job);
             jobsAdded.add(job);
@@ -538,16 +449,6 @@ public class CreateJobCommandTest {
         @Override
         public ObservableList<Person> getBaseFilteredPersonList() {
             return null;
-        }
-
-        @Override
-        public void changeFilteredPersonList(UniquePersonList list) {
-            requireNonNull(list);
-        }
-
-        @Override
-        public UniquePersonList getJobList(JobName name, Integer listNumber) {
-            return jobsAdded.get(0).getList(0);
         }
 
         @Override

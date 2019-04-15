@@ -633,7 +633,7 @@ For the final <<testscore, test score>> to be recorded, you must have attempted 
 
 //tag::reportoperations[]
 === Report Operations
-After testing, you can track your how you scored against previous attempts using our report feature. Because test
+After testing, you can track how you scored against previous attempts using our report feature. Because test
 sessions are run for cards in a folder, the <<testscore, test scores>> are tracked per folder.
 
 ==== Display a test score report : `report`

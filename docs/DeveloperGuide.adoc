@@ -428,6 +428,17 @@ However, the patient class is mutable, and accidental changes to its attributes 
 However, `Tooth` and `Teeth` objects, as well as their relevant methods takes a significant amount of time to be created. They will also require proper test cases to be implemented.
 // end::patient_kyler[]
 
+//tag::aspectDB[]
+===== Aspect: Not adding copies into local storage
+* **Current implementation:** Copies are not serialized into json file. It's only inside the memory. When copies exist before exit, program will ask for user's confirmation
+
+** **Alternative: ** Serialize copies into json file. Make changes to comparators of patient/task such that it accepts same entries with copy tag.
+
+*** Alternative Pros: Everything is on track. User does not need to make a confirmation before exiting with copies. And if the program exits accidentally, the copies are still there.
+*** Alternative Cons: User may be able to generate too many unnecessary entries easily, whose serialization is costly in time and space. The change of comparator also violates the design of unique list, bringing potential security issues as well.
+** **Choice Justification:** Serialization may need less code in the beginning. The maintenacne is more difficult, and the robustness of the program is compromised. On the other hand, creating copies for the user is not a hard task. Thus, creating copies on demand should be a better idea.
+//end::aspectDB[]
+
 // tag::taskDG1_cchj1995[]
 === Task Management and related commands
 Our user can also utilize TeethHub to store manage and interact with tasks aside from patients. Dentists would often have tasks that needs to be completed or performed and the implementation of the `Task` data object allows TeethHub to provide its user with the ability to manage these tasks and have them interact with their patient's details when necessary as well. The main commands added with the data object serve to provide the user with a way to manage and view the tasks stored in the application.
@@ -1482,6 +1493,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |clear all dental records of a patient | protect the privacy of my patients
 // end::patient_user_stories_kyler[]
 
+
 // tag::task_user_stories_cchj1995[]
 
 |`* * *` |user |add a new task |keep track of what I need to do
@@ -1508,6 +1520,12 @@ edit them before exiting.
 |`* *` |user |see an overall statistics report on my patients |analyze potential trends
 
 |`* *` |user |copy a person |reduce the time needed to create a new person who has similar records to an existing person in the list
+
+//tag::userstoryDB[]
+|`* *` |user |copy a task |reduce the time needed to create a new task who has similar records to an existing task in the list
+
+|`* *` |user |create MC based on existing record |reduce the time needed to input existing data to another system.
+//end::userstoryDB[]
 
 // tag::storyuserJH[]
 

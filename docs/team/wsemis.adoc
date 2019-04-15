@@ -5,43 +5,44 @@
 
 == PROJECT: TeethHub
 
----
+This portfolio summarizes my contribution to *Project: TeethHub*
 
 == Overview
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+My teammates and I was morphed this program in a software engineering module. In a brownfield manner, we enhanced and expanded features in Addressbook Level 4.
+
+The name of our program is TeethHub. It is a desktop application aimed for dentists who needs better data organization tools. Our program have functionalities in adding and editting patients, tasks and records, as well as other auxillary functions. Our program interacts with the user in both command line interface (CLI) and graphical user interface (GUI).
+
+Our program takes uses of libraries including TextFX, Jackson, Guava, JUnit5, Apache PDFBox and Apache Commons Logging. The GUI is written in JavaFX. In total, there are approximately 20k line of codes written in Java.
+
+I have implemented several functionalities for the application including copy patients, copy tasks, sort tasks, list tasks and create medical certificate from a record. I also coded test cases for my implementations using JUnit. To facilitate the project, I have also made changes in GUI.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *the ability to copy patients and tasks*
+** What it does: Allows user to make temporary copies of existing data entries for easy editting. The copy function does not violate the uniqueness of the data list as the copies are temporary. Exit with uneditted copies will need user's confirmation.
+** Justification: This feature improves the product significantly because inputting data in the program is painful. In actual scenarios, entries sharing similar attributes are commonly seen. This function will improves the usability of our application in a large scale.
+** Highlights: The implementation of the function needs coordination with logic, model and storage. It also needs to confront to the design rule of uniquene data list. A prompt is also added when user tries to exit without editting existing copies.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Major enhancement*: added *the ability to generate an MC based on existing record*
+** What it does: Allows user to generate MCs from our application directly without the need of inputting existing data again.
+** Justification: This feature improves the product significantly because generating MC is a common scenario. Since we have integrated this feature in our application, there is no need for the user to install another software and synchronize the data.
+** Highlights: The implementation of the function takes use of PDF box library. It will extract information automatically from selected records and the corresponding patient. The design of the MC is neat and professional.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Minor enhancement*: added a sort command that allows the user to sort task list in time or priority order ascendingly or descendling.
+
+* *Code contributed*: `https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=wsemis[via Response]`
 
 * *Other contributions*:
 
 ** Project management:
 *** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Enhanced the result display to dispaly muilti-style text.
+*** Mannually tested features teamate implemented. Found, reported several bugs and helped the debugging.
 
-_{you can add/remove categories in the list above}_
+** Community:
+*** Finded and reported bugs for projects in other groups (e.g. https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/413[1], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/179[2])
 
 == Contributions to the User Guide
 
@@ -50,9 +51,9 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=rmc]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=tcopy]
 
 == Contributions to the Developer Guide
 
@@ -60,13 +61,10 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=aspectDB]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+include::../DeveloperGuide.adoc[tag=userstoryDB]
 
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

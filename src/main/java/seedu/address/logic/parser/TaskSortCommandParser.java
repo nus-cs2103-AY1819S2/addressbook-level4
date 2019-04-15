@@ -49,10 +49,15 @@ public class TaskSortCommandParser implements Parser<TaskSortCommand> {
      */
     private boolean captureSortOrder(String sortOrder) throws ParseException {
         String regularInput = sortOrder.trim().toLowerCase();
-        if ("descending".indexOf(regularInput) == 0) {
+        /*if ("descending".indexOf(regularInput) == 0) {
             return false;
         } else if ("ascending".indexOf(regularInput) == 0) {
             return true;
+        }*/
+        if (regularInput.equals("asce")) {
+            return true;
+        } else if (regularInput.equals("desc")) {
+            return false;
         }
         throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TaskSortCommand.MESSAGE_USAGE));
     }

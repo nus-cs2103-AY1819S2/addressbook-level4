@@ -561,7 +561,9 @@ public class ParserUtil {
         if (args.length > 1) {
             try {
                 int days = Integer.parseInt(args[1]);
-                if (days < 1) { throw new ParseException("Rest for at least 1 day"); }
+                if (days < 1) {
+                    throw new ParseException("Rest for at least 1 day");
+                }
                 results[1] = days + "";
             } catch (NumberFormatException e) {
                 throw new ParseException("Invalid days of rest");

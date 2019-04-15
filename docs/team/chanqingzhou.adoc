@@ -52,7 +52,9 @@ and it has a Graphical User Interface(GUI) created with JavaFX. It is written in
 
 
 |===
-|_Given below are sections I contributed to the Food Diary 's User Guide . They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the Food Diary 's User Guide.
+I was in-charge of writing the introduction for the User Guide, on top of the commands I have written.
+This showcases my ability to write documentation targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=introductionUG]

@@ -19,7 +19,8 @@ import seedu.address.model.tag.Tag;
  * Represents a Restaurant in the food diary.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Restaurant {
+public class
+Restaurant {
 
     // Identity fields
     private final Name name;
@@ -33,7 +34,6 @@ public class Restaurant {
     private final List<Review> reviews = new ArrayList<>();
     private final OpeningHours openingHours;
     private final Postal postal;
-    private Optional<PostalData> postalData;
     private final Summary summary;
 
     // Categories fields
@@ -209,10 +209,6 @@ public class Restaurant {
                 .append(getAddress())
                 .append(" Postal: ")
                 .append(getPostal())
-                .append(" Weblink: ")
-                .append(getWeblink())
-                .append(" Opening Hours: ")
-                .append(getOpeningHours())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
 

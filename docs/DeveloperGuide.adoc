@@ -484,7 +484,7 @@ image::EditPaxActivityDiagram.png[width="800"]
 - *Pros*: Maintains abstraction of [.java]#Table# and [.java]#TableStatus# and reduce errors from abusing the editability of [.java]#TableStatus# in [.java]#Table#. +
 - *Cons*: May have efficiency issues when creating a whole new object whenever part of it needs to be changed.
 
-We decided to choose this option because we realise that if we were to edit the tables directly, we would need a listener for each [.java]#Table# in the [.java]#UniqueTableList# to detect changes, which is not an efficient design. Furthermore, the tables can only be edited one at a time. Hence, the space efficiency issue would not be significant. 
+We decided to choose this option because we realise that if we were to edit the tables directly, we would need a listener for each [.java]#Table# in the [.java]#UniqueTableList# to detect changes, which is not an efficient design. Furthermore, the tables can only be edited one at a time. Hence, the space efficiency issue would not be significant.
 | Directly edit the [.java]#TableStatus# of the tables. +
 - *Pros*: Potentially more efficient as there is no need to create new object and replace items in a list. +
 - *Cons*: Breaks abstraction to a certain extent and allows future developers to abuse the object. +
@@ -501,7 +501,7 @@ The interaction between the components for this function is similar to <<EditPax
 
 One thing to note is that the `editSeats` command can be called on not just unoccupied tables but also occupied tables. Hence, there is a different set of checks in place to ensure the integrity of tables are intact.
 
-An example would be, suppose `editSeats` is called on an occupied table, we do not allow the user to change the number of seats at the table to less than the current number of customers seated at the same table. Hence, if table 1 already has 4 customers, `editSeats 1 2` would return and error. 
+An example would be, suppose `editSeats` is called on an occupied table, we do not allow the user to change the number of seats at the table to less than the current number of customers seated at the same table. Hence, if table 1 already has 4 customers, `editSeats 1 2` would return and error.
 
 // end::editseats[]
 
@@ -544,7 +544,7 @@ In the method above, [.java]#Model#isRestaurantEmpty()# loops through all the ta
 
 This command's interaction with the components is very similar to <<EditPax, editing pax at a table>>. The key difference is that it searches for the best fit table automatically instead of having the table specified by the user.
 
-This functionality uses the `spaceFor` command and is facilitated by the [.java]Model#isOccupied(Table)# method. This method checks if the specified table has any customers seated at the table. The `spaceFor` command works like a request and takes in 1 argument specifying the number of customers to be seated in ROR. 
+This functionality uses the `spaceFor` command and is facilitated by the [.java]Model#isOccupied(Table)# method. This method checks if the specified table has any customers seated at the table. The `spaceFor` command works like a request and takes in 1 argument specifying the number of customers to be seated in ROR.
 
 [.java]#SpaceForCommand#execute()# is then called which searches through the [.java]#UniqueTableList# for the best fit table. In this case, the best fit [.java]#Table# is the smallest available one that can accommodate the specified number of customers. If there is more than 1 [.java]#Table# that fits those criterions, the [.java]#Table# with the smallest [.java]#TableNumber# is chosen.
 

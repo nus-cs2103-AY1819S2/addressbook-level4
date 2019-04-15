@@ -485,6 +485,10 @@ The display feature allow users to view the location of all equipments in the cu
 
 ==== Current Implementation
 
+The following activity diagram shows each action is done by which component.
+
+image::DisplayActivityDiagram.png[width="800"]
+
 The following sequence diagram shows how the display operation works:
 
 image::DisplaySequenceDiagram.png[width="800"]
@@ -533,11 +537,11 @@ Step 5. The webpage receive the coordinates in parameter form. It will first par
 === Route feature
 The route feature allow users to know the best order to traverse through all equipments listed in the equipment panel. The order will be shown on the map.
 
-==== Current Implementation
-
 The following sequence diagram shows how the display operation works:
 
 image::RouteSequenceDiagram.png[width="800"]
+
+==== Current Implementation
 
 Step 1. The user launches the application, the list of equipments will show in `UI` and stored in the `Model`.
 

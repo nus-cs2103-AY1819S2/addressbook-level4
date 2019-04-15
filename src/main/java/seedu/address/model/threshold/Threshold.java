@@ -16,7 +16,7 @@ public class Threshold {
     public static final int MAX_QUANTITY_THRESHOLD = Quantity.MAX_QUANTITY + 1;
     public static final int MAX_EXPIRY_THRESHOLD = Expiry.MAX_DAYS_TO_EXPIRY + 1;
     public static final String MESSAGE_CONSTRAINTS =
-            "Threshold should only contain numbers.\n"
+            "Threshold should only contain positive integers.\n"
             + "Maximum threshold for expiry: " + MAX_EXPIRY_THRESHOLD + "\n"
             + "Maximum threshold for quantity: " + MAX_QUANTITY_THRESHOLD;
     public static final String VALIDATION_REGEX = "\\d+";

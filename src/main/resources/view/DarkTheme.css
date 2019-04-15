@@ -145,11 +145,6 @@
     -fx-padding: 5 0 6 0;
 }
 
-/*.list-cell:filled:selected #warningCardPane {*/
-    /*-fx-border-color: lightgrey;*/
-    /*-fx-border-width: 0.1;*/
-/*}*/
-
 .list-cell .label {
     -fx-text-fill: white;
 }
@@ -183,7 +178,7 @@
 .result-display {
     -fx-background-color: transparent;
     -fx-font-family: "Segoe UI Light";
-    -fx-font-size: 13pt;
+    -fx-font-size: 12pt;
     -fx-text-fill: white;
 }
 

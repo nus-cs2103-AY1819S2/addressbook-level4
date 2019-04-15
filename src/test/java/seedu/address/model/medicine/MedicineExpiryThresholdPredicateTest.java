@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import seedu.address.commons.util.warning.WarningPanelPredicateType;
 import seedu.address.model.Model;
+import seedu.address.model.medicine.predicates.MedicineExpiryThresholdPredicate;
 import seedu.address.model.threshold.Threshold;
 import seedu.address.testutil.MedicineBuilder;
 

@@ -62,6 +62,7 @@ This section provides the summary of the contributions that I have made to the p
 
 ** Tools:
 *** Integrated Netlify to the team repo.
+*** Setup auto publishing of documentation.
 
 == Contributions to the User Guide
 

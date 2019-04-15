@@ -81,5 +81,6 @@ include::../UserGuide.adoc#selecting-a-patient-select-p[tag=select-p]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc#Design-Model[tag=Model Component]
 
+include::../DeveloperGuide.adoc#patient-management-features[tag=Patient Features]

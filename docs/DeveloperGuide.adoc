@@ -1003,6 +1003,18 @@ parses it into a `SetReminderCommand` object.
 
 image::SetReminderSequenceDiagram.png[width="800"]
 Figure 3.9.1 shows the sequence diagram for the different method invocation calls between the classes
+
+1. When `SetReminderCommandParser` receives the `parse` command, it calls the static method `ArgumentTokenizer.tokenize` to extract the arguments from the user input string.
+
+2. The `extractArguments` constructs and returns an `ArgumentMultimap` based on the arguments passed in.
+
+3. `SetReminderCommandParser` checks if there are arguments specified under prefixes `PREFIX_TIME` and `PREFIX_MESSAGE`.
+
+4. If it cannot find those arguments, it throws a `ParseException` to the calling program.
+
+5. If arguments are available, it calls the `getValue` method of `ArgumentMultimap` to return the values
+
+6. After getting the values, the `SetReminderCommandParser` checks for the validity of the values and if true, calls the constructor of `SetReminderCommand`
 // end::setreminder[]
 
 // tag::statistics[]
@@ -1173,9 +1185,10 @@ against the user's input if any of the suggestions starts with the user's text.
 ==== Aspect: Data structure to store the list of commands
 [width="100%",cols="1, 5, 5",options="header"]
 |=======================================================================
-Implementation | Use a `TreeSet` datastructure | Use a `SuffixTree` datastructure
-|Pros| Implements the `NavigatableSet` interface and guarantees that elements are stored in sorted order, also allows for _O(log n)_ time complexity for dynamic searching of elements  | Made for features like autocompletion, allows particularly fast implementation of `String` operations
-|Cons| _none at the moment_ | difficult to comprehend and implement
+Implementation | Use a `TreeSet` data structure | Use a `SuffixTree` data structure
+|Pros| Implements the `NavigatableSet` interface and guarantees that elements are stored in sorted order, also allows for _O(log n)_ time complexity for dynamic searching of elements.  | Made for features like autocompletion, allows particularly fast implementation of `String` operations.
+|Cons| Elements contained within the `TreeSet` data have to be a _Comparable_ or a _Comparator_ needs to be supplied. In this case, since we are only concerned with `Strings`, we do not
+need an extra step. | Suffix Trees are difficult to comprehend -> difficult to implement.
 |=======================================================================
 // end::autocomplete[]
 

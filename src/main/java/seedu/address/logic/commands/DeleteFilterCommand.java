@@ -36,6 +36,7 @@ public class DeleteFilterCommand extends Command {
         + "The alias \"d\" can be used instead.\n"
         + "Example: " + COMMAND_ALIAS + " Applicant Chinese\n";
 
+    public static final String MESSAGE_LACK_FILTERNAME = "Delete Filter Command need a name\n%1$s";
     public static final String MESSAGE_DELETE_FILTER_SUCCESS = "Deleted Filter: %1$s";
     public static final String MESSAGE_LACK_LISTNAME =
         "Delete Filter Command in Display Job page need indicate job list\n%1$s";

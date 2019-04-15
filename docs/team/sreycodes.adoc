@@ -3,24 +3,30 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-This portfolio serves to document my contributions and learning while building
-HMS+
-
 == PROJECT: HMS+
 
----
+|===
+|This portfolio serves to document my contributions and learning while building HMS+
+|===
 
 == Overview
 
 HMS+ is a hotel management system made for hotels to manage their customers and their relevant transactions.
 The hotel staff interacts with it using a Command Line Interface (CLI), and it has a Graphical User Interface (GUI) created with JavaFX.
-It is written in Java and has around 15k LOC.
+It is written in Java and has around 15,000 lines of code.
 
 == Summary of contributions
 
-* *Major enhancement*: Added the complete backend for the booking and reservation from commands upto storage
-** What it does: It allows the hotel staff to add service-bookings and reservations for the customers.
-** Justification: This is the backbone of the application as these are the main amenities of any hotel.
+|===
+|This section summarizes my contributions to the application and explains their importance.
+|===
+
+* *Major enhancement*: I added the complete backend for the booking and reservation from commands upto storage.
+This also includes making sure each component is customizable which involved refactoring service and room types
+from `ENUM` to classes.
+** What it does: It allows the hotel staff to add service-bookings, reservations, service types and room types to the hotel.
+** Justification: This is the backbone of the application as these are the main amenities of any hotel. Most other
+functionality such as bill and statistics can work because of these models.
 ** Highlights: This enhancement required in-depth analysis of the codebase as it involved extending a single-model dependent system to a multi-model based system.
 I had to make sure the design implementation preserved the extensibility of the system as well as allowed the different components to interact with each other.
 ** Credits: I mainly used the concepts from the existing codebase and those that were taught in CS2103T to implement my features.
@@ -36,7 +42,7 @@ I had to make sure the design implementation preserved the extensibility of the 
 * *Other contributions*:
 
 ** Project management:
-*** Created the Github Project Board and facilitated a https://github.com/cs2103-ay1819s2-t12-1/main/issues/created_by/sreycodes[issue-based workflow].
+*** Created the https://github.com/cs2103-ay1819s2-t12-1/main/projects/1[Github Project Board] and facilitated a https://github.com/cs2103-ay1819s2-t12-1/main/issues/created_by/sreycodes[issue-based workflow].
 *** https://github.com/cs2103-ay1819s2-t12-1/main/pulls?utf8=%E2%9C%93&q=is%3Apr+reviewed-by%3Asreycodes[Reviewed and approves several PRs.]
 *** https://github.com/nus-cs2103-AY1819S2/forum/issues?utf8=%E2%9C%93&q=is%3Aissue+author%3Asreycodes[Reported bugs and suggestions for other teams in the class]
 ** Enhancements to existing features:
@@ -48,7 +54,8 @@ https://github.com/cs2103-ay1819s2-t12-1/main/blob/master/src/test/java/seedu/hm
 *** Added color-coding to the user guide.
 *** Reformated all the commands to match an intuitive convention in guides and codebase.
 *** Added sections to developer guide.
-https://github.com/cs2103-ay1819s2-t12-1/main/blob/master/docs/DeveloperGuide.adoc#41-adding-service-booking-functionality[Example] - I added a section to teach oncoming developers how to extend on the codebase.
+https://github.com/cs2103-ay1819s2-t12-1/main/blob/master/docs/DeveloperGuide.adoc#41-adding-service-booking-functionality[Example]- I
+added a section to teach oncoming developers how to add new models to the codebase.
 ** Tools:
 *** Set Up Travis, Codacy and Coveralls
 *** Set the minimum requirements for code to be merged to master.
@@ -56,7 +63,8 @@ https://github.com/cs2103-ay1819s2-t12-1/main/blob/master/docs/DeveloperGuide.ad
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|This section displays the main sections of the User Guide added or edited by me. They showcase my ability to write documentation
+which can be understood by the targeted end-users._
 |===
 
 include::../UserGuide.adoc[tag=reservation-commands]
@@ -66,7 +74,8 @@ include::../UserGuide.adoc[tag=booking-commands]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|Given below are the main sections I added to the developer guide so that oncoming developers
+can easily extend our codebase and add features quickly.
 |===
 
 include::../DeveloperGuide.adoc[tag=new-model]
@@ -74,9 +83,21 @@ include::../DeveloperGuide.adoc[tag=new-model]
 include::../DeveloperGuide.adoc[tag=customizability]
 
 == Achievements and Learnings
+|===
+|Given below are the my takeaways from this project and my achievements
+in this project.
+|===
 
 * Worked with a team to implement complementing components smoothly
 * Learned how to evaluate user requirements using user stories
-* I was able to lead the module in terms of code contribution.
+* https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=&sort=totalCommits&since=2019-02-10&until=2019-04-15&timeframe=day&reverse=true&repoSort=false[I was able to lead the module in terms of code contribution.]
 
 image::reposense.png[align="right"]
+
+== Contact Me
+|===
+|This section tells you more about me and how to reach me.
+|===
+I am a year 2 NUS student studying computer science and made this project as a part of my
+software engineering course. You can checkout my other projects https://www.github.com/sreycodes[here].
+You can also email me mailto:sreyans.sipani99@gmail.com[here].

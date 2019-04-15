@@ -564,6 +564,10 @@ for help in using these features.
 
 [#steps-encrypt]
 ==== Encryption Guide
+
+[NOTE]
+`encrypt` feature will not work on files that are already encrypted.
+
 Illustrated below is a sample usage scenario that provides a clear view to the inner workings
 of the Encrypt feature.
 
@@ -736,13 +740,18 @@ e.g `sort name down`, `sort deadline up`, `sort size down`
 * *Deadline* : To set a due date to a file.
 * *Tag* : A text label attached to a file for identification or providing more information.
 
-== Upcoming Features
+== Upcoming Features in v2.0
 * Connection to External Servers: +
 We plan to allow you connect directly to your cloud servers to synchronize documents across several devices. +
 These servers include popular sites such as LumiNus.
 * Login Page: +
-We plan to include a Login Page to help authenticate you to the application so that you can access the app more securely.
+We plan to include a Login Page to help authenticate you to the application so that you can access the app more securely. +
+Furthermore, together with the connection to external servers feature, this feature will allow you to access your documents
+anywhere you are.
 * Text-to-Speech: +
 We plan to implement a Text-to-Speech option that could potentially read the contents of your file or the name of your file to you.
 * Multiple File Formats: +
 We plan to allow you to use our application with file-types beyond `.pdf` files.
+* Undo/Redo: +
+Due to some security concerns that we faced with the undo/redo feature, it will be delayed until we have found a solution
+that will not compromise the privacy of our users.

@@ -390,7 +390,7 @@ To ensure versatility and enhance the usefulness of this list, a number of comma
 ===== Model Component
 
 .Updated Model Component Class Diagram for Member List
-image::person-attributes.png[width=100%]
+image::person-attributes.png[width=50%]
 
 // end::memberlistfeature[]
 

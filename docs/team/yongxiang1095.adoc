@@ -39,7 +39,7 @@
 *** Tracked issues and milestones on GitHub
 ** Enhancements to existing features:
 *** Updated the GUI color scheme: https://github.com/CS2103-AY1819S2-W16-2/main/pull/86[#86]
-//*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Wrote tests for new and existing features to increase coverage from 79% to 86% (Pull requests https://github.com/CS2103-AY1819S2-W16-2/main/pull/144[#144], https://github.com/CS2103-AY1819S2-W16-2/main/pull/147[#147], https://github.com/CS2103-AY1819S2-W16-2/main/pull/149[#149])
 ** Documentation:
 *** Ported all commands (basic form) and the command summary into the User Guide: https://github.com/CS2103-AY1819S2-W16-2/main/pull/16[#16], https://github.com/CS2103-AY1819S2-W16-2/main/pull/23[#23], https://github.com/CS2103-AY1819S2-W16-2/main/pull/34[#34]
 *** Ported all User Stories and Use Cases into the Developer Guide: https://github.com/CS2103-AY1819S2-W16-2/main/pull/16[#16], https://github.com/CS2103-AY1819S2-W16-2/main/pull/17[#17], https://github.com/CS2103-AY1819S2-W16-2/main/pull/23[#23], https://github.com/CS2103-AY1819S2-W16-2/main/pull/34[#34]
@@ -56,6 +56,10 @@
 
 include::../UserGuide.adoc[tag=archivefeatures]
 
+include::../UserGuide.adoc[tag=selectfeatures]
+
+include::../UserGuide.adoc[tag=googlemapsfeature]
+
 == Contributions to the Developer Guide
 
 |===
@@ -64,9 +68,13 @@ include::../UserGuide.adoc[tag=archivefeatures]
 
 include::../DeveloperGuide.adoc[tag=archive]
 
+include::../DeveloperGuide.adoc[tag=select]
+
 |===
-|_I ported in all the User Stories into the Developer Guide. Given below is an extract related to the features I implemented._
+|_I ported in all the *User Stories* into the Developer Guide. Given below is an extract related to the features I implemented._
 |===
+
+include::../DeveloperGuide.adoc[tag=userstoriestitle]
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
@@ -75,10 +83,22 @@ include::../DeveloperGuide.adoc[tag=archiveuserstories]
 |=======================================================================
 
 |===
-|_I ported in all the Use Cases into the Developer Guide. Given below is an extract related to the features I implemented._
+|_I ported in all the *Use Cases* into the Developer Guide. Given below is an extract related to the features I implemented._
 |===
 
+include::../DeveloperGuide.adoc[tag=usecasestitle]
+
 include::../DeveloperGuide.adoc[tag=archiveusecases]
+
+|===
+|_Given below are the *Instructions for Manual Testing* for the features I implemented._
+|===
+
+include::../DeveloperGuide.adoc[tag=manualtestingtitle]
+
+include::../DeveloperGuide.adoc[tag=selectmanualtesting]
+
+include::../DeveloperGuide.adoc[tag=archivemanualtesting]
 
 == PROJECT: PowerPointLabs
 

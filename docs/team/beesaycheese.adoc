@@ -43,15 +43,14 @@ endif::[]
 
 == Summary of contributions
 
-
-Overall, my role in this project encompasses managing the UI component, the Statistics feature, project deadline and
-deliverable.
-This is a summary of the coding, documentation and other helpful contributions to the team project.
+Overall, my role in this project encompasses managing the UI components, Statistics feature, project deadline and
+deliverable. The following provides a detailed summary of the coding, documentation and other helpful contributions
+ I have contributed to the team project.
 
 . *Major Commands implemented*
 
-.. *Calling for bill*: added *the ability to calculate and record the bill of a specific table.*
-** What it does: allows the user calculate and record the total bill accumulated from the table's orders.
+.. *Calling for bill*: added the ability to *calculate and record the bill* of a specific table.
+** What it does: allows users to calculate and record the total bill accumulated from the table's orders.
 ** Justification: This feature is necessary to update the restaurant revenue, status of the specified tables and the
 popularity of the menu items that were ordered.
 ** Highlights: This command is only usable in Table Mode.
@@ -73,7 +72,9 @@ date, month or year is specified, the current day's revenue will be returned.
 . *Minor enhancement*: Create a Bill Mode that displays a receipt for the user.
 
 . *Code contributed*: Please refer to theses links to view my code +
-[https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+[https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=beesaycheese[Project
+Code Dashboard]]
+ [https://github.com[Test code]]
 
 . *Other contributions*:
 

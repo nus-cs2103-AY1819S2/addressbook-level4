@@ -1106,6 +1106,19 @@ These instructions only provide a starting point for testers to work on; testers
 .. Exit and start `BrainTrain` again. +
    Expected: The theme have changed to dark theme and persist beyond restart.
 
+//tag::session[]
+=== Starting a new quiz
+
+Below are some test cases you can perform to test the `StartCommand` for the Management feature.
+
+. Prerequisite: The system is in the management mode and there is no opened lesson currently.
+. Test case:
+.. `start 1 m/preview` +
+   Expected: The system and GUI change to `Quiz mode`. Starting new quiz. Current lesson is the first lesson in the list. Besides, only one card will be previewed in the quiz.
+.. `start 3 c/1 m/learn` +
+   Expected: The system and GUI change to `Quiz mode`. Starting new quiz. Current lesson is the third lesson in the list. Besides, only one card will be learnt in the quiz.
+
+//end::session[]
 === Answering a question in a quiz
 
 Below are some test cases you can perform to test the `QuizAnswerCommand` for the Quiz feature. +

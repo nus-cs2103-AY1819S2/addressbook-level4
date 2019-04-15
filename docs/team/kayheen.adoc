@@ -64,27 +64,35 @@ https://github.com/CS2103-AY1819S2-W16-2/main/issues/117[#117],
 == 3. Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_The sections below are my contributions to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
+
+=== A Walk Through
 include::../UserGuide.adoc[tag=AWalkThrough]
 
+=== Rotate an Image : `rotate`
 include::../UserGuide.adoc[tag=RotateCommand]
 
+=== WaterMark : `wm`
 include::../UserGuide.adoc[tag=WaterMarkCommand]
 
 == 4. Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_The sections below are my contributions to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+==== How the Architecture Components Interact with Each Other
 include::../DeveloperGuide.adoc[tag=ArchiInteraction]
 
+=== Image Manipulation
 include::../DeveloperGuide.adoc[tag=ImageManipulation]
 
+=== WaterMark Feature
 include::../DeveloperGuide.adoc[tag=WaterMark]
 
 == 5. Other Works Contributed to the User Guide and Developer Guide not Mentioned Above
 
-* Crop Command
-* Resize Command
+* Crop Command in both User and Developer Guides
+* Resize Command in both User and Developer Guides
+* Architecture Diagrams in Developer Guide

@@ -158,7 +158,7 @@ image::LogicClassDiagram.png[width="800"]
 // tag::ArchiInteraction[]
 ==== How the Architecture Components Interact with Each Other
 
-The _Sequence Diagrams_ below show how the components interact with each other for the scenarios where the user issues the commands `import C:\Users\XXX\Desktop\Pictures` and `rotate 90`.
+The _Sequence Diagrams_ below show how the components interact with each other for the scenarios where the user keys in the commands `import C:\Users\XXX\Desktop\Pictures` and `rotate 90`.
 
 .Component interactions for `import C:\Users\XXX\Desktop\Pictures` command
 image::SDforImportcommand.png[width="800"]
@@ -166,8 +166,9 @@ image::SDforImportcommand.png[width="800"]
 .Component interactions for `rotate 90` command
 image::SDforRotatecommand.png[width="800"]
 
-The sections below give more details of each component.
 // end::ArchiInteraction[]
+The sections below give more details of each component.
+
 
 [[Design-Ui]]
 // tag::ui[]
@@ -576,8 +577,9 @@ This command calls for a transformation of an opened image to a black and white 
 Refer to the example usage scenario, sequence diagram and design considerations in <<Contrast Command>>.
 // end::ImageFilter[]
 
-// tag::ImageManipulation[]
+
 === Image Manipulation
+// tag::ImageManipulation[]
 ==== Current Implementation
 
 This segment involves manipulating the physical image itself, such as rotating, cropping and resizing. The implementations of these features are facilitated by https://github.com/rkalla/imgscalr[`ImgScalr Library`], which is an external API Library that helps process the target image.
@@ -907,8 +909,9 @@ Step 5. The user executes `saves`, which calls `CurrentEdit#saveToAssets()`. Thi
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates single responsibility principle and separation of concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-//tag::WaterMark[]
+
 === WaterMark Feature
+//tag::WaterMark[]
 This command allows the user to add a watermark to their image. Upon receiving an input message from the user, the message will be checked for its validity and will throw an error if the message is empty or contains only spaces. Messages can contain words and numbers separated by spaces. The command will then be added to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
 
 [NOTE]

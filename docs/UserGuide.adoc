@@ -88,11 +88,16 @@ image::UserGuide_ApplicationInterface.png[width="1000"]
 * You can select a medicine from the medicine list by using the `select` command. e.g. `select 1` selects the first medicine in the list.
 * After selecting a medicine, information about the medicine will be displayed in the information panel.
 
-*Warnings Panel*
+// tag::uiwarningpanel[]
+*Warning Panel*
 
-* The list of medicine running low on stock or expiring soon medicine will be displayed in the warning panel to notify the user.
-* Warnings will be logged in the warnings panel until action has been taken to either remove or update the medicine.
-// end::applicationinterface[]
+* Displays a list of medicines running low on stock and a list of expiring/expired medicine batches.
+* Warnings will be logged in the warnings panel until changes are made to medicines and/or batches displayed, or to the thresholds controlling what is displayed.
+* Image below shows the labelled components of the warning panel:
++
+.Labelled warning panel
+image::WarningPanelLabeled.png[width="500"]
+// end::uiwarningpanel[]
 
 [[Features]]
 == Features
@@ -117,16 +122,14 @@ You can also sort the table by any of its columns with the `sort` command to sui
 === Warning Panel
 
 .Warning panel
-image::UserGuide_WarningPanel.png[width="180", float="right"]
-
-A standard clinical inventory holds around a hundred types of medicine. This makes sieving out medicines which are expiring, expired or running low in stock extremely cumbersome and time consuming. Thus, to streamline this aspect of inventory management, the warning panel was included as one of the features in our first product release.
+image::UserGuide_WarningPanel.png[width="180"]
 
 The warning panel provides an overview of pressing issues that have to be taken care of. With a quick glance, you will be able to identify expiring or expired batches of medicine, and medicines running low in stock.
 
-On top of that, the panel features flexible thresholds to determine what is expiring and what is low in stock. These thresholds can be changed according your own needs and preferences with a simple command.
+On top of that, the warning panel features flexible thresholds that can be changed according your needs and preferences with a simple command, adding to your user experience.
+// end::warningpanelfeature[]
 
 You can learn about related commands related in <<WarningPanel>>.
-// end::warningpanelfeature[]
 
 // tag::exportingascsvfileformat[]
 === Exporting as CSV file format
@@ -401,26 +404,35 @@ Removes batch `HK85412` from the batch records of the 1st medicine in the list. 
 [[WarningPanel]]
 === Managing the warning panel : `warning`
 
-Manage the threshold for expiry date and low stock warnings. +
+Manage the threshold for expiry date and low stock warnings to alter the contents of the warning panel.
+
 Format: `warning [e/EXPIRY_THRESHOLD] [q/LOW_STOCK_THRESHOLD] [SHOW]` +
-If the thresholds are not set, the default threshold for expiry is 10 days, and 20 for low stock. +
-Thresholds set are saved as a user preference, and will be used when the application is launched again.
+Provide *only one* of the optional fields available. +
+If the thresholds are not set, the default threshold for expiry will be 10 days, and 20 for low stock. +
+Thresholds set by the user are saved and will be used when the application is launched again.
+
+[IMPORTANT]
+=======
+All thresholds must be positive integers. +
+If the maximum threshold is set for a list, all medicines and/or batches will be displayed in that list.
+=======
 
 ****
-* Provide *only one* of the optional fields available.
-* `EXPIRY_THRESHOLD` should be in days before expiry date.
+* `EXPIRY_THRESHOLD` should be number of days before expiry date.
 * `LOW_STOCK_THRESHOLD` should be in number of stock remaining.
 * `SHOW` is case insensitive.
 ****
 
 Examples:
 
-* `warning e/10` +
-Medicine batches with expiry dates within 10 days to expiry from today will be displayed in the warning panel.
-* `warning q/20` +
-Medicines with a total quantity of less than or equal to 20 will be displayed in the warning panel.
+* `warning e/30` +
+Medicine batches that have expired or with expiry dates within 30 days to expiry from today will be displayed in the warning panel.
+
+* `warning q/10` +
+Medicines with a total quantity of less than or equal to 10 will be displayed in the warning panel.
+
 * `warning show` +
-Current thresholds used for the warning panel will be shown.
+Current thresholds used for the warning panel will be shown in the result display as shown in figure below.
 // end::warningpanelcommand[]
 
 // tag::exportcommand[]
@@ -433,7 +445,7 @@ Format: `export [FILE_NAME]`
 ****
 * The `FILE_NAME` field is optional. You can refer to <<Appendix A: File Naming Convention>> for supported file name format if you want to specify a file name for the exported CSV file.
 * If no file name is specified, the `export` command uses the default file name format according to the date and time of export.
-* The specific data and time format used if no file name is specified is `dd_MMM_yyyy_HH_mm_ss` e.g. `18_Mar_2019_10_28_00`
+* The specific date and time format used if no file name is specified is `dd_MMM_yyyy_HH_mm_ss` e.g. `18_Mar_2019_10_28_00`
 * The file extension for a CSV file is `.csv`
 * The exported file can be found in the default `exported` folder which can be found in the home folder used for your MediTabs application.
 * If the default `exported` folder is not found in the home folder, MediTabs will automatically create the folder when the `export` command is executed.
@@ -474,7 +486,6 @@ This includes the company that manufactured it, expiry date and the tags that wa
 * Outputs the label for the medicine at the specified INDEX.
 * If no file name is specified, the default file name is `to_print`.
 * The index refers to the index number shown in the displayed medicine list.
-
 ****
 
 All PDF files can be found under the PDF folder

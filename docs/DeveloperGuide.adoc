@@ -551,7 +551,7 @@ Data encryption is likely to be implemented in future versions of the MediTabs i
 ===== Aspect: How data encryption is executed
 
 * **Alternative 1:** Encrypt the entire inventory.
-** Pros: Easy to implement. Use pre-existing encryption libraries to encrypt the entire inventory.
+** Pros: Easy to implement. Use existing encryption libraries to encrypt the entire inventory.
 ** Cons: May have performance issues when encrypting/decrypting large amounts of data.
 * **Alternative 2:** Only encrypt parts of the inventory user selects.
 ** Pros: More efficient in terms of performance (cuts down on encryption/decryption time).
@@ -572,51 +572,92 @@ Data encryption is likely to be implemented in future versions of the MediTabs i
 === Warning Panel
 ==== Current Implementation
 
-The warning panel is driven by the `MainWindow` which creates `WarningPanel` that extends `UiPart`. The `WarningPanel` then creates two `WarningListView` where the list of expiring medicine and list of medicine low in stock will reside. The lists updates themselves when there are any changes made to the inventory. Each item of a list is represented by a `WarningCard`.
+The `WarningPanel` is created as part of the `MainWindow`, to be displayed in the GUI. Within the panel are two lists, expiring/expired and low in stock, represented by `WarningListView` objects. The purpose of this feature is to allow the user to view expiring/expired medicine batches and low quantity medicines easily.
 
-The following are implemented:
+The following are some of the operations implemented:
 
-* `WarningPanel#setUpVBox(ObservableList<Medicine>, ObservableList<Medicine>)` -- Sets up the `VBox` (vertical box) where the lists will be displayed in, and creates two `WarningListView` objects. Each `ObservableList` is passed into a `WarningListView`, along with a `String` descriptor of the list, as such: `WarningListView(ObservableList<Medicine>, String "expiry")`
+* `Logic#getWarningPanelPredicateAccessor()` -- Returns a `WarningPanelPredicateAccessor`. This gives the caller access to all predicates used to filter lists for the warning panel in the current session.
 
-* `WarningListView` extends `UiPart` -- Upon construction, `ListView#setItems(ObservableList<T> value)` and `ListView#setCellFactory(Callback<ListView<T>, ListCell<T>> value)` are called.
+* `WarningPanel#setUpVBox(ObservableList<Medicine>, ObservableList<Medicine>)` -- Sets up the `VBox` (vertical box) representing the warning panel by creating `WarningListView` objects from the `ObservableList` objects. Each `WarningListView` is a list to be displayed in the GUI.
 
-** `ListView#setItems(ObserverableList<Medicine> medicineList)` -- Sets the `ObservableList` whose items will be displayed in the `ListView`. Due to `ObservableList` semantics, the `ListView` automatically updates when there are changes made to the inventory.
+===== Initialising the warning panel
 
-** `ListView#setCellFactory(Callback<ListView<Medicine>, ListCell<Medicine>> listView -> new WarningListViewCell())` -- Sets the cell factory for the `ListView` within the class `WarningListView`.
-*** `WarningListViewCell` extends `ListCell<T>` -- It overrides `ListCell#updateItem(T item, boolean empty)` allowing customization by creating a `WarningCard` for each cell.
+Given below is how the warning panel GUI is initialised on start up.
 
-* `WarningCard` extends `UiPart` -- Sets the fields (eg. name of medicine, quantity, expiry date) to be displayed in the warning list view cell.
+Step 1. User launches MediTabs, invoking `MainWindow#fillInnerPart`. The `MainWindow` class calls `Logic#getExpiringMedicinesList`, `Logic#getLowStockMedicinesList` and `Logic#getWarningPanelPredicateAccessor` to obtain the two `ObservableList<Medicine>` to be displayed in the warning panel and the predicate accessor used in this session.
 
-The following sequence diagram shows how `WarningPanel` is executed when MediTab is initialized:
+Step 2. The `WarningPanel` is initialised with the objects obtained in Step 1, and constructs a `VBox`.
 
-image::WarningPanelSequenceDiagram.png[width="800"]
+Step 3. The `WarningPanel` self-invokes `setUpVBox` to populate the `VBox` with `WarningListView` objects for display. There will be two `WarningListView` objects, each initialised with its corresponding `ObservableList<Medicine>`, a list descriptor and the predicate accessor.
 
-Explanation of the sequence diagram above:
+Step 4. The `WarningListView` configures a `ListView<Medicine>` object to display elements in the `ObservableList<Medicine>`. Every `ListView<Medicine>` cell is populated by a `WarningListViewCell` object.
 
-Step 1. When the user launches the application for the first time, `MainWindow` is called during the setting up of the GUI. Within the `MainWindow`. A `WarningPanel`, with the two `ObservableList` to be displayed as parameters, is then created.
+Step 5. The `WarningListViewCell` listens to updates to the `ObservableList<Medicine>` that would update the medicines/batches to be displayed in the respective list in the warning panel.
 
-Step 2. `WarningPanel#setUpVBox` is called to create two `WarningListView` so that the `ObservableList` can be displayed. Each list will be passed into one `WarningListView` as a parameter, along with a `String` descriptor of that list. For simplicity, the construction of only one `WarningListView` is shown.
+The sequence diagram below summarises the above mentioned mechanism.
 
-Step 3. Within the `WarningListView`'s constructor, `ListView#setItems` and `ListView#setCellFactory` are called to set up this `ListView<Medicine>`.
+[[fig-WarningPanelSequenceDiagram]]
+.Sequence diagram illustrating initialisation of the warning panel on start up
+image::WarningPanelSequenceDiagram.png[width="1000"]
 
-[NOTE]
-Any command that modifies the inventory will result in a change in the `ObservableList` being set using `ListView#setItems`. This ensures that the `ListView` is kept up to date with the most recent version of the inventory.
+===== Input handling
 
-Step 4. The cell factory creates cells by creating a `WarningListViewCell`. This creates a `WarningCard` for every item in the `ListView` supplied. These cells are displayed in the GUI.
+The basic flow of the `warning` command in two scenarios are as such:
+
+====== To change a threshold used by the warning panel
+
+Step 1. The user enters the command `warning e/10` to change the threshold for expiring medicine batches.
+
+Step 2. The command is parsed and a `WarningCommand` object is created with the type and value of the new threshold to be set.
+
+Step 3. The `WarningCommand#execute` method is invoked.
+
+Step 4. Threshold for expiring medicine batches is changed.
+
+Step 5. The expiring/expired batch list in the warning panel is updated accordingly.
+
+Step 6. The new set of thresholds is shown in the result display box.
+
+====== To display thresholds currently in use
+
+Step 1. The user enters the command `warning show`.
+
+Step 2. The command is parsed and a `WarningCommand` object is created to show current threshold levels.
+
+Step 3. The `WarningCommand#execute` method is invoked.
+
+Step 4. The current thresholds used are shown in the result display box.
+
+The activity diagram below summarises what happens when the `warning` command is executed:
+
+[[fig-WarningPanelActivityDiagram]]
+.Activity diagram illustrating what happens when a user executes the `warning` command
+image::WarningCommandActivityDiagram.png[width="800"]
 
 ==== Design Considerations
 
 ===== Aspect: Construction of the lists displayed by the warning panel
 
-Two `ObservableLists` are required, one to display names of medicine expiring soon and the other to display medicine low in stock.
+Two `ObservableLists<Medicine>` objects are required, one to display medicine batches expiring soon and the other to display medicines low in stock.
 
-* **Alternative 1 (current choice):** Create two `ObservableList` in the `Model` by filtering the main medicine list from the versioned inventory.
-** Pros: Easy to change predicate for filtration when needed, making it possible to have user defined thresholds for filtration.
-** Cons: Need to create a new filtered `ObservableList` every time the predicate used for filtering changes. This would be the case when the user sets his/her own threshold.
+* **Alternative 1 (current choice):** Create the `ObservableList<Medicine>` objects in the `ModelManager` by filtering the main medicine list, and have `MainWindow` obtain them via `Logic`.
+** Pros: Easy to change predicates for filtration, making it possible to set user defined thresholds, thereby improving user experience.
+** Cons: Requires passing the two lists around, from `ModelManager` to `Logic` then `MainWindow`.
 
-* **Alternative 2:** Pass the medicine list into the `Ui` for filtration.
-** Pros: Simple to implement and filter with the default predicates (i.e. thresholds for expiration and low stock) to obtain the two lists.
+* **Alternative 2:** Create the `ObservableList<Medicine>` objects in `Ui`.
+** Pros: Simple to implement. Filter the main medicine list with the default predicates (i.e. thresholds for expiration and low stock) within `WarningPanel`.
 ** Cons: No separation of concerns. Not possible to set user defined thresholds for either list.
+
+===== Aspect: Implementation of predicates used for the warning panel
+
+* **Alternative 1 (current choice):** Singleton warning panel predicate accessor.
+** Pros: Easy to access and update all warning panel-related predicates.
+** Cons: Must pass the instance of the predicate accessor around to ensure there is only one instance of it at any time.
+
+* **Alternative 2:** Save all predicates in the `ModelManager`.
+** Pros: Easy to implement.
+** Cons: Predicate manipulation from `Logic` when new thresholds are set violates Dependency Inversion Principle.
+
 // end::warningpanel[]
 
 === Logging
@@ -1106,7 +1147,7 @@ Expected: The most recent window size and location is retained.
 Expected: First entry is deleted from the list. Details of the deleted entry shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
 Expected: No medicine is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
 Expected: Similar to previous.
 
 === Updating batch details of a medicine
@@ -1160,3 +1201,53 @@ Expected: batch is removed from batch table shown in the information panel. Deta
 Expected: batch is added to batch table shown in the information panel. Details of the added batch shown in the status message. Total quantity should increase by `1`. Next expiry should be updated if batch removed had the closest expiry date. Filtered list should remain filtered.
 .. Test case: `update 1 b/E q/1 e/1/1/2020 b/F b/G q/2 e/2/1/2020`  (more than one valid input) +
 Expected: batch `G` is added to batch table shown in the information panel as last valid input is taken. Details of the added batch shown in the status message. Total quantity should increase by `2`. Next expiry of medicine should change if `02/01/2020` is earlier. Filtered list should remain filtered.
+=======
+=== Exporting as CSV file format
+
+. Exporting the current medicine inventory data shown in the GUI to CSV file format while all medicines are listed.
+
+.. Prerequisites: List all medicines using the `list` command.
+.. Test case: `export \` +
+Expected: An "Invalid command format! File Name (without including file extension) must start with an alphabet or number followed by alphabets, numbers, underscore or hyphen. It must not be a reserved word. You can type the help command to view the User Guide for more details. +
+export: exports the current list to a .csv file. Parameters: [FILE_NAME] +
+Example: export example" exception will be shown in the `ResultDisplay` panel of the GUI. *No* exported CSV file is created in the `exported` directory.
+
+. Exporting the current medicine inventory data shown in the GUI to CSV file format while all medicines are listed. There are *no cases* where there are no medicines or all medicines do not have batches in the current medicine inventory data shown in the GUI.
+
+.. Prerequisites: List all medicines using the `list` command. Multiple medicines *with batches* are in the list.
+.. Test case: `export` +
+Expected: The current medicine inventory data shown in the GUI is successfully exported to CSV file format. The exported CSV file has the default file name based on the date and time of export. The specific date and time format used if no file name is specified is `dd_MMM_yyyy_HH_mm_ss` e.g. `18_Mar_2019_10_28_00`. The exported CSV file's medicine inventory data will contain the header information with *only* the data of medicines with batches.
+.. Test case: `export example` +
+Expected: The current medicine inventory data shown in the GUI is successfully exported to CSV file format. The exported CSV file has the file name `example`. The exported CSV file's medicine inventory data will contain the header information with *only* the data of medicines with batches.
+
+. Exporting the current medicine inventory data shown in the GUI to CSV file format while all medicines are listed. There are either no medicines or all medicines do not have batches in the current medicine inventory data shown in the GUI.
+
+.. Prerequisites: List all medicines using the `list` command. No medicines or all medicines do not have batches in the current medicine inventory data.
+.. Test case: `export` +
+Expected: The current medicine inventory data shown in the GUI is successfully exported to CSV file format. The exported CSV file has the default file name based on the date and time of export. The specific date and time format used if no file name is specified is `dd_MMM_yyyy_HH_mm_ss` e.g. `18_Mar_2019_10_28_00`. The exported CSV file's medicine inventory data will contain *only* the header information with no medicine data.
+.. Test case: `export example` +
+Expected: The current medicine inventory data shown in the GUI is successfully exported to CSV file format. The exported CSV file has the file name `example`. The exported CSV file's medicine inventory data will contain *only* the header information with no medicine data.
+
+// tag::warningtest[]
+=== Changing warning panel thresholds
+
+. Changing the threshold for expiring medicine batches
+
+.. Prerequisites: Current expiry threshold is 10 days (default). Multiple medicines with batches in the list.
+.. Test case: `warning e/0` +
+Expected: All medicines batches that have expired or are expiring today are shown in the warning panel's "Expiring Soon/Expired" list. New thresholds are shown in status message.
+.. Test case: `warning e/-1` +
+Expected: No changes to warning panel. Error details shown in the status message.
+.. Other incorrect warning commands to try: `warning`, `warning e/x` (where x is not a positive integer), `warning {non-whitespace preamble} e/y` (where y is a positive integer) +
+Expected: Similar to previous.
+
+. Changing the threshold for medicines with low stock
+
+.. Prerequisites: Current low stock threshold is 20 (default). Multiple medicines with non-zero total quantities in the list.
+.. Test case: `warning q/0` +
+Expected: Warning panel's "Low in Stock" list empties and placeholder "Nothing to show" is displayed. New thresholds are shown in status message.
+.. Test case: `warning q/-1` +
+Expected: No changes to warning panel. Error details shown in the status message.
+.. Other incorrect warning commands to try: `warning`, `warning q/x` (where x is not a positive integer), `warning {non-whitespace preamble} q/y` (where y is a positive integer) +
+Expected: Similar to previous.
+// end::warningtest[]

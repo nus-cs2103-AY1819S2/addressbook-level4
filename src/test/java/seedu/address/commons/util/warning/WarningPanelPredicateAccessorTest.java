@@ -6,9 +6,9 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import seedu.address.model.Model;
-import seedu.address.model.medicine.BatchExpiryThresholdPredicate;
-import seedu.address.model.medicine.MedicineExpiryThresholdPredicate;
-import seedu.address.model.medicine.MedicineLowStockThresholdPredicate;
+import seedu.address.model.medicine.predicates.BatchExpiryThresholdPredicate;
+import seedu.address.model.medicine.predicates.MedicineExpiryThresholdPredicate;
+import seedu.address.model.medicine.predicates.MedicineLowStockThresholdPredicate;
 import seedu.address.model.threshold.Threshold;
 
 public class WarningPanelPredicateAccessorTest {

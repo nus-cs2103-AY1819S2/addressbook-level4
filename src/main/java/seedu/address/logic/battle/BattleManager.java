@@ -98,13 +98,7 @@ public class BattleManager implements Battle {
                 logger.info(lastRes.formatAsEnemyAttack());
                 resList.add(lastRes);
                 // update the UI for every enemy attack
-                try {
-                    Thread.sleep(delay);
-                    enemyPlayer.getMapGrid().updateUi();
-                    Thread.sleep(delay);
-                } catch (InterruptedException ex) {
-                    logger.info(ex.getMessage());
-                }
+                enemyPlayer.getMapGrid().updateUi();
                 // if the Enemy has won, just end it now
                 if (lastRes.isWin()) {
                     break;

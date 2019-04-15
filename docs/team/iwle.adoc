@@ -3,11 +3,11 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-Hello there! My name is Ian and I am one of the developers for the Battleship game. The following document is a Project Portfolio Page of my contributions to Battleship.
+Hello there! My name is Ian and I am one of the developers for the Battleship game. The following document is a Project Portfolio Page of my contributions to the application.
 
 == Project Overview
 
-Battleship is the product of a semester-long project for the CS2103T (Software Engineering) module that I read at the National University of Singapore. My team was tasked with adapting an existing phone addressbook application into an application of our choice. Our game, Battleship, is a revival of the classic retro game Battleships, where players try to destroy each other's ships by guessing the positions of their opponent's battleships.
+Battleship is the product of a semester-long project, in which my team was tasked with adapting an existing phone addressbook application into an application of our choice. Our game, Battleship, is a revival of the classic retro game Battleships, where players try to destroy each other’s ships by guessing the positions of their opponent’s battleships.
 
 In Battleship, however, players have the opportunity to use both a Command Line Interface (CLI) and a Graphical User Interface (GUI) to play the game. The GUI was created with JavaFX and the application code was rigorously tested to ensure a high quality of code.
 

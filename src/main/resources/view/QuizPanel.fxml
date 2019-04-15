@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/11.0.1">
     <Label fx:id="mode" style="-fx-font-size: 32; -fx-text-fill: white;" text="Review Mode">
@@ -24,9 +23,6 @@
         <VBox.margin>
             <Insets top="30.0"/>
         </VBox.margin>
-        <cursor>
-            <Cursor fx:constant="HAND" />
-        </cursor>
     </VBox>
     <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="120.0" style="-fx-background-color: #ad3b24#ad3b24; -fx-background-radius: 10;">
         <children>

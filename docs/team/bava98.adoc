@@ -8,22 +8,21 @@
 
 == Overview
 
-RestOrRant is a restaurant management application to streamline the restaurant's front-end operations. 
+_RestOrRant_ is a Command Line Interface (CLI) desktop restaurant management application that allows *restaurant managers, waiters and cashiers* to perform *restaurant front-end operations* more efficiently. With _RestOrRant_, restaurant managers can easily *manage table allocation, handle orders, track menu item availability and check restaurant statistics*. _RestOrRant_ was developed by a team of four, including myself, as part of our CS2103T Software Engineering module project, where we were given an addressbook application and tasked to enhance or morph it.
 
-My team and I were given a basic command line interface addressbook program and were tasked to enhance or morph it for our Software Engineering module project. We decided to morph it into a restaurant management system called _RestOrRant_. With _RestOrRant_, the restaurant's front-end operations can be streamlined via automation to maximise efficiency for waiters and cashiers. _RestOrRant_ allows restaurant managers to manage tables (availabilities and lists of orders), orders (whether they have been served and calculation of the bill), menu (updates to the menu) and statistics (daily, monthly and yearly revenue).
-
-My role was to implement the menu feature end-to-end (across `UI`, `Model`, `Logic` and `Storage` components). The following sections elaborate on my enhancements as well as the relevant updates to the User Guide and Developer Guide to reflect these enhancements.
+We decided to split the implementation of the features according to [.java]#Menu#, [.java]#Orders#, [.java]#Table# and [.java]#Statistics#. My role was to implement the menu feature end-to-end (across [.java]#Ui#, [.java]#Model#, [.java]#Logic# and [.java]#Storage# components). The following sections elaborate on my enhancements as well as the relevant updates to the User Guide and Developer Guide to reflect these enhancements.
 
 == Summary of contributions
 
 This section contains a summary of my contributions to the code, documentation, and other minor enhancements made to _RestOrRant_.
 
-* *Major enhancement*: I added the ability to add menu items to and delete menu items from the menu.
+* *Major enhancement*: I added the ability to add menu items to, delete menu items from and clear the menu.
 ** What it does:
-*** `addToMenu`: The `addToMenu` command allows the user to add a menu item to the menu. The menu item must be specified with an item code, name and price using labels such as `*c/*` for code, `*n/*` for name and `*p/*` for price. For example, `addToMenu c/W09 n/Chicken Wings p/3.20` would add the item Chicken wings with code W09 and price 3.20 to the menu.
+*** `addToMenu`: The `addToMenu` command allows the user to add a menu item to the menu. The menu item must be specified with an item code, name and price using labels such as `*c/*` for code, `*n/*` for name and `*p/*` for price. For example, `addToMenu c/W09 n/Chicken Wings p/3.20` would add the [.java]#MenuItem# with [.java]#Name# Chicken Wings with [.java]#Code# W09 and [.java]#Price# 3.20 to the [.java]#Menu#.
 *** `deleteFromMenu`: The `deleteFromMenu` command allows the user to delete a menu item from the menu, but here the menu item is only identified by its code. For example, `deleteFromMenu W09` would delete the menu item with the code W09 from the menu.
+*** `clearMenu`: The `clearMenu` command allows the user to remove all menu items from the menu.
 ** Justification: These commands in the menu feature would allow restaurant managers to edit the menu according to the ingredients they have available each day. The menu is also stored internally, and thus there would be no need to re-enter all the menu items but instead only add or remove a few menu items each day.
-** Highlights: This enhancement works well with existing as well as future commands. The format of labelling for the `addToMenu` command was used for ease of distinguishing the name, code and price of the menu items. With the labels, users need not follow the format of keying in name, code then price and the command would work fine. However, the labelling approach was not needed for the `deleteFromMenu` command as the code is the only input needed.
+** Highlights: The format of labelling for the `addToMenu` command was used for ease of distinguishing the [.java]#Name#, [.java]#Code# and [.java]#Price# of the menu items. With the labels, users can key in any permutation of the attributes and  the command would work as intended. However, the labelling approach was not needed for the `deleteFromMenu` command as the [.java]#Code# is the only input needed.
 ** Credits: The addressbook given to us had originally used the labelling format for adding people to the addressbook, which is where I got my inspiration from for the `addToMenu` command.
 
 * *Minor enhancement*: I added the ability to store the quantity ordered for each menu item in the menu, and update the

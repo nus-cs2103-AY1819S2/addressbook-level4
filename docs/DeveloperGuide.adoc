@@ -828,7 +828,7 @@ map for another part of the Player ship, by randomly targeting coordinates in th
 The following code snippet gives a clearer view of how the algorithm flows for the enemy shooting strategy:
 [source,java]
 ----
-include::../src/main/java/seedu/address/model/Player/Enemy.java[lines=85..105]
+include::../src/main/java/seedu/address/model/player/Enemy.java[lines=85..105]
 ----
 
 

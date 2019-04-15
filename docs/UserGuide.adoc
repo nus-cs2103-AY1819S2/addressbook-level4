@@ -148,14 +148,14 @@ Examples:
 * `wash 5` +
 Resets cleanliness status of the fifth apparel in the list if it was worn.
 +
-image::washWornBefore.jpg[width="790"]
+image::washWornBefore.JPG[width="790"]
 +
-image::washWornAfter.jpg[width="790"]
+image::washWornAfter.JPG[width="790"]
 +
 * `wash 5` +
 Does not allow cleaning if the fifth apparel in the list is already clean.
 +
-image::washClean.jpg[width="790"]
+image::washClean.JPG[width="790"]
 +
 
 // tag::wear[]
@@ -179,18 +179,18 @@ Examples:
 Sets status of the fifth apparel in the list to 'Worn'.
 Increases its times worn by 1.
 +
-image::wearCleanBefore.jpg[width="790"]
+image::wearCleanBefore.JPG[width="790"]
 +
-image::wearCleanAfter.jpg[width="790"]
+image::wearCleanAfter.JPG[width="790"]
 +
 * `wear 5` +
 Sets status of the fifth apparel in the list to 'Worn' even if it's already worn.
 Increases its times worn by 1.
 One of the seven random messages shown below.
 +
-image::wearAgainBefore.jpg[width="790"]
+image::wearAgainBefore.PNG[width="790"]
 +
-image::wearAgainAfter.jpg[width="790"]
+image::wearAgainAfter.JPG[width="790"]
 +
 
 === Locating apparels by name: `find`

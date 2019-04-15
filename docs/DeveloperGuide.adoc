@@ -236,7 +236,7 @@ This section describes some noteworthy details on how certain features are imple
 Reset apparel status to `clean` if previously `worn`.
 Simulating an event in the real world where send your clothes to wash.
 
-3.1.1. Current implementation - Wash a single indicated apparel
+==== Current implementation - Wash a single indicated apparel
 
 The wash command takes in only one parameter:
 
@@ -258,7 +258,7 @@ image::washCommand.jpg[width="800"]
 
 The CommandResult object that is returned by the wash command lets the user know that the status of the apparel has been reset to `clean` or that it is already `clean`.
 
-3.1.2. Design Considerations:
+==== Design Considerations:
 
 * Alternate command word: `available 1` works the same and is identical to `wash 1`
 
@@ -270,7 +270,7 @@ Pros: Reminds the user that his apparel is already clean if user absentminded ty
 
 Pros: Saves CPU time as it is not commiting to Addressbook. Throws exception instead.
 
-3.1.3. Proposed additions for v2.0:
+==== Proposed additions for v2.0:
 
 A washAll command to simulate throwing all your dirty clothes into the washing machine.
 
@@ -281,7 +281,7 @@ A washAll command to simulate throwing all your dirty clothes into the washing m
 Sets apparel status to `worn` whether its previous status was `clean` or `worn` and increases usage count by one.
 Simulating an event in the real world where throw your worn clothes to the laundry basket
 
-3.2.1. Current implementation - Wear a single indicated apparel
+==== Current implementation - Wear a single indicated apparel
 
 The wear command takes in only one parameter:
 
@@ -303,7 +303,7 @@ image::wearCommand.jpg[width="800"]
 
 The CommandResult object that is returned by the wear command lets the user know that the status of the apparel has been set to `worn` and returns and random message if the indicated apparel was already `worn` before command was executed.
 
-3.2.2. Design Considerations:
+==== Design Considerations:
 
 * Alternate command word: `unavailable 1` works the same and is identical to `wash 1`
 
@@ -313,7 +313,7 @@ Pros: Gives the user a choice and a more intuitive approach to wardrobe manageme
 
 Pros: Simulates the real world where people might not have time to wash their clothes due to bad time management and instead throws on the next thing in the wardrobe.
 
-3.2.3. Proposed additions for v2.0:
+==== Proposed additions for v2.0:
 
 A wear command that takes in multiple INDEXs to simulate wearing a whole outfit out. e.g. `wear 1 2 3` to wear Apparel no. 1, 2 and 3.
 
@@ -344,15 +344,40 @@ _{random TYPE, something COLOR}_
 === Statistics feature
 Show statistics of the apparels of the current wardrobe.
 ==== Current Implementation
-Below is the UML diagram and a step-by-step explanation of an example scenario for the usage of `stats`.
+Below is a high level visualisation of the statistics command and a step-by-step explanation of an example scenario for the usage of `stats`.
 
-(UML)
+.High Level Visualisation of Statistics Command
+image::HighLevelStatsDiagram.png[width="800"]
 
 1. User enters command `stats`. The command is received by `FashionMatchParser`, which then creates a `StatisticsCommandParser` object.
 2. `StatisticsCommandParser` will then create a relevant `Statistic` object.
 3.  After that, a `StatisticsCommand` object is created with the `Statistic` object as parameter and return to `LogicManager`.
 4. `LogicManager` then calls `StatisticsCommand.execute()`, which calls `Model.getFavApparel()`, `Model.getFavColor()`, `Model.getFilteredApparelList().size()`, `Model.getTotalColor`, `Model.getLeastFavApparel` and `Model.getCleanOrDirty`.
 5.  The result will be shown on the UI
+
+The following sequence shows how the statistics operation works when called by LogicManager:
+
+.Sequence Diagram for Statistics command
+image::StatisticsCommand[width="800"]
+
+The following is an activity diagram that sums up the Statistics command:
+
+.Activity Diagram for Statistics command
+image::StatisticsActivityDiagram[width="800"]
+
+==== Design Considerations
+
+* *Alternative 1 (current choice):* Go through all the apparels in Fashion Match and displays statistics whenever the statistics command is called.
+** Pros: This approach is less intensive on the computational power of the user's PC, as the command is only executed whenever the user calls it.
+** Cons: Less user friendly as statistics will not be real-time
+
+* *Alternate 2:* Updates statistics in real-time and whenever the statistics command is used.
+** Pros: This approach is more user-friendly as users would not need to type `stats` command after new apparel is changed.
+** Cons: Time-consuming and not scalable. This method could be more computationally more intensive, especially if the user has a large wardrobe.
+
+==== Proposed additions for v2.0
+
+`Statistics` command will be a real-time feature that captures the state of the user's wardrobe and apparel in real-time and does not need to call the `Statistics` command each time. It will also occupy a dedicated space in the UI.
 // end::stats[]
 
 === Logging

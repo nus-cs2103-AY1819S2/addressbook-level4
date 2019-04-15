@@ -1677,7 +1677,8 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-//tag::cardmanualtesting[]
+// tag::cardmanualtesting[]
+
 === Card operations
 . Adding a single-answer card
 .. Prerequisites: Enter a folder using the `cd` command. For example, `cd 1` will enter the first folder. The folder may or may not be empty.
@@ -1724,7 +1725,8 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: No card is deleted. Error details shown in the status message.
 .. Other incorrect `delete` commands to try: `delete 0`, `delete this` +
    Expected: Similar to previous.
-//tag::cardmanualtesting[]
+
+// end::cardmanualtesting[]
 
 // tag::testmanualtesting[]
 === Starting and ending a test session

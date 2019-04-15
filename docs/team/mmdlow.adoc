@@ -91,7 +91,7 @@ include::../UserGuide.adoc[tag=edit]
 
 
 |===
-|_Our team also updated the Developer Guide to reflect the new changes and enhancements made for Know-It-All. As with the section on <<contributionsToUserGuide>>, some key excerpts of my contributions to the Developer Guide are detailed below. These include sections on <<cards>>, <<cardUseCases>>, and the <<glossary>>._
+|_Our team also updated the Developer Guide to reflect the new changes and enhancements made for Know-It-All. As with the section on <<contributionsToUserGuide>>, some key excerpts of my contributions to the Developer Guide are detailed below. These include sections on <<cards>>, <<cardUseCases>>, the <<glossary>>, and <<cardManualTesting>>._
 |===
 
 [[cards]]
@@ -103,3 +103,7 @@ include::../DeveloperGuide.adoc[tag=cardusecases]
 
 [[glossary]]
 include::../DeveloperGuide.adoc[tag=glossary]
+
+[[cardManualTesting]]
+=== Instructions on Manual Testing for Cards
+include::../DeveloperGuide.adoc[tag=cardmanualtesting]

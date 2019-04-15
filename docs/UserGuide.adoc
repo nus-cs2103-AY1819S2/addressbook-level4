@@ -329,7 +329,7 @@ addAll adds all in applied list to kiv list in lecturer
 Format : `movePeople TO FROM INDEXES [jn/JOBNAME]`
 
 ****
-* `FROM` input is optional and if not given, input list will be the displayed list of the entire directory.
+* `FROM` input can only be given if a job is displayed, input list will be the displayed list of the entire directory.
 * `JOBNAME` input is required only if there isn't a displayed job. Should be omitted otherwise.
 * `FORM` and `TO` can only be one of the following `applied, kiv, interview, shortlist`
 ****

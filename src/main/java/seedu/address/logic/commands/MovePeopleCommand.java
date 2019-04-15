@@ -45,9 +45,10 @@ public class MovePeopleCommand extends Command {
             + "1, 2, 3 "
             + PREFIX_JOBNAME + "High-On-Drugs ";
 
-    public static final String MESSAGE_SUCCESS = "All selected people added to job: %1$s";
+    public static final String MESSAGE_SUCCESS = "%1$s people added to job after removing duplicate people";
     public static final String MESSAGE_NO_DISPLAYED_JOB = "No job is displayed. "
-            + "Please enter a jobName with jn/ prefixed\n";
+            + "Please enter a jobName with jn/ prefixed\n"
+            + "Source list can only be provided if there is a job displayed";
     public static final String MESSAGE_DISPLAYING_JOB_ERROR = "Displaying Job. Cannot have jn/ input\n";
     public static final String MESSAGE_NO_DESTINATION = "Please provide a destination list\n";
     public static final String MESSAGE_NO_SOURCE = "Please provide a source list\n";
@@ -59,6 +60,7 @@ public class MovePeopleCommand extends Command {
     private final JobListName from;
     private final ArrayList<Index> indexes;
     private final JobName toAdd;
+    private Integer numberAdded;
 
     /**
      * Creates an AddCommand to add the specified {@code job}
@@ -70,6 +72,7 @@ public class MovePeopleCommand extends Command {
         this.from = from;
         this.indexes = indexes;
         this.toAdd = jobName;
+        this.numberAdded = indexes.size();
     }
 
     @Override
@@ -105,11 +108,15 @@ public class MovePeopleCommand extends Command {
 
         for (int i = 0; i < indexes.size(); i++) {
             Person toAdd = fromList.get(indexes.get(i).getZeroBased());
-            model.addPersonToJob(tempJob, toAdd, to);
+            try {
+                model.addPersonToJob(tempJob, toAdd, to);
+            } catch (Exception e) {
+                this.numberAdded--;
+            }
         }
 
         model.commitAddressBook();
-        String command = String.format(MESSAGE_SUCCESS, tempJob);
+        String command = String.format(MESSAGE_SUCCESS, numberAdded);
         return new CommandResult(command);
     }
 

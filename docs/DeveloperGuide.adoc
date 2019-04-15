@@ -353,7 +353,7 @@ When a user executes 'list-p', the full patient list will be displayed.
 
 . `LogicManager` calls execute() of `ListPatientCommand`.
 
-. execute() will call `Model` to `updateFilterPatientList` by setting the predicate to show all the patients in the DocX currently.
+. execute() will call `Model` to `updateFilteredPatientList` by setting the predicate to show all the patients in the DocX currently.
 
 ==== Search Patient feature
 There are various search commands available for patients. The internal workings of the search commands are similar and can be described together under this section.

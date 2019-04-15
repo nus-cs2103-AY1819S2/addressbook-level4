@@ -60,7 +60,9 @@ public class EditFolderCommand extends Command {
 
         CardFolder folderToEdit = folderList.get(index.getZeroBased());
 
-        if (!folderToEdit.getFolderName().equals(newName) && model.hasFolder(newName)) {
+        String folderNameToEdit = folderToEdit.getFolderName().toLowerCase();
+
+        if (!folderNameToEdit.equals(newName.toLowerCase()) && model.hasFolder(newName)) {
             throw new CommandException(MESSAGE_DUPLICATE_FOLDER);
         }
 
@@ -85,6 +87,5 @@ public class EditFolderCommand extends Command {
         return index.equals(e.index)
                 && newName.equals(e.newName);
     }
-
 
 }

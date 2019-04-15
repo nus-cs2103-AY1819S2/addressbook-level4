@@ -1898,8 +1898,8 @@ lowest scoring flashcard question and hints are displayed. Answer the current qu
 .. Prerequisites: You must be at the home directory (status bar should read `In Home Directory`) and have at least one folder called "Sample Folder", and no folder called "New Name".
 .. Test case: `editfolder x New Name` (where x is the index of a folder that is not Sample Folder) +
    Expected: The folder at index x is renamed to "New Name". Status message confirms that renaming operation succeeded.
-.. Test case: `editfolder x Sample Folder` (where x is the index of Sample Folder) +
-   Expected: The folder at index x is renamed to its original name. Status message confirms that renaming operation succeeded.
+.. Test case: `editfolder x sample folder` (where x is the index of Sample Folder) +
+   Expected: The folder at index x is renamed to its original name (with new capitalisation). Status message confirms that renaming operation succeeded.
 .. Test case: `editfolder x Sample Folder` (where x is not the index of Sample Folder) +
    Expected: The folder at index x is not renamed. Error details shown in the status message.
 .. Other incorrect editfolder commands to try: `editfolder`, `editfolder New Name 1`, `editfolder x New Name` (where x is larger than the list length) +

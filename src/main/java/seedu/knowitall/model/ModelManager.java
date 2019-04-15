@@ -204,7 +204,9 @@ public class ModelManager implements Model {
     public boolean hasFolder(String name) {
         requireNonNull(name);
 
-        return folders.stream().anyMatch(folder -> folder.getFolderName().equals(name));
+        return folders.stream()
+                .map(folder -> folder.getFolderName().toLowerCase())
+                .anyMatch(folderName -> folderName.equals(name.toLowerCase()));
     }
 
     @Override
@@ -409,7 +411,7 @@ public class ModelManager implements Model {
             getActiveVersionedCardFolder()
                     .addFolderScore((double) numAnsweredCorrectly / numAnsweredTotal);
         }
-        getActiveVersionedCardFolder().commit();
+        getActiveVersionedCardFolder().resetStates();
         state = State.IN_FOLDER;
         setCardAsNotAnswered();
         numAnsweredCorrectly = 0;

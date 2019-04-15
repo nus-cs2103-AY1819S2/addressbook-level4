@@ -30,6 +30,16 @@ public class VersionedCardFolder extends CardFolder {
         indicateModified();
     }
 
+    /**
+     * Resets the state history of the VersionedCardFolder.
+     */
+    public void resetStates() {
+        currentStatePointer = 0;
+        cardFolderStateList.clear();
+        cardFolderStateList.add(new CardFolder(this));
+        indicateModified();
+    }
+
     private void removeStatesAfterCurrentPointer() {
         cardFolderStateList.subList(currentStatePointer + 1, cardFolderStateList.size()).clear();
     }
@@ -97,14 +107,6 @@ public class VersionedCardFolder extends CardFolder {
         return super.equals(otherVersionedCardFolder)
                 && hasSameCards(otherVersionedCardFolder.getCardList())
                 && currentStatePointer == otherVersionedCardFolder.currentStatePointer;
-    }
-
-    /**
-     * Checks whether the latest version of this card folder has the same folder name as {@code other}
-     */
-    public boolean hasSameFolderName(String name) {
-        ReadOnlyCardFolder currentState = cardFolderStateList.get(cardFolderStateList.size() - 1);
-        return currentState.getFolderName().equals(name);
     }
 
     /**

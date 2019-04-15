@@ -71,6 +71,7 @@ public class AnswerCommand extends Command {
         model.setCard(cardToMark, scoredCard);
         model.updateFilteredCard(PREDICATE_SHOW_ALL_CARDS);
         model.commitActiveCardFolder();
+
         if (isAttemptCorrect) {
             return new CommandResult(MESSAGE_ANSWER_SUCCESS, CommandResult.Type.ANSWER_CORRECT);
         } else {

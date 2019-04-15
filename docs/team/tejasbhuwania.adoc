@@ -120,6 +120,7 @@ works and how to use it.
 [lime]#Start of Extract (from User Guide)#
 
 include::../UserGuide.adoc[tag=find-reservation]
+include::../UserGuide.adoc[tag=find-reservation2]
 
 [lime]#End of Extract (from User Guide)#
 

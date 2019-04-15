@@ -18,6 +18,7 @@ public class BeginCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Finishes placing ships and starts the game..\n";
     public static final String MESSAGE_BEGIN_SUCCESS = "Game has started";
+    public static final String MESSAGE_NO_SHIPS = "Unable to start battle. Place one or more ships first.";
 
     public BeginCommand() {
         setPermissibleStates(EnumSet.of(BattleState.PLAYER_PUT_SHIP));
@@ -28,9 +29,13 @@ public class BeginCommand extends Command {
         requireNonNull(model);
         assert canExecuteIn(model.getBattleState());
 
-        model.setBattleState(BattleState.ENEMY_PUT_SHIP);
-        model.getBattle().beginGame();
-        model.setBattleState(BattleState.PLAYER_ATTACK);
-        return new CommandResult(MESSAGE_BEGIN_SUCCESS);
+        if (model.getHumanPlayer().getFleetContents().isEmpty()) {
+            throw new CommandException(MESSAGE_NO_SHIPS);
+        } else {
+            model.setBattleState(BattleState.ENEMY_PUT_SHIP);
+            model.getBattle().beginGame();
+            model.setBattleState(BattleState.PLAYER_ATTACK);
+            return new CommandResult(MESSAGE_BEGIN_SUCCESS);
+        }
     }
 }

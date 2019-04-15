@@ -13,6 +13,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_APPOINTMENTS;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -151,6 +152,23 @@ public class ListAppointmentCommand extends Command {
         return new CommandResult(result.toString(), CommandResult.ShowPanel.APPOINTMENT_PANEL);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ListAppointmentCommand that = (ListAppointmentCommand) o;
+        return Objects.equals(listAppointmentDescriptor, that.listAppointmentDescriptor);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(listAppointmentDescriptor);
+    }
+
     /**
      * Stores the fields to filter appointments by.
      */
@@ -223,6 +241,28 @@ public class ListAppointmentCommand extends Command {
 
         public void setChronology(Optional<AppointmentChronology> chronology) {
             this.chronology = chronology;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            ListAppointmentDescriptor that = (ListAppointmentDescriptor) o;
+            return Objects.equals(patientId, that.patientId)
+                    && Objects.equals(doctorId, that.doctorId)
+                    && Objects.equals(date, that.date)
+                    && Objects.equals(time, that.time)
+                    && Objects.equals(status, that.status)
+                    && Objects.equals(chronology, that.chronology);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(patientId, doctorId, date, time, status, chronology);
         }
     }
 }

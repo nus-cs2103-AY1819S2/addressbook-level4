@@ -18,8 +18,8 @@ BrainTrain is a *spaced-repetition flashcard application* which makes *memorizin
 
 *Who is it for:*
 
-- Anyone who needs to memorise anything should use BrainTrain (e.g. Japanese vocabulary, periodic table, human anatomy). BrainTrain's flashcard system is *content-agnostic* and *flexible*. It accommodates all forms of learning you may require.
-- Anyone who needs to create flashcard learning content for educational purposes should use BrainTrain. BrainTrain's flashcards are grouped as lessons which can be *easily imported and exported*. These lessons are also saved in `.csv` files which you *can edit in your favourite spreadsheet application* (e.g. Excel).
+- Anyone who needs to memorise anything (e.g. Japanese vocabulary, the periodic table, the human anatomy). BrainTrain's card system is *content-agnostic* and *flexible*. It accommodates all forms of learning you may require.
+- Anyone who needs to create flashcards for educational purposes. BrainTrain's cards are grouped as lessons which can be *easily imported and exported*. These lessons are also saved in `.csv` files which you *can edit in your favourite spreadsheet application* (e.g. Excel).
 
 *Main features of BrainTrain:*
 

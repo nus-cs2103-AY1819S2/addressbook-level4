@@ -124,7 +124,7 @@ The <<Design-Ui,*`UI`*>>, <<Design-Logic,*`Logic`*>>, <<Design-ManagementModel,*
 
 For example, the `Logic` component (refer to figure 2 below) has it's API defined in the `Logic.java` interface, and exposes its functionality through the `LogicManager.java` class.
 
-.Class diagram of the `Logic` component
+.Structure of the `Logic` component
 image::LogicClassDiagram.png[width="800"]
 
 [discrete]
@@ -160,7 +160,7 @@ The `UI` component,
 === Logic component +
 
 [[fig-LogicClassDiagram]]
-.Class diagram of the `Logic` component
+.Structure of the `Logic` component
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
@@ -183,7 +183,7 @@ returned to the `UI`.
 In this section, an example of how the `Logic` sub-components interact when the user issues the command `addCard t/Korea t/Seoul h/S` is shown.
 
 .'Sample-Capitals' lesson opened in card view
-image::ui_add_card.png[width="800"]
+image::ui_add_card.png[width="512"]
 
 Given the above example, the following sequence of interactions will occur within the `Logic` component.
 
@@ -193,17 +193,17 @@ image::sd_add_card.png[width="800"]
 [[Design-ManagementModel]]
 === ManagementModel component +
 
-.Structure of the ManagementModel Component
+.Structure of the ManagementModel component
 image::ManagementModelClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/modelmanager/ManagementModel.java[`ManagementModel.java`]
 
 The `ManagementModel`,
 
+* stores a `LessonList` object which represents a list of `Lesson` objects.
 * stores a `UserPref` object which represents the user's preferences.
 * stores the in-memory user SRS data in `User`.
-* stores the in-memory lessons in `LessonList`.
-* depends on none of the other components.
+* does not depend on any other components.
 
 [[Design-QuizModel]]
 === QuizModel component +
@@ -230,36 +230,30 @@ image::StorageClassDiagram.png[width="800"]
 
 The `Storage` component,
 
-* can save user preferences in json format and read it back.
-* can save lesson data in csv format and read it back.
-* can save the user's SRS data in csv format and read it back.
-
-[[Design-Commons]]
-=== Common classes +
-
-Classes used by multiple components are in the `seedu.address.commons` package.
+* saves lesson data in `.csv` format and read it back.
+* saves user preferences in `.json` format and read it back.
+* saves the user's SRS data in `.csv` format and read it back.
 
 == Implementation +
 
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::datastorage[]
-=== Data storage feature +
-The data CSV Storage features implements the following functions:
+=== User storage feature +
+The user storage features implements the following functions:
 
 * Parsing user data into the correct format for file saving
 * Parsing file into the correct format for user data
 
-NOTE: These functions are automatically performed on opening/closing the application. File I/O is handled in CSVUtil class
+NOTE: These functions are automatically performed on opening/closing the application. File I/O is handled in the `CSVUtil` class.
 
-==== Csv user format +
+==== User format +
 .Data flow diagram for user import and export
 image::CsvUserStorage.png[width="800"]
 
-The user is parsed by CsvUserStorage, which is converted between User and List<String[]> format. List<String[]> format
-is the primary format handled by CsvUtil for reading and writing to CSV files.
+The user is parsed by `CsvUserStorage`, which is converted between User and List<String[]> format. List<String[]> format is the primary format handled by `CsvUtil` for reading and writing to `.csv` files.
 
-A few noteworthy mentions of the main components saved into a CSV file for UserStorage are listed below.
+A few noteworthy mentions of the main components saved into a `.csv` file for UserStorage are listed below.
 
 ==== Hashcode +
 This is the question hashcode. Every question will have a unique hashcode for identification.
@@ -316,7 +310,7 @@ private Optional<CardSrsData> parseStringIntoCard(String[] cardArray) throws
 ----
 
 ==== Design considerations +
-* ** Alternative 1(Current choice):** Automate importing/exporting when session is open/close
+* ** Alternative 1 (Current choice):** Automate importing/exporting when session is open/close
 ** Pros: Lesser commands to manage.
 ** Cons: Opening and closing may take up a lot of time if file is very big.
 
@@ -326,33 +320,29 @@ private Optional<CardSrsData> parseStringIntoCard(String[] cardArray) throws
 
 // end::datastorage[]
 
-
 // tag::csvstorage[]
-=== CSV lesson storage feature
+=== Lesson storage feature
 ==== Current implementation +
 The lesson CSV storage feature implements the following functions:
 
 * Parsing lesson data into a list of string arrays, which is a format OpenCSV accepts for saving to CSV.
 * Parsing a list of string arrays back into lesson data, as retrieved from OpenCSV.
 
-Actual file I/O is handled in the CsvUtil class, which uses the OpenCSV library to read/write CSV files.
+Actual file I/O is handled in the CsvUtil class, which uses the Open`.csv` library to read/write `.csv` files.
 
-==== CSV lesson format +
+{empty} +
+
+==== Csv lesson format +
 .High-level sequence diagram for the `reload` command, an example of lesson loading
 image::CsvLessonStorageSequenceDiagram.png[width="800"]
 
-Lessons are parsed by CsvLessonListStorage, being converted between Lesson and List<String[]> formats. The List<String[]> format is the primary format handled by CsvUtil for reading and writing to CSV files.
+Lessons are parsed by CsvLessonListStorage, being converted between Lesson and List<String[]> formats. The List<String[]> format is the primary format handled by CsvUtil for reading and writing to `.csv` files.
 
-For lessons, there are three main sections when saved to a CSV file.
-
-{empty} +
+For lessons, there are three main sections when saved to a `.csv` file.
 
 ===== Name +
-A lesson's name in BrainTrain is equivalent to its file name.
-
-A lesson named "French" would be saved as French.csv, and vice-versa.
-
-{empty} +
+A lesson's name in BrainTrain is equivalent to its file name. +
+A lesson named "French" would be saved as "French.csv", and vice-versa.
 
 ===== Header +
 The header is represented in the file as the first two lines. Each line represents a specific set of data, as outlined below.
@@ -360,57 +350,52 @@ The header is represented in the file as the first two lines. Each line represen
 The first line represents the type of the corresponding column. Each column can have three types:
 
 . *Tested* +
-This marks the column as a core value. The first two instances of *Tested* in the file will be used in quizzes, and all remaining Tested values are treated as *Not Tested*.
+This marks the column as a core value. By default, the first two instances of *Tested* in the file will be tested in quiz mode. All remaining Tested values are treated as *Not Tested*.
 . *Not Tested* +
-This marks the column as a core value. However, unlike *Tested*, they will not be tested in quizzes, but can be chosen to be tested.
+This marks the column as a core value. However, unlike *Tested*, they will not be tested in quiz mode. You can use the `set` command to change this.
 . *Hint* +
-The values here will appear when the user uses the hint command during the quiz. However, values here are strictly optional, and can be left empty.
+This marks the column as a hint value. *Hint* values will appear when the user enters the `\hint` command in quiz mode. Values here are optional and can be left empty.
 
-NOTE: Core values require every value in that column to be non-empty. This guarantees that the user will be tested on something should they change which fields are tested.
+NOTE: Core values require every value in that column to be non-empty. This guarantees that the user will be tested on something, should they change which fields are tested.
 
 This is a code snippet from the parsing of the header data.
 
-    for (int i = 0; i < headerArray.length; i++) {
-        if (headerArray[i].isEmpty()) {
-            headerArray[i] = " ";
-        }
+[source,java]
+----
+for (int i = 0; i < headerArray.length; i++) {
+    if (headerArray[i].isEmpty()) {
+        headerArray[i] = " ";
     }
-    int coreCount = 0;
-    int index = 0;
-    while (index < headerArray.length) {
-        String headerChar = headerArray[index].toLowerCase().substring(0, 1);
-        if (headerChar.equals(HEADER_CORE_QA)) {
-            if (questionIndex == -1) {
-                questionIndex = index;
-            } else if (answerIndex == -1) {
-                answerIndex = index;
-            }
-            coreCount++;
-        } else if (headerChar.equals(HEADER_CORE_NOT_QA)) {
-            coreCount++;
-        } else if (!headerChar.equals(HEADER_OPTIONAL)) {
-            return returnValues;
+}
+int coreCount = 0;
+int index = 0;
+while (index < headerArray.length) {
+    String headerChar = headerArray[index].toLowerCase().substring(0, 1);
+    if (headerChar.equals(HEADER_CORE_QA)) {
+        if (questionIndex == -1) {
+            questionIndex = index;
+        } else if (answerIndex == -1) {
+            answerIndex = index;
         }
-        index++;
+        coreCount++;
+    } else if (headerChar.equals(HEADER_CORE_NOT_QA)) {
+        coreCount++;
+    } else if (!headerChar.equals(HEADER_OPTIONAL)) {
+        return returnValues;
     }
+    index++;
+}
+----
 
-As seen at the beginning of the while loop, header values are actually treated as single case-insensitive characters. This means an experienced user may simply enter those letters as a shortcut.
-
-{empty} +
-
-The second line represents the name of each column as shown to the user. Any names left blank are automatically replaced with Unnamed.
-
-Any discrepancies in the number of types and the number of names will result in the lesson not being loaded.
-
-{empty} +
+* As seen at the beginning of the while loop, header values are actually treated as single case-insensitive characters. This means an experienced user may simply enter those letters as a shortcut.
+* The second line represents the name of each column as shown to the user. Any names left blank are automatically replaced with Unnamed.
+* Any discrepancies in the number of types and the number of names will result in the lesson not being loaded. +
 
 ===== Card data +
-
-All remaining data is treated as card data. Any invalid data found in memory or from the file is skipped over.
-
-{empty} +
+All remaining data is treated as card data. Any invalid data found in memory or from the file is skipped over. +
 
 ===== Summary +
+
 .Activity diagram for the `reload` command, highlighting failure conditions
 image::ReloadActivityDiagram.png[width="800"]
 
@@ -421,16 +406,14 @@ As shown in the above diagram, data that is read in from a file goes through var
 ==== Design considerations
 
 ===== Aspect: choice of file type +
-* **Alternative 1 (current choice):** Save as CSV
+* **Alternative 1 (current choice):** Save as `.csv`
 ** Pros: User is able to modify lesson data in a more advanced external spreadsheet tool like Excel
 ** Cons: Lack of data verification within the file, JSON is already implemented in original code
 * **Alternative 2:** Save as JSON
 ** Pros: All values can be verified through the file
 ** Cons: Difficult for user to edit manually
 
-Alternative 1 was chosen as ease of use is a high priority for the project. Most computer users are familiar with the Microsoft Office suite of applications, such as Word and Excel. As Excel allows CSV files to be shown in a spreadsheet, it was intended that users use Excel alongside BrainTrain for easy lesson management.
-
-{empty} +
+Alternative 1 was chosen as ease of use is a high priority for the project. Most computer users are familiar with the Microsoft Office suite of applications, such as Word and Excel. As Excel allows `.csv` files to be shown in a spreadsheet, it was intended that users use Excel alongside BrainTrain for easy lesson management.
 
 ===== Aspect: handling of invalid data +
 * **Alternative 1 (current choice):** Skip over specific lesson/card
@@ -456,7 +439,7 @@ Session feature implements the following functions and commands:
 
 * Combining data from lesson and user storage together.
 * SrsCardManager:
-** Generating a list of cards for quiz based on different modes and SRS(Space-Repetition technique) method.
+** Generating a list of cards for quiz based on different modes and SRS (Space-Repetition technique) method.
 ** Updating user data after quiz ends.
 * `start` - An input with lesson index, count of cards and mode parameters.
 
@@ -493,7 +476,7 @@ The `SrsCardManager` also updates user data using `UpdateCardData()` after recei
 
 ==== Quiz start command: `start` +
 
-The `start` command starts a quiz session based on input parameters. It will analyze the current storage information and then generate the list of `QuizCard` using `SrsCardManager`. The generating rules are different for different `QuizMode` as explained in section 3.3.3. Once the `start` command have succeeded running, the system will switch to the `QuizMode`.
+The `start` command starts a quiz session based on input parameters. It will analyze the current storage information and then generate the list of `QuizCard` using `SrsCardManager`. It will test the 2 values set to be tested for the lesson. The generating rules are different for different `QuizMode` as explained in a subsequent section. Once the `start` command have succeeded running, the system will switch to the quiz mode.
 
 The `start` command needs users to specify `LessonIndex`, `CardCount` and `QuizMode` parameter.
 
@@ -546,40 +529,39 @@ Quiz feature allows users to enter quiz related commands and answer.
 The quiz feature processes the following inputs:
 
 * `[ANSWER]...` - An input without a prefix `\` is treated as an answer.
-* `\difficult` - Labels current question in quiz as difficult or not.
-* `\help` - Lists all commands in quiz and inputs the program will accept.
-* `\hint` - Reveals additional information to help user to solve the question.
-* `\quit` - Quits a quiz and save attempted progress.
-* `\status` - Lists current status and lesson progress of user.
+* `\difficult` - Labels current question as difficult or not.
+* `\help` - Lists all quiz commands and inputs which will be accepted.
+* `\hint` - Reveals additional information to help the user to answer the question.
+* `\quit` - Quits quiz mode and saves attempt progress.
+* `\status` - Lists current quiz progress.
 
 ==== Quiz class +
 
-link:{repoURL}/src/main/java/seedu/address/model/quiz/Quiz.java[`Quiz.java`] holds all the
-information of quiz in memory. It takes in a list of <<card,cards>> from `Session` and generate a
-new list of cards based on the `mode` indicated by the user. The generated list of cards in both
-`review` and `learn` mode includes questions and answers that are flipped to ensure that user are
-learning both the values. Accordingly to the mode that the user have chosen, the cards will be
-displayed differently.
+link:{repoURL}/src/main/java/seedu/address/model/quiz/Quiz.java[`Quiz.java`] holds all the in-memory
+quiz data. It takes in a list of <<card,cards>> from `Session`. Then, it generates an expanded list of cards based on the `mode` indicated by the user. The generated list of cards in both
+`review` and `learn` mode includes cards which questions and answers are flipped. This to ensure that users are
+memorizing both question and answer values. According to the mode which the user has chosen, the cards will be
+displayed differently as seen below.
 
 In the four different modes:
 
-* **Preview**: both the question and answer are shown to the user
+* **Preview**: both the question and answer are shown to the user.
 
-.Display for previewing a question.
+.Question displayed in `preview` mode.
 image::quiz-command-examples/quiz-preview.PNG[width="300"]
 
 * **Review**: only the question is shown as the user needs to answer the question.
 
-.Display for reviewing a question.
+.Question displayed in `review` mode.
 image::quiz-command-examples/quiz-review.PNG[width="300"]
 
-* **Learn**: is a combination of preview and review, which the user see both the question and
-answer before attempting the question.
+* **Learn**: is a combination of preview and review, the user sees both the question and
+answer as in `preview` mode, before attempting the question with the answer hidden as in `review` mode.
 
-.Display for learning a question.
+.Question displayed in `learn` mode.
 image::quiz-command-examples/quiz-learn.PNG[width="670"]
 
-* **Difficult**: similar to preview mode but only contains questions that have been labelled as
+* **Difficult**: similar to preview mode but only contains questions which have been labelled as
 difficult.
 
 // end::quiz[]
@@ -643,7 +625,7 @@ private void generatePreview() {
 image::AnwerComponetSequenceDiagram.png[width="800"]
 
 The `[ANSWER]` feature is facilitated by `QuizAnswerCommand`. The command takes in user input
-as answer to be processed later.
+as answer, which will be processed later when the command is executed.
 
 The following sequence diagram shows the interaction between the various classes when the user
 answered the question correctly:
@@ -651,21 +633,20 @@ answered the question correctly:
 .Sequence diagram for answer feature
 image::QuizAnswerCommandSequenceDiagram.png[width="900"]
 
-In the `execute` method of the `QuizAnswerCommand`, the following steps could be performed:
+In the `execute` method of the `QuizAnswerCommand`, the following steps can be performed:
 
 1. Quiz result +
-This step checks if the user is shown the result, this is performed as quiz can only ends after
-the result has been shown before. Once the quiz ends, BrainTrain will save the progress of the quiz
+This step checks if the user is shown the result, this is performed because the quiz can only end after
+the result has been shown. Once the quiz ends, BrainTrain will save the progress of the quiz
 to the file specified by the user.
 
 2. Handling of answer +
 This step checks if the answer should be handled, if user is in `PREVIEW` mode it will not be
-handled. Otherwise, the total attempts and streak of the question will be updated accordingly to
-if the question has been answered correctly.
+handled. Otherwise, the total attempts and streak of the question will be updated depending on whether the question has been answered correctly.
 
 3. Handling of next question +
-This step verifies the question has been answered correct and checks if there are still questions
-left in the quiz, either gets the next question or show the quiz result to the user.
+This step verifies that the question has been answered correctly, and checks if there are still questions
+left for the current quiz. Depending on the check, it will then displays the next question or the quiz result.
 
 The following code shows how the steps could be performed:
 
@@ -702,16 +683,16 @@ public CommandResult execute(Model model, CommandHistory history) throws Command
 
 
 ==== \quit +
-The `\quit` will force quit the current quiz and save the attempted question to the location that
-the user have specified in `UserPref`, by default it will saved to `\data\user\savedata.csv`. Once
-the `\quit` command have succeeded running, it will return back to the `ManagementMode`.
+The `\quit` will force quit the current quiz and save the attempted questions to the location which
+the user has specified in `UserPref`. By default it will be saved to `\userdata\savedata.csv`. Once
+the `\quit` command is completed, the user will be returned to the management mode.
 
 .Sequence diagram for quit feature
 image::QuizQuitCommandSequenceDiagram.png[width="800"]
 
 ==== \status +
-The `\status` feature lists the total number of attempts you have attempted, total number of
-question you have gotten correct in this quiz and which question you are currently on.
+The `\status` feature lists the total number of attempts you have made, total number of
+question you have gotten correct, and which question you are currently on.
 
 .Sequence diagram for status feature
 image::QuizStatusCommandSequenceDiagram.png[width="800"]
@@ -721,19 +702,17 @@ image::QuizStatusCommandSequenceDiagram.png[width="800"]
 
 ===== Aspect: quiz and management commands execution +
 * **Alternative 1 (current choice):** Run quiz in a different mode
-** Pros: Least restricted choice of answer and great user experience.
-** Cons: Tedious to implement.
+** Pro: Least restricted choice of answer and great user experience.
+** Con: Tedious to implement.
 
 * **Alternative 2:** Run quiz together with the rest of the commands
-** Pros: Easy to implement.
-** Cons: Restricted answer and compromised user experience. Answer cannot start with words already
-listed as management commands
+** Pro: Easy to implement.
+** Con: Restricted answer and compromised user experience. Answer cannot start with words already
+reserved for management commands.
 (e.g. `start`)
 
-**Alternative 1** is chosen because it allows the user to have a more comprehensive choice of
-word as answer without restricting the possible choices. In certain question, it is possible for the
-answer to be "start". Hence by choosing alternative 1, the choice of answer is the least
-restricted. Also, by running the quiz in a different mode, it allows the user to have intuitive
+**Alternative 1** is chosen because it allows the user to have a more flexible choice of
+word. For certain questions, it is possible for the answer to be "start". Hence by choosing alternative 1, the choice of answer will not be restricted. Also, by running the quiz in a different mode, it allows the user to have intuitive
 interaction in quiz mode.
 // end::quiz[]
 

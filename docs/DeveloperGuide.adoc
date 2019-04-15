@@ -40,6 +40,8 @@ Here are the notations used in the document:
 This is a tip. Useful information pertaining to the features will be written here.
 [NOTE]
 This is a note. Additional information that further explains a feature will be written here. +
+[WARNING]
+This is a warning. Special information that requires additional attention to be paid will be written here to prevent operational issues from happening.
 
 `filepath`, `command` and `method` are all formatted with a grey background. Example: `help`, `getCurrentConsultation()`
 and `logic\LogicManager`

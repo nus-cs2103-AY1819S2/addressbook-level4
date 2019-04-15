@@ -24,7 +24,8 @@ public class ListUnvisitedCommand extends Command {
             + "Parameters: "
             + PREFIX_POSTAL + "POSTAL CODE ";
 
-    public static final String MESSAGE_SUCCESS = "Listed all unvisited restaurants based on proximity to S";
+    public static final String MESSAGE_SUCCESS = "Listed all unvisited restaurants based on " +
+            "proximity provided Postal Code";
 
     public static final String MESSAGE_INVALID_POSTAL_DATA = "Postal Data file is invalid";
 
@@ -51,7 +52,7 @@ public class ListUnvisitedCommand extends Command {
         if (postalDataOfUser.isPresent()){
             model.updateFilteredRestaurantListAndSort(PREDICATE_SHOW_UNVISITED_RESTAURANTS,
                     new SortDistanceComparator(postalDataSetOptional.get(), postalDataOfUser.get()));
-            return new CommandResult(MESSAGE_SUCCESS + postal);
+            return new CommandResult(MESSAGE_SUCCESS);
         } else {
             model.updateFilteredRestaurantList(PREDICATE_SHOW_UNVISITED_RESTAURANTS);
             return new CommandResult(MESSAGE_INVALID_POSTAL_CODE);

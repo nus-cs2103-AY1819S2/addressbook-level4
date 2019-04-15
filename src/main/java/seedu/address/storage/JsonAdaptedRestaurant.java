@@ -166,7 +166,7 @@ class JsonAdaptedRestaurant {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     OpeningHours.class.getSimpleName()));
         }
-        if (!OpeningHours.isValidOpeningHour(openingHours)) {
+        if (!OpeningHours.isValidOpeningHours(openingHours)) {
             throw new IllegalValueException(OpeningHours.MESSAGE_CONSTRAINTS);
         }
         final OpeningHours modelOpeningHours = new OpeningHours(openingHours);

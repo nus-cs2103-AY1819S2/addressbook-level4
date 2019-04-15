@@ -205,10 +205,6 @@ public class Restaurant {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Postal: ")
@@ -220,8 +216,35 @@ public class Restaurant {
                 .append(" Tags: ");
         getTags().forEach(builder::append);
 
-        builder.append(" Categories: ")
-                .append(categories.toString());
+
+        // Optional fields
+
+        if (!getEmail().isDefault()) {
+            builder.append(" Email: ")
+                    .append(getEmail());
+        }
+
+        if (!getPhone().isDefault()) {
+            builder.append(" Phone: ")
+                    .append(getPhone());
+        }
+
+        if (!getOpeningHours().isDefault()) {
+            builder.append(" Opening Hours: ")
+                    .append(getOpeningHours());
+        }
+
+        if (!getWeblink().isDefault()) {
+            builder.append(" Weblink: ")
+                    .append(getWeblink());
+        }
+
+        if (!getCategories().isEmpty()) {
+            builder.append(" Categories: ")
+                    .append(categories.toString());
+        }
+
+        getTags().forEach(builder::append);
 
         return builder.toString();
     }

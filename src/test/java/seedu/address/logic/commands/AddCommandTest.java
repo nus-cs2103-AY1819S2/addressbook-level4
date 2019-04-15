@@ -114,6 +114,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public ArrayList<Float> getUniqueRatings() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public int getNumReviews() {
             throw new AssertionError("This method should not be called.");
         }
@@ -128,7 +133,10 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-
+        @Override
+        public void sortRestaurantList(Comparator<Restaurant> sortBy) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public GuiSettings getGuiSettings() {

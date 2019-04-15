@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
 import java.util.List;
 
 import javafx.beans.InvalidationListener;
@@ -98,6 +99,14 @@ public class FoodDiary implements ReadOnlyFoodDiary {
      */
     public void removeRestaurant(Restaurant key) {
         restaurants.remove(key);
+        indicateModified();
+    }
+
+    /**
+     * Sorts the list of Restaurants in {@code versionedFoodDiary} using the given comparator
+     */
+    public void sortRestaurants(Comparator<Restaurant> sortBy) {
+        restaurants.sortRestaurants(sortBy);
         indicateModified();
     }
 

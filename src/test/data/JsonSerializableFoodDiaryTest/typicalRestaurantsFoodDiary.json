@@ -7,7 +7,7 @@
     "address" : "3 Leedon Heights",
     "postal" : "267951",
     "tagged" : [ "friends" ],
-    "weblink" : "No weblink added",
+    "weblink" : "https://www.google.com",
     "openingHours" : "0930 to 2130",
     "review" : [ ]
   }, {
@@ -17,7 +17,7 @@
     "address" : "311, Clementi Ave 2, #02-25",
     "postal" : "122311",
     "tagged" : [ "owesMoney", "friends" ],
-    "weblink" : "No weblink added",
+    "weblink" : "https://www.google.com",
     "openingHours" : "0930 to 2130",
     "review" : [ ]
   }, {
@@ -27,7 +27,7 @@
     "address" : "9 Bishan Pl",
     "postal" : "579837",
     "tagged" : [ ],
-    "weblink" : "No weblink added",
+    "weblink" : "https://www.google.com",
     "openingHours" : "0930 to 2130",
     "review" : [ ]
   }, {
@@ -37,7 +37,7 @@
     "address" : "53 Ang Mo Kio Ave 3",
     "postal" : "569933",
     "tagged" : [ "friends" ],
-    "weblink" : "No weblink added",
+    "weblink" : "https://www.google.com",
     "openingHours" : "0930 to 2130",
     "review" : [ ]
   }, {
@@ -47,7 +47,7 @@
     "address" : "2 Orchard Turn",
     "postal" : "238801",
     "tagged" : [ ],
-    "weblink" : "No weblink added",
+    "weblink" : "https://www.google.com",
     "openingHours" : "0930 to 2130",
     "review" : [ ]
   }, {
@@ -57,7 +57,7 @@
     "address" : "1 Pasir Ris Drive 3",
     "postal" : "518457",
     "tagged" : [ ],
-    "weblink" : "No weblink added",
+    "weblink" : "https://www.google.com",
     "openingHours" : "0930 to 2130",
     "review" : [ ]
   }, {
@@ -67,7 +67,7 @@
     "address" : "10 Tampines Central 1",
     "postal" : "529536",
     "tagged" : [ ],
-    "weblink" : "No weblink added",
+    "weblink" : "https://www.google.com",
     "openingHours" : "0930 to 2130",
     "review" : [ ]
   } ]

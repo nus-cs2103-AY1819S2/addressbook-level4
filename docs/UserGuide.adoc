@@ -87,12 +87,14 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Restaurant Features
 
+// tag::addedit[]
 ==== Adding a restaurant: `add`
 
-Add a restaurant that is not found in the current list of restaurants. +
-Format: `add n/NAME p/PHONE e/EMAIL a/ADDRESS po/POSTAL CODE [t/TAG]... [w/WEBLINK] [o/OPENING_HOURS]`
+You can add a restaurant that is not found in the current list of restaurants. +
+Format: `add n/NAME a/ADDRESS po/POSTAL CODE [p/PHONE] [e/EMAIL] [t/TAG]... [w/WEBLINK] [o/OPENING_HOURS]`
 
 ****
+* To add a restaurant, the minimal information you need to have is their name, address and postal code.
 * A restaurant can have any number of tags (including 0)
 * A restaurant can have a weblink or none
 * A restaurant can have one opening hours or none
@@ -100,12 +102,25 @@ Format: `add n/NAME p/PHONE e/EMAIL a/ADDRESS po/POSTAL CODE [t/TAG]... [w/WEBLI
 
 Examples:
 
-* `add n/Astons p/66123024 e/astons@dummy.com a/Blk 30 Geylang Street 29, #06-40 po/267951 w/astons.com.sg`
+* `add n/Astons a/Blk 30 Geylang Street 29, #06-40 po/267951 p/66123024 e/astons@dummy.com w/astons.com.sg o/1000 to 2300`
 * `add n/Bangkok Jam p/65272758 e/bangkokjam@example.com a/Blk 30 Lorong 3 Serangoon Gardens, #07-18 po/018956 t/Spicy`
+* `add n/KFC a/Bukit Panjang Plaza po/670111`
+
+[NOTE]
+====
+When you are adding in the Weblink, FoodDiary will check whether the Weblink is valid for you. You need to have internet connection else,
+the FoodDiary will proceed to add the restaurant without the Weblink.
+====
+
+When adding a restaurant when there is no internet connection, the FoodDiary will add your restaurant without the Weblink.
+
+image:NoInternetAdd.PNG[width=640]
+
+_Image 1.1 Result of adding a Restaurant with Weblink but there is no internet connection_
 
 ==== Editing details of a restaurant  : `edit`
 
-Edit the details of a restaurant identified by the index number used in the list. +
+You can edit the details of a restaurant identified by the index number used in the list. +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [po/POSTAL] [t/TAG]... [w/WEBLINK] [o/OPENING HOURS]`
 
 ****
@@ -117,6 +132,18 @@ Examples:
 
 * `edit 2 n/MACS` +
 Changes the name of the second restaurant in the list to `MACS`.
+
+[NOTE]
+====
+When you are editing the Weblink of a restaurant, FoodDiary will check whether the Weblink is valid for you. You need to have internet connection else,
+the FoodDiary will not edit the Weblink for you.
+====
+
+When you are changing a restaurant's Weblink to an invalid Weblink, you will receive the following error message.
+
+When you are editing a restaurant's Weblink with no internet connection, the FoodDiary will edit your restaurant without the Weblink.
+
+// end::addedit[]
 
 ==== Deleting a restaurant: `delete`
 
@@ -211,15 +238,22 @@ _Figure 2. After selecting restaurant with index 3, Chilis' summary, reviews and
 // tag::categorization[]
 ==== Setting the categories of a restaurant : `setCategories`
 
-Sets the cuisine of a restaurant identified by the index number used in the list. +
+Sets the categories of a restaurant identified by the index number used in the list. +
 Format: `setCategories INDEX [c/CUISINE] [oc/OCCASION] [pr/PRICE_RANGE]`
+
+[TIP]
+====
+* You can make use of the autocomplete suggestions to type faster!
+* When a category's prefix (`c/`, `oc/` or `pr/`) is keyed in, suggestions will appear. Use arrow keys to select the desired
+suggestion and press enter. The suggestion will be filled automatically for you!
+====
 
 *Step by step guide on how to set categories:*
 
-Step 1: List all the restaurants by typing `list`, then pressing enter, as shown _below_.
+Step 1: List all the restaurants by typing `list`, then press enter, as shown _below_.
 
 image::setcategories-stepone.png[]
-_Figure 1: After typing `list`_
+_Figure 1: After typing `list`. Oh no, the categories for Aston's are wrong! It is definitely not Chinese. Let's change it._
 
 Step 2: Choose a restaurant you want to set categories to. Let us choose Astons for this example. Take note that Astons
 is identified by *INDEX 1*. Start typing `setCategories 1 c/` as _follows_:
@@ -228,13 +262,13 @@ image::setcategories-steptwo.png[]
 _Figure 2: Notice suggestions for cuisines will pop up. Use arrow keys to select the desired suggestion and press enter,
 or you can also choose to continue typing something not in the suggestions._
 
-Step 3: Continue keying in the occasion prefix after you finished keying in the cuisine. The occasion prefix is oc/.
+Step 3: Continue keying in the occasion prefix after you finished keying in the cuisine. The occasion prefix is `oc/`.
 Follow Figure 3 shown _below_.
 
 image::setcategories-stepthree.png[]
 _Figure 3: Once again, you can pick the occasion you see in the suggestions or continue typing._
 
-Step 4: Key in the price range next, as demonstrated by _Figure 4 below_.
+Step 4: Key in the price range next, as demonstrated by _Figure 4 below_. The price range prefix is `pr/`.
 
 image::setcategories-stepfour.png[]
 _Figure 4: Pick a price range from the list or just type, whichever is faster for you._
@@ -249,16 +283,12 @@ _Figure 5: Success!_
 ====
 * The index refers to the index number shown in the displayed restaurants list.
 * You need to ensure that the index entered *must be a positive integer* `1, 2, 3, ...`
-* You need to ensure that the `Price Range` entered *must* only consist of 1-5 $ characters. e.g. $, \$$$, $$\$$$
-is okay but $$\$$$$, cheap or $expensive will be rejected.
+* You need to ensure that the `Price Range` entered *must* only consist of 1-5 $ characters. e.g. `$`, `\$$$`, `$$$$$`
 * You need to ensure that `Cuisine` and `Occasion` *must* only contain alphanumeric characters and spaces.
-* You do not need to worry about capitalization. `Cuisine` and `Occasion` will be autocapitalized.
-e.g. `fast food` and `premium casual` will be capitalized to
-`Fast Food` and `Premium Casual`. `fAST fOOD` will be converted into `Fast Food`.
-* You do not need to be concerned about the order of categories keyed in. e.g. Entering `Price Range` before `Cuisine` will
-work as well.
-* You do not need to set categories one by one or set all three at once. You have complete freedom to set categories
-whether it is one at a time, two at a time or three at a time.
+* You do not need to worry about capitalization for `Cuisine` and `Occasion`.
+e.g. `fast food` will be capitalized to `Fast Food`.
+* You can key in categories in any order. e.g. `Price Range` before `Cuisine`
+* You can set any number of categories at once.
 ====
 
 Other examples you can try:
@@ -269,67 +299,56 @@ Sets the categories of the second restaurant in the list to `Premium Casual` for
 * `setCategories 3 c/Western` +
 Only sets the cuisine of the third restaurant to `Western`.
 
-[TIP]
-====
-* You can make use of the autocomplete suggestions to type faster!
-* When a category's prefix (`c/`, `oc/` or `pr/`) is keyed in, suggestions will appear. Use arrow keys to select the desired
-suggestion and press enter. The suggestion will be filled automatically for you!
-====
-
-==== Filtering restaurants based on category : `filter`
+==== Filtering restaurants based on category: `filter`
 
 Filters and lists the restaurants with categories matching the keywords entered. +
 Format: `filter KEYWORD [MORE_KEYWORDS]`
 
 *Step by step guide on how to filter:*
 
-Step 1: Suppose you want to filter out all the `Western` restaurants. Type `filter western`.
-
-Step 2: Press enter and you should see all the western restaurants.
-
-Step 3: Suppose now you want to filter out all `Western`, `Japanese`, as well as `Chinese` restaurants. Type `filter
+Step 1: Suppose you want to filter out all `Western`, `Japanese`, as well as `Chinese` restaurants. Type `filter
 western japanese chinese` into the command box.
 
-Step 4: Press enter again and now all `Western`, `Japanese` and `Chinese` restaurants will be shown.
+Step 2: Press enter again and now all `Western`, `Japanese` and `Chinese` restaurants will be shown.
 
 [NOTE]
 ====
-* You do not need to worry about case. Filtering is case insensitive. e.g. `western` will match `Western`
-* You do not need to be concerned about which categories you want to filter. Filtering works across categories.
-e.g. `japanese $` will match all restaurants with `Cuisine` set as `Japanese` or `Price Range` set as `$`.
-Note this also means that the more keywords you add, the more general the filter becomes.
-* You can enter keywords in any order. `$ casual` is the same as `casual $`. Both will match restaurants that has
-`Price Range` as `$` or `Occasion` as `Casual`.
-* You can filter multiple categories of the same type. e.g. `japanese western` will match both `Japanese` and `Western` cuisine
-restaurants. All `Japanese` and `Western` restaurants will be displayed.
-* You must enter words in full. e.g. `west` will not match `western`
+* You can enter keywords in any case. Filtering is case insensitive. e.g. `western` will match `Western`
+* You can filter across categories and also within categories of the same type. e.g. `japanese $`, `japanese western`
+* Keying in more keywords will make the filter more general, not specific.
+* You can enter keywords in any order. `$ casual` is the same as `casual $`.
+* You *must* enter words in full. e.g. `west` will not match `western`
 * Restaurants matching at least one keyword will be displayed. e.g. `fast food` will match `hawker food`
 ====
 
 Some examples you can try:
 
 * `filter fine dining casual`
-Returns restaurants with any category matching `fine`, `dining` or `casual`.
+Displays restaurants with any category matching `fine`, `dining` or `casual`.
 * `filter $ casual western`
-Returns restaurants with any category matching `$`, `casual` or `western`.
+Displays restaurants with any category matching `$`, `casual` or `western`.
 // end::categorization[]
 
 // tag::visitweb[]
 ==== Display website of selected restaurant : `visitWeb`
 
-Display the website of a restaurant identified by the index number used in the list based on its weblink. +
+The restaurants website can serve as your reference when you are adding it into your restaurant list or when writing a review for the restaurant.
+
+You can display the website of a restaurant identified by the index number used in the list based on its weblink. +
 Format: `visitWeb INDEX`
 
-
-****
+[NOTE]
+====
 * The index refers to the index number shown in the displayed restaurants list.
 * The index *must be a positive integer* 1, 2, 3, ...
-****
+====
 
-Display the website of any restaurant by entering its url. +
+You can also display the website of any restaurant by entering its url. +
 Format: `visitWeb URL` +
-This allows users to visit website of any restaurant before they are entered into the list of restaurants in the `FoodDiary`.
-The purpose of this feature is so that users can reference from restaurants website when adding details of the restaurant into `FoodDiary`
+
+This allows you to visit website of any restaurant before they are entered into the list of restaurants in the `FoodDiary`.
+
+Website is displayed on a browser window which shows upon visitWeb command.
 
 [NOTE]
 ====
@@ -347,11 +366,18 @@ A URL is a valid link to a website. It should be in this format: local-part.doma
 Examples:
 
 * `list` +
-`visitWeb 1` +
-Displays webpage of the restaurant at index 1 of list.
+`visitWeb 4` +
 
 * `visitWeb www.jollibee.com.ph` +
-Displays webpage of Jollibee.
+This command displays webpage of Jollibee as shown below.
+
+image::visitWebJolliB.PNG[width="640"]
+
+_Image 1.1 Result of `visitWeb www.jollibee.com.ph`_
+
+[NOTE]
+You need to have internet connection to visit the website of the restaurant.
+
 // end::visitweb[]
 
 // tag::reviewcommands[]
@@ -381,7 +407,7 @@ Format: `editReview INDEX [re/ENTRY] [rr/RATING]`
 
 ****
 * Edits the review at the specified `INDEX`. The index refers to the index number of the review of the selected Restaurant. The index *must be a positive integer* 1, 2, 3, ...
-* A restaurant must be selected with a mouse click on the desired restaurant card (see screenshots below for an illustration)
+* A restaurant must be selected via the select command or with a mouse click on the desired restaurant card (see screenshots below for an illustration)
 * At least one of the optional fields (either `ENTRY` or `RATING`) must be provided.
 * Existing values will be updated to the input values.
 ****
@@ -408,11 +434,11 @@ _Figure 6. The above screenshot shows the end-product of the successful executio
 
 Examples:
 
-* `edit 1 rr/3` +
+* `editReview 1 rr/3` +
 Edits the rating of the 1st review to be `3`.
-* `edit 2 re/Food isn't the best` +
+* `editReview 2 re/Food isn't the best` +
 Edits the comment of the second review to `Food isn't the best`
-* `edit 2 re/Food isn't the best` rr/4 +
+* `editReview 2 re/Food isn't the best rr/4` +
 Edits the comment of the second review to `Food isn't the best` and the rating to be `4`.
 
 ==== Deleting a review : `deleteReview`
@@ -421,15 +447,56 @@ Deletes the review from the Food Diary. +
 Format: `deleteReview INDEX`
 
 ****
-* Deletes the review at the specified `INDEX`. The index refers to the index number of the review of the selected Restaurant. The index *must be a positive integer* 1, 2, 3, ...
-* The index refers to the index number shown in the displayed reviews list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* Deletes the review at the specified `INDEX`. The `INDEX` refers to the index number of the review of the selected Restaurant. The index *must be a positive integer* 1, 2, 3, ...
+* A restaurant must be selected via the select command or with a mouse click on the desired restaurant card (similar to the above screenshots).
 ****
 
 Examples:
 
 * `deleteReview 2` +
 Deletes the 2nd review of the selected restaurant in the Food Diary.
+
+==== Adding a default review : `addR`
+
+In a real hurry? Fear not because The Food Diary has built in default reviews! You can use this command to quickly add a review with minimal typing. The command and syntax to add default reviews is much shorter and simpler than the normal `addReview` command.
+
+These default reviews are representative of the rating scale from 1 - 5. There is a default review entry associated with each default review rating. They are as follows:
+
+* Default review of rating 1: "Very poor, never ever go again."
+* Default review of rating 2: "Below average, try not to go again."
+* Default review of rating 3: "Average, normal."
+* Default review of rating 4: "Good, would go again."
+* Default review of rating 5: "Excellent, must go again."
+
+Format: `addR INDEX NUMBER`
+
+****
+* Adds a default review (according to `NUMBER`) to the specified restaurant (according to `INDEX`).
+* `NUMBER` indicates the rating of the default rating to add, i.e. if `NUMBER` is 3, the default review of rating 3 and entry "Average, normal" would be added to the indicated restaurant.
+* `INDEX` refers to the index number of the restaurant of the currently displayed list of restaurants.. The index *must be a positive integer* 1, 2, 3, ...
+* `NUMBER` must take a value of either 1, 2, 3, 4 or 5.
+****
+
+Examples:
+
+* `addR 1 4` adds a review of rating 4 and entry "Good, would go again." to the first restaurant on the displayed list.
+
+==== Edit default review entry (Coming in v2.0)
+
+Edits the default review entry according to the specified index. This allows you to customize your default review entries.
+
+Format: `editR NUMBER re/NEW_ENTRY`
+
+****
+* Edits the default reviews of the Food Diary according to the `NUMBER` specified, i.e. if `NUMBER` is 3, the default review corresponding to the rating of 3 would be edited.
+* `NUMBER` must take a value of either 1, 2, 3, 4 or 5.
+* `NEW_ENTRY` is a text field that includes both alphabets and numbers.
+****
+
+Examples:
+
+* `editR 4 re/Not too shabby at all` changes the default review corresponding to rating 4 to "Not too shabby at all".
+
 // end::reviewcommands[]
 
 === General Features

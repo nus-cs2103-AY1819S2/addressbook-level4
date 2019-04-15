@@ -493,8 +493,8 @@ Restaurant Categorisation is mainly implemented using the following commands:
 * `setCategories` -- sets the different categories of the restaurant using its respective prefixes.
 * `filter` -- filters out restaurants using keywords matching that of its categories.
 
-All supported categories are defined in the `seedu.address.model.restaurant.categories` package, along with the `Categories`
-class that encapsulates all categories into a `Categories` object to be used in the `Restaurant` class.
+All supported categories are defined in the `seedu.address.model.restaurant.categories` package. A Facade design pattern
+is used to allow access to individual `Cuisine`, `Occasion` and `PriceRange` categories through the `Categories` class.
 
 _Figure 1_ below shows the chain of events when setting categories of a restaurant with the setCategories command:
 
@@ -504,16 +504,16 @@ _Figure 1: setCategories Activity Diagram_
 The following elaborates in detail on how the setCategories mechanism behaves at each step:
 
 Step 1: User starts keying in the command into the command box. Once prefixes for either `Cuisine`, `Occasion` or `Price Range`
-is detected, suggestions for that Category type is retrieved by `CategoriesAutoCompleteTextField` and populated in the appearing
+are detected, suggestions for that Category type are retrieved by `CategoriesAutoCompleteTextField` and populated in the appearing
 context menu.
 
-Step 2: User finishes typing and submits command for execution. The keyed in text is sent to the `Food Diary Parser` to be parsed
+Step 2: User finishes typing and submits command for execution. The keyed-in text is sent to the `Food Diary Parser` to be parsed
 into a `SetCategoriesCommand` object. The `SetCategoriesCommand` object contains the categories parsed from the text encapsulated
 in a `Categories` object as well as the target `Index`.
 
 Step 3: The `SetCategoriesCommand` is executed by calling `SetCategoriesCommand#execute()`. The target restaurant is retrieved
-from `Model` via `Model#getFilteredRestaurantList()`. A new restaurant is set up and the target restaurants fields are copied over.
-The categories of the target restaurant is merged by calling `Categories#merge()` and the result is passed to the new restaurant.
+from `Model` via `Model#getFilteredRestaurantList()`. The categories of the target restaurant are merged by calling
+`Categories#merge()` and the result is used to create a new restaurant, with all other restaurant data preserved.
 The new restaurant is then updated into the Food Diary via `Model#commitFoodDiary()`.
 
 You can refer to _Figure 2_ below to get a better understanding of how a typical valid setCategories command
@@ -524,10 +524,10 @@ _Figure 2: setCategories Sequence Diagram_
 
 ==== Design Considerations
 
-You can find out more about why certain areas of the feature is implemented a certain way here. Other possible
+You can find out more about why certain areas of the feature are implemented a certain way here. Other possible
 alternatives are also considered and reasons as to why they were not chosen are also explained here.
 
-===== Price Range Categorisation
+===== How a restaurant's Price Range is categorised
 
 This section discusses the different ways price ranges could have been categorised.
 
@@ -538,16 +538,15 @@ This section discusses the different ways price ranges could have been categoris
 | Cons | Restricts the range of price between one and five
 |=====================
 
-* Alternative 2: Use words such as `cheap`, `expensive` to represent price
+* Alternative 2: Use words such as `cheap`, `expensive` to represent price range
 
 |=========
 | Pros | User has complete freedom as to how they want to key in the price range
 | Cons | Lacks proper structure, not very intuitive to the viewer if the user keys in something that does not make sense
 |=========
 
-Alternative 1 was chosen because it offers a better user experience to just type in a few characters instead of having the
-user think of what to type every time the user wants to set a price range. It also ensures that all restaurants'
-price ranges are visually consistent.
+I chose Alternative 1 because it offers a better user experience. Users just need to type in a few characters.
+It also ensures that all restaurants' price ranges are visually consistent.
 
 ===== How categories are added and edited
 
@@ -567,47 +566,36 @@ This section discusses how categories could have been handled.
 | Cons | User needs to remember which restaurants do not have categories added yet, else add or edit commands might fail.
 |=====================
 
-Alternative 1 was chosen because there are not much categories a restaurant can have. Furthermore, if there ever arise a need
-for the user to tag the restaurants, they can just use the existing tag system. By having one command to set any category,
+I chose Alternative 1 because there are not many categories a restaurant can have. By having one command to set any category,
 users only need to remember one command, hence it is more intuitive for the user.
-
-===== Filtering restaurants by categories
-
-This section discusses different ways filtering could have been implemented.
-
-* Alternative 1: Key in as many key words as possible, without specifying which keyword is for which category (Current implementation)
-
-|=====================
-| Pros | More user friendly since users do not have to be concerned with which keywords should match which category
-| Cons | Cross category filtering generalises the search results instead of making it more specific
-|=====================
-
-* Alternative 2: For each keyword entered, specify which category it is for
-
-|=====================
-| Pros | Users can find specific restaurants matching each category type
-| Cons | Troublesome for user to type the commands since they now need to indicate which category should match which keyword
-|=====================
-
-Alternative 1 was chosen because it gives users complete freedom to key in whatever keywords they want without worrying about
-which keyword should match which category. The application automatically searches through all the categories to match the keywords
-for the user, which is more user friendly.
 
 // end::categorisation[]
 
 // tag::reviewcommandsdg[]
 
-=== Adding a Review to a selected Restaurant
+=== Add/AddDefault/Edit/Delete Reviews
 
-==== Current Implementation
-The Restaurant class contains a list of reviews. Adding a Review to a restaurant would entail adding a review to this list.
+Reviews are a core feature of the application. Each review is specific to a restaurant, and represents one visit/experience at that particular restaurant. This section describes the implementation of the functions dealing with creating, modifying and modifying reviews. There is also an enhancement in the form of adding default reviews which will be elaborated on.
 
-This command is handled by the `AddReviewCommand` class, which takes in an `Index` (indicating the index of the restaurant as displayed on the UI) as well as the `Review` object to be added.
+==== Add Reviews
 
-An example of the correct format of this command is `addReview 1 re/Good food! rr/4`, which indicates a user trying to add a review (of entry "Good food!" and rating "4") to the first restaurant in a list.
+This command adds a review to a restaurant specified by the `INDEX` argument.
 
-Once this command is entered into the command line and executed, the `AddReviewCommandParser` will parse the command based on the indicated prefixes. These prefixes are pre-defined inside `Cli-Syntax`.
-The parser will return an `AddReviewCommand` object, which stores the index of the restaurant to add the review too, as well as the review to be added itself. This is returned to the `Logic Manager`, which then executes the command.
+Command format: `addReview INDEX re/(ENTRY) rr/(RATING)`
+
+===== Current Implementation
+
+The functionality of the addReview command can be better understood with the following activity diagram:
+
+image::AddReviewActivityDiagram.png[width="1000"]
+
+The `Restaurant` class contains a list of reviews. Adding a review to a restaurant would entail adding a review to this list to the specified restaurant.
+
+Implementing this feature involved the following major components:
+
+. `FoodDiaryParser` was modified to accept the command to add a review.
+. `AddReviewCommandParser` class to parse the command into the separate fields. The new Review is constructed here, and AddReviewCommand is constructed here with the new Review and Index.
+. `AddReviewCommand` class, which extends `Command` and takes in the index of the restaurant and the Review to be added. This component handles the execution logic and interactions with the model. The execution steps are detailed below.
 
 The execution of this command involves:
 
@@ -619,16 +607,119 @@ Step 3. Inserting the new review into the list.
 
 Step 4. Creating a new restaurant object with the new list.
 
-Step 5. Replace the original restaurant with the new restaurant object in the model.
+Step 5. Replacing the original restaurant with the new restaurant object in the model.
 
 Refer to the sequence diagram below for an illustration of how this command is executed.
 
-image::AddReviewSd.png[width="650"]
+image::AddReviewSequenceDiagram.png[width="1000"]
 
-==== Design considerations
-The primary consideration was the compatibility of this new command with the existing architecture.
-Given the stable implementation of the current system of parsing commands, any new command created should fit into the existing architecture with minimal changes to other components.
+===== Design considerations
+Plausible alternative implementations to the functionality are discussed in this section to illustrate the thought process and rationale behind our design decisions. You may wish to consider these ideas when further developing this application.
 
+* Alternative 1: Add reviews directly to the same restaurant object's list rather than creating a new restaurant by object copy
+|=====================
+| Pros | Less expensive operation to simply modify the same objects list of reviews
+| Cons | Requires modification of the `Restaurant` class to include a setter method for reviews and increases the risk of unauthorised modification of restaurant data.
+|=====================
+
+* Alternative 2: Have users select the restaurant they wish to review rather than indicate it as an index
+|=====================
+| Pros | Reduce complexity of the `AddReview` command by 1 argument
+| Cons | Users will have to either input a command or use their mouse to click to select the restaurant, which are unnecessary steps.
+|=====================
+
+==== AddDefault Reviews
+
+This is a command to add pre-defined reviews with a shorter and simpler syntax. It is especially useful for people in a rush and who do not wish to enter the whole review.
+
+Users need only specify the `INDEX` of the restaurant they want to add the review to, and a `NUMBER` representing the default review they wish to leave. For example, "addR 1 2" will add the default review of rating 2 to the 1st restaurant on the list.
+
+Command format: `addR INDEX NUMBER`
+
+===== Current Implementation
+
+The Food Diary currently supports 5 default reviews, each corresponding to a rating from 1-5 inclusive. Do have a look at the User Guide for these 5 entries!
+
+The following activity diagram will give a clearer picture of the implementation of this command:
+
+image::AddDefaultReviewActivityDiagram.png[width="1000"]
+
+Implementing this feature involved the following components:
+
+. `FoodDiaryParser` modified to accept the addR command (to add default review)
+. `AddDefaultReviewCommandParser` class to read the INDEX and NUMBER
+. `AddDefaultReviewCommand` class to execute the logic of the command.
+. Most Importantly, `AddDefaultReviewUtil` class, which stores the default values for the default reviews to be added.
+
+The review `Entry`, which is composed of a String value, will be taken from the `AddDefaultReviewUtil` class. The review `Rating` used is the indicated `NUMBER` in the command. A new `Review` object is created from these two attributes and added.
+
+===== Design Considerations
+
+These alternatives were considered as well:
+
+* Alternative 1: Adding a review directly from the new `AddDefaultReviewCommand` instead of creating an `AddReviewCommand`
+
+|=====================
+| Pros | Reduces coupling between the two command classes.
+| Cons | Violates the DRY (Don't Repeat Yourself) Principle, as the code to add a review will be repeated.
+|=====================
+
+* Alternative 2: Storing default review objects instead of only the review entry strings
+
+|=====================
+| Pros | Easier and more efficient retrieval of default reviews.
+| Cons | The timestamps of the default reviews will be constant, and will not indicate accurately the time of the creation of the new default review.
+|=====================
+
+==== Edit Reviews
+
+This command allows the modification of exiting reviews in The Food Diary.
+
+Command format: `editReview INDEX [re/ENTRY] [rr/RATING]`, where `INDEX` refers to the index of the review to edit in the selected restaurant, `ENTRY` and `RATING` are optional, but at least one of the two fields must be specified.
+
+===== Current Implementation
+
+Executing this command requires the user to select the restaurant whose review is to be edited. This can be done via the select command or by a mouse click on the application GUI.
+
+Do refer to the sequence diagram below for a clearer picture of the implementation of this command. Note that the interaction between the `EditReviewCommand` and the `Model` is left out as it is the same as the one in `AddReviewCommand` above.
+
+image::EditReviewSequenceDiagram.png[width="1000"]
+
+The components involved in the execution of this command include:
+
+. Modifying `FoodDiaryParser` to accept tbe editReview command
+. `EditReviewCommandParser` class to parse the command with the optional fields
+. `EditReviewCommand` class to handle to logic of the execution of the command
+. `EditReviewDescriptor` class to store the changes for the different fields of the review
+
+The `EditReviewDescriptor` class can contain optional fields. This is so that the command does not have to modify every field in a review and users can specify which field they would like to modify.
+
+The steps involved in the execution of this command are:
+
+* Step 1: Creating the `EditReviewDescriptor` based on input arguments.
+
+* Step 2: Retrieving the currently selected restaurant from the model.
+
+* Step 3: Creating a new restaurant based on the currently selected restaurant and the `EditReviewDescriptor`
+
+* Step 4: Replacing the selected restaurant with the new restaurant object in the model.
+
+===== Design Considerations
+
+
+* Alternative 1: Have users input the index of the restaurant into the command instead of having to select a restaurant first
+
+|=====================
+| Considering the technical aspect, there is not much of a difference between the two implementations. However, this design decision took into account the fact that users most likely had to select the restaurant to look at the review they wish to edit before editing it. As such, it reduces the arguments input by the user, and makes use of what is likely going to happen anyways (the selection of the restaurant).
+|=====================
+
+==== Delete Reviews
+
+Similar to the command to edit reviews, execution of this command requires the user to select a restaurant from the displayed list.
+
+Command format: `deleteReview INDEX`, where `INDEX` refers to the index of the review to be deleted from the selected restaurant.
+
+The implementation is a combination of the add and edit review commands: the selected restaurant is copied to a new restaurant object with a new list of reviews without the review to be deleted. This new restaurant object then replaces the selected restaurant in the model.
 // end::reviewcommandsdg[]
 
 // tag::visitweb[]
@@ -639,37 +730,85 @@ Website can be displayed on the `BrowserPanel` with `visitWeb` command.
 ==== visitWeb `INDEX`
 Visits website of `Restaurant` selected by user.
 
-* Restaurants has a field `Weblink` which contains the URL of the restaurant website.
-* Weblink have to be valid https or http link before browser can display the website.
-* Upon `visitWeb` command, `Parser` in the `Logic` component will call `VisitWebCommandParser` to parse index into
-`VisitWebCommand`.
-* `Model` will then set Restaurant of the input index as selected Restaurant.
-* `BrowserPanel` of `UI` component will listen to this change in selected Restaurant and thus, display website of
- Restaurant on the `BrowserPanel`.
+Restaurants contains a `Weblink` field which encapsulates the Url of the restaurant website.
+
+[NOTE]
+When restaurant is added to Food Diary, the `Weblink` added with the restaurant is checked by `WebUtil` to ensure that the `Weblink` is a Url that belongs to a website that exists.
+If the protocol is absent, `WebUtil` will check if the `Weblink` uses HTTP or HTTPS protocol and append to it. This will be hidden from the user.
+If there is no internet connection, `WebUtil` is unable to validate `Weblink` and Food Diary will add the restaurant without the `Weblink`.
+
+Upon `visitWeb INDEX` command, `Weblink` of the Restaurant at the selected index will be retrieved and passed into
+`BrowerPanel` of `UI` to load the website of the restaurant as a pop-up window.
+Since website of restaurant might be taken down after it has been added to the restaurant, there is a need to validate the `Weblink` again before passing it to `BrowserPanel`.
+
+The following steps illustrates the sequence to `visitWeb INDEX` command with reference to the sequence diagram below:
+
+1. `Weblink` is retrieved from the selectedRestaurant inside `Model` component.
+2. Using `WebUtil` utility class in `Commons` component, check if there is internet connection so validate and display the website.
+3. If there is no internet connection, inform user.
+4. Validate `Weblink` by pinging its Url and checking the HTTP response code.
+
+[NOTE]
+HTTP response codes: +
+2XX SUCCESS - Weblink is valid +
+3XX REDIRECTED - Weblink redirects user to the correct Website and hence is valid +
+4XX, 5XX (Error) - Weblink is invalid
+
+5. Pass `Weblink` to `BrowserPanel` through `CommandResult` and invoke `WebView` engine to display website.
 
 The following sequence diagram shows how the visitWeb `index` works:
 
-image::VisitWebSequenceDiagram.png[width="800"]
+image::VisitWebSequenceDiagram.png[width="640"]
+_Figure 1.1 Sequence diagram of visitWeb `INDEX` command_
 
 ==== visitWeb `weblink`
 Visits website entered by user.
+This allows user to visit website of restaurant that are not added to the FoodDiary.
 
-* A `weblink` is a valid Url of websites of restaurants.
-* Users can visit website of any restaurant through visitWeb command by entering the `weblink` as a parameter.
-* Upon `visitWeb` command, `Parser` in the `Logic` component will call `VisitWebCommandParser` to parse `weblink` into
-`VisitWebCommand`.
-* This `weblink` will be passed to CommandResult which is passed to `MainWindow` in `UI` component.
-* `MainWindow` will then load the `weblink` through `BrowserPanel`.
+The difference between this command and the previous is that, the `Weblink` is directly passed into `VisitWebCommand` instead of the `INDEX` of the restaurant.
+Thus, there is a need to validate this `Weblink` with the help of `WebUtil`.
 
-The following activity diagram and sequence diagram shows how the visitWeb `weblink` works:
+The following sequence diagram shows how the visitWeb `weblink` works:
 
-image::VisitWebUrlActivityDiagram.png[width="800"]
-image::VisitWebUrlSequenceDiagram.png[width="800"]
+image::VisitWebUrlSequenceDiagram.png[width="640"]
+_Figure 2.1 Sequence diagram of visitWeb `weblink` command_
+
+
+To illustrate the level of checks done in visiting web further, the command is broken down into the following steps.
+
+Step 1. FoodLover enters visitWeb `Weblink` command.
+
+Step 2. FoodDiary checks if the entered `Weblink` is in the correct Url form. Else, display error message and show example of the correct form of `Weblink`
+
+Step 2. FoodDiary checks if internet connection is present. If not, throw `NoInternetException` and show error message.
+
+Step 3. FoodDiary validates the weblink entered. If weblink does not exist, or it is not in the correct Url format, throw `ParseException` and show error message.
+
+Step 4. Display website on browser window.
+
+The following activity diagram shows the steps of visitWeb command:
+
+image::VisitWebUrlActivityDiagram.png[width="240"]
+_Figure 2.2 Activity diagram of visitWeb `weblink` command_
 
 ==== Enhancements
 * Before loading the website, the `weblink` will be validated by checking it's HTTP response code.
 * If response code is above 400, it suggests that the `weblink` is not found and that there is an error requesting the website if response code is above 500
-* If there is no internet connection, throws an `NoInternetException` that prints an error message to inform user that there is no internet connection.
+* Also, a `NoInternetException` is thrown if internet is absent. This is done by pinging to a Google as a reliable web server. If application fails to get a response,
+we can say that there is high chance that there is no internet connection and hence `NoInternetException` is thrown.
+
+==== Design considerations
+* To reduce coupling of `Weblink` to `AddCommandParser`, `EditCommandParsers` in `Logic`, and also `BrowserPanel` in `UI` component, a `WebUtil` class is implemented under Util of Commons component.
+
+`WebUtil` supports the following functions:
+
+1. `hasInternetConnection()` - Check if there is internet connection by pinging Google.
+
+2. `isUrlValid(String url)` - Checks if the input String is a valid Url with successful response code.
+
+3. `validateAndAppend(String url)` - Checks input Url if it uses HTTP or HTTPS protocol and append it to the Url.
+
+
 // end::visitweb[]
 
 // tag::dataencryption[]

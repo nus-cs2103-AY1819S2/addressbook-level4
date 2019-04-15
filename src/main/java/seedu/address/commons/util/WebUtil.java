@@ -5,35 +5,42 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import seedu.address.commons.exceptions.NoInternetException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.restaurant.Weblink;
 
 /**
  * Validates Weblink and whether there is internet connection
  */
 public class WebUtil {
+
+    public static final String INVALID_URL_MESSAGE = "%1$s is not found. Please enter a correct weblink";
     private static final String HTTPS_PREFIX = "https://";
-    private static final String FILE_PREFIX = "file:/";
+    private static final String HTTP_PREFIX = "http://";
     private static final String MESSAGE_NO_INTERNET = "Internet connection is not available."
             + " Please check your connections.";
     private static final String DUMMY_WEBLINK = "https://www.google.com.sg";
 
+
     /**
-     * Checks if a given string is a valid weblink URL, ie. HTTP response code should not be 400 and above
-     * The only acceptable malformed Url is the default placeholder for no weblinks, NO_WEBLINK_STRING
+     * This method checks if the Url string supplied to it is a valid link
+     * @param urlString must be a valid Url formatted string
+     * @return true if url is valid
+     * @throws NoInternetException if there's no internet connection
      */
-    public static boolean isNotValidWeblinkUrl(String urlString) throws NoInternetException {
+    public static boolean isUrlValid(String urlString) throws NoInternetException {
         // checks if there is internet connection
         if (!urlString.equals(DUMMY_WEBLINK) && !hasInternetConnection()) {
             throw new NoInternetException(MESSAGE_NO_INTERNET);
         }
+
         try {
-            final URL url = new URL(prependHttps(urlString));
+            final URL url = new URL(urlString);
             final URLConnection conn = url.openConnection();
             conn.connect();
             conn.getInputStream().close();
-            return false;
-        } catch (IOException e) {
             return true;
+        } catch (IOException httpsE) {
+            return false;
         }
     }
 
@@ -43,7 +50,7 @@ public class WebUtil {
      * @throws NoInternetException
      */
     private static boolean hasInternetConnection() throws NoInternetException {
-        return !isNotValidWeblinkUrl(DUMMY_WEBLINK);
+        return isUrlValid(DUMMY_WEBLINK);
     }
 
     /**
@@ -57,17 +64,58 @@ public class WebUtil {
             return url;
         }
 
-        // if url is a local path, return url
-        if (url.startsWith(FILE_PREFIX)) {
-            return url;
-        }
+        // return url with https prefix prepended to it
+        return HTTPS_PREFIX.concat(url);
+    }
 
-        // if url already starts with https prefix, return url
-        if (url.startsWith(HTTPS_PREFIX)) {
+    /**
+     * If input url has no http:// prepended to it, return url with https:// prepended.
+     * @param url
+     * @return String that has http:// prepended to url string
+     */
+    private static String prependHttp(String url) {
+        // if Weblink is not added for user, return url
+        if (url.equals(Weblink.NO_WEBLINK_STRING)) {
             return url;
         }
 
         // return url with https prefix prepended to it
-        return HTTPS_PREFIX.concat(url);
+        return HTTP_PREFIX.concat(url);
+    }
+
+    /**
+     * This method validates the Url string supplied to it by calling isUrlValid on it.
+     * If the protocol of the Url is absent, test whether its https or http and append to it.
+     *
+     * @param urlString
+     * @return a proper Url a string that is valid and has either https/http protocol appended to it
+     * @throws NoInternetException if there's no internet connection
+     * @throws ParseException If Url is invalid even after appending the protocol
+     */
+    public static String validateAndAppend(String urlString) throws NoInternetException, ParseException {
+
+        boolean isValidUrl;
+
+        // Original form of Weblink for returning error message
+        String originalWeblink = urlString;
+
+        // To append https or http protocol and to be returned
+        String trimmedWeblink = urlString;
+
+        if (urlString.startsWith(HTTPS_PREFIX) || urlString.startsWith(HTTP_PREFIX)) {
+            isValidUrl = isUrlValid(urlString);
+        } else if (!isUrlValid(prependHttps(urlString))) {
+            isValidUrl = isUrlValid(prependHttp(urlString));
+            trimmedWeblink = prependHttp(urlString);
+        } else {
+            isValidUrl = isUrlValid(prependHttps(urlString));
+            trimmedWeblink = prependHttps(urlString);
+        }
+
+        if (!isValidUrl) {
+            throw new ParseException(String.format(INVALID_URL_MESSAGE, originalWeblink));
+        } else {
+            return trimmedWeblink;
+        }
     }
 }

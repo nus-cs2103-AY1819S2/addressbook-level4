@@ -76,7 +76,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                 editRestaurantDescriptor.setWeblink(ParserUtil.parseWeblink(argMultimap
                         .getValue(PREFIX_WEBLINK).get()));
             } catch (NoInternetException e) {
-                return new EditCommand(index, editRestaurantDescriptor, Messages.MESSAGE_EDIT_NO_INTERNET);
+                return handleNoInternet(index, editRestaurantDescriptor);
             }
         }
 
@@ -85,6 +85,20 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         return new EditCommand(index, editRestaurantDescriptor);
+    }
+
+    /**
+     * Handles the no internet exception and return with the appropriate error message
+     */
+    private EditCommand handleNoInternet(Index index, EditRestaurantDescriptor editRestaurantDescriptor)
+            throws ParseException {
+
+        // If restaurant not edited, return just the no internet error message.
+        if (!editRestaurantDescriptor.isAnyFieldEdited()) {
+            throw new ParseException(Messages.MESSAGE_EDIT_NO_INTERNET);
+        }
+
+        return new EditCommand(index, editRestaurantDescriptor, Messages.MESSAGE_EDIT_NO_INTERNET);
     }
 
     /**

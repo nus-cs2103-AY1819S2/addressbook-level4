@@ -68,8 +68,8 @@ public class VisitWebCommand extends Command {
                 return new CommandResult(e.getMessage());
             }
 
-            model.setSelectedRestaurant(filteredRestaurantList.get(targetIndex.getZeroBased()));
-            return new CommandResult(String.format(MESSAGE_VISIT_RESTAURANT_SUCCESS, targetIndex.getOneBased()));
+            return new CommandResult(String.format(MESSAGE_VISIT_RESTAURANT_SUCCESS, targetIndex.getOneBased()),
+                    weblink);
         } else {
             // if params of visitWeb command is a Weblink, pass weblink to CommandResult
             return new CommandResult(String.format(MESSAGE_VISIT_WEBLINK, weblink.value), weblink);
@@ -83,7 +83,7 @@ public class VisitWebCommand extends Command {
      * @throws CommandException when url is invalid
      */
     private void checkUrl(Weblink weblink) throws NoInternetException, CommandException {
-        if (WebUtil.isNotValidWeblinkUrl(weblink.value)) {
+        if (!WebUtil.isUrlValid(weblink.value)) {
             throw new CommandException(String.format(Messages.MESSAGE_CHANGE_WEBLINK, weblink.value));
         }
     }
@@ -91,8 +91,20 @@ public class VisitWebCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof VisitWebCommand // instanceof handles nulls
-                && targetIndex.equals(((VisitWebCommand) other).targetIndex)); // state check
+
+        boolean result;
+
+        if (!(other instanceof VisitWebCommand)) {
+            return false;
+        }
+
+        if (targetIndex != null) {
+            result = targetIndex.equals(((VisitWebCommand) other).targetIndex);
+        } else {
+            assert weblink != null;
+            result = weblink.equals(((VisitWebCommand) other).weblink);
+        }
+
+        return other == this || result; // state check
     }
 }

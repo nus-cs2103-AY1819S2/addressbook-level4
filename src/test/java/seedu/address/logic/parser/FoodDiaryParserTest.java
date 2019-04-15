@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddDefaultReviewCommand;
 import seedu.address.logic.commands.AddReviewCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
@@ -65,6 +66,12 @@ public class FoodDiaryParserTest {
         reviewBuilder.withTimestamp(tsCommandReview);
         Review review2 = reviewBuilder.build();
         assertEquals(new AddReviewCommand(INDEX_FIRST_RESTAURANT, review2), command);
+    }
+
+    @Test
+    public void parseCommand_addDefaultReview() throws Exception {
+        assertTrue(parser.parseCommand(AddDefaultReviewCommand.COMMAND_WORD + " 1 1")
+                instanceof AddDefaultReviewCommand);
     }
 
     @Test

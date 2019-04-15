@@ -407,6 +407,131 @@ The following code snippet shows how the `memberAdd` command is executed:
 <2> Check if the matric number entered is unique.
 <3> Add member to Club Manager.
 
+//tag::memberdelete[]
+===== `memberDelete` Command
+The `memberDelete` command deletes a person (based on index) from the addressbook.
+
+Below is a step-by-step process on how the `memberDelete` command works on execution:
+
+* *Step 1:* The user executes the `memberDelete` command by specifying the index of the member that the user would like to delete.
+* *Step 2:* The `memberDelete` command will call `model#getFilteredPersonList` to retrieve the members list.
+* *Step 3:* Next, the `memberDelete` command will call `lastShownList#get` from which the given index will be used to pin point the specific
+member in the `filteredPersonList`.
+* *Step 4:* Then, the `memberDelete` command will call `model#removeMemberFromAllAttendance` to remove the member from all actvities using the member's matriculation number.
+* *Step 5:* Afterwards, the `memberDelete` command will call `model#deletePerson` to delete the person from the Club Manager.
+* *Step 6:* Thereafter, the `memberDelete` command will call `model#commitAddressBook` to commit the changes to Club Manager.
+* *Step 7:* Finally, the `memberDelete` command provides a success message to indicate that the member has been successfully deleted from Club Manager.
+
+The following code snippet shows how `memberDelete` command is executed:
+[source,java]
+----
+@Override
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        requireNonNull(model);
+        List<Person> lastShownList = model.getFilteredPersonList(); # (1)
+
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX); # (2)
+        }
+
+        Person personToDelete = lastShownList.get(targetIndex.getZeroBased()); # (3)
+        model.removeMemberFromAllAttendance(personToDelete.getMatricNumber()); # (4)
+        model.deletePerson(personToDelete); # (5)
+        model.commitAddressBook();
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+    }
+----
+<1> Gets filtered person list
+<2> Checks if index is valid
+<3> Gets person from filtered person list
+<4> Gets person's matriculation number and removes it from all activities
+<5> Delete person from address book
+
+//end::memberdelete[]
+
+//tag::memberedit[]
+===== `memberEdit` Command
+The `memberEdit` command edits a member's information.
+
+Below is a step-by-step process on how the `memberEdit` command works on execution:
+
+* *Step 1:* The user executes the `memberEdit` command by specifying the index of the member that the user would like to edit, followed by the prefix and information to be overwritten.
+* *Step 2:* The `memberEdit` command will call `model#getFilteredPersonList` to retrieve the members list.
+* *Step 3:* Next, the `memberEdit` command will call `lastShownList#get` from which the given index will be used to pin point the specific
+member in the `filteredPersonList`.
+* *Step 4:* Then, the `memberEdit` command will call `createEditedPerson` to create a new member using the new information.
+* *Step 5:* Afterwards, the `memberEdit` command will call `model#SetPerson` to replace the outdated member in the Club Manager.
+* *Step 6:* Thereafter, the `memberEdit` command will call `model#updateFilteredPersonList` to update the filtered person list.
+* *Step 7:* Finally, the `memberDelete` command provides a success message to indicate that the member has been successfully deleted from Club Manager.
+
+The following code snippet shows how `memberEdit` command is executed:
+[source,java]
+----
+ @Override
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        requireNonNull(model);
+        List<Person> lastShownList = model.getFilteredPersonList(); # (1)
+
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX); # (2)
+        }
+
+        Person personToEdit = lastShownList.get(index.getZeroBased()); # (3)
+        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor); # (4)
+
+        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) { # (5)
+            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
+
+        model.setPerson(personToEdit, editedPerson); # (6)
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS); # (7)
+        model.commitAddressBook();
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+    }
+----
+<1> Gets filtered person list
+<2> Checks if index is valid
+<3> Gets person from filtered person list
+<4> Creates new person using new information
+<5> Checks if the new person created is the same as the old person
+<6> Replace old entry of person with updated person
+<7> Update filtered person list to show changes
+
+//end::memberedit[]
+
+//tag::memberfind[]
+===== `memberFind` Command
+The `memberFind` command finds all members in Club Manager that contain the keywords in their name or matricnum (as specified in command).
+
+Below is a step-by-step process on how the `memberFind` command works on execution:
+
+* *Step 1:* The user executes the `memberFind` command by specifying the criteria and keyword(s)of the member that the user would like to find.
+* *Step 2:* The `memberFind` command will call `model#getFilteredPersonList` to retrieve the members list of members whose name contains the name keywords or matricnum contains the matricnum keywords.
+* *Step 3:*  Finally, the `memberFind` command shows an overview of the number of members found, and displays the members found.
+
+The following code snippet shows how `memberFind` command is executed:
+[source,java]
+----
+@Override
+    public CommandResult execute(Model model, CommandHistory history) {
+        requireNonNull(model);
+
+        if (predicate.toString().equalsIgnoreCase("name")) { # (1)
+            model.updateFilteredPersonList(namePredicate); # (2)
+        } else if (predicate.toString().equalsIgnoreCase("matricnum")) { # (3)
+            model.updateFilteredPersonList(matricNumPredicate); # (4)
+        }
+        return new CommandResult(
+                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+    }
+----
+<1> Checks if criteria given is "name"
+<2> Updates filtered person list with members whose names contain the keyword
+<3> Checks if criteria given is "matricnum"
+<4> Updates filtered person list with members whose matriculation number contain the keyword
+
+//end::memberFind[]
+
 [discrete]
 //tag::membersort[]
 === MemberSort

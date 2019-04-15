@@ -278,6 +278,7 @@ image::memberAdd_added.png[width="1000"]
 
 //end::memberadd[]
 
+//tag::memberdelete[]
 ==== Deleting a member : `memberDelete` or `mDelete`
 
 Deletes the specified member from ClubManager. +
@@ -287,6 +288,7 @@ Format: `memberDelete INDEX`
 * Deletes the member at the specified `INDEX`.
 * The index refers to the index number shown in the displayed member list.
 * The index *must be a positive integer* 1, 2, 3, ...
+* Member will be deleted from activity attendance list as well.
 ****
 
 Examples:
@@ -297,7 +299,9 @@ Deletes the 2nd member in ClubManager.
 * `memberFind name Betsy` +
 `memberDelete 1` +
 Deletes the 1st member in the results of the `find` command.
+//end::memberdelete[]
 
+//tag::memberedit[]
 ==== Editing a member : `memberEdit` or `mEdit`
 
 Edits an existing member in ClubManager. +
@@ -310,7 +314,6 @@ The index *must be a positive integer* 1, 2, 3, ...
 * Existing values will be updated to the input values.
 * NOTE: Matriculation Number cannot be edited
 * You can remove all the member's tags by typing `t/` without specifying any tags after it.
-* You cannot change a member's Matriculation Number
 ****
 
 Examples:
@@ -320,6 +323,7 @@ Edits the phone number and email address of the 1st member to be `91234567` and 
 
 * `memberEdit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd member to be `Betsy Crower` and clears all existing tags.
+//end::memberedit[]
 
 //tag::memberfilter
 ==== Filtering member's list: `memberFilter or mFilter`
@@ -344,10 +348,11 @@ image::memberFilter.png[width=70%]
 
 //end::memberfilter[]
 
+//tag::memberfind[]
 ==== Locating members by name: `memberFind` or `mFind`
 
 Finds members whose names contain any of the given keywords. +
-Format: `memberFind CRITERIA KEYWORD [MORE_KEYWORDS]`
+Format: `memberFind CRITERIA KEYWORD [MORE_CRITERIA] [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -365,6 +370,7 @@ Returns `john` and `John Doe`
 Returns any member having names `Betsy`, `Tim`, or `John`
 * `memberFind matricnum A0` +
 Returns all members (matric num starts with A0)
+//end::memberfind[]
 
 //tag::memberlist[]
 ==== Listing members : `memberList` or `mList`
@@ -725,7 +731,7 @@ e.g. `mode member`
 e.g. `memberAdd n/James Ong mn/A0123456Y p/98765432 e/jamesong@example.com g/male yos/1 m/mathematics`
 * *Delete a member* : `memberDelete INDEX` +
 e.g. `memberDelete 3`
-* *Edit a member* : `memberEdit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [yos/YEAR_OF_STUDY] [m/MAJOR] [t/TAG]...` +
+* *Edit a member* : `memberEdit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [g/GENDER] [yos/YEAR_OF_STUDY] [m/MAJOR] [t/TAG]...` +
 e.g. `memberEdit 2 n/James Lee e/jameslee@example.com`
 * *Find a member* : `memberFind CRITERIA KEYWORD [MORE_CRITERIA] [MORE_KEYWORDS]` +
 e.g. `memberFind name John`

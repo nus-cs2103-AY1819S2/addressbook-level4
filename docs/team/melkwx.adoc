@@ -13,36 +13,34 @@ Club Manager is a desktop member management application used by committee member
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability of the find function to find members by name or matriculation number, case insensitive and a partial word match is allowed*
-** What it does: allows the user to find members using part or whole name or matriculation number, and multiple fields can also be entered. All members who fulfill the criteria will be returned.
-** Justification: This feature improves the product significantly because it makes searching for a member easier, making it distinct from the normal select function.
+* *Major enhancement*: Member List Management Functions
+
+** *What it does:*
+*** *Find* (`memberFind`): allows the user to find members using part or whole name or matriculation number, and multiple fields can also be entered. All members who fulfill the criteria will be returned.
+*** *Edit* (`memberEdit`): allows the user to edit all fields in the member information EXCEPT matriculation number.
+*** *Delete* (`memberDelete`): allows the user to delete member from memberList AND activityList with one simple command using list index.
+** *Justification:* Grants ease of CCA leaders looking up contact information of a particular member without scrolling through long lists, allows leaders to easily edit member information that is available to edit, as well as allow for clean delete from the Club Manager when the member graduates or has quit the club.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 ** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-* *Minor enhancement*: added contiansIgnoreCase function under StringUtil to allow for partial keyword match
+* *Minor enhancements*:
+** Added contiansIgnoreCase function under StringUtil to allow for partial keyword match, available for all to use, breaking restriction of only full word match
+** Find Criteria contains keywords predicate for others to follow to allow for multiple criteria and keywords to be input instead of single criteria multiple keywords
 ** Highlights: It negates the need to demand full word match and enables more effective search functions given a long list of members with may information fields.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://github.com/CS2103-AY1819S2-W13-2/main/commits?author=melkwx[Functional code]] [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=melkwx&sort=displayName&since=2019-02-10&until=2019-04-15&timeframe=day&reverse=false&repoSort=true[RepoSense]] _{give links to collated code files}_
 
 * *Other contributions*:
+* Actively reviewed documentation of teammates to make sure the documentation follows a similar structure.
+* Actively reviewed teammates' PRs to ease debugging process.
+* Corrected any team-related documentation issues.
+* Provided high-speed typing services for all demos.
+* Continuous morale booster and emotional support.
+* Tells everyone their code looks good.
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** Regularly reviewed PRs and commented.
+*** Reported bugs and suggestions for other teams in the class (W14-1)
 
 == Contributions to the User Guide
 
@@ -51,9 +49,11 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=commandsummary]
+include::../UserGuide.adoc[tag=introduction]
+include::../UserGuide.adoc[tag=memberedit]
+include::../UserGuide.adoc[tag=memberdelete]
+include::../UserGuide.adoc[tag=memberfind]
 
 == Contributions to the Developer Guide
 

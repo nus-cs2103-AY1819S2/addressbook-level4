@@ -677,6 +677,9 @@ Examples:
 `lc` +
 `undo` (adds back the deleted customer) +
 
+.Example for the `undo`command
+image::undo.png[width="800"]
+
 * `lc` +
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
@@ -696,6 +699,9 @@ Examples:
 * `delete-customer 1` +
 `undo` (adds back the deleted customer) +
 `redo` (deletes customer at index 1 again) +
+
+.Example for the `undo` and `redo` command
+image::undo-redo.png[width="800"]
 
 * `delete-customer 1` +
 `redo` +

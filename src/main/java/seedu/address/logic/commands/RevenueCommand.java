@@ -24,11 +24,11 @@ public class RevenueCommand extends Command {
     public static final String COMMAND_ALIAS = "r";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Gets the revenue from the specified year, month or day."
+            + ": Gets the revenue from the specified year, month or day. "
             + "Parameters: [y/YEAR [m/MONTH] [d/DAY]]]\n"
-            + "Example: " + COMMAND_WORD + " y/2019 or "
-            + COMMAND_WORD + "y/2019 m/12 or "
-            + COMMAND_WORD + "y/2019 m/12 d/30";
+            + "Example: " + COMMAND_WORD + " or " + COMMAND_WORD + " y/2019 or "
+            + COMMAND_WORD + " y/2019 m/12 or "
+            + COMMAND_WORD + " y/2019 m/12 d/30";
 
     public static final String MESSAGE_SUCCESS = "Revenue for ";
 

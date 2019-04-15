@@ -23,6 +23,9 @@ public class AddToMenuCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New menu item added: %1$s";
     public static final String MESSAGE_DUPLICATE_MENU_ITEM = "This item already exists in the menu";
     public static final String MESSAGE_INCORRECT_MODE = "Incorrect Mode, unable to execute command. Enter menuMode";
+    public static final String MESSAGE_TOO_MANY_ITEMS = "RestOrRant can only accommodate 200 menu items!\n"
+                                                                + "Currently there are %1$s menu items.";
+    public static final int MAX_ALLOWED_ITEMS = 200;
 
     private final MenuItem toAdd;
 
@@ -44,6 +47,11 @@ public class AddToMenuCommand extends Command {
 
         if (model.hasMenuItem(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_MENU_ITEM);
+        }
+
+        if (model.getRestOrRant().getMenu().getMenuItemList().size() >= MAX_ALLOWED_ITEMS) {
+            throw new CommandException(String.format(MESSAGE_TOO_MANY_ITEMS,
+                    String.valueOf(model.getRestOrRant().getMenu().getMenuItemList().size())));
         }
 
         model.addMenuItem(toAdd);

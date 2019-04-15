@@ -11,6 +11,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.Mode;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyRestOrRant;
+import seedu.address.model.table.ReadOnlyTables;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
 
@@ -19,7 +21,7 @@ import seedu.address.model.table.TableNumber;
  * Used to add, delete and edit order items for the table and call for bill.
  */
 public class TableModeCommand extends ChangeModeCommand {
-    public static final String COMMAND_WORD = "tableMode"; // change to standardize with other modes
+    public static final String COMMAND_WORD = "tableMode";
     public static final String COMMAND_ALIAS = "TM";
     public static final String MESSAGE_USAGE =
             COMMAND_WORD + ": Change to Table Mode for the specified table. " + "Parameters: TABLE_NUMBER\n"
@@ -44,7 +46,9 @@ public class TableModeCommand extends ChangeModeCommand {
             throw new CommandException(MESSAGE_INVALID_MODE_CHANGE);
         }
 
-        Optional<Table> tableOptional = model.getRestOrRant().getTables().getTableFromNumber(tableNumber);
+        ReadOnlyRestOrRant ror = model.getRestOrRant();
+        ReadOnlyTables tables = ror.getTables();
+        Optional<Table> tableOptional = tables.getTableFromNumber(tableNumber);
         if (!tableOptional.isPresent()) {
             throw new CommandException(MESSAGE_INVALID_TABLE_NUMBER);
         }

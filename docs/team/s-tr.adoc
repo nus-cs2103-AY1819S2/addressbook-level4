@@ -67,5 +67,8 @@ include::../UserGuide.adoc[tag=battle]
 |===
 
 include::../DeveloperGuide.adoc[tag=battle]
+include::../DeveloperGuide.adoc[tag=battle_aspect_1]
+include::../DeveloperGuide.adoc[tag=battle_aspect_2]
+include::../DeveloperGuide.adoc[tag=battle_aspect_3]
 
 ---

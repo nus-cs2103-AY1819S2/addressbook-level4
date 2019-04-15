@@ -37,7 +37,7 @@ This section provides the summary of the contributions that I have made to the p
 
 * *Major enhancement*: Added the *map feature* of the game. This includes the internal data structure of the map, the cells that make up the map and how they are displayed in the UI.
 
-** What it does: The player can initialise the maps to the size they specified. The players can place ships on their own map and shoot the opposing players map. The maps are displayed in the UI and each cell will change colour depending on its status. The initialise command can be used at any point in time during the game and will reset the board to a clean state.
+** What it does: The player can initialise the maps to the size they specified using the command `init`. The players can place ships on their own map and shoot the opposing players map. The maps are displayed in the UI and each cell will change colour depending on its status. The `init` command can be used at any point in time during the game and will reset the board to a clean state.
 ** Highlights: The other features (e.g placing ships) rely heavily on the map. It requires careful planning on the design as the other features must be built on top of it and any changes made later on will affect the other features.
 ** Justification: The maps are crucial to the gameplay as it is the basis of all of the game interactions.
 

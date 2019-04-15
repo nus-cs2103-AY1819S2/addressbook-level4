@@ -75,8 +75,8 @@ few seconds, as shown in <<ui>>.
 +
 .An illustration of how the TravelBuddy GUI looks
 [[ui]]
-[reftext="Figure 3.1.1"]
-[caption="Figure 3.1.1: "]
+[reftext="Figure 3.1"]
+[caption="Figure 3.1: "]
 image::Ui.png[width="400"]
 +
 .  Perform a quick test to verify that TravelBuddy works by typing in a command in the command box and press kbd:[Enter] to execute it.
@@ -242,8 +242,8 @@ the filepath `C:\Users\Michael\Pictures\castle-photo.jpg`.
 <<addPhotoBefore>> below shows TravelBuddy before the above example command is executed.
 
 [[addPhotoBefore]]
-[reftext="Figure 4.3.2.1"]
-[caption="Figure 4.3.2.1: "]
+[reftext="Figure 4.3.1.1"]
+[caption="Figure 4.3.1.1: "]
 .Before the `add` command is executed.
 image::addPhotoBefore.png[width="400"]
 
@@ -251,8 +251,8 @@ image::addPhotoBefore.png[width="400"]
 the newly added "Himeiji Castle" is selected.
 
 [[addPhotoAfter]]
-[reftext="Figure 4.3.2.2"]
-[caption="Figure 4.3.2.2: "]
+[reftext="Figure 4.3.1.2"]
+[caption="Figure 4.3.1.2: "]
 .After the `add` command is executed and the newly added "Himeiji Castle" is selected.
 image::addPhotoAfter.png[width="400"]
 
@@ -268,15 +268,15 @@ photo you would like to include:
 
 - *Step 3:* Select the Photo you would like to add.
 
-[reftext="Figure 4.3.3"]
-[caption="Figure 4.3.3: "]
+[reftext="Figure 4.3.1.3"]
+[caption="Figure 4.3.1.3: "]
 .Select the Photo you would like to add
 image::AddPhotoStep3.png[width="400"]
 
 - *Step 4:* Click on `Copy Path` at the top left corner of the File Explorer window.
 
-[reftext="Figure 4.3.4"]
-[caption="Figure 4.3.4: "]
+[reftext="Figure 4.3.1.4"]
+[caption="Figure 4.3.1.4: "]
 .Click on `Copy Path` at the top left corner File Explorer window
 image::AddPhotoStep4.png[width="400"]
 
@@ -335,7 +335,6 @@ Edits the rating and description of the 1st entry in the list to be `3` and `No 
 Edits the name of the 2nd entry in the list to be `Raffles Hotel` and clears all existing tags.
 
 <<editFigureBefore>> below shows the list of places before the `edit` command is used.
-// TODO: update screenshot.
 [[editFigureBefore]]
 [reftext="Figure 4.5.1"]
 [caption="Figure 4.5.1: "]
@@ -362,16 +361,16 @@ the `FILE_PATH` of the current photo with the `FILE_PATH` of the new photo.
 <<replacePhotoBefore>> below shows TravelBuddy before `edit` command is used to replace the current photo.
 
 [[replacePhotoBefore]]
-[reftext="Figure 4.5.3"]
-[caption="Figure 4.5.3: "]
+[reftext="Figure 4.5.1.1"]
+[caption="Figure 4.5.1.1: "]
 .Before the `edit` command is used to replace a photo.
 image::editPhotoBefore.png[width="400"]
 
 <<replacePhotoAfter>> below shows TravelBuddy after a new photo has been added to the place "Nanyang Technological University".
 
 [[replacePhotoAfter]]
-[reftext="Figure 4.5.4"]
-[caption="Figure 4.5.4: "]
+[reftext="Figure 4.5.1.2"]
+[caption="Figure 4.5.1.2: "]
 .After the `edit` command is used to replace a photo.
 image::editPhotoAfter.png[width="400"]
 

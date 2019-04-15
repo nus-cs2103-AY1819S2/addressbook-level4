@@ -216,13 +216,8 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the DocX data.
-* exposes an unmodifiable `ObservableList<Patient>` and ObeservableList<Doctor>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Patient>` and `ObeservableList<Doctor>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `DocX`, which `Patient` can reference. This would allow `DocX` to only require one `Tag` object per unique `Tag`, instead of each `Patient` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
 === Storage component
@@ -272,14 +267,14 @@ This section describes some noteworthy details on how certain features are imple
 
 === Patient Management Features
 
-Patients is one of the two valid types of Persons to be stored in the docX record.
+Patient is one of the two valid types of Person to be stored in the docX record.
 The following features are implemented for patients of docX:
 
 * Add patient
-* Edit existing patients
-* Delete patients
+* Edit existing patient
+* Delete patient
 * List all patients
-* Various search functions for patients
+* Various search functions for patient
 * Select patient
 
 ==== Add Patient feature
@@ -295,7 +290,7 @@ Steps: +
 
 . `Patient` constructor will invoke the constructor of the parent `Person` class, which will call `PersonIdCounter` to generate a new unique Pid for this patient.
 
-. A new `Patient` object is thus created with the specified fields with a pid and default appointment status of completed.
+. A new `Patient` object is thus created with the specified fields with a `pid` and default appointment status of `COMPLETED`.
 
 . Then, `AddPatientCommandParser` calls AddPatientCommand(Patient).
 
@@ -303,7 +298,7 @@ Steps: +
 
 . The execute() calls hasPatient() of `Model`. If patient does not exist in the current DocX, the `Model` will call addPatient() and the patient will be successfully added.
 
-.Sequence diagram where patient is successfully added
+.Simplified sequence diagram showing logic and model interaction when patient is successfully added
 image::AddPatientSdForLogic.png[width="700"]
 
 ==== Edit Patient feature
@@ -327,7 +322,7 @@ Steps: +
 
 . Then, the execute() command continues to check if the patientToEdit and the editedPatient are the same, and if `model` contains the editedPatient.
 
-. If both are the conditions are false, the `model` will set the editedPatient to replace the patientToEdit and the patient will be successfully edited.
+. If both of the conditions are false, the `model` will set the editedPatient to replace the patientToEdit and the patient will be successfully edited.
 
 ==== Delete Patient feature
 
@@ -359,13 +354,26 @@ When a user executes 'list-p', the full patient list will be displayed.
 
 . `LogicManager` calls execute() of `ListPatientCommand`.
 
-. execute() will call `Model` to `updateFilterPatientList` by setting the predicate to show all the patients in the DocX currently.
+. execute() will call `Model` to `updateFilteredPatientList` by setting the predicate to show all the patients in the DocX currently.
 
 ==== Search Patient feature
-There are various search commands available for patients. The internal workings of the search commands can be described under this section.
+There are various search commands available for patients. The internal workings of the search commands are similar and can be described together under this section.
 Search commands: `search-p-name, search-pid, search-p-status, search-p-advanced`.
 
-When a user executes `search-p-name`
+When a user executes `search-p-status ACTIVE`
+
+Steps: +
+
+. LogicManager calls parseCommand("search-p-status") in `DocXParser`.
+
+. Based on the COMMAND_WORD, `DocXParser` builds a new `SearchPatientApptStatusCommandParser` and calls function parse("ACTIVE") of `SearchPatientApptStatusCommandParser`.
+
+. `SearchPatientApptStatusCommandParser` parses the argument and checks if the entered argument is one of the four enum values: `ACTIVE, COMPLETED, CANCELLED, MISSED`.
+
+. If the entered argument is valid, the command proceeds to execute. Otherwise, it will throw a ParseException and display the correct command usage to the user.
+
+.Activity Diagram showing search-p-status
+image::activitydiagramforsearchpatientstatus.png[width="800"]
 
 ==== Select Patient feature
 When a user executes 'select-p [INDEX]', the full patient info will be displayed on the browser panel.

@@ -542,10 +542,6 @@ Examples:
 
 === General Features
 
-==== Viewing help : `help`
-
-Format: `help`
-
 // tag::nameUG[]
 ==== Personalising your food diary with your name: `name`
 
@@ -602,9 +598,30 @@ Examples:
 
 [NOTE]
 ====
-You will not be able to share the review to Facebook if you do not allow The Food Diary write permission to your Facebook account.
+You will not be able to share the review to Facebook if you do not give The Food Diary write permission to your Facebook account.
 ====
 // end::shareFB[]
+
+==== Undo a command : `undo`
+
+Undoes your last command. +
+Format: `undo`
+
+[NOTE]
+This command is only able to undo commands that made a change in the state of the Food Diary.
+i.e. Commands such as `select`, `list`, `listUnvisited` and `find` will not be able to be undone using this `undo` command.
+
+==== Redo a command : `redo`
+
+Redoes your `undo` command. +
+Format: `redo`
+
+[NOTE]
+This command is only able to redo a command that was undone by an `undo` command.
+
+==== Viewing help : `help`
+
+Format: `help`
 
 ==== Exiting the program : `exit`
 
@@ -638,6 +655,8 @@ e.g. `delete 1`
 * *list* : `list`
 * *listUnvisited* : `listUnvisited po/POSTAL_CODE` +
 e.g. `listUnvisited po/267951`
+* *sort* : `sort [or/ORDER] [l/LIMIT]`
+e.g. `sort or/ASC l/2`
 * *find* : `find KEYWORD [MORE_KEYWORDS]`
 e.g. `find KFC Chicken`
 * *select* : `select INDEX`
@@ -670,5 +689,7 @@ e.g. `view`
 
 Miscellaneous
 
+* *undo* : `undo`
+* *redo* : `redo`
 * *help* : `help`
 * *exit* : `exit`

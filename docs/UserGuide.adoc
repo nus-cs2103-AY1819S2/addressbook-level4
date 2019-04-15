@@ -959,7 +959,9 @@ to the `\data` folder of the app directory.
 |filters through the list of health workers by a criteria
 |_none_
 |`filter request/r/2`
-|any of the tags above belonging to request (i.e. filter by `n/` or `dt/` or `c/`)
+|any of the tags above belonging to request (i.e. filter by `n/` or `dt/` or `c/`). +
+
+new filterable tag after request is added - `st/ (request status)`
 |filters through the list of requests by a criteria
 |_none_
 |`delete request`
@@ -967,9 +969,9 @@ to the `\data` folder of the app directory.
 |deletes a request
 |_none_
 |`assign`
-|`hw/<index>` - `INDEX` of the health worker to be assigned +
+|`hw/<index>` - `INDEX` of the health worker to be assigned, required +
 
-`r/<index>` - `INDEX` of the request
+`r/<index>` - `INDEX` of the request, required
 |assigns a health worker to an open request
 |should a health worker be assigned to requests on the same date and time, it should be at least 2 hours apart.
 |`complete`

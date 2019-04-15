@@ -25,8 +25,8 @@ endif::[]
 :uri-addcommand: https://github.com/CS2103-AY1819S2-T12-4/main/pull/96
 :uri-refactorpdf: https://github.com/CS2103-AY1819S2-T12-4/main/pull/89/files
 :uri-remainingautotests: https://github.com/CS2103-AY1819S2-T12-4/main/issues/217
-:uri-historycommand: https://cs2103-ay1819s2-t12-4.github.io/main/UserGuide.html#command-history
-:uri-undoredocommand: https://cs2103-ay1819s2-t12-4.github.io/main/UserGuide.html#command-undo/redo
+:uri-historycommand: https://cs2103-ay1819s2-t12-4.github.io/main/DeveloperGuide.html#history-feature
+:uri-undoredocommand: https://cs2103-ay1819s2-t12-4.github.io/main/DeveloperGuide.html#undo-redo-feature-coming-in-v2-0
 :uri-model : https://cs2103-ay1819s2-t12-4.github.io/main/DeveloperGuide.html#Design-Model
 
 
@@ -378,7 +378,7 @@ image::DecryptCommandSequenceDiagram.png[width="800"]
 * Multiple adjustments to protect your interest
 
 . {uri-historycommand}[History] will not show the executed `EncryptCommand` which includes the password of the file.
-. The Undo/Redo feature is temporarily disabled until a solution that
+. The {uri-undoredocommand}[Undo/Redo] feature is temporarily disabled until a solution that
 will not comprise your privacy has been found.
 . Pressing up in the command box will not show the `EncryptCommand` that was previously executed.
 

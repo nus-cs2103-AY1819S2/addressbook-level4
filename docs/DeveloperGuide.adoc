@@ -982,7 +982,7 @@ https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/encrypti
 https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/encryption/StandardProtectionPolicy.html[_StandardProtectionPolicy_].
 
 [NOTE]
-An <<encrypted-file>> is a file that is protected with a password. The terms `protect` and `encrypt` will be used interchangeably.
+An <<encrypted-file, encrypted file>> is a file that is protected with a password. The terms `protect` and `encrypt` will be used interchangeably.
 
 You can visit <<Encryption feature>> and <<Decryption feature>> to understand more about the respective feature.
 

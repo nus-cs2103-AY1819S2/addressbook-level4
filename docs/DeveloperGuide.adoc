@@ -270,6 +270,8 @@ Steps: +
 
 . The execute() calls hasPatient() of `Model`. If patient does not exist in the current DocX, the `Model` will call addPatient() and the patient will be successfully added.
 
+image::AddPatientSdForLogic.png[width="700"]
+
 ==== List Patient feature
 When a user executes 'list-p', the full patient list will be displayed.
 

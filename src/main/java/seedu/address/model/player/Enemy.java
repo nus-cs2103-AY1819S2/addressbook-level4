@@ -18,8 +18,11 @@ import seedu.address.model.exceptions.BoundaryValueException;
 
 
 /**
- * Represents an Enemy player in the game.
- * Enemy will always be a computerised player.
+ * This class implements an {@code Enemy} {@code Player} in the game.
+ * The {@code Enemy} has {@code Player} as a parent.
+ * @author lucydotc
+ * @version 1.4
+ * @since 2019-03-05
  */
 public class Enemy extends Player {
 
@@ -42,9 +45,9 @@ public class Enemy extends Player {
     }
 
     /**
-     * Initialises and resets enemy's understanding of
-     * its own and the player's map grids.
-     * Used to inform the algorithms for populating enemy mapgrid and enemy shooting
+     * This method prepares the enemy for the game by generating the {@code Coordinates} it may use,
+     * and calls the method that will put the {@code Enemy}'s ships on its own map
+     * This method is required for the {@code Enemy} to function properly in the game
      */
     public void prepEnemy() {
         mapSize = this.getMapGrid().getMapSize();
@@ -53,7 +56,7 @@ public class Enemy extends Player {
         fillWithAllCoords();
         populateEnemyMap();
     }
-    /**************************************************
+    /**
      * fills allPossibleTargets, allPossiblePopulateCoords, allParityTargets
      * to inform the shooting and population functions
      */
@@ -73,10 +76,11 @@ public class Enemy extends Player {
         java.util.Collections.shuffle(allParityTargets, randGen);
     }
 
-    /**************************************************************
-     * Draws and returns valid Coordinate to be shot at.
-     * Adds Coordinates into targetHistory
-     * Called by battle manager
+    /**
+     * This method generates a valid {@code Coordinate} for the {@code Enemy} to shoot at.
+     * and adds the coordinate shot at into the Enemy's targetHistory
+     * This method is called by the BattleManager
+     * @return Coordinates
      */
     public Coordinates enemyShootAt() {
         Coordinates newTarget;
@@ -99,7 +103,7 @@ public class Enemy extends Player {
         return newTarget;
 
     }
-    /************************************************
+    /**
      * draws a valid Coord with parity filter on
      */
     private Coordinates drawParityTarget() {
@@ -108,7 +112,7 @@ public class Enemy extends Player {
     }
 
 
-    /************************************************
+    /**
      * draws a valid Coord with from watchlist
      */
     private Coordinates drawFromWatchList() {
@@ -125,7 +129,7 @@ public class Enemy extends Player {
     }
 
 
-    /**********************************************************************
+    /**
      * initialises the enemy mapGrid with its own ships randomly
      * is part of enemy constructor
      */
@@ -142,7 +146,7 @@ public class Enemy extends Player {
         placeMultipleDestroyerAndCruiser(numCruiser, "Cruiser", 2);
     }
 
-    /***********************************************************************
+    /**
      * pulls a head coord from allPossiblePopulateCoords
      * and justifies the coord before using it as a head for the aircraftCarrier
      * before placing the aircraftCarrier onto enemy map
@@ -175,7 +179,7 @@ public class Enemy extends Player {
                 + " orientation is " + useOrientation.toString()));
     }
 
-    /*****************************************************************************
+    /**
      * places all destroyers and cruisers onto enemy map
      * and marks those occupied cells in allPossiblePopulateCoords
      */
@@ -211,7 +215,7 @@ public class Enemy extends Player {
     }
 
 
-    /************************************************************************
+    /**
      * creates list of a certain battleship type
      * to be put on map
      */
@@ -225,7 +229,7 @@ public class Enemy extends Player {
         logger.info(String.format("++++++++GENERATED: " + preppedFleet.toString()));
         return preppedFleet;
     }
-    /***************************************************************
+    /**
      * removes all the occupied Coords from allPossiblePopulateCoords
      * when a new ship is placed
      */
@@ -251,7 +255,7 @@ public class Enemy extends Player {
         }
     }
 
-    /*****************************************************************
+    /**
      * justifies the head coord given to ensure
      * ship to be placed can fit the map boundaries
      */
@@ -278,7 +282,7 @@ public class Enemy extends Player {
     }
 
 
-    /********************************************************************************
+    /**
      * randomly generates either a horizontal or vertical orientation
      */
     private Orientation generateOrientation() {
@@ -291,7 +295,7 @@ public class Enemy extends Player {
         }
     }
 
-    /*********************************************************************
+    /**
      * receives status of an attacked cell from Battle manager
      */
     public void receiveStatus(Status latestStatusInfo) {
@@ -302,7 +306,7 @@ public class Enemy extends Player {
     }
 
 
-    /*************************************************************************
+    /**
      * Add coords of the cardinal positions to the last attacked cell
      * to the watchlist
      */
@@ -322,14 +326,14 @@ public class Enemy extends Player {
                 updatedCoord = new Coordinates(oldRow - 1, oldCol);
                 addCardinal(updatedCoord);
             }
-            if (oldCol - 1 >= 0) {
-                //add cardinal WEST to watchlist   COL MINUS ONE
-                updatedCoord = new Coordinates(oldRow, oldCol - 1);
-                addCardinal(updatedCoord);
-            }
             if (oldRow + 1 < mapSize) {
                 //add cardinal SOUTH to watchlist  ROW PLUS ONE
                 updatedCoord = new Coordinates(oldRow + 1, oldCol);
+                addCardinal(updatedCoord);
+            }
+            if (oldCol - 1 >= 0) {
+                //add cardinal WEST to watchlist   COL MINUS ONE
+                updatedCoord = new Coordinates(oldRow, oldCol - 1);
                 addCardinal(updatedCoord);
             }
             if (oldCol + 1 < mapSize) {
@@ -349,8 +353,8 @@ public class Enemy extends Player {
 
     }
 
-    /******************************************************8
-     *jkljkkjl
+    /**
+     * Adds the North South East West coordinates into the watchlist, if valid
      */
     private void addCardinal(Coordinates updatedCoord) {
         if (isValidCardinal(updatedCoord)) {
@@ -359,7 +363,7 @@ public class Enemy extends Player {
         }
     }
 
-    /******************************************************8
+    /**
      * Checks that the cardinal coordinate has never been hit before
      */
     private boolean isValidCardinal(Coordinates useCoord) {
@@ -373,7 +377,7 @@ public class Enemy extends Player {
         }
     }
 
-    /******************************************************8
+    /**
      * Remove the last used coord
      * from allParityTargets and allPossibleTargets
      */
@@ -388,9 +392,12 @@ public class Enemy extends Player {
         lastCoordAttacked = usedCoord;
     }
 
-    /*************************************************************
-     * checks that coord is made up of one odd and one even x-y coordinate pair
+    /**
+     * This method checks that the {@code Coordinate} is made up of one odd and one even x-y coordinate pair
      * and returns true if so
+     * @param row The row of the {@code Coordinate} to be checked
+     * @param col The col of the {@code Coordinate} to be checked
+     * @return boolean
      */
     public boolean hasParity (int row, int col) {
 
@@ -398,7 +405,7 @@ public class Enemy extends Player {
         return (parity == 1);
     }
 
-    /*************************************************************
+    /**
      *  puts everything back from the stack to the drawing bags
      *  Idea here is that once something is destroyed,1
      *  everything on the stack should have been adj to the destroyed ship
@@ -415,20 +422,38 @@ public class Enemy extends Player {
         }
     }
 
+    /**
+     * This a getter method that returns the last attack status given to the {@code Enemy}
+     * @return Status
+     */
     public Status getLastAttackStatus() {
         return this.lastAttackStatus;
     }
+    /**
+     * This a getter method that returns all possible targets for the {@code Enemy}
+     * @return ArrayList
+     */
     public ArrayList<Coordinates> getAllPossibleTargets() {
         return this.allPossibleTargets;
     }
-
+    /**
+     * This a getter method that returns all the targets with parity from the {@code Enemy}
+     * @return ArrayList
+     */
     public ArrayList<Coordinates> getAllParityTargets() {
         return this.allParityTargets;
     }
-
+    /**
+     * This a getter method that returns all the possible coordinates to place a ship from {@code Enemy}
+     * @return ArrayList
+     */
     public ArrayList<Coordinates> getAllPossiblePopulateCoords() {
         return this.allPossiblePopulateCoords;
     }
+    /**
+     * This a getter method that returns the watchlist from the {@code Enemy}
+     * @return Stack
+     */
     public Stack getWatchlist() {
         return this.watchlist;
     }

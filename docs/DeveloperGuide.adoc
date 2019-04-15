@@ -308,7 +308,6 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::filter[]
 === Filter or/and/clear/reverse feature
 
 *Usage Format Regarding Current Implementation:*
@@ -473,29 +472,10 @@ The testing methods for filtering is written for 3 different parts:
 * This test class contains integration tests and investigates the interaction of `FilterCommand` with: `UndoCommand`, `RedoCommand`, `AddCommand`, `DeleteCommand`,`SortCommand`, `FindCommand`, `SelectCommand`, and cases, when all of them are together.
 * Each test case at least contains filtering with `or - success` or `and - success`, `clear - success` and `clear - failure`, `reverse - success` and `reverse - failure`.
 * Also for every interacting command, *failure* and *success* cases are both investigated.
+
+[TIP]
+Since add command changes the list and filter criterion applied before is not saved in any parameter, adding someone automatically clears the filter.
 // end::filter[]
-
-// tag::filtercontinue[]
-==== Combining the Command With Other Commands
-
-Since a new parameter is added to the `AddressBook` class, some changes should have done to adjust the existing processes to
-be used at the same time with filtering commands.
-
-===== Undo/Redo Command
-
-* A new local boolean parameter is added to the `AddressBook` class to hold if in that step the filtering exists or not. This addition is important for not losing the filtering information, not losing the storage data as a result of `undo/redo` processes, when filtering is active and being able to use `clearFilter()`, if undo and redo commands are used when filtering is active.
-* `resetData` method is modified in order to reset the `allPersonsStorage` parameter if needed.
-
-===== Add, Edit and Delete Commands
-
-* `delete` and `edit` processes are working without clearing the filter.
-* `add` method clears the filter when a new person is added. Because, all the previous filtering are not saved in anywhere, so we cannot control if the newly added person matches
-with the filtering criterion. Thus, all the filtering is cleared.
-
-===== Other Commands
-
-These are the ones that requires almost no changes or only small amount of changes to be compatible with filtering.
-// end::filtercontinue[]
 
 // tag::sort[]
 === Sort Commands

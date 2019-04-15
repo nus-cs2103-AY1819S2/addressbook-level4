@@ -26,7 +26,7 @@ Club Manager is catered for *CCA leaders* and is used for managing CCA members a
 * *Minor enhancements*:
 ** A checksum generator has been implemented to ensure that all members have valid matric numbers.
 ** Colored tags which follows the color theme of Club Manager.
-* *Code contributed*: [https://github.com/CS2103-AY1819S2-W13-2/main/commits?author=joel0111[Functional code]] [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=joel0111&sort=displayName&since=2019-02-10&until=2019-04-12&timeframe=day&reverse=false&repoSort=true[RepoSense]]
+* *Code contributed*: [https://github.com/CS2103-AY1819S2-W13-2/main/commits?author=joel0111[Functional code]] [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=joel0111&sort=displayName&since=2019-02-10&until=2019-04-14&timeframe=day&reverse=false&repoSort=true[RepoSense]]
 
 *Other Contributions:*
 
@@ -77,3 +77,7 @@ include::../DeveloperGuide.adoc[tag=memberselect]
 
 include::../DeveloperGuide.adoc[tag=membersort]
 
+|===
+|_Some of the contributions to the user guide and developer guide have been omitted for brevity.
+Please visit W13-2 user guide and developer guide for full details._
+|===

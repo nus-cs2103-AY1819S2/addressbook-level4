@@ -877,7 +877,7 @@ customers' orders and automatically save the revenue in the restaurant's statist
  command.
 Other commands like <<Trends, `yearly`>>, <<Trends, `monthly`>>, <<Trends, `daily`>> and <<Revenue, `revenue`>>
 commands allow the manager to retrieve and study the restaurant's statistical data trends. +
-
+// end::statisticsintro[]
 // tag::statisticsclasses[]
 [[StatsClasses]]
 ==== Classes for Statistics feature in Model
@@ -904,7 +904,8 @@ The Statistics Class Diagram below shows the relationship between the classes.
 .Statistics Class diagram in Model component
 image::Statistics_ModelClassDiagram.png[width="700"]
 
-// end::statisticsintro[]
+
+// end::statisticsclasses[]
 // tag::statisticsstorage[]
 [[StatsStorage]]
 ==== Design Considerations for Statistics Storage
@@ -930,6 +931,7 @@ Hence, we did not see the need to store receipts in the storage and chose this d
 |=======================================================================
 
 // end::statisticsstorage[]
+
 // tag::bill[]
 [[Bill]]
 ==== Billing an order
@@ -1152,12 +1154,12 @@ When the user enters the `revenue` command, the command is parsed and a [.java]#
 [.java]#RevenueCommand#execute()# is then called, which in turn calls [.java]#Model#getFilteredRevenueList()# to
 obtain the list of revenue stored in the Storage. To create convenience and efficiency in the execution of the
 `revenue` command, 4 different types of argument combinations are provided for the users to obtain the desired revenue.
-The activity diagram illustrates the cause of actions for different argument inputs.
+The diagram below illustrates the internal flow of actions for different argument inputs.
 
-.Revenue Activity Diagram
+.Revenue Internal Flow Diagram
 image::Revenue_ActivityDiagram.png[]
 
-The above activity diagram summarizes the overall implementation of [.java]#RevenueCommand#. Depending on the user
+The above diagram summarizes the overall implementation of [.java]#RevenueCommand#. Depending on the user
 arguments, the function creates a new [.java]#Revenue# and iterate through the revenue list to search for revenue of
 the same year, month or day. If the revenue is the same as the new [.java#]Revenue#, its total revenue is added to the
 new [.java]#Revenue#. After which, the new [.java]#Revenue# is used to generate the [.java]#CommandResult# output

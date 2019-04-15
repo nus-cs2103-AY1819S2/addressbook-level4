@@ -469,9 +469,9 @@ Step 5. `CurrentEdit#displayTempImage()` is called to display the opened image o
 * *Alternative 2* : The user can open and edit multiple images.
 ** Advantage: Images can be edited simultaneously.
 ** Disadvantages:
-*** `open` has to distinguish whether the user is opening an image from `assets` or `temp` directory.
+*** Hard to distinguish whether the user is opening an image from `assets` or `temp` directory.
 *** Requires many duplicates with different temporary names.
-*** Might be confusing for the user.
+*** May be confusing for the user.
 
 Alternative 1 was chosen as it is less complicated, requires lesser space and more user-friendly.
 // end::DGOpen[]

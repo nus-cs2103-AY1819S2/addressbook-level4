@@ -88,7 +88,7 @@ Alternatively, press kbd:[F1] to display usage information on all commands.
 Changes the theme from light to dark vice versa. +
 Format: `changeTheme`
 
-// tag::start[]
+// tag::lei[]
 [[start]]
 ==== Starting a quiz session: `start`
 
@@ -114,7 +114,7 @@ The `start` command only works when there is no opened lesson in the system. Oth
 
 [NOTE]
 ====
-In review mode, flashcards are tested based on the link:https://en.wikipedia.org/wiki/Spaced_repetition[Space-Repetition technique].
+Only in review mode, flashcards are tested based on the link:https://en.wikipedia.org/wiki/Spaced_repetition[Space-Repetition system].
 ====
 
 Examples:
@@ -136,7 +136,8 @@ Starting a quiz session with multiple lessons [coming in v2.0]
 * You can start a quiz session with cards from more than one lesson. The sequence of cards will be random instead of following the sequence of lessons to increase the difficulty for you to memorize.
 * Example: `start 1 2 c/5 c/5 m/learn`
 ** Starts a quiz with 5 words from the first lesson and 5 words from the second lesson in `LEARN` mode.
-// end::start[]
+
+//end::lei[]
 
 // tag::evan[]
 [[listLessons]]

@@ -27,7 +27,8 @@ import seedu.address.model.person.Seller;
 import seedu.address.model.person.Tenant;
 
 /**
- * A utility class containing a list of {@code Person} objects to be used in tests.
+ * A utility class containing a list of {@code Buyer} {@code Seller} {@code Landlord} {@code Tenant}objects
+ * to be used in tests.
  */
 public class TypicalPersons {
 

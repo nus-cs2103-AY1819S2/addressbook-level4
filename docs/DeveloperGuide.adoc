@@ -659,7 +659,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |clean user |delete a contact |remove entries that I no longer need
 
-|`* * *` |efficient user |find a contact by using any details (e.g. name/phone/tags etc.) |locate details of contacts without having to go through the entire list
+|`* * *` |efficient user |search for a contact by using any details (e.g. name/phone/tags etc.) |locate details of contacts without having to go through the entire list
 
 |`* * *` |real estate agent |add property information to each contact |link my customers to the property that they buying/selling/renting
 
@@ -832,12 +832,12 @@ Use case resumes at step 1.
 Use case resumes at step 1.
 
 [discrete]
-=== Use case: Find contact
+=== Use case: Search for contact
 
 *MSS*
 
-1. User requests to find a contact by entering keyword(s).
-2. TheRealApp shows a list of contacts containing the keywords(s).
+1. User requests to search for a contact by entering keyword(s).
+2. TheRealApp shows a list of contacts with information containing the keywords(s).
 +
 Use case ends.
 
@@ -1112,12 +1112,12 @@ Use case resumes at step 1.
 Use case resumes at step 1.
 
 [discrete]
-=== Use case: Find archived contact
+=== Use case: Search for archived contact
 
 *MSS*
 
-1. User requests to find an archived contact by entering keyword(s).
-2. TheRealApp shows a list of archived contacts containing the keywords(s).
+1. User requests to search for an archived contact by entering keyword(s).
+2. TheRealApp shows a list of archived contacts with information containing the keywords(s).
 +
 Use case ends.
 

@@ -109,7 +109,7 @@ It also needs to be responsible for view switching.
 ** Wrote additional tests for existing features to increase coverage from 89% to 92% (Pull request https://github.com/CS2103-AY1819S2-W11-3/main/pull/189[#189])
 ** Fixed UI bugs in PlaceListCard and PlaceListPanel (Pull request https://github.com/CS2103-AY1819S2-W11-3/main/pull/107[#107])
 * *Documentation*:
-** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Help rewrite the intro of the User Guide: https://github.com/CS2103-AY1819S2-W11-3/main/pull/178/commits/44c3b11e3a882874c1ca3631162e6003746a75aa[#178]
 * *Community*:
 ** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W11-3/main/pull/190[#190], https://github.com/CS2103-AY1819S2-W11-3/main/pull/187[#187]
 ** Reported bugs on TravelBuddy (examples:  https://github.com/CS2103-AY1819S2-W11-3/main/issues/66[#66], https://github.com/CS2103-AY1819S2-W11-3/main/issues/172[172])
@@ -146,6 +146,10 @@ include::../UserGuide.adoc[tag=editphoto]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+=== UI Architecture
+
 include::../DeveloperGuide.adoc[tag=uiArchitecture]
+
+=== Photos Features
 
 include::../DeveloperGuide.adoc[tag=photosFeature]

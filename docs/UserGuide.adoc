@@ -203,10 +203,10 @@ A place can have any number of tags (including 0 tags).
 [[attachPhotoFeature]]
 ==== Including a photo when adding a place with `p/`
 
-*Description:* The `add` command can also include attach a single photo
+*Description:* The `add` command can also attach a single photo
 when adding a new place to TravelBuddy.
 
-The photo must be a image file that already exists in your computer.
+The photo must be an image file that already exists in your computer.
 
 *Format:*
 [width="100%",cols="20%,20%,<60%"]
@@ -238,17 +238,17 @@ the filepath `C:\Users\Michael\Pictures\castle-photo.jpg`.
 [[addPhotoBefore]]
 [reftext="Figure 4.3.2.1"]
 [caption="Figure 4.3.2.1: "]
-.Before the `add` command is executed
-image::addPhotoBefore.png[width="400"]
+.Before the `add` command is executed.
+image::addPhotoBefore.png[width="600"]
 
 <<addPhotoAfter>> below shows TravelBuddy after the above example command is executed, and
-the newly added Place "Himeiji Castle" is selected
+the newly added "Himeiji Castle" is selected.
 
 [[addPhotoAfter]]
 [reftext="Figure 4.3.2.2"]
 [caption="Figure 4.3.2.2: "]
-.After the `add` command is executed and the newly added Place "Himeiji Castle" is selected
-image::addPhotoAfter.png[width="400"]
+.After the `add` command is executed and the newly added "Himeiji Castle" is selected.
+image::addPhotoAfter.png[width="600"]
 
 ****
 
@@ -353,7 +353,7 @@ image::editCommandAfter.png[width="400"]
 
 ==== Replacing the photo of a place with `edit p/`
 
-The `Edit` command can also be used to change the photo of a place by replacing
+The `edit` command can also be used to change the photo of a place by replacing
 the `FILE_PATH` of the current photo with the `FILE_PATH` of the new photo.
 
 <<replacePhotoBefore>> below shows TravelBuddy before `edit` command is used to replace the current photo.
@@ -361,22 +361,22 @@ the `FILE_PATH` of the current photo with the `FILE_PATH` of the new photo.
 [[replacePhotoBefore]]
 [reftext="Figure 4.5.3"]
 [caption="Figure 4.5.3: "]
-.Before the `edit` command is used to replace a photo
+.Before the `edit` command is used to replace a photo.
 image::editPhotoBefore.png[width="400"]
 
-<<replacePhotoAfter>> below shows TravelBuddy after a new photo has been added to the place "Nanyang Technological University"
+<<replacePhotoAfter>> below shows TravelBuddy after a new photo has been added to the place "Nanyang Technological University".
 
 [[replacePhotoAfter]]
 [reftext="Figure 4.5.4"]
 [caption="Figure 4.5.4: "]
-.After the `edit` command is used to replace a photo
+.After the `edit` command is used to replace a photo.
 image::editPhotoAfter.png[width="400"]
 
 ****
-*Examples:* Given below is an example of using `Edit` to replace a photo:
+*Examples:* Given below is an example of using `edit` to replace a photo:
 
 * `edit 3 p/C:\Users\Michael\Pictures\Wallpapers\Zion National Park 1.jpg` +
-Replaces the current photo of 3rd Place Entry with the photo named `Zion National Park 1.jpg`
+Replaces the current photo of 3rd Place entry with the photo named `Zion National Park 1.jpg`
 ****
 
 [NOTE]
@@ -827,36 +827,40 @@ TravelBuddy data is saved in the hard disk automatically after any command that 
 == Frequently Asked Questions (FAQ)
 
 === Setting Up
-*Q*: Can the application be used even without internet connection? +
-*A*: Yes, the application works without internet connection.
+*Q*: *Can TravelBuddy be used without an internet connection?* +
+*A*: Yes, TravelBuddy works without an internet connection.
 
-*Q*: How do I import data from another TravelBuddy? +
-*A*: Overwrite the empty data file in your computer with the data file of the other TravelBuddy.
-
-*Q*: Why is my address book empty? +
+*Q*: *Why is my TravelBuddy empty?* +
 *A*: If you are just starting out, TravelBuddy will be empty for you to add places that you have been to.
-If you have been using it frequently, please refer to Data and Storage Issues.
+If you have already added places to TravelBuddy, there is likely an issue with your `TravelBuddy.json` data file.
+Please refer to the section below.
 
 === Data and Storage Issues
-*Q*: How do I transfer my data to another computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous TravelBuddy folder.
+*Q*: *How do I transfer my data to another computer?* +
+*A*: First, install the TravelBuddy on the other computer. +
+Next, copy the `TravelBuddy.json` data file from your current TravelBuddy. It is located in the same folder as the `TravelBuddy.jar` program. +
+Finally, paste the `TravelBuddy.json` data file in the folder of your new `TravelBuddy.jar` program. When a warning box appears with the messages
+"There is already a file with the same name in this location.", select "Copy and Replace".
 
-*Q*: How do I send my address book to another person? +
-*A*: Send the person (via E-mail or messenger applications) your file that contains the data of your TravelBuddy folder.
+*Q*: *How do I send my TravelBuddy to someone else?* +
+*A*: You can send the person (via E-mail or messenger applications) your `TravelBuddy.json` data file. It is located in the same folder as the `TravelBuddy.jar` program.
 
-*Q*: Can I retrieve the data from when I just launched the application? +
-*A*: Repeatedly use the `undo` command until there are no further commands to undo.
+*Q*: *Can I reset my TravelBuddy to the state it was when I first launched the application?* +
+*A*: You can simply repeatedly run the `undo` command until there are no further commands to undo.
 
-*Q*: Why is my address book empty? +
-*A*: If you are just starting out, please refer to Setting Up section. An empty TravelBuddy means that your data has been cleared either by commands or invalid json file.
-Please do check the file that contains the data of your TravelBuddy.
+*Q*: *Why is my TravelBuddy empty?* +
+*A*: If you are just starting out, please refer to Setting Up section. Otherwise, an empty TravelBuddy may mean that your data has been cleared by commands,
+or the `TravelBuddy.json` data file is missing or corrupted. +
+
+Please check that the file is located in the same folder as the `TravelBuddy.jar` program executable, and
+the file can be opened by a text editor such as NotePad.
 
 === Command Issues
 
-*Q*: How do I view the full address book after searching or selecting an entry? +
-*A*: Use the command `list` to retrieve the full address book.
+*Q*: *How do I view the full TravelBuddy after searching or selecting an entry?* +
+*A*: You can use the command `list` to retrieve the full TravelBuddy.
 
-*Q*: What details do I need for the `add` command? +
+*Q*: *What details do I need for the `add` command?* +
 *A*: The following details are required for a valid `add` command:
 
 * Name of the place (Prefix: `n/`)
@@ -866,16 +870,16 @@ Please do check the file that contains the data of your TravelBuddy.
 * Description of the place (Prefix: `d/`)
 * Address of the place (Prefix: `a/`)
 
-*Q*: What details are optional for the `add` command? +
+*Q*: *What details are optional for the `add` command?* +
 *A*: The following details are optional for a valid `add` command:
 
 * Tags of the place (Prefix: `t/`)
 * Filepath of the photo file for the place (Prefix: `p/`)
 
-*Q*: Why does the `undo` command not work? +
+*Q*: *Why does the `undo` command not work?* +
 *A*: The `undo` command only reverses the commands `add`, `delete`, `deletem`, `edit` and `clear`.
 
-*Q*: Why does the `undo` command reverse a command from multiple commands before? +
+*Q*: *Why does the `undo` command reverse a command from multiple commands before?* +
 *A*: The `undo` command reverses the last used `add`, `delete`, `deletem`, `edit` or `clear` command.
 
 // tag::cheatsheet[]

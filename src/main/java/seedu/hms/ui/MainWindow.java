@@ -1,5 +1,7 @@
 package seedu.hms.ui;
 
+import java.util.ArrayList;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -12,11 +14,13 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.hms.commons.core.GuiSettings;
 import seedu.hms.commons.core.LogsCenter;
+import seedu.hms.commons.core.index.Index;
 import seedu.hms.logic.Logic;
 import seedu.hms.logic.LogicManager;
 import seedu.hms.logic.commands.CommandResult;
 import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.logic.parser.exceptions.ParseException;
+import seedu.hms.logic.stats.Stats;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -42,6 +46,7 @@ public class MainWindow extends UiPart<Stage> {
     private ServiceTypeAndRoomTypePanel serviceTypeAndRoomTypePanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatsWindow statsWindow;
 
     @FXML
     private StackPane serviceTypeAndRoomTypePlaceholder;
@@ -77,6 +82,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        statsWindow = new StatsWindow(new Stats(this.logic.getHotelManagementSystem()));
     }
 
     public Stage getPrimaryStage() {
@@ -185,6 +191,19 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the stats window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleStats(Optional<ArrayList<Index>> optionalIndexList) {
+        statsWindow.update(optionalIndexList);
+        if (!statsWindow.isShowing()) {
+            statsWindow.show();
+        } else {
+            statsWindow.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -198,6 +217,7 @@ public class MainWindow extends UiPart<Stage> {
             (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        statsWindow.hide();
         primaryStage.hide();
     }
 
@@ -247,6 +267,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
+            }
+
+            if (commandResult.isShowStats()) {
+                handleStats(commandResult.getIndexList());
             }
 
             if (commandResult.isExit()) {

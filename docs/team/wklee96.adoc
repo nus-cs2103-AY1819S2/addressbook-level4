@@ -1,9 +1,10 @@
-= Lee Wei Kang - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 4
+image::
+= Lee Wei Kang - Project Portfolio
+== PROJECT: The Food Diary
 
 ---
 

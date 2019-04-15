@@ -1,0 +1,67 @@
+= Lim Shao Hong - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: GradTrak
+
+---
+
+== Overview
+
+My team was tasked with enhancing a basic command line interface (CLI) AddressBook for our Software Engineering project.
+We decided to morph it into a school module tracker called GradTrak. +
+GradTrak is an application designed for students of National University of Singapore (NUS) to easily plan and track modules as well as check them against the graduation requirements. +
+The user interacts with GradTrak mainly through the CLI, but it also has a Graphical User Interface (GUI) created with JavaFX. It is written in Java and has more than ten thousand lines of code.
+
+My role was to design and write the codes for the module recommendation feature, and to enhance the existing module finding feature.
+The following sections illustrate these contributions in more detail, as well as the relevant sections I have added to the User Guide and Developer Guide.
+
+== Summary of contributions
+
+This section summarises my coding and other helpful contributions to GradTrak.
+
+* *Major enhancement*: added a *module recommendation* feature
+** _What it does:_ This feature displays a list of modules which the user is recommended to read based on existing GradTrak modules and graduation requirements specific to the user's course of study.
+The list is sorted primarily by the priority of the requirement type satisfied by the recommended module, and secondarily by the level of the module.
+** _Justification:_ This feature significantly benefits users who are unfamiliar with the exact graduation requirements of their course, or are unsure of what modules to read for future semesters.
+They can simply pick a high-priority module near the top of the recommendation list -- this module already has its prerequisites satisfied, contributes to their graduation requirements and
+will likely serve as a prerequisite for higher level modules. This allows users to plan their modules systematically so that they are on the right track towards graduation.
+** _Highlights:_ The implementation of this feature was challenging as it requires interactions with many components of GradTrak. It needs to retrieve information of all NUS modules,
+check each module for its preclusions or prerequisites in the user's module list, and determine whether it contributes to the user's course requirements and if so, the requirement type of highest priority that it satisfies.
+In particular, it was necessary to liaise with the implementation of the graduation-checking feature to ensure that the recommended modules actually bring the user closer to graduation.
+
+
+* *Minor enhancement*: added additional parameters for the module finding feature, allowing the user to search GradTrak modules by
+module code, semester, grade or finished status.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=lshwayne96[Project Code Dashboard]]
+
+* *Other contributions*:
+** Project management:
+*** Managed release `v1.3` on Github (https://github.com/cs2103-ay1819s2-w14-4/main/releases[releases])
+*** Added user stories on Github (https://github.com/cs2103-ay1819s2-w14-4/main/issues/67[example])
+** Documentation:
+*** Helped to proofread and polish the language of the User Guide and Developer Guide
+*** Edited some old diagrams from AddressBook for the purpose of GradTrak (https://github.com/cs2103-ay1819s2-w14-4/main/pull/80[#80])
+** Community:
+*** Helped with my teammates' features (checking of prerequisites and graduation requirements) which are closely related to mine (https://github.com/cs2103-ay1819s2-w14-4/main/pull/91/files[#91], https://github.com/cs2103-ay1819s2-w14-4/main/pull/100[#100], https://github.com/cs2103-ay1819s2-w14-4/main/pull/172[#172])
+*** Reported bugs and suggested improvements for other teams in the class (e.g. https://github.com/CS2103-AY1819S2-T12-2/main/issues/64[1], https://github.com/CS2103-AY1819S2-T12-2/main/issues/68[2], https://github.com/CS2103-AY1819S2-T12-2/main/issues/71[3])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=rec]
+
+include::../UserGuide.adoc[tag=find]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=rec]

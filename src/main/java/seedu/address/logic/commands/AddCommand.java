@@ -8,10 +8,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_INFO_CODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduletaken.ModuleTaken;
+import seedu.address.model.moduletaken.Workload;
 
 /**
  * Adds a moduleTaken to the GradTrak.
@@ -20,7 +23,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a moduleTaken to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a moduleTaken to GradTrak. "
             + "Parameters: "
             + PREFIX_MODULE_INFO_CODE + "ModuleInfoCode "
             + PREFIX_SEMESTER + "SEMESTER "
@@ -55,6 +58,31 @@ public class AddCommand extends Command {
         if (model.hasModuleTaken(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
+
+        if (toAdd.getExpectedMinGrade().getGradePoint()
+                > toAdd.getExpectedMaxGrade().getGradePoint()) {
+            throw new CommandException(Messages.MESSAGE_GRADES_OUT_OF_ORDER);
+        }
+
+        if (!toAdd.getExpectedMaxGrade().isCountedInCap()) {
+            throw new CommandException(Messages.MESSAGE_MAX_GRADE_MUST_BE_COUNTED);
+        }
+
+        if (!toAdd.getExpectedMinGrade().equals(toAdd.getExpectedMaxGrade())
+                && toAdd.getSemester().getIndex() < model.getCurrentSemester().getIndex()) {
+            throw new CommandException(Messages.MESSAGE_GRADES_NOT_FINALIZED_BEFORE_SEMESTER);
+        }
+
+        ModuleInfo moduleInfo = model.getModuleInfoList().getModule(String.valueOf(toAdd.getModuleInfoCode()));
+        if (moduleInfo != null) {
+            toAdd.setWorkload(new Workload(moduleInfo.getModuleInfoWorkload()));
+        }
+        /*
+        else {
+            //TODO fix the tests
+            throw new CommandException(Messages.MESSAGE_MODULE_DOES_NOT_EXIST);
+        }
+        */
 
         model.addModuleTaken(toAdd);
         model.commitGradTrak();

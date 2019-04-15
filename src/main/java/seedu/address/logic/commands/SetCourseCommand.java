@@ -14,11 +14,11 @@ public class SetCourseCommand extends Command {
 
     public static final String COMMAND_WORD = "study";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + "Sets the user's course. \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets the user's course. \n"
             + "Parameters: \n"
             + "Computer Science Algorithms - sets course to Computer Science algorithm\n"
-            + "Computer Science AI - sets course to Computer Science AI\n"
-            + "Computer Science Software Eng - sets course to Computer Science Software Engineering\n";
+            + "Computer Science Artificial Intelligence - sets course to Computer Science AI\n"
+            + "Computer Science Software Engineering - sets course to Computer Science Software Engineering\n";
 
     public static final String MESSAGE_SUCCESS = "Course is set to %s";
     public static final String MESSAGE_CANNOT_FIND_COURSE = "Course %s is not found";

@@ -1,5 +1,7 @@
 package seedu.address;
 
+import static seedu.address.model.util.SampleCourse.getSampleCourseList;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -100,7 +102,8 @@ public class MainApp extends Application {
         try {
             allCourseListOptional = courseManager.readCourseFile();
             if (!allCourseListOptional.isPresent()) {
-                logger.info("File for all courses not found! Starting with sample course List");
+                logger.info("File for all courses not found! Starting with sample course list");
+
             }
             userInfoOptional = userInfoStorageManager.readUserInfoFile();
             if (!userInfoOptional.isPresent()) {
@@ -112,16 +115,15 @@ public class MainApp extends Application {
             }
             gradTrakOptional = storage.readGradTrak();
             if (!gradTrakOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with an empty GradTrak");
+                logger.info("Data file not found. Will be starting with a default GradTrak");
             }
 
-            initialData = gradTrakOptional.orElseGet(GradTrak::new);
+            initialData = gradTrakOptional.orElseGet(GradTrak::initializeDefaults);
 
             //If unable to find the data file provide a blank Module Info List
             allModules = allModulesOptional.orElse(new ModuleInfoList());
             //If unable to find data file, provide default course list
-            //TODO: Implement sample courses and course requirement
-            allCourses = allCourseListOptional.orElse(new CourseList());
+            allCourses = allCourseListOptional.orElse(getSampleCourseList());
             userInfo = userInfoOptional.orElse(new UserInfo());
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty GradTrak");

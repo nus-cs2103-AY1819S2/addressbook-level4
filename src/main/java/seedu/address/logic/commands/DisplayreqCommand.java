@@ -19,6 +19,7 @@ public class DisplayreqCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
+        model.updateRequirementStatusList();
         return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
 }

@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.SemLimit;
+import seedu.address.model.limits.SemesterLimit;
 import seedu.address.model.moduleinfo.ModuleInfoCredits;
 import seedu.address.model.moduletaken.CapAverage;
 import seedu.address.model.moduletaken.Hour;
 
 /**
- * Class to extract information form JSON file and convert it into SemLimit Objects
+ * Class to extract information form JSON file and convert it into SemesterLimit Objects
  */
 public class JsonAdaptedSemesterLimits {
 
@@ -28,7 +28,7 @@ public class JsonAdaptedSemesterLimits {
     private final double maxPreparationHour;
 
     /**
-     * Constructs a {@code JsonAdaptedSemesterLimits} with the given SemLimit details from JSON file.
+     * Constructs a {@code JsonAdaptedSemesterLimits} with the given SemesterLimit details from JSON file.
      */
     @JsonCreator
     public JsonAdaptedSemesterLimits(@JsonProperty("MinCap") double minCap,
@@ -58,9 +58,9 @@ public class JsonAdaptedSemesterLimits {
     }
 
     /**
-     * Converts a given {@code SemLimit} into this class for Jackson use.
+     * Converts a given {@code SemesterLimit} into this class for Jackson use.
      */
-    public JsonAdaptedSemesterLimits(SemLimit source) {
+    public JsonAdaptedSemesterLimits(SemesterLimit source) {
         minCap = source.getMinCap().getCapLimit();
         maxCap = source.getMaxCap().getCapLimit();
         minLectureHour = source.getMinLectureHour().getHour();
@@ -76,11 +76,11 @@ public class JsonAdaptedSemesterLimits {
     }
 
     /**
-     * Converts this Jackson-friendly adapted SemLimit object into the model's {@code SemLimit} object.
+     * Converts this Jackson-friendly adapted SemesterLimit object into the model's {@code SemesterLimit} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted SemLimit.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted SemesterLimit.
      */
-    public SemLimit toModelType() throws IllegalValueException {
+    public SemesterLimit toModelType() throws IllegalValueException {
         CapAverage minCap = new CapAverage();
         minCap.addWeightedGrade(this.minCap, new ModuleInfoCredits(CapAverage.SINGLE_CREDIT));
         CapAverage maxCap = new CapAverage();
@@ -95,7 +95,7 @@ public class JsonAdaptedSemesterLimits {
         Hour maxProjectHour = new Hour(String.valueOf(this.maxProjectHour));
         Hour minPreparationHour = new Hour(String.valueOf(this.minPreparationHour));
         Hour maxPreparationHour = new Hour(String.valueOf(this.maxPreparationHour));
-        return new SemLimit(minCap, maxCap, minLectureHour, maxLectureHour, minTutorialHour, maxTutorialHour,
+        return new SemesterLimit(minCap, maxCap, minLectureHour, maxLectureHour, minTutorialHour, maxTutorialHour,
                 minLabHour, maxLabHour, minProjectHour, maxProjectHour, minPreparationHour, maxPreparationHour);
     }
 }

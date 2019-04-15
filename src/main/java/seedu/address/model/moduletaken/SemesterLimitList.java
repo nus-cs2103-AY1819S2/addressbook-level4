@@ -8,31 +8,34 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.SemLimit;
+import seedu.address.model.limits.SemesterLimit;
 
 /**
  * A list of size 10 containing the semester limits set by the user from Y1S1 to Y5S2
  *
  * Supports a minimal set of list operations.
  */
-public class SemesterLimitList implements Iterable<SemLimit> {
+public class SemesterLimitList implements Iterable<SemesterLimit> {
 
-    private final ObservableList<SemLimit> internalList = FXCollections.observableArrayList();
-    private final ObservableList<SemLimit> internalUnmodifiableList =
+    private final ObservableList<SemesterLimit> internalList = FXCollections.observableArrayList();
+    private final ObservableList<SemesterLimit> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Adds a SemLimit to the list.
+     * Adds a SemesterLimit to the list.
      */
-    public void add(SemLimit toAdd) {
+    public void add(SemesterLimit toAdd) {
         requireNonNull(toAdd);
         internalList.add(toAdd);
     }
 
     /**
      * Replaces the original semLimit in the list with {@code editedSemLimit}.
+     *
+     * @param index the index of the semester to set the limit.
+     * @param editedSemesterLimit the full SemesterLimit to replace the original semLimits of the given semester
      */
-    public void setSemesterLimit(int index, SemLimit editedSemesterLimit) {
+    public void setSemesterLimit(int index, SemesterLimit editedSemesterLimit) {
         requireAllNonNull(index, editedSemesterLimit);
 
         internalList.set(index, editedSemesterLimit);
@@ -45,8 +48,10 @@ public class SemesterLimitList implements Iterable<SemLimit> {
 
     /**
      * Replaces the contents of this list with {@code semLimit}.
+     *
+     * @param semesterLimits the list of SemLimits to replace with
      */
-    public void setSemesterLimits(List<SemLimit> semesterLimits) {
+    public void setSemesterLimits(List<SemesterLimit> semesterLimits) {
         requireAllNonNull(semesterLimits);
         internalList.setAll(semesterLimits);
     }
@@ -54,12 +59,12 @@ public class SemesterLimitList implements Iterable<SemLimit> {
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<SemLimit> asUnmodifiableObservableList() {
+    public ObservableList<SemesterLimit> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<SemLimit> iterator() {
+    public Iterator<SemesterLimit> iterator() {
         return internalList.iterator();
     }
 

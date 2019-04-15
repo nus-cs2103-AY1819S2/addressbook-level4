@@ -15,10 +15,14 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import seedu.address.model.GradTrak;
-import seedu.address.model.SemLimit;
+import seedu.address.model.limits.SemesterLimit;
+import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduletaken.CapAverage;
 import seedu.address.model.moduletaken.Hour;
 import seedu.address.model.moduletaken.ModuleTaken;
@@ -115,34 +119,34 @@ public class TypicalModuleTaken {
             .withExpectedMaxGrade("A")
             .withLectureHour("0").build();
 
-    public static final SemLimit Y1S1 = new SemLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
+    public static final SemesterLimit Y1S1 = new SemesterLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
             new Hour("8"), new Hour("2"), new Hour("5"), new Hour("2"), new Hour("5"),
             new Hour("2"), new Hour("5"), new Hour("6"), new Hour("10"));
-    public static final SemLimit Y1S2 = new SemLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
+    public static final SemesterLimit Y1S2 = new SemesterLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
             new Hour("8"), new Hour("2"), new Hour("5"), new Hour("2"), new Hour("5"),
             new Hour("2"), new Hour("5"), new Hour("6"), new Hour("10"));
-    public static final SemLimit Y2S1 = new SemLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
+    public static final SemesterLimit Y2S1 = new SemesterLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
             new Hour("8"), new Hour("2"), new Hour("5"), new Hour("2"), new Hour("5"),
             new Hour("2"), new Hour("5"), new Hour("6"), new Hour("10"));
-    public static final SemLimit Y2S2 = new SemLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
+    public static final SemesterLimit Y2S2 = new SemesterLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
             new Hour("8"), new Hour("2"), new Hour("5"), new Hour("2"), new Hour("5"),
             new Hour("2"), new Hour("5"), new Hour("6"), new Hour("10"));
-    public static final SemLimit Y3S1 = new SemLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
+    public static final SemesterLimit Y3S1 = new SemesterLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
             new Hour("8"), new Hour("2"), new Hour("5"), new Hour("2"), new Hour("5"),
             new Hour("2"), new Hour("5"), new Hour("6"), new Hour("10"));
-    public static final SemLimit Y3S2 = new SemLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
+    public static final SemesterLimit Y3S2 = new SemesterLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
             new Hour("8"), new Hour("2"), new Hour("5"), new Hour("2"), new Hour("5"),
             new Hour("2"), new Hour("5"), new Hour("6"), new Hour("10"));
-    public static final SemLimit Y4S1 = new SemLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
+    public static final SemesterLimit Y4S1 = new SemesterLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
             new Hour("8"), new Hour("2"), new Hour("5"), new Hour("2"), new Hour("5"),
             new Hour("2"), new Hour("5"), new Hour("6"), new Hour("10"));
-    public static final SemLimit Y4S2 = new SemLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
+    public static final SemesterLimit Y4S2 = new SemesterLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
             new Hour("8"), new Hour("2"), new Hour("5"), new Hour("2"), new Hour("5"),
             new Hour("2"), new Hour("5"), new Hour("6"), new Hour("10"));
-    public static final SemLimit Y5S1 = new SemLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
+    public static final SemesterLimit Y5S1 = new SemesterLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
             new Hour("8"), new Hour("2"), new Hour("5"), new Hour("2"), new Hour("5"),
             new Hour("2"), new Hour("5"), new Hour("6"), new Hour("10"));
-    public static final SemLimit Y5S2 = new SemLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
+    public static final SemesterLimit Y5S2 = new SemesterLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
             new Hour("8"), new Hour("2"), new Hour("5"), new Hour("2"), new Hour("5"),
             new Hour("2"), new Hour("5"), new Hour("6"), new Hour("10"));
 
@@ -179,9 +183,11 @@ public class TypicalModuleTaken {
         for (ModuleTaken moduleTaken : getTypicalModulesTaken()) {
             gt.addModuleTaken(moduleTaken);
         }
-        for (SemLimit semLimit : getTypicalSemesterLimits()) {
-            gt.addSemesterLimit(semLimit);
+        List<SemesterLimit> semList = new ArrayList<>();
+        for (SemesterLimit semesterLimit : getTypicalSemesterLimits()) {
+            semList.add(semesterLimit);
         }
+        gt.setSemesterLimits(semList);
         gt.setCurrentSemester(Semester.Y1S1);
 
         return gt;
@@ -191,7 +197,152 @@ public class TypicalModuleTaken {
         return new ArrayList<>(Arrays.asList(CS2103T, CS2101, CS1010S, CS1010X, MA1521, LSM1301, GER1000));
     }
 
-    public static List<SemLimit> getTypicalSemesterLimits() {
+    public static List<SemesterLimit> getTypicalSemesterLimits() {
         return new ArrayList<>(Arrays.asList(Y1S1, Y1S2, Y2S1, Y2S2, Y3S1, Y3S2, Y4S1, Y4S2, Y5S1, Y5S2));
+    }
+
+    public static List<ModuleInfoCode> getTypicalModulesInfoCodes() {
+        List<ModuleInfoCode> list = getTypicalModulesTaken()
+                .stream().map(ModuleTaken::getModuleInfoCode).collect(Collectors.toList());
+        list.addAll(List.of(new ModuleInfoCode("GEQ1000"), new ModuleInfoCode("GEH1000"), new ModuleInfoCode("GES1000"),
+                new ModuleInfoCode("GET1000")));
+        return list;
+    }
+
+    public static List<ModuleTaken> getGeList() {
+        List<ModuleTaken> geList = new ArrayList<>();
+
+        geList.add(new ModuleTakenBuilder().withModuleInfoCode("GEH1001").build());
+        geList.add(new ModuleTakenBuilder().withModuleInfoCode("GEQ1000").build());
+        geList.add(new ModuleTakenBuilder().withModuleInfoCode("GER1000").build());
+        geList.add(new ModuleTakenBuilder().withModuleInfoCode("GES1002").build());
+        geList.add(new ModuleTakenBuilder().withModuleInfoCode("GET1001").build());
+
+        return geList;
+    }
+
+    public static List<ModuleTaken> getCoreList() {
+        List<ModuleTaken> coreList = new ArrayList<>();
+
+        coreList.add(new ModuleTakenBuilder().withModuleInfoCode("CS1101S").build());
+        coreList.add(new ModuleTakenBuilder().withModuleInfoCode("CS1231").build());
+        coreList.add(new ModuleTakenBuilder().withModuleInfoCode("CS2030").build());
+        coreList.add(new ModuleTakenBuilder().withModuleInfoCode("CS2040").build());
+        coreList.add(new ModuleTakenBuilder().withModuleInfoCode("CS2100").build());
+        coreList.add(new ModuleTakenBuilder().withModuleInfoCode("CS2103T").build());
+        coreList.add(new ModuleTakenBuilder().withModuleInfoCode("CS2105").build());
+        coreList.add(new ModuleTakenBuilder().withModuleInfoCode("CS2106").build());
+        coreList.add(new ModuleTakenBuilder().withModuleInfoCode("CS3230").build());
+        coreList.add(new ModuleTakenBuilder().withModuleInfoCode("IS1103").build());
+        coreList.add(new ModuleTakenBuilder().withModuleInfoCode("CS2101").build());
+        coreList.add(new ModuleTakenBuilder().withModuleInfoCode("ES2660").build());
+
+        return coreList;
+    }
+
+    public static List<ModuleTaken> getAlgoBdList() {
+        List<ModuleTaken> algoBdList = new ArrayList<>();
+
+        algoBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS3236").build());
+        algoBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS4231").build());
+        algoBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS3233").build());
+        algoBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS2107").build());
+        algoBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS4257").build());
+        algoBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS4268").build());
+
+        return algoBdList;
+    }
+
+    public static List<ModuleTaken> getAiBdList() {
+        List<ModuleTaken> aiBdList = new ArrayList<>();
+
+        aiBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS3243").build());
+        aiBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS3244").build());
+        aiBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS4243").build());
+        aiBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS4231").build());
+        aiBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS2107").build());
+        aiBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS4257").build());
+
+        return aiBdList;
+    }
+
+    public static List<ModuleTaken> getSeBdList() {
+        List<ModuleTaken> seBdList = new ArrayList<>();
+
+        seBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS3219").build());
+        seBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS4211").build());
+        seBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS4231").build());
+        seBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS2107").build());
+        seBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS4257").build());
+
+        return seBdList;
+    }
+
+    public static List<ModuleTaken> getIeList() {
+        List<ModuleTaken> ieList = new ArrayList<>();
+
+        ieList.add(new ModuleTakenBuilder().withModuleInfoCode("CP3200").build());
+        ieList.add(new ModuleTakenBuilder().withModuleInfoCode("CP3202").build());
+
+        return ieList;
+    }
+
+    public static List<ModuleTaken> getProjectBdList() {
+        List<ModuleTaken> projectBdList = new ArrayList<>();
+
+        projectBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS3203").build());
+
+        return projectBdList;
+    }
+
+    public static List<ModuleTaken> getMathScienceList() {
+        List<ModuleTaken> mathScienceList = new ArrayList<>();
+
+        mathScienceList.add(new ModuleTakenBuilder().withModuleInfoCode("MA1521").build());
+        mathScienceList.add(new ModuleTakenBuilder().withModuleInfoCode("MA1101R").build());
+        mathScienceList.add(new ModuleTakenBuilder().withModuleInfoCode("ST2334").build());
+        mathScienceList.add(new ModuleTakenBuilder().withModuleInfoCode("PC1221").build());
+
+        return mathScienceList;
+    }
+
+    public static List<ModuleTaken> getUeList() {
+        List<ModuleTaken> ueList = new ArrayList<>();
+
+        ueList.add(new ModuleTakenBuilder().withModuleInfoCode("PC1141").build());
+        ueList.add(new ModuleTakenBuilder().withModuleInfoCode("PC1144").build());
+        ueList.add(new ModuleTakenBuilder().withModuleInfoCode("LAJ1201").build());
+        ueList.add(new ModuleTakenBuilder().withModuleInfoCode("LAJ2201").build());
+        ueList.add(new ModuleTakenBuilder().withModuleInfoCode("PC1142").build());
+        ueList.add(new ModuleTakenBuilder().withModuleInfoCode("PC1143").build());
+        ueList.add(new ModuleTakenBuilder().withModuleInfoCode("PC3232").build());
+        ueList.add(new ModuleTakenBuilder().withModuleInfoCode("PC4230").build());
+        ueList.add(new ModuleTakenBuilder().withModuleInfoCode("LAJ3201").build());
+        ueList.add(new ModuleTakenBuilder().withModuleInfoCode("LAJ3202").build());
+        ueList.add(new ModuleTakenBuilder().withModuleInfoCode("PC1222").build());
+        ueList.add(new ModuleTakenBuilder().withModuleInfoCode("PC1322").build());
+
+        return ueList;
+    }
+
+    public static List<ModuleTaken> getFullAlgoList() {
+        return Stream.of(getGeList(), getCoreList(), getAlgoBdList(), getIeList(), getProjectBdList(),
+                getMathScienceList(), getUeList())
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
+    }
+
+    public static List<ModuleTaken> getFullAiList() {
+        return Stream.of(getGeList(), getCoreList(), getAiBdList(), getIeList(), getProjectBdList(),
+                getMathScienceList(), getUeList())
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
+    }
+
+    public static List<ModuleTaken> getFullSeList() {
+        return Stream.of(getGeList(), getCoreList(), getSeBdList(), getIeList(), getProjectBdList(),
+                getMathScienceList(), getUeList())
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
     }
 }

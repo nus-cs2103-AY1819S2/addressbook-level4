@@ -2,26 +2,27 @@ package seedu.address.commons.util;
 
 import java.util.ArrayList;
 /**
- * Nodes for Prerequisite Tree
+ * Node for Prerequisite Tree
  */
 public class Node {
+
     private static final int HEAD_CHILD_INDEX = 0;
 
-    private boolean head;
+    private boolean isHead;
     private Node parent;
     private boolean isModule;
     private String nodeValue;
     private ArrayList<Node> childList;
 
     public Node(boolean isHead, boolean isModule, String value) {
-        this.head = isHead;
+        this.isHead = isHead;
         this.isModule = isModule;
         this.nodeValue = value;
         childList = new ArrayList<>();
     }
 
     public boolean isHead() {
-        return head;
+        return isHead;
     }
 
     public boolean isModule() {
@@ -33,15 +34,15 @@ public class Node {
      * @return boolean value if it has a parent or not
      */
     public boolean hasParent() {
-        return (parent == null);
+        return (parent != null);
     }
 
     public boolean isDummy() {
-        return (getValue().equals(" "));
+        return nodeValue.equals(" ");
     }
 
     public void setHead(boolean b) {
-        this.head = b;
+        this.isHead = b;
     }
 
     public String getValue() {
@@ -76,41 +77,48 @@ public class Node {
      * Method to check for nodes matching
      */
     public void checkChildren(ArrayList<String> modules, ArrayList<String> missingModules) {
-
-        if (isHead() || "Requires:".equals(getValue())) {
-            getChildList().get(HEAD_CHILD_INDEX).checkChildren(modules, missingModules);
-        } else if ("OR".equals(nodeValue)) {
+        if (hasNoChild()) {
+            return;
+        }
+        if (isHead()) {
+            childList.get(HEAD_CHILD_INDEX).checkChildren(modules, missingModules);
+        } else if ("OR".equals(nodeValue) || " ".equals(nodeValue)) {
             for (int i = 0; i < getChildList().size(); i++) {
                 Node currNode = getChildList().get(i);
 
-                if (!currNode.isModule() && (currNode.getValue().equals("OR") || currNode.getValue().equals("AND"))) {
+                if (!currNode.isModule()) {
                     currNode.checkChildren(modules, missingModules);
                 } else {
                     for (int j = 0; j < modules.size(); j++) {
-                        if (modules.get(j).equals(currNode.getValue()) && currNode.isModule()) {
+                        /* the following condition is to account for modules ending with a letter but not
+                        reflected in the json file */
+                        if (modules.get(j).contains(currNode.nodeValue)
+                                || currNode.nodeValue.contains(modules.get(j))) {
                             return;
                         }
                     }
-                }
-                if (i == getChildList().size() - 1 && currNode.isModule()) {
-                    //gives the last value of the OR list
-                    missingModules.add(currNode.getValue());
+                    if (i == getChildList().size() - 1) {
+                        //gives the last value of the OR list
+                        missingModules.add(currNode.nodeValue);
+                    }
                 }
             }
         } else if ("AND".equals(nodeValue)) {
             for (int i = 0; i < getChildList().size(); i++) {
+                boolean found = false;
                 Node currNode = getChildList().get(i);
-                if (!currNode.isModule() && (currNode.getValue().equals("OR") || currNode.getValue().equals("AND"))) {
+                if (!currNode.isModule()) {
                     currNode.checkChildren(modules, missingModules);
                 } else {
-
                     for (int j = 0; j < modules.size(); j++) {
-                        if (modules.get(j).equals(currNode.getValue())) {
+                        if (modules.get(j).contains(currNode.nodeValue)
+                                || currNode.nodeValue.contains(modules.get(j))) {
+                            found = true;
                             break;
                         }
-                        if (j == modules.size() - 1 && currNode.isModule()) {
-                            missingModules.add(currNode.getValue());
-                        }
+                    }
+                    if (!found) {
+                        missingModules.add(currNode.nodeValue);
                     }
                 }
             }

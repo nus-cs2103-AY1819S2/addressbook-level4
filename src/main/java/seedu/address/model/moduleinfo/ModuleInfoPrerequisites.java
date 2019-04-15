@@ -50,7 +50,7 @@ public class ModuleInfoPrerequisites {
         if (!prerequisitesString.equals(NOREQUIREMENT_MESSAGE) && prerequisitesString.matches(PREREQUISITE_REGEX)) {
             String[] prerequisiteArray = prerequisiteSplitter(prerequisitesString);
             Node tempHead = treeGenerator(prerequisiteArray);
-            if (tempHead.getValue().equals("")) {
+            if (tempHead.getValue().equals(" ")) {
                 tempHead = tempHead.getChildList().get(0);
             }
             this.tree.addTree(tempHead);
@@ -206,10 +206,10 @@ public class ModuleInfoPrerequisites {
     /**
      * Creates a branch of the main prerequisite Tree
      * @param sequence
-     * @return
+     * @return Node pesudoHead
      */
     public Node createMinorTree(String sequence) {
-        Node pesudoHead = new Node(false, false, "");
+        Node pesudoHead = new Node(false, false, " ");
 
         Pattern regexOperation = Pattern.compile(OPERATION_REGEX);
         Matcher matcher = regexOperation.matcher(sequence);

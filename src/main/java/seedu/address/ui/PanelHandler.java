@@ -6,6 +6,7 @@ import java.util.Optional;
 import javafx.scene.Node;
 
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.CheckLimitCommand;
 import seedu.address.logic.commands.DisplaymodCommand;
 import seedu.address.logic.commands.DisplayreqCommand;
 import seedu.address.logic.commands.RecCommand;
@@ -30,6 +31,7 @@ public class PanelHandler {
                 new DisplayRequirementStatusList(logic.getRequirementStatusList()).getRoot());
         panels.put(RecCommand.COMMAND_WORD, new DisplayRecModuleList(logic.getRecModuleListSorted()).getRoot());
         panels.put(SelectCommand.COMMAND_WORD, new BrowserPanel(logic.selectedPersonProperty()).getRoot());
+        panels.put(CheckLimitCommand.COMMAND_WORD, new BrowserPanel(logic.selectedPersonProperty()).getRoot());
     }
 
     public Optional<Node> getCommandPanel(String command) {

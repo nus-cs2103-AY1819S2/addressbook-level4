@@ -1,0 +1,86 @@
+= T Anandakkoomar - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: GradTrak - A Graduation Tracker for NUS Students
+
+---
+
+== Overview
+GradTrak is an application that was created to aid students with their graduation requirements. NUS has multiple requirements
+before its students can file for graduation and checking if all of the requirements have been met is a hassle for most
+students. +
+
+Initially we were given a base code https://github.com/nus-cs2103-AY1819S2/addressbook-level4[Address Book - Level 4] which
+we had the choice of either morphing into something entirely different or enhance the current code. My team and I decided to
+challenge ourselves and morph it into https://github.com/cs2103-ay1819s2-w14-4/main[GradTrak]. +
+
+My team and I had to complete the application within 6 weeks. The final products came out as intended with minor hiccups
+or problems.
+
+== Summary of Contribution
+* *Major Feature*: Added a search functionality that allows students to see all available NUS modules locally.
+** What it does: Users are able to search locally(without internet) all modules that are currently available in NUS. Users
+are allowed to search for modules that they interested in by the module's code or even by searching for keywords found in the
+module's name. Based on their search, a list of module/s will be presented to them. The information for each module also
+contains a prerequisite tree and a workload table so that students can also plan their modules semester by semester.
+
+** Why this feature: Knowing what modules are available is integral to graduate on time, instead of searching through the
+internet on what modules are available, bringing this feature to the user/students computer locally will greatly
+improve the efficiency at which students are able to plan and track their graduation.
+
+** Highlights: There are thousands of modules that need to be loaded during launch of the application and all of these
+information is stored in a JSON file `allModules.json` which was obtained from http://awards.nusmods.com/2018-2019/moduleInformation.json[moduleinformation].
+Further more a significant number of modules have a prerequisite tree which is crucial for students to see if they are
+eligible to read a particular module and this prerequisite tree was custom made as we could not find another data structure
+that fit the prerequisite tree.
+
+* *Minor Enhancement*: Designed and implemented a data structure called `ModuleTree` which helps to display and check prerequisites,
+                       implemented a one-way read-only storage class to read the `allModules.json` file.
+
+* *Code Contributed* : [https://github.com/cs2103-ay1819s2-w14-4/main/tree/master/src/main/java/seedu/address/model/moduleinfo[functional code]] [https://github.com[Test code]]
+
+* *Code Contributions on Dashboard* : https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=anand270294[Contributions]
+
+* *Other Contributions*:
+** Project Management:
+*** Set up Issue Tracker
+*** Managed deadlines for team
+
+** Refactored Code
+*** Refactored the storage class to read-only json files.
+
+** Documentation:
+*** Did the README.adoc file and the initial UI mockUp
+*** Modified sections of the UG and DG to match the application GradTrak.
+
+** UI:
+*** Implemented a `panelhandler` so the panel changes with accordance to the command typed in.[https://github.com/cs2103-ay1819s2-w14-4/main/pull/78[PR here]]
+
+** https://github.com/cs2103-ay1819s2-w14-4/main/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3AAnand270294+[Pull Request Made for this project]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide which will show my ability to write to end-users who have no prior knowledge
+on programming. This section of the guide does not delve into the technical aspects of this application, only showing instructions on how
+to navigate through GradTrak.
+This sections shows how users can search for modules available in NUS currently and the limitations of this feature._
+|===
+
+include::../UserGuide.adoc[tag=Displaymod]
+
+
+== Contributions to the Developer Guide
+
+|===
+|Given below are sections I contributed to the Developer Guide, which is showcase my ability to write technical documentations.
+This section will contain information on how the `ModuleInfo` class is implemented and how the custom data structure `ModuleTree`
+has be designed to aid with displaying relevant information for students. This documentation will allow readers to understand the
+backend of this application and potentially aid them in improving this product or even morphing it again.
+|===
+
+include::../DeveloperGuide.adoc[tag=storage]
+
+include::../DeveloperGuide.adoc[tag=displaymod]

@@ -1,8 +1,6 @@
 package seedu.address.model.course;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -30,13 +28,13 @@ public class CourseDescriptionTest {
     public void equals() {
         CourseDescription test = new CourseDescription("valid course description");
         //equal
-        assertEquals(test, test);
-        assertEquals(new CourseDescription("valid course description"), test);
+        assertTrue(test.equals(test));
+        assertTrue(test.equals(new CourseDescription("valid course description")));
 
         //not equal
-        assertNotEquals(null, test);
-        assertNotEquals("somethingelse", test);
-        assertNotEquals(new CourseName("some other name"), test);
+        assertFalse(test.equals(null));
+        assertFalse(test.equals(5));
+        assertFalse(test.equals(new CourseDescription("some other name")));
     }
 
 }

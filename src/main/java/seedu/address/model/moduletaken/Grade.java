@@ -123,10 +123,12 @@ public enum Grade {
      * Returns true if this grade is no greater than another grade, false otherwise.
      */
     public boolean isLowerOrEqualTo(Grade limit) {
-        if (isPassingGrade() != limit.isPassingGrade()) { // only one of them is passing
+        boolean onlyOnePassing = isPassingGrade() != limit.isPassingGrade();
+        if (onlyOnePassing) {
             return limit.isPassingGrade();
         }
-        if ((this == A_PLUS) != (limit == A_PLUS)) { // only one of them is A+
+        boolean onlyOneAplus = (this == A_PLUS) != (limit == A_PLUS);
+        if (onlyOneAplus) {
             return limit == A_PLUS;
         }
 

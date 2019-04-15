@@ -31,24 +31,31 @@ public class RecModulePredicate implements Predicate<RecModule> {
 
     @Override
     public boolean test(RecModule recModule) {
-        ModuleInfoCode moduleInfoCode = recModule.getModuleInfoCode();
-        List<ModuleInfoCode> nonFailedCodeList = gradTrak.getNonFailedCodeList();
-
         /* ineligible module */
-        if (!(new EligibleModulePredicate(gradTrak).test(moduleInfoCode))) {
+        if (!(new EligibleModulePredicate(gradTrak).test(recModule.getModuleInfo()))) {
             return false;
         }
 
+        ModuleInfoCode codeToTest = recModule.getCode();
+        List<ModuleInfoCode> nonFailedCodeList = gradTrak.getNonFailedCodeList();
         /* eligible module */
-        List<CourseReqType> reqTypeList = course.getCourseReqTypeOf(moduleInfoCode);
+        List<CourseReqType> reqTypeList = course.getCourseReqTypeOf(codeToTest);
         for (CourseReqType reqType : reqTypeList) { // starting from most important requirement
-            if (course.isCodeContributing(reqType, nonFailedCodeList, moduleInfoCode)) {
+            if (course.isCodeContributing(reqType, nonFailedCodeList, codeToTest)) {
                 recModule.setCourseReqType(reqType);
-                logger.fine(moduleInfoCode.toString() + " fulfills " + reqType.name());
+                logger.fine(codeToTest.toString() + " fulfills " + reqType.name());
                 return true;
             }
         }
 
         return false;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof RecModulePredicate // instanceof handles nulls
+                && course.equals(((RecModulePredicate) other).course)
+                && gradTrak.equals(((RecModulePredicate) other).gradTrak)); // state check
     }
 }

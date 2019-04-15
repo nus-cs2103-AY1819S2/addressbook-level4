@@ -1173,7 +1173,7 @@ Use case resumes at step 1.
 *MSS*
 
 1.  User searches for patients using name or phone number.
-2.  docX shows a list of patients/doctors with the name or phone number.
+2.  docX shows a list of patients/doctors with their full info.
 +
 Use case ends.
 
@@ -1398,11 +1398,11 @@ Use case resumes at step 1.
 
 
 [discrete]
-=== Use case: Complete Appointment
+=== Use case: Mark Appointment
 
 *MSS*
 
-1. User enters appointment ID and whether the patient attended the appointment.
+1. User enters appointment ID and mark the appointment.
 2. docX shows the appointment details as completed.
 +
 Use case ends.
@@ -1416,7 +1416,11 @@ Use case ends.
 ** 1a1. docX shows an error message and request the user to give a valid appointment ID.
 +
 Use case resumes at step 1.
-
+* 1b. The patient being marked has no more active appointments.
++
+[none]
+** 1b1. The patient's appointment status display switches to completed. +
+Use case ends.
 
 [discrete]
 === Use case: Cancel Appointment

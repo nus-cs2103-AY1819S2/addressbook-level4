@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-RestOrRant was morphed from AddressBook - Level 4, which was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
+RestOrRant was morphed from AddressBook - Level 4, which was developed by the https://se-education.org/Team.html[se-edu] team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
@@ -15,7 +15,7 @@ image::whyjayxp.png[width="150", align="left"]
 {empty}[http://github.com/whyjayxp[github]] [<<whyjayxp#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: Integration, Model
+Responsibilities: Integration, Model component, Orders feature
 
 '''
 
@@ -24,16 +24,16 @@ image::beesaycheese.png[width="150", align="left"]
 {empty}[http://github.com/beesaycheese[github]] [<<beesaycheese#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Documentation, Deliverables and Deadlines, UI
+Responsibilities: Documentation, Deliverables and Deadlines, UI component, Statistics feature
 
 '''
 
 === Siew Qing Yuan
 image::Qing-Yuan.png[width="150", align="left"]
-{empty}[http://github.com/Qing-Yuan[github]] [<<Qing-Yuan#, portfolio>>]
+{empty}[http://github.com/Qing-Yuan[github]] [<<qing-yuan#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Code Quality, Logic
+Responsibilities: Code Quality, Logic component, Tables feature
 
 '''
 
@@ -42,6 +42,6 @@ image::bava98.png[width="150", align="left"]
 {empty}[http://github.com/bava98[github]] [<<bava98#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Testing, Scheduling and Tracking, Storage
+Responsibilities: Testing, Scheduling and Tracking, Storage component, Menu feature
 
 '''

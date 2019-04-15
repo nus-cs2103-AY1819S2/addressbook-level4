@@ -1,0 +1,118 @@
+= Leong Yoke Yi Beatrice - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: RestOrRant
+
+---
+
+== About the project
+
+RestOrRant is a command line application that my team and I had to work on for a Software Engineering project.
+Given a basic code for an address book, we had the choice of enhancing or morphing it into a desktop application that
+ caters to specific users' needs.
+
+We decided to morph it into RestOrRant (ROR), a restaurant management application for restaurant managers,
+ waiters and cashiers. It is designed for them to perform front-end operations more efficiently like
+ managing tables, handling orders, tracking the availability of menu items and calculating statistical data using the
+ Command Line Interface (CLI).
+
+RestOrRant is split into 4 main features: Tables, Orders, Menu and Statistics. To cater to needs of the user, modes
+were created to make the application user-friendly.*Restaurant Mode*, *Table Mode*, *Menu Mode* and *Statistics Mode*
+ are modes meant to handle these 4 features respectively. Each of my teammates are in
+charge of one feature and mine was Statistics. In the following sections, I will be elaborating more on my
+contributions and extract relevant parts from the User and Developer Guides that I wrote for the Statistics feature.+
+
+You may find it useful to refer to the table below for the different symbols and formatting used in this portfolio.
+
+[width="70%",cols="^15%,85%"]
+|===
+a| `code` | Command that can be typed into the command box
+ifdef::env-github[]
+| :white_check_mark: | Expected result after executing the command
+| :information_source: | Additional information that is good to know
+| :heavy_exclamation_mark: | Important pointers to take note
+endif::[]
+ifndef::env-github[]
+a| icon:check[role="green", size="2x"] | Expected result after executing the command
+a| icon:info-circle[role="icon-note", size="2x"] | Additional information that is good to know
+a| icon:exclamation-circle[role="icon-important", size="2x"] | Important pointers to take note
+endif::[]
+|===
+
+== Summary of contributions
+
+Overall, my role in this project encompasses managing the UI components, Statistics feature, project deadline and
+deliverable. The following provides a detailed summary of the coding, documentation and other helpful contributions
+ I have contributed to the team project.
+
+. *Major Commands implemented*
+
+.. *Calling for bill*: added the ability to *calculate and record the bill* of a specific table.
+** What it does: allows users to calculate and record the total bill accumulated from the table's orders.
+** Justification: This feature is necessary to update the restaurant revenue, status of the specified tables and the
+popularity of the menu items that were ordered.
+** Highlights: This command is only usable in Table Mode.
+
+.. *Calling for revenue*: added *the ability to get revenue from the specified year, month and date*
+** What it does: allows the user to get the required revenue the user specifies.
+** Justification: This feature allows the restaurent manager to conveniently calculate and obtain the revenue
+he/she wants. It also eliminates the possibility of human errors when calculating the revenue.
+** Highlights: This command is only usable for dates, months and years that are valid. In the case where no
+date, month or year is specified, the current day's revenue will be returned.
+
+.. *Calling for yearly, monthly and daily*: added *the ability to get revenue from the specified year, month and date*
+** What it does: allows the user to get the required revenue the user specifies.
+** Justification: This feature allows the restaurent manager to conveniently calculate and obtain the revenue
+he/she wants. It also eliminates the possibility of human errors when calculating the revenue.
+** Highlights: This command is only usable for dates, months and years that are valid. In the case where no
+date, month or year is specified, the current day's revenue will be returned.
+
+. *Minor enhancement*: Create a Bill Mode that displays a receipt for the user.
+
+. *Code contributed*: Please refer to theses links to view my code +
+[https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=beesaycheese[Project
+Code Dashboard]]
+ [https://github.com[Test code]]
+
+. *Other contributions*:
+
+** Project management:
+*** Ensures that the User Guide and Developer Guide are completed according to what was required.
+*** Documents essential discussion pointers during meetings and share them with the team.
+*** Informs team about the deadlines.
+
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote tests for bill and statistics features (Pull requests https://github.com[#36], https://github.com[#38])
+
+** Documentation:
+*** Reorganise the User Guide according to modes: https://github.com/cs2103-ay1819s2-w09-3/main/pull/123[#123]
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/cs2103-ay1819s2-w09-3/main/pull/167[#167],
+https://github.comcs2103-ay1819s2-w09-3/main/pull/121[#121], https://github
+.comcs2103-ay1819s2-w09-3/main/pull/121[#108]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide._
+|===
+
+include::../UserGuide.adoc[tag=bill]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide._
+|===
+
+include::../DeveloperGuide.adoc[tag=statisticsclasses]
+
+include::../DeveloperGuide.adoc[tag=statisticsstorage]
+
+include::../DeveloperGuide.adoc[tag=bill]
+
+

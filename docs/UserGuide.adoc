@@ -21,7 +21,7 @@ By: `Team W09-3`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-RestOrRant (ROR) is a desktop restaurant management application that allows *restaurant managers, waiters and cashiers* to perform *restaurant front-end operations* more efficiently. With ROR, you can easily manage table allocation, handle orders, track item availability and check restaurant statistics.
+RestOrRant is a desktop restaurant management application that allows *restaurant managers, waiters and cashiers* to perform *restaurant front-end operations* more efficiently. With RestOrRant, you can easily manage table allocation, handle orders, track menu item availability and check restaurant statistics.
 
 RestOrRant mainly uses a *Command Line Interface* (CLI) to perform operations, but it also boasts a Graphical User Interface (GUI) to provide you with visual information for ease of reference.
 
@@ -29,7 +29,7 @@ Interested? Head over to <<Quick Start>> to get started with RestOrRant!
 
 == Quick Start
 
-Welcome to RestOrRant! If you are just starting out, this quick start section will help you get RestOrRant up and running in no time at all. It will equip you with the basics so that you can quickly enjoy and master the features that ROR has to offer.
+Welcome to RestOrRant! If you are just starting out, this quick start section will help you get RestOrRant up and running in no time at all. It will equip you with the basics so that you can quickly enjoy and master the features that RestOrRant has to offer.
 
 === Using the User Guide
 
@@ -54,6 +54,8 @@ a| icon:exclamation-circle[role="icon-important", size="2x"] | Important pointer
 endif::[]
 |===
 
+You may also refer to the <<Glossary, Glossary>> for some common terms used in this User Guide.
+
 === First steps
 
 These steps will guide you in installing RestOrRant on your computer.
@@ -72,7 +74,7 @@ image::Ui.png[width="790"]
 === Understanding the Mode system
 
 RestOrRant operates in 4 different modes and you will start off in the default Restaurant Mode.
-Each mode is dedicated to a main feature that ROR provides and comes with its own colour, display and set of commands for that feature.
+Each mode is dedicated to a main feature that RestOrRant provides and comes with its own colour, display and set of commands for that feature.
 You may switch between the modes by using the <<Changing Modes, commands provided>>.
 
 The 4 modes are shown below and you may click on them to find out more information about each mode, along with the commands that are available for you in that mode.
@@ -93,7 +95,7 @@ Manages the items ordered and their serving status for a specific table
 |===
 a| image::MMUi_NoAnnotation.png[]
 <<Menu Mode, *Menu Mode*>> +
-Tracks the items on the restaurant's menu and their availability
+Tracks the items on the restaurant's menu and their availabilities
 
 a| image::SMUi_NoAnnotation.png[]
 <<Statistics Mode, *Statistics Mode*>> +
@@ -122,7 +124,7 @@ You can find out what is displayed in the side and main panels for each mode in 
 === Using commands
 
 You can use the commands described in <<Modes and Commands>> by typing them into the Command Box and pressing kbd:[Enter] to execute it.
-For example, typing *`help`* and pressing kbd:[Enter] will open the help window.
+For example, typing `help` and pressing kbd:[Enter] will open the help window.
 
 Shortcuts are also provided for some commands to allow you to type faster and perform operations more quickly.
 For example, you may type the shortcut `b` instead of the full `bill` command to return the bill.
@@ -147,14 +149,14 @@ Some of the parameters have restrictions and they are stated below.
 
 ****
 * `TABLE_NUMBER` has to be a whole number greater than 0.
-* `NUMBER_OF_SEATS` and `NUMBER_OF_CUSTOMERS` have to be
+* `NUMBER_OF_SEATS` and `NUMBER_OF_CUSTOMERS` have to be non-negative whole numbers.
 * `ITEM_CODE` has to be in the form of an uppercase alphabet followed by a double digit integer.
 * `QUANTITY` has to be a whole number between 0 and 2,000,000 inclusive.
 * `ITEM_NAME` has to be in alphanumeric format and may contain spaces, but should not be blank.
-* `ITEM_PRICE` has to be nonnegative and in the format *X.YY* where *X* is a whole number and each *Y* is a single digit from 0 to 9.
-* `YEAR` has to be a 4 digit whole number within 2000 and the current year.
-* `MONTH` has to be a whole number within 1 to 12.
-* `DAY` has to be a whole number within 1 to 31 provided it exists in the desired month and year.
+* `ITEM_PRICE` has to be non-negative and in the format *X.YY* where *X* is a whole number and each *Y* is a single digit from 0 to 9.
+* `YEAR` has to be a 4 digit whole number between 2000 and the current year inclusive.
+* `MONTH` has to be a whole number between 1 and 12 inclusive.
+* `DAY` has to be a whole number between 1 and 31 inclusive, provided it exists in the desired month and year.
 ****
 
 Some commands may make changes to the data in RestOrRant. There is no need to save manually as the data will be automatically saved in the hard disk.
@@ -164,23 +166,23 @@ Some commands may make changes to the data in RestOrRant. There is no need to sa
 RestOrRant comes preloaded with sample data to allow you to explore and get familiar with the application.
 The examples in this User Guide also make use of this data so that you can easily follow along.
 
-When you are ready to use RestOrRant in your restaurant, use the commands in the following steps to set up and personalise ROR for your own usage. You can find out more information about each command by clicking on them.
+When you are ready to use RestOrRant in your restaurant, use the commands in the following steps to set up and personalise RestOrRant for your own usage. You can find out more information about each command by clicking on them.
 
 . <<ClearRestOrRant, *`clearRestOrRant`*>>: Remove all the sample data so that you can fill it with your own restaurant's information.
-. <<AddTable, *`addTable`*>> (in Restaurant Mode): Populate the tables in ROR with your restaurant's seating information by specifying the number of seats for each table, in ascending order of table number.
+. <<AddTable, *`addTable`*>> (in Restaurant Mode): Populate the tables in RestOrRant with your restaurant's seating information by specifying the number of seats for each table, in ascending order of table number.
 * For example, if your restaurant has 3 tables, and Table 1 and 2 have 4 seats while Table 3 has 8 seats, you can type in `addTable 4 4 8`.
 [TIP]
 You can add all the tables with just a single command!
-. <<MenuMode, *`menuMode`*>>: Switch over to Menu Mode to fill up the menu in ROR with your restaurant's menu information.
+. <<MM, *`menuMode`*>>: Switch over to Menu Mode to fill up the menu in RestOrRant with your restaurant's menu information.
 . <<AddToMenu, *`addToMenu`*>> (in Menu Mode): Add each item into the menu by specifying the item code, name and price.
-* For example, `addToMenu c/A05 n/Salad p/4.50` will add a new salad item to the menu in ROR.
+* For example, `addToMenu c/A05 n/Salad p/4.50` will add a new salad item to the menu in RestOrRant.
 
 That's it! Your RestOrRant is now ready for use. You may head on to <<Modes and Commands>> to learn more about the commands that are available for you.
 
 == Modes and Commands
 
 In this section, you can find details about the commands that RestOrRant supports. These details include the command function, format and example usage.
-The commands have been organised based on their function and the mode that they can be executed in so that you can easily look for the command that you want.
+The commands have been organised based on the mode that they can be executed in so that you can easily look for the command that you want.
 
 === General
 
@@ -282,7 +284,7 @@ You can use this command to switch over to Restaurant Mode to manage the occupan
 ****
 
 [NOTE]
-Restaurant Mode is the default application mode when first starting up RestOrRant.
+Restaurant Mode is the application's default mode when first starting up RestOrRant.
 
 [width="100%",cols="5%,95%", grid=none]
 |===
@@ -311,12 +313,12 @@ You can use this command in Table Mode if you are switching to a different table
 |===
 ifdef::env-github[| :white_check_mark: a| The user interface switches to <<Table Mode, Table Mode>>.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| The user interface switches to <<Table Mode, Table Mode>>.]
-The specified table number is also indicated in the Results Display and as part of the Current Mode in the status bar.
+The specified table number is also indicated in the Results Display and the Mode Display.
 
 a| a| For example, after executing `tableMode 5`, the Results Display shows the table number of the current table, as seen in the image below.
 
 image::TableMode_RD.png[]
-The table number will also be displayed in the Current Mode portion of the status bar until you change the mode, as shown below.
+The table number will also be displayed in the Mode Display until you change the mode, as shown below.
 
 image::TableMode_CM.png[]
 |===
@@ -353,7 +355,7 @@ The default Revenue Panel view is Daily when you first switch over to Statistics
 
 [width="100%",cols="5%,95%", grid=none]
 |===
-ifdef::env-github[a| :white_check_mark: a| The user interface switches to <<Statistics Mode, Statistics Mode>>.]
+ifdef::env-github[| :white_check_mark: a| The user interface switches to <<Statistics Mode, Statistics Mode>>.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| The user interface switches to <<Statistics Mode, Statistics Mode>>.]
 |===
 
@@ -363,10 +365,10 @@ ifndef::env-github[a| icon:check[role="green", size="2x"] a| The user interface 
 In Restaurant Mode, which is the default mode, you can perform table-related operations and view the order items across all tables.
 
 image::RMUi.png[width="790"]
-The function of the order and table panels are as follows:
+The function of the side and main panels are as follows:
 
-* *Order Panel*: This panel shows you the list of items ordered by all tables in RstOrRant, arranged in chronological order. This means that items that were ordered first appears at the top of the list. It also indicates the quantity left to serve for each item, and the background turns dark when the item is fully served.
-* *Table  Panel*: This panel gives you an overview of all tables in ROR with their table numbers and respective occupancies.
+* *Order Panel*: This panel shows you the list of items ordered by all tables in RestOrRant, arranged in chronological order. This means that items that were ordered first appears at the top of the list. It also indicates the quantity left to serve for each item, and the background turns dark when the item is fully served.
+* *Table Panel*: This panel gives you an overview of all tables in RestOrRant with their table numbers and their respective occupancies.
 
 [NOTE]
 The light coloured tables represent unoccupied tables. +
@@ -378,7 +380,7 @@ Here are the commands that you can use in this mode to efficiently manage the ta
 [[AddTable]]
 ==== Adding tables : `addTable`
 
-As you set up ROR to reflect your physical restaurant or add tables in the event that there are new tables in your restaurant, this command allows you to add tables in ROR by specifying the number of seats at each table.
+As you set up RestOrRant to reflect your physical restaurant or add tables in the event that there are new tables in your restaurant, this command allows you to add tables in RestOrRant by specifying the number of seats at each table.
 
 [NOTE]
 The maximum number of tables that can be added is 400.
@@ -397,61 +399,61 @@ You can add multiple tables at once. This means all of your tables can be added 
 |===
 ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
-You will see a success message in the Results Display and the new tables will be displayed in the table panel.
+You will see a success message in the Results Display and the new tables will be displayed in the Table Panel.
 
-a| a| For example, ROR initially has 35 tables when you open it for the first time as shown in the image below.
+a| a| For example, RestOrRant initially has 35 tables when you open it for the first time as shown in the image below.
 
-image::AddTable_Before.png[]
+image::AddTable_Before.png[width="500",align="center"]
 
 Suppose you decide to open 10 more tables in your restaurant to accommodate more customers, with the number of seats of the first 5 tables be 2, the number of seats for the next 3 tables be 4, and the number of seats at  the last 2 tables be 8. +
 Simply execute the command `addTable 2 2 2 2 2 4 4 4 8 8`. You will see the success message of all the tables added and their table occupancies as seen in the image below.
 
 image::AddTable_RD.png[]
-The Table Panel will also be updated and if you were to scroll down on the table panel, you will see tables 36 to 45 added as shown in  the image below.
+The Table Panel will also be updated and if you were to scroll down on the Table Panel, you will see Table 36 to Table 45 added as shown in  the image below.
 
-image::AddTable_After.png[]
+image::AddTable_After.png[width="500",align="center"]
 
-a| a| Alternatively, you can add also add just one table at a time. For example, you can use the command `addTable 4` to add one table with 4 seats.
+a| a| Alternatively, you can also add just one table at a time. For example, you can use the command `addTable 4` to add one table with 4 seats.
 |===
 
 [[EditPax]]
 ==== Editing the occupancy : `editPax`
 
-During the operation of your restaurant, this command helps you to update the occupancies of the tables in ROR when customers enter your restaurant.
+During the operation of your restaurant, this command helps you to update the occupancies of the tables in RestOrRant when customers enter your restaurant.
 
 [IMPORTANT]
-Changing the table's occupancy to 0 will automatically clear all records of its orders which will not be included in ROR's statistics.
+Changing the table's occupancy to 0 will automatically clear all records of its orders and they will not be included in RestOrRant's statistics.
 
 ****
 * *Format*: `editPax TABLE_NUMBER NUMBER_OF_CUSTOMERS`
 ****
 
 [NOTE]
-The specified table has to exist in ROR and your specified number of customers cannot be greater than the number of seats available at the table.
+The specified table has to exist in RestOrRant and your specified number of customers cannot be greater than the number of seats available at the table.
 
 [width="100%",cols="5%,95%", grid=none]
 |===
 ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
-You will see a success message in the Results Display and the updated table will be displayed in the table panel.
+You will see a success message in the Results Display and the updated table will be displayed in the Table Panel.
 
-a| a| For example, Table 1 in ROR is initially unoccupied as shown below where the table's status is 0/2.
+a| a| For example, Table 1 in RestOrRant is initially unoccupied as shown below where the table's status is 0/2.
 
-image::EditPax_Before.png[]
+image::EditPax_Before.png[width="500",align="center"]
 
-Suppose, two customers now enter your restaurant and you would like to seat them at table 1. +
+Suppose two customers now enter your restaurant and you would like to seat them at table 1. +
 Simply execute the command `editPax 1 2`. You will see the success message of the updated table in the result display as shown below.
 
 image::EditPax_RD.png[]
-The Table Panel will also be updated where table 1 shows an updated table status as well as a change to a slightly darker colour to represent an occupied table.
+The Table Panel will also be updated where Table 1 shows an updated table status as well as a change to a slightly darker colour to represent an occupied table.
 
-image::EditPax_After.png[]
+image::EditPax_After.png[width="500",align="center"]
 |===
 
 [[EditSeats]]
 ==== Editing the available seats : `editSeats`
 
-In the event that there are changes to any table in your restaurant in terms of the number of seats at the table, this command can help you make sure ROR is updated to reflect your physical restaurant.
+In the event that there are changes to any table in your restaurant in terms of the number of seats at the table, this command can help you make sure RestOrRant is updated to reflect your physical restaurant.
 
 [TIP]
 You can use this command to change the number of seats at a table to 0 to represent an unusable table. This would be useful if a table is broken or you decide to remove a table without re-numbering all the other tables.
@@ -461,31 +463,31 @@ You can use this command to change the number of seats at a table to 0 to repres
 ****
 
 [NOTE]
-The specified table has to exist in ROR and the specified number of seats has to be more than the number of customers already seated at the table.
+The specified table has to exist in RestOrRant and the specified number of seats has to be more than the number of customers already seated at the table.
 
 [width="100%",cols="5%,95%", grid=none]
 |===
 ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
-You will see a success message in the Results Display and the updated table will be displayed in the table panel.
+You will see a success message in the Results Display and the updated table will be displayed in the Table Panel.
 
-a| a| For example, Table 2 in ROR is initially occupied as shown below where the table's status is 2/2.
+a| a| For example, Table 2 in RestOrRant is initially occupied as shown below where the table's status is 2/2.
 
-image::EditSeats_Before.png[]
+image::EditSeats_Before.png[width="500",align="center"]
 
-Suppose, the customers at this table inform you that 2 other friends are joining them and they would like to pull chairs over. +
-Now, you can simply execute the command `editSeats 2 4` and you will see the success message of the updated table in the results display as shown below.
+Suppose the customers at this table inform you that 2 other friends are joining them and they would like to pull chairs over. +
+Now, you can simply execute the command `editSeats 2 4` and you will see the success message of the updated table in the Results Display as shown below.
 
 image::EditSeats_RD.png[]
-Table 2 in the table panel will then display the updated table information as shown below.
+Table 2 in the Table Panel will then display the updated table information as shown below.
 
-image::EditSeats_After.png[]
+image::EditSeats_After.png[width="500",align="center"]
 |===
 
 [[ClearTables]]
 ==== Clearing all the tables : `clearTables`
 
-In the event that you have undergone massive changes in the restaurant, you can use this command to remove all tables in ROR.
+In the event that you have undergone massive changes in the restaurant, you can use this command to remove all tables in RestOrRant.
 
 [NOTE]
 This command checks if the restaurant is completely unoccupied before clearing the tables so you don't have to worry about any accidents.
@@ -505,15 +507,15 @@ This command is irreversible! In the event that you accidentally cleared your ta
 |===
 ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
-You will see a success message in the Results Display and all tables will be removed from the table panel.
+You will see a success message in the Results Display and all tables will be removed from the Table Panel.
 
-a| a| For example, when all the customers have left the restaurant, all the tables in ROR will be unoccupied as shown below.
+a| a| For example, when all the customers have left the restaurant, all the tables in RestOrRant will be unoccupied as shown below.
 
-image::ClearTables_Before.png[]
+image::ClearTables_Before.png[width="700",align="center"]
 
-After you enter the command `clearTables`, a success message will be displayed and the table panel will become completely empty as shown below.
+After you enter the command `clearTables`, a success message will be displayed and the Table Panel will become completely empty as shown below.
 
-image::ClearTables_After.png[]
+image::ClearTables_After.png[width="700",align="center"]
 |===
 
 [[SpaceFor]]
@@ -522,7 +524,7 @@ image::ClearTables_After.png[]
 To speed up your management of customers, this command can help you look for available tables to accommodate your customers.
 
 [NOTE]
-This command finds the smallest table able to accommodate the specified customers with the smallest table number.
+This command finds the table with the least number of seats that is able to accommodate the specified customers. It will always choose the table with the smallest table number first.
 
 ****
 * *Format*: `spaceFor NUMBER_OF_CUSTOMERS`
@@ -534,29 +536,29 @@ ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
 You will see a success message in the Results Display and the chosen table will be updated with the specified number of customers.
 
-a| a| For example, in the sample layout we provided, the next available table that can fit 3 customers is table 25 since it is the smallest unoccupied table that can accommodate 3 customers with the smallest table number as shown below.
+a| a| For example, in the sample layout we provided, the next available table that can fit 3 customers is Table 25, as shown below.
 
-image::SpaceFor_Before.png[]
+image::SpaceFor_Before.png[width="500",align="center"]
 
 Suppose, 3 customers enter your restaurant and you want to quickly locate an available table for them, you can simply use the `spaceFor 3` command. A success message will be displayed if there is an available table for 3 as shown below.
 
 image::SpaceFor_RD.png[]
-In the table panel, you will see that table 25 will have been updated to the correct table's occupancy and changed to a slightly darker colour to indicate that it is occupied.
+In the Table Panel, you will see that Table 25 will have been updated to the correct occupancy and changed to a slightly darker colour to indicate that it is occupied.
 
-image::SpaceFor_After.png[]
+image::SpaceFor_After.png[width="500",align="center"]
 |===
 
 [[Reserve]]
 ==== Making a reservation : `reserve` _(Coming in v2.0)_
 
-Another key features that many restaurants have is the ability to make reservations. Hence, a reserve function would be a necessary next step to make management of tables and customers more efficient.
+Another key feature that many restaurants have is the ability to make reservations. Hence, a reserve function would be a necessary next step to make management of tables and customers more efficient.
 
 ****
-* *Format*: reserve c/NUMBER_OF_CUSTOMERS n/NAME d/DAY m/MONTH y/YEAR t/TIME
+* *Format*: `reserve c/NUMBER_OF_CUSTOMERS n/NAME d/DAY m/MONTH y/YEAR t/TIME`
 ****
 
 [NOTE]
-ROR will check for other reservations and availabilities of tables before allowing the user to make a reservation.
+RestOrRant will check for other reservations and availabilities of tables before allowing you to make a reservation.
 
 [width="100%",cols="5%,95%", grid=none]
 |===
@@ -575,7 +577,7 @@ a| a| For example, after executing `reserve c/5 n/John Doe d/28 m/2 y/2019 t/190
 In Table Mode, you can handle orders from the current table, which is given by the table number that was specified in the <<TM, `tableMode`>> command.
 You can take orders, track the serving status of the items ordered, and calculate the bill for that table in this mode.
 
-The user interface for Table Mode (on Table 5) is shown in the image below.
+The user interface for Table Mode (in this example, for Table 5) is shown in the image below.
 
 image::TMUi.png[width="790"]
 The function of the side and main panels are as follows:
@@ -586,16 +588,16 @@ The function of the side and main panels are as follows:
 Here are the commands that you can use in this mode to efficiently handle the orders in your restaurant.
 
 [[AddToOrder]]
-==== Adding item(s) to an order : `addToOrder`
+==== Adding items to an order : `addToOrder`
 
 As you are taking an order from customers, this command allows you to record down the items that were ordered by the table by specifying the item code and quantity for each item that was ordered.
-You may also add more quantities to an item that has already been previously ordered by the table if customers choose to order more.
+You may also add an item that was previously ordered by the table to increase its quantity if customers choose to order more.
 
 [NOTE]
 The maximum quantity of an item that can be ordered by a table is 2,000,000.
 
 [TIP]
-The item codes for each item on the menu can be easily found from the Menu Panel.
+The item codes for each item on the menu can be easily found in the Menu Panel.
 
 ****
 *Format*: `addToOrder ITEM_CODE QUANTITY [ITEM_CODE QUANTITY]…` +
@@ -606,7 +608,10 @@ The item codes for each item on the menu can be easily found from the Menu Panel
 You can only add item codes that exist in the menu. You may add items to the menu using the <<AddToMenu, `addToMenu`>> command in Menu Mode.
 
 [TIP]
-You can add multiple or duplicate order items in a single command! If any of the item codes do not exist in the menu or if the new quantity exceeds 2,000,000, then that item and subsequent items will not be added to the order.
+You can add multiple or duplicate order items in a single command!
+
+[IMPORTANT]
+If any of the item codes do not exist in the menu or if the new quantity exceeds 2,000,000, then that item and subsequent items will not be added to the order.
 
 [width="100%",cols="5%,95%", grid=none]
 |===
@@ -616,37 +621,16 @@ You will see a success message in the Results Display and the updated order item
 
 a| a| For example, Table 5 initially has 4 items in the Order Panel as shown below. Note that the quantity of Coke ordered is 1.
 
-image::Order_Before.png[]
+image::AddToOrder_Before.png[width="300"]
 
 Suppose the customers at Table 5 want to order 1 more Cheeseburger and 1 more Coke. After executing `addToOrder W07 1 W13 1`, you will see a success message in the Results Display, as shown below.
 
 image::AddToOrder_RD.png[]
 The Order Panel will also be updated and you will now see 5 items displayed. As seen in the image below, 1 portion of Cheeseburger has been added as the 5th item, while the quantity of Coke ordered has been updated from 1 to 2.
 
-image::AddToOrder_After.png[]
+image::AddToOrder_After.png[width="300"]
 |===
 // end::tablemode[]
-
-[[AddNote]]
-==== Adding a note to an order item : `addNote` _(Coming in v2.0)_
-
-Sometimes, customers may have special requests for their orders, such as reducing the level of spicyness or removing certain ingredients from their meal.
-You can easily add all these special requests and more to the order item with this command.
-
-****
-*Format*: `addNote ITEM_CODE NOTE`
-****
-
-[NOTE]
-You can only add notes to item codes that have already been ordered by the table. You can add items to the order using the <<AddToOrder, `addToOrder`>> command.
-
-[width="100%",cols="5%,95%", grid=none]
-|===
-ifdef::env-github[| :white_check_mark: a|]
-ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
-You will see a success message in the Results Display and the note will appear in a tag beside the item name in the Order Panel.
-a| a| For example, after executing `addNote W09 Less spicy`, a "Less spicy" tag will appear beside "Chicken Wings" in the Order Panel.
-|===
 
 [[DeleteFromOrder]]
 ==== Deleting an item from an order : `deleteFromOrder`
@@ -669,14 +653,14 @@ You will see a success message in the Results Display and the deleted order item
 
 a| a| For example, Table 5 initially has 4 items in the Order Panel as shown below. Note that Coke has been ordered by the table.
 
-image::Order_Before.png[]
+image::AddToOrder_Before.png[width="300"]
 
 Suppose the customers at Table 5 decide not to order Coke anymore. After executing `deleteFromOrder W13`, you will see a success message in the Results Display, as shown below.
 
 image::DeleteFromOrder_RD.png[]
 The Order Panel will also be updated and you will now only see 3 items displayed. As seen in the image below, Coke has been removed from the order.
 
-image::DeleteFromOrder_After.png[]
+image::DeleteFromOrder_After.png[width="300"]
 |===
 
 [[ClearOrder]]
@@ -685,7 +669,7 @@ image::DeleteFromOrder_After.png[]
 This command allows you to clear all the items ordered by a table so that you can take orders from scratch.
 
 [IMPORTANT]
-This command is irreversible and will not save the order under restaurant statistics. If the customers are done with the meal, use the <<Bill, `bill`>> command instead, which will automatically clear the orders from the table.
+This command is irreversible and will not save the order under RestOrRant's statistics. If the customers are done with the meal, use the <<Bill, `bill`>> command instead, which will automatically clear the orders from the table.
 
 ****
 *Format*: `clearOrder` +
@@ -700,14 +684,14 @@ You will see a success message in the Results Display and the Order Panel will b
 
 a| a| For example, Table 5 initially has 4 items in the Order Panel as shown below.
 
-image::Order_Before.png[]
+image::Order_Before.png[width="300"]
 
 After executing `clearOrder`, you will see a success message in the Results Display, as shown below.
 
 image::ClearOrder_RD.png[]
 The Order Panel will now be empty, as seen in the image below.
 
-image::ClearOrder_After.png[]
+image::ClearOrder_After.png[width="300"]
 |===
 
 [[Serve]]
@@ -730,18 +714,18 @@ If the quantity is not specified, the default quantity served is 1.
 |===
 ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
-You will see a success message in the Results Display and the order item's quantity to serve in the Order Panel will be updated. The background of the order item also turns dark once it is fully served.
+You will see a success message in the Results Display and the order item's quantity to serve will be updated in the Order Panel. The background of the order item also turns dark once it is fully served.
 
 a| a| For example, Table 5 initially has 4 items in the Order Panel as shown below. Note that there are still 2 Prawn Burgers that have yet to be served.
 
-image::Order_Before.png[]
+image::Serve_Before.png[width="300"]
 
 Suppose the Prawn Burgers have been served and you want to update their serving status in RestOrRant. After executing `serve W03 2`, you will see a success message in the Results Display, as shown below.
 
 image::Serve_RD.png[]
 The Order Panel will also be updated and you can see from the image below that there are no more quantities of Prawn Burger to serve. Since it is fully served, the background of the Prawn Burger item has turned dark.
 
-image::Serve_After.png[]
+image::Serve_After.png[width="300"]
 |===
 
 // tag::bill[]
@@ -757,8 +741,8 @@ bill to obtain the customer's receipt.
 ****
 
 [IMPORTANT]
-This command is irreversible. Once the command is executed, all orders and the table occupancy will be cleared to allow
-new customers to use the table. The money earned from the bill will automatically be added to the RestOrRant's revenue statistics.
+This command is irreversible. Once the command is executed, the order will be cleared and the table's occupancy will be reset to allow
+new customers to use the table. The money earned from the bill will automatically be added to RestOrRant's revenue statistics.
 
 [NOTE]
 The `bill` can only be called when all order items have been served.
@@ -769,37 +753,55 @@ ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
 You will see a success message in the Results Display and the user interface will change its colour scheme and
 display. +
+The customer's receipt will be displayed in the main panel and the receipt will indicate the price, quantity and name of items ordered, along with the time, date and total amount the customer has to pay.
 
-In the new user interface, the order items in the order panel are cleared and the menu panel displays the
-customer's receipt. +
-The receipt will indicate the price, quantity and type of menu items ordered, along with the time, date and total bill the customer has to pay.
-
-a| a| Given that Table 5 has 4 items in the Order Panel as shown below. Note that all items have been
+a| a| As seen from the image below, Table 5 has 4 items in the Order Panel. Note that all items have been
 served.
 
 image::Bill_AllServed.png[]
 
-When bill is called, the user interface changes to display the receipt as shown below:
+When `bill` is called, the user interface changes to display the receipt as shown below:
 
-image::Bill_Receipt.png[]
+image::Bill_Receipt.png[width="700",align="center"]
 
-When you switch to Restaurant Mode using <<RM, `restaurantMode`>> command, you will realise that the table
+When you switch to Restaurant Mode using the <<RM, `restaurantMode`>> command, you will realise that the table
 has been updated to accomodate new customers.
 
-image::Bill_UpdatedSeats.png[]
+image::Bill_UpdatedSeats.png[width="500",align="center"]
 |===
 
 // end::bill[]
 
+[[AddNote]]
+==== Adding a note to an order item : `addNote` _(Coming in v2.0)_
+
+Sometimes, customers may have special requests for their orders, such as reducing the level of spicyness or removing certain ingredients from their meal.
+You can easily add all these special requests and more to the order item with this command.
+
+****
+*Format*: `addNote ITEM_CODE NOTE`
+****
+
+[NOTE]
+You can only add notes to item codes that have already been ordered by the table. You can add items to the order using the <<AddToOrder, `addToOrder`>> command.
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a|]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
+You will see a success message in the Results Display and the note will appear as a tag beside the item name in the Order Panel.
+a| a| For example, if the customers want their chicken wings to be less spicy, you can execute the `addNote W09 Less spicy` command. A "Less spicy" tag will then appear beside "Chicken Wings" in the Order Panel.
+|===
+
 // tag::menumode[]
 === Menu Mode
 
-In Menu Mode, you can track all updates to the menu, and the application will display the current items on the menu.
+In Menu Mode, you can track all updates to the menu, and RestOrRant will display the current items on the menu.
 
 image::MMUi.png[width="790"]
-This mode only uses the side panel, to avoid any confusion and for ease of use. The function is as follows:
+This mode only uses the side panel to avoid any confusion and for ease of use. The function is as follows:
 
-* *Menu Panel*: This panel displays the currently available items on the menu along with their item codes and price.
+* *Menu Panel*: This panel displays the currently available items and their details on the menu.
 
 Here are the commands that you can use in this mode to efficiently handle the menu in your restaurant.
 
@@ -818,7 +820,7 @@ Order of the input parameters does not matter (i.e. any permutation of `c/ITEM_C
 keyed in and the command will work as intended).
 
 [IMPORTANT]
-RestOrRant does not allow you to add two items with the same item code, they are considered to be the same item. Make sure to have different item codes for all your available dishes!
+RestOrRant does not allow you to add two items with the same item code as they are considered to be the same item. Make sure to have different item codes for all your available dishes!
 
 [width="100%",cols="5%,95%", grid=none]
 |===
@@ -828,20 +830,23 @@ You will see a success message in the Results Display and the updated menu with 
 
 a| a| For example, the menu initially has 15 items as shown below.
 
-image::AddToMenu_Before.png[]
+image::AddToMenu_Before.png[width="300"]
 
 Suppose you would like to add a Chocolate Ice Cream to the menu. After executing `addToMenu c/W16 n/Chocolate Ice Cream p/1.50`, you will see a success message in the Results Display, as shown below.
 
 image::AddToMenu_RD.png[]
-The Menu Panel will also be updated and you will now see 16 items displayed. As seen in the image below, a new 16th item with code W16, name Chocolate Ice Cream and price of 1.50 has been added to the menu.
+The Menu Panel will also be updated and you will now see 16 items displayed. As seen in the image below, a new 16th item has been added to the menu.
 
-image::AddToMenu_After.png[]
+image::AddToMenu_After.png[width="300"]
 |===
 
 [[DeleteFromMenu]]
 ==== Deleting menu items from the menu : `deleteFromMenu`
 
 Suppose you now decide you no longer want to sell a particular dish, and would like to make it unavailable for customers. You can do so by specifying the item code of the item you wish to remove. +
+
+[NOTE]
+The restaurant must be empty (there should not be any occupied tables).
 
 ****
 *Format*: `deleteFromMenu ITEM_CODE` +
@@ -850,11 +855,10 @@ Suppose you now decide you no longer want to sell a particular dish, and would l
 
 [NOTE]
 You can only delete item codes that already exist in the menu. You can add items to the menu using the <<AddToMenu,
-`addToMenu`>> command. +
-The restaurant must be empty (there should not be any occupied tables).
+`addToMenu`>> command.
 
 [IMPORTANT]
-Deleting an item from the menu would also erase the quantity ordered associated with that item, and this item will not show up on the Menu Panels in all modes. If you choose to add the same item to the menu again, it would be considered as a new item with quantity ordered starting from zero.
+Deleting an item from the menu would also erase the order statistics associated with that item, and this item will not show up on the Menu Panels in all modes. If you choose to add the same item to the menu again, the order statistics for the item will be reset to 0.
 
 [width="100%",cols="5%,95%", grid=none]
 |===
@@ -862,17 +866,16 @@ ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
 You will see a success message in the Results Display and the displayed menu on the Menu Panel would have the specified item removed.
 
-a| a| For example, the menu initially has 6 items as shown below.
+a| a| For example, the menu initially has a few items as shown below.
 
-image::AddToMenu_After.png[]
+image::DeleteFromMenu_Before.png[width="300"]
 
 Suppose you would like to delete the Beef Burger from the menu. After executing `deleteFromMenu W04`, you will see a success message in the Results Display, as shown below.
 
 image::DeleteFromMenu_RD.png[]
-The Menu Panel will also be updated and you will now see 5 items displayed. As seen in the image below, Beef Burger
-has been deleted from the menu.
+The Menu Panel will also be updated and you will no longer see the Beef Burger, as seen in the image below.
 
-image::DeleteFromMenu_After.png[]
+image::DeleteFromMenu_After.png[width="300"]
 |===
 
 [[ClearMenu]]
@@ -890,7 +893,7 @@ The menu must not be empty (one or more items should exist in the menu). +
 The restaurant must be empty (there should not be any occupied tables).
 
 [IMPORTANT]
-This command is irreversible and will not save the menu under restaurant statistics.
+This command is irreversible and will not save the menu under RestOrRant's statistics.
 
 [width="100%",cols="5%,95%", grid=none]
 |===
@@ -898,28 +901,23 @@ ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
 You will see a success message in the Results Display and the Menu Panel will be empty.
 
-a| a| For example, the menu initially has 6 items as shown below.
+a| a| For example, the menu initially has a few items as shown below.
 
-image::AddToMenu_After.png[]
+image::ClearMenu_Before.png[width="700",align="center"]
 
-After executing `clearMenu`, you will see a success message in the Results Display, as shown below.
+After executing `clearMenu`, you will see a success message in the Results Display and the Menu Panel will now be empty, as seen in the image below.
 
-image::ClearMenu_RD.png[]
-The Menu Panel will now be empty, as seen in the image below.
-
-image::ClearMenu_After.png[]
+image::ClearMenu_After.png[width="700", align="center"]
 |===
 
 [[ToggleAvailability]]
 ==== Changing an item's availability : `toggleAvailability` _(Coming in v2.0)_
 
-This command allows you to change an item's availability by specifying the item code. +
-
-[TIP]
-All added menu items are available by default.
+This command allows you to change an item's availability by specifying the item code.
+Calling this command on an available item would mark the item as unavailable, whereas calling this command on an unavailable item would mark it as available again.
 
 [NOTE]
-Calling this command on an available item would mark the item as unavailable, whereas calling this command on an unavailable item would mark it as available again.
+All added menu items are available by default.
 
 ****
 *Format*: `toggleAvailability ITEM_CODE` +
@@ -927,7 +925,7 @@ Calling this command on an available item would mark the item as unavailable, wh
 ****
 
 [NOTE]
-The specified item should exist in the menu.
+The specified item code should exist in the menu.
 
 [width="100%",cols="5%,95%", grid=none]
 |===
@@ -935,9 +933,9 @@ ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
 You will see a success message in the Results Display and the background of the menu item would turn dark.
 
-a| a| For example, say Lobster Burger has just become sold out. +
+a| a| Let's say that the Lobster Burger has just become sold out. +
 Executing `toggleAvailability W06` would make Lobster Burger unavailable for ordering and the background of the Lobster Burger would turn dark. +
-Now, if the ingredients for Lobster Burger is available again, executing `toggleAvailability W06` would change the background to its original colour and enable Lobster Burger to be ordered by diners.
+Now, if the ingredients for Lobster Burger are available again, executing `toggleAvailability W06` would change the background to its original colour and enable Lobster Burger to be ordered.
 |===
 // end::menumode[]
 
@@ -960,15 +958,14 @@ you have selected. This allows you to study trends in your restaurant's revenue.
 
 [NOTE]
 By default the Statistics Mode displays revenue up to 30 days in the Revenue Panel unless you execute
-<<Yearly, `yearly`>>, <<Monthly, `monthly`>> or <<Daily, `daily`>> commands to change its display respectively.
+<<Yearly, `yearly`>>, <<Monthly, `monthly`>> or <<Daily, `daily`>> commands to change its display.
 
 Here are the commands that you can use in this mode to study the statistical data of your restaurant.
 
 [[Yearly]]
-==== Changing the Revenue Panel to yearly : `yearly`
+==== Changing the Revenue Panel to yearly view : `yearly`
 
-This command changes the Revenue Panel to display the statistical yearly revenue for you to study the
-yearly revenue trends. +
+This command changes the Revenue Panel to display the statistical yearly revenue for you to study its trends. +
 
 ****
 *Format*: `yearly` +
@@ -979,22 +976,21 @@ yearly revenue trends. +
 |===
 ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
-You will see a success message in the Results Display and the Revenue Panel changes to display up to 30 yearly
-revenue starting from the most recent record.
+You will see a success message in the Results Display and the Revenue Panel changes to display the yearly
+revenue of up to the past 30 years, starting from the most recent record.
 
 
-a| a| Notice that the first yearly revenue is the most recent year recorded. This saves you the trouble of
+a| a| Notice that the first revenue is the most recent year recorded. This saves you the trouble of
 scrolling through the rest of the record.
 
-image::SM_Yearly.png[]
+image::SM_Yearly.png[width="700", align="center"]
 
 |===
 
 [[Monthly]]
-==== Changing the Revenue Panel to monthly : `monthly`
+==== Changing the Revenue Panel to monthly view : `monthly`
 
-This command changes the Revenue Panel to display the statistical monthly revenue for you to study the
-monthly revenue trends. +
+This command changes the Revenue Panel to display the statistical monthly revenue for you to study its trends. +
 
 ****
 *Format*: `monthly` +
@@ -1005,22 +1001,22 @@ monthly revenue trends. +
 |===
 ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
-You will see a success message in the Results Display and the Revenue Panel changes to display up to 30 monthly
-revenue starting from the most recent record.
+You will see a success message in the Results Display and the Revenue Panel changes to display the monthly
+revenue of up to the past 30 months, starting from the most recent record.
 
 
-a| a| Notice that the first monthly revenue is the most recent month recorded. This saves you the trouble of
+a| a| Notice that the first revenue is the most recent month recorded. This saves you the trouble of
 scrolling through the rest of the record.
 
-image::SM_Monthly.png[]
+image::SM_Monthly.png[width="700", align="center"]
 
 |===
 
 [[Daily]]
-==== Changing the Revenue Panel to daily : `daily`
+==== Changing the Revenue Panel to daily view : `daily`
 
 This command helps you to change the Revenue Panel back to its default display of the statistical daily revenue
- for you to study the daily revenue trends. +
+ for you to study its trends. +
 
 ****
 *Format*: `daily` +
@@ -1031,13 +1027,13 @@ This command helps you to change the Revenue Panel back to its default display o
 |===
 ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
-You will see a success message in the Results Display and the Revenue Panel changes to display up to 30 daily
-revenue starting from the most recent record.
+You will see a success message in the Results Display and the Revenue Panel changes to display the daily
+revenue for up to the past 30 days, starting from the most recent record.
 
-a| a| Notice that the first daily revenue is the most recent day recorded. This saves you the trouble of
+a| a| Notice that the first revenue is the most recent day recorded. This saves you the trouble of
 scrolling through the rest of the record.
 
-image::SM_Daily.png[]
+image::SM_Daily.png[width="700", align="center"]
 
 |===
 
@@ -1047,27 +1043,25 @@ image::SM_Daily.png[]
 If you want to obtain the revenue earned in a particular year, month or day, you can obtain it with this command.
 
 ****
-*Format*: `revenue [ y/YEAR [m/MONTH [d/DAY] ] ]` +
-*Shortcut*: `r` +
-*Examples*: `r`, `r [y/YEAR]`, `r y/YEAR [m/MONTH]`, `r y/YEAR m/MONTH [d/DAY]`
+*Format*: `revenue` or `revenue y/YEAR` or `revenue y/YEAR m/MONTH` or `revenue y/YEAR m/MONTH d/DAY` +
+*Shortcut*: `r`
 ****
 
 [TIP]
 Order of the parameters does not matter. +
 For example, `r y/2019 d/6 m/4` will still return the revenue earned on
 6th April 2019. +
-If *no arguments* are included, by default the revenue earned from the *current day* will be returned.
+If *no arguments* are included, the revenue earned from the *current day* will be returned by default.
 
 [NOTE]
-If there are no records of the stated period, it will be returned as $0. +
+If there are no records of the stated period, it will be returned as $0.00. +
 Refer to <<Command, commands>> to take note of the parameter restrictions of `YEAR`, `MONTH` and `DAY`.
 
 [width="100%",cols="5%,95%", grid=none]
 |===
 ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
-You will see a success message and the revenue of the specified year, month or day in the Results Display. Examples
-are provided below.
+You will see a success message and the revenue of the specified year, month or day in the Results Display.
 
 a| a| `revenue y/2019` will return the revenue for year 2019 as shown:
 
@@ -1118,7 +1112,7 @@ These commands can be used in any mode.
 [width="90%",cols="^25%,^15%,30%,30%",options="header",]
 |=======================================================================
 ^|Command ^|Shortcut ^|Usage ^|Example
-a|<<Help, `help`>> a| kbd:[F1] a| `help` a| Shows the user guide
+a|<<Help, `help`>> a| kbd:[F1] a| `help` a| Shows the User Guide
 a|<<History, `history`>> a| `*h*` a| `history` a| Shows the past commands
 a|<<ClearRestOrRant, `clearRestOrRant`>> a| - a| `clearRestOrRant` a| Clears all the data in RestOrRant
 a|<<Exit, `exit`>> a| - a| `exit` a| Exits RestOrRant
@@ -1145,15 +1139,19 @@ These commands can only be used in Restaurant Mode.
 [width="90%",cols="^25%,^15%,30%,30%",options="header",]
 |=======================================================================
 ^|Command ^|Shortcut ^|Usage ^|Example
-a|<<AddTable, `addTable`>> a| `*add*` a| `addTable NUMBER_OF_SEATS [NUMBER_OF_SEATS] ...` a| `addTable 2 4 6 8` +
+a|<<AddTable, `addTable`>> a| `*add*` a| `addTable NUMBER_OF_SEATS [NUMBER_OF_SEATS]...` a| `addTable 2 4 6 8` +
 Adds 4 tables with 2, 4, 6 and 8 seats
 a|<<EditPax, `editPax`>> a| - a| `editPax TABLE_NUMBER NUMBER_OF_CUSTOMERS` a| `editPax 1 2` +
-Updates Table 1 to have 2 diners
+Updates Table 1 to have 2 customers
 a|<<EditSeats, `editSeats`>> a| - a| `editSeats TABLE_NUMBER NUMBER_OF_SEATS` a| `editSeats 1 5` +
 Updates Table 1 to have 5 seats
 a|<<ClearTables, `clearTables`>> a| `*clear*` a| `clearTables` a| Clears all the tables in RestOrRant
 a|<<SpaceFor, `spaceFor`>> a| - a| `spaceFor NUMBER_OF_CUSTOMERS` a| `spaceFor 3` +
 Allocates a table for 3 customers
+a|<<Reserve, `reserve`>> +
+_(Coming in v2.0)_
+a| - a| `reserve c/NUMBER_OF_CUSTOMERS n/NAME d/DAY m/MONTH y/YEAR t/TIME` a| `reserve c/5 n/John Doe d/28 m/2 y/2019 t/1900` +
+Reserves a table for 5 under John Doe's name at 1900H on 28/2/2019
 |=======================================================================
 
 === Table Mode
@@ -1163,18 +1161,18 @@ These commands can only be used in Table Mode.
 [width="90%",cols="^25%,^15%,30%,30%",options="header",]
 |=======================================================================
 ^|Command ^|Shortcut ^|Usage ^|Example
-a|<<AddToOrder, `addToOrder`>> a| `*add*` a| `addToOrder ITEM_CODE QUANTITY [ITEM_CODE QUANTITY] …` a| `addToOrder W07 1 W13 1` +
+a|<<AddToOrder, `addToOrder`>> a| `*add*` a| `addToOrder ITEM_CODE QUANTITY [ITEM_CODE QUANTITY]...` a| `addToOrder W07 1 W13 1` +
 Adds 1 W07 and 1 W13 to the current table's order
-a|<<AddNote, `addNote`>> +
-_(Coming in v2.0)_
-a| - a|`addNote ITEM_CODE NOTE` a| `addNote W09 Less spicy` +
-Adds the "Less spicy" note to W09 in the current table's order
 a|<<DeleteFromOrder, `deleteFromOrder`>> a| `*del*` a| `deleteFromOrder ITEM_CODE` a| `deleteFromOrder W09` +
 Removes W09 from the current table's order
 a|<<ClearOrder, `clearOrder`>> a| `*clear*` a| `clearOrder` a| Clears all the items from the current table's order
 a|<<Serve, `serve`>> a| `*s*` a| `serve ITEM_CODE [QUANTITY]` a| `serve W03 2` +
 Marks 2 W03 as served in the current table's order
 a|<<Bill, `bill`>> a| `*b*` a| `bill` a| Returns the bill for the current table's order
+a|<<AddNote, `addNote`>> +
+_(Coming in v2.0)_
+a| - a|`addNote ITEM_CODE NOTE` a| `addNote W09 Less spicy` +
+Adds the "Less spicy" note to W09 in the current table's order
 |=======================================================================
 
 === Menu Mode
@@ -1184,14 +1182,14 @@ These commands can only be used in Menu Mode.
 [width="90%",cols="^25%,^15%,30%,30%",options="header",]
 |=======================================================================
 ^|Command ^|Shortcut ^|Usage ^|Example
-a|<<AddToMenu, `addToMenu`>> a| `*add*` a| `addToMenu c/ITEM_CODE n/ITEM_NAME p/ITEM_PRICE …` a| `addToMenu c/A02 n/French Fries p/2.00` +
+a|<<AddToMenu, `addToMenu`>> a| `*add*` a| `addToMenu c/ITEM_CODE n/ITEM_NAME p/ITEM_PRICE` a| `addToMenu c/A02 n/French Fries p/2.00` +
 Adds A02 to the menu
 a|<<DeleteFromMenu, `deleteFromMenu`>> a| `*del*` a| `deleteFromMenu ITEM_CODE` a| `deleteFromMenu A02` +
 Removes A02 from the menu
 a|<<ClearMenu, `clearMenu`>> a| `*clear*` a| `clearMenu` a| Clears all items from the menu
 a|<<ToggleAvailability, `toggleAvailability`>> +
 _(Coming in v2.0)_
-a| t a|`toggleAvailability ITEM_CODE` a| `toggleAvailability W06` +
+a| `*t*` a|`toggleAvailability ITEM_CODE` a| `toggleAvailability W06` +
 
 * Makes W06 unavailable for ordering if initially available
 * Makes W06 available for ordering if initially unavailable
@@ -1210,6 +1208,10 @@ a|<<Monthly, `monthly`>> a|`*m*` a|`monthly` a|
 Displays the revenue from up to the past 30 months in the Revenue Panel
 a|<<Daily, `daily`>> a|`*d*` a|`daily` a|
 Displays the revenue from up to the past 30 days in the Revenue Panel
-a|<<Revenue, `revenue`>> a|`*r*` a|`revenue [y/YEAR [[m/MONTH] [d/DAY]]]` a|`revenue y/2019 m/1 d/1` +
+a|<<Revenue, `revenue`>> a|`*r*` a|`revenue` or +
+ `revenue y/YEAR` or +
+ `revenue y/YEAR m/MONTH` or +
+ `revenue y/YEAR m/MONTH d/DAY`
+a|`revenue y/2019 m/1 d/1` +
 Returns the revenue earned on 01 January 2019
 |=======================================================================

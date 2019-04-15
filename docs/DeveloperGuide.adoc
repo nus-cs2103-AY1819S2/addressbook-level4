@@ -260,30 +260,37 @@ This section describes some noteworthy details on how certain features are imple
 
 // tag::map[]
 === Map feature
-==== Current implementation
+
+The map feature handles the interactions of the game in the map level. The map feature does the following:
+
+* Initialise both players' maps.
+* Allow placing of battleships in the cells.
+* Allow attacking of cells.
+
+==== Current implementation of map initialisation
 The map feature is facilitated by `MapGrid` and `Cell`.
 The map grid is stored internally in `MapGrid` as a 2D array of `Cell` objects.
-`MapGrid` implements the following method to initialise the map.
+`MapGrid` implements the following method to initialise the map:
 
 * `MapGrid#initialise(Cell[][] map)` -- initialises the map using the given `Cell` 2D array.
 
-Below is the code snippet for the `initialise` method
+Below is the code snippet for the `initialise` method. `cellGrid` is the internal 2D array comprising of `Cell` objects. +
+The method `copy2dArray` copies the `map` parameter passed in to the internal `cellGrid`
+
 [source,java]
 ----
 include::../src/main/java/seedu/address/model/MapGrid.java[lines=39..46]
 ----
-`cellGrid` is the internal 2D array comprising of `Cell` objects. +
-The method `copy2dArray` copies the `map` parameter passed in to the internal `cellGrid`
 
-Below is the code snippet for the `copy2dArray` method.
+{empty} +
+
+Below is the code snippet for the `copy2dArray` method. The `copy2dArray` method creates a new `Cell` object for each of the input `Cell` objects.
+The copying is done using a constructor in `Cell` that takes in a parameter `Cell`.
+This constructor copies the private attributes of the given `Cell` parameter.
 [source,java]
 ----
 include::../src/main/java/seedu/address/model/MapGrid.java[lines=99..105]
 ----
-
-The `copy2dArray` method creates a new `Cell` object for each of the input `Cell` objects.
-The copying is done using a constructor in `Cell` that takes in a parameter `Cell`.
-This constructor copies the private attributes of the given `Cell` parameter.
 
 {empty} +
 The following sequence diagram shows what happens when the "initialise map" command is used.:
@@ -291,7 +298,7 @@ The following sequence diagram shows what happens when the "initialise map" comm
 .Sequence diagram of initialising the maps
 image::InitialiseMapCommandSequenceDiagram.png[width=800]
 
-The following activity diagram shows when the "initialise map" command can be used:
+The following activity diagram shows when the "initialise map" command can be used by the user:
 
 .Activity diagram displaying when the user can initialise the maps
 image::InitActivityDiagram.png[width=800]

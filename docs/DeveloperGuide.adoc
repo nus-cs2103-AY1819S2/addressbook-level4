@@ -510,6 +510,10 @@ The reverse command provides a convenient way for users to sort their entries in
 ==== Current Implementation
 
 This is how the reverse command is implemented:
+
+.Sequence Diagram of Reverse Command
+image::ReverseSequenceDiagram.png[width="800"]
+
 [.text-left]
 . `[fuchsia]#LogicManager#execute(_"reverse"_)#` calls `[fuchsia]#FinanceTrackerParser#parseCommand(_"reverse"_)#`.
 . `[fuchsia]#FinanceTrackerParser#parseCommand(_"reverse"_)#` creates a `[fuchsia]#ReverseCommand#` object, _r_.
@@ -520,9 +524,6 @@ This is how the reverse command is implemented:
 . `[fuchsia]#FinanceTracker#reverseRecordList()#` calls `[fuchsia]#UniqueRecordList#reverseList()#`.
 . `[fuchsia]#UniqueRecordList#reverseList()#` uses `[fuchsia]#FXCollection#`’s static method `[fuchsia]#reverse()#` to reverse the list of records.
 . `[fuchsia]#ReverseCommand#execute()#` then creates a `[fuchsia]#CommandResult#` object and returns it back to the `[fuchsia]#LogicManager#`.
-
-.Sequence Diagram of Reverse Command
-image::ReverseSequenceDiagram.png[width="800"]
 
 // end::reverse[]
 

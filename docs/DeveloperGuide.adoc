@@ -463,7 +463,13 @@ Another approach we can consider is to directly invoke ROME whenever we deal wit
 ==== Extending and generalising Storage component.
 
 Reading Entries from a web feed shares a major similarity with reading a stored EntryBook from disk. Both actions serialize an `EntryBook` from a source of external data.
+To apply this general observation we can consider the following design.
 
+.Class diagram illustrating more general design.
+image::GeneralisedEntryBookSerializer.png[]
+
+** Pros: Expresses the intention of the code better with a stronger separation of concerns. Also applies interface segregation principle.
+** Cons: Large amounts of refactors and changes needed.
 
 // end::feed-support[]
 

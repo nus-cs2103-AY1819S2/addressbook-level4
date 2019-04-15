@@ -21,19 +21,7 @@ public class Reminder {
     private Interval interval;
     private boolean show;
     private boolean notShow;
-
-    /**
-     * Every filed must be present and not NULL
-     */
-//    public Reminder(Event event, String message) {
-//        requireAllNonNull(event, message);
-//        this.event = event;
-//        this.message = message;
-//        this.show = false;
-//        this.notShow = false;
-//        this.interval = new Interval("2", "min");
-//    }
-
+    
     public Reminder(Event event, Interval interval, String message) {
         requireAllNonNull(event, interval, message);
         this.event = event;

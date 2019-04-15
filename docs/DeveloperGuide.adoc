@@ -614,6 +614,10 @@ Step 5. The `AddReviewCommand` executes. The command checks if the book to which
 
 Step 6. If the book exists, the review is added to the review list of the Bookshelf.
 
+The Sequence Diagram below shows how the components interact with each other for the scenario where the user issues the command `addBook n/Alice rt/rt/interesting r/an interesting story book...`
+
+image::AddReviewSequenceDiagram.png[width="800"]
+
 ==== Design Considerations
 
 ===== Aspect: Data structure to store Reviews

@@ -241,6 +241,8 @@ Example:
 Lists all the reviews in the BookShelf. +
 Format: `listAllReviews`
 
+image::listallreviews.png[width="450"]
+
 ==== Listing book reviews of a certain book : `listReview`
 
 Lists the reviews of the book identified by the index number used in the displayed Bookshelf. +
@@ -256,6 +258,8 @@ Example:
 * The index must be a positive integer 1, 2, 3, …​
 ****
 
+image::listreview.png[width="450"]
+
 ==== Selecting an review: `selectReview`
 Selects a review.
 
@@ -270,6 +274,8 @@ Example:
 * The index refers to the index number shown in the displayed review list.
 * The index must be a positive integer 1, 2, 3, …​
 ****
+
+image::selectreview.png[width="450"]
 
 // end::reviews[]
 

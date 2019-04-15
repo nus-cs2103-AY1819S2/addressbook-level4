@@ -1,7 +1,7 @@
 package seedu.address.model.project;
 
 import static java.util.Objects.requireNonNull;
-import static java.util.logging.Level.INFO;
+import static java.util.logging.Level.FINE;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
@@ -58,7 +58,7 @@ public class SortedUserStoryList implements Iterable<UserStory> {
 
         internalList.add(toAdd);
         Collections.sort(internalList);
-        logger.log(INFO, "Added new user story: " + toAdd.getUserStoryUser() + toAdd.getUserStoryFunction()
+        logger.log(FINE, "Added new user story: " + toAdd.getUserStoryUser() + toAdd.getUserStoryFunction()
                 + toAdd.getUserStoryReason() + toAdd.getUserStoryImportance() + toAdd.getUserStoryStatus());
     }
 
@@ -71,7 +71,7 @@ public class SortedUserStoryList implements Iterable<UserStory> {
         if (!internalList.remove(toRemove)) {
             throw new UserStoryNotFoundException();
         }
-        logger.log(INFO, "Removed user story: " + toRemove.getUserStoryUser() + toRemove.getUserStoryFunction()
+        logger.log(FINE, "Removed user story: " + toRemove.getUserStoryUser() + toRemove.getUserStoryFunction()
                 + toRemove.getUserStoryReason() + toRemove.getUserStoryImportance() + toRemove.getUserStoryStatus());
     }
 

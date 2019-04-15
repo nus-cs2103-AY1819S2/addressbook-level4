@@ -619,6 +619,58 @@ distinguish whether an input is a keyword or a search condition.
 
 // end::activity_list[]
 
+//tag::activity_edit[]
+
+=== Activity Edit Command
+
+`ClubManager` allows users to make changes to the information fields of activities that are currently in its activity list. 
+
+The `activityEdit` command allows users to edit the name, datetime, location and description fields of existing activities in the activity list.
+At least one of the fields must be different from the existing record of the activity the user is trying to edit.
+
+When the command is entered, an `ActivityEditCommandParser` is created with the inputs provided by the user. +
+The ActivityEditCommandParser object would then validate the prefixes in the inputs and compare it with the current fields of the activity to check if there are any changes to be made. +
+After that, the individual inputs would be validated in the parser utils. Finally, if the checks pass, an `ActivityEditCommand` object would be returned.
+
+The execute command of the `ActivityEditCommand` object would then be called, and it will replace the existing Activity object (that the user wants to edit) with 
+a new Activity object created with the updated fields, and any other previous information if certain fields are not edited.
+
+[discrete]
+===== Activity Add Member Command
+The `activityAddMember` command allows users to add members to the attendance list of an activity. The provided MatricNumber must be a valid MatricNumber and must belong to
+a member in the member list.
+
+When the `activityAddMember` command is executed from the UI, the inputs are parsed with the `ActivityAddMemberCommandParser` object which checks the validity of the MatricNumber. 
+
+If the inputs are valid, the `ActivityAddMemberCommand` is returned from the Parser object and the execute function is called. The first check would be if the provided activity 
+index number is valid, relative to the currently displayed activity list. Then, the Command object will check whether the MatricNumber belongs to a member in the member list. Finally,
+it will check that the MatricNumber provided does not belong to a member already in the activity's attendance list. 
+
+If all the checks pass, the MatricNumber object containing the member's matric number will be stored in an ArrayList object(which represents the attendance list) belonging to the activity.
+
+.Sequence Diagram for `activityAddMember` command
+image::ActivityAddMember_SequenceDiagram.PNG[width="800"]
+
+.Object Diagram displaying the relationship between Activity and Person when using `activityAddMember` command.
+image::ActivityAddMember_ObjectDiagram.PNG[width="600" height="300"]
+
+
+[discrete]
+===== Activity Delete Member Command
+
+The `activityDeleteMember` command allows users to remove members from the attendance list of an activity. The provided MatricNumber must be a valid MatricNumber and must belong to
+a member in the member list.
+
+When the `activityDeleteMember` command is executed from the UI, the inputs are parsed with the `ActivityDeleteMemberCommandParser` object which checks the validity of the MatricNumber. 
+
+If the inputs are valid, the `ActivityDeleteMemberCommand` is returned from the Parser object and the execute function is called. The first check would be if the provided activity 
+index number is valid, relative to the currently displayed activity list. Then, the Command object will check whether the MatricNumber belongs to a member in the member list. Finally,
+it will check that the MatricNumber provided belongs to a member already in the activity's attendance list. 
+
+If all the checks pass, the MatricNumber object containing the member's matric number will be removed from the ArrayList object(which represents the attendance list) belonging to the activity.
+
+// end::activity_edit[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.

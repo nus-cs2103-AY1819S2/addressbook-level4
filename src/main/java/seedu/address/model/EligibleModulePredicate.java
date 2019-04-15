@@ -15,9 +15,9 @@ public class EligibleModulePredicate implements Predicate<ModuleInfo> {
     private static final String aLevelRegex =
             "MA1521|MA1101R|PC1141|PC1142|PC1143|PC1144|CM1401|CM1402|CM1501|CM1502|PC1431|";
 
-    private final GradTrak gradTrak;
+    private final ReadOnlyGradTrak gradTrak;
 
-    public EligibleModulePredicate(GradTrak gradTrak) {
+    public EligibleModulePredicate(ReadOnlyGradTrak gradTrak) {
         this.gradTrak = gradTrak;
     }
 

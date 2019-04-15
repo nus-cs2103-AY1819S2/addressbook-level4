@@ -449,7 +449,7 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredModulesTaken.equals(other.filteredModulesTaken)
                 && Objects.equals(selectedClassForPrinting.get(), other.selectedClassForPrinting.get())
-                && recModuleList.equals(other.recModuleList)
+                && recModuleListSorted.equals(other.recModuleListSorted)
                 && course.equals(other.course)
                 && requirementStatusList.equals(other.requirementStatusList)
                 && this.userInfo.equals(other.userInfo);

@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.EligibleModulePredicate;
 import seedu.address.model.GradTrak;
+import seedu.address.model.ReadOnlyGradTrak;
 import seedu.address.model.course.Course;
 import seedu.address.model.course.CourseReqType;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
@@ -19,10 +20,10 @@ import seedu.address.model.moduleinfo.ModuleInfoCode;
 public class RecModulePredicate implements Predicate<RecModule> {
 
     private final Course course;
-    private final GradTrak gradTrak;
+    private final ReadOnlyGradTrak gradTrak;
     private final Logger logger;
 
-    public RecModulePredicate(Course course, GradTrak gradTrak) {
+    public RecModulePredicate(Course course, ReadOnlyGradTrak gradTrak) {
         requireAllNonNull(course, gradTrak);
         this.course = course;
         this.gradTrak = gradTrak;

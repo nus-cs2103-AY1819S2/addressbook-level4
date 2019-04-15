@@ -1,8 +1,13 @@
 package seedu.address.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
+import seedu.address.commons.util.ModuleTree;
 import seedu.address.model.limits.SemesterLimit;
+import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.model.moduletaken.Semester;
 
@@ -27,4 +32,17 @@ public interface ReadOnlyGradTrak extends Observable {
      */
     Semester getCurrentSemester();
 
+    /**
+     * Returns a {@code List} of {@code ModuleInfoCode} representing non-failed {@code ModuleTaken}.
+     * @return a {@code List} of {@code ModuleInfoCode} representing non-failed {@code ModuleTaken}.
+     */
+    List<ModuleInfoCode> getNonFailedCodeList();
+
+    /**
+     * Generates an {@code ArrayList} of {@code String} of missing prerequisites in this {@code GradTrak},
+     * given the {@code ModuleTree} of the module.
+     * @param moduleTree The {@code ModuleTree} of the module whose missing prerequisites are being generated.
+     * @return an {@code ArrayList} of {@code String} of missing prerequisites.
+     */
+    ArrayList<String> getMissingPrerequisites(ModuleTree moduleTree);
 }

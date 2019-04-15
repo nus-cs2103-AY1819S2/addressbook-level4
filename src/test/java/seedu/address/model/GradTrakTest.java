@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalModuleTaken.CS2103T;
 import static seedu.address.testutil.TypicalModuleTaken.getTypicalGradTrak;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -21,7 +22,9 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.util.ModuleTree;
 import seedu.address.model.limits.SemesterLimit;
+import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.model.moduletaken.Semester;
 import seedu.address.model.moduletaken.exceptions.DuplicateModuleTakenException;
@@ -150,6 +153,16 @@ public class GradTrakTest {
 
         @Override
         public void removeListener(InvalidationListener listener) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<ModuleInfoCode> getNonFailedCodeList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ArrayList<String> getMissingPrerequisites(ModuleTree moduleTree) {
             throw new AssertionError("This method should not be called.");
         }
     }

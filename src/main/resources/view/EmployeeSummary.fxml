@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="employeeDetails" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="435.0" prefWidth="482.0" style="-fx-background-color: white" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane id="nameSummary" prefHeight="58.0" prefWidth="482.0">
+         <children>
+                  <Label id="nameSummaryLabel" fx:id="name" alignment="CENTER" maxHeight="Infinity" prefHeight="56.0" prefWidth="482.0" text="name" wrapText="true" />
+         </children>
+      </Pane>
+            <VBox layoutX="10.0" layoutY="75.0" maxHeight="Infinity" prefHeight="360.0" prefWidth="458.0">
+               <VBox prefHeight="61.0" prefWidth="458.0">
+                  <padding>
+                     <Insets bottom="5" top="5" />
+                  </padding>
+                  <Label id="labelSummaryheader" alignment="CENTER" prefHeight="36.0" prefWidth="458.0" text="SKILLS">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+                  <FlowPane id="skills" fx:id="skills" alignment="CENTER" layoutX="19.0" layoutY="98.0" prefHeight="45.0" prefWidth="458.0" />
+               </VBox>
+               <Label id="labelSummaryheader" alignment="CENTER" prefHeight="25.0" prefWidth="548.0" text="DETAILS">
+            <font>
+               <Font size="15.0" />
+            </font></Label>
+               <ListView focusTraversable="false" mouseTransparent="true" prefHeight="255.0" prefWidth="458.0">
+                  <HBox prefHeight="20" prefWidth="300.0">
+                     <Label id="labelSummaryheader" prefWidth="68" text="Phone:  " />
+                     <Label id="labelSummary" fx:id="phone" text="phone" />
+                  </HBox>
+                  <HBox prefHeight="27.0" prefWidth="300.0">
+                     <Label id="labelSummaryheader" prefWidth="68.0" text="Email:  " />
+                     <Label id="labelSummary" fx:id="email" text="email" />
+                  </HBox>
+                   <HBox prefHeight="27.0" prefWidth="300.0">
+                       <Label id="labelSummaryheader" prefWidth="68.0" text="Github:  " />
+                       <Label id="labelSummary" fx:id="github" text="github" />
+                   </HBox>
+               </ListView>
+            </VBox>
+   </children>
+</AnchorPane>

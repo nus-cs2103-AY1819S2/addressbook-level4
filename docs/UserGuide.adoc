@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= Pocket Project - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,211 +12,1221 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/cs2103-ay1819s2-w10-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+Authors: `Daryl Tan, Jeff Gan, Jothinandan Pillay, Lin Dehui, Shune Lei`
+
+Team: CS2103-AY1819S2-W10-2
+
+Since: `January 2019` License: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Pocket Project is primarily an application for software engineering project managers who are currently in-charge of
+a team of large employees and many projects. This application employs the use of a Command Line Interface(CLI) to easily
+navigate through the application which contributes to the efficiency and user-friendliness of the end product.
+This application allows managers to keep track of all the employees and their related background information such as their
+GitHub account username and relevant skills.
 
-== Quick Start
+Additionally, it also helps to keep track of all the projects that the manager
+is currently involved with and key details of the project such the client, deadline and milestones can also be stored.
+Through the combination of the two main components, the application allows the storing and viewing of all the employees
+working on particular project and all the projects currently under a single employee among other functionalities.
+
+== Background Information
+
+When first seeing our application, many of you may wonder what is the significance
+behind this project. Well, the current issues cannot be seen at the surface level and requires
+a deeper look. To present all the information in a nutshell, our application provides
+everything that a manager will ever need at the tip of his fingertips. Being able to better
+handle project and man management leads to a more organized workflow and inevitably, a more
+productive environment which can set a strong foundation for the lifecycle of various projects.
+
+In addition, the inability to track the progress of a project has been cited as one of the top reasons
+as to why a product fails, and thus our application aims to potentially solve this problem
+by having both a milestones feature and a task manager to mainly see not only what has been completed, but
+also the proposed schedule for the weeks ahead until the project is due for completion.
+
+== Before We Begin
+This section will outline key things to take note of before reading the user guide.
+The information provided in this section will be useful in understanding certain
+symbols and terms used further on in the user guide.
+
+=== Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Download the latest `pocketproject.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Pocket Project.
+.  Double-click the file to start the app. The GUI should appear in a few seconds as shown below.
 +
-image::Ui.png[width="790"]
+.*Pocket Project UI*
+image::Startup_ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list employee`* : lists all employees
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com g/mainmanjohn` : adds an employee named
+`John Doe` to the Pocket Project.
+* **`delete employee`**`3` : deletes the 3rd employee shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
+=== Navigating the interface
+
+.*Pocket Project UI with different components*
+image::ui_annotated.png[]
+
+As shown above, there are 5 main components in Pocket Project interface:
+
+. Command Box: where you key in the command
+. Result Box: show the result of the command that is keyed in
+. Side tab Panel: display either project list or employee list
+. Prev/Next Button: to navigate through the project/employee details
+. Detail panel: display details of an employee/project
+
+There are several detail panels to display the details of the employees and the projects as shown below. You can toggle between these panel by using the Prev/Next Button.
+
+.Detail Panels of an employee [1] Summary: display name, skills, phone, email of the employee [2] Projects: the list of projects the employee is working on [3] Github: github page of the employee
+image::employee_detail_panel.png[]
+
+.Detail Panels of a project [1] Summary: display project name, client and deadline of the project [2] User Stories for the project [3] List of employees working on the project [4] Milestones and project tasks list in a project
+image::project_detail_panel2.png[]
+
+// tag::colourcoding[]
+=== Colour coding
+There are several common colours used throughout Pocket Pocket to denote the statuses of events. As shown below, there are 3 main colours used:
+
+. Red: The event is put on hold.
+. Amber: The event is currently ongoing.
+. Green: The event is completed.
+
+.*Common colours used in Pocket Project*
+image::colour-coding.png[width=480]
+
+// end::colourcoding[]
+
+=== Symbols
+The following section details and previews a few legends that will
+be used throughout the user guide. These legends are used to represent
+special information such as tips and warnings.
+
+[width="100%",cols="35%,<65%"]
+|===
+|Symbol |Meaning
+
+|image:ug-notepadpencil.png[width="40"]
+|The note pad icon indicates any useful tips or things that you
+need to take note of while using the Pocket Project application.
+
+|image:ug-lightbulb.png[width="50"]
+|The light bulb icon indicates any shortcuts
+that you can use while using the Pocket Project application.
+
+|image:ug-exclamation.png[width="50"]
+|The exclamation mark icon indicates any warnings that you
+ can take note of while using the Pocket Project application.
+
+|image:ug-smart.png[width="60"]
+|The graduation cap icon indicates any advanced usages or
+ extra technical information about how a particular command works
+ should you be interested to know.
+|===
+
+=== Format of Commands
+
+This section introduces to you the format of commands that are used in Pocket Project.
+
+[width="100%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+|Command Format |Meaning |Example |Remark
+
+|Upper Case |Parameters supplied by User |`add n/NAME` |`NAME` is a parameter which can be used as `add n/John Doe`
+
+|Square Brackets |Optional inputs |`n/NAME [s/SKILL]` |`[s/SKILL]` is an optional field
+
+|`…`​ |Can be used multiple times |`[s/SKILL]...` |Can have multiple skills: `[s/SKILL1] [s/SKILL2] [s/SKILL3]`
+
+|=======================================================================
+
+[width="1000",cols="100,<900"]
+|===
+|image:ug-notepadpencil.png[width="50"]|Parameters can be in any order e.g. if the command specifies
+`n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+|===
+
+=== Glossary
+This section details a few key terms that are used
+through the course of the User Guide.
+
+[width="100%",cols="50%,<50%"]
+|===
+|Term|Meaning
+
+|Alphanumeric
+|Only contains either digits (0-9) or letters of the English alphabet (A-Z).
+
+|Command Line Interface (CLI)
+|A means of interacting with a computer program where the user issues commands to the
+ program in the form of successive lines of text.
+
+|Lexicographic
+|Ordering of words based on how it would appear in a dictionary.
+
+|Milestone
+|A key event that is completed during the entire timeline of the project.
+
+|Regex
+|Short-form for regular expression. A regular expression is used to check if a given input matches
+the prescribed pattern or format.
+
+|One-Based Indexing
+|Way of numbering in which the initial element of a sequence of elements is assigned the index 1.
+
+|User Story
+|Used primarily for planning of a feature in a project or application. The user story describes the type
+of user, what they want, why and the importance/significance of the feature
+
+|Zero-Based Indexing
+|Way of numbering in which the initial element of a sequence of elements is assigned the index 0.
+|===
+
 [[Features]]
 == Features
-
-====
-*Command Format*
-
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-====
+The following section will outline the various features and commands available to you and will
+outline how the various commands can be used through examples and illustrations.
 
 === Viewing help : `help`
 
+You can open up the User Guide from the Pocket Project application by calling the `help` command.
+
 Format: `help`
 
-=== Adding a person: `add`
+[width="1000",cols="100,<900"]
+|===
+|image:ug-lightbulb.png[width="50"]|Alternatively, you can press kbd:[F1]
+or click `Help` which can be found on the menu bar at the top left hand corner of the application.
+|===
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+.*Accessing help from menu bar*
+image::ug-helpcommand.png[width="400"]
 
-[TIP]
-A person can have any number of tags (including 0)
+// tag::datefeature[]
+=== Date Feature in Pocket Project
+
+Whenever a particular command requires a date field, you can choose to use either of the
+below mentioned formats.
+
+==== Fixed Date Format
+
+You can input a date using the fixed date format. +
+Format: `DD/MM/YYYY`
+
+Examples: +
+1. `23/12/2019` +
+2. `09/03/2020`
+
+[width="300",cols="100,<200"]
+|===
+|image:ug-lightbulb.png[width="50"]| The year field will not accept values beyond the
+year `2099` and acts as a loose safety feature for accidental errors while inputting the year.
+|===
+
+==== Flexible Date Format
+
+Alternatively, you can also input a date using the flexible date format. The flexible date format
+allows you to give an input with relation to the current date. It supports the below mentioned 3 formats.
+
+*Choosing a date relative to the current day* +
+You can key in `today`,`tomorrow` and `yesterday` to get today's, tomorrow's and
+yesterday's date respectively.
+
+Format: `today/tomorrow/yesterday`
+
+*Choosing a date relative to the current week*
+You can also aim to choose a date with relation to the current week. +
+Format: `this/next/last week DAY_OF_WEEK`
+
+[width="300",cols="100,<200"]
+|===
+|image:ug-notepadpencil.png[width="40"]|The `DAY_OF_WEEK` takes an integer in the range of 1 to 7 which
+corresponds to Monday to Sunday respectively.
+|===
+
+Examples: +
+1. `next week 7` +
+This would select next week's Sunday as the target date. +
+2. `last week 2` +
+This would select last week's Tuesday as the target date.
+
+You can refer to the screenshots of the program below for a clearer picture. Assume that the
+current date is 12 April 2019 (12/04/2019), Friday.  It will be demonstrated using the `add project` command which requires
+a `s/START_DATE` and a `d/DEADLINE`.
+
+.*Using "this/next/last week DAY_OF_WEEK" as a flexible date input*
+image::ug-dateweek.png[][width="500"]
+
+*Choosing a date relative to the current month*
+
+You can also aim to choose a date with relation to the current week. +
+Format: `this/next/last month DAY_OF_MONTH`
+
+[width="300",cols="100,<200"]
+|===
+|image:ug-exclamation.png[width="50"]|The `DAY_OF_MONTH` takes the value of positive integer but it cannot exceed
+the maximum number of days of a particular month in the chosen year.
+|===
+
+Examples: +
+1. `this month 24` +
+This would select the current month's 24th day as the target date. +
+2. `next month 17` +
+This would select next month's 17th day as the target date.
+// end::datefeature[]
+
+[width="300",cols="100,<200"]
+|===
+|image:ug-notepadpencil.png[width="40"]|You do not need to specify which format you are planning to use and the application
+is able to differentiate it based on the input received.
+|===
+
+===== Some additional information
+The application will also automatically help to check the validity of the target
+date. Should you accidentally target an invalid dates such as `31/04/2019`, it will be rejected as the month of April
+only has 30 days. Additionally, leap years are also considered. So, as 2020 is a leap year, `29/02/2020` is considered a valid input but `29/02/2019` will be rejected
+as 2019 is not a leap year.
+
+
+
+
+=== Adding an employee or project to the application: `add`
+
+// tag::addemployeefeature[]
+==== Adding an employee to the application: `add employee`
+
+You can add an employee to the Pocket Project when a new employee joins the company/team
+so that the key details of the employee are stored in the application and projects can be assigned to
+them in the future.
+
+Format: `add employee n/NAME p/PHONE_NUMBER e/EMAIL g/GITHUB_ACCOUNT_USERNAME [s/SKILL]...`
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+. `add employee n/John Doe p/98765432 e/johnd@example.com g/johnballer s/Java`
+. `add employee n/Betsy Crowe e/betsycrowe@example.com g/BetBet p/98228312`
 
-=== Listing all persons : `list`
+[width="1000",cols="100,<900"]
+|===
+|image:ug-notepadpencil.png[width="40"]|An employee can have any number of skills (including 0).
+|===
 
-Shows a list of all persons in the address book. +
-Format: `list`
+You can refer to the screenshot below to have a clearer picture of how it works
+and looks like.
 
-=== Editing a person : `edit`
+.*Adding an employee to the application and what we can do with it*
+image::ug-addemployee.png[]
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+In addition, as a software engineering project manager, you may want to easily access an employee's GitHub repository
+to possibly monitor his progress on a particular project. Thus for ease of use, you can simply toggle the arrow as shown
+above in Step 5 of Figure 5 and the GitHub repository of the employee will be viewable and accessible in the details panel.
+
+[width="1000",cols="100,<900"]
+|===
+|image:ug-exclamation.png[width="50"]|A working Internet connection is required to see and navigate through the GitHub
+repository. Otherwise, the page will not load.
+|image:ug-lightbulb.png[width="50"]|You can also view the list of all projects assigned to the employee
+by toggling the arrows on the details panel.
+|===
+
+// end::addemployeefeature[]
+
+// tag::addprojectfeature[]
+==== Add a project to the application: `add project`
+
+You can add a project to the Pocket Project when the team takes on a new project
+so that key details of the project are stored and employees, milestones, tasks and user stories
+can be assigned to them in the future.
+
+The project has a default description when created and this can be
+edited using the `edit project info` command.
+
+Format: `add project n/NAME c/CLIENT_NAME s/START_DATE d/DEADLINE`
+
+[width="300",cols="100,<200"]
+|===
+|image:ug-exclamation.png[width="50"]|The deadline of the project should minimally be 1 day after the
+start of a project.
+|===
+
+Examples: +
+1. `add project n/Apollo s/10/03/2019 d/12/12/2019 c/FairPrice` +
+2. `add project n/Xtreme c/John Smith s/09/02/2020 d/13/04/2020`
+
+You can refer to the screenshot below to have a clearer picture of how it works
+and looks like.
+
+.*Adding a project to the application and what we can do with it*
+image::ug-addproject.png[][width="500"]
+
+[width="300",cols="100,<200"]
+|===
+|image:ug-lightbulb.png[width="50"]|You can also view the list of all employees currently working on the project,
+a list of milestones and tasks, and a list of user stories by toggling the arrows on the details panel.
+|===
+// end::addprojectfeature[]
+
+
+=== Add an employee/milestone/project task/user story to a project : `addto`
+
+
+[width="1000",cols="100,<900"]
+|===
+|image:ug-exclamation.png[width="70"]|
+Note that 'milestone', 'userstory', 'projecttask' are reserved words so they are not accepted as part of the argument for the description of respective components
+|===
+
+
+// tag::addemployee[]
+
+==== Add an employee to a project: `addto employee`
+
+You can add an employee to any projects already created in the Pocket Project application. You can
+do this by first listing all employees using the basic `list employees` command or by first filtering all the
+employees with the `find employee` or `find skills` command, and then choosing the index of the employee
+in the displayed list.
+
+Format: `addto PROJECT_NAME employee EMPLOYEE_INDEX`
+
+The employee at the specified `EMPLOYEE_INDEX` is added to the project specified by the `PROJECT_NAME`.
+
+[width="300",cols="100,<200"]
+|===
+|image:ug-notepadpencil.png[width="40"]| The index refers to the serial number (one-based indexing) shown in
+the displayed list of employees.
+|image:ug-exclamation.png[width="50"]| The `EMPLOYEE_INDEX` must be a positive integer and cannot be
+larger than the size of the displayed list.
+|===
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+. `list employees` technique
+.. `list employees` +
+lists all the employees in the application.
+.. `addto Apollo employee 2` +
+Adds the 2nd person in the displayed employee list to project "Apollo".
 
-=== Locating persons by name: `find`
+. `find employee` technique
+.. `find employee John Han` +
+The displayed list will be filtered to show all employees whose names contain John, Han (not case sensitive).
+.. `addto Apollo employee 5` +
+Adds the 5th person in the displayed filtered employee list to project "Apollo".
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+You can refer to the screenshot below to have a clearer picture of how it works
+and looks like.
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+.*Adding an employee to a project*
+image::ug-addtoemployee.png[]
+
+
+[width="300",cols="100,<200"]
+|===
+|image:ug-lightbulb.png[width="50"]| As shown in the figure above, instead of calling
+the `list employees` command, we can simple click on the `employees` tab located at the top of the side tab panel.
+|===
+
+// end::addemployee[]
+
+// tag::addmilestone[]
+==== Add a milestone to a project: `addto milestone`
+
+You can add a milestone to any projects already created in the Pocket Project application. Milestones are typically
+key events that are completed during the entire timeline of the project. Once a milestone is
+created, project tasks can be assigned to it.
+
+
+Format: `addto PROJECT_NAME milestone m/MILESTONE_DESC d/MILESTONE_DATE`
+
+
+[width="300",cols="100,<200"]
+|===
+|image:ug-lightbulb.png[width="50"]|Both the fixed date format and the flexible date format
+can be used to select the target `MILESTONE_DATE`. Refer to <<Date Feature in Pocket Project>>
+|image:ug-exclamation.png[width="50"]| As the milestone is part of a project's timeline, the
+`MILESTONE_DATE` the input date cannot be before the `START_DATE` and after `DEADLINE` of the project.
+|===
 
 Examples:
 
-* `find John` +
+. `addto Apollo milestone m/Completed UI for program d/23/11/2015` +
+The milestone with the given description and the date 23/11/2015 will be added to the list
+of milestones in project "Apollo".
+. `addto Orbital milestone m/Version 1.3 Complete d/today`
+The milestone with the given description and today's date will be added to the list
+of milestones in project "Orbital".
+
+[width="300",cols="100,<200"]
+|===
+|image:ug-notepadpencil.png[width="40"]| The list of milestones inside the target project
+will automatically be sorted by its date every time a new entry is added.
+|===
+
+You can refer to the screenshot below to have a clearer picture of how it works
+and looks like.
+
+.*Adding a milestone to a project*
+image::ug-addtomilestone.png[]
+
+
+// end::addmilestone[]
+
+
+//tag::daryl[]
+
+
+==== Add a project task to a project's milestone: `addto projecttask`
+
+Building further on the functionality of milestones, you can also add project tasks to existing milestones in Pocket Project.
+This allows you to track and plan out in more detail what needs to be done between each milestone.
+
+Format: `addto PROJECT_NAME projecttask n/PROJECT_TASK_DESCRIPTION m/MILESTONE_INDEX`
+
+[width="1000",cols="100,<900"]
+|===
+|image:ug-exclamation.png[width="50"]| The `MILESTONE_INDEX` must be a positive integer and cannot be
+larger than the size of the displayed milestone list.
+|===
+
+Examples:
+
+. `addto Apollo projecttask n/Create feature XYZ m/1` +
+   A project task with the given description will be added to the list of tasks under the milestone at index 1 in project "Apollo".
+. `addto Orbital projecttask m/2 n/Prepare concept design sketches` +
+   A project task with the given description will be added to the list of tasks under the milestone at index 2 in project "Orbital".
+
+[width="1000",cols="100,<900"]
+|===
+|image:ug-lightbulb.png[width="50"]|There is no specific order for either the project task name or the milestone index when entering the command so either way is acceptable.
+|===
+
+You can refer to the screenshot below to have a clearer picture of how it works and looks like.
+
+.*Adding a task to a project's milestone*
+image::ug-addprojecttask.png[]
+
+[width="1000",cols="100,<900"]
+|===
+|image:ug-notepadpencil.png[width="40"]| Clicking on the arrow beside a milestone containing existing tasks allows you
+to hide the list of tasks under the milestone.
+|===
+//end::daryl[]
+
+// tag::adduserstory[]
+
+==== Add a user story to a project: `addto userstory`
+
+You can add a user story to a project. User stories are tools used in software development to capture a description of a software feature from an end-user perspective.
+
+Format: `addto PROJECT_NAME userstory i/STORY_IMPORTANCE STORY`
+
+[width="1000",cols="100,<900"]
+|===
+|image:ug-notepadpencil.png[width="40"]| `STORY_IMPORTANCE`: The priority/importance level of the user story, ranging from 1 to 3. 3 being the most
+important and 1 being the least.
+|image:ug-exclamation.png[width="40"]| `STORY`:  `as a`, `i want to` and `so that` are keywords which help us to segment your user story into the respective categories: user, function and reason. Hence these keywords cannot be used more than once and needs to be included in a valid user story.
+|===
+
+Examples:
+
+. `addto Apollo userstory as a new user i want to have a clean UI so that i can navigate easily i/2`
+
+. `addto Apollo userstory i/1 as a user i want to try out new things so that i can have fun`
+
+[width="1000",cols="100,<900"]
+|===
+|image:ug-smart.png[width="40"]| You can input the importance level or the actual user story in any order.
+|image:ug-smart.png[width="40"]| A valid user story can also be simply: `as a ... i want to...`.
+
+E.g `as a user i want to log in` is a valid user story.
+|===
+
+Upon a successful addition of a user story, you should be able to see the new user story in the list of user stories.
+You may need to toggle the buttons to get to the correct panel.
+
+Refer to the screenshot below to see how the new user story is shown.
+
+.User stories list showing the newly added user story
+image::addto-user-story-ui.png[width="500"]
+// end::adduserstory[]
+
+//tag::delete_dehui[]
+=== Delete a project or an employee from the application `delete`
+
+==== Delete a project from the application: `delete project`
+Deletes a project from the list of projects.
+
+Format: `delete project PROJECT_NAME` or `delete project PROJECT_INDEX`
+
+[width="1000",cols="100,<900"]
+image:ug-notepadpencil.png[width="40"]
+Deletes the project at the specified `PROJECT_INDEX`.
+The index refers to the index number (one-based) shown in the displayed list of projects.
+
+image:ug-exclamation.png[width="60"]
+The index must be a *positive integer* and cannot be larger than the size of the list. The `PROJECT_NAME` must be the name
+of an existing project.
+
+Examples:
+
+.*Deleting a project at index 1 - before*
+image::ug-deleteproject_before.png[]
+
+.*Deleting a project at index 1 - after*
+image::ug-deleteproject_after.png[]
+
+* `delete project 1` +
+Deletes the first project shown in the most recent displayed list of projects. The first figure above shows the command being typed but not entered yet
+and the second shows the effect of the command.
+
+==== Delete an employee from the application: `delete employee`
+
+Deletes the specified employee from the employee list.
+
+Format: `delete employee INDEX`
+
+Examples:
+
+* `list employees` +
+`delete employee 2` +
+Deletes the 2nd person in the displayed employee list.
+
+* `find employee Betsy` +
+`delete employee 1` +
+Deletes the 1st person in the resultant employee list shown by the `find` command.
+
+image:ug-notepadpencil.png[width="40"]
+Either the `list employee` command or the `find employee` command needs to be invoked
+before calling the `delete employee` command as the index is referenced from the last returned list
+of employees.
+
+//end::delete_dehui[]
+=== Remove an employee/milestone/project task/user story from a project : `removefrom`
+
+//tag::removefrom_dehui[]
+
+==== Remove an employee from a project: `removefrom PROJECT_NAME employee`
+
+Removing an employee from a project.
+
+Format: `removefrom PROJECT_NAME employee EMPLOYEE_INDEX`
+
+Examples:
+
+.*Removing an employee at index 1 - before*
+image::ug-removeemployee_before.png[]
+
+.*Removing an employee at index 1 - after*
+image::ug-removeemployee_after.png[]
+
+* `view project 1` +
+click on the right arrowhead till the page showing the list of employees in the project +
+`removefrom p1 employee 1` +
+Removes the employee at first position at displayed list of employees from the project 'p1'. The effect of the command is
+demonstrated in the two figures above.
+
+==== Remove a milestone from a project: `removefrom PROJECT_NAME milestone`
+
+Removing a milestone from a project.
+
+Format: `removefrom PROJECT_NAME milestone MS_INDEX`
+
+Examples:
+
+. `view project Apollo` +
+`removefrom Apollo milestone 1` +
+Removes the milestone at 1st position of displayed list of milestone from Project Apollo.
+
+[width="1000",cols="100,<900"]
+|===
+|image:ug-notepadpencil.png[width="40"]| Removes the employee at the specified `INDEX` based on
+the displayed list of employees.
+|image:ug-exclamation.png[width="50"]|The index must be a *positive integer* and cannot be larger than the size of the list.
+|===
+
+//end::removefrom_dehui[]
+
+//tag::daryl[]
+
+==== Remove a project task from a project's milestone: `removefrom PROJECT_NAME projecttask`
+
+You can remove existing project tasks from a milestone if there is a change in the planned project's schedule.
+
+Format: `removefrom PROJECT_NAME projecttask MILESTONE_INDEX PROJECT_TASK_INDEX`
+
+[width="1000",cols="100,<900"]
+|===
+|image:ug-exclamation.png[width="70"]| The `MILESTONE_INDEX` and `PROJECT_TASK_INDEX` must be a positive integer and cannot be
+larger than the size of the displayed milestones and tasks list.
+|===
+
+Examples:
+
+. `removefrom Apollo projecttask 1 1` +
+The 1st project task in the task list under the 1st milestone of the displayed milestone list in project "Apollo" will be removed.
+. `removefrom Orbital projecttask 2 1` +
+The 1st project task in the task list under the 2nd milestone of the displayed milestone list in project "Orbital" will be removed.
+
+You can refer to the figure below to have a clearer picture of how it looks like when the command `removefrom Orbital projecttask 2 1` is called.
+
+.*Before and after comparison when removing a task from a project's milestone*
+image::ug-removeprojecttask.png[]
+
+|===
+|image:ug-notepadpencil.png[width="40"]| The arrow beside the milestone description for collapsing the task list will disappear if all tasks for that milestone are removed.
+|===
+
+//end::daryl[]
+// tag::removeuserstory[]
+
+==== Remove a user story from a project: `removefrom userstory`
+
+You can remove a user story from a project.
+
+Format: `removefrom PROJECT_NAME userstory INDEX`
+
+Examples:
+
+. `view project Apollo` +
+`removefrom Apollo userstory 2` +
+Removes the user story at the 2nd position of the list of user stories from Project Apollo.
+
+Refer to the screenshots below to see the changes in the user stories list after the command above has been executed.
+
+.Before and after comparison of removing a user story
+image::removefrom-user-story-ui.png[width="600"]
+// end::removeuserstory[]
+
+=== Edit an employee/project in the application : `edit`
+
+==== Edit an employee in the application: `edit employee`
+
+You can edit the details of an existing employees whenever there are changes made to the employee's details such as name, phone, email, github and their skills.
+
+Format: `edit employee INDEX [n/NAME] [p/PHONE] [e/EMAIL] [g/GITHUB] [s/SKILL]...`
+
+At least one of the optional fields must be provided and all existing values will be updated with the input values.
+When editing skills, the existing skills of the person will be removed i.e adding of skills is not cumulative.
+
+Examples:
+
+. `edit employee 1 p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st employee to be `91234567` and `johndoe@example.com` respectively.
+. `edit employee 2 n/Betsy Crower s/Java` +
+Edits the name of the 2nd person to be `Betsy Crower` and sets Java as the only skill.
+. `edit employee 2 n/Betsy Crower s/C s/HTML` +
+Edits the name of the 2nd employee to be `Betsy Crower` and sets C and HTML as the skills.
+
+
+[width="1000",cols="100,<900"]
+|===
+|image:ug-notepadpencil.png[width="40"]|
+Edits the employee at the specified `INDEX`. The index refers to the index number shown in the displayed employee list.
+|image:ug-exclamation.png[width="50"]|
+The index must be a *positive integer* and cannot be larger than the size of the list.
+|image:ug-lightbulb.png[width="50"]|
+You can remove all the person's skills by typing `s/` without specifying any skills after it.
+|===
+
+Below is the before and after screenshot to illustrate better. The command that will be
+used to show the difference will be `edit employee 2 n/The magician p/98637251 s/`.
+
+.Before entering the edit command
+image::edit_employee_before.png[]
+
+.After entering the edit command
+image::edit_employee_after1.png[]
+
+
+//tag::edit[]
+==== Edits name/client/deadline/description of a project: `edit project info`
+
+
+You can use this command to edit the general details of an existing project such as project name, deadline, client and description which are shown on the summary panel of the projects.
+
+[width="1000",cols="100,<900"]
+|===
+|image:ug-notepadpencil.png[width="40"]|
+This command can be used to change the default description that is assigned to the project when the project is added.
+|===
+
+Format: `edit project PROJECT_NAME info [n/name] [c/client] [d/deadline] [desc/description]`
+
+Examples:
+
+. `edit project Apollo info n/Gemini c/John d/12/09/2020 desc/An application for project management` +
+Change project Apollo name to Gemini, client to John, deadline to 12/09/2020 and the description to 'An application for project management'
+
+
+[width="1000",cols="100,<900"]
+|===
+|image:ug-lightbulb.png[width="70"]|
+Both the fixed date format and the flexible date can be used here to edit the deadline.
+|image:ug-exclamation.png[width="70"]|
+Note that the start date is unmodifiable and the deadline should be after the start date of the project and
+also after the date of the latest milestone in the project.
+|image:ug-exclamation.png[width="70"]|
+Note that 'info' is a reserved word so it is not accepted as part of the argument for the description of the project (e.g. 'm/project info' is not accepted).
+|===
+
+Below is the before and after screenshots of when the command `edit project PocketProject info desc/A project management tool d/20/05/2019` is entered.
+
+.Before and after comparison for `edit project PocketProjcet info desc/A project management tool d/20/05/2019` command
+image::edit_project_before.png[width:"300"]
+
+==== Edit milestone of a project: `edit project milestone`
+
+You can edit the milestone of the existing project whenever there are changes made to it.
+
+Format: `edit project PROJECT_NAME milestone MILESTONE_INDEX [m/milestone] [d/date]`
+
+Examples:
+
+. `edit project Apollo milestone 2 m/Implement edit command d/09/04/2019`
+Change the milestone at index 2 in Apollo to 'Implement edit command (09/04/2019)'
+
+
+[width="1000",cols="100,<900"]
+|===
+|image:ug-exclamation.png[width="50"]|
+The date of the milestone must be between the start date and the deadline of the project
+|image:ug-exclamation.png[width="50"]|
+A blank input for milestone description will not be accepted as an input. (e.g. `edit milestone m/`)
+|image:ug-exclamation.png[width="50"]|
+Note that 'milestone' is a reserved word so it is not accepted as part of the argument for the description of the milestone (e.g. 'm/A milestone for ui' is not accepted).
+|===
+
+Below is the before and after screenshot of how the command should work. The command
+`edit project Orbital milestone 1 m/Version 1.1 refactoring d/03/08/2019` will be used to show
+this.
+
+.Before and after comparison of `edit project Orbital milestone 1 m/Version 1.1 refactoring d/03/08/2019`
+image::edit_project_milestone_before.png[]
+
+//end::edit[]
+
+// tag::edituserstory[]
+==== Edits User Story in a project: `edit project userstory`
+
+You can edit the fields of a user story in a project.
+
+Format: `edit project PROJECT_NAME userstory INDEX STORY`
+
+Examples:
+
+. `edit project Apollo userstory 2 as a manager i want to see my employee's skills so that i can assign them relevant work`
+
+. `edit project Apollo userstory 1 as a user i want to be able to login`
+
+. `edit project Apollo userstory 1 i/2`
+
+
+[width="1000",cols="100,<900"]
+|===
+|image:ug-smart.png[width="60"]|
+You can also remove an existing reason from a user story by typing `nil` as the new user story reason.
+|image:ug-exclamation.png[width="70"]|
+Note that 'userstory' is a reserved word so it is not accepted as part of the argument for the story of the project (e.g. 'm/project userstory' is not accepted).
+|===
+
+Refer to the screenshot below to see how the fields of the user story has been edited when the command `edit project Apollo userstory 1 i/2` is executed.
+
+.Before and after comparisons of the user story's importance level
+
+image::edit-user-story-ui.png[width="550"]
+// end::edituserstory[]
+
+//tag::find[]
+=== Locating employees, projects or skills by name: `find`
+
+There are several ways available for you to search for employees and projects in PocketProject. Below are the things you should take note for all the find command.
+
+//for all the find commands
+[width="1000",cols="100,<900"]
+|===
+|image:ug-notepadpencil.png[width="40"]|
+The search is case insensitive. e.g `hans` will match `Hans`
+
+|image:ug-notepadpencil.png[width="40"]|
+The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+
+|image:ug-notepadpencil.png[width="40"]|
+Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+
+|image:ug-exclamation.png[width="50"]|
+Only full words will be matched e.g. `Han` will not match `Hans`
+|===
+==== Find employees in the application: `find employee`
+
+You can search for employees by using their names as of the given keywords.
+
+Format: `find employee KEYWORD [MORE_KEYWORDS]`
+
+Examples:
+
+. `find employee John` +
 Returns `john` and `John Doe`
-* `find Betsy Tim John` +
+. `find employee Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
+. `find employee Betsy Tim John` +
+Returns any employee having names `Betsy`, `Tim`, or `John`
 
-=== Deleting a person : `delete`
+Below is a screenshot of what a successful find employee command will look like.
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+.After entering `find employee stark` command
+image::find_employee.png[]
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+//tag::findskill[]
+==== Find employees with skills: `find skill`
 
-Examples:
+You can look for employees by using their skills as keyword. This will make things easier for you when you need to find employees to assign to projects which require a certain skill.
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-=== Selecting a person : `select`
-
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
-
-****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
+Format: `find skill KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
+. `find skill java` +
+Returns a list of employees who has java skill.
 
-=== Listing entered commands : `history`
+. `find skill java C`
+Returns a list of employees who have either java or C or both.
 
-Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
+//end::findskill[]
 
-[NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
+Below is a screenshot of what a successful find skill command will look like.
+
+.After entering `find skill java` command
+image::find_skill.png[]
+
+==== Find projects in the application: `find project`
+
+Similarly for the projects, you can find projects using the project names as keywords.
+
+Format: `find project KEYWORD [MORE_KEYWORDS]`
+
+Examples:
+
+. `find project Apollo` +
+Returns a list of projects with names that contain Apollo
+
+Below is a screenshot of what a successful find project command will look like.
+
+.After entering `find project apollo` command
+image::find_project.png[]
+
+//tag::findall[]
+
+==== Find projects with any keywords: `find all`
+
+This `find all` command allows you to find projects even if you have forgotten the project name. You can simply try to find the project using words that appear in the description of the project. If you remember the name of the client, you can use the client name to find the project too.
+
+Format: `find all KEYWORDS [MORE KEYWORDS]`
+
+Examples:
+
+. `find all software food`
+Returns a list of projects which contains either software or food or both as part of the name/description/client.
+
+Below is a screenshot of what a successful find all command will look like.
+
+.After entering `find all management` command
+image::find_all 1.png[]
+
+//end::findall[]
+
+//start::finddeadline[]
+==== Find projects with deadline: 'find deadline'
+
+In order to manage your workload and be aware of the upcoming deadline, you can find all the project which will be due before a certain date.
+
+Format: `find deadline KEYWORD`
+
+Examples:
+
+. `find deadline 15/04/2019` +
+Returns a list of projects which has 15/04/2019 as the deadline or has deadlines that are before 15/04/2019
+
+
+[width="1000",cols="100,<900"]
+|===
+|image:ug-exclamation.png[width="50"]|
+Only accept one argument. e.g. will not accept `find deadline 15/04/2019 20/12/2019`
+|image:ug-notepadpencil.png[width="40"]|
+Accepts both flexible date and calender date
+|===
+
+//end::finddeadline[]
+
+Below is a screenshot of what a successful find project command will look like.
+
+.After entering `find deadline this month 31` command
+image::find_deadline.png[]
+
+
+//end::find[]
+
+
+=== Update a user story/project task status: `update`
+You can update the statuses of events to track their progress.
+
+Currently, there are 3 valid status which `update` supports:
+
+. `ongoing` : indicate that the event is ongoing
+. `on hold` : indicate that the event is placed on hold
+. `complete` : indicate that the event has been completed
+
+Each of the different statuses are also visually different in their colour coding. For more information about the different colours used, refer to <<Colour coding>>.
+
+// tag::updateuserstory[]
+
+==== Update the status of a user story: `update userstory`
+
+You can update the status of a user story to indicate its progress.
+
+Format: `update PROJECT_NAME userstory INDEX STATUS`
+
+Examples:
+
+. `update Apollo userstory 1 on hold` +
+Updates the first user story in Apollo to be on hold.
+
+You may refer to the screenshot below to see how the user story is updated after the command `update Apollo userstory 1 on hold` is executed.
+
+.Before and after comparisons of the status of a user story
+image::update-user-story-ui.png[width="500"]
+// end::updateuserstory[]
+
+//tag::daryl[]
+
+==== Update the status of a project task: `update projecttask`
+You can update the status of a project task to indicate its progress.
+
+Format: `update PROJECT_NAME projecttask MILESTONE_INDEX PROJECT_TASK_INDEX STATUS`
+
+
+[width="1000",cols="100,<900"]
+|===
+|image:ug-exclamation.png[width="70"]| The `MILESTONE_INDEX` and `PROJECT_TASK_INDEX` must be a positive integer and cannot be
+larger than the size of the displayed milestones and tasks list.
+|===
+
+Examples:
+
+. `update Apollo projecttask 1 1 ongoing` +
+Updates the status of the first project task in the first milestone of project 'Apollo' to "ongoing".
+
+. `update Orbital projecttask 2 1 complete` +
+Updates the status of the first project task in the second milestone of project 'Orbital' to "complete".
+
+You may refer to the diagram below to get a clearer picture of how updating a project task's status looks like when the command `update Orbital projecttask 2 1 complete` is called.
+
+.Before and after comparison when updating a project task's status
+image::ug-updateprojecttask.png[]
+//end::daryl[]
+
+// tag::list[]
+=== Listing all employees or projects in application : `list`
+==== List all employees in the application: `list employee`
+You can list all the employees in the employee list.
+
+Format: `list employee`
+
+Examples:
+
+. `list employee`
+
+You can refer to the screenshot below for an example.
+
+.Employees list showing a list of all employees
+image::list-employee-ui.png[width="280"]
+
+==== List all projects in the application: `list project`
+You can list all the projects in the projects list.
+
+Format: `list project`
+
+Examples:
+
+. `list project`
+
+You can refer to the screenshot below for an example.
+
+.Projects list showing a list of all projects
+image::list-project-ui.png[width="280"]
+
+// end::list[]
+
+// tag::view[]
+=== View the details of employees or projects : `view`
+
+==== View details of an employee: `view employee`
+
+You can view the details of an employee by clicking on the employee in the side tab panel.
+Alternatively, you can also use the `view` command to do so.
+
+Format: `view employee EMPLOYEE_INDEX`
+
+[width="1000",cols="100,<900"]
+|===
+|image:ug-notepadpencil.png[width="40"]|
+When viewing the employee, the GitHub page of the employee
+will also be loaded.
+|===
+
+Examples:
+
+. `list employee` +
+`view employee 1` +
+Displays details of the employee at index 1 of the employees list
+
+Refer to the screenshot below to see the changes in the screen after a `view employee 1` command is executed.
+
+.Details of the employee at index 1 of the employees list is shown
+image::view-employee-ui.png[]
+
+==== View details of a project: `view project`
+
+You can view the details of an project by clicking on the project in the side tab panel.
+Alternatively, you can also use the `view` command to do so.
+
+Format: `view project PROJECT_INDEX`
+
+Examples:
+
+. `list project` +
+`view project 1` +
+Displays details of the project at index 1 of the projects list.
+
+Refer to the screenshot below to see the changes in the screen after a `view project 1` command is executed.
+
+.Details of the project at index 1 of the projects list is shown
+image::view-project-ui.png[]
+
+// end::view[]
+
+//tag::completeAndStats_dehui[]
+=== To indicate the project has been completed : `complete`
+
+Indicates that a project is completed. Currently this command has similar effect to deleting the project, but
+it is meant to support the enhanced statistics feature for V2.0.
+
+Format:  `complete PROJECT_INDEX COMPLETION_DATE`
+
+Examples:
+
+* `list projects` +
+The list of ongoing projects are listed.
+`complete 1 11/11/2011` +
+The first project in the shown list is indicated as completed on 11/11/2011.
+
+=== Display statistics regarding the projects : `stats`
+
+Returns an overview of all ongoing projects/the progress of an individual project.
+
+Format: `stats` or `stats PROJECT_NAME`/`stats PROJECT_INDEX`
++
+add something here.
+Examples:
+
+`stats` +
+Number of ongoing projects: 5 +
+Projects with deadline in this month: +
+------------------------ +
+1. Project6 | deadline: 17/04/2019|reached 0 out of 1 milestones +
+------------------------ +
+2. Project2 | deadline: 17/06/2019|reached 1 out of 1 milestones +
+3. Project3 | deadline: 17/06/2019|reached 1 out of 1 milestones +
+4. Project1 | deadline: 17/05/2019|reached 0 out of 1 milestones +
+5. Project4 | deadline: 17/05/2019|reached 0 out of 0 milestones +
+
+
+
+`stats 1` +
+Progress of p1: +
+deadline: 29/04/2019 | reached 0 out of 1 milestones +
+Milestones not reached yet: +
+1. Finish userguide | deadline: 28/04/2019 | 0 out of 1 tasks completed. +
+
+//end::completeAndStats_dehui[]
 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores the Pocket Project to the state before the previous _undoable_ command was executed.
+
 Format: `undo`
 
-[NOTE]
-====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
-====
+[width="1000",cols="100,<900"]
+|===
+|image:ug-notepadpencil.png[width="40"]|
+Undoable commands: those commands that modify the Pocket Project's content
+(`add`, `delete`, `addto`, `removefrom`, `edit` and `clear`).
+|===
 
 Examples:
 
-* `delete 1` +
+. `delete employee 1` +
 `list` +
-`undo` (reverses the `delete 1` command) +
+`undo` (reverses the `delete employee 1` command) +
 
-* `select 1` +
+. `view employee 1` +
 `list` +
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
 
-* `delete 1` +
+. `delete project 1` +
 `clear` +
 `undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
+`undo` (reverses the `delete project 1` command) +
+
 
 === Redoing the previously undone command : `redo`
 
-Reverses the most recent `undo` command. +
+Reverses the most recent `undo` command.
+
 Format: `redo`
 
 Examples:
 
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+. `delete employee 1` +
+`undo` (reverses the `delete employee 1` command) +
+`redo` (reapplies the `delete employee 1` command) +
 
-* `delete 1` +
+. `delete project 1` +
 `redo` +
 The `redo` command fails as there are no `undo` commands executed previously.
 
-* `delete 1` +
+. `delete project 1` +
 `clear` +
 `undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+`undo` (reverses the `delete project 1` command) +
+`redo` (reapplies the `delete project 1` command) +
 `redo` (reapplies the `clear` command) +
+
+[width="1000",cols="100,<900"]
+|===
+|image:ug-lightbulb.png[width="50"]|
+The redo command can only be called if there is an undo command that has not been
+"redo-ne" yet.
+|===
+
 // end::undoredo[]
 
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from the Pocket Project.
+
 Format: `clear`
 
 === Exiting the program : `exit`
@@ -226,35 +1236,172 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Pocket Project data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
+=== Sort the projects by name or deadline : `sort` [coming in v2.0]
+
+Returns a sorted list of projects by the sort key value.
+Available keys: name, deadline.
+
+Name: returns list in lexicographic order +
+Deadline: returns list by earliest deadline first.
+
+Format: `sort KEY_VALUE`
+
+Examples:
+
+. `sort name` +
+List of project have been sorted by name.
+
+. `sort deadline` +
+List of projects have been sorted by deadline with the
+earliest deadline displayed at the top of the list.
+
+// skill::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
 
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
+=== Project commands `[coming in v2.0]`
+
+_{Commands related to managing of project will be added soon.}_
+
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*Q*: How do I transfer my data to another Computer?
+
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the
+data of your previous Pocket Project folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
+[width="100%",cols="20%,40%,<40%"]
+|===
+|Command |Format |Examples
+
+|Add Employee to Application
+|`add employee n/NAME p/PHONE_NUMBER e/EMAIL g/GITHUB [s/Skill]...` ,
+|`add employee n/James Ho p/22224444 e/jamesho@example.com g/jamesballer s/Java s/Python`
+
+|Add Project to Application
+|`add project n/PROJECT_NAME c/CLIENT s/START_DATE d/DEADLINE`
+|`add project n/Orbital c/Nintendo s/23/06/2018 d/12/09/2018`
+
+|Add Employee To Project
+|`addto PROJECT_NAME employee EMPLOYEE_INDEX`
+|`addto Apollo employee 2`
+
+|Add Milestone To Project
+|`addto PROJECT_NAME milestone m/MILESTONE_DESCRIPTION d/MILESTONE_DATE`
+|`addto Apollo milestone m/Completed UI for program d/23/11/2015`
+
+|Add Project Task To Project
+|`addto PROJECT_NAME projecttask n/TASK_DESCRIPTION m/MILESTONE_INDEX`
+|`addto Apollo projecttask n/Create feature XYZ m/1`
+
+|Add User Story To Project
+|`addto PROJECT_NAME userstory i/STORY_IMPORTANCE STORY`
+|`addto Apollo userstory i/2 as a user i want to see my projects so that i can manage them`
+
+|Delete Employee from Application
+|`delete employee EMPLOYEE_INDEX`
+|`delete employee 1`
+
+|Delete Project from Application
+|`delete employee PROJECT_INDEX`
+|`delete project 1`
+
+|Remove Employee From Project
+|`removefrom PROJECT_NAME employee EMPLOYEE_INDEX`
+|`removefrom Apollo employee 2`
+
+|Remove Milestone From Project
+|`removefrom PROJECT_NAME milestone MILESTONE_INDEX`
+|`removefrom Apollo milestone 1`
+
+|Remove Project Task From Project
+|`removefrom PROJECT_NAME projecttask PROJECTTASK_INDEX`
+|`removefrom Apollo projecttask 1`
+
+|Remove User Story From Project
+|`removefrom PROJECT_NAME userstory STORY_INDEX`
+|`removefrom Apollo userstory 2`
+
+|Edit Employee's Details
+|`edit employee INDEX [n/NAME] [p/PHONE] [e/EMAIL] [g/GITHUB] [s/SKILL]...`
+|`edit employee 2 n/Betsy Crower s/C s/HTML`
+
+|Edit Project Details
+|`edit project PROJECT_NAME info [n/name] [c/client] [d/deadline] [desc/description]`
+|`edit project Apollo info n/Gemini c/John d/12/09/2020 desc/An application for project management`
+
+|Edit Milestone Details In The Project
+|`edit project PROJECT_NAME milestone MILESTONE_INDEX [m/milestone] [d/date]`
+|`edit project Apollo milestone 2 m/Implement edit command d/09/04/2019`
+
+|Edit Userstory Details In The Project
+|`edit project PROJECT_NAME userstory STORY_INDEX STORY`
+|`edit project Apollo userstory 1 as a user i want to be able to login`
+
+|Find Employees Using Name
+|`find employee KEYWORD [MORE_KEYWORDS]`
+|`find employee John`
+
+|Find Employees Using Skills
+|`find skill KEYWORD [MORE_KEYWORDS]`
+|`find skill java`
+
+|Find Projects Using Name
+|`find project KEYWORD [MORE_KEYWORDS]`
+|`find project Apollo`
+
+|Find Projects Using Words Found In Name And Description
+|`find all KEYWORDS [MORE KEYWORDS]`
+|`find all management`
+
+|Find Projects Using Deadline
+|`find deadline KEYWORD`
+|`find deadline 15/04/2019`
+
+|Update User Story Status
+|`update PROJECT_NAME userstory STORY_INDEX STATUS`
+|`update Apollo userstory 1 complete`
+
+|Update Project Task Status
+|`update PROJECT_NAME projecttask MILESTONE_INDEX PROJECTTASK_INDEX`
+|`update Apollo projecttask 2 1 on hold`
+
+|List All Employees
+|`list KEYWORD`
+|`list employee`
+
+|List All Projects
+|`list KEYWORD`
+|`list project`
+
+|View Employee Details
+|`view employee EMPLOYEE_INDEX`
+|`view employee 1`
+
+|View Project Details
+|`view project PROJECT_INDEX`
+|`view project 1`
+
+|Complete A Project
+|`complete PROJECT_INDEX COMPLETION_DATE`
+|`complete 1 11/11/2011`
+
+|Display Statistics Of All Project
+|`stats`
+|`stats`
+
+|Display Statistics Of A Single Project
+|`stats PROJECT_NAME/PROJECT_INDEX`
+|`stats 1`
+
+|===
+
+* *Exit*:  `exit`
 * *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`

@@ -1,0 +1,90 @@
+= Daryl Ignatius Tan - Project Portfolio for Pocket Project
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== About the project
+
+Welcome to my Project Portfolio Page! My team and I were tasked to enhance an open source, basic command line interface (CLI) addressbook for our Software engineering project.
+Given the constraints that the final product had to use CLI as the primary mode of input and be functional offline,
+we decided to morph it into a project management application called Pocket Project.
+
+This upgraded application enables project managers to keep track of everything about ongoing and completed projects, as well as the data of employees under the manager, all in one place.
+
+My role was to design and write the code for the `addto projecttask`, `update projecttask` and `removefrom projecttask` features. The following sections will explain in more detail these features,
+as well as my documentation contributions in the user and developer guides during this project.
+
+Before we continue, do take note of the following symbols and formatting used in this document:
+
+|===
+|Symbol |Meaning
+
+|image:ug-notepadpencil.png[width="40"]
+|The note pad icon indicates any information which you might find handy.
+
+|image:ug-lightbulb.png[width="50"]
+|The light bulb icon indicates any shortcuts
+that you can use while using application.
+
+|image:ug-exclamation.png[width="50"]
+|The exclamation mark icon indicates any warnings that you might want to take note of when using Pocket Project.
+
+|```addto```| A grey highlight (called a mark-up) indicates that this is a command you can use in Pocket Project. In the documentation sections, this might refer to code-related implementations in the application.
+
+|```[aqua]#addto#```| A grey highlight with light blue text indicates this is an abbreviated command shortened for the sake of brevity.
+
+|===
+
+== Summary of contributions
+This section shows you a summary of my coding, documentation, and other helpful contributions to the team project.
+
+*Major feature added*: Project tasks which helps users to track a project's progress.
+
+[width="1000",cols="100,<900"]
+|===
+|image:ug-notepadpencil.png[width="40"]| Milestones give a broad overview of what is needed to complete a project. Project tasks in milestones help keep track of what needs to be done to reach the next milestone.
+|===
+
+.*How the milestones and tasks feature looks like*
+image::PPPmilestonesandtasks.png[]
+
+** What it does: The `[aqua]#addto projecttask#` command adds a task to a milestone in a project. The `[aqua]#update projecttask#` command allows the manager to set the status of the task to ongoing, on hold or complete.
+   The `[aqua]#removefrom projecttask#` command removes the specified task completely from the milestone.
+** Justification: This feature improves the product significantly because it greatly enhances the level of organization and control which the manager has while planning out a schedule for projects.
+** Highlights: The implementation of this feature was slightly unique and required an approach different from how other features were implemented as a project task is a component of milestones which is in a project.
+   Most other features in Pocket Project directly interact with either employees or projects, unlike that of project tasks which interact only with milestones. It required me to make changes to the behaviour of the
+   existing Milestone class and how it was stored in a project in order to get it to work as desired.
+** Credits: The code for `addto` command parser which I extended for the project task feature and the original milestone code which I enhanced was done by my teammate Jothinandan Pillay.
+   The code for `update` command parser was done by my teammate Jeff Gan. The code for `removefrom` command parser was done by my teammate Lin Dehui.
+** Code contributed for project task feature
+*** Adding project task to milestone: [https://github.com/cs2103-ay1819s2-w10-2/main/pull/141[#141]] [https://github.com/cs2103-ay1819s2-w10-2/main/pull/176[#176]]
+*** Update a project task's status: [https://github.com/cs2103-ay1819s2-w10-2/main/pull/219[#219]]
+*** Removing a project task from a milestone [https://github.com/cs2103-ay1819s2-w10-2/main/pull/228[#228]]
+
+*Other contributions*:
+
+** Project management:
+*** Managed releases `v1.2` - `v1.3.1` (3 releases) on GitHub
+*** Set up kanban with automation on Github
+** Minor code changes:
+*** Renamed instances of person to employee, addressbook to Pocket Project and tags to skills. [https://github.com/cs2103-ay1819s2-w10-2/main/pull/27[#27]] [https://github.com/cs2103-ay1819s2-w10-2/main/pull/57[#57]] [https://github.com/cs2103-ay1819s2-w10-2/main/pull/91[#91]]
+** Team contributions:
+*** Find and report bugs and suggest possible enhancements which can be done in the team's issue tracker. [https://github.com/cs2103-ay1819s2-w10-2/main/issues/123[#123]] [https://github.com/cs2103-ay1819s2-w10-2/main/issues/216[#216]]
+*** Helped to do debugging and resolve bugs in other team member's code when they required help. [https://github.com/cs2103-ay1819s2-w10-2/main/pull/225[#225]]
+** Community contributions:
+*** Reported bugs found in other team's (CS2103-AY1819S2-W14-4) application [https://github.com/cs2103-ay1819s2-w14-4/main/issues/116[#116]] [https://github.com/cs2103-ay1819s2-w14-4/main/issues/112[#112]] [https://github.com/cs2103-ay1819s2-w14-4/main/issues/132[#132]] [https://github.com/cs2103-ay1819s2-w14-4/main/issues/138[#138]]
+
+
+== Contributions to the User Guide
+
+You can view this section to see my contributions to the User Guide documentation for `[aqua]#addto projecttask#`, `[aqua]#removefrom projecttask#` and `[aqua]#update projecttask#` command.
+
+include::../UserGuide.adoc[tag=daryl]
+
+== Contributions to the Developer Guide
+
+You can view this section to see my contributions to the Developer Guide documentation which consists of the implementation of the project task feature and also several sections on manual testing Pocket Project (which unfortunately I am out of space to include in here, so check out this link if you're interested! [https://github.com/cs2103-ay1819s2-w10-2/main/blob/master/docs/DeveloperGuide.adoc#instructions-for-manual-testing[Manual testing, sections G3-G6, G12-G13]).
+
+
+include::../DeveloperGuide.adoc[tag=projecttask]
+

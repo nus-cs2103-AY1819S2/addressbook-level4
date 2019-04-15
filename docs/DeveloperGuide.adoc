@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= PocketProject - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,9 +13,104 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/cs2103-ay1819s2-w10-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+Authors: `Daryl Tan, Jeff Gan, Jothinandan Pillay, Lin Dehui, Shune Lei`
+
+Team: CS2103-AY1819S2-W10-2
+
+Since: `January 2019` License: `MIT`
+
+== Introduction
+
+PocketProject is primarily an application for software engineering project managers who are currently in-charge of
+a large team of employees and many projects. This application employs the use of a Command Line Interface(CLI) to easily
+navigate through the application which contributes to the efficiency and user-friendliness of the end product.
+This application allows managers to keep track of all the employees and their related background information such as their
+GitHub account username and relevant skills. Additionally, it also helps to keep track of all the projects that the manager
+is currently involved with and key details of the project such the client, deadline and milestones can also be stored.
+Through the combination of the two main components, the application allows the storing and viewing of all the employees
+working on particular project and all the projects currently under a single employee among other functionalities.
+
+== Background Information
+
+When first seeing our application, many of you may wonder what is the significance
+behind this project. Well, the current issues cannot be seen at the surface level and requires
+a deeper look. To present all the information in a nutshell, our application provides
+everything that a manager will ever need at the tip of his fingertips. Being able to better
+handle project and man management leads to a more organized workflow and inevitably, a more
+productive environment which can set a strong foundation for the lifecycle of various projects.
+
+In addition, the inability to track the progress of a project has been cited as one of the top reasons
+as to why a product fails, and thus our application aims to potentially solve this problem
+by having both a milestones feature and a task manager to mainly see not only what has been completed, but
+also the proposed schedule for the weeks ahead until the project is due for completion.
+
+== Before We Begin
+
+=== Symbols
+The following section details and previews a few symbols that will
+be used throughout the developer guide. These symbols are used to represent
+special information such as tips and warnings.
+
+|===
+|Symbol |Meaning
+
+|image:ug-notepadpencil.png[width="40"]
+|The note pad icon indicates any useful tips or things that users
+need to take note of while using the Pocket Project application.
+
+|image:ug-lightbulb.png[width="50"]
+|The light bulb icon indicates any shortcuts
+that users can use while using the Pocket Project application.
+
+|image:ug-exclamation.png[width="50"]
+|The exclamation mark icon indicates any warnings that users
+ can take note of while using the Pocket Project application.
+
+|image:ug-smart.png[width="60"]
+|The graduation cap icon indicates any advanced usages or
+ extra technical information about how a particular command works should the
+ users be interested to know.
+|===
+
+=== Glossary
+The following section details a few key technical terms that are used
+through the course of the Developer Guide.
+
+[width="100%",cols="50%,<50%"]
+|===
+|Term|Meaning
+
+|Alphanumeric
+|Only contains either digits (0-9) or letters of the English
+                alphabet (A-Z).
+
+|Command Line Interface (CLI)
+|A means of interacting with a computer program where the user issues commands to the
+ program in the form of successive lines of text.
+
+|Lexicographic
+|Ordering of words based on how it would appear in a dictionary.
+
+|Milestone
+|A key event that is completed during the entire timeline of the project.
+
+|Project Task
+|Events which are completed during a milestone to achieve the next milestone.
+
+|Regex
+|Short-form for regular expression. A regular expression is a pattern used to match character
+combinations in strings. Basically it is used to check if a given input matches the prescribed pattern or
+format.
+
+
+|One-Based Indexing
+|Way of numbering in which the initial element of a sequence is assigned the index 1.
+
+|Zero-Based Indexing
+|Way of numbering in which the initial element of a sequence is assigned the index 0.
+|===
 
 == Setting up
 
@@ -23,16 +118,18 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 . *JDK `9`* or later
 +
-[WARNING]
-JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
-Windows developers are highly recommended to use JDK `9`.
+
+|===
+|image:ug-exclamation.png[width="50"]|JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
+                                      Windows developers are highly recommended to use JDK `9`.
+|===
 
 . *IntelliJ* IDE
 +
-[NOTE]
-IntelliJ by default has Gradle and JavaFx plugins installed. +
-Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
-
+|===
+|image:ug-notepadpencil.png[width="40"]|IntelliJ by default has Gradle and JavaFx plugins installed. +
+                                      Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+|===
 
 === Setting up the project in your computer
 
@@ -47,10 +144,10 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+. Open link:{repoURL}/blob/master/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+. Repeat this for the test folder as well (e.g. check link:{repoURL}/blob/master/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
@@ -74,13 +171,13 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/pocketproject` repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/pocketproject`), you should do the following:
 
-. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
+. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/blob/master/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
-. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
+. Replace the URL in the attribute `repoURL` in link:{repoURL}/blob/master/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/blob/master/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
 
 ==== Setting up CI
 
@@ -88,13 +185,16 @@ Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingT
 
 After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#, UsingCoveralls.adoc>>).
 
-[NOTE]
-Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your personal fork.
+|===
+|image:ug-notepadpencil.png[width="40"]|Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your personal fork.
+|===
 
 Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingAppVeyor.adoc>>).
 
-[NOTE]
-Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
+|===
+|image:ug-notepadpencil.png[width="40"]|Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
+|===
+
 
 ==== Getting started with coding
 
@@ -114,9 +214,9 @@ image::Architecture.png[width="600"]
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 [TIP]
-The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
+The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/blob/master/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:{repoURL}/blob/master/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -146,24 +246,26 @@ image::LogicClassDiagram.png[width="800"]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete employee 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `delete employee 1` command
 image::SDforDeletePerson.png[width="800"]
 
 The sections below give more details of each component.
 
+// tag::ui[]
 [[Design-Ui]]
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[width="800"]
+image::UiClassDiagram.png[width="650"]
+// end::ui[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `SideTabPanel`, `StatusBarFooter`, `DetailsPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/blob/master/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -178,17 +280,17 @@ The `UI` component,
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/blob/master/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `PocketProjectParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a employee).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `delete employee 1` Command
 image::DeletePersonSdForLogic.png[width="800"]
 
 [[Design-Model]]
@@ -197,17 +299,17 @@ image::DeletePersonSdForLogic.png[width="800"]
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Pocket Project data.
+* exposes an unmodifiable `ObservableList<Employee>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Skill` list in `Pocket Project`, which `Employee` can reference. This would allow `Pocket Project` to only require one `Skill` object per unique `Skill`, instead of each `Employee` needing their own `Skill` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
 
@@ -217,74 +319,714 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Pocket Project data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.address.commons` package.
 
-== Implementation
-
+== Implementation of Key Features
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
+// tag::datefeature[]
+=== Pocket Project Dates (Smart Dates)
+==== Overview
+
+As dates are widely used throughout the application, it is important that the user is able to easily input any target date but at the same time
+retain some flexibility so that it is more user-friendly. Therefore, the dates used in the Pocket Project supports 2 main formats as shown below.
+
+*Fixed Date Format*
+Format(s): +
+1. `DD/MM/YYYY`
+
+*Flexible Date Format*
+Format(s): +
+1.`today/tomorrow/yesterday` +
+2.`this/next/last week DAY_OF_WEEK` +
+3.`this/next/last month DAY_OF_MONTH`
+
+==== How it Works
+
+The section details how a fixed and flexible date format is parsed and processed.
+
+.Activity Diagram: Showing how a fixed and flexible date format is parsed and processed.
+image::dg-activitydiagdate.png[width="500"]
+
+Refer to the Activity Diagram above while reading the summary below so as to have a visual
+representation of what happens.
+
+To simplify the explanation, the process can be summarized into the following key points: +
+1.  A check is first made to determine if the input is a fixed or flexible date format. This is done by
+checking for the presence of a `/` in the input. +
+2. If it is a fixed format input, a check is made to determine if it conforms to the `DD/MM/YYYY` format. +
+3. If it is a flexible format input, the input is parsed and the `PocketProjectParser` identifies keywords to determine the appropriate methods to call from the model. The target
+date is then formatted into the `DD/MM/YYYY` format. +
+4. Regardless of the initial format of the input, the current string would represent the form
+of `DD/MM/YYYY` at this stage. The validity of the date is then checked.
+
+Refer to the code snippet below to see how the validity of the date is verified.
+
+.Code snippet showing verification of a validity of a date.
+image::dg-codesnippet.png[width="500"]
+
+As can be seen above, the code not only checks if the selected day falls within the maximum number of days
+in a month, but it also checks for leap years. This ensures that only valid calendar dates are accepted
+as a viable input.
+
+==== Design Considerations
+
+*Potential Design 1* +
+User keys in  `Wednesday`, `next Wednesday`, `last Wednesday` to denote the current, next and last week's Wednesday respectively
+
+*Potential Design 2 (Selected Implementation)* +
+User keys in  `this week 3`, `next week 3`, `last week 3`  to denote the current, next and last week's Wednesday respectively
+
+The second design was chosen as the first one is subjective to an individual's language
+use. For example, if today was Monday, and a person was to mention `next Wednesday`, some people may be thinking of the Wednesday in 2 days time
+whereas others may be thinking of next week's Wednesday. Thus to remove confusion, the keyword this/next/last was added. In addition, instead of spelling out the days,
+users can key in the day number instead. This speeds things up and also reduces errors due to spelling mistakes in the name of the day.
+// end::datefeature[]
+
+// tag::addtoemployeemilestone[]
+
+=== Adding Employees and Milestones to a Project
+==== Overview
+
+This feature focuses on the adding of employees and milestones to a selected project. It supports two commands which are explained below.
+
+1. `addto PROJECT_NAME employee EMPLOYEE_INDEX` +
+Adds the employee at index `EMPLOYEE_INDEX` to the list of employees in the project named `PROJECT_NAME`.
+2. `addto PROJECT_NAME milestone m/MILESTONE_DESCRIPTION d/MILESTONE_DATE` +
+Adds the specified milestone to the list of milestones in project named `PROJECT_NAME`.
+
+In addition, the `AddToEmployeeCommand` class and `AddToMilestoneCommand` class is
+abstracted into a `AddToCommand` class which inherits from `Command` class. This allows for
+further functionalities to be added while conforming to the Open-Closed Principle.
+
+Refer to the Class Diagram below for a better visualization of the inheritance relationship.
+
+.Class Diagram: Showing inheritance relationship between the commands.
+image::dg-addtoclassdiagram.png[width="700"]
+
+==== How it Works
+
+The section details how a `AddToCommand` is parsed and processed.
+
+.Sequence Diagram: How the Add Employee To Command Works
+image::dg-addemployeeto.png[width="1000"]
+
+Refer to the sequence diagram above to better understand how the `AddEmployeeTo` Command
+works. The diagram shows the sequence when a `addto Apollo employee 1` is executed.
+
+To simplify the explanation, the process can be summarized into the following key points: +
+1. The `PocketProjectParser` parses the string received and uses the `addto` keyword to identify that the input
+is linked with the `AddToCommand` class. +
+2. The `AddToCommandParser` then identifies the type of `AddToCommand` that is being executed and the arguments involved. +
+3. The `AddToCommandParser` then creates the `AddEmployeeToCommand`/`AddMilestoneToCommand` object and this is passed on to the `LogicManager` for execution. +
+4. The command execution will check the validity of the arguments and then call the methods of the `Model` component to add the corresponding
+employee/milestone to the project.
+
+[width="300",cols="100,<200"]
+|===
+|image:ug-lightbulb.png[width="50"]| The main difference between the 2 commands is deciding the object
+to be added (Employee or Milestone) from model based on the user input.
+|===
+
+==== Design Considerations
+
+*Potential Design 1* +
+The idea is to have only 1 parser ,`PocketProjectParser`, which receives and parses the whole input string
+before constructing the relevant command.
+
+*Potential Design 2 (Selected Implementation)* +
+The idea is to have a total of 2 parsers where the first parser, `PocketProjectParser` identifies the `addto` key word
+and the rest of the input string is then parsed by the corresponding second parser, `AddToCommandParser`.
+
+The 2nd design was chosen as there is better abstraction of the details and it also allows further functionality
+to be add on top of the implemented parser. If future developers want to add more objects to the project, they can simply
+make use of this `AddToCommandParser` to handle different inputs. Choosing this design was a good choice as it helped with the
+implementation of adding user stories and project tasks to a project after this was initially constructed.
+// end::addtoemployeemilestone[]
+
+==== Future Planned Implementations
+
+The following additional feature is scheduled to be implemented in future versions.
+
+* Add an alias for the arguments in the addto commands so that it is more user-friendly for users of this application. Users
+can key in the two above mentioned commands by replacing `employee` with `e` and `milestone` with `ms`. The commands can be
+input as such:
+
+** `addto PROJECT_NAME e EMPLOYEE_INDEX` instead of `addto PROJECT_NAME employee EMPLOYEE_INDEX`
+** `addto PROJECT_NAME ms m/MILESTONE_DESCRIPTION d/MILESTONE_DATE` instead of `addto PROJECT_NAME milestone m/MILESTONE_DESCRIPTION d/MILESTONE_DATE`
+
+The commands will be processed in the same way without any other changes.
+
+// skill::removefrom[]
+//tag::removefrom_dg[]
+
+=== Remove employee/milestone/project task/user story from projects feature
+
+==== Current Implementation
+
+The removing of employee,milestone or user story from projects is facilitated by the model component of the PocketProject.
+This feature currently supports these three commands:
+
+* `removefrom [project name] employee [employee index]` -- removes the employee at index `[employee index]` in the list of employees in the project named `[project name]`.
+* `removefrom [project name] milestone [milestone index]` -- removes the milestone at index `[milestone index]` in the list of milestones in the project named `[project name]`.
+* `removefrom [project name] projecttask [milestone index] [project task index]` -- removes the project task at index `[project task index]` in the list of tasks under the milestone specified by `[milestone index]` in the project named `[project name]`.
+* `removefrom [project name] userstory [userstory index]` -- removes the user story at index `[userstory index]` in the list of user stories in the project named `[project name]`.
+
+These operations are supported by the methods in the `Model` interface: `Model#removeEmployeeFrom(Project, Employee)`, `Model#removeMilestoneFrom(Project, Milestone)`, `Model#removeProjectTaskFrom(Project, Milestone, ProjectTask)` and `Model#removeUserStoryFrom(Project, UserStory)`.
+The methods does not take in indices as arguments since the corresponding Employee, Milestone, ProjectTask or UserStory object associated with the Project object would be found by `RemoveEmployeeFromCommand#excute()`, `RemoveMilestoneFromCommand#execute()`, `RemoveProjectTaskFromCommand#execute()` or `RemoveUserStoryFromCommand#execute()`
+before the methods of `Model` are called.
+The sequence diagram for the execution of the removing of employee from a project is as follows, the sequence for the removal of milestone, project tasks and user stories are similar:
+
+.Sequence diagram showing execution of `removefrom Apollo employee 1`.
+image::remove_employee_from_sequence_diagram.png[width="1000"]
+
+Given below is an example usage scenario and how the removal of employee/milestone/project task/user story feature behaves at each step.
+
+Step 1. The user enters the command `view project Apollo'. The app displays the list of employees and milestones in the project named "Apollo" by executing the `view` command.
+
+Step 2. The user enters `removefrom Apollo employee 1`. The `LogicManager` passes the entered string to the `PocketProjectParser`. The `PocketProjectParser` parses the string received and identifies the command as falling under the class of `RemoveFromCommand` (which constitutes of `RemoveEmployeeFromCommand`
+and `RemoveMilestoneFromCommand` by the `removefrom` keyword and passes the rest of the string to the `RemoveFromCommandParser` to identify which type of `RemoveFromCommand` is being executed and what are the arguments.
+The `RemoveFromCommandParser` then creates command object and passes it to the `LogicManager` to be executed. The command execution will check the validity of the arguments and then call the methods of the `Model` component to remove the corresponding objects.
+
+Step 3. The user executes 'removefrom Apollo milestone 2'. The execution of this command is similar to step 2, just that the type of object changes from `Employee` to `Milestone`.
+
+|===
+|image:ug-lightbulb.png[width="40"]|The `[project name]` entered must be valid and exists in the app. The `[employee index]`, `[milestone index]`, `[project task index]` or `[user story index]` given must refer to some existing employee or milestone. If not, exceptions would be thrown during the execution of the command.
+|===
+
+==== Design Considerations
+
+===== Aspect: How the command string (e.g. `removefrom Apollo employee 1`) is parsed
+
+Alternative 1: Let `PocketProjectParser` handle the whole string and construct the command.
+
+Alternative 2: Having 2 parsing stages where the `PocketProjectParser` identify that the command string is trying to execute a `RemoveFromCommand` from the `removefrom` key word, then passes
+the rest of the string to another specialized `RemoveFromCommandParser`. (current implementation)
+
+Using alternative 2 is better  as it provides better abstraction as the details of the 2 different types of `RemoveFromCommand` will be hidden away, hence it is more in line with OOP principles.
+There will also be less clutter in `PocketProjectParser` as there are already a lot of other commands being parsed.
+
+//end::removefrom_dg[]
+// end::removefrom[]
+
+//tag::editproject[]
+
+=== Edit Project feature
+==== Current Implementation
+
+This feature allows editing of several components which are under project and is mainly facilitated by the model component. This feature supports 3 main commands:
+
+. `edit project PROJECT_NAME info [n/name] [c/client] [d/deadline] [desc/description]` - allow editing of project's name, deadline, description
+. `edit project PROJECT_NAME milestone MILESTONE_INDEX [m/milestone] [d/date]` - allow editing of details of project milestone such as milestone description and date
+. `edit project PROJECT_NAME userstory USERSTORY_INDEX STORY` - allow editing of details of project's userstory (explained here <<Edit user story command>>)
+
+The `EditProjectCommand Parser` differentiate these 3 commands based on the `COMMAND_KEYWORD` which are info, milestone and userstory.
+
+.Class diagram showing inheritance for `EditCommand`
+image::edit_command_class_diagram.png[width:"300"]
+
+All these 3 commands are inherited from the `EditProjectCommand` as shown in the diagram above. This allows flexibility as more edit project command can be easily added when there are new components added to the project.
+
+The following sequence diagram shows how `edit project info` command works:
+
+.Sequence diagram for `edit project Apollo info n/Gemini d/12/05/2019`
+image::edit_project_sequence_diagram.png[width:"800"]
+
+Given below is the explanation of what happens when the user enter the `edit project Apollo info n/Gemini d/12/05/2019` command based on the diagram above:
+
+. User executes `edit project Apollo info n/Gemini d/12/05/2019` to edit name and deadline of the project named Apollo.
+. `PocketProjectParser` will identify the command as an `EditCommand` based on the word `edit` and pass on the argument to the EditCommandParser.
+. Similarly the arguments will continue to parse through `EditCommandParser` and `EditProjectCommandParser` which will identify the command as `EditProjectInfoCommand` and return it back to the `LogicManager`
+. `LogicManager` then execute the command. Validity of the arguments are checked here as well. The method `Model#setProject(projectToEdit, editedProject)` is called to replace the old project with the edited project which contains the new parameters.
+This method also update the list of project names in the employees who are assigned to project Apollo.
+.  Finally, the project Apollo is edited and the updated details are shown on the UI.
+
+[width="1000",cols="100,<900"]
+|===
+|image:ug-notepadpencil.png[width="40"]|
+If the arguments provided are invalid, a `CommandException` will be thrown and error message will be shown.
+|===
+
+The working mechanism behind `EditProjectMilestoneCommand` is similar as well. Instead of replacing the whole project, only the milestone list in the project is edited by replacing the milestone at the given index through the `Model#setMilestone(milestoneToEdit, editedMilestone)` method.
+
+==== Design Consideration
+===== Aspect how to structure the classes under edit command
+
+Alternative 1: Have a single edit project command that allow users to edit all the parts of the project in one command
+
+Alternative 2: Have several separate commands that edit different parts of the project (current implementation)
+
+For alternative 1, the user will not need to remember many commands just to edit the project. However since there are a lot of components in the project,
+different prefixes will be needed for different components so that the parser can identify which component to edit. There are also overlapping attributes in the
+components such as milestone date and project deadline or milestone description and project description. Therefore it is going to be messy in terms of code
+as well as in terms of usage of the command.
+
+Even though alternative 2 involves having to remember different commands, it can be implemented in a way so that the commands are intuitive to the user. For instance,
+the command format for current implementation is quite intuitive. The user just need to specify `edit project` then add in name of the project to edit and the components the user wish to edit.
+Thus, alternative 2 is chosen as it is less confusing both in term of code and usage and can be tweaked to make the command user-friendly.
+
+//end::editproject[]
+
+// tag::find[]
+=== Find Employee/Project/Skill/All feature
+==== Current Implementation
+For the current `find` feature, there are 5 main commands that the user can execute:
+
+    . `find employee [KEYWORDS]` - display employees with name containing keywords
+    . `find project [KEYWORDS]` - display projects with name containing keywords
+    . `find skill [KEYWORDS]` - display employees who has skills matching the keywords
+    . `find all [KEYWORDS]` - display projects which contains words matching the keywords
+    . `find deadline KEYWORD` - display projects which contains deadline before the keyword
+
+The `FindCommandParser` differentiates these 5 commands based on the `COMMAND_KEYWORDS` entered by the users (e.g. employee/project/skill/all/deadline) as illustrated in the diagram below.
+
+.Activity diagram on behavior of `FindCommandParser`
+image::find_parser_activity.png[]
+
+The following sequence diagram shows how the `find employee` command works:
+
+.Sequence diagram for `find employee John` command
+image::findcommand_sequence_diagram.png[width="1000"]
+
+Usage Scenario example for `find employee`:
+
+. User executes `find employee John` to look for employees whose names contains the word 'John'.
+. `PocketProjectParser` will parse and identify the command as a `FindCommand` and pass on the argument `employee John` to `FindCommandParser`.
+. `FindCommandParser` identify the command based on the `COMMAND_KEYWORD` 'employee'.
+. `find employee` command is executed. Employees with name consisting the keywords are filtered out from the employeelist. The filtering is done through the use of `ProjectNameContainsKeywordPredicate` that checks through the names of the employee int the application.
+. Finally, the `filteredEmployees` list which is the list displayed on the ui is updated.
+
+The working mechanism for `find project` is similar to `find employee`. Instead of updating the `filteredEmployees`, `filteredProjects` is updated instead to display the list of projects with name consisting the keywords.
+
+For `find all` command, the predicate is used to check for the matching keywords in the project name , description and client, thereby filtering out any projects that contains the keyword in these components of the project.
+
+For `find skill` command, the `List<Skills>skills` from the employee is retrieved as a `String` to match against the keywords. Then the matched employees are filtered and displayed on the ui.
+
+`find deadline` uses the `ProjectContainsDeadlinePredicate` to compare the deadline of the project against the supplied deadline and filter out the projects with deadline earlier or same as the deadline supplied by the user.
+
+==== Design Considerations
+
+===== Aspect: How `find` command is parsed
+Alternative 1: Have a separate `FindCommandParser` to parse the command (current implementation)
+
+Alternative 2: Let `PocketProjectParser` handle parsing of all the `find` commands
+
+Using Alternative 1 is better because it provides better abstraction as the details of the 5 different find commands will be hidden away as just a single FindCommand.
+Hence it is more in line with OOP principles. There will also be less clutter in `PocketProjectParser` as there are already a lot of other commands being parsed.
+// end::find[]
+
+// skill::undoredo[]
+
+=== List Employee/Project feature
+==== Current implementation
+For the current list feature, there are 2 main commands that the user can execute:
+
+    1. `list employee` - displays all employees
+    2. `list project` - displays all projects
+
+The `ListCommandParser` will parse the user input based on the `COMMAND_KEYWORD` entered by the user, and then execute the appropriate command based on the keyword given.
+
+The following sequence diagram shows how the list employee command works:
+
+.Sequence diagram for `list employee` command
+image::listcommand_sequence_diagram.png[width="1000"]
+
+Usage Scenario example for `list employee`:
+
+1.	User executes `list employee` to list all employees in PocketProject.
+2.	`PocketProjectParser` will parse and identify the command as a `ListCommand` and pass the argument employee to `ListCommandParser`.
+3.	`ListCommandParser` identifies the command to execute based on the `COMMAND_KEYWORD` and returns a `ListEmployeeCommand`.
+4.	`LogicManager` then executes `ListEmployeeCommand`. All the employees in PocketProject will be returned by the `filteredEmployees` list.
+
+The mechanism for `list project` is similar to `list employee`, apart from the fact that a `ListProjectCommand` is executed instead.
+
+==== Design Considerations
+===== Aspect: How `list command` is parsed
+Alternative 1: Have a separate command parser for all `list` commands (current implementation)
+
+Alternative 2: Let `PocketProjectParser` handle parsing of all the `list` commands
+
+Using Alternative 1 is better as it provides better abstraction as the `listCommandParser` will handle all `list` commands. It also reduces the cluttering in the main `PocketProjectParser`.
+
+// skill::stats[]
+//tag::stats_dg[]
+
+=== Stats feature
+==== Implementation
+
+The displaying of statistics in Pocket Project will be facilitated by the model component. This feature is
+planned to support 2 main commands:
+
+* `stats` -- Displays an overview of all the projects: the number of ongoing projects, deadlines etc.
+* `stats PROJECT_INDEX` or `stats PROJECT_NAME` -- Display a summary of the progress of the project with the given PROJECT_INDEX or PROJECT_NAME.
+
+The operation will be supported by the methods in the `Model` interface: `Model#overallStats()` and `Model#individualStats(Project)`.
+`Model#overallStats()` will retrieve the data on all the projects/employees to pass to `StatsUtil`, an utility class to produce a string which describes
+the status of all projects. `Model#individualStats(Project)` passes the given project to `StatsUtil` to produce a string in a similar fashion.
+
+The following sequence diagrams show how the stats command will work:
+
+Overview of all projects:
+
+.Sequence diagram showing execution of `stats`
+image::overallStatsSequenceDiagram.png[width="1000"]
+
+.Sequence diagram showing execution of `stats 1`
+image::individualStatsSequenceDiagram.png[width="1000"]
+
+Usage Scenario example for `stats`:
+
+1.	User executes `stats`/`stats PROJECT_INDEX`/`stats PROJECT_NAME` to view project statistics in Pocket Project.
+2.	`PocketProjectParser` will parse and identify the command as a `IndividualStatsCommand` or `OverallStatsCommand`, parse any additional argument accordingly and return the command object.
+3.	`LogicManager` then executes the returned command, calling the `Model#individualStats()` or `Model#overallStats(Project)` accordingly to obtain the string describing the status of concern.
+4.  The returned string is used to construct the result of the command.
+
+==== Design Considerations
+===== Aspect: How the string is constructed.
+Alternative 1: Retrieve all the relevant project(s), find out the relevant information and construct the string in the `execute()` method
+of the command object.
+
+Alternative 2: Do the construction in the model.
+
+Alternative 3: Do it somewhere else.
+
+I have decided to use alternative 3 and create a specialized helper class to scrap the relevant information from the list of projects/employees to
+produce the string. This is chosen because I have decided to have several helper methods to construct the different parts of the string(e.g. about the number of ongoing projects, project with closest deadline etc..).
+It would be inappropriate to put these methods under the command class or the model because they are not very related.
+
+//end::stats_dg[]
+// end::stats[]
+
+// tag::userstorygeneral[]
+=== User Story feature
+==== General Implementation
+
+The implementation of user stories in Pocket Project is facilitated by the `model` component, and in particular, the `Project` class
+which will store the relevant user stories as a `SortedUserStoryList`.
+
+Currently, the user stories feature supports the following commands:
+
+* `addto PROJECT_NAME userstory i/STORY_IMPORTANCE STORY` -- Adds the user story specified in `STORY` to the list of user stories in the project with name `PROJECT_NAME`
+* `removefrom PROJECT_NAME userstory STORY_INDEX` -- Removes the user story at index `STORY_INDEX` in the list of user stories in the project named `PROJECT_NAME`.
+* `edit project PROJECT_NAME userstory STORY_INDEX STORY` --  Edits the user story at index `STORY_INDEX` in the list of user stories in the project named `PROJECT_NAME`.
+* `update PROJECT_NAME userstory STORY_INDEX STATUS` -- Updates the status of the user story at the `STORY_INDEX` in the list of user stories in the project named `PROJECT_NAME`.
+
+In addition, the `SortedUserStoryList` maintains a sorted order of user stories according to descending importance level of the user story, followed by ascending lexicographical order of the `UserStoryUser` name.
+
+For example, suppose we have 3 user stories with the following importance level and user names:
+
+|===
+| Importance | User name
+| 1          | John
+| 2          | David
+| 2          | Alan
+|===
+
+In the `SortedUserStoryList` these user stories would appear in the following order and index:
+
+|===
+| Index  | Importance | User name
+| 1      | 2          | Alan
+| 2      | 2          | David
+| 3      | 1          | John
+|===
+
+Since the user stories with users David and Alan have a higher importance level than John, they will appear above John in the sorted list. Afterwards, since Alan is lexicographically smaller than David, it appears before David in the list.
+
+This is to faciliate users to find important user stories by ensuring a neatly ordered list by relevance of the user story.
+// end::userstorygeneral[]
+
+==== Implementation of individual commands
+
+// tag::adduserstory[]
+
+===== Add user story to project command
+
+* `addto PROJECT_NAME userstory i/STORY_IMPORTANCE STORY` -- adds the user story specified in `STORY` to the list of user stories in the project with name `PROJECT_NAME`
+
+This operation uses the `Model#addUserStoryTo(Project, UserStory)` and the `Model#getProjectWithName(Name)` methods in the `Model` interface.
+It takes in the project and user story as arguments. After checking that the `PROJECT_NAME` is valid and `STORY` is created, the `AddUserStoryToCommand#execute()` method is executed to add the `STORY` into the project.
+
+Given below is an example usage scenario and how the addition of user story to a project behaves at each step.
+
+Step 1. The user enters the command `list project`. The app displays the list of projects in the Pocket Project by executing the `list project` command.
+
+Step 2. The user enters `addto Apollo userstory i/1 as a user i want to view user stories so that i can track them`. The `LogicManager` passes the string into the `PocketProjectParser` which detects it as a `AddToCommand`. It then passes the string to the `AddToCommandParser`
+which creates an `AddUserStoryTo` command. The `LogicManager` then checks for the validity of the user story and executes the `Model#addUserStoryTo(Project, UserStory)` method to add the new user story.
+
+[width="100%",cols="35%,<65%"]
+|===
+|image:ug-exclamation.png[width="60"]| The `PROJECT_NAME` entered must be valid and the `STORY` added needs to be of the correct format. Else, exceptions would be thrown.
+|===
+// end::adduserstory[]
+// tag::removeuserstory[]
+
+===== Remove user story from project command
+
+* `removefrom PROJECT_NAME userstory STORY_INDEX` -- removes the user story at index `STORY_INDEX` in the list of user stories in the project named `PROJECT_NAME`.
+
+This operation uses the `Model#removeUserStoryFrom(Project, UserStory)` and the `Model#getProjectWithName(Name)` methods in the `Model` interface.
+It does not require the user story as an argument since the corresponding user story object can be found by the specified `STORY_INDEX`. After checking that the `PROJECT_NAME` and user story is valid, the `AddUserStoryToCommand#execute()` method is executed to remove the user story from the project.
+
+The sequence diagram for the execution of the removing of a user story from a project is as follows:
+
+.Sequence diagram showing execution of `removefrom Apollo userstory 1`.
+image::remove_user_story_from_sequence_diagram.png[width="1000"]
+
+Given below is an example usage scenario and how the removal of a user story behaves at each step.
+
+Step 1. The user enters the command `view project Apollo'. The app displays the list of details of the project named "Apollo" by executing the `view` command.
+
+Step 2. The user can use the buttons in the details panel to scroll to the panel showing the user stories.
+
+Step 3. The user enters `removefrom Apollo userstory 1`. The `LogicManager` passes the string into the `PocketProjectParser` which detects it as a `RemoveFromCommand`.
+It then passes the string to the `RemoveFromCommandParser` which creates an `RemoveUserStoryFrom` command. The `LogicManager` then checks for the validity of the user
+story and project and executes the `Model#removeUserStoryFrom(Project, UserStory)` method to remove the user story.
+
+[width="100%",cols="35%,<65%"]
+|===
+|image:ug-exclamation.png[width="60"]| The `PROJECT_NAME` entered must be valid and exists in the app. The `STORY_INDEX` given must refer to some existing user story. If not, exceptions would be thrown during the execution of the command.
+|===
+// end::removeuserstory[]
+// tag::edituserstory[]
+
+===== Edit user story command
+
+* `edit project PROJECT_NAME userstory STORY_INDEX` -- edits the user story at index `STORY_INDEX` in the list of user stories in the project named `PROJECT_NAME`.
+
+This operation uses the `Project#setUserStory(UserStory, UserStory)` method in the `Project` class as well as the `Model#getProjectWithName(Name)` method in the `Model` class. It takes
+in as arguments firstly, the old user story to edit, and secondly the new user story to replace it with. The `EditProjectUserStoryCommand` checks for the validity of the old and new user stories
+before the `Project#setUserStory(UserStory, UserStory)` method is called.
+
+The sequence diagram for the execution of the editing of a user story in a project is as follows:
+
+.Sequence diagram showing execution of `edit project Apollo userstory 1 as a user I want to login`.
+image::edit_user_story_sequence_diagram.png[width="1000"]
+
+Given below is an example usage scenario and how the editing of a user story behaves at each step.
+
+Step 1. The user enters the command `view project Apollo`. The app displays the list of details of the project named "Apollo" by executing the `view` command.
+
+Step 2. The user can use the buttons in the details panel to scroll to the panel showing the user stories.
+
+Step 3. The user enters `edit project Apollo userstory 1 as a user i want to login`. The `LogicManager` passes the string into the `PocketProjectParser` which detects it as a `EditCommand`.
+It then passes the string to the `EditCommandParser`. The `EditCommandParser` detects the keyword `project` and passes the string to the `EditProjectCommandParser` which creates a `EditUserStory` command. The `LogicManager` then checks for the validity of the user
+story and project and edits the user story using the `Project#setUserStory(UserStory, UserStory)` method.
+
+[width="100%",cols="35%,<65%"]
+|===
+|image:ug-exclamation.png[width="60"]| The `PROJECT_NAME` entered must be valid and exists in the app. The `STORY_INDEX` given must refer to some existing user story and the new `STORY` must be valid. If not, exceptions would be thrown during the execution of the command.
+|===
+// end::edituserstory[]
+// tag::updateuserstory[]
+
+===== Update user story command
+
+* `update PROJECT_NAME userstory STORY_INDEX STATUS` -- Updates the status of the user story at the `STORY_INDEX` in the list of user stories in the project named `PROJECT_NAME`.
+
+This operation uses the `UserStory#UpdateStatus(Status)` method in the `UserStory` class as well as the `Model#getProjectWithName(Name)` method in the `Model` class.
+It takes in as arguments the new status of the user story. The `UpdateUserStoryCommand` checks for the validity of the arguments and locates the specified user story from the project. It then calls the `UserStory#UpdateStatus(status)` method.
+
+The sequence diagram for the execution of updating a user story status is as follows:
+
+.Sequence diagram showing execution of `update Apollo userstory 1 ongoing`.
+image::update_user_story_sequence_diagram.png[width="1000"]
+
+Given below is an example usage scenario of how the updating of a user story behaves at each step.
+
+Step 1. The user enters the command `view project Apollo`. The app displays the list of details of the project named "Apollo" by executing the `view` command.
+
+Step 2. The user can use the buttons in the details panel to scroll to the panel showing the user stories.
+
+Step 3. The user enters `update Apollo userstory 1 ongoing`. The `LogicManager` passes the string to the `PocketProjectParser` which detects the string as a `UpdateCommand`. The `PocketProjectParser` passes the rest of the string to the `UpdateCommandParser`.
+The `UpdateCommandParser` then detects the keyword `userstory` and creates a `UpdateUserStory` command object and passes it to the `LogicManager` to be executed. The `LogicManager` then checks for the validity of the user story and project and updates the user story's status using the `UserStory#UpdateStatus(Status)` method.
+
+[width="100%",cols="35%,<65%"]
+|===
+|image:ug-exclamation.png[width="60"]| The `PROJECT_NAME` entered must be valid and exists in the app. The `STORY_INDEX` given must refer to some existing user story and the new `STATUS` must be valid. If not, exceptions would be thrown during the execution of the command.
+|===
+// end::updateuserstory[]
+// tag::designandfuture[]
+
+==== Design Considerations
+===== Aspect: How to structure the user story details to be inputted into the project
+
+Alternative 1: Use a `regex` to indicate the importance/priority of a user story, then have the user key in the user story in the specified format `as a...i want to...so that...`(Current implementation)
+
+Alternative 2: Use only `regex` to denote the different parts of a user story. For example, `i/` to denote the importance level, `u/` to denote user etc...
+
+Alternative 3: Store the entire string as given by the user as it is and not parse the input.
+
+Using alternative 3 is the simplest and most straight forward way to handle the user input, but it does not provide much functionality. As user stories should be organised and easy to read as a list,
+we will need to use some sort of `TableView` or `ListView` to view the stories. Thus, using alternative 3 will only allow the entire string to be generated and is not user friendly.
+Between alternative 2 and alternative 1, alternative 2 provides an easier way for the program to generate and partition the input using `regex` expressions. However, as there are many parts to a user
+story, having to remember 4 different `regex` expressions may be hard for a user to remember and may be inconvenient. Using alternative 1 is a mix of both 2 and 3, which allows abit more flexibility
+and smoothness for a user by allowing them to type in full sentences how they would normally do for a user story, while allowing proper classification of the components of the story to be able to
+be displayed in the UI component as a `TableView`.
+
+===== Aspect: How to show/store the list of user stories
+
+Alternative 1: Sort the user stories only by decreasing priority.
+
+Alternative 2: Sort the user stories by the sequence it is added.
+
+Alternative 3: Sort the user stories only by the names of the target user.
+
+Alternative 4: Sort the user stories by decreasing priority, followed by the name of the target user. (Current implementation)
+
+Using alternative 2 is the simplest and most straightforward approach, but does not provide any value adding to the user. Both alternative 1 and 3 are useful,
+hence we decided to combine them to produce alternative 4, which allows not only the important user stories to be listed first, but also provides better readability as similar user stories are grouped together.
+
+==== Future Planned Enhancements
+
+The following additional features are scheduled to be implemented in future version.
+
+. Allow more varied types of sorting for the users. Since there is no one-size-fit-all solution when deciding which user stories are more relevant, the user should be able to decide how he/she wants them arranged.
+Hence this proposed feature will allow users to be able to click the user stories table and customise the order in which user stories are shown.
+
+. Provide even greater flexibility when parsing user stories. Currently, user stories require specific keywords `as a`, `i want to`, `so that`. In future, users should be able to type sentences naturally and it can still be parsed.
+This will be made available by widening the range of keywords the parser is able to detect as well as the different sentence structures possible.
+// end::designandfuture[]
+
+
+// tag::projecttask[]
+=== Project Task feature
+==== Current Implementation
+
+This project task feature enhances the usage of the milestone feature in Pocket Project for keeping track of a project's schedule by providing you with a list of tasks which needs to be done between milestones.
+The project task feature is mainly facilitated
+by the model component, and in particular, the `Milestone` class which stores the relevant project tasks in a `UniqueProjectTaskList`.
+ This feature supports three main commands:
+
+* `addto [project name] projecttask n/PROJECT_TASK_DESCRIPTION m/MILESTONE_INDEX` -- Adds the project task with the given `[PROJECT_TASK_DESCRIPTION]` to the milestone specified by `[milestone index]` in the project named `[project name]`.
+* `removefrom [project name] projecttask [milestone index] [project task index]` -- Removes the project task at the specified `[project task index]` from the milestone specified by `[milestone index]` in the project with name `[proejct name]`.
+* `update [project name] projecttask [milestone index] [project task index] [status]` -- Updates the status of the project task at the specified `[project task index]` in the milestone specified by `[milestone index]` in the project with name `[project name]`.
+
+Project tasks contain statuses to help you oversee its progress, whether its "Ongoing", "On hold" or "Complete".
+
+==== Implementation of project task commands
+The project task commands are supported by the methods in the `Model` interface: `Model#addProjectTaskTo(Project, Milestone, ProjectTask)`, `Model#removeProjectTaskFrom(Project, Milestone, ProjectTask)` and `Model#updateProjectTask(Project, Milestone, ProjectTask, Status)`.
+These three methods take in `Project`, `Milestone` and `ProjectTask` as common arguments. Hence, the correct project/milestone/project task which the commands act on are first located through
+`AddProjectTaskToCommand#excute()`, `RemoveProjectTaskFromCommand#execute()` or `UpdateProjectTaskCommand#execute()` before the methods of `Model` acting on the milestone/project task are called.
+
+===== Update status of project task
+Given below is an example usage scenario and a showcase of how a project task status is updated in a project's milestone at each step.
+
+* `update [project name] projecttask [milestone index] [project task index] [status]` -- Updates the status of the project task at the specified `[project task index]` in the milestone specified by `[milestone index]` in the project with name `[project name]`.
+
+The sequence diagram for the execution of updating a project task status is as follows:
+
+.Sequence diagram showing execution of `update Apollo projecttask 2 1 Complete`
+image::UpdateProjectTaskSequenceDiagram.png[width="1000"]
+
+Step 1. The user enters the command `update Apollo projecttask 2 1 Complete`.
+The `LogicManager` then passes the entered string to the `PocketProjectParser`. The `PocketProjectParser` parses the string received and identifies the command as falling under the class of `UpdateCommand`
+and passes the rest of the string to the `UpdateCommandParser` to identify which type of `UpdateCommand` is being executed and what are the arguments.
+
+Step 2. The `UpdateCommandParser` then identifies the "projecttask" keyword and  creates an `UpdateProjectTaskCommand` and passes it to the `LogicManager` to be executed.
+
+Step 3. On execution of the command, the validity of the arguments are checked and then call the methods of the `Model` component to locate and obtain the necessary objects.
+
+Step 4. The `Model` component then searches for the project with name `Apollo`. After which, it searches for the milestone at index 2 of the project's milestone list. Then, it retrieves the specified project task at index 1 in the milestone's project task list.
+In each of these 3 searches for the specified object, after the object is found, it is returned to the `UpdateProjectTaskCommand` object and used for the next search.
+
+Step 5. The update status method of the retrieved task is then called with "Complete" as an argument. This updates the project task status to "Complete" and execution of the `UpdateProjectTaskCommand` ends.
+
+|===
+|image:ug-exclamation.png[width="40"]| The `[project name]` entered must be valid and exists in the app. The `[milestone index]` and `[project task index]` given must refer to some existing milestone and project task. Also,
+                                       the status to be updated to needs to be of the correct format. If not, exceptions would be thrown during the execution of the command.
+|===
+
+==== Design Considerations
+In this section, I will talk about certain alternatives that could have been taken when designing this feature and why I did or did not use them.
+
+===== Aspect: How should project task objects be stored within a project
+
+Alternative 1: Store project tasks in a `UniqueProjectTaskList` which is in turn stored under a specified milestone. (Current implementation)
+
+* Pros: Only milestone objects are in direct contact with the project tasks through the `UniqueProjectTaskList` container class and checks to ensure project tasks work as they should only need to be done within the milestone instead of in the entire project itself.
+* Cons: Somewhat harder to implement as it requires finding the correct milestone in a project first before anything can be done for the project task specified in the user's command.
+
+Alternative 2: Store project tasks directly in a project and keep a reference to the milestone which it should be under.
+
+* Pros: Easy to implement and will have similar behaviour to existing implementations of other objects stored directly in a project.
+* Cons: It can be confusing in the backend as the user can have tasks under different milestones with the same project task descriptions. This also goes against the Object-Oriented Programming(OOP) Guideline, Law of Demeter
+ as project tasks only need to be in direct contact with milestones but not necessarily with projects themselves.
+
+Based on the above pros and cons for each alternative, I decided on Alternative 1 for 2 reasons:
+
+. As it was in line with the OOP guidelines and principle.
+. As it allowed me to implement a more robust and efficient checking system for project tasks which was constrained within a milestone itself.
+
+==== Future planned enhancements
+The following features are scheduled to be implemented in a future version of Pocket Project:
+
+. Allow the assigning of project tasks to employees in a project which gives you a better overview of who is in charge of doing what task during the project's duration.
+. Include the completion date of a project task when it is completed, allowing you to backtrack from the completion date of the project task to see what was done for the project task's completion.
+// end::projecttask[]
+
+
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedPocketProject`.
+It extends `PocketProject` with an undo/redo history, stored internally as an `pocketProjectStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedPocketProject#commit()` -- Saves the current pocket project state in its history.
+* `VersionedPocketProject#undo()` -- Restores the previous pocket project state from its history.
+* `VersionedPocketProject#redo()` -- Restores a previously undone pocket project state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitPocketProject()`, `Model#undoPocketProject()` and `Model#redoPocketProject()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedPocketProject` will be initialized with the initial pocket project state, and the `currentStatePointer` pointing to that single pocket project state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th employee in the pocket project. The `delete` command calls `Model#commitPocketProject()`, causing the modified state of the pocket project after the `delete 5` command executes to be saved in the `pocketProjectStateList`, and the `currentStatePointer` is shifted to the newly inserted pocket project state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new employee. The `add` command also calls `Model#commitPocketProject()`, causing another modified pocket project state to be saved into the `pocketProjectStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitPocketProject()`, so the pocket project state will not be saved into the `pocketProjectStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the employee was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoPocketProject()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous Pocket Project state, and restores the Pocket Project to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial Pocket Project state, then there are no previous Pocket Project states to restore. The `undo` command uses `Model#canUndoPocketProject()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoPocketProject()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the Pocket Project to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `pocketProjectStateList.size() - 1`, pointing to the latest Pocket Project state, then there are no undone Pocket Project states to restore. The `redo` command uses `Model#canRedoPocketProject()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the Pocket Project, such as `list`, will usually not call `Model#commitPocketProject()`, `Model#undoPocketProject()` or `Model#redoPocketProject()`. Thus, the `pocketProjectStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitPocketProject()`. Since the `currentStatePointer` is not pointing at the end of the `pocketProjectStateList`, all pocket project states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -296,24 +1038,24 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire Pocket Project.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the employee being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of Pocket Project states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedPocketProject`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
+// skill::dataencryption[]
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
@@ -373,7 +1115,7 @@ image::chrome_save_as_pdf.png[width="300"]
 [[Docs-SiteWideDocSettings]]
 === Site-wide Documentation Settings
 
-The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+The link:{repoURL}/blob/master/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
 
 [TIP]
 Attributes left unset in the `build.gradle` file will use their *default value*, if any.
@@ -431,15 +1173,15 @@ _{asterisk} Official SE-EDU projects only_
 
 === Site Template
 
-The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
+The files in link:{repoURL}/blob/master/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
 You can modify them to change some properties of the site's design.
 
-The files in link:{repoURL}/docs/templates[`docs/templates`] controls the rendering of `.adoc` files into HTML5.
+The files in link:{repoURL}/blob/master/docs/templates[`docs/templates`] controls the rendering of `.adoc` files into HTML5.
 These template files are written in a mixture of https://www.ruby-lang.org[Ruby] and http://slim-lang.com[Slim].
 
 [WARNING]
 ====
-Modifying the template files in link:{repoURL}/docs/templates[`docs/templates`] requires some knowledge and experience with Ruby and Asciidoctor's API.
+Modifying the template files in link:{repoURL}/blob/master/docs/templates[`docs/templates`] requires some knowledge and experience with Ruby and Asciidoctor's API.
 You should only modify them if you need greater control over the site's layout than what stylesheets can provide.
 The SE-EDU team does not provide support for modified template files.
 ====
@@ -515,374 +1257,428 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version number in link:{repoURL}/blob/master/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
+A project often depends on third-party libraries. For example, Pocket Project depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
 
 [loweralpha]
 . Include those libraries in the repo (this bloats the repo size)
 . Require developers to download those libraries manually (this creates extra work for developers)
 
-[[GetStartedProgramming]]
-[appendix]
-== Suggested Programming Tasks to Get Started
+== FAQ
 
-Suggested path for new programmers:
+*Q*: How do I transfer my data to another Computer?
 
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
-=== Improving each component
-
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
-
-[discrete]
-==== `Logic` component
-
-*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
-
-[TIP]
-Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
-
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
-+
-****
-* Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
-* Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
-** Add new tests for each of the aliases that you have added.
-** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
-****
-
-[discrete]
-==== `Model` component
-
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
-
-[TIP]
-Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
-
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
-+
-****
-* Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
-* Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
-** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
-****
-
-[discrete]
-==== `Ui` component
-
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
-
-[TIP]
-Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
-
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
-+
-**Before**
-+
-image::getting-started-ui-tag-before.png[width="300"]
-+
-**After**
-+
-image::getting-started-ui-tag-after.png[width="300"]
-+
-****
-* Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
-** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
-* Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
-*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
-****
-
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
-+
-**Before**
-+
-image::getting-started-ui-result-before.png[width="200"]
-+
-**After**
-+
-image::getting-started-ui-result-after.png[width="200"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
-* Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
-** You can write two different kinds of tests to ensure that the functionality works:
-*** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
-*** Do read the commits one at a time if you feel overwhelmed.
-****
-
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
-+
-**Before**
-+
-image::getting-started-ui-status-before.png[width="500"]
-+
-**After**
-+
-image::getting-started-ui-status-after.png[width="500"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
-* Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
-****
-
-[discrete]
-==== `Storage` component
-
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
-
-[TIP]
-Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
-
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
-+
-****
-* Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/JsonAddressBookStorage.java[`JsonAddressBookStorage`] class.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
-****
-
-[[GetStartedProgramming-RemarkCommand]]
-=== Creating a new command: `remark`
-
-By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
-
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
-
-==== Description
-Edits the remark for a person specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
-
-Examples:
-
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
-* `remark 1 r/` +
-Removes the remark for the first person.
-
-==== Step-by-step Instructions
-
-===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
-Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
-
-**Main:**
-
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
-
-**Tests:**
-
-. Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
-
-===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
-
-**Main:**
-
-. Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
-. Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
-
-**Tests:**
-
-. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
-. Add `RemarkCommandParserTest` that tests different boundary values
-for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
-
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
-
-**Main:**
-
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
-
-===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
-
-**Main:**
-
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
-. Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
-
-**Tests:**
-
-. Add test for `Remark`, to test the `Remark#equals()` method.
-
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Main:**
-
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `data/addressbook.json` so that the application will load the sample data when you launch it.)
-
-===== [Step 6] Storage: Add `Remark` field to `JsonAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/JsonAdaptedPerson.java[`JsonAdaptedPerson`] to include a `Remark` field so that it will be saved.
-
-**Main:**
-
-. Add a new JSON field for `Remark`.
-
-**Tests:**
-
-. Fix `invalidAndValidPersonAddressBook.json`, `typicalPersonsAddressBook.json`, `validAddressBook.json` etc., such that the JSON tests will not fail due to a missing `remark` field.
-
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Tests:**
-
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
-
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
-
-**Main:**
-
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
-
-===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
-
-**Main:**
-
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
-
-**Tests:**
-
-. Update `RemarkCommandTest` to test that the `execute()` logic works.
-
-==== Full Solution
-
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the
+data of your previous Pocket Project folder.
 
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage a significant number of employees and software engineering projects
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage employees and projects faster than a typical mouse/GUI driven application
+which enhances administrative procedures and improves efficiency.
 
 [appendix]
 == User Stories
 
-Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+Priorities: High (must have) - `* * \*`, Medium (good to have) - `* \*`, Low (unlikely to have) - `*`
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+4.1+^s| First-Time User Related Stories
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |first-time user |see the usages of different instructions |refer to it if I forget the format and purpose of different commands
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |first-time user |be able to read a detailed but simple the user guide |easily understand how to use the features of the application
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |first-time user |see a list of available instructions |navigate and use the application effectively by knowing what commands are available to me
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |first-time user |clear the application and remove all data | trial the very various features and reset the application after
+
+4.1+^s| General User Related Stories
+
+|`* * *` |general user |have a help function |refer to it if I forget the format and purpose of different features and commands
+
+|`* * *` |general user |to be able to undo/revert my commands |quickly revert back and forth any of my latest commands
+
+|`* *` |general user |to be able to have flexibility when keying in dates |can improve speed and efficiency.
+
+4.1+^s| Project Manager Related Stories
+
+|`* * *` |project manager |be able to add/delete employees in the application |keep track of any new employees and remove employees who have left
+
+|`* * *` |project manager |be able to view personal details such as contact number and email of my employees in the application |easily retrieve certain information that would be useful in handling administrative matters.
+
+|`* * *` |project manager |be able to add/delete projects in the application |keep track of any new projects and remove unnecessary entries
+
+|`* * *` |project manager |be able to view details of the project such as description and client in the application |easily view important project details that would be useful in handling administrative matters.
+
+|`* * *` |project manager |see all the current ongoing projects listed by deadline |keep track of which projects require immediate attention
+
+|`* * *` |project manager |assign employees to project |keep track of all employees working on particular project
+
+|`* *` |project manager |keep track of all projects a particular employee is working on |better allocate or re-allocate any workload to achieve better balance
+
+|`* *` |project manager |be able to find a particular employee/project |quickly refer or retrieve details of a particular employee/project
+
+|`* *` |project manager |be able to edit a particular employee/project |update or change details of a particular employee/project
+
+|`* *` |project manager |be able to clear all the date in the application |quickly reset and have an empty application should I change team or company
+
+|`* *` |project manager |to be able to have flexibility when keying in dates |can have greater efficiency in keying inputs and speed up administrative procedures.
+
+|`* *` |project manager |see total number of projects listed as completed and ongoing|keep track of how many projects have been successfully completed and the number of ongoing projects at a glance
+
+|`* *` |project manager |sort the employees by total number of projects contributed | keep track of each employees contribution to the company.
+
+|`* *` |project manager |sort the employees by name | find an employee more easily.
+
+|`* *` |project manager |sort the project by name | find a project more easily.
+
+|`* *` |project manager |sort the project by deadline | see which projects need to be more urgently completed.
+
+4.1+^s| Software Engineering Project Manager Related Stories
+
+|`* * *` |Software engineering project manager |add/delete skills/frameworks to an employee |know what sort of background knowledge he has and what tasks he is suitable for.
+
+|`* * *` |Software engineering project manager |add/delete skills/frameworks to a project |know what are the relevant skills required to complete a particular project.
+
+|`* * *` |Software engineering project manager |find all employees that have a certain skill |assign the right people with the required skills to the right projects
+
+|`* * *` |Software engineering project manager |add/delete milestones to a project |keep track of major completion points during the course of the project
+
+|`* * *` |Software engineering project manager |add/delete tasks to a milestone  |keep track of all the tasks associated with a particular milestone
+
+|`* * *` |Software engineering project manager |add/delete user stories to a project |formulate ideas and prioritize the features that need to be implemented.
+
+|`* *` |Software engineering project manager |edit milestones in a project |update any changes in my current milestone
+
+|`* *` |Software engineering project manager |edit tasks in a milestone |update any changes in my current tasks.
+
+|`* *` |Software engineering project manager |edit user stories in a project |update any changes in my current user stories
+
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `PocketProject` and the *Actor*
+is the `user`, unless specified otherwise)
 
-[discrete]
-=== Use case: Delete person
+=== Use case: Delete Command
+==== Deleting an employee
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+.  User requests to list employees
+.  PocketProject shows a list of employees
+.  User requests to delete a specific employee in the list
+.  PocketProject deletes the employee
 +
 Use case ends.
 
 *Extensions*
 
-[none]
-* 2a. The list is empty.
+
+.. The list is empty.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+.. The given index is invalid.
 +
-[none]
-** 3a1. AddressBook shows an error message.
+** PocketProject shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+==== Deleting a project
+
+*MSS*
+
+.  User requests to list projects
+.  PocketProject shows a list of projects
+.  User requests to delete a specific project in the list
+.  PocketProject deletes the project
++
+Use case ends.
+
+*Extensions*
+
+.. The list is empty.
++
+Use case ends.
+
+.. The given index is invalid.
++
+** PocketProject shows an error message.
++
+Use case resumes at step 2.
+
+.. The project name specified is invalid.
++
+** PocketProject shows an error message.
++
+Use case resumes at step 2.
+
+=== Use case: Add Employee/Milestone/UserStory/Task To Project Command
+==== Adding an employee to project
+
+*MSS*
+
+.  User requests to list employees
+.  PocketProject shows a list of employees
+.  User requests to add a specific employee in the list to the project
+.  PocketProject adds the employee to the project specified.
++
+Use case ends.
+
+*Extensions*
+
+.. The list is empty.
++
+Use case ends.
+
+.. The given index is invalid.
++
+** PocketProject shows an error message.
++
+Use case resumes at step 2.
+.. The project name given is invalid.
++
+** PocketProject shows an error message.
++
+Use case resumes at step 2.
+.. The employee is already in the project.
++
+** PocketProject shows an error message.
++
+Use case resumes at step 2.
+
+==== Adding a milestone to a project
+
+*MSS*
+
+. User requests to add a milestone to the project
+. PocketProject adds the milestone to the project specified.
++
+Use case ends.
+
+*Extensions*
+
+.. The milestone to be added is already specified in the project.
++
+** PocketProject shows an error message.
++
+Use case ends.
+
+==== Adding a task to a milestone in a project
+
+*MSS*
+
+. User requests to add a project task to the project
+. PocketProject adds the project task to the project specified.
++
+Use case ends.
+
+*Extensions*
+
+.. The project task to be added is already specified in the project.
++
+** PocketProject shows an error message.
++
+Use case ends.
+
+==== Adding an user story to a project
+
+*MSS*
+
+. User requests to add a user story to the project
+. PocketProject adds the user story to the project specified.
++
+Use case ends.
+
+*Extensions*
+
+.. The user story to be added is already specified in the project.
++
+** PocketProject shows an error message.
++
+Use case ends.
+
+
+=== Use case: Remove Employee/Milestone/UserStory/Task From Project Command
+==== Removing an employee from a project
+
+*MSS*
+
+.  User requests to view employees in a project
+.  PocketProject shows a list of employees in the project
+.  User requests to delete a specific employee in the list
+.  PocketProject deletes the employee from the project
++
+Use case ends.
+
+*Extensions*
+
+.. The list is empty.
++
+Use case ends.
+
+.. The given index is invalid.
++
+
+** PocketProject shows an error message.
++
+Use case resumes at step 2.
+
+.. The project name given is invalid.
++
+
+** PocketProject shows an error message.
++
+Use case resumes at step 2.
+
+==== Removing a milestone from a project
+
+*MSS*
+
+. User requests to view milestones in a project
+. PocketProject shows a list of milestones in the project
+. User requests to delete a specific milestone in the list
+. PocketProject deletes the milestone from the project
++
+Use case ends.
+
+*Extensions*
+
+.. The list is empty.
++
+Use case ends.
+
+.. The given index is invalid.
++
+** PocketProject shows an error message.
++
+Use case resumes at step 2.
+
+.. The project name given is invalid.
++
+** PocketProject shows an error message.
++
+Use case resumes at step 2.
+
+==== Removing a project task from a milestone in a project
+
+*MSS*
+
+. User requests to view project tasks in a project
+. PocketProject shows a list of project tasks in the project in the specific milestone
+. User requests to delete a specific task in the list
+. PocketProject deletes the task from the project
++
+Use case ends.
+
+*Extensions*
+
+.. The list is empty.
++
+Use case ends.
+
+.. The given milestone index is invalid.
++
+** PocketProject shows an error message.
++
+Use case resumes at step 2.
+
+.. The project name given is invalid.
++
+** PocketProject shows an error message.
++
+Use case resumes at step 2.
+
+==== Removing an user story from a project
+
+*MSS*
+
+. User requests to view user stories in a project
+.  PocketProject shows a list of user stories in the project
+.  User requests to delete a specific user story in the list
+.  PocketProject deletes the user story from the project
++
+Use case ends.
+
+*Extensions*
+
+.. The list is empty.
++
+Use case ends.
+
+.. The given index is invalid.
++
+** PocketProject shows an error message.
++
+Use case resumes at step 2.
+
+.. The project name given is invalid.
++
+** PocketProject shows an error message.
++
+Use case resumes at step 2.
+
+=== Use case: Edit Command
+==== Editing an employee's details
+
+*MSS*
+
+. User requests to view an employee in a project
+. PocketProject shows the employee details
+. User requests to edit an employee details
+. PocketProject edits the employee's details
++
+Use case ends.
+
+*Extensions*
+
+.. The new employee has the exact same details as another employee.
++
+** PocketProject shows an error message.
++
+Use case resumes at step 2.
+
+=== Use case: Find Command
+==== Finding all keywords in  project
+
+*MSS*
+
+. User requests to find all occurences of a keyword in a project
+.  PocketProject returns any project found with the keyword specified
++
+Use case ends.
+
 
 [appendix]
+
 == Non Functional Requirements
-
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 employees without a noticeable sluggishness in performance for typical usage.
+.  Should be user-friendly for software engineering project managers and should help them manage their projects more efficiently and effectively.
+.  Should have automated tests to do regression testing whenever an existing feature is enhanced or a new feature is added.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  The system should respond to user input within 2 seconds, whether it is valid or invalid input.
 
 [appendix]
 == Glossary
@@ -890,30 +1686,13 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
 
-[appendix]
-== Product Survey
+//tag::daryl[]
 
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
+//end::daryl[]
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
@@ -924,7 +1703,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample employees and projects. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -934,24 +1713,286 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Add Command
+==== Adding an employee
 
-. Deleting a person while all persons are listed
+Assuming that the employees added here do not exist in the app beforehand.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+. Test case: `add employee n/John p/12345678 e/a@gmail.com g/abc.com` +
+  Expected: An employee named 'John', with phone number '12345678', email 'a@gmail.com' and github address 'abc.com' is added.
+. Test case: `add employee n/John p/12a345678 e/a@gmail.com g/abc.com` +
+  Expected: Adding of employees fails. Message about phone numbers can only contain numbers is returned.
+. Test case: `add employee n/Peter p/12345678 e/a@gmail.com g/abc.com` twice in a row +
+  Expected: The second addition fails because the employee already exists.
+. Test case: `add employee n/Jack p/12345678 e/a.gmail.com g/abc.com` +
+  Expected: Addition failed because of lack of '@' in the given email.
+
+=== Adding a project
+
+. Adding a new project
+
+.. Prerequisite: Project list doesn't already contain a project named 'Apollo'.
+.. Test case: `add project n/Apollo c/SymbCorp d/23/11/2020` +
+   Expected: A new project is added to the list. Details of the added project shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `add project n/Ap.ollo c/SymbCorp d/23/11/2020` +
+   Expected: No new project is added. Invalid project name error details shown in the status message. Status bar remains the same.
+.. Test case: `add project n/Apollo c/Symb.Corp d/23/11/2020` +
+   Expected: No new project is added. Invalid client name error details shown in the status message. Status bar remains the same.
+.. Test case: `add project n/Apollo c/SymbCorp d/30/02/2020` +
+   Expected: No new project is added. Invalid date error details shown in the status message. Status bar remains the same.
+.. Test case: `add project c/SymbCorp d/23/11/2020` +
+   Expected: No new project is added. Invalid command format error details shown in the status message. Status bar remains the same.
+.. Test case: `add project n/Apollo d/23/11/2020` +
+   Expected: No new project is added. Invalid command format error details shown in the status message. Status bar remains the same.
+.. Test case: `add project n/Apollo c/SymbCorp` +
+   Expected: No new project is added. Invalid command format error details shown in the status message. Status bar remains the same.
+
+. Adding a new project that has at most 1 field different from an existing project.
+
+.. Prerequisite: This test case assumes that the command `add project n/Apollo c/SymbCorp d/23/11/2020` has been entered successfully at least once before.
+.. Test case: `add project n/Apollo c/SymbCorp d/23/11/2020` +
+   Expected: No new project is added. Duplicate project error details shown in status message. Status bar remains the same.
+.. Test case: `add project n/Apollo1 c/SymbCorp d/23/11/2020` +
+   Expected: A new project is added to the list. Details of the added project shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `add project n/Apollo c/SymbCorp1 d/23/11/2020` +
+   Expected: No new project is added. Duplicate project error details shown in status message. Status bar remains the same.
+.. Test case: `add project n/Apollo c/SymbCorp d/10/11/2020` +
+   Expected: No new project is added. Duplicate project error details shown in status message. Status bar remains the same.
+
+=== Adding a milestone
+
+. Adding a milestone to a project
+
+.. Prerequisite: The project list contains a project with name 'Apollo' but not a project with name 'Not Found'. 'Apollo' doesn't already contain milestones with names 'Finished UserGuide' and 'Finished DevGuide'.
+.. Test case: `addto Apollo milestone Finished UserGuide 23/04/2019` +
+   Expected: A new milestone is added to 'Apollo'. Details of the added milestone shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `addto Not Found milestone Finished UserGuide 23/04/2019` +
+   Expected: No new milestone is added. Invalid project name error details shown in status message. Status bar remains the same.
+.. Test case: `addto Apollo milestone 23/04/2019` +
+   Expected: No new milestone is added. Invalid command format error details shown in status message. Status bar remains the same.
+.. Test case: `addto Apollo milestone Finished UserGuide 234/04/2019` +
+   Expected: No new milestone is added. Invalid command format error details shown in status message. Status bar remains the same.
+
+. Adding a new milestone that has at most 1 field different from an existing milestone in a project.
+
+.. Prerequisite: This test case assumes that the command `addto Apollo milestone Finished UserGuide 23/04/2019` has been entered successfully at least once before.
+.. Test case: `addto Apollo milestone Finished UserGuide 23/04/2019` +
+   Expected: No new milestone is added. Duplicate milestone error details shown in status message. Status bar remains the same.
+.. Test case: `addto Apollo milestone Finished DevGuide 23/04/2019` +
+   Expected: A new milestone is added to 'Apollo'. Details of the added milestone shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `addto Apollo milestone Finished UserGuide 11/04/2019` +
+   Expected: A new milestone is added to 'Apollo'. Details of the added milestone shown in the status message. Timestamp in the status bar is updated.
+
+=== Adding a project task
+
+. Adding a project task to a project's milestone
+
+.. Prerequisite: Project list has a project named 'Apollo' and has only 2 existing milestone in it.
+.. Test case: `addto Apollo projecttask n/Create feature XYZ m/1` +
+   Expected: A new project task with description "Create feature XYZ" is added to the first milestone in project named 'Apollo'. Details of the added project task shown in status message. Timestamp in the status bar is updated.
+.. Test case: `addto Apollo projecttask n/Create feature XYZ m/2` +
+   Expected: A new project task with description "Create feature XYZ" is added to the second milestone in project named 'Apollo'. Details of the added project task shown in status message. Timestamp in the status bar is updated.
+.. Test case: `addto Apollo projecttask n/Create feature XYZ m/1` +
+   Expected: No new project task is added. Duplicate project task error details shown in status message. Status bar remains the same.
+.. Test case: `addto Apollo projecttask n/Create feature XYZ m/3` +
+   Expected: No new project task is added. Invalid milestone index error details shown in status message. Status bar remains the same.
+.. Test case: `addto Apollo projecttask n/Create feature XYZ` +
+   Expected: No new project task is added. Invalid command format error details shown in status message. Status bar remain the same.
+.. Test case: `addto Apollo projecttask m/1` +
+   Expected: No new project task is added. Invalid command format error details shown in status message. Status bar remain the same.
+
+=== Adding a UserStory
+
+. Adding a new user story to a project
+
+.. Prerequisites: The project list contains a project with name 'Apollo' but not a project with name 'Not Found'.
+.. Test case: `addto Apollo userstory as a project manager i want to add employees into a project so that i can track which employees are in a project i/2` +
+   Expected: A new user story is added to 'Apollo'. Details of the added user story shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `addto Apollo userstory as a project manager i want to add employees into a project so that i can track which employees are in a project i/4` +
+   Expected: No new user story is added. Invalid command format error details shown in status message. Status bar remains the same.
+.. Test case: `addto Project Apollo userstory as a project manager i want to add employees into a project so that track which employees are in a project` +
+   Expected: No new user story is added. Invalid command format error details shown in status message. Status bar remains the same.
+
+=== Delete Command
+==== Deleting an employee
+
+Deleting a employee while all employees are listed
+
+. Prerequisites: List all employees using the `list` command. Multiple employees in the list.
+. Test case: `delete employee 1` +
+  Expected: First employee is deleted from the list. Details of the deleted employee shown in the status message. Timestamp in the status bar is updated.
+. Test case: `delete employee 0` +
+  Expected: No employee is deleted. Error details shown in the status message. Status bar remains the same.
+. Other incorrect delete commands to try: `delete employee`, `delete employee y`,  (where y is not a positive integer), `delete employee x`, (where x is larger than the list size) +
+  Expected: Similar to previous.
+
+==== Deleting a project
+
+Deleting a project while all projects are listed
+
+. Prerequisites: List all projects using the `list projects` command. Multiple projects in the list.
+. Test case: `delete project 1` +
+  Expected: First project is deleted from the list. Details of the deleted project shown in the status message. Timestamp in the status bar is updated.
+. Test case: `delete project p` +
+  Expected: project with the name 'p' is deleted if it exists in the app and the details of the deleted project shown in the status message. If no project with the name 'p' exists, error details shown in the status message. Status bar remains the same.
+. Test case: `delete project 0` +
+  Expected: No project is deleted. Error details shown in the status message. Status bar remains the same.
+. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size or is negative) +
+  Expected: Similar to previous.
+
+=== Editing an employee
+
+. Assumption: Two addition of employee commands has been called on a blank pocket project: `add employee n/Peter p/12345678 e/a@gmail.com g/abc.com`
++ and `add employee n/John p/87654321 e/b@gmail.com g/cba.com`. Peter is the first in the display list and John second.
+
+.. `edit 1 n/Peter p/22345678 e/a@gmail.com g/abc.com` +
+   Expected: Command is executed successfully and the phone number of peter is changed.
+.. `edit 1 n/John p/22345678 e/a@gmail.com g/abc.com` +
+   Expected: Command fails as John already exists.
+.. `edit 3 n/Alice p/32345678 e/c@gmail.com g/ccc.com` +
+    Expected: Command fails as there is no employee at index 3.
+
+=== Deleting a project
+
+. Deleting a project while all projects are listed
+
+.. Prerequisites: List all projects using the `list projects` command. Multiple projects in the list.
+.. Test case: `delete project 1` +
+   Expected: First project is deleted from the list. Details of the deleted project shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete project p` +
+   Expected: project with the name 'p' is deleted if it exists in the app and the details of the deleted project shown in the status message. If no project with the name 'p' exists, error details shown in the status message. Status bar remains the same.
+.. Test case: `delete project 0` +
+   Expected: No project is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size or is negative) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Removing an employee from a project
 
-=== Saving data
+.  Prerequisites: Project with the name 'Apollo' exists and has 3 employees in it.
+.. Test case: `removefrom Apollo employee 1` +
+   Expected: First employee in Apollo is removed from it. Details of the removed employee is shown in the status message and timestamp in the status bar is updated.
+.. Test case: `removefrom Apollo employee 4` +
+   Expected: No employee is removed. Error details shown in the status message. Status bar remains the same.
+.. Test case: `removefrom Apollo employee x` where x is not a positive integer +
+   Expected: No employee is removed. Error details shown in the status message. Status bar remains the same.
+.. Test case: `removefrom X employee 1` where no project in the app has the name 'X' +
+   Expected: No employee is removed. Error details shown in the status message. Status bar remains the same.
 
-. Dealing with missing/corrupted data files
+=== Removing a milestone from a project
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Prerequisites: Project with name 'Apollo' exists and has 1 milestone in it.
+.. Test case: `removefrom Apollo milestone 1` where the project named 'Apollo' exists in app and is ongoing and there is at least one +
+   milestone for the project.
+   Expected: The first milestone in the list of milestones for the project is removed.
+.. Test case: `remove from Apollo milestone 0` +
+   Expected: Command fails and an error message is returned.
+.. Test case: `remove from invalid milestone 1` where no project named 'invalid' exists +
+   Expected: Command fails and an error message is returned.
 
-_{ more test cases ... }_
+=== Removing a project task from a project
+
+.. Prerequisites: Project with name 'Apollo' exists and has only 1 milestone with only 1 project task in it.
+.. Test case: `removefrom Apollo projecttask 1 1` +
+   Expected: The first project task of the first milestone in the milestones and tasks list is removed.
+   Details of the removed project task is shown in the status message and the timestamp in the status bar is updated.
+.. Test case: `removefrom Apollo projecttask 1 2` +
+   Expected: No project task is removed. Invalid project task index error details shown in the status message. Status bar remains the same.
+.. Test case: `removefrom Apollo projecttask 2 1` +
+   Expected: No project task is removed. Invalid milestone index error details shown in the status message. Status bar remains the same.
+.. Test case: `removefrom Apollo projecttask 1` +
+   Expected: No project task is removed. Invalid command format error details shown in the status message. Status bar remains the same.
+
+=== Updating status of a project task
+
+.. Prerequisite: Project with name 'Apollo' exists and has only 1 milestone with at least 1 project task in it.
+.. Test case: `update Apollo projecttask 1 1 complete` +
+   Expected: Status of the first project task in the first milestone displayed in 'Apollo' milestones and tasks list updated to complete.
+   Project task updated success message is shown in status message and the timestamp in the status bar is updated.
+.. Test case: `update Apollo projecttask 1 1 on hold` +
+   Expected: Status of the first project task in the first milestone displayed in 'Apollo' milestones and tasks list updated to on hold.
+   Project task updated success message is shown in status message and the timestamp in the status bar is updated.
+.. Test case: `update Apollo projecttask 1 1 ongoing` +
+   Expected: Status of the first project task in the first milestone displayed in 'Apollo' milestones and tasks list updated to ongoing.
+   Project task updated success message is shown in status message and the timestamp in the status bar is updated.
+.. Test case: `update Apollo projecttask 1 1 invalid` +
+   Expected: Status of project task is not updated. Invalid command format error displayed in status message. Status bar remains the same.
+.. Test case: `update Apollo projecttask 1 complete` +
+   Expected: Status of project task is not updated. Invalid command format error displayed in status message. Status bar remains the same.
+.. Test case: `update Apollo projecttask 2 1 complete` +
+   Expected: Status of project task is not updated. Invalid milestone index format error displayed in status message. Status bar remains the same.
+.. Test case: `update Apollo projecttask 1 2 complete` +
+   Expected: Status of project task is not updated. Invalid project task index format error displayed in status message. Status bar remains the same.
+
+=== Finding an employee/project by keywords in their names
+
+.. Test case: `find project a b c` +
+   Expected: projects with 'a', 'b' or 'c' in their names as separate words would be listed
+.. Test case: `find employee x y z` +
+   Expected: employees with 'x', 'y' or 'z' in their names as separate words would be listed
+.. Test case `find abc` +
+   Expected: error will be returned
+
+=== Finding employees with specific skills
+
+.. Test case: `find skill java` +
+   Expected: All employees with the skill java will be listed
+.. Test case: `find abc java` +
+   Expected: error will be returned
+
+=== Finding projects with specific keywords in their name, description or deadline
+
+.. Test case: `find all software food` +
+   Expected: Returns a list of projects containing the word 'software' or 'food' or both in their name, description or deadline.
+
+=== Indicating a project as completed
+
+.. Test case: `complete 1 11/11/2011` where there this at least one project shown in the list of projects +
+   Expected: The first project in the list is removed from the list of ongoing projects and indicated as completed. Timestamp shown in the status bar is updated.
+.. Test case: `complete x 11/11/2011` where x is not the index of a displayed project +
+   Expected: Error detail shown. The Timestamp in the status bar is not updated.
+
+=== Clearing all data from the app
+
+.. Test case: `clear` +
+   Expected: All data of employees and projects are deleted from the app.
+.. Test case: `clear q23rfdq3w` +
+   Expected: All data cleared. The string of characters after the word clear is ignored.
+.. Test case: `clear` with leading and trailing whitespaces +
+   Expected: Data still cleared. Leading and trailing spaces are ignored.
+.. Test case: `abc clear` +
+   Expected: Error message about unrecognized command is returned.
+
+=== Exiting from the app
+
+.. Test case: `exit` +
+   Expected: The window of the app should close. The effect is the same as clicking on the cross icon on the top right.
+.. Test case: `exit q23rfdq3w` +
+   Expected: The app ends. The string of characters after the word clear is ignored.
+.. Test case: `exit` with leading and trailing whitespaces +
+   Expected: The app ends. Leading and trailing spaces are ignored.
+.. Test case: `abc exit` +
+   Expected: Error message about unrecognized command is returned.
+
+=== Undoing a data modification
+
+Assumption: all the objects being manipulated in these test cases exist in the app.
+
+.. Test case: `delete employee 1` followed by `undo` +
+   Expected: The first command will delete the first employee in the list from the app while the undo command will restore it.
+.. Test case: `delete employee 1` followed by `list employee` followed by `undo` +
+   Expected: The first employee in the list is deleted by the delete command. The list command lists all the remaining employees. The undo command +
+   restores the deleted employee. The undo command ignores the list command which does not modify internal data and will only undo the last data modifying command.
+.. Test case: `undo` is entered as the first command on start-up +
+   Expected: Output Messages says that there is no more command to undo.
+.. Test case: `delete employee 1` is followed by repetitions of `undo` and `redo` +
+   Expected: The `undo` and `redo` can go on forever because redo is a data modification that can be undone.
+
+=== Redoing a data modification that has been undone
+
+Assumption: all the objects being manipulated in these test cases exist in the app.
+
+.. Test case: `delete employee 1` followed by `undo` followed by `redo` +
+   Expected: The first command will delete the first employee in the list from the app while the undo command will restore it. The redo command deletes it again.
+.. Test case: `redo` is entered as the first command on start-up +
+   Expected: Output error message. There is no undone command to redo.
+

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<TabPane fx:id="sideTabPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="499.0" prefWidth="267.0" styleClass="tab-pane" tabClosingPolicy="UNAVAILABLE" tabMinHeight="35.0" tabMinWidth="100.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+  <tabs>
+    <Tab fx:id="projectTab" text="Projects">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="321.0" prefWidth="275.0" styleClass="list-view" />
+      </content>
+    </Tab>
+    <Tab fx:id="employeeTab" text="Employees">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+      </content>
+    </Tab>
+  </tabs>
+</TabPane>

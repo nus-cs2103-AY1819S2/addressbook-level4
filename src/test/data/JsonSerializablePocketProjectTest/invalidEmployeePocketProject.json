@@ -1,0 +1,8 @@
+{
+  "employees": [ {
+    "name": "Hans Muster",
+    "phone": "9482424",
+    "email": "invalid@email!3e",
+    "github": "hansballer"
+  } ],"projects" : [ ], "completedProjects" : []
+}

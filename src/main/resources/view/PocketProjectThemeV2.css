@@ -1,0 +1,407 @@
+/**
+ * Css theme used for PocketProject
+ */
+
+ /*******************************************************************************
+  *                                                                             *
+  * Root					 				                       				*
+  *                                                                             *
+  ******************************************************************************/
+@font-face {
+    font-family: "Gotham Rounded Book";
+    src: url("/fonts/Gotham-Rounded-Book.ttf");
+}
+
+@font-face {
+    src: url("/fonts/Gotham-Rounded-Medium.ttf");
+}
+
+@font-face {
+    font-family: "Proxima Nova Alt";
+    src: url("/fonts/Proxima-Nova-Alt-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Proxima Nova Alt";
+    src: url("/fonts/Proxima-Nova-Alt-Bold.ttf");
+}
+
+.root {
+     -fx-focus-color: -fx-control-inner-background;
+     -fx-faint-focus-color:-fx-control-inner-background;
+}
+
+
+   /*******************************************************************************
+    *                                                                             *
+    * Button                                                                      *
+    *                                                                             *
+    ******************************************************************************/
+.button {
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: #d4d8d8;
+    -fx-font-family: "Proxima Nova Alt", "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-text-fill: #7A8492;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+    -fx-effect: dropshadow(three-pass-box, grey, 4, 0, 0, 0);
+}
+
+.button:hover {
+    -fx-cursor: hand;
+    -fx-background-color: derive(#5AC2BC, 40%);
+}
+
+.button:focused {
+    -fx-background-insets: 0;
+    -fx-background-radius: 0, 0;
+}
+
+
+.button:disabled, .button:default:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: white;
+}
+
+.button:default {
+    -fx-background-color: -fx-focus-color;
+    -fx-text-fill: #ffffff;
+}
+
+.button:default:hover {
+    -fx-background-color: derive(#EFF2F5, 20%);
+}
+
+
+      /*******************************************************************************
+       *                                                                             *
+       * Panels                                         			  		         *
+       *                                                                             *
+       ******************************************************************************/
+.detailsPanel {
+    -fx-background-color:#dee0e2;
+}
+
+.pane-with-border {
+     -fx-background-color: derive(#d4d8d8, -10%);
+     -fx-border-color:  derive(#d4d8d8, -10%);
+     -fx-border-top-width: 1px;
+     -fx-focus-color: -fx-control-inner-background;
+     -fx-faint-focus-color:-fx-control-inner-background;
+}
+
+.split-pane {
+     -fx-background-color: #dee0e2;
+     -fx-focus-color: -fx-control-inner-background;
+     -fx-faint-focus-color:-fx-control-inner-background;
+     -fx-border-color: #dee0e2;
+}
+
+.split-pane .split-pane-divider {
+  -fx-background-color: transparent;
+}
+
+.tab-pane {
+    -fx-padding: 0 0 0 1;
+}
+
+.tab-pane .tab-header-area {
+    -fx-padding: 5 2 0 0;
+    -fx-min-height: 0;
+    -fx-max-height: 0;
+}
+
+.tab-pane .tab-header-background {
+     -fx-background-color: #dee0e2;
+}
+
+.tab-pane .tab {
+     -fx-background-color: derive(#5AC2BC, 20%);
+}
+
+.tab-pane .tab .tab-label {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 15px;
+}
+
+.tab-pane .tab:selected {
+     -fx-background-color: #5AC2BC;
+     -fx-focus-color: transparent;
+     -fx-faint-focus-color: transparent;
+}
+
+
+       /*******************************************************************************
+        *                                                                             *
+        * Label                                                                       *
+        *                                                                             *
+        ******************************************************************************/
+.label {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Gotham Rounded Book";
+    -fx-text-fill: #7A8492;
+    -fx-opacity: 0.9;
+}
+
+
+
+/*******************************************************************************
+ *                                                                             *
+ * List, Tree, Table                                                           *
+ *                                                                             *
+ ******************************************************************************/
+
+.list-view {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-background-color: #FFFFFF;
+}
+
+.list-cell {
+    -fx-label-padding: 12 6 12 6;
+    -fx-graphic-text-gap : 0;
+    -fx-padding: 0 0 0 0;
+    -fx-background-color: #FFFFFF;
+}
+
+.list-cell:filled {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: transparent transparent #DDDEE4 transparent;
+    -fx-border-width: 1px;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: #F5F8FA;
+}
+
+.list-cell .label {
+    -fx-text-fill: derive(#7A8492, -10%);
+}
+
+.cell_big_label {
+    -fx-font-family: "Proxima Nova Alt";
+    -fx-font-size: 18px;
+    -fx-text-fill: #010504;
+}
+
+.cell_small_label {
+    -fx-font-family: "Proxima Nova Alt";
+    -fx-font-size: 11px;
+    -fx-padding: 2 0 0 0;
+    -fx-text-fill: derive(#010504, -40%);
+}
+
+.table-view {
+     -fx-focus-color: transparent;
+     -fx-faint-focus-color: transparent;
+      -fx-font-family: "Gotham Rounded Book";
+}
+
+.table-view .column-header,
+.table-view .column-header-background .filler {
+    -fx-background-color:  derive(#0aa999, -10%);
+}
+
+.table-view .column-header .label{
+   -fx-text-fill: white;
+   -fx-font-weight: bold;
+   -fx-alignment: CENTER_LEFT;
+}
+
+.table-view .cell{
+   -fx-cell-size: 50;
+  -fx-alignment: center-left;
+  -fx-background-color: derive(#2ea095, -10%);
+  -fx-border-color: derive(#2ea095,-10%);
+  -fx-text-fill: white;
+  -fx-alignment: CENTER_LEFT;
+
+}
+
+.table-view .table-row-cell{
+    -fx-background-color: derive(#0aa999, -50%);
+    -fx-border-width: 1;
+}
+
+.tree-cell {
+    -fx-background-color: #0aa999 ;
+    -fx-text-fill: white ;
+}
+
+
+.scroll-bar {
+    -fx-background-color: #EFF2F5;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #CDCDCD;
+    -fx-background-insets: 3;
+}
+
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 0 0;
+}
+
+
+.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+}
+
+.scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
+    -fx-padding: 1 8 1 8;
+}
+
+.scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
+    -fx-padding: 8 1 8 1;
+}
+
+ /*******************************************************************************
+  *                                                                             *
+  * Tags		                       			  				        	   *
+  *                                                                             *
+  ******************************************************************************/
+
+#cardPane {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+
+#skills {
+    -fx-hgap: 5;
+    -fx-vgap: 3;
+    -fx-padding: 5 0 3 0;
+}
+
+#skills .label {
+    -fx-text-fill: white;
+    -fx-padding: 3 4 3 4;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11px;
+}
+
+#skills .salmon {
+    -fx-background-color: #E57373;
+}
+
+#skills .mint {
+    -fx-background-color: #80CBC4;
+}
+
+#skills .teal {
+    -fx-background-color: #26A69A;
+}
+
+#skills .turquoise {
+    -fx-background-color: #4DD0E1;
+}
+
+#skills .pink {
+    -fx-background-color: #F06292;
+}
+
+#skills .blue {
+    -fx-background-color: #42A5F5;
+}
+
+#skills .purple {
+    -fx-background-color: #9575CD;
+}
+
+#skills .pale-blue {
+    -fx-background-color: #82B1FF;
+}
+
+#skills .indigo {
+    -fx-background-color: #5C6BC0;
+}
+
+#skills .yellow {
+    -fx-background-color: #FFC107;
+}
+
+#commandTextField {
+	-fx-background-color: #ffffff;
+	-fx-padding: 0.5em 0.5em 0.5em 0.5em;
+	-fx-border-width: 0 0 2 0;
+    -fx-font-family: "Proxima Nova Alt";
+    -fx-font-size: 12pt;
+    -fx-prompt-text-fill: gray;
+}
+
+#resultDisplay .content {
+	-fx-background-color: derive(#d4d8d8, -10%);
+    -fx-font-family: "Gotham Rounded Book";
+    -fx-font-size: 12pt;
+    -fx-border-color: derive(#d4d8d8, -10%);
+    -fx-focus-color: -fx-control-inner-background;
+    -fx-faint-focus-color:-fx-control-inner-background;
+}
+
+#resultDisplay {
+    -fx-focus-color: -fx-control-inner-background;
+    -fx-faint-focus-color:-fx-control-inner-background;
+    -fx-background-color: derive(#d4d8d8, -10%);
+    -fx-border-color: derive(#d4d8d8, -10%);
+    -fx-font-family: "Gotham Rounded Book";
+    -fx-font-size: 12pt;
+
+}
+
+#prevBtn {
+    -fx-shape: "M 5,70 97.5,5 97.5,135 Z";
+}
+
+#nextBtn {
+    -fx-shape: "M 97.5,50 5,97.5 5,5 z";
+}
+
+
+#menuBar {
+    -fx-background-color: derive(#dee0e2, -5%);
+}
+
+
+#nameSummary {
+    -fx-background-color:#26A69A;
+}
+
+#nameSummaryLabel {
+    -fx-font-size: 24pt;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+#labelSummaryheader {
+    -fx-font-size: 12pt;
+    -fx-text-fill: #44524e;
+    -fx-font-family: "Proxima Nova Alt";
+    -fx-font-weight: bold;
+}
+
+#labelSummary {
+    -fx-font-size: 12pt;
+    -fx-text-fill: #44524e;
+    -fx-font-family: "Proxima Nova Alt";
+}
+
+#redCircle {
+    -fx-fill: #ed7676;
+}
+
+#greenCircle {
+    -fx-fill: #84f984;
+}
+
+#orangeCircle {
+    -fx-fill: #ffcd77;
+}
+
+#descContent {
+    -fx-font-size: 11pt;
+    -fx-text-fill: #44524e;
+    -fx-font-family: "Proxima Nova Alt";
+}

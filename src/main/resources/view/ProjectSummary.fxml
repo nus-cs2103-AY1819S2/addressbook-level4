@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="439.0" prefWidth="440.0" style="-fx-background-color: white" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane id="nameSummary" prefHeight="64.0" prefWidth="440.0">
+         <children>
+            <Label id="nameSummaryLabel" fx:id="name" alignment="CENTER" contentDisplay="CENTER" layoutX="23.0" layoutY="5.0" prefHeight="55.0" prefWidth="404.0" text="DETAILS" textAlignment="CENTER" />
+         </children>
+      </Pane>
+      <Pane layoutX="32.0" layoutY="83.0" prefHeight="55.0" prefWidth="376.0">
+         <children>
+            <Label id="descContent" fx:id="desc" alignment="CENTER" contentDisplay="CENTER" prefHeight="55.0" prefWidth="376.0" text="desc" textAlignment="CENTER" wrapText="true" />
+         </children>
+      </Pane>
+      <Label id="labelSummaryheader" layoutX="187.0" layoutY="198.0" prefHeight="34.0" prefWidth="66.0" text="DETAILS" textAlignment="CENTER" />
+       <ListView layoutX="20.0" layoutY="230.0" prefHeight="152.0" prefWidth="411.0">
+           <HBox prefHeight="27.0" prefWidth="376.0">
+               <Label id="labelSummaryheader" prefHeight="27.0" prefWidth="90.0" text="Client:  " />
+               <Label id="labelSummary" fx:id="client" />
+           </HBox>
+           <HBox prefHeight="20" prefWidth="359">
+               <Label id="labelSummaryheader" prefHeight="27.0" prefWidth="90.0" text="Start date:  " />
+               <Label id="labelSummary" fx:id="startDate" />
+           </HBox>
+           <HBox prefHeight="20" prefWidth="359">
+               <Label id="labelSummaryheader" prefHeight="27.0" prefWidth="90.0" text="Deadline:  " />
+               <Label id="labelSummary" fx:id="deadline" />
+           </HBox>
+       </ListView>
+   </children>
+</AnchorPane>

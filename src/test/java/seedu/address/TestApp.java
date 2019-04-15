@@ -9,12 +9,12 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.PocketProject;
+import seedu.address.model.ReadOnlyPocketProject;
 import seedu.address.model.UserPrefs;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonPocketProjectStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.testutil.TestUtil;
 import systemtests.ModelHelper;
@@ -29,22 +29,22 @@ public class TestApp extends MainApp {
 
     protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
             TestUtil.getFilePathInSandboxFolder("pref_testing.json");
-    protected Supplier<ReadOnlyAddressBook> initialDataSupplier = () -> null;
+    protected Supplier<ReadOnlyPocketProject> initialDataSupplier = () -> null;
     protected Path saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 
     public TestApp() {
     }
 
-    public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier, Path saveFileLocation) {
+    public TestApp(Supplier<ReadOnlyPocketProject> initialDataSupplier, Path saveFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
         this.saveFileLocation = saveFileLocation;
 
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
-            JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(saveFileLocation);
+            JsonPocketProjectStorage jsonPocketProjectStorage = new JsonPocketProjectStorage(saveFileLocation);
             try {
-                jsonAddressBookStorage.saveAddressBook(initialDataSupplier.get());
+                jsonPocketProjectStorage.savePocketProject(initialDataSupplier.get());
             } catch (IOException ioe) {
                 throw new AssertionError(ioe);
             }
@@ -64,18 +64,18 @@ public class TestApp extends MainApp {
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
         userPrefs.setGuiSettings(new GuiSettings(600.0, 600.0, (int) x, (int) y));
-        userPrefs.setAddressBookFilePath(saveFileLocation);
+        userPrefs.setPocketProjectFilePath(saveFileLocation);
         return userPrefs;
     }
 
     /**
-     * Returns a defensive copy of the address book data stored inside the storage file.
+     * Returns a defensive copy of the pocket project data stored inside the storage file.
      */
-    public AddressBook readStorageAddressBook() {
+    public PocketProject readStoragePocketProject() {
         try {
-            return new AddressBook(storage.readAddressBook().get());
+            return new PocketProject(storage.readPocketProject().get());
         } catch (DataConversionException dce) {
-            throw new AssertionError("Data is not in the AddressBook format.", dce);
+            throw new AssertionError("Data is not in the PocketProject format.", dce);
         } catch (IOException ioe) {
             throw new AssertionError("Storage file cannot be found.", ioe);
         }
@@ -85,15 +85,25 @@ public class TestApp extends MainApp {
      * Returns the file path of the storage file.
      */
     public Path getStorageSaveLocation() {
-        return storage.getAddressBookFilePath();
+        return storage.getPocketProjectFilePath();
     }
 
     /**
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager((model.getAddressBook()), new UserPrefs());
-        ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
+        Model copy = new ModelManager((model.getPocketProject()), new UserPrefs());
+        ModelHelper.setFilteredList(copy, model.getFilteredEmployeeList());
+        ModelHelper.setProjectFilteredList(copy, model.getFilteredProjectList());
+        return copy;
+    }
+
+    /**
+     * Returns a defensive copy of the model with project list.
+     */
+    public Model getProjectModel() {
+        Model copy = new ModelManager((model.getPocketProject()), new UserPrefs());
+        ModelHelper.setProjectFilteredList(copy, model.getFilteredProjectList());
         return copy;
     }
 

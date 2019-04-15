@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="462.0" prefWidth="718.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text fill="#127a6f" layoutX="237.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MILESTONES &amp; TASKS" textAlignment="CENTER" wrappingWidth="242.31951904296875">
+         <font>
+            <Font size="24.0" />
+         </font></Text>
+      <TreeView fx:id="milestonesTreeView" layoutX="-1.0" layoutY="60.0" prefHeight="402.0" prefWidth="718.0" />
+   </children>
+</AnchorPane>

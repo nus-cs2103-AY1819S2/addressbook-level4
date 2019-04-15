@@ -31,13 +31,15 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+    private DetailsPanel detailsPanel;
+    private EmployeeListPanel employeeListPanel;
+    private ProjectListPanel projectListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private SideTabPanel sideTabPanel;
 
     @FXML
-    private StackPane browserPlaceholder;
+    private StackPane detailsPanelPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -46,7 +48,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane tabPanePlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -111,17 +113,23 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedPersonProperty());
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        detailsPanel = new DetailsPanel(logic.selectedEmployeeProperty(), logic.selectedProjectProperty());
+        detailsPanelPlaceholder.getChildren().add(detailsPanel.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
-                logic::setSelectedPerson);
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        employeeListPanel = new EmployeeListPanel(logic.getFilteredEmployeeList(), logic.selectedEmployeeProperty(),
+                logic::setSelectedEmployee);
+
+        projectListPanel = new ProjectListPanel(logic.getFilteredProjectList(), logic.selectedProjectProperty(),
+                logic::setSelectedProject);
+
+        sideTabPanel = new SideTabPanel(employeeListPanel.getRoot(), projectListPanel.getRoot());
+        tabPanePlaceholder.getChildren().add(sideTabPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook());
+        StatusBarFooter statusBarFooter =
+                new StatusBarFooter(logic.getPocketProjectFilePath(), logic.getPocketProject());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
@@ -168,8 +176,8 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public EmployeeListPanel getEmployeeListPanel() {
+        return employeeListPanel;
     }
 
     /**
@@ -190,6 +198,13 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+
+            if (commandResult.isClear()) {
+                detailsPanel.initDefaultView();
+            }
+
+            detailsPanel.refreshEmployeeContent(logic.selectedEmployeeProperty().getValue());
+            detailsPanel.refreshProjectContent(logic.selectedProjectProperty().getValue());
 
             return commandResult;
         } catch (CommandException | ParseException e) {

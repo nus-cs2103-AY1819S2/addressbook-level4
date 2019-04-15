@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
 
+
 /**
  * Helper functions for handling strings.
  */
@@ -35,7 +36,7 @@ public class StringUtil {
         String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
 
         return Arrays.stream(wordsInPreppedSentence)
-                .anyMatch(preppedWord::equalsIgnoreCase);
+            .anyMatch(preppedWord::equalsIgnoreCase);
     }
 
     /**

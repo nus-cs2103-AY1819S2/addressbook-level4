@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.Label?>
+
+<AnchorPane prefHeight="462.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text fill="#127a6f" layoutX="308.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Projects">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <TableView fx:id="projectTableView" layoutX="250.0" layoutY="82.0" prefHeight="337.0" prefWidth="200.0">
+          <placeholder>
+              <Label text="No projects found"/>
+          </placeholder>
+        <columns>
+          <TableColumn fx:id="indexCol" editable="false" prefWidth="75.0" sortable="false" reorderable="false" text="No." />
+          <TableColumn fx:id="projectNameCol" editable="false" prefWidth="124.0" sortable="false" reorderable="false" text="Project" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

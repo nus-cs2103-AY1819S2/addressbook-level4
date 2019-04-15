@@ -1,0 +1,83 @@
+= Shune Lei Yee Tun - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Pocket Project
+
+== About PocketProject
+
+My team and I were given the task to enhance or morph a basic command line interface Addressbook for our software engineering Project. Our team decided to morph the AddressBook into a project management tool named Pocket Project. Pocket Project is designed to suit the needs of software engineering managers by providing them a one-stop platform to store all the information that are essential for software engineering project planning in order to make planning projects easier and more convenient for them.
+
+My team was inspired by our own struggle of having to manage multiple projects across different modules and decided to make PocketProject in hopes of having better project management when we start venturing into the working world as a software engineer.
+
+=== My Role
+My primary role in this project was to implement `find` command which is essential in allowing users to navigate through the application and `edit` command which is necessary as users need to change various information to ensure that things are always up-to-date.
+
+Below are explanation of the symbols I used in this document.
+
+[width="100%",cols="35%,<65%"]
+|===
+|Symbol |Meaning
+
+|image:ug-notepadpencil.png[width="40"]
+|The note pad icon indicates any useful tips or things to take note.
+
+|image:ug-lightbulb.png[width="50"]
+|The light bulb icon indicates any shortcuts
+that you can use while using the Pocket Project application.
+
+|image:ug-exclamation.png[width="50"]
+|The exclamation mark icon indicates any warnings that you
+ should take note of.
+
+|`find`
+|The grey markup indicate that the term is either a command or the name of an object class.
+|===
+
+The following sections includes implementation done in details and also other contributions and relevant sections I have recorded in the user guide and developer guide.
+
+== Summary of contributions
+
+This section shows a summary of contributions I have made for the project.
+
+* *Major enhancement*: I added the ability to search for projects and employees in the application.
+** What it does: The `find` command allows the user to search for projects and employees in the application by using different types of keywords such as `name`, `skill`, and more.
+** Justification: Since the application contain so much information, it is difficult for the user to look through the whole list of employees or projects just to look for a certain project/employee. Hence this find command provide a convenient and fast way for the user to extract out the information needed.
+** Highlights: This command can be used together with other commands such as `edit` to filter out the employees or project before proceeding on to edit them. The command also support extension as new methods of finding can be added by using different command keywords.
+
+* *Minor enhancement*: I also added the ability to update the information of the various components inside the project.
+** What it does: The `edit` command allow users to edit the project information such as name, client, description and deadline as well as
+** Justification: As the project progresses, there are bound to be changes made to the project information hence it is essential to have an `edit` command to make sure that all the information are up to date.
+** Highlights: The parser for this command was difficult to implement because of the large number of argument inputs involved.
+
+* *Other contributions*:
+
+** Project management:
+*** I managed releases version v1.1 and v1.2
+** Enhancements to existing features:
+*** Change the behaviour of `edit` to `edit employee` command so that it will automatically update the employee in the project as well ([https://github.com/cs2103-ay1819s2-w10-2/main/pull/118[#118]])
+*** Design the UI for the employee summary panel ([https://github.com/cs2103-ay1819s2-w10-2/main/pull/155[#155]])
+*** Set up Project Description class ([https://github.com/cs2103-ay1819s2-w10-2/main/pull/72[#72]])
+** Documentation:
+*** Update the Class diagrams for the components in DG to fit the latest version of the application([https://github.com/cs2103-ay1819s2-w10-2/main/pull/147[#147]])
+*** Added instruction on navigating Pocket Project interface in UG ([https://github.com/cs2103-ay1819s2-w10-2/main/pull/174[#174]])
+** Community:
+** Tools:
+*** Set up reposense
+
+== Contributions to the User Guide
+This section includes User Guide documentation I have written for the features that I have implemented. Due to limited space I have extracted out the commands which are more distinct from the original AddressBook application.
+
+include::../UserGuide.adoc[tag=findskill]
+include::../UserGuide.adoc[tag=findall]
+include::../UserGuide.adoc[tag=finddeadline]
+include::../UserGuide.adoc[tag=edit]
+
+== Contributions to the Developer Guide
+
+This section includes documentation on implementation of the `find` and `edit` command that I worked on.
+
+include::../DeveloperGuide.adoc[tag=find]
+include::../DeveloperGuide.adoc[tag=editproject]
+

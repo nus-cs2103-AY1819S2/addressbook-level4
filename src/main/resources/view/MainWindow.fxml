@@ -10,21 +10,22 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.AnchorPane?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Address App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="PocketProject" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
-    <Image url="@/images/address_book_32.png" />
+    <Image url="@/images/PocketProjectIcon.png" />
   </icons>
   <scene>
     <Scene>
       <stylesheets>
-        <URL value="@DarkTheme.css" />
+        <URL value="@PocketProjectThemeV2.css" />
         <URL value="@Extensions.css" />
       </stylesheets>
 
       <VBox>
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+        <MenuBar id="menuBar" fx:id="menuBar" VBox.vgrow="NEVER">
           <Menu mnemonicParsing="false" text="File">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
           </Menu>
@@ -41,23 +42,19 @@
 
         <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
                    minHeight="100" prefHeight="100" maxHeight="100">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
         </StackPane>
 
-        <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-          <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-          </VBox>
+        <SplitPane styleClass="split-pane" fx:id="splitPane" dividerPositions="0.1549" minWidth="1000" VBox.vgrow="ALWAYS" minHeight="500">
+          <AnchorPane SplitPane.resizableWithParent="true" maxHeight="500" maxWidth="270" minWidth="270" prefHeight="500">
+            <StackPane styleClass="tab-pane" SplitPane.resizableWithParent="true" fx:id="tabPanePlaceholder" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+          </AnchorPane >
 
-          <StackPane fx:id="browserPlaceholder" prefWidth="340" >
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
+          <StackPane fx:id="detailsPanelPlaceholder" SplitPane.resizableWithParent="true"
+          minWidth="300" minHeight="450">
+              <padding>
+                  <Insets top="10" right="10" bottom="10" left="10" />
+              </padding>
           </StackPane>
         </SplitPane>
 

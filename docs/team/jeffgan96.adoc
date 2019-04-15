@@ -1,0 +1,89 @@
+= Jeff Gan - Project Portfolio for Pocket Project
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== About PocketProject
+
+PocketProject is a project developed by my team and I as part of our Software Engineering Project. Our team decided to morph the original codebase given to us into a project management plus employee management software to help software engineering project managers keep track of their projects and employees. In particular, some notable features PocketProject provides includes recording of milestones, user stories, employees information as well as a statistics feature for managers.
+
+== Before we begin
+
+Lets start by taking a look at some of the common notations, technical terms as well as symbols used throughout this document:
+
+|===
+|What you see |What it means
+
+|image:ug-notepadpencil.png[width="40"]
+|The note pad icon indicates any useful tips or things that users
+need to take note.
+
+|image:ug-exclamation.png[width="50"]
+|The exclamation mark icon indicates any warnings that users should be mindful of.
+
+|image:ug-smart.png[width="60"]
+|The graduation cap icon indicates any advanced usages or
+ extra technical information about how a particular command works should the
+ users be interested to know.
+
+|```code```
+| The grey-highlighting, also known as a `markup`, is used to represent code snippets or commands a user can enter in Pocket Project
+|===
+
+
+
+== Summary of contributions
+
+This section contains a summary of my various contributions to the project, ranging from coding to documentation and other helpful contributions I made.
+
+* *A feature I developed*: The ability to manage *user stories in a project*.
+** What it does: This feature is supported by several commands, which allows a user to add and remove user stories from a project. In addition, a user can also update the progress status of a user story, as well as edit the details of a user story.
+** Why its important: User stories are integral to projects and thus its important to be able to record and keep track of them. Being able to see the progress of different user stories can give a good gauge of the progression of the whole project and whether its on track, as well as allow prioritisation of different enhancements to prioritise based on how important the user story is.
+** Highlights: This enhancement makes use of a unique parsing method which allows users to be able to be flexible in entering input yet allow proper processing of the input to be able to show up elegantly on the UI. In addition, it arranges the user stories by order of their importance for ease of readability.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=jeffgan96[RepoSense]] [https://github.com/cs2103-ay1819s2-w10-2/main/pull/124[Functional code]] [https://github.com/cs2103-ay1819s2-w10-2/main/pull/126[Test code]]
+
+* *Minor contribution* :  Restructuring and redesigning of the User Interface(UI)
+** Worked extensively on the UI to restructure it to suit the project requirements: https://github.com/cs2103-ay1819s2-w10-2/main/pull/74[#74], https://github.com/cs2103-ay1819s2-w10-2/main/pull/89[#89]
+** Designed the CSS theme for the project and integrate it across all the UI components: https://github.com/cs2103-ay1819s2-w10-2/main/pull/100[#100], https://github.com/cs2103-ay1819s2-w10-2/main/pull/134[#134]
+** Reported and fixed most of the UI-related bugs: https://github.com/cs2103-ay1819s2-w10-2/main/pull/67[#67], https://github.com/cs2103-ay1819s2-w10-2/main/pull/131[#131], https://github.com/cs2103-ay1819s2-w10-2/main/pull/150[#150]
+
+* *Other contributions*:
+
+** Enhancements to existing features:
+*** Enhanced the original *select* command into a more general *view* command which allows users to view the details of a project or an employee: https://github.com/cs2103-ay1819s2-w10-2/main/pull/107[#107]
+*** Enhanced the original *list* command to be able to list both employees and projects: https://github.com/cs2103-ay1819s2-w10-2/main/pull/38[#38], https://github.com/cs2103-ay1819s2-w10-2/main/pull/54[#54]
+
+** Documentation:
+*** Added the general documentation for colour coding used in the project: https://github.com/cs2103-ay1819s2-w10-2/main/pull/230[#230]
+*** Enhanced the documentations of existing features such as *list* and *view* features: (same pull request as above: #230)
+*** Added the documentation for the use cases of the app: https://github.com/cs2103-ay1819s2-w10-2/main/pull/148[#148]
+
+** Team component:
+*** reviewed many of the PRs by team members. Included some for reference: https://github.com/cs2103-ay1819s2-w10-2/main/pull/49[#49], https://github.com/cs2103-ay1819s2-w10-2/main/pull/138[#138], https://github.com/cs2103-ay1819s2-w10-2/main/pull/144[#144]
+*** Actively tested, reported bugs and gave suggestions in the team's issue tracker: https://github.com/cs2103-ay1819s2-w10-2/main/issues/58[#58], https://github.com/cs2103-ay1819s2-w10-2/main/issues/61[#61], https://github.com/cs2103-ay1819s2-w10-2/main/issues/68[#68]
+*** Helped teammates with debugging their code. In particular once I even cloned my teammate’s repository to debug and help her merge: https://github.com/cs2103-ay1819s2-w10-2/main/pull/31[#31]
+
+** Community:
+*** Reported and documented bugs for other teams:
+**** Team CS2103-AY1819S2-W16-1: https://github.com/CS2103-AY1819S2-W16-1/main/issues/159[#159], https://github.com/CS2103-AY1819S2-W16-1/main/issues/165[#165], https://github.com/CS2103-AY1819S2-W16-1/main/issues/169[#169]
+
+== Contributions to the User Guide
+
+In this section, I will showcase some of my contributions to the User Guide to demonstrate my ability to write documentation targetting users of Pocket Project. For a complete list of the documentation I wrote, you may refer to our User Guide: [https://github.com/cs2103-ay1819s2-w10-2/main/blob/master/docs/UserGuide.adoc]
+
+include::../UserGuide.adoc[tag=adduserstory]
+include::../UserGuide.adoc[tag=removeuserstory]
+include::../UserGuide.adoc[tag=updateuserstory]
+
+== Contributions to the Developer Guide
+
+In this section, I will showcase some of my contributions to the Developer's Guide to demonstrate my ability to write technical documentation. For a complete list of the documentation I wrote, you may refer
+to our Developer Guide: [https://github.com/cs2103-ay1819s2-w10-2/main/blob/master/docs/DeveloperGuide.adoc]
+
+include::../DeveloperGuide.adoc[tag=ui]
+include::../DeveloperGuide.adoc[tag=adduserstory]
+include::../DeveloperGuide.adoc[tag=edituserstory]
+include::../DeveloperGuide.adoc[tag=updateuserstory]
+include::../DeveloperGuide.adoc[tag=designandfuture]
+

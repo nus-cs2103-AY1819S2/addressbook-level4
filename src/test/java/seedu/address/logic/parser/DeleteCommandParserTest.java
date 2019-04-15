@@ -3,11 +3,13 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EMPLOYEE;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PROJECT;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteEmployeeCommand;
+import seedu.address.logic.commands.DeleteProjectCommand;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -22,11 +24,13 @@ public class DeleteCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_PERSON));
+        assertParseSuccess(parser, "employee 1", new DeleteEmployeeCommand(INDEX_FIRST_EMPLOYEE));
+        assertParseSuccess(parser, "project 1", new DeleteProjectCommand(INDEX_FIRST_PROJECT));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "employee a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteEmployeeCommand.MESSAGE_USAGE));
     }
 }

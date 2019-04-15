@@ -1,0 +1,108 @@
+= Lin Dehui - Project Portfolio for Pocket Project
+:site-section: PPP
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/cs2103-ay1819s2-w10-2/main
+
+== About the Project
+My team and I were tasked with enhancing a basic command line interface addressbook for our
+Software Engineering project. We chose to morph it into a project management system for software engineering project managers.
+This enhanced application allows managers to keep track of employees and projects under his/her management.
+My role was to design and write the codes for the Statistics feature(with the `Stats` command). The following sections
+illustrate these enhancements in more detail, as well as the relevant sections I have added to the
+user and developer guides in relation to these enhancements.
+
+Note the following symbols used in this document:
+
+|===
+|Legend |Meaning
+
+|image:highlight.png[width=""]
+
+ image:component.png[width=""]
+|A grey highlight (called a mark-up) indicates that this is a command
+ that can be inputted into the command line and executed by the
+ application or indicates a component, class or object in
+                the architecture of the application.
+
+|image:ug-notepadpencil.png[width="40"]
+|The note pad icon indicates any useful tips or things that users
+need to take note of while using the Pocket Project application.
+
+|image:ug-lightbulb.png[width="50"]
+|The light bulb icon indicates any shortcuts
+that users can use while using the Pocket Project application.
+
+|image:ug-exclamation.png[width="50"]
+|The exclamation mark icon indicates any warnings that users
+ can take note of while using the Pocket Project application.
+
+|image:ug-smart.png[width="60"]
+|The graduation cap icon indicates any advanced usages or
+ extra technical information about how a particular command works should the
+ users be interested to know.
+|===
+
+== Summary Of Contributions
+
+This section shows a summary of my coding, documentation, and other helpful contributions to the
+team project.
+
+.. Enhancement added: I added the feature to be able to have an overview of all the ongoing projects and also the individual progress overview of individual projects.
+
+• What it does: There are two ways to use it. When only the `stats` command is keyed in without arguments, an overview of all projects is given.
+When the command is followed by a project name or an index (e.g. `stats 1`, `stats Project Apollo`), it returns an overview of the progress of the project.
+
+• Justification: Our app is targeted at project managers managing many projects and it would be inconvenient for them to look
+through the long lists of employees and projects to get the large picture of all the projects they are managing, that is why we have overview for
+all projects. Individual project progress helps the manager to gauge the progress of individual projects so that they can adjust their plans accordingly.
+• Highlights: This enhancement is very extensible and more useful statistics can be displayed if they are supported by the underlying data model.
+• Credits:
+* Teammates for fixing typos here and there in the documentations.
+* There was originally a implementation section in the developer guide for the `stats` command by Daryl Tan, I have modified and extended
+it to its present state.
+* My teammate Jothi is the one who came up with the icons used in the documentations.
+*
+
+.. Other contributions:
+* Coding
+. Implementation of the part of the `removefrom` command which allows removal of employees or milestones from projects(Pull Request {empty}[https://github.com/cs2103-ay1819s2-w10-2/main/pull/79[#79]]).
+. Implementation of the `delete` command which allows the deletion of projects from the app. Refactored the `delete` command of the original address book to one which deletes employees.
+(Pull Request {empty}[https://github.com/cs2103-ay1819s2-w10-2/main/pull/39[#39]])
+. Implementation of the `complete` command which allows indication of projects as completed.
+
+* Project Management
+. Set up Travis Continuous Integration and Coverall
+
+* Team Contributions
+. Find and report bugs and suggest possible enhancements which can be done in the team's issue tracker. [https://github.com/cs2103-ay1819s2-w10-2/main/issues/82[#82]]
+
+* Community Contributions
+. Reported bugs found in other team's (CS2103-AY1819S2-W11-2) application [https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/40[#40]] [https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/317[#317]] [https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/370[#370]] [https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/621[#621]]
+
+== Contributions to the User Guide
+
+You can view these sections to see my contributions to the User Guide documentation for `[aqua]#removefrom employee#`, `[aqua]#removefrom milestone#` command, `[aqua]#complete#` command and `[aqua]#stats#` command.
+The part on the `[aqua]#delete#` command is excluded due to insufficient space, please go to [https://github.com/cs2103-ay1819s2-w10-2/main/blob/master/docs/UserGuide.adoc#delete-a-project-or-an-employee-from-the-application-delete[User Guide Section 4.5 -delete command]] if you are interested.
+include::../UserGuide.adoc[tag=removefrom_dehui]
+include::../UserGuide.adoc[tag=completeAndStats_dehui]
+
+== Contributions to the Developer Guide
+
+You can view this section to see my contributions to the Developer Guide documentation which consists of the implementation of the removefrom feature(only the parts on employees and milestones, others are added by my teammates) and stats feature and also several sections on manual testing Pocket Project (which unfortunately there is no space to include in here, so check out this link if you're interested! [https://github.com/cs2103-ay1819s2-w10-2/main/blob/master/docs/DeveloperGuide.adoc#instructions-for-manual-testing[Manual testing, sections G2, G7-G11, G14-G21]).
+
+
+include::../DeveloperGuide.adoc[tag=removefrom_dg]
+include::../DeveloperGuide.adoc[tag=stats_dg]
+
+

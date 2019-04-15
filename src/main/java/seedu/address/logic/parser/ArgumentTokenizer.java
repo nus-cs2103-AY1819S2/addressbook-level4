@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,6 +27,26 @@ public class ArgumentTokenizer {
     public static ArgumentMultimap tokenize(String argsString, Prefix... prefixes) {
         List<PrefixPosition> positions = findAllPrefixPositions(argsString, prefixes);
         return extractArguments(argsString, positions);
+    }
+
+
+    /**
+     * Checks if there exists multiple of the same prefixes in a string.
+     * @param argsString Arguments string of the form: {@code preamble <prefix>value <prefix>value ...}
+     * @param prefixes Prefixes to tokenize the arguments string with
+     * @return         boolean value of whether there are duplicate prefixes
+     */
+    public static boolean hasDuplicatePrefixes(String argsString, Prefix... prefixes) {
+        HashSet<Prefix> hash = new HashSet<>();
+        List<PrefixPosition> positions = findAllPrefixPositions(argsString, prefixes);
+        for (PrefixPosition pos : positions) {
+            if (hash.contains(pos.prefix)) {
+                return true;
+            } else {
+                hash.add(pos.prefix);
+            }
+        }
+        return false;
     }
 
     /**

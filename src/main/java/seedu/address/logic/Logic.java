@@ -8,8 +8,9 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.ReadOnlyPocketProject;
+import seedu.address.model.employee.Employee;
+import seedu.address.model.project.Project;
 
 /**
  * API of the Logic component
@@ -25,14 +26,18 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the PocketProject.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see seedu.address.model.Model#getPocketProject()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyPocketProject getPocketProject();
 
     /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    ObservableList<Employee> getFilteredEmployeeList();
+
+    /** Returns an unmodifiable view of the filtered list of projects */
+    ObservableList<Project> getFilteredProjectList();
+
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -41,9 +46,9 @@ public interface Logic {
     ObservableList<String> getHistory();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' pocket project file path.
      */
-    Path getAddressBookFilePath();
+    Path getPocketProjectFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
@@ -56,17 +61,32 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
+     * Selected employee in the filtered employee list.
+     * null if no employee is selected.
      *
-     * @see seedu.address.model.Model#selectedPersonProperty()
+     * @see seedu.address.model.Model#selectedEmployeeProperty()
      */
-    ReadOnlyProperty<Person> selectedPersonProperty();
+    ReadOnlyProperty<Employee> selectedEmployeeProperty();
 
     /**
-     * Sets the selected person in the filtered person list.
+     * Sets the selected employee in the filtered employee list.
      *
-     * @see seedu.address.model.Model#setSelectedPerson(Person)
+     * @see seedu.address.model.Model#setSelectedEmployee(Employee)
      */
-    void setSelectedPerson(Person person);
+    void setSelectedEmployee(Employee employee);
+
+    /**
+     * Selected project in the filtered project list.
+     * null if no project is selected.
+     *
+     * @see seedu.address.model.Model#selectedProjectProperty()
+     */
+    ReadOnlyProperty<Project> selectedProjectProperty();
+
+    /**
+     * Sets the selected project in the filtered project list.
+     *
+     * @see seedu.address.model.Model#setSelectedProject(Project)
+     */
+    void setSelectedProject(Project project);
 }

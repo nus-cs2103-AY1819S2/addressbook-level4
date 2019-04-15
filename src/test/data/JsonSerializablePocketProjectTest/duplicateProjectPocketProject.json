@@ -1,0 +1,230 @@
+{
+  "_comment": "Pocket Project save file which contains the same Employee values as in TypicalEmployees#getTypicalPocketProject()",
+  "employees": [ {
+    "name" : "Alice Pauline",
+    "phone" : "94351253",
+    "email" : "alice@example.com",
+    "github" : "aliceballer",
+    "skills" : [ "Python", "Java" ], "projectNames" : ["Project Fiona", "Project Geroge"]
+  }, {
+    "name" : "Benson Meier",
+    "phone" : "98765432",
+    "email" : "johnd@example.com",
+    "github" : "bensonballer",
+    "skills" : [ "CSS", "HTML", "Java" ], "projectNames" : ["Project George", "Project Alice hey"]
+  }, {
+    "name" : "Carl Kurz",
+    "phone" : "95352563",
+    "email" : "heinz@example.com",
+    "github" : "carlballer",
+    "skills" : [ ], "projectNames" : ["Project Alice hey", "Project Benson"]
+  }, {
+    "name" : "Daniel Meier",
+    "phone" : "87652533",
+    "email" : "cornelia@example.com",
+    "github" : "danielballer",
+    "skills" : [ "Assembly" ], "projectNames" : ["Project Benson", "Project Carl hey"]
+  }, {
+    "name" : "Elle Meyer",
+    "phone" : "9482224",
+    "email" : "werner@example.com",
+    "github" : "elleballer",
+    "skills" : ["Python"], "projectNames" : ["Project Carl hey", "project Daniel"]
+  }, {
+    "name" : "Fiona Kunz",
+    "phone" : "9482427",
+    "email" : "lydia@example.com",
+    "github" : "fionaballer",
+    "skills" : [ ], "projectNames" : ["Project Daniel", "Project Elle"]
+  }, {
+    "name" : "George Best",
+    "phone" : "9482442",
+    "email" : "anna@example.com",
+    "github" : "georgeballer",
+    "skills" : [ ], "projectNames" : ["Project Elle", "Project Kunz"]
+  } ], "projects" : [
+  {"projectName" :  "Project Alice",
+    "client" :  "Dehui",
+    "startDate": "10/10/2010","deadline" :  "11/02/2019", "completionDate" : "null",
+    "description" : "An application for Alice",
+    "milestones" :  [
+      {"milestone" : "The project starts",
+        "date" :  "11/11/2011",
+        "projectTasks" : [ ]},
+      {"milestone" :  "The project completes",
+        "date" :  "12/12/2012",
+        "projectTasks" : [ ]}
+    ],
+    "employees" :  [{
+      "name" : "Benson Meier",
+      "phone" : "98765432",
+      "email" : "johnd@example.com",
+      "github" : "bensonballer",
+      "skills" : [ "CSS", "HTML", "Java" ], "projectNames" : ["Project George", "Project Alice hey"]
+    }, {
+      "name" : "Carl Kurz",
+      "phone" : "95352563",
+      "email" : "heinz@example.com",
+      "github" : "carlballer",
+      "skills" : [ ], "projectNames" : ["Project Alice hey", "Project Benson"]
+    }],
+    "userStories" : [ ]
+  },
+  {"projectName" :  "Project Alice",
+    "client" :  "Dehui",
+    "startDate": "10/10/2010","deadline" :  "11/02/2019", "completionDate" : "null",
+    "description" : "An application for Alice",
+    "milestones" :  [
+      {"milestone" : "The project starts",
+        "date" :  "11/11/2011",
+        "projectTasks" : [ ]},
+      {"milestone" :  "The project completes",
+        "date" :  "12/12/2012",
+        "projectTasks" : [ ]}
+    ],
+    "employees" :  [{
+      "name" : "Benson Meier",
+      "phone" : "98765432",
+      "email" : "johnd@example.com",
+      "github" : "bensonballer",
+      "skills" : [ "CSS", "HTML", "Java" ], "projectNames" : ["Project George", "Project Alice hey"]
+    }, {
+      "name" : "Carl Kurz",
+      "phone" : "95352563",
+      "email" : "heinz@example.com",
+      "github" : "carlballer",
+      "skills" : [ ], "projectNames" : ["Project Alice hey", "Project Benson"]
+    }],
+    "userStories" : [ ]
+  },
+  {"projectName" :  "Project Benson",
+    "client" :  "Jeff",
+    "startDate": "11/10/2010","deadline" :  "23/01/2011", "completionDate" : "null",
+    "description" : "An application for Benson",
+    "milestones" :  [
+      {"milestone" : "The project starts",
+        "date" :  "11/11/2011",
+        "projectTasks" : [ ]},
+      {"milestone" :  "The project completes",
+        "date" :  "12/12/2012",
+        "projectTasks" : [ ]}],
+    "employees" :  [{
+      "name" : "Carl Kurz",
+      "phone" : "95352563",
+      "email" : "heinz@example.com",
+      "github" : "bensonballer",
+      "skills" : [ ], "projectNames" : ["Project Alice hey", "Project Benson"]
+    }, {
+      "name" : "Daniel Meier",
+      "phone" : "87652533",
+      "email" : "cornelia@example.com",
+      "github" : "danielballer",
+      "skills" : [ "Assembly" ], "projectNames" : ["Project Benson", "Project Carl hey"]
+    }],
+    "userStories" : [ ]
+  },
+  {"projectName" :  "Project Carl",
+    "client" :  "Darryl",
+    "startDate": "12/10/2010","deadline" :  "12/12/2012", "completionDate" : "null",
+    "description" : "An application for Carl",
+    "milestones" :  [],
+    "employees" :  [{
+      "name" : "Daniel Meier",
+      "phone" : "87652533",
+      "email" : "cornelia@example.com",
+      "github" : "danielballer",
+      "skills" : [ "Assembly" ], "projectNames" : ["Project Benson", "Project Carl hey"]
+    }, {
+      "name" : "Elle Meyer",
+      "phone" : "9482224",
+      "email" : "werner@example.com",
+      "github" : "elleballer",
+      "skills" : [ "Python"], "projectNames" : ["Project Carl hey", "Project Daniel"]
+    }],
+    "userStories" : [ ]
+  },
+  {"projectName" :  "Project Daniel",
+    "client" :  "Shune",
+    "startDate": "13/10/2010","deadline" :  "21/12/2012", "completionDate" : "null",
+    "description" : "An application for Daniel",
+    "milestones" :  [],
+    "employees" :  [{
+      "name" : "Elle Meyer",
+      "phone" : "9482224",
+      "email" : "werner@example.com",
+      "github" : "danielballer",
+      "skills" : [ "Python"], "projectNames" : ["Project Carl hey", "Project Daniel"]
+    }, {
+      "name" : "Fiona Kunz",
+      "phone" : "9482427",
+      "email" : "lydia@example.com",
+      "github" : "fionaballer",
+      "skills" : [ ], "projectNames" : ["Project Daniel", "Project Elle"]
+    }],
+    "userStories" : [ ]
+  },
+  {"projectName" :  "Project Elle",
+    "client" :  "Jothi",
+    "startDate": "14/10/2010","deadline" :  "22/03/2019", "completionDate" : "null",
+    "description" : "An application for Elle",
+    "milestones" :  [],
+    "employees" : [{
+      "name" : "Fiona Kunz",
+      "phone" : "9482427",
+      "email" : "lydia@example.com",
+      "github" : "elleballer",
+      "skills" : [ ], "projectNames" : ["Project Daniel", "Project Elle"]
+    }, {
+      "name" : "George Best",
+      "phone" : "9482442",
+      "email" : "anna@example.com",
+      "github" : "georgeballer",
+      "skills" : [ ], "projectNames" : ["Project Elle", "Project Fiona"]
+    }],
+    "userStories" : [ ]
+  },
+  {"projectName" :  "Project Fiona",
+    "client" :  "SOC",
+    "startDate": "15/10/2010","deadline" :  "01/01/2020", "completionDate" : "null",
+    "description" : "An application for Fiona",
+    "milestones" :  [],
+    "employees" :  [{
+      "name" : "George Best",
+      "phone" : "9482442",
+      "email" : "anna@example.com",
+      "github" : "georgeballer",
+      "skills" : [ ], "projectNames" : ["Project Elle", "Project Fiona"]
+    }, {
+      "name" : "Alice Pauline",
+      "phone" : "94351253",
+      "email" : "alice@example.com",
+      "github" : "aliceballer",
+      "skills" : [ "Python", "Java" ], "projectNames" : ["Project Fiona", "Project Geroge"]
+    }],
+    "userStories" : [ ]
+  },
+  {"projectName" :  "Project George",
+    "client" :  "FASS",
+    "startDate": "16/10/2010","deadline" :  "11/02/2021", "completionDate" : "null",
+    "description" : "An application for George",
+    "milestones" :  [],
+    "employees" :  [{
+      "name" : "Alice Pauline",
+      "phone" : "94351253",
+      "email" : "alice@example.com",
+      "github" : "aliceballer",
+      "skills" : [ "Python", "Java" ], "projectNames" : ["Project Fiona", "Project George"]
+    }, {
+      "name" : "Benson Meier",
+      "phone" : "98765432",
+      "email" : "johnd@example.com",
+      "github" : "bensonballer",
+      "skills" : ["CSS", "HTML", "Java" ], "projectNames" : ["Project Geroge", "Project Alice hey"]
+    }],
+    "userStories" : [ ]
+  }
+
+],
+  "completedProjects" : []
+}
+

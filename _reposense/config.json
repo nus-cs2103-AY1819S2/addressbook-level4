@@ -1,0 +1,30 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "ditan96",
+      "displayName": "DAR...ANG",
+      "authorNames": ["ditan96"]
+    },
+    {
+      "githubId": "jeffgan96",
+      "displayName": "GAN...EFF",
+      "authorNames": ["jeffgan96"]
+    },
+    {
+      "githubId": "dehui333",
+      "displayName": "LIN...HUI",
+      "authorNames": ["dehui333"]
+    },
+    {
+      "githubId": "jothipillay",
+      "displayName": "MAN...LAY",
+      "authorNames": ["jothipillay", "jothi pillay"]
+    },
+    {
+      "githubId": "shunnizuka",
+      "displayName": "SHU...TUN",
+      "authorNames": ["shunnizuka", "x240\\Shune"]
+    }
+  ]
+}

@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -15,37 +17,52 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.employee.Employee;
+import seedu.address.model.employee.exceptions.EmployeeNotFoundException;
+import seedu.address.model.project.Milestone;
+import seedu.address.model.project.Project;
+import seedu.address.model.project.ProjectName;
+import seedu.address.model.project.ProjectTask;
+import seedu.address.model.project.Status;
+import seedu.address.model.project.UserStory;
+import seedu.address.model.project.exceptions.ProjectNotFoundException;
+import seedu.address.model.util.PocketProjectDate;
+import seedu.address.model.util.StatsUtil;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the pocket project data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
+    private final VersionedPocketProject versionedPocketProject;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
-    private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+    private final FilteredList<Employee> filteredEmployees;
+    private final FilteredList<Project> filteredProjects;
+    private final SimpleObjectProperty<Employee> selectedEmployee = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Project> selectedProject = new SimpleObjectProperty<>();
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given pocketProject and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyPocketProject pocketProject, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(pocketProject, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with pocket project: " + pocketProject + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAddressBook(addressBook);
+        versionedPocketProject = new VersionedPocketProject(pocketProject);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-        filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        filteredEmployees = new FilteredList<>(versionedPocketProject.getEmployeeList());
+        filteredEmployees.addListener(this::ensureSelectedEmployeeIsValid);
+
+        filteredProjects = new FilteredList<>(versionedPocketProject.getProjectList());
+        filteredProjects.addListener(this::ensureSelectedProjectIsValid);
+
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new PocketProject(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -73,144 +90,345 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getPocketProjectFilePath() {
+        return userPrefs.getPocketProjectFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setPocketProjectFilePath(Path pocketProjectFilePath) {
+        requireNonNull(pocketProjectFilePath);
+        userPrefs.setPocketProjectFilePath(pocketProjectFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== PocketProject ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        versionedAddressBook.resetData(addressBook);
-    }
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+    public void setPocketProject(ReadOnlyPocketProject pocketProject) {
+        versionedPocketProject.resetData(pocketProject);
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return versionedAddressBook.hasPerson(person);
+    public ReadOnlyPocketProject getPocketProject() {
+        return versionedPocketProject;
     }
 
     @Override
-    public void deletePerson(Person target) {
-        versionedAddressBook.removePerson(target);
+    public boolean hasEmployee(Employee employee) {
+        requireNonNull(employee);
+        return versionedPocketProject.hasEmployee(employee);
     }
 
     @Override
-    public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public boolean hasProject(Project project) {
+        requireNonNull(project);
+        return versionedPocketProject.hasProject(project);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        versionedAddressBook.setPerson(target, editedPerson);
+    public void deleteEmployee(Employee target) {
+        versionedPocketProject.removeEmployee(target);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    @Override
+    public void deleteProject(Project target) {
+        versionedPocketProject.removeProject(target);
+    }
+
+    @Override
+    public void addEmployee(Employee employee) {
+        versionedPocketProject.addEmployee(employee);
+        updateFilteredEmployeeList(PREDICATE_SHOW_ALL_EMPLOYEES);
+    }
+
+    @Override
+    public void addProject(Project project) {
+        versionedPocketProject.addProject(project);
+        updateFilteredProjectList(PREDICATE_SHOW_ALL_PROJECTS);
+    }
+
+    @Override
+    public void setEmployee(Employee target, Employee editedEmployee) {
+        requireAllNonNull(target, editedEmployee);
+
+        versionedPocketProject.setEmployee(target, editedEmployee);
+    }
+
+    @Override
+    public void setProject(Project target, Project editedProject) {
+        requireAllNonNull(target, editedProject);
+
+        versionedPocketProject.setProject(target, editedProject);
+    }
+    @Override
+    public Project getProjectWithName(ProjectName targetProjectName) {
+        Project targetProject = null;
+        for (Project p: versionedPocketProject.getProjectList()) {
+            if (p.hasProjectName(targetProjectName)) {
+                targetProject = p;
+            }
+        }
+        return targetProject;
+    }
+    @Override
+    public void completeProject(Project project, PocketProjectDate completionDate) {
+        versionedPocketProject.completeProject(project, completionDate);
+    }
+
+    @Override
+    public void removeEmployeeFrom(Project targetProject, Employee targetEmployee) {
+        versionedPocketProject.removeEmployeeFrom(targetProject, targetEmployee);
+    }
+    @Override
+    public void removeMilestoneFrom(Project targetProject, Milestone targetMilestone) {
+        versionedPocketProject.removeMilestoneFrom(targetProject, targetMilestone);
+    }
+    @Override
+    public void removeUserStoryFrom(Project targetProject, UserStory targetUserStory) {
+        versionedPocketProject.removeUserStoryFrom(targetProject, targetUserStory);
+    }
+    @Override
+    public void removeProjectTaskFrom(Project targetProject, Milestone targetMilestone, ProjectTask targetProjectTask) {
+        versionedPocketProject.removeProjectTaskFrom(targetProject, targetMilestone, targetProjectTask);
+    }
+
+    @Override
+    public void addEmployeeTo(Project targetProject, Employee targetEmployee) {
+        versionedPocketProject.addEmployeeTo(targetProject, targetEmployee);
+    }
+    @Override
+    public void addMilestoneTo(Project targetProject, Milestone milestone) {
+        versionedPocketProject.addMilestoneTo(targetProject, milestone);
+    }
+    @Override
+    public List<Project> getProjectsContaining(Employee employee) {
+        List<Project> list = new ArrayList<>();
+        for (Project p: versionedPocketProject.getProjectList()) {
+            if (p.containsEmployee(employee)) {
+                list.add(p);
+            }
+        }
+        return list;
+    }
+    @Override
+    public ObservableList<Employee> getEmployeeList() {
+        return versionedPocketProject.getEmployeeList();
+    }
+
+    @Override
+    public void addUserStoryTo(Project targetProject, UserStory targetUserStory) {
+        versionedPocketProject.addUserStoryTo(targetProject, targetUserStory);
+    }
+    @Override
+    public String overallStats() {
+        return StatsUtil.overAllStatsString(getEmployeeList(), getProjectList(), getCompletedProjectList());
+    }
+    @Override
+    public String individualStats(Project project) {
+        return StatsUtil.individualStatsString(project);
+    }
+
+    @Override
+    public void addProjectTaskTo(Project targetProject, Milestone milestone, ProjectTask task) {
+        versionedPocketProject.addProjectTaskTo(targetProject, milestone, task);
+    }
+
+    @Override
+    public void updateUserStory(Project targetProject, UserStory targetStory, Status newStatus) {
+        versionedPocketProject.updateUserStory(targetProject, targetStory, newStatus);
+    }
+
+    @Override
+    public void updateProjectTask(Project targetProject, Milestone targetMilestone, ProjectTask targetTask,
+                                  Status newStatus) {
+        versionedPocketProject.updateProjectTask(targetProject, targetMilestone, targetTask, newStatus);
+    }
+
+
+    //=========== Filtered Employee List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of {@code Employee} backed by the internal list of
+     * {@code versionedPocketProject}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<Employee> getFilteredEmployeeList() {
+        return filteredEmployees;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredEmployeeList(Predicate<Employee> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredEmployees.setPredicate(predicate);
     }
+
+    //=========== Filtered Project List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Project} backed by the internal list of
+     * {@code versionedPocketProject}
+     */
+    @Override
+    public ObservableList<Project> getFilteredProjectList() {
+        return filteredProjects;
+    }
+
+    @Override
+    public void updateFilteredProjectList(Predicate<Project> predicate) {
+        requireNonNull(predicate);
+        filteredProjects.setPredicate(predicate);
+    }
+
+    //=========== Whole Project List Accessors ==============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Project} backed by the internal list of
+     * {@code versionedPocketProject}
+     */
+    @Override
+    public ObservableList<Project> getProjectList() {
+        return versionedPocketProject.getProjectList();
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of completed {@code Project} backed by the internal list of
+     * {@code versionedPocketProject}
+     */
+    @Override
+    public ObservableList<Project> getCompletedProjectList() {
+        return versionedPocketProject.getCompletedProjectList();
+    }
+
 
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+    public boolean canUndoPocketProject() {
+        return versionedPocketProject.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+    public boolean canRedoPocketProject() {
+        return versionedPocketProject.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
+    public void undoPocketProject() {
+        versionedPocketProject.undo();
     }
 
     @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
+    public void redoPocketProject() {
+        versionedPocketProject.redo();
     }
 
     @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
+    public void commitPocketProject() {
+        versionedPocketProject.commit();
     }
 
-    //=========== Selected person ===========================================================================
+    //=========== Selected employee ===========================================================================
 
     @Override
-    public ReadOnlyProperty<Person> selectedPersonProperty() {
-        return selectedPerson;
-    }
-
-    @Override
-    public Person getSelectedPerson() {
-        return selectedPerson.getValue();
+    public ReadOnlyProperty<Employee> selectedEmployeeProperty() {
+        return selectedEmployee;
     }
 
     @Override
-    public void setSelectedPerson(Person person) {
-        if (person != null && !filteredPersons.contains(person)) {
-            throw new PersonNotFoundException();
+    public Employee getSelectedEmployee() {
+        return selectedEmployee.getValue();
+    }
+
+    @Override
+    public void setSelectedEmployee(Employee employee) {
+        if (employee != null && !filteredEmployees.contains(employee)) {
+            throw new EmployeeNotFoundException();
         }
-        selectedPerson.setValue(person);
+        selectedProject.setValue((Project) null);
+        selectedEmployee.setValue(employee);
     }
 
     /**
-     * Ensures {@code selectedPerson} is a valid person in {@code filteredPersons}.
+     * Ensures {@code selectedEmployee} is a valid employee in {@code filteredEmployees}.
      */
-    private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends Person> change) {
+    private void ensureSelectedEmployeeIsValid(ListChangeListener.Change<? extends Employee> change) {
         while (change.next()) {
-            if (selectedPerson.getValue() == null) {
-                // null is always a valid selected person, so we do not need to check that it is valid anymore.
+            if (selectedEmployee.getValue() == null) {
+                // null is always a valid selected employee, so we do not need to check that it is valid anymore.
                 return;
             }
 
-            boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedPerson.getValue());
-            if (wasSelectedPersonReplaced) {
-                // Update selectedPerson to its new value.
-                int index = change.getRemoved().indexOf(selectedPerson.getValue());
-                selectedPerson.setValue(change.getAddedSubList().get(index));
+            boolean wasSelectedEmployeeReplaced = change.wasReplaced()
+                && change.getAddedSize() == change.getRemovedSize()
+                && change.getRemoved().contains(selectedEmployee.getValue());
+            if (wasSelectedEmployeeReplaced) {
+                // Update selectedEmployee to its new value.
+                int index = change.getRemoved().indexOf(selectedEmployee.getValue());
+                selectedEmployee.setValue(change.getAddedSubList().get(index));
                 continue;
             }
 
-            boolean wasSelectedPersonRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPerson -> selectedPerson.getValue().isSamePerson(removedPerson));
-            if (wasSelectedPersonRemoved) {
-                // Select the person that came before it in the list,
-                // or clear the selection if there is no such person.
-                selectedPerson.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            boolean wasSelectedEmployeeRemoved = change.getRemoved().stream()
+                .anyMatch(removedEmployee -> selectedEmployee.getValue().equals(removedEmployee));
+            if (wasSelectedEmployeeRemoved) {
+                // Select the employee that came before it in the list,
+                // or clear the selection if there is no such employee.
+                selectedEmployee.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
     }
+
+    //========= Selected project ==================================================================================
+
+    @Override
+    public ReadOnlyProperty<Project> selectedProjectProperty() {
+        return selectedProject;
+    }
+
+    @Override
+    public Project getSelectedProject() {
+        return selectedProject.getValue();
+    }
+
+    @Override
+    public void setSelectedProject(Project project) {
+        if (project != null && !filteredProjects.contains(project)) {
+            throw new ProjectNotFoundException();
+        }
+        selectedEmployee.setValue((Employee) null);
+        selectedProject.setValue(project);
+    }
+
+    /**
+     * Ensures {@code selectedProject} is a valid project in {@code filteredProject}.
+     */
+    private void ensureSelectedProjectIsValid(ListChangeListener.Change<? extends Project> change) {
+        while (change.next()) {
+            if (selectedProject.getValue() == null) {
+                // null is always a valid selected project, so we do not need to check that it is valid anymore.
+                return;
+            }
+
+            boolean wasSelectedProjectReplaced = change.wasReplaced()
+                && change.getAddedSize() == change.getRemovedSize()
+                && change.getRemoved().contains(selectedProject.getValue());
+            if (wasSelectedProjectReplaced) {
+                // Update selectedProject to its new value.
+                int index = change.getRemoved().indexOf(selectedProject.getValue());
+                selectedProject.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedProjectRemoved = change.getRemoved().stream()
+                .anyMatch(removedProject -> selectedProject.getValue().isSameProject(removedProject));
+            if (wasSelectedProjectRemoved) {
+                // Select the project that came before it in the list,
+                // or clear the selection if there is no such project.
+                selectedProject.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
+    }
+
+    //===================================================================================================
 
     @Override
     public boolean equals(Object obj) {
@@ -226,10 +444,12 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons)
-                && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
+        return versionedPocketProject.equals(other.versionedPocketProject)
+            && userPrefs.equals(other.userPrefs)
+            && filteredEmployees.equals(other.filteredEmployees)
+            && filteredProjects.equals(other.filteredProjects)
+            && Objects.equals(selectedEmployee.get(), other.selectedEmployee.get())
+            && Objects.equals(selectedProject.get(), other.selectedProject.get());
     }
 
 }

@@ -10,12 +10,12 @@ import org.junit.Test;
 import guitests.guihandles.CommandBoxHandle;
 import javafx.scene.input.KeyCode;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListEmployeeCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 public class CommandBoxTest extends GuiUnitTest {
 
-    private static final String COMMAND_THAT_SUCCEEDS = ListCommand.COMMAND_WORD;
+    private static final String COMMAND_THAT_SUCCEEDS = ListEmployeeCommand.COMMAND_WORD;
     private static final String COMMAND_THAT_FAILS = "invalid command";
 
     private ArrayList<String> defaultStyleOfCommandBox;
@@ -34,7 +34,7 @@ public class CommandBoxTest extends GuiUnitTest {
             throw new CommandException("Command failed");
         }, history);
         commandBoxHandle = new CommandBoxHandle(getChildNode(commandBox.getRoot(),
-                CommandBoxHandle.COMMAND_INPUT_FIELD_ID));
+            CommandBoxHandle.COMMAND_INPUT_FIELD_ID));
         uiPartRule.setUiPart(commandBox);
 
         defaultStyleOfCommandBox = new ArrayList<>(commandBoxHandle.getStyleClass());

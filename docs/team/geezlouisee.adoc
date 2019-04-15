@@ -4,17 +4,19 @@
 :stylesDir: ../stylesheets
 :bl: pass:[ +]
 
+[.text-justify]
 == PROJECT: In-Credit-Ble
 
 This is my project portfolio for _In-Credit-Ble_, a product that was developed as part of our Software Engineering module, CS2103T.
 
-In this portfolio, I will be showcasing a brief overview of my total contributions to the team project, followed by excerpts of my contributions to _In-Credit-Ble_’s User Guide and Developer Guide respectively. Through this project portfolio, I hope you will glean insights into my personal contributions to the development of _In-Credit-Ble_.
+In this portfolio, I will be showcasing a brief overview of my total contributions to the team project, followed by excerpts of my contributions to _In-Credit-Ble_’s User Guide and Developer Guide respectively.
 
+[.text-justify]
 == Overview
 
 _In-Credit-Ble_ is a finance tracker that is tailored to help users manage their personal finances in an easy and efficient manner. _In-Credit-Ble_ helps the user to achieve their financial objectives by helping them to keep track of their expenditure and be more aware of their spending habits. The application is designed for those who prefer to type over using their mouse, with the main mode of navigation in this application being a Command Line Interface (CLI).
 
-image::Ui_2.png[pdfwidth=70%]
+image::Ui_2.png[width=60%]
 
 Some of its key features include, but not limited to:
 
@@ -24,7 +26,7 @@ Some of its key features include, but not limited to:
 
 _In-Credit-Ble_ was developed by four friends and I, from the National University of Singapore. We had to adapt to an existing codebase that was written in Java and develop a functional product in a short span of 13 weeks.
 
-
+<<<
 == Summary of contributions
 This section summarises my contributions towards the code, documentation, as well as other helpful contributions to the team project.
 
@@ -42,8 +44,8 @@ This section summarises my contributions towards the code, documentation, as wel
 ** Enhancements to existing features:
 *** Added more colours to tags, and refactored them as categories to suit our product (https://github.com/CS2103-AY1819S2-W17-3/main/pull/20[#20], https://github.com/CS2103-AY1819S2-W17-3/main/pull/59[#59], https://github.com/CS2103-AY1819S2-W17-3/main/pull/73[#73])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide (https://github.com/CS2103-AY1819S2-W17-3/main/pull/109[#109], https://github.com/CS2103-AY1819S2-W17-3/main/issues/208[#208])
-*** Did cosmetic tweaks to the Developer Guide (https://github.com/CS2103-AY1819S2-W17-3/main/pull/4[#4], https://github.com/CS2103-AY1819S2-W17-3/main/pull/8[#8], https://github.com/CS2103-AY1819S2-W17-3/main/pull/78[#78], https://github.com/CS2103-AY1819S2-W17-3/main/issues/125[#125], https://github.com/CS2103-AY1819S2-W17-3/main/issues/208[#208])
+*** Did cosmetic tweaks to existing contents of the User Guide (https://github.com/CS2103-AY1819S2-W17-3/main/pull/109[#109], https://github.com/CS2103-AY1819S2-W17-3/main/issues/208[#208], https://github.com/CS2103-AY1819S2-W17-3/main/pull/235[#235])
+*** Did cosmetic tweaks to the Developer Guide (https://github.com/CS2103-AY1819S2-W17-3/main/pull/4[#4], https://github.com/CS2103-AY1819S2-W17-3/main/pull/8[#8], https://github.com/CS2103-AY1819S2-W17-3/main/pull/78[#78], https://github.com/CS2103-AY1819S2-W17-3/main/issues/125[#125], https://github.com/CS2103-AY1819S2-W17-3/main/issues/208[#208], https://github.com/CS2103-AY1819S2-W17-3/main/pull/235[#235])
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W17-3/main/pull/64[#64]
 *** Activity in Forum (https://github.com/nus-cs2103-AY1819S2/forum/issues/65[#65])
@@ -59,6 +61,8 @@ This section summarises my contributions towards the code, documentation, as wel
 
 include::../UserGuide.adoc[tag=summary]
 include::../UserGuide.adoc[tag=upcomingFeatures]
+
+<<<
 
 == Contributions to the Developer Guide
 

@@ -620,7 +620,7 @@ image::TotalSpentInResultDisplay.png[width ="600"]
 ====
 
 ****
-*[navy]#Examples# (default ordering)*:
+*[navy]#Examples# (default ordering)* (See Figure 17 below):
 
 * `[fuchsia]#sort -name#`: +
 Sorts the list of records by name in lexicographical order. (ascending order)
@@ -631,9 +631,10 @@ Sorts the list of records by date with the latest at the top. (descending order)
 * `[fuchsia]#sort -cat#`: +
 Sorts the list of records by category in lexicographical order. (ascending order)
 
-.Examples of `[fuchsia]#sort#` command in the default ordering. The records are sorted by name, amount, date and category respectively.
+.Examples of `[fuchsia]#sort#` command (sorted by name, amount, date and category respectively, default ordering)
 image::sortExamples.png[width ="900"]
 
+{bl}
 *[navy]#More examples#*:
 
 * `[fuchsia]#sort -name -desc#`: +
@@ -642,6 +643,7 @@ Sorts list of records by name in reverse lexicographical order.
 .Name sorted in descending order
 image::sortNameDescExample.png[width ="300"]
 
+{bl}
 
 ****
 
@@ -661,6 +663,7 @@ List will be sorted by name in reverse lexicographical order.)
 ==== Reversing the entries: `[fuchsia]#reverse#`
 
 [navy]#You can also reverse the order of the list of entries in the records.# +
+See Figure 19 below for an example. +
 `[fuchsia]#Reverse#` has effect on the entire list of entries (instead of a filtered list).
 
 *Alias*: `[fuchsia]#rev#`
@@ -676,6 +679,7 @@ image::reverseExample.png[width ="600"]
 
 <<<
 // tag::summary[]
+[.text-justify]
 ==== Showing summary of records: `[fuchsia]#summary#`
 
 [navy]#You can see the summary of your previous expenditures represented as a pie chart#, with
@@ -706,10 +710,8 @@ image::summaryUI_2.png[width ="800"]
 ====
 * If a period is not specified, then the summary will show a default report period of the last 7 days.
 * Deleted entries are not included in the summary.
-* Adding more entries while in the summary view mode will update the pie chart statistics automatically, as long as the
-expense falls within the specified report period.
-* Due to space constraints, not all labels in the pie chart may be displayed if there are too many categories listed.
-  This issue will be resolved in future iterations of our application.
+* Adding more entries while in the summary view mode will update the pie chart statistics automatically, as long as the expense falls within the specified report period
+* For best viewing experience, add up to 8 categories. Beyond that, not all labels may appear on the pie chart due to space constraints. However, the legend will still display the expenditure for all categories added.
 ====
 
 ****
@@ -724,6 +726,7 @@ Shows summary of expenses in the past 7 months.
 ****
 
 // end::summary[]
+{bl}
 
 {bl}
 
@@ -921,8 +924,8 @@ the data. There is no need for you to save manually.
 
 {bl}
 
-<<<
 // tag::upcomingFeatures[]
+<<<
 === Upcoming Features
 
 {bl}
@@ -945,6 +948,8 @@ image::asterPlot.png[width="200"]
 This will make it more effective in showing the user what is the remaining budget amount for each category.
 It also allows users to easily perceive whether their spending is within their budget for each category.
 
+// end::upcomingFeatures[]
+
 ==== Enhancements to UI to allow `[fuchsia]#CategoryBudgets#` to be shown `[yellow]#[coming in v2.0]#`
 Instead of using the `show` command to list the category budgets in the Result Display, _In-Credit-Ble_'s
 `allocate` command will immediately display the category budgets allocated on another Panel known as *CategoryBudget
@@ -953,8 +958,6 @@ Panel* in v2.0 of _In-Credit-Ble_.
 We will have separate budget bars (similar to the one in Figure 6) within this panel for each category which will fill
 up as the user enters more entries for the corresponding category.
 
-
-// end::upcomingFeatures[]
 
 {bl}
 
@@ -1095,7 +1098,7 @@ The category that an entry belongs to.
 
 Entry::
 A listed item/activity tracked by the application.  It generally consists of the name, amount, date, category and with an
-optional description field. 
+optional description field.
 
 Records::
 The list of all entries stored in the application.

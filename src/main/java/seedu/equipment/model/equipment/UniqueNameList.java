@@ -63,6 +63,7 @@ public class UniqueNameList implements Iterable<Name> {
         // a client name have own multiple equipments as long as no duplicated serial numbers
 
         internalList.set(index, editedName);
+
     }
 
     /**
@@ -82,7 +83,13 @@ public class UniqueNameList implements Iterable<Name> {
      */
     public void setClient(List<Name> equipmentName) {
         requireAllNonNull(equipmentName);
-        internalList.setAll(equipmentName);
+
+        for (int i = 0; i < equipmentName.size(); i++) {
+            if (!internalList.contains(equipmentName.get(i))) {
+                internalList.add(equipmentName.get(i));
+            }
+
+        }
     }
 
     /**

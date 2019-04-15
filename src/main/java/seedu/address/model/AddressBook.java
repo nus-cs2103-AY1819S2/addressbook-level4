@@ -149,7 +149,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * It removes all the persons in the list
+     * It removes all the persons in the list from allPersonsStorage and persons
      */
     public void removeAllPerson() {
         List<Person> listToRemove = new ArrayList();

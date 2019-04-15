@@ -101,7 +101,10 @@ public class SortCommand extends Command {
             sortedPersons = SortUtil.reversePersonList(sortedPersons);
         }
         if (isNewListPresent) {
+            // only delete the list if there is one to replace it
             model.deleteAllPerson();
+        } else {
+            logger.info("No sorted list has been found.");
         }
         for (Person newPerson : sortedPersons) {
             model.addPersonWithFilter(newPerson);

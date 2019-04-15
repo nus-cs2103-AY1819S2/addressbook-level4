@@ -255,69 +255,69 @@ Methodology:
 |`sort surname`
 |Surname
 |Alphabetical
-| _ `Ben Adams` shall come before `Adam Black`._
+| __ `Ben Adams` shall come before `Adam Black`.__
 
 |`sort education`
 |Education name
 |Alphabetical, case-insensitive
-| _ `Charlotte Green (NTU)` shall come before `Adam Smith (NUS)`._
+| __ `Charlotte Green (NTU)` shall come before `Adam Smith (NUS)`.__
 
 |`sort gpa`
 |GPA
 |Decreasing numeric value
-| _ `Adam Smith (3.1)` shall come before `Charlotte Green (3.9)`._
+| __ `Adam Smith (3.1)` shall come before `Charlotte Green (3.9)`.__
 
 |`sort degree`
 |Degree name
 |Highest to lowest: PhD, Masters, Bachelors, Associates, High School
-| _ `Charlotte Green (Masters)` shall come before `Adam Smith (Bachelors)`._
+| __ `Charlotte Green (Masters)` shall come before `Adam Smith (Bachelors)`.__
 
 |`sort skills`
 |Arranges each person's skills alphabetically and then arranges the people based on their skills
 |Alphabetical, case-insensitive
-| _ `Peter Parker (Python, Debugging)` shall come before `Charlotte Oliveiro (Java)` since `Debugging` comes before `Java`._
+| __ `Peter Parker (Python, Debugging)` shall come before `Charlotte Oliveiro (Java)` since `Debugging` comes before `Java`.__
 
 |`sort positions`
 |Arranges each person's positions alphabetically and then arranges the people based on their positions
 |Alphabetical, case-insensitive
-| _ `Charlotte Oliveiro (Project Consultant, Crime Analyst)` shall come before `Peter Parker (Databases)` since `Crime Analyst` comes before `Databases`._
+| __ `Charlotte Oliveiro (Project Consultant, Crime Analyst)` shall come before `Peter Parker (Databases)` since `Crime Analyst` comes before `Databases`.__
 
 |`sort endorsements`
 |Arranges each person's endorsements alphabetically and then arranges the people based on their endorsements
 |Alphabetical, case-insensitive
-| _ `Irfan Ibrahim (Warren Buffett, Jeff Bezos)` shall come before `Alex Yeoh (Mark Cuban, Steve Jobs)` since `Jeff Bezos` comes before `Mark Cuban`._
+| __ `Irfan Ibrahim (Warren Buffett, Jeff Bezos)` shall come before `Alex Yeoh (Mark Cuban, Steve Jobs)` since `Jeff Bezos` comes before `Mark Cuban`.__
 
 |`sort skill number`
 |Number of skills
 |Decreasing numeric value
-| _ `Peter Parker (Python, Debugging)` shall come before `Charlotte Oliveiro (Java)` since `Peter Parker` has two skills whereas `Charlotte Oliveiro` only has one._
+| __ `Peter Parker (Python, Debugging)` shall come before `Charlotte Oliveiro (Java)` since `Peter Parker` has two skills whereas `Charlotte Oliveiro` only has one.__
 
 |`sort position number`
 |Number of positions
 |Decreasing numeric value
-| _ `Charlotte Oliveiro (Project Consultant, Crime Analyst)` shall come before `Peter Parker (Databases)` since `Charlotte Oliveiro` has had two positions whereas `Peter Parker` only has one._
+| __ `Charlotte Oliveiro (Project Consultant, Crime Analyst)` shall come before `Peter Parker (Databases)` since `Charlotte Oliveiro` has had two positions whereas `Peter Parker` only has one.__
 
 |`sort endorsement number`
 |Number of endorsements
 |Decreasing numeric value
-| _ `Irfan Ibrahim (Warren Buffett, Jeff Bezos)` shall come before `Bruce Wayne (Thomas Wayne)` since `Irfan Ibrahim` has two endorsements whereas `Bruce Wayne` only has one._
+| __ `Irfan Ibrahim (Warren Buffett, Jeff Bezos)` shall come before `Bruce Wayne (Thomas Wayne)` since `Irfan Ibrahim` has two endorsements whereas `Bruce Wayne` only has one.__
 
 |`sort reverse KEYWORD`
 |Reverses the ordering caused by the KEYWORD
 | -
-| _ `sort reverse gpa` will cause `Adam Smith (3.1)` to come after `Charlotte Green (3.9)`._
+| __ `sort reverse gpa` will cause `Adam Smith (3.1)` to come after `Charlotte Green (3.9)`.__
 |===
 
 Intelligent Sorting:
 
-It is possible for persons to share the same information (_e.g. both have the same GPA_).
+It is possible for persons to share the same information _(e.g. both have the same GPA)_.
 For this situation a subsequent sorting method to sort these persons is chosen based on what the user, wanting a certain initial sort method, is likely to be interested in.
 
 Since persons in the address book cannot have the same full name, this shall always differentiate persons and so is used as the final sorting method.
 
 .Flow pattern for the sorting methods
 |===
-|Initial Sort Method |Subsequent Sort Method _(for persons with same value after first sort method) |Secondary Subsequent Sort Method _(for persons with same value after first and subsequent sort method)
+|Initial Sort Method |Subsequent Sort Method __(for persons with same value after first sort method)__ |Secondary Subsequent Sort Method __(for persons with same value after first and subsequent sort method)__
 |Name
 | -
 | -

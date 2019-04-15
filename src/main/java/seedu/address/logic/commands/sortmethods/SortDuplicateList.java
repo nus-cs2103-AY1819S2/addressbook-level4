@@ -19,11 +19,11 @@ public class SortDuplicateList {
             this.newList = new ArrayList<>();
             this.newList.add(dupPersonList.get(0));
         } else {
-            getSortedPersons(secondarySortMethod, dupPersonList, type);
+            processSortMethod(secondarySortMethod, dupPersonList, type);
         }
     }
 
-    private void getSortedPersons(SortMethod command, List<Person> lastShownList, String... type) {
+    private void processSortMethod(SortMethod command, List<Person> lastShownList, String... type) {
         command.execute(lastShownList, type);
         this.newList = command.getList();
     }

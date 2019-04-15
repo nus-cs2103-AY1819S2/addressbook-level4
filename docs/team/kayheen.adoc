@@ -67,16 +67,11 @@ https://github.com/CS2103-AY1819S2-W16-2/main/issues/117[#117],
 |_The sections below are my contributions to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-==== 3.1 A Walk Through (This is a snippet of my actual contributions.)
-'''
-include::../UserGuide.adoc[tag=AWalkThrough]
-
-
-==== 3.2 Rotate an Image : `rotate`
+==== 3.1 Rotate an Image : `rotate`
 '''
 include::../UserGuide.adoc[tag=RotateCommand]
 
-==== 3.3 WaterMark : `wm`
+==== 3.2 WaterMark : `wm`
 '''
 include::../UserGuide.adoc[tag=WaterMarkCommand]
 

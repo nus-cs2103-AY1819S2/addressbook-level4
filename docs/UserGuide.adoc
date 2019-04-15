@@ -324,6 +324,24 @@ Pins the 1st contact in the results of the `search` command.
 `select 3` +
 Selects the 3rd contact in the results of the `search` command.
 
+Screenshots for 1st example:
+
+* Enter `list`:
+
+image::pin_screenshot_1.png[width="800"]
+
+* Main contact list is displayed:
+
+image::pin_screenshot_2.png[width="800"]
+
+* Enter `pin 2`:
+
+image::pin_screenshot_3.png[width="800"]
+
+* 2nd contact has been successfully pinned:
+
+image::pin_screenshot_4.png[width="800"]
+
 === Unpinning a contact : `unpin`
 
 Unpins a pinned contact. +
@@ -358,8 +376,18 @@ Go to <<GoogleMaps>> for more details of the Google Maps(TM) display.
 
 Examples:
 
-* `pinselect 2` +
-Selects the 2nd contact in the pin book.
+* `pinselect 3` +
+Selects the 3rd contact in the pin book.
+
+Screenshots for the example:
+
+* Enter `pinselect 3`:
+
+image::pinselect_screenshot_1.png[width="800"]
+
+* 3rd contact in the pin list has been successfully selected:
+
+image::pinselect_screenshot_2.png[width="800"]
 // end::pinunpinfeatures[]
 
 // tag::archivefeatures[]

@@ -1507,7 +1507,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user | view tasks in a calendar | see all the dates in which I have tasks starting or ending, keeping better track of urgency of tasks and deadlines
 
-end::task_user_stories_cchj1995[]
+// end::task_user_stories_cchj1995[]
 
 |`* * *` |user |see a statistics report on each patient's dental history |have an easier time understanding their potential problems
 

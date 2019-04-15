@@ -51,11 +51,11 @@ public class PdfTest {
         comparisonPdf = new PdfBuilder(SAMPLE_PDF_1).withName(NAME_2_VALID).build();
         assertFalse(SAMPLE_PDF_1.isSamePdf(comparisonPdf));
 
-        // same name, same phone, different attributes -> returns true
+        // same name, different attributes -> returns true
         comparisonPdf = new PdfBuilder(SAMPLE_PDF_1).withTags(TAG_VALID_CS2103T).build();
         assertTrue(SAMPLE_PDF_1.isSamePdf(comparisonPdf));
 
-        // same name, same email, different attributes -> returns true
+        // different name, different attributes -> returns true
         comparisonPdf = new PdfBuilder(SAMPLE_PDF_2).withDeadline(DEADLINE_JSON_DONE).build();
         assertTrue(SAMPLE_PDF_2.isSamePdf(comparisonPdf));
     }
@@ -101,7 +101,7 @@ public class PdfTest {
         editedPdf = new PdfBuilder(SAMPLE_PDF_1).withSize(SIZE_3_VALID).build();
         assertFalse(SAMPLE_PDF_1.equals(editedPdf));
 
-        // different deaedline -> returns false
+        // different deadline -> returns false
         editedPdf = new PdfBuilder(SAMPLE_PDF_1).withDeadline(DEADLINE_JSON_DONE).build();
         assertFalse(SAMPLE_PDF_1.equals(editedPdf));
 

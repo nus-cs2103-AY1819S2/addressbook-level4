@@ -32,7 +32,7 @@ public class MoveCommand extends Command {
             + "[NEW_DIRECTORY]\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_DIRECTORY + "C:\\Users\\[username]\\Desktop\\[target]";
 
-    public static final String MESSAGE_MOVE_PDF_SUCCESS = "Moved PDF: %1$s";
+    public static final String MESSAGE_MOVE_PDF_SUCCESS = "Moved PDF:\n%1$s";
     public static final String MESSAGE_NOT_MOVED_SAME = "You have indicated the same directory as the file.";
     public static final String MESSAGE_NOT_MOVED_DUPLICATE = "File with same name at location.";
     public static final String MESSAGE_MOVE_PDF_FAIL = "PDF failed to be moved.";

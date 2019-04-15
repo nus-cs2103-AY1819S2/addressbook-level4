@@ -101,8 +101,8 @@ public class Pdf {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both pdfs of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two pdfs.
      */
     public boolean isSamePdf(Pdf otherPdf) {
         if (otherPdf == this) {
@@ -132,8 +132,8 @@ public class Pdf {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both pdfs have the same identity and data fields.
+     * This defines a stronger notion of equality between two pdfs.
      */
     @Override
     public boolean equals(Object other) {

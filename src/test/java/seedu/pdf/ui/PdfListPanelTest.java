@@ -28,7 +28,7 @@ public class PdfListPanelTest extends GuiUnitTest {
 
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 
-    private final SimpleObjectProperty<Pdf> selectedPerson = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Pdf> selectedPdf = new SimpleObjectProperty<>();
     private PdfListPanelHandle pdfListPanelHandle;
 
     @Test
@@ -46,19 +46,19 @@ public class PdfListPanelTest extends GuiUnitTest {
     }
 
     @Test
-    public void selection_modelSelectedPersonChanged_selectionChanges() {
+    public void selection_modelSelectedPdfChanged_selectionChanges() {
         initUi(TYPICAL_PDFS);
         Pdf secondPdf = TYPICAL_PDFS.get(INDEX_SECOND_PDF.getZeroBased());
-        guiRobot.interact(() -> selectedPerson.set(secondPdf));
+        guiRobot.interact(() -> selectedPdf.set(secondPdf));
         guiRobot.pauseForHuman();
 
-        PdfCardHandle expectedPerson = pdfListPanelHandle.getPdfCardHandle(INDEX_SECOND_PDF.getZeroBased());
-        PdfCardHandle selectedPerson = pdfListPanelHandle.getHandleToSelectedCard();
-        assertCardEquals(expectedPerson, selectedPerson);
+        PdfCardHandle expectedPdf = pdfListPanelHandle.getPdfCardHandle(INDEX_SECOND_PDF.getZeroBased());
+        PdfCardHandle selectedPdf = pdfListPanelHandle.getHandleToSelectedCard();
+        assertCardEquals(expectedPdf, selectedPdf);
     }
 
     /**
-     * Verifies that creating and deleting large number of persons in {@code PdfListPanel} requires lesser than
+     * Verifies that creating and deleting large number of pdfs in {@code PdfListPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
     @Test
@@ -72,12 +72,12 @@ public class PdfListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Returns a list of persons containing {@code personCount} persons that is used to populate the
+     * Returns a list of pdfs containing {@code pdfCount} pdfs that is used to populate the
      * {@code PdfListPanel}.
      */
-    private ObservableList<Pdf> createBackingList(int personCount) {
+    private ObservableList<Pdf> createBackingList(int pdfCount) {
         ObservableList<Pdf> backingList = FXCollections.observableArrayList();
-        for (int i = 0; i < personCount; i++) {
+        for (int i = 0; i < pdfCount; i++) {
             Name name = new Name(i + "a.pdf");
             Directory directory = new Directory("C:\\Users");
             Size size = new Size("1024");
@@ -93,7 +93,7 @@ public class PdfListPanelTest extends GuiUnitTest {
      */
     private void initUi(ObservableList<Pdf> backingList) {
         PdfListPanel pdfListPanel =
-                new PdfListPanel(backingList, selectedPerson, selectedPerson::set);
+                new PdfListPanel(backingList, selectedPdf, selectedPdf::set);
         uiPartRule.setUiPart(pdfListPanel);
 
         pdfListPanelHandle = new PdfListPanelHandle(getChildNode(pdfListPanel.getRoot(),

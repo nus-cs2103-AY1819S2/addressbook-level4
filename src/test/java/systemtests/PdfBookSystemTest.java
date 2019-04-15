@@ -134,17 +134,17 @@ public abstract class PdfBookSystemTest {
     }
 
     /**
-     * Displays all persons in the pdf book.
+     * Displays all pdfs in the pdf book.
      */
-    protected void showAllPersons() {
+    protected void showAllPdfs() {
         executeCommand(ListCommand.COMMAND_WORD);
         assertEquals(getModel().getPdfBook().getPdfList().size(), getModel().getFilteredPdfList().size());
     }
 
     /**
-     * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
+     * Displays all pdfs with any parts of their names matching {@code keyword} (case-insensitive).
      */
-    protected void showPersonsWithName(String keyword) {
+    protected void showPdfWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredPdfList().size() < getModel().getPdfBook().getPdfList().size());
     }
@@ -152,15 +152,15 @@ public abstract class PdfBookSystemTest {
     /**
      * Selects the pdf at {@code index} of the displayed list.
      */
-    protected void selectPerson(Index index) {
+    protected void selectPdf(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
         assertEquals(index.getZeroBased(), getPdfListPanel().getSelectedCardIndex());
     }
 
     /**
-     * Deletes all persons in the pdf book.
+     * Deletes all pdfs in the pdf book.
      */
-    protected void deleteAllPersons() {
+    protected void deleteAllPdf() {
         executeCommand(ClearCommand.COMMAND_WORD);
         assertEquals(0, getModel().getPdfBook().getPdfList().size());
     }
@@ -168,7 +168,7 @@ public abstract class PdfBookSystemTest {
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
      * {@code expectedResultMessage}, the storage contains the same pdf objects as {@code expectedModel}
-     * and the pdf list panel displays the persons in the model correctly.
+     * and the pdf list panel displays the pdfs in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
             Model expectedModel) {

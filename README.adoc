@@ -2,17 +2,16 @@
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/cs2103-ay1819s2-w16-4[image:https://travis-ci.org/cs2103-ay1819s2-w16-4/main.svg?branch=master[Build Status]]
-https://ci.appveyor.com/project/damithc/addressbook-level4[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
-https://coveralls.io/github/se-edu/addressbook-level4?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master[Coverage Status]]
-https://www.codacy.com/app/damith/addressbook-level4?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level4&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
-https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
+https://coveralls.io/github/CS2103-AY1819S2-W16-4/main?branch=master[image:https://coveralls.io/repos/github/CS2103-AY1819S2-W16-4/main/badge.svg?branch=master[Coverage Status]]
+// https://coveralls.io/github/se-edu/addressbook-level4?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master[Coverage Status]]
+https://www.codacy.com/app/barisbatuhan/main_2?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CS2103-AY1819S2-W16-4/main&amp;utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/33ecc4c2c0bb493b8bb09a754caf3d1a[Codacy Badge]]
 
 ifdef::env-github[]
-image::docs/images/UI.png[width="600"]
+image::docs/images/Ui.png[width="800"]
 endif::[]
 
 ifndef::env-github[]
-image::images/UI.png[width="600"]
+image::images/Ui.png[width="800"]
 endif::[]
 
 
@@ -24,26 +23,37 @@ This application is a Java Desktop GUI application that is specifically designed
 * This application requires Java 9 for a proper working experience.
 
 - **A summary of what can be done through this application**:
+* Important information of candidates can be seen from GUI directly
+* If the candidates have their CVs in the system, it can be shown through the application.
 * A new candidate can be added to the storage
 * Candidates can be deleted
 * Candidates can be edited according to their aspects
 * Candidates can be filtered according to their every different aspect
 * Candidates can be sorted according to their features
 * Candidates can be listed and selected
+* Candidates can be endorsed (recommended by workers or important people)
 * The processes made can be undone and redone
 * A specific search according to the candidate name can be done
 * All the candidate storage can be cleared.
 
 
 - **In Version 2.0 (expected)**:
-* CVs of the candidates can be shown in the right window block when they are clicked
+* CV addition/editing/deleting will be handled by the application itself.
+* Multiple CVs can be imported at once.
+* Multiple persons can be added at once.
 
-- **In Version 1.4 (expected)**:
-* Integration tests will be made for filtering, also some additions and improvements in unit tests will take place
+- **In Version 1.4**:
+* Basic CV presentation is added to the GUI. If there is a CV added for that person in the database, then it will be shown.
+* Integration tests are written for filtering, also some additions and improvements in unit tests implemented.
+* Reversing the filtered list is added.
+* Endorsement command is completed including the test codes.
+* Education (Schools), GPA and the degree levels of candidates can be seen through GUI.
+* Some improvements in sort command are made and new tests for sort command are written.
+* Failing system tests are fixed.
 
 - **In Version 1.3**:
 ** Unit tests for filtering processes are written.
-** Additional sorting functionality by name, last name, gpa, education, and skills
+** Additional sorting functionality by name, last name, gpa, education, and skills.
 ** Endorse Command written and tested.
 
 - **In Version 1.2**:

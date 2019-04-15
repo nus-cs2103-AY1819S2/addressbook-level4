@@ -7,13 +7,18 @@ import seedu.address.model.person.Person;
 
 
 /**
- * Sorts all persons by age.
+ * Follows the SortMethod interface
+ * Sorts all persons by name, starting with first name.
+ * No secondary sorting is required since duplicate persons are not allowed in the address book.
  */
-public class SortName {
+public class SortName implements SortMethod {
 
     private List<Person> newList;
 
-    public SortName(List<Person> lastShownList) {
+    /**
+     * alters the newList to contain persons in newly sorted order
+     */
+    public void execute(List<Person> lastShownList, String... type) {
         Comparator<Person> personNameComparator = Comparator.comparing(Person::nameToString);
         this.newList = SortUtil.sortPersons(lastShownList, personNameComparator);
     }

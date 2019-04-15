@@ -51,19 +51,20 @@ public class FilterCommandTest {
      * 7- Gpa
      * 8- Education
      * 9- Endorsement
+     * 10- Degree
      */
 
     @Test
     public void execute_oneConditionAtOneFilter_success() {
 
         // name condition - 2 peoples are listed: DANIEL, ELLE
-        String[] criterion = {"el", null, null, null, null, null, null, null, null};
+        String[] criterion = {"el", null, null, null, null, null, null, null, null, null};
         FilterCommand commandOr = new FilterCommand(criterion, 1);
         FilterCommand commandAnd = new FilterCommand(criterion, 2);
 
         modelAnd = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelAnd.filterAnd(criterion[0], null, null, null, null,
-                null, null, null, null);
+                null, null, null, null, null);
         assertEquals(Arrays.asList(DANIEL, ELLE), modelAnd.getFilteredPersonList());
         modelAnd.commitAddressBook();
         assertCommandSuccess(commandAnd, model, commandHistory, FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, modelAnd);
@@ -73,7 +74,7 @@ public class FilterCommandTest {
 
         modelOr = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelOr.filterOr(criterion[0], null, null, null, null,
-                null, null, null, null);
+                null, null, null, null, null);
         assertEquals(Arrays.asList(DANIEL, ELLE), modelOr.getFilteredPersonList());
         modelOr.commitAddressBook();
         assertCommandSuccess(commandOr, model, commandHistory, FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, modelOr);
@@ -89,7 +90,7 @@ public class FilterCommandTest {
 
         modelAnd = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelAnd.filterAnd(null, criterion[1], null, null, null,
-                null, null, null, null);
+                null, null, null, null, null);
         assertEquals(Arrays.asList(ALICE), modelAnd.getFilteredPersonList());
         modelAnd.commitAddressBook();
         assertCommandSuccess(commandAnd, model, commandHistory, FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, modelAnd);
@@ -99,7 +100,7 @@ public class FilterCommandTest {
 
         modelOr = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelOr.filterOr(null, criterion[1], null, null, null,
-                null, null, null, null);
+                null, null, null, null, null);
         assertEquals(Arrays.asList(ALICE), modelOr.getFilteredPersonList());
         modelOr.commitAddressBook();
         assertCommandSuccess(commandOr, model, commandHistory, FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, modelOr);
@@ -114,7 +115,7 @@ public class FilterCommandTest {
 
         modelAnd = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelAnd.filterAnd(null, null, criterion[2], null, null,
-                null, null, null, null);
+                null, null, null, null, null);
         assertEquals(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE), modelAnd.getFilteredPersonList());
         modelAnd.commitAddressBook();
         assertCommandSuccess(commandAnd, model, commandHistory, FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, modelAnd);
@@ -124,7 +125,7 @@ public class FilterCommandTest {
 
         modelOr = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelOr.filterOr(null, null, criterion[2], null, null,
-                null, null, null, null);
+                null, null, null, null, null);
         assertEquals(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE), modelOr.getFilteredPersonList());
         modelOr.commitAddressBook();
         assertCommandSuccess(commandOr, model, commandHistory, FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, modelOr);
@@ -139,7 +140,7 @@ public class FilterCommandTest {
 
         modelAnd = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelAnd.filterAnd(null, null, null, criterion[3], null,
-                null, null, null, null);
+                null, null, null, null, null);
         assertEquals(Collections.emptyList(), modelAnd.getFilteredPersonList());
         modelAnd.commitAddressBook();
         assertCommandSuccess(commandAnd, model, commandHistory, FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, modelAnd);
@@ -149,7 +150,7 @@ public class FilterCommandTest {
 
         modelOr = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelOr.filterOr(null, null, null, criterion[3], null,
-                null, null, null, null);
+                null, null, null, null, null);
         assertEquals(Collections.emptyList(), modelOr.getFilteredPersonList());
         modelOr.commitAddressBook();
         assertCommandSuccess(commandOr, model, commandHistory, FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, modelOr);
@@ -165,7 +166,7 @@ public class FilterCommandTest {
 
         modelAnd = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelAnd.filterAnd(null, null, null, null, skillArr,
-                null, null, null, null);
+                null, null, null, null, null);
         assertEquals(Arrays.asList(ALICE, BENSON, DANIEL), modelAnd.getFilteredPersonList());
         modelAnd.commitAddressBook();
         assertCommandSuccess(commandAnd, model, commandHistory, FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, modelAnd);
@@ -175,7 +176,7 @@ public class FilterCommandTest {
 
         modelOr = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelOr.filterOr(null, null, null, null, skillArr,
-                null, null, null, null);
+                null, null, null, null, null);
         assertEquals(Arrays.asList(ALICE, BENSON, DANIEL), modelOr.getFilteredPersonList());
         modelOr.commitAddressBook();
         assertCommandSuccess(commandOr, model, commandHistory, FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, modelOr);
@@ -191,7 +192,7 @@ public class FilterCommandTest {
         // and condition - 1 person is listed: BENSON
         modelAnd = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelAnd.filterAnd(null, null, null, null, skillMultipleInfoArr,
-                null, null, null, null);
+                null, null, null, null, null);
         assertEquals(Arrays.asList(BENSON), modelAnd.getFilteredPersonList());
         modelAnd.commitAddressBook();
         assertCommandSuccess(commandAnd, model, commandHistory, FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, modelAnd);
@@ -202,7 +203,7 @@ public class FilterCommandTest {
         // or condition - 6 persons are listed: ALICE, BENSON, CARL, DANIEL, ELLE, FIONA
         modelOr = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelOr.filterOr(null, null, null, null, skillMultipleInfoArr,
-                null, null, null, null);
+                null, null, null, null, null);
         assertEquals(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA), modelOr.getFilteredPersonList());
         modelOr.commitAddressBook();
         assertCommandSuccess(commandOr, model, commandHistory, FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, modelOr);
@@ -219,7 +220,7 @@ public class FilterCommandTest {
         // and condition - 2 persons are listed: CARL, DANIEL
         modelAnd = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelAnd.filterAnd(null, null, null, null, null,
-                tagMultipleInfoArr, null, null, null);
+                tagMultipleInfoArr, null, null, null, null);
         assertEquals(Arrays.asList(CARL, DANIEL), modelAnd.getFilteredPersonList());
         modelAnd.commitAddressBook();
         assertCommandSuccess(commandAnd, model, commandHistory, FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, modelAnd);
@@ -230,7 +231,7 @@ public class FilterCommandTest {
         // or condition - 3 persons are listed: BENSON, CARL, DANIEL
         modelOr = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelOr.filterOr(null, null, null, null, null,
-                tagMultipleInfoArr, null, null, null);
+                tagMultipleInfoArr, null, null, null, null);
         assertEquals(Arrays.asList(BENSON, CARL, DANIEL), modelOr.getFilteredPersonList());
         modelOr.commitAddressBook();
         assertCommandSuccess(commandOr, model, commandHistory, FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, modelOr);
@@ -245,7 +246,7 @@ public class FilterCommandTest {
 
         modelAnd = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelAnd.filterAnd(null, null, null, null, null,
-                null, null, criterion[6], null);
+                null, null, criterion[6], null, null);
         assertEquals(Arrays.asList(FIONA), modelAnd.getFilteredPersonList());
         modelAnd.commitAddressBook();
         assertCommandSuccess(commandAnd, model, commandHistory, FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, modelAnd);
@@ -255,7 +256,7 @@ public class FilterCommandTest {
 
         modelOr = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelOr.filterOr(null, null, null, null, null,
-                null, null, criterion[6], null);
+                null, null, criterion[6], null, null);
         assertEquals(Arrays.asList(FIONA), modelOr.getFilteredPersonList());
         modelOr.commitAddressBook();
         assertCommandSuccess(commandOr, model, commandHistory, FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, modelOr);
@@ -270,7 +271,7 @@ public class FilterCommandTest {
 
         modelAnd = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelAnd.filterAnd(null, null, null, null, null,
-                null, null, null, criterion[7]);
+                null, null, null, criterion[7], null);
         assertEquals(Arrays.asList(ELLE, FIONA), modelAnd.getFilteredPersonList());
         modelAnd.commitAddressBook();
         assertCommandSuccess(commandAnd, model, commandHistory, FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, modelAnd);
@@ -280,7 +281,7 @@ public class FilterCommandTest {
 
         modelOr = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelOr.filterOr(null, null, null, null, null,
-                null, null, null, criterion[7]);
+                null, null, null, criterion[7], null);
         assertEquals(Arrays.asList(ELLE, FIONA), modelOr.getFilteredPersonList());
         modelOr.commitAddressBook();
         assertCommandSuccess(commandOr, model, commandHistory, FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, modelOr);
@@ -295,7 +296,7 @@ public class FilterCommandTest {
 
         modelAnd = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelAnd.filterAnd(null, null, null, null, null,
-                null, criterion[8], null, null);
+                null, criterion[8], null, null, null);
         assertEquals(Arrays.asList(DANIEL, ELLE, FIONA), modelAnd.getFilteredPersonList());
         modelAnd.commitAddressBook();
         assertCommandSuccess(commandAnd, model, commandHistory, FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, modelAnd);
@@ -305,7 +306,7 @@ public class FilterCommandTest {
 
         modelOr = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelOr.filterOr(null, null, null, null, null,
-                null, criterion[8], null, null);
+                null, criterion[8], null, null, null);
         assertEquals(Arrays.asList(DANIEL, ELLE, FIONA), modelOr.getFilteredPersonList());
         modelOr.commitAddressBook();
         assertCommandSuccess(commandOr, model, commandHistory, FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, modelOr);
@@ -314,14 +315,14 @@ public class FilterCommandTest {
     @Test
     public void execute_filterClearAtOneFilterActive_success() {
 
-        String[] criterion = {"el", null, null, null, null, null, "2.6", null, null};
+        String[] criterion = {"el", null, null, null, null, null, "2.6", null, null, null};
         FilterCommand commandAnd = new FilterCommand(criterion, 2);
         FilterCommand commandOr = new FilterCommand(criterion, 1);
         FilterCommand command = new FilterCommand(criterion, 0);
 
         modelAnd = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelAnd.filterAnd(criterion[0], null, null, null, null,
-                null, null, criterion[6], null);
+                null, null, criterion[6], null, null);
         modelAnd.commitAddressBook();
         assertCommandSuccess(commandAnd, model, commandHistory,
                 FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, modelAnd);
@@ -338,7 +339,7 @@ public class FilterCommandTest {
 
         modelOr = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelOr.filterOr(criterion[0], null, null, null, null,
-                null, null, criterion[6], null);
+                null, null, criterion[6], null, null);
         modelOr.commitAddressBook();
         assertCommandSuccess(commandOr, model, commandHistory,
                 FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, modelOr);
@@ -354,7 +355,7 @@ public class FilterCommandTest {
     @Test
     public void execute_filterReverseAtOneFilterActive_success() {
 
-        String[] criterion = {"el", null, null, null, null, null, null, null, null};
+        String[] criterion = {"el", null, null, null, null, null, null, null, null, null};
         FilterCommand commandAnd = new FilterCommand(criterion, 2);
         FilterCommand commandOr = new FilterCommand(criterion, 1);
         FilterCommand command = new FilterCommand(criterion, 3);
@@ -362,7 +363,7 @@ public class FilterCommandTest {
         // name condition - 2 peoples are listed: DANIEL, ELLE
         modelAnd = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelAnd.filterAnd(criterion[0], null, null, null, null,
-                null, null, null, null);
+                null, null, null, null, null);
         modelAnd.commitAddressBook();
         assertCommandSuccess(commandAnd, model, commandHistory,
                 FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, modelAnd);
@@ -378,7 +379,7 @@ public class FilterCommandTest {
 
         modelOr = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelOr.filterOr(criterion[0], null, null, null, null,
-                null, null, null, null);
+                null, null, null, null, null);
         modelOr.commitAddressBook();
         assertCommandSuccess(commandOr, model, commandHistory,
                 FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, modelOr);
@@ -399,14 +400,14 @@ public class FilterCommandTest {
         String[] skillArr = {"C++"};
 
         // Filter Level 1: ALICE, BENSON, CARL, FIONA will be remained
-        String[] criterion1 = {null, null, null, null, null, null, "2.8", null, null};
+        String[] criterion1 = {null, null, null, null, null, null, "2.8", null, null, null};
         FilterCommand commandAnd = new FilterCommand(criterion1, 2);
         FilterCommand commandOr = new FilterCommand(criterion1, 1);
 
         modelAnd.filterAnd(null, null, null, null, null,
-                null, null, criterion1[6], null);
+                null, null, criterion1[6], null, null);
         modelOr.filterOr(null, null, null, null, null,
-                null, null, criterion1[6], null);
+                null, null, criterion1[6], null, null);
 
         modelAnd.commitAddressBook();
         modelOr.commitAddressBook();
@@ -416,13 +417,13 @@ public class FilterCommandTest {
                 FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, modelOr);
 
         // Filter Level 2
-        String[] criterion2 = {null, null, null, null, skillArr[0], null, null, null, null};
+        String[] criterion2 = {null, null, null, null, skillArr[0], null, null, null, null, null};
         commandAnd = new FilterCommand(criterion2, 2);
         commandOr = new FilterCommand(criterion2, 1);
         modelAnd.filterOr(null, null, null, null, skillArr,
-                null, null, null, null);
+                null, null, null, null, null);
         modelOr.filterAnd(null, null, null, null, skillArr,
-                null, null, null, null);
+                null, null, null, null, null);
 
         modelAnd.commitAddressBook();
         modelOr.commitAddressBook();
@@ -433,13 +434,13 @@ public class FilterCommandTest {
 
 
         // Filter Level 3: ALICE will be remained
-        String[] criterion3 = {null, null, "alice", null, null, null, null, null, null};
+        String[] criterion3 = {null, null, "alice", null, null, null, null, null, null, null};
         commandAnd = new FilterCommand(criterion3, 2);
         commandOr = new FilterCommand(criterion3, 1);
         modelAnd.filterAnd(null, null, criterion3[2], null, null,
-                null, null, null, null);
+                null, null, null, null, null);
         modelOr.filterOr(null, null, criterion3[2], null, null,
-                null, null, null, null);
+                null, null, null, null, null);
 
         modelAnd.commitAddressBook();
         modelOr.commitAddressBook();
@@ -449,7 +450,7 @@ public class FilterCommandTest {
                 FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, modelOr);
 
         // Filter Clear Level: All persons will be restored
-        String[] criterionClear = {null, null, null, null, null, null, null, null, null};
+        String[] criterionClear = {null, null, null, null, null, null, null, null, null, null};
         FilterCommand command = new FilterCommand(criterionClear, 0);
 
         modelAnd.clearFilter();
@@ -476,14 +477,14 @@ public class FilterCommandTest {
         String[] skillArr = {"C++"};
 
         // Filter Level 1: ALICE, BENSON, CARL, FIONA will be remained
-        String[] criterion1 = {null, null, null, null, null, null, "2.8", null, null};
+        String[] criterion1 = {null, null, null, null, null, null, "2.8", null, null, null};
         FilterCommand commandAnd = new FilterCommand(criterion1, 2);
         FilterCommand commandOr = new FilterCommand(criterion1, 1);
 
         modelAnd.filterAnd(null, null, null, null, null,
-                null, null, criterion1[6], null);
+                null, null, criterion1[6], null, null);
         modelOr.filterOr(null, null, null, null, null,
-                null, null, criterion1[6], null);
+                null, null, criterion1[6], null, null);
 
         modelAnd.commitAddressBook();
         modelOr.commitAddressBook();
@@ -493,14 +494,14 @@ public class FilterCommandTest {
                 FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, modelOr);
 
         // Filter Level 2: ALICE, BENSON will be remained
-        String[] criterion2 = {null, null, null, null, "C++", null, null, null, null};
+        String[] criterion2 = {null, null, null, null, "C++", null, null, null, null, null};
         commandAnd = new FilterCommand(criterion2, 2);
         commandOr = new FilterCommand(criterion2, 1);
 
         modelAnd.filterOr(null, null, null, null, skillArr,
-                null, null, null, null);
+                null, null, null, null, null);
         modelOr.filterAnd(null, null, null, null, skillArr,
-                null, null, null, null);
+                null, null, null, null, null);
 
         modelAnd.commitAddressBook();
         modelOr.commitAddressBook();
@@ -510,14 +511,14 @@ public class FilterCommandTest {
                 FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, modelOr);
 
         // Filter Level 3: ALICE will be remained
-        String[] criterion3 = {null, null, "alice", null, null, null, null, null, null};
+        String[] criterion3 = {null, null, "alice", null, null, null, null, null, null, null};
         commandAnd = new FilterCommand(criterion3, 2);
         commandOr = new FilterCommand(criterion3, 1);
 
         modelAnd.filterAnd(null, null, criterion3[2], null, null,
-                null, null, null, null);
+                null, null, null, null, null);
         modelOr.filterOr(null, null, criterion3[2], null, null,
-                null, null, null, null);
+                null, null, null, null, null);
 
         modelAnd.commitAddressBook();
         modelOr.commitAddressBook();
@@ -527,7 +528,7 @@ public class FilterCommandTest {
                 FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, modelOr);
 
         // Filter Reverse Level: All persons will be restored excluding ALICE
-        String[] criterionReverse = {null, null, null, null, null, null, null, null, null};
+        String[] criterionReverse = {null, null, null, null, null, null, null, null, null, null};
         FilterCommand command = new FilterCommand(criterionReverse, 3);
 
         modelAnd.reverseFilter();
@@ -548,18 +549,18 @@ public class FilterCommandTest {
 
     @Test
     public void execute_multipleConditionsAtOneFilter_success() {
-        String[] criterion = {"a", "5", "n", null, null, null, null, null, null};
+        String[] criterion = {"a", "5", "n", null, null, null, null, null, null, null};
         FilterCommand commandAnd = new FilterCommand(criterion, 2);
         FilterCommand commandOr = new FilterCommand(criterion, 1);
 
         modelAnd = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelAnd.filterAnd(criterion[0], criterion[1], criterion[2], null, null,
-                null, null, null, null);
+                null, null, null, null, null);
         assertEquals(Arrays.asList(CARL, DANIEL), modelAnd.getFilteredPersonList());
 
         modelOr = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelOr.filterOr(criterion[0], criterion[1], criterion[2], null, null,
-                null, null, null, null);
+                null, null, null, null, null);
         assertEquals(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE),
                 modelOr.getFilteredPersonList());
 
@@ -574,7 +575,7 @@ public class FilterCommandTest {
     @Test
     public void execute_allConditionsAtOneFilter_success() {
 
-        String[] criterion = {"a", "5", "n", "street", "C++", "Developer", "2.5", "nus", "2"};
+        String[] criterion = {"a", "5", "n", "street", "C++", "Developer", "2.5", "nus", "2", "2"};
         String[] skillArr = {"C++"};
         String[] posArr = {"Developer"};
 
@@ -583,7 +584,7 @@ public class FilterCommandTest {
 
         modelAnd = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelAnd.filterAnd(criterion[0], criterion[1], criterion[2], criterion[3], skillArr,
-                posArr, criterion[8], criterion[6], criterion[7]);
+                posArr, criterion[8], criterion[6], criterion[7], criterion[8]);
         assertEquals(Arrays.asList(DANIEL), modelAnd.getFilteredPersonList());
         modelAnd.commitAddressBook();
         assertCommandSuccess(commandAnd, model, commandHistory, FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, modelAnd);
@@ -593,7 +594,7 @@ public class FilterCommandTest {
 
         modelOr = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelOr.filterOr(criterion[0], criterion[1], criterion[2], criterion[3], skillArr,
-                posArr, criterion[8], criterion[6], criterion[7]);
+                posArr, criterion[8], criterion[6], criterion[7], criterion[8]);
         assertEquals(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE), modelOr.getFilteredPersonList());
         modelOr.commitAddressBook();
         assertCommandSuccess(commandOr, model, commandHistory, FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, modelOr);
@@ -601,7 +602,7 @@ public class FilterCommandTest {
 
     @Test
     public void execute_filterClearWhenNoFilterActive_failure() {
-        String[] criterion = {null, null, null, null, null, null, null, null, null};
+        String[] criterion = {null, null, null, null, null, null, null, null, null, null};
         FilterCommand command = new FilterCommand(criterion, 0);
 
         assertCommandFailure(command, model, commandHistory, FilterCommand.MESSAGE_NO_FILTER_TO_CLEAR);
@@ -609,7 +610,7 @@ public class FilterCommandTest {
 
     @Test
     public void execute_filterReverseWhenNoFilterActive_failure() {
-        String[] criterion = {null, null, null, null, null, null, null, null, null};
+        String[] criterion = {null, null, null, null, null, null, null, null, null, null};
         FilterCommand command = new FilterCommand(criterion, 3);
 
         assertCommandFailure(command, model, commandHistory, FilterCommand.MESSAGE_NO_FILTER_TO_REVERSE);

@@ -5,6 +5,7 @@ package seedu.address.logic.parser;
  */
 public class CliSyntax {
 
+
     /* Prefix definitions */
     public static final Prefix PREFIX_NAME = new Prefix("n/");
     public static final Prefix PREFIX_PHONE = new Prefix("p/");
@@ -14,6 +15,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_POS = new Prefix("position/");
     public static final Prefix PREFIX_GPA = new Prefix("g/");
     public static final Prefix PREFIX_EDUCATION = new Prefix("d/");
+    public static final Prefix PREFIX_DEGREE = new Prefix("deg/");
 
     /* Prefix for Filtering definitions */
     public static final Prefix PREFIX_FILTER_NAME = new Prefix("name<");
@@ -33,11 +35,14 @@ public class CliSyntax {
     public static final Prefix PREFIX_FILTER_ENDORSEMENT_REVERSE = new Prefix(">end");
     public static final Prefix PREFIX_FILTER_GPA = new Prefix("gpa<");
     public static final Prefix PREFIX_FILTER_GPA_REVERSE = new Prefix(">gpa");
+    public static final Prefix PREFIX_FILTER_DEGREE = new Prefix("deg<");
+    public static final Prefix PREFIX_FILTER_DEGREE_REVERSE = new Prefix(">deg");
     public static final Prefix PREFIX_FILTER_EDUCATION = new Prefix("edu<");
     public static final Prefix PREFIX_FILTER_EDUCATION_REVERSE = new Prefix(">edu");
 
 
     /* Sort-Word definitions*/
+    public static final SortWord SORTWORD_DEGREE = new SortWord("degree");
     public static final SortWord SORTWORD_EDUCATION = new SortWord("education");
     public static final SortWord SORTWORD_ENDORSEMENTS = new SortWord("endorsements");
     public static final SortWord SORTWORD_ENDORSEMENT_NUMBER = new SortWord("endorsement number");
@@ -45,6 +50,7 @@ public class CliSyntax {
     public static final SortWord SORTWORD_NAME = new SortWord("name");
     public static final SortWord SORTWORD_POSITION_NUMBER = new SortWord("position number");
     public static final SortWord SORTWORD_POSITIONS = new SortWord("positions");
+    public static final SortWord SORTWORD_REVERSE_DEGREE = new SortWord("reverse degree");
     public static final SortWord SORTWORD_REVERSE_EDUCATION = new SortWord("reverse education");
     public static final SortWord SORTWORD_REVERSE_ENDORSEMENTS = new SortWord("reverse endorsements");
     public static final SortWord SORTWORD_REVERSE_ENDORSEMENT_NUMBER = new SortWord("reverse endorsement number");

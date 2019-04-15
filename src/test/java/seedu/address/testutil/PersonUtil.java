@@ -1,11 +1,13 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEGREE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EDUCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GPA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_POS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILL;
 
 import java.util.Set;
@@ -37,10 +39,16 @@ public class PersonUtil {
         sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
         sb.append(PREFIX_EDUCATION + person.getEducation().toString() + " ");
         sb.append(PREFIX_GPA + person.getGpa().value + " ");
+        sb.append(PREFIX_DEGREE + person.getDegree().value + " ");
         sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
-        person.getTags().stream().forEach(
-            s -> sb.append(PREFIX_SKILL + s.tagName + " ")
-        );
+        for (SkillsTag tag : person.getTags()) {
+            if (tag.toString().charAt(1) == 's') {
+                sb.append(PREFIX_SKILL + tag.tagName + " ");
+            } else {
+                sb.append(PREFIX_POS + tag.tagName + " ");
+            }
+        }
+        // person.getTags().stream().forEach(s -> sb.append(PREFIX_SKILL + s.tagName + " "));
         return sb.toString();
     }
 
@@ -55,6 +63,7 @@ public class PersonUtil {
         descriptor.getEducation().ifPresent(education -> sb.append(PREFIX_EDUCATION)
                 .append(education.toString()).append(" "));
         descriptor.getGpa().ifPresent(gpa -> sb.append(PREFIX_GPA).append(gpa.value).append(" "));
+        descriptor.getDegree().ifPresent(degree -> sb.append(PREFIX_DEGREE).append(degree.value).append(" "));
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<SkillsTag> tags = descriptor.getTags().get();

@@ -86,7 +86,8 @@ public class EndorseCommand extends Command {
         }
 
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getEducation(), personToEdit.getGpa(), personToEdit.getAddress(), personTags);
+                personToEdit.getEducation(), personToEdit.getGpa(), personToEdit.getDegree(),
+                personToEdit.getAddress(), personTags);
 
 
         model.setPerson(personToEdit, editedPerson);

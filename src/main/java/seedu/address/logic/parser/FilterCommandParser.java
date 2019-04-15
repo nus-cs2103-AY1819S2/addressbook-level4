@@ -4,6 +4,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_ADDRESS_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_DEGREE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_DEGREE_REVERSE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_EDUCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_EDUCATION_REVERSE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_EMAIL;
@@ -39,8 +41,8 @@ public class FilterCommandParser implements Parser<FilterCommand> {
     public static final String MESSAGE_INPUT_NOT_IN_TRUE_FORM = "The filtering parameters entered "
             + "is not correct accepted form!";
 
-    public static final String EMAIL_VALIDATION_REGEX = "[\\p{ASCII}][\\p{ASCII} ]*";
-    private final int totalNumberOfInfo = 9;
+    private static final String EMAIL_VALIDATION_REGEX = "[\\p{ASCII}][\\p{ASCII} ]*";
+    private final int totalNumberOfInfo = 10;
     private boolean inputParameterInCorrectForm = true;
 
     /**
@@ -84,6 +86,29 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 
         return true;
     }
+
+    /**
+     * Checks if the input for degree is correct or not
+     */
+    private String degreeInputControl(String arg) {
+
+        String text = arg.trim().replace(" ", "").toLowerCase();
+
+        if ("0".equals(text) || "highschool".equals(text)) {
+            return "0";
+        } else if ("1".equals(text) || "associates".equals(text)) {
+            return "1";
+        } else if ("2".equals(text) || "bachelors".equals(text)) {
+            return "2";
+        } else if ("3".equals(text) || "masters".equals(text)) {
+            return "3";
+        } else if ("4".equals(text) || "phd".equals(text)) {
+            return "4";
+        }
+
+        return "false";
+    }
+
 
     /**
      * Checks if the input for any input that needs at least 1 ASCII character
@@ -244,6 +269,21 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             criterion[8] = null;
         }
 
+        if ((args.contains(PREFIX_FILTER_DEGREE.toString())
+                && !args.contains(PREFIX_FILTER_DEGREE_REVERSE.toString()))
+                || (!args.contains(PREFIX_FILTER_DEGREE.toString())
+                && args.contains(PREFIX_FILTER_DEGREE_REVERSE.toString()))) {
+            inputParameterInCorrectForm = false;
+        } else if (args.contains(PREFIX_FILTER_DEGREE.toString())
+                && args.contains(PREFIX_FILTER_DEGREE_REVERSE.toString())
+                && args.indexOf(PREFIX_FILTER_DEGREE.toString())
+                < args.indexOf(PREFIX_FILTER_DEGREE_REVERSE.toString())) {
+            criterion[9] = "available";
+            totalNumOfCriterion++;
+        } else {
+            criterion[9] = null;
+        }
+
         if (totalNumOfCriterion == 0 || !inputParameterInCorrectForm) {
             typeOfProcess.set(-1);
         } else {
@@ -343,6 +383,16 @@ public class FilterCommandParser implements Parser<FilterCommand> {
                     typeOfProcess.set(-1);
                 }
             }
+
+            if (criterion[9] != null) {
+                criterion[9] = infoBetweenPrefixes(args, PREFIX_FILTER_DEGREE.toString(),
+                        PREFIX_FILTER_DEGREE_REVERSE.toString(), typeOfProcess, false);
+                criterion[9] = degreeInputControl(criterion[9]);
+                if (criterion[9] == null || criterion[9].equals("false")) {
+                    inputParameterInCorrectForm = false;
+                    typeOfProcess.set(-1);
+                }
+            }
         }
 
         return criterion;
@@ -397,7 +447,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         AtomicInteger typeOfProcess = new AtomicInteger(-1);
         args = filterTypeDivider(args, typeOfProcess);
 
-        String[] criterion = {" ", " ", " ", " ", " ", " ", " ", " ", " "};
+        String[] criterion = {" ", " ", " ", " ", " ", " ", " ", " ", " ", " "};
 
         if (typeOfProcess.get() != 0 && typeOfProcess.get() != 3) {
             criterion = divideFilterCriterion(args, typeOfProcess);

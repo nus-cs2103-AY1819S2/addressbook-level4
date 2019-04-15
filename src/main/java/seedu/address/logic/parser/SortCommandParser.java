@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import static seedu.address.logic.parser.CliSyntax.SORTWORD_DEGREE;
 import static seedu.address.logic.parser.CliSyntax.SORTWORD_EDUCATION;
 import static seedu.address.logic.parser.CliSyntax.SORTWORD_ENDORSEMENTS;
 import static seedu.address.logic.parser.CliSyntax.SORTWORD_ENDORSEMENT_NUMBER;
@@ -9,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.SORTWORD_GPA;
 import static seedu.address.logic.parser.CliSyntax.SORTWORD_NAME;
 import static seedu.address.logic.parser.CliSyntax.SORTWORD_POSITIONS;
 import static seedu.address.logic.parser.CliSyntax.SORTWORD_POSITION_NUMBER;
+import static seedu.address.logic.parser.CliSyntax.SORTWORD_REVERSE_DEGREE;
 import static seedu.address.logic.parser.CliSyntax.SORTWORD_REVERSE_EDUCATION;
 import static seedu.address.logic.parser.CliSyntax.SORTWORD_REVERSE_ENDORSEMENTS;
 import static seedu.address.logic.parser.CliSyntax.SORTWORD_REVERSE_ENDORSEMENT_NUMBER;
@@ -41,7 +43,8 @@ public class SortCommandParser implements Parser<SortCommand> {
      */
     public SortCommand parse(String args) throws ParseException {
         String word = args.substring(1);
-        String[] possibleSortWords = {SORTWORD_EDUCATION.toString(), SORTWORD_REVERSE_EDUCATION.toString(),
+        String[] possibleSortWords = {SORTWORD_DEGREE.toString(), SORTWORD_REVERSE_DEGREE.toString(),
+                SORTWORD_EDUCATION.toString(), SORTWORD_REVERSE_EDUCATION.toString(),
                 SORTWORD_ENDORSEMENTS.toString(), SORTWORD_REVERSE_ENDORSEMENTS.toString(),
                 SORTWORD_ENDORSEMENT_NUMBER.toString(), SORTWORD_REVERSE_ENDORSEMENT_NUMBER.toString(),
                 SORTWORD_GPA.toString(), SORTWORD_REVERSE_GPA.toString(),

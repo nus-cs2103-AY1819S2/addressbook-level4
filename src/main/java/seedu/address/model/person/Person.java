@@ -2,10 +2,8 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -25,6 +23,7 @@ public class Person {
     // new identity fields
     private final Education education;
     private final Gpa gpa;
+    private final Degree degree;
 
     //private final Skills skills;
 
@@ -35,7 +34,7 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Education education, Gpa gpa, Address address,
+    public Person(Name name, Phone phone, Email email, Education education, Gpa gpa, Degree degree, Address address,
                   Set<SkillsTag> tags) {
 
         requireAllNonNull(name, phone, email, address, tags);
@@ -44,6 +43,7 @@ public class Person {
         this.email = email;
         this.education = education;
         this.gpa = gpa;
+        this.degree = degree;
         this.address = address;
         this.tags.addAll(tags);
     }
@@ -66,6 +66,28 @@ public class Person {
 
     public Gpa getGpa() {
         return gpa;
+    }
+
+    public Degree getDegree() {
+        return degree;
+    }
+
+    public int getDegreeAsInteger() {
+        String degreeLevel = degree.value.trim().toLowerCase().replace(" ", "");
+
+        if ("highschool".equals(degreeLevel)) {
+            return 0;
+        } else if ("associates".equals(degreeLevel)) {
+            return 1;
+        } else if ("bachelors".equals(degreeLevel)) {
+            return 2;
+        } else if ("masters".equals(degreeLevel)) {
+            return 3;
+        } else if ("phd".equals(degreeLevel)) {
+            return 4;
+        }
+
+        return -1;
     }
 
     public Address getAddress() {
@@ -202,7 +224,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, education, address, tags);
+        return Objects.hash(name, phone, email, education, gpa, degree, address, tags);
     }
 
     @Override
@@ -217,6 +239,8 @@ public class Person {
                 .append(getEducation())
                 .append(" Gpa: ")
                 .append(getGpa())
+                .append(" Degree: ")
+                .append(getDegree())
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Tags: ");
@@ -239,8 +263,8 @@ public class Person {
     }
 
     /**
-     *  returns the Person's first name as a string
-     */
+    * Returns just the first name of the Persons name as a string
+    */
     public String firstNameToString() {
         String fullName = nameToString();
         int firstSpace = fullName.indexOf(" ");
@@ -271,15 +295,16 @@ public class Person {
     }
 
     /**
-     *  returns the Person's positions as a string in lowercase
+     *  returns the Person's degree as a string in lowercase
      */
-    public List<String> getPositionString() {
-        Set<SkillsTag> individualTags = getTags();
-        List<String> positionTagStrings = new ArrayList<>();
-        Set<SkillsTag> positionTags = PersonUtil.getTagsOfType(individualTags, "p");
-        for (SkillsTag tag : positionTags) {
-            positionTagStrings.add(tag.toString());
-        }
-        return positionTagStrings;
+    public String degreeToString() {
+        return getDegree().toString().toLowerCase();
+    }
+
+    /**
+     *  returns the Person's degree value
+     */
+    public Integer degreeToValue() {
+        return PersonUtil.getEducationValue(degreeToString());
     }
 }

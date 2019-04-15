@@ -642,7 +642,7 @@ a member in the member list.
 
 When the `activityAddMember` command is executed from the UI, the inputs are parsed with the `ActivityAddMemberCommandParser` object which checks the validity of the MatricNumber.
 
-If the inputs are valid, the `ActivityAddMemberCommand` is returned from the Parser object and the execute function is called. The first check would be if the provided activity 
+If the inputs are valid, the `ActivityAddMemberCommand` is returned from the Parser object and the execute function is called. The first check would be if the provided activity
 index number is valid, relative to the currently displayed activity list. Then, the Command object will check whether the MatricNumber belongs to a member in the member list. Finally,
 it will check that the MatricNumber provided does not belong to a member already in the activity's attendance list.
 

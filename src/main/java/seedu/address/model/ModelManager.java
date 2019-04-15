@@ -194,6 +194,13 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean isEligibleModuleTaken(ModuleTaken moduleTaken) {
+        requireNonNull(moduleTaken);
+        ModuleInfo moduleInfo = moduleInfoList.getModule(moduleTaken.getModuleInfoCode().value);
+        return new EligibleModulePredicate(versionedGradTrak).test(moduleInfo);
+    }
+
+    @Override
     public void deleteModuleTaken(ModuleTaken target) {
         versionedGradTrak.removeModuleTaken(target);
     }

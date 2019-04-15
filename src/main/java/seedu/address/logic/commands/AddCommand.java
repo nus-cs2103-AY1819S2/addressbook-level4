@@ -11,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.EligibleModulePredicate;
 import seedu.address.model.Model;
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduletaken.ModuleTaken;
@@ -40,7 +41,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New moduleTaken added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This moduleTaken already exists in the address book";
-    public static final String MESSAGE_INVALID_MODULE = "Module code does not exist";
+    public static final String MESSAGE_PREREQ_MISSING = "Prerequisites not satisfied";
 
     private final ModuleTaken toAdd;
 
@@ -59,11 +60,15 @@ public class AddCommand extends Command {
         ModuleInfo moduleInfo = model.getModuleInfoList().getModule(toAdd.getModuleInfoCode().value);
 
         if (moduleInfo == null) {
-            throw new CommandException(MESSAGE_INVALID_MODULE);
+            throw new CommandException(Messages.MESSAGE_MODULE_DOES_NOT_EXIST);
         }
 
         if (model.hasModuleTaken(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
+
+        if (!model.isEligibleModuleTaken(toAdd)) {
+            throw new CommandException(MESSAGE_PREREQ_MISSING);
         }
 
         if (toAdd.getExpectedMinGrade().getGradePoint()
@@ -81,13 +86,6 @@ public class AddCommand extends Command {
         }
 
         toAdd.setWorkload(new Workload(moduleInfo.getModuleInfoWorkload()));
-
-        /*
-        else {
-            //TODO fix the tests
-            throw new CommandException(Messages.MESSAGE_MODULE_DOES_NOT_EXIST);
-        }
-        */
 
         model.addModuleTaken(toAdd);
         model.commitGradTrak();

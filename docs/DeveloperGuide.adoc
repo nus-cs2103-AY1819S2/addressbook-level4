@@ -539,7 +539,7 @@ public CommandResult execute(Mode mode, Model model, CommandHistory history) thr
         model.setTables(new ArrayList<>()); // <3>
 
         return new CommandResult(sbFinalOutput.toString());
-    }
+}
 ----
 In the method above, [.java]#Model#isRestaurantEmpty()# loops through all the tables in the [.java]#UniqueTableList# and checks if they are  occupied. Let's walk through this method to see how the main functionality of `clearTables` is implemented:
 
@@ -553,11 +553,65 @@ In the method above, [.java]#Model#isRestaurantEmpty()# loops through all the ta
 [[SpaceFor]]
 ==== Getting an available table for customers
 
+===== Current Implementation
+
 This command's interaction with the components is very similar to <<EditPax, editing pax at a table>>. The key difference is that it searches for the best fit table automatically instead of having the table specified by the user.
 
 This functionality uses the `spaceFor` command and is facilitated by the [.java]#Model#isOccupied(Table)# method. This method checks if the specified table has any customers seated at the table. The `spaceFor` command works like a request and takes in 1 argument specifying the number of customers to be seated in ROR.
 
 [.java]#SpaceForCommand#execute()# is then called which searches through the [.java]#UniqueTableList# for the best fit table. In this case, the best fit [.java]#Table# is the smallest available one that can accommodate the specified number of customers. If there is more than 1 [.java]#Table# that fits those criterions, the [.java]#Table# with the smallest [.java]#TableNumber# is chosen.
+
+[[source, java]]
+----
+public CommandResult execute(Mode mode, Model model, CommandHistory history) throws CommandException {
+        requireNonNull(model);
+        Table bestFitTable = null;
+        int smallestSize = Integer.MAX_VALUE;
+
+        for (Table table : model.getRestOrRant().getTables().getTableList()) {
+            int numberOfSeats = Integer.parseInt(table.getTableStatus().getNumberOfSeats());
+            if (!table.isOccupied() && numberOfSeats >= size && numberOfSeats < smallestSize) { // <1>
+                bestFitTable = table;
+                smallestSize = numberOfSeats;
+            }
+            if (smallestSize == size) { // <2>
+                break;
+            }
+        }
+
+        if (bestFitTable == null) { // <3>
+            throw new CommandException(String.format(MESSAGE_NO_AVAILABLE_TABLE, String.valueOf(size)));
+        }
+        model.setTable(bestFitTable, new Table(bestFitTable.getTableNumber(),
+                new TableStatus(String.valueOf(size) + "/" + bestFitTable.getTableStatus().getNumberOfSeats()))); // <4>
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, String.valueOf(size), bestFitTable.getTableNumber()));
+}
+----
+In the method above, we loop through the tables in the [.java]#UniqueTableList# while checking for the following:
+
+<1> It first checks if the table is occupied. If  the table is occupied, the if-statement is short circuited. If the table is not occupied, we check if the table is able to accommodate the specified number of customers.
+<2> This second if statement checks if we have already found the best fit table. If we have, we can break out of the for loop to make this operation more efficient.
+<3> The last if-statement checks if an available table can be found in the [.java]#UniqueTableList#. If the table is not found, an error message is thrown for the user.
+
+The [.java]#smallestSize# attribute is meant to facilitate the search for the best fit table.
+
+===== Design Considerations
+
+[width="90%",cols="20%,40%,40%",options="header",]
+|=======================================================================
+| Aspect | Alternative 1 | Alternative 2
+| Choosing the table to allocate to the customers.
+| Search for the best fit table (table with the least number of seats that can accommodate the customers) +
+- *Pros*: Allows the user to allocate tables in the restaurant more efficiently. +
+- *Cons*: May have efficiency issues when as it is more likely to go through the all the tables in the [.java]#UniqueTableList# to search for the table.
+
+We decided to choose this option because we realise getting the best fit table would be something that our users prefer as it allows them to run their business more efficiently.
+| Select the first table that is able to accommodate the specified customers. +
+- *Pros*: Potentially more efficient as it is less likely to have to go through the entire [.java]#UniqueTableList# +
+- *Cons*: Brings about inefficiencies in the users' front-end operations which is what our application is designed to improve. This makes them less likely to use the command.
+
+|=======================================================================
 
 // end::spacefor[]
 // end::tables[]
@@ -666,7 +720,7 @@ public void clearOrderItemsFrom(TableNumber tableNumber) {
             orderItems.remove(item);
         }
         indicateModified(); // <3>
-    }
+}
 ----
 
 In the method above, [.java]#orderItems# is a [.java]#UniqueOrderItemList# that contains all the order items from all the tables. Let's walk through this method to see how the main functionality of `clearOrder` is implemented:

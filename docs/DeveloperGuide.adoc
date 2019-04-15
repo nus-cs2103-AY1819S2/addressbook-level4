@@ -14,12 +14,33 @@ ifdef::env-github[]
 :experimental:
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S2-T12-4/main
-:mainWindowURL: {repoURL}/blob/master/src/main/java/seedu/address/ui/MainWindow.java
-:helpWindowTestURL: {repoURL}/blob/master/src/test/java/seedu/address/ui/HelpWindowTest.java
+:mainWindowURL: {repoURL}/blob/master/src/main/java/seedu/pdf/ui/MainWindow.java
+:helpWindowTestURL: {repoURL}/blob/master/src/test/java/seedu/pdf/ui/HelpWindowTest.java
 
 By: `Team T12-4`      Since: `Feb 2019`      Licence: `MIT`
 
+== Introduction
+
+=== Software Overview
+
+* PDF++ is a all-in-one document management tool that allows users to easily manage and manipulate their files. +
+_The current version of this application only deals with PDF files_.
+
+* There are many unique features to the application such as the ability to search within the content of files,
+merging several files togeter, setting of deadlines and many more. These features can be referred to within the
+<<implementation, Implementation>> Section of this document.
+
+=== Developer Guide Usage
+
+* This document is for developers who aim to further improve upon the application or change it to suit the needs of
+your target audience.
+* Each feature and design component has its own sub-heading and can be referred through the links in the table-of-contents. +
+They contain sufficient diagrams and detailed explanations that will be extremely useful to you.
+
 == Setting up
+
+This section will assist you in setting up the project for the first time in you computer. This will allow you to work
+on the application without any issue in the future.
 
 === Prerequisites
 
@@ -74,16 +95,6 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
 
-==== Updating documentation to match your fork
-
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
-
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
-
-. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
-
-. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
-
 ==== Setting up CI
 
 Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
@@ -106,6 +117,9 @@ When you are ready to start coding,
 2. Take a look at <<GetStartedProgramming>>.
 
 == Design
+
+This section allows you to visualise the application in a top-down view, where you are able to see the general
+structure of the different components within PDF++.
 
 [[Design-Architecture]]
 === Architecture
@@ -154,6 +168,7 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 
 .Component interactions for `delete 1` command
 
+.Delete Image
 image::SDforDeletePdf.png[width="800"]
 
 The sections below give more details of each component.
@@ -241,6 +256,7 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.pdfbook.commons` package.
 
+[#implementation]
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
@@ -321,24 +337,32 @@ workings of the Open feature.
 Step 1: The user launches an application with either an existing set of `Pdf` or a
 new sample set of `Pdf` stored within as shown below.
 
-.Step 1
-image::OpenFeatureStep1Default.png[width="600"]
-
 Step 2: The user chooses a `Pdf` that they wish to open, in this case `a.pdf`, and
 enters the `open` command into the CLI Interface, following the outlined Syntax as
 illustrated below.
 
-.Step 2
-image::OpenFeatureStep2UserInput.png[width="600"]
-
 Step 3: Upon hitting enter to execute the command, the *OpenCommandParser* parses
-the input into relevant objects that are required to be executed by the *OpenCommand*
-object. Upon parsing, the parser then creates a new *OpenCommand* that will execute the
-user's input.
+the input in the following method:
 
-Step 4: Upon receiving the necessary information from the parser, the *OpenCommand*
-retrieves the directory of the Pdf listed in the Pdf Book. It then launches the Pdf
-with the user-default Pdf reader.
+* Extract the `INDEX` that is input that was entered by the user.
+* Verify that it contains a valid integer.
+** This is done by initialising the `Index` objects that verifies the above properties on
+instantiation.
+** If the supplied parameter is invalid a `ParseException` is thrown and the `open` command is
+terminated.
+* Upon successfully parsing the input `Index`, a `OpenCommand` object is created with the relevant index
+and returned to the `LogicManager` for execution.
+
+Step 4: The `LogicManager` attempts to execute the `OpenCommand` by supplying it the `model` and `commandHistory`.
+
+Step 5: The `OpenCommand` checks that the supplied `Index` matches a `Pdf` in the model and sources for the
+default application within the `Operating System` to open the file.
+
+Step 6: Finally, the `OpenCommand` supplies the default application with the file-path of the `Pdf` to open
+and returns a successful `CommandResult` to the `LogicManager`.
+
+* Should there be any issue with the parsing of the `Pdf` due to invalid directories or a corrupted `Pdf` file,
+the `CommandException` will be thrown and the `OpenCommand` will be terminated. A "Fail Message" will then be displayed to the user.
 
 The implementation of the *OpenCommand* execution can be summarised in the following activity diagram:
 
@@ -346,7 +370,8 @@ The implementation of the *OpenCommand* execution can be summarised in the follo
 image::OpenCommandActivityDiagram.png[width="600"]
 
 [NOTE]
-For more information about the behavior of launching the Pdf, please refer to Java SE 9 class Desktop.
+For more information about the behaviour of sourcing for the default application to open the
+Pdf, please refer to Java SE 9 class link:https://docs.oracle.com/javase/9/docs/api/java/awt/Desktop.html[Desktop].
 
 // end::open[]
 
@@ -417,7 +442,7 @@ the user's input.
 Step 3: The `MoveCommand` is then executed. Successful execution of the command would return
 a *CommandResult* object, while unsuccessful execution due to validation failure will throw
 a *CommandException*.
-
+.Move Command Activity Diagram
 image::MoveCommandActivityDiagram.png[width="600"]
 
 // end::move[]
@@ -436,6 +461,7 @@ PDF to the application.
 
 The implementation of the *MergeCommand* execution can be summarised in the following activity diagram:
 
+.Merge Command Activity Diagram
 image::MergeCommandActivityDiagram.png[width="600"]
 
 . The provided indices are checked to be valid i.e. referring to a specific Pdf in the PdfBook.
@@ -497,6 +523,7 @@ based on the index provided.
 
 The implementation of the *DeleteCommand* execution can be summarised in the following activity diagram:
 
+.Delete Command Activity Diagram
 image::DeleteCommandActivityDiagram.png[width="600"]
 
 * _Soft_ delete is defined as removing a file from the application but not from the local filesystem;
@@ -537,7 +564,7 @@ object. Upon parsing, the parser then creates a new *DeleteCommand* that will ex
 user's input.
 
 Step 3: The *DeleteCommand* is then executed. Successful execution will return a
-*CommandResult* indicating that the deadline has been set.
+*CommandResult* indicating that the changes has been made.
 
 .Delete Command Activity Diagram
 image::DeleteCommandActivityDiagram.png[width="600"]
@@ -575,48 +602,64 @@ image::ClearCommandActivityDiagram.png[width="600"]
 // tag::deadline[]
 === Deadline feature
 ==== Current Implementation
-The `deadline` feature is facilitated by both *DeadlineCommand* and *DeadlineCommandParser*
+The `deadline` feature is facilitated by both *Deadline*, *DeadlineCommand* and *DeadlineCommandParser*
 This feature allows you to set or remove deadlines of the file specified by you from PDF++.
 The deadlines will be recorded and displayed both in the list of files as well as in the information panel
 for each individual file.
 
-The `deadline` feature has the following syntax:
+The implementation of the *Deadline* model can be represented in the following class diagram:
 
-[.big]#`deadline <INDEX> <ACTION>`#
+.Deadline Class Diagram
+image::DeadlineClassDiagram.png[width="200"]
 
-* `<INDEX>` refers to the index of the file in the list that you wish to perform the `action` on.
-* `<ACTION>` refers to the type of action that you wish to perform. There are 3 actions that you can perform
-** `date/<DATE>`
-*** `date/` refers to command immediately following after this prefix is a date
-*** `<DATE>` must be of `dd-mm-yyyy` format (E.g. 15-03-2019)
-** `done` assigns the file a *_DONE_* status
-** `remove` assigns the file a *_REMOVE_* status
+A *Deadline* model has a https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html[_Java.time.LocalDate_]
+`date` attribute and a `boolean isDone`. The `date` is the date for the deadline assigned to the file, the `isDone` attribute
+evaluates to `true` if the deadline is set to be done, `false` if it is not done.
 
-[NOTE]
-The index value can be referenced from the list in the main application, or from the
-result of the `Filter`, `Find` or `List` feature.
-
-==== Feature Breakdown
-Illustrated below is a sample usage scenario that provides a clear view to the inner
-workings of the `deadline` feature.
-
-Step 1: From the main interface, the user chooses a file that they wish to set a deadline,
-enters the `deadline` command into the CLI Interface, following the outlined Syntax mentioned.
-
-Step 2: Upon hitting enter to execute the command, the *DeadlineCommandParser* parses
-the input into relevant objects that are required to be executed by the *DeadlineCommand*
-object. Upon parsing, the parser then creates a new *DeadlineCommand* that will execute the
-user's input.
-
-Step 3: The *DeadlineCommand* is then executed. Successful execution will return a
-*CommandResult* indicating that the deadline has been set.
+The implementation of the *DeadlineCommand* execution can be summarised in the following activity diagram:
 
 .Deadline Command Activity Diagram
 image::DeadlineCommandActivityDiagram.png[width="600"]
 
+. The provided index is checked to be valid i.e. referring to a specific Pdf in the PdfBook.
+.. If the index is invalid, a *CommandException* will be thrown and the execution will be ended.
+. The required Pdf is retrieved from the PdfBook based on the index.
+. A duplicate Pdf of the required Pdf is created.
+. For cases of assigning a new deadline,
+.. The duplicate Pdf is assigned with new deadline attributes.
+. For cases of setting an existing deadline as done or removed,
+.. The existing deadline from the retrieved Pdf is tested to be a valid deadline.
+... If the existing deadline is a valid deadline, the duplicate Pdf is assigned with new deadline attributes.
+... If the existing deadline is not a valid deadline, a *CommandException* will be thrown and the execution will be ended.
+. The duplicate Pdf with new deadline attributes is recorded in the Model and the changes are committed.
+. *CommandResult* is returned upon successful execution.
+
+This sequence diagram demonstrates the interactions involved from start of *DeadlineCommandParser* to end of *DeadlineCommand* execution:
+
+.Interactions Inside the Logic Component for the `deadline 1 done` Command
+image::DeadlineCommandSequenceDiagram.png[width="600"]
+
 [TIP]
 After a deadline has been added to the PDF file specified, the date will be color coded according to days
 remaining from the current day until the deadline date.
+
+==== Considerations
+
+There are some discrepancy for the representation of a file without a deadline in the Jackson adapted storage and the Pdf book model.
+In the Pdf book model, files without a deadline will be assigned with the default deadline whereas the date is set to
+https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html[_LocalDate.MIN_].
+In the Jackson adapted storage, we simply set the deadline attribute of a file without a deadline as empty.
+In our previous implementation, we used to assign the default date LocalDate.MIN to the deadline attribute in the Jackson adapted Storage
+as well, however this might confuse the users if they read the _pdfplusplus.json_ and find out the non-existence deadline.
+Besides, this implementation also makes the displaying process of deadlines through the UI tedious.
+
+In order to comply with the two distinct representation of deadline model, we implemented a default deadline `toString` method that
+prints the Pdf book model version, and a modified `toJsonString` that prints the Jackson adapted storage version of deadline.
+
+==== Future Implementation
+
+Our current color coded deadlines is predefined based on the due date from the current date. Suggested improvement for this area
+would be providing user-defined color codes for a better user experience of our application.
 
 // end::deadline[]
 
@@ -685,11 +728,11 @@ This feature lists a subset of all the files in the application based on the key
 provided. Using the keyword(s), the application will check the names of all files, as
 well as the content of the text within the files prior to revealing the results.
 
-The `find` feature has to following syntax:
+The `find` feature has the following syntax:
 
 Format: [.big]#`find <KEYWORD> ...`#
 
-* `<KEYWORD>` refers to the word that the application will use as reference to find
+* `<KEYWORD>` refers to the word that the application will use as reference a to find
 files. There must be at least one provided.
 
 Example:
@@ -728,7 +771,7 @@ files that the user wishes to view.
 `PDFTextStripper` to extract the contents of the existing files.
 4. The extracted content is then checked to verify if it contains the `keyword` input by the user.
 5. Further checks are also done to confirm if each file's name contains the `keyword` as well.
-6. The `model` then updates itself and stores the current actiion in the `history`.
+6. The `model` then updates itself and stores the current actiion in the `history` object.
 7. Finally, the `FindCommand` returns a `CommandResult` back to the `LogicManager` for follow up
 action.
 
@@ -742,9 +785,9 @@ as malicious users might simply utilize the `FindCommand` to extract information
 
 ==== Future Implementation
 
-. A main issue with the current implementation of the `FindCommand` is it's slow speeds with respect to
+. The main issue with the current implementation of the `FindCommand` is its slow speeds with respect to
 large files or files that contain a large string of text files. Hence, a possible consideration you might
-wish to improve upon is to "upgrade" this feature by improving it's speed of this feature.
+wish to improve upon is to "upgrade" this feature by improving its speed of this feature.
 
 . Yet another enhancement to this feature you might wish to implement is the use of Optical Image Recognition,
 otherwise known as OCR. This will allow the application to translate images within the file to words which would further
@@ -952,6 +995,7 @@ The `encrypt` feature is facilitated by both *EncryptCommand* and *EncryptComman
 
 The implementation of the *EncryptCommand* execution is summarised in the following activity diagram:
 
+.Encrypt Command Activity Diagram
 image::EncryptCommandActivityDiagram.png[width="600"]
 
 . The provided index is checked for validity i.e. referring to a specific Pdf in PdfBook.
@@ -982,6 +1026,7 @@ are created. The password specified will be passed to `StandardProtectionPolicy`
 This sequence diagram demonstrates the <<main-success-scenario>> from the
 *LogicManager* to the end of *EncryptCommand* execution:
 
+.Encrypt Command Sequence Diagram
 image::EncryptCommandSequenceDiagram.png[width="800"]
 
 ===== Design Considerations
@@ -1028,6 +1073,7 @@ The `decrypt` feature is facilitated by both *DecryptCommand* and *DecryptComman
 
 The implementation of the `DecryptCommand` execution is summarised in the following activity diagram.
 
+.Decrypt Command Activity Diagram
 image::DecryptCommandActivityDiagram.png[width="600"]
 
 . The provided index is checked for validity i.e. referring to a specific Pdf in PdfBook.
@@ -1053,6 +1099,7 @@ Common reasons of error are:
 This sequence diagram demonstrates the <<main-success-scenario>> from the
 *LogicManager* to the end of *DecryptCommand* execution:
 
+.Decrypt Command Sequence Diagram
 image::DecryptCommandSequenceDiagram.png[width="800"]
 
 ===== Design Considerations
@@ -1439,10 +1486,12 @@ Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
 +
 **Before**
 +
+.UI Before Tag
 image::getting-started-ui-tag-before.png[width="300"]
 +
 **After**
 +
+.UI After Tag
 image::getting-started-ui-tag-after.png[width="300"]
 +
 ****
@@ -1460,10 +1509,12 @@ image::getting-started-ui-tag-after.png[width="300"]
 +
 **Before**
 +
+.Ui Before Result
 image::getting-started-ui-result-before.png[width="200"]
 +
 **After**
 +
+.UI After Result
 image::getting-started-ui-result-after.png[width="200"]
 +
 ****
@@ -1484,10 +1535,12 @@ image::getting-started-ui-result-after.png[width="200"]
 +
 **Before**
 +
+.UI Before Status
 image::getting-started-ui-status-before.png[width="500"]
 +
 **After**
 +
+.UI After Status
 image::getting-started-ui-status-after.png[width="500"]
 +
 ****
@@ -1699,31 +1752,52 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 [discrete]
 === Use case: Add new PDF file
+*System: PDF++*  +
+*Use case: Adding a Pdf to PDF++* +
+*Actor: Student* +
+*MSS* +
 
-*MSS*
+1.  User types `add f/FILEPATH` into the CLI Input.
+2.  User clicks enter.
+3.  PDF++ makes a record of the relevant attributes of the selected PDF.
 
-1.  User clicks on `Import PDF` button [top-left corner of the UI].
-2.  User navigates to directory of the PDF file to be added.
-3.  User clicks desired PDF file followed by `Add` button.
-4.  PDF++ makes a record of the relevant attributes of the selected PDF.
-+
 Use case ends.
+
+*Extensions* +
+3a. +
+  3a1. User loads an invalid file (not a pdf). +
+  3a2. PDF++ shows an error message to user. +
+  3a3. User repeats Step 1 and 2 to add a valid pdf into PDF++. +
+  Use Case resumes at step 3. +
 
 [discrete]
-=== Use case: Sort files within PDF++
+=== Use case: Find keyword in files within PDF++
+*System: PDF++*  +
+*Use case: Adding a Pdf to PDF++* +
+*Actor: Student* +
+*MSS* +
 
-*MSS*
-
-1.  User clicks on `Sort` dropdown box.
-2.  User clicks on sorting criteria based on dropdown box options.
-3.  User clicks on `Sort` button.
-4.  PDF++ sorts the list of files and displays sorted list to user.
+1.  Clicks on the CLI Input Area.
+2.  User types `find KEYWORD`.
+3.  User presses enter.
+4.  PDF++ Returns a list of files that contain the keyword in its names or content.
 +
 Use case ends.
+
+*Extensions* +
+3a. User input invalid data. +
+3a1. PDF++ throws an exception to alert the user. +
+3a2. User repeats Step 1 to 3 to search till a valid `KEYWORD` is entered. +
+
+3b. User inputs a `KEYWORD` that is not in any of the files. +
+3b1. PDF++ Returns an empty list. +
+Use Case ends.
+
 
 [discrete]
 === Use case: Delete pdf
 
+*System: PDF++*
 *MSS*
 
 1.  User requests to list pdfs

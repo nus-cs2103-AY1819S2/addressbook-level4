@@ -1,5 +1,7 @@
 package seedu.pdf.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Comparator;
 
 import seedu.pdf.logic.CommandHistory;
@@ -27,6 +29,8 @@ public class SortCommand extends Command {
     private final Comparator<Pdf> pdfComparator;
 
     public SortCommand(Comparator<Pdf> cm) {
+        requireNonNull(cm);
+
         this.pdfComparator = cm;
     }
 

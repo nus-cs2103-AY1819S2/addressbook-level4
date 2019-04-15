@@ -22,22 +22,29 @@ By: `W17-1`      Since: `Feb 2019`      Licence: `MIT`
 == Welcome to The Food Diary
 
 image::userguide.png[float=right, width="450"]
-If you would like to get use the Food Diary straightaway, jump to the <<Quick Start>> to get started
+If you would like to get use the Food Diary straightaway, jump to <<Quick Start>> to get started
+
 
 **What is the Food Diary? **
 
 The Food Diary (FD) is a desktop app for storing your personal food reviews and obtain food recommendations based on your past reviews.
 
+
 **Why use the Food Diary? **
 
-FD is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, FD can get your foodie tasks done faster than traditional GUI apps.
-Additionally, FD also stores your data locally, ensuring that your privacy is protected.
+The Food Diary is a one-stop application for you to document your food adventures and receive personalised recommendations for the next hidden gem to please your tastebuds.
 
-Some of the features that can look forward to:
+Despite being optimized for those who prefer to work with a Command Line Interface (CLI), the Food Diary also has the benefits of a Graphical User Interface (GUI).
+To all you fast-typers out there, FD can get your foodie tasks done faster than traditional GUI apps!
+Furthermore, FD also stores your data locally, ensuring that you get security on top of speed.
+
+Some of the features that you can look forward to:
 
 * Keeping track of restaurants you've visited.
 * Getting an aggregate rating over all your visits.
 * Finding out about new restaurants near you for your next gastronomical adventure!
+
+Read on to find out more about the other exciting features of FD!
 
 
 *Callout*
@@ -52,6 +59,7 @@ This is a *tip*. A tip indicates good to know information that would improve you
 [WARNING]
 This is a *warning*. A warning indicates critical information that would affect the functionality of this programme.
 // end::introductionUG[]
+
 
 == Quick Start
 
@@ -73,6 +81,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
 
+
 [[Features]]
 == Features
 
@@ -84,6 +93,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/RESTAURANT_NAME r/RATING`, `r/RATING n/RESTAURANT_NAME` is also acceptable.
 ====
+
 
 === Restaurant Features
 
@@ -117,6 +127,7 @@ _Image 1.1 When there is no internet connection, adding a restaurant with weblin
 ====
 
 
+
 ==== Editing details of a restaurant  : `edit`
 
 You can edit the details of a restaurant identified by the index number used in the list. +
@@ -137,7 +148,9 @@ Changes the name of the second restaurant in the list to `MACS`.
 When you are editing the Weblink of a restaurant, FoodDiary will check whether the Weblink is valid for you. You need to have internet connection else,
 the FoodDiary will not edit the Weblink for you.
 ====
+
 // end::addedit[]
+
 
 ==== Deleting a restaurant: `delete`
 
@@ -158,6 +171,7 @@ Deletes the first restaurant in the Food Diary.
 `delete 2` +
 Deletes the second restaurant in the filtered list with the cuisine `Western`.
 
+
 ==== Listing all restaurants : `list`
 
 Shows a list of all restaurants in the Food Diary. +
@@ -170,26 +184,27 @@ Returns a list of all the restaurants in the Food Diary.
 
 
 // tag::listUnvisitedUG[]
-==== Listing all restaurants that you haven't visited : `listUnvisited`
+==== Listing all restaurants that you have not visited : `listUnvisited`
 
-Shows a list of all restaurants that hasn't been reviewed by you, ranked based on the proximity to the postal code provided by you. +
+Shows a list of all restaurants that have not been reviewed by you, ranked based on the proximity to the postal code provided by you. +
 Format: `listUnvisited po/POSTAL_CODE`
 
 [NOTE]
 ====
-Calculation of proximity is based on postal code provided for the restaurant. If no postal code or an invalid postal code is provided for a restaurant, it will appear at the bottom of the list.
+Calculation of proximity is based on `Restaurant` 's postal code. If no postal code or an invalid postal code is provided for a restaurant, it will appear at the bottom of the list.
 ====
 
 Examples:
 
 * `listUnvisited po/267951` +
-Returns all the restaurants that has no reviews ranked based on the proximity to a postal code `267951`.
+Shows all the restaurants that has no reviews ranked based on the proximity to the postal code `267951`.
 
 [TIP]
 ====
 If you simply want to view unreviewed restaurants, enter `listUnvisited po/000000`
 ====
 // end::listUnvisitedUG[]
+
 
 // tag::sort[]
 ==== Sorting restaurants by rating: `sort`
@@ -234,6 +249,7 @@ those with positive ratings if in ascending order, and at the end of the list if
 ====
 // end::sort[]
 
+
 ==== Searching restaurants by name: `find`
 
 Find restaurants with names containing any of the given keywords. +
@@ -248,6 +264,7 @@ Examples:
 
 * `find KFC` +
 Returns any restaurant with name containing `KFC`.
+
 
 // tag::select[]
 ==== Selecting a restaurant : `select`
@@ -271,6 +288,7 @@ _Figure 1. Before selecting any restaurant_
 image::selectafter.png[width="600"]
 _Figure 2. After selecting restaurant with index 3, Chilis' summary, reviews and website are displayed in the second, third and fourth panels (from left to right) respectively_
 // end::select[]
+
 
 // tag::categorization[]
 ==== Setting the categories of a restaurant : `setCategories`
@@ -336,6 +354,7 @@ Sets the categories of the second restaurant in the list to `Premium Casual` for
 * `setCategories 3 c/Western` +
 Only sets the cuisine of the third restaurant to `Western`.
 
+
 ==== Filtering restaurants based on category: `filter`
 
 Filters and lists the restaurants with categories matching the keywords entered. +
@@ -365,6 +384,7 @@ Displays restaurants with any category matching `fine`, `dining` or `casual`.
 * `filter $ casual western`
 Displays restaurants with any category matching `$`, `casual` or `western`.
 // end::categorization[]
+
 
 // tag::visitweb[]
 ==== Display website of selected restaurant : `visitWeb`
@@ -415,8 +435,8 @@ _Image 1.1 Result of `visitWeb www.jollibee.com.ph`._
 
 [NOTE]
 You need to have internet connection to visit the website of the restaurant.
-
 // end::visitweb[]
+
 
 // tag::reviewcommands[]
 === Review Features
@@ -437,6 +457,7 @@ Examples:
 
 * `addReview 2 re/Peach Pie was amazing rr/4` +
 Adds a review to the second restaurant in the list.
+
 
 ==== Editing a specified review : `editReview`
 
@@ -469,6 +490,7 @@ Edits the comment of the second review to `Food isn't the best`
 * `editReview 2 re/Food isn't the best rr/4` +
 Edits the comment of the second review to `Food isn't the best` and the rating to be `4`.
 
+
 ==== Deleting a review : `deleteReview`
 
 Deletes the review from the Food Diary. +
@@ -483,6 +505,7 @@ Examples:
 
 * `deleteReview 2` +
 Deletes the 2nd review of the selected restaurant in the Food Diary.
+
 
 ==== Adding a default review : `addR`
 
@@ -506,6 +529,7 @@ Format: `addR INDEX NUMBER`
 Examples:
 
 * `addR 1 4` adds a review of rating 4 and entry "Good, would go again." to the first restaurant on the displayed list.
+
 
 ==== Edit default review entry (Coming in v2.0)
 
@@ -531,6 +555,7 @@ Examples:
 
 Format: `help`
 
+
 // tag::nameUG[]
 ==== Personalising your food diary with your name: `name`
 
@@ -539,18 +564,17 @@ Format: `name n/YOUR_NAME`
 
 Examples:
 
-* `name n/Jack The Sheep`
+* `name n/Jack Stone`
 
 
 ==== View your profile and usage statistics : `view`
 
-Set the cuisine of a restaurant identified by the index number used in the list. +
+View your individual Food Diary profile and usage statistics. +
 Format: `view`
 
 Examples:
 
-`view` +
-`View personalised statistics for John Doe. You have a total of 7 reviews and a total of 11 restaurants.`
+* `view` +
 
 * Example of profile statistics is shown below:
 
@@ -590,6 +614,7 @@ Examples:
 You will not be able to share the review to Facebook if you do not allow The Food Diary write permission to your Facebook account.
 ====
 // end::shareFB[]
+
 
 ==== Exiting the program : `exit`
 

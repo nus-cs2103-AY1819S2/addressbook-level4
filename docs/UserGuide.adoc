@@ -603,7 +603,7 @@ Entering the `[fuchsia]#summary#` command in the command box will allow you to s
 image::summaryUI.png[width ="800"]
 
 You can also specify a report period by stating the number of days or months via the `[fuchsia]#PERIOD_AMOUNT#` and `[fuchsia]#PERIOD#` parameters.
-`PERIOD_AMOUNT` refers to a positive integer, whereas `PERIOD` refers to a "day" or "month", represented as "d" and "m" respectively.
+`[fuchsia]#PERIOD_AMOUNT#` refers to a positive integer, whereas `[fuchsia]#PERIOD#` refers to a "day" or "month", represented as "d" and "m" respectively.
 However, these parameters are optional.
 
 To exit the summary view mode, simply type `[fuchsia]#summary#` in the command box again.

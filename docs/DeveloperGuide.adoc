@@ -318,7 +318,7 @@ Also, each `Cell` has a `Status` attribute which is an `enum` of the following:
 | Status | Description
 | HIDDEN | This cell has not been hit.
 | EMPTY | This cell is empty and has not been hit.
-| EMPTYHIT | This cell has been hit before, and is empty;
+| EMPTYHIT | This cell has been hit before, and is empty.
 | SHIP | This cell has a ship in it.
 | SHIPHIT | This cell has been hit before, and there is a damaged ship here.
 | DESTROYED | This cell has been hit before, and the ship here has been destroyed.

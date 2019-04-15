@@ -803,7 +803,7 @@ Visits website of `Restaurant` selected by user.
 Restaurants contains a `Weblink` field which encapsulates the Url of the restaurant website.
 
 [NOTE]
-When restaurant is added to Food Diary, the `Weblink` added with the restaurant is checked by `WebUtil` to ensure that the `Weblink` is a Url that belongs to a website that exists.
+When restaurant is added to Food Diary with the `Add` feature, the `Weblink` added with the restaurant is checked by `WebUtil` to ensure that the `Weblink` is a Url that belongs to a website that exists.
 If the protocol is absent, `WebUtil` will check if the `Weblink` uses HTTP or HTTPS protocol and append to it. This will be hidden from the user.
 If there is no internet connection, `WebUtil` is unable to validate `Weblink` and Food Diary will add the restaurant without the `Weblink`.
 
@@ -817,14 +817,13 @@ The following steps illustrates the sequence to `visitWeb INDEX` command with re
 2. Using `WebUtil` utility class in `Commons` component, check if there is internet connection so validate and display the website.
 3. If there is no internet connection, inform user.
 4. Validate `Weblink` by pinging its Url and checking the HTTP response code.
+5. Pass `Weblink` to `BrowserPanel` through `CommandResult` and invoke `WebView` engine to display website.
 
 [NOTE]
 HTTP response codes: +
 2XX SUCCESS - Weblink is valid +
 3XX REDIRECTED - Weblink redirects user to the correct Website and hence is valid +
 4XX, 5XX (Error) - Weblink is invalid
-
-5. Pass `Weblink` to `BrowserPanel` through `CommandResult` and invoke `WebView` engine to display website.
 
 The following sequence diagram shows how the visitWeb `index` works:
 

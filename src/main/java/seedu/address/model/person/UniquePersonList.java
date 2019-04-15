@@ -37,7 +37,8 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains a person with same identity field as {@code toCheck} but is
+     * not the {@code referencePerson}.
      */
     public boolean containsSamePerson(Person referencePerson, Person toCheck) {
         requireNonNull(referencePerson);
@@ -47,7 +48,7 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains a person with same identity field as {@code toCheck}.
      */
     public boolean containsSameIdentity(Person toCheck) {
         requireNonNull(toCheck);

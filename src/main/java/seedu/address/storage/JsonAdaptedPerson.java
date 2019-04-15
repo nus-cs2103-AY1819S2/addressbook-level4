@@ -74,13 +74,13 @@ class JsonAdaptedPerson {
         email = source.getEmail().value;
         remark = source.getRemark().value;
         if (source instanceof Buyer) {
-            customer = "buyer";
+            customer = Buyer.CUSTOMER_TYPE_BUYER;
             address = null;
             rentalPrice = null;
             sellingPrice = null;
         } else if (source instanceof Seller) {
             final Seller referenceSeller = (Seller) source;
-            customer = "seller";
+            customer = Seller.CUSTOMER_TYPE_SELLER;
             address = referenceSeller.getAddress().value;
             sellingPrice = referenceSeller.getSellingPrice().toString();
             tagged.addAll(referenceSeller.getTags().stream()
@@ -89,7 +89,7 @@ class JsonAdaptedPerson {
             rentalPrice = null;
         } else if (source instanceof Landlord) {
             final Landlord referenceLandlord = (Landlord) source;
-            customer = "landlord";
+            customer = Landlord.CUSTOMER_TYPE_LANDLORD;
             address = referenceLandlord.getAddress().value;
             rentalPrice = referenceLandlord.getRentalPrice().toString();
             tagged.addAll(referenceLandlord.getTags().stream()
@@ -97,7 +97,7 @@ class JsonAdaptedPerson {
                     .collect(Collectors.toList()));
             sellingPrice = null;
         } else if (source instanceof Tenant) {
-            customer = "tenant";
+            customer = Tenant.CUSTOMER_TYPE_TENANT;
             address = null;
             rentalPrice = null;
             sellingPrice = null;
@@ -153,9 +153,9 @@ class JsonAdaptedPerson {
         }
 
         switch (customer) {
-        case "buyer":
+        case Buyer.CUSTOMER_TYPE_BUYER:
             return new Buyer(modelName, modelPhone, modelEmail, modelRemark);
-        case "seller": {
+        case Seller.CUSTOMER_TYPE_SELLER: {
             if (address == null) {
                 throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                         Address.class.getSimpleName()));
@@ -179,7 +179,7 @@ class JsonAdaptedPerson {
             final Set<Tag> modelTags = new HashSet<>(personTags);
             return new Seller(modelName, modelPhone, modelEmail, modelRemark,
                     new Property(PropertyType.SELLING, modelAddress, modelSellingPrice, modelTags)); }
-        case "landlord": {
+        case Landlord.CUSTOMER_TYPE_LANDLORD: {
             if (address == null) {
                 throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                         Address.class.getSimpleName()));
@@ -204,7 +204,7 @@ class JsonAdaptedPerson {
             return new Landlord(modelName, modelPhone, modelEmail, modelRemark,
                     new Property(PropertyType.RENTAL, modelAddress, modelRentalPrice, modelTags));
         }
-        case "tenant":
+        case Tenant.CUSTOMER_TYPE_TENANT:
             return new Tenant(modelName, modelPhone, modelEmail, modelRemark);
         default:
             return new Person(modelName, modelPhone, modelEmail, modelRemark);

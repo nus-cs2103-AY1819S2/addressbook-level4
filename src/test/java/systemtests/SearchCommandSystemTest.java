@@ -148,7 +148,7 @@ public class SearchCommandSystemTest extends AddressBookSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: mixed case command word -> rejected */
-        command = "FiNd Meier";
+        command = "SeArCh Meier";
         assertCommandFailure(command, MESSAGE_UNKNOWN_COMMAND);
     }
 

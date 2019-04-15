@@ -22,7 +22,7 @@ public class ArchiveSearchCommandParserTest {
     }
 
     @Test
-    public void parse_validArgs_returnsArchiveFindCommand() {
+    public void parse_validArgs_returnsArchiveSearchCommand() {
         // no leading and trailing whitespaces
         ArchiveSearchCommand expectedArchiveSearchCommand =
                 new ArchiveSearchCommand(new PersonContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));

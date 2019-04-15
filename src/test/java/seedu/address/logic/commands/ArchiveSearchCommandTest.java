@@ -40,24 +40,24 @@ public class ArchiveSearchCommandTest {
         PersonContainsKeywordsPredicate secondPredicate =
                 new PersonContainsKeywordsPredicate(Collections.singletonList("second"));
 
-        ArchiveSearchCommand archiveFindFirstCommand = new ArchiveSearchCommand(firstPredicate);
-        ArchiveSearchCommand archiveFindSecondCommand = new ArchiveSearchCommand(secondPredicate);
+        ArchiveSearchCommand archiveSearchFirstCommand = new ArchiveSearchCommand(firstPredicate);
+        ArchiveSearchCommand archiveSearchSecondCommand = new ArchiveSearchCommand(secondPredicate);
 
         // same object -> returns true
-        assertTrue(archiveFindFirstCommand.equals(archiveFindFirstCommand));
+        assertTrue(archiveSearchFirstCommand.equals(archiveSearchFirstCommand));
 
         // same values -> returns true
-        ArchiveSearchCommand archiveFindFirstCommandCopy = new ArchiveSearchCommand(firstPredicate);
-        assertTrue(archiveFindFirstCommand.equals(archiveFindFirstCommandCopy));
+        ArchiveSearchCommand archiveSearchFirstCommandCopy = new ArchiveSearchCommand(firstPredicate);
+        assertTrue(archiveSearchFirstCommand.equals(archiveSearchFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(archiveFindFirstCommand.equals(1));
+        assertFalse(archiveSearchFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(archiveFindFirstCommand.equals(null));
+        assertFalse(archiveSearchFirstCommand.equals(null));
 
         // different person -> returns false
-        assertFalse(archiveFindFirstCommand.equals(archiveFindSecondCommand));
+        assertFalse(archiveSearchFirstCommand.equals(archiveSearchSecondCommand));
     }
 
     @Test

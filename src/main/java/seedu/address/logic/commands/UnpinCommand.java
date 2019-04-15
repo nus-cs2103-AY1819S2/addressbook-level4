@@ -64,4 +64,11 @@ public class UnpinCommand extends Command {
     public boolean requiresArchiveList() {
         return false;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof UnpinCommand // instanceof handles nulls
+                && targetIndex.equals(((UnpinCommand) other).targetIndex)); // state check
+    }
 }

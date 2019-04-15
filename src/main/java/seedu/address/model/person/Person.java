@@ -22,14 +22,6 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email) {
-        requireAllNonNull(name, phone, email);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.remark = new Remark("No Remark");
-    }
-
     public Person(Name name, Phone phone, Email email, Remark remark) {
         requireAllNonNull(name, phone, email, remark);
         this.name = name;

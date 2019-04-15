@@ -22,7 +22,7 @@ image::ditan96.png[width="150", align="left"]
 
 === GAN MING RUI JEFF
 image::jeffgan96.png[width="150", align="left"]
-{empty}[http://github.com/jeffgan96[github]] [<<jeffgan96#, portfolio>>]
+{empty}[http://github.com/jeffgan96[github]] [https://cs2103-ay1819s2-w10-2.github.io/main/team/jeffgan96.html[portfolio]]
 
 *Roles*: Code Quality
 
@@ -32,7 +32,7 @@ image::jeffgan96.png[width="150", align="left"]
 
 === LIN DEHUI
 image::dehui333.png[width="150", align="left"]
-{empty}[http://github.com/dehui333[github]] [<<dehui333#, portfolio>>]
+{empty}[http://github.com/dehui333[github]] [https://cs2103-ay1819s2-w10-2.github.io/main/team/dehui333.html[portfolio]]
 
 *Roles*: Scheduling and tracking
 
@@ -42,7 +42,7 @@ image::dehui333.png[width="150", align="left"]
 
 === MANICKAMALAR JOTHINANDAN PILLAY
 image::jothipillay.png[width="150", align="left"]
-{empty}[http://github.com/jothipillay[github]] [<<jothipillay#, portfolio>>]
+{empty}[http://github.com/jothipillay[github]] [https://cs2103-ay1819s2-w10-2.github.io/main/team/jothipillay.html[portfolio]]
 
 *Roles*: Documentation
 
@@ -52,7 +52,7 @@ image::jothipillay.png[width="150", align="left"]
 
 === SHUNE LEI YEE TUN
 image::shunnizuka.png[width="150", align="left"]
-{empty}[http://github.com/shunnizuka[github]] [<<shunnizuka#, portfolio>>]
+{empty}[http://github.com/shunnizuka[github]] [https://cs2103-ay1819s2-w10-2.github.io/main/team/shunnizuka.html[portfolio]]
 
 *Roles*: Deliverables and deadlines
 

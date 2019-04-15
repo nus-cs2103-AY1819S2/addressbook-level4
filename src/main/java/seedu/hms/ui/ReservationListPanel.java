@@ -33,10 +33,7 @@ public class ReservationListPanel extends UiPart<Region> {
 
     public ReservationListPanel(ObservableList<Reservation> reservationList,
                                 ObservableValue<Reservation> selectedReservation,
-                                Consumer<Reservation> onSelectedReservationChange,
-                                //ObservableValue<Customer> selectedCustomer,
-                                ObservableValue<RoomType> selectedRoomType,
-                                CommandBox.CommandExecutor commandExecutor) {
+                                Consumer<Reservation> onSelectedReservationChange) {
         super(FXML);
         reservationListView.setItems(reservationList);
         reservationListView.setCellFactory(listView -> new ReservationListViewCell());
@@ -61,6 +58,15 @@ public class ReservationListPanel extends UiPart<Region> {
                 reservationListView.getSelectionModel().clearAndSelect(index);
             }
         });
+    }
+
+    public ReservationListPanel(ObservableList<Reservation> reservationList,
+                                ObservableValue<Reservation> selectedReservation,
+                                Consumer<Reservation> onSelectedReservationChange,
+                                //ObservableValue<Customer> selectedCustomer,
+                                ObservableValue<RoomType> selectedRoomType,
+                                CommandBox.CommandExecutor commandExecutor) {
+        this(reservationList, selectedReservation, onSelectedReservationChange);
         //selectedCustomer.addListener((observable, oldValue, newValue) -> {
         //    logger.fine("Selected customer changed to: " + newValue);
 

@@ -710,11 +710,14 @@ which is invoked by the command `start game`.
 
 We can see these scenarios here:
 
+.Use Case Diagram for Enemy Deploying Ships
 image::EnemyDeployingUseCaseDiagram.png[width=600]
 
 The Enemy AI also supports the ability for the enemy to automatically and intelligently shoot
 the player's map when the player ends their turn, encapsulated by these scenarios:
 
+
+.Use Case Diagram for Enemy Shooting
 image::EnemyShootingUseCaseDiagram.png[width=600]
 
 Note that the Enemy AI feature does not contain any explicit commands to be
@@ -731,6 +734,7 @@ The Enemy AI has the method `populateMapGrid()` which is called by the method `p
 which is in turn called by the Battle Manager when the Player enters the command `start game`.
 
 
+.Sequence Diagram for prepEnemy()
 image::PrepEnemySequenceDiagram.png[width=800]
 
 It can be seen from the above sequence diagram that `populateMapGrid()` goes on to call the methods
@@ -750,10 +754,12 @@ enemy ships and put them on the enemy map grid.
 
 **Sequence Diagram for `placeAirCraftCarrier()`**
 
+.Sequence Diagram for placeAirCraftCarrier()
 image::PlaceAirCraftCarrierSequenceDiagram.png[width=800]
 
 **Sequence Diagram for `placeMultipleDestroyerAndCruiser()`**
 
+.Sequence Diagram for placeMultipleDestroyerAndCruiser()
 image::PlaceMultipleDestroyerAndCruiserSequenceDiagram.png[width=800]
 
 
@@ -776,6 +782,7 @@ increase its accuracy upon detecting a successful hit on any part of a ship.
 The following activity diagram illustrates the conditions taken into account by the Enemy AI as part of its shooting algorithm, and shows
 how it decides on which Coordinate to target, depending on the success of previous hits.
 
+.Activity Diagram of the Enemy Shooting Process
 image::EnemyShootingActivityDiagram.png[width=800]
 
 
@@ -787,11 +794,13 @@ consist of at least one of each White or Black coordinates.
 
 The Black-White groupings of Coordinates through the concept of parity is illustrated here in the following diagram:
 
+.Checkered Board illusrating concept of parity
 image::CheckeredBoard.png[width=650]
 
 Once the Enemy hits a Coordinate that has a ship on it, it will note down every valid Coordinate that is cardinal (to the North, South, East and West) to the
 cell that was discovered to hold a ship.
 
+.Examples of valid and invalid cardinal coordinates
 image::CardinalCoordinates.png[width=650]
 
 The validity of these cardinal Coordinates are evaluated by checking if they are within the bounds of the map grid, and
@@ -800,8 +809,6 @@ will from that point shoot everything in the `watchlist`, until the ship that it
 
 When the Enemy AI detects that it has successfully destroyed the Player ship, it will empty out the `watchlist`, and go back to scouting the
 map for another part of the Player ship, by randomly targeting coordinates in the Black cells, as illustrated in the previous image.
-
-image::CardinalCoordinates.png[width=650]
 
 The following code snippet gives a clearer view of how the algorithm flows for the enemy shooting strategy:
 [source,java]

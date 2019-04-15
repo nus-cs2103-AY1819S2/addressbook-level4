@@ -56,6 +56,7 @@ public class MovePeopleCommand extends Command {
     public static final String MESSAGE_NO_INDEX = "Please provide some indexes to move\n";
     public static final String MESSAGE_BAD_INDEX = "One of the indexes is bad\n";
     public static final String MESSAGE_JOB_NOT_FOUND = "Given job does not exist in database\n";
+    public static final String MESSAGE_IDENTICAL_LISTS = "Destination and source lists cannot be the same\n";
 
     private final JobListName to;
     private final JobListName from;
@@ -95,6 +96,10 @@ public class MovePeopleCommand extends Command {
             if (toAdd != null || from.equals(JobListName.STUB)) {
                 throw new CommandException(MESSAGE_DISPLAYING_JOB_ERROR);
             }
+        }
+
+        if (to == from) {
+            throw new CommandException(MESSAGE_IDENTICAL_LISTS);
         }
 
         tempJob = model.getActiveJob();

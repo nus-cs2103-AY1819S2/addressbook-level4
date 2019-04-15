@@ -230,7 +230,7 @@ Sorts persons by method described by the given keywords. +
 Format: `sort [reverse] KEYWORD`
 
 Accepted KEYWORDs:
-        `name`; `surname`; `education`; `gpa`; `skills`; `positions`; `endorsements`; `skill number`;  +
+        `name`; `surname`; `education`; `gpa`; `degree`; `skills`; `positions`; `endorsements`; `skill number`;  +
         `position number`;  `endorsement number`
 
 Examples:
@@ -242,6 +242,7 @@ Returns the persons, with new index numbers, in reverse alphabetical order of th
 skill is that which appears first when the person's skills have been ordered alphabetically.
 
 Methodology:
+
 .Individual Sort Command Methods
 |===
 |CLI Command |Sort Comparison |Sort Effect |Example
@@ -249,62 +250,67 @@ Methodology:
 |`sort name`
 |Christian name first, then the surname
 |Alphabetical
-|_ `Adam Smith` shall come before `Shaun Adams` and `Adam Blacksmith` shall come before `Adam Smith`._
+| __ `Adam Smith` shall come before `Shaun Adams` and `Adam Blacksmith` shall come before `Adam Smith`.__
 
 |`sort surname`
 |Surname
 |Alphabetical
-|_ `Ben Adams` shall come before `Adam Black`._
+| _ `Ben Adams` shall come before `Adam Black`._
 
 |`sort education`
 |Education name
 |Alphabetical, case-insensitive
-|_ `Charlotte Green (NTU)` shall come before `Adam Smith (NUS)`._
+| _ `Charlotte Green (NTU)` shall come before `Adam Smith (NUS)`._
 
 |`sort gpa`
 |GPA
 |Decreasing numeric value
-|_ `Adam Smith (3.1)` shall come before `Charlotte Green (3.9)`._
+| _ `Adam Smith (3.1)` shall come before `Charlotte Green (3.9)`._
+
+|`sort degree`
+|Degree name
+|Highest to lowest: PhD, Masters, Bachelors, Associates, High School
+| _ `Charlotte Green (Masters)` shall come before `Adam Smith (Bachelors)`._
 
 |`sort skills`
 |Arranges each person's skills alphabetically and then arranges the people based on their skills
 |Alphabetical, case-insensitive
-|_ `Peter Parker (Python, Debugging)` shall come before `Charlotte Oliveiro (Java)` since `Debugging` comes before `Java`._
+| _ `Peter Parker (Python, Debugging)` shall come before `Charlotte Oliveiro (Java)` since `Debugging` comes before `Java`._
 
 |`sort positions`
 |Arranges each person's positions alphabetically and then arranges the people based on their positions
 |Alphabetical, case-insensitive
-|_ `Charlotte Oliveiro (Project Consultant, Crime Analyst)` shall come before `Peter Parker (Databases)` since `Crime Analyst` comes before `Databases`._
+| _ `Charlotte Oliveiro (Project Consultant, Crime Analyst)` shall come before `Peter Parker (Databases)` since `Crime Analyst` comes before `Databases`._
 
 |`sort endorsements`
 |Arranges each person's endorsements alphabetically and then arranges the people based on their endorsements
 |Alphabetical, case-insensitive
-|_ `Irfan Ibrahim (Warren Buffett, Jeff Bezos)` shall come before `Alex Yeoh (Mark Cuban, Steve Jobs)` since `Jeff Bezos` comes before `Mark Cuban`._
+| _ `Irfan Ibrahim (Warren Buffett, Jeff Bezos)` shall come before `Alex Yeoh (Mark Cuban, Steve Jobs)` since `Jeff Bezos` comes before `Mark Cuban`._
 
 |`sort skill number`
 |Number of skills
 |Decreasing numeric value
-|_ `Peter Parker (Python, Debugging)` shall come before `Charlotte Oliveiro (Java)` since `Peter Parker` has two skills whereas `Charlotte Oliveiro` only has one._
+| _ `Peter Parker (Python, Debugging)` shall come before `Charlotte Oliveiro (Java)` since `Peter Parker` has two skills whereas `Charlotte Oliveiro` only has one._
 
 |`sort position number`
 |Number of positions
 |Decreasing numeric value
-|_ `Charlotte Oliveiro (Project Consultant, Crime Analyst)` shall come before `Peter Parker (Databases)` since `Charlotte Oliveiro` has had two positions whereas `Peter Parker` only has one._
+| _ `Charlotte Oliveiro (Project Consultant, Crime Analyst)` shall come before `Peter Parker (Databases)` since `Charlotte Oliveiro` has had two positions whereas `Peter Parker` only has one._
 
 |`sort endorsement number`
 |Number of endorsements
 |Decreasing numeric value
-|_ `Irfan Ibrahim (Warren Buffett, Jeff Bezos)` shall come before `Bruce Wayne (Thomas Wayne)` since `Irfan Ibrahim` has two endorsements whereas `Bruce Wayne` only has one._
+| _ `Irfan Ibrahim (Warren Buffett, Jeff Bezos)` shall come before `Bruce Wayne (Thomas Wayne)` since `Irfan Ibrahim` has two endorsements whereas `Bruce Wayne` only has one._
 
-|`sort reverse [KEYWORD]`
+|`sort reverse KEYWORD`
 |Reverses the ordering caused by the KEYWORD
 | -
-|_ `sort reverse gpa` will cause `Adam Smith (3.1)` to come after `Charlotte Green (3.9)`._
+| _ `sort reverse gpa` will cause `Adam Smith (3.1)` to come after `Charlotte Green (3.9)`._
 |===
 
-_Intelligent Sorting: _
-It is possible for persons to share the same information (_e.g. both have the same GPA_).
+Intelligent Sorting:
 
+It is possible for persons to share the same information (_e.g. both have the same GPA_).
 For this situation a subsequent sorting method to sort these persons is chosen based on what the user, wanting a certain initial sort method, is likely to be interested in.
 
 Since persons in the address book cannot have the same full name, this shall always differentiate persons and so is used as the final sorting method.

@@ -474,7 +474,7 @@ a| a| For example, Table 2 in ROR is initially occupied as shown below where the
 image::EditSeats_Before.png[]
 
 Suppose, the customers at this table inform you that 2 other friends are joining them and they would like to pull chairs over. +
-Now, you can simply execute the command `editSeats 2 4` and you will see the success message of the updated table in the results display as shown below.
+Now, you can simply execute the command `editSeats 2 4` and you will see the success message of the updated table in the results display as shown below. 
 
 image::EditSeats_RD.png[]
 Table 2 in the table panel will then display the updated table information as shown below.
@@ -534,17 +534,19 @@ ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
 You will see a success message in the Results Display and the chosen table will be updated with the specified number of customers.
 
-a| a| For example, in the sample layout we provided, the next available table that can fit 3 customers is table 25 since it is the smallest unoccupied table that can accommodate 3 customers with the smallest table number as shown below.
+a| a| For example, in the sample layout we provided, the next available table that can fit 3 customers is table 25 since it is the smallest unoccupied table that can accommodate 3 customers with the smallest table number as shown below. 
 
 image::SpaceFor_Before.png[]
 
-Suppose, 3 customers enter your restaurant and you want to quickly locate an available table for them, you can simply use the `spaceFor 3` command. A success message will be displayed if there is an available table for 3 as shown below.
+Suppose, 3 customers enter your restaurant and you want to quickly locate an available table for them, you can simply use the `spaceFor 3` command. A success message will be displayed if there is an available table for 3 as shown below. 
 
 image::SpaceFor_RD.png[]
 In the table panel, you will see that table 25 will have been updated to the correct table's occupancy and changed to a slightly darker colour to indicate that it is occupied.
 
 image::SpaceFor_After.png[]
 |===
+
+// end::restaurantmode[]
 
 [[Reserve]]
 ==== Making a reservation : `reserve` _(Coming in v2.0)_
@@ -564,10 +566,8 @@ ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
 You will see a success message in the Results Display.
 a| a| For example, after executing `reserve c/5 n/John Doe d/28 m/2 y/2019 t/1900`, the following confirmation message will appear:
-"Table 4 is available and has been reserved for John Doe at 1900H on 28/2/2019."
+"Table 4 is available and has been reserved for John Doe at 1900H on 28/2/2019." 
 |===
-
-// end::restaurantmode[]
 
 // tag::tablemode[]
 === Table Mode

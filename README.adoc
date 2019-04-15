@@ -1,6 +1,8 @@
 = RestOrRant
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
+:repoURL: https://github.com/cs2103-ay1819s2-w09-3/main
+
 https://travis-ci.org/cs2103-ay1819s2-w09-3/main[image:https://travis-ci.org/cs2103-ay1819s2-w09-3/main.svg?branch=master[Build Status]]
 https://ci.appveyor.com/project/whyjayxp/main[image:https://ci.appveyor.com/api/projects/status/055nwifdddjl5ii5?svg=true[Build status]]
 https://coveralls.io/github/cs2103-ay1819s2-w09-3/main?branch=master[image:https://coveralls.io/repos/github/cs2103-ay1819s2-w09-3/main/badge.svg?branch=master[Coverage Status]]
@@ -16,11 +18,11 @@ endif::[]
 == What Is This?
 
 RestOrRant is a simple restaurant management application intended to increase the efficiency of front-end operations in restaurants.
-Our application is specifically targeted at restaurants that are still using traditional methods like pen and paper to run their front-end operations.
+Our application is targeted at restaurants that are still using traditional methods, such as pen and paper, to run their front-end operations.
 This serves as a simple and affordable alternative for restaurants who do not require the comprehensive
 set of end-to-end features provided by other restaurant management systems in the market.
 
-This is a desktop application that has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+This is a desktop application that has a Graphical User Interface (GUI) but most of the user interactions happen using a Command Line Interface (CLI).
 Hence, our target users are restaurant managers, waiters and cashiers who can type fast and prefer typing over clicking on GUI.
 
 == What Can It Do?
@@ -46,4 +48,4 @@ It can...
 * The original source code of this application is from the AddressBook-Level4 project created by https://github.com/se-edu/[SE-EDU initiative].
 * Libraries used: https://github.com/TestFX/TestFX[TextFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
 
-== Licence : link:LICENSE[MIT]
+== Licence : link:{repoURL}/blob/master/LICENSE[MIT]

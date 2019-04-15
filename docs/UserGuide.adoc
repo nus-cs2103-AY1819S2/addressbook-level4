@@ -21,7 +21,7 @@ By: `Team W09-3`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-RestOrRant (ROR) is a desktop restaurant management application that allows *restaurant managers, waiters and cashiers* to perform *restaurant front-end operations* more efficiently. With ROR, you can easily manage table allocation, handle orders, track item availability and check restaurant statistics.
+RestOrRant is a desktop restaurant management application that allows *restaurant managers, waiters and cashiers* to perform *restaurant front-end operations* more efficiently. With RestOrRant, you can easily manage table allocation, handle orders, track menu item availability and check restaurant statistics.
 
 RestOrRant mainly uses a *Command Line Interface* (CLI) to perform operations, but it also boasts a Graphical User Interface (GUI) to provide you with visual information for ease of reference.
 
@@ -29,7 +29,7 @@ Interested? Head over to <<Quick Start>> to get started with RestOrRant!
 
 == Quick Start
 
-Welcome to RestOrRant! If you are just starting out, this quick start section will help you get RestOrRant up and running in no time at all. It will equip you with the basics so that you can quickly enjoy and master the features that ROR has to offer.
+Welcome to RestOrRant! If you are just starting out, this quick start section will help you get RestOrRant up and running in no time at all. It will equip you with the basics so that you can quickly enjoy and master the features that RestOrRant has to offer.
 
 === Using the User Guide
 
@@ -72,7 +72,7 @@ image::Ui.png[width="790"]
 === Understanding the Mode system
 
 RestOrRant operates in 4 different modes and you will start off in the default Restaurant Mode.
-Each mode is dedicated to a main feature that ROR provides and comes with its own colour, display and set of commands for that feature.
+Each mode is dedicated to a main feature that RestOrRant provides and comes with its own colour, display and set of commands for that feature.
 You may switch between the modes by using the <<Changing Modes, commands provided>>.
 
 The 4 modes are shown below and you may click on them to find out more information about each mode, along with the commands that are available for you in that mode.
@@ -93,7 +93,7 @@ Manages the items ordered and their serving status for a specific table
 |===
 a| image::MMUi_NoAnnotation.png[]
 <<Menu Mode, *Menu Mode*>> +
-Tracks the items on the restaurant's menu and their availability
+Tracks the items on the restaurant's menu and their availabilities
 
 a| image::SMUi_NoAnnotation.png[]
 <<Statistics Mode, *Statistics Mode*>> +
@@ -122,7 +122,7 @@ You can find out what is displayed in the side and main panels for each mode in 
 === Using commands
 
 You can use the commands described in <<Modes and Commands>> by typing them into the Command Box and pressing kbd:[Enter] to execute it.
-For example, typing *`help`* and pressing kbd:[Enter] will open the help window.
+For example, typing `help` and pressing kbd:[Enter] will open the help window.
 
 Shortcuts are also provided for some commands to allow you to type faster and perform operations more quickly.
 For example, you may type the shortcut `b` instead of the full `bill` command to return the bill.
@@ -147,14 +147,14 @@ Some of the parameters have restrictions and they are stated below.
 
 ****
 * `TABLE_NUMBER` has to be a whole number greater than 0.
-* `NUMBER_OF_SEATS` and `NUMBER_OF_CUSTOMERS` have to be
+* `NUMBER_OF_SEATS` and `NUMBER_OF_CUSTOMERS` have to be non-negative whole numbers.
 * `ITEM_CODE` has to be in the form of an uppercase alphabet followed by a double digit integer.
 * `QUANTITY` has to be a whole number between 0 and 2,000,000 inclusive.
 * `ITEM_NAME` has to be in alphanumeric format and may contain spaces, but should not be blank.
-* `ITEM_PRICE` has to be nonnegative and in the format *X.YY* where *X* is a whole number and each *Y* is a single digit from 0 to 9.
-* `YEAR` has to be a 4 digit whole number within 2000 and the current year.
-* `MONTH` has to be a whole number within 1 to 12.
-* `DAY` has to be a whole number within 1 to 31 provided it exists in the desired month and year.
+* `ITEM_PRICE` has to be non-negative and in the format *X.YY* where *X* is a whole number and each *Y* is a single digit from 0 to 9.
+* `YEAR` has to be a 4 digit whole number between 2000 and the current year inclusive.
+* `MONTH` has to be a whole number between 1 and 12 inclusive.
+* `DAY` has to be a whole number between 1 and 31 inclusive, provided it exists in the desired month and year.
 ****
 
 Some commands may make changes to the data in RestOrRant. There is no need to save manually as the data will be automatically saved in the hard disk.
@@ -164,23 +164,23 @@ Some commands may make changes to the data in RestOrRant. There is no need to sa
 RestOrRant comes preloaded with sample data to allow you to explore and get familiar with the application.
 The examples in this User Guide also make use of this data so that you can easily follow along.
 
-When you are ready to use RestOrRant in your restaurant, use the commands in the following steps to set up and personalise ROR for your own usage. You can find out more information about each command by clicking on them.
+When you are ready to use RestOrRant in your restaurant, use the commands in the following steps to set up and personalise RestOrRant for your own usage. You can find out more information about each command by clicking on them.
 
 . <<ClearRestOrRant, *`clearRestOrRant`*>>: Remove all the sample data so that you can fill it with your own restaurant's information.
-. <<AddTable, *`addTable`*>> (in Restaurant Mode): Populate the tables in ROR with your restaurant's seating information by specifying the number of seats for each table, in ascending order of table number.
+. <<AddTable, *`addTable`*>> (in Restaurant Mode): Populate the tables in RestOrRant with your restaurant's seating information by specifying the number of seats for each table, in ascending order of table number.
 * For example, if your restaurant has 3 tables, and Table 1 and 2 have 4 seats while Table 3 has 8 seats, you can type in `addTable 4 4 8`.
 [TIP]
 You can add all the tables with just a single command!
-. <<MenuMode, *`menuMode`*>>: Switch over to Menu Mode to fill up the menu in ROR with your restaurant's menu information.
+. <<MenuMode, *`menuMode`*>>: Switch over to Menu Mode to fill up the menu in RestOrRant with your restaurant's menu information.
 . <<AddToMenu, *`addToMenu`*>> (in Menu Mode): Add each item into the menu by specifying the item code, name and price.
-* For example, `addToMenu c/A05 n/Salad p/4.50` will add a new salad item to the menu in ROR.
+* For example, `addToMenu c/A05 n/Salad p/4.50` will add a new salad item to the menu in RestOrRant.
 
 That's it! Your RestOrRant is now ready for use. You may head on to <<Modes and Commands>> to learn more about the commands that are available for you.
 
 == Modes and Commands
 
 In this section, you can find details about the commands that RestOrRant supports. These details include the command function, format and example usage.
-The commands have been organised based on their function and the mode that they can be executed in so that you can easily look for the command that you want.
+The commands have been organised based on the mode that they can be executed in so that you can easily look for the command that you want.
 
 === General
 
@@ -282,7 +282,7 @@ You can use this command to switch over to Restaurant Mode to manage the occupan
 ****
 
 [NOTE]
-Restaurant Mode is the default application mode when first starting up RestOrRant.
+Restaurant Mode is the application's default mode when first starting up RestOrRant.
 
 [width="100%",cols="5%,95%", grid=none]
 |===
@@ -311,12 +311,12 @@ You can use this command in Table Mode if you are switching to a different table
 |===
 ifdef::env-github[| :white_check_mark: a| The user interface switches to <<Table Mode, Table Mode>>.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| The user interface switches to <<Table Mode, Table Mode>>.]
-The specified table number is also indicated in the Results Display and as part of the Current Mode in the status bar.
+The specified table number is also indicated in the Results Display and the Mode Display.
 
 a| a| For example, after executing `tableMode 5`, the Results Display shows the table number of the current table, as seen in the image below.
 
 image::TableMode_RD.png[]
-The table number will also be displayed in the Current Mode portion of the status bar until you change the mode, as shown below.
+The table number will also be displayed in the Mode Display until you change the mode, as shown below.
 
 image::TableMode_CM.png[]
 |===
@@ -353,7 +353,7 @@ The default Revenue Panel view is Daily when you first switch over to Statistics
 
 [width="100%",cols="5%,95%", grid=none]
 |===
-ifdef::env-github[a| :white_check_mark: a| The user interface switches to <<Statistics Mode, Statistics Mode>>.]
+ifdef::env-github[| :white_check_mark: a| The user interface switches to <<Statistics Mode, Statistics Mode>>.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| The user interface switches to <<Statistics Mode, Statistics Mode>>.]
 |===
 
@@ -365,8 +365,8 @@ In Restaurant Mode, which is the default mode, you can perform table-related ope
 image::RMUi.png[width="790"]
 The function of the order and table panels are as follows:
 
-* *Order Panel*: This panel shows you the list of items ordered by all tables in RstOrRant, arranged in chronological order. This means that items that were ordered first appears at the top of the list. It also indicates the quantity left to serve for each item, and the background turns dark when the item is fully served.
-* *Table  Panel*: This panel gives you an overview of all tables in ROR with their table numbers and respective occupancies.
+* *Order Panel*: This panel shows you the list of items ordered by all tables in RestOrRant, arranged in chronological order. This means that items that were ordered first appears at the top of the list. It also indicates the quantity left to serve for each item, and the background turns dark when the item is fully served.
+* *Table Panel*: This panel gives you an overview of all tables in RestOrRant with their table numbers and their respective occupancies.
 
 [NOTE]
 The light coloured tables represent unoccupied tables. +
@@ -378,7 +378,7 @@ Here are the commands that you can use in this mode to efficiently manage the ta
 [[AddTable]]
 ==== Adding tables : `addTable`
 
-As you set up ROR to reflect your physical restaurant or add tables in the event that there are new tables in your restaurant, this command allows you to add tables in ROR by specifying the number of seats at each table.
+As you set up RestOrRant to reflect your physical restaurant or add tables in the event that there are new tables in your restaurant, this command allows you to add tables in RestOrRant by specifying the number of seats at each table.
 
 [NOTE]
 The maximum number of tables that can be added is 400.
@@ -399,7 +399,7 @@ ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
 You will see a success message in the Results Display and the new tables will be displayed in the table panel.
 
-a| a| For example, ROR initially has 35 tables when you open it for the first time as shown in the image below.
+a| a| For example, RestOrRant initially has 35 tables when you open it for the first time as shown in the image below.
 
 image::AddTable_Before.png[]
 
@@ -417,17 +417,17 @@ a| a| Alternatively, you can add also add just one table at a time. For example,
 [[EditPax]]
 ==== Editing the occupancy : `editPax`
 
-During the operation of your restaurant, this command helps you to update the occupancies of the tables in ROR when customers enter your restaurant.
+During the operation of your restaurant, this command helps you to update the occupancies of the tables in RestOrRant when customers enter your restaurant.
 
 [IMPORTANT]
-Changing the table's occupancy to 0 will automatically clear all records of its orders which will not be included in ROR's statistics.
+Changing the table's occupancy to 0 will automatically clear all records of its orders which will not be included in RestOrRant's statistics.
 
 ****
 * *Format*: `editPax TABLE_NUMBER NUMBER_OF_CUSTOMERS`
 ****
 
 [NOTE]
-The specified table has to exist in ROR and your specified number of customers cannot be greater than the number of seats available at the table.
+The specified table has to exist in RestOrRant and your specified number of customers cannot be greater than the number of seats available at the table.
 
 [width="100%",cols="5%,95%", grid=none]
 |===
@@ -435,7 +435,7 @@ ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
 You will see a success message in the Results Display and the updated table will be displayed in the table panel.
 
-a| a| For example, Table 1 in ROR is initially unoccupied as shown below where the table's status is 0/2.
+a| a| For example, Table 1 in RestOrRant is initially unoccupied as shown below where the table's status is 0/2.
 
 image::EditPax_Before.png[]
 
@@ -451,7 +451,7 @@ image::EditPax_After.png[]
 [[EditSeats]]
 ==== Editing the available seats : `editSeats`
 
-In the event that there are changes to any table in your restaurant in terms of the number of seats at the table, this command can help you make sure ROR is updated to reflect your physical restaurant.
+In the event that there are changes to any table in your restaurant in terms of the number of seats at the table, this command can help you make sure RestOrRant is updated to reflect your physical restaurant.
 
 [TIP]
 You can use this command to change the number of seats at a table to 0 to represent an unusable table. This would be useful if a table is broken or you decide to remove a table without re-numbering all the other tables.
@@ -461,7 +461,7 @@ You can use this command to change the number of seats at a table to 0 to repres
 ****
 
 [NOTE]
-The specified table has to exist in ROR and the specified number of seats has to be more than the number of customers already seated at the table.
+The specified table has to exist in RestOrRant and the specified number of seats has to be more than the number of customers already seated at the table.
 
 [width="100%",cols="5%,95%", grid=none]
 |===
@@ -469,7 +469,7 @@ ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
 You will see a success message in the Results Display and the updated table will be displayed in the table panel.
 
-a| a| For example, Table 2 in ROR is initially occupied as shown below where the table's status is 2/2.
+a| a| For example, Table 2 in RestOrRant is initially occupied as shown below where the table's status is 2/2.
 
 image::EditSeats_Before.png[]
 
@@ -485,7 +485,7 @@ image::EditSeats_After.png[]
 [[ClearTables]]
 ==== Clearing all the tables : `clearTables`
 
-In the event that you have undergone massive changes in the restaurant, you can use this command to remove all tables in ROR.
+In the event that you have undergone massive changes in the restaurant, you can use this command to remove all tables in RestOrRant.
 
 [NOTE]
 This command checks if the restaurant is completely unoccupied before clearing the tables so you don't have to worry about any accidents.
@@ -507,7 +507,7 @@ ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
 You will see a success message in the Results Display and all tables will be removed from the table panel.
 
-a| a| For example, when all the customers have left the restaurant, all the tables in ROR will be unoccupied as shown below.
+a| a| For example, when all the customers have left the restaurant, all the tables in RestOrRant will be unoccupied as shown below.
 
 image::ClearTables_Before.png[]
 
@@ -556,7 +556,7 @@ Another key features that many restaurants have is the ability to make reservati
 ****
 
 [NOTE]
-ROR will check for other reservations and availabilities of tables before allowing the user to make a reservation.
+RestOrRant will check for other reservations and availabilities of tables before allowing the user to make a reservation.
 
 [width="100%",cols="5%,95%", grid=none]
 |===

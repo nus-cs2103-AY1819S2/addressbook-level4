@@ -237,12 +237,13 @@ Format: `add-d n/NAME g/GENDER y/YEAR_OF_EXPERIENCE p/PHONE_NUMBER s/SPECIALISAT
 
 ****
 * A doctor must have at least 1 specialisation.
+* Year of specialisation should be within 0 to 100.
 ****
 
 Examples:
 
 * `add-d n/John Doe g/M y/5 p/98765432 s/acupuncture s/general`
-* `add-d n/Betsy Crowe g/f p/1234567 y/22 s/general`
+* `add-d n/Betsy Crowe g/f p/81234567 y/22 s/surgery`
 
 === Listing all doctors : `list-d`
 

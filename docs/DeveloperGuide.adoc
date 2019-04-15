@@ -484,20 +484,20 @@ The testing methods for filtering is written for 3 different parts:
 
 ===== FilterCommandParserTests
 
-This test class is prepared for unit testing of FilterCommandParser cass. With the tests:
-* The validity of inputs with single and multiple field are present are checked.
-* The given order of inputs are checked in case of any possibility for an error.
-* Empty command or `filter` command without any type specification are checked.
-* The exceptions thrown are controlled, when the criterion are empty.
-* For `number` type of criterion, the negative and positive out of bound values, entering string values and entering valid values are checked.
-* For `String` type of criterion, the type of characters allowed are checked.
+* This test class is prepared for unit testing of FilterCommandParser cass. With the tests:
+** The validity of inputs with single and multiple field are present are checked.
+** The given order of inputs are checked in case of any possibility for an error.
+** Empty command or `filter` command without any type specification are checked.
+** The exceptions thrown are controlled, when the criterion are empty.
+** For `number` type of criterion, the negative and positive out of bound values, entering string values and entering valid values are checked.
+** For `String` type of criterion, the type of characters allowed are checked.
 
 ===== FilterCommandTests
 
-This test class is prepared for unit testing of Filtering Command. With these tests Filtering process are checked:
-* when a single or multiple criterion are given,
-* when filtering occurs multiple times,
-* when type is `clear` or `reverse` and there are no/one/multiple filters are applied before.
+* This test class is prepared for unit testing of Filtering Command. With these tests Filtering process are checked:
+** when a single or multiple criterion are given,
+** when filtering occurs multiple times,
+** when type is `clear` or `reverse` and there are no/one/multiple filters are applied before.
 
 ===== FilterCommandIntegrationTests
 

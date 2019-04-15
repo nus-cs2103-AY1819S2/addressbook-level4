@@ -74,6 +74,7 @@ public class AnswerCommandTest {
         expectedModel.setCardAsAnswered();
         Card scoredCard = expectedModel.createScoredCard(testedCard, true);
         expectedModel.setCard(testedCard, scoredCard);
+        expectedModel.commitActiveCardFolder();
 
         assertCommandSuccess(answerCommand, model, commandHistory, expectedCommandResult, expectedModel);
     }
@@ -99,6 +100,7 @@ public class AnswerCommandTest {
         expectedModel.setCardAsAnswered();
         Card scoredCard = expectedModel.createScoredCard(testedCard, true);
         expectedModel.setCard(testedCard, scoredCard);
+        expectedModel.commitActiveCardFolder();
 
         assertCommandSuccess(answerCommand, model, commandHistory, expectedCommandResult, expectedModel);
     }
@@ -116,6 +118,7 @@ public class AnswerCommandTest {
         expectedModel.setCardAsAnswered();
         Card scoredCard = expectedModel.createScoredCard(testedCard, false);
         expectedModel.setCard(testedCard, scoredCard);
+        expectedModel.commitActiveCardFolder();
 
         assertCommandSuccess(answerCommand, model, commandHistory, expectedCommandResult, expectedModel);
     }

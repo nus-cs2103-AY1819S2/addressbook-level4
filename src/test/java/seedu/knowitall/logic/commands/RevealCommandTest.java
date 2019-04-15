@@ -38,6 +38,7 @@ public class RevealCommandTest {
         expectedModel.setCardAsAnswered();
         Card scoredCard = expectedModel.createScoredCard(testedCard, false);
         expectedModel.setCard(testedCard, scoredCard);
+        expectedModel.commitActiveCardFolder();
 
         assertCommandSuccess(revealCommand, model, commandHistory, expectedCommandResult, expectedModel);
     }

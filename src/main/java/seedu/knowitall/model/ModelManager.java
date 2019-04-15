@@ -409,7 +409,7 @@ public class ModelManager implements Model {
             getActiveVersionedCardFolder()
                     .addFolderScore((double) numAnsweredCorrectly / numAnsweredTotal);
         }
-        getActiveVersionedCardFolder().commit();
+        getActiveVersionedCardFolder().resetStates();
         state = State.IN_FOLDER;
         setCardAsNotAnswered();
         numAnsweredCorrectly = 0;

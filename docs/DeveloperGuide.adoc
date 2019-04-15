@@ -2,8 +2,10 @@
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
+:toclevels: 4
 :toc-placement: preamble
 :sectnums:
+:sectnumlevels: 4
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -148,7 +150,7 @@ image::LogicClassDiagram.png[width="800"]
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `attack a1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `attack a1` command
 image::HighLevelAttackDiagram.png[width="800"]
 
 The sections below give more details of each component.
@@ -237,6 +239,8 @@ image::BattleClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/logic/battle/Battle.java[`Battle.java`]
 
+// end::battle[]
+
 The `Battle` component:
 
 * keeps track of the progress of the battle,
@@ -247,7 +251,6 @@ As the battle involves many different components (map, player, etc.),
 this component cannot be reduced to just one interface class of `Battle`.
 
 
-// end::battle[]
 
 [[Design-Commons]]
 === Common classes
@@ -525,7 +528,7 @@ An `ArrayList` of `FleetEntry` objects is used for storage, where `FleetEntry` c
 
 // end::ship_aspect_2[]
 
-// tag::battle[]
+// tag::battle_aspect_1[]
 === Battle feature
 The Battle feature handles the following:
 
@@ -537,10 +540,10 @@ The Battle feature handles the following:
 The Battle feature is split between several packages:
 
   * `seedu.address.battle`: the main `Battle` class is implemented here.
-  * `seedu.address.battle.state`: the battle state classes are implemented here, and
+  * `seedu.address.battle.state`: the `BattleState` class is implemented here, and
     can be stored and retrieved via `Model`.
   * `seedu.address.battle.result`: the attack result classes are implemented here.
-    These classes are returned by `Battle#humanPerformAttack(coordinates)` and
+    These classes are returned by `Battle#humanPerformAttack(Coordinates)` and
     `Battle#takeComputerTurn()`.
   * `BeginCommand` and `AttackCommand` handle the player's interaction
     with this component.
@@ -570,13 +573,13 @@ to `PLAYER_ATTACK`.
 
 
 ==== Implementation of the `BattleManager` class
-
+// end::battle_aspect_1[]
 The `BattleManager` class contains four important methods, detailed as follows.
 
 ===== `void startGame()`
 
 .Sequence diagram of the `startGame` method
-image::StartGameSequenceDiagram.png[width=800]
+image::StartGameSequenceDiagram.png[width=600]
 
 `startGame` is called when the player begins the battle (via `BeginCommand`,
 see next section for more details).
@@ -601,7 +604,7 @@ This method is an internal method, used by both `humanPerformAttack` and
 ===== `AttackResult humanPerformAttack(Coordinates)`
 
 .Sequence diagram of the `humanPerformAttack` method
-image::HumanPerformAttackSequenceDiagram.png[width=800]
+image::HumanPerformAttackSequenceDiagram.png[width=300]
 
 `humanPerformAttack` is called when the player makes an attack (via
 `AttackCommand`, see below.)
@@ -610,6 +613,7 @@ This method simply calls `performAttack` with the human player as the
 attacker, the computer player as the target and the argument coordinate
 as the attacked coordinate.
 
+// tag::battle_aspect_2[]
 ===== `List<AttackResult> takeComputerTurn()`
 
 .Sequence diagram of the `takeComputerTurn` method
@@ -675,8 +679,8 @@ image::BeginSequenceDiagram.png[width=800]
 image::AttackSequenceDiagram.png[width=800]
 
 ==== Design considerations
-* **Alternative 1 (current choice):** +
-  `BattleManager` is stored under `Model`. Every time `Attack`, `EndTurn` or `Begin` commands
+* **Current choice:** +
+  `BattleManager` is stored under `Model`. Every time `Attack` or `Begin` commands
   are executed, they will use this `BattleManager` to actually perform the actions,
   with the logic in the `Command`-s mostly being error handling. +
   When AI performs attacks, the `BattleManager` will call the AI to compute its attack
@@ -689,8 +693,8 @@ image::AttackSequenceDiagram.png[width=800]
     which call the lowest level classes `Map` and `Player`)
 ** Cons:
 *** The `Model` component now contains game logic (`BattleManager`) within it.
-* **Alternative 2:** +
-  `BattleManager` is stored under `Logic`. Every time `Attack`, `EndTurn` or `Begin` commands
+* **Alternative** +
+  `BattleManager` is stored under `Logic`. Every time `Attack` or `Begin` commands
   are executed, they will perform the action using the logic coded within themselves, not
   interfacing with `BattleManager`. +
   When AI performs attacks, the `BattleManager` will create these commands and execute them.
@@ -707,7 +711,7 @@ In the end, we decided to implement Option 1. Even though some team members pref
 we decided that `Logic` and `Model` not being kept separate was a worthy tradeoff
 for the advantages of Option 1.
 
-// end::battle[]
+// end::battle_aspect_2[]
 
 === Enemy AI feature
 
@@ -1148,14 +1152,14 @@ See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build auto
 
 We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
 
-=== Coverage reporting
+=== Coverage reports
 
 We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
 
 === Documentation previews
 When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
 
-=== Making a release
+=== Release
 
 Here are the steps to create a new release.
 
@@ -1164,7 +1168,7 @@ Here are the steps to create a new release.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
-=== Managing dependencies
+=== Dependency management
 
 A project often depends on third-party libraries. For example, Address Book depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
 
@@ -1217,9 +1221,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` | player | see how many enemy ships I have destroyed | know how many more enemy ships to find
 
-|`* *` | player | see game statistics | know how i am performing in the game
+|`* *` | player | see game statistics | know how I am performing in the game
 
-|`* *` | player | compare scores with previous games | know if i am getting better at winning the game
+|`* *` | player | compare scores with previous games | know if I am getting better at winning the game
 
 |=======================================================================
 
@@ -1272,7 +1276,7 @@ Use case ends.
 *MSS*
 
 1. User requests to list ships deployed on map.
-2. Shows all of the user's ships deployed on map.
+2. Game shows all of the user's ships deployed on map.
 +
 Use case ends.
 
@@ -1286,7 +1290,7 @@ Use case ends.
 *MSS*
 
 1. User requests to list tags of ships that have already been deployed on map.
-2. Shows all of the tags of ships that have already been deployed on map.
+2. Game shows all of the tags of ships that have already been deployed on map.
 +
 Use case ends.
 
@@ -1295,7 +1299,7 @@ Use case ends.
 *MSS*
 
 1. User requests to list ships deployed on map that have certain tags.
-2. Shows all of the user's ships deployed on map that have certain tags.
+2. Game shows all of the user's ships deployed on map that have certain tags.
 +
 Use case ends.
 
@@ -1303,6 +1307,57 @@ Use case ends.
 
 [none]
 * 2a. If there are no ships deployed, inform the user.
+
+// tag::beginusecase[]
+
+=== Begin the battle
+
+*MSS*
+
+1. User requests to begin the battle.
+2. Game instructs the enemy to place their ships.
+3. Game displays that the battle has begun.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The user has not placed any ships.
+[none]
+** 2a1. The game prevents the user from starting the battle, and
+        informs them to place at least one ship.
+
+// end::beginusecase[]
+
+// begin::attackusecase[]
+
+=== Attack the enemy
+
+*MSS*
+
+1. User requests to attack a specific cell.
+2. Game performs an attack on the specified cell on the enemy map.
+3. Game displays the result of the user's attacks, and the enemy's attack(s) if any.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The user has already attacked the cell before.
++
+[none]
+** 2a1. The game prevents the user from attacking the cell and prompts them for another.
+[none]
+* 2b. The user attacks a cell that is invalid, or a cell that is not on the map.
++
+[none]
+** 2b1. The game prevents the user from attacking the cell and prompts them for another.
+[none]
+
+// end::attackusecase[]
+
 //tag::StatsUseCase[]
 === See game statistics
 *MSS*
@@ -1337,15 +1392,6 @@ Use case ends.
 ** 2a1. A single statement indicating no statistical data yet is displayed in the command box.
 
 //end::StatsUseCase[]
-=== End player turn
-
-*MSS*
-
-1. User requests for enemy to start turn.
-2. User's turn is automatically ended.
-3. Enemy player turn starts.
-+
-Use case ends.
 
 === Play enemy turn
 
@@ -1429,9 +1475,9 @@ These instructions only provide a starting point for testers to work on; testers
 
 // end::shiptest[]
 
-// tag::battletest[]
+// tag::starttest[]
 
-=== Battling
+=== Starting the battle
 
 . To test `begin`, we will test that it is only able to be executed at certain times.
   Please follow the following steps in order.
@@ -1444,6 +1490,10 @@ These instructions only provide a starting point for testers to work on; testers
    Expected result: the battle successfully begins and a message stating as such is displayed.
 .. Execute `begin` again.
    Expected result: an error message is displayed in the result box.
+
+// end::starttest[]
+
+// tag::battletest[]
 
 === Attacking
 
@@ -1471,7 +1521,7 @@ These instructions only provide a starting point for testers to work on; testers
    a "destroy" message is displayed.
 .. Destroy all the enemy's ships. +
    Expected result: a "win" message is displayed.
-.. Have all your ships be destroyed by the enemy. +
+.. Start another battle, then have all your ships be destroyed by the enemy. +
    Expected result: a "lose" message is displayed.
 
 // end::battletest[]

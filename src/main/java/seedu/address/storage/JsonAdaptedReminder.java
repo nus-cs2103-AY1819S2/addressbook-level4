@@ -46,10 +46,8 @@ public class JsonAdaptedReminder {
                             @JsonProperty("photoE") String endTimeE,
                             @JsonProperty("taggedE") String labelE,
                             @JsonProperty("message") String message,
-                               @JsonProperty("show") boolean show,
-                               @JsonProperty("notShow") boolean notShow,
-                               @JsonProperty("remindTime") String interval,
-                               @JsonProperty("unit" ) String unit) {
+                            @JsonProperty("show") boolean show, @JsonProperty("notShow") boolean notShow,
+                            @JsonProperty("remindTime") String interval, @JsonProperty("unit" ) String unit) {
         this.nameE = nameE;
         this.descriptionE = descriptionE;
         this.venueE = venueE;

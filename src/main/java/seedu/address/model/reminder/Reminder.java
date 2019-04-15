@@ -21,7 +21,6 @@ public class Reminder {
     private Interval interval;
     private boolean show;
     private boolean notShow;
-    
     public Reminder(Event event, Interval interval, String message) {
         requireAllNonNull(event, interval, message);
         this.event = event;

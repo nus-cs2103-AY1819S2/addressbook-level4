@@ -2,23 +2,23 @@ package guitests.guihandles;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import seedu.hms.model.booking.Booking;
+import seedu.hms.model.reservation.Reservation;
 
 /**
- * Provides a handle to a booking card in the booking list panel.
+ * Provides a handle to a customer card in the customer list panel.
  */
-public class BookingCardHandle extends NodeHandle<Node> {
+public class ReservationCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String PAYER_NAME_FIELD_ID = "#payerName";
-    private static final String SERVICE_TYPE_FIELD_ID = "#serviceType";
-    private static final String TIME_FIELD_ID = "#time";
+    private static final String ROOM_TYPE_FIELD_ID = "#roomType";
+    private static final String DATE_FIELD_ID = "#date";
     private static final String IDENTIFICATION_NO_FIELD_ID = "#identificationNo";
     private static final String PHONE_FIELD_ID = "#phone";
     private static final String COMMENTS_FIELD_ID = "#comments";
     //private static final String ALLUSERS_FIELD_ID = "#allUsers";
 
-    private Label serviceTypeLabel;
-    private Label timeLabel;
+    private Label roomTypeLabel;
+    private Label dateLabel;
     private Label idLabel;
     private Label payerNameLabel;
     private Label phoneLabel;
@@ -26,11 +26,11 @@ public class BookingCardHandle extends NodeHandle<Node> {
     private Label commentsLabel;
     //private FlowPane allUsers;
 
-    public BookingCardHandle(Node cardNode) {
+    public ReservationCardHandle(Node cardNode) {
         super(cardNode);
 
-        serviceTypeLabel = getChildNode(SERVICE_TYPE_FIELD_ID);
-        timeLabel = getChildNode(TIME_FIELD_ID);
+        roomTypeLabel = getChildNode(ROOM_TYPE_FIELD_ID);
+        dateLabel = getChildNode(DATE_FIELD_ID);
         idLabel = getChildNode(ID_FIELD_ID);
 
         payerNameLabel = getChildNode(PAYER_NAME_FIELD_ID);
@@ -51,12 +51,12 @@ public class BookingCardHandle extends NodeHandle<Node> {
         return payerNameLabel.getText();
     }
 
-    public String getServiceType() {
-        return serviceTypeLabel.getText();
+    public String getRoomType() {
+        return roomTypeLabel.getText();
     }
 
-    public String getTime() {
-        return timeLabel.getText();
+    public String getDate() {
+        return dateLabel.getText();
     }
 
     public String getIdNum() {
@@ -76,14 +76,14 @@ public class BookingCardHandle extends NodeHandle<Node> {
     //}
 
     /**
-     * Returns true if this handle contains {@code booking}.
+     * Returns true if this handle contains {@code customer}.
      */
-    public boolean equals(Booking booking) {
-        return getServiceType().equals(booking.getService().getName())
-                && getPayerName().equals("Payer Name: " + booking.getPayer().getName().fullName)
-                && getPhone().equals("Payer Phone: " + booking.getPayer().getPhone().value)
-                && getComments().equals(booking.getComment().orElse("No Comment"))
-                && getIdNum().equals("Payer ID: " + booking.getPayer().getIdNum().value)
-                && getTime().equals("Time: " + booking.getTiming().toString());
+    public boolean equals(Reservation reservation) {
+        return getRoomType().equals(reservation.getRoom().getName())
+                && getPayerName().equals("Payer Name: " + reservation.getPayer().getName().fullName)
+                && getPhone().equals("Payer Phone: " + reservation.getPayer().getPhone().value)
+                && getComments().equals(reservation.getComment().orElse("No Comment"))
+                && getIdNum().equals("Payer ID: " + reservation.getPayer().getIdNum().value)
+                && getDate().equals("Date: " + reservation.getDates().toString());
     }
 }

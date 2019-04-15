@@ -79,8 +79,8 @@ public class RenameCommand extends Command {
                 && Paths.get(editedPdf.getDirectory().getDirectory(), editedPdf.getName().getFullName())
                   .toAbsolutePath().toFile().exists()) {
 
-                throw new CommandException(String.format(MESSAGE_DUPLICATE_PDF_DIRECTORY,
-                    editedPdf.getName().getFullName(), pdfToEdit.getDirectory().getDirectory()));
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_PDF_DIRECTORY,
+                editedPdf.getName().getFullName(), pdfToEdit.getDirectory().getDirectory()));
         }
 
         if (pdfToEdit.isSamePdf(editedPdf) || model.hasPdf(editedPdf)) {

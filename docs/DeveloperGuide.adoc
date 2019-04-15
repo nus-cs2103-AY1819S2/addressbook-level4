@@ -1988,7 +1988,7 @@ _{ more test cases ... }_
 No duplicated activities or time and location clash for the activity to add.
 .. Test case: `activityAdd n/Test activity d/25/06/2019 1900 l/NUS de/test activity` +
    Expected: Activity added to the correct location in the list.
-.. Test case: activityAdd n/Test activity d/25/06/2019 2500 l/NUS de/test activity` +
+.. Test case: `activityAdd n/Test activity d/25/06/2019 2500 l/NUS de/test activity` +
    Expected: Error message with prompt for correct time input format.
 .. Other incorrect activity add commands to try: `activityAdd`, `activityAdd x/` (where x
 is an invalid prefix), `activityAdd n/Some activity d/20/03/2019 1000 d/30/03/2019 2039 l/here`

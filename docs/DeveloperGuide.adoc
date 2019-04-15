@@ -254,7 +254,6 @@ This section describes some noteworthy details on how certain features are imple
 
 // tag::datastorage[]
 === Data storage feature
-==== Current Implementation
 The data CSV Storage features implements the following functions:
 
 * Parsing user data into the correct format for file saving
@@ -279,6 +278,12 @@ This is the srsDueDate generated for that question. Questions with a nearer due-
 
 ==== Difficult
 These are questions that are labelled difficult by the user. Users are able to specifically practise questions that they have labelled difficult in session.
+
+==== Architecture diagram for user storage
+Below is a sketch diagram of how a file is parsed into BrainTrain
+
+.File flow on start of BrainTrain Application
+image::CsvUserDiagram.png[width="800"]
 
 ==== Code Snippet
 The following code snippet shows how the user data is obtained:

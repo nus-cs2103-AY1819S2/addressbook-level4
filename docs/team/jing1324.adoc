@@ -82,6 +82,7 @@ include::../UserGuide.adoc[tag=releasenotes-1.4]
 |_The following sections of the developer's guide were written by me. Please take a look._
 |===
 
+include::../DeveloperGuide.adoc[tag=logic-header]
 include::../DeveloperGuide.adoc[tag=storage]
 include::../DeveloperGuide.adoc[tag=undoredo]
 

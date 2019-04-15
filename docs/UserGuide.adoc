@@ -92,8 +92,7 @@ Changes the theme from light to dark vice versa. +
 Format: `changeTheme`
 
 // tag::lei[]
-[[start]] +
-+
+[[start]]
 ==== Starting a quiz session: `start`
 
 Starts a new quiz session. +
@@ -134,13 +133,6 @@ Starts a quiz containing 20 cards chosen from the second lesson in lesson list i
 After you start a quiz session with the `start` command, BrainTrain will switch to <<quizmode, `quiz
 mode`>> and you will only be allowed to enter <<quizmode, `quiz mode`>> commands.
 ====
-
-Starting a quiz session with multiple lessons [coming in v2.0]
-
-* Format: `start LESSON_INDEX_1 LESSON_INDEX_2 [c/COUNT1] [c/COUNT2] m/MODE`
-* You can start a quiz session with cards from more than one lesson. The sequence of cards will be random instead of following the sequence of lessons to increase the difficulty for you to memorize.
-* Example: `start 1 2 c/5 c/5 m/learn`
-** Starts a quiz with 5 words from the first lesson and 5 words from the second lesson in `LEARN` mode.
 
 //end::lei[]
 
@@ -336,7 +328,7 @@ Examples:
 * `addCard t/Australia t/Canberra t/English h/Starts with C`
 ** Adds a card with 3 `TEST` values and 1 `HINT` value.
 ** By default, the lesson will be set to test the first 2 `TEST` values. In this case, 'Australia' and 'Canberra' are the 2 values to be tested by default.
-* `addCard t/Cake t/蛋糕`
+* `addCard t/Cake t/蛋糕 h/🎂`
 ** Adds a card with 2 `TEST` values which are both tested in quiz  mode.
 
 [[deleteCard]]
@@ -369,7 +361,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 ==== Exiting the program : `exit` +
 Exits the program. +
-Format: `quit`
+Format: `exit`
 
 {empty} +
 
@@ -460,8 +452,8 @@ Examples:
 image::quiz-command-examples/difficult.PNG[width="500"]
 
 * The question is "Japan" and is asking for the capital of "Japan": +
-  `\difficult` +
-  `\difficult` +
+  Enters `\difficult` +
+  Enters `\difficult` +
   Labelled this card as difficult as shown in the picture below.
 
 .Expected result of card labelled as difficult.
@@ -577,6 +569,15 @@ user specified lesson.
 
 === Support other spreadsheet formats such as .xlsx [Coming in v2.0]
 BrainTrain will be able to accept more robust spreadsheet file formats.
+
+// tag::lei[]
+=== Supporting starting a quiz session with multiple lessons [Coming in v2.0]
+
+* Format: `start LESSON_INDEX_1 LESSON_INDEX_2 [c/COUNT1] [c/COUNT2] m/MODE`
+* You can start a quiz session with cards from more than one lesson. The sequence of cards will be random instead of following the sequence of lessons to increase the difficulty for you to memorize.
+* Example: `start 1 2 c/5 c/5 m/learn`
+** Starts a quiz with 5 words from the first lesson and 5 words from the second lesson in `LEARN` mode.
+// end::lei[]
 
 {empty} +
 

@@ -350,7 +350,7 @@ The lesson CSV storage feature implements the following functions:
 * Parsing lesson data into a list of string arrays, which is a format OpenCSV accepts for saving to CSV.
 * Parsing a list of string arrays back into lesson data, as retrieved from OpenCSV.
 
-Actual file I/O is handled in the CsvUtil class, which uses the Open`.csv` library to read/write `.csv` files.
+Actual file I/O is handled in the CsvUtil class, which uses the OpenCSV library to read/write `.csv` files.
 
 {empty} +
 
@@ -409,9 +409,10 @@ while (index < headerArray.length) {
 }
 ----
 
-* As seen at the beginning of the while loop, header values are actually treated as single case-insensitive characters. This means an experienced user may simply enter those letters as a shortcut.
-* The second line represents the name of each column as shown to the user. Any names left blank are automatically replaced with Unnamed.
-* Any discrepancies in the number of types and the number of names will result in the lesson not being loaded. +
+As seen at the beginning of the while loop, header values are actually treated as single case-insensitive characters. This means an experienced user may simply enter those letters as a shortcut. +
+
+The second line represents the name of each column as shown to the user. Any names left blank are automatically replaced with Unnamed. +
+Any discrepancies in the number of types and the number of names will result in the lesson not being loaded. +
 
 ===== Card data +
 All remaining data is treated as card data. Any invalid data found in memory or from the file is skipped over. +

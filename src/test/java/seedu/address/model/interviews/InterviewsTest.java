@@ -14,7 +14,7 @@ import org.junit.Test;
 public class InterviewsTest {
 
     @Test
-    public void generateNoWeekdays() {
+    public void generate_generateNoWeekdays() {
         Interviews interviews = new Interviews();
         interviews.generate(getTypicalPersons());
         Set<Calendar> calendars = interviews.getInterviewsHashMap().keySet();
@@ -25,7 +25,7 @@ public class InterviewsTest {
     }
 
     @Test
-    public void generateExcludeBlockOutOneDay() {
+    public void generate_generateExcludeBlockOutOneDay() {
         Interviews interviews = new Interviews();
         List<Calendar> dates = new ArrayList<>();
         Calendar date = Calendar.getInstance();
@@ -39,7 +39,7 @@ public class InterviewsTest {
     }
 
     @Test
-    public void generateExcludeBlockOutDates() {
+    public void generate_generateExcludeBlockOutDates() {
         Interviews interviews = new Interviews();
         List<Calendar> dates = new ArrayList<>();
         Calendar date = Calendar.getInstance();

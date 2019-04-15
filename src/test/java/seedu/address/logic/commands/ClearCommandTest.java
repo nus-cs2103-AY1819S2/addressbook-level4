@@ -45,7 +45,8 @@ public class ClearCommandTest {
         Model expectedModel = new ModelManager();
         expectedModel.commitPersonnelDatabase();
 
-        assertCommandFailureGeneral(new ClearCommand(), model, commandHistory, Messages.MESSAGE_NO_AUTHORITY);
+        assertCommandFailureGeneral(new ClearCommand(UserType.DEFAULT_ADMIN_USERNAME),
+                model, commandHistory, Messages.MESSAGE_NO_AUTHORITY);
     }
 
     @Test
@@ -55,7 +56,8 @@ public class ClearCommandTest {
         expectedModel.setPersonnelDatabase(new PersonnelDatabase());
         expectedModel.commitPersonnelDatabase();
 
-        assertCommandFailureGeneral(new ClearCommand(), model, commandHistory, Messages.MESSAGE_NO_AUTHORITY);
+        assertCommandFailureGeneral(new ClearCommand(UserType.DEFAULT_ADMIN_USERNAME),
+                model, commandHistory, Messages.MESSAGE_NO_AUTHORITY);
     }
 
 }

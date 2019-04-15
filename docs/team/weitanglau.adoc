@@ -378,7 +378,7 @@ image::DecryptCommandSequenceDiagram.png[width="800"]
 * Multiple adjustments to protect your interest
 
 . {uri-historycommand}[History] will not show the executed `EncryptCommand` which includes the password of the file.
-. The {uri-undoredocommand}[Undo/Redo] feature is temporarily disabled until a solution that
+. The Undo/Redo feature is temporarily disabled until a solution that
 will not comprise your privacy has been found.
 . Pressing up in the command box will not show the `EncryptCommand` that was previously executed.
 

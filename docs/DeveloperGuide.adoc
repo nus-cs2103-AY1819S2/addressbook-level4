@@ -1933,6 +1933,7 @@ Use case resumes at step 2.
 +
 Use case ends.
 
+[discrete]
 === Use case: Setting alarm threshold for medicines
 
 *MSS*

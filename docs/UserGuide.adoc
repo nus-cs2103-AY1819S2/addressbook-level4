@@ -359,6 +359,10 @@ Format: `undo`
 Undoable commands: commands that modify a card folder's content (`add`, `delete` and `edit`).
 ====
 
+[NOTE]
+At the end of a successful test session, scores are final and you will not be able to perform an `undo` to
+restore the previous states before the test session.
+
 Examples:
 
 * `delete 1` +
@@ -479,6 +483,10 @@ directory after execution of this command.
 //tag::testoperations[]
 === Test Operations
 After memorising the content of the flashcards, it is helpful to test how much information have been internalised and retained in a timed setting. The following commands show just how this can be done with the <<testsession, Test Session>> functionality of *Know-It-All*.
+
+[NOTE]
+At the end of a successful test session, scores are final and you will not be able to perform an `undo` to restore the
+previous states before the test session.
 
 ==== Test flashcards in a folder : `test`
 
@@ -622,7 +630,6 @@ Format: `end`
 [NOTE]
 For the final <<testscore, test score>> to be recorded, you must have attempted at least 1/4 of cards in the
  card folder. If there are less than 4 cards, any number of cards attempted will be recorded.
-
 
 //tag::reportoperations[]
 === Report Operations

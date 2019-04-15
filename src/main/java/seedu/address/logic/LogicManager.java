@@ -46,7 +46,7 @@ public class LogicManager implements Logic {
         boolean validCommand = false;
         CommandResult commandResult;
         try {
-            Command command = battleshipParser.parseCommand(commandText);
+            Command command = battleshipParser.parseCommand(commandText.toLowerCase());
             if (command.canExecuteIn(model.getBattleState())) {
                 commandResult = command.execute(model, history);
                 addToStatistics(commandText);

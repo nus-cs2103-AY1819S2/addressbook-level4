@@ -202,10 +202,10 @@ In the above scenario, the command `deleteLesson 2` will delete the second lesso
 // end::evan-mgt[]
 // tag::eugene[]
 
-==== Reloading all lessons: `reloadLessons` +
-Reloads all lessons from the lessons folder. The default folder is `/lessons/`, found next to `braintrain.jar`.
+==== Reloading all lessons: `reload` +
+Reloads all lessons from the lessons folder. The default lessons folder is `/lessons/`, found next to `braintrain.jar`.
 
-Format: `reloadLessons`
+Format: `reload`
 
 [NOTE]
 ====
@@ -217,29 +217,24 @@ Steps:
 . You have a newly downloaded .csv lesson file, `new_lesson.csv`, with no lessons currently loaded.
 +
 .A new lesson file.
-[#img-csv]
-image::reloadLessons_0_csv.png[]
+image::reload_0_csv.png[]
 .No lessons are currently loaded.
-[#img-csv]
-image::reloadLessons_1_empty.png[]
+image::reload_1_empty.png[]
 
 . You drag the new file into the `/lessons/` folder.
 +
 .Dragging the file.
-[#img-csv]
-image::reloadLessons_2_drag.png[]
+image::reload_2_drag.png[]
 
-. You enter `reloadLessons` into the app, and the new lesson appears.
+. You enter `reload` into the app, and the new lesson appears.
 +
 .Reloading lessons.
-[#img-csv]
-image::reloadLessons_3_reload.png[]
+image::reload_3_reload.png[width="400"]
 
 . You verify again with `listLessons`.
 +
 .New lesson has been loaded.
-[#img-csv]
-image::reloadLessons_4_list.png[]
+image::reload_4_list.png[width="400"]
 
 [NOTE]
 ====
@@ -580,6 +575,8 @@ user specified lesson.
 
 {empty} +
 
+// tag::eugene_troubleshoot[]
+
 == Troubleshooting
 
 *Q*: Why are my card values shown as `?????`? +
@@ -603,6 +600,8 @@ If BrainTrain still does not load lessons despite trying other locations, please
 
 {empty} +
 
+// end::eugene_troubleshoot[]
+
 == FAQ
 
 *Q*: How do I transfer my data to another computer? +
@@ -621,7 +620,7 @@ If BrainTrain still does not load lessons despite trying other locations, please
 * *Adding a lesson*: `addLesson n/NAME t/TEST t/TEST [t/TEST]…​ [h/HINT]…​` +
 ** e.g. `addLesson n/Capitals of the world t/Country t/Capital t/Language h/Hint`
 * *Deleting a lesson*: `deleteLesson INDEX` +
-* *Reloading all lessons*: `reloadLessons`
+* *Reloading all lessons*: `reload`
 * *Editing a lesson in Card View*: `edit INDEX` +
 * *Quitting card view*: `quit`
 * *Listing all cards*: `listCards`

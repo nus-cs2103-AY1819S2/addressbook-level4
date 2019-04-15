@@ -108,7 +108,5 @@ include::../DeveloperGuide.adoc[tag=SetPreset]
 
 === *Other Works Contributed*
 '''
-* Brightness and Black/White features under the Image Filter section
 * Save Preset feature
 * Logic Component sequence diagrams
-* Storage Component

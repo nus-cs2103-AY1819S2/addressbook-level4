@@ -2,7 +2,7 @@
 :site-section: DeveloperGuide
 :toc: left
 :toc-title: Contents
-:toc-placement: preamble
+:toclevels: 3
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -324,11 +324,11 @@ bookings in real-time in the UI as has been explained before.
 
 ===== Aspect: How should the API be structured
 
-* **Alternative 1 (current choice):** Every model has a seperate interface which implements
+* **Alternative 1 (current choice):** Every model has a separate interface which implements
                                       the `Model` interface
 ** Pros: Every model has access to the GUI and User Preferences.
 ** Cons: Some models have unnecessary methods.
-* **Alternative 2:** All the model APIs will be seperate and there will be no Model Interface.
+* **Alternative 2:** All the model APIs will be separate and there will be no Model Interface.
 ** Pros: Better separation and less scope for errors.
 ** Cons: Lot of refactoring required.
 //end::new-model[]
@@ -525,7 +525,7 @@ of the customer whose bill is to be generated. The figure below depicts the Sequ
 image::gbcLogicDiagram.png[width="800"]
 
 The `GenerateBillForCustomerCommand#execute()` method invokes the `updateBill(bill)` method from the `BillModel`.
- Complying with the rules of <<abstraction>>, the Logic component calls on Model to handle the internal details for updation.
+ Complying with the rules of <<abstraction>>, the Logic component calls on Model to handle the internal details for updating.
 
 The code used for generating the [underline]#booking bill# for the customer is shown in the snippet below:
 
@@ -732,7 +732,7 @@ See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to dep
 
 === Converting Documentation to PDF format
 
-We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
+We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in web pages.
 
 Here are the steps to convert the project documentation files to PDF format.
 
@@ -1200,8 +1200,8 @@ HMS+ is targeted at hotels which want to use a single, highly customizable integ
 Hotels have hundreds of customers with each customer having their own service bookings, room reservations and
 their payments. +
 
-This is why these hotels use different softwares to keep a track of customer's bookings and reservations and
-accordingly their payments. With time, it becomes difficult to keep a track of everything using different softwares.
+This is why these hotels use different software to keep a track of customer's bookings and reservations and
+accordingly their payments. With time, it becomes difficult to keep a track of everything using different software.
 
 HMS+ provides hotels with a one-stop shop for all their managerial and organization needs.
 
@@ -1319,7 +1319,7 @@ Use case ends.
 1.  The actor requests all the reservations in the system.
 2.  The system lists the reservations requested.
 3.  The actor requests to edit a reservation at a specified index.
-4.  The system editss the reservation.
+4.  The system edits the reservation.
 +
 Use case resumes at step 3.
 
@@ -1401,7 +1401,7 @@ Use case ends.
 1.  The actor requests all the bookings in the system.
 2.  The system lists the bookings requested.
 3.  The actor requests to edit a booking at a specified index.
-4.  The system editss the booking.
+4.  The system edits the booking.
 +
 Use case resumes at step 3.
 
@@ -1493,7 +1493,7 @@ Use case ends.
 1.  The actor requests all the room-types in the system.
 2.  The system lists the room-types requested.
 3.  The actor requests to edit a room-type at a specified index.
-4.  The system editss the room-type.
+4.  The system edits the room-type.
 +
 Use case resumes at step 3.
 
@@ -1587,7 +1587,7 @@ Use case ends.
 1.  The actor requests all the services in the system.
 2.  The system lists the services requested.
 3.  The actor requests to edit a service at a specified index.
-4.  The system editss the service.
+4.  The system edits the service.
 +
 Use case resumes at step 3.
 
@@ -1933,7 +1933,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Deleting a customer while all customers are listed.
 
-.. Prerequisites: List all customers using the `list-customers` command. Multiple customers in the list or atleast 1.
+.. Prerequisites: List all customers using the `list-customers` command. Multiple customers in the list or at least 1.
 .. Test case: `delete-customer 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete-customer 0` +
@@ -2109,7 +2109,7 @@ Deleting a room type while all room types are listed
 
 . Generating booking bill for a customer based on index, or service type, or booking hours.
 
-.. Prerequisites: At-least one customer who has atleast one booking in the database.
+.. Prerequisites: At-least one customer who has at least one booking in the database.
 .. Test case: `gb-b` +
    Expected: Bill is not generated. Error details shown in the status message. Status bar remains the same.
 .. Test case: `gb-b 1` +

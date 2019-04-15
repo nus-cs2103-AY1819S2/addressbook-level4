@@ -1008,14 +1008,7 @@ against the user's input if any of the suggestions starts with the user's text.
 A detailed interaction diagram for the autocomplete behaviour is created previously under <insert section>.
 // end::autocomplete[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
-=== Logging
+== Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
@@ -1553,6 +1546,8 @@ variants of the `filter healthworker` command may be used in place of this.
 .. If any of the data is corrupted, the app will start with empty books, adding a health worker
 or request will overwrite the corrupted file.
 
+// tag::undoredo[]
+
 === Undoing a command
 . Undo a command that has been executed
 .. Prerequisites: A command that modifies the data has been executed already, for example `delete r 1`.
@@ -1570,3 +1565,4 @@ Expected: The application will redo the undone command.
 Expected: The application will show an error message: No more commands to redo!
 
 
+// end::undoredo[]

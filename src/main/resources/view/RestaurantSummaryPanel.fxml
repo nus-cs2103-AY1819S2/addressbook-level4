@@ -9,6 +9,9 @@
 
 <BorderPane fx:id="summaryPane" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <top>
+      <VBox fx:id="placeholderVbox" styleClass="panel_title" minHeight="10" alignment="CENTER" BorderPane.alignment="CENTER" >
+         <Label fx:id="panelName" styleClass="cell_placeholder_label" text="Restaurant Summary Panel" textAlignment="CENTER" wrapText="true" />
+      </VBox>
       <VBox fx:id="titleVbox" styleClass="vbox_background" minHeight="150.0" prefWidth="100.0" alignment="CENTER" BorderPane.alignment="CENTER" >
          <Label fx:id="name" styleClass="vbox_name_label" text="\$name" wrapText="true"/>
          <Label fx:id="avgRating" styleClass="vbox_rating_label" text="\$avgRating">
@@ -22,8 +25,9 @@
       </VBox>
    </top>
    <center>
+      <ImageView fx:id="placeholderImg" pickOnBounds="true" preserveRatio="true" />
       <VBox fx:id="infoVbox" prefHeight="200.0" prefWidth="100.0" alignment="CENTER" BorderPane.alignment="CENTER" >
-         <Label fx:id="address" styleClass="vbox_label" text="\$address" />
+         <Label fx:id="addressPostal" styleClass="vbox_label" text="\$addressPostal" />
          <Label fx:id="phone" styleClass="vbox_label" text="\$phone" />
          <Label fx:id="openingHours" styleClass="vbox_label" text="\$openingHours" />
          <Label fx:id="email" styleClass="vbox_label" text="\$email" />

@@ -13,14 +13,10 @@ Welcome to my Personal Project Portfolio! This is a documentation of my contribu
 
 The Food Diary is a desktop application that allows users to store their personal food reviews and obtain food recommendations. It is written in Java and is meant for people who prefer to work with a Command Line Interface (CLI), an example being people who type rapidly. It also gives users the benefit of having a clear and interactive Graphical User Interface (GUI) created with JavaFX.
 
-The Food Diary contains an extensive list of restaurants which can be searched up by users. Users can also add restaurants that are not in the application. Users can then add reviews specific to each restaurant and assign numerical ratings to each review. Following this, users can view restaurants they have previously reviewed (each review represents a visit) and categorise them according to ratings, cuisine, price etc.
-
 == Summary of contributions
 
 * *Core development*: I added the *core functionality* of *adding, editing and deleting reviews*
-** Functionality: Allows users to add reviews specific to each restaurant, edit the reviews that have previously been added and finally to delete reviews that are no longer wanted in the application.
-** Justification: This feature is essential to the purpose of the application as it is the only way for users to store their personal review entries into the application. Users are also prone to mistakes when typing or a change in opinion. Hence, the ability to edit or delete previously created reviews will prove useful.
-** Highlights: Creating the 3 different commands required smooth integration with a newly created classes (Review, composed of an Entry and a Rating). Implementing this feature also required the modification of the base restaurant class.
+** This feature is essential to the purpose of the application as it is the only way for users to store their personal review entries into the application. Users are also prone to mistakes when typing or a change in opinion. Hence, the ability to edit or delete previously created reviews will prove useful.
 
 * *Enhancement*: I considered the needs to users in a rush and *implemented default reviews*. This allows users to *quickly* add a review with a *shortened and simpler* command than the traditional addReview command. Default reviews that are pre-configured are added so that users do not have to face the hassle of manually entering every field needed.
 
@@ -37,7 +33,7 @@ The Food Diary contains an extensive list of restaurants which can be searched u
 *** Updated our Contact Us page (same PR as above)
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W17-1/main/pull/95[#95], https://github.com/CS2103-AY1819S2-W17-1/main/pull/96[#96], https://github.com/CS2103-AY1819S2-W17-1/main/pull/115[#115], https://github.com/CS2103-AY1819S2-W17-1/main/pull/142[#142], https://github.com/CS2103-AY1819S2-W17-1/main/pull/152[#152]
-*** The `ReviewBuilder` class that I implemented was used by another team mate (https://github.com/CS2103-AY1819S2-W17-1/main/pull/94[1])
+*** The utility classes I implemented were used by another team mate (https://github.com/CS2103-AY1819S2-W17-1/main/pull/94[1])
 
 
 == Contributions to the User Guide

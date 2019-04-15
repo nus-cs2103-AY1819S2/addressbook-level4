@@ -16,6 +16,8 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/cs2103-ay1819s2-w17-1/main
 
+image::userguide.png[width="600"]
+
 By: `W17-1`      Since: `Feb 2019`      Licence: `MIT`
 
 // tag::introductionUG[]
@@ -26,7 +28,6 @@ If you would like to get use the Food Diary straightaway, jump to the <<Quick St
 **What is the Food Diary? **
 
 The Food Diary (FD) is a desktop app for storing your personal food reviews and obtain food recommendations based on your past reviews.
-
 
 **Why use the Food Diary? **
 
@@ -47,7 +48,7 @@ Callouts are boxes with important information regarding the usage of the Food Di
 This is a *note*. A warning indicates important additional information that should be read.
 
 [TIP]
-This is a *tip*. A tip indicates good to know information that would improve your user experience
+This is a *tip*. A tip indicates good to know information that would improve your user experience.
 
 [WARNING]
 This is a *warning*. A warning indicates critical information that would affect the functionality of this programme.
@@ -197,6 +198,49 @@ If you simply want to view unreviewed restaurants, enter `listUnvisited po/00000
 ====
 // end::listUnvisitedUG[]
 
+// tag::sort[]
+==== Sorting restaurants by rating: `sort`
+
+Sorting your restaurants from favourite to least favourite, or vice versa, has never been easier.
+Order all of the restaurants in the Food Diary from highest to lowest ratings based on the average ratings you've given that restaurant in all your reviews for them. +
+Format: `sort [or/ORDER] [l/LIMIT]`
+
+[NOTE]
+====
+* `ORDER` can only take the form of `or/ASC` or `or/DES`, case-insensitive.
+** When `sort or/ASC` is executed, the list of restaurants returned will be in ascending order of ratings.
+** When `sort or/DES` is executed, the list of restaurants returned will be in descending order of ratings.
+* `LIMIT` *must be a positive integer* `1, 2, 3, ...`
+* If `LIMIT` you have entered is larger than the number of unique ratings in the list of restaurants, all of the restaurants in the sorted list will be shown.
+====
+
+[TIP]
+====
+* Simply want to see your favourite restaurants? Enter the `sort` command without any parameters to see all of the restaurants, from highest to lowest rating!
+====
+
+image::sortasc.png[width="600"]
+_Figure 1. Result obtained when the command `sort or/ASC l/2` is executed
+
+image::sortdes.png[width="600"]
+_Figure 2. Result obtained when the command `sort or/DES l/2` is executed_
+
+Examples:
+
+* `sort` or `sort or/DES`
+Both will sort the list of restaurants in descending order of ratings.
+* `sort or/asC` or `sort or/ASC` +
+Both will sort the list of restaurants in ascending order of ratings.
+* `sort or/ASC l/2`
+Your list of restaurants will be sorted in ascending order of ratings and only the restaurants with the lowest 2 ratings will be displayed.
+
+[NOTE]
+====
+Restaurants with no reviews will have no ratings, and will thus have an `N.A.` rating. Restaurants with `N.A.` rating will come before
+those with positive ratings if in ascending order, and at the end of the list if sorted in descending order.
+====
+// end::sort[]
+
 ==== Searching restaurants by name: `find`
 
 Find restaurants with names containing any of the given keywords. +
@@ -228,10 +272,10 @@ Examples:
 * `select 3` +
 Selects the restaurant in the displayed restaurants list with index 3 and displays its summary, reviews and website.
 
-image::selectbefore.png[width="800"]
+image::selectbefore.png[width="600"]
 _Figure 1. Before selecting any restaurant_
 
-image::selectafter.png[width="800"]
+image::selectafter.png[width="600"]
 _Figure 2. After selecting restaurant with index 3, Chilis' summary, reviews and website are displayed in the second, third and fourth panels (from left to right) respectively_
 // end::select[]
 
@@ -399,7 +443,6 @@ Examples:
 
 * `addReview 2 re/Peach Pie was amazing rr/4`
 
-
 ==== Editing a specified review : `editReview`
 
 Edit selected fields in a specified entry. +
@@ -416,26 +459,16 @@ Steps to execute `editReview` command:
 
 * From the main screen of the application, first select a restaurant by clicking on it with the mouse or using the `select INDEX` command.
 
-image::UG_editReview_start.png[width="480"]
-_Figure 3. The above screenshot shows the case when no restaurant is selected_
-
 image::UG_editReview_selected_restaurant.png[width="480"]
-_Figure 4. Upon selecting a restaurant, the reviews of the restaurant will show on the review panel, and the rightmost browser panel will show the webpage of the restaurant (if available)_
+_Figure 1. Upon selecting a restaurant, the reviews of the restaurant will show on the review panel, and the rightmost browser panel will show the webpage of the restaurant (if available)_
 
-* Following the above, enter the command:
-
-image::UG_editReview_selected_restaurant_entered_command.png[width="480"]
-_Figure 5. Enter the command in the command box as shown near the top of the application_
-
-* Upon successful execution of the command:
+* Following the above, enter the command. Upon successful execution of the command:
 
 image::UG_editReview_command_executed.png[width="480"]
-_Figure 6. The above screenshot shows the end-product of the successful execution of `editReview` command_
+_Figure 2. The above screenshot shows the end-product of the successful execution of `editReview` command_
 
 Examples:
 
-* `editReview 1 rr/3` +
-Edits the rating of the 1st review to be `3`.
 * `editReview 2 re/Food isn't the best` +
 Edits the comment of the second review to `Food isn't the best`
 * `editReview 2 re/Food isn't the best rr/4` +
@@ -460,12 +493,10 @@ Deletes the 2nd review of the selected restaurant in the Food Diary.
 
 In a real hurry? Fear not because The Food Diary has built in default reviews! You can use this command to quickly add a review with minimal typing. The command and syntax to add default reviews is much shorter and simpler than the normal `addReview` command.
 
-These default reviews are representative of the rating scale from 1 - 5. There is a default review entry associated with each default review rating. They are as follows:
+These default reviews are representative of the rating scale from 1 - 5. There is a default review entry associated with each default review rating. They range from:
 
-* Default review of rating 1: "Very poor, never ever go again."
-* Default review of rating 2: "Below average, try not to go again."
-* Default review of rating 3: "Average, normal."
-* Default review of rating 4: "Good, would go again."
+* Default review of rating 1: "Very poor, never ever go again." to
+
 * Default review of rating 5: "Excellent, must go again."
 
 Format: `addR INDEX NUMBER`
@@ -533,6 +564,37 @@ image:viewCommand.png[width="790"]
 _Figure 7. Your profile statistics will be reflected in the result command box as pointed out in the picture above_
 
 // end::nameUG[]
+
+// tag::shareFB[]
+==== Share to Facebook: `share` (Coming in v2.0)
+
+Share your reviews to Facebook. +
+Format: `share INDEX`
+
+****
+* You have to use `select` command to select a restaurant whose review will be shared.
+* The index refers to the index number of a review shown in the selected restaurant's list of reviews.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Steps to share your review to Facebook:
+
+. Select your desired restaurant by either clicking on it using a mouse or executing the `select INDEX` command, using its index number to replace `INDEX`.
+. Enter `share INDEX` command, replacing `INDEX` with the desired review's index number to indicate the review to be shared.
+. Enter your login details when prompted by the Facebook pop-up.
+. Give write permission to The Food Diary post the review on your Facebook account. Rest assured that your account details would not be retained in The Food Diary to protect your privacy.
+. Click the `Share to Wall` button when prompted and you'll see your review on your Facebook wall!
+
+Examples:
+
+* `list` +
+`share 2`
+
+[NOTE]
+====
+You will not be able to share the review to Facebook if you do not allow The Food Diary write permission to your Facebook account.
+====
+// end::shareFB[]
 
 ==== Exiting the program : `exit`
 

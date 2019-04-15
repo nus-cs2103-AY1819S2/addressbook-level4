@@ -49,17 +49,10 @@ The section below shows a summary of my coding, documentation and other helpful 
 ** What it does: Changed the display of the side panel for cards within card folders to display all card information to the user.
 ** Justification:
 *** For card folders, the side panel shows users all necessary information of a card at a glance whenever users select a card.
-+
-image:Ui.png[width="300"]
-
 *** For test sessions, only relevant information is shown at the start for each card. The correct answer is displayed only after a user inputs an answer.
-+
-image:AnsweringMcqCard.png[width="300"]
 
 ** Highlights:
 *** In a test session, the card color changes to reflect if a user has answered correctly or not. Green signifies a correct answer, while red signifies a wrong answer.
-+
-image:ExampleMcqTest.png[width="300"]
 
 * *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=mmdlow[Collated code]]
 

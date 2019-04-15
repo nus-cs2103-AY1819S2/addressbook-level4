@@ -6,17 +6,17 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AddPrescriptionCommand;
+import seedu.address.logic.commands.prescription.AddPrescriptionCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.EditPrescriptionCommand;
+import seedu.address.logic.commands.prescription.EditPrescriptionCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListPrescriptionCommand;
-import seedu.address.logic.commands.SearchPrescriptionCommand;
-import seedu.address.logic.commands.SelectPrescriptionCommand;
-import seedu.address.logic.commands.SortPrescriptionCommand;
+import seedu.address.logic.commands.prescription.ListPrescriptionCommand;
+import seedu.address.logic.commands.prescription.SearchPrescriptionCommand;
+import seedu.address.logic.commands.prescription.SelectPrescriptionCommand;
+import seedu.address.logic.commands.prescription.SortPrescriptionCommand;
 import seedu.address.logic.commands.appointment.AddAppointmentCommand;
 import seedu.address.logic.commands.appointment.ListAppointmentCommand;
 import seedu.address.logic.commands.appointment.MarkAppointmentCommand;
@@ -64,6 +64,12 @@ import seedu.address.logic.parser.patient.SearchPatientApptStatusCommandParser;
 import seedu.address.logic.parser.patient.SearchPatientCommandParser;
 import seedu.address.logic.parser.patient.SearchPatientPidCommandParser;
 import seedu.address.logic.parser.patient.SelectPatientCommandParser;
+import seedu.address.logic.parser.prescription.AddPrescriptionCommandParser;
+import seedu.address.logic.parser.prescription.EditPrescriptionCommandParser;
+import seedu.address.logic.parser.prescription.ListPrescriptionCommandParser;
+import seedu.address.logic.parser.prescription.SearchPrescriptionCommandParser;
+import seedu.address.logic.parser.prescription.SelectPrescriptionCommandParser;
+import seedu.address.logic.parser.prescription.SortPrescriptionCommandParser;
 
 /**
  * Parses user input.

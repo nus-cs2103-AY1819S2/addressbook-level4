@@ -1,10 +1,11 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.prescription;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Arrays;
 
-import seedu.address.logic.commands.SearchPrescriptionCommand;
+import seedu.address.logic.commands.prescription.SearchPrescriptionCommand;
+import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.prescription.PrescriptionContainsKeywordsPredicate;
 

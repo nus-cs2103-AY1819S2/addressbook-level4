@@ -438,12 +438,12 @@ The following code snippet shows how the `memberAdd` command is executed:
 *Logic Component*
 
 .Sequence Diagram for MemberFilterCommand for the logic component.
-image::MemberFilter_Logic.png[width=100%]
+image::MemberFilter_Logic.png[width=60%]
 
 *Model Component*
 
 .Sequence Diagram for MemberFilterCommand for the model component.
-image::MemberFilter_Model.png[width=100%]
+image::MemberFilter_Model.png[width=60%]
 
 The `memberFilter` command retrieves members (based on a filter criteria) from the `UniquePersonList` and displays these members on the `PersonListPanel`.
 

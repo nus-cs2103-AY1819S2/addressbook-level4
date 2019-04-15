@@ -47,6 +47,8 @@ public class RemoveFromListCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
+        ArrayList<Person> peopleToRemove = new ArrayList<>();
+
         if (model.getIsAllJobScreen()) {
             throw new CommandException(MESSAGE_NO_DISPLAYED_JOB);
         }
@@ -57,11 +59,11 @@ public class RemoveFromListCommand extends Command {
             if (indexes.get(i).getZeroBased() >= list.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
+            peopleToRemove.add(list.get(indexes.get(i).getZeroBased()));
         }
 
         for (int i = 0; i < indexes.size(); i++) {
-            Person personToDelete = list.get(indexes.get(i).getZeroBased());
-            model.deletePersonFromJobList(personToDelete, model.getActiveJob().getName(), targetList);
+            model.deletePersonFromJobList(peopleToRemove.get(i), model.getActiveJob().getName(), targetList);
         }
 
 

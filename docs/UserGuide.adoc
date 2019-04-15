@@ -363,6 +363,7 @@ Returns a random TOP in FM.
 * `random BOTTOM` +
 Returns a random BOTTOM in FM.
 
+// tag::stats[]
 === Calculating statistics : `stats` or `statistics`
 
 Gives an overview of the various statistics of the apparels/wardrobe. +
@@ -385,7 +386,7 @@ Typing `stats` or `statistics` will give you the following several information a
 An example output is shown in the screenshot below:
 
 image::stats.png[width="790"]
-
+// end::stats[]
 
 === Exiting the program : `exit`
 

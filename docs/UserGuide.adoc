@@ -634,6 +634,7 @@ Sorts list of records by name in reverse lexicographical order.
 .Name sorted in descending order
 image::sortNameDescExample.png[width ="300"]
 
+{bl}
 
 ****
 

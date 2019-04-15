@@ -1988,7 +1988,31 @@ Instructions:
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `memberDelete 0` +
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `memberDelete`, `memberDelete x` (where x is larger than the list size) _{give more}_ +
+   Expected: Similar to previous.
+
+=== Editing a person
+
+. Editing a person while all persons are listed
+
+.. Prerequisites: List all persons using the `memberList` command. Multiple persons in the list.
+.. Test case: `memberEdit 1 yos/4` +
+   Expected: First contact's year of study is changed to Year 4. New details shown in status message. Timestamp in the status bar is updated.
+.. Test case: `memberEdit 1 mn/A0157138B` +
+   Expected: First contact matriculation number is not edited. Error on status message says that matriculation number cannot be edited. Status bar remains the same.
+.. Other incorrect edit commands to try: `memberEdit 0`, `memberEdit 1 n/`, `memberEdit 1 z/` +
+   Expected: No person is edited. Error details shown in the status message. Similar to previous.
+
+=== Finding a person
+
+. Finding a person while all persons are listed
+
+.. Prerequisites: List all persons using the `memberList` command. Multiple persons in the list.
+.. Test case: `memberFind name john` +
+   Expected: All members whose names contain fully or partially "john" will be displayed. Status message shows number of members found. Timestamp in the status bar is updated.
+.. Test case: `memberFind john` +
+   Expected: Display does not change. Error message shown on status message. Timstamp remains the same.
+.. Other incorrect find commands to try: `memberFind hello`, `memberFind `, any case which does not have the correct criteria ("name" or "matricnum" only) +
    Expected: Similar to previous.
 
 _{ more test cases ... }_

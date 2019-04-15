@@ -24,7 +24,7 @@ public class ContrastCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adjust the contrast of the image according to ratio value given.\n"
             + "If ratio is not given, default contrast ratio will be 1.1\n"
-            + "Parameters: [CONTRAST_VALUE] \n"
+            + "Parameters: [CONTRASTVALUE] \n"
             + "Example: " + COMMAND_WORD + "\n"
             + "Example2: " + COMMAND_WORD + "1.3";
 

@@ -35,7 +35,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.predicate.NameContainsKeywordsPredicate;
 
 
 /**
@@ -53,9 +52,7 @@ public class FilterCommandTest {
         FilterCommand.PredicatePersonDescriptor secondDescriptor =
             preparePredicatePersonDescriptor("second");
         FilterCommand secondCommand = new FilterCommand("", EMPTY, secondDescriptor);
-        NameContainsKeywordsPredicate findPredicate =
-            new NameContainsKeywordsPredicate(Collections.singletonList("first"));
-        FindCommand findCommand = new FindCommand(findPredicate);
+        DeleteFilterCommand deleteFilterCommand = new DeleteFilterCommand(EMPTY, VALID_FILTERNAME);
 
         // same object -> returns true
         assertEquals(firstCommand, firstCommand);
@@ -71,7 +68,7 @@ public class FilterCommandTest {
         assertNotEquals(firstCommand, secondCommand);
 
         // different command type -> returns false
-        assertNotEquals(firstCommand, findCommand);
+        assertNotEquals(firstCommand, deleteFilterCommand);
     }
 
     @Test
@@ -123,8 +120,8 @@ public class FilterCommandTest {
         FilterCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor(" ");
         FilterCommand command = new FilterCommand(VALID_FILTERNAME, EMPTY, descriptor);
         Predicate<Person> predicator = descriptor.toPredicate();
-        expectedModel.addPredicateAllPersons(VALID_FILTERNAME, predicator);
-        expectedModel.updateFilteredPersonList();
+        expectedModel.addPredicate(VALID_FILTERNAME, predicator, EMPTY);
+        expectedModel.updateFilteredPersonLists(EMPTY);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredPersonList());
     }
@@ -136,8 +133,8 @@ public class FilterCommandTest {
         FilterCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor(" ");
         FilterCommand command = new FilterCommand(VALID_FILTERNAME, APPLICANT, descriptor);
         Predicate<Person> predicator = descriptor.toPredicate();
-        expectedModel.addPredicateJobAllApplicants(VALID_FILTERNAME, predicator);
-        expectedModel.updateJobAllApplicantsFilteredPersonList();
+        expectedModel.addPredicate(VALID_FILTERNAME, predicator, APPLICANT);
+        expectedModel.updateFilteredPersonLists(APPLICANT);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getJobsList(APPLICANT));
     }
@@ -149,8 +146,8 @@ public class FilterCommandTest {
         FilterCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor(" ");
         FilterCommand command = new FilterCommand(VALID_FILTERNAME, KIV, descriptor);
         Predicate<Person> predicator = descriptor.toPredicate();
-        expectedModel.addPredicateJobAllApplicants(VALID_FILTERNAME, predicator);
-        expectedModel.updateJobAllApplicantsFilteredPersonList();
+        expectedModel.addPredicate(VALID_FILTERNAME, predicator, KIV);
+        expectedModel.updateFilteredPersonLists(KIV);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getJobsList(KIV));
     }
@@ -162,8 +159,8 @@ public class FilterCommandTest {
         FilterCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor(" ");
         FilterCommand command = new FilterCommand(VALID_FILTERNAME, INTERVIEW, descriptor);
         Predicate<Person> predicator = descriptor.toPredicate();
-        expectedModel.addPredicateJobAllApplicants(VALID_FILTERNAME, predicator);
-        expectedModel.updateJobAllApplicantsFilteredPersonList();
+        expectedModel.addPredicate(VALID_FILTERNAME, predicator, INTERVIEW);
+        expectedModel.updateFilteredPersonLists(INTERVIEW);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getJobsList(INTERVIEW));
     }
@@ -175,8 +172,8 @@ public class FilterCommandTest {
         FilterCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor(" ");
         FilterCommand command = new FilterCommand(VALID_FILTERNAME, SHORTLIST, descriptor);
         Predicate<Person> predicator = descriptor.toPredicate();
-        expectedModel.addPredicateJobAllApplicants(VALID_FILTERNAME, predicator);
-        expectedModel.updateJobAllApplicantsFilteredPersonList();
+        expectedModel.addPredicate(VALID_FILTERNAME, predicator, SHORTLIST);
+        expectedModel.updateFilteredPersonLists(SHORTLIST);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getJobsList(SHORTLIST));
     }

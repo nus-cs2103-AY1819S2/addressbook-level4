@@ -503,7 +503,7 @@ public class ParserUtil {
         String floatFarmat = "\\d+" + "." + "\\d+";
         String integerFarmat = "\\d+";
         boolean isValidLower = trimedLower.matches(floatFarmat) || trimedLower.matches(integerFarmat);
-        boolean isValidUpper = trimedUpper.matches(floatFarmat) || trimedLower.matches(integerFarmat);
+        boolean isValidUpper = trimedUpper.matches(floatFarmat) || trimedUpper.matches(integerFarmat);
         return isValidLower && isValidUpper;
     }
 

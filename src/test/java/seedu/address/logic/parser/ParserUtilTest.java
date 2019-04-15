@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.logic.parser.ParserUtil.isLeapYear;
 import static seedu.address.logic.parser.ParserUtil.isValidDate;
 import static seedu.address.logic.parser.ParserUtil.isValidDateRange;
+import static seedu.address.logic.parser.ParserUtil.isValidValueRange;
 import static seedu.address.logic.parser.ParserUtil.parseBlockOutDates;
 import static seedu.address.logic.parser.ParserUtil.parseMaxInterviewsADay;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -388,5 +389,10 @@ public class ParserUtilTest {
     public void isLeapYear_yearNotDivisibleByFour_returnsFalse() {
         boolean actual = isLeapYear(NON_LEAP_YEAR);
         assertFalse(actual);
+    }
+    @Test
+    public void isValidValueRange_fixArgus_returnsTrue() {
+        boolean actual = isValidValueRange("3.0-5");
+        assertTrue(actual);
     }
 }

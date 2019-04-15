@@ -669,7 +669,7 @@ Given below is a comparison between the alternatives of the data structure used 
 |*Ease-of-implementation*: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project. +
 *Refined results*: This approach provides more refined results as it narrows down the search scope to the user's query.
 
-|*Faster search*: Faster searching as HashMap lookup runs in O(1) time.
+|*Faster search*: Faster searching as `HashMap` lookup runs in O(1) time.
 
 |*Cons*
 |*Slower search*: This approach is less efficient as the entire list needs to be searched through.

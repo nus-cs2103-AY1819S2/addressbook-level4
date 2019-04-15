@@ -539,7 +539,7 @@ Given below is a comparison between the alternatives of the data structure used 
 
 |*Cons*
 |*Slower search*: This approach is less efficient as the entire list needs to be searched through.
-|*Memory-consuming*. This approach requires more memory as a separate HashMap needs to be stored.
+|*Memory-consuming*. This approach requires more memory as a separate `HashMap` needs to be stored.
 |=======================================================================
 *Decision*: Alternative 1 of using a list is preferred as it uses less memory compared to Alternative 2. Moreover, future contributors to the project are likely to be student undergraduates, so a simple data structure would be more optimal for educational purposes.
 // end::search[]

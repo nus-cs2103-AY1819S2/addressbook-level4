@@ -10,15 +10,14 @@ import seedu.address.model.StudyView;
 public class GenerateQuestionCommand extends Command {
 
     private final int rating;
-    private final StudyView studyView;
 
-    public GenerateQuestionCommand(StudyView studyView, int rating) {
+    public GenerateQuestionCommand(int rating) {
         this.rating = rating;
-        this.studyView = studyView;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
+        StudyView studyView = ((StudyView) model.getViewState());
         studyView.getCurrentCard().addDifficulty(rating);
         studyView.generateCard();
         studyView.setCurrentStudyState(StudyView.StudyState.QUESTION);

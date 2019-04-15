@@ -69,7 +69,6 @@ instead of searching the documents manually.
 |_The following sections of the user guide were written by me. Do take a look._
 |===
 
-include::../UserGuide.adoc[tag=releasenotes-1.4]
 include::../UserGuide.adoc[tag=undoredo]
 include::../UserGuide.adoc[tag=releasenotes-1.4]
 

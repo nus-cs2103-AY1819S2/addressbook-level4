@@ -895,6 +895,13 @@ The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSeqDiagram.png[width="800"]
 
+The user first enters the `undo` command in the command line interface. The logic manager processes the command as a string
+and checks using the `AddressBookParser` is the string is a valid command. In this case, the parser sees that the command string
+matches the `undo` command string and hence returns an `undo` command to the `LogicManager` which then calls `execute()` to execute the command.
+The `execute()` method calls `Model#undo()` in which the model checks the `ModifyCommandHistory` for the correct `VersionedBook` that needs to be undone
+and then calls `VersionedBook#undo()`. Upon a successful undo, the `UndoCommand` will return a successful result to the `LogicManager`
+which will then the "Undo Success!" message will be displayed on the command line interface.
+
 The `redo` command does the opposite -- it calls `Model#redo()`, which first obtains the command type by calling `ModifyCommandHistory#getRedoCommand()` and based on the returned command type it shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the respective book to that state.
 
 [NOTE]
@@ -1555,7 +1562,7 @@ Expected: The application will show an error message: No more commands to undo!
 .. Prerequisites: A successful undo command have to be executed already.
 .. Test case: `redo` +
 Expected: The application will redo the undone command.
-.. Test case: `redo` without prerequisites+
+.. Test case: `redo` without prerequisites +
 Expected: The application will show an error message: No more commands to redo!
 
 

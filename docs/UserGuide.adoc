@@ -354,7 +354,7 @@ image::editCommandAfter.png[width="400"]
 
 ==== Replacing the photo of a place with `edit p/`
 
-// tag::editPhoto[]
+// tag::editphoto[]
 
 The `edit` command can also be used to change the photo of a place by replacing
 the `FILE_PATH` of the current photo with the `FILE_PATH` of the new photo.
@@ -386,7 +386,7 @@ Replaces the current photo of 3rd Place entry with the photo named `Zion Nationa
 The image FILE_PATH being replaced with the `edit` command must still follow the
 specifications laid out in <<Including a photo when adding a place with `p/`>>
 
-// end::editPhoto[]
+// end::editphoto[]
 
 // tag::search[]
 [[searchFeature]]

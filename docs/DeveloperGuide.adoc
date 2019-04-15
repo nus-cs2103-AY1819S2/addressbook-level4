@@ -133,17 +133,9 @@ The following class plays an important role at the architecture level:
 
 * `LogsCenter` : Used by many classes to write log messages to TravelBuddy's log file.
 
-The rest of TravelBuddy consists of four components.
-
-<<<<<<< HEAD
-* <<Design-Ui,*`UI`*>>: The User Interface (UI) of the App.
-=======
-
-
+The rest of TravelBuddy consists of four components:
 
 * <<Design-Ui,*`UI`*>>: The User Interface (UI) of the App.
-
->>>>>>> b21ae2d33eba83aebb99548ea6d01b119ac99381
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Model,*`Model`*>>: Holds the data of TravelBuddy in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
@@ -218,10 +210,6 @@ All parts inherit from the abstract `UiPart` class.
 ** `PlaceListCard`: Labels for the Display index and Place data fields (`CountryCode`, `Rating` etc.) in a VBox the left,
 Labels that display Name and actual Place data (`CountryCode`, `Rating` etc) in a VBox on the right
 
-<<<<<<< HEAD
-=======
-
->>>>>>> b21ae2d33eba83aebb99548ea6d01b119ac99381
 * RightParentPanel: Parent panel for both `ChartListPanel` and `ExpandedPlacePanel`,
 contains helper methods for switching functionality, interacts with `Model` and `Logic`
 

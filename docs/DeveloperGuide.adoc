@@ -752,8 +752,10 @@ distinguish whether an input is a keyword or a search condition.
 
 //tag::activity_edit[]
 
-=== Activity Edit Command
+=== Activity Edit Features
 
+[discrete]
+===== Activity Edit Command
 `ClubManager` allows users to make changes to the information fields of activities that are currently in its activity list.
 
 The `activityEdit` command allows users to edit the name, datetime, location and description fields of existing activities in the activity list.

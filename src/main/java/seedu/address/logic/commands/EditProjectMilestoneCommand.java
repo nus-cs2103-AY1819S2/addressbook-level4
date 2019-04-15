@@ -1,10 +1,13 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static java.util.logging.Level.INFO;
 
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -33,6 +36,8 @@ public class EditProjectMilestoneCommand extends EditProjectCommand {
 
     public static final String MESSAGE_EDIT_MILESTONE_SUCCESS = "Edited Milestone: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit the milestone must be provided";
+
+    private static final Logger logger = LogsCenter.getLogger(Milestone.class);
 
     private final ProjectName projectName;
     private final Index milestoneIndex;
@@ -87,6 +92,7 @@ public class EditProjectMilestoneCommand extends EditProjectCommand {
         }
 
         model.commitPocketProject();
+        logger.log(INFO, "EditedMilestone:" + editedMilestone);
 
         return new CommandResult(String.format(MESSAGE_EDIT_MILESTONE_SUCCESS, editedMilestone));
     }

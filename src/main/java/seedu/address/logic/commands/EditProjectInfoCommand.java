@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import static java.util.logging.Level.INFO;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLIENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
@@ -9,7 +10,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROJECTS;
 
 import java.util.Optional;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
@@ -39,6 +42,8 @@ public class EditProjectInfoCommand extends EditProjectCommand {
     public static final String MESSAGE_EDIT_PROJECT_SUCCESS = "Project edited successfully!";
     public static final String MESSAGE_NOT_EDITED = "Project is not edited";
     public static final String MESSAGE_DUPLICATE_PROJECT = "The project already exists.";
+
+    private static final Logger logger = LogsCenter.getLogger(Project.class);
 
     private final ProjectName projectName;
     private final EditProjectDescriptor editProjectDescriptor;
@@ -83,6 +88,7 @@ public class EditProjectInfoCommand extends EditProjectCommand {
         model.setProject(projectToEdit, editedProject);
         model.updateFilteredProjectList(PREDICATE_SHOW_ALL_PROJECTS);
         model.commitPocketProject();
+        logger.log(INFO, "EditedProject:" + editedProject);
         return new CommandResult(String.format(MESSAGE_EDIT_PROJECT_SUCCESS, editedProject));
     }
 

@@ -64,6 +64,7 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
         for (Equipment eqpt : equipment) {
             nameList.add(eqpt.getName());
         }
+
         this.name.setClient(nameList);
         indicateModified();
     }
@@ -73,7 +74,6 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
      */
     public void resetData(ReadOnlyEquipmentManager newData) {
         requireNonNull(newData);
-
         setEquipment(newData.getPersonList());
     }
 

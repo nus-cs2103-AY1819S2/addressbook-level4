@@ -1733,6 +1733,15 @@ _{ more test cases ... }_
 .. Test case: `aEdit 0` +
    Expected: Invalid command format!
 
+=== Deleting an activity
+. Deleting an activity while all activities are listed.
+
+.. Prerequisites: List all activities using the `aList` command. Multiple persons in the list.
+.. Test case: `activityDelete 1` +
+.. Expected: Deleted Activity: "ACTIVITY DETAILS"
+.. Test case: `activityDelete 99` (if there are only 10 activities in the list) +
+   The activity index provided is invalid
+
 === Adding a member to an activity's attendance list
 . Adding a member to an activity while all activities are listed.
 

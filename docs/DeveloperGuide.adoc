@@ -375,6 +375,7 @@ To ensure versatility and enhance the usefulness of this list, a number of comma
 ==== Current Implementation
 ===== Model Component
 
+.Updated Model Component Class Diagram for Member List
 image::person-attributes.png[width=100%]
 
 // end::memberlistfeature
@@ -383,7 +384,8 @@ image::person-attributes.png[width=100%]
 ===== `memberAdd` Command
 This command takes in a number of parameters that are contact and student information pertaining to the member. The `MemberAddCommandParser` requires that all field are present, in the required format, with the exception of tags which are optional.
 
-image::memberadd_validation.png[width=70%]
+.Sequence of Validations and Checks for MemberAddCommand
+image::memberadd_validation.png[width=40%]
 
 Below is a step-by-step process on how the memberAdd command works on execution:
 
@@ -421,10 +423,12 @@ The following code snippet shows how the `memberAdd` command is executed:
 ===== `memberFilter` Command
 *Logic Component*
 
+.Sequence Diagram for MemberFilterCommand for the logic component.
 image::MemberFilter_Logic.png[width=100%]
 
 *Model Component*
 
+.Sequence Diagram for MemberFilterCommand for the model component.
 image::MemberFilter_Model.png[width=100%]
 
 The `memberFilter` command retrieves members (based on a filter criteria) from the `UniquePersonList` and displays these members on the `PersonListPanel`.
@@ -473,7 +477,7 @@ Below is a step-by-step process on how the `memberList` command works on executi
 //end::memberlist[]
 
 // tag::memberselect[]
-==== `memberSelect` Command
+===== `memberSelect` Command
 
 The `memberSelect` command selects a member (based on index) on the `UniquePersonList`.
 
@@ -487,11 +491,13 @@ member in the `filteredPersonList`.
 
 The `memberSelect` command is naturally tied with the User Interface.
 
+.Ui Component Class Diagram
 image::updatedUIcomponent.png[width=50%]
 
 When a member is selected, the `memberDetailPanel` will populate the information of the selected person. The `ActivitiesAttendedByMemberPanel` will also populate the activities that are attended by member.
 For the population of member statistics, it is less straightforward. The calling flow is UI to Logic to Model. This is illustrated in the diagram below.
 
+.Sequence Diagram of MemberSelectCommand
 image::memberselect_sequence.png[width=50%]
 
 ===== Design Considerations

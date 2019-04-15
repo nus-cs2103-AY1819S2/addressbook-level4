@@ -21,14 +21,11 @@ It serves as a journal, allowing the users to give reviews and ratings to the re
 My role in this project is to implement a function that allows food lovers to visit the website of restaurants so that they
 can reference the website while writing a review.
 
-The following symbols can help you better understand the some considerations that I had as you read through
+The following symbol can help you better understand the some considerations that I had as you read through
 my contributions to the User Guide and Developer Guide
 
 [NOTE]
 This is a *note*. A note indicates important additional information that should be read.
-
-[TIP]
-This is a *tip*. A tip indicates good to know information that would improve your user experience.
 
 
 == Summary of contributions

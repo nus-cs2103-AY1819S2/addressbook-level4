@@ -53,6 +53,7 @@ Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 +
 image::Ui.png[width="790"]
 +
+.  Note that for now, docX only supports Command Line Interface (CLI). Clicking on any list is not allowed and will cause unexpected errors.
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
@@ -93,7 +94,7 @@ Format: `add-p [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [adr/ADDRESS] [t/TAG]`
 Examples:
 
 * `add-p n/Tom Hiddleston g/M a/21 p/98765432 adr/Utown College 2`
-* `add-p n/Bettany Sim g/F p/8234567 a/32 adr/RVRC House 12 t/diabetic`
+* `add-p n/Bettany Sim g/F p/82345672 a/32 adr/RVRC House 12 t/diabetic`
 
 [TIP]
 For constraints of name, gender, age, phone, address and tags, please refer to the table below.

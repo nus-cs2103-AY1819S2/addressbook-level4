@@ -88,12 +88,15 @@ https://github.com/CS2103-AY1819S2-W14-2/main/issues/148[#148],
 
 include::../UserGuide.adoc[tag=ContrastCommand]
 
+include::../UserGuide.adoc[tag=BrightnessCommand]
+
+include::../UserGuide.adoc[tag=SavePreset]
+
 include::../UserGuide.adoc[tag=SetPreset]
 
 === *Other Works Contributed*
 '''
-* Black/White and Brightness features
-* Save Preset feature
+* Black/White feature
 * Command Summary
 
 == Contributions to the Developer Guide

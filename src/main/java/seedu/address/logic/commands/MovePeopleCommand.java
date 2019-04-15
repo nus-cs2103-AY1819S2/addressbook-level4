@@ -49,7 +49,8 @@ public class MovePeopleCommand extends Command {
     public static final String MESSAGE_NO_DISPLAYED_JOB = "No job is displayed. "
             + "Please enter a jobName with jn/ prefixed\n"
             + "Source list can only be provided if there is a job displayed";
-    public static final String MESSAGE_DISPLAYING_JOB_ERROR = "Displaying Job. Cannot have jn/ input\n";
+    public static final String MESSAGE_DISPLAYING_JOB_ERROR = "Displaying Job. Cannot have jn/ input\n"
+            + "and SOURCE cannot be empty";
     public static final String MESSAGE_NO_DESTINATION = "Please provide a destination list\n";
     public static final String MESSAGE_NO_SOURCE = "Please provide a source list\n";
     public static final String MESSAGE_NO_INDEX = "Please provide some indexes to move\n";
@@ -81,22 +82,22 @@ public class MovePeopleCommand extends Command {
 
         Job tempJob;
 
-        if (toAdd == null) {
-            if (model.getIsAllJobScreen()) {
+        if (model.getIsAllJobScreen()) {
+            if (toAdd == null || !from.equals(JobListName.STUB)) {
                 throw new CommandException(MESSAGE_NO_DISPLAYED_JOB);
             }
-            tempJob = model.getActiveJob();
-        } else {
-            if (!model.getIsAllJobScreen()) {
-                throw new CommandException(MESSAGE_DISPLAYING_JOB_ERROR);
-            }
-            tempJob = new Job(toAdd);
             try {
                 model.getJob(toAdd);
             } catch (Exception e) {
                 throw new CommandException(MESSAGE_JOB_NOT_FOUND);
             }
+        } else {
+            if (toAdd != null || from.equals(JobListName.STUB)) {
+                throw new CommandException(MESSAGE_DISPLAYING_JOB_ERROR);
+            }
         }
+
+        tempJob = model.getActiveJob();
 
         List<Person> fromList = model.getJobsList(from);
 

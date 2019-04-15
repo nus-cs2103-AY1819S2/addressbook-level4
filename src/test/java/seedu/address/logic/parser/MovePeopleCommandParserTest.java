@@ -34,7 +34,7 @@ public class MovePeopleCommandParserTest {
         indexes.add(INDEX_FIRST_PERSON);
         assertParseSuccess(parser, " k a 1 jn/Teacher",
                 new MovePeopleCommand(JobListName.KIV, JobListName.APPLICANT,
-                        indexes, new JobName(VALID_JOB_NAME_TEACHER)));
+                        indexes, null));
     }
 
     @Test
@@ -44,7 +44,7 @@ public class MovePeopleCommandParserTest {
         indexes.add(INDEX_SECOND_PERSON);
         assertParseSuccess(parser, " k a 1, 2 jn/Teacher",
                 new MovePeopleCommand(JobListName.KIV, JobListName.APPLICANT,
-                        indexes, new JobName(VALID_JOB_NAME_TEACHER)));
+                        indexes, null));
     }
 
     @Test

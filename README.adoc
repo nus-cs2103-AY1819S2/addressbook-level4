@@ -3,15 +3,10 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 image:https://api.codacy.com/project/badge/Grade/9a712b09ec8f4acbb39586d28ba4b749[link="https://app.codacy.com/app/sreycodes/main?utm_source=github.com&utm_medium=referral&utm_content=cs2103-ay1819s2-t12-1/main&utm_campaign=Badge_Grade_Settings"]
 image:https://travis-ci.org/cs2103-ay1819s2-t12-1/main.svg?branch=master[link="https://travis-ci.org/cs2103-ay1819s2-t12-1/main.svg?branch=master"]
-image:https://coveralls.io/repos/github/cs2103-ay1819s2-t12-1/main/badge.svg?branch=master[link="https://coveralls.io/repos/github/cs2103-ay1819s2-t12-1/main/badge.svg?branch=master"]
 
-ifdef::env-github[]
+.The above image was taken on a windows system.
 image::docs/images/Ui.png[width="1010"]
-endif::[]
 
-ifndef::env-github[]
-image::docs/images/Ui.png[width="1010"]
-endif::[]
 
 * This is a Hotel Management System. Hotels can use this system as a one stop application for all their management work.
 * It has features to show customer details, and the respective customer's room reservations and service bookings along with it. We also generate the bill for the user.
@@ -19,10 +14,10 @@ endif::[]
 
 == Site Map
 
-* <<UserGuide#, User Guide>>
-* <<DeveloperGuide#, Developer Guide>>
-* <<AboutUs#, About Us>>
-* <<ContactUs#, Contact Us>>
+* https://cs2103-ay1819s2-t12-1.github.io/main/UserGuide.html[User Guide]
+* https://cs2103-ay1819s2-t12-1.github.io/main/DeveloperGuide.html[Developer Guide]
+* https://cs2103-ay1819s2-t12-1.github.io/main/AboutUs.html[About Us]
+* https://cs2103-ay1819s2-t12-1.github.io/main/ContactUs.html[Contact Us]
 
 == Acknowledgements
 

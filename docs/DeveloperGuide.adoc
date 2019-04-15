@@ -381,6 +381,7 @@ To be updated later
 
 Patients is one of the two valid types of Persons to be stored in the docX record.
 The following features are implemented or will be implemented for patients of docX:
+
 * Add patient
 * List all patients
 * Edit existing patients
@@ -470,19 +471,20 @@ Step5. execute() calls hasMedHist() of Model. If medical history doesn't exist, 
 
 Doctor is one of the two valid types of Persons to be stored in the docX record.
 The following features are implemented or will be implemented for doctors of docX:
-* Add doctor
-* List all doctors
-* Edit existing doctors
-* Search doctors by keywords
-* Delete existing doctors
+
+* Add doctor `add-d`
+* List all doctors and search for doctors by keywords `list-d`
+* Edit existing doctors `edit-d`
+* Delete existing doctors `delete-d`
+* Finding relevant and available doctors for upcoming appointments `match-d`
 
 ==== Add Doctor feature
 
-When a user executes `add-doctor n/John Doe g/M p/98765432 y/3 s/'acupuncture`
+When a user executes `add-d n/John Doe g/M p/98765432 y/3 s/'acupuncture`
 
-Step1. LogicManager calls parseCommand("add-doctor") in docXParser.
+Step1. LogicManager calls parseCommand("add-d") in docXParser.
 
-Step2. Based on the COMMAND_WORD, docXParser builds a new AddDoctorCommandParser() and call function parse(arguments) of AddDoctorCommandParser;
+Step2. Based on the COMMAND_WORD, docXParser builds a new AddDoctorCommandParser() and call function parse(arguments) of AddDoctorCommandParser.
 
 Step3. AddDoctorCommandParser parses the argument and get doctor's name, gender, year of experience, phone and his/her specialisations. AddDoctorCommandParser calls constructors of Name, Year, Gender, Phone, Specialisation and then calls the constructor of Doctor.
 	   Then, AddDoctorCommandParser calls AddDoctorCommand(Doctor).
@@ -493,28 +495,54 @@ Step5. execute() calls hasDoctor() of Model. If doctor does not exist, call addD
 
 ==== List Doctor feature
 
-list-doctor
-When a user executes `list-doctor`
+When a user executes `list-doctor acupu`
 
-Step1. LogicManager calls parseCommand("list-doctor") in docXParser.
+Step1. LogicManager calls parseCommand("list-d") in docXParser.
 
-Step2. Based on the COMMAND_WORD, docXParser builds a new ListDoctorCommand() and calls execute() of ListDoctorCommand().
+Step2. Based on the COMMAND_WORD, docXParser builds a new ListDoctorCommandParser() and call function parse(arguments) of ListDoctorCommandParser.
 
-Step3. execute() calls Model Manager to update filtered doctor list to show all existing doctors in docX.
+Step3. ListDoctorCommandParser parses the argument. If no argument is present, then ListDoctorCommandParser calls ListDoctorCommand(). If there are argument(s) present, DoctorContainsKeywordsPredicate("acupu") will be called.
+        Then, ListDoctorCommandParser calls ListDoctorCommand(DoctorContainsKeywordsPredicate).
 
-Step4. // to continue
+Step4. LogicManager calls execute() of ListDoctorCommand.
+
+Step5. execute() checks if the DoctorContainsPredicate equals to null. If it equals to null, it calls updateFilteredDoctorList() of Model to show all doctors.
+        If it is not null, it calls updateFilteredDoctorList() of Model.
+
+
+Step6. test(Doctor) of DoctorContainsKeywordsPredicate will be called. It will check if any of the field matches "acupu" in full or part. If it matches, the doctor will be shown.
 
 ==== Edit Doctor feature
 
-edit-doctor
+When a user executes `edit-d 1 n/Betty Veronica`
 
-==== Search Doctor feature
+Step1. LogicManager calls parseCommand("edit-d") in docXParser.
 
-search-doctor
+Step2. Based on the COMMAND_WORD, docXParser builds a new EditDoctorCommandParser() and call function parse(arguments) of EditDoctorCommandParser.
+
+Step3. EditDoctorCommandParser parses the argument and get the fields to be changed. and ...
 
 ==== Delete Doctor feature
 
-delete-doctor
+When a user executes `delete-d 1`
+
+Step1. LogicManager calls parseCommand("delete-d") in docXParser.
+
+Step2. Based on the COMMAND_WORD, docXParser builds a new DeleteDoctorCommandParser() and call function parse("1") of DeleteDoctorCommandParser.
+
+Step3. DeleteDoctorCommandParser parses the argument and get the relative index of the doctor to be deleted and ...
+
+==== Doctor Match feature
+
+When a user executes `match-d s/general d/2019-06-20 t/09:00`
+
+Step1. LogicManager calls parseCommand("match-d") in docXParser.
+
+Step2. Based on the COMMAND_WORD, docXParser builds a new DoctorMatchCommandParser() and call function parse(arguments) of DoctorMatchCommandParser.
+
+Step3. DoctorMatchCommandParser parses the argument and get the desired specialisation, date and time of the appointment. DoctorMatchCommandParser calls constructors of Specialisation, AppointmentDate, AppointmentTime and then calls the constructor of DoctorMatch.
+
+Step4. // to continue
 
 === Appointments
 

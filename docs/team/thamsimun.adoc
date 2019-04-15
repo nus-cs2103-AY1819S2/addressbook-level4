@@ -9,7 +9,7 @@
 
 == Overview
 
-My team and I were tasked with enhancing a basic command line addressbook for our Software Engineering project. We decided to morph the project into a image editor. +
+My team and I were tasked with enhancing a basic command line addressbook for our Software Engineering project. We decided to morph the project into an image editor. +
 
 FomoFoto is a robust yet simple image-editing tool. Users interact with the application through worded commands from their keyboard, and receive visual feedback from it through the displayed image on the application. +
 
@@ -26,7 +26,7 @@ This section provides a summary of my coding, documentation and other contributi
 
 ** Justification: This feature improves the product significantly because applying filters on images is an essential feature of an image editor. Users might need to adjust the brightness and contrast of images as the images they have might be under-exposed and are not well contrasted. Also, the black and white filter is useful for users who like vintage images.
 
-** Highlights: This enhancement was challenging to implement as the image filter commands are working on the same image as the image manipulation commands that were implemented by my teammate. It seeks for an in-depth analysis of design alternatives and the implementation of image editing libraries. As my teammate and I had to use two different third-party libraries which returned different objects, we had to ensure that the classes in our code (e.g. `CurrentEdit`) have helper methods that accept both objects from the two different libraries.
+** Highlights: This enhancement was challenging to implement as the image filter commands are working on the same image as the image manipulation commands that were implemented by my teammate. It seeks for an in-depth analysis of design alternatives and the implementation of image editing libraries. As my teammate and I had to use two different third-party libraries which return different objects, we had to ensure that the classes in our code (e.g. `CurrentEdit`) have helper methods that accept both objects from the two different libraries.
 
 ** Credits: _{The processing of images is facilitated by an external API https://github.com/sksamuel/scrimage[`scrimage`]}_
 
@@ -37,6 +37,8 @@ This section provides a summary of my coding, documentation and other contributi
 ** Justification: This feature improves the product significantly because multiple image filters and manipulations are frequently applied simultaneously. With this feature, users can save multiple image-editing commands as one preset command and use them for other images.  This makes image-editing more efficient as the user can now apply multiple image filters or manipulations on other images with just a command instead of executing the commands one by one.
 
 ** Highlights: This feature requires an in-depth understanding of how the image-editing commands (e.g. image filters and image manipulations) are executed as it has to execute a few of them at a go. Furthermore, as a  preset list of commands might not work on another image (e.g. the cropping command depends on the size of the image), it is necessary to display the exact command in the preset list of commands that cannot be applied on the image to guide the user.
+
+* *Minor enhancement*: I added
 
 
 * *Code contributed*:
@@ -51,6 +53,7 @@ This section provides a summary of my coding, documentation and other contributi
 
 ** Documentation:
 *** Wrote the skeleton for the user guide: https://github.com/CS2103-AY1819S2-W14-2/main/issues/132[#132]
+*** Wrote the command summary in the user guide
 *** Did the sequence diagrams of the logic component in the developer guide:
 https://github.com/CS2103-AY1819S2-W14-2/main/pull/116[#116]
 *** Wrote the documentation for the image filters in the developer guide
@@ -89,15 +92,16 @@ https://github.com/CS2103-AY1819S2-W14-2/main/issues/148[#148],
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=BlackWhiteCommand]
-
-include::../UserGuide.adoc[tag=ContrastCommand]
-
 include::../UserGuide.adoc[tag=BrightnessCommand]
 
 include::../UserGuide.adoc[tag=SavePreset]
 
 include::../UserGuide.adoc[tag=SetPreset]
+
+=== *Other Works Contributed*
+'''
+* Black/White and Contrast features
+* Command Summary
 
 == Contributions to the Developer Guide
 

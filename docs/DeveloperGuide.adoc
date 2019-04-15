@@ -325,14 +325,14 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** e.g. for email field >email`, for skills field `>skill`
 * *`CRITERIA/CRITERION:`* These are the texts that are between 'PREFIX' and 'REVERSE PREFIX'
 ** e.g. for the input `filter and deg<bachelors>deg phone<95>phone`, the criterion are `bachelors` and `95`.
-** all the criterion possible for filtering are: `NAME, PHONE, EMAIL, GPA, EDUCATION, DEGREE-LEVEL, ADDRESS, SKILLS` (It can have multiple criterion inside of it, e.g. `skill<C++, Java>skill` has 2 criterion `C++ and Java`), `POSITIONS` (same situation with SKILLS), `ENDORSEMENT-COUNT`.
+** all the criterion possible for filtering are: `NAME, PHONE, EMAIL, GPA, EDUCATION, DEGREE-LEVEL, ADDRESS, SKILLS` (It can have multiple criterion inside of it, e.g. `skill<C++, Java>skill has 2 criterion C++ and Java`), `POSITIONS` (same situation with SKILLS), `ENDORSEMENT-COUNT`.
 
 *Differences of 4 Types of Filter Commands:*
 
 * *`AND:`* This type of command is used for only showing the persons that passes all the criterion given in the input.
 ** e.g. if input is `filter and edu<NUS>edu pos<Manager, Developer>pos`, only the persons, who have studied in `NUS` and applied for both `Manager and Developer` positions, will be shown.
 * *`OR:`* This type of command is used for only showing the persons that passes at least one of the criterion given in the input.
-** e.g. if input is `filter or addr<Singapore>addr skill<C++, Java>skill`, only the persons, who live in `Singapore` or knows about `C++ or Java`, will be shown
+** e.g. if input is `filter or addr<Singapore>addr skill<C++, Java>skill` , only the persons, who live in `Singapore` or knows about `C++ or Java`, will be shown
 * *`CLEAR:`* If a filtering is applied before and the currently viewed list is a filtered list of persons, then this type clears all the active filtering and shows all the persons in the storage.
 * *`REVERSE:`* If a filtering is applied before, this command shows only the persons that are eliminated with the previous filtering conditions. Basically, it reverses the filter.
 ** e.g. if input is `filter reverse` and if there are 11 persons in the total storage but only 7 are shown since there is a filtering, this type shows only the 4 other persons that were not shown.

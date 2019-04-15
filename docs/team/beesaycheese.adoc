@@ -19,11 +19,10 @@ We decided to morph it into RestOrRant (ROR), a restaurant management applicatio
  Command Line Interface (CLI).
 
 RestOrRant is split into 4 main features: Tables, Orders, Menu and Statistics. To cater to needs of the user, modes
-are created to make the application user-friendly. *Restaurant Mode*, *Table Mode*, *Menu Mode* and *Statistics Mode*
- are modes meant to handle these 4 features respectively. Each of my teammates are in charge of one feature and mine
- was Statistics. In the following sections, I will elaborate on my
-contributions and extract relevant parts from the User Guide and Developer Guide that I wrote for the Statistics
-feature.+
+were created to make the application user-friendly.*Restaurant Mode*, *Table Mode*, *Menu Mode* and *Statistics Mode*
+ are modes meant to handle these 4 features respectively. Each of my teammates are in
+charge of one feature and mine was Statistics. In the following sections, I will be elaborating more on my
+contributions and extract relevant parts from the User and Developer Guides that I wrote for the Statistics feature.+
 
 You may find it useful to refer to the table below for the different symbols and formatting used in this portfolio.
 
@@ -44,104 +43,76 @@ endif::[]
 
 == Summary of contributions
 
-Overall, my role in this project encompasses managing the documentation of the project, keeping track the
-deadlines and deliverable, enhancing and cleaning up the UI components and Statistics feature.
- You may refer below for a detailed summary of the coding, documentation and other helpful
+Overall, my role in this project encompasses managing the *UI components*, *Statistics feature*, *documentation*, *project
+deadline* and *deliverable*. The following provides a detailed summary of the coding, documentation and other helpful
 contributions I have contributed to the team project.
 
-. *Major enhancements:* I add *_Statistics feature_* and its relevant commands.
+. *Major Commands implemented*
 
-.. *Calling for bill*: `bill` command
-** _What it does:_ It allows users to *calculate and record the total bill* accumulated from the table's order.
-** _Justification:_ This feature is necessary to update the restaurant's revenue, status of the specified table and the
-quantity of the menu items that were ordered.
-** _Highlights:_ This command is only usable in Table Mode.
+.. *Calling for bill*: added the ability to *calculate and record the bill* of a specific table.
+** What it does: allows users to calculate and record the total bill accumulated from the table's orders.
+** Justification: This feature is necessary to update the restaurant revenue, status of the specified tables and the
+popularity of the menu items that were ordered.
+** Highlights: This command is only usable in Table Mode.
 
-.. *Changing the Statistics Mode display*: `yearly`, `monthly`, `daily` commands
-** _What it does:_ Changes the display to show yearly, monthly and daily *trends of the restaurant's earnings* as
-well as the *popularity of the menu items*.
-** _Justification:_ This feature allows the restaurant manager to study the restaurant performance. +
-These makes it easier for the manager to make essential back-end and front-end management arrangements to cater to the days and
-months that receives more customers. +
-The popularity of the menu items also helps the manager decide what kind of
-prior preparations are needed to cater to the popular dishes.
-** _Highlights:_ At most 30 year, months or days along with its revenue are displayed to prevent overflow of data.
-
-.. *Calling for revenue*: `revenue`, `revenue y/YEAR`, `revenue y/YEAR m/MONTH`, `revenue y/YEAR m/MONTH d/DAY`
-** What it does: It allows users to *retrieve the required yearly, monthly, daily revenue* the user specifies.
-** Justification: This feature allows the restaurant manager to conveniently calculate and obtain the revenue
+.. *Calling for revenue*: added *the ability to get revenue from the specified year, month and date*
+** What it does: allows the user to get the required revenue the user specifies.
+** Justification: This feature allows the restaurent manager to conveniently calculate and obtain the revenue
 he/she wants. It also eliminates the possibility of human errors when calculating the revenue.
-** Highlights: This command is only usable for day, month, year that are valid and dates that exists in the calendar.
- In the case where no day, month and year are specified, the current day's revenue will be returned.
+** Highlights: This command is only usable for dates, months and years that are valid. In the case where no
+date, month or year is specified, the current day's revenue will be returned.
+
+.. *Calling for yearly, monthly and daily*: added *the ability to get revenue from the specified year, month and date*
+** What it does: allows the user to get the required revenue the user specifies.
+** Justification: This feature allows the restaurent manager to conveniently calculate and obtain the revenue
+he/she wants. It also eliminates the possibility of human errors when calculating the revenue.
+** Highlights: This command is only usable for dates, months and years that are valid. In the case where no
+date, month or year is specified, the current day's revenue will be returned.
 
 . *Minor enhancement*: Create a Bill Mode that displays a receipt for the user.
 
-. *Code contributed*: Please refer to these links to view my code +
+. *Code contributed*: Please refer to theses links to view my code +
 [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=beesaycheese[Project
 Code Dashboard]]
+ [https://github.com[Test code]]
 
 . *Other contributions*:
 
 ** Project management:
 *** Ensures that the User Guide and Developer Guide are completed according to what was required.
 *** Documents essential discussion pointers during meetings and share them with the team.
-*** Use buffers to set deadlines and ensure everyone are informed and on task.
+*** Informs team about the deadlines.
 
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33])
-*** Wrote tests for bill and statistics features
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote tests for bill and statistics features (Pull requests https://github.com[#36])
 
 ** Documentation:
 *** Reorganise the User Guide according to modes: https://github.com/cs2103-ay1819s2-w09-3/main/pull/123[#123]
 
 ** Community:
-*** Reported bugs for other teams in the class [Examples: https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/827[1], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/791[2]]
+*** PRs reviewed (with non-trivial review comments): https://github.com/cs2103-ay1819s2-w09-3/main/pull/167[#167],
+https://github.comcs2103-ay1819s2-w09-3/main/pull/121[#121], https://github
+.comcs2103-ay1819s2-w09-3/main/pull/121[#108]
 
 == Contributions to the User Guide
 
-This section shows the contributions that I have made to the User Guide. I have included information about how
-the bill and Statistics features work.
-
 |===
-|_Even though `bill` is used in Table Mode, its implementation is under the Statistics feature._
+|_Given below are sections I contributed to the User Guide._
 |===
 
 include::../UserGuide.adoc[tag=bill]
 
-You may refer to <<DG, contributions to Developer Guide>> to have a better understanding of `bill` command.
-
-include::../UserGuide.adoc[tag=smintro]
-Here are the commands that you can use in this mode to study the statistical data of your restaurant.
-
-include::../UserGuide.adoc[tag=daily]
-
-`monthly` and `yearly` commands also work similarly. +
-
-
-include::../UserGuide.adoc[tag=revenue]
-
-[[DG]]
 == Contributions to the Developer Guide
 
-Given below are sections I contributed to the Developer Guide.
-
 |===
-|_ Since `bill` command is an essential feature in the application, I choose to present it
- in the section below._
+|_Given below are sections I contributed to the Developer Guide._
 |===
 
 include::../DeveloperGuide.adoc[tag=statisticsclasses]
-
-[NOTE]
-Before elaborating on the bill feature, we have to understand the design considerations for statistics storage.
 
 include::../DeveloperGuide.adoc[tag=statisticsstorage]
 
 include::../DeveloperGuide.adoc[tag=bill]
 
-|===
-|_I have decided to include a brief description of the following commands' implementation as they make up the main
-crux of the Statistics Mode._
-|===
 
-include::../DeveloperGuide.adoc[tag=trends]

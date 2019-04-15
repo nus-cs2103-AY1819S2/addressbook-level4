@@ -152,6 +152,7 @@ public class CurrentEditManager implements CurrentEdit {
         Notifier.firePropertyChangeListener("import", null, tempImage.getUrl());
     }
 
+    /* @@author randytqw */
     /**
      * Adds an executed command into Image history.
      * @param command Command to be added.
@@ -204,6 +205,7 @@ public class CurrentEditManager implements CurrentEdit {
         return tempImage.getCommand();
     }
 
+    /* @@author */
     /* @@author itszp */
     /**
      * Creates originalImage instance of {@code image} located in temp_folder.

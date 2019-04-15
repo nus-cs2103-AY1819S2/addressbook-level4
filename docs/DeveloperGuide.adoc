@@ -353,10 +353,10 @@ Step 4. `ExportCommand#validPath` checks if the specified directory is valid and
 Step 5. If file to be exported exists and directory is valid, the file will be copied to the directory.
 
 
-The following sequence diagram shows how the `save` command works:
+The following sequence diagram shows how the `export` command works:
 
-.Sequence Diagram for Save Command
-image::SaveCommandSequenceDiagram.png[width=800]
+.Sequence Diagram for Export Command
+image::ExportSequenceDiagram.png[width=600]
 
 // end::Export[]
 

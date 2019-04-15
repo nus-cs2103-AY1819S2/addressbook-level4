@@ -1,6 +1,5 @@
 package seedu.hms.model.booking;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -62,8 +61,11 @@ public class Booking {
         return comment;
     }
 
+    /**
+     * Returns the number of customers in a booking
+     */
     public int numOfCustomers() {
-        return 1 + otherUsers.map(Collection::size).orElse(0);
+        return allUsers.size();
     }
 
     public boolean isCustomerInOtherUsers(Customer key) {

@@ -424,12 +424,25 @@ Given below is an example usage scenario and how the addBook mechanism behaves a
 
 Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial bookshelf state, and the `currentStatePointer` pointing to that single bookshelf state.
 
-Step 2. The user executes `addBook n/Alice a/HR m/5 tag/fantasy` command to add the book called Alice, written by HR, with a rating of 5 and tag of fantasy in the Bookshelf. The `addBook` command calls `Model#hasBook()`, checking if the book already exists in the bookshelf.
+Step 2. The user executes `addBook n/Alice a/HR m/5 tag/fantasy` command to add the book called Alice, written by HR, with a rating of 5 and tag of fantasy in the Bookshelf. The `AddBookCommandParser` check if the command is in valid format.
+
+[NOTE]
+If the command is not in valid format, ParseException(MESSAGE_INVALID_COMMAND_FORMAT) will be thrown. The book will not be added to the bookshelf.
+
+Step 3. The `addBook` command calls `Model#hasBook()`, checking if the book already exists in the bookshelf.
 
 [NOTE]
 If the book already exists, CommandException(MESSAGE_DUPLICATE_BOOK) will be thrown. It will not call `Model#commitBookShelf()`, so the bookshelf state will not be saved into the `BookShelfStateList`.
 
 Step 4. The bookshelf now adds the book to the Bookshelf after making sure there are no duplicates, and calls Model#commitBookShelf(), causing the modified state of the Bookshelf after the `addBook` command executes to be saved in the BookShelfStateList
+
+The Sequence Diagram below shows how the components interact with each other for the scenario where the user issues the command `addBook n/Alice a/HR m/5 tag/fantasy`.
+
+image::AddBookHighLevelSequenceDiagram.jpg[width="800"]
+
+The following activity diagram summarizes what happens when a user executes an AddBook command:
+
+image::AddBookActivityDiagram.png[width="800"]
 
 ==== Design Considerations
 
@@ -444,12 +457,23 @@ Step 4. The bookshelf now adds the book to the Bookshelf after making sure there
 
 ===== Aspect: Data structure to support the addBook command
 
-* **Alternative 1 (current choice):** Saves the entire book as one object contains different components such as author, rating, etc.
+* **Alternative 1 (current choice):** Saves the entire book as one object contains different fields such as author, rating, etc.
 ** Pros: Easy to implement delete and other features that change an entire book.
-** Cons: Maybe more difficult to implement the summary feature which needs to obtain statistics of all separate components, eg. find the most popular author.
-* **Alternative 2:** Components stored as individual objects.
+** Cons: Maybe more difficult to implement the summary feature which needs to obtain statistics of all separate fields stored in each book, eg. find the most popular author.
+
+[NOTE]
+An example of the current model is given below. +
+ +
+image:BookModelComponentClassOopDiagram.png[width="800"]
+
+* **Alternative 2:** Store a Tag list and an Author List in BookShelf, which Book can reference.
 ** Pros: Easier to obtain statistics regarding each component.
-** Cons: It is hard to manage book object as we need to find a way to connect all components together.
+** Cons: It is harder to manage book object as we need to find a way to connect all components together.
+
+[NOTE]
+An example of the alternative model is given below. +
+ +
+image:BookModelComponentAlternativeClassOopDiagram.png[width="800"]
 
 === EditBook feature
 ==== Current Implementation
@@ -488,7 +512,7 @@ Step 4. The bookshelf now set the fields of the first book to the new ones provi
 // end::book[]
 
 // tag::listBook[]
-=== ListBook Feature
+=== ListBook feature
 
 ==== Current Implementation
 
@@ -528,7 +552,7 @@ image::listBookSqDiagram.png[width="800"]
 // end::listBook[]
 
 // tag::summary[]
-=== Summary Feature
+=== Summary feature
 
 ==== Current Implementation
 
@@ -564,7 +588,7 @@ Step 5. The `SummaryCommand` executes. The command will traverse all books in th
 
 // tag::addReview[]
 
-=== AddReview Feature
+=== AddReview feature
 
 ==== Current Implementation
 
@@ -616,7 +640,7 @@ adding enhanced review input panel to make the review feature more user-friendly
 This feature is provided for the convenience of the user. An overloaded constructor
 is available where the date can be passed in as a parameter, to be used in testing.
 
-=== ListReview Feature
+=== ListReview feature
 
 ==== Current Implementation
 
@@ -634,7 +658,7 @@ Alternatively, the user can click the book to select it.
 
 ===== Aspect:
 
-=== ListAllReviews Feature
+=== ListAllReviews feature
 ==== Current Implementation
 
 The ListAllReviews Feature uses the same implementation as the ListBook feature:
@@ -656,7 +680,7 @@ Step 3. The ListAllReviewsCommand executes. Review list panel is updated to show
 ** Pros: Consistency.
 ** Cons: Command is not intuitive, and takes extra time to implement review predicates.
 
-=== SelectReview Feature
+=== SelectReview feature
 ==== Current Implementation
 
 Selection of review is implemented the same way as the selection of a book.
@@ -672,7 +696,7 @@ Step 3. The SelectReviewCommand executes. The review with the specified index is
 Step 4. The BookBrowserPanel listens to the change in the selected review and displays its review message.
 
 
-=== DeleteReview Feature
+=== DeleteReview feature
 ==== Current Implementation
 
 The review is deleted based on the index.
@@ -703,16 +727,16 @@ We use asciidoc for writing documentation.
 [NOTE]
 We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
 
-=== Editing Documentation
+=== Editing documentation
 
 See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
 Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
 
-=== Publishing Documentation
+=== Publishing documentation
 
 See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
 
-=== Converting Documentation to PDF format
+=== Converting documentation to PDF format
 
 We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting the document to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
 
@@ -727,7 +751,7 @@ Here are the steps to convert the project documentation files to PDF format.
 image::chrome_save_as_pdf.png[width="300"]
 
 [[Docs-SiteWideDocSettings]]
-=== Site-wide Documentation Settings
+=== Site-wide documentation settings
 
 The link:{repoURL}/build.gradle[`build.gradle`]  file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
 
@@ -785,7 +809,7 @@ _{asterisk} Official SE-EDU projects only_
 
 |===
 
-=== Site Template
+=== Site template
 
 The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
 You can modify them to change some properties of the site's design.
@@ -803,7 +827,7 @@ The SE-EDU team does not provide support for modified template files.
 [[Testing]]
 == Testing
 
-=== Running Tests
+=== Running tests
 
 There are three ways to run tests.
 
@@ -844,7 +868,7 @@ e.g. `seedu.address.storage.StorageManagerTest`
 e.g. `seedu.address.logic.LogicManagerTest`
 
 
-=== Troubleshooting Testing
+=== Troubleshooting testing
 **Problem: `HelpWindowTest` fails with a `NullPointerException`.**
 
 * Reason: One of its dependencies, `HelpWindow.html` in `src/main/resources/docs` is missing.
@@ -852,22 +876,22 @@ e.g. `seedu.address.logic.LogicManagerTest`
 
 == Dev Ops
 
-=== Build Automation
+=== Build automation
 
 See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
 
-=== Continuous Integration
+=== Continuous integration
 
 We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
 
-=== Coverage Reporting
+=== Coverage reporting
 
 We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
 
-=== Documentation Previews
+=== Documentation previews
 When a pull request has changed asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
 
-=== Making a Release
+=== Making a release
 
 Here are the steps to create a new release.
 
@@ -876,7 +900,7 @@ Here are the steps to create a new release.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
-=== Managing Dependencies
+=== Managing dependencies
 
 A project often depends on third-party libraries. For example, Bookshelf depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
 
@@ -990,7 +1014,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 //end::manualtesting[]
 
-=== Launch and Shutdown
+=== Launch and shutdown
 
 . Initial launch
 
@@ -1003,6 +1027,38 @@ These instructions only provide a starting point for testers to work on; testers
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and the location is retained.
+
+=== Adding a book
+
+. Adding a book to an empty bookshelf.
+
+.. Prerequisites: Clear the bookshelf using `clear` command. The bookshelf shall be empty after the command execution.
+.. Test case: `addBook n/Alice in Wonderland n/multiple name a/Lewis Carroll m/5 t/fantasy t/fairy tale` +
+   Expected: No book is added. Error details are shown in the status message. Status bar remains the same.
+.. Test case: `addBook n/Alice in Wonderland n/multiple name a/Lewis Carroll m/5 t/fantasy t/fairy tale` +
+   Expected: Adds a book named Alice in Wonderland to the record. The book is written by Lewis Carroll, rated 5 stars, and labeled with tags ‘fantasy’ and ‘fairy tale’.
+
+=== Editing a book
+
+. Editing an existing book in the bookshelf.
+
+.. Prerequisites: At least one book exists in the bookshelf, and no book in the bookshelf is named `test`.
+.. Test case: `editBook 1 n/test a/some author t/some tag` +
+   Expected: Change the name, author, tag of the first book to test, some author, some tag.
+.. Test case: `editBook 1 t/` +
+   Expected: Clear all the existing tags of the first book in the result list.
+
+=== Deleting a book
+
+. Deleting a book while all books are listed
+
+.. Prerequisites: List all book using the `listBook` command. All books present in the bookshelf are shown in the list.
+.. Test case: `deleteBook 1` +
+   Expected: First book is deleted from the list. Details of the deleted book shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `deleteBook 0` +
+   Expected: No book is deleted. Error details are shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `deleteBook` +
+   Expected: Similar to previous.
 
 === Listing books in the bookshelf
 
@@ -1026,19 +1082,6 @@ These instructions only provide a starting point for testers to work on; testers
     Prefix `c/` is not recognized, so `Madame c/nonsense` will be regarded as a whole keyword for book name. Since whitespace and '/' are not allowed for keywords, the input is invalid. Error is shown in the status message.
 ... `listBook m/12` +
     12 is not a valid range for the rating. Error is shown in the status message.
-
-
-=== Deleting a book
-
-. Deleting a book while all books are listed
-
-.. Prerequisites: List all book using the `listBook` command. All books present in the bookshelf are shown in the list.
-.. Test case: `deleteBook 1` +
-   Expected: First book is deleted from the list. Details of the deleted book shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `deleteBook 0` +
-   Expected: No book is deleted. Error details are shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `deleteBook` +
-   Expected: Similar to previous.
 
 === Sorting the booklist
 

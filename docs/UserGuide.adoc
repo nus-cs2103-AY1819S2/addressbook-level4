@@ -134,7 +134,7 @@ Search and return patient(s) whose pid matches the input pid. +
 Format: `search-pid [pid]`
 
 ****
-* Only one pid can be entered and searched.
+* Only one pid can be searched.
 * Only full pid will be matched e.g. `12` will not match `120`
 ****
 

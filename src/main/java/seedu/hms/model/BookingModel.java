@@ -124,4 +124,10 @@ public interface BookingModel extends Model {
      */
     void setClearBooking(ReadOnlyHotelManagementSystem hotelManagementSystem);
 
+    /**
+     * Clears all the service types present in the {@code hotelManagementSystem}.
+     */
+    void setClearServiceTypes(ReadOnlyHotelManagementSystem hotelManagementSystem);
+
+
 }

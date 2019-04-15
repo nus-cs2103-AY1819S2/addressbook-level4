@@ -51,15 +51,50 @@ public class DateRange {
     }
 
     /**
-     * Returns whether the other date is inside this date
+     * Returns whether this date is inside the other date
      *
      * @param other The date to check if exists inside this date or not.
      */
     public boolean withinDates(DateRange other) {
-        return (this.startDate.after(other.getStartDate())
-            || this.startDate.equals(other.getStartDate()))
-            && (this.endDate.before(other.getEndDate())
-            || this.endDate.equals(other.getEndDate()));
+        return dateCompare(this.startDate, other.startDate) >= 0
+            && dateCompare(this.endDate, other.endDate) <= 0;
+    }
+
+    /**
+     *
+     * @param cA Calendar a
+     * @param cB Calendar b
+     * @return -1 if a is before b
+     *          0 if a is the same date as b
+     *          1 if a is after b
+     */
+    public static int dateCompare(Calendar cA, Calendar cB) {
+        int dayA = cA.get(Calendar.DAY_OF_MONTH);
+        int monthA = cA.get(Calendar.MONTH);
+        int yearA = cA.get(Calendar.YEAR);
+        int dayB = cB.get(Calendar.DAY_OF_MONTH);
+        int monthB = cB.get(Calendar.MONTH);
+        int yearB = cB.get(Calendar.YEAR);
+
+        if (yearA < yearB) {
+            return -1;
+        } else if (yearA > yearB) {
+            return 1;
+        }
+
+        if (monthA < monthB) {
+            return -1;
+        } else if (monthA > monthB) {
+            return 1;
+        }
+
+        if (dayA < dayB) {
+            return -1;
+        } else if (dayA > dayB) {
+            return 1;
+        }
+
+        return 0;
     }
 
     public Calendar getStartDate() {

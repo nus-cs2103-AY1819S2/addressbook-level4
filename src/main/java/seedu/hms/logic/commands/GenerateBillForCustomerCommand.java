@@ -52,7 +52,6 @@ public class GenerateBillForCustomerCommand extends BillCommand {
         model.updateFilteredBookingList(bookingPredicate);
         model.updateFilteredReservationList(reservationPredicate);
         model.updateBill(bill);
-        model.commitHotelManagementSystem();
 
         return new CommandResult(String.format(MESSAGE_GENERATE_BILL_SUCCESS, this.bill));
     }

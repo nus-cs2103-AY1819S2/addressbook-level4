@@ -29,10 +29,10 @@ public class ReservationList implements Iterable<Reservation> {
         FXCollections.unmodifiableObservableList(internalList);
 
 
-    private List<Reservation> getOverlappingReservations(DateRange t) {
+    private List<Reservation> getOverlappingReservations(DateRange t, RoomType rt) {
         List<Reservation> overlappingReservations = new ArrayList<Reservation>();
         for (Reservation b : internalList) {
-            if (t.withinDates(b.getDates())) {
+            if (t.withinDates(b.getDates()) && b.getRoom().equals(rt)) {
                 overlappingReservations.add(b);
             }
         }
@@ -44,7 +44,8 @@ public class ReservationList implements Iterable<Reservation> {
      */
     private Optional<DateRange> isRoomFull(Reservation reservation) {
         for (DateRange reservationDate : reservation.getDates().getEachDay()) {
-            if (getOverlappingReservations(reservationDate).size() > reservation.getRoom().getNumberOfRooms()) {
+            if (getOverlappingReservations(reservationDate, reservation.getRoom()).size()
+                    > reservation.getRoom().getNumberOfRooms()) {
                 return Optional.of(reservationDate);
             }
         }
@@ -117,7 +118,8 @@ public class ReservationList implements Iterable<Reservation> {
     }
 
     /**
-     * Removes bookings with payer as customer and removes customer from other associated bookings
+     * Removes reservations with payer as customer and removes customer from other associated bookings
+     *
      * @param key
      */
     public void removeCustomer(Customer key) {
@@ -131,6 +133,20 @@ public class ReservationList implements Iterable<Reservation> {
                 r.getOtherUsers().ifPresent(l -> l.remove(key));
                 this.setReservation(i, new Reservation(r.getRoom(), r.getDates(), r.getPayer(),
                     r.getOtherUsers(), r.getComment()));
+            }
+        }
+        internalList.removeAll(reservationsToRemove);
+    }
+
+    /**
+     * Removes all reservations with associated room type
+     */
+    public void removeRoomType(RoomType roomType) {
+        List<Reservation> reservationsToRemove = new ArrayList<>();
+        for (int i = 0; i < internalList.size(); i++) {
+            Reservation r = internalList.get(i);
+            if (r.getRoom().equals(roomType)) {
+                reservationsToRemove.add(r);
             }
         }
         internalList.removeAll(reservationsToRemove);

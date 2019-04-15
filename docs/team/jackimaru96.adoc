@@ -10,10 +10,10 @@
 --
 image::jackimaru96_pp.png[120,110,float="left"]
 --
-This page aims to showcase my contributions to the project
+[blue]#This page aims to showcase my contributions to the project
 *In-Credit-Ble* under module _CS2103T_. I will be giving you an introduction to *In-Credit-Ble*,
 followed by summarising my contributions. Lastly, I will be showing you the relevant sections of User Guide (UG) and
-Development Guide (DG) that I documented.
+Development Guide (DG) that I documented.#
 
 This project was developed with the following utilities:
 --
@@ -32,7 +32,7 @@ image::travis.png[66,70]
 
 _In-Credit-Ble_ is a desktop Finance Tracker tailored to help users manage their finances
 and keep track of their budget in an *easy and efficient* manner. It is designed for those who
-prefer to work with a Command Line Interface (CLI), especially for those who prefer to type over
+prefer to work with a Command Line Interface (CLI), especially for *students* who prefer to type over
 using their mouse.
 
 As part of the module requirement, my team and I (of 5 students from NUS)
@@ -44,9 +44,9 @@ and minor features implemented for _In-Credit-Ble_.
 
 == Summary of Contributions
 |===
-|This section will give you a brief overview of my contributions to the project. +
+|[blue]#This section will give you a brief overview of my contributions to the project.# +
 
-This section will be split into *Major Enhancement*, *Minor Enhancements* and *Notable Contributions* sub-sections.
+This section will be split into *Major Enhancement*, *Minor Enhancements* and *Notable Contributions* sub-sections.#
 |===
 
 [TIP]
@@ -54,62 +54,71 @@ This section will be split into *Major Enhancement*, *Minor Enhancements* and *N
 * It would help you greatly to head on to our
 link:https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/DeveloperGuide.adoc[Developer Guide]
 and link:https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/UserGuide.adoc[User Guide]
-to find out more about our application before reading on about my contributions to the project.
+to find out more about our application including the list of features before reading on
+about my contributions to the project.
 
-* If you would like to download our application, head on to the `Quick Start` section
+* If you would like to download our application, head on to the [navy]#*Quick Start*# section
 of our User Guide for more information on how to do so.
 ====
 
 === Features Contributed to Project
 
-==== Major enhancement: added `CategoryBudget`
-** *_What it does_*: Allows user to set a budget for categories so as to keep track
-of the expenses for each category (such as `Food`, `Travel`, `Clothes`).
+==== Major enhancement: added `[fuchsia]#CategoryBudget#`
+** [red]#*_What it does_*:# Allows user to set a budget for categories so as to keep track
+of the expenses for each category (such as `[fuchsia]#Food#`, `[fuchsia]#Travel#`, `[fuchsia]#Clothes#`).
 
-** *_Justification_*: This feature improves the product significantly and enhances user
+** [red]#*_Justification_*:# This feature improves the product significantly and enhances user
 ability to manage their expenses according to categories. It allows users to categorise
 their spending to know which area he/she should
 start spending less. It also requires
-integration of the `Logic`, `Model` and `UI` components of the project.
+integration of the `[fuchsia]#Logic#`, `[fuchsia]#Model#` and `[fuchsia]#UI#` components of the project.
 
-** *_Highlights of feature:_*
-*** This enhancement can be triggered using the `allocate` command. Each of the category
-budget is stored in the `TotalBudget` class which is implemented in the `Model` component.
+** [red]#*_Highlights of feature:_*#
+*** This enhancement can be triggered using the `[fuchsia]#allocate#` command. Each of the category
+budget is stored in the `[fuchsia]#TotalBudget#` class which is implemented in the `[fuchsia]#Model#` component.
 
-*** Each category budget can be shown to the user in the Result Display when the user executes the `show`
+*** Each category budget can be shown to the user in the Result Display when the user executes the `[fuchsia]#show#`
 command. It shows the current spending over the the total budget allocated for each individual category.
 
 
 ==== Minor enhancements
-* Changing Theme of Application
-** *_What it does_:* Allows user to change the colour theme of the application to pre-set themes
-such as `Dark`, `Light`, `Blue`, `Pink`.
-** *_Justification_:* This feature allows the user to have minor customisation of their In-Credit-Ble
+* [teal]#*Changing Theme of Application*#
+** [red]#*_What it does_:*# Allows user to change the colour theme of the application to pre-set themes
+such as `[fuchsia]#Dark#`, `[fuchsia]#Light#`, `[fuchsia]#Blue#`, `[fuchsia]#Pink#`.
+** [red]#*_Justification_:*# This feature allows the user to have minor customisation of their In-Credit-Ble
 Finance Tracker Application
-** *_Highlights of feature:_*
-*** This feature can be triggered using the `theme` command. Triggering this command will result in
-the `UI` component changing its stylesheet to fit the pre-set themes indicated by the user.
+** [red]#*_Highlights of feature:_*#
+*** This feature can be triggered using the `[fuchsia]#theme#` command. Triggering this command will result in
+the `[fuchsia]#UI#` component changing its stylesheet to fit the pre-set themes indicated by the user.
 
-* `BudgetPanel` of UI
-** *_What it does_*: Allows user to see the total spending against total budget so far in a visual progress bar.
+* `[fuchsia]#BudgetPanel#` [teal]#*of UI*#
+** [red]#*_What it does_*:# Allows user to see the total spending against total budget so far in a visual progress bar.
 Depending on how close the total spending is to the total budget, the colour of the bar will change accordingly.
-** *_Justification_*: This feature will allows users to have a visual view of their total spending against their set
+** [red]#*_Justification_*:# This feature will allows users to have a visual view of their total spending against their set
 budget
-** *_Highlights of feature:_*
-*** This feature will be updated every time a user `spends`, `edit` the amount in the records, or `delete` a record
+** [red]#*_Highlights of feature:_*#
+*** This feature will be updated every time a user `[fuchsia]#spends#`, `[fuchsia]#edit#` the amount in the records, or
+`[fuchsia]#delete#` a record
 
 === Other Contributions
 ==== Notable Contributions
-** *Project Management*
-*** *Manging Issue Tracker*
+** [teal]#*Project Management/Team Tasks*#
+*** [red]#*Manging Issue Tracker*#
 **** To see the issue trackers I managed, click
 https://github.com/CS2103-AY1819S2-W17-3/main/issues?q=is%3Aissue+author%3AJackimaru96+is%3Aclosed[here!]
+*** [red]#*Set up and managed GitHub milestones and projects*#
+**** Click https://github.com/CS2103-AY1819S2-W17-3/main/milestones?state=closed[here] to view the Milestones
+and https://github.com/CS2103-AY1819S2-W17-3/main/projects?query=is%3Aclosed[here] to view the Project I managed
+*** [red]#*Changed product icon*#
+*** [red]#*Added Graphical User Interface Introduction section to User Guide*#
+**** Click https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/UserGuide.adoc#graphical-user-interface-introduction[here]
+     to look at the GUI Introduction section.
 
 ==== Community
-*** PR Reviews:
+*** [teal]#*PR Reviews:*#
 **** To view the Pull Requests reviewed by me,
 click https://github.com/CS2103-AY1819S2-W17-3/main/pulls?q=is%3Apr+reviewed-by%3AJackimaru96+is%3Aclosed[here!]
-*** Forum Participation:
+*** [teal]#*Forum Participation:*#
 **** To view my participation in class forum, click
 https://github.com/nus-cs2103-AY1819S2/forum/issues?q=is%3Aissue+is%3Aclosed+author%3AJackimaru96[here!]
 
@@ -121,19 +130,19 @@ To see the code I contributed to _In-Credit-Ble_, click
 
 == Contributions to the User Guide
 |===
-|The next section will include my contribution to the User Guide. It showcases my ability
+|[blue]#The next section will include my contribution to the User Guide. It showcases my ability
 in documenting a reader-friendly User Guide that is designed for the new users of _In-Credit-Ble_.
 It is important to be able to write a user-friendly guide that will allow new users to quickly grasp
-how to use our application. +
+how to use our application.#
 |===
 
 === Quick Start and Graphical User Interface
 [NOTE]
 ====
-To allow users to get started with our application with ease, I've created the `Quick Start` and
-`Graphical User Interface Introduction` (GUI) sections.
+To allow users to get started with our application with ease, I've created the *Quick Start* and
+*Graphical User Interface Introduction (GUI)* sections.
 
-Due to page limit constraints, I will only be listing a part of the `Graphical User Interface Introduction`.
+Due to page limit constraints, I will only be listing a part of the *Graphical User Interface Introduction*.
 To see the rest of the contributions I made to the User Guide, click the below links.
 
 1) https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/UserGuide.adoc#quick-start[Quick Start] +
@@ -145,28 +154,27 @@ include::../UserGuide.adoc[tag=userinterface2]
 include::../UserGuide.adoc[tag=userinterface3]
 ---
 
-=== `Allocate`, `Show` and `Theme` Commands
-[NOTE]
-====
-The following sections extracted from the User Guide are the instructions to users on how to use the features that I have
-implemented for this project. It includes the `allocate`, `show` and `theme` commands.
+=== `[fuchsia]#Allocate#`, `[fuchsia]#Show#` and `[fuchsia]#Theme#` Commands
+|===
+|[blue]#The following sections extracted from the User Guide are the instructions to users on how to use the features that I have
+implemented for this project.# It includes the `[fuchsia]#allocate#`, `[fuchsia]#show#` and `[fuchsia]#theme#` commands.
 These three sections show my ability to describe the feature in simple terms that new users are able to comprehend.
 
 Due to page limit constraints, I will only be listing the major portion of my contribution.
 To see the full sections, click the below link. +
 
-1) https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/UserGuide.adoc#showing-allocated-budget-and-spending-in-categories-show[`show` command] +
-2) https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/UserGuide.adoc#changing-theme-of-application-theme[`theme` command]
-====
+1) https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/UserGuide.adoc#changing-theme-of-application-theme[`theme` command]
+|===
 
 ---
 
 include::../UserGuide.adoc[tag=allocate]
+include::../UserGuide.adoc[tag=show]
 
 == Contributions to the Developer Guide
 |===
-|The following section will include the sections of my contribution to the Developer Guide.
-It showcases my ability to write technical documentation and illustrates the technical depth of my code contributions.
+|[blue]#The following section will include the sections of my contribution to the Developer Guide.
+It showcases my ability to write technical documentation and illustrates the technical depth of my code contributions.#
 This is important in real-world software engineering projects where we are expected to work in teams. Being able to
 document the Developer Guide well will allow colleagues or other developers to understand our implementation better. +
 
@@ -174,8 +182,8 @@ Due to page limit constraints, I will only be listing the major portion of my co
 (Class Diagram + Sequence Diagram)
 To see the rest of the contributions I made to the DG, click the below link. +
 
-1) https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/DeveloperGuide.adoc#budget-management[`show` implementation] +
-2)https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/DeveloperGuide.adoc#theme[`theme` implementation]
+1) https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/DeveloperGuide.adoc#budget-management[`[fuchsia]#show#` implementation] +
+2)https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/DeveloperGuide.adoc#theme[`[fuchsia]#theme#` implementation]
 |===
 
 === Budget Class Diagrams

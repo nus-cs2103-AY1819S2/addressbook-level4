@@ -279,7 +279,7 @@ image::InformationPanelSequenceDiagram.png[width="1000"]
 
 Given below is an example usage scenario and how the information panel behaves at each step when the selected medicine changes.
 
-Step 1. The user launches the application. The selected medicine is always null when the application is launched. An empty `InformationPanel` is displayed. 
+Step 1. The user launches the application. The selected medicine is always null when the application is launched. An empty `InformationPanel` is displayed.
 
 Step 2. The user executes `select 1` command to select the 1st medicine in the inventory. Since the new value is not null, `InformationPanel#showSelectedInformation(Medicine medicine)` is called. A new `BatchTable` with information of the selected medicine is created and displayed.
 

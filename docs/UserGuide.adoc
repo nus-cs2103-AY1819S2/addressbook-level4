@@ -26,15 +26,12 @@ If you would like to get use the Food Diary straightaway, jump to the <<Quick St
 
 **What is the Food Diary? **
 
-The Food Diary is a desktop application for storing your personal food reviews and obtaining food recommendations based on your past reviews.
+The Food Diary (FD) is a desktop app for storing your personal food reviews and obtain food recommendations based on your past reviews.
 
 **Why use the Food Diary? **
 
-The Food Diary is a one-stop application for you to document your food adventures and receive personalised recommendations for the next restaurant to visit.
-
-Despite being optimized for those who prefer to work with a Command Line Interface (CLI), the Food Diary also has the benefits of a Graphical User Interface (GUI).
-To all you fast-typers out there, FD can get your foodie tasks done faster than traditional GUI apps!
-Furthermore, FD also stores your data locally, ensuring that you get security on top of speed.
+FD is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, FD can get your foodie tasks done faster than traditional GUI apps.
+Additionally, FD also stores your data locally, ensuring that your privacy is protected.
 
 Some of the features that can look forward to:
 
@@ -42,7 +39,6 @@ Some of the features that can look forward to:
 * Getting an aggregate rating over all your visits.
 * Finding out about new restaurants near you for your next gastronomical adventure!
 
-Read on to find out more about other exciting features of FD!
 
 *Callout*
 
@@ -337,7 +333,7 @@ _Figure 5: Success!_
 ====
 * The index refers to the index number shown in the displayed restaurants list.
 * You need to ensure that the index entered *must be a positive integer* `1, 2, 3, ...`
-* You need to ensure that the `Price Range` entered *must* only consist of 1-5 $ characters. e.g. `$`, `\$$$`, `$$`
+* You need to ensure that the `Price Range` entered *must* only consist of 1-5 $ characters. e.g. `$`, `$$$`
 * You need to ensure that `Cuisine` and `Occasion` *must* only contain alphanumeric characters and spaces.
 * You do not need to worry about capitalization for `Cuisine` and `Occasion`.
 e.g. `fast food` will be capitalized to `Fast Food`.
@@ -347,9 +343,9 @@ e.g. `fast food` will be capitalized to `Fast Food`.
 
 Other examples you can try:
 
-* `setCategories 2 oc/Premium Casual pr/\$$$$$` +
+* `setCategories 2 oc/Premium Casual pr/$` +
 Sets the categories of the second restaurant in the list to `Premium Casual` for occasion and
-`\$$$$$` for price range.
+`$` for price range.
 * `setCategories 3 c/Western` +
 Only sets the cuisine of the third restaurant to `Western`.
 

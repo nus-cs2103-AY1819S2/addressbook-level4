@@ -30,7 +30,7 @@ The challenge lies in the parsing of the user input, which is tested against a p
 
 An in-depth analysis of design alternatives in keyword matching and the data structure used for the search feature was done to obtain the most optimal solution.
 
-*Code contributed*: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=nivenang&sort=displayName&since=2019-02-10&until=2019-04-14&timeframe=day&reverse=false&repoSort=true[RepoSense] | https://github.com/CS2103-AY1819S2-W11-3/main/pulls?q=is%3Apr+is%3Aclosed+label%3Atype.Enhancement+author%3Anivenang[Functional Code] | https://github.com/CS2103-AY1819S2-W11-3/main/pulls?q=is%3Apr+is%3Aclosed+author%3Anivenang+label%3Atype.Testing[Test Code]
+*Code contributed*: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=nivenang&sort=displayName&since=2019-02-10&until=2019-04-15&timeframe=day&reverse=false&repoSort=true[RepoSense] | https://github.com/CS2103-AY1819S2-W11-3/main/pulls?q=is%3Apr+is%3Aclosed+label%3Atype.Enhancement+author%3Anivenang[Functional Code] | https://github.com/CS2103-AY1819S2-W11-3/main/pulls?q=is%3Apr+is%3Aclosed+author%3Anivenang+label%3Atype.Testing[Test Code]
 
 === Minor Enhancement
 The minor enhancement I did was to convert the `Phone` parameter in the previous addressbook to the `Rating` parameter for the `Place` class to track ratings of each place in TravelBuddy.

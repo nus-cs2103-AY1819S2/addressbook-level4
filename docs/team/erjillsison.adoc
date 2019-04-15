@@ -8,7 +8,7 @@ The purpose of this document is to showcase the work that I have done for the pr
 
 My team and I were presented with an existing code base for a command line interface (CLI) address book application. We were given about 8 weeks to either enhance or morph the address book application to a product of our own choice. We chose to morph it into *Battleship*.
 
-Battleship is a desktop game application based on the classic guessing game, *Battleship*.
+*Battleship* is a desktop game application based on the classic guessing game, *Battleship*.
 The user interacts with it using a command-line interface (CLI) and it has a graphical user interface(GUI) created using JavaFX.
 It is written in Java, and has about 10 kLoC.
 
@@ -68,7 +68,7 @@ This section provides the summary of the contributions that I have made to the p
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users. Note that the horizontal lines indicate that they are taken from different sections of the User Guide._
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users. Parts of the User Guide that belong to different sections are separated by a horizontal line._
 |===
 
 include::../UserGuide.adoc[tag=map]
@@ -81,7 +81,7 @@ include::../UserGuide.adoc[tag=upcomingmap]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project. Note that the horizontal lines indicate that they are taken from different sections of the Developer Guide._
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project. Parts of the Developer Guide that belong to different sections are separated by a horizontal line.._
 |===
 
 Co-authored the Model diagram as shown below.

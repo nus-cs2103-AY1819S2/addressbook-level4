@@ -521,7 +521,7 @@ image::listconsult_after.png[width="600"]
 
 * `listconsult 1` +
 
-image::listconsult_index.png[align="center" width="600"]
+image::listconsult_index.png[width="600"]
 
 You can then call `listconsult` again with the consultation record's index to view the specific consultation session details. QuickDocs will display the time of the consultation, and also the diagnosis and prescription given to the patient.
 

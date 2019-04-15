@@ -41,7 +41,7 @@ For Windows developers, <<jdk, Java>> version `10` will fail to run tests in hea
 
 * *Install IntelliJ IDE*
 [NOTE]
-By default, <<ide, IntelliJ>> already has both Gradle and JavaFx plugins installed. As TravelBuddy will be making use of them, please do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+By default, <<ide, IntelliJ>> already has both Gradle and JavaFX plugins installed. As TravelBuddy will be making use of them, please do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
 
 === Setting Up the Project in Your Computer
@@ -135,7 +135,15 @@ The following class plays an important role at the architecture level:
 
 The rest of TravelBuddy consists of four components.
 
+<<<<<<< HEAD
 * <<Design-Ui,*`UI`*>>: The User Interface (UI) of the App.
+=======
+
+
+
+* <<Design-Ui,*`UI`*>>: The User Interface (UI) of the App.
+
+>>>>>>> b21ae2d33eba83aebb99548ea6d01b119ac99381
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Model,*`Model`*>>: Holds the data of TravelBuddy in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
@@ -180,10 +188,7 @@ link:{repoURL}/tree/master/src/main/java/seedu/travel/ui/Ui.java[`Ui.java`]
 .Structure of the UI component
 image::UiClassDiagram.png[width="800"]
 
-The `UI` component, as seen in <<UiClassDiagram>>, uses the JavaFx UI framework. The *layout* of these UI parts are
-defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the
-link:{repoURL}/tree/master/src/main/java/seedu/travel/ui/MainWindow.java[`MainWindow`] is specified in
-link:{repoURL}/tree/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component, as seen in <<UiClassDiagram>>, uses the JavaFX UI framework. The *layout* of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/travel/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component *controllers* are found in the `src/main/java/seedu/travel/ui` folder. Each class corresponds to a
  specific `.fxml` file.
@@ -213,6 +218,10 @@ All parts inherit from the abstract `UiPart` class.
 ** `PlaceListCard`: Labels for the Display index and Place data fields (`CountryCode`, `Rating` etc.) in a VBox the left,
 Labels that display Name and actual Place data (`CountryCode`, `Rating` etc) in a VBox on the right
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> b21ae2d33eba83aebb99548ea6d01b119ac99381
 * RightParentPanel: Parent panel for both `ChartListPanel` and `ExpandedPlacePanel`,
 contains helper methods for switching functionality, interacts with `Model` and `Logic`
 
@@ -341,8 +350,7 @@ Step 2. The user executes `delete 5` command to delete the 5th place in TravelBu
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new place. The `add` command also calls `Model#commitTravelBuddy()`,
-causing another modified TravelBuddy state to be saved into the `travelBuddyStateList`.
+Step 3. The user executes `add n/David ...` to add a new place. The `add` command also calls `Model#commitTravelBuddy()`, causing another modified TravelBuddy state to be saved into the `travelBuddyStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
@@ -445,7 +453,7 @@ The control flow of the sequence diagram above is as follows:
 [source, java]
 String[] nameKeywords = trimmedArgs.split("\\s+");
 return new SearchCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
-** A NameContainsKeywordPredicate will be instantiated with the array of arguments as the predicate, which will be used to check if any of the places in TravelBuddy matches the user's input.
+** A `NameContainsKeywordPredicate` will be instantiated with the array of arguments as the predicate, which will be used to check if any of the places in TravelBuddy matches the user's input.
 +
 [source, java]
 public boolean test(Place place) {
@@ -589,7 +597,7 @@ as its country. The `searchc` command will call `LogicManager#execute()`, which 
 will be called to parse the arguments to be used in `SearchCountryCommand`. The arguments are then checked for validity (i.e. valid ISO-3166 country code).
 The parsed arguments will be compared to every entry in TravelBuddy and matching entries will be displayed.
 [NOTE]
-The country code arguments for `searchc` must be valid 3-letter ISO-3166 country codes.
+The country code arguments for `searchc` must be valid three-letter ISO-3166 country codes.
 
 Step 3. The filtered list is now displayed according to the requirements set by the user input as shown in <<Figure 4.2.1.10>> below.
 
@@ -678,16 +686,16 @@ Given below is a comparison between the alternatives of the data structure used 
 |Use `HashMap` to map keywords to each place.
 
 |*Pros*
-|*Ease-of-implementation*: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+|*Ease-of-implementation*: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project. +
 *Refined results*: This approach provides more refined results as it narrows down the search scope to the user's query.
 
-|*Faster search*: Faster searching as HashMap lookup runs in O(1) time.
+|*Faster search*: Faster searching as `HashMap` lookup runs in O(1) time.
 
 |*Cons*
 |*Slower search*: This approach is less efficient as the entire list needs to be searched through.
-|*Memory-consuming*. This approach requires more memory as a separate HashMap needs to be stored.
+|*Memory-consuming*. This approach requires more memory as a separate `HashMap` needs to be stored.
 |=======================================================================
-*Decision*: Alternative 1 of using a list is preferred as it uses less memory compared to alternative 2. Moreover, future contributors are likely to be student undergraduates, so a simple data structure would be more optimal for educational purposes.
+*Decision*: Alternative 1 of using a list is preferred as it uses less memory compared to Alternative 2. Moreover, future contributors are likely to be student undergraduates, so a simple data structure would be more optimal for educational purposes.
 // end::search[]
 
 // tag::countrycode[]
@@ -705,8 +713,8 @@ link:https://cs2103-ay1819s2-w11-3.github.io/main/CountryCodes.html[here].
 command is
 entered.
 [[addSeqDiagram]]
-[reftext="Figure 4.3.1"]
-[caption="Figure 4.3.1: "]
+[reftext="Figure 4.3.1.1"]
+[caption="Figure 4.3.1.1: "]
 .Execution sequence of the `add` command
 image::AddCommandSequenceDiagram.PNG[width="800"]
 
@@ -780,8 +788,8 @@ a `CommandException` will be thrown with an error message on the duplicate entry
 
 6) The `Place` data is added into TravelBuddy.
 
-** Here the `Model::addPlace` method is called, and it subsequently calls the `TravelBuddy::addPlace` method.
-** Following which the `Model::commitTravelBuddy` method is called.
+** Here, the `Model::addPlace` method is called, and it subsequently calls the `TravelBuddy::addPlace` method.
+** Following which, the `Model::commitTravelBuddy` method is called.
 
 7) The `AddCommand::execute` execution completes by returning a new CommandResult that contains a success message to
 its calling method which is `LogicManager::execute`.
@@ -791,14 +799,15 @@ its calling method which is `LogicManager::execute`.
 ===== Add Command
 Given below is an example usage scenario and what the user will see in the GUI.
 
+[[output]]
+[reftext="Figure 4.3.1.2"]
+[caption="Figure 4.3.1.2: "]
+.Add command output
+image::addCommand.png[width="400"]
+
 The user launches the application and enters the full add command `add n/Raffles Hotel cc/SGP dv/05/05/2016 t/hotel d/This place is lovely a/Raffles Road r/5 t/staycation
 117417 t/faculty`. TravelBuddy will start executing the steps mentioned in
-<<addSeqDiagram>> and the output is shown below in <<output>>.
-
-[[output]]
-[reftext="Figure 4.3.2"]
-[caption="Figure 4.3.2: "]
-image::addCommand.png[width="400"]
+<<addSeqDiagram>> and the output is shown above in <<output>>.
 
 
 [NOTE]
@@ -807,7 +816,9 @@ The command `add` is in lower-case. Mixed-case or upper-case commands are not re
 
 ==== Design Considerations
 
-===== Aspect: Data structure to store Country Codes
+===== Aspect: Data structure to store country codes
+
+Given below is a comparison between the alternatives for the data structure that can be used for country codes.
 
 [width="100%",cols="16%,<50%,<50%",options="header"]
 |=======================================================================
@@ -822,7 +833,7 @@ The command `add` is in lower-case. Mixed-case or upper-case commands are not re
 
 |*Pros*
 |*Ease-of-use*. This approach simply requires the importing of `java.util.Locales` to get the country codes. +
-*Comprehensive*. `java.util.Locales` contains all of the 250 three-letter country codes as specified in ISO-3166.
+*Comprehensive*. `java.util.Locales` contains all of the 250 3-letter country codes as specified in ISO-3166.
 
 |*Fast*. This approach is computationally less intensive than Alternative 1. This is because there are only 30 country
 codes in the data structure.
@@ -832,13 +843,14 @@ codes in the data structure.
 country codes to search from.
 
 |*Tedious*. This approach requires the coder to search for the top 30 visited countries in the world and type out all
- the 30, three-letter country codes as specified in ISO-3166. +
+ the 30, 3-letter country codes as specified in ISO-3166. +
 *Not User-friendly*. If the user visited a country that is not in the top 30 list of countries visited, the user
 would not be able to add it into TravelBuddy.
 
 |=======================================================================
 
-*Decision:* Alternative 1. Alternative 2 may not fulfill all of the user requirements of adding any country code, but Alternative 1 does.  Alternative 1's speed is only slightly slower than Alternative 2.
+*Decision:* Alternative 1 is used for the current implementation. Alternative 2 may not fulfill all of the user
+requirements of adding any country code.  Alternative 1's speed is only slightly slower than Alternative 2.
 
 
 // end::countrycode[]
@@ -989,7 +1001,16 @@ Instead of typing `generate`, you can simply type the shortcut `g`.
 
 [source,java]
 ----
-include::{sourceDir}/seedu/travel/logic/commands/GenerateCommand.java[tags=execute,indent=1]
+public CommandResult execute(Model model, CommandHistory history) {
+    requireNonNull(model);
+    model.setChartDisplayed(true); // <1>
+    model.commitTravelBuddy(); // <2>
+    if (model.getFilteredPlaceList().isEmpty()) { // <3>
+        return new CommandResult(MESSAGE_EMPTY);
+    } else {
+        return new CommandResult(MESSAGE_SUCCESS);
+    }
+}
 ----
 
 In the snippet, the operations implemented are:
@@ -1013,13 +1034,13 @@ For this section on Charts, the focus is on the <<class-diagram, class diagram>>
 
 [[chartOopDiagramFigure]]
 .OOP Diagram
-image::Chart_ModelClassBetterOopDiagram.png[width="590", caption="Figure 4.4.1: ", reftext="Figure 4.4.1"]
+image::Chart_ModelClassBetterOopDiagram.png[width="590", caption="Figure 4.5.1.1: ", reftext="Figure 4.5.1.1"]
 
 *Logic & Model Interaction:* Having discussed Logic and Model, we can now model the workflow of the `generate` command. This can be accomplished using an <<activity-diagram, activity diagram>>, as seen in <<GenerateCommandActivityDiagram>>.
 
 [[GenerateCommandActivityDiagram]]
 .Activity Diagram for the `generate` command
-image::GenerateCommandActivityDiagram.png[width="370", caption="Figure 4.4.2: ", reftext="Figure 4.4.2"]
+image::GenerateCommandActivityDiagram.png[width="370", caption="Figure 4.5.1.2: ", reftext="Figure 4.5.1.2"]
 
 Additionally, we want to be able to capture the interaction between multiple objects for the `generate` command. This can be accomplished using a <<sequence-diagram, sequence diagram>>, as seen in <<GenerateCommandSeqDiagramFigure>> below. The step-by-step explanation of the sequence diagram is as follows:
 
@@ -1029,13 +1050,13 @@ Additionally, we want to be able to capture the interaction between multiple obj
 . The `Model#setChartDisplayed()` method is invoked with the argument `true`. The `Model#commitTravelBuddy()` method is also invoked.
 . The `TravelBuddy#commitTravelBuddy()` method is invoked by `Model`.
 . The `ChartBook#commitChart()` method is invoked by `TravelBuddy`.
-. A result object is returned.
+. The `CommandResult` object is returned.
 
 
 
 [[GenerateCommandSeqDiagramFigure]]
 .Sequence Diagram for the `generate` command
-image::GenerateCommandSeqDiagram.png[width="700", caption="Figure 4.4.3: ", reftext="Figure 4.4.3"]
+image::GenerateCommandSeqDiagram.png[width="700", caption="Figure 4.5.1.3: ", reftext="Figure 4.5.1.3"]
 
 *Storage:* The Chart's storage is handled by `JsonChartBookStorage`, which implements from `ChartBookStorage`. The three main data-storage methods it implements are:
 
@@ -1047,7 +1068,17 @@ As an example, a code snippet for `saveCountryChart(filePath)` is shown below.
 
 [source,java]
 ----
-include::{sourceDir}/seedu/travel/storage/JsonChartBookStorage.java[tags=saveCountryChart,indent=1]
+public void saveCountryChart(ReadOnlyCountryChart countryChart, Path filePath) { // <1>
+    requireAllNonNull(countryChart, filePath); // <2>
+    Gson gson = new GsonBuilder().setPrettyPrinting().create(); // <3>
+    try {
+        FileWriter fileWriter = new FileWriter(String.valueOf(filePath)); // <4>
+        gson.toJson(countryChart, fileWriter); // <5>
+        fileWriter.flush(); // <6>
+    } catch (IOException ioe) {
+        logger.warning(ioe.getMessage()); // <7>
+    }
+}
 ----
 
 In the snippet, a third-party library called Gson was used to convert Java Objects into JSON and back. The Gson API can be found https://www.javadoc.io/doc/com.google.code.gson/gson/2.8.5[here]. A step-by-step explanation is as follows:
@@ -1071,17 +1102,19 @@ _Example:_ When a place is added via the `add` command, the charts are automatic
 * The chart will not display anything when the list is empty.
 * You can type in any parameters after the `generate` command, TravelBuddy will simply ignore them.
 
-*Example:* Given below is an example usage scenario and what the user will see in the GUI.
+*Example:* Given below is an example usage scenario of the `generate` command.
 
 *Step 1:* By default, the charts are displayed when TravelBuddy launches. To navigate away from the charts, type in `select 1`. +
-*Outcome:* The first index in the place list will be selected and displayed on the right-hand side of the panel..
+*Outcome:* The first index in the place list will be selected and displayed on the right-hand side of the panel.
 
-*Step 2:* Type in `generate` to generate the charts.. +
-*Outcome:* The charts will be displayed on the right-hand side of the panel..
+*Step 2:* Type in `generate` to generate the charts. +
+*Outcome:* The charts will be displayed on the right-hand side of the panel.
 
 ==== Design Considerations
 
 ===== Aspect: How Chart Generation Executes
+
+Given below is a comparison between the alternatives of the `generate` mechanism design.
 
 [width="100%",cols="16%,<50%,<50%",options="header"]
 |=======================================================================
@@ -1114,7 +1147,7 @@ _Example:_ When a place is added via the `add` command, the charts are automatic
 
 [[Generate_BeforeEditAfterEdit]]
 .A comparison before and after the `edit` command was executed
-image::Generate_BeforeEditAfterEdit.png[width="800", caption="Figure 4.4.4: ", reftext="Figure 4.4.4"]
+image::Generate_BeforeEditAfterEdit.png[width="800", caption="Figure 4.5.3.1: ", reftext="Figure 4.5.3.1"]
 //end::chartFeature[]
 
 === Logging
@@ -1181,8 +1214,7 @@ image::chrome_save_as_pdf.png[width="300"]
 [[Docs-SiteWideDocSettings]]
 === Site-wide Documentation Settings
 
-The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor
-.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project
+The link:{repoURL}/tree/master/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project
 are rendered.
 
 [TIP]
@@ -1243,15 +1275,16 @@ _{asterisk} Official SE-EDU projects only_
 
 === Site Template
 
-The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
+The files in link:{repoURL}/tree/master/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
 You can modify them to change some properties of the site's design.
 
-The files in link:{repoURL}/docs/templates[`docs/templates`] controls the rendering of `.adoc` files into HTML5.
+The files in link:{repoURL}/tree/master/docs/templates[`docs/templates`] controls the rendering of `.adoc` files into
+HTML5.
 These template files are written in a mixture of https://www.ruby-lang.org[Ruby] and http://slim-lang.com[Slim].
 
 [WARNING]
 ====
-Modifying the template files in link:{repoURL}/docs/templates[`docs/templates`] requires some knowledge and
+Modifying the template files in link:{repoURL}/tree/master/docs/templates[`docs/templates`] requires some knowledge and
 experience with Ruby and Asciidoctor's API.
 You should only modify them if you need greater control over the site's layout than what stylesheets can provide.
 The SE-EDU team does not provide support for modified template files.
@@ -1331,7 +1364,7 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/travel/MainApp.java[`MainApp.java`].
+.  Update the version number in link:{repoURL}/tree/master/src/main/java/seedu/travel/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.

@@ -564,19 +564,16 @@ Step 8. `CurrentEdit#addCommand(this)` is invoked to add this command to the `Li
 
  * Intermediate images that are still being edited have to be stored in a temp folder first due to our `undo/redo` implementation.
 
-// end::ImageFilter[]
-
 ==== Brightness Command
 This command calls for an adjustment of brightness on an opened image. After adjusting the brightness, it adds this specific command called by the user to the `List<Commands>` belonging to the `tempImage` found in `currentEdit` which saves the editing history of the opened image.
 
 Refer to the example usage scenario, sequence diagram and design considerations in <<Contrast Command>>.
 
-
 ==== BlackWhite Command
 This command calls for a transformation of an opened image to a black and white image. After applying the black and white filter, it adds this specific command called by the user to the `List<Commands>` belonging to the `tempImage` found in `currentEdit` which saves the editing history of the opened image.
 
 Refer to the example usage scenario, sequence diagram and design considerations in <<Contrast Command>>.
-
+// end::ImageFilter[]
 
 // tag::ImageManipulation[]
 === Image Manipulation

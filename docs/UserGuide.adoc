@@ -917,7 +917,7 @@ If you want to obtain the revenue earned in a particular year, month or day, you
 ****
 *Format*: `revenue [ y/YEAR [m/MONTH [d/DAY] ] ]` +
 *Shortcut*: `r` +
-*Examples*: `r`, `r y/2019`, `r y/2019 m/4`, `r y/2019 m/4 d/6`
+*Examples*: `r`, `r [y/YEAR]`, `r y/YEAR [m/MONTH]`, `r y/YEAR m/MONTH [d/DAY]`
 ****
 
 [TIP]

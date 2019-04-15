@@ -738,16 +738,18 @@ e.g. `mark-appt 1 s/CANCELLED`
 
 PRESCRIPTION COMMANDS
 
-* *Add a new remedy* `add-remedy MEDICINE`
-e.g. `add-remedy 'coughing tablets'`
-* *List existing remedies* : `list-remedy`
-* *Add a new prescription* `add-presc pid/PATIENT_ID did/DOCTOR_ID rid/REMEDY_ID w/SHORT_WRITEUP` +
-e.g. `add-presc pid/1 did/1 rid/1 w/heaty cough`
-* *List prescriptions of a patient* : `list-presc PATIENT_ID`
-* *View a prescription* : `view-presc pid/PATIENT_ID prescid/PRESCRIPTION_ID` +
-e.g. `view-presc pid/2 prescid/2`
-* *Locating a prescription* : `search-presc KEYWORD`
-e.g. `search-presc 'stomach flu' 'sorethroat'`
+* *Add a new prescription* `add-presc pid/PATIENT-ID did/DOCTOR-ID dp/DATE mn/MEDICINE NAME d/SHORT DESCRIPTION` +
+e.g. `add-presc pid/1 did/2 dp/2018-05-13 mn/Acetaminophen d/500 mg for relieving pain`
+* *List prescriptions* : `list-presc  [pid/PATIENT-ID ] [did/DOCTOR-ID ]` +
+e.g. `list-presc pid/1 did/2`
+* *Edit description of an existing prescription* `edit-presc INDEX (must be a positive integer) d/EDITED-DESCRIPTION` +
+e.g. `edit-presc 1 d/For curing fever`
+* *Sort prescriptions by date* : `sort-presc [ASC/DESC]` +
+e.g. `sort-presc ASC`
+* *Search a prescription* : `search-presc KEYWORDS` +
+e.g. `search-presc fever`
+* *Select a prescription* : `select-presc INDEX` +
+e.g. `select-presc 1`
 
 
 GENERAL COMMANDS

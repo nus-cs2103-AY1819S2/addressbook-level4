@@ -52,6 +52,31 @@ public class ParserUtil {
     }
 
     /**
+     * Parse {@code firstIndex} and {@code secondIndex} into an array of Index and return it.
+     * @throws ParseException if the specified indexes are invalid (out of bound).
+     */
+    public static Index[] parseSwapValue(String indexes) throws ParseException {
+        if (indexes.trim().equals("")) {
+            throw new ParseException("Please supply 2 indexes");
+        }
+
+        Index[] oneBasedIndexes = new Index[2];
+        System.out.println("indexes is = " + indexes);
+        String[] indexArrStr = indexes.trim().split(" ");
+        if (indexArrStr.length > 2) {
+            throw new ParseException("Please supply only 2 indexes.");
+        }
+
+        System.out.println("size of word arr = " + indexArrStr.length);
+        for (int i = 0; i < indexArrStr.length; i++) {
+            System.out.println(indexArrStr[i]);
+            oneBasedIndexes[i] = Index.fromOneBased(Integer.parseInt(indexArrStr[i]));
+        }
+
+        return oneBasedIndexes;
+    }
+
+    /**
      * Parse {@code optionString} into an enum type and return it.
      * @throws ParseException if the specified optionString is invalid (not listed as valid options).
      */

@@ -499,11 +499,11 @@ Test cases:
 
 - Input: `sort`
 
-Output: An error message will be shown to what fields are available.
+Output: An error message will be displayed to show what are the fields available.
 
 - Input: `sort name`
 
-Output: The list is sorted in the name in alphabetical order.
+Output: The list is sorted by the name in alphabetical order.
 
 - Input: `sort date`
 
@@ -1179,6 +1179,35 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: First client is selected from the client list. Equipments that are owned by this client will be listed under the *Equipment details* panel.
 .. Test case: `select 1` +
    Expected: First equipment is selected from the equipment list, resulting in equipment details displayed in *Equipment result page* but this is not the correct command to select client from client list.
+
+=== Sorting the equipment list
+
+. Sort the equipment list by specific fields
+
+.. Prerequisites: Equipment list must have some entries in it.
+.. Test case: `sort name` +
+   Expected: List is sorted by the name in alphabetical order.
+.. Test case: `sort date` +
+   Expected: List is sorted in ascending order by the the preventative maintenance date of the equipment.
+.. Test case: `sort phone` +
+   Expected: List is sorted in ascending order by the phone number of the client.
+.. Test case: `sort serial` +
+   Expected: List is sorted in ascending order by the serial number of the equipment.
+.. Test case: `sort` +
+   Expected: List will not be sorted. An error message will be displayed of what are the fields that are available.
+
+
+=== Filtering the equipment list
+
+. Filter the equipment list to find specific equipment
+
+.. Prerequisites: Equipment list must have some entries in it.
+
+.. User requests to view equipment that matches certain criteria.
+.. Equipment Manager displays equipment that matches the fields specified by the user. +
+
+.. Test case: User enters an invalid prefix for a field or does not specify any field. +
+   Expected: An error message will be displayed to show the correct input.
 
 
 === Saving data

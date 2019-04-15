@@ -239,6 +239,9 @@ public class GradTrak implements ReadOnlyGradTrak {
     @Override
     public ArrayList<String> getMissingPrerequisitesWithoutModule(ModuleTree moduleTree, ModuleTaken moduleTaken) {
         ArrayList<String> codeStringList = new ArrayList<>();
+        if (moduleTree.getModuleCode().matches(aLevelRegex)) {
+            return codeStringList;
+        }
         for (ModuleInfoCode code : getNonFailedCodeList()) {
             if (!code.equals(moduleTaken.getModuleInfoCode())) {
                 codeStringList.add(code.toString());
@@ -253,6 +256,9 @@ public class GradTrak implements ReadOnlyGradTrak {
                                                                      ModuleTaken moduleTakenToEdit,
                                                                      ModuleTaken editedModuleTaken) {
         ArrayList<String> codeStringList = new ArrayList<>();
+        if (moduleTree.getModuleCode().matches(aLevelRegex)) {
+            return codeStringList;
+        }
         for (ModuleInfoCode code : getNonFailedCodeList()) {
             if (!code.equals(moduleTakenToEdit.getModuleInfoCode())) {
                 codeStringList.add(code.toString());

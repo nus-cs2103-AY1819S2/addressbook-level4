@@ -617,12 +617,18 @@ sessions are run for cards in a folder, the <<testscore, test scores>> are track
 ==== Display a test score report : `report`
 
 Displays a full-screen <<testscore, test score>> report for the current folder.
-The report comprises a graph showing the last 10 <<testscore, test scores>>,
-the latest score change, and the top 3 lowest individual scoring cards and their individual <<cardscore, card scores>>.
+The report comprises a graph showing a maximum of the last 10 <<testscore, test scores>>,
+the latest score change, and a maximum of 3 lowest individual scoring cards and their individual <<cardscore, card scores>>.
 An example is shown below:
 
 .Report display
 image::ReportDisplay.png[width="790"]
+
+**Displays response time for each card** `Coming in v2.0`
+
+With the timer feature coming in v2.0, we are also able to track the time taken to provide the correct response to the
+ question. This provides yet another metric, in addition to correctness, to judge your understanding of the topic.
+
 
 Format: `report`
 
@@ -630,7 +636,7 @@ Format: `report`
 This command is only valid inside a folder.
 
 [NOTE]
-There must be at least two test attempts for a graph to be drawn.
+There must be at least two test attempts for the line graph to be drawn.
 
 ==== End the current report session : `end`
 
@@ -666,7 +672,7 @@ sub-folders.
 questions displayed. You are required to key in an answer for each question.
 * [[cardscore]]  **Card Score**: The number of correct answers divided by the number of attempts for a single card. When you are tested on a card,
 this number is automatically calculated and recorded.
-* [[testscore]] **test score**: The number of cards correctly answered over number of cards attempted during a test session. This number is automatically recorded after each test session.
+* [[testscore]] **Test score**: The number of cards correctly answered over number of cards attempted during a test session. This number is automatically recorded after each test session.
 * [[homedirectory]] **Home Directory**: The home page where all the folders are listed. From here, users can enter folders to view cards.
 * [[index]] **Index**: The unique number associated with an item in a list. The first item in a list has an index of 1.
 

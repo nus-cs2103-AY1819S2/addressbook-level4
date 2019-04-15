@@ -61,6 +61,10 @@ ifdef::env-github[]
 image:award1.png[width="200"] {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}image:award2.png[width="200"]
 endif::[]
 
+ifndef::env-github[]
+image:images/award1.png[width="200"] {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}image:images/award2.png[width="200"]
+endif::[]
+
 == Site Map
 
 * <<UserGuide#, User Guide>>

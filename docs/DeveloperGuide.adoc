@@ -335,27 +335,69 @@ For example, 2 correct attempts and 4 total attempts becomes 0.5. When instantia
 === Report feature
 ==== Current Implementation
 
-The report feature is meant to provide the user with the ability to look back and compare their folder score from
-previous test sessions.
+The report feature is meant to provide the user with the ability to look back and compare their test score from
+previous test sessions. It makes use of Java FXML features to display scores in a user-friendly manner. The following
+methods are used to enter or exit the report display:
+
+* `Model#enterReportDisplay()` -- Enters the report display for this folder.
+* `Model#exitReportDisplay()` -- Exits the report display back into the folder.
+
+Here is a screenshot of how it looks:
+
+image:ReportDisplay.png[width="800"]
+
+Given below is an example usage scenario and how the report display is rendered.
+
+Step 1. The user is in a folder and wishes to see a report by executing `report`.
+
+Step 2. A `ReportCommand` is created and executed by `LogicManager`. `Model#enterReportDisplay()` is called, which prepares
+the model for report by sorting the cards by lowest scores first. The state is also checked to make sure the user is in
+a folder.
+
+Step 3. A `CommandResult` with type `ENTERED_REPORT` is returned by the `ReportCommand`.
+
+Below is a sequence diagram, summarizing the above operations.
+
+.Sequence Diagram for Report Command
+image:ReportCommandSequenceDiagram.png[width="800"]
+
+Step 4. The `CommandResult` is passed to UI, which now has to render the new screen. It does so by getting the current
+ `CardFolder` from Model, then instantiating a `ReportDisplay` with it. `ReportDisplay` prepares several elements for
+ display by Java FXML, split by their content:
+
+ * `ReportDisplay#displayTitle()` -- Displays title and how many test scores were recorded.
+ * `ReportDisplay#displayGraph()` -- Takes maximum of last 10 test scores from `CardFolder`, and
+ adds them as points on the Java FXML `AreaChart`.
+ * `ReportDisplay#displayQuestions()` -- Displays maximum of 3 questions from `CardFolder` which have lowest the
+ individual <<cardscore, card scores>>.
+  * `ReportDisplay#displayTagline()` -- Calculates change in test score from last and second last test session
+  (if available) and formats it in a user-friendly manner.
+
+Step 5. The `ReportDisplay` is rendered by `fullScreenPlaceholder`.
+
+Below is a sequence diagram summarizing steps 4 and 5. The interactions with Java FXML elements are omitted for clarity.
+
+.Sequence diagram for Report Display
+image:ReportDisplaySequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 
-===== Aspect: How to display folder scores
+===== Aspect: How to display test scores
 
-* **Alternative 1 (current choice):** Display previous folder scores in a graph and lowest scoring cards
+* **Alternative 1 (current choice):** Display previous test scores in a graph and lowest scoring cards
 ** Pros: Has benefits of seeing the graph as well as knowing which cards the user needs help in.
 ** Cons: More performance and memory intensive. Screen may get messy if there are too many items.
-* **Alternative 2:** Display previous folder scores in a graph
-** Pros: More visual, easier to see change in folder score.
+* **Alternative 2:** Display previous test scores in a graph
+** Pros: More visual, easier to see change in test score.
 ** Cons: More performance and memory intensive as a graph needs to be rendered. Remedy: Display only last ten.
-* **Alternative 3:** List the previous folder scores
+* **Alternative 3:** List the previous test scores
 ** Pros: User can see more accurate numbers. They can also see the individual card scores, so that
 they can tell where they need help.
 ** Cons: Hard to see change from test session to test session.
 
-===== Aspect: Where to display folder scores
+===== Aspect: Where to display test scores
 * **Alternative 1 (current choice):** Display in full screen, entered from card folder
-** Pros: Works because the folder scores are scored by card folders.
+** Pros: Works because the test scores are scored by card folders.
 ** Cons: Need to implement a new state for commands, because it should not be possible to do some e.g. add card while
 in fullscreen report.
 * **Alternative 2:** Display in right panel, with cards on the left
@@ -1644,7 +1686,7 @@ _{More to be added}_
 [[folder]] **Folder**: A collections of flashcards, grouped topically. There are no
 sub-folders.
 
-[[folderscore]] **Folder Score**: The average of all <<cardscore, card scores>> in a folder after a test session. This number is automatically recorded after each test session.
+[[testscore]] **Test score**: The number of cards correctly answered over number of cards attempted during a test session. This number is automatically recorded after each test session.
 
 [[homedirectory]] **Home Directory**: The home page where all the folders are listed. From here, users can enter folders to view cards.
 
@@ -1800,6 +1842,42 @@ lowest scoring flashcard question and hints are displayed. Answer the current qu
 .. Test case: `next`  when prerequisite is not fulfilled where the current question is not yet answered or revealed +
    Expected: The error `Next command is valid only when this question has been answered` is shown in the status message. Status bar remains the same.
 
+
+//tag::reportmanualtest[]
+
+=== Viewing a report display
+
+. View report display
+
+.. Prerequisites: Enter a folder. The tester may want to ensure that they have at least two
+ test attempts on this folder, as a line graph requires at least two points to be drawn. (If there are fewer than two
+  attempts, it is not a bug if no line is drawn.)
+.. Test case: `report` +
+   Expected: Enters report display, where the display area enters fullscreen. A graph is displayed showing maximum of
+   last ten test scores for this folder. A list, maximum of the three lowest scoring questions, is displayed.
+   `Report displayed` is shown on the status message and status bar shows that tester is in report display.
+.. Test case: Other invalid commands such `test`, `add`, or a second `report` command. +
+   Expected: They should not be allowed. An error message will be displayed.
+.. Test case: `end` +
+   Expected: Ends the current report session, where the display area exits fullscreen and be back inside the folder. `End
+   Report Session` is shown on the status message and status bar shows that tester is back inside the folder.
+
+// end::reportmanualtest[]
+
+//tag::sortmanualtest[]
+
+=== Sorting the cards
+
+. Sort
+
+.. Prerequisites: Enter a folder. The tester may want to ensure that they have at least two
+ cards in this folder, or else there is no way to tell if the sort happened.
+.. Test case: `sort` +
+   Expected: Sorts cards in non-descending percentage score. If card A is above card B, card A will not have a higher
+   percentage score than card B.
+   `Sorted flashcards with lowest score first` is shown on the status message.
+
+// end::sortmanualtest[]
 
 //tag::foldermanualtesting[]
 === Folder operations

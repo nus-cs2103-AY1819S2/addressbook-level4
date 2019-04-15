@@ -1,5 +1,6 @@
 = Sivakumar Bavadharini - Project Portfolio for RestOrRant
 :site-section: AboutUs
+:icons: font
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
@@ -8,40 +9,54 @@
 
 == Overview
 
-My team and I were given a basic command line interface addressbook program and were tasked to enhance or morph it for our Software Engineering module project. We decided to morph it into a restaurant management system called _RestOrRant_. With _RestOrRant_, the restaurant's front-end operations can be streamlined via automation to maximise efficiency for waiters and cashiers. _RestOrRant_ allows restaurant managers to manage tables (availabilities and lists of orders), orders (whether they have been served and calculation of the bill), menu (updates to the menu) and statistics (daily, monthly and yearly revenue).
+_RestOrRant_ is a Command Line Interface (CLI) desktop restaurant management application that allows *restaurant managers, waiters and cashiers* to perform *restaurant front-end operations* more efficiently. With _RestOrRant_, restaurant managers can easily *manage table allocation, handle orders, track menu item availability and check restaurant statistics*. _RestOrRant_ was developed by a team of four, including myself, as part of our CS2103T Software Engineering module project, where we were given an addressbook application and tasked to enhance or morph it.
 
-My role was to implement the menu feature end-to-end (across `UI`, `Model`, `Logic` and `Storage` components). The following sections elaborate on my enhancements as well as the relevant updates to the User Guide and Developer Guide to reflect these enhancements.
+We decided to split the implementation of the features according to [.java]#Menu#, [.java]#Orders#, [.java]#Table# and [.java]#Statistics#. My role was to implement the menu feature end-to-end (across [.java]#Ui#, [.java]#Model#, [.java]#Logic# and [.java]#Storage# components). The following sections elaborate on my enhancements as well as the relevant updates to the User Guide and Developer Guide to reflect these enhancements.
+
+The table below specifies the different symbols and formatting used in this Portfolio.
+
+[width="70%",cols="^15%,85%"]
+|===
+a| `code` | A grey highlight with monospaced font indicates a command that can be typed into the command box of the application.
+a| [.java]#name# | A blue highlight with monospaced font indicates a reference to the codebase. This could be a component, class, method, attribute or file name.
+a| icon:check[role="green", size="2x"] | A green tick indicates the expected result that you should see after executing a command in the application.
+a| icon:lightbulb-o[role="icon-tip", size="2x"] | A lightbulb indicates tips and tricks that might be useful to the user.
+a| icon:info-circle[role="icon-note", size="2x"] | A blue information symbol indicates additional information for that section that is good to know.
+a| icon:exclamation-circle[role="icon-important", size="2x"] | A red exclamation mark symbol indicates important pointers to take note.
+|===
 
 == Summary of contributions
 
 This section contains a summary of my contributions to the code, documentation, and other minor enhancements made to _RestOrRant_.
 
-* *Major enhancement*: I added the ability to add menu items to and delete menu items from the menu.
+* *Major enhancement*: I added the ability to add menu items to, delete menu items from and clear the menu.
 ** What it does:
-*** `addToMenu`: The `addToMenu` command allows the user to add a menu item to the menu. The menu item must be specified with an item code, name and price using labels such as `*c/*` for code, `*n/*` for name and `*p/*` for price. For example, `addToMenu c/W09 n/Chicken Wings p/3.20` would add the item Chicken wings with code W09 and price 3.20 to the menu.
-*** `deleteFromMenu`: The `deleteFromMenu` command allows the user to delete a menu item from the menu, but here the menu item is only identified by its code. For example, `deleteFromMenu W09` would delete the menu item with the code W09 from the menu.
+*** `addToMenu`: The `addToMenu` command allows the user to add a menu item to the menu. The menu item must be specified with an item code, name and price using labels such as `*c/*` for code, `*n/*` for name and `*p/*` for price. For example, `addToMenu c/W09 n/Chicken Wings p/3.20` would add the [.java]#MenuItem# with [.java]#Name# Chicken Wings with [.java]#Code# W09 and [.java]#Price# 3.20 to the [.java]#Menu#.
+*** `deleteFromMenu`: The `deleteFromMenu` command allows the user to delete a [.java]#MenuItem# from the [.java]#Menu#, but here the [.java]#MenuItem# is only identified by its [.java]#Code#. For example, `deleteFromMenu W09` would delete the [.java]#MenuItem# with the [.java]#Code# W09 from the [.java]#Menu#.
+*** `clearMenu`: The `clearMenu` command allows the user to remove all [.java]#MenuItem# from the [.java]#Menu#.
 ** Justification: These commands in the menu feature would allow restaurant managers to edit the menu according to the ingredients they have available each day. The menu is also stored internally, and thus there would be no need to re-enter all the menu items but instead only add or remove a few menu items each day.
-** Highlights: This enhancement works well with existing as well as future commands. The format of labelling for the `addToMenu` command was used for ease of distinguishing the name, code and price of the menu items. With the labels, users need not follow the format of keying in name, code then price and the command would work fine. However, the labelling approach was not needed for the `deleteFromMenu` command as the code is the only input needed.
+** Highlights: The format of labelling for the `addToMenu` command was used for ease of distinguishing the [.java]#Name#, [.java]#Code# and [.java]#Price# of the menu items. With the labels, users can key in any permutation of the attributes and  the command would work as intended. However, the labelling approach was not needed for the `deleteFromMenu` command as the [.java]#Code# is the only input needed.
 ** Credits: The addressbook given to us had originally used the labelling format for adding people to the addressbook, which is where I got my inspiration from for the `addToMenu` command.
 
-* *Minor enhancement*: I added the ability to store the quantity ordered for each menu item in the menu, and update the
-quantity ordered every time the bill is called, (implementation of `updateMenuItemQuantity` method).
-** What it does: When a menu item is added for the first time, the quantity is automatically set to zero. It then
-updates from zero every time the orders are confirmed (i.e. when the bill is called).
-** Justification: This enhancement is to aid the future implementation of finding the most popular item in the menu, by
-retrieving the menu item with the largest number of quantity ordered.
-** Highlights: This enhancement works well with existing as well as future commands, and would help in future
-implementation of finding out whether an item is sold out as well.
+* *Minor enhancement*: I added the ability to store the quantity ordered for each [.java]#MenuItem# in the [.java]#Menu#, and update the quantity ordered every time the [.java]#bill# is called, (implementation of `updateMenuItemQuantity` method).
+** What it does: When a [.java]#MenuItem# is added for the first time, the quantity is automatically set to zero. It then updates from zero every time the orders are confirmed (i.e. when the [.java]#bill# is called).
+** Justification: This enhancement is to aid the implementation of finding the most popular item in the [.java]#Menu#, by retrieving the [.java]#MenuItem# with the largest number of quantity ordered.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=bava98[Project Code
+Dashboard]]
 
 *Other contributions:*
 
 * Project Management:
-** There were a total of 2 releases, from version 1.2.1 to 1.3 and I managed both releases on GitHub.
+** There were a total of 3 releases, from version 1.2.1 to 1.4 and I managed all releases on GitHub.
 ** I was also in charge of scheduling and tracking, and managed the tracking of issues and milestones on GitHub.
 * Documentation:
-** Updated the User Guide and Developer Guide to reflect the commands related to the menu feature.
+** Updated the User Guide and Developer Guide to reflect the commands related to the menu feature. [PR https://github.com/cs2103-ay1819s2-w09-3/main/pull/115[#115], https://github.com/cs2103-ay1819s2-w09-3/main/pull/161[#161], https://github.com/cs2103-ay1819s2-w09-3/main/pull/198[#198]]
+** Added some cosmetic changes to both the User Guide and Developer Guide for improved readability. [PR
+https://github.com/cs2103-ay1819s2-w09-3/main/pull/115[#115], https://github.com/cs2103-ay1819s2-w09-3/main/pull/203[#203]]
 * Community:
 ** Offered suggestions on improvements to other teams' documentation in the class.
+** Reported bugs and offered suggestions for other teams in class [Examples: https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/171[1], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/447[2], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/954[3], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/846[4], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/691[5]]
 
 == Contributions to the User Guide
 
@@ -52,8 +67,25 @@ include::../UserGuide.adoc[tag=menumode]
 
 == Contributions to the Developer Guide
 
-We also had to make changes to the original addressbook Developer Guide as our implementation had major changes in the
-UI, logic, model and storage components. The following is an excerpt from our *RestOrRant Developer Guide* to show the
-updates that I have made for the menu features as well as the storage component.
+We also had to make changes to the original addressbook Developer Guide as our implementation had major changes in the [.java]#Ui#, [.java]#Logic#, [.java]#Model# and [.java]#Storage# components. The following is an excerpt from our *RestOrRant Developer Guide* to show the updates that I have made for the menu features as well as the storage component.
 
+|====
+In the following snippet, I explained the classes in the [.java]#Model# component that are used in the Menu feature.
+|====
+include::../DeveloperGuide.adoc[tag=menu]
+
+|====
+The following demonstrates my technical writing skills for my implementation of the `addToMenu` command.
+|====
 include::../DeveloperGuide.adoc[tag=addtomenu]
+
+|====
+In the following excerpt, I explained my implementation of the `deleteFromMenu` command, and went into details for
+the [.java]#Menu#getItemFromCode()# method.
+|====
+include::../DeveloperGuide.adoc[tag=deletefrommenu]
+
+|====
+Lastly, in this excerpt, I explain the main differences between the `clearMenu` and `clearOrders` command.
+|====
+include::../DeveloperGuide.adoc[tag=clearmenu]

@@ -30,6 +30,9 @@ public class VersionedCardFolder extends CardFolder {
         indicateModified();
     }
 
+    /**
+     * Resets the state history of the {@code VersionedCardFolder).
+     */
     public void resetStates() {
         currentStatePointer = 0;
         cardFolderStateList.clear();

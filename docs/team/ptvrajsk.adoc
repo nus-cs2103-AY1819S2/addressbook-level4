@@ -104,10 +104,13 @@ diagrammatical explanations.
 
 ===== Find Feature
 
-As for the Find Feature, there were several aspects that had to be communicated
-to the end user such as, the number of files that were detected by the `find`
-command as well as the careful use of third-party libraries. +
-The relevant pull requests pertaining to this feature can be
+As for the Find Feature, the main challenge was to simplify the actions carried
+out internally by feature. As well as explaining the enhancements done to the
+original find feature and what the current feature is capable of doing. +
+The final input to the user-guide contains detailed images that allow the user
+easily follow through the usage of the feature as well as understanding its capabilities.
+Listed below is a summarised excerpt from the User Guide. +
+The one of the relevant pull requests pertaining to this feature is
 referenced in the following _Github_ issue
 https://github.com/CS2103-AY1819S2-T12-4/main/issues/161[#161]. +
 
@@ -151,7 +154,7 @@ Step 2:
 
 Step 3:
 
-* Finally, press kbd:[Enter] and give the application a short time to sieve through all the files
+* Finally, press `Enter` on the keyboard and give the application a short time to sieve through all the files
 it manages and locate the relevant ones for you.
 * Once the application is done with the task, the following screen should be visible to you.
 
@@ -182,8 +185,12 @@ This will prevent any information about your secure files from being leaked to m
 ==== Developer Guide Contributions
 
 ===== Find feature
-For the find feature, the following excerpt was inserted into the Developer
-Guide.
+In the developer guide, I had tried to make the explanations of the internal workings of the
+feature as detailed as possible with references to the connections to the various components
+of the application. These connections were illustrated, with attention to detail, through the
+use of a sequence and activity diagram. +
+Attached below is an excerpt containing the summarised entry of the find feature in the Developer
+Guide. +
 
 '''
 
@@ -263,10 +270,13 @@ improve the ability of the application to look through content even if they are 
 '''
 === Summary of Minor Contributions
 
+Apart from the main contributions to the project, there were several smaller contributions that were critical
+in ensuring that the product works as advertised. Some of which are listed below.
+
 * Setup `JSON` file storage format for the revamped project.
 * Implemented the `Add` Command for both *GUI* and *CLI* mode. link:https://github.com/CS2103-AY1819S2-T12-4/main/pull/141[#141]
-** Increase ease of use for less technical users.
 * Implemented the *GUI* Mode for the Move Command. link:https://github.com/CS2103-AY1819S2-T12-4/main/pull/144[#144]
 * Implementation of a majority of the TestCases as well as
-revamping old TestCases from previous projects to suite new project direction. link:https://github.com/CS2103-AY1819S2-T12-4/main/pull/281[#218]
-* Proof-Reading and Enhancing of the Entire User-Guide Document. link:https://github.com/CS2103-AY1819S2-T12-4/main/pull/313[#313]
+revamping old TestCases from the previous project to suite new project direction. link:https://github.com/CS2103-AY1819S2-T12-4/main/pull/281[#218]
+* Proof-Reading and Enhancement of the Entire User-Guide Document. link:https://github.com/CS2103-AY1819S2-T12-4/main/pull/313[#313]
+* Several Developer Guide Entries link:https://github.com/CS2103-AY1819S2-T12-4/main/pull/316[#316]

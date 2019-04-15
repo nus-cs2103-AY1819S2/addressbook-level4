@@ -294,7 +294,7 @@ image::EditFeatureUserInput.png[width="600"]
 
 Step 3: If your inputs are deemed valid, the file is then
 effectively renamed within PDF++ and in your computer itself, thus resulting in an output
-as shown below.
+that matches the image shown below.
 
 .Rename Command Step 3
 image::EditFeatureFinalOutput.png[width="600"]
@@ -425,6 +425,23 @@ Examples:
 [WARNING]
 The date must be in the format of dd-mm-yyyy.
 
+[#command-history]
+=== Referring to past commands: `History`
+
+The `history` command allows you to view the list of commands that are previously entered
+into the application.
+
+[.big]#Format: `history`# +
+
+Example:
+
+* `history` +
+
+[TIP]
+If you previous command was `encrypt` or `decrypt`, the commands will not be saved to the
+application as part of a security concern. A malicious user could potentially refer to the
+history to get your password, hence the ability to refer back to these commands was removed.
+
 [#command-filter]
 === Filter files by tags: `filter`
 
@@ -461,6 +478,11 @@ Examples:
 
 * `find Introduction` +
 * `find Author: George RR Martin`
+
+[NOTE]
+`find Author: George RR Martin` will not only search for the whole word but also parts of the word
+such as `George`, `RR`, `Martin` without regard for the upper or lowercase of the input text. Hence,
+a file with the word `correct` will also be flagged as containing `RR`.
 
 [#steps-find]
 ==== Step-By-Step Guide
@@ -699,7 +721,8 @@ e.g. `decrypt 2 password/superPASSWORD`
 e.g `merge 1 2 1`
 * <<command-sort, *Sort*>> : `sort CRITERIA ORDER` +
 e.g `sort name down`, `sort deadline up`, `sort size down`
-* <<command-help, *Help*>> : `help`
+* <<command-help, *Help*>> : `help` +
+* <<command-history, *History*>> : `history` +
 * <<command-exit, *Exit*>> : `exit`
 
 == Glossary

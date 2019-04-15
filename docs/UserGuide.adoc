@@ -75,6 +75,9 @@ Examples:
 [TIP]
 For constraints of name, gender, age, phone, address and tags, please refer to the section below.
 
+.Table for Patient's info constraint
+image::patientdataconstrainttable.png[width="800"]
+
 === Listing all patients : `list-p`
 
 Shows a list of all patients in docX. +
@@ -176,7 +179,7 @@ e.g. `"blood"` will not match `highbloodpressure`
 ****
 
 [TIP]
-A patient's info does not include the list index and "| pid:"
+A patient's info does not include the `list index` and `"| pid:"`
 
 Examples:
 
@@ -683,12 +686,12 @@ PATIENT COMMANDS
 
 * *Add a new patient* `add-p [n/NAME] [g/GENDER] [a/AGE] [p/PHONE_NUMBER] [adr/ADDRESS] [t/TAG]` +
 * *List existing patients* : `list-p`
-* *Delete an existing patient* : `delete-p [INDEX]` +
-e.g. `delete-patient 3`
 * *Edit an existing patient* : `edit-p [INDEX] [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [adr/ADDRESS] [t/TAG]` +
+* *Delete an existing patient* : `delete-p [INDEX]` +
+e.g. `delete-p 3`
 * *Searching a patient by name* : `search-p-name [NAME]` +
-* *Searching a patient by appt status* : `search-p-status [STATUS]` +
 * *Searching a patient by pid* : `search-pid [pid]` +
+* *Searching a patient by appt status* : `search-p-status [STATUS]` +
 * *Searching a patient (advanced)* : `search-p-advanced [KEYWORD] ["QUOTED_KEYWORD"]` +
 
 DOCTOR COMMANDS

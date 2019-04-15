@@ -511,6 +511,10 @@ The `archiveclear` command is implemented the same as `clear` where a new empty 
 ==== Design Considerations
 // end::archive[]
 
+// tag::select[]
+=== Select feature
+// end::select[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -738,11 +742,12 @@ This product aims to help real estate agents manage large amount of customer and
 * *How does it make the the user's life easier?* +
 With a proper address book app, real estate agents can quickly and conveniently search for their customers’ contact details, as well as essential property information to speed up their business process.
 
+// tag::userstoriestitle[]
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
-
+// end::userstoriestitle[]
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
@@ -759,8 +764,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |real estate agent |search and filter contacts by the address of their associated property |find all properties within the same area, e.g. search for "Woodlands" should return all contacts with "Woodlands" in their address
 
 |`* * *` |real estate agent |add and update financial information of properties that can be bought/sold/rented |use the information to better determine which properties to buy/sell based on price, and match customers who are looking for certain prices
-
-|`* * *` |efficient user |search and filter by financial information of properties |see which properties can meet my customers' expectation, as well as my own, in terms of price
 
 |`* * *` |organised user |categorise my contacts into different groups (i.e. buyers, sellers, landlords, tenants) |keep track of my customers better
 
@@ -784,6 +787,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |efficient user |display contacts sorted by specific categories |locate contacts and/or properties easily
 
+|`* *` |efficient user |search and filter by financial information of properties |see which properties can meet my customers' expectation, as well as my own, in terms of price
+
 |`* *` |efficient user |check all my properties sorted in ascending or descending order by price or size |compare across my properties to buy/sell based on price or size
 
 |`* *` |real estate agent |link sellers to buyers, and landlords to tenants through properties |see all customers linked to a certain property
@@ -803,10 +808,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |user who prefers visuals |upload and store photos of a specific property |view the property on-the-go
 |=======================================================================
 
+// tag::usecasestitle[]
 [appendix]
 == Use Cases
 
 (For all use cases below, the *System* is the `TheRealApp` and the *Actor* is the `User`, unless specified otherwise)
+// end::usecasestitle[]
 
 [discrete]
 === Use case: View help
@@ -1353,6 +1360,7 @@ Use case ends.
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
+// tag::manualtestingtitle[]
 [appendix]
 == Instructions for Manual Testing
 
@@ -1360,6 +1368,7 @@ Given below are instructions to test the app manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+// end::manualtestingtitle[]
 
 === Launch and Shutdown
 
@@ -1384,13 +1393,16 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size), `delete James`, `delete list` +
    Expected: Similar to previous.
 
+// tag::selectmanualtesting[]
 === Selecting a person
 
 _{ more test cases ... }_
+// end::selectmanualtesting[]
 
+// tag::archivemanualtesting[]
 === Archiving a person
 
 _{ more test cases ... }_
@@ -1398,3 +1410,4 @@ _{ more test cases ... }_
 === Unarchiving a person
 
 _{ more test cases ... }_
+// end::archivemanualtesting[]

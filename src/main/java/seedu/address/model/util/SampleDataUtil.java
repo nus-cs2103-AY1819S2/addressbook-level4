@@ -58,7 +58,7 @@ public class SampleDataUtil {
                     getTagSet("3Room", "new"))),
             new Landlord(new Name("Ricky Young"), new Phone("95426123"), new Email("rickyoung@example.com"),
                     new Remark("I am an archived landlord"), new Property(PropertyType.RENTAL,
-                    new Address("10 Ocean Drive"), new Price("10000"),
+                    new Address("10 Ocean Dr"), new Price("10000"),
                     getTagSet("seaView", "bungalow"))),
         };
     }

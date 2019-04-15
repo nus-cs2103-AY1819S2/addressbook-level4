@@ -38,7 +38,7 @@ Follow the steps below to set up your computer to run FomoFoto:
 .  Double-click the JAR to start the application. The Graphical User Interface should appear in a few seconds.
 +
 .Home Page of FomoFoto
-image::ui.png[width="800"]
+image::Ui.png[width="800"]
 +
 .  You have just successfully setup FomoFoto on your device. To see the command available in FomoFoto, refer to <<Features>> for details of each command. A step-by-step walkthrough of FomoFoto is available at the next section: <<A Walk Through>>.
 // end::QuickStart[]

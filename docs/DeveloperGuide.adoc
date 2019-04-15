@@ -438,15 +438,20 @@ The sort command uses comparators that implement `[fuchsia]#java.util.Comparator
 
 |===
 
-Here is the list of operations involved in the execution of command, `[fuchsia]#sort -name#`.
+Here is the list of operations involved in the execution of command, `[fuchsia]#sort -name#`. +
+See Figure 10 for steps 1 to 4, and Figure 11 for steps 5 to 10.
+
+.Sequence Diagram of Sort Command I
+image::SortSequenceDiagram1.png[width="800"]
+
 [.text-left]
 . `[fuchsia]#LogicManager#execute(_"sort -name"_)#` calls `[fuchsia]#FinanceTrackerParser#parseCommand(_"sort -name"_)#`.
 . `[fuchsia]#FinanceTracker#parseCommand(_"sort -name"_)#` creates a new `[fuchsia]#SortCommandParser#` object and calls `[fuchsia]#SortCommandParser#parse(_" -name"_)#`.
 . `[fuchsia]#SortCommandParser#parse()#` creates a new `[fuchsia]#RecordNameComparator()#` object, _comparator_ and passes it as a parameter into the `[fuchsia]#SortCommand#` constructor.
 . The `[fuchsia]#SortCommand#` object, _s_, is then passed back to the `[fuchsia]#SortCommandParser#`, `[fuchsia]#FinanceTrackerParser#`, and finally back to the `[fuchsia]#LogicManager#`.
 +
-.Sequence Diagram of Sort Command I
-image::SortSequenceDiagram1.png[width="800"]
+.Sequence Diagram of Sort Command II
+image::SortSequenceDiagram2.png[width="800"]
 +
 . `[fuchsia]#LogicManager#execute(_"sort -name"_)#` then continues to call `[fuchsia]#SortCommand#execute()#`.
 . `[fuchsia]#SortCommand#execute()#` calls `[fuchsia]#Model#SortFilteredRecordList(_comparator_)#`.
@@ -455,8 +460,6 @@ image::SortSequenceDiagram1.png[width="800"]
 . `[fuchsia]#UniqueRecordList#sortList(_comparator_)#` then uses `[fuchsia]#FXCollection#`’s static method `[fuchsia]#sort()#`  to sort the records.
 . `[fuchsia]#SortCommand#execute()#` then creates a `[fuchsia]#CommandResult#` object and returns it back to the `[fuchsia]#LogicManager#`.
 
-.Sequence Diagram of Sort Command II
-image::SortSequenceDiagram2.png[width="800"]
 
 {bl}
 
@@ -507,6 +510,10 @@ The reverse command provides a convenient way for users to sort their entries in
 ==== Current Implementation
 
 This is how the reverse command is implemented:
+
+.Sequence Diagram of Reverse Command
+image::ReverseSequenceDiagram.png[width="800"]
+
 [.text-left]
 . `[fuchsia]#LogicManager#execute(_"reverse"_)#` calls `[fuchsia]#FinanceTrackerParser#parseCommand(_"reverse"_)#`.
 . `[fuchsia]#FinanceTrackerParser#parseCommand(_"reverse"_)#` creates a `[fuchsia]#ReverseCommand#` object, _r_.
@@ -517,9 +524,6 @@ This is how the reverse command is implemented:
 . `[fuchsia]#FinanceTracker#reverseRecordList()#` calls `[fuchsia]#UniqueRecordList#reverseList()#`.
 . `[fuchsia]#UniqueRecordList#reverseList()#` uses `[fuchsia]#FXCollection#`’s static method `[fuchsia]#reverse()#` to reverse the list of records.
 . `[fuchsia]#ReverseCommand#execute()#` then creates a `[fuchsia]#CommandResult#` object and returns it back to the `[fuchsia]#LogicManager#`.
-
-.Sequence Diagram of Reverse Command
-image::ReverseSequenceDiagram.png[width="800"]
 
 // end::reverse[]
 
@@ -835,6 +839,7 @@ details.
 
 <<<
 // tag::summary[]
+[.text-justify]
 === Summary
 The `[fuchsia]#summary#` feature shows an overview of your previous expenditures in a pie chart. Each sector of the chart represents a category, labelled with the name and total expenditure for each category.
 
@@ -895,14 +900,14 @@ ii)	Else, `[fuchsia]#SummaryPanel#setSummaryData()#` will be called, which gener
 
 {bl}
 
-<<<
+[.text-justify]
 ==== Design Consideration
 ===== Aspect: Representation for Summary of Expenditure
 
 *Alternative 1 (current choice)*: Represent summary of expenses using a pie chart.
 
 .Current Implementation of Summary Panel using JavaFX's `[fuchsia]#PieChart#`
-image::summaryPanel.png[width="600"]
+image::summaryPanel.png[width="450"]
 
 ** Pros: Labels can act as a legend as well as there might be categories with similar colours. This will help the user to easily identify the expenditures in different categories.
 ** Cons: If there are too many categories, the labels may not show up as it will clash with the other labels. The data presented may also become too cluttered as well.

@@ -26,7 +26,7 @@ public class SummaryCommandParserTest {
     public void parseFieldMissingFailure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SummaryCommand.MESSAGE_USAGE);
 
-        // missing number
+        // missing period amount
         assertParseFailure(parser, " p/m", expectedMessage);
 
         // missing period
@@ -55,4 +55,3 @@ public class SummaryCommandParserTest {
         assertParseFailure(parser, " #/0 p/p", expectedMessage);
     }
 }
-

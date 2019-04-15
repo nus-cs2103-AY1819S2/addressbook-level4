@@ -1,7 +1,6 @@
 package seedu.finance.testutil;
 
 import guitests.GuiRobot;
-import javafx.application.Platform;
 import seedu.finance.commons.core.EventsCenter;
 import seedu.finance.commons.events.BaseEvent;
 
@@ -17,10 +16,4 @@ public class EventsUtil {
         new GuiRobot().interact(() -> EventsCenter.getInstance().post(event));
     }
 
-    /**
-     * Posts {@code event} to all registered subscribers at some unspecified time in the future.
-     */
-    public static void postLater(BaseEvent event) {
-        Platform.runLater(() -> EventsCenter.getInstance().post(event));
-    }
 }

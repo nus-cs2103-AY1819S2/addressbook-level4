@@ -23,11 +23,14 @@ By: `Team W17-3`      Since: `March 2019`      Licence: `MIT`
 == Introduction
 
 {bl}
-[blue]#Welcome to the _In-Credit-Ble_ User Guide!# _In-Credit-Ble_ is your all-in-one application in managing and tracking your
-personal finances. Our user-friendly interface will make it easy for you to see how much you can safely spend within your budget and be more aware
-of your spending habits. If you are a *fast typer*, *prefer to type* over using your mouse and *like to get things done
-efficiently*, then this is the product just for you! _In-Credit-Ble_ is designed for *students* who prefer to work with a
-*Command Line Interface (CLI)*.
+[blue]#Welcome to the _In-Credit-Ble_ User Guide!# _In-Credit-Ble_ is a desktop application designed to help university
+students who have difficulty managing their finances due to their many daily transactions. It is also important for these
+students to manage their finances due to their inflexibility to spend frivolously as they lack a formal income.
+
+_In-Credit-Ble_ provides you with features such as having a budget bar to show how much you have spent compared to a budget
+that you have previously set, and showing of a summary of your transactions in a pie chart. Our user-friendly interface
+will make it easier for you to see how much you can safely spend within your budget and be more aware of your spending habits.
+If you are an individual who prefers to type using a Command Line Interface(CLI), then _In-Credit-Ble_ is the application for you!
 
 This user guide shows you how to get started using _In-Credit-Ble_. It also provides in-depth documentation on the
 different features and shows you how to perform basic _In-Credit-Ble_ operations.
@@ -49,22 +52,25 @@ different features and shows you how to perform basic _In-Credit-Ble_ operations
 .  Copy the file to the folder you want to use as the home folder for your finance tracker.
 .  Double-click the file to start the application. The GUI should appear in a few seconds as shown below.
    The _In-Credit-Ble_ finance tracker is loaded with example expense records and budget is still not set.
+
+[TIP]
+Use the *`[fuchsia]#clear#`* command to remove all the example expenses to start a new Finance Tracker with no entries.
+
 {bl}
-{bl}
-+
+
 .UI upon launching the application
 image::startUI.png[]
-+
+
 {bl}
+
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 [navy]#e.g.# typing *`[fuchsia]#help#`* and pressing kbd:[Enter] will open the help window and show the list of commands.
 .  [teal]#Some example commands you can try#:
 
-* *`[fuchsia]#help#`* : opens the _In-Credit-Ble_ user guide
-* *`[fuchsia]#clear#`* : clears the existing Finance Tracker to start a Finance Tracker with no expense records
-* *`[fuchsia]#set#`* : sets the total budget for Finance Tracker
-* *`[fuchsia]#allocate#`* : allocates budget to a certain category (within the total budget)
-* *`[fuchsia]#spend#`* : adds an expense record to the Finance Tracker
+* *`[fuchsia]#help#`* : opens the _In-Credit-Ble_ user guide.
+* *`[fuchsia]#set#`* : sets the total budget for Finance Tracker.
+* *`[fuchsia]#allocate#`* : allocates budget to a certain category (within the total budget).
+* *`[fuchsia]#spend#`* : adds an expense record to the Finance Tracker.
 .  Refer to [underline blue]#<<Features>># for details of each command.
 // end::quickstart[]
 
@@ -80,15 +86,14 @@ The theme of the application has been set to `[fuchsia]#Light#`, which is differ
 {bl}
 {bl}
 
-.Graphical User Interface (Upon using `summary` command)
-image::GUI_Diagram2.png[width="600"]
+.Graphical User Interface (When starting up)
+image::GUI_Diagram.png[width="600"]
 
 // end::userinterface1[]
 {bl}
 
-.Graphical User Interface (When starting up)
-image::GUI_Diagram.png[width="600"]
-
+.Graphical User Interface (Upon using `summary` command)
+image::GUI_Diagram2.png[width="600"]
 
 {bl}
 // tag::userinterface2[]
@@ -108,9 +113,9 @@ This element is denoted by the [fuchsia]#pink# box.
 
 The menu bar can be used to:
 
-* Exit the program under btn:[File] tab
-* Open the _Help_ page to view commands available under btn:[Help] tab
-* Change the colour theme of the application under btn:[Theme] tab
+* Exit the program under btn:[File] tab.
+* Open the _Help_ page to view commands available under btn:[Help] tab.
+* Change the colour theme of the application under btn:[Theme] tab.
 
 
 {bl}
@@ -128,7 +133,7 @@ This element is denoted by the [yellow]#yellow# box.
 In the Record List Panel, the list of all your expenditures are recorded here.
 This panel is scrollable to view all your expense records.
 
-To find specific records based on `[fuchsia]#name#`, `[fuchsia]#category#` or `[fuchsia]#date#`, use the `[fuchsia]#search#` command.
+To find specific entries based on `[fuchsia]#name#`, `[fuchsia]#category#` or `[fuchsia]#date#`, use the `[fuchsia]#search#` command.
 To list all your expense records again after searching for particular records,
 use the command `[fuchsia]#list#`.
 
@@ -141,7 +146,7 @@ The index is used in commands such as `[fuchsia]#delete#`, `[fuchsia]#edit#` and
 === Budget Panel
 {bl}
 
-.Budget Panel: Shows your total spending against your total budget so far
+.Budget Panel: Shows your total spending against the total budget that you set
 image::BudgetPanel.png[width="250"]
 {bl}
 This element is denoted by the [green]#green# box.
@@ -154,16 +159,16 @@ the budget panel will change colour according to how close you are to your budge
 
 See:
 
-* `[fuchsia]#set#` command to see how to set a budget in the finance tracker
-* `[fuchsia]#spend#` command to see how to add expense records into the finance tracker
+* `[fuchsia]#set#` command to see how to set a budget in the finance tracker.
+* `[fuchsia]#spend#` command to see how to add expense records into the finance tracker.
 
 {bl}
 
-.Budget progress bar turns orange to give warning
+.Budget progress bar turns orange to give a warning that you have almost reached your budget
 image::BudgetPanel_Orange.png[width="250"]
 {bl}
 
-.Budget progress bar turns red to give warning
+.Budget progress bar turns red to give a warning that you have exceeded your budget.
 image::BudgetPanel_red.png[width="250"]
 {bl}
 
@@ -177,17 +182,18 @@ as shown in Figure 7.
 === Browser Panel
 {bl}
 
-.Browser Panel: Shows the budget left, current spending and total budget
+.Browser Panel: Shows the budget left, total budget and your current spending.
 image::browserpanel.png[width="250"]
 {bl}
 This element is denoted by the [maroon]#brown# box in Figure 2.
 
-The browser panel gives you a numerical summary of your total budget.
+The browser panel gives you a numerical summary of your total budget. The current budget shows how much more you can
+spend before you hit the budget that you have set.
 {bl}
 [NOTE]
 ====
 The current budget will show a negative number should you exceed your budget to let you know
-the amount you exceeded the budget set for yourself.
+the amount you have exceeded the budget that you set for yourself.
 ====
 
 {bl}
@@ -201,7 +207,7 @@ image::summarypanel.png[width="400"]
 {bl}
 This element is denoted by the [red]#red# box in Figure 3.
 
-The summary panel gives you a nice illustrated summary of your current spending so far in
+The summary panel gives you a visualisation of the summary of your current spending so far in
 different categories. To change the browser panel to summary panel, use the `[fuchsia]#summary#` command.
 To change back to the browser panel, simply enter the `[fuchsia]#summary#` command once again.
 
@@ -255,7 +261,7 @@ step-by-step instructions on how to use the different commands.
 * Items with `[fuchsia]#…#`​ after them can be used multiple times including zero times.
 * If you provide more than the number of specified parameters
 ([navy]#e.g.# `[fuchsia]#set $/500 $/400#` or `[fuchsia]#spend n/Chicken n/Duck $/10 $/20 c/Food c/Lunch#`), the latest parameter is taken
-([navy]#e.g.# Budget is set to $400, Record added is Name: Duck, Amount: $20, Category: Lunch)
+([navy]#e.g.# Budget is set to $400, Record added is Name: Duck, Amount: $20, Category: Lunch).
 ====
 {bl}
 
@@ -326,7 +332,7 @@ budgets are going to exceed it.
 [NOTE]
 ====
 * Amount entered cannot be larger than 100,000,000.
-* Category name can only be one word (no spaces allowed)
+* Category name can only be one word (no spaces allowed).
 * If you provide multiple categories ([navy]#e.g.# `[fuchsia]#allocate $/50.00 c/Food c/Clothes#`),
 only the last category you provided will be taken (in the previous e.g., the command will
 set budget for `[fuchsia]#Clothes#` category. Your last category must be of the correct format (see below).
@@ -339,9 +345,9 @@ sense to set a budget that is below the amount that you have already spent on th
 For example, if you have spent $50.50 on the cateogry `[fuchsia]#Food#`, you will receive an error message when you try to
 `[fuchsia]#allocate#` $40.00 to the category `[fuchsia]#Food#`.
 * Category name supplied must be https://en.wikipedia.org/wiki/Alphanumeric[alphanumeric]
-and cannot contain special characters such as `*:<>;\/|?~^%$@#*`
+and cannot contain special characters such as `*:<>;\/|?~^%$@#*`.
 * For you to see the category budgets and the current spending in each of the allocated category budget, use the `[fuchsia]#show#`
-command shown in the next command
+command shown in the next section.
 ====
 
 [IMPORTANT]
@@ -350,7 +356,7 @@ You can still spend over the category budget set. The rationale is for you to be
 how much you have exceeded your budget allocated in that category so that you will be able to better plan your
 expenditure in the future. +
 (For e.g. if you allocated $50.00 to `Clothes` and have yet to spend anything in the
-category, you can still spend more than $50.00 after setting the category budget) +
+category, you can still spend more than $50.00 after setting the category budget.) +
 
 However, if you have already spent an amount in the category, but have yet to set a budget for the category, it would
 not make sense for you to set a budget smaller than the current spending in the category. Thus an error message will be
@@ -393,9 +399,9 @@ image::show_example.png[width ="300"]
 
 [NOTE]
 ====
-* The category budgets will be shown with the latest allocated category budget in the Result Display
+* The category budgets will be shown with the latest allocated category budget in the Result Display.
 * If there are no category budgets allocated yet, the result display will display a message
-to let you know so
+to let you know.
 ====
 // end::show[]
 
@@ -427,9 +433,9 @@ only the last category you provided will be taken (In the previous e.g, the comm
 add expense for `[fuchsia]#Clothes#` category).
 * Category names are case-insensitive. ([navy]#e.g.# `[fuchsia]#CLotHes#`, `[fuchsia]#clothes#` and `[fuchsia]#CLOTHES#` refer to the same
 category and will be shown with the first character in uppercase and the rest of the characters
-in lowercase. In the above example, it will be shown as `[fuchsia]#Clothes#`)
+in lowercase. In the above example, it will be shown as `[fuchsia]#Clothes#`.)
 * Category name supplied must be https://en.wikipedia.org/wiki/Alphanumeric[alphanumeric]
-and cannot contain special characters such as `*:<>;\/|?~^%$#@*`
+and cannot contain special characters such as `*:<>;\/|?~^%$#@*`.
 * Date cannot be a date in the future. Addition of future expenses are not allowed.
 * If no date is inputted, current local date will be used instead.
 * Name, category and description inputs are limited to 40 characters each.
@@ -588,7 +594,7 @@ image::TotalSpentInResultDisplay.png[width ="600"]
 ====
 * `[fuchsia]#FLAG#` here refers to either `[fuchsia]#-name#`, `[fuchsia]#-cat#` or `[fuchsia]#-date#`.
 * Only one flag should be provided.
-* If you do not input parameters after the flag, the search result will return with empty list
+* If you do not input parameters after the flag, the search result will return with empty list.
 ====
 // end::search[]
 
@@ -615,20 +621,21 @@ image::TotalSpentInResultDisplay.png[width ="600"]
 ====
 
 ****
-*[navy]#Examples# (default ordering)*:
+*[navy]#Examples# (default ordering)* (See Figure 17 below):
 
 * `[fuchsia]#sort -name#`: +
-Sorts the list of records by name in lexicographical order (ascending order)
+Sorts the list of records by name in lexicographical order. (ascending order)
 * `[fuchsia]#sort -amount#`: +
-Sorts the list of records by amount from largest to smallest (descending order)
+Sorts the list of records by amount from largest to smallest.(descending order)
 * `[fuchsia]#sort -date#`: +
-Sorts the list of records by date with the latest at the top (descending order)
+Sorts the list of records by date with the latest at the top. (descending order)
 * `[fuchsia]#sort -cat#`: +
-Sorts the list of records by category in lexicographical order (ascending order)
+Sorts the list of records by category in lexicographical order. (ascending order)
 
-.Examples of `[fuchsia]#sort#` command (default ordering)
+.Examples of `[fuchsia]#sort#` command (sorted by name, amount, date and category respectively, default ordering)
 image::sortExamples.png[width ="900"]
 
+{bl}
 *[navy]#More examples#*:
 
 * `[fuchsia]#sort -name -desc#`: +
@@ -637,14 +644,15 @@ Sorts list of records by name in reverse lexicographical order.
 .Name sorted in descending order
 image::sortNameDescExample.png[width ="300"]
 
+{bl}
 
 ****
 
 [TIP]
 To sort any list conveniently in the reverse order, use the `[fuchsia]#reverse#` command! +
-`[fuchsia]#sort -name#` +
-`[fuchsia]#reverse#` +
-List will be sorted by name in reverse lexicographical order.
+(eg. `[fuchsia]#sort -name#`, +
+`[fuchsia]#reverse#`, +
+List will be sorted by name in reverse lexicographical order.)
 
 
 // end::sort[]
@@ -656,6 +664,7 @@ List will be sorted by name in reverse lexicographical order.
 ==== Reversing the entries: `[fuchsia]#reverse#`
 
 [navy]#You can also reverse the order of the list of entries in the records.# +
+See Figure 19 below for an example. +
 `[fuchsia]#Reverse#` has effect on the entire list of entries (instead of a filtered list).
 
 *Alias*: `[fuchsia]#rev#`
@@ -671,6 +680,7 @@ image::reverseExample.png[width ="600"]
 
 <<<
 // tag::summary[]
+[.text-justify]
 ==== Showing summary of records: `[fuchsia]#summary#`
 
 [navy]#You can see the summary of your previous expenditures represented as a pie chart#, with
@@ -702,22 +712,22 @@ image::summaryUI_2.png[width ="800"]
 * If a period is not specified, then the summary will show a default report period of the last 7 days.
 * Deleted entries are not included in the summary.
 * Adding more entries while in the summary view mode will update the pie chart statistics automatically, as long as the expense falls within the specified report period
-* Due to space constraints, not all labels in the pie chart may be displayed if there are too many categories listed.
-  This issue will be resolved in future iterations of our application.
+* For best viewing experience, add up to 8 categories. Beyond that, not all labels may appear on the pie chart due to space constraints. However, the legend will still display the expenditure for all categories added.
 ====
 
 ****
 *[navy]#Examples#*:
 
 * `[fuchsia]#summary#`: +
-Shows summary of expenses in the past 7 days
+Shows summary of expenses in the past 7 days.
 * `[fuchsia]#summary #/3 p/d#`: +
-Shows summary of expenses in the past 3 days
+Shows summary of expenses in the past 3 days.
 * `[fuchsia]#summary #/7 p/m#`: +
-Shows summary of expenses in the past 7 months
+Shows summary of expenses in the past 7 months.
 ****
 
 // end::summary[]
+{bl}
 
 {bl}
 
@@ -733,7 +743,7 @@ you can maintain multiple sets of expenditure and budget data for different user
 or profiles. +
 
 In addition, one user can also have multiple files for a recurring period (weeks, months etc.)
-for the user the manage their budget based on a time period his/her liking.
+for the user to manage their budget based on a time period of his/ her liking.
 
 *Format*: `[fuchsia]#setfile f/FILENAME#`
 
@@ -868,7 +878,7 @@ image::themes.gif[]
 [NOTE]
 ====
 * Valid themes include: `[fuchsia]#Dark#`, `[fuchsia]#Light#`, `[fuchsia]#Blue#`, `[fuchsia]#Pink#`
-* The theme name is case-insensitive (`[fuchsia]#BlUE#`, `[fuchsia]#BLUE#`, `[fuchsia]#blue#` or `[fuchsia]#blUE#` etc. all refer
+* The theme name is case-insensitive. (`[fuchsia]#BlUE#`, `[fuchsia]#BLUE#`, `[fuchsia]#blue#` or `[fuchsia]#blUE#` etc. all refer
 to `[fuchsia]#Blue#`)
 * You can also change the theme of the application by choosing the theme under
 the menu bar.
@@ -895,7 +905,7 @@ image::themeMenuBar.png[]
 
 ==== Clearing all entries : `[fuchsia]#clear#`
 
-[navy]#You can delete all existing entries in the records and reset your budget to $0.00.#
+[navy]#You can delete all existing entries in the records and reset your budget (both total and category) to $0.00.#
 
 *Alias*: `[fuchsia]#c#`, `[fuchsia]#clr#`
 
@@ -920,15 +930,15 @@ the data. There is no need for you to save manually.
 
 {bl}
 
-<<<
 // tag::upcomingFeatures[]
+<<<
 === Upcoming Features
 
 {bl}
 
 ==== Login Feature `[yellow]#[coming in v2.0]#`
 _In-Credit-Ble_ will implement a login feature so that your data and personal finance records will remain safe and secure.
-Your personal data will be encrypted and stored in your own account that can also be secured with a password.
+Your personal data will be encrypted and stored in your own account that can be secured with a password.
 
 With this feature, multiple users will be able to use _In-Credit-Ble_ on the same computer without being able to access or modify each other's data.
 
@@ -944,21 +954,22 @@ image::asterPlot.png[width="200"]
 This will make it more effective in showing the user what is the remaining budget amount for each category.
 It also allows users to easily perceive whether their spending is within their budget for each category.
 
+// end::upcomingFeatures[]
+
 ==== Enhancements to UI to allow `[fuchsia]#CategoryBudgets#` to be shown `[yellow]#[coming in v2.0]#`
 Instead of using the `show` command to list the category budgets in the Result Display, _In-Credit-Ble_'s
 `allocate` command will immediately display the category budgets allocated on another Panel known as *CategoryBudget
 Panel* in v2.0 of _In-Credit-Ble_.
 
-We aim to include icons for the categories which will fill up in colour from the bottom according to how close
-the current spending is to the allocated budget in the category.
+We will have separate budget bars (similar to the one in Figure 6) within this panel for each category which will fill
+up as the user enters more entries for the corresponding category.
 
-// end::upcomingFeatures[]
 
 {bl}
 
 ==== Separate expenditures based on methods of payment (Cash, Visa, DBS PayLah) `[yellow]#[coming in v2.0]#`
 
-_In-Credit-Ble_ will link up with secure methods of payment to allow tracking of your cashless transactions.
+_In-Credit-Ble_ will collaborate with secure methods of payment to allow tracking of your cashless transactions.
 These include, but not limited to, payment services such as DBS PayLah, Visa/MasterCard, Amex and Paypal.
 
 By paying through these third-party applications, your transactions will automatically be updated
@@ -970,7 +981,7 @@ and recorded as entries in _In-Credit-Ble_.
 ==== Establish saving patterns based on record and derive projected savings/expenses in a time span `[yellow]#[coming in v2.0]#`
 
 Your monthly finance records will be archived at the end of the month. This information will be used to derive
-the projected savings and expenses of future months, based on analysing your typical spending patterns.
+the projected savings and expenses of future months, based on analysing your spending patterns.
 // end::savingpatterns[]
 
 {bl}
@@ -1017,7 +1028,7 @@ _In-Credit-Ble_  aims to support multi-currency transactions in `[yellow]#v2.0#`
 [cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 | Command | Command Format | Alias | Example
-| Set Budget | `set $/AMOUNT` |- | `set $/500`
+| Set budget | `set $/AMOUNT` |- | `set $/500`
 | Allocate budgeting based on categories | `allocate $/AMOUNT c/CATEGORY` | `allo` | `allocate $/100 c/Shopping`
 | Show allocated category budget and spending | `show` | `showCatBudget` | -
 
@@ -1033,7 +1044,8 @@ _In-Credit-Ble_  aims to support multi-currency transactions in `[yellow]#v2.0#`
 | Command | Command Format | Alias | Example
 | Add expense | `spend n/NAME $/AMOUNT [d/DATE] c/CATEGORY [r/Description]` | `add` | `spend n/movie $/10
   d/16/03/2019 c/Entertainment r/Avengers: Endgame`
-| Edit an entry | `edit INDEX [n/NAME] [$/AMOUNT] [d/DATE] [c/CATEGORY] [r/DESCRIPTION]` | `e` | `edit 1 n/burger c/Food`
+| Edit an entry | `edit INDEX [n/NAME] [$/AMOUNT] [d/DATE] [c/CATEGORY] [r/DESCRIPTION]` +
+*At least one of the optional parameters must be entered.| `e` | `edit 1 n/burger c/Food`
 | Select an entry | `select INDEX` | `s`, `sel` | `select 3`
 | Delete an entry | `delete INDEX` | `d`, `del` | `delete 2`
 
@@ -1054,7 +1066,7 @@ _In-Credit-Ble_  aims to support multi-currency transactions in `[yellow]#v2.0#`
 Shows summary for past 5 days
 
 |=======================================================================
-*Valid flags: `-name`-> Name; `-cat` -> Category; `-date` -> Date; `-amount` (only for `sort` command) -> Amount;
+*Valid flags: `-name`-> Name; `-cat` -> Category; `-date` -> Date; `-amount` -> Amount (only for `sort` command);
 
 **Valid orders: `-asc` -> ascending order; `-desc` -> descending order
 {bl}
@@ -1070,12 +1082,13 @@ Shows summary for past 5 days
 | Help | `help` | - | -
 | Undo previous command | `undo` | `u` | -
 | Redo previously undone command | `redo` | `r` | -
-| Change colour theme of application | `theme COLOURTHEME` | `colour` | `theme light`
+| Change colour theme of application | `theme COLOURTHEME*` | `colour` | `theme light`
 | List entered commands | `history` | `h`, `hist` | -
 | Clear all entries | `clear` | `c`, `clr` | -
 | Exit the program | `exit` | `quit` | -
 
 |=======================================================================
+*Valid colour themes: `light`, `dark`, `pink`, `blue`;
 {bl}
 
 <<<
@@ -1090,8 +1103,8 @@ Category::
 The category that an entry belongs to.
 
 Entry::
-A listed item/activity tracked by the application.  It generally consists of the name, amount and date along with a
-compulsory category tag
+A listed item/activity tracked by the application.  It generally consists of the name, amount, date, category and with an
+optional description field.
 
 Records::
 The list of all entries stored in the application.

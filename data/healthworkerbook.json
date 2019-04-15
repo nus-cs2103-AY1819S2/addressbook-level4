@@ -4,7 +4,7 @@
     "phone" : "94358253",
     "nric" : "S8312942G",
     "organization" : "NUH",
-    "skills" : "PHYSIOTHERAPY GENERAL_PRACTICE "
+    "skills" : "GENERAL_PRACTICE PHYSIOTHERAPY "
   }, {
     "name" : "Betty Meier",
     "phone" : "98761232",
@@ -16,19 +16,19 @@
     "phone" : "95358463",
     "nric" : "S9312942G",
     "organization" : "NUH",
-    "skills" : "GENERAL_PRACTICE GYNAECOLOGY "
+    "skills" : "GYNAECOLOGY GENERAL_PRACTICE "
   }, {
     "name" : "Paniel Meier",
     "phone" : "87652133",
     "nric" : "S9701568T",
     "organization" : "SGH",
-    "skills" : "PHYSIOTHERAPY HAEMATOLOGY "
+    "skills" : "HAEMATOLOGY PHYSIOTHERAPY "
   }, {
     "name" : "Ella Meyer",
     "phone" : "94824524",
     "nric" : "S9112942G",
     "organization" : "SGH",
-    "skills" : "ANAESTHESIOLOGY PHYSIOTHERAPY "
+    "skills" : "PHYSIOTHERAPY ANAESTHESIOLOGY "
   }, {
     "name" : "Fione Kunz",
     "phone" : "94822373",
@@ -40,6 +40,6 @@
     "phone" : "94824424",
     "nric" : "S8812942G",
     "organization" : "TTSH",
-    "skills" : "PAEDIATRIC UROLOGY "
+    "skills" : "UROLOGY PAEDIATRIC "
   } ]
 }

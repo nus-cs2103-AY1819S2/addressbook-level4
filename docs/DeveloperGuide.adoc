@@ -546,94 +546,33 @@ can be left blank or take on 1 value.
 
 
 ==== Design Considerations
-
 //tag::design_considerations_import_export[]
-[cols = "1,2,2", options = "header"]
-|===
-| Aspect
-| Alternative 1
-| Alternative 2
 
-|Which component responsible for import/export logic
-| Implement read and write card folders in `StorageManager` class
-
-Pros:
-
-1. The most intuitive solution,
+===== Aspect: Which component responsible for import/export logic
+* **Alternative 1 (current choice)**: Implement read and write card folders in `StorageManager` class
+** Pros: The most intuitive solution,
 since Storage involves read and write logic
-
-Cons:
-
-1. Either Logic and Model will be more coupled with storage. If Storage were
-doing the main logic of read, write to folders, then either the Import/Export command
-or the Model would have to call Storage's API in the
-execute method of Import/Export to read and write card folders. This leads to
-higher coupling between the two components.
-
-
-2. Storage has more than one responsibility now.
-Instead of managing the internal data of card folder, it now has to
-manage the read and write to csv files.
-
-|Implement read/write and other logic in another class. (Current)
-
-Pros:
-
-1. Separate responsibilities of both Storage and Model. +
-
-2.  Model class can focus on the representation of the in-memory card folders
+** Cons:
+*** Either Logic and Model will be more coupled with storage. Storage also has more than one responsibility now.
+* **Alternative 2**:Implement read/write and other logic in another class. (Current)
+** Pros: Separate responsibilities of both Storage and Model. Model class can focus on the representation of the in-memory card folders
 and Storage class can focus on managing the internal card folder data (.json files)
-
-Cons:
-
-1. More code to write. Storage class could possibly call the relevant API's
+** Cons: More code to write. Storage class could possibly call the relevant API's
 to convert .json file  into .csv file
 
-I chose to go with this option because I feel that practicing good software
-engineering principles not only makes your code more elegant, but also helps to avoid
-code complications that might arise later on as you continue to build the system. These
-problems can be avoided because much thought has been applied to designing code.
 
+===== Aspect: Csv file design structure
+* **Alternative 1**: Export multiple card folders into a single file.
 
-
-| csv file design structure
-| Export multiple card folders into a single file.
-
-Pros:
-
-1. Saves user trouble of calling multiple import for files.
+** Pros: Saves user trouble of calling multiple import for files. +
 Each card folder is separated by a new line.
-
-
-Cons:
-
-1. Not a .csv file anymore.
-First line header would now specify cardfolder name before card headers,
+** Cons: Not a .csv file anymore. First line header would now specify cardfolder name before card headers,
 leading to unequal rows and columns
-
-2. Users will be unable to select specific card folders to import if multiple card folders
-have been exported into a single file.
-
-| Export each card folder into a single file (Current)
-
-
-Pros:
-
-1. More flexibility for users to import desired card folders,
-since 1 cardfolder = 1 csv file.
-
-2. Files are now correctly formatted as .csv file
-
-Cons:
-
-1. Slightly more work needed to import multiple card folders.
-
-I decided to go with this option because it was a simpler solution and is less complex
-to deal with when you have multiple card folders in one file. From a user's point of view,
-I also felt that it might cause confusion if one filename contains multiple flashcard folders.
-Users might be opening the file to check which flashcards are being imported perhaps. Hence, I felt
-that the cons outweigh the pros for alternative 1.
-|===
+* **Alternative 2**: Export each card folder into a single file (Current)
+** Pros: More flexibility for users to import desired card folders,
+since 1 cardfolder = 1 csv file. Files are also now correctly formatted as .csv file
+and Storage class can focus on managing the internal card folder data (.json files)
+** Cons: Slightly more work needed to import multiple card folders.
 //end::design_considerations_import_export[]
 
 

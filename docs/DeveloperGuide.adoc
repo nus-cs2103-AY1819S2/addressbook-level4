@@ -878,7 +878,7 @@ image::inputStatsCommandSS.png[width=400]
 Pop-up window for `stats` :
 
 .Screenshot of empty statistics pop-up window.
-image::StatsWindowSS.png[width=600]
+image::StatsWindowSS.png[width=500]
 
 There should not be any valid data at the moment as the game as not started.
 
@@ -887,7 +887,7 @@ Step 4. Now proceed with the game and perform an attack. Input `attack a1`.
 Step 5. Invoke the `stats` command again to view the updated statistics of the attack result.
 
 .Screenshot of populated statistics pop-up window.
-image::StatsWindowUpdatedSS.PNG[width=600]
+image::StatsWindowUpdatedSS.PNG[width=500]
 
 Besides the pop-up window, the data is also captured in the command-line result box.
 
@@ -903,7 +903,7 @@ Given below is an example usage scenario of the automatic save and compare featu
 
 1. Upon winning a game, a user will be presented with the following screen.
 
-image::StatsWinScreen.PNG[width=650]
+image::StatsWinScreen.PNG[width=500]
 Notice the displayed 'Statistics Analysis' section that displays a comparison of the player's accuracy in the current game and
 the previous game.
 
@@ -916,19 +916,19 @@ The following sequence diagram summarizes what happens at the end of a game and 
 performed.
 
 .Sequence diagram of how the statistics data is saved.
-image::SaveSequenceDiag.PNG[width=500]
+image::SaveSequenceDiag.PNG[width=450]
 
 The following sequence diagram summarizes what happens at the end of the game where an automatic reading of previous
 statistics data is performed.
 
 .Sequence diagram of how the previous statistics data is read from storage.
-image::ReadSequenceDiagram.PNG[width=500]
+image::ReadSequenceDiagram.PNG[width=450]
 
 ==== Activity Diagram
 The following Activity Diagram shows when the `stats` command can be used.
 
 .Activity Diagram of the statistics feature.
-image::StatisticsActivityDiagram.png[width=700]
+image::StatisticsActivityDiagram.png[width=450]
 
 
 ==== Use Case Diagram
@@ -936,7 +936,7 @@ The following use-case diagram captures the behaviour of the statistics feature.
 
 
 .Use case diagram on the statistics feature.
-image::StatsUseCaseDiag.PNG[width=400]
+image::StatsUseCaseDiag.PNG[width=250]
 
 
 ==== Design considerations

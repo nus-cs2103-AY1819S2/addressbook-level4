@@ -28,13 +28,18 @@ export feature; which allows for the sharing of flashcards.
 My role was to design and write the codes for the import and export features. The following sections
 illustrate these enhancements in more detail, as well as the relevant sections I have added to the
 user and developer guides in relation to these enhancements.
-
 ---
+
 
 === Legend
 NOTE: This admonition contains important information pertaining to the usage of the commands.
 
-`command`: a grey highlight over text indicates
+`command`: A grey highlight (called a mark-up) indicates that this is a command
+that can be inputted into the command line
+and executed by the application.
+
+[red]#text# : represents methods / classes that are found within the software
+
 
 == Summary of contributions
 This section contains a summary of my contributions to the project;

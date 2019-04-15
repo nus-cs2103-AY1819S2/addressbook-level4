@@ -475,40 +475,43 @@ statistics for all those flashcards.
 === Exporting flashcards to a text file : `share`
 Creates a text file containing a collection of flashcards to be shared.
 
-Format: `share [f/FRONT_FACE]... [b/BACK_FACE]... [t/TAG]...`
+Format: `share DIRECTORY_PATH`
 
 ****
-* This creates a text file containing all the flashcards who match any of the
-front face, back face or tag keywords, in the same manner as `find`.
+* This creates a text file called _flashcards.txt_ at the specified location.
 * The text file created by the share command will be saved locally in the main application directory; you should share
  this text file with your friends.
 * Once your friend has a copy of the text file, he can import the flashcards using the `import` command
 * **Images will not be shared.**
 ****
 
-Example:
+Examples:
 
-* `share t/Chinese` +
-This will create a text file of all the flashcards that contain the _Chinese_ tag.
+* `find t/Chinese` +
+`share C:\Users\Alice\Desktop` +
+This will create a text file called _flashcards.txt_ at the specified location containing all the flashcards that
+have the _Chinese_ tag.
+
+* In the illustrated example below, one of the cards in the text file already existed locally. So only 6 out of
+the 7 flashcards in the file successfully imported.
+
+image::Ui-preImport.png[width="790"]
+image::Ui-postImport.png[width="790"]
 
 === Importing flashcards from a text file : `import`
 Adds flashcards to your collection from a text file.
 
-Format: `import [FILE_PATH]`
+Format: `import FILE_PATH`
 
 ****
 * This imports all the flashcards from a text file (produced by `share`) to your collection.
 ** This does not replace your flashcard collection; it simply adds all the flashcards from the text file
 one-by-one.
 ** This command will also report the number of flashcards successfully imported.
-* If no `FILE_PATH` is specified, you will be prompted to select it through the File Explorer.
 ****
 
 Examples:
 
-* `import` +
-This will prompt the File Explorer and you should select the text file containing the flashcards
-you want to import.
 * `import C:\Users\Luca\Desktop\cards.txt` +
 This will import the flashcards from `cards.txt` to your collection.
 

@@ -2,71 +2,87 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:toc:
+:toc-title: Table of Contents
+:sectnums:
 
-== PROJECT: AddressBook - Level 4
+image::sergiovieri.png[width="200", align="left"]
+
+== PROJECT: Acquizition
+
+This project portfolio documents my contributions towards Acquizition, a team project under a software engineering module in NUS, known as CS2103T.
+
+The purpose of this portfolio is to summarize the features that I have implemented, as well as some excerpts of the User and Developer Guide that I have written.
 
 ---
 
 == Overview
 
-AddressBook - Level 4 is a desktop card collection application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Acquizition is a desktop flashcard application for subject revision and language acquisition.
+
+Using a scientifically-grounded SRS (Spaced Repetition System), Acquizition maximizes memory retention by testing the terms most likely to be forgotten soon.
+
+Created with JavaFX, Acquizition has a sleek and intuitive GUI (Graphical User Interface) to streamline the experience for new users, but also sports a CLI (Command Line Interface) to maximize the efficiency of power users. It is written in Java and has around 14k lines of code.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *the complete quiz mode*, including the full GUI and quiz backend commands. +
+The quiz GUI includes the flashcard card view pane on the right, and the quiz panel on the left. +
+The quiz commands includes `quiz`, `good` feedback, `bad` feedback, and smart command.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+** What it does: allows the user to conveniently test and keep track their understanding of the flashcards inside the card collection
+** Justification:
+*** This feature improves the product significantly as it is the main feature that Acquizition offers.
+*** It can do seamless swapping between the quiz UI and the card collection UI
+*** It also contains a smart command feature where the user can quickly navigate through the cards without having to type redundant commands.
+** Highlights:
+*** This enhancement required an in-depth analysis of design alternatives, since the quiz mode needs seamless swapping of the card collection GUI and the quiz mode GUI.
+*** The implementation too was challenging as separation of different modes and interaction of logic and dynamic UI parts is needed.
+** Credits: I learned and applied concepts from CS2103T and the existing codebase.
+** Related code: https://github.com/CS2103-AY1819S2-T12-2/main/pull/46[Advanced Quiz Mode], https://github.com/CS2103-AY1819S2-T12-2/main/pull/27[Flashcard Card View]
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Minor enhancement*:
+** Replaces the menu bar with a much more intuitive toolbar. Since menu bar only supports exit and help, moving it to the toolbar with just those two buttons is more reasonable.
+*** Related code: https://github.com/CS2103-AY1819S2-T12-2/main/pull/49[Toolbar]
+** Modifies the existing person model to flashcard model, including all of its components.
+*** Related code: https://github.com/CS2103-AY1819S2-T12-2/main/pull/22[Refactor Flashcard Fields]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Set up Github repository and https://github.com/cs2103-ay1819s2-t12-2/main/issues?utf8=%E2%9C%93&q=is%3Aissue+author%3Asergiovieri[issues]
+*** https://github.com/CS2103-AY1819S2-T12-2/main/pulls?q=is%3Apr+reviewed-by%3Asergiovieri+is%3Aclosed[Reviewed and approved several PRs]
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** Updated the GUI color scheme
+*** Wrote additional tests for existing features to increase coverage
+** Code contributed: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=Ser[Reposense]
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** Set Up Travis, AppVeyor, Coveralls, and Codacy
+*** Set Up GithubPages
+*** Set the minimum requirements for code to be merged to master.
 
 == Contributions to the User Guide
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|These are the excerpts of the User Guide that I have contributed. They reflect what I have learned in writing documentation that targets end-users.
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=quiz]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=command-summary]
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|These are the excerpts of the Developer Guide that I have contributed. They reflect what I have learned in writing technical documentation and the technical depth of my contributions to the project.
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=quiz]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=design-ui]
 
+== Learning Outcomes
+* Able to work in a team with responsibilities of different part of code
+* Learned how to implement features based on user stories
 
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

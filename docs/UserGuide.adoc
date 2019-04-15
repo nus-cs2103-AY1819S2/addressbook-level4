@@ -170,6 +170,7 @@ Under *Client details* panel, Pending CC is added to the panel after entering th
 image::PendingCC.png[width="800"]
 // end::add-e[]
 
+// tag::add-w[]
 === Creating a new work list: `add-w`
 Create a worklist in the Equipment Manager by giving the worklist an ID +
 Format: `add-w d/DATE a/ASSIGNEE i/ID`
@@ -182,8 +183,10 @@ ID number beginning with 0 is not valid, for example, 002 should be 2.
 
 Example:
 
-* `add-w d/09-05-2019 a/Mei Yen i/13`
+* `add-w d/09-05-2019 a/Mary i/13`
+// end::add-w[]
 
+// tag::put[]
 === Putting an equipment into a work list: `put`
 Adds an equipment into a working list in the Equipment Manager +
 Format: `put i/WorkListID s/SERIAL_NUMBER`
@@ -194,7 +197,9 @@ Please make sure that the respective Equipment and WorkList exist in the equipme
 Example:
 
 * `put i/1 s/A008866X`
+// end::put[]
 
+// tag::remove[]
 === Removing an equipment from a work list: `remove`
 Removes an equipment from a working list in the Equipment Manager +
 Format: `remove i/WorkListID s/SERIAL_NUMBER`
@@ -205,6 +210,7 @@ Please make sure that the respective Equipment and WorkList exist in the equipme
 Example:
 
 * `remove i/1 s/A008866X`
+// end::remove[]
 
 === Editing an equipment: `edit-e`
 Edits an existing equipment in the *Equipment Manager*. +
@@ -235,6 +241,7 @@ Example:
 
 * `list-e`
 
+// tag::list-w[]
 === List all work list: `list-w`
 Shows a list of all work list in the Equipment Manager +
 Format: `list-w`
@@ -242,10 +249,11 @@ Format: `list-w`
 Example:
 
 * `list-w`
+// end::list-w[]
 
 // tag::select[]
-=== Selecting an equipment or work list: `select`
-Selects the equipment or work list identified by the index number used in the displayed equipment list or displayed work list. The address of the equipment will be shown as marker on the map. The details of the equipment will be shown together with the map in split window format, means top half the screen will be showing the details, and the bottom half of the screen will be showing the map. +
+=== Selecting an equipment: `select`
+Selects the equipment identified by the index number used in the displayed equipment list. The address of the equipment will be shown as marker on the map. The details of the equipment will be shown together with the map in split window format, means top half the screen will be showing the details, and the bottom half of the screen will be showing the map. +
 Format: `select INDEX`
 
 * Selects the equipment and loads the equipment at the specified INDEX. +
@@ -257,10 +265,6 @@ Examples:
 * `list-e` +
 `select 2` +
 Selects the 2nd equipment in the equipment manager.
-
-* `list-w` +
-`select 1` +
-Selects the 1st worklist in the equipment manager.
 
 * `find Clementi` +
 `select 1` +
@@ -414,6 +418,7 @@ Example:
 * `list-e` +
 `delete-e 1`
 
+// tag::delete-w[]
 === Deleting a work list: `delete-w`
 Deletes the specified work list from the work list. +
 Format: `delete-w INDEX`
@@ -422,6 +427,7 @@ Example:
 
 * `list-w` +
 `delete-w 12`
+// end::delete-w[]
 
 === Enabling notification: `notify` [Coming in v2.0]
 Notifies you when an equipment is due for preventive maintenance in 2 days. You can choose to get notifications or not.

@@ -88,10 +88,10 @@ public class EquipmentManagerParser {
             return new FindCommandParser().parse(arguments);
 
         case ListEquipmentCommand.COMMAND_WORD:
-            return new ListEquipmentCommand();
+            return new ListEquipmentCommand(arguments);
 
         case ListWorkListCommand.COMMAND_WORD:
-            return new ListWorkListCommand();
+            return new ListWorkListCommand(arguments);
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();

@@ -111,4 +111,9 @@ public class WorkList {
 
         return otherWorkList != null && otherWorkList.getId().equals(getId());
     }
+
+    @Override
+    public String toString() {
+        return getId().value;
+    }
 }

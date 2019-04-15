@@ -7,6 +7,7 @@ import seedu.equipment.logic.commands.exceptions.CommandException;
 import seedu.equipment.logic.parser.CliSyntax;
 import seedu.equipment.model.Model;
 import seedu.equipment.model.WorkList;
+import seedu.equipment.model.equipment.Date;
 //import seedu.equipment.model.equipment.Equipment;
 
 /**
@@ -20,15 +21,17 @@ public class AddWorkListCommand extends Command {
             + "Parameters: "
             + CliSyntax.PREFIX_DATE + "DATE "
             + CliSyntax.PREFIX_ASSIGNEE + "ASSIGNEE "
-            + CliSyntax.PREFIX_ID + "ID \n"
+            + CliSyntax.PREFIX_ID + "ID(beginning with 0 is not valid) \n"
             + "Example: " + COMMAND_WORD + " "
             + CliSyntax.PREFIX_DATE + "12-12-2019 "
             + CliSyntax.PREFIX_ASSIGNEE + "Mary "
             + CliSyntax.PREFIX_ID + "13 ";
 
-    public static final String MESSAGE_SUCCESS = "New WorkList created: %1$s";
+    public static final String MESSAGE_SUCCESS = "New WorkList created:(WorkListId) %1$s";
     public static final String MESSAGE_DUPLICATE_EQUIPMENT = "Duplicated WorkList ID, "
             + "this WorkList already exists in the equipment manager.";
+    public static final String INVALID_DATE = "Date format is not valid. Need to follow dd-mm-yyyy, for example"
+            + " 12-12-2019";
 
     private final WorkList toAdd;
 
@@ -46,6 +49,10 @@ public class AddWorkListCommand extends Command {
 
         if (model.hasWorkList(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_EQUIPMENT);
+        }
+
+        if (!Date.isValidDate(toAdd.getDate())) {
+            throw new CommandException(INVALID_DATE);
         }
 
         model.addWorkList(toAdd);

@@ -150,7 +150,7 @@ image::LogicClassDiagram.png[width="800"]
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `attack a1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `attack a1` command
 image::HighLevelAttackDiagram.png[width="800"]
 
 The sections below give more details of each component.

@@ -469,9 +469,9 @@ Step 5. `CurrentEdit#displayTempImage()` is called to display the opened image o
 * *Alternative 2* : The user can open and edit multiple images.
 ** Advantage: Images can be edited simultaneously.
 ** Disadvantages:
-*** `open` has to distinguish whether the user is opening an image from `assets` or `temp` directory.
+*** Hard to distinguish whether the user is opening an image from `assets` or `temp` directory.
 *** Requires many duplicates with different temporary names.
-*** Might be confusing for the user.
+*** May be confusing for the user.
 
 Alternative 1 was chosen as it is less complicated, requires lesser space and more user-friendly.
 // end::DGOpen[]
@@ -483,7 +483,7 @@ Alternative 1 was chosen as it is less complicated, requires lesser space and mo
 This command displays the names of all the files in the `assets` directory.
 
 ==== Current Implementation
-The `listfiles` function is facilitated by `Album`. It uses the following operations:
+The `listfiles` function is facilitated by `Album`. It uses the following operation:
 
 * `Album#getFileNames()` - Returns a list of all the files in `assets` directory.
 
@@ -681,7 +681,7 @@ The following is an example usage scenario of how `save` behaves at each step as
 
 Step 1. The user executes `save`.
 
-Step 2. `CurrentEdit#tempImageExist()` is called to check if an image was previously opened. If `open` was not called previously, `CommandException` is thrown.
+Step 2. `CurrentEdit#tempImageDoNotExist()` is called to check if an image was previously opened. If `open` was not called previously, `CommandException` is thrown.
 
 Step 3. `CurrentEdit#getTempImage()` is called to retrieve the `tempImage` from `CurrentEdit`.
 

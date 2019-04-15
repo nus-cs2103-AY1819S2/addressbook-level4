@@ -267,7 +267,7 @@ The map feature handles the interactions of the game in the map level. The map f
 * Allow placing of battleships in the cells.
 * Allow attacking of cells.
 
-==== Current implementation of map initialisation
+==== Implementation of map initialisation
 The map feature is facilitated by `MapGrid` and `Cell`.
 The map grid is stored internally in `MapGrid` as a 2D array of `Cell` objects.
 `MapGrid` implements the following method to initialise the map:
@@ -304,6 +304,34 @@ The following activity diagram shows when the "initialise map" command can be us
 image::InitActivityDiagram.png[width=800]
 
 {empty} +
+
+==== Implementation of the `Cell` class
+The cells are the lowest-level feature of the game and is represented by the `Cell` class. Each `Cell` allows one ship to be placed on it but the same ship can be referenced from multiple `Cell` objects. `Cell` also allows receiving of an attack and will propagate the attack call to the `Battleship` in it. To support the above, the following methods are available:
+
+* `void putShip(Battleship battleship)` - places a ship in the `Cell`.
+* `boolean receiveAttack()` - receives an attack and returns true if it's a hit, false otherwise.
+
+Also, each `Cell` has a `Status` attribute which is an `enum` of the following:
+
+[cols="1,3", options="header"]
+|===
+| Status | Description
+| HIDDEN | This cell has not been hit. 
+| EMPTY | This cell is empty and has not been hit.
+| EMPTYHIT | This cell has been hit before, and is empty;
+| SHIP | This cell has a ship in it.
+| SHIPHIT | This cell has been hit before, and there is a damaged ship here.
+| DESTROYED | This cell has been hit before, and the ship here has been destroyed.
+|===
+
+The `Status` ofa `Cell` can be checked through the following method:
+
+* `Status getStatus()` - returns the `Status` of the `Cell`.
+
+The `Status` is used by several higher level functionality such as:
+
+* the UI to know what colour should a `Cell` be displayed as.
+* placing ships to check whether a ship has already been placed.
 
 ==== Design considerations
 ===== Aspect: How the maps are initialised
@@ -824,11 +852,12 @@ Step 3. Input `stats` into the command-line and press enter to obtain the curren
 
 Inputting `stats` :
 
-image::inputStatsCommandSS.png[width=250]
+image::inputStatsCommandSS.png[width=400]
 
 Pop-up window for `stats` :
 
-image::StatsWindowSS.png[width=600]
+image::StatsWindowSS.png[width=800]
+Figure 33. Screenshot of empty statistics pop-up window.
 
 There should not be any valid data at the moment as the game as not started.
 
@@ -836,24 +865,24 @@ Step 4. Now proceed with the game and perform an attack. Input `attack a1`.
 
 Step 5. Invoke the `stats` command again to view the updated statistics of the attack result.
 
-image::StatsWindowUpdatedSS.PNG[width=400]
+image::StatsWindowUpdatedSS.PNG[width=800]
+Figure 34. Screenshot of populated statistics pop-up window.
 
 Besides the pop-up window, the data is also captured in the command-line result box.
 
 image::StatsCommandBox.PNG[width=400]
 
-End of Example Usage Scenario
-
 The following sequence diagram summarizes what happens when a User invokes the `stats` command.
 
-image::StatsSequenceDiagram.PNG[width=800]
+image::StatsSequenceDiagram.PNG[width=1000 ]
+Figure 35. Sequence diagram of `stats` command.
 
-==== Save and compare
+==== Save and Compare
 Given below is an example usage scenario of the automatic save and compare feature.
 
 1. Upon winning a game, a user will be presented with the following screen.
 
-image::StatsWinScreen.png[width=650]
+image::StatsWinScreen.PNG[width=650]
 Notice the displayed 'Statistics Analysis' section that displays a comparison of the player's accuracy in the current game and
 the previous game.
 
@@ -862,38 +891,51 @@ the previous game.
 3. Next, input the command `stats` to observe how the previous statistics data has also been cleared in preparation for the
 new game.
 
-End of Example Usage Scenario.
-
 The following sequence diagram summarizes what happens at the end of a game and an automatic save is
 performed.
 
 image::SaveSequenceDiag.PNG[width=800]
+Figure 36. Sequence diagram of how the statistics data is saved.
 
-The following sequence diagram summarizes what happens when a previous statistic data is read and compared.
+The following sequence diagram summarizes what happens at the end of the game and an automatic reading of previous
+statistics data is performed.
 
+image::ReadSequenceDiagram.PNG[width=800]
+Figure 37. Sequence diagram of how the previous statistics data is read from storage.
 
-==== Activity diagram
+==== Activity Diagram
 The following Activity Diagram shows when the `stats` command can be used.
 
-<Include activity diagram>
+image::StatisticsActivityDiagram.png[width=1000]
+Figure 38. Activity Diagram of the statistics feature.
+
+==== Use Case Diagram
+The following use-case diagram captures the behaviour of the statistics feature.
+
+image::StatsUseCaseDiag.PNG[width=500]
+Figure 39. Use case diagram on the statistics feature.
+
 
 ==== Design considerations
-* **Alternative 1:** The methods that are responsible for incrementing the relevant game data is placed
-in whichever command is required to be tracked. This meant that there would be a method call to the statistics class
-from within every method itself.
+===== Design of data-tracking methods
+* **Alternative 1:** The methods that are responsible for incrementing the relevant game data are placed
+in each of the commands to be tracked. This meant that there would be a method call to the statistics class
+from within every method itself, which also meant that every method had to contain a parameter for the PlayerStatistics Object.
 ** Pros: The methods are clearly visible within each command to be tracked and as a developer I can understand when each
 command is being tracked.
-** Cons: This implementation violates the ... principle (Duplicate code) and while the behaviour is unaltered, it is not
-good programming practice.
-* **Alternative 2:** The method responsible for incrementing the statistical data is placed only at the Command Result class.
-** Pros: The implementation abides by the ... principle (no duplicate code) and contains less dependencies on the respective
-class components.
-** Cons: This would mean that the method will have to filter for the corresponding commands only and perform the related
-         methods accordingly. Does not abide by Single Responsibility Principle as the `StatsCommand` will also contain
-         filtering and analysis of data
-** Chosen: Alternative 2. Even though the method violates the Single Responsibility Principle, this can be subverted by
-performing the analysis of data in the Storage component instead. By implementing the method calls at a central Command
-Result, will make ... more modular... less dependencies especially when working with other components..(Edit)
+** Cons: This implementation violates the DRY principle (Don't Repeat Yourself) Principle.
+* **Alternative 2 (Current Choice) :** The method responsible for incrementing the statistical data is placed only at the AttackCommand class.
+** Pros: The implementation does not violate the DRY principle and contains less dependencies on the other components.
+** Cons: It is more difficult to code as it has to account for different CommandResult objects.
+
+===== Type of Storage File
+* **Alternative 1 (Current Choice)** : Use JSON file to store statistics data
+** Pros: Easy to implement as there are libraries pre-installed.
+** Cons: Formatting errors are not validated
+* **Alternative 2 ** : Use XML file to store statistics data
+** Pros: Can put metadata into the tags in  the form of attributes.
+** Cons: Difficult to code as it is less readable and external libraries must be imported.
+
 //end::stats[]
 
 === Logs

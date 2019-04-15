@@ -5,7 +5,8 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.AddPrescriptionCommand;
+import seedu.address.logic.commands.prescription.AddPrescriptionCommand;
+import seedu.address.logic.parser.prescription.AddPrescriptionCommandParser;
 import seedu.address.model.medicalhistory.ValidDate;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.prescription.Description;

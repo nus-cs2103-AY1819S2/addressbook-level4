@@ -1208,4 +1208,5 @@ Expected: Unsuccessful message shown in the UI. No file will be output in the PD
 Expected: Success message shown in the UI. Current medicine on index one is successfully output to a PDF file under the PDF folder. Filename is `newfile`.
 .. Test case: `label 1 f/^@#&` +
 Expected: Expected: Unsuccessful message shown in the UI. No file will be output in the PDF folder.
+
 // end::labeltest[]

@@ -97,6 +97,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
      * Returns true if this handle contains {@code person}.
      */
     public boolean equals(Person person) {
+
         return getName().equals(person.getName().fullName)
                 && getAddress().equals("Address - " + person.getAddress().value)
                 && getPhone().equals("Phone - " + person.getPhone().value)
@@ -104,8 +105,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
                 && getEducation().equals("School - " + person.getEducation().university)
                 && getDegree().equals("Degree - " + person.getDegree().value)
                 && getGpa().equals("GPA - " + person.getGpa().value)
-                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(person.getTags().stream()
-                        .map(tag -> tag.tagName)
-                        .collect(Collectors.toList())));
+                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(person.getTags()
+                .stream().map(tag -> tag.unlabelledTagName).collect(Collectors.toList())));
     }
 }

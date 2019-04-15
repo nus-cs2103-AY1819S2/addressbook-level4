@@ -15,6 +15,7 @@ public class SkillsTag {
     public final String tagName;
     public final String tagColor;
     public final String tagType;
+    public final String unlabelledTagName;
 
     /**
      * Constructs a {@code SkillsTag}.
@@ -26,6 +27,7 @@ public class SkillsTag {
         requireNonNull(tagName);
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
         this.tagType = type;
+        this.unlabelledTagName = tagName;
         if (type.equals("skill")) {
             //skill tag
             this.tagColor = "pink";
@@ -49,6 +51,7 @@ public class SkillsTag {
         this.tagName = tagName;
         this.tagColor = null;
         this.tagType = null;
+        this.unlabelledTagName = tagName;
     }
 
     /**

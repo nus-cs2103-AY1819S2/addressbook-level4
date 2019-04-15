@@ -10,7 +10,7 @@ import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
-// import org.junit.Test;
+import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.RedoCommand;
@@ -23,6 +23,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
     /**
      * TODO: fix system test problem: @Test
      */
+    @Test
     public void select() {
         /* ------------------------ Perform select operations on the shown unfiltered list -------------------------- */
 

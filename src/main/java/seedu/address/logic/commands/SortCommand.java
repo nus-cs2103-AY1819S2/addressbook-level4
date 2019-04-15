@@ -3,14 +3,18 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.sortmethods.SortDegree;
 import seedu.address.logic.commands.sortmethods.SortEducation;
 import seedu.address.logic.commands.sortmethods.SortGpa;
+import seedu.address.logic.commands.sortmethods.SortMethod;
 import seedu.address.logic.commands.sortmethods.SortName;
-import seedu.address.logic.commands.sortmethods.SortSkills;
 import seedu.address.logic.commands.sortmethods.SortSurname;
 import seedu.address.logic.commands.sortmethods.SortTagNumber;
+import seedu.address.logic.commands.sortmethods.SortTags;
 import seedu.address.logic.commands.sortmethods.SortUtil;
 import seedu.address.logic.parser.SortWord;
 import seedu.address.model.Model;
@@ -27,16 +31,18 @@ public class SortCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts all persons in address book "
             + "according to the specified keyword and displays them as a list with index numbers.\n"
             + "Parameters: [reverse] KEYWORD \n"
-            + "Valid KEYWORD: education, endorsements, endorsement number, gpa, name, positions, position number,\n"
-            + "               skills, skill number, surname \n"
+            + "Valid KEYWORD: degree, education, endorsements, endorsement number, gpa, name, positions,\n"
+            + "               position number, skills, skill number, surname \n"
             + "Example: " + COMMAND_WORD + " name \n"
             + "Example: " + COMMAND_WORD + " reverse skills ";
 
+    private final Logger logger = LogsCenter.getLogger(SortUtil.class);
     private final SortWord method;
 
     private List<Person> sortedPersons;
 
     private Boolean isReverseList;
+    private Boolean isNewListPresent;
 
     public SortCommand(SortWord method) {
         this.method = method;
@@ -58,58 +64,44 @@ public class SortCommand extends Command {
         return input;
     }
 
+    private void processSortMethod(SortMethod command, List<Person> lastShownList, String... type) {
+        command.execute(lastShownList, type);
+        this.sortedPersons = command.getList();
+        this.isNewListPresent = true;
+    }
+
     /**
-     * Processes the sort command
+     * Processes the sort command and calls processSortMethod based on the sort command
      *
      * @param model
      */
     private void processCommand(Model model) {
         List<Person> lastShownList = model.getAddressBook().getPersonList();
-        //Maybe use switch statement here?
         String commandInput = checkReverse();
 
         if (commandInput.equals("name")) {
-            SortName sorted = new SortName(lastShownList);
-            sortedPersons = sorted.getList();
-            model.deleteAllPerson();
-        } else if (commandInput.equals("surname")) {
-            SortSurname sorted = new SortSurname(lastShownList);
-            sortedPersons = sorted.getList();
-            model.deleteAllPerson();
-        } else if (commandInput.equals("skills")) {
-            SortSkills sorted = new SortSkills(lastShownList, commandInput);
-            sortedPersons = sorted.getList();
-            model.deleteAllPerson();
-        } else if (commandInput.equals("endorsements")) {
-            SortSkills sorted = new SortSkills(lastShownList, commandInput);
-            sortedPersons = sorted.getList();
-            model.deleteAllPerson();
-        } else if (commandInput.equals("positions")) {
-            SortSkills sorted = new SortSkills(lastShownList, commandInput);
-            sortedPersons = sorted.getList();
-            model.deleteAllPerson();
-        } else if (commandInput.equals("gpa")) {
-            SortGpa sorted = new SortGpa(lastShownList);
-            sortedPersons = sorted.getList();
-            //TODO: remove this print statement
-            //Temporarily add print statement here since the gpa is not being printed to the GUI
-            //Note: this is performed before any reversal
-            System.out.println(sortedPersons);
-            model.deleteAllPerson();
-        } else if (commandInput.equals("education")) {
-            SortEducation sorted = new SortEducation(lastShownList);
-            sortedPersons = sorted.getList();
-            //TODO: remove this print statement
-            //Temporarily add print statement here since the education is not being printed to the GUI
-            System.out.println(sortedPersons);
-            model.deleteAllPerson();
-        } else if (commandInput.substring(commandInput.lastIndexOf(" ") + 1).equals("number")) {
-            SortTagNumber sorted = new SortTagNumber(lastShownList, commandInput);
-            sortedPersons = sorted.getList();
-            model.deleteAllPerson();
+            processSortMethod(new SortName(), lastShownList);
+        } else if ("surname".equals(commandInput)) {
+            processSortMethod(new SortSurname(), lastShownList);
+        } else if ("gpa".equals(commandInput)) {
+            processSortMethod(new SortGpa(), lastShownList);
+        } else if ("education".equals(commandInput)) {
+            processSortMethod(new SortEducation(), lastShownList);
+        } else if ("number".equals(commandInput.substring(commandInput.lastIndexOf(" ") + 1))) {
+            processSortMethod(new SortTagNumber(), lastShownList, commandInput);
+        } else if ("degree".equals(commandInput)) {
+            processSortMethod(new SortDegree(), lastShownList);
+        } else if ("skills".equals(commandInput) || "endorsements".equals(commandInput)
+                || "positions".equals(commandInput)) {
+            processSortMethod(new SortTags(), lastShownList, commandInput);
+        } else {
+            logger.info("Invalid sort input and cannot be processed.");
         }
         if (isReverseList) {
             sortedPersons = SortUtil.reversePersonList(sortedPersons);
+        }
+        if (isNewListPresent) {
+            model.deleteAllPerson();
         }
         for (Person newPerson : sortedPersons) {
             model.addPersonWithFilter(newPerson);

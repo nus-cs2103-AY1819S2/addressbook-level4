@@ -64,11 +64,10 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL  d/EDUCATION g/GPA a/ADDRESS deg/DEGR
 * Name can have any character from English alphabet and also it can have `space`
 * Phone Number has to be in 8 digits
 * Email should be in the format of `[ANY NUMBER OF ASCII CHARACTERS MORE THAN 0]@[EXTENSION1].[EXTENSION2]`
-* Education can take character from English alphabet and also it can have `space`
+* Education can take the characters from English alphabet and also it can have `space`
 * GPA can take any float value between 0.0 and 4.0
 * DEGREE-LEVEL only takes these inputs: `high school`, `associates` (2-year-degree), `bachelors`, `masters`, `PhD`
 * A candidate can have any number of skill/position tags (including 0)
-* For the addition, input order is important.
 ****
 
 Examples:
@@ -91,9 +90,9 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [d/EDUCATION] [g/GPA] [deg/DEGR
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed(i.e adding of tags is not cumulative, both skills and positions will be changed after editing one of them) except for
+* When editing tags, the existing tags of the person will be removed (i.e adding of tags is not cumulative, both skills and positions will be changed after editing one of them) except for
 existing endorsement tags.
-* You can remove all the person's tags by typing `skill/` or 'position/' without specifying any tags after it.
+* You can remove all the person's tags by typing `skill/` or `position/` without specifying any tags after it.
 ****
 
 Examples:
@@ -101,75 +100,87 @@ Examples:
 * `edit 1 p/91234567 e/johndoe@example.com` +
 Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 * `edit 2 n/Betsy Crower skill/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-// tag::filterclear[]
-=== Clearing the filter in Recruit Me: `filter clear`
-It clears all the filters in the applicant pool. +
-Format: `filter clear`
-// end::filterreverse[]
-
-// tag::filterreverse[]
-=== Reversing the filter in Recruit Me: `filter reverse`
-It reverses all the filtering conditions and show the eliminated ones. +
-Format: `filter reverse`
-// end::filterreverse[]
+Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags except endorsement tags.
 
 // tag::filter[]
 === Filtering Recruit Me: `filter`
 
-*It filters the current applicant pool regarding the existing entities of every single person (name, phone, email, address, gpa, education (school), degree level, position, endorsement count or skills). +
-*Format: `filter or/and [name<NAME>name] [phone<PHONE>phone] [email<EMAIL>email] [gpa<GPA>gpa] [edu<EDUCATION>edu] [deg<DEGREE-LEVEL>deg] [addr<ADDRESS>addr] [skill<SKILL1, SKILL2, ... >skill][pos<POSITION1, POSITION2, ... >pos] [end<ENDORSEMENT>end]`
+* It filters the current applicant pool regarding the existing entities of every single person (name, phone, email, address, gpa, education (school), degree level, position, endorsement count or skills). +
+* *Format:* `filter or/and [name<NAME>name] [phone<PHONE>phone] [email<EMAIL>email] [gpa<GPA>gpa] [edu<EDUCATION>edu] [deg<DEGREE-LEVEL>deg] [addr<ADDRESS>addr] [skill<SKILL1, SKILL2, ... >skill][pos<POSITION1, POSITION2, ... >pos] [end<ENDORSEMENT>end]`
 
 [TIP]
-for every field, using `< or >` can cause false results. Please do not use them in filtering criterion texts. All the fields are optional but at least one field should be used.
+For every field, using `< or >` can cause false results. Please do not use them in filtering criterion texts. All the fields are optional but at least one field should be used.
 
 ****
 
-*Different types of filtering processes:*
+*Definition of Some Keywords for the Filter Guide:*
 
-* 'OR' Usage: According to the conditions written, if at least one of them passes with the regarding person in the applicant pool, the person is included in the filtered version.
-* 'AND' Usage: According to the conditions written, if every single one of them passes with the regarding person in the applicant pool, the person is included in the filtered version.
+* *Prefix:* basically the beginning part of every field in the command e.g. `name<` for NAME field, `deg<` for DEGREE-LEVEL.
+* *Reverse Prefix:* the ending part of every field in the command e.g. `>name` for NAME field, `>deg` for DEGREE-LEVEL.
+* *Condition:* The text between every `Prefix` and `Reverse Prefix` couple.
+
+*Different Types of Filtering Processes:*
+
+* `OR` Usage: According to the conditions written, if at least one of them passes with the regarding person in the applicant pool, the person is included in the filtered version.
+* `AND` Usage: According to the conditions written, if every single one of them passes with the regarding person in the applicant pool, the person is included in the filtered version.
 
 *Special Input Conditions for Fields:*
 
-* For all the non-mentioned fields below, the default input format should be applied for the filtering field. Default input formats can be checked from `add command tab in User Guide`
+* For all the non-mentioned fields below, the default input format should be applied for the filtering field. Default input formats can be checked from `Adding a person: add - User Guide`
 * For `PHONE`, any number of integers more than 0 can be entered.
-* For `EMAIL` and `ADDRESS`, any number of ASCII characters (also take the `TIP` into attention) more than 0 can be used.
+* For `EMAIL` and `ADDRESS`, any number of ASCII characters (also take the `TIP` into attention for correct results) more than 0 can be used.
 * For `GPA`, it prints the persons who have higher or equal amount of GPA from the given input
 * For `ENDORSEMENT`, a positive integer value is wanted, it prints the persons who have that much or higher amount of endorsements.
 * For `SKILLS` and `POSITIONS`, if more than one specification are added to the filter, they should be separated by ','
+* For `DEGREE-LEVEL`, there are 2 input type options: text and number. For the text format, the search is *case-insensitive*. So, any uppercase or lowercase type of the text is accepted.
+If filtering is applied for this criteria, the persons with the same or higher education levels are shown. There 5 different levels for the input:
+** *Number:* `0` and *Text:* `highschool`
+** *Number:* `1` and *Text:* `associates` (2-year-university)
+** *Number:* `2` and *Text:* `bachelors`
+** *Number:* `3` and *Text:* `masters`
+** *Number:* `4` and *Text:* `phd`
 
 *About the Running Process of Filtering Command:*
 
-* The filtering is case insensitive. e.g `hans` will match `Hans`
+* The filtering is case insensitive. e.g `hans` will match `Hans`.
 * Filtering does not check if the written condition passes totally. It only checks, if the written condition is contained in the person properties.
 e.g if there is someone named Alex, in the filtering conditions `n/ale/n` or `n/le/n` or `n/lex/n`, Alex will be included.
 * All the people that are included in the filtering will be returned.
 * `ADD` operation clears the existing filters automatically.
 * After one filtering, the filtered address book can be filtered again.
-* For every single criteria between the filtering prefixes, input check for the validity is made
-
+* For every single criteria between the filtering prefixes, input check for the validity is made.
 * Filtering is compatible with all the other commands:
-** 1- clear : since the persons list changes, the filtering is automatically cleared
-** 2- add : when filtering is active, adding a person also clears the filter along the addition. But addition takes place.
-** 3- sort / endorse / select / delete / edit / list / undo / redo / help / exit / history : can be used without clearing the filter
+** 1- `clear` : since the persons list changes, the filtering is automatically cleared
+** 2- `add` : when filtering is active, adding a person also clears the filter along the addition. But addition takes place.
+** 3- `sort / endorse / select / delete / edit / list / undo / redo / help / exit / history` : can be used without clearing the filter
 
 ****
 
 Examples:
 
-* filter or phone<91234567>phone email<johndoemail@example.com>email skill<C++, Java>skill end<2>end
-** Returns the people, whose numbers include 91234567 or whose email includes johndoe@example.com or who has (contains) at least C++ or Java in the skills or has at least 2 endorsements.
-* filter and name<ale>name addr<street>addr gpa<3.1>gpa pos<Manager, Developer>pos deg<bachelors>deg
-** Returns the people, whose name contains ale (in any uppercase and lowercase format) and whose address contains street and who is interested in Manager and Developer positions,has a GPA higher than or equal to 3.1 and has at least Bachelor's degree
+* `filter or phone<91234567>phone email<mail@ex>email skill<C++, Java>skill end<2>end deg<4>deg`
+** _Returns the people, whose numbers include `91234567` or whose email includes `mail@ex` or who has (contains) at least `C++ or Java` in the skills or has at least `2 endorsements` or has at least `Master's degree`._
+* `filter and name<ale>name addr<street>addr gpa<3.1>gpa pos<Manager, Developer>pos deg<bachelors>deg`
+** _Returns the people, whose name contains `ale` (in any uppercase and lowercase format) and whose address contains `street` and who is interested in `Manager and Developer` positions,has a GPA higher than or equal to `3.1` and has at least `Bachelor's degree`._
 
 // end::filter[]
+
+// tag::filterclear[]
+=== Clearing the filter in Recruit Me: `filter clear`
+It clears all the filters in the applicant pool. +
+Format: `filter clear`
+// end::filterclear[]
+
+// tag::filterreverse[]
+=== Reversing the filter in Recruit Me: `filter reverse`
+It reverses all the filtering conditions and shows the eliminated ones. +
+Format: `filter reverse`
+// end::filterreverse[]
 
 === Approve persons by employee name: `endorse`
 
 Endorses an existing candidate in RecruitMe. +
-Format: 'endorse [clear] INDEX n/YOUR NAME'
+Format: `endorse [clear] INDEX n/YOUR NAME`
 
 ****
 * Endorses the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list.
@@ -178,17 +189,17 @@ Format: 'endorse [clear] INDEX n/YOUR NAME'
 * Error will be thrown if an employee tries to endorse a candidate more than once
 * When editing tags, the existing tags of the person will be removed (i.e adding of tags is not cumulative) except for
 existing endorsement tags.
-* Removes endorsement of a person at the specified index using 'clear' keyword
+* Removes endorsement of a person at the specified index using `clear` keyword
 * Error will be thrown if an employee tries to unendorse a candidate he or she has not previously endorsed
 
 ****
 
 Examples:
 
-* 'endorse 1 n/Steve Jobs'
-Adds a blue tag to the candidate at the '1' index with the text 'Steve Jobs'
-* 'endorse clear 1 n/Steve Jobs'
-Removes 'Steve Jobs' blue tag from the candidate at the '1' index
+* `endorse 1 n/Steve Jobs`
+Adds a blue tag to the candidate at the `1` index with the text `Steve Jobs`
+* `endorse clear 1 n/Steve Jobs`
+Removes 'Steve Jobs' blue tag from the candidate at the `1` index
 
 
 === Locating persons by name: `find`
@@ -231,9 +242,21 @@ Returns the persons, with new index numbers, in reverse alphabetical order of th
 skill is that which appears first when the person's skills have been ordered alphabetically.
 
 Methodology:
+.Individual Sort Command Methods
+|===
+|Command |Sort Comparison |Sort Effect |Example
+
+|`sort name`
+|Compares the Christian name first and then the surname
+|Alphabetical
+|_`Adam Smith` shall come before `Shaun Adams` and `Adam Blacksmith` shall come before `Adam Smith`._
+
+|`sort surname`
+|Compares the surname only
+|Alphabetical
+|_`Ben Adams` shall come before `Adam Black`._
+|===
 ****
-* The `sort name` command compares the Christian name first and then the surname. +
-_e.g. `Adam Smith` shall come before `Shaun Adams` and `Adam Blacksmith` shall come before `Adam Smith`._
 * The `sort surname` command compares the surname only. +
 If two surnames match, then the previous relative ordering of the two shall be kept. +
 _e.g. `Ben Adams` shall come before `Adam Black`._
@@ -435,11 +458,43 @@ Format: `exit`
 Applicant data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+// tag::addmultiplepersons[]
+=== Adding Multiple Persons `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+* Right now, through the application there is no possibility to add multiple persons at once. This feature will come with v2.0.
+* However, there is a way to add multiple persons at once:
+** If you run the application at least once and change some data in it, you will see the directory `./data/addressbook.json`.
+** It is the `JSON` file that holds every single person on the application. The format is given below.
+** As long as the format is correct, you can add as many people as you want or if you have a ready file with the same format, you can replace it directly as long as you rename the file as `addressbook.json`.
+** The changes made in the file will be shown in the application GUI itself, too.
+
+....
+{
+  "persons" : [ {
+    "name" : "Claire Smith",
+    "phone" : "98765432",
+    "education" : "Oxford",
+    "gpa" : "2.7",
+    "degree" : "PHD",
+    "email" : "claireS@gmail.com",
+    "address" : "12 Biscuits Way, Oxford",
+    "tagged" : [ "s:PHP", "s:C#", "s:C++", "e:Elon Musk", "s:Linux", "p:Systems Analyst", "s:Finance" ]
+  }, {
+    "name" : "Bruce Wayne",
+    "phone" : "92875639",
+    "education" : "Stanford",
+    "gpa" : "3.6",
+    "degree" : "Bachelors",
+    "email" : "bruce@wayne.com",
+    "address" : "1 Wayne Manor, New York NY",
+    "tagged" : [ "e:Thomas Wayne", "p:Project Consultant", "s:Cyber Crime", "s:Hardware Testing", "p:Crime Analyst", "s:Finance", "s:Business Analysis" ]
+  }  ]
+}
+
+....
+
+// end::addmultiplepersons[]
+
 
 == FAQ
 

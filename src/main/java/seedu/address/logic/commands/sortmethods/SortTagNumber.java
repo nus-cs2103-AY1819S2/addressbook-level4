@@ -10,25 +10,36 @@ import seedu.address.model.person.Person;
 /**
  * Sorts all persons by number of skills, positions or endorsements
  */
-public class SortTagNumber {
+/**
+ * Follows the SortMethod interface
+ * Sorts all persons by the number of tag type specified by {@code type} (skill, position, endorsement).
+ * Should two people have the same number of tags of the specified type, they are subsequently ordered alphabetically
+ *     by that tag type.
+ */
+public class SortTagNumber implements SortMethod {
 
     private List<Person> newList;
 
-    public SortTagNumber(List<Person> lastShownList, String type) {
-        String prefix = type.substring(0, 1);
-        List<Person> sortedList = new ArrayList<>();
+    /**
+     * alters the newList to contain persons in newly sorted order
+     */
+    public void execute(List<Person> lastShownList, String... type) {
+        String prefix = type[0].substring(0, 1);
+        List<Person> initialSortedList = new ArrayList<>();
+        Comparator<Person> personTagNumberComparator = Comparator.comparing(Person::getSkillsNumber);
         if (prefix.equals("s")) {
-            Comparator<Person> personSkillsNumberComparator = Comparator.comparing(Person::getSkillsNumber);
-            sortedList = SortUtil.sortPersons(lastShownList, personSkillsNumberComparator);
+            initialSortedList = SortUtil.sortPersons(lastShownList, personTagNumberComparator);
         } else if (prefix.equals("p")) {
-            Comparator<Person> personPositionsNumberComparator = Comparator.comparing(Person::getPositionsNumber);
-            sortedList = SortUtil.sortPersons(lastShownList, personPositionsNumberComparator);
+            personTagNumberComparator = Comparator.comparing(Person::getPositionsNumber);
+            initialSortedList = SortUtil.sortPersons(lastShownList, personTagNumberComparator);
         } else if (prefix.equals("e")) {
-            Comparator<Person> personEndorsementsNumberComparator = Comparator.comparing(Person::getEndorsementsNumber);
-            sortedList = SortUtil.sortPersons(lastShownList, personEndorsementsNumberComparator);
+            personTagNumberComparator = Comparator.comparing(Person::getEndorsementsNumber);
+            initialSortedList = SortUtil.sortPersons(lastShownList, personTagNumberComparator);
         }
-        Collections.reverse(sortedList);
-        this.newList = sortedList;
+        Collections.reverse(initialSortedList);
+        SortListWithDuplicates secondarySort = new SortListWithDuplicates(initialSortedList, new SortTags(),
+                personTagNumberComparator, type);
+        this.newList = secondarySort.getList();
     }
 
     public List<Person> getList() {

@@ -487,7 +487,6 @@ Step7. Then, execute() will get the filtered list of appointments and the desire
         execute() calls updateFilteredDoctorList(DoctorHasAppointmentPredicate) to filter the list of doctors whose specialisation matches and are available on the date and timing inputted.
 // end::doctorcommands[]
 
-
 === Medical History Management Features
 
 ==== Current Implementation
@@ -503,8 +502,13 @@ The following features are implemented in current version of docX. The main clas
 * Search medical history command: enabled by `SearchMedHistCommand`, `SearchMedHistCommandParser`, `Model#updateFilteredMedHistList`
 * Select medical history command: enabled by `SelectMedHistCommand`, `SelectMedHistCommandParser`, `Model#setSelectedMedHist`
 
+
 ==== Example Command: Sort Medical History Command
 Sort medical history command enable users to sort medical history list by date of occurrence. This part will explain the workflow and implementation of sort medical history command in details.
+
+Given below is the Activity Diagram for sort medical history command. It shows the workflow on a high level:
+
+image::SortMedHistActivityDiagram.png[width="800"]
 
 The implementation of sort medical history feature involving these classes: `MedicalHistory`, `ValidDate`, `SortMedHistCommand`, `SortMedHistCommandParser`
 
@@ -520,7 +524,7 @@ This class checks if the user's input string is valid ("", "ASC" or "DESC") befo
 * `SortMedHistCommand` - This is a class where the execution of sort medical history command happens.
 It interacts with Model components to execute sorting of `UniqueMedHistList` object stored in `docX` object.
 
-Given below is the Sequence Diagram for interactions within the Logic and Model components for the "sort-med-hist" command:
+Given below is the Sequence Diagram for interactions within the Logic and Model components for the "sort-med-hist ..." command:
 
 image::SortMedHistSequenceDiagram.png[width="800"]
 

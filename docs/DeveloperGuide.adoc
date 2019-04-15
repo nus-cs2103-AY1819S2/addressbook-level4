@@ -1103,6 +1103,34 @@ Expected: Similar to previous.
 
 _{ more test cases ... }_
 
+=== Exporting as CSV file format
+
+. Exporting the current medicine inventory data shown in the GUI to CSV file format while all medicines are listed.
+
+.. Prerequisites: List all medicines using the `list` command.
+.. Test case: `export \` +
+Expected: An "Invalid command format! File Name (without including file extension) must start with an alphabet or number followed by alphabets, numbers, underscore or hyphen. It must not be a reserved word. You can type the help command to view the User Guide for more details. +
+export: exports the current list to a .csv file. Parameters: [FILE_NAME] +
+Example: export example" exception will be shown in the `ResultDisplay` panel of the GUI. *No* exported CSV file is created in the `exported` directory.
+
+. Exporting the current medicine inventory data shown in the GUI to CSV file format while all medicines are listed. There are *no cases* where there are no medicines or all medicines do not have batches in the current medicine inventory data shown in the GUI.
+
+.. Prerequisites: List all medicines using the `list` command. Multiple medicines *with batches* are in the list.
+.. Test case: `export` +
+Expected: The current medicine inventory data shown in the GUI is successfully exported to CSV file format. The exported CSV file has the default file name based on the date and time of export. The specific date and time format used if no file name is specified is `dd_MMM_yyyy_HH_mm_ss` e.g. `18_Mar_2019_10_28_00`. The exported CSV file's medicine inventory data will contain the header information with *only* the data of medicines with batches.
+.. Test case: `export example` +
+Expected: The current medicine inventory data shown in the GUI is successfully exported to CSV file format. The exported CSV file has the file name `example`. The exported CSV file's medicine inventory data will contain the header information with *only* the data of medicines with batches.
+
+. Exporting the current medicine inventory data shown in the GUI to CSV file format while all medicines are listed. There are either no medicines or all medicines do not have batches in the current medicine inventory data shown in the GUI.
+
+.. Prerequisites: List all medicines using the `list` command. No medicines or all medicines do not have batches in the current medicine inventory data.
+.. Test case: `export` +
+Expected: The current medicine inventory data shown in the GUI is successfully exported to CSV file format. The exported CSV file has the default file name based on the date and time of export. The specific date and time format used if no file name is specified is `dd_MMM_yyyy_HH_mm_ss` e.g. `18_Mar_2019_10_28_00`. The exported CSV file's medicine inventory data will contain *only* the header information with no medicine data.
+.. Test case: `export example` +
+Expected: The current medicine inventory data shown in the GUI is successfully exported to CSV file format. The exported CSV file has the file name `example`. The exported CSV file's medicine inventory data will contain *only* the header information with no medicine data.
+
+_{ more test cases ... }_
+
 === Saving data
 
 . Dealing with missing/corrupted data files

@@ -7,11 +7,11 @@ https://ci.appveyor.com/project/thamsimun/main/branch/master[image:https://ci.ap
 image:https://api.codacy.com/project/badge/Grade/d5cb9981b3d9431ba79c175e32875a1e["Codacy code quality", link="https://www.codacy.com/app/kayheen/main?utm_source=github.com&utm_medium=referral&utm_content=CS2103-AY1819S2-W14-2/main&utm_campaign=Badge_Grade"]
 
 ifdef::env-github[]
-image::docs/images/ui.png[width="800"]
+image::docs/images/Ui.png[width="800"]
 endif::[]
 
 ifndef::env-github[]
-image::images/ui.png[width="600"]
+image::images/Ui.png[width="600"]
 endif::[]
 
 FomoFoto is a Java based, command line photo editor.

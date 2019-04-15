@@ -47,7 +47,7 @@ public class JsonAdaptedReminder {
                             @JsonProperty("taggedE") String labelE,
                             @JsonProperty("message") String message,
                             @JsonProperty("show") boolean show, @JsonProperty("notShow") boolean notShow,
-                            @JsonProperty("remindTime") String interval, @JsonProperty("unit" ) String unit) {
+                            @JsonProperty("remindTime") String interval, @JsonProperty("unit") String unit) {
         this.nameE = nameE;
         this.descriptionE = descriptionE;
         this.venueE = venueE;
@@ -148,7 +148,7 @@ public class JsonAdaptedReminder {
 
         //to do in future: add the reminder time
         Event toAdd = new Event(modelNameE, modelDescription, modelVenue, modelStartTime, modelEndTime, modelLabel);
-        Interval toAddInterval = new Interval(remindTime ,unit);
+        Interval toAddInterval = new Interval(remindTime, unit);
         return new Reminder(toAdd, toAddInterval, "Reminder: You have an Event!");
     }
 }

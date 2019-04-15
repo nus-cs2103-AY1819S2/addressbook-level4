@@ -136,6 +136,8 @@ time, the program will tell you so.
 
 === General commands
 
+This section describes commands that can be executed at any point of time during the game.
+
 ==== Viewing help : `help`
 Opens a help window that displays this User Guide. +
 Format: `help`

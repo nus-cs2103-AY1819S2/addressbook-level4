@@ -902,13 +902,13 @@ new game.
 The following sequence diagram summarizes what happens at the end of a game and an automatic save is
 performed.
 
-image::SaveSequenceDiag.PNG[width=800]
+image::SaveSequenceDiag.PNG[width=600]
 Figure 36. Sequence diagram of how the statistics data is saved.
 
 The following sequence diagram summarizes what happens at the end of the game and an automatic reading of previous
 statistics data is performed.
 
-image::ReadSequenceDiagram.PNG[width=800]
+image::ReadSequenceDiagram.PNG[width=600]
 Figure 37. Sequence diagram of how the previous statistics data is read from storage.
 
 ==== Activity Diagram

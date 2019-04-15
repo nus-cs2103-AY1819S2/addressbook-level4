@@ -15,7 +15,7 @@ will use to play the game.
 
 My role was to design and implement a method to track and monitor the progress of the game. I managed to achieve this by
 introducing the 'Statistics' feature of Battleships. By allowing the player to view their gameplay data, performance and
- score at any time during the game, players are able to plan their moves strategically.
+ score at any time during the game players are able to plan their moves strategically.
 
 The following sections will illustrate the feature and its implementation in more detail.
 

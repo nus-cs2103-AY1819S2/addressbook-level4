@@ -674,7 +674,7 @@ After execution, the user will be directed to the start of the _UserGuide.adoc_ 
 Users can reference from the UserGuide directly on how to navigate the guide.
 
 .User Guide
-image::UserGuide.png[width="600"]
+image::UserGuide1.png[width="600"]
 
 // end::help[]
 

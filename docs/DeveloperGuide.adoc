@@ -248,12 +248,12 @@ This section describes some noteworthy details on how certain features are imple
 * Items with `…`​ after them can be used multiple times including zero times e.g. `TAG...` can be used as `{nbsp}` (i.e. 0 times), `MyTag`, `TagA TagB TagC` etc.
 
 // tag::add[]
-=== Adding of files to application
+=== Add Feature
 ==== Current Implementation
 
 This feature is facilitated by both the *AddCommandParser* and *AddCommand*.
 This feature adds the PDF file to the app using the path specified by your users.
-Other features such as the <<Edit feature>> and <<Open feature>> can only be performed on files that
+Other features such as the <<Rename Feature>> and <<Open feature>> can only be performed on files that
 are added to the application.
 
 The *AddCommandParser* uses the prefixes defined in *CliSyntax* to identify the different types of arguments that are entered along with the
@@ -350,24 +350,24 @@ For more information about the behavior of launching the Pdf, please refer to Ja
 
 // end::open[]
 
-// tag::edit[]
-=== Edit feature
+// tag::rename[]
+=== Rename Feature
 ==== Current Implementation
 
-The `edit` feature is facilitated by both the *EditCommandParser* and *EditCommand*.
+The `rename` feature is facilitated by both the *RenameCommandParser* and *RenameCommand*.
 Essentially upon adding a Pdf to be tracked by the application, the user will be able to
-change certain attributes tied to the PDF such as the `Name` and `Tag` tied to a particular Pdf.
+change certain attributes tied to the PDF such as the `Name` and tied to a particular Pdf.
 
-.Edit Command Activity Diagram
-image::EditCommandActivityDiagram.png[width="600"]
+.Rename Command Activity Diagram
+image::RenameCommandActivityDiagram.png[width="600"]
 
-// end::edit[]
+// end::rename[]
 
 // tag::move[]
 === Move feature
 ==== Current Implementation
 The `move` feature is facilitated by both *MoveCommand* and *MoveCommandParser*.
-This feature functions as a simplified version of <<Edit feature>>, as in nature
+This feature functions as a simplified version of <<Rename Feature>>, as in nature
 it is making an edit to the directory of the file. However, in addition to making changes
 to the directory in the application storage, it also ensures that the directory changes
 are reflected in the local filesystem.
@@ -431,7 +431,7 @@ This feature utilises the
 https://pdfbox.apache.org/download.cgi#20x[_Apache PDFBox® library_], specifically the
 https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/multipdf/PDFMergerUtility.html[_PDFMergerUtility_]
 API to append two or more PDFs and create a new file with the merged content. As there will be one
-additional file added to the application, this feature also implicitly performs <<Adding of files to application>> to add the new
+additional file added to the application, this feature also implicitly performs <<Add Feature>> to add the new
 PDF to the application.
 
 The implementation of the *MergeCommand* execution can be summarised in the following activity diagram:

@@ -307,6 +307,16 @@ moves persons with index 1 and 2 to applied list in Lecturer
 * `movePeople kiv applied 2` +
 moves person 2 in applied list to kiv list in Lecturer
 
+==== Adds people using by index to a selected list in a Job : `remove`
+
+ Removes people from a specific list in Job+
+Format : `remove FROM INDEXES [jn/JOBNAME]`
+
+****
+* Only usage if on display job screen
+****
+
+
 ==== Select people into "Interview" List: `selectInterview` `Coming in v2.0`
 
 Select people from display board to the Job Hiring Process's "Interviewed" list +
@@ -599,5 +609,6 @@ e.g. `filter r/Chinese`
 * *Display Job* : `displayJob [jn/JOBNAME]`
 * *Add All* : `addAll TO FROM(OPTIONAL) [jn/JOBNAME](OPTIONAL)`
 * *Move People* : `movePeople TO FROM(OPTIONAL) INDEXES [jn/JOBNAME](ONLY ON DEFAULT SCREEN)`
+* *Remove* : 'remove FROM INDEXES [jn/JOBNAME]'
 
 

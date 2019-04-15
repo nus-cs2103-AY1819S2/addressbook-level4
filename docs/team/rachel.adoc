@@ -101,8 +101,6 @@ include::../UserGuide.adoc[tag=select-c]
 
 include::../DeveloperGuide.adoc[tag=equipment]
 
-include::../DeveloperGuide.adoc[tag=client]
-
 include::../DeveloperGuide.adoc[tag=uidg]
 
 include::../DeveloperGuide.adoc[tag=selectClientUC]

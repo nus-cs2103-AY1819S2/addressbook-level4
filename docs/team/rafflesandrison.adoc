@@ -47,10 +47,7 @@ You will find many commands implemented to manipulate the arrangement of the app
 ** _Justification_: This command is a fundamental feature to allow the user to change the swap the apparels and the changes will be persisted even if the user close and open this application again.
 ** _Highlights_: This command takes in the index of two apparels to be swapped and proceed to swap the position of these apparels.
 [[minorEnhancement]]
-. *Minor Enhancement*: added *safety mechanism for clear command*.
-** _What it does_: <To Be Added>.
-** _Justification_: <To Be Added>.
-** _Highlights_: <To Be Added>.
+. *Minor Enhancement to be added in v2*: pending *safety mechanism for clear command*.
 [[otherContributions]]
 . *Other Contributions*:
 ** _Project Management_: <To Be Added>.

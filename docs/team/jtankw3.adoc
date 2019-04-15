@@ -3,7 +3,7 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-Welcome to my Project Portfolio. Here you can find out more about my contributions in various projects to help you better evaluate my technical and communication skills. 
+Welcome to my Project Portfolio. Here you can find out more about my contributions in various projects to help you better evaluate my technical and communication skills.
 
 == PROJECT: MediTabs
 === Introduction

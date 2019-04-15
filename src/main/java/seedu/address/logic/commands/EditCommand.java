@@ -91,8 +91,8 @@ public class EditCommand extends Command {
         ModuleTaken moduleTakenToEdit = lastShownList.get(index.getZeroBased());
         ModuleTaken editedModuleTaken = createEditedPerson(moduleTakenToEdit, editPersonDescriptor);
 
-        if (!moduleTakenToEdit.getModuleInfoCode().equals(editedModuleTaken.getModuleInfoCode()) &&
-                !model.canEditModuleTaken(moduleTakenToEdit, editedModuleTaken)) {
+        if (!moduleTakenToEdit.getModuleInfoCode().equals(editedModuleTaken.getModuleInfoCode())
+                && !model.canEditModuleTaken(moduleTakenToEdit, editedModuleTaken)) {
             throw new CommandException(Messages.MESSAGE_PREREQUISITE_VIOLATED);
         }
 

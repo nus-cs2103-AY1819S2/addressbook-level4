@@ -103,9 +103,9 @@ Given below are sections I contributed to the User Guide, which consists of docu
 
 [https://github.com/CS2103-AY1819S2-W10-3/main/commit/cdfb70685902e82505a7ec48034467c5a9fc756d[Update SortFeature]]
 
-include::../UserGuide.adoc[tag=filter]
+include::../UserGuide.adoc[tag=shortfilter]
 
-include::../UserGuide.adoc[tag=sort]
+include::../UserGuide.adoc[tag=shortsort]
 
 == Contributions to the Developer Guide
 

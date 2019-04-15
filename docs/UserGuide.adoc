@@ -303,6 +303,7 @@ Screen shot after typing command `display`:
 image::display-screenshot.png[width="800"]
 // end::display[]
 
+// tag::shortsort[]
 // tag::sort[]
 === Sorting the equipment list: `sort`
 Sort the equipment list.
@@ -324,6 +325,7 @@ image::sortName.png[width="450"]
 * `sort name` +
 Returns the list sorted in alphabetical order of the client's name.
 
+// end::shortsort[]
 image::sortDate.png[width="450"]
 * `sort date` +
 Returns the list sorted in an ascending order of the preventative maintenance date of the equipment.
@@ -344,6 +346,7 @@ Returns the list sorted by serial number of the equipment.
 // end::sort[]
 
 // tag::filter[]
+// tag::shortfilter[]
 === Filtering the equipment list: `filter`
 Filter the current shown list which match the given keywords.
 
@@ -369,6 +372,8 @@ For example,
 image::filtername.png[width="400"]
 * `filter n/hougang` +
 Returns any equipment whose name consists of 'hougang'.
+
+// end::shortfilter[]
 
 image::filteraddress.png[width="400"]
 * `filter a/bedok` +

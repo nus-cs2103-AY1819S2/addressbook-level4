@@ -20,8 +20,11 @@ import javafx.collections.ObservableList;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Occupation;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Relationship;
+import seedu.address.model.person.Salary;
 
 public class PersonListPanelTest extends GuiUnitTest {
     private static final ObservableList<Person> TYPICAL_PERSONS =
@@ -83,7 +86,11 @@ public class PersonListPanelTest extends GuiUnitTest {
             Phone phone = new Phone("000");
             Email email = new Email("a@aa");
             Address address = new Address("a");
-            Person person = new Person(name, phone, email, address, Collections.emptySet());
+            Salary salary = new Salary(100 * i + "0");
+            Occupation occupation = new Occupation("b");
+            Relationship relationship = new Relationship("c");
+            Person person = new Person(name, phone, email, address, salary, occupation, relationship,
+                    Collections.emptySet());
             backingList.add(person);
         }
         return backingList;

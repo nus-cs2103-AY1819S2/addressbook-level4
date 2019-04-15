@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -23,6 +24,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.person.Company;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -99,12 +101,14 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyUserPrefs getUserPrefs() {
-            throw new AssertionError("This method should not be called.");
+            throw new AssertionError("This method should" +
+                    " not be called.");
         }
 
         @Override
         public GuiSettings getGuiSettings() {
-            throw new AssertionError("This method should not be called.");
+            throw new AssertionError("This method should not be" +
+                    " called.");
         }
 
         @Override
@@ -114,7 +118,8 @@ public class AddCommandTest {
 
         @Override
         public Path getAddressBookFilePath() {
-            throw new AssertionError("This method should not be called.");
+            throw new AssertionError("This method should not be" +
+                    " called.");
         }
 
         @Override
@@ -124,7 +129,43 @@ public class AddCommandTest {
 
         @Override
         public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
+            throw new AssertionError("This method should not be" +
+                    " called.");
+        }
+
+        /**
+         * Deletes a given company
+         * The person must exist in the address book.
+         *
+         * @param target
+         */
+        @Override
+        public void deleteCompany(Company target) {
+            throw new AssertionError("This method should not be" +
+                    " called.");
+        }
+
+        @Override
+        public void addCompany(Company company) {
+            throw new AssertionError("This method should not be" +
+                    " called.");
+        }
+
+        @Override
+        public void addFavorites(Person person) {
+            throw new AssertionError("This method should not be" +
+                    " called.");
+        }
+
+        @Override
+        public void removeFavorite(Person person) {
+            throw new AssertionError("This method should not be" +
+                    " called.");
+        }
+
+        @Override
+        public ObservableList<Person> getFavoritesList() {
+            return null;
         }
 
         @Override
@@ -134,21 +175,35 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyAddressBook getAddressBook() {
-            throw new AssertionError("This method should not be called.");
+            throw new AssertionError("This method should not be" +
+                    " called.");
         }
 
         @Override
         public boolean hasPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
+            throw new AssertionError("This method should not be" +
+                    " called.");
+        }
+
+        @Override
+        public boolean hasCompany(Company company) {
+            throw new AssertionError("This method should not be" +
+                    " called.");
         }
 
         @Override
         public void deletePerson(Person target) {
-            throw new AssertionError("This method should not be called.");
+            throw new AssertionError("This method should not be" +
+                    " called.");
         }
 
         @Override
         public void setPerson(Person target, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCompany(Company target, Company editedCompany) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -163,13 +218,25 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean canUndoAddressBook() {
+        public ObservableList<Company> getFilteredCompanyList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredCompanyList(Predicate<Company> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public boolean canUndoAddressBook() {
+            throw new AssertionError("This method should not be" +
+                    " called.");
+        }
+
+        @Override
         public boolean canRedoAddressBook() {
-            throw new AssertionError("This method should not be called.");
+            throw new AssertionError("This method should not be" +
+                    " called.");
         }
 
         @Override
@@ -192,13 +259,65 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        /**
+         * Selected company in the filtered company list.
+         * null if no company is selected.
+         */
+        @Override
+        public ReadOnlyProperty<Company> selectedCompanyProperty() {
+            return null;
+        }
+
         @Override
         public Person getSelectedPerson() {
-            throw new AssertionError("This method should not be called.");
+            throw new AssertionError("This method should not be" +
+                    " called.");
+        }
+
+        /**
+         * Returns the selected company in the filtered company list.
+         * null if no company is selected.
+         */
+        @Override
+        public Company getSelectedCompany() {
+            return null;
         }
 
         @Override
         public void setSelectedPerson(Person person) {
+            throw new AssertionError("This method should not be" +
+                    " called.");
+        }
+
+        /**
+         * Sets the selected company in the filtered company list.
+         *
+         * @param company
+         */
+        @Override
+        public void setSelectedCompany(Company company) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        /**
+         * Sort person by specific parameter.
+         *
+         * @param comPerson
+         * @param sequence
+         */
+        @Override
+        public void sortPerson(Comparator comPerson, String sequence) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        /**
+         * Sort company by specific parameter.
+         *
+         * @param comCompany
+         * @param sequence
+         */
+        @Override
+        public void sortCompany(Comparator comCompany, String sequence) {
             throw new AssertionError("This method should not be called.");
         }
     }

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -15,6 +16,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.person.Company;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -27,7 +29,10 @@ public class ModelManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Company> filteredCompanies;
+    private final FilteredList<Person> filteredFavorites;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Company> selectedCompany = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -42,6 +47,9 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        filteredCompanies = new FilteredList<>(versionedAddressBook.getCompanyList());
+        filteredFavorites = new FilteredList<>(versionedAddressBook.getFavoritesList());
+        filteredFavorites.addListener(this::ensureSelectedPersonIsValid);
     }
 
     public ModelManager() {
@@ -113,10 +121,100 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasCompany(Company company) {
+        requireNonNull(company);
+        return versionedAddressBook.hasCompany(company);
+    }
+
+    @Override
+    public void addCompany(Company company) {
+        versionedAddressBook.addCompany(company);
+        updateFilteredCompanyList(PREDICATE_SHOW_ALL_COMPANIES);
+    }
+
+    @Override
+    public ReadOnlyProperty<Company> selectedCompanyProperty() {
+        return selectedCompany;
+    }
+
+    @Override
+    public Company getSelectedCompany() {
+        return selectedCompany.getValue();
+    }
+
+    @Override
+    public void setSelectedCompany(Company company) {
+        if (company != null && !filteredCompanies.contains(company)) {
+            throw new PersonNotFoundException();
+        }
+        selectedCompany.setValue(company);
+    }
+
+    /**
+     * Ensures {@code selectedCompany} is a valid company in {@code filteredCompanies}.
+     */
+    private void ensureSelectedCompanyIsValid(ListChangeListener.Change<? extends Company> change) {
+        while (change.next()) {
+            if (selectedCompany.getValue() == null) {
+                // null is always a valid selected company, so we do not need to check that it is valid anymore.
+                return;
+            }
+
+            boolean wasSelectedCompanyReplaced = change.wasReplaced() && change.getAddedSize() == change
+                    .getRemovedSize()
+                    && change.getRemoved().contains(selectedCompany.getValue());
+            if (wasSelectedCompanyReplaced) {
+                // Update selectedCompany to its new value.
+                int index = change.getRemoved().indexOf(selectedCompany.getValue());
+                selectedCompany.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedCompanyRemoved = change.getRemoved().stream()
+                    .anyMatch(removedCompany -> selectedCompany.getValue().isSameCompany(removedCompany));
+            if (wasSelectedCompanyRemoved) {
+                // Select the company that came before it in the list,
+                // or clear the selection if there is no such company.
+                selectedCompany.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
+    }
+
+    @Override
+    public void deleteCompany(Company target) {
+        versionedAddressBook.removeCompany(target);
+    }
+
+    @Override
+    public void addFavorites(Person person) {
+        versionedAddressBook.addFavorites(person);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public void removeFavorite(Person person) {
+        versionedAddressBook.removeFavorite(person);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public ObservableList<Person> getFavoritesList() {
+        return versionedAddressBook.getFavoritesList();
+    }
+
+
+    @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
         versionedAddressBook.setPerson(target, editedPerson);
+    }
+
+    @Override
+    public void setCompany(Company target, Company editedCompany) {
+        requireAllNonNull(target, editedCompany);
+
+        versionedAddressBook.setCompany(target, editedCompany);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -130,10 +228,22 @@ public class ModelManager implements Model {
         return filteredPersons;
     }
 
+
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<Company> getFilteredCompanyList() {
+        return filteredCompanies;
+    }
+
+    @Override
+    public void updateFilteredCompanyList(Predicate<Company> predicate) {
+        requireNonNull(predicate);
+        filteredCompanies.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -231,5 +341,21 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
+
+    @Override
+
+    public void sortPerson(Comparator comPerson , String sequence) {
+        requireNonNull(comPerson);
+        versionedAddressBook.sortPersons(comPerson, sequence);
+    }
+
+    @Override
+
+    public void sortCompany(Comparator comCompany, String sequence) {
+        requireNonNull(comCompany);
+        versionedAddressBook.sortCompanies(comCompany, sequence);
+
+    }
+
 
 }

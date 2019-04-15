@@ -1,0 +1,67 @@
+= Roan Urquhart - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Marketing Morph
+
+---
+
+== Overview
+
+Marketing Morph is a desktop marketing application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface). It is meant to be utilized by a marketing company in order to effectively organize potential targets and potential clients.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to store and manipulate companies in the Addressbook*
+** How I did it: I created a parallel architecture similar to the Person class and have connected it to the main application.
+** What it does: allows the user to have a list of potential corporate clients, not only potential consumer targets. The user will be able to look at both the companies list and persons list in parallel. The user can analyze the connections between the consumers and the companies with functionality provided by my team member.
+** Justification: This feature improves the product significantly because it increases the organization of the application as well as allowing for useful marketing and business analysis.
+** Highlights: This enhancement affects existing commands and required the addition of many new classes and objects. Due to the dense OOP structure of Addressbook Level 4, I had to carefully trace the functionality of my additions throughout the infrastructure in order to implement the company class in the most effective way. The implementation wasvery challenging because it involved the navigation and creation of many new classes. I also reworked the infrastructure in order to accomodate for my changes
+** Credits: The prexisting code base was very useful for guiding my implementation of the company feature. It is clear and comprehensive so I would like to thank the original contributers to this AB4. No other outside libraries were used.
+
+* *Minor enhancement*: helped with the implementation of the favorite function that allowed contacts to be saved into a favorites group.
+
+* *Code contributed*: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=roanurquhart
+
+* *Other contributions*:
+
+** Project management:
+*** Worked with teammates to diagnose and fix bugs
+*** Worked to maintain a reasonable timeline for feature completion
+** Enhancements to existing features:
+*** Enhanced existing UI features to allow for a more user-friendly display of contact data
+** Documentation:
+*** Extensive additions to the User Guide that document the functionality of the `Company` objects
+*** Updates to the application architecture in the Developer Guide with respect to the addition of the Company structure
+*** Detailed user stories added in the appendix of the Developer Guide
+** Community:
+*** Asked several questions in the forum
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=addcpny]
+
+include::../UserGuide.adoc[tag=listcpny]
+
+include::../UserGuide.adoc[tag=editcpny]
+
+include::../UserGuide.adoc[tag=findcpny]
+
+include::../UserGuide.adoc[tag=deletecpny]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=modelc]
+
+include::../DeveloperGuide.adoc[tag=users]

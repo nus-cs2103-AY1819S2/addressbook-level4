@@ -13,6 +13,7 @@ import seedu.address.model.person.Person;
 public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
+    private static final String[] TAG_COLORS = {"red", "yellow", "blue", "orange", "brown", "green"};
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -37,6 +38,12 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
+    private Label salary;
+    @FXML
+    private Label occupation;
+    @FXML
+    private Label relationship;
+    @FXML
     private FlowPane tags;
 
     public PersonCard(Person person, int displayedIndex) {
@@ -44,10 +51,18 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
-        person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        phone.setText("Phone: "+person.getPhone().value);
+        address.setText("Address: "+person.getAddress().value);
+        email.setText("Email: "+person.getEmail().value);
+        salary.setText("Salary: "+person.getSalary().value);
+        occupation.setText("Occupation: "+person.getOccupation().value);
+        relationship.setText("Relationship: "+person.getRelationship().value);
+
+        person.getTags().forEach(tag -> {
+            Label tagLabel = new Label(tag.tagName);
+            tagLabel.getStyleClass().add(TAG_COLORS[Math.abs(tag.tagName.hashCode()) % TAG_COLORS.length]);
+            tags.getChildren().add(tagLabel);
+        });
     }
 
     @Override

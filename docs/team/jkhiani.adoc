@@ -1,0 +1,73 @@
+= Jitesh Khiani - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Marketing Morph
+
+== Overview
+
+Marketing Morph is a desktop address book application used as a tool for marketers to keep track of their databases. It is capable of storing a list of consumers and companies and performing rudimentary analysis on the data. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+Personal code contributions available at https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=jkhiani[reposense]
+
+* *Major enhancement*: added *the ability to favorite/unfavorite persons*
+** What it does: allows the user to add people to their favorites list, view their favorites list, and remove people from favorites list.
+** Justification: This feature improves the product significantly because a user no longer needs to sift through their addressbook (as it can get very large) to organize a few select people they are working with at the moment.
+** Highlights: Being able to manipulate the storage for favorites was a challenge, along with figuring out how to provide suggestions if names weren't fully typed out (first + last)
+
+* *Minor enhancement*: added the ability to click on a person card and view their address on a Google Map.
+
+* *Minor enhancement*: added the ability to view the total number of clients and companies in the addressbook displayed in the status footer.
+
+* *Minor enhancement*: set tags to be highlighted different colors.
+** Credits: Heavily relied on demo code from pull request https://github.com/se-edu/addressbook-level4/pull/798[#798]
+
+* *Code contributed* +
+https://github.com/CS2103-AY1819S2-W16-3/main/pull/8/[PR #8 adding colors to tags], https://github.com/CS2103-AY1819S2-W16-3/main/pull/71/files[PR #71 add clients to footer],
+https://github.com/CS2103-AY1819S2-W16-3/main/pull/124/[PR #124 adding companies to footer],
+https://github.com/CS2103-AY1819S2-W16-3/main/blob/master/src/main/java/seedu/address/logic/commands/DelFavoriteCommand.java[DelFavoriteCommand.java],
+https://github.com/CS2103-AY1819S2-W16-3/main/blob/master/src/main/java/seedu/address/logic/commands/FavoriteCommand.java[FavoriteCommand.java],
+https://github.com/CS2103-AY1819S2-W16-3/main/blob/master/src/main/java/seedu/address/logic/commands/ListFavoritesCommand.java[ListFavoritesCommand.java],
+https://github.com/CS2103-AY1819S2-W16-3/main/blob/master/src/main/java/seedu/address/logic/parser/FavoriteCommandParser.java[FavoriteCommandParser.java],
+https://github.com/CS2103-AY1819S2-W16-3/main/blob/master/src/main/java/seedu/address/logic/parser/DelFavoriteCommandParser.java[DelFavoriteCommandParser.java] +
+And associated code snippets within related files (such as modifying addressbookparser).
+
+* *Tests contributed* +
+https://github.com/CS2103-AY1819S2-W16-3/main/blob/master/src/test/java/seedu/address/logic/parser/FavoriteCommandParserTest.java[FavoriteCommandParserTest.java],
+https://github.com/CS2103-AY1819S2-W16-3/main/blob/master/src/test/java/seedu/address/logic/commands/FavoriteCommandTest.java[FavoriteCommandTest.java],
+https://github.com/CS2103-AY1819S2-W16-3/main/blob/master/src/test/java/systemtests/DeleteFavoriteSystemTest.java[DeleteFavoriteSystemTest.java],
+https://github.com/CS2103-AY1819S2-W16-3/main/blob/master/src/test/java/systemtests/FavoriteCommandSystemTest.java[FavoriteCommandSystemTest.java]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` - `v1.2` on GitHub
+*** Managed issue tracker on GitHub
+** Documentation:
+*** Managed UG and DG for all personal code contributions (see below)
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W16-3/main/pull/82[#82], https://github.com/CS2103-AY1819S2-W16-3/main/pull/74[#74], https://github.com/CS2103-AY1819S2-W16-3/main/pull/41[#41], https://github.com/CS2103-AY1819S2-W16-3/main/pull/39[#39]
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=favorite]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=favoriteSystem]
+
+include::../DeveloperGuide.adoc[tag=jiteshUseCase]
+
+include::../DeveloperGuide.adoc[tag=jiteshAppendix]

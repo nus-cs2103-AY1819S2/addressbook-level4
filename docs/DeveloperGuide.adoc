@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= Marketing Morph - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W16-3`      Since: `Jan 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -191,6 +191,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeletePersonSdForLogic.png[width="800"]
 
+// tag::modelc[]
 [[Design-Model]]
 === Model component
 
@@ -206,10 +207,19 @@ The `Model`,
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
+The addition of the 'Company' class has altered the 'Model Class Diagram' in several ways
+
+* In order to store the list of companies required for the application, a 'UniqueCompanyList' class was added
+* The company class was added in order to distinguish between company and person objects within the UI
+* Each class has the same attributes but each with a different connotations
+
+At the current time, with the commands 'addcpny' and 'listcpny' the user can add a company to the address book and list all of the companies added respectively
+
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
+// end::modelc[]
 
 [[Design-Storage]]
 === Storage component
@@ -313,12 +323,60 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::favoriteSystem[]
+=== Favorite System
+==== Current Implementation
 
-_{Explain here how the data encryption feature will be implemented}_
+The favorite system is facilitated by `AddressBook`,
+it extends the address book system by allowing the user to save/delete/list favorites, stored internally as a `UniquePersonList`.
+Additionally, it implements the following operations:
 
-// end::dataencryption[]
+* `AddressBook#addFavorites()` -- Saves the person into the favorites list.
+* `AddressBook#removeFavorite()` -- Removes the person from the favorites list.
+* `AddressBook#hasFavorite()` -- Checks if the person exists in the favorites list.
+* `AddressBook#getFavoritesList()` -- Returns a list of all favorite persons.
+
+These operations are exposed in the `Model` interface as `Model#addFavorites()`, `Model#removeFavorite()`, `Model#hasFavorite()`, and `Model#getFavoritesList()`.
+
+Given below is an example usage scenario of how the favorite mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. An empty UniquePersonList is created in `AddressBook`.
+
+Step 2. The user executes `favorite Alex` to save the person Alex into their favorites list. The favorite command creates a new `NameContainsKeywordsPredicate` updating the filteredPersonList and calls `Model#addFavorites()` and `Model#commitAddressBook` thereby updating the favorites list stored in `AddressBook` and updating the filteredPersonList.
+
+Step 3. The user repeats this a few times, adding a few other persons.
+
+Step 4. The user wants to view all favorites and executes `listFav` to view all favorites. This creates a new `PersonIsFavoritePredicate` which is passed in a model and calls `Model#getFavoritesList` and check if it contains the person. The command class then calls `Model#updateFilteredPersonList` with the predicate to only display all filtered (favorite) persons.
+
+Step 5. The user notices they accidentally added the wrong person (Alex for example) into the favorites list and executes `delFav Alex Yeoh` to remove them from the favorites list.
+
+The following is a sequence diagram describing the flow of how the favorite command works behind the scenes.
+
+image::favoriteActivityDiagram.png[width="650"]
+
+Favorites are stored in addressbook.json as another entry into the existing dictionary of key-value pairs and follows identical architecture to that of adding/removing persons from the personsList.
+
+==== Design Considerations
+
+===== Aspect: Data structure to save the favorites
+
+* **Alternative 1 (current choice):** Save all favorites using a simple list.
+** Pros: Easy to implement.
+** Cons: May have runtime issues in deleting if the list gets large.
+* **Alternative 2:** Linked list to store favorites.
+** Pros: Efficient to delete favorites from anywhere in the list.
+** Cons: We must ensure that the implementation is proper as there is a lot of complexity.
+
+===== Aspect: Method of marking favorites
+
+* **Alternative 1 (current choice):** Create another entry into the dictionary within addressbook.json to store favorites over multiple sessions.
+** Pros: Easy to implement, clean seperate commands/functions related to adding/deleting from favorites (doesn't affect addressbook contacts in any way).
+** Cons: A lot of data is repeated when storing favorites.
+* **Alternative 2:** Create an extra boolean attribute within each person to store favorite status.
+** Pros: More space effective.
+** Cons: We must ensure that the implementation is proper as we can accidentally affect the persons that are regular contacts, harder to visually inspect our json file to see who favorites are/aren't.
+
+// end::favoriteSystem[]
 
 === Logging
 
@@ -339,6 +397,26 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
+
+=== Three new attributes: Salary, Occupation, Relationship
+==== Current Implementation
+The add Command is modified in this enhancement. Previously, user can only add a person's name, phone number, address and tags to the address book.
+After this enhancement, following attributes are added to the person's information:
+
+* `SALARY`: salary must be a string with more than one digits
+* `OCCUPATION`: occupation can be a string with any characters
+*  `RELATIONSHIP`: relationship must be a string with one word (no blank allowed)
+
+===== How to implement the command
+Users just input:
+add n/NAME p/PHONE e/EMAIL a/ADDRESS s/SALARY o/OCCUPATION r/RELATIONSHIP [t/TAG]
+Example: add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 s/100000o/bankerr/singlet/friends t/owesMoney
+
+
+===== Pros and Cons
+** Pros: Easy to implement, and the add format just follows the previous version
+** Cons: When implementing add Command, Users must add all information except the optional TAG attribute, this makes the command not flexible enough
 
 == Documentation
 
@@ -818,7 +896,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 * is reasonably comfortable using CLI apps
 
 *Value proposition*: manage contacts faster than a typical mouse/GUI driven app
-
+// tag::users[]
 [appendix]
 == User Stories
 
@@ -827,20 +905,44 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the Marketing Morph App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new person or company | keep track of potential target demographics and clients
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |delete a person or company |remove entries that I no longer need
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |find a person or company by name |locate details of persons without having to go through the entire list
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |sort persons by name |locate a person easily
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |sort persons by occupation |locate a cohort of persons easily
+
+|`* * *` |user |sort companies by sector |locate a cohort of companies easily
+
+|`* * *` |user |create a group of clients |to organize potential clients into a separate group
+
+|`* * *` |user |add contacts to a favorites list |to have quick access to the most used contacts
+
+|`* * *` |user |delete contacts to a favorites list |to have quick access to the most used contacts
+
+|`* * *` |user |update person or company data |to change information that is no longer correct
+
+|`* * *` |user |analyze salary for all persons |know the average and median salary for all persons
+
+|`* * *` |user |analyze revenue for all companies |know the average and median revenue for all companies
+
+|`* *` |user |can analyze which people can afford a product |to effectively target potential consumers
+
+|`* *` |user |can determine which people can shop at particular businesses |to sell information to companies
+
+|`* *` |user |view a persons address on a map |visualize where they live
+
+|`* *` |user |see number of entries in the addressbook | to know how many entries I have
+
+|`*` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 |=======================================================================
 
-_{More to be added}_
+// end::users[]
 
 [appendix]
 == Use Cases
@@ -872,6 +974,93 @@ Use case ends.
 ** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 2.
+
+// tag::jiteshUseCase[]
+[discrete]
+=== Use case: Favorite person
+
+*MSS*
+
+1.  User requests to list persons
+2.  AddressBook shows a list of persons
+3.  User requests to add a specific person in the list to their favorites
+4.  AddressBook saves the person in the favorites list
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given name does not exist.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+* 3b. The given name is not specific enough.
++
+[none]
+** 3b1. AddressBook shows an error message and displays potential options.
++
+* 3c. The given name is already a favorite.
++
+[none]
+** 3c1. AddressBook shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Delete favorite person
+
+*MSS*
+
+1.  User requests to list favorites
+2.  AddressBook shows a list of favorites persons
+3.  User requests to delete a specific person in the favorites list
+4.  AddressBook deletes the person from the favorites list
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given name does not exist.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+* 3b. The given name is not specific enough.
++
+[none]
+** 3b1. AddressBook shows an error message and displays potential options.
++
+* 3c. The given name isn't a favorite.
++
+[none]
+** 3c1. AddressBook shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: View person's location
+
+*MSS*
+
+1.  User requests to list persons
+2.  AddressBook shows a list of persons
+3.  User clicks on a specific persons card on the list
+4.  AddressBook displays a Google Maps window of their address in the Main Window
++
+Use case ends.
+// end::jiteshUseCase[]
+
 
 _{More to be added}_
 
@@ -911,12 +1100,10 @@ Cons:
 * ...
 
 [appendix]
+
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
-
-[NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
 === Launch and Shutdown
 
@@ -934,6 +1121,51 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
+// tag::jiteshAppendix[]
+Testing `Favorite`
+
+[NOTE]
+These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+
+=== Adding a favorite
+
+. Adding a favorite to the list
+
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: `favorite Alex` +
+   Expected: Alex Yeoh not added to the favorites list. Status message requests more specificity, if there are multiple 'Alex' in our client list the cards will update to show them all.
+.. Test case: `favorite Alex Yeoh` +
+   Expected: Alex Yeoh added to the favorites list. Status message confirms addition. Timestamp in the status bar is updated.
+.. Test case: `favorite Alex Yeoh` +
+   Expected: Favorite is not added (since you just added them). Status message updated to reflect current standing. Status bar remains the same.
+.. Incorrect favorite commands to try: `favorite blah`, `favorite` both cases the person is not a client and therefore cannot be added +
+   Expected: Person does not exist.
+
+=== List all favorites
+
+. Listing all favorites within the application
+
+.. Prerequisites: None (will show an empty panel if there are no favorites)
+.. Test Case: `listFav`
+
+=== Deleting a favorite
+
+. Deleting a favorite while all companies are listed
+
+.. Prerequisites: List all persons using the `listFav` command.
+.. Test case: `delFav Alex` +
+   Expected: Alex Yeoh not removed from the favorites list. Status message requests more specificity.
+.. Test case: `delFav Alex Yeoh` +
+   Expected: Alex Yeoh removed from the favorites list. Status message confirms addition. Timestamp in the status bar is updated.
+.. Incorrect favorite commands to try: `delFav blah`, `delFav` both cases the person is not a client and therefore cannot be added +
+   Expected: Person does not exist.
+// end::jiteshAppendix[]
+
+Testing `Company`
+
+[NOTE]
+These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+
 === Deleting a person
 
 . Deleting a person while all persons are listed
@@ -948,10 +1180,81 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
-=== Saving data
+=== Adding a company
 
-. Dealing with missing/corrupted data files
+. Adding a company to the application
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Prerequisites: None
+.. Test Case: `addcpny n/Walmart p/98765432 e/walmart@gmail.com a/John street, block 123, #01-01  s/234525223 o/Retail r/Corporation`
 
-_{ more test cases ... }_
+=== List all companies
+
+. Listing companies within the application
+
+.. Prerequisites: There must already be at least one company stored in the application
+.. Test Case: `listcpny`
+
+=== Editing a company
+
+. Editing a company
+
+.. Prerequisites: There must be at least one company stored in the application
+.. Test Case: `editcpny 1 p/91234567 e/monay@example.com` +
+   Expected: edits the first company in the company column
+
+=== Finding a company
+
+. Finding a company
+
+.. Prerequisites: The company that is searched for must exist
+.. Test Case: `find Burger` +
+   Expected: May return `Burger Spot` and `Burger King` if both exist as companies
+   
+// tag::manualJiayu[]
+=== Finding a person by occupation
+
+. Finding a person by occupation
+
+.. Prerequisites: The person that is searched for must exist
+.. Test Case: `findOccupation Professor` +
+   Expected: May return `Alice` and `Bob` if both exist as persons whose occupation is professor
+   
+=== Finding a company by sector
+
+. Finding a company by sector
+
+.. Prerequisites: The company that is searched for must exist
+.. Test Case: `findSector Bank` +
+   Expected: May return `DSS` and `OCCC` if both exist as companies whose sector is bank
+
+// end::manualJiayu[]
+
+=== Deleting a company
+
+. Deleting a company while all companies are listed
+
+.. Prerequisites: List all companies using the `listcpny` command.
+.. Test case: `delete 1` +
+   Expected: First company is deleted from the list. Details of the deleted company shown in the status message.
+// end::manualTesting[]
+
+// tag::SortPerson[]
+Testing `Sort Person`
+
+=== Sort Person
+
+. Sort clients by some attributes
+
+.. Prerequisites: Must exist a list of clients and each of them has the attribute to be sorted.
+.. Test case: `sortper name seq`
+   Expected: Sort the list of clients by their name in sequence order.
+.. Test case: `sortper salary seq`
+   Expected: Sort the list of clients by their salary in reverse order.
+.. Test case: `sortper name rev`
+   Expected: Sort the list of clients by their name in sequence order.
+.. Test case: `sortper salary rev`
+   Expected: Sort the list of clients by their salary in reverse order.   
+
+// end::SortPerson[]
+   
+   

@@ -3,13 +3,14 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import java.util.Comparator;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
@@ -33,6 +34,7 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public boolean contains(Person toCheck) {
         requireNonNull(toCheck);
+
         return internalList.stream().anyMatch(toCheck::isSamePerson);
     }
 
@@ -134,4 +136,14 @@ public class UniquePersonList implements Iterable<Person> {
         }
         return true;
     }
+
+    public void SortList(Comparator<Person> Comperson , String sequence) {
+        if(sequence.equals("seq")) {
+            Collections.sort(this.internalList, Comperson);
+        }
+        else if(sequence.equals("rev")) {
+            Collections.sort(this.internalList, Collections.reverseOrder(Comperson));
+        }
+    }
+
 }

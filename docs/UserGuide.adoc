@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= Marketing Morph - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,11 +14,11 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Sky Walker`      Since: `Feb 2019`      Licence: `NUS`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Marketing Morph is for marketers who want to organize consumer data. More importantly, Marketing Morph will allow marketers to use a GUI to keep track of different consumers, maintain client lists, and perform market analysis and research in one simple interface.
 
 == Quick Start
 
@@ -34,8 +34,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* **`add`**`add n/Jane Doe p/23456789 e/janed@example.com a/113, Clementi Ave 2, #02-24 s/5000 o/teacher r/single` : adds a contact named `Jane Doe` to the Address Book.
+* **`delete`**`1` : deletes the 1st contact shown in the current person list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -56,27 +56,56 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a person: `add`
+// tag::add[]
+=== Adding a person : `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds a person to the consumer list. +
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS s/SALARY o/OCCUPATION r/RELATIONSHIP [t/TAG]...`
 
 [TIP]
 A person can have any number of tags (including 0)
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Jane Doe p/23456789 e/janed@example.com a/113, Clementi Ave 2, #02-24 s/5000 o/teacher r/single`
+* `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 s/100000 o/banker r/single t/friends t/owesMoney`
+
+// end::add[]
+
+// tag::addcpny[]
+=== Adding a company : `addcpny`
+
+Adds a company to the client list
+
+Format: `addcpny` n/NAME p/NUMBER e/EMAIL a/ADDRESS s/REVENUE o/SECTOR r/STRUCTURE [t/TAG]…
+
+Explanation:
+`REVENUE` represents a company's yearly revenue.
+`SECTOR` represents the type of company i.e. Food, Retail, Bank.
+`STRUCTURE` distinguishes the organization of the company i.e. Conglomerate, Local, International, Private, Public, etc.
+
+Examples:
+
+`addcpny` n/Walmart p/98765432 e/walmart@gmail.com a/John street, block 123, #01-01  s/234525223 o/Retail r/Corporation
+
+`addcpny` n/Betsy Cakes p/1234567 e/cakes@gmail.com a/Bob street, block 232 s/2242023 o/Food r/LocalBusiness t/popular  t/local
+// end::addcpny[]
 
 === Listing all persons : `list`
 
-Shows a list of all persons in the address book. +
+Shows a list of all persons in the consumer list. +
 Format: `list`
+
+// tag::listcpny[]
+=== Listing all companies : `listcpny`
+
+Shows a list of all companies in the clients list. +
+Format: `listcpny`
+// end::listcpny[]
 
 === Editing a person : `edit`
 
-Edits an existing person in the address book. +
+Edits an existing person in the consumer list. +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 ****
@@ -94,7 +123,29 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-=== Locating persons by name: `find`
+// tag::editcpny[]
+=== Editing a company : `editcpny`
+
+Edits an existing company in the client list. +
+Format: `editcpny INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+
+****
+* Edits the company at the specified `INDEX`. The index refers to the index number shown in the displayed company list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the company will be removed i.e adding of tags is not cumulative.
+* You can remove all the company's tags by typing `t/` without specifying any tags after it.
+****
+
+Examples:
+
+* `editcpny 1 p/91234567 e/monay@example.com` +
+Edits the phone number and email address of the 1st company to be `91234567` and `monay@example.com` respectively.
+* `editcpny 2 n/Small Money t/` +
+Edits the name of the 2nd company to be `Small Money` and clears all existing tags.
+// end::editcpny[]
+
+=== Locating persons by name : `find`
 
 Finds persons whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
@@ -113,6 +164,61 @@ Examples:
 Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
+
+// tag::findcpny[]
+=== Locating companies by name : `findcpny`
+
+Finds companies whose names contain any of the given keywords. +
+Format: `findcpny KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `mcdonalds` will match `McDonalds`
+* The order of the keywords does not matter. e.g. `McDonalds Bojangles` will match `Bojangles McDonalds`
+* Only the name is searched.
+* Only full words will be matched e.g. `McDonald` will not match `McDonalds`
+* Companies matching at least one keyword will be returned (i.e. `OR` search). e.g. `McDonalds Bojangles` will return `McDonalds`, `Bojangles`
+****
+
+Examples:
+
+* `find Burger` +
+Returns `Burger Spot` and `Burger King`
+* `find Burger Taco Shoes` +
+Returns any person having names `Burger`, `Taco`, or `Shoes`
+// end::findcpny[]
+
+
+// tag::findOccupation[]
+=== Locating persons by occupation : `findOccupation`
+
+****
+* The search is case insensitive. e.g `teacher` will match `Teacher`
+* Only the occupation is searched.
+* Only full words will be matched e.g. `Tea` will not match `Teacher`
+* Persons matching the occupation will be returned
+****
+
+Examples:
+
+* `findOccupation teacher` +
+Returns `Bob` and `Alice` (Their occupation is teacher)
+// end::findOccupation[]
+
+// tag::findSector[]
+=== Locating companies by sector : `findSector`
+
+****
+* The search is case insensitive. e.g `bank` will match `Bank`
+* Only the sector is searched.
+* Only full words will be matched e.g. `Ban` will not match `Bank`
+* Companies matching the sector will be returned
+****
+
+Examples:
+
+* `findCompany bank` +
+Returns `OCCC` (Its sector is bank)
+// end::findSector[]
 
 === Deleting a person : `delete`
 
@@ -134,13 +240,35 @@ Deletes the 2nd person in the address book.
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
 
+// tag::deletecpny[]
+=== Deleting a company : `deletecpny`
+
+Deletes the specified Company from the address book. +
+Format: `deletecpny INDEX`
+
+****
+* Deletes the company at the specified `INDEX`.
+* The index refers to the index number shown in the displayed company list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd company in the address book.
+* `find Burger` +
+`delete 1` +
+Deletes the 1st company in the results of the `find` command.
+// end::deletecpny[]
+
 === Selecting a person : `select`
 
 Selects the person identified by the index number used in the displayed person list. +
 Format: `select INDEX`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
+* Selects the person and loads a Google Maps address of the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
@@ -149,7 +277,7 @@ Examples:
 
 * `list` +
 `select 2` +
-Selects the 2nd person in the address book.
+Selects the 2nd person in the consumer list.
 * `find Betsy` +
 `select 1` +
 Selects the 1st person in the results of the `find` command.
@@ -224,6 +352,192 @@ Format: `clear`
 Exits the program. +
 Format: `exit`
 
+// tag::sortper[]
+=== Sorting persons by name/salary/occupation/residential area/group : `sortper`
+
+Lists all people that meet the specified filter requirement(in sequence/reverse order).
+
+Format: sortper name/salary/phone/email/occupation/address/relationship seq/rev
+
+Examples:
+
+`sortper` salary seq     (list all persons by salary in sequence order)
+
+`sortper` phone rev            (list all persons by their phone number in reverse order)
+// end::sortper[]
+
+// tag::sortcpny[]
+=== Sorting companies by name/revenue/occupation/residential area/group : `sortcpny`
+
+Lists all companies that meet the specified filter requirement(in sequence/reverse order).
+
+Format: sortper name/revenue/phone/email/occupation/address/relationship seq/rev
+
+Examples:
+
+`sortcpny` revenue seq     (list all companies by revenue in sequence order)
+
+`sortcpny` phone rev            (list all companies by their phone number in reverse order)
+// end::sortcpny[]
+
+=== Find clients: `findCli` `[coming in v2.0]`
+
+Lists all persons deemed capable of affording a specific product based on salary
+
+Format: `findCli` PRICE
+
+Examples:
+
+findCli 100
+
+findCli 20
+
+
+=== Find shops: `findShops` `[coming in v2.0]`
+
+
+Lists all stores a person is deemed capable of visiting based on salary and store pricing
+
+
+Format: `findShops` [n/NAME] [s/SALARY]
+
+Examples:
+
+`findShops` n/steve smith
+
+`findShops` s/25000
+
+// tag::favorite[]
+=== Add to favorite list: `favorite`
+
+Adds a person to the “favorite” list
+
+****
+* The full name must be specifid
+* If the full name isn't specified it displays a list of potential persons
+* The person must exist as a client and can only be favorited once
+****
+
+Format: `favorite n/NAME`
+
+Examples:
+
+* `favorite John Doe`
+
+* `favorite John` (recommends all John's in the addressbook, adds none)
+
+image::multipleJohns.png[width="200"]
+
+
+=== Delete person from favorite list: `delFav`
+
+Removes a person to the “favorite” list
+
+****
+* The full name must be specifid
+* The person must exist as a favorite
+****
+
+Format: `delFav n/NAME`
+
+Examples:
+
+* `delFav John Doe`
+
+* `favorite John Doe` +
+  `delFav John Doe`
+
+=== List the favorite list: `listFav`
+
+Lists all persons in the “favorite” list under the clients panel in alphabetical order
+
+Format: `listFav`
+
+Example:
+
+* `favorite John Doe` +
+`favorite Alex Yeoh` +
+`favorite Roy Balakrishnan` +
+`favorite David Li` +
+`listFav`
+
+image::listFav.png[width="200"]
+
+// end::favorite[]
+
+=== Create group: `group` `[coming in v2.0]`
+
+Creates a group of persons
+
+Format: `group` GROUPNAME [[n/NAME] [a/ADDRESS]]...
+
+Examples:
+
+`group` g1 n/bob a/123 streets n/steve a/456 main n/smith a/111 abc st
+
+`group` winners n/jacob a/1 queen st n/adam a/10 north st
+
+// tag::export[]
+
+=== Export data as CSV: `export`
+
+Exports the data to a CSV file
+
+Format: `export` [FILEPATH] [FILENAME] 
+
+Examples:
+
+`export` /Users/fandongzhe/Desktop/fg market (type in the whole filepath)
+// end::export[]
+
+// tag::averageSalary[]
+=== Show average salary for all persons: `averageSalary`
+
+Shows average salary for all persons in the address book
+
+Format: `averageSalary`
+// end::averageSalary[]
+
+// tag::medianSalary[]
+=== Show median salary for all persons: `medianSalary`
+
+Shows median salary for all persons in the address book
+
+Format: `medianSalary`
+// end::medianSalary[]
+
+// tag::findmax[]
+=== Show maximum salary for all clients: `findmax`
+
+Show maximum salary for all clients in the address book
+
+Format: `findmax`
+// end::findmax[]
+
+// tag::findmin[]
+=== Show minimum salary for all clients: `findmin`
+
+Show minimum salary for all clients in the address book
+
+Format: `findmin`
+// end::findmin[]
+
+// tag::averageRevenue[]
+=== Show average revenue for all companies: `averageRevenue`
+
+Shows average revenue for all companies in the address book
+
+Format: `averageRevenue`
+// end::averageRevenue[]
+
+// tag::medianRevenue[]
+=== Show median revenue for all revenue: `medianRevenue`
+
+Shows median revenue for all companies in the address book
+
+Format: `medianRevenue`
+// end::medianRevenue[]
+
 === Saving the data
 
 Address book data are saved in the hard disk automatically after any command that changes the data. +
@@ -242,19 +556,44 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
+* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS s/SALARY o/OCCUPATION r/RELATIONSHIP [t/TAG]...` +
+e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 s/100 o/baker r/single t/friend t/colleague`
+* *Add Company* `addcpny n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS s/REVENUE o/SECTOR r/STRUCTURE [t/TAG]...` +
+e.g. `addcpny n/McDonalds p/22342422 e/mcds@gmail.com a/23244 Super Tasty Rd s/303030303030 o/Food r/InternationalCorp`
+* *Clear Persons* : `clear`
+* *Clear Companies* : `clearcpny`
+* *Delete Person* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+* *Delete Company* : `deletecpny INDEX` +
+e.g. `delete 2`
+* *Edit Person* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+* *Edit Company* : `editcpny INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+e.g. `editcpny 1 n/Burger King`
+* *Find Person* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
-* *List* : `list`
+* *Find Company* `findcpny KEYWORD [MORE_KEYWORDS]` +
+e.g. `findcpny McDonalds`
+* *Find Occupation* `findOccupation KEYWORD` +
+e.g. `findOccupation professor`
+* *Find Sector* `findSector KEYWORD` +
+e.g. `findSector bank`
+* *List Persons* : `list`
+* *List Companies* : `listcpny`
+* *Sort Persons* : `sortper`
+* *Sort Companies* : `sortcpny`
 * *Help* : `help`
 * *Select* : `select INDEX` +
 e.g.`select 2`
+* *Add Favorite* : `favorite`
+* *Show Average  Salary* : `averageSalary`
+* *Show Median Salary* : `medianSalary`
+* *Show Average Revenue* : `averageRevenue`
+* *Show Median Revenue* : `medianRevenue`
+* *Delete Favorite* : `delFav`
+* *List Favorite* : `listFav`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *group* : `group` GROUPNAME [[n/NAME] [a/ADDRESS]]...
+* *export* : `export` [CLIENTS] [CONSUMERS] [ALL]

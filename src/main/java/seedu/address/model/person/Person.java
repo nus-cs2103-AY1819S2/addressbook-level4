@@ -19,6 +19,9 @@ public class Person {
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private final Salary salary;
+    private final Occupation occupation;
+    private final Relationship relationship;
 
     // Data fields
     private final Address address;
@@ -27,6 +30,19 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
+    public Person(Name name, Phone phone, Email email, Address address,
+                  Salary salary, Occupation occupation, Relationship relationship, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, salary, occupation, relationship, tags);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.salary = salary;
+        this.occupation = occupation;
+        this.relationship = relationship;
+        this.address = address;
+        this.tags.addAll(tags);
+    }
+
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
@@ -34,6 +50,9 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.salary = new Salary("1");
+        this.occupation = new Occupation("");
+        this.relationship = new Relationship("");
     }
 
     public Name getName() {
@@ -50,6 +69,18 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Salary getSalary() {
+        return salary;
+    }
+
+    public Occupation getOccupation() {
+        return occupation;
+    }
+
+    public Relationship getRelationship() {
+        return relationship;
     }
 
     /**
@@ -71,7 +102,11 @@ public class Person {
 
         return otherPerson != null
                 && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+                && (otherPerson.getPhone().equals(getPhone())
+                && otherPerson.getEmail().equals(getEmail())
+                && otherPerson.getSalary().equals(getSalary())
+                && otherPerson.getOccupation().equals(getOccupation())
+                && otherPerson.getRelationship().equals(getRelationship()));
     }
 
     /**
@@ -93,13 +128,17 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getSalary().equals(getSalary())
+                && otherPerson.getOccupation().equals(getOccupation())
+                && otherPerson.getRelationship().equals(getRelationship())
                 && otherPerson.getTags().equals(getTags());
+
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, salary, occupation, relationship, tags);
     }
 
     @Override
@@ -112,6 +151,12 @@ public class Person {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" Salary: ")
+                .append(getSalary())
+                .append(" Occupation: ")
+                .append(getOccupation())
+                .append(" Relationship: ")
+                .append(getRelationship())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

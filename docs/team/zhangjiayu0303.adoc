@@ -1,0 +1,70 @@
+= Jiayu Zhang - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Marketing Morph
+
+---
+
+== Overview
+
+Marketing Morph is a desktop marketing application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface). It is meant to be utilized by a marketing company in order to effectively organize potential targets and potential clients.
+
+== Summary of contributions
+* *Major enhancement*: added *the ability to store and manipulate salary, occupation and relationship features for persons in the Addressbook*
+** How I did it: I extended the architecture of the Person class and have connected them to the main application.
+** What it does: allows the user to record salary, occupation, and relationship attributes for persons, the user can analyze the data for the three attributes.
+** Justification: This features improves the product significantly because they provide more comprehensive information of persons in address book, and allow the user to do business analysis, such as analyze salary and occupation for markets.
+** Highlights: This enhancement affects existing commands and required the addition of many new classes and objects. Due to the dense OOP structure of Addressbook Level 4, I had to carefully trace the functionality of my additions throughout the infrastructure in order to implement the person class in the most effective way.
+** Credits: The prexisting code base was very useful for guiding my implementation of the three additional person's attributes. It is very clear and comprehensive so I would like to thank the original contributers to this AB4. There is no other outside library applied.
+
+* *Minor enhancement*:
+** Show the average and median salary for persons through command `averageSalary` and `medianSalary` respectively
+** Show the average and median revenue for companies through command `averageRevenue` and `medianRevenue` respectively
+** Find persons with exact occupation through `findOccupation`
+** Find companies with exact sector through `findSector`
+
+* *Code contributed*: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=zhangjiayu0303
+
+* *Other contributions*:
+
+** Project management:
+*** Worked with teammates to suggest ideas and fix bugs
+*** Positively discuss with teammates and arrange group meetings
+** Documentation:
+*** Extensive additions to the User Guide that document the functionality of the `Person` objects
+*** Updates to the application architecture in the Developer Guide with respect to the addition of the Person structure
+*** Added manual testing instructions in the appendix of the Developer Guide
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=add]
+
+include::../UserGuide.adoc[tag=averageSalary]
+
+include::../UserGuide.adoc[tag=averageRevenue]
+
+include::../UserGuide.adoc[tag=medianSalary]
+
+include::../UserGuide.adoc[tag=medianRevenue]
+
+include::../UserGuide.adoc[tag=findOccupation]
+
+include::../UserGuide.adoc[tag=findSector]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=users]
+
+include::../DeveloperGuide.adoc[tag=manualJiayu]

@@ -1,0 +1,92 @@
+= Fan Dongzhe - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Marketing Morph
+
+---
+
+== Overview
+
+Marketing Morph is a desktop application for marketers who want to organize consumer data. And it will allow marketers to use GUI and command lines to keep track of different consumers.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to sort people and export data*
+** How I did it: I rewrite the java interface: comparator to implement sorting person/company by any attribute. And I use stream operation to export data.
+** What it does: Allow marketers to find their potential clients more convenient, for they can sort clients by their salary and find which person is the best choice. Meanwhile, he/she can export the information of all clients for further analysis, like doing data analysis to find potential clients.
+** Justification: This feature improves the product significantly because a user can easily find a person by sorting them. If he/she wants to find a client with the highest salary, he just need to sort all the clients by reverse order.
+** Highlights: Sorting person by any parameters in any order and exporting data to any path.
+
+* *Minor enhancement*: Get the max/min salary of all the clients
+
+* *Code contributed* +
+https://github.com/CS2103-AY1819S2-W16-3/main/blob/master/src/main/java/seedu/address/logic/commands/SortPersonCommand.java[SortPersonCommand.java] +
+https://github.com/CS2103-AY1819S2-W16-3/main/blob/master/src/main/java/seedu/address/logic/commands/PersonComparator.java[PersonComparator.java] +
+https://github.com/CS2103-AY1819S2-W16-3/main/blob/master/src/main/java/seedu/address/logic/parser/SortPersonCommandParser.java[SortPersonCommandComparator.java] +
+https://github.com/CS2103-AY1819S2-W16-3/main/blob/master/src/main/java/seedu/address/logic/commands/SortCompanyCommand.java[SortCompanyComparator.java] +
+https://github.com/CS2103-AY1819S2-W16-3/main/blob/master/src/main/java/seedu/address/logic/commands/CompanyComparator.java[CompanyComparator.java] +
+https://github.com/CS2103-AY1819S2-W16-3/main/blob/master/src/main/java/seedu/address/logic/parser/SortCompanyCommandParser.java[SortCompanyCommandComparator.java] +
+https://github.com/CS2103-AY1819S2-W16-3/main/blob/master/src/main/java/seedu/address/logic/commands/ExportCommand.java[ExportCommand.java] +
+https://github.com/CS2103-AY1819S2-W16-3/main/blob/master/src/main/java/seedu/address/logic/commands/FindmaxCommand.java[FindmaxCommand.java] +
+https://github.com/CS2103-AY1819S2-W16-3/main/blob/master/src/main/java/seedu/address/logic/commands/FindminCommand.java[FindminCommand.java]
+
+* *Test contributed* +
+https://github.com/CS2103-AY1819S2-W16-3/main/blob/master/src/test/java/seedu/address/logic/commands/SortPersonCommandTest.java[SortPersonCommandTest.java] +
+https://github.com/CS2103-AY1819S2-W16-3/main/blob/master/src/test/java/seedu/address/logic/parser/SortPersonCommandParserTest.java[SortPersonCommandParser.java]
+
+
+
+* *Other contributions*:
+
+** Project management:
+*** Worked with teammates to diagnose and fix bugs
+
+** Documentation:
+*** Write a rudiment of the User Guide with some basic commands
+*** Add `sort command` and `export command` to User Guide
+
+** Community:
+*** Asked several questions in the forum
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+** Rudiment of the User Guide with some simple commands
+
+include::../UserGuide.adoc[tag=sortcpny]
+
+include::../UserGuide.adoc[tag=sortper]
+
+include::../UserGuide.adoc[tag=export]
+
+include::../UserGuide.adoc[tag=findmax]
+
+include::../UserGuide.adoc[tag=findmin]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+== Sort Person
+
+. Sort clients by some attributes
+
+.. Prerequisites: Must exist a list of clients and each of them has the attribute to be sorted.
+.. Test case: `sortper name seq`
+   Expected: Sort the list of clients by their name in sequence order.
+.. Test case: `sortper salary seq`
+   Expected: Sort the list of clients by their salary in reverse order.
+.. Test case: `sortper name rev`
+   Expected: Sort the list of clients by their name in sequence order.
+.. Test case: `sortper salary rev`
+   Expected: Sort the list of clients by their salary in reverse order.
+

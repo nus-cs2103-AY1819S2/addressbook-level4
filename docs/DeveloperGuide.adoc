@@ -926,8 +926,9 @@ A project often depends on third-party libraries. For example, Bookshelf depends
 
 *Value proposition*: manage book reviews faster than a typical mouse/GUI driven app
 
-// tag::userStories[]
+
 [appendix]
+// tag::userStories[]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`

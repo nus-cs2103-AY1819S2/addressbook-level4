@@ -959,7 +959,7 @@ image::UndoRedoActDiagram.png[width="650"]
 ===== Aspect: How undo & redo executes
 [width="100%",cols="1, 5, 5",options="header"]
 |=======================================================================
-Implementation |Saves the entire book (Current implementation) | Individual command knows how to undo/redo by itself.
+|Implementation |Saves the entire book (Current implementation) | Individual command knows how to undo/redo by itself.
 |Pros| Less prone to bugs since the we are switching between different versions of the books. | Will use less memory (e.g. for `delete`, just save the person being deleted).
 |Cons| May have performance issues in terms of memory usage especially for
 large numbers of health workers and requests.| Every command will have their own implementation of undo and some of them are slow hence it causes performance issues.
@@ -971,8 +971,8 @@ there is a large number of requests).|
 ===== Aspect: Data structure to support the undo/redo commands
 [width="100%",cols="1, 5, 5",options="header"]
 |=======================================================================
-Implementation | Use a list to store the history of book states.(Current implementation) | Use `HistoryManager` for undo/redo
-|Pros|  Undo and redo commands runs faster since it only involves the switching of the state pointer.| Supports multiple books with the `HistoryManager` alone since we are undoing from the command history.
+|Implementation | Use a list to store the history of book states.(Current implementation) | Use `HistoryManager` for undo/redo
+|Pros| Undo and redo commands runs faster since it only involves the switching of the state pointer.| Supports multiple books with the `HistoryManager` alone since we are undoing from the command history.
 |Cons| Need multiple `VersionedBook` s. One or each type of book.|  `HistoryManager` keeps a record of all commands, even if they are invalid or commands that does not call `Model#commit()`.
 Traversing these irrelevant commands to find the next undoable command will take a long time especially if size of history is large.|
 |=======================================================================
@@ -980,7 +980,7 @@ Traversing these irrelevant commands to find the next undoable command will take
 ===== Aspect: Data structure to handle multiple `VersionedBooks`
 [width="100%",cols="1, 5, 5",options="header"]
 |=======================================================================
-Implementation | Use a command history to keep track
+|Implementation | Use a command history to keep track
 of the type of book that was modified It is represented as a list of `CommandType`.(Current implementation) | Use a list of pairs. Each state is represented as a pair which stores the `currentStatePointer` of each book.
 |Pros| Easily scalable to include more than two books. As the developer can simply add an extra `CommandType`
 and extra cases for switch statements.| Supports commands that change multiple books at once since it keeps track of all states.
@@ -999,9 +999,22 @@ The reminder is in the form of an `AlertDialog` and is scheduled to display on t
 ==== Current Implementation
 
 The following sequence diagram shows the sequence flow from when the `SetReminderCommandParser` receives the command and
-parses it to a `SetReminderCommand`.
+parses it into a `SetReminderCommand` object.
 
 image::SetReminderSequenceDiagram.png[width="800"]
+Figure 3.9.1 shows the sequence diagram for the different method invocation calls between the classes
+
+1. When `SetReminderCommandParser` receives the `parse` command, it calls the static method `ArgumentTokenizer.tokenize` to extract the arguments from the user input string.
+
+2. The `extractArguments` constructs and returns an `ArgumentMultimap` based on the arguments passed in.
+
+3. `SetReminderCommandParser` checks if there are arguments specified under prefixes `PREFIX_TIME` and `PREFIX_MESSAGE`.
+
+4. If it cannot find those arguments, it throws a `ParseException` to the calling program.
+
+5. If arguments are available, it calls the `getValue` method of `ArgumentMultimap` to return the values
+
+6. After getting the values, the `SetReminderCommandParser` checks for the validity of the values and if true, calls the constructor of `SetReminderCommand`
 // end::setreminder[]
 
 // tag::statistics[]
@@ -1163,20 +1176,23 @@ with an `AutoCompleteTextField` class that extends from the parent class, `TextF
 In the `AutoCompleteTextField` class, it adds an additional listener to the `textProperty()` of `TextField` class, to register for when
 a text input is being sensed and generates the suggestion box in the form of a `ContextMenu` to the user.
 
-The searching of which commands to display to the user as suggestions is by iterating the `suggestions` data structure, which is a `TreeSet`, then checking
+image::AutoCompleteTextFieldSMD.png[]
+Figure 3.11.1 shows the state machine diagram for the `AutoCompleteTextField` behaviour when it listens for a user input.
+
+The searching of which commands to display to the user as suggestions is done by iterating the `suggestions` data structure, which is a `TreeSet`, then checking
 against the user's input if any of the suggestions starts with the user's text.
 
 ==== Aspect: Data structure to store the list of commands
-<insert text>
-
-==== Aspect: Algorithm to search for commands that fit user's input
-<insert text>
-
-A detailed interaction diagram for the autocomplete behaviour is created previously under <insert section>.
+[width="100%",cols="1, 5, 5",options="header"]
+|=======================================================================
+Implementation | Use a `TreeSet` data structure | Use a `SuffixTree` data structure
+|Pros| Implements the `NavigatableSet` interface and guarantees that elements are stored in sorted order, also allows for _O(log n)_ time complexity for dynamic searching of elements.  | Made for features like autocompletion, allows particularly fast implementation of `String` operations.
+|Cons| Elements contained within the `TreeSet` data have to be a _Comparable_ or a _Comparator_ needs to be supplied. In this case, since we are only concerned with `Strings`, we do not
+need an extra step. | Suffix Trees are difficult to comprehend -> difficult to implement.
+|=======================================================================
 // end::autocomplete[]
 
 == Logging
-
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
@@ -1572,7 +1588,6 @@ Use case ends.
 
 [discrete]
 === Use case: Delete requests
-
 1. User wants to delete a request that is expired or invalid.
 [none]
 * 1.a. Specified request is not in Application

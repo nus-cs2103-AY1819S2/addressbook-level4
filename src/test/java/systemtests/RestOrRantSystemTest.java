@@ -23,7 +23,7 @@ import guitests.guihandles.TablesFlowPanelHandle;
 import seedu.address.TestApp;
 
 import seedu.address.logic.commands.AddTableCommand;
-import seedu.address.logic.commands.ClearTableCommand;
+import seedu.address.logic.commands.ClearTablesCommand;
 import seedu.address.logic.commands.EditPaxCommand;
 import seedu.address.logic.commands.TableModeCommand;
 import seedu.address.model.Model;
@@ -143,7 +143,7 @@ public abstract class RestOrRantSystemTest {
      */
     protected void deleteAllTables() {
         clearOccupancy();
-        executeCommand(ClearTableCommand.COMMAND_WORD);
+        executeCommand(ClearTablesCommand.COMMAND_WORD);
         assertEquals(0, getModel().getRestOrRant().getTables().getTableList().size());
     }
 

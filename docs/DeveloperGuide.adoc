@@ -23,7 +23,7 @@ By: `Team W09-3`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-RestOrRant (ROR) is a restaurant management application for restaurant managers, waiters and cashiers. ROR is designed for them to perform front-end operations more conveniently and efficiently. ROR allows them to manage tables, orders, menu and statistical data using the Command Line Interface (CLI).
+RestOrRant (ROR) is a restaurant management application for restaurant managers, waiters and cashiers. ROR is designed for them to perform front-end operations more conveniently and efficiently. It allows them to manage tables, orders, menu and statistical data using the Command Line Interface (CLI).
 
 This Developer Guide allows you as a developer to understand the implementation and design principles used in ROR. This guide serves as a reference for you to set up and further contribute to ROR’s development.
 
@@ -161,14 +161,14 @@ The _Architecture Diagram_ given below explains the high-level design of the ROR
 image::Architecture.png[width="600"]
 
 [TIP]
-The *.pptx* files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose btn:[Save as picture].
+The *.pptx* files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose btn:[Save as picture] and save your new diagram into the link:{repoURL}/docs/images/[images] folder.
 
 Given below is a quick overview of each component.
 
-[.java]#Main# has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[[.java]#MainApp#]. It is responsible for:
+[.java]#Main# has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[[.java]#MainApp#]. It has two functions:
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
+* At shut down: Shuts down the components and invokes cleanup method(s) where necessary.
 
 <<Design-Commons,[.java]#Commons#>> represents a collection of classes used by multiple other components.
 The following class plays an important role at the architecture level:
@@ -190,7 +190,7 @@ Each of the four components
 For example, the [.java]#Logic# component (see the class diagram given below) defines its API in the [.java]#Logic.java# interface and exposes its functionality using the [.java]#LogicManager.java# class.
 
 .Class Diagram of the Logic Component
-image::LogicClassDiagram.png[width="800"]
+image::LogicComponentClassDiagram.png[width="800"]
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -228,7 +228,7 @@ The Logic component (Figure 5) deals with the logic behind the execution of comm
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[width="800"]
+image::LogicComponentClassDiagram.png[width="800"]
 
 *API* :
 link:{repoURL}/blob/master/src/main/java/seedu/address/logic/Logic.java[[.java]#Logic.java#]
@@ -405,31 +405,63 @@ We decided to go ahead with this implementation as we feel that from a user's po
 
 === Tables feature
 
+// tag::tables[]
+[[TablesClasses]]
+==== Classes for Tables feature in Model
+
+The Tables feature was implemented with the introduction of a new set of classes to [.java]#Model#.
+A new [.java]#Orders# class encapsulates all the methods and classes related to this feature. It also contains a listener that is used to update the storage when any modification is made to the orders. The [.java]#Orders# object is stored in [.java]#RestOrRant# and it exposes a read-only interface [.java]#ReadOnlyOrders# to allow the other components to retrieve order-related information while maintaining data integrity.
+
+[.java]#Tables# contains a [.java]#UniqueTableList#, which contains a list of all the tables. Each [.java]#Table# object consists of 2 objects:
+
+* [.java]#TableNumber# indicates the table number of the table
+* [.java]#TableStatus# indicates the occupancy of the table
+
+[.java]#Table# objects are uniquely identified by [.java]#TableNumber# as all tables in a restaurant are uniquely labelled by their table numbers.
+
+The Tables Class Diagram below shows the relationship between the classes.
+
+.Tables Class Diagram in the Model component
+image::TablesModelClassDiagram.png[width="800"]
+
+// tag::addtable[]
+[[AddTable]]
+==== Adding a table to ROR
+
+The interaction between the components for this function is similar to <<AddToMenu, adding to menu>>. A key difference in function is that `addToMenu` only adds 1 menu item each time, but `addTable` allows multiple tables to be added in a single command.
+
+Tables are stored in a list. When `addTable 4` is keyed in, the command is parsed by [.java]#AddTableCommandParser# to check if the arguments are in valid format. They are then converted into a list of [.java]#String# table statuses, which are stored in the [.java]#AddTableCommand# object returned by the parser.
+
+When [.java]#AddTableCommand#execute()# is called, the table statuses in the [.java]#String# list are processed one by one. For each table status, a [.java]#Table# with the appropriate [.java]#TableStatus# and [.java]#TableNumber# is created and stored in the [.java]#Model#.
+
+The [.java]#TableNumber# runs sequentially and is kept track of by the [.java]#Tables# class. This means that there users are not allowed specify the table number for their tables and hence will not in any case add duplicate tables to ROR.
+
+// end::addtable[]
+
 // tag::editpax[]
 [[EditPax]]
 ==== Edit pax at a table
+
 ===== Current Implementation
 
-The edit pax mechanism is facilitated by `UniqueTableList`. It stores the all tables currently in the system and ensures that there are no duplicated tables. Additionally, it implements the following operations:
+The edit pax mechanism is facilitated by [.java]#UniqueTableList#. It stores all tables currently in ROR and ensures that there are no duplicated tables. Additionally, it implements the following operations:
 
-* `UniqueTableList#contains(targetTable)` -- Checks if the target table exists within the unique list of tables.
-* `UniqueTableList#setTable(targetTable, editedTable)` -- Replaces the target table in the list with the new table with the updated `TableStatus`.
+* [.java]#UniqueTableList#contains(targetTable)# -- Checks if the target table exists within the unique list of tables.
+* [.java]#UniqueTableList#setTable(targetTable, editedTable)# -- Replaces the target table in the list with the new table with the updated [.java]#TableStatus#.
 
-These operations are exposed in the Model interface as `Model#setTable(targetTable, editedTable)` and `Model#hasTable(targetTable)`.
+These operations are exposed in the Model interface as [.java]#Model#setTable(targetTable, editedTable)# and [.java]#Model#hasTable(targetTable)#.
 
 Given below is an example usage scenario and how the edit pax mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `UniqueTableList` will be initialised to be empty.
+Step 1. Suppose the user launches the application for the first time, the sample data has 35 tables and are stored in the [.java]#UniqueTableList# as shown below. Focus your attention on the [.java]#Table# orange markup as this will be our target table in this example.
 
-image::EditPaxStartingStateListDiagram.png[width="800"]
+image::EditPaxStateListDiagram_Before.png[width="800]
 
-Step 2. The user executes `addTable 4` command to add a table to the RestOrRant application. Since it is the first new table, it will be labelled table `1` and not be occupied thus having a table status of `0/4`. The `UniqueTableList` will now contain 1 table.
+Step 2. Suppose the user decides to have 2 customers sit at table 2 and executes `editPax 2 2` command to update the table labelled 2 with 2 customers. The `editPax` command calls [.java]#Model#setTable(targeTable, editedTable)#, causing the ROR to create a new table with the updated [.java]#TableStatus# and replace the current target table in the [.java]#UniqueTableList#. As shown below, the index of the replaced table now points to a new [.java]#Table# which is highlighted orange.
 
-image::EditPaxAddTableStateListDiagram.png[width="800]
+image::EditPaxStateListDiagram_After.png[width="800"]
 
-Step 3. The user then has 4 customers enter his/her restaurant and executes `editPax 1 4` command to update the table labelled 1 with 4 customers. The `editPax` command calls `Model#setTable(targeTable, editedTable)`, causing the RestOrRant to create a new table with the updated `TableStatus` and replace the current target table in the UniqueTableList. At this point, the UniqueTableList still has only 1 table the original table was replaced by the updated table. The `Storage` detects this change in the UniqueTableList and also updates itself.
-
-image::EditPaxEditPaxStateListDiagram.png[width="800"]
+The [.java]#Storage# detects the above change in the [.java]#UniqueTableList# and also updates itself.
 
 The following sequence diagram shows how the edit pax operation works:
 
@@ -444,16 +476,79 @@ image::EditPaxActivityDiagram.png[width="800"]
 
 ===== Design Considerations
 
-====== Aspect: How edit number of customers executes
+[width="90%",cols="20%,40%,40%",options="header",]
+|=======================================================================
+| Aspect | Alternative 1 | Alternative 2
+| Editing the tables in [.java]#UniqueTableList#
+| Replace the entire table with  an updated table. +
+- *Pros*: Maintains abstraction of [.java]#Table# and [.java]#TableStatus# and reduce errors from abusing the editability of [.java]#TableStatus# in [.java]#Table#. +
+- *Cons*: May have efficiency issues when creating a whole new object whenever part of it needs to be changed.
 
-* **Alternative 1 (current choice):** Replace the entire table with an updated table.
-** Pros: Maintains abstraction of `Table` and `TableStatus` and reduce errors from abusing the editability of `TableStatus` in `Table`.
-** Cons: May have efficiency issues when creating a whole new object whenever part of it needs to be changed.
-* **Alternative 2:** Directly edit the `TableStatus` of the tables.
-** Pros: Potentially more efficient as there is no need to create new object and replace items in a list.
-** Cons: Breaks abstraction to a certain extent and allows future developers to abuse the object.
+We decided to choose this option because we realise that if we were to edit the tables directly, we would need a listener for each [.java]#Table# in the [.java]#UniqueTableList# to detect changes, which is not an efficient design. Furthermore, the tables can only be edited one at a time. Hence, the space efficiency issue would not be significant.
+| Directly edit the [.java]#TableStatus# of the tables. +
+- *Pros*: Potentially more efficient as there is no need to create new object and replace items in a list. +
+- *Cons*: Breaks abstraction to a certain extent and allows future developers to abuse the object. +
+
+|=======================================================================
 
 // end::editpax[]
+
+// tag::editseats[]
+[[EditSeats]]
+==== Edit seats at a table
+
+The interaction between the components for this function is similar to <<EditPax, editing pax at a table>>. A key difference in function is that `editPax` changes the occupancy of the `Table` by changing the number of customers seated at the table while `editSeats` changes the number of seats at the table.
+
+One thing to note is that the `editSeats` command can be called on not just unoccupied tables but also occupied tables. Hence, there is a different set of checks in place to ensure the integrity of tables are intact.
+
+An example would be, suppose `editSeats` is called on an occupied table, we do not allow the user to change the number of seats at the table to less than the current number of customers seated at the same table. Hence, if table 1 already has 4 customers, `editSeats 1 2` would return and error.
+
+// end::editseats[]
+
+// tag::cleartables[]
+[[ClearTables]]
+==== Clear all tables in ROR
+
+The interaction between the components for this function is similar to <<ClearOrder, clearing an order>>. The key difference is that `clearTables` requires ROR to be completely empty before the command can be successfully executed.
+
+This means that all of the tables in ROR have to be unoccupied and this is checked in the ClearTablesCommand#execute() method as shown in the code snippet below.
+
+[[source, java]]
+----
+public CommandResult execute(Mode mode, Model model, CommandHistory history) throws CommandException {
+        requireNonNull(model);
+        StringBuilder sbFinalOutput = new StringBuilder(MESSAGE_SUCCESS);
+        if (model.getRestOrRant().getTables().getTableList().isEmpty()) { <1>
+            throw new CommandException(MESSAGE_FAILURE);
+        }
+        if (!model.isRestaurantEmpty()) { // <2>
+            throw new CommandException(INVALID_RESTAURANT_STATE);
+        }
+
+        model.setTables(new ArrayList<>()); // <3>
+
+        return new CommandResult(sbFinalOutput.toString());
+    }
+----
+In the method above, [.java]#Model#isRestaurantEmpty()# loops through all the tables in the [.java]#UniqueTableList# and checks if they are  occupied. Let's walk through this method to see how the main functionality of `clearTables` is implemented:
+
+<1> It first checks if ROR already has no tables. If it does not, an error is returned as we cannot clear an empty ROR.
+<2> Then, as mentioned above, it checks if ROR is completely unoccupied by using the [.java]#Model#isRestaurantEmpty()# method.
+<3> Lastly, it replaces the current list of tables in [.java]#UniqueTableList# with an empty [.java]#List# which effectively removes all record of any tables from ROR.
+
+// end::cleartables[]
+
+// tag::spacefor[]
+[[SpaceFor]]
+==== Getting an available table for customers
+
+This command's interaction with the components is very similar to <<EditPax, editing pax at a table>>. The key difference is that it searches for the best fit table automatically instead of having the table specified by the user.
+
+This functionality uses the `spaceFor` command and is facilitated by the [.java]Model#isOccupied(Table)# method. This method checks if the specified table has any customers seated at the table. The `spaceFor` command works like a request and takes in 1 argument specifying the number of customers to be seated in ROR.
+
+[.java]#SpaceForCommand#execute()# is then called which searches through the [.java]#UniqueTableList# for the best fit table. In this case, the best fit [.java]#Table# is the smallest available one that can accommodate the specified number of customers. If there is more than 1 [.java]#Table# that fits those criterions, the [.java]#Table# with the smallest [.java]#TableNumber# is chosen.
+
+// end::spacefor[]
 
 === Orders feature
 
@@ -482,6 +577,7 @@ The Orders Class Diagram below shows the relationship between the classes.
 .Orders Class Diagram in the Model component
 image::OrdersModelClassDiagram.png[width="800"]
 
+// tag::currenttable[]
 [[CurrentTable]]
 ==== Getting the table number
 
@@ -497,6 +593,9 @@ The table number, which is represented by a [.java]#TableNumber# object, can the
 image::CurrentTableSequenceDiagram.png[width="400"]
 // end::orders[]
 
+// end::currenttable[]
+
+// tag::addtoorder[]
 [[AddToOrder]]
 ==== Adding to an order
 
@@ -512,12 +611,18 @@ When [.java]#AddToOrderCommand#execute()# is called, the [.java]#Code# objects i
 
 . It thens attempt to find an [.java]#OrderItem# object with the given [.java]#Code# and the <<CurrentTable, current [.java]#TableNumber#>> to see if that item has already been ordered by the table. If it already exists, the quantity will be updated in the [.java]#UniqueOrderItemList# using [.java]#Model#setOrderItem()#. A new [.java]#OrderItem# with a new [.java]#OrderItemStatus# will be created to replace the existing one. Otherwise, a new [.java]#OrderItem# will be added to the [.java]#UniqueOrderItemList# using [.java]#Model#addOrderItem()#.
 
+// end::addtoorder[]
+
+// tag::deletefromorder[]
+
 [[DeleteFromOrder]]
 ==== Deleting from an order
 
 The user may want to remove an order item from a specific table's order and this can be done with the `deleteFromOrder` command.
 
 The interaction between the components for this function is similar to <<DeleteFromMenu, deleting from menu>>.
+
+// end::deletefromorder[]
 
 Suppose the user wants to delete "W09 Chicken Wings" from the order. When `deleteFromOrder W09` is keyed in, the command is parsed by [.java]#DeleteFromOrderCommandParser# to check if the item code is in valid format. It is then converted into a [.java]#Code# object which is stored in the [.java]#DeleteFromOrderCommand# object returned by the parser.
 
@@ -583,6 +688,9 @@ Furthermore, it also provides the benefit of arranging the order items across al
 |=======================================================================
 // end::clearorder[]
 
+// end::clearorder[]
+
+// tag::serve[]
 [[Serve]]
 ==== Serving items in an order
 
@@ -596,6 +704,7 @@ When [.java]#ServeCommand#execute()# is called, it will use the [.java]#Code# to
 If the [.java]#OrderItem# is found and the quantity served is valid, a new [.java]#OrderItem# object will be created with a new [.java]#OrderItemStatus# that reflects the new quantities.
 [.java]#Model#setOrderItem()# is then used to replace the old [.java]#OrderItem# object in the [.java]#UniqueOrderItemList# with the new one.
 
+// end::serve[]
 
 === Menu feature
 The Menu feature allows restaurant managers to take add items to the menu using the `addToMenu` command, as well as

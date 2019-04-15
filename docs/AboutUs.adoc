@@ -69,9 +69,10 @@ Responsibilities::
 
 === Wang Debang
 image::wsemis.png[width="150", aligh="left"]
-{empty}[https://github.com/wSemis[github]] [<<wsemis#, portfolio>>]
-
-Role: Developer /Tester
+{nbsp} +
+*Wang Debang*,{nbsp} _Developer / Tester_ {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``https://github.com/wSemis[GitHub]``{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``<<wsemis#, portfolio>>``
+{nbsp} +
+{nbsp} +
 
 Responsibilities::
 * Implement copy methods

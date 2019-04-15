@@ -74,6 +74,10 @@ Besides designing and writing codes, I also contributed to the project in the fo
 
 include::../UserGuide.adoc[tag=lei]
 
+{empty} +
+{empty} +
+{empty} +
+
 == Contributions to the Developer Guide
 
 |===

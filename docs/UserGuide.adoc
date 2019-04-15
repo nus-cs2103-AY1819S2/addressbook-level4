@@ -344,7 +344,19 @@ Examples:
 * `pattern i/load f/circle`
 
 // end::upcomingPattern[]
+// tag::v2stats
+=== Statistics can display highscore between games
+Display the high score of more than 2 games. +
 
+Format: `stats highscore t/[dataType]` +
+Examples:
+
+* `stats highscore t/time` +
+Display game data from the game that won in the shortest amount of time
+* `stats highscore t/accuracy` +
+Display game data from the game with the highest accuracy.
+
+// end::v2stats
 == FAQ
 
 *Q*: How are you today? +

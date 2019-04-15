@@ -1,0 +1,124 @@
+= Zhang Shaoqian - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+image:nerrons.png[width="150", align="right"]
+
+== PROJECT: HMS+
+
+|===
+|This section introduces the project I worked on for CS2103T.
+|===
+
+HMS+, standing for Hotel Management System Plus, is an integrated system for hotels to manage all aspects of their operation in one application.
+It not only serves as an address book for customers and their transactions but also as a tool for billing and statistics.
+A unique feature about HMS+ is that hotel staff interact with it through the Command Line Interface, an efficient medium once mastered.
+The code base has a size of 15k+ lines and is powered by Java (the main language) and JavaFX (the graphical interface framework).
+
+=== Summary of Contributions
+
+|===
+|This section documents my contributions throughout the semester.
+|===
+
+My main tasks in the team is to implement the statistics feature and take care of unit tests and system tests.
+
+* *Major enhancement*: Implemented the statistics feature
+** What it does: It allows the hotel to gain insights from the data gathered through daily operations.
+** Justification: Hotels not only want an application to keep track of their data, but also a way to gain more profit, where the data and a way to analyze the data would become valuable.
+** Highlights: This enhancement is completely new: it has no similar parts in the original AddressBook code base, which means I have to design and implement everything myself, including
+the syntax of the commands, the layout of the UI and ways to realize it, and most importantly, the structure and implementation details of the underlying code.
+** Credits: I mainly used the concepts from the existing codebase and those that were taught in CS2103T to implement my features.  Also, various websites, StackOverflow being the most useful one, are very helpful.
+** Related Files:
+*** https://github.com/cs2103-ay1819s2-t12-1/main/tree/master/src/main/java/seedu/hms/logic/stats[Main underlying code of Stats]
+*** https://github.com/cs2103-ay1819s2-t12-1/main/blob/master/src/main/java/seedu/hms/ui/StatsWindow.java[Code for UI of Stats]
+*** https://github.com/cs2103-ay1819s2-t12-1/main/blob/master/src/main/resources/view/StatsWindow.fxml[The layout of UI]
+
+* *Other Contributions*
+*** https://github.com/cs2103-ay1819s2-t12-1/main/pulls?utf8=✓&q=is%3Apr+author%3Anerrons[Fixed a number of unit tests and system tests during the development.]
+** Project Management:
+*** https://github.com/cs2103-ay1819s2-t12-1/main/releases[Created most releases] for the milestones.
+** Documentation:
+*** https://github.com/cs2103-ay1819s2-t12-1/main/pull/5[Maintained the first few drafts] of the whole User Guide.
+*** https://github.com/cs2103-ay1819s2-t12-1/main/pull/245/files[Added the statistics part to the User Guide and the Developer Guide].
+
+== Achievements and Learning Outcomes
+* This is the first time I have dived into such a large code base and cooperate with teammates following the software engineering principles.
+* Through implementing tests (and actually finding bugs thanks to the tests), I came to understand how important it is to have code tested.
+
+== Contributions to the User Guide
+
+|===
+|Our User Guide has evolved in an incremental way -- I did the first few (rather primitive) drafts of the UG and my teammates greatly enhanced it throughout the semester.
+|Thus the final touch for the most parts now are not from me. Below is a portion which I wrote individually.
+|===
+
+=== [underline]#Show Statistics command# : `show-stats`, `ss`
+
+Effect: Displays an individual window for statistics, including a text report and the charts.
+Format: `{[aqua]#show-stats#/[aqua]#ss#} [black]#[# [lime]#INDICES_OF_ITEMS…# [black]#]#`
+
+[NOTE]
+====
+* Simply `show-stats` or `ss` will display all stats items available.
+* `INDICES_OF_ITEMS` should be integers between one and the largest index of the stats items.
+====
+
+Example:
+
+* `ss` +
+This displays all stats items available.
+
+.Example for the `ss` command
+image::ss.png[width="800"]
+
+* `ss 1 3` +
+This displays the 1st and the 3rd stats items.
+
+.Example for the `ss 1 3` command
+image::ss-1-3.png[width="800"]
+
+== Contributions to the Developer Guide
+
+==== Statistics
+The statistics features are implemented as a part of the Logic component, since it gathers information from all the models.
+The `Stats` object is a singleton that controls all calculations and updating of the individual items of the statistics.
+The `StatsItem` objects represent individual items to be displayed, e.g. the most popular room types and service types are two different `StatsItem`.
+The `ShowStatsCommand` emits a message for the `MainWindow` to open up a new `StatsWindow` and update its content.
+
+===== `Stats`
+The `Stats` object takes charge of all aspects of the statistics feature by doing the following:
+
+- Maintains a reference to the HMS.
+- Maintains a list of `StatItem` to be calculated.
+- Maintains a list for items that needs to be shown.
+- Provides a way for the items to be exported to one text report, which would show up in the `StatsWindow`.
+- Provides a way to update everything that needs to be shown.
+
+The `Stats` object is designed in a modular way.
+If one wants to add a new `StatsItem`, they simply need to add a new instance of that `StatsItem` to the items list.
+Everything else will be taken care of, including calculating and displaying.
+
+===== `StatsItem`
+`StatsItem` objects are individual items to be computed, or, small fields in the reports.  The following information is stored in each `StatsItem`:
+
+- The title of the item is stored in a `String`.
+- The results of the stats are stored in a `Map<String, Long>`.
+- The way to calculate the stats should be defined in the `calcResults` function, which would return that `Map<String, Long>`.
+- A `longest` variable which contains the length of the longest string in the keys of the map. This is useful in formatting.
+
+The abstract class also provides a few utility functions for easier creation of new `StatItem`:
+- `count` which turns an observable list (the returned value from all models) to a map of counting, in a way defined by the function provided.
+- `updateLongest` which iterates through the list and updates the `longest` variable.
+- `sortAndFormat` whose name suggests what it does.
+
+Usually, the developer only needs to provide the observable list and the function `f` for `count`. That `f` should transform items of the observable list into strings. 
+Then, `count` will iterate through the observable list, map each element into a string with `f`, and count how many times the strings have appeared.
+For example, in the `CountRoomTypes` item, the observable list is the reservation list, and `f` maps each reservation into a string of its room type.
+Many reservations can have the same room type, and then the result will be a `Map<String, Long>`, the strings of the room types being the key, and the number they appear being the value.
+
+===== `ShowStatsCommand`
+To implement the `ShowStatsCommand`, which needs to emit messages to the `MainWindow`, two new arguments for `CommandResult` are added.
+One is a boolean value for whether the stats window should show up or not, the other a list for what items to display.
+Apart from that, the static variable `maxIndex` is set by the `Stats` object, for what the `maxIndex` should be is not known until run time.

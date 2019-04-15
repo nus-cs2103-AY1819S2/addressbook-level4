@@ -337,19 +337,19 @@ Equipment list can only be sorted by `name`, `date`, `phone` and `serial`.
 
 For example,
 
-image::sortName.png[width="800"]
+image::sortName.png[width="300"]
 * `sort name` +
 Returns the list sorted in alphabetical order of the client's name.
 
-image::sortDate.png[width="800"]
+image::sortDate.png[width="300"]
 * `sort date` +
 Returns the list sorted in an ascending order of the preventative maintenance date of the equipment.
 
-image::sortPhone.png[width="800"]
+image::sortPhone.png[width="300"]
 * `sort phone` +
 Returns the list sorted by phone number of the client.
 
-image::sortSerial.png[width="800"]
+image::sortSerial.png[width="300"]
 * `sort serial` +
 Returns the list sorted by serial number of the equipment.
 
@@ -383,31 +383,31 @@ Format: `filter [n/NAME_KEYWORD]...[t/TAG_KEYWORD]...[a/ADDRESS_KEYWORD]`
 
 For example,
 
-image::filtername.png[width="800"]
+image::filtername.png[width="300"]
 * `filter n/hougang` +
 Returns any equipment whose name consists of 'hougang'.
 
-image::filteraddress.png[width="800"]
+image::filteraddress.png[width="300"]
 * `filter a/bedok` +
 Returns any equipment whose address consists of 'bedok'.
 
-image::filterdate.png[width="800"]
+image::filterdate.png[width="300"]
 * `filter pm/27-09` +
 Returns any equipment whose preventative maintenance date consists of '27-09'.
 
-image::filterphone.png[width="800"]
+image::filterphone.png[width="300"]
 * `filter p/6783` +
 Returns any equipment whose phone number consists of 6783.
 
-image::filterserial.png[width="800"]
+image::filterserial.png[width="300"]
 * `filter s/03071` +
 Returns any equipment whose serial number consists of 03071.
 
-image::filtertags.png[width="800"]
+image::filtertags.png[width="300"]
 * `filter t/urgent t/west` +
 Returns any equipment details whose tags consists of urgent or west.
 
-image::filtermultiple.png[width="800"]
+image::filtermultiple.png[width="300"]
 * `filter n/tampines a/41 t/urgent` +
 Returns any equipment details that either consists of tampines, address that consists of 41, or whose tags consists of urgent.
 

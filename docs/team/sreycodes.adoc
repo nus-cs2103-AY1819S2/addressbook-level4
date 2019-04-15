@@ -3,6 +3,9 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
+This portfolio serves to document my contributions and learning while building
+HMS+
+
 == PROJECT: HMS+
 
 ---
@@ -66,9 +69,9 @@ include::../UserGuide.adoc[tag=booking-commands]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=architecture]
+include::../DeveloperGuide.adoc[tag=new-model]
 
-include::../DeveloperGuide.adoc[tag=booking]
+include::../DeveloperGuide.adoc[tag=customizability]
 
 == Achievements and Learnings
 

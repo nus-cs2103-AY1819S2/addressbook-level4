@@ -2,6 +2,7 @@ package seedu.address.commons.core;
 
 import seedu.address.logic.commands.management.AddCardCommand;
 import seedu.address.logic.commands.management.AddLessonCommand;
+import seedu.address.logic.commands.management.ChangeThemeCommand;
 import seedu.address.logic.commands.management.DeleteCardCommand;
 import seedu.address.logic.commands.management.DeleteLessonCommand;
 import seedu.address.logic.commands.management.EditLessonCommand;
@@ -13,6 +14,7 @@ import seedu.address.logic.commands.management.ListLessonsCommand;
 import seedu.address.logic.commands.management.QuitLessonCommand;
 import seedu.address.logic.commands.management.ReloadLessonsCommand;
 import seedu.address.logic.commands.management.SetLessonTestValuesCommand;
+import seedu.address.logic.commands.management.StartCommand;
 
 /**
  * Container for user visible messages.
@@ -23,21 +25,25 @@ public class Messages {
      */
     public static final String MESSAGE_LESSON_COMMANDS =
             "<< Lesson View >>\nYou can now use the following commands:\n"
-                    + "1.\t" + EditLessonCommand.COMMAND_WORD
+                    + "1.\t" + StartCommand.COMMAND_WORD
+                    + ": Starts a lesson in Quiz mode.\n"
+                    + "2.\t" + EditLessonCommand.COMMAND_WORD
                     + ": Opens a lesson in Card View for editing.\n"
-                    + "2.\t" + AddLessonCommand.COMMAND_WORD
+                    + "3.\t" + AddLessonCommand.COMMAND_WORD
                     + ": Adds a lesson.\n"
-                    + "3.\t" + DeleteLessonCommand.COMMAND_WORD
+                    + "4.\t" + DeleteLessonCommand.COMMAND_WORD
                     + ": Deletes a lesson.\n"
-                    + "4.\t" + ReloadLessonsCommand.COMMAND_WORD
+                    + "5.\t" + ReloadLessonsCommand.COMMAND_WORD
                     + ": Reloads all lessons from the data folder.\n"
-                    + "5.\t" + ListLessonsCommand.COMMAND_WORD
+                    + "6.\t" + ListLessonsCommand.COMMAND_WORD
                     + ": Lists all lessons with full details.\n"
-                    + "6.\t" + HistoryCommand.COMMAND_WORD
+                    + "7.\t" + ChangeThemeCommand.COMMAND_WORD
+                    + ": Changes the theme.\n"
+                    + "8.\t" + HistoryCommand.COMMAND_WORD
                     + ": Lists all entered commands.\n"
-                    + "7.\t" + HelpCommand.COMMAND_WORD
+                    + "9.\t" + HelpCommand.COMMAND_WORD
                     + ": Shows user guide.\n"
-                    + "8.\t" + ExitCommand.COMMAND_WORD
+                    + "10.\t" + ExitCommand.COMMAND_WORD
                     + ": Exits the program.";
     public static final String MESSAGE_CARD_COMMANDS =
             "<< Card View >>\nYou can now use the following commands:\n"
@@ -51,11 +57,13 @@ public class Messages {
                     + ": Deletes the card at the specified INDEX of the card list.\n"
                     + "5.\t" + ListCardsCommand.COMMAND_WORD
                     + ": Lists all cards in the lesson with full details.\n"
-                    + "6.\t" + HistoryCommand.COMMAND_WORD
+                    + "6.\t" + ChangeThemeCommand.COMMAND_WORD
+                    + ": Changes the theme.\n"
+                    + "7.\t" + HistoryCommand.COMMAND_WORD
                     + ": Lists all entered commands.\n"
-                    + "7.\t" + HelpCommand.COMMAND_WORD
+                    + "8.\t" + HelpCommand.COMMAND_WORD
                     + ": Shows user guide.\n"
-                    + "8.\t" + ExitCommand.COMMAND_WORD
+                    + "9.\t" + ExitCommand.COMMAND_WORD
                     + ": Exits the program.";
     /**
      * Feedback message displayed to the user when the command does not match any command patterns.

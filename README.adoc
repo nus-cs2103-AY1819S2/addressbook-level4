@@ -6,15 +6,15 @@ https://ci.appveyor.com/project/dlqs/main-q3u06[image:https://ci.appveyor.com/ap
 https://coveralls.io/github/cs2103-ay1819s2-w10-4/main?branch=master[image:https://coveralls.io/repos/github/cs2103-ay1819s2-w10-4/main/badge.svg?branch=master[Coverage Status]]
 
 ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
+image::docs/images/UI.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="600"]
+image::images/UI.png[width="600"]
 endif::[]
 
 ifdef::env-github[]
-:imagesdir: https://raw.githubusercontent.com/dlqs/main/refactorMisc/docs/images
+:imagesdir: https://raw.githubusercontent.com/cs2103-ay1819s2-w10-4/main/master/docs/images
 endif::[]
 
 {nbsp} +

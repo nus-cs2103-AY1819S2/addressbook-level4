@@ -133,6 +133,7 @@ Format: `listBook [n/BOOKNAME] [a/AUTHOR] [t/TAG] [m/RATING]`
 ****
 * If no search criteria are given, the command will give the complete list of the books
 * Keywords should be single word, or will be rejected as invalid input.
+* Keywords for every type should comply with the constraint enforced for this type.
 * Prefixes should be provided for every keyword. For example, `n/Madame Ham` will not be recognized as two separate book name keywords 'Madame' and 'Ham'. but will be treated as a whole.
 * The search is case insensitive. e.g `hans` will match `Hans`
 * There are no limits to the number of keywords of one type.
@@ -153,14 +154,7 @@ Books with the rating _5_ or the tag _textbook_ will be displayed.
 Books whose name contains the keyword _CS2104T_ or tags include _textbook_ will be displayed.
 * `listBook m/5 m/6` +
 Books whose rating is _5_ or _6_ wil be displayed.
-* `listBook n/Madame n/Bovary` +
-The book _Madame Bovary_ and any other book whose name contains _Madame_ will be displayed.
-* `listBook n/Madame n/Madame n/Pride m/6 m/8` +
-The book _Madame Bovary_ and _Pride and Prejudice_ will be displayed.
-* `listBook n/Madame c/notakeyword`
-The invalid prefix will not be recognized. Error message displayed.
-* `listBook n/Madame Bovary` +
-_Madame Bovary_ is an invalid keyword as it's not a single word. Error message displayed.
+
 
 // end::list[]
 
@@ -321,6 +315,8 @@ Examples:
 * `deleteBook 1` +
 `redo` +
 The `redo` command fails as there are no `undo` commands executed previously.
+
+// end::undoredo[]
 
 // tag::summary[]
 

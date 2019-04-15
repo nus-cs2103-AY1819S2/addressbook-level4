@@ -92,8 +92,7 @@ Code Dashboard]]
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/cs2103-ay1819s2-w09-3/main/pull/167[#167],
-https://github.comcs2103-ay1819s2-w09-3/main/pull/121[#121], https://github
-.comcs2103-ay1819s2-w09-3/main/pull/121[#108]
+https://github.comcs2103-ay1819s2-w09-3/main/pull/121[#121], https://github.comcs2103-ay1819s2-w09-3/main/pull/121[#108]
 
 == Contributions to the User Guide
 

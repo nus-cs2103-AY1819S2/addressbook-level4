@@ -1154,12 +1154,12 @@ When the user enters the `revenue` command, the command is parsed and a [.java]#
 [.java]#RevenueCommand#execute()# is then called, which in turn calls [.java]#Model#getFilteredRevenueList()# to
 obtain the list of revenue stored in the Storage. To create convenience and efficiency in the execution of the
 `revenue` command, 4 different types of argument combinations are provided for the users to obtain the desired revenue.
-The activity diagram illustrates the cause of actions for different argument inputs.
+The diagram below illustrates the internal flow of actions for different argument inputs.
 
-.Revenue Activity Diagram
+.Revenue Internal Flow Diagram
 image::Revenue_ActivityDiagram.png[]
 
-The above activity diagram summarizes the overall implementation of [.java]#RevenueCommand#. Depending on the user
+The above diagram summarizes the overall implementation of [.java]#RevenueCommand#. Depending on the user
 arguments, the function creates a new [.java]#Revenue# and iterate through the revenue list to search for revenue of
 the same year, month or day. If the revenue is the same as the new [.java#]Revenue#, its total revenue is added to the
 new [.java]#Revenue#. After which, the new [.java]#Revenue# is used to generate the [.java]#CommandResult# output

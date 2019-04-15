@@ -321,9 +321,30 @@ A wear command that takes in multiple INDEXs to simulate wearing a whole outfit 
 
 // tag::sort[]
 === Sort Apparel feature
-Sort the list of items.
+Sort the list of items based on the options given. The sorting will be increasing order of the name of the option specified.
+Simulating an event in the real world where users arrange their wardrobe according to the category of their choice. For example, in a wardrobe where the folded shirts and pants are stacked on top of one another, the user might want to put all the shirts on top of all the pants.
+
 ==== Current Implementation
-_{More to be added}_
+The sort command takes in one parameter. The valid arguments are: NAME, COLOR, and TYPE.
+
+* Name  : The full name of the apparel.
+* Color : The color of the apparel.
+* Type  : The clothing type of the apparel.
+
+e.g `sort color` will sort the apparels by color. If there are only 3 colors - Red, Black, Blue - in the wardrobe, calling `sort color` will arrange all the apparels in the following color starting from top - Black, Blue, Red.
+
+.High Level Visualisation of Sort Command
+image::HighLevelSortDiagram.png[width="800"]
+
+When the user inputs the sort command in the CLI, the input is parsed, and the sorting option specified are validated.
+
+`sort` keyword will call a constructor for SortCommandParser to parse the sort option, *color*, creating a SortCommand for LogicManager.
+
+LogicManager executes SortCommand which calls Model to sort the apparels in the list by color, and commits the changes to Storage.
+
+.Sequence Diagram for Wash command
+image::washCommand.jpg[width="800"]
+
 // end::sort[]
 
 // tag::recommendation[]

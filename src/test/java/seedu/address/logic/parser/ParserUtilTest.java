@@ -9,6 +9,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.logic.options.SortOption;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.apparel.ClothingType;
 import seedu.address.model.apparel.Color;
@@ -26,6 +27,9 @@ public class ParserUtilTest {
     private static final String VALID_CLOTHING_TYPE = "Bottom";
     //private static final String VALID_TAG_1 = "friend";
     //private static final String VALID_TAG_2 = "neighbour";
+
+    private static final String VALID_SORT_OPTION = "name";
+    private static final String INVALID_SORT_OPTION = VALID_SORT_OPTION + "lala";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -121,6 +125,20 @@ public class ParserUtilTest {
         String emailWithWhitespace = WHITESPACE + VALID_CLOTHING_TYPE + WHITESPACE;
         ClothingType expectedClothingType = new ClothingType(VALID_CLOTHING_TYPE);
         assertEquals(expectedClothingType, ParserUtil.parseClothingType(emailWithWhitespace));
+    }
+
+    @Test
+    public void parseSort_validValue_returnsSortOption() throws Exception {
+        SortOption expectedSortOption = SortOption.create(VALID_SORT_OPTION);
+        assertEquals(expectedSortOption, ParserUtil.parseSortValue(VALID_SORT_OPTION));
+    }
+
+    @Test
+    public void parseSort_invalidValue_throwParseException() throws Exception {
+        /**
+        String expectedFailureMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE);
+        assertEquals(expectedFailureMessage, ParserUtil.parseSortValue(INVALID_SORT_OPTION));
+         **/
     }
 
     /*@Test not dealing with tags anymore

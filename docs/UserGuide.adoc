@@ -62,15 +62,17 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * If you enter the same prefix twice, the data in the second prefix is recorded. For example, `n/Tejas Bhuwania n/Sanjay Bhuwania` will take in Sanjay Bhuwania inside the database.
 ====
 
+[NOTE]
+====
+The examples for each of the commands given below are independent of each other and do not follow a chronological order.
+====
+
 === [underline]#Viewing help# : `help`,`hp`
 
 Effect: Displays a help list, which lists all the commands that can be used. +
 Format: `{[aqua]#help#/[aqua]#hp#}`
 
-=== [underline]#Clearing all entries# : `clear-hms`, `clear-all`
 
-Effect: Clears all entries from the database. +
-Format: `{[aqua]#clear-hms#/[aqua]#clear-all#}`
 
 === [underline]#Customer commands#
 ==== Adding a customer : `add-customer`, `ac`
@@ -91,8 +93,18 @@ A person can have any number of tags (including 0)
 
 Examples:
 
-* `ac n/John Doe p/98765432 dob/28/05/1999 e/johnd@example.com id/A5525261 a/John street, block 123, #01-01`
-* `ac n/Betsy Crowe e/betsy.crowe@example.com p/123456 id/A3452521Q`
+* `ac n/John Doe p/98765432 dob/28/05/1999 e/johnd@example.com id/A5525261 a/John street, block 123, #01-01 t/Student`
+   Adds the customer John Doe with the given details.
+
+.Example for the `above` command
+image::JohnDoeadd.png[width="800"]
+
+
+* `ac n/Betsy Crowe e/betsy.crowe@example.com p/98321012 id/A3452521Q`
+   Adds the customer Betsy Crowe with the given details.
+
+.Example for the `above` command
+image::BetsyCroweadd.png[width="800"]
 
 ==== Listing all customers : `list-customers`, `lc`
 
@@ -103,6 +115,9 @@ Examples:
 
 * `lc` +
    Lists all the customers present in the database.
+
+.Example for the `above` command
+image::lc.png[width="800"]
 
 ==== Editing a customer : `edit-customer`, `ec`
 
@@ -121,28 +136,17 @@ You can remove all the customer's tags by typing `t/` without specifying any tag
 
 Examples:
 
-* `list-customers`, then `edit-customer 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st customer to be 91234567 and johndoe@example.com respectively.
-* `lc`, then `ec 2 n/Betsy Crower t/` +
-Edits the name of the 2nd customer to be `Betsy Crower` and clears all existing tags.
+* `list-customers`, then `edit-customer 1 p/91234567 e/johnny@example.com` +
+Edits the phone number and email address of the 1st customer to be 91234567 and johnny@example.com respectively.
 
-==== Deleting a customer : `delete-customer`, `dc`
+.Example for the `above` command
+image::ec1.png[width="800"]
 
-Effect: Deletes a customer from the customer database. +
-Format: `{[aqua]#delete-customer#/[aqua]#dc#} [lime]#INDEX#`
+* `lc`, then `ec 2 n/Roshani Venkatesh t/` +
+Edits the name of the 2nd customer to be `Roshani Venkatesh` and clears all existing tags.
 
-[NOTE]
-====
-* Deletes the customer at the specified index. The index refers to the index number shown in the displayed customer list. The index must be a positive integer.
-* This command will delete all the bookings and reservations associated with the customer as well.
-====
-
-Examples:
-
-* `list-customers`, then `delete-customer 2` +
-Deletes the 2nd person of the customer database.
-* `find-name Betsy`, then `delete-customer 1` +
-Deletes the 1st customer in the customer list returned by the `findname` command.
+.Example for the `above` command
+image::ec2.png[width="800"]
 
 ==== Finding customers by name: `find-name`, `fn`
 
@@ -159,10 +163,48 @@ Format: `{[aqua]#find-name#/[aqua]#fn#} [lime]#KEYWORD# [black]#[# [lime]#MORE_K
 
 Examples:
 
-* `find-name John` +
-Returns John Cena and John Doe
-* `fn Betsy Tim John` +
-Returns any person having names Betsy, Tim, or John
+* `find-name Vidhi` +
+Returns any person having name `Vidhi`.
+
+.Example for the `above` command
+image::fn1.png[width="800"]
+
+* `fn Tejas Vidhi Ayushi` +
+Returns any person having names `Tejas`, `Vidhi` and `Ayushi`.
+
+.Example for the `above` command
+image::fn2.png[width="800"]
+
+==== Deleting a customer : `delete-customer`, `dc`
+
+Effect: Deletes a customer from the customer database. +
+Format: `{[aqua]#delete-customer#/[aqua]#dc#} [lime]#INDEX#`
+
+[NOTE]
+====
+* Deletes the customer at the specified index. The index refers to the index number shown in the displayed customer list. The index must be a positive integer.
+* This command will delete all the bookings and reservations associated with the customer as well.
+====
+
+Examples:
+
+* `list-customers`, then `delete-customer 2` +
+Deletes the 2nd person of the customer database.
+
+.Example before the `above` command
+image::dc1a.png[width="800"]
+
+.Example after the `above` command
+image::dc1b.png[width="800"]
+
+* `find-name Betsy Tejas`, then `delete-customer 2` +
+Deletes the 2st customer in the customer list returned by the `find-name` command.
+
+.Example after the `find-name Betsy Tejas` command
+image::dc2a.png[width="800"]
+
+.Example after the `delete-customer 2` command
+image::dc2b.png[width="800"]
 
 
 === [underline]#Room Type commands#
@@ -303,7 +345,7 @@ Examples:
 * `cr` +
 Clears all reservations from the database.
 
-
+// tag::find-reservation[]
 ==== Find a reservation: `find-reservation`, `fr`
 
 Effect: Displays a reservation list based on the filters given by the user. +
@@ -316,16 +358,25 @@ Format: `{[aqua]#find-reservation#/[aqua]#fr#} [black]#[# [blue]#id/# [lime]#IDE
 ====
 [CAUTION]
 ====
-* If you enter `fr d/4/6/2019 - 7/6/2019`, it displays all reservations between 4th June to 7th June. This does not include reservations which include the date 7th June.
+* If you enter `fr d/4/6/2019 - 7/6/2019`, it displays all reservations between 4th June to 7th June. This consists of
+ reservations which include the date 4th June but does not include reservations which include the date 7th June.
 ====
 
 Example:
 
-* `fr id/A0124422` +
-Returns all reservations for customer with identification number, A0124422.
+* `fr id/Q000001P` +
+Returns all reservations for customer with identification number, Q000001P.
 
-* `fr id/A0124422 r/SINGLE ROOM` +
-Returns all single room reservations for customer with identification number, A0124422.
+.Example for the `fr id/Q000001P` command
+image::fr1.png[width="800"]
+
+* `fr id/Q000001P r/SHARING ROOM` +
+Returns all sharing room reservations for customer with identification number, Q000001P.
+
+.Example for the `fr id/Q000001P r/SHARING ROOM` command
+image::fr2.png[width="800"]
+// end::find-reservation[]
+
 // end::reservation-commands[]
 
 
@@ -502,11 +553,17 @@ Format: `{[aqua]#generate-bill-booking#/[aqua]#gb-b#} [lime]#INDEX# [black]#[# [
 
 Example:
 
- * `lc`, then `gb-b 2` +
-Returns the bill for all bookings for the customer at index 2
+ * `lc`, then `generate-bill-booking 4` +
+Returns the bill for all services booked by the customer at index 4.
 
-* `lc`, then `gb-b 2 s/SPA` +
-Returns the bill for all spa bookings for the customer at index 2
+.Example for the `generate-bill-booking 4` command
+image::gbb1.png[width="800"]
+
+* `lc`, then `gb-b 1 s/SPA` +
+Returns the bill for all spa services booked for the customer at index 1.
+
+.Example for the `gb-b 1 s/SPA` command
+image::gbb2.png[width="800"]
 
 ==== Generate bill for specific reservation: `generate-bill-reservation`, `gb-r`
 
@@ -520,11 +577,17 @@ Format: `{[aqua]#generate-bill-reservation#/[aqua]#gb-r#} [lime]#INDEX# [black]#
 
 Example:
 
- * `lc`, then `gb-r 2` +
-Returns the bill for all reservations for the customer at index 2
+ * `lc`, then `generate-bill-reservation 1` +
+Returns the bill for all rooms reserved by the customer at index 1.
 
-* `lc`, then `gb-r 2 r/SINGLE ROOM` +
-Returns the bill for all single room reservations for the customer at index 2
+.Example for the `generate-bill-reservation 1` command
+image::gbr2.png[width="800"]
+
+* `lc`, then `gb-r 3 r/SHARING ROOM` +
+Returns the bill for all sharing rooms reserved by the customer at index 3.
+
+.Example for the `gb-r 3 r/SHARING  ROOM` command
+image::gbr1.png[width="800"]
 
 ==== Generate customer's bill : `generate-bill-customer`, `gb-c`
 
@@ -539,8 +602,11 @@ to obtain the complete breakup for a customer.
 
 Example:
 
-*  `lc, then `gb-c 2` +
-Returns the total bill (includes all bookings and reservations) for the customer at index 2
+*  `lc, then `generate-bill-customer 1` +
+Returns the total bill (includes all bookings and reservations) for the customer at index 1.
+
+.Example for the `generate-bill-customer 1` command
+image::gbc1.png[width="800"]
 
 // end::generation-bill-commands[]
 
@@ -633,6 +699,11 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (clears all remaining entries again) +
 // end::undoredo[]
 
+=== [underline]#Clearing all entries# : `clear-hms`, `clear-all`
+
+Effect: Clears all entries from the database. +
+Format: `{[aqua]#clear-hms#/[aqua]#clear-all#}`
+
 === [underline]#Exiting the program# : `exit`,`ex`
 
 Effect: Exits the program. +
@@ -643,20 +714,6 @@ Format: `{[aqua]#exit#/[aqua]#ex#}`
 The HMS+ data file is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== [underline]#Encrypting data files# `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
-
-
-== FAQ
-
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous HMS folder.
-
-// tag::prefixlist[]
 == Prefix List
 
 === Customer
@@ -677,7 +734,7 @@ _{explain how the user can enable/disable data encryption}_
     2: It should be atleast 3 digits long.
 
     _Example_:: [blue]#p/# 81424394
-
+// tag::prefixlist[]
     * [underline]*Email* +
       _Prefix_:: `e/` +
       _Validation_:: Email should  adhere to the following constraints:
@@ -708,6 +765,7 @@ _{explain how the user can enable/disable data encryption}_
           2: Date of birth should be of the format: DD/MM/YYYY.
 
       _Example_:: [blue]#dob/# 28/05/1999
+      // end::prefixlist[]
 
 * [underline]*Address* +
   _Prefix_:: `a/` +
@@ -828,7 +886,7 @@ _{explain how the user can enable/disable data encryption}_
    1: It shouldn't contain (/).
 
    _Example_:: [blue]#com/# Please turn AC on.
-// end::prefixlist[]
+
 
 == Command Summary
 

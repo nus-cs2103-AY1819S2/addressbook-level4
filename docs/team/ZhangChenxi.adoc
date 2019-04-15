@@ -1,4 +1,4 @@
-= Zhang Chenxi - Project Portfolio image:ZhangCX10032.png[width="150", align="right"]
+= Zhang Chenxi - Project Portfolio image:zhangcx10032.png[width="150", align="right"]
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets

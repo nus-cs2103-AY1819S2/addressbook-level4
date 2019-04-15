@@ -27,7 +27,7 @@ You can find out more about the Battleship application https://cs2103-ay1819s2-w
 *** The `list` command allows the user to list down the ships that have been placed on the map grid. The user can filter the list by the `name` of the ship or by specific `tags`.
 *** The `listTags` command allows the user to list down all the tags that have been used on ships.
 ** Justification: The Ship Manager feature is crucial to the game as it works together with the map grid to allow both the human player and the computer player to interact in a turn-taking game. Behind the scenes, the  feature also implements the `Coordinates`, `Orientation` and `Fleet` classes for other features to work. Furthermore, the feature implements boundary value checking that is used by the Battle Manager and Computerised Enemy feature.
-** Highlights: The other features rely on the functionality provided by the Ship Management feature, such as creating an enemy player and processing the statistics for the game.
+** Highlights: The other features rely on the functionality provided by the Ship Management feature and it makes Ship Management highly intuitive for the player.
 
 // ** Highlights:
 // *** Implements coordinates and orientation: Behind the scenes, the feature // implements the `Coordinates`, `Orientation` and `Fleet` classes that are used by // the Battle Manager feature and the Computer Enemy feature.

@@ -2,14 +2,11 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.logic.parser.ParserUtil.FINISHED_STATUS_TRUE;
 
 import org.junit.Test;
 
 import seedu.address.logic.commands.DisplaymodCommand;
-import seedu.address.model.moduleinfo.ModuleInfo;
-import seedu.address.testutil.ModuleInfoBuilder;
+
 
 public class DisplaymodCommandPaserTest {
     private DisplaymodCommandParser parser = new DisplaymodCommandParser();

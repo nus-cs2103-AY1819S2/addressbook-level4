@@ -18,7 +18,7 @@ By: `W14-2`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-FomoFoto is a image processing software suite written in Java. This application is optimised for users who are *familiar with the Command Line Interface (CLI)*, while providing a *Graphical User Interface (GUI)* for easy reference. The application is optimized for users who prefer text-based instructions.
+FomoFoto is an image processing software suite written in Java. This application is optimised for users who are *familiar with the Command Line Interface (CLI)*, while providing a *Graphical User Interface (GUI)* for easy reference. The application is optimized for users who prefer text-based instructions.
 
 For new users, jump to <<Quick Start>> for an overview on how to use FomoFoto and view the tools available.
 
@@ -38,15 +38,15 @@ Follow the steps below to set up your computer to run FomoFoto:
 .  Double-click the JAR to start the application. The Graphical User Interface should appear in a few seconds.
 +
 .Home Page of FomoFoto
-image::ui.png[width="800"]
+image::Ui.png[width="800"]
 +
-.  You have just successfully setup FomoFoto on your device. To see the command available in FomoFoto, refer to <<Features>> for details of each command. A step-by-step walkthrough of FomoFoto is available at the next section: <<A Walk Through>>.
+.  You have just successfully setup FomoFoto on your device. To see the command available in FomoFoto, refer to <<Features>> for details of each command. A step-by-step walkthrough of FomoFoto is available in the next section: <<A Walk Through>>.
 // end::QuickStart[]
 
 
 == A Walk Through
 // tag::AWalkThrough[]
-Let's start on our image editing journey. In this walk through, we will be demonstrating some simple commands to edit a sample image.
+Let's start on our image editing journey. In this walkthrough, we will be demonstrating some simple commands to edit a sample image.
 
 .  Head over to this https://twistedsifter.files.wordpress.com/2012/03/squirrel-photobomb-banff.jpg[link] to get a suggested sample image to start from.
 
@@ -54,19 +54,19 @@ Let's start on our image editing journey. In this walk through, we will be demon
 
 .  Start FomoFoto by referring to <<Quick Start>>.
 
-.  Open the folder that the image file is stored in. Then, to get the filepath of the image:
+.  Open the folder that the image file is stored in. Then, to get the file path of the image:
 * In Windows: Hold on to the kbd:[Shift] key and *right click* on your image file. Click the option *Copy path*.
-* In Mac: Go to terminal and navigate to your image file. Type 'pwd' to get the filepath to your image file and copy paste.
+* In Mac: Go to terminal and navigate to your image file. Type 'pwd' to get the file path to your image file and copy paste.
 
 .  Go back to the FomoFoto application. Import the image into FomoFoto by typing as follows:
 +
 .Import Command
 image::import.PNG[width="912"]
 +
-.  Paste the filepath of the image you would like to import.
-* In Windows: Remove the kbd:["] and kbd:["] signs at the two ends of the filepath.
+.  Paste the file path of the image you would like to import.
+* In Windows: Remove the kbd:["] and kbd:["] signs at the two ends of the file path.
 
-.  Ensure your final command looks similar to the figure below (filepath may differ):
+.  Ensure your final command looks similar to the figure below (file path may differ):
 +
 .Import with Filepath
 image::importCommand.PNG[width="915"]
@@ -103,21 +103,21 @@ image::brightnessCommand.PNG[width="915"]
 image::brightnessSuccess.PNG[width="917"]
 +
 
-.  Crop your image by typing the following command: `crop 310 250 140 200`. Press kbd:[Enter]. Your image should look similar as the figure below.
+.  Crop your image by typing the following command: `crop 310 250 140 200`. Press kbd:[Enter]. Your image should look similar to the figure below.
 
 +
 .Crop Success
 image::cropSuccess.PNG[width="918"]
 +
 
-.  Save your edits by typing command: `save`.
+.  Save your edits by typing the command: `save`.
 
 // end::AWalkThrough[]
 
 [[Features]]
 == Features
 // tag::FeaturesHeader[]
-This section describes all the commands available in FomoFoto. It provides a short description of what each command does, their formats as well as examples on how to use them. The commands are listed in alphabetical order.
+This section describes all the commands available in FomoFoto. It provides a short description of what each command does, their formats as well as examples of how to use them. The commands are listed in alphabetical order.
 
 ====
 *Command Format*
@@ -163,7 +163,7 @@ Examples:
 // tag::ClearCommand[]
 === Clear Album: `clear`
 
-Clears all images imported in to the Album. +
+Clears all images imported into the Album. +
 Format: `clear`
 
 [NOTE]
@@ -188,12 +188,13 @@ Examples:
 
 === Crop an Image : `crop`
 // tag::CropCommand[]
-Crops an image based on given top left hand corner coordinates, width and height of final cropped image wanted. +
+Crops an image based on the given top left-hand corner coordinates, width and height of final cropped image wanted. +
 Format: `crop X_POINTCOORD Y_POINTCOORD WIDTH HEIGHT`
 
-****
-* The point coordinates must be separated by a space each.
-****
+[NOTE]
+====
+The point coordinates must be separated by a space each.
+====
 
 Example:
 
@@ -223,10 +224,10 @@ Format: `help`
 
 === Import an Image : `import`
 
-Imports images to FomoFoto's Album from a specified filepath or a folder. +
+Imports images to FomoFoto's Album from a specified file path or a folder. +
 Format: `import FILEPATH`
 
-Example of single filepath import:
+Example of single file path import:
 
 * `import C:\Users\Addison\Desktop\sample.jpg`
 * `import C:\Home\sample.png`
@@ -245,7 +246,7 @@ Additionally, images must also adhere to the following additional requirements:
 
 . Not be hidden or prepended by a `.` dot identifier.
 . Not be over 10MB in size.
-. Not have the same name of an existing image in the Album.
+. Not have the same name as an existing image in the Album.
 
 // end::Import[]
 

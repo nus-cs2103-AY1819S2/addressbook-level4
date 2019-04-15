@@ -24,7 +24,7 @@ public class BrightnessCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adjust the brightness of the image according to ratio value given.\n"
             + "If ratio is not given, default brightness ratio will be 1.1\n"
-            + "Parameters: [BRIGHTNESS RATIO (double)] "
+            + "Parameters: [BRIGHTNESSVALUE] "
             + "Example: " + COMMAND_WORD + "\n"
             + "Example2: " + COMMAND_WORD + "0.9";
     private OptionalDouble brightnessValue;

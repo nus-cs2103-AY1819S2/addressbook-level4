@@ -30,14 +30,14 @@ Windows developers are highly recommended to use JDK `9`.
 . *IntelliJ* IDE
 +
 [NOTE]
-IntelliJ by default has Gradle and JavaFx plugins installed. +
+IntelliJ by default has Gradle and JavaFX plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
 
 === Setting up the project in your computer
 
 . Fork this repo, and clone the fork to your computer
-. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
+. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialogue first)
 . Set up the correct JDK version for Gradle
 .. Click `Configure` > `Project Defaults` > `Project Structure`
 .. Click `New...` and find the directory of the JDK
@@ -46,7 +46,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `Open as Project`
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
-This will generate all resources required by the application and tests.
+This will generate all the resources required by the application and tests.
 . Open link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
@@ -135,7 +135,7 @@ The rest of the App consists of four components.
 * <<Design-Model, *`Model`*>>: Holds the data of images in the App in memory.
 
 
-Each of the first three components do the following:
+Each of the first three components does the following:
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
@@ -202,7 +202,7 @@ image such as metadata information like *Date and Time* and *Copyright informati
 . Command History
 - Display all *Image Transformation* and *Image Filters* applied to the currently opened image.
 
-The `UI` component is supplemented by a `Notifier` class. The class implements Java's `propertyChangeListener` as means of drawing updates to the User Interface.
+The `UI` component is supplemented by a `Notifier` class. The class implements Java's `propertyChangeListener` as a means of drawing updates to the User Interface.
 
 For example, the `ImageView` component draws updates to an opened image in the following sequence:
 
@@ -255,7 +255,7 @@ The Model component comprises of three main classes, `CurrentEdit`, `Transformat
 The core functions of the `CurrentEdit` Class are listed below:
 
 * stores an `Image` instance in `tempImage` and `originalImage` when an image is opened.
-* creates a copy of the opened image and the current edited image in `temp` directory.
+* creates a copy of the opened image and the currently edited image in `temp` directory.
 * `tempImage` is updated each time a command to edit the image is called. (e.g. `RotateCommand`, `ContrastCommand`)
 * stores a list of commands that the user input after an image is opened.
 * contains methods to access `temp` directory.
@@ -283,7 +283,7 @@ The `Image` class encapsulates the fields of a raw image file. This design choic
 
 The core functions of the `Image` class are listed below.
 
-* Validation checks to see if raw image is a valid Image.
+* Validation checks to see if a raw image is a valid Image.
 * Keeps a command history of edits executed on this Image.
 //end::albumModel[]
 
@@ -311,7 +311,7 @@ The `assets` and `temp` directories form the storage component of FomoFoto.
 // end::StorageComponent[]
 
 //tag::DetailsStorage[]
-The `assets` and `temp` directory from the storage component of FomoFoto. Both directory are created during runtime of the application.
+The `assets` and `temp` directory from the storage component of FomoFoto. Both directories are created during runtime of the application.
 
 The `assets` directory is created in the same directory where FomoFoto is first launched and persist between sessions. The `assets` directory is marked as `FomoFoto.assets`.
 
@@ -344,13 +344,13 @@ Given below is an example usage scenario and how the `export` mechanism behaves 
 
 Step 1. The user executes `export f/iu.jpg d/C:\Users\randy\Desktop`.
 
-Step 2. `ExportCommandParser` checks if user has input the command correctly.
+Step 2. `ExportCommandParser` checks if the user has input the command correctly.
 
 Step 3. `Album#getImageFromList` checks if the file to be exported exists in the album and throws a `CommandException` if it does not exist.
 
 Step 4. `ExportCommand#validPath` checks if the specified directory is valid and throws a `CommandException` if it is not.
 
-Step 5. If file to be exported exists and directory is valid, the file will be copied to the directory.
+Step 5. If the file to be exported exists and directory is valid, the file will be copied to the directory.
 
 
 The following sequence diagram shows how the `export` command works:
@@ -362,7 +362,7 @@ image::ExportSequenceDiagram.png[width=600]
 
 // tag::import[]
 === Import feature
-The Import Command allow users to import a file of an image format into FomoFoto for editing.
+The Import Command allows users to import a file of an image format into FomoFoto for editing.
 
 ==== Current implementation
 The implementation of the import feature allows for users to either:
@@ -386,12 +386,12 @@ Images must also adhere to the following additional requirements:
 
 . Not be hidden or prepended by a `.` dot identifier.
 . Not be over 10MB in size.
-. Not have the same name of an existing image in the Album.
+. Not have the same name as an existing image in the Album.
 
 [NOTE]
 Implementation of these checks can be found in `ImportCommandParser`.
 
-Images found in the given arguments will be copied to an `assets` directory created at runtime in FomoFoto's home directory. This is facilitated by the `Album` class and `ImportCommandParser` and contains the follow operation:
+Images found in the given arguments will be copied to an `assets` directory created at runtime in FomoFoto's home directory. This is facilitated by the `Album` class and `ImportCommandParser` and contains the following operation:
 
  * `Album#refreshAlbum()` - Fires a property change to all registered listeners. Listeners addressing this particular property will trigger and update accordingly.
  * `ImportCommandParser#parse(String)` - Takes in an absolute path, perform sanity checks on availability, size, format and copies the image to `assets` directory.
@@ -400,8 +400,8 @@ Additionally, the `import sample` command is supported by the `ResourceWalker` c
 
 Example usage scenario:
 
- 1. User launches application and enters `import C:\Users\Addison\Desktop\sample.png`
- 2. `ImportCommandParser` takes in arguments and performs validation on given path. Image is copied to `assets` directory and added to Album if it is valid.
+ 1. The user launches the application and enters `import C:\Users\Addison\Desktop\sample.png`
+ 2. `ImportCommandParser` takes in arguments and performs validation on a given path. Image is copied to `assets` directory and added to Album if it is valid.
  3. `Album` display the imported image to UI by calling the `Notifier` class which calls on the display panel listening to the notifier.
  4. `InformationPanel` updates to reflect the imported image in the Album.
 
@@ -412,9 +412,9 @@ image::ImportSequenceDiagram.png[width=800]
 
 * *Alternative 1*: Import single images only.
 ** Pros: Easy to implement.
-** Cons: Importing multiple images from same directory needs repeated commands.
+** Cons: Importing multiple images from the same directory needs repeated commands.
 
-* *Alternative 2 (Current Choice)*: Import images from directory as well.
+* *Alternative 2 (Current Choice)*: Import images from a directory as well.
 ** Pros: Can import many images without repeating the command.
 ** Cons: Can result in errors if too many images are imported or images are of alternative formats.
 // end::import[]
@@ -469,9 +469,9 @@ Step 5. `CurrentEdit#displayTempImage()` is called to display the opened image o
 * *Alternative 2* : The user can open and edit multiple images.
 ** Advantage: Images can be edited simultaneously.
 ** Disadvantages:
-*** `open` has to distinguish whether user is opening an image from `assets` or `temp` directory.
+*** `open` has to distinguish whether the user is opening an image from `assets` or `temp` directory.
 *** Requires many duplicates with different temporary names.
-*** May be confusing for the user.
+*** Might be confusing for the user.
 
 Alternative 1 was chosen as it is less complicated, requires lesser space and more user-friendly.
 // end::DGOpen[]
@@ -480,7 +480,7 @@ Alternative 1 was chosen as it is less complicated, requires lesser space and mo
 
 // tag::DGListFiles[]
 
-This command displays the names of all the files in `assets` directory.
+This command displays the names of all the files in the `assets` directory.
 
 ==== Current Implementation
 The `listfiles` function is facilitated by `Album`. It uses the following operations:
@@ -529,7 +529,7 @@ The filter feature mainly consists of:
 
 * `ContrastCommand`: Applies a `double` contrast ratio value on the opened image. The `double` contrast ratio value is preset to 1.1 if a specified `double` ratio value is not given by the user.  A value above 1 (e.g 1.3) increases the contrast of the image while a positive value below 1 (e.g 0.5) reduces the contrast of the image.
 * `BrightnessCommand`: Applies a `double` brightness ratio value on the opened image. The `double` brightness ratio value is preset to 1.1 if a specified `double` ratio value is not given by the user. A value above 1 (e.g 1.3) increases the brightness of the image while a positive value below 1 (e.g 0.5) reduces the brightness of the image.
-* `BlackWhiteCommand`: Transforms the opened image to a black and white image given a threshold value. The threshold `integer` value is preset to 127 if a specified threshold is not given by the user. Pixels on the image lighter than the threshold value becomes white and pixels darker than the threshold value becomes black.
+* `BlackWhiteCommand`: Transforms the opened image to a black and white image given a threshold value. The threshold `integer` value is preset to 127 if a specified threshold is not given by the user. Pixels on the image lighter than the threshold value will become white and pixels darker than the threshold value will become black.
 
 The following describes the main operations and processes for each command stated above.
 
@@ -543,7 +543,7 @@ image::ContrastCommandSequenceDiagram.png[width="800"]
 
 Given below is an example usage scenario of how `contrast` behaves at each step as shown in <<sequencediagram_contrast>>. [This applies to the other image filter commands as well.]
 
-Step 1. When the user runs an `open` command to edit an image, it invokes a method which creates an instance of an `Image` that stores the filepath of the image, its history of edits [`List<Command>`] and its metadata. This `Image` object is saved under the variable name `tempImage` in `CurrentEdit` for editing.
+Step 1. When the user runs an `open` command to edit an image, it invokes a method which creates an instance of an `Image` that stores the file path of the image, its history of edits [`List<Command>`] and its metadata. This `Image` object is saved under the variable name `tempImage` in `CurrentEdit` for editing.
 
 Step 2. When the user enters the command (e.g. `contrast 0.3`), the entered command is parsed and the command will be executed.
 
@@ -552,9 +552,9 @@ If an invalid command is provided, a reminder of how to use the command will be 
 
 Step 3. During execution, the `execute` method in the `ContrastCommand` class first invokes `CurrentEdit#tempImageDoNotExist` to check if an image is opened. If no image is opened, it will throw an error message to tell the user to open an image for editing first. Else, the `execute` method will invoke `CurrentEdit#getTempImage()` to get the `tempImage` from `CurrentEdit`.
 
-Step 4. Upon retrieving the `tempImage`, the `execute` method creates a `ContrastFilter` instance provided by the external library [`scrimage`] which takes in a `double` contrast ratio value. This `ContrastFilter` will then be applied on the image retrieved from the filepath of `tempImage`.
+Step 4. Upon retrieving the `tempImage`, the `execute` method creates a `ContrastFilter` instance provided by the external library [`scrimage`] which takes in a `double` contrast ratio value. This `ContrastFilter` will then be applied to the image retrieved from the file path of `tempImage`.
 
-Step 5. After applying the `ContrastFilter` on the opened image, `CurrentEdit#updateTempImage()` is invoked to save the newly edited image and replace the previous one in the filepath of the `tempImage`.
+Step 5. After applying the `ContrastFilter` on the opened image, `CurrentEdit#updateTempImage()` is invoked to save the newly edited image and replace the previous one in the file path of the `tempImage`.
 
 Step 6. The `execute` method then checks if the boolean `isNewCommand` is true. If it is `true`, it indicates that the command is a new contrast command called directly from the user and not through an `undo/redo` command. This triggers Step 7 in the line below. Otherwise, the command's execution ends in this step.
 
@@ -590,19 +590,19 @@ The manipulation feature is facilitated by `CurrentEdit`. It uses the following 
 
  * `CurrentEdit#getTempImage` - Retrieves the temporary image `tempImage` which stores the filepath of the temporary image, its history of edits [`List<Command>`] and its metadata.
 
- * `CurrentEdit#updateTempImage` - Replaces the temporary image in `temp` directory with the newly edited image and update the `tempImage` instance in the class.
+ * `CurrentEdit#updateTempImage` - Replaces the temporary image in `temp` directory with the newly edited image and updates the `tempImage` instance in the class.
 
- * `CurrentEdit#addCommand` - Adds this command to the edit history [`List<Command>`] in `tempImage` for the `undo/redo` command.
+ * `CurrentEdit#addCommand` - Adds this command to the edit history `List<Command>` in `tempImage` for the `undo/redo` command.
 
  * `CurrentEdit#displayTempImage()` - Displays the temporary image stored in the `temp` directory.
 
 This manipulation feature mainly consists of:
 
-* `RotateCommand`: Allows user to rotate images by specifying a degree (90, 180 or 270 only).
-* `CropCommand`: Allows user to crop images by specifying the coordinates of the top left corner, the width and the height of the desired cropped image.
-* `ResizeCommand`: Allows user to resize images to the desired width and height.
+* `RotateCommand`: Allows users to rotate images by specifying a degree (90, 180 or 270 only).
+* `CropCommand`: Allows users to crop images by specifying the coordinates of the top left corner, the width and the height of the desired cropped image.
+* `ResizeCommand`: Allows users to resize images to the desired width and height.
 
-The following describes main operations and processes for each command stated above.
+The following describes the main operations and processes for each command stated above.
 
 ==== Rotate Command
 This command allows the user to rotate the targeted image by specifying a degree (90, 180 or 270 only). Upon receiving an input degree from the user, the degree will be checked for its validity and will throw an error if the degree is not within the specified range. The command will then be added to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targeted image.
@@ -612,20 +612,20 @@ The diagram below illustrates how the `Rotate` Command works:
 .Sequence Diagram for Rotate Command
 image::RotateCommandSequenceDiagram.png[width="800"]
 
-Given below is an example usage scenario and how the command should behave at each step (This applies to the other image manipulation commands as well.):
+Given below is an example usage scenario and how the command should behave at each step. (This applies to the other image manipulation commands as well.):
 
-Step 1. When the user runs an open command to edit an image, it invokes a method which creates an instance of an `Image` that stores the filepath of the image, its history of edits `List<Command>` and its metadata. This `Image` object is saved under the variable name `tempImage` in `currentEdit` for editing.
+Step 1. When the user runs an open command to edit an image, it invokes a method which creates an instance of an `Image` that stores the file path of the image, its history of edits `List<Command>` and its metadata. This `Image` object is saved under the variable name `tempImage` in `currentEdit` for editing.
 
 Step 2. When the user enters the command (e.g. `rotate 90`), the entered command is parsed and the command will be executed.
 
 [NOTE]
 If an invalid command is provided, a reminder of how to use the command will be given to the user and no command will be executed.
 
-Step 3. During execution, the `execute` method in the `RotateCommand` class first invokes `CurrentEdit#tempImageDoNotExist` to check if an image is opened. If no image is opened, it will throw an error message to tell the user to open an image for editing first. Else, the `execute` method will invoke `CurrentEdit#getTempImage()` to get the `tempImage` from `CurrentEdit`.
+Step 3. During execution, the `execute` method in the `RotateCommand` class first invokes `currentEdit#tempImageDoNotExist` to check if an image is opened. If no image is opened, it will throw an error message to inform the user to open an image for editing. Else, the `execute` method will invoke `currentEdit#getTempImage()` to get the `tempImage` from `CurrentEdit`.
 
 Step 4. Upon retrieving the `tempImage`, the `execute` method in `RotateCommand` gets a `BufferedImage` instance from `tempImage`.The method then calls the external library https://github.com/rkalla/imgscalr[`ImgScalr`]'s class `rotate` and passes the `BufferedImage` object in.
 
-Step 5. A `BufferedImage` object is returned from the external library and `currentEdit#updateTempImage()` is invoked to save the newly edited `BufferedImage` and replace the previous image in the filepath of the `tempImage`.
+Step 5. A `BufferedImage` object is returned from the external library and `currentEdit#updateTempImage()` is invoked to save the newly edited `BufferedImage` and replace the previous image in the file path of the `tempImage`.
 
 Step 6. The `execute` method then checks if the boolean `isNewCommand` is true. If it is true, it indicates that the command is a new `Rotate` command called directly from the user and not through an `undo/redo` command which triggers Step 7 in the line below. Otherwise, the command’s execution ends in this step.
 
@@ -633,11 +633,11 @@ Step 7. `isNewCommand` is set to false to signal that this command is not a new 
 
 ===== Design Considerations
 
-* Images that are still being edited have to be stored and edited in a temp directory first due to our `undo/redo` implementation.
+* Images that are still being edited have to be stored and edited in a temporary directory first due to our `undo/redo` implementation.
 
 // end::ImageManipulation[]
 ==== Crop Command
-This command allows the user to crop the targeted image by specifying the coordinates of the top left hand corner of the desired image, the width of the desired image and the height of the desired image. Upon receiving the inputs, the values will be checked for their validity and will throw an error if any value is not within the specified range. The command will then be added to the `List<Command>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targeted image.
+This command allows the user to crop the targeted image by specifying the coordinates of the top left-hand corner of the desired image, the width of the desired image and the height of the desired image. Upon receiving the inputs, the values will be checked for their validity and will throw an error if any value is not within the specified range. The command will then be added to the `List<Command>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targeted image.
 
 Refer to the example usage scenario, sequence diagram and design considerations in <<Rotate Command>>.
 
@@ -665,7 +665,7 @@ The `save` function is facilitated by `Album` and `CurrentEdit`. It uses the fol
 
 * `CurrentEdit#updateExif()` - Updates the Exif data of the new image.
 
-* `Album#checkFileExist(String)` - Checks if the file name specified by the `String` exists in assets directory.
+* `Album#checkFileExist(String)` - Checks if the file name specified by the `String` exists in the assets directory.
 
 * `Album#saveToAssets(Image, String)` - Saves the `Image` as `String` into `assets` directory.
 
@@ -695,7 +695,7 @@ Step 7. `CurrentEdit#deleteHistory()` is called to delete the edit history in `C
 
 Step 8.`CurrentEdit#updateExif()` is called to update the Exif data of the new image.
 
-Step 9. `Album#populateAlbum()` is called to update the list of image in `Album` class and to ensure it reflects all the files in `assets` directory.
+Step 9. `Album#populateAlbum()` is called to update the list of images in the `Album` class and to ensure it reflects all the files in the `assets` directory.
 
 Step 10.`Album#refreshAlbum()` is called to update the Information Panel on the GUI.
 
@@ -705,8 +705,8 @@ Step 10.`Album#refreshAlbum()` is called to update the Information Panel on the 
 ** Advantage: Name of the new image is clear to the user.
 ** Disadvantage: May be tedious for the user to type in a name each time `save` is performed.
 
-* *Alternative 2 (current choice)* : The user can choose to save as a new name or overwrite the original image
-** Advantage: Convenient for user to `save` quickly without having to type a new name everytime.
+* *Alternative 2 (current choice) *: The user can choose to save as a new name or overwrite the original image
+** Advantage: Convenient for the user to `save` quickly without having to type a new name every time.
 ** Disadvantage: The user may unintentionally overwrite the original image.
 
 Alternative 2 was chosen as the user is likely to use `save` frequently. Since the `assets` directory functions like an album, images can be re-imported if they are accidentally overwritten. The user is able to `save` easily and choose to resume editing immediately or at a later time.
@@ -808,7 +808,7 @@ Step 3. If an image is opened, the `execute` method will invoke `CurrentEdit#get
 
 Step 4. `TransformationSet#isPresent(String)` is then invoked to check if there is a preset of commands saved under the name specified by the user. If the method returns false, an error message will be displayed to inform the user that there is no preset of commands saved under the name he/she specified.
 
-Step 5. Else, the method `TransformationSet#findTransformation(String)` is called to retrieve the `List<Command>` saved under the specified preset name. Also, `TransformationSet#hasWaterMarkCommand(String)` is also invoked to check if the `List<Command>` has a `WaterMarkCommand`.
+Step 5. Else, the method `TransformationSet#findTransformation(String)` is called to retrieve the `List<Command>` saved under the specified preset name. `TransformationSet#hasWaterMarkCommand(String)` is also invoked to check if the `List<Command>` has a `WaterMarkCommand`.
 
 Step 6. Commands in the `List<Command>` will be executed one by one to apply the respective edits to the opened image. If any of the commands throws an exception (e.g. If a watermark is already applied on an image, the execution of a preset of commands which contains a `WaterMarkCommand` on the same image will throw an error message to indicate that there is already a watermark.), the method `CurrentEdit#replaceTempWithOriginal` will undo all the changes made to the image.
 
@@ -818,7 +818,7 @@ Step 6. Lastly, `CurrentEdit#addCommand(this)` is invoked to add this command to
 
 * *Alternative 1 (current choice)*: Allows user to apply the preset of commands on only one image (the image that is opened) at each time.
 ** Pros: The user will be able to see the immediate effect of the commands on the image.
-** Cons: The user have to set the preset of commands on each images one by one which takes a longer time.
+** Cons: The user has to set the preset of commands on different images one by one which takes a longer time.
 
 * *Alternative 2*: Allows user to apply the preset of commands on multiple images.
 ** Pros: The user can save time by applying the commands on many images in just one command instead of having to do it one by one.
@@ -858,7 +858,7 @@ image::UndoRedoNewCommand1StateListDiagram.png[width="600"]
 .Second Transformation
 image::UndoRedoNewCommand2StateListDiagram.png[width="600"]
 
-Step 3. The user wants to undo the previous transformation by using the `undo` command. It will call `CurrentEdit#replaceTempWithOriginal()` which will replace the edited image in temp folder with the original image. It will then call `CurrentEdit#setUndoTemp()` to set the index in `tempImage` to the required index and retrieve the list with `CurrentEdit#getHistoryTemp()`. Using the list, it will apply the commands onto the original image till it reaches the command just before the set index.
+Step 3. The user wants to undo the previous transformation by using the `undo` command. It will call `CurrentEdit#replaceTempWithOriginal()` which will replace the edited image in temp folder with the original image. It will then call `CurrentEdit#setUndoTemp()` to set the index in `tempImage` to the required index and retrieve the list with `CurrentEdit#getHistoryTemp()`. Using the list, it will apply the commands onto the original image until it reaches the command just before the set index.
 
 .Undo transformation
 image::UndoRedoNewCommand3StateListDiagram.png[width="600"]
@@ -866,7 +866,7 @@ image::UndoRedoNewCommand3StateListDiagram.png[width="600"]
 [NOTE]
 If a command fails its execution, it will return the image before undo was called and produce an error message.
 
-Step 4. After executing Undo, `index` will be less than size of commandHistory. If redo is not executed before a new command is added, all commands in the list after `index` will be deleted.
+Step 4. After executing Undo, `index` will be less than the size of commandHistory. If redo is not executed before a new command is added, all commands in the list after `index` will be deleted.
 
 For redo, it will call `setRedo` and retrieve that command to apply it on the current image.
 
@@ -884,7 +884,7 @@ image::UndoSeqTEMP.PNG[width="800"]
 The `redo` command does the opposite -- it calls `CurrentEdit#setRedoTemp()`, which shifts the `index` once to the right, pointing to the previously undone command, and executes that command to perform the transformation.
 
 [NOTE]
-If the `index` is at index `commandHistory.size()`, pointing to the latest image state, then there are no undone transformation to restore. The `redo` command uses `CurrentEdit#canRedoTemp()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `index` is at index `commandHistory.size()`, pointing to the latest image state, then there is no undone transformation to restore. The `redo` command uses `CurrentEdit#canRedoTemp()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
 Step 5. The user executes `saves`, which calls `CurrentEdit#saveToAssets()`. This replaces the original image with the temp image since a name is not specified. When this happens, the user can no longer call `undo` as there is no original image to work on. The command history is also cleared.
 
@@ -897,11 +897,11 @@ Step 5. The user executes `saves`, which calls `CurrentEdit#saveToAssets()`. Thi
 ** Cons: May have performance issues in terms of memory usage.
 * *Alternative 2(current choice):* Save all transformation in a list and apply them when undo/redo is called. We chose this method as we do not want our application to take up too much space in the PC.
 ** Pros: Will use less memory
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Cons: We must ensure that the implementation of each individual command is correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* *Alternative 1 (current choice):* Use a list to store the history of commands. We chose this so as to preserve good object oriented programming principles.
+* *Alternative 1 (current choice):* Use a list to store the history of commands. We chose this so as to preserve good object-oriented programming principles.
 ** Pros: Easy for new computer science student undergraduates to understand, who are likely to be the new incoming developers of our project.
 ** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `Image`.
 * *Alternative 2:* Use `HistoryManager` for undo/redo
@@ -912,7 +912,7 @@ Step 5. The user executes `saves`, which calls `CurrentEdit#saveToAssets()`. Thi
 
 === WaterMark Feature
 //tag::WaterMark[]
-This command allows the user to add a watermark to their image. Upon receiving an input message from the user, the message will be checked for its validity and will throw an error if the message is empty or contains only spaces. Messages can contain words and numbers separated by spaces. The command will then be added to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
+This command allows the user to add a watermark to their image. Upon receiving an input message from the user, the message will be checked for its validity and will throw an error if the message is empty or contains only spaces. Messages can contain words and numbers separated by spaces. The command will then be added to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targeted image.
 
 [NOTE]
 Each image can only have 1 watermark. If the user would like to edit the watermark, the user can remove the watermark by using the `Undo` function and then add a new watermark.
@@ -925,15 +925,15 @@ The manipulation feature is facilitated by `CurrentEdit` and `Image`. It uses th
 
  * `CurrentEdit#getTempImage` - Retrieves the temporary image `tempImage` which stores the filepath of the temporary image in the `temp` directory, its history of edits [`List<Command>`] and its metadata.
 
- * `CurrentEdit#updateTempImage` - Replaces the temporary image in `temp` directory with the newly edited image and update the `tempImage` instance in the class.
+ * `CurrentEdit#updateTempImage` - Replaces the temporary image in `temp` directory with the newly edited image and updates the `tempImage` instance in the class.
 
- * `CurrentEdit#addCommand` - Adds this command to the edit history [`List<Command>`] in `tempImage` for the `undo/redo` command.
+ * `CurrentEdit#addCommand` - Adds this command to the edit history `List<Command>` in `tempImage` for the `undo/redo` command.
 
  * `CurrentEdit#displayTempImage()` - Displays the temporary image stored in the `temp` directory.
 
  * `Image#hasWaterMark()` - Checks if the `Image` already has a watermark.
 
- * `Image#setWaterMark(boolean)` - Sets the `Image` object's `hasWaterMark` field accordingly, if the `Image` object has or does not have a watermark.
+ * `Image#setWaterMark(boolean)` - Sets the `Image` object's `hasWaterMark` field accordingly - if the `Image` object has or does not have a watermark.
 
 The diagram below illustrates how the WaterMark Command works:
 
@@ -943,21 +943,21 @@ image::WaterMarkCommandSequenceDiagram.png[width="800"]
 
 Given below is an example usage scenario and how the command should behave at each step:
 
-Step 1. When the user runs an open command to edit an image, it invokes a method which creates an instance of an `Image` that stores the filepath of the image, its history of edits `List<Command>` and its metadata. This `Image` object is saved under the variable name `tempImage` in `currentEdit` for editing.
+Step 1. When the user runs an open command to edit an image, it invokes a method which creates an instance of an `Image` that stores the file path of the image, its history of edits `List<Command>` and its metadata. This `Image` object is saved under the variable name `tempImage` in `currentEdit` for editing.
 
 Step 2. When the user enters the command (e.g. `wm FomoFoto`), the entered command is parsed and the command will be executed.
 
 [NOTE]
 If an invalid command is provided, a reminder of how to use the command will be given to the user and no command will be executed.
 
-Step 3. During execution, the `execute` method in the `WaterMarkCommand` class first invokes `CurrentEdit#tempImageDoNotExist` to check if an image is opened. If no image is opened, it will throw an error message to tell the user to open an image for editing first. Else, the `execute` method will invoke `CurrentEdit#getTempImage()` to get the `tempImage` from `CurrentEdit`.
+Step 3. During execution, the `execute` method in the `WaterMarkCommand` class first invokes `currentEdit#tempImageDoNotExist` to check if an image is opened. If no image is opened, it will throw an error message to inform the user to open an image for editing. Else, the `execute` method will invoke `currentEdit#getTempImage()` to get the `tempImage` from `CurrentEdit`.
 
-Step 4. Upon retrieving the `tempImage`, the `execute` method in the `WaterMarkCommand` gets the  `BufferedImage` instance of the `tempImage` object and copies the `BufferedImage` object to a temporary `BufferedImage` object with the same width, height and image type. The `execute` method then initialises the necessary graphic properties using the `Graphics2D` Java class. The message is centralised and overlays the temporary `BufferedImage` object.
+Step 4. Upon retrieving the `tempImage`, the `execute` method in the `WaterMarkCommand` gets the  `BufferedImage` instance of the `tempImage` object and copies the `BufferedImage` object to a temporary `BufferedImage` object with the same width, height and image type. The `execute` method then initialises the necessary graphics properties using the `Graphics2D` Java class. The message is centralised and overlays the temporary `BufferedImage` object.
 
 Step 5. The `execute` method then checks for a few conditions listed below:
 
 . `isNewCommand`: Checks if the `WaterMark` command is from an input by the user, from an `undo/redo` command or from a `SetPreset` command.
-. `isPreset`: Checks if the `WaterMark` command is from a Preset.
+. `isPreset`: Checks if the `WaterMark` command is from a preset.
 . `tempImage#hasWaterMark()`: Checks if the `tempImage` already has a watermark.
 
 
@@ -1035,10 +1035,10 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 *Logging Levels*
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+* `SEVERE`: Critical problem detected which may possibly cause the termination of the application
+* `WARNING`: Can continue, but with caution
+* `INFO`: Information showing the noteworthy actions by the App
+* `FINE`: Details that are not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 == Documentation
 
@@ -1241,7 +1241,7 @@ A project often depends on third-party libraries. For example, Address Book depe
 * Prefers typing over mouse input
 * Is reasonably comfortable using CLI apps
 
-*Value proposition*: Edit photos quicker and more intuitively than a typical mouse/GUI driven app. Also provides a easy way to view tagged metadata on images.
+*Value proposition*: Edit photos quicker and more intuitively than a typical mouse/GUI driven app. Also provides an easy way to view tagged metadata on images.
 
 
 [appendix]
@@ -1303,7 +1303,7 @@ Use case ends.
 
 *Extensions*
 
-* 1a. The filepath does not contain an image. FomoFoto throws an error message.
+* 1a. The file path does not contain an image. FomoFoto throws an error message.
 +
 Use case ends.
 * 2a. The image name does not exist in Album. FomoFoto throws an error message.
@@ -1321,7 +1321,7 @@ Use case ends.
 
 *Extensions*
 
-* 1a. The filepath does not contain an image. FomoFoto throws an error message.
+* 1a. The file path does not contain an image. FomoFoto throws an error message.
 +
 Use case ends.
 * 2a. The image name does not exist in Album. FomoFoto throws an error message.
@@ -1339,7 +1339,7 @@ Use case ends.
 
 *Extensions*
 
-* 1a. The filepath does not contain an image. FomoFoto throws an error message.
+* 1a. The file path does not contain an image. FomoFoto throws an error message.
 +
 Use case ends.
 * 2a. The image name does not exist in Album. FomoFoto throws an error message.
@@ -1351,7 +1351,7 @@ Use case ends.
 
 === Use case: Export Image
 
-1. User save image to Album.
+1. User saves the image to Album.
 2. User export image from Album.
 +
 Use case ends.
@@ -1361,7 +1361,7 @@ Use case ends.
 * 1a. The image name does not exist in Album. FomoFoto throws an error message.
 +
 Use case ends.
-* 2a. The filepath for export is invalid. FomoFoto throws an error message.
+* 2a. The file path for export is invalid. FomoFoto throws an error message.
 +
 Use case ends.
 
@@ -1398,7 +1398,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+   Expected: The most recent window size and the location is retained.
 
 . Shutdown and relaunch.
 
@@ -1415,11 +1415,11 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Import a single image.
 .. Enter `import FILEPATH` +
-   Expected: GUI should populate Album Images with image from indicated filepath.
+   Expected: GUI should populate Album Images with an image from the indicated file path.
 
 . Import a directory.
 .. Enter `import FILEPATH` +
-   Expected: GUI should populate Album Images with images from indicated directory.
+   Expected: GUI should populate Album Images with images from an indicated directory.
 
 === Opening an image
 . Prerequisites: An album should contain at least a single imported image.
@@ -1433,7 +1433,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Apply contrast on an opened image.
 .. Enter `contrast` +
-   Expected: GUI should apply edit to the opened image with default contrast value.
+   Expected: GUI should apply the edit to the opened image with default contrast value.
 
 === Undoing an edit
 . Prerequisites: An image should at least one edit applied to it.
@@ -1450,8 +1450,8 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: GUI should save the currently opened image as an image in Album with the same name.
 
 === Export an image
-. Prerequisites: Given FILEPATH should be an a valid, writable path. Album should contain at least a single imported image.
+. Prerequisites: Given FILEPATH should be a valid, writable path. The Album should contain at least a single imported image.
 
 . Export an image from Album.
 .. Enter `export f/IMAGE_NAME d/DIRECTORY_NAME` +
-   Expected: GUI should export the selected Album image to target directory.
+   Expected: GUI should export the selected Album image to the target directory.

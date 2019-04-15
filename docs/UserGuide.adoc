@@ -150,8 +150,8 @@ Some of the parameters have restrictions and they are stated below.
 * `NUMBER_OF_SEATS` and `NUMBER_OF_CUSTOMERS` have to be
 * `ITEM_CODE` has to be in the form of an uppercase alphabet followed by a double digit integer.
 * `QUANTITY` has to be a whole number between 0 and 2,000,000 inclusive.
-* `ITEM_NAME` has to be
-* `ITEM_PRICE` has to be
+* `ITEM_NAME` has to be in alphanumeric format and may contain spaces, but should not be blank.
+* `ITEM_PRICE` has to be a nonnegative rational number with 2 decimal digits.
 * `YEAR` has to be a 4 digit whole number within 2000 and the current year.
 * `MONTH` has to be a whole number within 1 to 12.
 * `DAY` has to be a whole number within 1 to 31 provided it exists in the desired month and year.
@@ -662,55 +662,151 @@ image::Bill_UpdatedSeats.png[]
 // tag::menumode[]
 === Menu Mode
 
-In Menu Mode, you can perform menu-related operations. The application will display the current items on the menu.
+In Menu Mode, you can track all updates to the menu, and the application will display the current items on the menu.
 
 image::MMUi.png[width="790"]
+This mode only uses the side panel, to avoid any confusion and for ease of use. The function is as follows:
+
+* *Menu Panel*: This panel displays the currently available items on the menu along with their item codes and price.
+
+Here are the commands that you can use in this mode to efficiently handle the menu in your restaurant.
 
 [[AddToMenu]]
 ==== Adding menu items to the menu : `addToMenu`
 
-Adds the specified item to the menu. +
-Format: `addToMenu ITEM_CODE ITEM_NAME ITEM_PRICE`
+If your restaurant has a new dish you would like to make available for your customers, this command allows you to add that item to the menu by specifying the item code, name and price. +
 
 ****
-* Item code, name and price must be valid (follow the format specified).
+*Format*: `addToMenu c/ITEM_CODE n/ITEM_NAME p/ITEM_PRICE` +
+*Shortcut*: `add`
 ****
 
-Examples:
+[TIP]
+Order of the input parameters does not matter (i.e. any permutation of `c/ITEM_CODE n/ITEM_NAME p/ITEM_PRICE` can be
+keyed in and the command will work as intended).
 
-* `addToMenu c/A02 n/French Fries p/2.00` +
-Adds French Fries with item code A02 and price $2.00 to the menu.
+[IMPORTANT]
+RestOrRant does not allow you to add two items with the same item code, they are considered to be the same item. Make sure to have different item codes for all your available dishes!
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a|]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
+You will see a success message in the Results Display and the updated menu with the new item will be displayed in the Menu Panel.
+
+a| a| For example, the menu initially has 15 items as shown below.
+
+image::AddToMenu_Before.png[]
+
+Suppose you would like to add a Chocolate Ice Cream to the menu. After executing `addToMenu c/W16 n/Chocolate Ice Cream p/1.50`, you will see a success message in the Results Display, as shown below.
+
+image::AddToMenu_RD.png[]
+The Menu Panel will also be updated and you will now see 16 items displayed. As seen in the image below, a new 16th item with code W16, name Chocolate Ice Cream and price of 1.50 has been added to the menu.
+
+image::AddToMenu_After.png[]
+|===
 
 [[DeleteFromMenu]]
 ==== Deleting menu items from the menu : `deleteFromMenu`
 
-Deletes the item specified by the item code from the menu. +
-Format: `deleteFromMenu ITEM_CODE`
+Suppose you now decide you no longer want to sell a particular dish, and would like to make it unavailable for customers. You can do so by specifying the item code of the item you wish to remove. +
 
 ****
-* Item has to exist in the menu (item code must be valid).
-* The restaurant must be empty (there should be no customers).
+*Format*: `deleteFromMenu ITEM_CODE` +
+*Shortcut*: `del`
 ****
 
-Examples:
+[NOTE]
+You can only delete item codes that already exist in the menu. You can add items to the menu using the <<AddToMenu,
+`addToMenu`>> command. +
+The restaurant must be empty (there should not be any occupied tables).
 
-* `deleteFromMenu A02` +
-Deletes the menu item with item code A02 from the menu.
+[IMPORTANT]
+Deleting an item from the menu would also erase the quantity ordered associated with that item, and this item will not show up on the Menu Panels in all modes. If you choose to add the same item to the menu again, it would be considered as a new item with quantity ordered starting from zero.
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a|]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
+You will see a success message in the Results Display and the displayed menu on the Menu Panel would have the specified item removed.
+
+a| a| For example, the menu initially has 6 items as shown below.
+
+image::AddToMenu_After.png[]
+
+Suppose you would like to delete the Beef Burger from the menu. After executing `deleteFromMenu W04`, you will see a success message in the Results Display, as shown below.
+
+image::DeleteFromMenu_RD.png[]
+The Menu Panel will also be updated and you will now see 5 items displayed. As seen in the image below, Beef Burger
+has been deleted from the menu.
+
+image::DeleteFromMenu_After.png[]
+|===
 
 [[ClearMenu]]
-==== Clearing all the items in the menu : `clearMenu` _(Coming in v1.4)_
+==== Clearing all the items in the menu : `clearMenu`
 
-Removes all menu items from the menu. +
-Format: `clearMenu`
+This command allows you to clear all the items from the menu, if you ever need to start afresh. +
 
 ****
-* The menu must be non-empty (there should already be items in the menu).
-* The restaurant must be empty (there should be no customers).
+*Format*: `clearMenu` +
+*Shortcut*: `clear`
 ****
 
-Examples:
+[NOTE]
+The menu must not be empty (one or more items should exist in the menu). +
+The restaurant must be empty (there should not be any occupied tables).
 
-* `clearMenu`
+[IMPORTANT]
+This command is irreversible and will not save the menu under restaurant statistics.
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a|]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
+You will see a success message in the Results Display and the Menu Panel will be empty.
+
+a| a| For example, the menu initially has 6 items as shown below.
+
+image::AddToMenu_After.png[]
+
+After executing `clearMenu`, you will see a success message in the Results Display, as shown below.
+
+image::ClearMenu_RD.png[]
+The Menu Panel will now be empty, as seen in the image below.
+
+image::ClearMenu_After.png[]
+|===
+
+[[ToggleAvailability]]
+==== Changing an item's availability : `toggleAvailability` _(Coming in v2.0)_
+
+This command allows you to change an item's availability by specifying the item code. +
+
+[TIP]
+All added menu items are available by default.
+
+[NOTE]
+Calling this command on an available item would mark the item as unavailable, whereas calling this command on an unavailable item would mark it as available again.
+
+****
+*Format*: `toggleAvailability ITEM_CODE` +
+*Shortcut*: `t`
+****
+
+[NOTE]
+The specified item should exist in the menu.
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a|]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
+You will see a success message in the Results Display and the background of the menu item would turn dark.
+
+a| a| For example, say Lobster Burger has just become sold out. +
+Executing `toggleAvailability W06` would make Lobster Burger unavailable for ordering and the background of the Lobster Burger would turn dark. +
+Now, if the ingredients for Lobster Burger is available again, executing `toggleAvailability W06` would change the background to its original colour and enable Lobster Burger to be ordered by diners.
+|===
 // end::menumode[]
 
 // tag::statisticsmode[]
@@ -821,7 +917,7 @@ If you want to obtain the revenue earned in a particular year, month or day, you
 ****
 *Format*: `revenue [ y/YEAR [m/MONTH [d/DAY] ] ]` +
 *Shortcut*: `r` +
-*Examples*: `r`, `r y/2019`, `r y/2019 m/4`, `r y/2019 m/4 d/6`
+*Examples*: `r`, `r [y/YEAR]`, `r y/YEAR [m/MONTH]`, `r y/YEAR m/MONTH [d/DAY]`
 ****
 
 [TIP]
@@ -958,6 +1054,13 @@ a|<<AddToMenu, `addToMenu`>> a| `*add*` a| `addToMenu c/ITEM_CODE n/ITEM_NAME p/
 Adds A02 to the menu
 a|<<DeleteFromMenu, `deleteFromMenu`>> a| `*del*` a| `deleteFromMenu ITEM_CODE` a| `deleteFromMenu A02` +
 Removes A02 from the menu
+a|<<ClearMenu, `clearMenu`>> a| `*clear*` a| `clearMenu` a| Clears all items from the menu
+a|<<ToggleAvailability, `toggleAvailability`>> +
+_(Coming in v2.0)_
+a| t a|`toggleAvailability ITEM_CODE` a| `toggleAvailability W06` +
+
+* Makes W06 unavailable for ordering if initially available
+* Makes W06 available for ordering if initially unavailable
 |=======================================================================
 
 === Statistics Mode

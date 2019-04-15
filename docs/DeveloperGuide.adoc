@@ -487,7 +487,7 @@ link:https://en.wikipedia.org/wiki/Spaced_repetition[Space-Repetition technique]
 
 The `SrsCardManager` also updates user data using `UpdateCardData()` after receiving results from `Quiz`.
 
-==== Quiz start command: `start` +
+====  Management start command: `start` +
 
 The `start` command starts a quiz session based on input parameters. It will analyze the current storage information and then generate the list of `QuizCard` using `SrsCardManager`. It will test the 2 values set to be tested for the lesson. The generating rules are different for different `QuizMode` as explained in a subsequent section. Once the `start` command have succeeded running, the system will switch to the quiz mode.
 
@@ -633,7 +633,7 @@ private void generatePreview() {
 }
 ----
 // tag::quiz[]
-==== [ANSWER] +
+====  Quiz answer command: `[ANSWER]` +
 .High-level sequence diagram for the `ANSWER` command, an example of completing a quiz.
 image::AnwerComponetSequenceDiagram.png[width="800"]
 
@@ -694,8 +694,7 @@ public CommandResult execute(Model model, CommandHistory history) throws Command
 
 // end::quiz[]
 
-
-==== \quit +
+====  Quiz quit command: `\quit` +
 The `\quit` will force quit the current quiz and save the attempted questions to the location which
 the user has specified in `UserPref`. By default it will be saved to `\userdata\savedata.csv`. Once
 the `\quit` command is completed, the user will be returned to the management mode.
@@ -703,7 +702,7 @@ the `\quit` command is completed, the user will be returned to the management mo
 .Sequence diagram for quit feature
 image::QuizQuitCommandSequenceDiagram.png[width="800"]
 
-==== \status +
+====  Quiz status command: `\status` +
 The `\status` feature lists the total number of attempts you have made, total number of
 question you have gotten correct, and which question you are currently on.
 

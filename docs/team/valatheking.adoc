@@ -69,8 +69,7 @@ application.
 * Words that are highlighted in white represent a kbd:[keyboard] button that
 can be pressed to invoke a described function.
 
-====
-*Command Format*
+==== *Command Format*
 
 ==== View all duties for current month: `viewCurrent`
 Brings up calendar view, with all duties for the current month. +

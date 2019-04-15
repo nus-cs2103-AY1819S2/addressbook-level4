@@ -56,10 +56,10 @@ Furthermore, the `Budget` feature forms the basis for the implementation of add-
 * Highlights of feature:
 ** The budget of the Finance Tracker can be set rather easily with the `set` function and can be changed multiple
 times. Implementation of the feature is comprehensive, covering four major components of the Application. The commands
-are implemented in the `Logic` component with the logic behind the execution of command and the `Budget` class itself
-implemented in the `Model` component. The `Storage` part of the App saves changes to budget data in terms of
+are implemented in the `Logic` component along with the logic behind the execution of command and the `Budget` class itself
+is implemented in the `Model` component. The `Storage` part of the App saves changes to budget data in terms of
 current spending and budget set while the `UI` displays the budget to the user.
-** The current expenditure and budget is easily viewed in the Budget Panel of the App with a simple budget bar to
+** The current expenditure and budget is easily viewed in the Budget Panel of the App with a simple budget bar to show
 how much of the budget a user has currently spent. The data for current expenditure and budget is updated immediately
 each time a user sets a budget or keys in an expenditure.
 
@@ -81,7 +81,7 @@ If the file was not previously created, a default data set will be created.
 
 * Adding *undo/redo* support for commands that make changes to the FinanceTracker.
 ** I have improved on the undo and redo commands provided by the original addressbook to support undo-ing and
-redo-ing of all the new commands added in the development of In-Credit-Ble_ that modify the FinanceTracker.
+redo-ing of all the new commands added in the development of _In-Credit-Ble_ that modify the FinanceTracker.
 ** List of commands supported: `set`, `allocate`, `spend`, `edit`, `delete`, `sort`, `reverse`, `setfile`,
 `clear`, `description`
 

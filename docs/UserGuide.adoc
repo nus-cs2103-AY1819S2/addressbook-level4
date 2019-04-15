@@ -63,6 +63,8 @@ Here is an example of how Club Manager in activity mode looks like:
 
 image::activityUiWalkthrough.png[width="100%"]
 
+//end::userinterface[]
+
 In total, there are:
 
 * *5 General Parts:* <<#Menu-Bar, Menu Bar>>, <<#Result-Display, Result Display>>, <<#Command-Box, Command Box>>, <<#SSB, Sync Status Bar>>, <<#Mode-Status, Mode Status>>
@@ -147,7 +149,6 @@ Displays the *list of Members who is not attending or have not attended* the sel
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/Swimming` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Swimming`, `t/Running t/Hockey` etc.
 ====
-//end::userinterface[]
 
 === General Features
 
@@ -222,7 +223,7 @@ image::memberCommands.png[width="100%"]
 ==== Adding a member: `memberAdd` or `mAdd`
 
 You can add members to ClubManager. +
-[width="100%",cols="30%,<50%, <50%",options="header",]
+[width="100%",cols="10%,85%, 5%",options="header",]
 |=======================================================================
 |Information of Member| Definition | Example
 |`Name`| NAME refers to the name of the member.
@@ -371,9 +372,9 @@ Returns all members (matric num starts with A0)
 Shows a list of all members in ClubManager. +
 Format: `memberList`
 
-image::MemberList.png[width=30%]
-
 //end::memberlist[]
+
+image::MemberList.png[width=20%]
 
 //tag::memberselect[]
 ==== Selecting a member : `memberSelect`
@@ -430,13 +431,12 @@ Example:
 `memberSort name` +
 Sorts the list by name.
 
-image::MemberSortCommand_sortby_name.png[width=70%]
+image::MemberSortCommand_sortby_name.png[width=50%]
 
 * `memberList` +
 `memberSort yearOfStudy` +
 Sorts the list by year of study.
 
-image::MemberSortCommand_sortby_yearofstudy.png[width=70%]
 
 //end::membersort[]
 

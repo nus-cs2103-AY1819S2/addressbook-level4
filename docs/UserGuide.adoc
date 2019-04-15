@@ -444,6 +444,7 @@ Refer to <<Archives-Context>> for available commands in this context.
 .Switch to the archives context to see all your archived entries
 image::ug-context/ug-contextx-archives.png[width="790"]
 
+// tag::bing-command[]
 ==== Searching the web: `bing`
 
 Searches https://www.bing.com[Bing] for entries that you can subsequently add.
@@ -460,6 +461,7 @@ Refer to <<Results-Context>> for available commands in this context.
 
 .Bing search for the phrase `Trump`
 image::ug-context/ug-contextx-bing.png[width="790"]
+// end::bing-command[]
 
 ==== Searching for news: `googlenews`
 

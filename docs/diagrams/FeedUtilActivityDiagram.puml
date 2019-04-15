@@ -1,0 +1,31 @@
+@startuml
+
+start
+
+:User views feed at url;
+
+partition FeedUtil {
+
+  :FeedUtil tries to read web feed located at url;
+
+  if (network error?) then (yes)
+    :throw IOException;
+    end
+
+  else (network ok)
+    :try to parse feed with ROME;
+    if (cannot parse?) then (parse feed ok)
+      :convert remote feed to EntryBook;
+      :return converted EntryBook;
+    else (no)
+      :throw FeedException;
+      end
+    endif
+  endif
+}
+
+:model displays returned EntryBook;
+stop
+
+
+@enduml

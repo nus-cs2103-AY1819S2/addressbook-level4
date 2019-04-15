@@ -405,13 +405,14 @@ Examples:
 
 * `list` +
 `visitWeb 4` +
+This command displays the webpage of the 4th Restaurant in your restaurant list.
 
 * `visitWeb www.jollibee.com.ph` +
 This command displays webpage of Jollibee as shown below.
 
 image::visitWebJolliB.PNG[width="640"]
 
-_Image 1.1 Result of `visitWeb www.jollibee.com.ph`_
+_Image 1.1 Result of `visitWeb www.jollibee.com.ph`._
 
 [NOTE]
 You need to have internet connection to visit the website of the restaurant.

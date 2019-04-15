@@ -21,7 +21,6 @@ public class UnpinCommandParserTest {
 
     private UnpinCommandParser parser = new UnpinCommandParser();
 
-    @Ignore
     @Test
     public void parse_validArgs_returnsUnpinCommand() {
         assertParseSuccess(parser, "1", new UnpinCommand(INDEX_FIRST_BUYER));

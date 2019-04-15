@@ -55,7 +55,6 @@ import seedu.address.testutil.PersonUtil;
 
 public class AddCommandSystemTest extends AddressBookSystemTest {
 
-    @Ignore
     @Test
     public void add() {
         Model model = getModel();

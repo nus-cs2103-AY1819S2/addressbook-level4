@@ -275,8 +275,6 @@ The following features are implemented for patients of docX:
 * Delete patients
 * Select patient
 
-=== Features
-
 ==== Add Patient feature
 When a user executes 'add-p n/John Doe g/Male a/21 p/98765432 adr/Utown College 2'
 

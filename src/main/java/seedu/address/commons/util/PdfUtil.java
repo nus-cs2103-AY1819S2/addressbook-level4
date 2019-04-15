@@ -23,6 +23,8 @@ import org.apache.pdfbox.pdmodel.graphics.image.LosslessFactory;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 import seedu.address.MainApp;
+import seedu.address.model.patient.Patient;
+import seedu.address.model.record.Record;
 import seedu.address.storage.PdfAdaptedInterface;
 import seedu.address.storage.PdfAdaptedPerson;
 import seedu.address.storage.PdfAdaptedTask;
@@ -43,6 +45,9 @@ public class PdfUtil {
     private static final PDFont SUBTITLE_FONT = PDType1Font.HELVETICA_BOLD;
     private static final int SUBTITLE_FONT_SIZE = 16;
     private static final PDFont FONT = PDType1Font.HELVETICA;
+    private static final PDFont MCFONT = PDType1Font.TIMES_ROMAN;
+    private static final PDFont MCTITLE_FONT = PDType1Font.TIMES_BOLD;
+    private static final PDFont MCITALIC_FONT = PDType1Font.TIMES_ITALIC;
     private static final int FONT_SIZE = 12;
     private static final int LINE_SPACING = 3;
     private static final String TEETH_IMAGE_PATH = "images/tooth.png";
@@ -81,6 +86,175 @@ public class PdfUtil {
             throw new IOException(e.getMessage());
         }
     }
+
+    /**
+     * Creates a pdf MC file and extract information elements
+     * @param record
+     * @param patient
+     * @param daysToRest number of days to rest
+     * @param mcNo serial number of MC
+     * @param filePath
+     * @throws IOException if the filepath is not available
+     */
+    public static void saveMcPdfFile(Record record, Patient patient, String daysToRest,
+                                     String mcNo, Path filePath) throws IOException {
+
+        requireNonNull(record);
+        requireNonNull(patient);
+        requireNonNull(filePath);
+
+        FileUtil.createIfMissing(filePath);
+        PDDocument doc = new PDDocument();
+        doc.save(filePath.toFile());
+
+        String doctor = record.getDoctorName().toString();
+        String recordDate = record.getRecordDate().toString();
+        String procedure = record.getProcedure().toString();
+        String description = record.getDescription().toString();
+
+        String patientName = patient.getName().toString();
+        String patientNric = patient.getNric().toString();
+
+        String[] inputs = new String[]{doctor, description, recordDate, procedure,
+                                       patientName, patientNric, daysToRest, mcNo};
+        writeMcObject(doc, inputs);
+        doc.save(filePath.toFile());
+        doc.close();
+    }
+
+    /**
+     * Write pdf file based on mc elements
+     * @param doc PDDocument element, the opened pdf file
+     * @param inputs mc elements
+     * @throws IOException
+     */
+    private static void writeMcObject(PDDocument doc, String[] inputs) throws IOException {
+        String doctor = inputs[0];
+        String description = inputs[1];
+        String recordDate = inputs[2];
+        String procedure = inputs[3];
+        String patientName = inputs[4];
+        String patientNric = inputs[5];
+        String daysToRest = inputs[6];
+        String mcNo = inputs[7];
+
+        String[] descriptionDiplay = new String[2];
+        boolean isSpaceSplit = true;
+
+        if (description.length() <= 90) {
+            descriptionDiplay[0] = description;
+            descriptionDiplay[1] = "";
+        } else {
+            int line1EndIndex = description.substring(75, 90).lastIndexOf(" ") + 75;
+
+            if (line1EndIndex == 74) {
+                line1EndIndex = 83;
+                isSpaceSplit = true;
+            }
+
+            int line2EndIndex;
+            if (description.length() <= 190) {
+                line2EndIndex = description.length();
+            } else {
+                line2EndIndex = description.substring(170, 190).lastIndexOf(" ") + 170;
+                if (line2EndIndex == 169) {
+                    line2EndIndex = 191;
+                }
+            }
+
+            descriptionDiplay[0] = description.substring(0, line1EndIndex) + (isSpaceSplit ? "" : "-");
+            line1EndIndex += isSpaceSplit ? 1 : 0;
+            descriptionDiplay[1] = description.substring(line1EndIndex, line2EndIndex)
+                    + (line2EndIndex == description.length() ? "" : "...");
+        }
+
+        String[] lines = new String[] {
+            "Some Clinic",
+            "Medical Certificate",
+            "MC No. " + mcNo,
+            "",
+            "This is to certify that : " + patientName,
+            "NRIC/FIN No. : " + patientNric,
+            String.format("is unfit for duty/classes for a period of %s days", daysToRest),
+            String.format("from %s (inclusive).", recordDate),
+            "",
+            "The patient has gone through the following procedure : " + procedure,
+            "Description : " + descriptionDiplay[0],
+            descriptionDiplay[1],
+            "Remarks:_______________________________________________________________________",
+            "_______________________________________________________________________________",
+            "",
+            "Note: This certificate is not valid for absence from court or other judicial",
+            "           proceedings unless specially stated",
+            "",
+            "",
+            "",
+            "",
+            "(Doctor's signature/stamp)",
+            "______________________________",
+            String.format("Dr. %s", doctor),
+            String.format("%s", recordDate)
+        };
+
+        int[] styles = new int[lines.length];
+        styles[0] = 1;
+        styles[1] = 2;
+        styles[15] = 3;
+        styles[16] = 3;
+        styles[21] = 4;
+
+        PDPage page = new PDPage(PDRectangle.A4);
+        doc.addPage(page);
+        PDPageContentStream contents = new PDPageContentStream(doc, page);
+        float ty = 700;
+
+        for (int i = 0; i < lines.length; i++) {
+            String line = lines[i];
+
+            contents.beginText();
+
+            float textWidth;
+            float tx = 50;
+
+            switch (styles[i]) {
+            case 0 : default:
+                contents.setFont(MCFONT, FONT_SIZE);
+                contents.newLineAtOffset(tx, ty);
+                ty -= FONT_SIZE * 2;
+                break;
+            case 1:
+                contents.setFont(MCTITLE_FONT, TITLE_FONT_SIZE);
+                textWidth = MCTITLE_FONT.getStringWidth(line) / 1000 * TITLE_FONT_SIZE;
+                tx = (page.getMediaBox().getWidth() - textWidth) / 2;
+                contents.newLineAtOffset(tx, ty);
+                ty -= TITLE_FONT_SIZE * 2;
+                break;
+            case 2:
+                contents.setFont(MCFONT, SUBTITLE_FONT_SIZE);
+                textWidth = MCFONT.getStringWidth(line) / 1000 * SUBTITLE_FONT_SIZE;
+                tx = (page.getMediaBox().getWidth() - textWidth) / 2;
+                contents.newLineAtOffset(tx, ty);
+                ty -= SUBTITLE_FONT_SIZE * 2;
+                break;
+            case 3:
+                contents.setFont(MCITALIC_FONT, FONT_SIZE);
+                contents.newLineAtOffset(tx, ty);
+                ty -= FONT_SIZE * 2;
+                break;
+            case 4:
+                contents.setFont(MCITALIC_FONT, FONT_SIZE);
+                contents.newLineAtOffset(tx, ty);
+                ty -= FONT_SIZE;
+                break;
+            }
+
+            contents.showText(line);
+            contents.endText();
+        }
+        contents.close();
+    }
+
+
 
     /**
      * Outputs the PDF adapted class object contents to a PDF page.

@@ -80,10 +80,12 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'TeethHub.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
+
+
 
 task wrapper(type: Wrapper) {
     gradleVersion = '4.8.1'

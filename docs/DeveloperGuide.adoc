@@ -234,8 +234,8 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::patient_kyler[]
-=== Patient Management Feature
-==== Current Implementation: Storing Patient's Information
+=== Patient Management
+==== Patient Feature
 
 The `Patient` class represents patients for our users on TeethHub.
 It extends `Person` with more patient-specific attributes, as well as methods.
@@ -243,9 +243,9 @@ Various methods are also overridden in order for them to work appropriately with
 
 The following class diagram summarizes the new `Patient` class, which extends from `Person`:
 
-image::PatientClassDiagram.png[width="800]
+image::PatientClassDiagram.png[width="800"]
 
-==== Current Implementation: Patient's Dental Records
+==== Dental Records Feature
 
 The `Record` class represents a dental record of a patient. Each `Patient` class has an list of `Record` as an attribute.
 
@@ -253,7 +253,7 @@ The `Record` class is purposely implemented to be similar to that of `Person`.
 Just like person, record has associate classes for specific operations, such as storage.
 This ensures that the processing of records is streamlined with `Patient`, which extends `Person`.
 
-==== Current Implementation: Interface to interact with Patient's Dental Records
+==== Records Mode Feature
 
 The current implementation to view a specified patient's dental records uses the `goto` command.
 
@@ -298,7 +298,7 @@ The following activity diagram summarizes what happens when a user executes the 
 image::GotoActivityDiagram.png[width="800"]
 {nbsp}
 
-==== Current Implementation: Representing Patient's Teeth
+==== Patient's Teeth Feature
 
 The `Teeth` class represents patients' teeth for our users on TeethHub.
 It consist of an array of `Tooth` objects, which represents the individual tooth of patients.
@@ -324,7 +324,7 @@ The following class diagram summarizes the `Teeth` class, which is a composition
 image::TeethClassDiagram.png[width=""]
 {nbsp}
 
-==== Current Implementation: Automatically Generated Tags
+==== Automatically Generated Tags Feature
 
 There are only two types of tags that are valid in the `Patient` class.
 They are `StatusTag` and `TeethTag`.
@@ -344,7 +344,7 @@ image::StatusTagActivityDiagram.png[width=""]
 [NOTE]
 Since only permanent teeth is supported by TeethHub at the moment, `TeethTag` will always show "Permanent Teeth".
 
-==== Current Implementation: Dentist Information
+==== Dentist Feature
 
 Following the single user policy, TeethHub only prompts the user once to acquire his or her name, which will then be used when creating new dental records for patients.
 
@@ -354,7 +354,7 @@ Currently, the application prompts the user for his or her name during his or he
 Currently, the dentist's name is stored in a `.txt` file in TeethHub.
 It is possible for users to change their name from the `.txt` file, although they are not encouraged to do so.
 
-==== Current Implementation: Other Relevant Commands
+==== Other Relevant Features
 
 We have also created new commands that will facilitate the `Patient` class.
 
@@ -373,74 +373,206 @@ The commands below can only be executed after a patient is specified via the `Go
 
 ===== Aspect: Creating the Patient class
 
-* **Alternative 1 (current choice):** Create the `Patient` class by extending it from `Person`.
-** Pros: It is intuitive, as it is logical that all patients are persons as well.
+* **Current implementation:** Create the `Patient` class by extending it from `Person`.
+** **Alternative:** Create the `Patient` class from the bottom-up.
+*** Alternative Pros: As `Patient` will not be a subclass of any other class, it will be less affected by changes in other classes.
+*** Alternative Cons: All existing classes and methods which currently work with `Person` needs to be re-written to work with the new `Patient` class.
+Attributes and methods cannot be reused, and must be re-implemented.
+Lastly, polymorphism cannot be applied in cases where there is a need to deal with both persons and patients.
+** **Choice Justification:** It is intuitive, as it is logical that all patients are persons as well.
 The code from `Person` can be reused in `Patient` through inheritance, and all existing classes and methods which work with `Person` will also work with `Patient`.
 Most importantly, it allows us to make use of the object-oriented programming principles we learnt in class.
 We assume that the Open-Closed Principle is applied on the `Person` class.
-** Cons: Any changes to `Person` may affect `Patient`.
-* **Alternative 2:** Create the `Patient` class from the bottom-up.
-** Pros: As `Patient` will not be a subclass of any other class, it will be less affected by changes in other classes.
-** Cons: All existing classes and methods which currently work with `Person` needs to be re-written to work with the new `Patient` class.
-Attributes and methods cannot be reused, and must be re-implemented.
-Lastly, polymorphism cannot be applied in cases where there is a need to deal with both persons and patients.
 
 ===== Aspect: Picking the appropriate data structure to store dental records
 
-* **Alternative 1 (current choice):** Store the records using a list.
-** Pros: It is easy to understand, which is crucial for collaborative programming as other programmers may require accessing the records in the list.
+* **Current implementation:** Store the records using a list.
+** **Alternative:** Store the records using a hash table.
+*** Alternative Pros: It gives the fastest time complexity if a record search is required. It runs in O(1) time.
+*** Alternative Cons: It can be challenging for collaborators to understand, which can be detrimental for collaborative programming.
+It also creates an extra layer of complexity in order to display the stored records in the order they were first stored in the application by our users.
+** **Choice Justification:** It is easy to understand, which is crucial for collaborative programming as other programmers may require accessing the records in the list.
 It can also save new records in the order of when they are added, from most recent to oldest, simply using `List.add(0, Record)`.
-** Cons: If the list gets long over time, it might cause additional waiting time for our users when they would to search for a specific record.
+However, if the list gets long over time, it might cause additional waiting time for our users when they would to search for a specific record.
 This is because a linear search in a list is of O(n) time complexity.
- * **Alternative 2:** Store the records using a hash table.
- ** Pros: It gives the fastest time complexity if a record search is required. It runs in O(1) time.
- ** Cons: It can be challenging for collaborators to understand, which can be detrimental for collaborative programming.
- It also creates an extra layer of complexity in order to display the stored records in the order they were first stored in the application by our users.
 
 ===== Aspect: How the goto command executes
 
-* **Alternative 1 (current choice):** Use a static variable to store the specified patient, with a public getter method, and a static boolean that denotes the current list viewing mode.
-** Pros: This is relatively easy to implement and understand. Furthermore, other classes can easily access the current specified patient, and the current list viewing mode.
-** Cons: May cause complications if MainWindow is no longer a singleton class.
-* **Alternative 2:** Save the specified patient and list viewing mode as an instance variable of MainWindow.
-** Pros: Will work properly even if MainWindow is no longer a singleton class.
-** Cons: Challenging to implement as major revamp is required to most existing classes and tests.
+* **Current implementation:** Use a static variable to store the specified patient, with a public getter method, and a static boolean that denotes the current list viewing mode.
+** **Alternative:** Save the specified patient and list viewing mode as an instance variable of MainWindow.
+*** Alternative Pros: Will work properly even if MainWindow is no longer a singleton class.
+*** Alternative Cons: Challenging to implement as major revamp is required to most existing classes and tests.
 All new classes which wish to access the specified patient or list viewing mode will need to take in a reference to the MainWindow instance.
+** **Choice Justification:** This is relatively easy to implement and understand. Furthermore, other classes can easily access the current specified patient, and the current list viewing mode.
+However, it may cause complications if MainWindow is no longer a singleton class.
 
 ===== Aspect: Data structure to support the goto command
 
-* **Alternative 1 (current choice):** Use a patient variable to store the patient specified by the command.
-** Pros: An intuitive solution, as the specified patient is stored as an exact same class as a patient.
+* **Current implementation:** Use a patient variable to store the patient specified by the command.
+** **Alternative:** Create a new immutable patient variable to store the specified patient.
+*** Alternative Pros: Ensures the the specified patient cannot be edited by other classes or methods.
+*** Alternative Cons: Major changes to the patient class would require the immutable patient class to be changed too.
+Furthermore, every time any record of the specified patient is modified, a new immutable patient needs to be created to update the currently stored immutable patient.
+** **Choice Justification:** An intuitive solution, as the specified patient is stored as an exact same class as a patient.
 Additionally, attributes of the specified patient can be accessed just like any other patient class.
 Changes to the patient class does not significantly affect the goto command.
-** Cons: The patient class is mutable, and accidental changes to its attributes by other classes or methods can occur.
-* **Alternative 2:** Create a new immutable patient variable to store the specified patient.
-** Pros: Ensures the the specified patient cannot be edited by other classes or methods.
-** Cons: Major changes to the patient class would require the immutable patient class to be changed too.
-Furthermore, every time any record of the specified patient is modified, a new immutable patient needs to be created to update the currently stored immutable patient.
+However, the patient class is mutable, and accidental changes to its attributes by other classes or methods can occur.
 
 ===== Aspect: Data structure for Teeth
 
-* **Alternative 1 (current choice):** Create a `Tooth` object representing a tooth, and use an array to store a list of tooth which will represent the teeth of patients.
-** Pros: An straightforward object-oriented solution and easy to understand by other collaborating programmers who are familiar with object-oriented programming.
-** Cons: `Tooth` and `Teeth` objects, as well as their relevant methods takes a significant amount of time to be created. They will also require proper test cases to be implemented.
-* **Alternative 2:** Create an integer array representing teeth. Each integer value in the array indicates the status of a tooth.
-** Pros: Simplest to implement.
-** Cons: Can be hard to understand by other programmers as integers are used to represent teeth statuses. Additionally, this is violating object-oriented principles.
+* **Current implementation:** Create a `Tooth` object representing a tooth, and use an array to store a list of tooth which will represent the teeth of patients.
+** **Alternative:** Create an integer array representing teeth. Each integer value in the array indicates the status of a tooth.
+*** Alternative Pros: Simplest to implement.
+*** Alternative Cons: Can be hard to understand by other programmers as integers are used to represent teeth statuses. Additionally, this is violating object-oriented principles.
+** **Choice Justification:** An straightforward object-oriented solution and easy to understand by other collaborating programmers who are familiar with object-oriented programming.
+However, `Tooth` and `Teeth` objects, as well as their relevant methods takes a significant amount of time to be created. They will also require proper test cases to be implemented.
 
 ===== Aspect: Implementing the Dentist class
 
-* **Alternative 1 (current choice):** Use a patient variable to store the patient specified by the command.
-** Pros: An intuitive solution, as the specified patient is stored as an exact same class as a patient.
+* **Current implementation:** Use a patient variable to store the patient specified by the command.
+** **Alternative:** Create a new immutable patient variable to store the specified patient.
+*** Alternative Pros: Ensures the the specified patient cannot be edited by other classes or methods.
+*** Alternative Cons: Major changes to the patient class would require the immutable patient class to be changed too.
+Furthermore, every time any record of the specified patient is modified, a new immutable patient needs to be created to update the currently stored immutable patient.
+** **Choice Justification:** An intuitive solution, as the specified patient is stored as an exact same class as a patient.
 Additionally, attributes of the specified patient can be accessed just like any other patient class.
 Changes to the patient class does not significantly affect the goto command.
-** Cons: The patient class is mutable, and accidental changes to its attributes by other classes or methods can occur.
-* **Alternative 2:** Create a new immutable patient variable to store the specified patient.
-** Pros: Ensures the the specified patient cannot be edited by other classes or methods.
-** Cons: Major changes to the patient class would require the immutable patient class to be changed too.
-Furthermore, every time any record of the specified patient is modified, a new immutable patient needs to be created to update the currently stored immutable patient.
-
+However, the patient class is mutable, and accidental changes to its attributes by other classes or methods can occur.
 // end::patient_kyler[]
+
+// tag::taskDG1_cchj1995[]
+=== Task Management and related commands
+Our user can also utilize TeethHub to store manage and interact with tasks aside from patients. Dentists would often have tasks that needs to be completed or performed and the implementation of the `Task` data object allows TeethHub to provide its user with the ability to manage these tasks and have them interact with their patient's details when necessary as well. The main commands added with the data object serve to provide the user with a way to manage and view the tasks stored in the application.
+
+This segment will explain the main features of the a new data type `Task` that TeethHub handle. Key implementation details and the design considerations when designing these features will also be covered.
+
+==== Task storage and attributes
+The `Task` class is a new type of object that is meant to represent any task a dentist would have to perform. `Task` objects are kept in a list and handled by the `UniqueTaskList` class. This follows the same process as the `Patient` class and by extension, the `Person` class which has a `UniquePersonList` handling a list of `Person` objects.
+
+Storing information of all objects does not change between `Task` and `Person` classes and both are stored into a `TeethHub.json` file. Attributes for `Task` are instantiated as objects with their own methods to validate the user's input much like the current implementation of `Patient`/`Person` .
+
+
+[NOTE]
+Task has an attribute called `LinkedPatient` which stores the `NAME` and `NRIC` of a patient. This is to allow tasks to be bound to a patient and facilliate another implementation `taskdone` .
+
+
+The following class diagram details the attributes `Task` and the multiplicity association between the classes:
+
+image::TaskClassDiagramFinal.png[width=""]
+// end::taskDG1_cchj1995[]
+==== Task interaction feature (Basic)
+Essential commands for basic interaction with the tasks such as, `taskadd`, `taskedit` and `taskdelete` are implemented in a similar fashion as compared to existing commands. All three commands extend from the abstract class `Command` and follow the same execution flow as `patientadd`, `patientedit` and `patientdelete`.
+
+The generic execution flow of these commands mostly involve the `Logic` and `Model` component of the application and the order can be detailed as follows:
+
+. User's input command gets sent to LogicManager.
+. LogicManager sends to AddressBookParser to check command validity.
+. AddressBookParser creates a CommandParser(typically named `commandclassnameParser` like `TaskAddCommandParser`) to check the arguments.
+. CommandParser creates an instance of the Command and sends it back to LogicManager.
+. LogicManager calls the method to execute the Command.
+. Command executes and calls methods from Model to interact with the `Task` objects.
+. Result from the command's execution gets sent back to the UI and eventually the user.
+
+
+[NOTE]
+Adding and editing tasks may involved additional calls to `Model` if the user specifies a patient to link to the task as the application will have to extract unique information from the `Patient` to store in the task
+
+
+The following sequence diagram illustrates the stated generic command execution flow and the components involved:
+
+image::GenericSequenceDiagram.png[width=""]
+
+//tag::taskDG2_cchj1995[]
+==== Task Autocomplete feature
+
+The `taskdone` command is a feature implemented to allow the user to automatically complete a task of his/her choice, setting it to `COMPLETED`. The command also allows the user to automatically add a record to the task's `LinkedPatient` upon completion of the task. This feature makes use of the `Model` by calling its methods `setTask()` and `setPerson()` to perform additional interactions with both task and patient respectively.
+
+The general process followed during the command's execution is as follows:
+
+. User runs a valid `taskdone` command on a task with a linkedpatient
+. Command gets parsed properly and reaches the execution stage within `TaskDoneCommand`
+. New task gets created with the exact same attributes as the task to be completed.
+. New task is set to COMPLETED
+. setTask method is called to replace the task to be completed with the new task
+. TeethHub's stored list of patients is searched to look for a patient matching the task's linked patient's NRIC
+. Retrieves the found patient and adds a record to the patient.
+. setPerson method is called to replace the matching patient with the new patient who has the added record.
+. Command execution ends and result is returned back to the user.
+
+[NOTE]
+The current `patientedit` and `patientdelete` commands have been modified to update tasks linked to a patient when said patient gets modified or deleted. However, to keep in line with the concept of Defensive Programming, the execution still check and inform the user in an event where the `LinkedPatient` cannot be found.
+
+The following sequence diagram illustrates an example where command executes on task with the index `1`:
+
+image::TaskDoneSequenceDiagram.png[width=""]
+
+==== Task Calendar feature
+
+The `taskcal` command is a feature implemented to allow the user to view task related data in a more interactive and helpful manner. Executing the command creates a popup window with the list of tasks on the left side and a calendar on the right side. The popup window will also have a commandbox where the user is able to key in task related commands, dates in the format of `dd-mm-yyyy` to navigate the calendar or exit and help as miscelleanous commands.
+
+This feature also enables the user to find tasks depending on the `date` they provide in the commandbox or the date cell they click on such that the task list will update to show users the tasks with start dates and/or end dates on the selected date cell.
+
+[NOTE]
+Closing the Main Window whilst the Task Calendar popup is showing will also close the popup automatically. This is implemented intentionally as the popup is designed to be an extension of the Main Window, not a standalone window.
+
+The calendar is generated with modifications to the date cells being done during the generation process. Modifications to the date cells (e.g. changing font colors, overlaying a circle) are done to highlight date cells with the color of task priority.
+
+The class `CalendarWindow` uses a `HashMap` with the date, as the key and priority number, as a value,to store the start date and end date information from tasks stored in TeethHub, replacing the stored value with a highest priority value between the duplicates. This enables the date cells to be compared with the stored values amidst the generation process, choosing which date cells to highlight with the highest priority color.
+
+The UI components of this feature are implemented using classes from `JavaFX` with the most important component being `DatePicker` which allows a calendar to be drawn up and displayed to the user. The implementation overrides the `updateItem()` method from `DatePicker` to enable modifications to be done to the date cells in the calendar.
+
+[NOTE]
+Color scheme and certain font sizes of the Calendar are done using Cascading Style Sheets (CSS) in a `Calendar.CSS` file found under resources. Changes can be made to the CSS file to change color schemes of the calendar if needed
+
+The following swimlane activity diagram illustrates the process in which the application goes through to create and display the interactive calendar for the user:
+
+image::TaskCalendarSwimLaneDiagram.png[width=""]
+{nbsp}
+
+==== Design Considerations
+
+===== Aspect: Storing the task class
+
+* **Current implementation:** Tasks are stored in the same json file as patients.
+** **Alternative:** Store the tasks in a seperate json file
+*** Alternative Pros: Very unlikely to have a very large json file by saving different data types to a different file.The single json file that stores the data will not become too large if there are too many patients and/or tasks. Reduces the likelihood that the size of the json file will exceed the limit of certain file systems like FAT-32 with a limit of 4GB, which would result in the application being unable to save to the file.
+*** Alternative Cons: Increases time spent opening a seperate json file. This results in more I/O work for application, decreasing application load time.Complicated to implement and affects future storage and I/O features. Implementation would affect I/O features that may need to read from the files to export both patients and tasks. Sets a precedent where new data types added in the future should be stored seperately for consistency, which would affect `export` and `import` commands as they have to be changed to read a new file to export/import.
+** **Choice Justification**: Most operating systems these days utilize a filesystem that allows for filesizes far beyond 4GB. The limit can go up to 2^64 bytes in NTFS for example and in almost all cases, it is unlikely for the a dentist to have such a large number of patients and tasks. Compared to the cons of the alternative where performance and increased likelihood of issues in the futre, the pros that the alternative offers do not seem valid enough to justify using it over the current choice.
+
+
+===== Aspect: Representing the Priority class attribute for Task
+
+* **Current implementation:** Java's special Enumeration (Enum) class is used for the Priority class
+** **Alternative:** Use a normal class type, with string as inner attribute for Priority.
+*** Alternative Pros: Priorities can be named anything the user desires such as "code red", "code blue" for example. Easy to implement as it functions similarly to how `name` and `title` works.
+*** Alternative Cons: Priority tracking depends on the user's own memory of what he/she named them and sees as a higher priority, making it difficult for the program to display the appropriate color for priorities to benefit users. Goes against good programming practice which is to use enum for values that should not be changed and Enum is typically used to store priority types.
+** **Choice Justification**: Priorities being represented as "high", "med" and "low" is a common case and as such, most if not all people should be able to understand the naming convention. While giving freedom to the user is typically beneficial, in this case, it prevents the application from providing better more value to the user. The current choice uses terms that are understandable whilst providing benefits to the user by enabling a consistent colored display of priority tags.
+
+==== Aspect: Modifying task and patient when executing `taskdone` command
+
+* **Current implementation:** Target task and patient are replaced with new instances with priority changed and record added respectively.
+** **Alternative:** Modify the target task and linked patient directly.
+*** Alternative Pros: Easy to implement as they already have methods to perform the operations Requires less operations to execute the command, leading to performance increase.
+*** Alternative Cons: Completing a task does not work with undo and redo due to the way the model is implemented.
+** **Choice Justification**: The current choice enables undo and redo to work with the task autocomplete feature, enabling tasks to be un-completed by using the undo command. This is important as the user could potentially key the wrong index when completing a task and wish to undo the command without having to manually edit the task. From tests done with the alternative, the performance increase is also  negligible at best. The lack of a strong benefit does not make up for the inability to undo/redo making the alternative less desirable as compared to the current choice.
+
+==== Aspect: Data strcuture to support Task Calendar generation
+
+* **Current implementation:** HashMap is used to store dates that have task's starting and/or ending.
+** **Alternative:**  Use an ArrayList to store the dates instead.
+*** Alternative Pros: Does not require its stored values to have an `equals()` method. Lower memory consuption as there is no need to store both a key and a value. Retrieves elements with `get()` in O(1) time with a specified index.
+*** Alternative Cons: Checking if an element exists within is O(n) time as the entire arraylist needs to be checked. Requires knowing the actual index in order to utilize the benefit of an O(1) retrieval.
+** **Choice Justification**: The generation of the calendar page requires a data structure that can check if a particular date is contained within itself in order to decide whether a date cell should be highlighted or not. Arraylist would be slower in this case as it would have to peform an O(n) every time a task gets iterated compared to the O(1) a HashMap offers. There is also no need to implement an `equals()` method for the DateCustom object to be stored as it is already implemented to ensure that there are no duplicate tasks. In this case, the current choices is a much better fit as compared to arraylist to support the calendar feature.
+
+==== Aspect: Method of displaying Task Calendar
+
+* **Current implementation:** Task Calendar window is displayed in a seperate popup.
+** **Alternative:** Display the calendar in another pane in the Main Window.
+*** Alternative Pros: Everything can be shown at one glance to the user. No need to shuffle between windows. No need for a command to make the calendar show.
+*** Alternative Cons: Other elements displayed in the Main Window have to be shrunk along with the calendar's contents to make space for the task calendar to be viewed. Main Window would be displaying too many things.
+** **Choice Justification**: Shrinking all elements in the Main Window would adversely affect the visibility of other important features the application provdies such as the patient's information, the list of patients and list of tasks. This reduces the user experience as content cannot be clearly seen. Following the traditional usage of a calendar, most people typically look at a calendar when the need arises such as planning or scheduling. It would be better for a command to be provided and show the user a clear and distinct calendar only when he/she requires it, making the current choice ideal.
+
+// end::taskDG2_cchj1995[]
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -524,16 +656,13 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+=== Viewing Information
 // tag::findimplement[]
-=== Find feature
-==== Current Implementation
-
+==== Find feature
 The Find mechanism is facilitated through the use of predicates in conjunction with the
 `FilteredList` within `ModelManager`
 
-image::FindCommandSequenceDiagram1.png[width="800"]
-
-The above sequence diagram gives an overview of how a `Find` Command is created. When the proper string arguments for
+The below sequence diagram gives an overview of how a `Find` Command is created. When the proper string arguments for
  a Find Command is entered into the user interface, the arguments are passed to the Logic Manager and then the
  AddressBook parser to determine if the input is valid. If it valid, a new `FindCommandParser` object is then created
   and handles the remaining user input.
@@ -545,21 +674,126 @@ respective parameter `ContainsKeywordsPredicate` if the parameter is present wit
  creation of a `FindCommand` object. On success, the `FindCommand` object is returned to the LogicManager as per the
  flow in the sequence diagram.
 
-Whereas the sequence diagram below
-gives an overview of it's execution behavior.
+On execution of the Find Command, `updateFilteredPersonList` is called with the predicate stored within the program
+itself. It subsequently calls `setPredicate(predicatte)` and updates the displayed person list to only show patients
+that matches the given predicate.
 
-_{Placeholder for second execution sequence diagram}_
+image::FindCommandSequenceDiagram1.png[width="800"]
 
 ==== Design Considerations
-===== Aspect: Creation of Predicates
+===== Aspect: Creation of Predicate Classes
 
-* **Alternative 1 (current choice):** Every associated parameter that is found within either a `Patient` or `Record`
-class has an associated `ContainsKeywordsPredicate` that handles the predicate testing when that parameter is
-specified to be searched.
-* **Alternative 2:** `Patient` and `Record` would each have an individual associated `ContainsKeywordsPredicate` that
- acts as a "class of classes" that contains each respective paramater predicate class within itself.
+* *Current Implementation:* Every associated parameter that is found within either a `Patient` or `Record`
+class has an associated parameter predicate classes extended from `ContainsKeywordsPredicate` class that handles the
+predicate testing when that parameter is specified to be searched. +
+(E.g. The predicate for Name is handled in `NameContainsKeywordsPredicate`)
+
+** *Alternative 1:* `Patient` and `Record` would each have an individually associated
+`PatientContainsKeywordsPredicate` and `RecordContainsKeywordsPredicate` that
+ contains each respective parameter predicate class within itself.
+
+*** *Alternative Pros:* Collates all parameter predicates relevant to either Patient or Record within a singular
+class. This makes it easier for future developers to discover which file to change should they require to add or
+remove additional parameter predicates from TeethHub.
+
+*** *Alternative Cons:* Violates *Open-Closed Principle* as every time a parameter predicate needs to be added or
+modified, we are forced to modify the code of either `PatientContainsKeywordsPredicate` or
+`RecordContainsKeywordsPredicate` in order to extend its behavior.
+
+** *Choice Justification:* Ultimately, while the current implementation can be considered more troublesome for future
+ developers as they would need to create a new java file for each new parameter, we decided that it was more
+ important for us to maintain proper software engineering principles.
 
 // end::findimplement[]
+
+// tag::sortimplement[]
+==== Sort feature
+The `Sort` mechanism is facilitated through the use of Comparators in conjunction with the Unique Lists for both
+record and patient depending on the programm's mode when the command is called.
+
+Upon parsing the arguments, `SortCommandParser` then checks which mode TeethHub currently is in. If it's in record /
+goTo mode, it creates a `RecordComparator` and returns a `SortRecordCommand`. Otherwise, a `PatientComparator` is called
+instead and returns a `SortPatientCommand` instead.
+
+When the comparator is retrieved,  SortCommandParser then calls `orderChecker` from itself to determine the
+`isReverse` boolean. Finally, the respective parameters are used to create the neccessary `SortCommand` and returns
+it to `AddressBookParser` and then `LogicManager`.
+
+On execution, there are two behaviours can occur depending on whether the `SortCommand` is a `SortPatientCommand` or
+`SortRecordCommand`.  Should it be an instance of `SortRecordCommand`, `sortRecordsBook(c,isReverse)` is called from
+ModelManager, which in turns called `sortRecords(c, isReverse)` from `VersionedAddressBook` and finally calls
+`sortStoredList (c, isReverse)` from `UniqueRecordList`. This sorts the records currently stored according to the
+parsed comparator and hence changes the order records are displayed to the user.
+
+Should it be a `SortPatientCommand` instead, the same logic flow occurs except it that calls the respective patient
+methods and classes instead.
+
+image::SortCommandSequenceDiagram.png[width="800"]
+
+==== Design Considerations
+===== Aspect: Implementation of sort
+
+* *Current Implementation:* `SortPatientCommand` & `SortRecordCommand` extends from a super `SortCommand` class and
+share a common `SortCommandParser`. They hence share the same command words and allows the user to simply enter
+`sort` to sort either the displayed patients or records.
+
+** *Alternative 1:* Create separate parsers and commands for sorting patients and records respectively.
+`PatientSortCommand` and `PatientSortParserCommand` could sort patients while in patients mode while
+`RecordSortCommand` and `RecordSortParserCommand` could sort records while in records mode.
+
+*** *Alternative Pros:* A clearer distinction of what mode the program is in would be made to the user. Additionally,
+ it would be easier to change the parser behavior if necessary in the future of either sort command without affecting
+ the other.
+
+*** *Alternative Cons:* It would no longer be possible to change any shared behavior of both sort commands simply by
+modifying the SortCommand super class.
+
+** *Choice Justification:* Ultimately, we decided on having a parent SortCommand with its two SortPatientCommand and
+SortRecordCommand children share a common SortCommandParser. Aside from the fact that `SortRecordCommand` calls the
+Record equivalent methods and classes that `SortPatientCommand` does, the behavior of both sort commands are
+essentially the same. As such, it made more sense for us to go ahead with our current implementation.
+
+// end::sortimplement[]
+
+// tag::statimplement[]
+==== Stat feature
+The `Stat` mechanism is facilitated through the use of the inbuilt JavaFx framework in conjunction with the data
+stored within each `Patient` object.
+
+Upon execution of the stat command, the patient to have statistics generated from is set to the `StatWindow` file
+which then uses it to create the report. As per the diagram below, `StatWindow` then obtains all attributes from the
+patient and sets the latest teeth image to itself.
+
+The `StatWindow` then creates a `Map<String, Integer>` with all the valid procedure values
+found in `Procedure` as the keys and the values set to 0. `StatWindow` subsequently iterates through all the records
+linked to the set patient checking for the record's procedure type, incrementing the value paired the respective
+procedure by 1 on a hit. It is from this Map that the records table is generated as well as the bar chart. The pie
+chart uses the Map as well while ignoring entries whose values have remained at 0.
+
+It is at this point that all necessary data has been populated within the statistics report and it is displayed to
+the user.
+
+image::StatActivityDiagram.png[width="800"]
+
+==== Design Considerations
+===== Aspect: Selecting the desired patient to stat
+* *Current Implementation:* The selected patient is determined by the Index number of the currently displayed
+patients within the `PatientListPanel`
+
+** *Alternative 1:* The selected patient is determined by a given keyword. Upon entering the keyword, the program
+then searches for the patients that match the keyword. Should multiple patients match the keyword, the command would
+fail and the user would be prompted to refine their search.
+*** *Alternative Pros:* Combines `patientfind` and `stat` together, giving the user greater convenience should they
+know enough unique details of the patient they wish to stat.
+
+*** *Alternative Cons:* Reduces the ease of use of the stat command. As the amount of patients stored within the
+program increases, so does the probability that the entered keywords would match multiple patients.
+
+** *Choice Justification:* Ultimately, we decided to stick with Index based selection as it increases the ease of use
+ for the user when there's a large number of patient entries. As the Index references the displayed patients, the user
+ can hence perform a `patientfind` operation beforehand and locate the desired patient.
+
+// end::statimplement[]
 
 === File Management
 Although TeethHub already has a built-in auto-load and auto-save, implementing file management would give the user more flexibility with managing data. +
@@ -1238,30 +1472,42 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 // tag::patient_user_stories_kyler[]
 |`* * *` |user |add a new patient's particulars |know about their situation
 
-|`* * *` |user |edit my patient's particulars when the situation changes |their personal information remains updated
+|`* * *` |user |edit my patient's particulars | their personal information remains updated
 
-|`* * *` |user |my patients' medical records and teeth data tied to them |know how their situation evolved
+|`* * *` |user |store my patient's teeth | track their teeth condition
 
-|`* * *` |user |store, edit, and view my dental patients' teeth condition |understand and serve my dental patients'
-teeth condition better
+|`* * *` |user |modify my dental patients' teeth condition | understand and serve my dental patients'
 
 |`* * *` |user |isolate other patients' information |focus on the current patient in my clinic
 
-|`* * *` |user |view my patients' dental records |understand and keep track of my patients' teeth health history
+|`* * *` |user |view my patients' dental records | keep track of my patients' teeth health history
 
-|`* * *` |user |add a new dental record |store diagnosis and treatments of my patients during their dental sessions
+|`* * *` |user |add a new dental record | store diagnosis and treatments of my patients
 
 |`* * *` |user |delete a dental record |remove records that have become redundant or irrelevant
 
-|`* * *` |user |edit a dental record |correct or modify descriptions of dental records that I have already added
+|`* * *` |user |edit a dental record | correct existing dental records
 
-|`* * *` |user |clear all dental records of a patient |protect the privacy of my patients if they require me to
+|`* * *` |user |clear all dental records of a patient | protect the privacy of my patients
 // end::patient_user_stories_kyler[]
+
+// tag::task_user_stories_cchj1995[]
+
 |`* * *` |user |add a new task |keep track of what I need to do
 
 |`* * *` |user |delete a task |remove tasks that I have already completed or no longer need to do
 
 |`* * *` |user |edit a task |change details of certain tasks that I have already added
+
+|`* * *` |user |link a patient to a task | differentiate between tasks that are meant for a patient and normal tasks
+
+|`* * *` |user | set a task to complete | mark a task as done without needing to edit it again and add a record automatically if the task is linked to a patient
+
+|`* * *` |user | add a record automatically upon completing a task | save time after completing a task that relates a patient by having the record added automatically
+
+|`* * *` |user | view tasks in a calendar | see all the dates in which I have tasks starting or ending, keeping better track of urgency of tasks and deadlines
+
+// end::task_user_stories_cchj1995[]
 
 |`* * *` |user |see a statistics report on each patient's dental history |have an easier time understanding their potential problems
 
@@ -1553,6 +1799,56 @@ _{ more test cases ... }_
 ... Other incorrect recorddelete commands to try: `recorddelete`, `record delete`, `recorddelete x` (where x is larger than the list size), `recorddelete y` (where y is a negative number), `recorddelete z` (where z is not an integer) +
    Expected: Similar to previous.
 // end::manual_patient_kyler[]
+
+// tag::manualTesting_cchj1995[]
+=== Adding a task
+
+. Adding a new task while all tasks are listed
+
+.. Prerequisites: List all tasks using the `tasklist` command Tasks should all be displayed in the task list. No tasks with the exact same attributes as the test cases are present in the list.
+... Test case: `taskadd ti/Test task sd/today st/1200 et/1300 pri/HIGH` +
+   Expected: Task with the title "Test task" is added for with the current date as the start date and end date, a start time of 1200, end time of 1300 and a high priority tag displayed in red, should be added at the bottom of the list of all tasks.
+... Test case: `taskadd ti/Test task 2 sd/11-05-2019 ed/16-05-2019 ti/Test task 2 st/1200 et/1300` +
+   Expected: Task with the title "Test task 2" is added with a start date of 11-05-2019, an end date of 16-05-2019, a start time of 1200, end time of 1300 and a high priority tag displayed in red, should be added at the bottom of the list of all tasks.
+... Test case: `taskadd ti/Test task 2 st/1200 et/1300` +
+   Expected: No task is added. Error details shown in the status message showing proper command usage.
+... Test case: `taskaddti/Test task 2 st/1200 et/1300` +
+   Expected: No task is added. Error details shown in the status message stating an unknown command.
+... Other incorrect taskadd commands to try: `task add`, `taskad d ti/Test task sd/today st/1200 et/1300 pri/HIGH` +
+Expected: Similar to previous.
+
+=== Editing a task
+
+. Editing a new task while all tasks are listed
+
+.. Prerequisites: List all tasks using the `tasklist` command. There are more than 3 tasks present. Tasks should all be displayed in the task list. No tasks with the exact same attributes as the test cases are present in the list.
+... Test case: `taskedit 1 ti/New Edited Title` +
+   Expected: First task in the list of tasks has its title changed to "New Edited Title".
+... Test case: `taskedit 2 ti/New Edited Title 2 sd/today ed/today` +
+   Expected: Second task in the list of tasks has its title changed to "New Edited Title 2", its start date and end date changed to the current date.
+... Test case: `taskedit 3 ti/New Edited Title 3 sd/today ed/today st/1300 et/1200` +
+   Expected: No task is edited. Error details shown in the status message stating that start time cannot be before end time if start date is the same as the end date.
+... Test case: `taskedit x ti/New Edited Title` (where x is larger than the number of tasks listed) +
+   Expected: No task is edited. Error details shown in the status message stating that the task index provided is invalid.
+... Test case: `task edit 1 ti/New Edited Title 4` +
+Expected: No task is edited. Error details shown in the status message stating an unknown command.
+... Other incorrect taskadd commands to try: `tasedit`, `taskedit/ti/Test task sd/today st/1200 et/1300 pri/HIGH` +
+Expected: Similar to previous.
+
+=== Deleting a task
+
+. Deleting a task while all tasks are listed
+
+.. Prerequisites: List all tasks using the `tasklist` command Tasks should all be displayed in the task list.
+... Test case: `taskdelete 1` +
+   Expected: First task is deleted from the list. Details of the deleted task are shown in the result display box.
+... Test case: `taskdelete 0` +
+   Expected: No record is deleted. Error details shown in the status message showing invalid command format.
+... Test case: `taskdelete0` +
+   Expected: No record is deleted. Error details shown in the status message stating an unknown command.
+... Other incorrect recorddelete commands to try: `taskdel`, `task delete` +
+   Expected: Similar to previous.
+// end::manualTesting_cchj1995[]
 
 // tag::manualtestingJH[]
 === Exporting data

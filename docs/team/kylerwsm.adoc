@@ -3,51 +3,72 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== About the Project: TeethHub
+== PROJECT: TeethHub
 
-TeethHub is a desktop application specially designed for tech-savvy dentists, who prefers to use the command line interface, as opposed to the traditional graphical user interface.
+In a software engineering module in school, my team was given a brownfield development task to enhance an existing application: The AddressBook 4.
+
+My team and I took a step further, to morph the provided application into one of our choice. The result was TeethHub.
+
+This portfolio documents my contributions to TeethHub and showcases my technical writing and documentation skills.
+
+== Overview
+
+TeethHub is a desktop application specially designed for tech-savvy dentists, who prefers to use the command line interface.
 
 The user interacts with the application through the type via the command line interface, and graphical representations of the stored data will be shown.
 The program is written in Java.
 
+As of version 1.4: +
+TeethHub allows Dentists to manage patient information, records of each patient and tasks for the dentist. TeethHub can also export them to a PDF file. +
+TeethHub displays the latest teeth information in the form of an image that follows the *Universal Numbering System* dental notation.
+TeethHub displays statistics generated from all patients and records stored in it.
+
+The GUI of TeethHub is created with JavaFX. TeethHub is written in Java, and has about 20,000 lines of code. +
+TeethHub was morphed from AddressBook 4, which had about 10,000 lines of code.
+
 == Summary of contributions
 
-* *Major enhancement*: enhanced the *person* storage into a *dental patient* storage
-** What it does: This new data structure allows our users to store personal information of patients.
-** Justification: This data structure creates the foundation of the product, as TeethHub is an application which manages dental patients for our users.
-** Highlights: This enhancements affects existing commands and commands to be added in the future.
-The development of patient required an in-depth knowledge of the dentistry industry.
-The implementation too was challenging as it required major changes to existing commands.
+|===
+|_Given below is a summary of my contribution to TeethHub._
+|===
 
-* *Major enhancement*: added the ability to *store and manage dental records* to patients
-** What it does: This allows our users to store dental records on TeethHub, which will be linked to a specified dental patient.
-** Justification: This feature is essential to TeethHub as the product wish to offload the workload for dentists, and dental records are the primary documents which dentists handle.
+* *Major enhancement*: greatly enhanced and developed the *person* class into a *dental patient* class
+** What it does: This new data structure allows our users to manage extensive information about their dental patients, such as personal information, next-of-kin information, dental records, and teeth layouts.
+** Justification: This data structure is the foundation of our product, as TeethHub is an application which aims to assist our dentist users by improving the way they manage their dental patients and records.
+** Highlights: This enhancement affects existing commands and commands to be added in the future.
+The development of patient required an in-depth knowledge of the dentistry industry, and their common practices.
+The implementation too was challenging as it required major changes to existing commands.
+Furthermore, it demanded thorough object-oriented thinking and planning as it consists of numerous inter-related classes.
+
+* *Major implementation*: Records Mode, an intuitive *storage manager for dental records*
+** What it does: This implementation prompts our users specify a patient before they can manage dental records or edit teeth statuses tied to the specified dental patient. A separate but intuitive user interface is also built for users to facilitate a better user experience in records and teeth management.
+** Justification: This feature is essential to TeethHub as the users are expected to handle heavy workloads involving dental records and teeth information of patients.
 ** Highlights: This enhancement affects how data is stored, written and read.
 It required a thorough understanding of the design requirements, as well as its constraints.
 The implementation too was demanding, as many factors need to be considered.
 
-* *Minor enhancement*: added a goto command that allows the user to navigate to the specified patient's record list from the current patient list.
+* *Minor enhancement*: added a goto command that allows the user to navigate to the records mode, which displays a specified patient's record list.
 
-* *Minor enhancement*: added a back command that allows the user to return back to the patient list from the current record list.
+* *Minor enhancement*: added a back command that allows the user to return back to the patients mode, which displays all the stored patients.
 
-* *Minor enhancement*: added a new user interface which displays the dental record information of a specified patient.
-
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: `https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=kylerwsm[via RepoSense]`
 
 * *Other contributions*:
 
 ** Project management:
 *** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
+
 ** Enhancements to existing features:
 *** Added a new GUI to allow users to interact with a specific patient's dental records.
-*** Wrote additional tests for new features to increase coverage significantly (0.6%).
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Wrote additional tests for new features to significantly increase coverage (~1%).
+
+** Contributions to team members' enhancements:
+*** Suggested the idea of using user-interface switching, which is essential to user experience.
+*** Suggested the idea to use various color tagging to denote tooth conditions of patients.
+*** Ran manual testings and reported found bugs and issues on the group reposition on GitHub (e.g. https://github.com/CS2103-AY1819S2-W17-2/main/issues/57[1], https://github.com/CS2103-AY1819S2-W17-2/main/issues/58[2]).
+
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** Reported bugs and suggestions for other teams in the class (e.g. https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/117[1], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/415[2])
 
 == Contributions to the User Guide
 
@@ -55,9 +76,163 @@ The implementation too was demanding, as many factors need to be considered.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+=== Patient Management
 
-include::../UserGuide.adoc[tag=dataencryption]
+Patient management allows our users to store and modify information of their dental patients.
+This includes their personal particulars, next-of-kin information, dental records, and teeth conditions.
+
+==== Patient Add
+
+This command adds a patient to the patients list.
+
+Name, NRIC, and Date of Birth fields are compulsory.
+The rest are optional fields, and can be filled in later via the `recordedit` command.
+
+Format: `patientadd PARAMETERS …` or `padd PARAMETERS …`
+
+[NOTE]
+TeethHub determines the uniqueness of patients based on their `NRIC`.
+
+Example:
+
+* `patientadd n/John Choo sex/M ic/S1234567H dob/09-09-1995`
+
+==== Patient Edit
+
+This command edits the information of an existing patient.
+
+Format: `patientedit INDEX [PREFIX/KEYWORDS]` or `pedit INDEX [PREFIX/KEYWORDS]`
+
+* Edits the patient at the specified index shown from list or find command.
+Must be a positive integer (e.g 1, 2 or 3).
+
+* Input the prefix followed by the new value to replace the existing data.
+** The full list of possible prefixes can be found in <<Breakdown of attributes used within TeethHub>>
+
+* The given index must be a positive integer (e.g. 1, 2, or 3…).
+
+Example:
+
+* `patientedit 1 ic/S1234567A` -- Edits the `NRIC` of the first patient in the patient list.
+
+==== Go To
+
+The goto command specifies a patient by index, and brings the user to the records mode, where all dental records of the specified patient are listed.
+
+Format: `goto 1`
+
+* Goes into records mode and displays all dental records of patient 1.
+
+* The given index must be a positive integer (e.g 1, 2 or 3…)
+
+==== Back
+
+The back command can only be run in records mode.
+It brings the user back to the patients mode, where all patients will be listed.
+
+Format: `back` -- Brings the user back to patient mode.
+
+[NOTE]
+The `back` command will work with parameters, but they will be ignored.
+
+==== Record Add
+
+This command adds a new dental record to the patient.
+
+[NOTE]
+`recordadd` requires the application to first be in records mode, via the `goto` command.
+
+Format: `recordadd pro/PROCEDURE desc/DETAILS or `radd pro/PROCEDURE desc/DETAILS`
+
+* The program assigns the name of the dentist stored in the dentist information
+
+* The program assigns the date of record as the date the record is created.
+
+* When records of a patient is accessed, the stored records are sorted from newest to oldest.
+
+* New dental records will appear on the top of the list upon entry.
+
+Example
+
+* `<<goto, goto>> 1` - Displays dental records of the first patient in the list and hides the patient list.
+
+* `recordadd desc/Mouth was noticeably smelly, might have halitosis` - Adds a new dental record.
+
+* `<<back, back>>` - Go back to the patient list.
+
+==== Record Edit
+
+This command edits a patient’s dental record.
+
+[NOTE]
+`recordedit` requires the application to first be in records mode, via the `goto` command.
+
+Format: `recordedit INDEX desc/DETAILS` or `redit INDEX desc/DETAILS`
+
+* Edits the patient's dental record at the specified index.
+
+* The index refers to the index number shown in the displayed dental record list.
+
+* The given index must be a positive integer (e.g 1, 2 or 3…)
+
+* The new description stated in the command will replace the old description in the specified dental record.
+
+Example:
+
+* `<<goto, goto>> 1` - Displays dental records of the first patient in the list and hides the patient list.
+
+* `recordedit 1 desc/corrected description` - Modifies the description of the first dental record of the specified patient.
+
+* `<<back, back>>` - Go back to the patient list.
+
+==== Teeth Create
+
+There is no command required for this feature, as the application automatically generates and stores a new set of all healthy permanent teeth for newly added patients.
+
+TeethHub complies with the most popular standard of the three the Dental Numbering Systems utilised in Dentistry - The Universal Numbering System.
+
+The upper-case letters A through T are used for primary teeth and the
+numbers 1 - 32 are used for permanent teeth. The tooth designated "1" is
+the maxillary right third molar ("wisdom tooth") and the count continues
+along the upper teeth to the left side. Then the count begins at the
+mandibular left third molar, designated number 17, and continues along
+the bottom teeth to the right side. Each tooth has a unique number or
+letter, allowing for easier use on keyboards.
+
+[NOTE]
+At the moment, only the permanent teeth type is supported.
+
+==== Teeth Edit
+
+This command edits a specific tooth of a patient.
+
+Format: `teethedit t/TEETH_LABEL s/STATUS`
+
+* `TEETH_LABEL` are integers 1 to 32, which represents a tooth according to the Universal Numbering System.
+
+* Valid `STATUS` are 0 (for healthy tooth), 1 (for problematic tooth), or 2 (for missing tooth).
+
+Example:
+
+* `<<goto, goto>> 1` - Specifies patient 1 to edit his or her teeth status. User enters the records mode.
+
+* `teethedit t/31 s/2` - This edits the status of tooth 31 of the specified patient to missing.
+
+* `<<back, back>>` - This command allows the user to exit the record edit mode, returning to the patients mode.
+
+=== Breakdown of attributes used within TeethHub
+[cols=",,,,,,,", options="header",]
+|===
+8+^|List of valid prefixes
+
+4+| *Patient* 2+| *Record* 2+| *Next-of-Kin*
+|*Prefix* | *Attribute* |*Prefix* | *Attribute* | *Prefix* | *Attribute* | *Prefix* | *Attribute*
+|n/ | Name |sex/ | Sex | pro/ | Procedure | nokn/ | NOK Name
+|ic/ | Nric |dob/ | Date of Birth |desc/ | Description | nokp/ | NOK Phone
+|p/ | Phone |e/ | Email | | | nokr/ | NOK Relation
+|a/ | Address | | | | | noka/ | NOK Address
+
+|===
 
 == Contributions to the Developer Guide
 
@@ -67,18 +242,14 @@ include::../UserGuide.adoc[tag=dataencryption]
 
 === Implementations
 
-=== Patient Management Feature
-==== Current Implementation: Storing Patient's Information
+=== Patient Management
+==== Patient Feature
 
 The `Patient` class represents patients for our users on TeethHub.
 It extends `Person` with more patient-specific attributes, as well as methods.
 Various methods are also overridden in order for them to work appropriately with the new `Patient` class.
 
-The following class diagram summarizes the new `Patient` class, which extends from `Person`:
-
-image::PatientClassDiagram.png[align="center", width="400"]
-
-==== Current Implementation: Patient's Dental Records
+==== Dental Records Feature
 
 The `Record` class represents a dental record of a patient. Each `Patient` class has an list of `Record` as an attribute.
 
@@ -86,7 +257,7 @@ The `Record` class is purposely implemented to be similar to that of `Person`.
 Just like person, record has associate classes for specific operations, such as storage.
 This ensures that the processing of records is streamlined with `Patient`, which extends `Person`.
 
-==== Current Implementation: Interface to interact with Patient's Dental Records
+==== Records Mode Feature
 
 The current implementation to view a specified patient's dental records uses the `goto` command.
 
@@ -128,21 +299,18 @@ If the `back` command is entered while the window is already showing patients, a
 
 The following activity diagram summarizes what happens when a user executes the `goto` or `back` command:
 
-image::GotoActivityDiagram.png[align=center, width="800"]
-{nbsp}
+image::GotoActivityDiagram.png[width="400"]
 
-==== Current Implementation: Representing Patient's Teeth
+==== Patient's Teeth Feature
 
 The `Teeth` class represents patients' teeth for our users on TeethHub.
 It consist of an array of `Tooth` objects, which represents the individual tooth of patients.
 
 [NOTE]
-When a patient is added by the user, TeethHub automatically creates a new set of all healthy and present teeth for the new patient.
-At this point of time, only permanent teeth is supported.
+When a patient is added by the user, TeethHub automatically creates a set of healthy teeth for the new patient.
 
 Each `Tooth` can be present or absent. If it is present, it can be on or off status.
 A tooth on status would mean that it is a problematic tooth (i.e. decaying tooth or dental prosthesis).
-A optional status message can be tied to each tooth on status, allowing our users to have a better overview of the tooth if necessary.
 
 The command to edit a specific tooth of a patient is: `teethedit INDEX`.
 
@@ -152,32 +320,9 @@ The `teethedit` command can only run after a patient is specified via the `goto`
 
 The following class diagram summarizes the `Teeth` class, which is a composition of the `Tooth` class:
 
-{nbsp}
+image::TeethClassDiagram.png[width="200"]
 
-image::TeethClassDiagram.png[align=center, width=""]
-{nbsp}
-
-==== Current Implementation: Automatically Generated Tags
-
-There are only two types of tags that are valid in the `Patient` class.
-They are `StatusTag` and `TeethTag`.
-At any time, there can only be one of each kind of those tags.
-Unlike in `Person`, users cannot added their own tags to patients.
-We have implemented patient tags to be fully automated by our application.
-
-`StatusTag`: Describes the condition of the patient's teeth. The valid options are "Healthy Teeth", "Status Teeth", and "Absent Teeth".
-The worst tooth status found in the patient's teeth will be reflected in the teeth status tag.
-
-The activity diagram below demonstrates how TeethHub automatically update the patient's status tag when his or her tooth is edited:
-
-image::StatusTagActivityDiagram.png[align=center, width=""]
-
-`TeethTag`: Describes the teeth type of the patient. The valid options are "Primary Teeth" or "Permanent Teeth".
-
-[NOTE]
-Since only permanent teeth is supported by TeethHub at the moment, `TeethTag` will always show "Permanent Teeth".
-
-==== Current Implementation: Dentist Information
+==== Dentist Feature
 
 Following the single user policy, TeethHub only prompts the user once to acquire his or her name, which will then be used when creating new dental records for patients.
 
@@ -187,91 +332,51 @@ Currently, the application prompts the user for his or her name during his or he
 Currently, the dentist's name is stored in a `.txt` file in TeethHub.
 It is possible for users to change their name from the `.txt` file, although they are not encouraged to do so.
 
-==== Current Implementation: Other Relevant Commands
-
-We have also created new commands that will facilitate the `Patient` class.
-
-[NOTE]
-The commands below can only be executed after a patient is specified via the `GoTo` command.
-
-`RecordAdd`: Adds a new record to a specified patient.
-
-`RecordEdit`: Edits an existing record of a specified patient.
-
-`RecordDelete`: Deletes an existing record of a specified patient.
-
-`RecordClear`: Clear all records of a specified patient.
-
 ==== Design Considerations
 
 ===== Aspect: Creating the Patient class
 
-* **Alternative 1 (current choice):** Create the `Patient` class by extending it from `Person`.
-** Pros: It is intuitive, as it is logical that all patients are persons as well.
+* **Current implementation:** Create the `Patient` class by extending it from `Person`.
+** **Alternative:** Create the `Patient` class from the bottom-up.
+*** Alternative Pros: As `Patient` will not be a subclass of any other class, it will be less affected by changes in other classes.
+*** Alternative Cons: All existing classes and methods which currently work with `Person` needs to be re-written to work with the new `Patient` class.
+Attributes and methods cannot be reused, and must be re-implemented.
+Lastly, polymorphism cannot be applied in cases where there is a need to deal with both persons and patients.
+** **Choice Justification:** It is intuitive, as it is logical that all patients are persons as well.
 The code from `Person` can be reused in `Patient` through inheritance, and all existing classes and methods which work with `Person` will also work with `Patient`.
 Most importantly, it allows us to make use of the object-oriented programming principles we learnt in class.
 We assume that the Open-Closed Principle is applied on the `Person` class.
-** Cons: Any changes to `Person` may affect `Patient`.
-* **Alternative 2:** Create the `Patient` class from the bottom-up.
-** Pros: As `Patient` will not be a subclass of any other class, it will be less affected by changes in other classes.
-** Cons: All existing classes and methods which currently work with `Person` needs to be re-written to work with the new `Patient` class.
-Attributes and methods cannot be reused, and must be re-implemented.
-Lastly, polymorphism cannot be applied in cases where there is a need to deal with both persons and patients.
-
-===== Aspect: Picking the appropriate data structure to store dental records
-
-* **Alternative 1 (current choice):** Store the records using a list.
-** Pros: It is easy to understand, which is crucial for collaborative programming as other programmers may require accessing the records in the list.
-It can also save new records in the order of when they are added, from most recent to oldest, simply using `List.add(0, Record)`.
-** Cons: If the list gets long over time, it might cause additional waiting time for our users when they would to search for a specific record.
-This is because a linear search in a list is of O(n) time complexity.
- * **Alternative 2:** Store the records using a hash table.
- ** Pros: It gives the fastest time complexity if a record search is required. It runs in O(1) time.
- ** Cons: It can be challenging for collaborators to understand, which can be detrimental for collaborative programming.
- It also creates an extra layer of complexity in order to display the stored records in the order they were first stored in the application by our users.
 
 ===== Aspect: How the goto command executes
 
-* **Alternative 1 (current choice):** Use a static variable to store the specified patient, with a public getter method, and a static boolean that denotes the current list viewing mode.
-** Pros: This is relatively easy to implement and understand. Furthermore, other classes can easily access the current specified patient, and the current list viewing mode.
-** Cons: May cause complications if MainWindow is no longer a singleton class.
-* **Alternative 2:** Save the specified patient and list viewing mode as an instance variable of MainWindow.
-** Pros: Will work properly even if MainWindow is no longer a singleton class.
-** Cons: Challenging to implement as major revamp is required to most existing classes and tests.
+* **Current implementation:** Use a static variable to store the specified patient, with a public getter method, and a static boolean that denotes the current list viewing mode.
+** **Alternative:** Save the specified patient and list viewing mode as an instance variable of MainWindow.
+*** Alternative Pros: Will work properly even if MainWindow is no longer a singleton class.
+*** Alternative Cons: Challenging to implement as major revamp is required to most existing classes and tests.
 All new classes which wish to access the specified patient or list viewing mode will need to take in a reference to the MainWindow instance.
-
-===== Aspect: Data structure to support the goto command
-
-* **Alternative 1 (current choice):** Use a patient variable to store the patient specified by the command.
-** Pros: An intuitive solution, as the specified patient is stored as an exact same class as a patient.
-Additionally, attributes of the specified patient can be accessed just like any other patient class.
-Changes to the patient class does not significantly affect the goto command.
-** Cons: The patient class is mutable, and accidental changes to its attributes by other classes or methods can occur.
-* **Alternative 2:** Create a new immutable patient variable to store the specified patient.
-** Pros: Ensures the the specified patient cannot be edited by other classes or methods.
-** Cons: Major changes to the patient class would require the immutable patient class to be changed too.
-Furthermore, every time any record of the specified patient is modified, a new immutable patient needs to be created to update the currently stored immutable patient.
+** **Choice Justification:** This is relatively easy to implement and understand. Furthermore, other classes can easily access the current specified patient, and the current list viewing mode.
+However, it may cause complications if MainWindow is no longer a singleton class.
 
 ===== Aspect: Data structure for Teeth
 
-* **Alternative 1 (current choice):** Create a `Tooth` object representing a tooth, and use an array to store a list of tooth which will represent the teeth of patients.
-** Pros: An straightforward object-oriented solution and easy to understand by other collaborating programmers who are familiar with object-oriented programming.
-** Cons: `Tooth` and `Teeth` objects, as well as their relevant methods takes a significant amount of time to be created. They will also require proper test cases to be implemented.
-* **Alternative 2:** Create an integer array representing teeth. Each integer value in the array indicates the status of a tooth.
-** Pros: Simplest to implement.
-** Cons: Can be hard to understand by other programmers as integers are used to represent teeth statuses. Additionally, this is violating object-oriented principles.
+* **Current implementation:** Create a `Tooth` object representing a tooth, and use an array to store a list of tooth which will represent the teeth of patients.
+** **Alternative:** Create an integer array representing teeth. Each integer value in the array indicates the status of a tooth.
+*** Alternative Pros: Simplest to implement.
+*** Alternative Cons: Can be hard to understand by other programmers as integers are used to represent teeth statuses. Additionally, this is violating object-oriented principles.
+** **Choice Justification:** An straightforward object-oriented solution and easy to understand by other collaborating programmers who are familiar with object-oriented programming.
+However, `Tooth` and `Teeth` objects, as well as their relevant methods takes a significant amount of time to be created. They will also require proper test cases to be implemented.
 
 ===== Aspect: Implementing the Dentist class
 
-* **Alternative 1 (current choice):** Use a patient variable to store the patient specified by the command.
-** Pros: An intuitive solution, as the specified patient is stored as an exact same class as a patient.
+* **Current implementation:** Use a patient variable to store the patient specified by the command.
+** **Alternative:** Create a new immutable patient variable to store the specified patient.
+*** Alternative Pros: Ensures the the specified patient cannot be edited by other classes or methods.
+*** Alternative Cons: Major changes to the patient class would require the immutable patient class to be changed too.
+Furthermore, every time any record of the specified patient is modified, a new immutable patient needs to be created to update the currently stored immutable patient.
+** **Choice Justification:** An intuitive solution, as the specified patient is stored as an exact same class as a patient.
 Additionally, attributes of the specified patient can be accessed just like any other patient class.
 Changes to the patient class does not significantly affect the goto command.
-** Cons: The patient class is mutable, and accidental changes to its attributes by other classes or methods can occur.
-* **Alternative 2:** Create a new immutable patient variable to store the specified patient.
-** Pros: Ensures the the specified patient cannot be edited by other classes or methods.
-** Cons: Major changes to the patient class would require the immutable patient class to be changed too.
-Furthermore, every time any record of the specified patient is modified, a new immutable patient needs to be created to update the currently stored immutable patient.
+However, the patient class is mutable, and accidental changes to its attributes by other classes or methods can occur.
 
 === Manual Tests
 
@@ -293,41 +398,6 @@ Furthermore, every time any record of the specified patient is modified, a new i
 .. Test case: `goto` +
    Expected: No GUI elements changed. Error details shown in the status message. Status bar remains the same.
 
-==== Deleting a dental record
-
-. Deleting a record while all dental records of a patient are listed
-
-.. Prerequisites: List all dental records of a patient using the `goto x` command (x refers to the index of the patient to be tested). Multiple dental records should be displayed in the list.
-.. Test case: `recorddelete 1` +
-   Expected: First dental record is deleted from the list. Details of the deleted dental record is shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `recorddelete 0` +
-   Expected: No record is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect recorddelete commands to try: `recorddelete`, `record delete`, `recorddelete x` (where x is larger than the list size), `recorddelete y` (where y is a negative number), `recorddelete z` (where z is not an integer) +
-   Expected: Similar to previous.
-
 === User Stories
-Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="100%",cols="22%,<23%,<25%,<30%",options="header",]
-|=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |user |add a new patient's particulars | know about their situation
-
-|`* * *` |user |edit my patient's particulars when the situation changes | their personal information remains updated
-
-|`* * *` |user |my patients' medical records and teeth data tied to them | know how their situation evolved
-
-|`* * *` |user |store, edit, and view my dental patients' teeth condition | understand and serve my dental patients'
-teeth condition better
-
-|`* * *` |user |isolate other patients' information | focus on the current patient in my clinic
-
-|`* * *` |user |view my patients' dental records | understand and keep track of my patients' teeth health history
-
-|`* * *` |user |add a new dental record | store diagnosis and treatments of my patients during their dental sessions
-
-|`* * *` |user |delete a dental record | remove records that have become redundant or irrelevant
-
-|`* * *` |user |edit a dental record | correct or modify descriptions of dental records that I have already added
-
-|`* * *` |user |clear all dental records of a patient | protect the privacy of my patients if they require me to
+* I have contributed numerous user stories on the Developer Guide, which are related to patients, dental records and teeth.

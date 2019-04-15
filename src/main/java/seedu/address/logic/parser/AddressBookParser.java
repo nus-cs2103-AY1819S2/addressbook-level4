@@ -38,6 +38,9 @@ import seedu.address.logic.commands.RecordAddCommand;
 import seedu.address.logic.commands.RecordClearCommand;
 import seedu.address.logic.commands.RecordDeleteCommand;
 import seedu.address.logic.commands.RecordEditCommand;
+import seedu.address.logic.commands.RecordFindCommand;
+import seedu.address.logic.commands.RecordListCommand;
+import seedu.address.logic.commands.RecordMcCommand;
 import seedu.address.logic.commands.RecordSelectCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SaveCommand;
@@ -241,6 +244,24 @@ public class AddressBookParser {
             checkCalendarCondition();
             isGoTo();
             return new RecordDeleteCommandParser().parse(arguments);
+
+        case RecordFindCommand.COMMAND_WORD:
+        case RecordFindCommand.COMMAND_WORD2:
+            checkCalendarCondition();
+            isGoTo();
+            return new RecordFindCommandParser().parse(arguments);
+
+        case RecordListCommand.COMMAND_WORD:
+        case RecordListCommand.COMMAND_WORD2:
+            checkCalendarCondition();
+            isGoTo();
+            return new RecordListCommand();
+
+        case RecordMcCommand.COMMAND_WORD:
+        case RecordMcCommand.COMMAND_WORD2:
+            checkCalendarCondition();
+            isGoTo();
+            return new RecordMcCommandParser().parse(arguments);
 
         case RecordSelectCommand.COMMAND_WORD:
         case RecordSelectCommand.COMMAND_WORD2:

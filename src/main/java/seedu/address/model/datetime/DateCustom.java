@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a date for tasks.
@@ -46,15 +45,6 @@ public class DateCustom implements DateBuilder, Comparable<DateCustom> {
 
     public static boolean isValidDate(String test) {
         return test.matches(VALIDATION_REGEX);
-    }
-
-    /**
-     *  Returns false if the given date is before the current date
-     * @param test the date to be tested
-     */
-    public static boolean isDateBeforeToday(String test) {
-        String currentDateString = LocalDate.now().format(DateTimeFormatter.ofPattern(getFormat()));
-        return dateCompare(test, currentDateString);
     }
 
     /**

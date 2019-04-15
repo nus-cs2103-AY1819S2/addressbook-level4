@@ -33,6 +33,7 @@ public class TaskDoneCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_TASK_DONE_SUCCESS = "Completed Task: \n%1$s";
+    public static final String MESSAGE_TASK_ALREADY_COMPLETED = "The task is already completed. ";
 
     private final Index targetIndex;
 
@@ -52,23 +53,23 @@ public class TaskDoneCommand extends Command {
 
         Task taskToComplete = lastShownList.get(targetIndex.getZeroBased());
         if (taskToComplete.getPriority() == Priority.COMPLETED) {
-            throw new CommandException("The task is already completed. ");
+            throw new CommandException(MESSAGE_TASK_ALREADY_COMPLETED);
         }
         Task completedTask = taskToComplete.isCopy() ? new Task(taskToComplete) : new Task(taskToComplete, true);
         completedTask.setPriorityComplete();
         model.setTask(taskToComplete, completedTask);
         if (taskToComplete.getLinkedPatient() != null) {
-            Optional<Patient> found = model.getAddressBook().getPersonList().stream().map(x -> (Patient) x)
+            Optional<Patient> foundPatient = model.getAddressBook().getPersonList().stream().map(x -> (Patient) x)
                     .filter(y -> y.getNric().getNric().equals(taskToComplete.getLinkedPatient()
                             .getLinkedPatientNric())).findFirst();
-            if (found.isPresent()) {
-                Patient replacement = found.get();
+            if (foundPatient.isPresent()) {
+                Patient replacement = foundPatient.get();
                 //TODO: Possibly switch Procedure and Description contents?
                 replacement.addRecord(new Record(new Procedure("Other-Completed Task"),
                         new Description(completedTask.getTitle().title)));
-                model.setPerson(found.get(), replacement);
+                model.setPerson(foundPatient.get(), replacement);
                 patientRecordAddedMessage = String.format("\n Added Record to Patient: %s ( %s )",
-                        found.get().getName().fullName, found.get().getNric().getNric());
+                        foundPatient.get().getName().fullName, foundPatient.get().getNric().getNric());
             } else {
                 patientRecordAddedMessage = "\n Linked Patient not found. Record not added.";
             }

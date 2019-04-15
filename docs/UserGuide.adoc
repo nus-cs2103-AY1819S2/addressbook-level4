@@ -134,11 +134,7 @@ For every field, using `< or >` can cause false results. Please do not use them 
 * For `SKILLS` and `POSITIONS`, if more than one specification are added to the filter, they should be separated by ','
 * For `DEGREE-LEVEL`, there are 2 input type options: text and number. For the text format, the search is *case-insensitive*. So, any uppercase or lowercase type of the text is accepted.
 If filtering is applied for this criteria, the persons with the same or higher education levels are shown. There 5 different levels for the input:
-** *Number:* `0` and *Text:* `highschool`
-** *Number:* `1` and *Text:* `associates` (2-year-university)
-** *Number:* `2` and *Text:* `bachelors`
-** *Number:* `3` and *Text:* `masters`
-** *Number:* `4` and *Text:* `phd`
+** *Number:* `0` and *Text:* `highschool` / *Number:* `1` and *Text:* `associates` (2-year-university) / *Number:* `2` and *Text:* `bachelors` / *Number:* `3` and *Text:* `masters` / *Number:* `4` and *Text:* `phd`
 
 *About the Running Process of Filtering Command:*
 
@@ -149,10 +145,7 @@ e.g if there is someone named Alex, in the filtering conditions `n/ale/n` or `n/
 * `ADD` operation clears the existing filters automatically.
 * After one filtering, the filtered address book can be filtered again.
 * For every single criteria between the filtering prefixes, input check for the validity is made.
-* Filtering is compatible with all the other commands:
-** 1- `clear` : since the persons list changes, the filtering is automatically cleared
-** 2- `add` : when filtering is active, adding a person also clears the filter along the addition. But addition takes place.
-** 3- `sort / endorse / select / delete / edit / list / undo / redo / help / exit / history` : can be used without clearing the filter
+* When filtering is active, adding a person also clears the filter along the addition. But addition takes place.
 
 ****
 

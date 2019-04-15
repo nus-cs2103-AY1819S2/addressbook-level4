@@ -17,16 +17,9 @@ Recruit Me is a Java Desktop GUI application that is specifically designed for a
 ** *What it does:*
 *** Filters the persons according to their every single aspect (Name, Phone, Email, Skills, ...)
 *** Can manage multiple filtering at the same time and also the filter can be cleared in any time the user wants.
-*** Filtering command has 4 different branches in itself: `AND, OR, REVERSE, CLEAR`.
-**** `AND:` shows the persons only, who passed all the filtering criterion
-**** `OR:` shows the persons only, who passed at least one of the filtering criterion
-**** `REVERSE:` it reverses the filtering conditions and shows the eliminated ones before
-**** `CLEAR:` it clears the applied filter to the persons' list
-** *Justification:*
-*** This feature improves the usability of the product significantly, because it can eliminate all the candidates that are not fitting for the wanted job positions.
-*** It makes the searching and classification process easier for the app users.
-** *Highlights:*
-*** This new feature affects all the commands already implemented and all other commands that will be implemented in the future. Thus, the interaction of this command with other commands are strongly investigated and minor changes for other commands are also made to make the other commands compatible with filtering.
+*** Filtering command has 4 different branches in itself: `AND, OR, REVERSE, CLEAR` (For detailed explanation, please read filtering part in UserGuide).
+** *Justification:* This feature improves the usability of the product significantly, because it can eliminate all the candidates that are not fitting for the wanted job positions. Makes classification and searching easier.
+** *Highlights:* This new feature affects all the commands already implemented and all other commands that will be implemented in the future. Thus, the interaction of this command with other commands are strongly investigated and minor changes for other commands are also made to make the other commands compatible with filtering.
 ** *Related Pull Requests for This Feature:*
 *** https://github.com/CS2103-AY1819S2-W16-4/main/pull/139[#139] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/119[#119] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/121[#121] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/119[#119] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/115[#115] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/101[#101] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/100[#100] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/70[#70] ,
 https://github.com/CS2103-AY1819S2-W16-4/main/pull/59[#59] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/54[#54] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/37[#37] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/30[#30] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/27[#27] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/26[#26] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/19[#19] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/2[#2]
@@ -38,30 +31,25 @@ https://github.com/CS2103-AY1819S2-W16-4/main/pull/59[#59] , https://github.com/
 ** Fixed almost all failing `system tests / GUI related tests / Edit Command tests` in every update process of the process:
 *** https://github.com/CS2103-AY1819S2-W16-4/main/pull/140[#140] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/133[#133] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/113[#113], https://github.com/CS2103-AY1819S2-W16-4/main/pull/73[#73]
 ** `Travis Checkstyle errors` are fixed mostly by me:
-*** https://github.com/CS2103-AY1819S2-W16-4/main/pull/138[#138] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/136[#136] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/105[#105-#104-#103] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/55[#58-#57-#56-#55]
+*** https://github.com/CS2103-AY1819S2-W16-4/main/pull/138[#138] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/105[#105-#104-#103] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/55[#58-#57-#56-#55]
 ** `Coveralls and Codacy` is implemented for the repository:
 *** https://github.com/CS2103-AY1819S2-W16-4/main/pull/123[#123]
 
 == Contributions to the User Guide:
 
-* Filtering process is added to the User guide as a new section.
-** Usage forms are added with some examples.
-** An explanation about the purpose of its function is explained.
-* For the newly implemented CV showing process, a section is added.
-** Some explanation about the current progress about the feature is included.
-** The enhancements needed for this feature for v2.0 is included.
 * About multiple person addition (planned for v2.0) a new section is added.
+* Filtering process is added to the User guide as a new section: `UserGuide -> Features -> Filtering Recruit Me: filter`
+* For the newly implemented CV showing process, a section is added: `UserGuide -> Features -> Showing and Updating the CV for a Person`
 * Updated `Add Command / List Command / Select Command Sections`.
-* The changes can be seen in:
-** `UserGuide -> Features -> Filtering Recruit Me: filter` :
+
 include::../UserGuide.adoc[tag=filter]
-** `UserGuide -> Features -> Showing and Updating the CV for a Person` :
 include::../UserGuide.adoc[tag=cvview]
 
 == Contributions to the Developer Guide:
 
 * A new section for filtering is added to the developer guide,iImplementation of the whole process including testing is explained in detail: +
-`DeveloperGuide -> Implementation -> Filter or/and/clear/reverse feature` :
+`DeveloperGuide -> Implementation -> Filter or/and/clear/reverse feature` (In the document below, basic explanation of the command types and valid input format of the related fields are excluded.
+Please look at the beginning part of the DeveloperGuide or read UserGuide section about filtering process to have a better understanding of the process) :
 include::../DeveloperGuide.adoc[tag=filter]
 
 

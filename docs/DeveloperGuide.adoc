@@ -310,7 +310,6 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 // tag::filter[]
 === Filter or/and/clear/reverse feature
-==== Current Implementation
 
 *Usage Format Regarding Current Implementation:*
 
@@ -364,6 +363,9 @@ e.g. if the input is `ale`, the person with the name `Alex, aLex, ALEX, alexandr
 ** The input for this field can take an `integer` between 0 and 4 (they are included) or a text, which can be either `highschool` or `associates` or `bachelors` or `masters` or `phd`.
 ** Order of `integers` are matched with the order of texts given. In other words, input 0 also means `highschool`, 1 means `associates`, 2 means `bachelors` etc.
 ** In this filtering field, it is controlled that if the entered degree level is a lower or an equal level than the one for the searched person, the person will be shown in the list.
+
+// tag::filter[]
+==== Current Implementation of Filter Command
 
 *Implementation Details:*
 

@@ -15,7 +15,7 @@ The final product that my team has developed is DocX, which will be detailed bel
 == Overview
 
 DocX is a desktop application designed for receptionists in clinics.
-The app provide features for patient management, doctor management, medical history management, appointment management and prescription management.
+The app provides features for patient management, doctor management, medical history management, appointment management and prescription management.
 It is targeted at clinic receptionists who are comfortable with using Command Line Interface (CLI).
 
 == Summary of contributions
@@ -23,7 +23,7 @@ It is targeted at clinic receptionists who are comfortable with using Command Li
 * *Major enhancement*: added *patient management* feature
 ** What it does: allows the user to record and manage patients visiting the clinic.
 It also provides both simple and advanced features that can cater to both new and experienced users.
-** Justification: In a busy clinic with many patients, the user must be able to manage patient efficiently.
+** Justification: In a busy clinic with many patients, the user must be able to manage patients efficiently.
 The app provides an easy way to record a patient's personal details, and various search methods to quickly retrieve a patient's file.
 The patient's info, along with his upcoming appointment status, are then displayed in a concise, yet neat way for the user
 to efficiently manage patients and their upcoming appointments.
@@ -32,9 +32,9 @@ user-friendly enough for new users to be able to learn and use basic commands ea
 Secondly, the patient class serves as the main entity in the project. As such, additional features implemented by other group members would require frequent code and design
 tweaks of the patient class to adhere to their new features.
 
-* *Minor enhancement*: enhanced the user display of both patients and doctor.
+* *Minor enhancement*: enhanced the user display of both patient and doctor.
 ** What it does: allows unrestricted view of pid and did, and viewing of patient's appointment status
-** Justification: This enables other components, such as appointments, to view and use the info for their commands accordingly.
+** Justification: This enables other components, such as appointment and medical history, to view and use the info for their commands accordingly.
 
 * *Code contributed*: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=wayneswq
 
@@ -42,7 +42,7 @@ tweaks of the patient class to adhere to their new features.
 ** Project management:
 *** Set up project repository and labels for Issue Tracker.
 *** Integrated AppVeyor, TavisCI, Netlify, Reposense, Codacy and Coveralls to the team repository.
-*** Reviewed Pull Requests (with non-trivial review comments): https://github.com/cs2103-ay1819s2-w13-1/main/pull/117[#117], https://github.com/cs2103-ay1819s2-w13-1/main/pull/178[#178]
+*** Managed release `v1.1` on GitHub and issue tasks to the team.
 ** Significant modification of Address Book’s code base for use in Deadline Manager:
 *** Rename Address Book 4 application to DocX and all major refactoring https://github.com/cs2103-ay1819s2-w13-1/main/pull/130[#130]
 ** Community:

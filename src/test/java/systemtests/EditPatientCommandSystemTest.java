@@ -55,8 +55,6 @@ public class EditPatientCommandSystemTest extends DocXSystemTest {
 
     @Test
     public void edit() {
-        Model model = getModel();
-
         /* ----------------- Performing edit operation while an unfiltered list is being shown ---------------------- */
 
         /* Case: edit all fields, command with leading spaces, trailing spaces and multiple spaces between each field

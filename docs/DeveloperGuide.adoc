@@ -159,11 +159,12 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/knowitall/ui/Ui.java[`Ui.java`]
+*API* : https://github.com/cs2103-ay1819s2-w10-4/main/blob/master/src/main/java/seedu/knowitall/ui/Ui.java[`Ui.java`]
 
 `UI` consists of a `MainWindow` made up of many parts as seen above e.g.`CommandBox`, `ResultDisplay`, `CardMainScreen`,
 `StatusBarFooter`, `BrowserPanel` etc. All these parts, including the `MainWindow`, inherit from the abstract `UiPart`
 class.
+//end::UIdesign[]
 
 The `UI` component uses JavaFx UI framework.
 The layout of these UI parts are defined in matching `.fxml` files located in the `src/main/resources/view` folder.
@@ -173,7 +174,7 @@ The `UI` component,
 
 * Uses `Logic` component to execute user commands.
 * Listens for changes to `Model` data to update UI with the modified data.
-//end::UIdesign[]
+
 
 [[Design-Logic]]
 === Logic component
@@ -182,8 +183,7 @@ The `UI` component,
 .Structure of the Logic Component
 image::LogicClassDiagram.png[width="800"]
 
-*API* :
-link:{repoURL}/src/main/java/seedu/knowitall/logic/Logic.java[`Logic.java`]
+*API* : https://github.com/cs2103-ay1819s2-w10-4/main/blob/master/src/main/java/seedu/knowitall/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `CardFolderParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
@@ -203,7 +203,7 @@ image::DeleteCardSdForLogic.png[width="800"]
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/knowitall/model/Model.java[`Model.java`]
+*API* : https://github.com/cs2103-ay1819s2-w10-4/main/blob/master/src/main/java/seedu/knowitall/model/Model.java[`Model.java`]
 
 The `Model`,
 
@@ -226,7 +226,7 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/knowitall/storage/Storage.java[`Storage.java`]
+*API* : https://github.com/cs2103-ay1819s2-w10-4/main/blob/master/src/main/java/seedu/knowitall/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -664,7 +664,7 @@ image::EnterFolderGUISequenceDiagram.png[width="800"]
 ** Pros: Easier to implement and avoids dependency on existing storage files after application starts.
 ** Cons: When saving folders from Model, it is difficult to match folders with existing storage files. Hence, rather than saving the modified folder, it is more feasible to clear the directory and save all folders. This is computationally expensive and may not be scalable beyond a certain size.
 
-*Evaluation*: While in the long-run, the first alternative appears to better decision, time limitations make the Alternative 2 good enough for most practical use cases. The saved time was used to implement other features.
+*Evaluation*: While in the long-run, the first alternative appears to better decision, time limitations make Alternative 2 good enough for most practical use cases. The saved time was used to implement other features.
 
 ===== Aspect: What folders to generate in the event corrupted storage files are encountered
 * **Alternative 1**: Display a sample folder
@@ -677,7 +677,7 @@ image::EnterFolderGUISequenceDiagram.png[width="800"]
 ** Pros: Has the advantages but not the disadvantages of Alternatives 1 and 2.
 ** Cons: More difficult to implement, developers will need to pay special attention to understand this behaviour.
 
-*Evaluation*: Alternative 3 is the most logical decision because it achieves the important objectives of retaining non-corrupted user data, while always ensuring there is data for the user to work with even if he/she is starting the application for the first time.
+*Evaluation*: Alternative 3 was deemed the most logical choice because it achieves the important objectives of retaining non-corrupted user data, while always ensuring there is data for the user to work with even if he/she is starting the application for the first time.
 
 === Navigating folders
 
@@ -723,7 +723,7 @@ image::ChangeCommandSequenceDiagram.png[width="600"]
 *Evaluation*: This matter is highly subjective and conflicting feedback was received during testing. However, we believe that our target audience, a user familiar with the command line, would be more used to navigation with a single command and as such would prefer Alternative 1.
 //end::folders[]
 
-//tag::testsession[]
+//tag::testcommand[]
 === Test Session feature
 
 ==== Overall Current Implementation
@@ -745,7 +745,7 @@ session.
 *** `ModelManager#getCurrentTestedCard()` - returns the `currentTestedCard`.
 
 * `cardAlreadyAnswered`
-** A boolean variable to indicate if the user has already execute a valid answer command for the current card.
+** A boolean variable to indicate if the user has already executed a valid answer command for the current card.
 ** Related methods:
 *** `ModelManager#setCardAsAnswered()` - set `cardAlreadyAnswered` to true.
 *** `ModelManager#setCardAsNotAnswered()` - set `cardAlreadyAnswered` to false.
@@ -762,14 +762,14 @@ in the test session.
 ** Cons: Extra space used.
 
 * **Alternative 2**: No introduction of `currentTestedCard` as using the `currentTestedCardIndex` suffices. Every time a
-card is needed, can simply reference it using `currentTestedCardFolder.getIndex(currentTestedCardIndex)`.
+card is needed, can simply reference it using `currentTestedCardFolder#getIndex(currentTestedCardIndex)`.
 ** Pros: No need to store an extra variable so this method uses less space.
 ** Cons: Not so reader friendly. Need to keep accessing the list using the index which can potentially lead to
 possible violation of the Law of Demeter where an object should only interact with objects that are closely related to it.
 
-**Evaluation of the 2 alternatives**:
-We went with alternative 1 since not a large amount of memory is taken up with just 1 extra card stored. As there will
-be a number of references to the `currentTestedCard`, it will be better to store them somewhere. Abiding by the Law
+*Evaluation*:
+We went with Alternative 1 since not a large amount of memory is taken up with just 1 extra card stored. As there will
+be several references to the `currentTestedCard`, it will be better to store them somewhere. Abiding by the Law
 of Demeter, `currentTestedCard` object will not be interacting with `currentTestedCardFolder`,  limiting its
 knowledge of that object which is encouraged according to the Principle of Least Knowledge.
 
@@ -788,7 +788,7 @@ the cards in it.
 
 [discrete]
 ====== UI
-To update the change in the `UI` to reflect that the user is a test session (app goes to full screen with question of
+To update the change in the UI to reflect that the user is a test session (app goes to full screen with question of
 the current card presented), the following methods are introduced.
 
 * `MainWindow#handleStartTestSession(Card card)` - creates a new `TestSession` page with the card specified and bring
@@ -814,7 +814,7 @@ Model component, with `Model#getState()` to check that user is inside a folder a
 (This is omitted from <<testcommandsequencediagram>> for simplicity.)
 
 [NOTE]
-If the user is not inside a folder, this `test` command would be rendered invalid. Step 4 would not proceed and an
+If the user is not inside a folder, this test command would be rendered invalid. Step 4 would not proceed and an
 error message is displayed.
 
 **Step 4**. After checking user is in a folder, `ModelManager#startTestSession()` method is invoked, which
@@ -833,8 +833,8 @@ card in the folder as `currentTestedCardIndex` is set to 0.
 4. `state` in `Model` is set to `IN_TEST` to specify that user is in a test session from now onwards.
 5. No change to `cardAlreadyAnswered` as it is by default false.
 
-**Step 5**. For `TestCommand` to obtain the first card to present in the test session, `ModelManager#getCurrentTestedCard` is
-invoked and the `Card`, `c`, is returned.
+**Step 5**. For `TestCommand` to obtain the first card to present in the test session,
+`ModelManager#getCurrentTestedCard()` is invoked and the `Card`, `c`, is returned.
 
 **Step 6**. With control now transferred back to the logic unit, `TestCommand` creates a `CommandResult` object, `r` with the type `START_TEST_SESSION`, and
 set `testSessionCard` in `CommandResult` to `c` obtained in Step 5.
@@ -848,9 +848,9 @@ set `testSessionCard` in `CommandResult` to `c` obtained in Step 5.
 user.
 
 [[testcommandsequencediagram]]
-.Component interactions for a `test` command
+.Component interactions for a test command
 image::TestCommandSequenceDiagram.png[width="800"]
-
+//end::testcommand[]
 
 [[exampleusageofendcommand]]
 [discrete]
@@ -880,26 +880,32 @@ the type `END_TEST_SESSION`.
 `MainWindow#handleEndTestSession()` to delete the current `testSession` page, presenting `cardMainScreen` page at the
 back (the screen the user was seeing before entering the test session) to the user.
 
+//tag::testdesign[]
 ===== Design Considerations
 ====== Aspect: Way to execute a test/end command
 
 * **Alternative 1 (current choice)**: `test` is executed when inside a folder. The user does not have to specify the
-folder index and `test` would just immediately display the first card in the this current folder.
-** Pros: The most logical way of carrying out a test session is where user is in the folder that he or she wants to be tested on. Lesser dependency on entering and exiting folder methods.
-** Cons: Requires the extra step of entering the folder before it can actually test the folder. User may actually see the questions before the test session.
+folder index and `test` would just immediately display the first card in this current folder.
+** Pros: The most logical way of carrying out a test session is when the user is in the folder that he or she wants to
+ be tested on. Lesser dependency on entering and exiting folder methods.
+** Cons: Requires the extra step of entering the folder before it can test the folder. User may actually see the questions before the test session.
 
-* **Alternative 2**: `test` is executed when outside a folder, in the home directory. `test` command would require a
+* **Alternative 2**: `test` is executed when outside a folder, in the home directory. Test command would require a
 folder index, e.g `test 1` to test the first folder. Implementation of getting the card from the folder would rely on
 enter folder command as well.
 ** Pros: Fast way to enter test session from home directory
-** Cons: Not logical for test to be called from home directory which should only allow folder operations. Test will
-then have to implicitly enter the folder to get access to the cards in it in order to display them, creating a dependency between test and enter folder command.
+** Cons: Not logical for `test` to be called from inside the home directory which should only allow folder operations.
+`test` will then have to implicitly enter the folder to gain access to the cards in it in order to display them,
+creating a
+dependency between the test and enter folder commands.
 Similar issue will arise for the end test session command where user will need to implicitly exit the folder.
 
-**Evaluation of the two alternatives**:
-Overall, alternative 1 is a better choice following the Single Level of Abstraction Principle(SLAP) where a function should not mix different levels of abstractions. We can then better achieve higher cohesion and lower coupling.
+*Evaluation*:
+Overall, Alternative 1 is a better choice following the Single Level of Abstraction Principle(SLAP) where a function
+should not mix different levels of abstractions. We can then better achieve higher cohesion and lower coupling.
 Also, user being able to see the questions before the test session is not a big issue since the answer will not be shown unless user selects the card.
 
+//end::testdesign[]
 
 ==== Answer Command
 ===== Current Implementation
@@ -919,19 +925,17 @@ Comparison is not case-sensitive
 ====== Logic
 To facilitate the update of score after marking the card, we introduce the following method in `ModelManager`.
 
-* `ModelManager#AnswerCommand#createScoredCard(Card cardToMark, boolean markCorrect)` - creates a new card with the
+* `ModelManager#createScoredCard(Card cardToMark, boolean markCorrect)` - creates a new card with the
 updated score.
 
 [discrete]
 ====== UI
 To update the change in the `UI` to show the user the result of the marked answer, whether it is correct or wrong, the following methods are introduced.
 
-* `MainWindow#handleCorrectAnswer()` - invokes `TestSession#handleCorrectAnswer()`
-* `MainWindow#handleWrongAnswer()` - invokes `TestSession#handleWrongAnswer()`
-* `TestSession#handleCorrectAnswer()` - updates current `TestSession` page to green colour background with correct
-answer and correct answer description
-* `TestSession#handleWrongAnswer()` - updates current `TestSession` page to red colour background with correct answer
-and wrong answer description
+* `MainWindow#handleCorrectAnswer()` - updates current `TestSession` page to green colour background with correct
+answer and correct answer description.
+* `MainWindow#handleWrongAnswer()` - updates current `TestSession` page to red colour background with correct answer
+and wrong answer description.
 
 [discrete]
 ====== Example Usage of answer command
@@ -940,9 +944,8 @@ To illustrate how the components interact, below is a walkthrough of a typical u
 <<answercommandsequencediagram>> is a sequence diagram that summarises `Model` and `Logic` interactions, namely steps 1
 to 8.
 
-**Step 1**. User is in a test session and wants to answer the question on the card currently presented by executing a
-`ans
- four`.
+**Step 1**. User is in a test session and wants to answer the question on the card currently presented by executing
+`ans four`.
 
 **Step 2**. An `AnswerCommand` object is created and `LogicManager` executes the `AnswerCommand`, storing the result and
 then transferring control to the Model component, with `Model#getState()` and
@@ -1036,7 +1039,7 @@ A `next` command will be equivalent to an `end` command. `ModelManager#endTestSe
 proceed. Instead, step 3 and onwards of the <<exampleusageofendcommand>> takes over.
 
 * Case 2: Method returns true.
-For `NextCommand` to obtain the next card to present in the test session, `ModelManager#getCurrentTestedCard` is
+For `NextCommand` to obtain the next card to present in the test session, `ModelManager#getCurrentTestedCard()` is
 invoked and the `Card`, `c`, is returned.
 
 **Step 5**. With control now transferred back to the logic unit, `NextCommand` creates a `CommandResult` object, `r` with
@@ -1065,9 +1068,9 @@ image::NextCommandSequenceDiagram.png[width="800"]
 ** Pros: Most correct way to do it since there is no next card to display.
 ** Cons: User may not understand. It is not user-friendly as user has to keep track of which card it is at to prevent the exception thrown.
 
-**Evaluation of the two alternatives**:
-With our target audience in mind, alternative 1 is the more user friendly and intuitive way to handle this scenario.
-//end::testsession[]
+*Evaluation*:
+With our target audience in mind, Alternative 1 is the more user friendly and intuitive way to handle this scenario.
+
 
 
 // tag::undoredo[]
@@ -1687,7 +1690,7 @@ These instructions only provide a starting point for testers to work on; testers
 //    Expected: Similar to previous.
 
 // tag::testmanualtesting[]
-=== Starting a test session
+=== Starting and ending a test session
 
 . Start a test session while inside a folder
 
@@ -1704,6 +1707,20 @@ These instructions only provide a starting point for testers to work on; testers
 in a test session or in report display) +
    Expected: The error `Command can only be executed in folder` is shown in the status message. Status bar
    remains the same.
+
+. Ends a current test session
+
+.. Prerequisites: Enter a test session by typing `test` when inside a folder. Display area enters fullscreen and
+lowest scoring flashcard question and hints are displayed. Tester can also be in any state in the test session
+.. Test case: `end` +
+   Expected: Ends the current test session, where the display area exits fullscreen and be back inside the folder. `End
+   Test Session` is shown on the status message and status bar shows that tester is back inside the folder.
+.. Test case: `end` when not inside a test or report (prerequisite not fulfilled, like being in the home directory or
+ in a folder) +
+   Expected: The error `This command is not valid outside a test or report` is shown in the status message. Status bar
+   remains the same.
+
+// end::testmanualtesting[]
 
 [[answerquestionintest]]
 === Answering a question in a test session
@@ -1744,20 +1761,6 @@ lowest scoring flashcard question and hints are displayed. Answer the current qu
 .. Test case: `next`  when prerequisite is not fulfilled where the current question is not yet answered or revealed +
    Expected: The error `Next command is valid only when this question has been answered` is shown in the status message. Status bar remains the same.
 
-=== Ending a test session
-
-. Ends a current test session
-
-.. Prerequisites: Enter a test session by typing `test` when inside a folder. Display area enters fullscreen and
-lowest scoring flashcard question and hints are displayed. Tester can also be in any state in the test session
-.. Test case: `end` +
-   Expected: Ends the current test session, where the display area exits fullscreen and be back inside the folder. `End
-   Test Session` is shown on the status message and status bar shows that tester is back inside the folder.
-.. Test case: `end` when not inside a test or report (prerequisite not fulfilled, like being in the home directory or
- in a folder) +
-   Expected: The error `This command is not valid outside a test or report` is shown in the status message. Status bar
-   remains the same.
-// end::testmanualtesting[]
 
 //tag::foldermanualtesting[]
 === Folder operations

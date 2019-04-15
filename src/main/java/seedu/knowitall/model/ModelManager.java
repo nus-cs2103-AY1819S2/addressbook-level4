@@ -59,6 +59,7 @@ public class ModelManager implements Model {
     // Test Session related
     private final SimpleObjectProperty<Card> currentTestedCard = new SimpleObjectProperty<>();
     private ObservableList<Card> currentTestedCardFolder;
+    private int currentTestedCardFolderSize;
     private int currentTestedCardIndex;
     private boolean cardAlreadyAnswered = false;
     private int numAnsweredCorrectly = 0;
@@ -368,6 +369,7 @@ public class ModelManager implements Model {
         if (currentTestedCardFolder.isEmpty()) {
             throw new EmptyCardFolderException();
         }
+        currentTestedCardFolderSize = currentTestedCardFolder.size();
 
         sortFilteredCard(COMPARATOR_ASC_SCORE_CARDS);
 
@@ -414,6 +416,7 @@ public class ModelManager implements Model {
         numAnsweredTotal = 0;
         setCurrentTestedCard(null);
         currentTestedCardFolder = null;
+        currentTestedCardFolderSize = 0;
     }
 
     @Override
@@ -470,7 +473,7 @@ public class ModelManager implements Model {
     @Override
     public boolean testNextCard() {
         currentTestedCardIndex += 1;
-        if (currentTestedCardIndex == currentTestedCardFolder.size()) {
+        if (currentTestedCardIndex == currentTestedCardFolderSize) {
             return false;
         }
         Card cardToTest = currentTestedCardFolder.get(currentTestedCardIndex);

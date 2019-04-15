@@ -49,10 +49,10 @@ Without further ado, let's head over to <<Quick Start>> to get started!
 == Quick Start
 
 ==== Launching the application
-To get Know-It-All up and running:
+To get *Know-It-All* up and running:
 
 .  Ensure that you have Java version `9` or later installed in your Computer.
-.  Download the latest `know-it-all.jar` link:{repoURL}/releases[here].
+.  Download the latest `knowitall.jar` https://github.com/cs2103-ay1819s2-w10-4/main/releases[here].
 .  Copy the file to the folder you want to use as the home folder for *Know-It-All*.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 
@@ -86,7 +86,8 @@ This is the end of the Quick Start tutorial. Please refer to <<Features>> for de
 // end::quickstart[]
 
 [NOTE]
-Your data is saved in the `data/` folder by default. Like any other software application, you are not advised to modify any of the system created files located within the folder. If you do, Know-It-All may not perform right!
+Your data is saved in the `data/` folder by default. Like any other software application, you are not advised to
+modify any of the system created files located within the folder. If you do, *Know-It-All* may not perform right!
 
 [[Features]]
 == Features
@@ -95,7 +96,8 @@ Your data is saved in the `data/` folder by default. Like any other software app
 *Command Format*
 
 * Commands are written in monospaced font, e.g. `sort`
-* Words in `UPPER_CASE` are the parameters to be supplied by you e.g. in `addfolder FOLDER_NAME`, `FOLDER_NAME` is a parameter which can be used as `add Human Anatomy`.
+* Words in `UPPER_CASE` are the parameters to be supplied by you e.g. in `addfolder FOLDER_NAME`, `FOLDER_NAME` is a
+parameter which can be something like `Human Anatomy`.
 * Items in square brackets are optional e.g `HINTS` in `add q/QUESTION a/ANSWER [h/HINTS]`.
 * Items with `…​` after them can be used multiple times including zero times e.g. in `add q/QUESTION a/ANSWER [i/INCORRECT_OPTION]...`, you can include zero or more `i/INCORRECT_OPTIONs`.
 * Parameters can be in any order e.g. if the command specifies `q/QUESTION a/ANSWER`, `a/ANSWER q/QUESTION` is also acceptable.
@@ -196,7 +198,7 @@ image:StatusBarInFolder.png[width ="200"]
 // tag::add[]
 ==== Adding a flashcard : `add`
 
-Adds a flashcard to the current folder. Know-It-All supports 2 types of flashcards: **Single answer cards** and **MCQ** cards.
+Adds a flashcard to the current folder. *Know-It-All* supports 2 types of flashcards: **Single answer cards** and **MCQ** cards.
 
 Format **(Single answer)**: `add q/QUESTION a/ANSWER [h/HINT]` +
 Format **(MCQ)**: `add q/QUESTION a/ANSWER [i/INCORRECT_OPTION]... [h/HINT]`
@@ -445,12 +447,12 @@ image::Blood.png[width = "800"]
 Format: `import FILENAME`
 
 NOTE: unlike the `export command` the importing of multiple csv files
-is not supported in Know-It-All.
+is not supported in *Know-It-All*.
 
 Examples:
 
 * `import Blood.csv` +
-Imports blood csv file into know-it-all. A new `Blood` cardfolder should be present in the home
+Imports blood csv file into *Know-It-All*. A new `Blood` cardfolder should be present in the home
 directory after execution of this command.
 
 // end::advancedoperations[]
@@ -462,8 +464,8 @@ After memorising the content of the flashcards, it is helpful to test how much i
 
 ==== Test flashcards in a folder : `test`
 
-You will enter a test session, where the display area enters a fullscreen and you will be presented flashcard questions
- one by one, as depicted in the figure below.
+You will enter a test session, where the display area enters a fullscreen and you will be presented flashcard
+questions and hints (if any) one by one. You should see a screen like the figure below.
 
 .A successful test command will display a test session page
 image::startTestSessionPage.png[width="500"]
@@ -508,8 +510,8 @@ Format: `test [-timer]`
 
 ==== Keying in answer to a flashcard: `ans`
 
-To reinforce learning and provide a more engaging experience with Know-It-All, you can input an answer for the
-currently displayed flashcard question. Know-It-All compares your attempt with the correct answer for that flashcard and
+To reinforce learning and provide a more engaging experience with *Know-It-All*, you can input an answer for the
+currently displayed flashcard question. *Know-It-All* compares your attempt with the correct answer for that flashcard and
 tells you if you are right or wrong.
 
 If the answer has been submitted successfully and it is *correct*, you will see the following page.
@@ -535,7 +537,7 @@ displayed in an active test session.
 * Answer matching is case insensitive.
 * Answering a flashcard will increase the total number of attempts. If your answer is correct, this action will also
 increase the number of correct attempts.
-* To answer **MCQ cards**, enter the number of option that you think is correct, rather than the option itself. +
+* To answer **MCQ cards**, enter the number of the option that you think is correct, rather than the option itself. +
 E.g. `ans 1` rather than `ans myanswer`
 ====
 
@@ -545,12 +547,12 @@ Examples:
 in response to the card question: What is the powerhouse of the cell?
 
 * `ans 2` +
-in response to the card displayed below, where choosing option 2 will give the right answer as the correct answer is
+in response to the card displayed below, choosing option 2 will give the right answer as the correct answer is
 'Pigs'.
 
 .Answering an MCQ card
 image::AnsweringMcqCard.png[width="500"]
-
+//end::testoperations[]
 ==== Reveal answer to a flashcard : `reveal`
 If you have no clue what the answer is, this command immediately reveals the correct answer, as seen in the figure
 below. You will not need attempt any answer before being presented the correct answer.
@@ -602,7 +604,6 @@ Format: `end`
 [NOTE]
 For the final <<testscore, test score>> to be recorded, you must have attempted at least 1/4 of cards in the
  card folder. If there are less than 4 cards, any number of cards attempted will be recorded.
-//end::testoperations[]
 
 
 //tag::reportoperations[]

@@ -106,6 +106,7 @@ passing the turn back to the Player.
 Whoever is first to destroy all their opponent's ship will be declared the winner.
 Had fun? You can view the game statistics with the command `stats`.
 ====
+// end::gamerules[]
 
 
 [[Features]]
@@ -293,12 +294,19 @@ Examples:
 // tag::stats[]
 ==== Retrieving game statistics: `stats`
 
-Prints a list of statistics related to gameplay, such as accuracy and current hits. +
+Retrieves the gameplay statistics data displays them on a pop-up window.
+
 Format: `stats`
 
 Example:
 
 * `stats`
+
+****
+* The pop-up window will contain a bar chart visualisation of your game play data
+* The pop-up window does not update itself when it is opened and the `stats` command must be called again to display updated
+values.
+****
 // end::stats[]
 
 // tag::upcomingmap[]
@@ -337,7 +345,19 @@ Examples:
 * `pattern i/load f/circle`
 
 // end::upcomingPattern[]
+// tag::v2stats
+=== Statistics can display high score between games
+Display the high score across more than two games. +
 
+Format: `stats highscore t/[dataType]` +
+Examples:
+
+* `stats highscore t/time` +
+Display game data from the game that won in the shortest amount of time
+* `stats highscore t/accuracy` +
+Display game data from the game with the highest accuracy.
+
+// end::v2stats
 == FAQ
 
 *Q*: How are you today? +

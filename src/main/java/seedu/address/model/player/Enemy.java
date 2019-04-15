@@ -25,18 +25,16 @@ public class Enemy extends Player {
 
     private static final Random randGen = new Random();
     private static final Random randGen2 = new Random();
+
     private static final Logger logger = LogsCenter.getLogger(Enemy.class);
-
-
     private static ArrayList<Coordinates> allPossibleTargets = new ArrayList<>(); //one-based
     private static ArrayList<Coordinates> allParityTargets = new ArrayList<>(); //one-based
     private static ArrayList<Coordinates> allPossiblePopulateCoords = new ArrayList<>(); //zero-based, two ints
     private Stack<Coordinates> watchlist = new Stack<>(); //one based
-    private Status lastAttackStatus;
+    private Status lastAttackStatus = Status.HIDDEN;
     private int mapSize = 0;
-    private Coordinates lastCoordAttacked;
-
-    /**
+    private Coordinates lastCoordAttacked = new Coordinates(0, 0);
+    /*
      * Default constructor with fleet size 8.
      */
     public Enemy() {
@@ -85,7 +83,7 @@ public class Enemy extends Player {
 
         if (watchlist.isEmpty()) {
             if (!allParityTargets.isEmpty()) {
-                newTarget = drawPartityTarget();
+                newTarget = drawParityTarget();
                 logger.info(String.format("++++++++WATCHLIST EMPTY " + "enemy shoot parity: " + newTarget.toString()));
             } else {
                 newTarget = drawFromAllTargets();
@@ -104,7 +102,7 @@ public class Enemy extends Player {
     /************************************************
      * draws a valid Coord with parity filter on
      */
-    private Coordinates drawPartityTarget() {
+    private Coordinates drawParityTarget() {
         java.util.Collections.shuffle(allParityTargets, randGen);
         return allParityTargets.get(0);
     }
@@ -240,6 +238,7 @@ public class Enemy extends Player {
                 Coordinates markedCoord = new Coordinates(head.getRowIndex().getZeroBased(), colStart + i);
                 allPossiblePopulateCoords.remove(markedCoord);
                 logger.info(String.format("++++++++MARK_AS_OCCUPIED: " + markedCoord.toString()));
+                logger.info(String.format("++++allPossiblePopulateCoords Size: " + allPossiblePopulateCoords.size()));
             }
         } else { //increase row
             for (int i = 0; i < shipSize; i++) { //col stays the same
@@ -247,7 +246,7 @@ public class Enemy extends Player {
                 Coordinates markedCoord = new Coordinates(rowStart + i, head.getColIndex().getZeroBased());
                 allPossiblePopulateCoords.remove(markedCoord);
                 logger.info(String.format("++++++++MARK_AS_OCCUPIED: " + markedCoord.toString()));
-
+                logger.info(String.format("++++allPossiblePopulateCoords Size: " + allPossiblePopulateCoords.size()));
             }
         }
     }
@@ -321,34 +320,22 @@ public class Enemy extends Player {
             if (oldRow - 1 >= 0) {
                 //add cardinal NORTH to watchlist. ROW MINUS ONE
                 updatedCoord = new Coordinates(oldRow - 1, oldCol);
-                if (isValidCardinal(updatedCoord)) {
-                    watchlist.push(updatedCoord);
-                    modeCleanup(updatedCoord);
-                }
+                addCardinal(updatedCoord);
             }
             if (oldCol - 1 >= 0) {
                 //add cardinal WEST to watchlist   COL MINUS ONE
                 updatedCoord = new Coordinates(oldRow, oldCol - 1);
-                if (isValidCardinal(updatedCoord)) {
-                    watchlist.push(updatedCoord);
-                    modeCleanup(updatedCoord);
-                }
+                addCardinal(updatedCoord);
             }
             if (oldRow + 1 < mapSize) {
                 //add cardinal SOUTH to watchlist  ROW PLUS ONE
                 updatedCoord = new Coordinates(oldRow + 1, oldCol);
-                if (isValidCardinal(updatedCoord)) {
-                    watchlist.push(updatedCoord);
-                    modeCleanup(updatedCoord);
-                }
+                addCardinal(updatedCoord);
             }
             if (oldCol + 1 < mapSize) {
                 //add cardinal EAST to watchlist   COL PLUS ONE
                 updatedCoord = new Coordinates(oldRow, oldCol + 1);
-                if (isValidCardinal(updatedCoord)) {
-                    watchlist.push(updatedCoord);
-                    modeCleanup(updatedCoord);
-                }
+                addCardinal(updatedCoord);
             }
             logger.info(String.format("++++++++WATCHLIST UPDATING:\n" + watchlist.toString()));
             logger.info(String.format("++++++++WATCHLIST SIZE:\n" + watchlist.size()));
@@ -360,6 +347,16 @@ public class Enemy extends Player {
         }
 
 
+    }
+
+    /******************************************************8
+     *jkljkkjl
+     */
+    private void addCardinal(Coordinates updatedCoord) {
+        if (isValidCardinal(updatedCoord)) {
+            watchlist.push(updatedCoord);
+            modeCleanup(updatedCoord);
+        }
     }
 
     /******************************************************8
@@ -395,7 +392,7 @@ public class Enemy extends Player {
      * checks that coord is made up of one odd and one even x-y coordinate pair
      * and returns true if so
      */
-    private boolean hasParity (int row, int col) {
+    public boolean hasParity (int row, int col) {
 
         int parity = (row % 2) + (col % 2);
         return (parity == 1);
@@ -403,7 +400,7 @@ public class Enemy extends Player {
 
     /*************************************************************
      *  puts everything back from the stack to the drawing bags
-     *  Idea here is that once something is destroyed,
+     *  Idea here is that once something is destroyed,1
      *  everything on the stack should have been adj to the destroyed ship
      */
     private void cleanseWatchlist () {
@@ -416,5 +413,23 @@ public class Enemy extends Player {
             logger.info(String.format("++++++++RELEASE ON PAROLE COORD:\n" + useCoord.toString()));
 
         }
+    }
+
+    public Status getLastAttackStatus() {
+        return this.lastAttackStatus;
+    }
+    public ArrayList<Coordinates> getAllPossibleTargets() {
+        return this.allPossibleTargets;
+    }
+
+    public ArrayList<Coordinates> getAllParityTargets() {
+        return this.allParityTargets;
+    }
+
+    public ArrayList<Coordinates> getAllPossiblePopulateCoords() {
+        return this.allPossiblePopulateCoords;
+    }
+    public Stack getWatchlist() {
+        return this.watchlist;
     }
 }

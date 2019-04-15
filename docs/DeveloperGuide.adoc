@@ -1781,7 +1781,38 @@ Instructions:
    *Expected:* New member added: Lim Sun Yong Matric Number: A0187456N Phone: 87961012 Email: johnd@example.com Address: 311, Tiong Bahru Ave 5, #12-03 Gender: Male Year of Study: Year 2 Major: Law Tags: [Tennis]
 .. *Test case:* `memberAdd n/Tan Xun Song mn/A0192595N p/811619921 e/txs@example.com a/311, Jurong West Ave 3, #12-03 g/Female y/2 m/Medicine t/Archery` +
    *Expected:* Phone numbers should only start with 6, 8 or 9, and it should be only be 8 digits long.
+.. *Test case:* `memberAdd n/Tan Xun Song mn/A0187456N p/81161992 e/txs@example.com a/311, Jurong West Ave 3, #12-03 g/Female y/2 m/Medicine t/Archery` +
+   *Expected:* This matricNumber already exists in Club Manager.
+.. *Test case:* `memberAdd n/Tan Xun Song mn/A0192595Z p/81161992 e/txs@example.com a/311, Jurong West Ave 3, #12-03 g/Female y/2 m/Medicine t/Archery` +
+   *Expected:* MatricNumber should only contain alphanumeric characters, starting with an A and ending with an uppercase alphabet, with 7 digits in between the first and last character. The last letter must be a valid checksum.
+.. *Test case:* `memberAdd n/Tan Xun Song mn/A0192595N p/81161992 e/txs@example.com a/311, Jurong West Ave 3, #12-03 g/chicken y/2 m/Medicine t/Archery` +
+   *Expected:* Gender should be Male or Female, and it should not be blank
+.. *Test case:* `memberAdd n/Tan Xun Song mn/A0192595N p/81161992 e/txs@example.com a/311, Jurong West Ave 3, #12-03 g/Female y/0 m/Medicine t/Archery` +
+   *Expected:* YearOfStudy should only contain a single digit between 1 to 6 and it should not be blank
 
+=== Filtering Member's List
+.. *Test case:* `memberFilter yearofstudy 2` +
+   *Expected:* _ member(s) listed!!
+
+=== Listing all Members
+.. *Test case:* `memberList` +
+   *Expected:* Listed all persons
+
+=== Select a Member
+.. *Test case:* `memberSelect 1` +
+   *Expected:* Selected Person: 1
+.. *Test case:* `memberSelect 0` +
+   *Expected:* Invalid command format!
+               memberSelect: Selects the member identified by the index number used in the displayed member list.
+               Parameters: INDEX (must be a positive integer)
+
+=== Sorting Member's List
+.. *Test case:* `memberSort name` +
+   *Expected:* Members' list successfully sorted!
+.. *Test case:* `memberSort names` +
+   *Expected:* Invalid command format!
+               memberSort: Sorts all members in the members' list based on the specified attribute (case-insensitive).
+               Parameters: KEYWORD...
 
 === Deleting a person
 

@@ -30,7 +30,10 @@ Useful information for a deeper understanding of the command.
 ====
 
 == Summary of Contributions
-The section below shows a summary of my coding, documentation and other helpful contributions to the team project.
+
+|===
+|_The section below shows a summary of my coding, documentation and other helpful contributions to the team project._
+|===
 
 * *Major enhancement*: I implemented *flashcard creation and management*
 ** What it does: Allows users to create, edit and delete different kinds of flashcards.

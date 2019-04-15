@@ -59,6 +59,9 @@ public class EditRestaurantDescriptorBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Postal} of the {@code EditRestaurantDescriptor} that we are building.
+     */
     public EditRestaurantDescriptorBuilder withPostal(String postal) {
         descriptor.setPostal(new Postal(postal));
         return this;

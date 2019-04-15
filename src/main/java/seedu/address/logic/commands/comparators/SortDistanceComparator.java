@@ -65,7 +65,7 @@ public class SortDistanceComparator implements Comparator<Restaurant> {
         }
         return distanceData.get(postal);
     }
-    private double calculateDistance(double firstX, double firstY, double secondX, double secondY){
+    private double calculateDistance(double firstX, double firstY, double secondX, double secondY) {
         return Math.pow((firstX - secondX), 2) + Math.pow((firstY - secondY), 2);
     }
 }

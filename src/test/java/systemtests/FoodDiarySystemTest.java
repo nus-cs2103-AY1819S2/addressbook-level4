@@ -36,7 +36,6 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.FoodDiary;
 import seedu.address.model.Model;
-import seedu.address.model.restaurant.Restaurant;
 import seedu.address.testutil.TypicalRestaurants;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
@@ -190,8 +189,8 @@ public abstract class FoodDiarySystemTest {
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
      * {@code expectedResultMessage} and the restaurant list panel displays the restaurants in the model correctly.
      */
-    protected void assertApplicationDisplaysExpectedForSorting(String expectedCommandInput, String expectedResultMessage,
-                                                     Model expectedModel) {
+    protected void assertApplicationDisplaysExpectedForSorting(String expectedCommandInput,
+                                                               String expectedResultMessage, Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertListMatching(getRestaurantListPanel(), expectedModel.getFilteredRestaurantList());

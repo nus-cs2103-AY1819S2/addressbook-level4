@@ -1,11 +1,6 @@
 package systemtests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static seedu.address.commons.core.Messages.MESSAGE_RESTAURANTS_LISTED_OVERVIEW;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_POSTAL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.POSTAL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_POSTAL_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_POSTAL;
@@ -16,28 +11,14 @@ import static seedu.address.testutil.TypicalRestaurants.DANIEL;
 import static seedu.address.testutil.TypicalRestaurants.ELLE;
 import static seedu.address.testutil.TypicalRestaurants.FIONA;
 import static seedu.address.testutil.TypicalRestaurants.GEORGE;
-import static seedu.address.testutil.TypicalRestaurants.KEYWORD_MATCHING_MEIER;
 import static seedu.address.testutil.TypicalRestaurants.getTypicalRestaurants;
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.ListUnvisitedCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.FoodDiary;
 import seedu.address.model.Model;
 import seedu.address.model.restaurant.Postal;
-import seedu.address.model.restaurant.Restaurant;
-import seedu.address.model.tag.Tag;
 
 public class ListUnvisitedCommandSystemTest extends FoodDiarySystemTest {
     private static final String INVALID_POSTAL_CODE = "000000";
@@ -50,8 +31,8 @@ public class ListUnvisitedCommandSystemTest extends FoodDiarySystemTest {
                 Postal.MESSAGE_CONSTRAINTS);
 
         /* Case: postal code with more than 6 digits*/
-        assertCommandFailure(ListUnvisitedCommand.COMMAND_WORD + " " + PREFIX_POSTAL +
-                INVALID_LONG_POSTAL_CODE, Postal.MESSAGE_CONSTRAINTS);
+        assertCommandFailure(ListUnvisitedCommand.COMMAND_WORD + " " + PREFIX_POSTAL
+                + INVALID_LONG_POSTAL_CODE, Postal.MESSAGE_CONSTRAINTS);
 
         /* Case: Missing Prefix -> rejected */
         assertCommandFailure(ListUnvisitedCommand.COMMAND_WORD + " " + VALID_POSTAL_BOB,
@@ -83,9 +64,6 @@ public class ListUnvisitedCommandSystemTest extends FoodDiarySystemTest {
         assertCommandSuccess(command, expectedModel, ListUnvisitedCommand.MESSAGE_SUCCESS);
         assertSelectedCardUnchanged();
 
-
-
-
     }
 
     /**
@@ -98,7 +76,7 @@ public class ListUnvisitedCommandSystemTest extends FoodDiarySystemTest {
      * selected card updated accordingly, depending on {@code cardStatus}.
      * @see FoodDiarySystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandSuccess(String command, Model expectedModel,  String expectedResultMessage) {
+    private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
         executeCommand(command);
         assertApplicationDisplaysExpectedForSorting("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();

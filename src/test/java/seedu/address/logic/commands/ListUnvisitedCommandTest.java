@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_POSTAL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showRestaurantAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RESTAURANT;
@@ -22,11 +21,11 @@ import seedu.address.model.restaurant.Postal;
  */
 public class ListUnvisitedCommandTest {
 
+    private static final String INVALID_POSTAL_CODE = "000000";
+    private static final String VALID_POSTAL_CODE = "267951";
     private Model model;
     private Model expectedModel;
     private CommandHistory commandHistory = new CommandHistory();
-    private static final String INVALID_POSTAL_CODE = "000000";
-    private static final String VALID_POSTAL_CODE = "267951";
 
     @Before
     public void setUp() {
@@ -45,7 +44,7 @@ public class ListUnvisitedCommandTest {
 
     @Test
     public void execute_listIsFiltered_missingPostalData() {
-        model =  new ModelManager(getTypicalFoodDiary(), new UserPrefs(), null);
+        model = new ModelManager(getTypicalFoodDiary(), new UserPrefs(), null);
         expectedModel = new ModelManager(model.getFoodDiary(), new UserPrefs(), null);
         showRestaurantAtIndex(model, INDEX_FIRST_RESTAURANT);
         assertCommandSuccess(new ListUnvisitedCommand(new Postal(VALID_POSTAL_CODE)), model, commandHistory,

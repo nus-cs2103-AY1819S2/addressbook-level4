@@ -1,11 +1,11 @@
 package seedu.address.storage;
 
-import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.TypicalPostalData.A;
 
+import org.junit.Test;
+
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.restaurant.Address;
 import seedu.address.model.restaurant.Postal;
 import seedu.address.testutil.Assert;
 

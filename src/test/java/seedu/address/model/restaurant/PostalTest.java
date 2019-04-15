@@ -29,8 +29,8 @@ public class PostalTest {
         assertFalse(Postal.isValidPostal("")); // empty string
         assertFalse(Postal.isValidPostal(" ")); // spaces only
         assertFalse(Postal.isValidPostal("1293fa")); // contains non numeric characters
-        assertFalse(Postal.isValidPostal("1234567"));//contains more than 6 numbers
-        assertFalse(Postal.isValidPostal("12567"));//contains less than 6 numbers
+        assertFalse(Postal.isValidPostal("1234567")); //contains more than 6 numbers
+        assertFalse(Postal.isValidPostal("12567")); //contains less than 6 numbers
         // valid name
         assertTrue(Postal.isValidPostal("123456")); // numbers only
         assertTrue(Postal.isValidPostal("999999")); // edge case

@@ -60,14 +60,6 @@ public class TestApp extends MainApp {
         return config;
     }
 
-    protected PostalDataSet readPostaData(){
-        try {
-            return storage.getPostalData().get();
-        } catch (DataConversionException dce) {
-            throw new AssertionError("Data is not in the FoodDiary format.", dce);
-        }
-    }
-
     @Override
     protected UserPrefs initPrefs(UserPrefsStorage storage) {
         UserPrefs userPrefs = super.initPrefs(storage);

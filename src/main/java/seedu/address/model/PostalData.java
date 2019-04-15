@@ -43,8 +43,8 @@ public class PostalData {
         }
         PostalData otherPostalData = (PostalData) other;
         return otherPostalData.getPostal().equals(getPostal())
-                && otherPostalData.getX()==(getX())
-                && otherPostalData.getY()==(getY());
+                && otherPostalData.getX() == (getX())
+                && otherPostalData.getY() == (getY());
 
     }
 }

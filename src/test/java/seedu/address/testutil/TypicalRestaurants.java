@@ -44,11 +44,11 @@ public class TypicalRestaurants {
             .withWeblink("https://www.google.com").withEmail("johnd@example.com").withPhone("98765432")
             .withTags("owesMoney", "friends").build();
     public static final Restaurant CARL = new RestaurantBuilder().withName("Carl Kurz").withPhone("95352563")
-            .withEmail("heinz@example.com").withAddress("9 Bishan Pl").withPostal("579837").withWeblink("https://www.google.com")
-            .build();
-    public static final Restaurant DANIEL = new RestaurantBuilder().withName("Daniel Meier").withPhone("87652533")
-            .withEmail("cornelia@example.com").withAddress("53 Ang Mo Kio Ave 3").withPostal("569933").withTags("friends")
+            .withEmail("heinz@example.com").withAddress("9 Bishan Pl").withPostal("579837")
             .withWeblink("https://www.google.com").build();
+    public static final Restaurant DANIEL = new RestaurantBuilder().withName("Daniel Meier").withPhone("87652533")
+            .withEmail("cornelia@example.com").withAddress("53 Ang Mo Kio Ave 3").withPostal("569933")
+            .withTags("friends").withWeblink("https://www.google.com").build();
     public static final Restaurant ELLE = new RestaurantBuilder().withName("Elle Meyer").withPhone("9482224")
             .withEmail("werner@example.com").withAddress("2 Orchard Turn").withPostal("238801")
             .withWeblink("https://www.google.com").build();

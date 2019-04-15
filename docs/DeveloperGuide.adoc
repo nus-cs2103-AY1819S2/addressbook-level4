@@ -1858,16 +1858,64 @@ _{ more test cases ... }_
 
 === Tables feature
 
+****
+You can restore the original sample data by deleting the json files in the data folder and restarting the application.
+****
+
 . Adding a table
 
+.. Switch to Restaurant Mode (`restaurantMode`).
 .. Test case: `addTable 1` +
    Expected: Adds a table with table status of 0/1.
 .. Test case: `addTable` +
    Expected: No tables are added. Error message is shown in the Results Display. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+.. Test case: `addTable 4 4 8` +
+   Expected: Adds 3 tables with table statuses 0/4, 0/4 and 0/8 for tables 1, 2 and 3 respectively.
+.. Test case: `addTable @` +
+   Expected: No tables are added. Error message is shown in the Results Display.
+.. Test case: `addTable 1 2 3 $` +
+   Expected: No tables are added. Error message is shown in the Results Display.
 
-_{ more test cases ... }_
+. Editing pax in a table
+
+.. Switch to Restaurant Mode (`restaurantMode`).
+.. Test case: `editPax 2 2` +
+   Expected: Edits Table 2 to have 2 customers.
+.. Test case: `editPax @ 2` +
+   Expected: No tables are edited. Error message is shown in the Results Display.
+.. Test case: `editPax 2 @` +
+   Expected: No tables are edited. Error message is shown in the Results Display.
+
+. Editing seats in a table
+
+.. Switch to Restaurant Mode (`restaurantMode`).
+.. Test case: `editSeats 2 4` +
+   Expected: Edits Table 2 to have 4 seats.
+.. Test case: `editSeats @ 2` +
+   Expected: No tables are edited. Error message is shown in the Results Display.
+.. Test case: `editSeats 2 @` +
+   Expected: No tables are edited. Error message is shown in the Results Display.
+
+****
+You should restore all data in between every test for this section. After restoring, use `editPax` command to remove all customers from all the tables.
+****
+
+. Clear tables
+
+.. Switch to Restaurant Mode (`restaurantMode`).
+.. Test case: `clearTables` +
+   Expected: All tables have been cleared.
+.. Test case: `clearTables 2` +
+   Expected: All tables have been cleared.
+.. Test case: `clearTables @` +
+   Expected: All tables have been cleared
+
+. Space for specified number of customers
+
+.. Test case: `spaceFor 3` +
+   Expected: A table has been allocated for the customers.
+.. Test case: `spaceFor @` +
+   Expected: No tables have been allocated. Error message is shown in the Results Display.
 
 === Menu feature
 
@@ -1878,7 +1926,7 @@ You can restore the original sample data by deleting the json files in the data 
 . Adding to the menu
 
 .. Switch to Menu Mode (`menuMode`).
-.. For the following tst cases, `addToMenu` can be replaced with the shortcut `add`.
+.. For the following test cases, `addToMenu` can be replaced with the shortcut `add`.
 .. Test case: `addToMenu c/W09 n/Chicken Wings p/4.50` +
    Expected: Adds a menu item "Chicken Wings" with code W09 and price 4.50 to the menu.
 .. Test case: `addToMenu n/French Fries c/W12 p/2.50` +

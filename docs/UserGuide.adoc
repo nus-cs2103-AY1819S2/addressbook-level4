@@ -663,7 +663,6 @@ The Order Panel will also be updated and you will now only see 3 items displayed
 image::DeleteFromOrder_After.png[width="300"]
 |===
 
-// tag::clearorder[]
 [[ClearOrder]]
 ==== Clearing all the items in an order : `clearOrder`
 
@@ -694,8 +693,8 @@ The Order Panel will now be empty, as seen in the image below.
 
 image::ClearOrder_After.png[width="300"]
 |===
-// end::clearorder[]
 
+// tag::serve[]
 [[Serve]]
 ==== Marking an item in an order as served : `serve`
 
@@ -729,6 +728,7 @@ The Order Panel will also be updated and you can see from the image below that t
 
 image::Serve_After.png[width="300"]
 |===
+// end::serve[]
 
 // tag::bill[]
 [[Bill]]
@@ -758,16 +758,16 @@ display. +
 The customer's receipt will be displayed in the main panel and the receipt will indicate the price, quantity and name of items ordered, along with the time, date and total amount the customer has to pay.
 
 a| a| As seen from the image below, Table 5 has 4 items in the Order Panel. Note that all items have been
-served.
+served. +
 
 image::Bill_AllServed.png[]
 
-When `bill` is called, the user interface changes to display the receipt as shown below:
+When `bill` is called, the user interface changes to display the receipt as shown below: +
 
 image::Bill_Receipt.png[width="700",align="center"]
 
 When you switch to Restaurant Mode using the <<RM, `restaurantMode`>> command, you will realise that the table
-has been updated to accomodate new customers.
+has been updated to accomodate new customers. +
 
 image::Bill_UpdatedSeats.png[width="500",align="center"]
 |===

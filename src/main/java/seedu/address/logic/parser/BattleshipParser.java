@@ -66,6 +66,7 @@ public class BattleshipParser {
             return new HelpCommand();
         case InitialiseMapCommand.COMMAND_WORD:
         case InitialiseMapCommand.COMMAND_ALIAS:
+        case InitialiseMapCommand.COMMAND_ALIAS1:
             return new InitialiseMapCommandParser().parse(arguments);
 
         case PutShipCommand.COMMAND_WORD:

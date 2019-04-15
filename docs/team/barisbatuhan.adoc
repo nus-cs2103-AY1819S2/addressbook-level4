@@ -61,23 +61,28 @@ Recruit Me is a Java Desktop GUI application that is specifically designed for a
 * About multiple person addition (planned for v2.0) a new section is added.
 * Updated `Add Command / List Command / Select Command Sections`.
 * The changes can be seen in:
-** `UserGuide -> Features -> Filtering Recruit Me: filter` +
+** `UserGuide -> Features -> Filtering Recruit Me: filter` :
 include::../UserGuide.adoc[tag=filter]
-** `UserGuide -> Features -> Filtering Recruit Me: filter clear` +
+** `UserGuide -> Features -> Filtering Recruit Me: filter clear` :
 include::../UserGuide.adoc[tag=filterclear]
-** `UserGuide -> Features -> Filtering Recruit Me: filter reverse` +
+** `UserGuide -> Features -> Filtering Recruit Me: filter reverse` :
 include::../UserGuide.adoc[tag=filterreverse]
-** `UserGuide -> Features -> Showing and Updating the CV for a Person` +
+** `UserGuide -> Features -> Showing and Updating the CV for a Person` :
 include::../UserGuide.adoc[tag=cvview]
-** `UserGuide -> Features -> Adding Multiple Persons [coming in v2.0]` +
+** `UserGuide -> Features -> Adding Multiple Persons [coming in v2.0]` :
 include::../UserGuide.adoc[tag=addmultiplepersons]
 
 == Contributions to the Developer Guide:
 
-* A new section for filtering is added to the developer guide.
-* Implementation of filtering process, other alternatives and implementation of tests are explained.
+* A new section for filtering is added to the developer guide: `DeveloperGuide -> Implementation -> Filter or/and/clear/reverse feature` :
+include::../DeveloperGuide.adoc[tag=filter]
+** 2 diagrams about filtering implementation is added,
+** Definition of basic types and keywords for the `filter command` are made,
+** Implementation of the whole process is explained in detail,
+** Alternative approaches and their disadvantages are discussed,
+** Explanation of the important aspects of unit and integration testing processes are included.
 * Some of the use cases and user stories are updated.
-* The changes can be seen in `DeveloperGuide -> Implementation -> Filter or/and/clear feature`
+
 
 == Contributions to README:
 

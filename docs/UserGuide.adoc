@@ -232,7 +232,11 @@ Format: `list <type>`
 
 ==== Showing all health workers
 
-Format: `list healthworker/h/1`
+Format: `list healthworker`
+
+*Shortcut(s)*: +
+-  `list h` +
+- `list 1`
 
 Upon entering the command to list health workers, all currently registered
 health workers in the Health Hub system will be displayed on the list on the
@@ -241,7 +245,11 @@ right side of the GUI.
 
 ==== Showing all requests
 
-Format: `list request/r/2`
+Format: `list request`
+
+Shortcut(s): +
+- `list r` +
+- `list 2`
 
 After entering the command to list requests, you should see the list on the
 left side of the GUI being populated with all requests that are added to
@@ -727,7 +735,7 @@ Format: `clr`
 
 [WARNING]
 ====
-Clearing requests would delete all records of completed requests.
+Clearing requests would delete all records of completed and pending requests.
 
 If you would like to delete just one particular request, consider using the
 `delete` command instead.
@@ -795,15 +803,17 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 ====
 
 
-=== Viewing a request : `sr`
+=== Viewing a request : `select`
 
 With the flexibility in managing and adding, editing and deleting requests,
 existing functionality for the user to view the details of requests in
 Health Hub has also been implemented to improve the user experience.
 
-Format: `sr <request_index>`
+Format: `select <request_index>`
 
-Entering the `sr` command allows the application to select the request at the
+Shortcut: `sr <request_index>`
+
+Entering the `select` command allows the application to select the request at the
  specified `<request_index>`, and displays the full details of the selected
  request on the GUI.
 
@@ -843,6 +853,7 @@ image::SetReminderResult.png[]
 Figure 5.14.2 shows the result of the reminder alert in the GUI after it is time for the app to notify the user.
 // end::setreminder[]
 
+// tag::statistics[]
 === Getting health condition statistics: `statistics`
 
 We understand that it is imperative for you to know which health conditions have been seeing an increasing trend, as
@@ -854,7 +865,7 @@ shows each health condition’s related number of occurrences.
 
 [NOTE]
 ====
-statistics will only show any useful information related to frequency of health conditions after you have added at least
+`statistics` will only show any useful information related to frequency of health conditions after you have added at least
 1 request for homecare on HealthHub. If there are no homecare requests made, the statistics panel will display the
 following:
 ====
@@ -864,7 +875,7 @@ image::empty_statistics.PNG[]
 Example of usage:
 
 Let’s say that no commands have been issued yet and HealthHub is on a clean slate with no prior records of requests.
-Suppose as an administrative staff, you input the following commands as your first 2 requests for homecare into
+Suppose as an administrative staff, you input the following commands as your first 2 requests for home care into
 HealthHub:
 
 `add request n/John Doe i/S8974421C p/98765432 a/123 Brick Road, #01-01 dt/01-01-2019 14:50:00 c/Diabetes
@@ -882,17 +893,46 @@ you can expect to see after typing in the 3 commands.
 
 image::normal_statistics.PNG[]
 
-As you can see, based on the requests already registered in the request panel on the left, the statistics command shows
-that the health condition Physiotherapy has showed up twice, whereas both Diabetes and AIDS have showed up once each.
-It is also worth noting that `statistics` is fully integrated with all request-related commands. This means that
-regardless of how many commands you may decide to employ (such as `add`, `edit`, `delete`, `undo`, `redo`, `clr`),
-`statistics` will automatically update itself and always provide real-time accurate statistical data of the health
-conditions.
+==== Updating of statistics
+
+Every time you decide to add a request, edit a request, delete a request or even undo and redo a request, it is
+important that the statistics display automatically keeps updating itself so that real-time accurate data is always
+showed whenever you type in `statistics`
+
+Example of usage:
+
+Let’s assume you still have the requests of John Doe and Dohn Joe (requests that you had placed into HealthHub from the
+previous section) in the request panel. You just received news that John Doe’s mobility has miraculously improved and
+you no longer need to tag him with the ‘Physiotherapy’ health condition in his health request record. You, thus, decided
+to edit John Doe’s health conditions from Diabetes and Physiotherapy to just Diabetes by issuing the following command:
+
+`edit r 1 c/Diabetes`
+
+image::statistics_before_edit.PNG[]
+
+You can then subsequently type in the following command to gather accurate statistical data,
+which reflects the deletion of one of the ‘Physiotherapy’ health conditions:
+
+`statistics`
+
+image::statistics_after_edit.PNG[]
+
+After issuing the aforementioned commands, you now receive news that John Doe had not really recovered entirely yet,
+and he still requires Physiotherapy treatment. Fret not! You can always issue the `undo` command to revert your changes to
+John’s earlier set of health conditions (Physiotherapy and Diabetes) and then the `statistics` command to view the new
+data.
+
+In essence, the `statistics` command is fully integrated with all request-related commands (`add`, `edit`, `delete`,
+`undo`, `redo`, `clr`) in its pursuit of always providing accurate, real-time statistical information.
+
+==== Application of `statistics` in the workplace
 
 Upon collating such data, you can feedback and make suggestions to the hospital to increase or decrease training in
 certain departments. Furthermore, you can even use this data as a basis for the health sector to ramp up efforts in its
 Work Skills Qualification certification for certain healthcare skills to be taught to new aspiring healthcare
 professionals.
+
+// end::statistics[]
 
 === Exiting the program : `exit`
 
@@ -910,6 +950,9 @@ the application, removing the need to save manually. +
 Changes to the data in the application are also saved that any command that
 modifies application parameters, making sure that minimal data is lost should
 any unforeseen circumstances happen.
+
+Attempting to read a corrupted data file will show an empty book.
+If the application is unable to find any data files, it will create books based on its sample data.
 
 == FAQ
 

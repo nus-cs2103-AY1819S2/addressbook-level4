@@ -7,6 +7,7 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:source-highlighter: rouge
 endif::[]
 
 == Overview
@@ -21,51 +22,44 @@ image::HealthHub.png[width=800]
 HealthHub is a https://en.wikipedia.org/wiki/Command-line_interface[command-line] desktop application built by my team and I, for our Software Engineering project.
 We chose to morph it to a home-care patient management system, because of our passion in the health care industry. This enhanced application allows Hospital Administrators and senior management to create, assign and organise patient records seamlessly. HealhHub also organises staff information and manages statistics to assist in the Hospital's planning and allocation of resources.
 
-My role was to design and implement the [blue]`Request` related commands and features. This included designing the relevant encapsulation within a [blue]`Request` created by the user and creating the following commands from scratch: `add`, `edit`, `list`, `delete`, `clear`, `assign`, `complete` and `filter`. The following sections illustrate these enhancements in more detail, as well as the relevant sections that I have added to the user and developer guides in relation to these enhancements.
-
 Note the following symbols and formatting used in this document:
 
-`add` A grey highlight (called a mark-up) indicates that this is a command that can be inputted into the command line and executed by the application.
-[blue]`Request` Blue text with a grey highlight indicates a component, class or object in the architecture of the application.
+`add` A grey highlight (called a mark-up) indicates that this is a command that can be inputted into the command line and executed by the application. +
+`Request` Red text beginning with a capital letter indicates a component, class or object in the architecture of the application.
 
 == Summary of contributions
 
-* *Major enhancement*: Created the `Request` class to encapsulate a request.
-** What it odes: Encapsulates the necessary information to be stored in a patient request.
+* *Major enhancement*: Created the `Request` class to encapsulate a request, and it's relevant CRUD commands.
+** What it does: Encapsulates the necessary information to be stored in a patient request.
 ** Justification: Laid the foundation to the entire project. All components of our project (UI, Storage, Logic and Model) required the creation of a `Request` class for further development of core functionality.
 ** Highlights: This enhancement affecting all existing classes, requiring some overhaul of the existing code base and thorough interaction of the differing components.
 
-* *Major enhancement*: Created `add`, `edit`, `delete`, `list` and `clear` commands for the `Request` class.
-** What it does: Lays the foundation to any `Request` based functionality. Allows the user to organise the requests made by the patients seamlessly.
-** Justification: These enhancements provide necessary features to the admin so that the admin can create, edit or delete requests at any point of time.
-** Highlights: This enhancement affects the existing existing classes, like the [blue]`Healthworker` class. It required an in-depth analysis of design alternatives. The implementation was also challenging as it required changes to existing commands and classes, during the integration-testing phase.
-** Credits: Utilised the JACKSon library that serializes a [blue]`Request` object into JSON format for storage. This allows the user's state to be saved at all times.
+//* *Major enhancement*: Created `add`, `edit`, `delete`, `list` and `clear` commands for the `Request` class.
+//** What it does: Lays the foundation to any `Request` based functionality. Allows the user to organise the requests made by the patients seamlessly.
+//** Justification: These enhancements provide necessary features to the admin so that the admin can create, edit or delete requests at any point of time.
+//** Highlights: This enhancement affects the existing existing classes, like the [blue]`Healthworker` class. It required an in-depth analysis of design alternatives. The implementation was also challenging as it required changes to existing commands and classes, during the integration-testing phase.
+//** Credits: Utilised the JACKSon library that serializes a [blue]`Request` object into JSON format for storage. This allows the user's state to be saved at all times.
 
 * *Major enhancement*: Created `assign` and `complete` request commands.
 ** What it does: Allows the admin to assign Healthworkers to requests, and complete any ongoing requests.
 ** Justification: These features are necessary for the product, and allows the administrator manage all patient requests by assigning the relevant healthworker with the appropriate skill sets.
 ** Highlights: Creation of these features required thorough understanding of how the existing details of the [blue]`Logic` and [blue]`Model` components,
-as knowledge of how information is cached in the application's memory was essential to allow for rapid assigning. Implemented index-based assigning, which improved effeciency
- by 30% (each `assign` request command runs in O(1) time).
+as knowledge of how information is cached in the application's memory was essential to allow for rapid assigning. Also implemented a scheduling algorithm that allows users to ensure that requests assigned to `HealthWorker`s are at least 2 hours apart.
+This prevents the user from accidentally assigning the same Healthworker to requests with clashing times.
 
 * *Minor enhancement*: added a filter command that allows the user to navigate through all requests stored by filtering by a specific value.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=daviddl9&sort=displayName&since=2019-02-10&until=2019-04-12&timeframe=day&reverse=false&repoSort=true[Reposense]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed releases `v1.3` onwards (3 releases) on GitHub
 *** Added reposense compatibility
 *** Added coveralls compatibility to project README
-** Enhancements to existing features:
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** PRs reviewed: https://github.com/CS2103-AY1819S2-W09-2/main/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3Adaviddl9[view here]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/964[1], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/743[2], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/173[3], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/12[4])
 
 == Contributions to the User Guide
 
@@ -79,7 +73,7 @@ Shortcut(s): +
 
 where `[<more_keywords]` refer to the fields you would like to search for.
 
-After entering the command with valid inputs, you will the entire list of requests whose fields match
+After entering the command with valid inputs, you will see the entire list of requests whose fields match
  the parameters specified in the command. To filter requests, you can specify any of the following filtering criteria:
 `dt/DATE`, `n/NAME`, `p/PHONE`, `st/STATUS`, `i/NRIC`, `c/CONDITION`. Note that you can also chain multiple criteria together to get a more specific
 filter result.
@@ -90,12 +84,12 @@ show you all the requests you are looking for.
 
 Before:
 
-image::filterrequestbefore.png[width=400]
+image::filterrequestbefore.png[width=200]
 Figure 5.5.2.1 shows the request list prior to executing the `filter request` command
 
 After:
 
-image::filterrequestafter.png[width=400]
+image::filterrequestafter.png[width=200]
 
 Figure 5.5.2.2 shows the request list after executing `filter request i/S9123456A st/COMPLETED`
 
@@ -116,6 +110,10 @@ If there are no such requests that match the user's query, an empty list would b
 that subword. (e.g `filter request n/Tan` may return people with the surnames Tan or
 Tang)
 
+* Note that to filter by status, the status has to be spelt out in *full*.
+e.g `filter r st/pending`
+
+
 {nbsp}
 
 [TIP]
@@ -130,7 +128,7 @@ filters the request list for requests whose patient's name contains the
 specified name substring *and* the specified phone number.
 ====
 
-[TIP]
+[NOTE]
 ====
 To revert the view back to the original request list, enter the `list request` command.
 ====
@@ -173,11 +171,17 @@ The assign request feature allows an administrator to assign a request to a part
 
 The following sequence diagram shows the sequence flow from the `LogicManager` to the `ModelManager` when a user enters a `assign request` command:
 
-image::assignreq.png[width=800]
+image::assignreq.png[]
 Figure 3.3.1.1 Sequence diagram to illustrate `Logic` component interactions for `assign request` command.
 
-image::assignreq1.png[width=800]
+image::assignReqToHw.png[]
 Figure 3.3.1.2 Sequence diagram to illustrate `Logic` and `Model` component interactions for [blue]`AssignRequestCommand`.
+
+image::addHwRequestDates.png[]
+Figure 3.3.1.3 Sequence diagram illustrates addition of the relevant `Date` objects into the `TreeSet<Date>` of the `healthWorker`.
+
+image::checkConflictingRequests.png[]
+Figure 3.3.1.4 Sequence diagram illustrates interaction between `AssignRequestCommand` and `healthWorkerAppointments`
 
 1. When `LogicManager` receives the `execute` command, it calls the `parseCommand` method in `RequestBookParser`.
 2. `RequestBookParser` will receive `assign` as the command and instantiate `AssignRequestCommandParser` to further parse the command.
@@ -185,19 +189,43 @@ Figure 3.3.1.2 Sequence diagram to illustrate `Logic` and `Model` component inte
 4. `LogicManager` will proceed to call the `execute` command of `AssignCommand`
 5. `AssignRequestCommand` will proceed to call the `getFilteredRequestList` method of `Model`.
 6. Iterate through the `requestIds`, if valid, add the `request` corresponding to that `index` to the set of `Request`.
-7. Writes the updated request to the `RequestBook` in `ModelManager`
+7. Iterates through all the requests already assigned to that `healthWorker`. If there is a conflict of schedule (i.e Requests assigned
+to that healthWorker are less than 2 hours apart), a `CommandException` is thrown.
+8. Writes the updated request to the `RequestBook` in `ModelManager`, if all the request timings are valid.
 
 ==== Design Consideration
 
-===== Aspect: Relationship between `Request` and `Healthworker`
-* Alternative 1 (current choice): The `Request` holds only some of the details of the healthworker (e.g name) assigned to it.
-** Pros: Simplification of implementation.
-** Pros: Cleaner implementation, low level of dependencies on other modules. This also makes it easier to test, and easier to maintain.
-** Cons: Makes it difficult to obtain all details of a healthworker from a `Request` object.
+===== Aspect: Algorithm in ensuring no clashing requests assigned to healthworkers - Data Structure and implementation
+* Alternative 1 (current choice): Using a Balanced Binary Search Tree (java `TreeSet`) to keep track of the [blue]`RequestDate` of each request attended to by a particular `healthWorker`.
+** Reasoning: Since the allowed time interval between 2 consecutive requests should be at least 2 hours, we can take advantage
+of of this by only keeping track of the start time of requests. Hence we can utilise the `ceiling()`, `contains()` and `floor()` methods of the `TreeSet`, which runs effeciently in O(log N) time (where N is the number of requests). Here is the code snippet that implements this:
+```
+    // Note: healthWorkerAppointments is the TreeSet that stores the appointment dates
+    Date date = request.getRequestDate().getDate();
+    calendar.setTime(date);
+    calendar.add(Calendar.HOUR_OF_DAY, -MIN_REQUEST_DURATION); // MIN_REQUEST_DURATION = 2 hours
+    Date lowerLimit = calendar.getTime();
+    calendar.add(Calendar.HOUR_OF_DAY, 2 * MIN_REQUEST_DURATION);
+    Date upperLimit = calendar.getTime();
 
-* Alternative 2: The `Request` holds a `HealthWorker` object and the `HealthWorker` keeps track of a list of `Request`s.
-** Pros: Can quickly access details of a `HealthWorker` from a `Request`, and can quickly access the `Requests` assigned to a `HealthWorker` from the `Request`.
-** Cons: Increases complexity of code base, adding additional dependencies to the code. This makes the code base more verbose and less maintainable
+    if (healthWorkerAppointments.contains(date) || (healthWorkerAppointments.lower(date) != null
+          && healthWorkerAppointments.lower(date).after(lowerLimit))
+          || (healthWorkerAppointments.higher(date) != null
+          && healthWorkerAppointments.ceiling(date).before(upperLimit))) {
+              throw new CommandException(Messages.MESSAGE_HEALTHWORKER_OCCUPIED_CANNOT_ASSIGN);
+    }
+
+    healthWorkerAppointments.add(date);
+```
+
+image::assignRegionCheck.png[]
+Figure 3.3.1.5 Shows visualisation of time ranges that are valid.
+
+The above mentioned code snippet checks that there are not clashing requests that fall within the red region, as depicted in Figure 3.3.1.5.
+
+* Alternative 2: For each request to be assigned, manually iterate through the Request list to ensure that there are not clashing dates.
+Pros: Easy to implement
+Cons: Slow - in the worst case, if all the requests get assigned at once, this operation will run in O(n^2) time.
 
 === Add Request feature
 
@@ -221,7 +249,7 @@ From the diagram above:
 .  `AddRequestCommand` will call `addRequest` passing `Request` as an argument to `Model` and after calls `commitRequestBook` method from `Model`
 .  A `CommandResult` will be returned at the end.
 
-==== Design Consideration
+==== Design Considerations
 ===== Aspect: Data Structure for the list of Requests
 * **Alternative 1 (Current Approach):** Using a `UniqueRequestList`
 ** Pros: The comparison is not as rigid. You can create requests with similar names/phones as long as it passes a less stringent criteria.
@@ -254,10 +282,6 @@ The implementation of the `RequestStatus` class is as follows:
 
      public RequestStatus(String status) {
          this.requestState = Status.valueOf(status);
-     }
-
-     public RequestStatus() {
-         this(Status.PENDING.name());
      }
 ```
 

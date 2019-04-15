@@ -930,86 +930,6 @@ The `history` feature has to following syntax:
 
 // end::History[]
 
-// tag::undoredo[]
-=== Undo/Redo feature [Coming in v2.0]
-==== Current Implementation
-
-The undo/redo mechanism is facilitated by `VersionedPdfBook`.
-It extends `PdfBook` with an undo/redo history, stored internally as an `pdfBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedPdfBook#commit()` -- Saves the current pdf book state in its history.
-* `VersionedPdfBook#undo()` -- Restores the previous pdf book state from its history.
-* `VersionedPdfBook#redo()` -- Restores a previously undone pdf book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitPdfBook()`, `Model#undoPdfBook()` and `Model#redoPdfBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedPdfBook` will be initialized with the initial pdf book state, and the `currentStatePointer` pointing to that single pdf book state.
-
-image::UndoRedoStartingStateListDiagram.png[width="800"]
-
-Step 2. The user executes `delete 5` command to delete the 5th pdf in the pdf book. The `delete` command calls `Model#commitPdfBook()`, causing the modified state of the pdf book after the `delete 5` command executes to be saved in the `pdfBookStateList`, and the `currentStatePointer` is shifted to the newly inserted pdf book state.
-
-image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
-
-Step 3. The user executes `add n/David ...` to add a new pdf. The `add` command also calls `Model#commitPdfBook()`, causing another modified pdf book state to be saved into the `pdfBookStateList`.
-
-image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitPdfBook()`, so the pdf book state will not be saved into the `pdfBookStateList`.
-
-Step 4. The user now decides that adding the pdf was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoPdfBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous pdf book state, and restores the pdf book to that state.
-
-image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial pdf book state, then there are no previous pdf book states to restore. The `undo` command uses `Model#canUndoPdfBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoRedoSequenceDiagram.png[width="800"]
-
-The `redo` command does the opposite -- it calls `Model#redoPdfBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the pdf book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `pdfBookStateList.size() - 1`, pointing to the latest pdf book state, then there are no undone pdf book states to restore. The `redo` command uses `Model#canRedoPdfBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the pdf book, such as `list`, will usually not call `Model#commitPdfBook()`, `Model#undoPdfBook()` or `Model#redoPdfBook()`. Thus, the `pdfBookStateList` remains unchanged.
-
-image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
-
-Step 6. The user executes `clear`, which calls `Model#commitPdfBook()`. Since the `currentStatePointer` is not pointing at the end of the `pdfBookStateList`, all pdf book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::UndoRedoActivityDiagram.png[width="650"]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire pdf book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the pdf being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of pdf book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedPdfBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
 // tag::fileprotection[]
 === File Protection
 
@@ -1160,6 +1080,86 @@ In *PDF++* v2.0, the *DecryptCommand* will support for the 2FA feature as mentio
 If this feature is highly demanded, this feature will be implemented to *EncryptCommand* too.
 
 // end::fileprotection[]
+
+// tag::undoredo[]
+=== Undo/Redo feature [Coming in v2.0]
+==== Current Implementation
+
+The undo/redo mechanism is facilitated by `VersionedPdfBook`.
+It extends `PdfBook` with an undo/redo history, stored internally as an `pdfBookStateList` and `currentStatePointer`.
+Additionally, it implements the following operations:
+
+* `VersionedPdfBook#commit()` -- Saves the current pdf book state in its history.
+* `VersionedPdfBook#undo()` -- Restores the previous pdf book state from its history.
+* `VersionedPdfBook#redo()` -- Restores a previously undone pdf book state from its history.
+
+These operations are exposed in the `Model` interface as `Model#commitPdfBook()`, `Model#undoPdfBook()` and `Model#redoPdfBook()` respectively.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedPdfBook` will be initialized with the initial pdf book state, and the `currentStatePointer` pointing to that single pdf book state.
+
+image::UndoRedoStartingStateListDiagram.png[width="800"]
+
+Step 2. The user executes `delete 5` command to delete the 5th pdf in the pdf book. The `delete` command calls `Model#commitPdfBook()`, causing the modified state of the pdf book after the `delete 5` command executes to be saved in the `pdfBookStateList`, and the `currentStatePointer` is shifted to the newly inserted pdf book state.
+
+image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
+
+Step 3. The user executes `add n/David ...` to add a new pdf. The `add` command also calls `Model#commitPdfBook()`, causing another modified pdf book state to be saved into the `pdfBookStateList`.
+
+image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
+
+[NOTE]
+If a command fails its execution, it will not call `Model#commitPdfBook()`, so the pdf book state will not be saved into the `pdfBookStateList`.
+
+Step 4. The user now decides that adding the pdf was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoPdfBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous pdf book state, and restores the pdf book to that state.
+
+image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
+
+[NOTE]
+If the `currentStatePointer` is at index 0, pointing to the initial pdf book state, then there are no previous pdf book states to restore. The `undo` command uses `Model#canUndoPdfBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+
+The following sequence diagram shows how the undo operation works:
+
+image::UndoRedoSequenceDiagram.png[width="800"]
+
+The `redo` command does the opposite -- it calls `Model#redoPdfBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the pdf book to that state.
+
+[NOTE]
+If the `currentStatePointer` is at index `pdfBookStateList.size() - 1`, pointing to the latest pdf book state, then there are no undone pdf book states to restore. The `redo` command uses `Model#canRedoPdfBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the pdf book, such as `list`, will usually not call `Model#commitPdfBook()`, `Model#undoPdfBook()` or `Model#redoPdfBook()`. Thus, the `pdfBookStateList` remains unchanged.
+
+image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
+
+Step 6. The user executes `clear`, which calls `Model#commitPdfBook()`. Since the `currentStatePointer` is not pointing at the end of the `pdfBookStateList`, all pdf book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+
+image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::UndoRedoActivityDiagram.png[width="650"]
+
+==== Design Considerations
+
+===== Aspect: How undo & redo executes
+
+* **Alternative 1 (current choice):** Saves the entire pdf book.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for `delete`, just save the pdf being deleted).
+** Cons: We must ensure that the implementation of each individual command are correct.
+
+===== Aspect: Data structure to support the undo/redo commands
+
+* **Alternative 1 (current choice):** Use a list to store the history of pdf book states.
+** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedPdfBook`.
+* **Alternative 2:** Use `HistoryManager` for undo/redo
+** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+// end::undoredo[]
 
 === Logging
 

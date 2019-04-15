@@ -29,11 +29,11 @@ Interested? Head over to <<Quick Start>> to get started with RestOrRant!
 
 == Quick Start
 
-Welcome to RestOrRant! If you are just starting out, this quick start section will help you get RestOrRant up and running in no time at all and equip you with the basics so that you can quickly enjoy and master the features that ROR has to offer.
+Welcome to RestOrRant! If you are just starting out, this quick start section will help you get RestOrRant up and running in no time at all. It will equip you with the basics so that you can quickly enjoy and master the features that ROR has to offer.
 
 === Using the User Guide
 
-This User Guide is filled with information to help you set up and make the most of RestOrRant. You will be able to learn more about the <<Modes and Commands, commands>> that are available for you, together with examples of how they work. These commands are also consolidated into a <<Command Summary, summary>> for your convenience.
+This User Guide is filled with information to help you set up and make the most of RestOrRant. You will be able to learn more about the <<Modes and Commands, commands>> that are available for you, together with examples of how they are used. These commands are also consolidated into a <<Command Summary, summary>> for your convenience.
 
 To complement your reading experience, you may find it useful to refer to the table below for the different symbols and formatting used throughout this guide.
 
@@ -208,7 +208,7 @@ ifndef::env-github[a| icon:check[role="green", size="2x"] a| The help window wil
 [[History]]
 ==== Viewing history : `history`
 
-You can easily view all the past commands used by you or your other colleagues by using this command, which will display the list of past commands in reverse chronological order.
+You can easily view all the past commands used by you or your other colleagues by using this command, which will display the list of past commands in reverse chronological order (the last used one will appear first).
 ****
 *Format*: `history` +
 *Shortcut*: `h`
@@ -363,78 +363,210 @@ ifndef::env-github[a| icon:check[role="green", size="2x"] a| The user interface 
 In Restaurant Mode, which is the default mode, you can perform table-related operations and view the order items across all tables.
 
 image::RMUi.png[width="790"]
+The function of the order and table panels are as follows:
+
+* *Order Panel*: This panel shows you the list of items ordered by all tables in RstOrRant, arranged in chronological order. This means that items that were ordered first appears at the top of the list. It also indicates the quantity left to serve for each item, and the background turns dark when the item is fully served.
+* *Table  Panel*: This panel gives you an overview of all tables in ROR with their table numbers and respective occupancies.
+
+[NOTE]
+The light coloured tables represent unoccupied tables. +
+The slightly darker coloured tables represent occupied tables. +
+The very dark coloured tables represent unusable tables.
+
+Here are the commands that you can use in this mode to efficiently manage the tables in your restaurant.
 
 [[AddTable]]
 ==== Adding tables : `addTable`
 
-Adds tables to the restaurant. +
-Format: `addTable NUMBER_OF_SEATS [NUMBER_OF_SEATS]...`
+As you set up ROR to reflect your physical restaurant or add tables in the event that there are new tables in your restaurant, this command allows you to add tables in ROR by specifying the number of seats at each table.
+
+[NOTE]
+The maximum number of tables that can be added is 400.
 
 ****
-* Table number increases sequentially starting from 1.
-* There is no limit to the number of tables that can be added.
+* *Format*: `addTable NUMBER_OF_SEATS [NUMBER_OF_SEATS]...`
+* *Shortcut*: `add`
 ****
 
-Examples:
+[NOTE]
+Table number increases sequentially starting from 1.
+[TIP]
+You can add multiple tables at once. This means all of your tables can be added with a single command!
 
-* `addTable 4`
-* `addTable 4 2 4`
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a|]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
+You will see a success message in the Results Display and the new tables will be displayed in the table panel.
+
+a| a| For example, ROR initially has 35 tables when you open it for the first time as shown in the image below.
+
+image::AddTable_Before.png[]
+
+Suppose you decide to open 10 more tables in your restaurant to accommodate more customers, with the number of seats of the first 5 tables be 2, the number of seats for the next 3 tables be 4, and the number of seats at  the last 2 tables be 8. +
+Simply execute the command `addTable 2 2 2 2 2 4 4 4 8 8`. You will see the success message of all the tables added and their table occupancies as seen in the image below.
+
+image::AddTable_RD.png[]
+The Table Panel will also be updated and if you were to scroll down on the table panel, you will see tables 36 to 45 added as shown in  the image below.
+
+image::AddTable_After.png[]
+
+a| a| Alternatively, you can add also add just one table at a time. For example, you can use the command `addTable 4` to add one table with 4 seats.
+|===
 
 [[EditPax]]
 ==== Editing the occupancy : `editPax`
 
-Edits the occupancy of the table. +
-Format: `editPax TABLE_NUMBER NUMBER_OF_CUSTOMERS`
+During the operation of your restaurant, this command helps you to update the occupancies of the tables in ROR when customers enter your restaurant.
+
+[IMPORTANT]
+Changing the table's occupancy to 0 will automatically clear all records of its orders which will not be included in ROR's statistics.
 
 ****
-* Checks if the specified table exists before editing.
-* Checks if the specified `NEW_OCCUPANCY` is greater than 0 and not more than the capacity of the table.
+* *Format*: `editPax TABLE_NUMBER NUMBER_OF_CUSTOMERS`
 ****
 
-Examples:
+[NOTE]
+The specified table has to exist in ROR and your specified number of customers cannot be greater than the number of seats available at the table.
 
-* `editPax 2 0`
-* `editPax 1 4`
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a|]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
+You will see a success message in the Results Display and the updated table will be displayed in the table panel.
+
+a| a| For example, Table 1 in ROR is initially unoccupied as shown below where the table's status is 0/2.
+
+image::EditPax_Before.png[]
+
+Suppose, two customers now enter your restaurant and you would like to seat them at table 1. +
+Simply execute the command `editPax 1 2`. You will see the success message of the updated table in the result display as shown below.
+
+image::EditPax_RD.png[]
+The Table Panel will also be updated where table 1 shows an updated table status as well as a change to a slightly darker colour to represent an occupied table.
+
+image::EditPax_After.png[]
+|===
 
 [[EditSeats]]
 ==== Editing the available seats : `editSeats`
 
-Edits the number of available seats at a table. +
-Format: `editSeats TABLE_NUMBER NUMBER_OF_SEATS`
+In the event that there are changes to any table in your restaurant in terms of the number of seats at the table, this command can help you make sure ROR is updated to reflect your physical restaurant.
+
+[TIP]
+You can use this command to change the number of seats at a table to 0 to represent an unusable table. This would be useful if a table is broken or you decide to remove a table without re-numbering all the other tables.
 
 ****
-* Checks that the table exists.
-* Checks that the new number of seats is not less than the current number of customers at the table.
+* *Format*: `editSeats TABLE_NUMBER NUMBER_OF_SEATS`
 ****
 
-Examples:
+[NOTE]
+The specified table has to exist in ROR and the specified number of seats has to be more than the number of customers already seated at the table.
 
-* `editSeats 3 4`
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a|]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
+You will see a success message in the Results Display and the updated table will be displayed in the table panel.
 
-[[ClearTable]]
-==== Clearing all the tables : `clearTable`
+a| a| For example, Table 2 in ROR is initially occupied as shown below where the table's status is 2/2.
 
-Clears the RestOrRant of all tables. +
-Format: `clearTable`
+image::EditSeats_Before.png[]
+
+Suppose, the customers at this table inform you that 2 other friends are joining them and they would like to pull chairs over. +
+Now, you can simply execute the command `editSeats 2 4` and you will see the success message of the updated table in the results display as shown below.
+
+image::EditSeats_RD.png[]
+Table 2 in the table panel will then display the updated table information as shown below.
+
+image::EditSeats_After.png[]
+|===
+
+[[ClearTables]]
+==== Clearing all the tables : `clearTables`
+
+In the event that you have undergone massive changes in the restaurant, you can use this command to remove all tables in ROR.
+
+[NOTE]
+This command checks if the restaurant is completely unoccupied before clearing the tables so you don't have to worry about any accidents.
+
+[TIP]
+Clearing all the tables and adding them back using the <<AddTable, addTable>> command is way faster than editing the tables if there are a lot of changes.
+
+[IMPORTANT]
+This command is irreversible! In the event that you accidentally cleared your tables, you have to use the `addTable` command to add all the tables back.
 
 ****
-* Checks that all tables are unoccupied before clearing the tables.
+* *Format*: `clearTables`
+* *Shortcut*: `clear`
 ****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a|]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
+You will see a success message in the Results Display and all tables will be removed from the table panel.
+
+a| a| For example, when all the customers have left the restaurant, all the tables in ROR will be unoccupied as shown below.
+
+image::ClearTables_Before.png[]
+
+After you enter the command `clearTables`, a success message will be displayed and the table panel will become completely empty as shown below.
+
+image::ClearTables_After.png[]
+|===
 
 [[SpaceFor]]
-==== Getting available tables for customers : `spaceFor` _(Coming in v2.0)_
+==== Getting available tables for customers : `spaceFor`
 
-Searches the restaurant for the table that best fits the number of customers to be seated. +
-Format: `spaceFor NUMBER_OF_CUSTOMERS`
+To speed up your management of customers, this command can help you look for available tables to accommodate your customers.
+
+[NOTE]
+This command finds the smallest table able to accommodate the specified customers with the smallest table number.
 
 ****
-* Returns the best fit table with the smallest table number.
-* Best fit is determined by the smallest table size able to accommodate the number of customers.
+* *Format*: `spaceFor NUMBER_OF_CUSTOMERS`
 ****
 
-Examples:
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a|]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
+You will see a success message in the Results Display and the chosen table will be updated with the specified number of customers.
 
-* `spaceFor 5`
+a| a| For example, in the sample layout we provided, the next available table that can fit 3 customers is table 25 since it is the smallest unoccupied table that can accommodate 3 customers with the smallest table number as shown below.
+
+image::SpaceFor_Before.png[]
+
+Suppose, 3 customers enter your restaurant and you want to quickly locate an available table for them, you can simply use the `spaceFor 3` command. A success message will be displayed if there is an available table for 3 as shown below.
+
+image::SpaceFor_RD.png[]
+In the table panel, you will see that table 25 will have been updated to the correct table's occupancy and changed to a slightly darker colour to indicate that it is occupied.
+
+image::SpaceFor_After.png[]
+|===
+
+[[Reserve]]
+==== Making a reservation : `reserve` _(Coming in v2.0)_
+
+Another key features that many restaurants have is the ability to make reservations. Hence, a reserve function would be a necessary next step to make management of tables and customers more efficient.
+
+****
+* *Format*: reserve c/NUMBER_OF_CUSTOMERS n/NAME d/DAY m/MONTH y/YEAR t/TIME
+****
+
+[NOTE]
+ROR will check for other reservations and availabilities of tables before allowing the user to make a reservation.
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a|]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
+You will see a success message in the Results Display.
+a| a| For example, after executing `reserve c/5 n/John Doe d/28 m/2 y/2019 t/1900`, the following confirmation message will appear:
+"Table 4 is available and has been reserved for John Doe at 1900H on 28/2/2019."
+|===
+
 // end::restaurantmode[]
 
 // tag::tablemode[]
@@ -1019,7 +1151,9 @@ a|<<EditPax, `editPax`>> a| - a| `editPax TABLE_NUMBER NUMBER_OF_CUSTOMERS` a| `
 Updates Table 1 to have 2 diners
 a|<<EditSeats, `editSeats`>> a| - a| `editSeats TABLE_NUMBER NUMBER_OF_SEATS` a| `editSeats 1 5` +
 Updates Table 1 to have 5 seats
-a|<<ClearTable, `clearTable`>> a| `*clear*` a| `clearTable` a| Clears all the tables in RestOrRant
+a|<<ClearTables, `clearTables`>> a| `*clear*` a| `clearTables` a| Clears all the tables in RestOrRant
+a|<<SpaceFor, `spaceFor`>> a| - a| `spaceFor NUMBER_OF_CUSTOMERS` a| `spaceFor 3` +
+Allocates a table for 3 customers
 |=======================================================================
 
 === Table Mode

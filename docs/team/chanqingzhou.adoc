@@ -3,38 +3,46 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: Food Diary
+== PROJECT: The Food Diary
 
 ---
 
 == Overview
-This project portfolio page serves to document my contributions to _The Food Diary_, a software engineering project undertaken as part of the National University of Singapore(NUS) School of Computing's Software Engineering module,CS2103T.
 
-The Food Diary is a *journal application* for food lovers in Singapore to record their reviews of restaurants they have visited and receive recommendations for restaurants. The user interacts with it using a Command Line Interface(CLI), and it has a Graphical User Interface(GUI) created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+This project portfolio page serves to document my contributions to _The Food Diary_, a software engineering project undertaken
+as part of the National University of Singapore(NUS) School of Computing's Software Engineering module,CS2103T.
+More information on this module can be found https://ivle.nus.edu.sg/V1/lms/public/view_moduleoutline.aspx?CourseID=DBE4B268-893E-4DCB-9666-0E9150581F2A&ClickFrom=StuViewBtn[here]
+
+The Food Diary is a *journal application* for food lovers in Singapore to record their reviews of restaurants they have visited and
+receive recommendations for restaurants for future visits. The user interacts with it using a Command Line Interface(CLI),
+and it has a Graphical User Interface(GUI) created with JavaFX. It is written in Java, and has about 10,000 Lines of Code.
+
 
 == Summary of contributions
 
-* *Major enhancement*: I added *the ability to get restaurant recommendations based proximity to a location. *
-** What it does: allows the user to list restaurants that they haven't reviewed ranked based on how close the restaurant is to the location they provide.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement required the creation of many components to function. Firstly, a python script was used to collect the postal data and parse it into a json file. A new storage system was then created to parse the postal data json file. Finally, this data was then used to sort the restaurants.
-** Credits: https://docs.onemap.sg/ API is used to generate the postal data.
+
+* *Major enhancement*: I added *the ability to get restaurant recommendations based proximity to a location.*
+** What it does: This feature allows the user to list restaurants that they have not reviewed, based on the proximity of the restaurant to the location they provide.
+** Justification: This feature improves the product significantly because a user can receive recommendations based on their current location, making it a lot more convenient for them to find restaurants.
+** Highlights: This enhancement required the creation of multiple components to function. Firstly, a Python script was used to collect
+ the postal data and parse it into a json file. A new storage system was then created to parse the postal data json file.
+  Finally, this data was then used to sort the restaurants.
+** Credits: https://docs.onemap.sg/[OneMap API] was used to generate the postal data.
 
 * *Minor enhancement*: I added a name command that allows users to *personalise The Food Diary with their own name.*
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: The code that I have contributed to this project can be found https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=chanqingzhou[here]
 
-* *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` (1 release) on GitHub
-*** Released `v1.3` jar file on GitHub
-** Enhancements to existing features:
-*** Wrote additional tests for existing features to increase coverage.
+*** Released `v1.4` jar file on GitHub
+*** Included coveralls on GitHub: https://github.com/CS2103-AY1819S2-W17-1/main/pull/144[#144]
+*** Searched for bugs within the project and raised issues: https://github.com/CS2103-AY1819S2-W17-1/main/issues/101[#101]
 ** Documentation:
-*** Create the initial User Guide: https://github.com[#2]
+*** Create the initial User Guide: https://github.com/CS2103-AY1819S2-W17-1/main/pull/2[#2]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#18]
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W17-1/main/pull/18[#18], https://github.com/CS2103-AY1819S2-W17-1/main/pull/96[#96]
 ** Project conceptualisation:
 *** Conceptualised the idea for Food Diary.
 
@@ -44,7 +52,7 @@ The Food Diary is a *journal application* for food lovers in Singapore to record
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the Food Diary 's User Guide . They showcase my ability to write documentation targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=introductionUG]

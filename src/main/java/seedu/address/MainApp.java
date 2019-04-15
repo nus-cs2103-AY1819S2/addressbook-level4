@@ -59,6 +59,7 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         JsonPostalDataStorage jsonPostalDataStorage = new JsonPostalDataStorage(config.getPostalDataPath());
+        logger.info("Using " + config.getPostalDataPath() + " as Postal data source");
         FoodDiaryStorage foodDiaryStorage = new JsonFoodDiaryStorage(userPrefs.getFoodDiaryFilePath());
         storage = new StorageManager(foodDiaryStorage, userPrefsStorage, jsonPostalDataStorage);
 

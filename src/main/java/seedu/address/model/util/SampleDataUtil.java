@@ -1,33 +1,24 @@
 package seedu.address.model.util;
 
-import java.util.Arrays;
-import java.util.Collections;
+import static seedu.address.model.util.SampleLessons.SAMPLE_1_LESSON;
+import static seedu.address.model.util.SampleLessons.SAMPLE_2_LESSON;
 
-import seedu.address.model.card.Card;
-import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.LessonList;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
-    private static Card[] getSampleCards() {
-        return new Card[] {
-            new Card(Arrays.asList("Belgium", "Brussels"), Collections.singletonList("B")),
-            new Card(Arrays.asList("Japan", "Tokyo"), Collections.singletonList("T")),
-        };
-    }
+    /**
+     * This is a static-methods-only (utility) class which should not be instantiated.
+     * Note that this is not a singleton class given that not even a single instance is allowed.
+     */
+    private SampleDataUtil() { }
 
     public static LessonList getSampleBrainTrain() {
         LessonList lessonList = new LessonList();
-        Lesson lesson = new Lesson("sampleData", Arrays.asList("Country", "Capital"),
-            Collections.singletonList("Hint"));
-
-        for (Card sampleCard: getSampleCards()) {
-            lesson.addCard(sampleCard);
-        }
-
-        lessonList.addLesson(lesson);
+        lessonList.addLesson(SAMPLE_1_LESSON);
+        lessonList.addLesson(SAMPLE_2_LESSON);
         return lessonList;
     }
 }

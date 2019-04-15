@@ -40,17 +40,22 @@ public class ParserUtilTest {
 
     @Test
     public void parserUtil() throws ParseException {
-        final String name = "single";
         final String count = "1";
         final String wrongCount = "asd";
 
         ParserUtil parserUtil = new ParserUtil();
-        String expectedName = parserUtil.parseName(name);
-        assertEquals(expectedName, name.toUpperCase());
         int expectedCount = parserUtil.parseCount(count);
         assertEquals(expectedCount, 1);
         String trimmedCount = wrongCount.trim();
-        thrown.expectMessage("Count of number should be a valid integer less than MAX_INTEGER.");
+        thrown.expectMessage("Count of number should be a valid integer less than MAX_INTEGER (2147483647).");
+        parserUtil.parseCount(trimmedCount);
+    }
+    @Test
+    public void parserSmallCount() throws ParseException {
+        final String count = "0";
+        ParserUtil parserUtil = new ParserUtil();
+        String trimmedCount = count.trim();
+        thrown.expectMessage("Count should not be less than 1 in a single lesson.");
         parserUtil.parseCount(trimmedCount);
     }
     @Test
@@ -58,7 +63,7 @@ public class ParserUtilTest {
         final String count = "129084913749871398471936571369587198347981";
         ParserUtil parserUtil = new ParserUtil();
         String trimmedCount = count.trim();
-        thrown.expectMessage("Count of number should be a valid integer less than MAX_INTEGER.");
+        thrown.expectMessage("Count of number should be a valid integer less than MAX_INTEGER (2147483647).");
         parserUtil.parseCount(trimmedCount);
     }
     @Test

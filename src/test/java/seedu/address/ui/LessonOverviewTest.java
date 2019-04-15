@@ -15,7 +15,11 @@ public class LessonOverviewTest extends GuiUnitTest {
     @Test
     public void display() {
         // no optionals
-        Lesson lessonWithNotOptionals = new LessonBuilder().withNoOptionalHeaders().build();
+        Lesson lessonWithNotOptionals = new LessonBuilder()
+                .withCoreHeaders("A", "B", "C")
+                .withNoOptionalHeaders()
+                .withNoCards()
+                .build();
         LessonOverview lessonOverview = new LessonOverview(lessonWithNotOptionals);
         uiPartRule.setUiPart(lessonOverview);
         assertCardDisplay(lessonOverview, lessonWithNotOptionals);
@@ -40,13 +44,13 @@ public class LessonOverviewTest extends GuiUnitTest {
         assertEquals(lessonOverview, lessonOverview);
 
         // null -> returns false
-        assertNotEquals(null, lessonOverview);
+        assertNotEquals(lessonOverview, null);
 
         // different types -> returns false
-        assertNotEquals(0, lessonOverview);
+        assertNotEquals(lessonOverview, 0);
 
         // different types -> returns false
-        assertNotEquals(new LessonCard(lesson, 0), lessonOverview);
+        assertNotEquals(lessonOverview, new LessonCard(lesson, 0));
 
         // same lesson with same index but different index -> returns true
         Lesson differentLesson = new LessonBuilder().withName("differentName").build();

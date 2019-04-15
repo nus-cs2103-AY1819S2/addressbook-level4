@@ -325,4 +325,24 @@ public class ManagementModelManagerTest {
         thrown.expect(IllegalArgumentException.class);
         modelManager.deleteCardFromOpenedLesson(-1);
     }
+
+    @Test
+    public void setTestForOpenedLesson_validIndices_setSuccessful() {
+        modelManager.addLesson(lesson);
+        modelManager.openLesson(0); // Open added lesson
+
+        // Valid indices -> successful set
+        modelManager.setOpenedLessonTestValues(1, 0);
+        assertEquals(modelManager.getOpenedLesson().getQuestionCoreIndex(), 1);
+        assertEquals(modelManager.getOpenedLesson().getAnswerCoreIndex(), 0);
+    }
+    @Test
+    public void setTestForOpenedLesson_invalidIndex_throwsIllegalArgumentException() {
+        modelManager.addLesson(lesson);
+        modelManager.openLesson(0); // Open added lesson
+
+        // Invalid index -> illegal argument exception thrown
+        thrown.expect(IllegalArgumentException.class);
+        modelManager.setOpenedLessonTestValues(5, 0);
+    }
 }

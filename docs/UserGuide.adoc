@@ -1,4 +1,4 @@
-= BrainTrain - User Guide
+= BrainTrain - User guide
 :site-section: UserGuide
 :toc:
 :toclevels: 3
@@ -17,40 +17,46 @@ endif::[]
 
 By: `Team BrainTrain`      Since: `Jan 2019`      Licence: `MIT`
 
-// tag::evan[]
 == Introduction
+// tag::evan-intro[]
+BrainTrain is a *spaced-repetition flashcard application* which makes *memorizing easy and effective*. With BrainTrain's link:https://www.theguardian.com/education/2016/jan/23/spaced-repetition-a-hack-to-make-your-brain-store-information[Spaced Repetition System (SRS)] optimizing your flashcard revision intervals, you will be able to *learn more in less time*.
 
-BrainTrain is an open-source spaced repetition flashcard application which makes *memorising easy and efficient*. Research has shown that the Spaced-Repetition System (SRS) is *much more effective* than traditional memorization techniques. With BrainTrain, you will *learn more with less time*.
+*Who is it for:*
 
-BrainTrain is also a *portable* and *easy-to-navigate* desktop program. It is an *offline* application which you can use anywhere, even in places with limited or no Internet availability. It can be navigated and used via *easy-to-use* commands through the Command Line Interface (CLI). The CLI is supplemented by a minimalistic Graphical User Interface (GUI) which provides *helpful but non-distracting visual aid*. Together, the CLI and GUI provides an *effective and straightforward* way for you to use BrainTrain.
+- Anyone who needs to memorise anything should use BrainTrain (e.g. Japanese vocabulary, periodic table, human anatomy). BrainTrain's flashcard system is *content-agnostic* and *flexible*. It accommodates all forms of learning you may require.
+- Anyone who needs to create flashcard learning content for educational purposes should use BrainTrain. BrainTrain's flashcards are grouped as lessons which can be *easily imported and exported*. These lessons are also saved in `.csv` files which you *can edit in your favourite spreadsheet application* (e.g. Excel).
 
-Start using BrainTrain today! To get started, read [<<Quick start>>] for installation and setup instructions.
-// end::evan[]
+*Main features of BrainTrain:*
+
+- You can manage flashcard lessons in BrainTrain's management mode or alternatively do so in your preferred spreadsheet application.
+- You can attempt flashcard lessons in BrainTrain's quiz mode which will track and manage your user-specific spaced-repetition data automatically.
+
+Read the next section, <<Quick-start>>, to start using BrainTrain.
+// end::evan-intro[]
 
 {empty} +
 
-// tag::evan[]
+// tag::evan-start[]
+[[Quick-start]]
 == Quick start
 To begin using BrainTrain, follow the following set of instructions: +
 
 . Ensure that Java version `9` or later is installed on your Computer. You can download it link:https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html[here].
-. Download the latest `braintrain.jar` file link:{repoURL}/releases[here]. It is located under "Assets".
-. Create a folder to use as the home folder for BrainTrain (e.g. `braintrain/`).
-. Move the downloaded file to the created folder.
-. You can **optionally** download a sample lesson here: link:https://github.com/CS2103-AY1819S2-W14-1/main/blob/master/src/test/data/country-capitals-asia.csv[`country-capitals-asia.csv`]. +
-Create a sub-folder named `data` inside the `braintrain` folder. Place the downloaded file lesson inside `data`. (i.e. `braintrain/data/`).
-. Double-click BrainTrain with the file type as `Executable Jar File`. The GUI will appear in a few seconds.
+. Download the latest `braintrain.jar` file link:{repoURL}/releases[here]. It is located under _Assets_.
+. Create a folder to store the downloaded file (e.g. `braintrain/`).
+. Move `braintrain.jar` into the created folder.
+. Double-click `braintrain.jar` to launch the BrainTrain app. You should see the following within a few seconds:
+
 +
-.BrainTrain's GUI on first run
+.BrainTrain on first run
 [#img-firstlook]
 image::UiFirstLook.png[width="790"]
 
-. Type the command <<help, `help`>> in the command box and press kbd:[Enter] to find out how to use BrainTrain commands.
+. Read the next section, <<Features>>, to find out what BrainTrain commands there are.
 
-To learn more about BrainTrain commands, carry on to [<<Features>>].
 {empty} +
 
-// end::evan[]
+// end::evan-start[]
 [[Features]]
 == Features
 
@@ -77,39 +83,61 @@ Format: `help`
 [TIP]
 Alternatively, press kbd:[F1] to display usage information on all commands.
 
+==== Changing theme: `changeTheme`
+
+Changes the theme from light to dark vice versa. +
+Format: `changeTheme`
+
+// tag::start[]
 [[start]]
 ==== Starting a quiz session: `start`
 
 Starts a new quiz session. +
-Format: `start n/NAME [c/COUNT] m/MODE`
+Format: `start LESSON_INDEX [c/COUNT] m/MODE`
 
 Usage rules:
 
-* You can optionally specify the `COUNT` parameter. `COUNT` sets the number of cards to be tested in the quiz session. If no `COUNT` is specified, by default 1 card is tested.
-* The name field is used to choose lesson.
-* You must specify `MODE`. `MODE` sets the testing mode of the quiz session. The three available modes are `LEARN`, `PREVIEW`, `REVIEW` and `DIFFICULT`.
-. `LEARN`: Displays new cards with both question and answer shown, before testing begins and only question or answer are shown.
-. `PREVIEW`: Displays both question and answer of all flashcards. You will not be tested.
-. `REVIEW`: Tests the words based on the spaced-repetition algorithm - flashcards with the earliest test date are tested first.
-. `DIFFICULT`: Displays cards you previously labelled as difficult with both question and answer shown. You will not be tested.
+[NOTE]
+====
+The `start` command only works when there is no opened lesson in the system. Otherwise you need to close the opened lesson first.
+====
+* You must specify the index of lesson to be started. If your input index is out of range of current Lesson List, an error will be thrown.
+* You can optionally specify the `COUNT` parameter. `COUNT` sets the number of cards to be tested in the quiz session.
+** If no `COUNT` is specified, by default 1 card is tested.
+** If `COUNT` is larger than the size of the current lesson, the `COUNT` will be reset to be the size of the lesson by default.
+* You must specify index and count as a valid number which should be less than the MAXIMUM_INTEGER(0*7ffffffff), otherwise an error will be thrown.
+* You must specify `MODE`. `MODE` sets the testing mode of the quiz session. The four available modes are `LEARN`, `PREVIEW`, `REVIEW` and `DIFFICULT`.
+. `LEARN`: Displays new cards with both question and answer before test begins, and then only question is shown to test you. If you have already learned all the cards in current lesson, an error of no more new card to learn will be thrown.
+. `PREVIEW`: Displays both question and answer of flashcards. You will not be tested.
+. `REVIEW`: Tests the words based on the spaced-repetition algorithm, which means that flashcards with the earliest test date are tested first. If no card has due date before current time, an error of no card for review will be thrown.
+. `DIFFICULT`: Displays cards you previously labelled as difficult with both question and answer shown. You will not be tested. If no card has been labelled as difficult, an error of no difficult card will be thrown.
 
 [NOTE]
 ====
-Flashcards are tested based on the link:https://en.wikipedia.org/wiki/Spaced_repetition[Space-Repetition technique].
+In review mode, flashcards are tested based on the link:https://en.wikipedia.org/wiki/Spaced_repetition[Space-Repetition technique].
 ====
 
 Examples:
 
-* `start n/country-capitals m/LEARN` +
-Starts a quiz in `LEARN` mode with the 'country-capitals' lesson.
-* `start n/country-capitals-asia c/20 m/PREVIEW` +
-Starts a quiz containing 20 cards in `PREVIEW` mode with the 'country-capitals-asia' lesson.
+* `start 1 m/LEARN` +
+Starts a quiz in `LEARN` mode. Cards will be chosen from the first lesson in lesson list. Since count is not specified, the quiz will only contain one card by default.
+* `start 2 c/20 m/PREVIEW` +
+Starts a quiz containing 20 cards chosen from the second lesson in lesson list in `PREVIEW` mode, which only displays question and answer together one time.
 
 [NOTE]
 ====
 After you start a quiz session with the `start` command, BrainTrain will switch to <<quizmode, `quiz
 mode`>> and you will only be allowed to enter <<quizmode, `quiz mode`>> commands.
 ====
+
+Starting a quiz session with multiple lessons [coming in v2.0]
+
+* Format: `start LESSON_INDEX_1 LESSON_INDEX_2 [c/COUNT1] [c/COUNT2] m/MODE`
+* You can start a quiz session with cards from more than one lesson. The sequence of cards will be random instead of following the sequence of lessons to increase the difficulty for you to memorize.
+* Example: `start 1 2 c/5 c/5 m/learn`
+** Starts a quiz with 5 words from the first lesson and 5 words from the second lesson in `LEARN` mode.
+// end::start[]
+
 // tag::evan[]
 [[listLessons]]
 ==== Listing all lessons: `listLessons`
@@ -157,12 +185,48 @@ Examples:
 * `deleteLesson 2` +
 Deletes the second lesson in the numbered list displayed by `listLessons`.
 // end::evan[]
-// Eugene please update this tag
 // tag::eugene[]
 
 ==== Reloading all lessons: `reloadLessons`
-Reloads all lessons from the hard disk including all newly added lesson `.csv` files which were directly moved into the data folder. +
+Reloads all lessons from the lessons folder. The default folder is `/lessons/`, found next to `braintrain.jar`.
+
 Format: `reloadLessons`
+
+Steps:
+
+. You have a newly downloaded .csv lesson file, `new_lesson.csv`, with no lessons currently loaded.
++
+.A new lesson file.
+[#img-csv]
+image::reloadLessons_0_csv.png[]
+.No lessons are currently loaded.
+[#img-csv]
+image::reloadLessons_1_empty.png[]
+
+. You drag the new file into the `/lessons/` folder.
++
+.Dragging the file.
+[#img-csv]
+image::reloadLessons_2_drag.png[]
+
+. You enter `reloadLessons` into the app, and the new lesson appears.
++
+.Reloading lessons.
+[#img-csv]
+image::reloadLessons_3_reload.png[]
+
+. You verify again with `listLessons`.
++
+.New lesson has been loaded.
+[#img-csv]
+image::reloadLessons_4_list.png[]
+
+[NOTE]
+====
+Lessons are automatically reloaded when you open the application.
+====
+
+If the lesson does not appear, please check <<Troubleshooting>>.
 
 // end::eugene[]
 // tag::evan[]
@@ -267,81 +331,164 @@ Format: `quit`
 
 When you <<start, `start`>> a quiz, you will enter quiz mode. In this mode, you will only be allowed to enter the following set of quiz commands. Management commands are disabled in this mode.
 
-==== Viewing help: `\help`
+==== Answering a card : `[ANSWER]`
 
-Displays usage information on all quiz mode commands and acceptable inputs for answering cards. +
-Format: `\help`
-
-==== Viewing the quiz session's status: `\status`
-
-Displays information on the current session's status such as lesson progress (i.e. number of flashcards left). +
-Format: `\status`
-
-==== Answering a flashcard : `[ANSWER]`
-
-An input without the `\` prefix will be treated as an answer to the current flashcard. +
+An input without the `\` prefix will be treated as an answer to the current card. +
 Format: `[ANSWER]...`
 
+****
 Usage rules:
 
 * You can answer with one or more words (e.g. "Tokyo" or "Aland Islands").
 
-What a flashcard contains:
+What a card contains:
 
-* For each flashcard, total attempts and answer streak are tracked.
-* Total attempts refers to the number of times you have attempted this flashcard, regardless of
+* For each card, total attempts and answer streak are tracked.
+* Total attempts refers to the number of times you have attempted this card, regardless of
 whether you were answered it correctly.
-* The answer streak is the number of times you have answered the flashcard correctly consecutively.
+* The answer streak is the number of times you have answered the card correctly consecutively.
+****
 
 [NOTE]
-The streak will be reduced to 0 after you answer a flashcard wrongly twice in a row. Hence, if you accidentally enter the wrong answer once, your streak for the question will not be affected, unless you answer wrongly again.
+The streak will be reduced to 0 after you answer a card wrongly twice in a row. Hence, if you
+accidentally enter the wrong answer once, your streak for the question will not be affected, unless you answer wrongly again.
 
 [TIP]
 You can press kbd:[ENTER] twice without entering any other input to reveal the answer.
 
-Examples:
+*Going through the different scenarios in a quiz*:
 
-* The question is "Japan" and is asking for the capital of "Japan": +
-  `Tokyo` +
-  This is the correct answer, both the streak and total attempts increased by 1.
+*Step 1:* +
+  The question is "Japan" and is asking for the capital of "Japan": +
+  Enters `Tokyo` as answer +
+  The picture shown below shows the expected result if the question has been answered correctly,
+  which the total correct question counter increased by 1.
 
-* The question is "Tokyo" and is asking for the country of "Tokyo": +
-  `Japaan` +
-  `Japan` +
-  This is the correct answer, the streak increased by 1 while total attempts increased by 2.
+.Expected result of answering the question correctly.
+image::quiz-command-examples/answer-tokyo-correctly.PNG[width="500"]
 
-* The question is "Tokyo" and is asking for the country of "Tokyo": +
-  `Japaan` +
-  `Jappan` +
-  This is the wrong answer, the streak is reduced to 0 while total attempts increased by 2.
+{empty} +
+*Step 2:* +
+  The question is "Tokyo" and is asking for the country of "Tokyo": +
+  Enters `Japaan` as wrong answer +
+  The picture shown below shows the expected result if the question has been answered wrongly once,
+  which the total attempts counter increased by 1.
 
-==== Labelling the current flashcard as difficult: `\difficult`
-Labels the current flashcard as difficult. +
+.Expected result of answering the question wrongly once.
+image::quiz-command-examples/answer-japan-wrongly-once.PNG[width="500"]
+
+{empty} +
+*Step 3:* +
+  Same question as above, "Tokyo" and is asking for the country of "Tokyo": +
+  Enters `Jappan` as another wrong answer +
+  The picture shown below shows the expected result if the question has been answered wrongly twice,
+  which shows the correct answer and the total attempts counter increased by 1.
+
+.Expected result of answering the question wrongly twice.
+image::quiz-command-examples/answer-japan-wrongly-twice.PNG[width="500"]
+
+{empty} +
+*Step 4:* +
+  Same question as above, "Tokyo" and is asking for the country of "Tokyo": +
+  Enters `Japan` as correct answer +
+  The picture shown below shows the expected result if the question has been answered correctly
+  after answer has been revealed, which shows how well each question is performed in this quiz.
+
+.Expected result of quiz after questions have been completed.
+image::quiz-command-examples/answer-end.PNG[width="500"]
+
+{empty} +
+
+==== Labelling the current card as difficult: `\difficult`
+Labels the current card as difficult. +
 Format: `\difficult`
 
 Examples:
 
 * The question is "Japan" and is asking for the capital of "Japan": +
-  `\difficult` +
-  This will label flashcard of "Japan" as difficult.
+  Enters `\difficult` +
+  Labelled this card as difficult as shown in the picture below.
+
+.Expected result of card labelled as difficult.
+image::quiz-command-examples/difficult.PNG[width="500"]
 
 * The question is "Japan" and is asking for the capital of "Japan": +
   `\difficult` +
   `\difficult` +
-  This will label flashcard of "Japan" as not difficult.
+  Labelled this card as difficult as shown in the picture below.
+
+.Expected result of card labelled as difficult.
+image::quiz-command-examples/not-difficult.PNG[width="500"]
+
+// end::quiz[]
+
+==== Viewing help: `\help`
+
+Displays usage information on all quiz mode commands and acceptable inputs for answering cards. +
+Format: `\help`
 
 [[hint]]
-==== Viewing the current flashcard's hint(s): `\hint`
+==== Viewing the current card's hint(s): `\hint`
 
-Reveals the hint(s) for the current flashcard (if any). +
+Reveals the hint(s) for the current card (if any). +
 Format: `\hint`
 
+Example:
+
+* Enters `\hint` +
+  Reveals the hint of the current card
+
+.Expected result revealing the hint of the card.
+image::quiz-command-examples/hint.PNG[width="500"]
+
+// tag::quiz[]
 ==== Quitting the quiz session: `\quit`
 
 Quits the current quiz session and switches back to `management mode`. +
 Format: `\quit`
 
+*Example*:
+
+* The question is "Japan" and is asking for the capital of "Japan": +
+  Enters `Tokyo` as answer +
+  Enters `\quit` to quit the quiz. +
+  Saves the progress of 1 attempted question "Japan".
+
+.Expected result of quitting a quiz after answering a question correctly.
+image::quiz-command-examples/quit.PNG[width="500"]
+
+{empty} +
 // end::quiz[]
+
+==== Viewing the status of the current quiz: `\status`
+
+Displays information on the current quiz's status such as questions progress (i.e. number of
+correct questions). +
+Format: `\status`
+
+****
+
+What does a status displays:
+
+* Total attempts refers to the number of times you have attempted this card, regardless of
+whether you were answered it correctly.
+
+* Total correct answer refers to the numbers of time you have gotten correct, regardless of the
+streak.
+
+* Current progress refers to which card are you currently on out of all the cards in the quiz.
+****
+
+
+*Example*:
+
+* The question is "Japan" and is asking for the capital of "Japan": +
+  Enters `Tokyo` as answer +
+  Enters `\status` to view the status of the current quiz. +
+  Saves the progress of 1 attempted question "Japan".
+
+.Expected result of viewing the status of a quiz after answering a question correctly.
+image::quiz-command-examples/status.PNG[width="500"]
 
 {empty} +
 
@@ -376,25 +523,30 @@ Example : `import User l/[INSERT_DESIRED_LINK_HERE]`
 == Troubleshooting
 
 *Q*: Why are my card values shown as `?????`? +
-*A*: If your lesson contains non-ASCII characters such as:
+*A*: If your lesson contains non-English characters such as:
 
 * Characters with accents: `à`
 * Non-English words : `こんにちは` `السلام عليكم` `你好`
 
-This can be fixed by opening the lesson file in your preferred spreadsheet application (e.g. Excel), and then saving it as `CSV UTF-8 (Comma delimited) (*.csv)`. +
+This can be fixed by opening the lesson file in your preferred spreadsheet application (e.g. Excel), and then saving it as `CSV UTF-8 (Comma delimited) (*.csv)`. UTF encoding allows a computer to show non-English characters. +
 ****
-The default encoding setting is unable to process special characters. As a result, you will need to save it as a `UTF-8` encoded `.csv` file.
+The default encoding setting is unable to process special characters. As a result, you will need to save it as a `UTF-8` encoded file.
 
-Note that the lesson files have to be saved as a `UTF-8` encoded `.csv` file before the first save. +
-If the file is saved without `UTF-8` encoding, the data may be saved as `?????`, and all non-ASCII characters will be discarded.
+Note that externally created lesson files have to be saved with UTF-8 encoding before using them in BrainTrain. +
+If the files are saved without `UTF-8` encoding, any non-English data may be saved as `?????`, and the data will be lost.
 ****
+
+*Q*: Why are my lessons not loading? +
+*A*: Please verify if the location of BrainTrain is suitable. Depending on your computer's permissions and security settings, places such as the Desktop may not be usable, and your operating system may prevent BrainTrain from loading the lesson files.
+
+If BrainTrain still does not load lessons despite trying other locations, please contact Team BrainTrain at https://github.com/CS2103-AY1819S2-W14-1/main/issues[our issue tracker] or email us at eugenef@u.nus.edu, and attach any generated braintrain.log files.
 
 {empty} +
 
 == FAQ
 
 *Q*: How do I transfer my data to another computer? +
-*A*: Install the app in the other computer and transfer the lesson `.csv` files over to the `/data` directory.
+*A*: Install the app in the other computer and transfer the lesson `.csv` files over to the `lessons` directory, and userdata `.csv` files over to the `userdata` directory.
 
 {empty} +
 
@@ -402,8 +554,9 @@ If the file is saved without `UTF-8` encoding, the data may be saved as `?????`,
 
 === Management mode
 * *Viewing help*: `help`
-* *Starting quiz session*: `start n/NAME [c/COUNT] m/MODE` +
-e.g. `start n/country-capitals c/15 m/LEARN`
+* *Changing theme*: `changeTheme`
+* *Starting a quiz session*: `start LESSON_INDEX [c/COUNT] m/MODE` +
+e.g. `start 1 c/15 m/LEARN`
 * *Listing all lessons*: `listLessons`
 * *Adding a lesson*: `addLesson n/NAME q/QUESTION CORE a/ANSWER CORE [c/CORE]... [o/OPTIONAL]...` +
 e.g. `addLesson n/Capitals of the world q/Country a/Capital c/Language o/Hint`
@@ -424,12 +577,12 @@ e.g. `deleteCard 2`
 {empty} +
 
 === Quiz mode
+* *Answering a card*: `[ANSWER]...`
+* *Labelling the current card as difficult*: `\difficult`
 * *Viewing help*: `\help`
+* *Viewing the current card's hint(s)*: `\hint`
+* *Quitting the quiz*: `\quit`
 * *Viewing the quiz session's status*: `\status`
-* *Answering a flashcard*: `[*]`
-* *Labelling the current flashcard as difficult*: `\difficult`
-* *Viewing the current flashcard's hint(s)*: `\hint`
-* *Quitting the quiz session*: `\quit`
 
 {empty} +
 

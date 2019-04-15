@@ -1,7 +1,15 @@
-= Chang Lei - Project Portfolio
+= Chang Lei - Project Portfolio for BrainTrain
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:toc:
+:toclevels: 1
+:toc-title: Table of contents
+:toc-placement: manual
+:sectnums:
+:repoURL: https://github.com/CS2103-AY1819S2-W14-1/main
+:pullURL: https://github.com/CS2103-AY1819S2-W14-1/main/pull/
+:seeduURL: https://github.com/se-edu/addressbook-level4
 
 == PROJECT: BrainTrain
 
@@ -32,10 +40,10 @@ BrainTrain is also a portable and easy-to-navigate desktop program. It is an off
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide, showing development that I have made for the `start` feature. They showcase my ability to write documentation targeting end-users._
 |===
 
-
+include::../UserGuide.adoc[tag=start]
 
 == Contributions to the Developer Guide
 
@@ -43,4 +51,4 @@ BrainTrain is also a portable and easy-to-navigate desktop program. It is an off
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-
+include::../DeveloperGuide.adoc[tag=session]

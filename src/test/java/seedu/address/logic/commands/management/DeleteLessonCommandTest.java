@@ -3,7 +3,7 @@ package seedu.address.logic.commands.management;
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_OPENED_LESSON;
+import static seedu.address.commons.core.Messages.MESSAGE_LESSON_VIEW_COMMAND;
 import static seedu.address.logic.commands.management.ManagementCommand.MESSAGE_EXPECTED_MODEL;
 import static seedu.address.model.lesson.LessonList.EXCEPTION_INVALID_INDEX;
 import static seedu.address.testutil.TypicalLessonList.LESSON_DEFAULT;
@@ -70,7 +70,7 @@ public class DeleteLessonCommandTest {
 
         // delete a lesson which exists in model BUT there is opened lesson -> throws command exception
         thrown.expect(CommandException.class);
-        thrown.expectMessage(MESSAGE_OPENED_LESSON);
+        thrown.expectMessage(MESSAGE_LESSON_VIEW_COMMAND);
         Index toDeleteIndex = Index.fromZeroBased(0);
         new DeleteLessonCommand(toDeleteIndex).execute(modelStub, commandHistory);
     }

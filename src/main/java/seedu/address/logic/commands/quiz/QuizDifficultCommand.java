@@ -10,7 +10,7 @@ import seedu.address.model.modelmanager.QuizModel;
 import seedu.address.model.quiz.QuizCard;
 
 /**
- * Labels a card as difficult or not
+ * Labels a card as difficult or not difficult.
  */
 public class QuizDifficultCommand extends QuizCommand {
     public static final String COMMAND_WORD = "\\difficult";

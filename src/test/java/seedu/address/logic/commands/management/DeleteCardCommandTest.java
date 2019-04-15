@@ -2,8 +2,8 @@ package seedu.address.logic.commands.management;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static seedu.address.commons.core.Messages.MESSAGE_CARD_VIEW_COMMAND;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_NO_OPENED_LESSON;
 import static seedu.address.logic.commands.management.ManagementCommand.MESSAGE_EXPECTED_MODEL;
 import static seedu.address.model.lesson.LessonList.EXCEPTION_INVALID_INDEX;
 import static seedu.address.testutil.TypicalCards.CARD_JAPAN;
@@ -60,7 +60,7 @@ public class DeleteCardCommandTest {
 
         // delete a card which does not exist in model -> CommandException thrown
         thrown.expect(CommandException.class);
-        thrown.expectMessage(MESSAGE_NO_OPENED_LESSON);
+        thrown.expectMessage(MESSAGE_CARD_VIEW_COMMAND);
         new DeleteCardCommand(toDeleteIndex).execute(modelStub, commandHistory);
     }
 

@@ -1,9 +1,9 @@
 package seedu.address.logic.commands.management;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_NO_OPENED_LESSON;
-import static seedu.address.logic.parser.Syntax.PREFIX_CORE;
-import static seedu.address.logic.parser.Syntax.PREFIX_OPTIONAL;
+import static seedu.address.commons.core.Messages.MESSAGE_CARD_VIEW_COMMAND;
+import static seedu.address.logic.parser.Syntax.PREFIX_HINT;
+import static seedu.address.logic.parser.Syntax.PREFIX_TEST;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
@@ -28,16 +28,17 @@ public class AddCardCommand extends ManagementCommand {
     /**
      * Instructions on command usage and parameters.
      */
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a card to the opened lesson. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a card."
             + "\nParameters: "
-            + PREFIX_CORE + "CORE " + PREFIX_CORE + "CORE "
-            + "[" + PREFIX_CORE + "CORE]... "
-            + "[" + PREFIX_OPTIONAL + "OPTIONAL]...\n"
+            + PREFIX_TEST + "TEST " + PREFIX_TEST + "TEST "
+            + "[" + PREFIX_TEST + "TEST]... "
+            + "[" + PREFIX_HINT + "HINT]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_CORE + "Australia "
-            + PREFIX_CORE + "Canberra "
-            + PREFIX_CORE + "English "
-            + PREFIX_OPTIONAL + "Starts with C\n";
+            + PREFIX_TEST + "Australia "
+            + PREFIX_TEST + "Canberra "
+            + PREFIX_TEST + "English "
+            + PREFIX_HINT + "Starts with C\n"
+            + "Note: You need to specify at least 2 TEST values. HINT values are optional.";
     /**
      * Feedback message displayed to the user upon successful execution of this command
      */
@@ -85,7 +86,7 @@ public class AddCardCommand extends ManagementCommand {
 
         try {
             if (!mgtModel.isThereOpenedLesson()) {
-                throw new CommandException(MESSAGE_NO_OPENED_LESSON);
+                throw new CommandException(MESSAGE_CARD_VIEW_COMMAND);
             } else if (mgtModel.openLessonHasCard(toAdd)) {
                 throw new CommandException(MESSAGE_DUPLICATE_CARD);
             }

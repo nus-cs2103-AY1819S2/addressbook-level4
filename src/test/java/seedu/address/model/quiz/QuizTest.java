@@ -215,7 +215,6 @@ public class QuizTest {
     public void end() {
         List<List<Integer>> expected = new ArrayList<>();
         expected.add(Arrays.asList(0, 1, 1, 0));
-        expected.add(Arrays.asList(1, 1, 0, 0));
 
         // quiz just started
         Quiz quiz = new Quiz(validQuizCard, LEARN);
@@ -226,6 +225,7 @@ public class QuizTest {
         quiz.updateTotalAttemptsAndStreak(0, "Tokyo");
         quiz.getNextCard();
         quiz.updateTotalAttemptsAndStreak(1, "wrong answer");
+        quiz.setQuizDone();
 
         assertEquals(expected, quiz.end());
         assertTrue(quiz.isQuizDone());
@@ -240,21 +240,6 @@ public class QuizTest {
 
         assertTrue(quiz.toggleIsCardDifficult(index));
         assertFalse(quiz.toggleIsCardDifficult(index));
-    }
-
-    @Test
-    public void getHeader() {
-        Quiz quiz = new Quiz(validQuizCard, REVIEW);
-        quiz.getNextCard();
-
-        assertEquals("Country", quiz.getQuestionHeader());
-        assertEquals("Capital", quiz.getAnswerHeader());
-
-        quiz.getNextCard();
-        quiz.getNextCard(); // flipped first card
-        assertEquals("Capital", quiz.getQuestionHeader());
-        assertEquals("Country", quiz.getAnswerHeader());
-
     }
 
     @Test

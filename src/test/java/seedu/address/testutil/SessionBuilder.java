@@ -12,6 +12,7 @@ import seedu.address.model.srscard.SrsCard;
 public class SessionBuilder {
     public static final String DEFAULT_NAME = "01-01-Learn";
     public static final int DEFAULT_COUNT = 1;
+    public static final int DEFAULT_INDEX = 1;
     public static final QuizMode DEFAULT_MODE = QuizMode.LEARN;
     public static final List<SrsCard> DEFAULT_SRSCARDS = List.of();
 
@@ -19,12 +20,14 @@ public class SessionBuilder {
     private int count;
     private QuizMode mode;
     private List<SrsCard> srsCards;
+    private int index;
 
     public SessionBuilder() {
         name = DEFAULT_NAME;
         count = DEFAULT_COUNT;
         mode = DEFAULT_MODE;
         srsCards = DEFAULT_SRSCARDS;
+        index = DEFAULT_INDEX;
     }
 
     /**
@@ -35,6 +38,7 @@ public class SessionBuilder {
         count = currentSession.getCount();
         mode = currentSession.getMode();
         srsCards = currentSession.getSrsCards();
+        index = currentSession.getLessonIndex();
     }
 
     /**
@@ -74,11 +78,17 @@ public class SessionBuilder {
      * @return a session
      */
     public Session build() {
+        return new Session(index, count, mode, srsCards);
+    }
+    public Session build_with_name() {
         return new Session(name, count, mode, srsCards);
     }
 
     public Session build_without_count() {
         return new Session(name, mode, srsCards);
+    }
+    public Session buildIndex_without_srsCards() {
+        return new Session(index, count, mode);
     }
 
     public Session build_without_srsCards() {

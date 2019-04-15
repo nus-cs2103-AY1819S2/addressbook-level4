@@ -769,25 +769,6 @@ The `UniqueCapEntryList` is then updated and the CAP score is updated as well.
 
 *Step 4*: Check if after deleting the target `CapEntry` the `UniqueCapEntryList` still has a `CapEntry` of the same semester. If there is,
 the module semester will be deleted from the `UniqueModuleSemesterList`. Then the `UniqueModuleSemesterList` will be updated.
-
-==== Design Considerations
-===== Aspect: How to store the Cap Score.
-
-* **Alternative 1 (current choice):** Store the cap score as a static variable in CapEntry class.
-** Pros: Easy to implement.
-** Cons:
-* **Alternative 2:** Store the cap score as a separate class that is then store in UltiStudent.
-** Pros:
-** Cons: Will use more memory and is harder to implement.
-
-===== Aspect: How to calculate score of module grade.
-
-* **Alternative 1 (current choice):** Use a Hash Map to get the Store the cap score as a static variable in CapEntry class.
-** Pros: Lower time complexity O(1) and cleaner code.
-** Cons: Larger memory occupation.
-* **Alternative 2:** Use switch cases to find and allocate score to grade.
-** Pros: Easier readability.
-** Cons: Slower time complexity, worst case O(N).
 // end::delete-cap[]
 
 === Logging

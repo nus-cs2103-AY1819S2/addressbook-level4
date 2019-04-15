@@ -2,7 +2,7 @@
 :site-section: DeveloperGuide
 :toc: left
 :toc-title: Contents
-:toc-placement: preamble
+:toclevels: 3
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -367,11 +367,11 @@ bookings in real-time in the UI as has been explained before.
 
 ===== Aspect: How should the API be structured
 
-* **Alternative 1 (current choice):** Every model has a seperate interface which implements
+* **Alternative 1 (current choice):** Every model has a separate interface which implements
                                       the `Model` interface
 ** Pros: Every model has access to the GUI and User Preferences.
 ** Cons: Some models have unnecessary methods.
-* **Alternative 2:** All the model APIs will be seperate and there will be no Model Interface.
+* **Alternative 2:** All the model APIs will be separate and there will be no Model Interface.
 ** Pros: Better separation and less scope for errors.
 ** Cons: Lot of refactoring required.
 //end::new-model[]
@@ -450,13 +450,13 @@ The `FindReservationCommand` extends from the `ReservationCommand` class which i
 illustrated in the UML diagram shown below.
 
 .FindReservationCommand UML Diagram
-image::FindReservationCommandUMLDiagram.png[width="600"]
+image::FindReservationCommandUMLDiagram.png[width="300"]
 
 The `FindReservationCommand` involves the use of multiple components of the HMS+ application. The figure below shows the
 high level [underline]#Sequence Diagram# for the `FindReservationCommand`.
 
 .High Level Sequence Diagram for the  `find-reservation id/A0176684J` command
-image::FindReservationLogicSequenceDiagram.png[width="600"]
+image::FindReservationLogicSequenceDiagram.png[width="500"]
 
 As seen from the above diagram, this command doesn't affect storage at all as the purpose of this command is to just find
 a specific reservation.
@@ -543,13 +543,13 @@ The `GenerateBillForCustomerCommand` extends from the `BillCommand` class which 
 illustrated in the UML diagram shown below.
 
 .GenerateBillForCustomerCommand UML Diagram
-image::GenerateBillForCustomerCommandUMLDiagram.png[width="600"]
+image::GenerateBillForCustomerCommandUMLDiagram.png[width="300"]
 
 The `GenerateBillForCustomerCommand` involves the use of multiple components of the HMS+ application. The figure below shows the
 high level [underline]#Sequence Diagram# for the `GenerateBillForCustomerCommand`.
 
 .High Level Sequence Diagram for the  `generate-bill-customer 1` command
-image::GenerateBillLogicSequenceDiagram.png[width="600"]
+image::GenerateBillLogicSequenceDiagram.png[width="500"]
 
 As seen from the above diagram, there is no storage created for the bill as a result of which the bill generated is
 never stored. Therefore, the bill needs to be generated every time.
@@ -562,7 +562,7 @@ of the customer whose bill is to be generated. The figure below depicts the Sequ
 image::gbcLogicDiagram.png[width="800"]
 
 The `GenerateBillForCustomerCommand#execute()` method invokes the `updateBill(bill)` method from the `BillModel`.
- Complying with the rules of <<abstraction>>, the Logic component calls on Model to handle the internal details for updation.
+ Complying with the rules of <<abstraction>>, the Logic component calls on Model to handle the internal details for updating.
 
 The code used for generating the [underline]#booking bill# for the customer is shown in the snippet below:
 
@@ -595,26 +595,6 @@ public HashMap<ServiceType, Pair<Double, Integer>> generateHashMapForBooking(Obs
         return new Pair<>(totalAmount, totalTime);
     }
 
-----
-
-The actual displaying of the booking bill is then done by `BillPanel` object by the following code snippet
-in the `Ui` component:
-[source,java]
-----
-if (newValue.getBookingCount() > 0) {
-                stringBuilder.append("Service Booking(s) :\n");
-                for (ServiceType st: newValue.getServiceTypes()) {
-                    if (newValue.getServiceTypeBookingCount(st) > 0) {
-                        stringBuilder.append(String.format("%14s", "[" + st.getName() + "]")
-                                + String.format("  Rate per hour:%2.1f", st.getRatePerHour()) + "\n"
-                                + String.format("  Number of hour(s):%2d", newValue.getServiceTypeBookingCount(st))
-                                + String.format("  Amount:%4.1f", newValue.getServiceTypeBill(st)) + "\n\n");
-                    }
-                }
-                stringBuilder.append(String.format("---------------------Sub-Total: %6.1f",
-                        newValue.getAmountBooking()) + "\n");
-                stringBuilder.append("--------------------------------------\n");
-            } //if count of bookings is greater than 0
 ----
 
 The [underline]#reservation bill# for the customer is also generated in the same manner and has therefore not been shown.
@@ -789,7 +769,7 @@ See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to dep
 
 === Converting Documentation to PDF format
 
-We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
+We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in web pages.
 
 Here are the steps to convert the project documentation files to PDF format.
 
@@ -1257,8 +1237,8 @@ HMS+ is targeted at hotels which want to use a single, highly customizable integ
 Hotels have hundreds of customers with each customer having their own service bookings, room reservations and
 their payments. +
 
-This is why these hotels use different softwares to keep a track of customer's bookings and reservations and
-accordingly their payments. With time, it becomes difficult to keep a track of everything using different softwares.
+This is why these hotels use different software to keep a track of customer's bookings and reservations and
+accordingly their payments. With time, it becomes difficult to keep a track of everything using different software.
 
 HMS+ provides hotels with a one-stop shop for all their managerial and organization needs.
 
@@ -1274,6 +1254,11 @@ HMS+ provides hotels with a one-stop shop for all their managerial and organizat
 
 == User Stories
 // tag::user-stories[]
+
+User stories are short, simple descriptions of a feature told from the perspective of the user who desires the new
+capability. This will help the existing and new developers understand the importance of each feature and how does it help
+our user.
+
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
@@ -1282,9 +1267,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |new hotel management staff |see usage instructions |refer to instructions when I forget how to use the App
 
 |`* * *` |hotel management staff |add a new customer |add a room reservation or a service booking for the customer
-
-|`* * *` |hotel management staff |delete a customer |remove a customer
 // end::user-stories[]
+|`* * *` |hotel management staff |delete a customer |remove a customer
 
 |`* * *` |hotel management staff |edit a customer |update details of an already existing customer
 
@@ -1329,9 +1313,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |hotel management staff |add a new room type |expand my room type range
 
 |`*` |hotel management staff |change rates of a room type |change their tariffs
-// tag::user-stories3[]
-|`*` |hotel management staff |change capacity of a specific service |expand/shrink a specific service
 
+|`*` |hotel management staff |change capacity of a specific service |expand/shrink a specific service
+// tag::user-stories3[]
 |`*` |hotel management staff |sort customers by name |locate a customer easily
 |=======================================================================
 // end::user-stories3[]
@@ -1372,7 +1356,7 @@ Use case ends.
 1.  The actor requests all the reservations in the system.
 2.  The system lists the reservations requested.
 3.  The actor requests to edit a reservation at a specified index.
-4.  The system editss the reservation.
+4.  The system edits the reservation.
 +
 Use case resumes at step 3.
 
@@ -1454,7 +1438,7 @@ Use case ends.
 1.  The actor requests all the bookings in the system.
 2.  The system lists the bookings requested.
 3.  The actor requests to edit a booking at a specified index.
-4.  The system editss the booking.
+4.  The system edits the booking.
 +
 Use case resumes at step 3.
 
@@ -1546,7 +1530,7 @@ Use case ends.
 1.  The actor requests all the room-types in the system.
 2.  The system lists the room-types requested.
 3.  The actor requests to edit a room-type at a specified index.
-4.  The system editss the room-type.
+4.  The system edits the room-type.
 +
 Use case resumes at step 3.
 
@@ -1640,7 +1624,7 @@ Use case ends.
 1.  The actor requests all the services in the system.
 2.  The system lists the services requested.
 3.  The actor requests to edit a service at a specified index.
-4.  The system editss the service.
+4.  The system edits the service.
 +
 Use case resumes at step 3.
 
@@ -1694,7 +1678,7 @@ Use case ends.
 +
 Steps 3 - 3a1 are repeated till a valid index is provided.
 
-=== Use case: Generate bill for a specific customer
+=== Use case: Generate total bill for a specific customer
 
 *Main Success Scenario*
 
@@ -1730,6 +1714,176 @@ Use case resumes at step 3.
 +
 Use case resumes at step 3.
 
+[discrete]
+=== Use case: Generate booking bill for a specific customer
+
+*Main Success Scenario*
+
+1.  The actor requests the list of all customers.
+2.  The system lists all the customers.
+3.  The actor requests to generate total bill for a specific customer.
+4.  The system generates the total bill for that specific customer.
++
+Use case resumes at step 3
+
+*Extensions*
+
+[none]
+* 2a. There are no customers
++
+Use case ends.
+
+* 3a. The command that the actor entered is invalid.
++
+[none]
+** 3a1. The system shows an error message that the command is invalid.
++
+Use case resumes at step 3.
+
+* 3b. The index that the actor selected is invalid.
++
+[none]
+** 3b1. The system shows an error message that the index is invalid.
++
+Use case resumes at step 3.
+
+[none]
+* 3b. The index that the actor selected is wrong.
++
+[none]
+** 3b1. The system generates the booking bill for a different customer, not the intended one.
++
+Use case resumes at step 3.
+
+
+[discrete]
+=== Use case: Finding the specific list of bookings
+
+*Main Success Scenario*
+
+1. The actor requests for the specific list of bookings.
+2. The system shows the specific list of bookings.
++
+Use case resumes at step 1.
+
+*Extensions*
+
+[none]
+* 1a. The command that the actor entered is invalid.
++
+[none]
+** 1a1. The system shows an error message that the command is invalid.
++
+Use case resumes at step 1.
+
+[none]
+* 1b. The identification number that the actor entered is in wrong format.
++
+[none]
+** 1b1. The system shows an error message that the identification number has been not entered in the correct format.
++
+Use case resumes at step 1.
+
+[none]
+* 1c. The identification number that the actor entered is wrong.
++
+[none]
+** 1c1. The system shows the specific list of bookings with the wrong identification number.
++
+Use case resumes at step 1.
+
+Use cases for `ServiceType` and `TimeRange` can be created in a similar manner like steps `1b` and `1c`.
+
+[discrete]
+=== Use case: Finding the specific list of reservations
+
+*Main Success Scenario*
+
+1. The actor requests for the specific list of reservations.
+2. The system shows the specific list of reservations.
++
+Use case resumes at step 1.
+
+*Extensions*
+
+[none]
+* 1a. The command that the actor entered is invalid.
++
+[none]
+** 1a1. The system shows an error message that the command is invalid.
++
+Use case resumes at step 1.
+
+[none]
+* 1b. The identification number that the actor entered is in wrong format.
++
+[none]
+** 1b1. The system shows an error message that the identification number has been not entered in the correct format.
++
+Use case resumes at step 1.
+
+[none]
+* 1c. The identification number that the actor entered is wrong.
++
+[none]
+** 1c1. The system shows the specific list of reservations with the wrong identification number.
++
+Use case resumes at step 1.
+
+Use cases for `RoomType` and `DateRange` can be created in a similar manner like steps `1b` and `1c`.
+
+[discrete]
+=== Use case: Clear all reservations
+
+*Main Success Scenario*
+
+1. The actor requests the list of all reservations.
+2. The system shows the list of all reservations.
+3. The actor requests to clear all reservations.
+4. The system clears all the reservations.
+
+*Extensions*
+
+[none]
+* 2a. The list of reservations is empty.
++
+Use case ends.
+
+[none]
+* 3a. The command that the actor entered is invalid.
++
+[none]
+** 3a1. The system shows an error message that the command is invalid.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: Clear all bookings
+
+*Main Success Scenario*
+
+1. The actor requests the list of all bookings.
+2. The system shows the list of all bookings.
+3. The actor requests to clear all bookings.
+4. The system clears all the bookings.
+
+*Extensions*
+
+[none]
+* 2a. The list of bookings is empty.
++
+Use case ends.
+
+[none]
+* 3a. The command that the actor entered is invalid.
++
+[none]
+** 3a1. The system shows an error message that the command is invalid.
++
+Use case resumes at step 3.
+
+
+
 [appendix]
 == Non Functional Requirements
 
@@ -1743,6 +1897,12 @@ Use case resumes at step 3.
 [[abstraction]] Abstraction::
 In Object-oriented Programming, abstraction is the mechanism by which users are provided with only the functionality, and not the implementation details. So, abstraction provides users with information on what an object does, rather than how it does it.
 
+[[singleresprinciple]] Single Responsibility Principle::
+The single responsibility principle is a computer programming principle that states that every module, class, or
+function should have responsibility over a single part of the functionality provided by the software, and that
+responsibility should be entirely encapsulated by the class.
+// end::glossary[]
+
 [[cli]] CLI::
 Acronym for Command Line Interface. It is a purely text-based interface for software. User respond to visual prompts by typing single commands into the interface and receive results as text as well.
 [underline]#For example#: MS-DOS.
@@ -1750,7 +1910,7 @@ Acronym for Command Line Interface. It is a purely text-based interface for soft
 [[gui]] GUI::
 Acronym for Graphical User Interface. In a GUI, the software interface consists of graphical icons, menus and/or other visual indicators to display information. Users can typically interact with these graphics, rather than just using text in the <<cli,command line>>. +
 [underline]#For example#: All Windows operating systems have a GUI.
-// end::glossary[]
+
 
 [[customer]] Customer::
 People who go to live in a hotel while they are on a vacation or stay-cation.
@@ -1772,23 +1932,6 @@ stay in the hotel. +
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -1815,7 +1958,7 @@ These instructions only provide a starting point for testers to work on; testers
 === Customers
 ==== Adding a customer
 
-. Adding a customer with the `add-customer` command
+. Adding a customer with the `add-customer` command.
 
 .. Test case: `add-customer` +
    Expected: No customer is added. Error details shown in the status message. Status bar remains the same.
@@ -1825,15 +1968,16 @@ These instructions only provide a starting point for testers to work on; testers
 
 ==== Deleting a customer
 
-. Deleting a customer while all customers are listed
+. Deleting a customer while all customers are listed.
 
-.. Prerequisites: List all customers using the `list-customers` command. Multiple customers in the list.
+.. Prerequisites: List all customers using the `list-customers` command. Multiple customers in the list or at least 1.
 .. Test case: `delete-customer 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete-customer 0` +
    Expected: No customer is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete-customer`, `delete-customer x` (where x is larger than the list size)... +
    Expected: Similar to previous.
+
 
 === Reservations
 ==== Adding a reservation
@@ -1988,15 +2132,30 @@ Deleting a room type while all room types are listed
 === Bill
 ==== Generating bill for a customer
 
-. Generating bill for a customer based on index
+. Generating total bill for a customer based on index.
 
-.. Prerequisites: At-least one customer who has atleast one booking or reservation in the database.
+.. Prerequisites: At-least one customer who has at-least one booking or reservation in the database.
 .. Test case: `gb-c` +
    Expected: Bill is not generated. Error details shown in the status message. Status bar remains the same.
 .. Test case: `gb-c 1` +
-   Expected: Bill is generated for customer at index 1. Bill amount for reservation and booking and total amount shown in the status message. Timestamp in the status bar is updated.
+   Expected: Bill is generated for customer at index 1. The respective status message is displayed. Timestamp in the status bar is updated.
 .. Other incorrect generate bill for customer commands to try: `gbc`, `g-b-c`, `gb-c x` (where x is larger than the list size).. +
    Expected: Bill is not generated. Error details shown in the status message. Status bar remains the same.
+
+=== Generating booking bill for a customer.
+
+. Generating booking bill for a customer based on index, or service type, or booking hours.
+
+.. Prerequisites: At-least one customer who has at least one booking in the database.
+.. Test case: `gb-b` +
+   Expected: Bill is not generated. Error details shown in the status message. Status bar remains the same.
+.. Test case: `gb-b 1` +
+   Expected: Bill is generated for customer at index 1. The respective status message is displayed. Timestamp in the status bar is updated.
+.. Test case: `gb-b 1 s/GYM` +
+   Expected: Bill is generated for customer at index 1. The respective status message is displayed. Timestamp in the status bar is updated.
+.. Other incorrect generate bill for customer commands to try: `gbb`, `g-b-b`, `gb-b x` (where x is larger than the list size).. +
+   Expected: Bill is not generated. Error details shown in the status message. Status bar remains the same.
+
 
 === Switching tab
 

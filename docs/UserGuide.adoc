@@ -479,6 +479,11 @@ Examples:
 * `find Introduction` +
 * `find Author: George RR Martin`
 
+[NOTE]
+`find Author: George RR Martin` will not only search for the whole word but also parts of the word
+such as `George`, `RR`, `Martin` without regard for the upper or lowercase of the input text. Hence,
+a file with the word `correct` will also be flagged as containing `RR`.
+
 [#steps-find]
 ==== Step-By-Step Guide
 If, for example, you wish to locate the files that contain the word `Introduction`

@@ -9,7 +9,7 @@ import static seedu.knowitall.commons.util.AppUtil.checkArgument;
  */
 public class Hint {
 
-    public static final int MAX_LENGTH = 512;
+    public static final int MAX_LENGTH = 256;
     public static final String MESSAGE_CONSTRAINTS = "Answers can take any values, should not be blank, and should"
             + " be less than " + MAX_LENGTH + " characters";
     public static final String VALIDATION_REGEX = "[^\\s].*";

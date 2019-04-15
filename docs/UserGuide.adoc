@@ -87,8 +87,7 @@ The ships available are:
 * Destroyer: size 3
 * Aircraft Carrier: size 5
 
-Here are the respective number of each ship in your fleet, depending
-on your map size.
+Depending on your map size, your fleet will have different numbers of each ship.
 
 image::mapSizeFleetSize.png[width=550]
 ====

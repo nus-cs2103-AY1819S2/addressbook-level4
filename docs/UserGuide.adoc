@@ -294,7 +294,7 @@ image::EditFeatureUserInput.png[width="600"]
 
 Step 3: If your inputs are deemed valid, the file is then
 effectively renamed within PDF++ and in your computer itself, thus resulting in an output
-as shown below.
+that matches the image shown below.
 
 .Rename Command Step 3
 image::EditFeatureFinalOutput.png[width="600"]

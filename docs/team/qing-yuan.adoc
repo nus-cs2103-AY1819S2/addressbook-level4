@@ -88,15 +88,22 @@ Within the table feature, you will find many commands implemented to create and 
 This section shows the updates that I made to the *RestOrRant User Guide* for table features to ensure that it accurately documents the current features in the application.
 
 |===
-| In the User Guide, I wrote about the usages of the commands that can be used in `[blue]#*RestaurantMode*#
+| In the User Guide, I wrote about the usages of the commands that can be used in `[blue]#*RestaurantMode*#.
 |===
 
 include::../UserGuide.adoc[tag=restaurantmode]
+include::../UserGuide.adoc[tag=editseats]
 
 == Contributions to the Developer Guide
 
 |===
-| In the Developer Guide, I provided implementation details of the `[blue]#*EditPaxCommand*#` and its design considerations.
+| In the Developer Guide, I provided implementation details of the `[blue]#*EditPaxCommand*#` and its design considerations which are described in detail below.
 |===
 
 include::../DeveloperGuide.adoc[tag=editpax]
+
+|===
+| Another implementation I provided are details of the `[blue]#*SpaceForCommand*#` and its design considerations which are described in detail below.
+|===
+
+include::../DeveloperGuide.adoc[tag=spacefor]

@@ -239,6 +239,8 @@ image::BattleClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/logic/battle/Battle.java[`Battle.java`]
 
+// end::battle[]
+
 The `Battle` component:
 
 * keeps track of the progress of the battle,
@@ -249,7 +251,6 @@ As the battle involves many different components (map, player, etc.),
 this component cannot be reduced to just one interface class of `Battle`.
 
 
-// end::battle[]
 
 [[Design-Commons]]
 === Common classes

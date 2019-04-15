@@ -274,6 +274,74 @@ If valid inputs are provided, `ClearFilterCommandParser` will return a `ClearFil
 ** Pros: Easy to implement.
 ** Cons: HR manager like to know peron's score in a range, not exactly equal to a specified value.
 
+=== User Stories
+
+Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+
+|`* * *` |HR |find a person by personal information |locate details of persons without having to go through the entire list
+
+|`* * *` |HR |filter persons by some specific requirements |filter out the persons who are not qualified efficiently.
+
+|=======================================================================
+
+=== Use case: Filter person
+
+*MSS*
+
+1.  User requests to list persons
+2.  slaveFinder() shows a list of persons
+3.  User requests to filter persons fulfill some requirements in the list
+4.  slaveFinder() shows a list of target persons
++
+Use case ends.
+
+*Extensions*
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given command is invalid.
++
+[none]
+** 3a1. slaveFinder() shows an error message.
++
+Use case resumes at step 2.
+
+=== Filtering a list of persons
+
+. Filtering a list of person while All Job Screen show
+
+.. Prerequisites: Using `list` command to get to All Job Screen.
+.. Test case: `filter fn/CS m/CS` +
+   Expected: All persons with major CS in All Applicants list will show, a filter named "CS" will show on Filter list panel.
+.. Test case: `filter none` +
+   Expected: List unchangeed. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect filter commands to try: `filter a`, `filter a fn/CS`,`filter b fn/CS`
+   Expected: Similar to previous.
+
+. Filtering a list of person while Job Detail Screen show
+
+.. Prerequisites: Create a job object using the `createJob` command. Display job list using the `DisplayJob` command. 4 lists of persons +
+   will show.
+.. Test case: `filter a fn/CS m/CS` +
+   Expected: All persons with major CS in "Applicant" list will show on the Applicant list, a filter named "CS" will show on Filter list panel.
+.. Test case: `filter none` +
+   Expected: List unchangeed. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect filter commands to try: `filter a`, `filter fn/CS`,`filter b fn/CS`
+   Expected: Similar to previous.
+
 include::../DeveloperGuide.adoc[tag=filter]
+
+include::../DeveloperGuide.adoc[tag=filterUseCase]
+
+include::../DeveloperGuide.adoc[tag=filterManualTest]
 
 

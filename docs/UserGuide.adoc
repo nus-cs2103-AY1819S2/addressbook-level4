@@ -111,6 +111,7 @@ Brings up calendar view, with all duties for the next month. +
 Format: `viewNext`
 // end::viewMonths[]
 
+// tag::viewDuty[]
 ==== View duties assigned to user : `view`
 The user can see their details about their own duties assigned to them and their upcoming duties ranked by recency. +
 Format: `view`
@@ -122,7 +123,7 @@ Format: `view NRIC`
 Example:
 
 * `view S9012345L`
-
+// end::viewDuty[]
 
 ==== Locating persons by name: `find`
 
@@ -213,6 +214,12 @@ The `redo` command fails as there are no `undo` commands executed previously.
 * `schedule` +
 `confirm` +
 `undo` (reverses the `confirm` command)
+
+// tag::logout[]
+==== Log Out: `logout` `coming in v2.0`
+Logs the user out of the program without exiting. +
+Format: `logout`
+// end::logout[]
 
 ==== Exit : `exit`
 Exits the program. User will be logged out automatically. +
@@ -501,8 +508,24 @@ Format: `confirm`
 // end::confirmAdmin1[]
 
 // tag::confirmAdmin2[]
+
 A confirmed duty schedule can be viewed on the calendar (using the `viewNext` command). Duty points will be updated accordingly to reward those who were assigned duties.
 // end::confirmAdmin2[]
+
+// tag::replace[]
+==== Manually replace a person in the duty : `replace` `coming in v2.0`
+Replaces the particular person assigned to the duty with the given person.
+
+Format : `replace d/DUTYDATE(DDMMYY) o/NRIC n/NRIC`
+
+If the person the user is trying to replace with is already assigned to that particular duty, the system will throw an exception.
+Both the person getting replaced and the person replacing have to be present in the database.
+
+Example:
+
+* `replace d/140219 o/S9012345L n/G9043214N` +
+Replaces the person with NRIC S9012345L in duty on 14th Feb 2019 with the person with NRIC G9043214N.
+// end::replace[]
 
 // tag::adminswap[]
 ==== View Swaps Command : `viewSwaps`

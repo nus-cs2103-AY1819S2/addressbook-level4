@@ -608,6 +608,11 @@ The following describes main operations and processes for each command stated ab
 ==== Rotate Command
 This command allows the user to rotate the targeted image by specifying a degree (90, 180 or 270 only). Upon receiving an input degree from the user, the degree will be checked for its validity and will throw an error if the degree is not within the specified range. The command will then be added to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targeted image.
 
+The diagram below illustrates how the `Rotate` Command works:
+
+.Sequence Diagram for Rotate Command
+image::RotateCommandSequenceDiagram.png[width="800"]
+
 Given below is an example usage scenario and how the command should behave at each step [This applies to the other image manipulation commands as well.]:
 
 Step 1. When the user runs an open command to edit an image, it invokes a method which creates an instance of an `Image` that stores the filepath of the image, its history of edits `List<Command>` and its metadata. This `Image` object is saved under the variable name `tempImage` in `currentEdit` for editing.
@@ -626,11 +631,6 @@ Step 5. A `BufferedImage` object is returned from the external library and `curr
 Step 6. The `execute` method then checks if the boolean `isNewCommand` is true. If it is true, it indicates that the command is a new `Rotate` command called directly from the user and not through an `undo/redo` command which triggers Step 7 in the line below. Otherwise, the command’s execution ends in this step.
 
 Step 7. `isNewCommand` is set to false to signal that this command is not a new rotate command if it is executed again through the `undo/redo` command. `currentEdit#addCommand(this)` is invoked to add this command to the `List<Command>` in `tempImage` for the `undo/redo` function and `currentEdit#displayTempImage()` is used to display the edited image on the graphical user interface. +
-
-The diagram below illustrates how the `Rotate` Command works:
-
-.Sequence Diagram for Rotate Command
-image::RotateCommandSequenceDiagram.png[width="800"]
 
 ===== Design Considerations
 

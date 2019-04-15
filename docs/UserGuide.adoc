@@ -90,6 +90,12 @@ the need for you to perform these actions manually on your files yourselves.
 If your file is open please close it before proceeding to perform ANY other actions in the application.
 If the file is kept open, the application may misbehave as it is sharing access to the file with other unknown applications.
 
+[TIP]
+Certain commands may take a longer time to run depending on the size of the files that you are dealing with. Hence the Operating System
+may wrongly detect that the application is not responding, when it infact is. Hence, should you see the "application not responding"
+pop-up from your operating system, it is actually still working in the background therefore please allow the application some time
+to complete the task that you have assigned it. Thank you.
+
 ====
 *Command Format*
 
@@ -359,7 +365,7 @@ Example:
 This command lets you exit the program. +
 Format: `exit`
 
-[#command-exit]
+[#command-select]
 === Retrieving information about a file: `select`
 
 Select a file to see a more information about file.

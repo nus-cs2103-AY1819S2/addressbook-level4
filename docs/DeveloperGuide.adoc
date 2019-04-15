@@ -1759,25 +1759,6 @@ Use case ends.
 Windows, Linux, Unix, OS-X
 
 
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
-
 //tag::daryl[]
 
 == Instructions for Manual Testing
@@ -1794,7 +1775,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample employees and projects. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -2087,10 +2068,3 @@ Assumption: all the objects being manipulated in these test cases exist in the a
 .. Test case: `redo` is entered as the first command on start-up +
    Expected: Output error message. There is no undone command to redo.
 
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_

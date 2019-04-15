@@ -1933,6 +1933,25 @@ Use case resumes at step 2.
 +
 Use case ends.
 
+=== Use case: Setting alarm threshold for medicines
+
+*MSS*
+
+1. User enters "alarm" and the path to the interested medicine and the desired alarm quantity.
+2. QuickDcos set the threshold for the medicine accordingly.
+3. QuickDocs refreshes the reminder sidebar if needed.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User types in a path leading to a directory.
+* 2a. All medicines under the subtree of that directory is set to the desired quantity.
++
+Use case resumes at step 3.
+
+
 [appendix]
 == Non Functional Requirements
 

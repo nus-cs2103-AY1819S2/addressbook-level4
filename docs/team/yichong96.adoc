@@ -34,9 +34,8 @@ user and developer guides in relation to these enhancements.
 === Legend
 NOTE: This admonition contains important information pertaining to the usage of the commands.
 
-`command`: A grey highlight (called a mark-up) indicates that this is a command
-that can be inputted into the command line
-and executed by the application.
+`command`: A monospace font indicates that this is a command
+that can be inputted into the command line and executed by the application.
 
 [red]#text# : represents methods, variables or classes found within the Java files.
 
@@ -86,6 +85,8 @@ include::../UserGuide.adoc[tag = advancedoperations]
 The following shows my addition to Know-It-All's developer guide for the import and export commmand.
 
 include::../DeveloperGuide.adoc[tag=importexport]
+== Instructions for Manual Testing
+
 include::../DeveloperGuide.adoc[tag=folderimportexporttesting]
 
 === Design Considerations

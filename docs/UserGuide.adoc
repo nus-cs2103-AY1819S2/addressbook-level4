@@ -404,7 +404,7 @@ Format: `export FOLDER_INDEX FILENAME [MORE_INDEXES]`
 [NOTE]
 The export command creates the new csv file in your project root directory.
 i.e The directory where your .jar file is located. +
-The `import command` imports csv files located in the same directory as well.
+The import command imports csv files located in the same directory as well.
 
 image::project_root_dir.png[width ="800"]
 
@@ -421,10 +421,10 @@ Examples:
 * `export 1 2 3` +
 exports the first, second and third cardfolder in your home directory.
 Suppose that the first, second and third cardfolder corresponds to the card folder names : +
-`Blood` +
-`Circulatory System` +
-`Cardiovascular` +
-Then the following files `Blood.csv`, `Circulatory System.csv` and `Cardiovascular.csv`
+Blood +
+Circulatory System +
+Cardiovascular +
+Then the following files Blood.csv, Circulatory System.csv and Cardiovascular.csv
 will be created in the project root directory.
 
 ==== Import flashcards : `import`
@@ -451,13 +451,13 @@ image::Blood.png[width = "800"]
 
 Format: `import FILENAME`
 
-NOTE: unlike the `export command` the importing of multiple csv files
+NOTE: unlike the export command the importing of multiple csv files
 is not supported in *Know-It-All*.
 
 Examples:
 
 * `import Blood.csv` +
-Imports blood csv file into *Know-It-All*. A new `Blood` cardfolder should be present in the home
+Imports blood csv file into *Know-It-All*. A new Blood cardfolder should be present in the home
 directory after execution of this command.
 // end::advancedoperations[]
 

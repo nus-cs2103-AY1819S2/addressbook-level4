@@ -539,18 +539,6 @@ Here, `SortMedHistCommandParser` checks the argument string is either "" or "ASC
 Through a `ListChangeListener`, Ui component is updated the changes of medical history list order. Then the sorted list of medical histories will be displayed in user interface.
 
 
-
-==== Appointment Status Display feature
-The patient card will show the appointment status of a patient. It will display any one of the four enum values: `ACTIVE, COMPLETED, CANCELLED, MISSED`.
-When an appointment is added, or marked, the execution of the command will cascade and alter the status display of the patient.
-It follows the following rules:
-. If the patient still has any other active appointments, a patient status will show `ACTIVE`
-. Else, a patient status will reflect the latest status change to any of his appointment.
-
-The UML diagram will illustrate the `updatePatient` method call in `MarkAppointmentCommand`.
-
-
-
 === Add Appointment Feature
 Appointments are created to facilitate future appointments between patients and doctors.
 A patient can have none or multiple appointments, a doctor can have none or multiple appointments.

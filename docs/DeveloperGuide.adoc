@@ -537,6 +537,50 @@ The 'viewSwaps' command is only for admin users. It takes in no arguments and it
 
 The admin user can then use 'approveSwap' or 'rejectSwap' to approve or reject a paired swap in the list displayed in the ResultDisplay after executing the viewSwaps command. These are encapsulated in the ApproveSwapCommand and RejectSwapCommand classes.
 
+==== Design Considerations
+
+===== Aspect : Nature of swap request
+
+Alternative 1 (current choice):
+
+* Allow users to submit an open swap request, giving only their allocated date and requested date. This is then broadcast onto the app for other users to view.
+** Pros: Everything is done on the app and the user doesn't have to go around asking everyone if they are available to swap.
+** Cons: More steps in the process. 3 step process: request swap, accept swap, approve/reject swap.
+
+Alternative 2:
+
+* Users are to find a swap partner offline before requesting a swap, keying in the 2 dates and the partner's NRIC. This request will then go straight to the admin for approval.
+** Pros:  Simpler implementation
+** Cons: The admin needs to verify with the accepter if he really accepted the swap.
+
+==== Aspect: Container for Requests
+
+Alternative 1 (current choice):
+
+* Requests are contained in a list in the personnel database, with each request containing its requester's Person object and its accepter's Person object, if present.
+** Pros: The requests can be easily looked up and the persons found within them.
+** Cons: When the edit command is executed, the program needs to iterate through the entire list of requests to update the relevant person to a new Person object.
+
+Alternative 2:
+
+* Requests are stored inside a Person object, presumably the requester's Person object.
+** Pros: This eliminates the need for the Request object to store the requester and a person's requests can be easily looked up. When a person is deleted, their requests will be deleted along with it, which is very convenient.
+** Cons: If the accepter Person does not contain the request that he accepted, it would be even more complicated to find his request. The program would need to look through every person, in which every request is looked up to find the right accepter.
+
+==== Aspect: Viewing of Open Swap Requests
+
+Alternative 1 (current choice):
+
+* Display the list of open swap requests in the browser panel for all to see.
+** Pros: Wide viewership. A user can easily advertise his swap request.
+** Cons: -
+
+Alternative 2:
+
+* Create a command for personnel to view open swap requests
+** Pros: The browser panel can be used for something else.
+** Cons: No incentive for users to view open swap requests.
+
 // end::swap[]
 
 // tag::login[]

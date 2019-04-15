@@ -803,7 +803,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -1018,6 +1017,21 @@ Given below are instructions to test the app manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+
+// tag::interviewsTestCommands[]
+For interviews test commands:
+
+* setMaxInterviewsADay 3
+* setBlockOutDates 22/04/2019 - 24/04/2019
+* generateInterviews
+* showInterviews
+* delete 1 (check that interviews works with delete)
+* showInterviews
+* clearInterviews
+* showInterviews
+* undo (check that interviews works with undo)
+* redo (check that interviews works with redo)
+// end::interviewsTestCommands[]
 
 === Launch and Shutdown
 

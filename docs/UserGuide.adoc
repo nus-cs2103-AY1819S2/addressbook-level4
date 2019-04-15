@@ -517,6 +517,10 @@ Shows the list of dates which the interviewees for the state job in slaveFinder(
 
 Reschedules a person scheduled to a particular date to another date. If to date is not present, the person is removed from that date.
 
+==== Save interviews data `Coming in v2.0`
+
+Scheduled interviews is automatically stored in a json file.
+
 // end::interviews[]
 
 === Other Basic Command

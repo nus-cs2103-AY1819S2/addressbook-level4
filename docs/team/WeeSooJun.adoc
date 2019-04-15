@@ -57,7 +57,7 @@ include::../DeveloperGuide.adoc[tag=model]
 include::../DeveloperGuide.adoc[tag=interviews]
 include::../DeveloperGuide.adoc[tag=interviewsUserStories]
 include::../DeveloperGuide.adoc[tag=interviewsUseCases]
-
+include::../DeveloperGuide.adoc[tag=interviewsTestCommands]
 
 
 

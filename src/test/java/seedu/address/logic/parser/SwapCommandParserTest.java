@@ -1,7 +1,5 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.Test;
@@ -11,7 +9,7 @@ import seedu.address.logic.commands.SwapCommand;
 
 /**
  * Test scope: similar to {@code DeleteCommandParserTest}.
- * @see DeleteCommandParserTest
+ * @see SortCommandParserTest
  */
 public class SwapCommandParserTest {
 
@@ -34,13 +32,5 @@ public class SwapCommandParserTest {
         argsWithFirstAndSecondIndex = "  1 2  ";
         assertParseSuccess(parser, argsWithFirstAndSecondIndex,
                 new SwapCommand(Index.fromOneBased(1), Index.fromOneBased(2)));
-    }
-
-    @Test
-    public void parse_invalidArgs_throwsParseException() {
-        // TODO
-//        String argsEmpty = "";
-//        assertParseFailure(parser, argsEmpty,
-//                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ParserUtil.MESSAGE_SWAP_INVALID_EMPTY_OPTION));
     }
 }

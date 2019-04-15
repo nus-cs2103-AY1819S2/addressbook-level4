@@ -185,9 +185,6 @@ link:{repoURL}/tree/master/src/main/java/seedu/travel/ui/Ui.java[`Ui.java`]
 image::UiClassDiagram.png[width="800"]
 
 The `UI` component, as seen in <<UiClassDiagram>>, uses the JavaFX UI framework. The *layout* of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/travel/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
-defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the
-link:{repoURL}/tree/master/src/main/java/seedu/travel/ui/MainWindow.java[`MainWindow`] is specified in
-link:{repoURL}/tree/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component *controllers* are found in the `src/main/java/seedu/travel/ui` folder. Each class corresponds to a
  specific `.fxml` file.

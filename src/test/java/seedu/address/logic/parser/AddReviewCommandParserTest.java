@@ -1,8 +1,9 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RESTAURANT;
 
 import org.junit.Test;
 
@@ -11,10 +12,11 @@ import seedu.address.logic.commands.AddReviewCommand;
 import seedu.address.model.review.Review;
 import seedu.address.testutil.ReviewBuilder;
 
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RESTAURANT;
 
 public class AddReviewCommandParserTest {
+
     private AddReviewCommandParser parser = new AddReviewCommandParser();
+
     @Test
     public void parse_allArgumentsPresent_success() {
         Index expectedIndex = INDEX_FIRST_RESTAURANT;
@@ -24,6 +26,7 @@ public class AddReviewCommandParserTest {
         assertParseSuccess(parser, "1 re/Standard restaurant rr/3", new AddReviewCommand(expectedIndex,
                 reviewToAdd));
     }
+
     @Test
     public void parse_argumentMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddReviewCommand.MESSAGE_USAGE);

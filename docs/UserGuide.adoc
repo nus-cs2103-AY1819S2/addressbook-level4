@@ -181,7 +181,6 @@ After:
 
 image::deck_ug_diagrams/add_deck_2.png[width="200"]
 
-
 ==== Deleting a deck: `delete`
 
 **Format**: `delete INDEX`

@@ -1205,6 +1205,8 @@ Expected: batch is added to batch table shown in the information panel. Details 
 .. Test case: `update 1 b/E q/1 e/1/1/2020 b/F b/G q/2 e/2/1/2020`  (more than one valid input) +
 Expected: batch `G` is added to batch table shown in the information panel as last valid input is taken. Details of the added batch shown in the status message. Total quantity should increase by `2`. Next expiry of medicine should change if `02/01/2020` is earlier. Filtered list should remain filtered.
 =======
+
+// tag::exportcommandtest[]
 === Exporting as CSV file format
 
 . Exporting the current medicine inventory data shown in the GUI to CSV file format while all medicines are listed.
@@ -1230,6 +1232,7 @@ Expected: The current medicine inventory data shown in the GUI is successfully e
 Expected: The current medicine inventory data shown in the GUI is successfully exported to CSV file format. The exported CSV file has the default file name based on the date and time of export. The specific date and time format used if no file name is specified is `dd_MMM_yyyy_HH_mm_ss` e.g. `18_Mar_2019_10_28_00`. The exported CSV file's medicine inventory data will contain *only* the header information with no medicine data.
 .. Test case: `export example` +
 Expected: The current medicine inventory data shown in the GUI is successfully exported to CSV file format. The exported CSV file has the file name `example`. The exported CSV file's medicine inventory data will contain *only* the header information with no medicine data.
+// end::exportcommandtest[]
 
 // tag::warningtest[]
 === Changing warning panel thresholds

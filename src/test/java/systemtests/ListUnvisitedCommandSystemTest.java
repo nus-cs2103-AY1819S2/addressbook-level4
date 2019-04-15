@@ -54,14 +54,14 @@ public class ListUnvisitedCommandSystemTest extends FoodDiarySystemTest {
         command = "   " + ListUnvisitedCommand.COMMAND_WORD + " " + POSTAL_DESC_AMY + "   ";
         expectedModel = getModel();
         ModelHelper.setSortedList(expectedModel, ALICE, ELLE, BENSON, CARL, DANIEL, GEORGE, FIONA);
-        //assertCommandSuccess(command, expectedModel, ListUnvisitedCommand.MESSAGE_SUCCESS);
+        assertCommandSuccess(command, expectedModel, ListUnvisitedCommand.MESSAGE_SUCCESS);
         assertSelectedCardUnchanged();
 
         /* Case: multiple restaurants in food diary, command without leading spaces and trailing spaces
          * -> restaurant sorted based on distance.
          */
         command = ListUnvisitedCommand.COMMAND_WORD + " " + POSTAL_DESC_AMY;
-        //assertCommandSuccess(command, expectedModel, ListUnvisitedCommand.MESSAGE_SUCCESS);
+        assertCommandSuccess(command, expectedModel, ListUnvisitedCommand.MESSAGE_SUCCESS);
         assertSelectedCardUnchanged();
 
     }

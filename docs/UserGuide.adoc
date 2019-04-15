@@ -484,16 +484,17 @@ Study View starts off in Question Phase, which displays the question in this use
 image::study_ug_diagrams/question.png[width="800"]
 
 
-As seen above, the question is displayed in a blue flash card.
+As seen above, the question you have to answer is displayed in a dark blue flash card.
 
 
 [NOTE]
-Currently, questions are chosen this way: TopDeck shuffles the deck and displays all cards until the entire deck
+Currently, questions are chosen this way: TopDeck shuffles the deck and displays cards one at a time until the entire deck
 has been viewed. Topdeck repeats this endlessly until you choose to <<studyback, end your study session>>.
 
-You may choose to attempt the question by typing your answer into the Command Box.
+You may attempt the question by typing your answer into the Command Box,
+which now doubles as an Answer Box.
  Once you're ready to see the answer, hit kbd:[Enter]. Your attempt will be recorded and
- TopDeck goes into Answer Phase.
+ TopDeck will enter Answer Phase.
 
 
 
@@ -506,12 +507,17 @@ user interface:
 image::study_ug_diagrams/answer.png[width="800"]
 
 
-The correct answer is displayed in a white flash card. Your attempt is displayed on the top right hand side for your own comparison.
+As seen from the figure, the correct answer is displayed on a white flash card.
+Your attempt is shown on top next to the card for your own comparison.
 
 Additionally, a prompt asks you to rate the difficulty of that flash card.
 You should input your rating into the Command Box.
 
-During both phases, the following commands are available:
+Once you've typed in your rating, hit kbd:[Enter]. Your rating will be recorded and this
+value will contribute to average difficulty statistic as seen in cards view.
+At the same time, TopDeck will reenter Question Phase.
+
+During both phases, the following commands are available to end your study session:
 
 ==== Returning to decks view: `back` [[studyback]]
 

@@ -331,9 +331,9 @@ bookings in real-time in the UI as has been explained before.
 * **Alternative 2:** All the model APIs will be seperate and there will be no Model Interface.
 ** Pros: Better separation and less scope for errors.
 ** Cons: Lot of refactoring required.
-//end:new-model[]
+//end::new-model[]
 
-//tag:customizability[]
+//tag::customizability[]
 === Making a model customizable
 ==== Current Implementation
 

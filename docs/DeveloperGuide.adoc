@@ -728,11 +728,11 @@ This feature lists a subset of all the files in the application based on the key
 provided. Using the keyword(s), the application will check the names of all files, as
 well as the content of the text within the files prior to revealing the results.
 
-The `find` feature has to following syntax:
+The `find` feature has the following syntax:
 
 Format: [.big]#`find <KEYWORD> ...`#
 
-* `<KEYWORD>` refers to the word that the application will use as reference to find
+* `<KEYWORD>` refers to the word that the application will use as reference a to find
 files. There must be at least one provided.
 
 Example:
@@ -771,7 +771,7 @@ files that the user wishes to view.
 `PDFTextStripper` to extract the contents of the existing files.
 4. The extracted content is then checked to verify if it contains the `keyword` input by the user.
 5. Further checks are also done to confirm if each file's name contains the `keyword` as well.
-6. The `model` then updates itself and stores the current actiion in the `history`.
+6. The `model` then updates itself and stores the current actiion in the `history` object.
 7. Finally, the `FindCommand` returns a `CommandResult` back to the `LogicManager` for follow up
 action.
 
@@ -785,9 +785,9 @@ as malicious users might simply utilize the `FindCommand` to extract information
 
 ==== Future Implementation
 
-. A main issue with the current implementation of the `FindCommand` is it's slow speeds with respect to
+. The main issue with the current implementation of the `FindCommand` is its slow speeds with respect to
 large files or files that contain a large string of text files. Hence, a possible consideration you might
-wish to improve upon is to "upgrade" this feature by improving it's speed of this feature.
+wish to improve upon is to "upgrade" this feature by improving its speed of this feature.
 
 . Yet another enhancement to this feature you might wish to implement is the use of Optical Image Recognition,
 otherwise known as OCR. This will allow the application to translate images within the file to words which would further

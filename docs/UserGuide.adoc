@@ -498,11 +498,11 @@ contain the keyword within its content. +
 The application also shows you other useful information such as, the number of files that
 match the criteria you entered into the application as shown in the image above. +
 
-And with that you have successfully utilized the `find` feature. +
+And with that, you have successfully utilized the `find` feature. +
 
 [CAUTION]
 When there are many files tracked by the application or if the files tracked by the application
-are contain many pages, the `find` command might take a little longer to operate. Hence if your
+contain many pages, the `find` command might take a little longer to operate. Hence if your
 operating system warns you that the application is not responding, please give the application some time
 to finish its operation.
 

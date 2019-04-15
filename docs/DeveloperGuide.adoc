@@ -879,7 +879,7 @@ If the `Image#index` is 0, pointing to the initial image, then there are no prev
 The following sequence diagram shows how the undo operation works:
 
 .Sequence Diagram
-image::UndoRedoSequenceDiagram.png[width="600"]
+image::UndoSeqTEMP.PNG[width="600"]
 
 The `redo` command does the opposite -- it calls `CurrentEdit#setRedoTemp()`, which shifts the `index` once to the right, pointing to the previously undone command, and executes that command to perform the transformation.
 

@@ -20,7 +20,6 @@ By: `Team W17-3`      Since: `March 2019`      Licence: `MIT`
 
 [.text-justify]
 == Introduction
-{bl}
 [blue]#Welcome to the _In-Credit-Ble_ Developer Guide!#
 
 _In-Credit-Ble_ is a finance tracker application created to simplify the managing and tracking
@@ -33,8 +32,7 @@ this document is the developers, designers and software testers of our applicati
 Please continue on to the <<Setting Up, [underline blue]#Setting Up#>> section to get started. You can also read <<AboutUs#, [blue]#AboutUs.adoc#>>
 and <<ContactUs#, [blue]#ContactUs.adoc#>> for more information on how to contact us!
 
-{bl}
-
+<<<
 [.text-justify]
 == Setting Up
 {bl}
@@ -85,6 +83,7 @@ This will generate all resources required by the application and tests.
 
 {bl}
 
+<<<
 === Configurations to do before writing code
 {bl}
 
@@ -139,6 +138,8 @@ When you are ready to start coding,
 2. Take a look at [underline blue]#<<GetStartedProgramming>>#.
 
 {bl}
+
+<<<
 [.text-justify]
 == Design
 {bl}
@@ -192,6 +193,7 @@ image::LogicClassDiagram.png[width="700"]
 
 {bl}
 
+<<<
 [discrete]
 ==== How do the architecture components interact with each other?
 {bl}
@@ -208,10 +210,10 @@ The sections below give more details of each component.
 
 {bl}
 
+<<<
 // tag::UI[]
 [[Design-Ui]]
 === UI component
-{bl}
 
 .Structure of the UI Component
 image::UiClassDiagram.png[width="700"]
@@ -232,8 +234,7 @@ The `[fuchsia]#UI#` component,
 * Listens for changes to `[fuchsia]#Model#` data so that the UI can be updated with the modified data.
 // end::UI[]
 
-{bl}
-
+<<<
 // tag::logic[]
 [[Design-Logic]]
 === Logic component
@@ -284,6 +285,7 @@ that the UI automatically updates when the data in the list change.
 
 {bl}
 
+
 // tag::storage[]
 [[Design-Storage]]
 === Storage component
@@ -309,7 +311,8 @@ The `[fuchsia]#Storage#` component,
 
 Classes used by multiple components are in the `[fuchsia]#seedu.finance.commons#` package.
 
-{bl}
+
+<<<
 [.text-justify]
 == Implementation
 {bl}
@@ -398,6 +401,7 @@ that is inputted into the finance tracker.
 
 {bl}
 
+<<<
 // tag::sort[]
 === Sort feature
 
@@ -491,13 +495,13 @@ image::SortSequenceDiagram2.png[width="800"]
 
 {bl}
 
+<<<
 // tag::reverse[]
 === Reverse feature
 
 The reverse feature allows users to reverse the list of entries displayed on the graphic user interface.
 The sort features are implemented with a default ordering.
 The reverse command provides a convenient way for users to sort their entries in reverse order.
-
 {bl}
 
 ==== Current Implementation
@@ -519,8 +523,7 @@ image::ReverseSequenceDiagram.png[width="800"]
 
 // end::reverse[]
 
-{bl}
-
+<<<
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
@@ -618,6 +621,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 {bl}
 
+<<<
 // tag::budgetmanagement[]
 
 === Budget Management
@@ -645,6 +649,7 @@ As seen in the class diagram, the `[fuchsia]#CategoryBudget#` in `[fuchsia]#Tota
 
 {bl}
 
+<<<
 // tag::budget[]
 ==== Setting a Budget
 This feature allows the user to set a budget for the FinanceTracker. The budget can be changed by setting
@@ -698,6 +703,7 @@ iterating through changed record list.
 
 {bl}
 
+<<<
 // tag::categorybudget[]
 ==== Allocating a budget to category
 This feature allows user to set a category budget after the total budget is set
@@ -747,6 +753,7 @@ if the category was not previously allocated with a budget
 
 {bl}
 
+<<<
 // tag::show[]
 ==== Listing Category Budgets allocated
 This feature allows user to list the category budgets and the current spending in these
@@ -809,6 +816,7 @@ details.
 
 {bl}
 
+<<<
 // tag::summary[]
 === Summary
 The `[fuchsia]#summary#` feature shows an overview of your previous expenditures in a pie chart. Each sector of the chart represents a category, labelled with the name and total expenditure for each category.
@@ -822,6 +830,7 @@ The implementation of the `[fuchsia]#Summary#` command can be divided into two p
 
 {bl}
 
+<<<
 ===== Preparation
 In the preparation phase, the application will parse the command. Below is the UML Sequence diagram and a step-by-step explanation of the preparation stage.
 {bl}
@@ -829,14 +838,10 @@ In the preparation phase, the application will parse the command. Below is the U
 .Sequence diagram of the preparation stage in the summary mechanism
 image::SummarySequenceDiagram.png[width="800"]
 
-{bl}
-
 1.	User first enters the command `[fuchsia]#summary #/7 p/d#`. This command is received by `[fuchsia]#FinanceTrackerParser#`, which then calls `[fuchsia]#SummaryCommandParser#parse()#` to create `[fuchsia]#SummaryCommand#`.
 2.	If no parameters are provided by the user, `[fuchsia]#SummaryCommand#SummaryCommand()#` is called to create `[fuchsia]#SummaryCommand#` with the default parameters of `[fuchsia]#periodAmount#` as `[fuchsia]#7#` and `[fuchsia]#period#` as `[fuchsia]#d#`. Otherwise, `[fuchsia]#SummaryCommand#SummaryCommand(periodAmount, period)#` is called to create `[fuchsia]#SummaryCommand#` with the specified parameters.
 3.	`[fuchsia]#SummaryCommand#` then checks if the parameters are valid. If any parameter is invalid, an exception will be thrown, and an error message will be shown to the user. Else, the parameters are stored in instance variables and `[fuchsia]#SummaryCommand#` is returned to `[fuchsia]#LogicManager#`.
 4.	`[fuchsia]#LogicManager#` then calls `[fuchsia]#SummaryCommand#execute()#`, which updates the variables `[fuchsia]#RecordSummaryPredicate#`, `[fuchsia]#summaryPeriod#` and `[fuchsia]#periodAmount#` in `[fuchsia]#ModelManager#`.
-
-{bl}
 
 ===== Execution
 In the execution phase, the program handles `[fuchsia]#ShowSummaryRequestEvent#` posted by `[fuchsia]#SummaryCommand#` to retrieve the data to be displayed. The data will be rendered as a JavaFX `[fuchsia]#PieChart#` and then displayed. Below is the UML sequence diagram and a step-by-step explanation of the execution stage.
@@ -873,6 +878,7 @@ ii)	Else, `[fuchsia]#SummaryPanel#setSummaryData()#` will be called, which gener
 
 {bl}
 
+<<<
 ==== Design Consideration
 ===== Aspect: Representation for Summary of Expenditure
 
@@ -898,8 +904,7 @@ Each sector of the chart represents a category. The area of each sector indicate
 
 //end::summary[]
 
-{bl}
-
+<<<
 // tag::theme[]
 === Theme
 The `[fuchsia]#theme#` feature allows users to change the colour theme of the application to provide
@@ -934,7 +939,6 @@ We are using `[fuchsia]#java.util.logging#` package for logging. The `[fuchsia]#
 * `[fuchsia]#WARNING#` : Can continue, but with caution
 * `[fuchsia]#INFO#` : Information showing noteworthy actions by the application
 * `[fuchsia]#FINE#` : Details that is not usually noteworthy but may be useful in debugging [navy]#e.g.# print the actual list instead of just its size
-
 {bl}
 
 [[Implementation-Configuration]]
@@ -942,8 +946,7 @@ We are using `[fuchsia]#java.util.logging#` package for logging. The `[fuchsia]#
 
 Certain properties of the application can be controlled ([navy]#e.g.# user prefs file location, logging level) through the configuration file (default: `[fuchsia]#config.json#`).
 
-{bl}
-
+<<<
 == Documentation
 {bl}
 We use asciidoc for writing documentation.
@@ -983,6 +986,7 @@ image::chrome_save_as_pdf.png[width="300"]
 
 {bl}
 
+<<<
 [[Docs-SiteWideDocSettings]]
 === Site-wide Documentation Settings
 {bl}
@@ -1015,8 +1019,7 @@ This will render the SE-EDU navigation bar at the top of the page, and add some 
 
 |===
 
-{bl}
-
+<<<
 [[Docs-PerFileDocSettings]]
 === Per-file Documentation Settings
 {bl}
@@ -1048,8 +1051,7 @@ _{asterisk} Official SE-EDU projects only_
 
 |===
 
-{bl}
-
+<<<
 === Site Template
 {bl}
 The files in link:{repoURL}/docs/stylesheets[`[blue]#docs/stylesheets#`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[[blue]#CSS stylesheets#] of the site.
@@ -1065,6 +1067,8 @@ You should only modify them if you need greater control over the site's layout t
 ====
 
 {bl}
+
+<<<
 [.text-justify]
 [[Testing]]
 == Testing
@@ -1099,8 +1103,7 @@ Thanks to the https://github.com/TestFX/TestFX[[blue]#TestFX#] library we use, o
 
 To run tests in headless mode, open a console and run the command `[fuchsia]#gradlew clean headless allTests#` (Mac/Linux: `./[fuchsia]#gradlew clean headless allTests#`)
 
-{bl}
-
+<<<
 === Types of tests
 {bl}
 We have two types of tests:
@@ -1126,6 +1129,8 @@ We have two types of tests:
 * Solution: Execute Gradle task `[fuchsia]#processResources#`.
 
 {bl}
+
+<<<
 [.text-justify]
 == Dev Ops
 
@@ -1155,6 +1160,7 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 {bl}
 
+<<<
 === Making a Release
 {bl}
 Here are the steps to create a new release.
@@ -1177,6 +1183,7 @@ A project often depends on third-party libraries. For example, _In-Credit-Ble_ d
 {bl}
 
 [[GetStartedProgramming]]
+<<<
 [.text-justify]
 // tag::appendixA[]
 [appendix]
@@ -1200,6 +1207,7 @@ A project often depends on third-party libraries. For example, _In-Credit-Ble_ d
 
 // tag::appendixB[]
 [appendix]
+<<<
 [.text-justify]
 == User Stories
 {bl}
@@ -1244,6 +1252,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 // tag::appendixC[]
 [appendix]
+<<<
 [.text-justify]
 == Use Cases
 {bl}
@@ -1284,6 +1293,7 @@ Use case ends.
 
 {bl}
 
+<<<
 [discrete]
 === Use case: Increasing budget for the month
 
@@ -1322,6 +1332,7 @@ Use case resumes at step 2.
 
 {bl}
 
+<<<
 [discrete]
 === Use case: Editing an expense entry
 
@@ -1348,7 +1359,6 @@ Use case ends
 ** 3a1. _System_ shows an error message.
 +
 Use case resumes at step 2.
-
 {bl}
 
 [discrete]
@@ -1377,8 +1387,7 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-{bl}
-
+<<<
 [discrete]
 === Use case: Listing history of entered commands
 
@@ -1417,6 +1426,7 @@ Use case ends with message to let _User_ know there is no previous command
 
 {bl}
 
+<<<
 [discrete]
 === Use case: User wants to redo previous undone command
 
@@ -1458,6 +1468,7 @@ Use case ends with message to let _User_ know there are no entries in _System_
 {bl}
 
 [appendix]
+<<<
 [.text-justify]
 == Non Functional Requirements
 {bl}
@@ -1472,6 +1483,7 @@ Use case ends with message to let _User_ know there are no entries in _System_
 {bl}
 
 [appendix]
+<<<
 [.text-justify]
 == Glossary
 {bl}
@@ -1491,6 +1503,7 @@ The list of all entries stored in the application
 
 {bl}
 
+<<<
 [appendix]
 [.text-justify]
 == Product Survey
@@ -1555,6 +1568,7 @@ Cons:
 {bl}
 
 [appendix]
+<<<
 [.text-justify]
 == Instructions for Manual Testing
 {bl}
@@ -1655,6 +1669,7 @@ Assume that `[fuchsia]#Food#` category has $16.50 spent so far
 
 {bl}
 
+<<<
 === Editing an expense
 {bl}
 
@@ -1717,6 +1732,7 @@ Assume that `[fuchsia]#Food#` category has $16.50 spent so far
 
 {bl}
 
+<<<
 === Searching an entry
 {bl}
 

@@ -18,7 +18,7 @@ import seedu.address.model.person.Seller;
 import seedu.address.model.person.Tenant;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of archived persons.
  */
 public class ArchiveListPanel extends UiPart<Region> {
     private static final String FXML = "ArchiveListPanel.fxml";
@@ -37,7 +37,7 @@ public class ArchiveListPanel extends UiPart<Region> {
             onSelectedArchivedPersonChange.accept(newValue);
         });
         selectedArchivedPerson.addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selected person changed to: " + newValue);
+            logger.fine("Selected archived person changed to: " + newValue);
 
             // Don't modify selection if we are already selecting the selected person,
             // otherwise we would have an infinite loop.

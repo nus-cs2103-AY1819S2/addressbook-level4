@@ -404,10 +404,38 @@ Archives the 1st contact in the results of the `search` command.
 `archive 3` +
 Archives the 3rd contact in the results of the `search` command.
 
+Screenshots for 1st example:
+
+* Enter `list`:
+
+image::archive_screenshot_1.png[width="790"]
+
+* Main contact list is displayed:
+
+image::archive_screenshot_2.png[width="790"]
+
+* Enter `archive 2`:
+
+image::archive_screenshot_3.png[width="790"]
+
+* 2nd contact has been successfully archived:
+
+image::archive_screenshot_4.png[width="790"]
+
 === Listing all archived contacts : `archivelist`
 
 Lists all the contacts in the archive. +
 Format: `archivelist`
+
+Screenshots:
+
+* Enter `archivelist`:
+
+image::archive_screenshot_5.png[width="790"]
+
+* The archive list is displayed (the contact archived in the 1st example of `archive` can be found):
+
+image::archive_screenshot_6.png[width="790"]
 
 === Selecting an archived contact : `archiveselect`
 
@@ -540,6 +568,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Exits the app. +
 Format: `exit`
 
+// tag::googlemapsfeature[]
 [[GoogleMaps]]
 === Displaying location on Google Maps(TM)
 
@@ -550,21 +579,28 @@ Double-clicking the contact will also select and bring up the the address locati
 As of `v1.4`, Google Maps(TM) will search for the location of any address provided. If it is an invalid address that cannot be found on Google Maps(TM), Google Maps(TM) will simply return that the location cannot be found, just like in the browser version.
 ====
 
+The screenshot below shows how selecting a contact using any of the `select` commands works:
+
+image::select_screenshot.png[width="790"]
+// end::googlemapsfeature[]
+
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Address book data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
-// tag::dataencryption[]
+You can find the data saved as data files in `.json` format in the `/data` folder created in the home folder of The Real App, after launching the app for the first time.
+
+Go to <<FAQ>> for more details on transferring saved data files.
+
 === Encrypting data files `[coming in v2.0]`
 
 The database will be saved in an encrypted format.
-// end::dataencryption[]
 
 === Password-protected login `[coming in v2.0]`
 
 User can set a password, which will be required when logging into the app.
 
+[[FAQ]]
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +

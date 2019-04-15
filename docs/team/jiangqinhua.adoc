@@ -78,5 +78,4 @@ Given below are sections I contributed to the Developer Guide. They showcase my 
 include::../DeveloperGuide.adoc[tag=userStories]
 include::../DeveloperGuide.adoc[tag=sortBook]
 include::../DeveloperGuide.adoc[tag=undoredo]
-include::../DeveloperGuide.adoc[tag=mtsortBook]
 

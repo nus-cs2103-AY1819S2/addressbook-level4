@@ -405,6 +405,8 @@ We decided to go ahead with this implementation as we feel that from a user's po
 
 === Tables feature
 
+The Table feature allows the users to add, edit and clear tables using the commands <<AddTable,`addTable`>>, <<EditPax,`editPax`>>, <<EditSeats, `editSeats`>> and <<ClearTables, `clearTables`>> to ensure that RestOrRant reflects their physical restaurant in terms of the number of tables and each table's occupancy. Also, the Tables feature provides a quick way to look for an available table that can accommodate the specified number of customers using the <<SpaceFor, `spaceFor`>> command. All of the table details are displayed in our UI for easy reference.
+
 // tag::tables[]
 [[TablesClasses]]
 ==== Classes for Tables feature in Model

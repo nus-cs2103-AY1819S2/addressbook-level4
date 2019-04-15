@@ -569,7 +569,6 @@ This command calls for an adjustment of brightness on an opened image. After adj
 
 Refer to the example usage scenario, sequence diagram and design considerations in <<Contrast Command>>.
 
-
 ==== BlackWhite Command
 This command calls for a transformation of an opened image to a black and white image. After applying the black and white filter, it adds this specific command called by the user to the `List<Commands>` belonging to the `tempImage` found in `currentEdit` which saves the editing history of the opened image.
 

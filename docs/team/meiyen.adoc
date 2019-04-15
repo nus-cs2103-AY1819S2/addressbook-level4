@@ -72,7 +72,7 @@ This section is to provide a summary of my contributions to the project.
 
 ** Enhancements to existing features:
 *** Checking if Date is in correct format and valid [https://github.com/CS2103-AY1819S2-W10-3/main/pull/91[#91]]
-*** Refactoring person to equipment [https://github.com/CS2103-AY1819S2-W10-3/main/pull/60[#60]]
+*** Refactoring person to equipment [https://github.com/CS2103-AY1819S2-W10-3/main/pull/191[#191]], [https://github.com/CS2103-AY1819S2-W10-3/main/pull/60[#60]]
 *** Refactor PersonCard to EquipmentCard [https://github.com/CS2103-AY1819S2-W10-3/main/pull/18[#18]]
 *** Added total number of entries in StatusBarFooter [https://github.com/CS2103-AY1819S2-W10-3/main/pull/13[#13]]
 *** Added tag colors [https://github.com/CS2103-AY1819S2-W10-3/main/pull/4[#4]]
@@ -94,7 +94,7 @@ This section is to provide a summary of my contributions to the project.
 [https://github.com/CS2103-AY1819S2-W10-3/main/pull/59[#59]],
 [https://github.com/CS2103-AY1819S2-W10-3/main/pull/45[#45]].
 
-*** Reported bugs and offered suggestions for other teams in the class [examples: [https://github.com/CS2103-AY1819S2-W15-1/main/issues/128[1], https://github.com/CS2103-AY1819S2-W15-1/main/issues/114[2], https://github.com/CS2103-AY1819S2-W15-1/main/issues/123[3]]
+*** Reported bugs and offered suggestions for other teams in the class (examples: [https://github.com/CS2103-AY1819S2-W15-1/main/issues/128[1], https://github.com/CS2103-AY1819S2-W15-1/main/issues/114[2], https://github.com/CS2103-AY1819S2-W15-1/main/issues/123[3]])
 
 
 == Contributions to the User Guide

@@ -162,7 +162,7 @@ public class ParserUtilTest {
     @Test
     public void parseOpenSave_validFileNameJson() throws Exception {
         ParsedInOut test = new ParsedInOut(
-            new File("data" + File.separator + "folder" + File.separator + "records.json"), "json");
+            new File("data/folder/records.json"), "json");
         ParsedInOut actual = ParserUtil.parseOpenSave(" " + VALID_FILENAME);
         assertEquals(test.getFile().toPath(), actual.getFile().toPath());
         assertEquals(test.getType(), actual.getType());
@@ -171,7 +171,7 @@ public class ParserUtilTest {
     @Test
     public void parseOpenSave_validFileNameJson2() throws Exception {
         ParsedInOut test = new ParsedInOut(
-            new File("data" + File.separator + "folder" + File.separator + "records.json"), "json");
+            new File("data/folder/records.json"), "json");
         ParsedInOut actual = ParserUtil.parseOpenSave(" " + VALID_FILENAME2);
         assertEquals(test.getFile().toPath(), actual.getFile().toPath());
         assertEquals(test.getType(), actual.getType());
@@ -180,7 +180,7 @@ public class ParserUtilTest {
     @Test
     public void parseOpenSave_validFileNamePdf() throws Exception {
         ParsedInOut test = new ParsedInOut(
-            new File("data" + File.separator + "folder" + File.separator + "records.pdf"), "pdf");
+            new File("data/folder/records.pdf"), "pdf");
         ParsedInOut actual = ParserUtil.parseOpenSave(" " + VALID_FILENAME3);
         assertEquals(test.getFile().toPath(), actual.getFile().toPath());
         assertEquals(test.getType(), actual.getType());
@@ -189,7 +189,7 @@ public class ParserUtilTest {
     @Test
     public void parseOpenSave_validFileNamePdf2() throws Exception {
         ParsedInOut test = new ParsedInOut(
-            new File("data" + File.separator + "folder" + File.separator + "records.pdf"), "pdf");
+            new File("data/folder/records.pdf"), "pdf");
         ParsedInOut actual = ParserUtil.parseOpenSave(" " + VALID_FILENAME4);
         assertEquals(test.getFile().toPath(), actual.getFile().toPath());
         assertEquals(test.getType(), actual.getType());
@@ -204,8 +204,7 @@ public class ParserUtilTest {
     @Test
     public void parseImportExport_validFileNameJson_singleIndex() throws Exception {
         ParsedInOut actual = ParserUtil.parseImportExport(" " + VALID_FILENAME + " 3");
-        assertEquals("data" + File.separator + "folder" + File.separator + "records.json",
-                        actual.getFile().getPath());
+        assertEquals(new File("data/folder/records.json"), actual.getFile());
         assertEquals("json", actual.getType());;
         assertTrue(actual.getParsedIndex().contains(3 - 1));
         assertFalse(actual.getParsedIndex().contains(4 - 1));
@@ -214,8 +213,7 @@ public class ParserUtilTest {
     @Test
     public void parseImportExport_validFileNameJson2_singleIndex() throws Exception {
         ParsedInOut actual = ParserUtil.parseImportExport(" " + VALID_FILENAME2 + " 3");
-        assertEquals("data" + File.separator + "folder" + File.separator + "records.json",
-            actual.getFile().getPath());
+        assertEquals(new File("data/folder/records.json"), actual.getFile());
         assertEquals("json", actual.getType());
         assertTrue(actual.getParsedIndex().contains(3 - 1));
         assertFalse(actual.getParsedIndex().contains(4 - 1));
@@ -224,8 +222,7 @@ public class ParserUtilTest {
     @Test
     public void parseImportExport_validFileNamePdf_singleIndex() throws Exception {
         ParsedInOut actual = ParserUtil.parseImportExport(" " + VALID_FILENAME3 + " 3");
-        assertEquals("data" + File.separator + "folder" + File.separator + "records.pdf",
-            actual.getFile().getPath());
+        assertEquals(new File("data/folder/records.pdf"), actual.getFile());
         assertEquals("pdf", actual.getType());
         assertTrue(actual.getParsedIndex().contains(3 - 1));
         assertFalse(actual.getParsedIndex().contains(4 - 1));
@@ -234,8 +231,7 @@ public class ParserUtilTest {
     @Test
     public void parseImportExport_validFileNamePdf2_singleIndex() throws Exception {
         ParsedInOut actual = ParserUtil.parseImportExport(" " + VALID_FILENAME4 + " 3");
-        assertEquals("data" + File.separator + "folder" + File.separator + "records.pdf",
-            actual.getFile().getPath());
+        assertEquals(new File("data/folder/records.pdf"), actual.getFile());
         assertEquals("pdf", actual.getType());
         assertTrue(actual.getParsedIndex().contains(3 - 1));
         assertFalse(actual.getParsedIndex().contains(4 - 1));
@@ -244,8 +240,7 @@ public class ParserUtilTest {
     @Test
     public void parseImportExport_validFileName_commaRange() throws Exception {
         ParsedInOut actual = ParserUtil.parseImportExport(" " + VALID_FILENAME + " 1,3,5");
-        assertEquals("data" + File.separator + "folder" + File.separator + "records.json",
-            actual.getFile().getPath());
+        assertEquals(new File("data/folder/records.json"), actual.getFile());
         assertEquals("json", actual.getType());
         assertTrue(actual.getParsedIndex().contains(1 - 1));
         assertTrue(actual.getParsedIndex().contains(3 - 1));
@@ -256,8 +251,7 @@ public class ParserUtilTest {
     @Test
     public void parseImportExport_validFileName_dashRange() throws Exception {
         ParsedInOut actual = ParserUtil.parseImportExport(" " + VALID_FILENAME + " 3-5");
-        assertEquals("data" + File.separator + "folder" + File.separator + "records.json",
-            actual.getFile().getPath());
+        assertEquals(new File("data/folder/records.json"), actual.getFile());
         assertEquals("json", actual.getType());
         assertFalse(actual.getParsedIndex().contains(1 - 1));
         assertTrue(actual.getParsedIndex().contains(3 - 1));
@@ -268,8 +262,7 @@ public class ParserUtilTest {
     @Test
     public void parseImportExport_validFileName_combinedRange() throws Exception {
         ParsedInOut actual = ParserUtil.parseImportExport(" " + VALID_FILENAME + " 1,3-5");
-        assertEquals("data" + File.separator + "folder" + File.separator + "records.json",
-            actual.getFile().getPath());
+        assertEquals(new File("data/folder/records.json"), actual.getFile());
         assertEquals("json", actual.getType());
         assertTrue(actual.getParsedIndex().contains(1 - 1));
         assertFalse(actual.getParsedIndex().contains(2 - 1));
@@ -281,8 +274,7 @@ public class ParserUtilTest {
     @Test
     public void parseImportExport_validFileName_all() throws Exception {
         ParsedInOut actual = ParserUtil.parseImportExport(" " + VALID_FILENAME + " all");
-        assertEquals("data" + File.separator + "folder" + File.separator + "records.json",
-            actual.getFile().getPath());
+        assertEquals(new File("data/folder/records.json"), actual.getFile());
         assertEquals("json", actual.getType());
         assertTrue(actual.getArgIsAll());
     }

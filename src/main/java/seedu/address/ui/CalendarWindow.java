@@ -231,14 +231,17 @@ public class CalendarWindow extends UiPart<Stage> {
                             if (markedDates.containsKey(item)) {
                                 switch (markedDates.get(item)) {
                                 case 3:
+                                    label.setStyle("-fx-font-weight: bold; -fx-text-fill: black");
                                     circle.setFill(Color.web("#FF0000"));
                                     break;
 
                                 case 2:
+                                    label.setStyle("-fx-font-weight: bold; -fx-text-fill: black");
                                     circle.setFill(Color.web("#FF9A00"));
                                     break;
 
                                 case 1:
+                                    label.setStyle("-fx-font-weight: bold; -fx-text-fill: black");
                                     circle.setFill(Color.web("#FFE600"));
                                     break;
 

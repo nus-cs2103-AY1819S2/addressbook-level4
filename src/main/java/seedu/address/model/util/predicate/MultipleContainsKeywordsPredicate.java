@@ -3,12 +3,10 @@ package seedu.address.model.util.predicate;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.patient.Patient;
-
 /**
  * Contains multiple different ContainsKeywordsPredicate
  */
-public class MultipleContainsKeywordsPredicate extends ContainsKeywordsPredicate<Patient> {
+public class MultipleContainsKeywordsPredicate<T> extends ContainsKeywordsPredicate<T> {
     private List<ContainsKeywordsPredicate> predicateList;
 
     public MultipleContainsKeywordsPredicate (List<String> keywords, boolean isIgnoreCase, boolean isAnd) {
@@ -20,11 +18,11 @@ public class MultipleContainsKeywordsPredicate extends ContainsKeywordsPredicate
     }
 
     @Override
-    public boolean test(Patient patient) {
+    public boolean test(T obj) {
         if (!isAnd) {
-            return predicateList.stream().anyMatch(pred -> pred.test(patient));
+            return predicateList.stream().anyMatch(pred -> pred.test(obj));
         } else {
-            return predicateList.stream().allMatch(pred -> pred.test(patient));
+            return predicateList.stream().allMatch(pred -> pred.test(obj));
         }
     }
 

@@ -24,7 +24,7 @@ public class OpenCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsOpenCommand() {
-        File test = new File("data" + File.separator + "records.json");
+        File test = new File("data/records.json");
         try {
             assertEquals(parser.parse(" records.json").getFile(),
                             new OpenCommand(new ParsedInOut(test, ".json")).getFile());

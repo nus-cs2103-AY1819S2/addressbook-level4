@@ -12,42 +12,37 @@ The program is written in Java.
 
 == Summary of contributions
 
-* *Major enhancement*: enhanced the *person* storage into a *dental patient* storage
-** What it does: This new data structure allows our users to store personal information of patients.
-** Justification: This data structure creates the foundation of the product, as TeethHub is an application which manages dental patients for our users.
-** Highlights: This enhancements affects existing commands and commands to be added in the future.
-The development of patient required an in-depth knowledge of the dentistry industry.
+* *Major enhancement*: greatly enhanced and developed the *person* class into a *dental patient* class
+** What it does: This new data structure allows our users to manage extensive information about their dental patients, such as personal information, next-of-kin information, dental records, and teeth layouts.
+** Justification: This data structure is the foundation of our product, as TeethHub is an application which aims to assist our dentist users by improving the way they manage their dental patients and records.
+** Highlights: This enhancement affects existing commands and commands to be added in the future.
+The development of patient required an in-depth knowledge of the dentistry industry, and their common practices.
 The implementation too was challenging as it required major changes to existing commands.
+Furthermore, it demanded thorough object-oriented thinking and planning as it consists of numerous inter-related classes.
 
-* *Major enhancement*: added the ability to *store and manage dental records* to patients
-** What it does: This allows our users to store dental records on TeethHub, which will be linked to a specified dental patient.
-** Justification: This feature is essential to TeethHub as the product wish to offload the workload for dentists, and dental records are the primary documents which dentists handle.
+* *Major implementation*: Records Mode, an intuitive *storage manager for dental records*
+** What it does: This implementation prompts our users specify a patient before they can manage dental records or edit teeth statuses tied to the specified dental patient. A separate but intuitive user interface is also built for users to facilitate a better user experience in records and teeth management.
+** Justification: This feature is essential to TeethHub as the users are expected to handle heavy workloads involving dental records and teeth information of patients.
 ** Highlights: This enhancement affects how data is stored, written and read.
 It required a thorough understanding of the design requirements, as well as its constraints.
 The implementation too was demanding, as many factors need to be considered.
 
-* *Minor enhancement*: added a goto command that allows the user to navigate to the specified patient's record list from the current patient list.
+* *Minor enhancement*: added a goto command that allows the user to navigate to the records mode, which displays a specified patient's record list.
 
-* *Minor enhancement*: added a back command that allows the user to return back to the patient list from the current record list.
+* *Minor enhancement*: added a back command that allows the user to return back to the patients mode, which displays all the stored patients.
 
-* *Minor enhancement*: added a new user interface which displays the dental record information of a specified patient.
-
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: `https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=kylerwsm[via RepoSense]`
 
 * *Other contributions*:
 
 ** Project management:
 *** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
+*** Ran manual testings and reported found bugs and issues on the group reposition on GitHub (i.e. #57, #58)
 ** Enhancements to existing features:
 *** Added a new GUI to allow users to interact with a specific patient's dental records.
-*** Wrote additional tests for new features to increase coverage significantly (0.6%).
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Wrote additional tests for new features to significantly increase coverage (~1%).
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** Reported bugs and suggestions for other teams in the class (during the mock and actual practical examinations)
 
 == Contributions to the User Guide
 
@@ -55,9 +50,315 @@ The implementation too was demanding, as many factors need to be considered.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+=== General Commands
 
-include::../UserGuide.adoc[tag=dataencryption]
+==== dentist
+
+You can specify the name you want to reflect in your patients' dental record when you create them.
+
+* If there is no dentist name specified, the program will prompt you to enter one.
+
+* This should only happen once, during the first startup of the application.
+
+=== Patient Management
+
+Patient management allows our users to store and modify information of their dental patients.
+This includes their personal particulars, next-of-kin information, dental records, and teeth conditions.
+
+==== Patient Add
+
+This command adds a patient to the patients list.
+
+Name, NRIC, and Date of Birth fields are compulsory.
+The rest are optional fields, and can be filled in later via the `recordedit` command.
+
+Format: `patientadd PARAMETERS …` or `padd PARAMETERS …`
+
+Parameters:
+
+[cols="3",options=""]
+|===
+|n/NAME
+|s/SEX
+|ic/NRIC
+|dob/DATE_OF_BIRTH
+|p/PHONE_NUMBER
+|e/EMAIL
+|a/ADDRESS
+|da/DRUG_ALLERGY
+|nokn/NEXT_OF_KIN_NAME
+|nokp/NEXT_OF_KIN_PHONE_NUMBER
+|nokr/NEXT_OF_KIN_RELATION
+|noka/NEXT_OF_KIN_ADDRESS
+|===
+
+[NOTE]
+TeethHub determines the uniqueness of patients based on their `NRIC`.
+
+Example:
+
+* `patientadd n/John Choo sex/M ic/S1234567H dob/09-09-1995`
+
+==== Patient Delete
+
+This command deletes the patient specified by `index` from the patients list.
+
+Format: `patientdelete INDEX` or `pdelete INDEX`
+
+* Deletes the patient at the specified index.
+
+* The index refers to the index number shown in the displayed patient list.
+
+* The given index must be a positive integer (e.g 1, 2 or 3…).
+
+Examples:
+
+* `delete 1` -- Deletes the patient shown with index 1 from the displayed list.
+
+[NOTE]
+If the patient index is invalid, the application will display an error message to the user.
+
+==== Patient Edit
+
+This command edits the information of an existing patient.
+
+Format: `patientedit INDEX [PREFIX/KEYWORDS]` or `pedit INDEX [PREFIX/KEYWORDS]`
+
+* Edits the patient at the specified index shown from list or find command.
+Must be a positive integer (e.g 1, 2 or 3).
+
+* Input the prefix followed by the new value to replace the existing data.
+** The full list of possible prefixes can be found in <<Breakdown of attributes used within TeethHub>>
+
+* The given index must be a positive integer (e.g. 1, 2, or 3…).
+
+Parameters that can be edited:
+
+[cols="3",options=""]
+|===
+|n/NAME
+|s/SEX
+|ic/NRIC
+|dob/DATE_OF_BIRTH
+|p/PHONE_NUMBER |p/98765432
+|e/EMAIL
+|a/ADDRESS
+|da/DRUG_ALLERGY
+|nokn/NEXT_OF_KIN_NAME
+|nokp/NEXT_OF_KIN_PHONE_NUMBER
+|nokr/NEXT_OF_KIN_RELATION
+|noka/NEXT_OF_KIN_ADDRESS
+|===
+
+Example:
+
+* `patientedit 1 ic/S1234567A` -- Edits the `NRIC` of the first patient in the patient list.
+
+==== Patient Copy
+
+Makes an exact copy of a patient and adds them to the patient list.
+This is useful if there are multiple people who share similar details.
+
+Format: `patientcopy INDEX [Count]` or `pcopy INDEX [Count]`
+
+Note: If the copied entry is not modified before exiting the program,
+there will be a confirmation.
+
+Example:
+
+* `patientcopy 3` +
+Makes a patientcopy of the patient at index 3 and inserts it at the bottom of
+the current patient list with a copy tag.
+
+* `patientcopy 3 4` +
+Makes 4 copies of the patient at index 3 and inserts them at the bottom of
+the current patient list with a copy tag.
+
+==== Patient List
+Shows a list of all patients or medical stored in TeethHub.
+
+Format: `patientlist` or `plist`
+
+Example:
+
+* `patientlist` +
+Shows details of all patients.
+
+==== Patient Find
+
+Shows patients whose data contains any of the given keywords according to a specified parameter.
+
+Format: `patientfind PREFIX/KEYWORD [MORE_KEYWORDS]` or `pfind PREFIX/KEYWORD [MORE_KEYWORDS]`
+
+* Search is case insensitive.
+* Order of keywords does not matter.
+* Valid `Prefix` values: See <<Breakdown of attributes used within TeethHub>>
+
+Example:
+
+* `find a/Yishun` +
+Show all the people with an address containing the keyword Yishun.
+
+==== Patient Clear
+Clears all patients, from TeethHub.
+
+* You will be prompted to confirm.
+* Input `y` to proceed to the patientclear all records or `n` to abort.
+
+Format: `patientclear`
+
+==== Go To
+
+The goto command specifies a patient by index, and brings the user to the records mode, where all dental records of the specified patient are listed.
+
+Record-related commands can then be executed in this mode.
+
+Format: `goto 1`
+
+* Goes into records mode and displays all dental records of patient 1.
+
+* The given index must be a positive integer (e.g 1, 2 or 3…)
+
+==== Back
+
+The back command can only be run in records mode.
+It brings the user back to the patients mode, where all patients will be listed.
+
+Format: `back` -- Brings the user back to patient mode.
+
+[NOTE]
+The `back` command will work with parameters, but they will be ignored.
+
+==== Record Add
+
+This command adds a new dental record to the patient.
+
+[NOTE]
+`recordadd` requires the application to first be in records mode, via the `goto` command.
+
+Format: `recordadd pro/PROCEDURE desc/DETAILS or `radd pro/PROCEDURE desc/DETAILS`
+
+* The program assigns the name of the dentist stored in the dentist information
+
+* The program assigns the date of record as the date the record is created.
+
+* When records of a patient is accessed, the stored records are sorted from newest to oldest.
+
+* New dental records will appear on the top of the list upon entry.
+
+Example
+
+* `<<goto, goto>> 1` - Displays dental records of the first patient in the list and hides the patient list.
+
+* `recordadd desc/Mouth was noticeably smelly, might have halitosis` - Adds a new dental record.
+
+* `<<back, back>>` - Go back to the patient list.
+
+==== Record Delete
+
+This command deletes a dental record of a specified patient.
+
+[NOTE]
+`recorddelete` requires the application to first be in records mode, via the `goto` command.
+
+Format: `recorddelete INDEX` or `rdelete INDEX`
+
+* Deletes the patient’s dental record at the specified index.
+
+* The index refers to the index number shown in the displayed dental record list.
+
+* The given index must be a positive integer (e.g 1, 2 or 3…)
+
+Example:
+
+* `<<goto, goto>> 1` - Displays dental records of the first patient in the list and hides the patient list.
+
+* `recorddelete 1` - patientdelete the latest dental record of the specified patient
+
+* `<<back, back>>` - Go back to the patient list.
+
+==== Record Edit
+
+This command edits a patient’s dental record.
+
+[NOTE]
+`recordedit` requires the application to first be in records mode, via the `goto` command.
+
+Format: `recordedit INDEX desc/DETAILS` or `redit INDEX desc/DETAILS`
+
+* Edits the patient's dental record at the specified index.
+
+* The index refers to the index number shown in the displayed dental record list.
+
+* The given index must be a positive integer (e.g 1, 2 or 3…)
+
+* The new description stated in the command will replace the old description in the specified dental record.
+
+Example:
+
+* `<<goto, goto>> 1` - Displays dental records of the first patient in the list and hides the patient list.
+
+* `recordedit 1 desc/corrected description` - Modifies the description of the first dental record of the specified patient.
+
+* `<<back, back>>` - Go back to the patient list.
+
+==== Record Clear
+
+Clears all of a patient's dental records.
+
+Format: `recordclear` or `rclear`
+
+[NOTE]
+`recordclear` requires the application to first be in records mode, via the `goto` command.
+
+==== Teeth Create
+
+There is no command required for this feature, as the application automatically generates and stores a new set of all healthy permanent teeth for newly added patients.
+
+TeethHub complies with the most popular standard of the three the Dental Numbering Systems utilised in Dentistry - The Universal Numbering System.
+
+The upper-case letters A through T are used for primary teeth and the
+numbers 1 - 32 are used for permanent teeth. The tooth designated "1" is
+the maxillary right third molar ("wisdom tooth") and the count continues
+along the upper teeth to the left side. Then the count begins at the
+mandibular left third molar, designated number 17, and continues along
+the bottom teeth to the right side. Each tooth has a unique number or
+letter, allowing for easier use on keyboards.
+
+[NOTE]
+At the moment, only the permanent teeth type is supported.
+
+==== Teeth Edit
+
+This command edits a specific tooth of a patient.
+
+Format: `teethedit t/TEETH_LABEL s/STATUS`
+
+* `TEETH_LABEL` are integers 1 to 32, which represents a tooth according to the Universal Numbering System.
+
+* Valid `STATUS` are 0 (for healthy tooth), 1 (for problematic tooth), or 2 (for missing tooth).
+
+Example:
+
+* `<<goto, goto>> 1` - Specifies patient 1 to edit his or her teeth status. User enters the records mode.
+
+* `teethedit t/31 s/2` - This edits the status of tooth 31 of the specified patient to missing.
+
+* `<<back, back>>` - This command allows the user to exit the record edit mode, returning to the patients mode.
+
+=== Breakdown of attributes used within TeethHub
+[cols=",,,,,,,", options="header",]
+|===
+8+^|List of valid prefixes
+
+4+| *Patient* 2+| *Record* 2+| *Next-of-Kin*
+|*Prefix* | *Attribute* |*Prefix* | *Attribute* | *Prefix* | *Attribute* | *Prefix* | *Attribute*
+|n/ | Name |sex/ | Sex | pro/ | Procedure | nokn/ | NOK Name
+|ic/ | Nric |dob/ | Date of Birth |desc/ | Description | nokp/ | NOK Phone
+|p/ | Phone |e/ | Email | | | nokr/ | NOK Relation
+|a/ | Address | | | | | noka/ | NOK Address
+
+|===
 
 == Contributions to the Developer Guide
 
@@ -308,26 +609,24 @@ Furthermore, every time any record of the specified patient is modified, a new i
 === User Stories
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="100%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="100%",cols="",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |user |add a new patient's particulars | know about their situation
 
-|`* * *` |user |edit my patient's particulars when the situation changes | their personal information remains updated
+|`* * *` |user |edit my patient's particulars | their personal information remains updated
 
-|`* * *` |user |my patients' medical records and teeth data tied to them | know how their situation evolved
+|`* * *` |user |store my patient's teeth | track their teeth condition
 
-|`* * *` |user |store, edit, and view my dental patients' teeth condition | understand and serve my dental patients'
+|`* * *` |user |modify my dental patients' teeth condition | understand and serve my dental patients'
 teeth condition better
 
-|`* * *` |user |isolate other patients' information | focus on the current patient in my clinic
+|`* * *` |user |view my patients' dental records | keep track of my patients' teeth health history
 
-|`* * *` |user |view my patients' dental records | understand and keep track of my patients' teeth health history
-
-|`* * *` |user |add a new dental record | store diagnosis and treatments of my patients during their dental sessions
+|`* * *` |user |add a new dental record | store diagnosis and treatments of my patients
 
 |`* * *` |user |delete a dental record | remove records that have become redundant or irrelevant
 
-|`* * *` |user |edit a dental record | correct or modify descriptions of dental records that I have already added
+|`* * *` |user |edit a dental record | correct existing dental records
 
-|`* * *` |user |clear all dental records of a patient | protect the privacy of my patients if they require me to
+|`* * *` |user |clear all dental records of a patient | protect the privacy of my patients

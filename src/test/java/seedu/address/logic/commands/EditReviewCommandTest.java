@@ -16,8 +16,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.PostalDataSet;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.restaurant.Restaurant;
-import seedu.address.model.review.Entry;
-import seedu.address.model.review.Rating;
 import seedu.address.model.review.Review;
 import seedu.address.testutil.EditReviewDescriptorBuilder;
 import seedu.address.testutil.RestaurantBuilder;

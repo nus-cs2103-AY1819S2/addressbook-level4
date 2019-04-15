@@ -8,6 +8,8 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RESTAURANT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_RESTAURANT;
 import static seedu.address.testutil.TypicalRestaurants.getTypicalFoodDiary;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
@@ -24,8 +26,6 @@ import seedu.address.model.review.Rating;
 import seedu.address.model.review.Review;
 import seedu.address.testutil.RestaurantBuilder;
 import seedu.address.testutil.ReviewBuilder;
-
-import java.util.List;
 
 public class AddReviewCommandTest {
 

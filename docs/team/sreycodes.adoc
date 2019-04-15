@@ -23,7 +23,7 @@ It is written in Java and has around 15,000 lines of code.
 |This section summarizes my contributions to the application and explains their importance.
 |===
 
-* *Major enhancement*: I added the complete backend for the booking and reservation from commands upto storage.
+* *Major enhancement*: I added the complete backend for the booking and reservation from commands up to storage.
 This also includes making sure each component is customizable which involved refactoring service and room types
 from `ENUM` to classes.
 ** What it does: It allows the hotel staff to add service-bookings, reservations, service types and room types to the hotel.
@@ -54,7 +54,7 @@ https://github.com/cs2103-ay1819s2-t12-1/main/blob/master/src/test/java/seedu/hm
 ** Documentation:
 *** Added command formats and descriptions to the user guide.
 *** Added color-coding to the user guide.
-*** Reformated all the commands to match an intuitive convention in guides and codebase.
+*** Reformatted all the commands to match an intuitive convention in guides and codebase.
 *** Added sections to developer guide.
 https://github.com/cs2103-ay1819s2-t12-1/main/blob/master/docs/DeveloperGuide.adoc#41-adding-service-booking-functionality[Example]- I
 added a section to teach oncoming developers how to add new models to the codebase.
@@ -66,7 +66,7 @@ added a section to teach oncoming developers how to add new models to the codeba
 
 |===
 |This section displays the main sections of the User Guide added or edited by me. They showcase my ability to write documentation
-which can be understood by the targeted end-users._
+which can be understood by the targeted end-users.
 |===
 
 include::../UserGuide.adoc[tag=reservation-commands]
@@ -84,7 +84,7 @@ include::../DeveloperGuide.adoc[tag=new-model]
 
 include::../DeveloperGuide.adoc[tag=customizability]
 
-== Achievements and Learnings
+== Achievements and Learning
 |===
 |Given below are the my takeaways from this project and my achievements
 in this project.
@@ -93,8 +93,7 @@ in this project.
 * Worked with a team to implement complementing components smoothly
 * Learned how to evaluate user requirements using user stories
 * https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=&sort=totalCommits&since=2019-02-10&until=2019-04-15&timeframe=day&reverse=true&repoSort=false[I was able to lead the module in terms of code contribution.]
-
-image::reposense.png[align="right"]
+image::reposense.png
 
 == Contact Me
 |===

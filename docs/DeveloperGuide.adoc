@@ -560,6 +560,7 @@ This functionality uses the `spaceFor` command and is facilitated by the [.java]
 [.java]#SpaceForCommand#execute()# is then called which searches through the [.java]#UniqueTableList# for the best fit table. In this case, the best fit [.java]#Table# is the smallest available one that can accommodate the specified number of customers. If there is more than 1 [.java]#Table# that fits those criterions, the [.java]#Table# with the smallest [.java]#TableNumber# is chosen.
 
 // end::spacefor[]
+// end::tables[]
 
 === Orders feature
 
@@ -602,9 +603,8 @@ The table number, which is represented by a [.java]#TableNumber# object, can the
 
 .Sequence diagram for retrieving the table number
 image::CurrentTableSequenceDiagram.png[width="400"]
-// end::orders[]
-
 // end::currenttable[]
+// end::orders[]
 
 // tag::addtoorder[]
 [[AddToOrder]]
@@ -633,12 +633,12 @@ The user may want to remove an order item from a specific table's order and this
 
 The interaction between the components for this function is similar to <<DeleteFromMenu, deleting from menu>>.
 
-// end::deletefromorder[]
-
 Suppose the user wants to delete "W09 Chicken Wings" from the order. When `deleteFromOrder W09` is keyed in, the command is parsed by [.java]#DeleteFromOrderCommandParser# to check if the item code is in valid format. It is then converted into a [.java]#Code# object which is stored in the [.java]#DeleteFromOrderCommand# object returned by the parser.
 
 When [.java]#DeleteFromOrderCommand#execute()# is called, it will use the [.java]#Code# to check whether the item exists in the menu and whether the current table has ordered the item.
 If the [.java]#OrderItem# is found, it will be deleted from the [.java]#UniqueOrderItemList# using [.java]#Model#deleteOrderItem()#.
+
+// end::deletefromorder[]
 
 // tag::clearorder[]
 [[ClearOrder]]
@@ -697,8 +697,6 @@ Furthermore, it also provides the benefit of arranging the order items across al
 - *Cons*: Difficult to keep track of so many lists. May be space inefficient to create multiple [.java]#UniqueOrderItemList# if each list only has a few items. +
 
 |=======================================================================
-// end::clearorder[]
-
 // end::clearorder[]
 
 // tag::serve[]
@@ -866,6 +864,7 @@ reflect any changes to the menu in both of the data structures. +
 |=======================================================================
 // end::deletefrommenu[]
 
+// tag::clearmenu[]
 [[ClearMenu]]
 ==== Clearing the menu
 
@@ -876,6 +875,8 @@ The interaction between the components for this function is similar to <<ClearOr
 When `clearMenu` is keyed in, the command is parsed by [.java]#RestOrRantParser# and a [.java]#ClearMenuCommand# object is returned by the parser.
 
 When [.java]#ClearMenuCommand#execute()# is called, it will check if the restaurant is occupied, and if the menu is empty. [.java]#CommandException# with respective error messages will be thrown if either of the conditions are true. After ensuring that the restaurant is unoccupied and the menu is non-empty, the menu will be cleared by initializing the menu with an empty ArrayList, with the [.java]#Model#setMenuItems() method.
+
+// end::clearmenu[]
 
 // tag::statistics[]
 // tag::statisticsintro[]
@@ -1243,7 +1244,7 @@ In the method above, [.java]#Year#isLeapYear# calculates the year that is a leap
 <2> It checks that the year is not a multiple of 100.
 <3> It checks that the year is a multiple of 400.
 
-// end::date
+// end::date[]
 // end::statistics[]
 
 === Logging

@@ -44,7 +44,7 @@ Some of the features that you can look forward to:
 * Getting an aggregate rating over all your visits.
 * Finding out about new restaurants near you for your next gastronomical adventure!
 
-Read on to find out more about other exciting features of FD!
+Read on to find out more about the other exciting features of FD!
 
 
 *Callout*
@@ -186,9 +186,9 @@ Returns a list of all the restaurants in the Food Diary.
 
 
 // tag::listUnvisitedUG[]
-==== Listing all restaurants that you haven't visited : `listUnvisited`
+==== Listing all restaurants that you have not visited : `listUnvisited`
 
-Shows a list of all restaurants that hasn't been reviewed by you, ranked based on the proximity to the postal code provided by you. +
+Shows a list of all restaurants that have not been reviewed by you, ranked based on the proximity to the postal code provided by you. +
 Format: `listUnvisited po/POSTAL_CODE`
 
 [NOTE]

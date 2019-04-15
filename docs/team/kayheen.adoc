@@ -81,6 +81,7 @@ include::../UserGuide.adoc[tag=RotateCommand]
 include::../UserGuide.adoc[tag=WaterMarkCommand]
 
 ==== 3.4 Other contributions
+'''
 * A Walk Through of the Image Editor
 * Resize Command
 
@@ -103,7 +104,7 @@ include::../DeveloperGuide.adoc[tag=ImageManipulation]
 include::../DeveloperGuide.adoc[tag=WaterMark]
 
 ==== 4.4 Other Contributions
-
+'''
 * Crop Command
 * Resize Command
 * Architecture Diagrams

@@ -19,7 +19,7 @@ By: `Team W11-4`      Since: `Jun 2019`      Licence: `MIT`
 
 == Introduction
 
-BookSquirrel is for those who *want to keep a record of books they've read*. More importantly, BookSquirrel is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BookSquirrel can get your contact management tasks done faster than traditional GUI apps.
+BookSquirrel is for those who *want to keep a record of books they've read*. More importantly, BookSquirrel is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BookSquirrel can get your management of books done faster than traditional GUI apps.
 
 == Setting up
 
@@ -229,7 +229,7 @@ The `Storage` component,
 * can save `UserPref` objects in JSON format and read it back.
 * can save the BookShelf data in JSON format and read it back.
 * both the data of books and reviews will be saved.
-* users are not supposed to touch the data file (file inside the `data` folder) directly. If the user insists on doing so, the data might be corrupted.
+* users are not supposed to touch the data file (the file inside the `data` folder) directly. If the user insists on doing so, the data might be corrupted.
 * users are not supposed to add data files into the app manually. If the user accidentally corrupts the data file, he or she may have to reinstall the app and all data will get lost.
 * developers can edit the data file for the purpose of testing.
 
@@ -500,7 +500,7 @@ Step 3. The `ListBookCommandParser` parses this command. It will first create so
 
 image::listBookCommandLogic.png[width="800"]
 
-Step 4. The `ListBookCommand` will be executed. The command checks all the book in the `BookShelf`, selects out books whose name contain `Life` based on `BookNameContainsKeywordPredicate`.
+Step 4. The `ListBookCommand` will be executed. The command checks all the books on the `BookShelf`, selects out books whose name contain `Life` based on `BookNameContainsKeywordPredicate`.
 
 The sequence diagram of the whole process is as follows.
 
@@ -515,7 +515,7 @@ image::listBookSqDiagram.png[width="800"]
 ** Cons: Such search techniques may fail to provide the user with enough information.
 * **Alternative 2:** Books that match at least one criteria will be selected. For example, if the user gives 2 book name keywords and 2 ratings, books that match 1 name keyword but no ratings will still be selected.
 ** Pros: More likely to provide the user with the book that the user is looking for.
-** Cons: Hard to test and manage. Such a design also fails to narrow down search results when the user is providing more keywords for the targeted book.
+** Cons: Such a design also fails to narrow down search results when the user is providing more keywords for the targeted book. Besides, it's hard to test and manage.
 
 // end::listBook[]
 
@@ -524,7 +524,7 @@ image::listBookSqDiagram.png[width="800"]
 
 ==== Current Implementation
 
-The summary feature is a command works to summarize the books in the bookshelf. The user can have a rough overview of what he/she has read.
+The summary feature is a command works to summarize the books on the bookshelf. The user can have an overview of what he/she has read.
 
 Given below is an example of usage and how the summary feature works.
 
@@ -536,20 +536,24 @@ Step 3. The `SummaryCommandParser` parses this command.
 
 Step 4. The `SummaryCommandParser`returns an `SummaryCommand`. The exception will be thrown if the command is invalid.
 
-Step 5. The `SummaryCommand` executes. The command will traverse all books in the bookshelf, checks, if there are authors or tags, appear more than once and give relative details. The command will also show the highest rating of books on the bookshelf.
+Step 5. The `SummaryCommand` executes. The command will traverse all books in the bookshelf, checks, if there are authors or tags, appear more than once and give relative details. The command will also return the highest rating of books on the bookshelf.
+
+The summary command creates a summary as follows:
+
+image:SummaryActivity.png[width="800"]
 
 ==== Design Consideration
 
 ===== Aspect: Component to fetch the data
 
-* **Alternative 1 (current choice):** Model manager in charge of data processing, then return the result to the command.
-** Pros: This prevents the command from accessing data managed by the model manager, thus independency of different parts is guaranteed.
+* **Alternative 1 (current choice):** Model manager is in charge of data processing, then returns the result to the command.
+** Pros: This prevents the command from accessing data managed by the model manager, thus independence of different parts is guaranteed.
 ** Cons: More methods are introduced into the model manager. To include more information in the summary, not only the summary command should be modified, but also more information query methodS should be added in The `Model`. This somehow break the abstraction.
 * **Alternative 2:** Model manager passes the whole bookshelf to the command, then command process the data according to this list.
 ** Pros: More flexible as the command can extract any information it desires. Whenever we want the summary to include more information, we just directly fetch the data from the copy of the bookshelf.
 ** Cons: This approach is unsafe and may lead to more bugs as it violates the principle of independence.
 * **Alternative 3:** Model manager creates a list of the copies of the books in the bookshelf and passes it to the command.
-** Pros: More flexible as the command can read whatever information desired, while keep the bookshelf safe from any unintended modification.
+** Pros: More flexible as the command can read whatever information desired, thus keeps the bookshelf safe from any unintended modification.
 ** Cons: The manager no longer has control over what information is accessible to the command, thus may still expose some sensitive information. Besides, making a copy of the whole list is not practical when there are many books in the bookshelf.
 
 // end::summary[]

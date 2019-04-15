@@ -44,7 +44,7 @@ public class DateCustom implements DateBuilder, Comparable<DateCustom> {
     }
 
     public static boolean isValidDate(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && isValidFeb29(test);
     }
 
     /**
@@ -78,6 +78,19 @@ public class DateCustom implements DateBuilder, Comparable<DateCustom> {
         LocalDate firstDate = LocalDate.parse(date1, DATE_FORMATTER);
         LocalDate secondDate = LocalDate.parse(date2, DATE_FORMATTER);
         return firstDate.isBefore(secondDate);
+    }
+
+    /**
+     * Checks for cases where 29 February is given. Returns true if its on a leap year.
+     * @param test
+     */
+    private static boolean isValidFeb29(String test) {
+        String[] date = test.split("-");
+        if (Integer.valueOf(date[0]) == 29 && Integer.valueOf(date[1]) == 2) {
+            LocalDate year = LocalDate.parse(test, DATE_FORMATTER);
+            return year.isLeapYear();
+        }
+        return true;
     }
 
     @Override

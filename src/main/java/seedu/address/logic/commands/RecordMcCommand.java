@@ -81,7 +81,9 @@ public class RecordMcCommand extends Command {
             String filePathString = Paths.get("data", String.format("MC%s.pdf", mcNo)).toString();
             System.out.println(filePathString);
             File f = new File(filePathString);
-            if (!f.exists()) { return mcNo; }
+            if (!f.exists()) {
+                return mcNo;
+            }
         }
         throw new IOException("Too many MCs today");
     }

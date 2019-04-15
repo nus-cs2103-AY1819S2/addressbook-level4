@@ -33,8 +33,9 @@ public class TaskDoneCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_TASK_DONE_SUCCESS = "Completed Task: \n%1$s";
-    public static final String MESSAGE_TASK_ALREADY_COMPLETED = "The task is already completed. ";
-
+    public static final String MESSAGE_TASK_ALREADY_COMPLETED = " The task is already completed.\n"
+                + "You can use the taskedit command to set the task's priority back to low, med or high\n"
+                + "to set the task back to being incomplete";
     private final Index targetIndex;
 
     public TaskDoneCommand(Index targetIndex) {
@@ -64,7 +65,6 @@ public class TaskDoneCommand extends Command {
                             .getLinkedPatientNric())).findFirst();
             if (foundPatient.isPresent()) {
                 Patient replacement = foundPatient.get();
-                //TODO: Possibly switch Procedure and Description contents?
                 replacement.addRecord(new Record(new Procedure("Other-Completed Task"),
                         new Description(completedTask.getTitle().title)));
                 model.setPerson(foundPatient.get(), replacement);

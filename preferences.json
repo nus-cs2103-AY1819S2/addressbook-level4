@@ -1,11 +1,12 @@
 {
   "guiSettings" : {
-    "windowWidth" : 1551.0,
-    "windowHeight" : 839.0,
+    "windowWidth" : 1550.4000244140625,
+    "windowHeight" : 838.4000244140625,
     "windowCoordinates" : {
-      "x" : 620,
-      "y" : 155
+      "x" : -7,
+      "y" : -7
     }
   },
   "addressBookFilePath" : "data/TeethHub.json"
 }
+

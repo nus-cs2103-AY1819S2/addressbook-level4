@@ -316,7 +316,7 @@ Also, each `Cell` has a `Status` attribute which is an `enum` of the following:
 [cols="1,3", options="header"]
 |===
 | Status | Description
-| HIDDEN | This cell has not been hit. 
+| HIDDEN | This cell has not been hit.
 | EMPTY | This cell is empty and has not been hit.
 | EMPTYHIT | This cell has been hit before, and is empty;
 | SHIP | This cell has a ship in it.

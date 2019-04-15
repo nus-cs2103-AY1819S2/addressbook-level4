@@ -133,19 +133,32 @@ Once the user has navigated to the folder, click on the address bar and copy
 image::AddFeatureStep2CopyDirectory.png[width="600"]
 
 * __For Mac__
+Right click the file that you wish to add to our application and you should see
+the following menu pop up.
 
-Step 3: The user enters the `add` command into the CLI interface, following the
-outlined syntax as illustrated below.
+image::UGAddPathMac1.png[width="200"]
+
+* When this menu appears, if you press kbd:[control] on your keyboard, you should
+see the menu change as shown in the image below.
+
+image::UGAddPathMac2.png[width="200"]
+
+* Now if you press the button highlighted in *blue*, you have successfully copied
+the path of the file you wish to add to the application.
+
+Step 3: You may now enter the `add` command into the CLI interface followed by the
+path of the file you wish to add to the application as illustrated below.
 
 [NOTE]
 Your users must type the file name **after** the directory copied at __Step 2__
 
 image::AddFeatureStep3UserInput.png[width="600"]
 
-[NOTE] you can enter `add` and hit enter, to open up a GUI for you to select the file you
+[NOTE]
+You can enter `add` and hit kbd:[enter], to open up a GUI for you to select the file you
 wish to add.
 
-Step 4: Upon hitting enter to execute the command, the *AddCommandParser* parses the input
+Step 4: Upon hitting kbd:[enter] to execute the command, the *AddCommandParser* parses the input
 into several components that are required to be executed by the *AddCommand*.
 
 Upon parsing, the parser then creates a new *AddCommand* that will be executed according to
@@ -153,10 +166,6 @@ the your input.
 
 Step 5: Upon receiving the necessary information from the parser, the `AddCommand` first
 begins by checking for validity as shown below.
-
-* Duplicate `Pdf` found in PDF++
-
-image::AddFeatureStep5DuplicateFound.png[width="600"]
 
 * `Pdf` does not exist in directory
 
@@ -170,10 +179,10 @@ Step 6: If the validity check and the individual property check passes, the file
 added to PDF++
 
 [NOTE]
-As of v1.2, the Add feature is only capable of adding 1 `Pdf` file at a time. By v2.0,
+As of v1.4, the Add feature is only capable of adding 1 `Pdf` file at a time. By v2.0,
 the feature will support adding multiple files.
 
-* The file must be a PDF file (with .pdf extension).
+* The file must be a *PDF* file (with .pdf extension).
 
 Example:
 
@@ -224,13 +233,10 @@ The rename command allows you to change the name of a file, specified by thr ind
 
 The rename command has the following syntax:
 
-[.big]#`rename <INDEX> n/<NEWNAME> t/<NEWTAG1>...`#
+[.big]#`rename <INDEX> n/<NEWNAME>#
 
 * `<INDEX>` refers to the index of the file that you wish to edit.
 * `n/` indicates that you are editing the name of the file
-* `<NEWNAME>` refers to the new value that you would like to set the file _Name_ to.
-* `<NEWTAG...>` refers to the new _Tag_ you wish to add. Leave this portion empty if you
-do not wish to tag this file.
 
 Example:
 * `rename 1 n/newname.pdf`
@@ -494,7 +500,7 @@ Examples:
 * `encrypt 2 password/ThisIsNotASecurePassword`
 * `decrypt 2 password/ThisIsNotASecurePassword`
 
-Please refer to <<Encryption Guide>> or <<Decryption Guide>>
+Please refer to <<Encryption Guide, Encryption Guide>> or <<Decryption Guide, Decryption Guide>>
 for help in using these features.
 
 ==== Encryption Guide
@@ -506,8 +512,8 @@ Step 1: The user launches the application with either
 1. an empty list, or
 2. an existing set of `Pdf` as shown below
 
-Please refer to <<Adding a file: `add`>> for guide
-in how you can add your files into PDF++ that you wish to encrypt.
+Please refer to <<Adding a file: `add`, add feature>> guide in understanding
+how you can add your files into PDF++ that you wish to encrypt.
 
 image::EncryptFeatureStep1Default.png[width="600"]
 
@@ -555,7 +561,7 @@ image::EncryptFeatureStep5Success.png[width="600"]
 
 Step 6: If the command passes the validity check, the file you have selected is encrypted.
 You can open your file to see the result. Please refer to
-<<Opening a file : `open`>> for the `open` feature.
+<<Opening a file : `open`, open feature>> guide in understanding the `open` feature.
 
 image::EncryptFeatureStep6Open.png[width="600"]
 
@@ -575,8 +581,8 @@ Step 1: The user launches the application with either
 1. an empty list, or
 2. an existing set of `Pdf` as shown below
 
-Please refer to <<Adding a file: `add`>> for guide
-in how you can add your files into PDF++ that you wish to encrypt.
+Please refer to <<Adding a file: `add`, add feature>> guide in understanding
+how you can add your files into PDF++ that you wish to decrypt.
 
 image::DecryptFeatureStep1Default.png[width="600"]
 
@@ -630,7 +636,7 @@ image::DecryptFeatureStep5Success.png[width="600"]
 
 Step 6: If the command passes the validity check, the file you have selected is decrypted.
 You can open your file to see the result. Please refer to
-<<Opening a file : `open`>> for the `open` feature.
+<<Opening a file : `open`, open feature>> guide in understanding the `open` feature.
 
 // end::fileprotection[]
 

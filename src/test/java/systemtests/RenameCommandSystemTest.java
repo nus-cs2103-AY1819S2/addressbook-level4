@@ -3,51 +3,51 @@ package systemtests;
 //import static org.junit.Assert.assertFalse;
 //import static org.junit.Assert.assertNotEquals;
 //import static org.junit.Assert.assertTrue;
-//import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-//import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-//import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-//import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-//import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-//import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-//import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_ADD;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PDFS;
+//import static seedu.pdf.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
+//import static seedu.pdf.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+//import static seedu.pdf.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+//import static seedu.pdf.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+//import static seedu.pdf.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+//import static seedu.pdf.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+//import static seedu.pdf.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+//import static seedu.pdf.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+//import static seedu.pdf.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+//import static seedu.pdf.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+//import static seedu.pdf.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+//import static seedu.pdf.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+//import static seedu.pdf.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+//import static seedu.pdf.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
+//import static seedu.pdf.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+//import static seedu.pdf.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
+//import static seedu.pdf.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+//import static seedu.pdf.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+//import static seedu.pdf.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
+//import static seedu.pdf.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+//import static seedu.pdf.logic.parser.CliSyntax.PREFIX_TAG_ADD;
+import static seedu.pdf.model.Model.PREDICATE_SHOW_ALL_PDFS;
 
-import seedu.address.commons.core.index.Index;
-//import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-//import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-//import static seedu.address.testutil.TypicalPdfs.AMY;
-//import static seedu.address.testutil.TypicalPdfs.BOB;
-//import static seedu.address.testutil.TypicalPdfs.KEYWORD_MATCHING_MEIER;
+import seedu.pdf.commons.core.index.Index;
+//import static seedu.pdf.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+//import static seedu.pdf.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+//import static seedu.pdf.testutil.TypicalPdfs.AMY;
+//import static seedu.pdf.testutil.TypicalPdfs.BOB;
+//import static seedu.pdf.testutil.TypicalPdfs.KEYWORD_MATCHING_MEIER;
 //import org.junit.Test;
-//import seedu.address.commons.core.Messages;
-import seedu.address.logic.commands.RenameCommand;
-//import seedu.address.logic.commands.RedoCommand;
-//import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-//import seedu.address.model.pdf.Address;
-//import seedu.address.model.pdf.Email;
-//import seedu.address.model.pdf.Name;
-import seedu.address.model.pdf.Pdf;
-//import seedu.address.model.pdf.Phone;
-//import seedu.address.model.tag.Tag;
-//import seedu.address.testutil.PdfBuilder;
-//import seedu.address.testutil.PdfUtil;
+//import seedu.pdf.commons.core.Messages;
+import seedu.pdf.logic.commands.RenameCommand;
+//import seedu.pdf.logic.commands.RedoCommand;
+//import seedu.pdf.logic.commands.UndoCommand;
+import seedu.pdf.model.Model;
+//import seedu.pdf.model.pdf.Address;
+//import seedu.pdf.model.pdf.Email;
+//import seedu.pdf.model.pdf.Name;
+import seedu.pdf.model.pdf.Pdf;
+//import seedu.pdf.model.pdf.Phone;
+//import seedu.pdf.model.tag.Tag;
+//import seedu.pdf.testutil.PdfBuilder;
+//import seedu.pdf.testutil.PdfUtil;
 
-public class RenameCommandSystemTest extends AddressBookSystemTest {
+public class RenameCommandSystemTest extends PdfBookSystemTest {
 
     /*
 
@@ -114,7 +114,7 @@ public class RenameCommandSystemTest extends AddressBookSystemTest {
         *//* ------------------ Performing edit operation while a filtered list is being shown -----------------
         ------- *//*
 
-        *//* Case: filtered pdf list, edit index within bounds of address book and pdf list -> edited *//*
+        *//* Case: filtered pdf list, edit index within bounds of pdf book and pdf list -> edited *//*
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredPdfList().size());
@@ -123,7 +123,7 @@ public class RenameCommandSystemTest extends AddressBookSystemTest {
         editedPdf = new PdfBuilder(pdfToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedPdf);
 
-        *//* Case: filtered pdf list, edit index within bounds of address book but out of bounds of pdf list
+        *//* Case: filtered pdf list, edit index within bounds of pdf book but out of bounds of pdf list
          * -> rejected
          *//*
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
@@ -183,7 +183,7 @@ public class RenameCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(RenameCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_EMAIL_DESC,
                 Email.MESSAGE_CONSTRAINTS);
 
-        *//* Case: invalid address -> rejected *//*
+        *//* Case: invalid pdf -> rejected *//*
         assertCommandFailure(RenameCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_ADDRESS_DESC,
                 Address.MESSAGE_CONSTRAINTS);
 
@@ -207,7 +207,7 @@ public class RenameCommandSystemTest extends AddressBookSystemTest {
                 + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
         assertCommandFailure(command, RenameCommand.MESSAGE_DUPLICATE_PDF);
 
-        *//* Case: edit a pdf with new values same as another pdf's values but with different address -> rejected *//*
+        *//* Case: edit a pdf with new values same as another pdf's values but with different pdf -> rejected *//*
         command = RenameCommand.COMMAND_WORD + " " + index.getOneBased()
                 + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
@@ -272,9 +272,9 @@ public class RenameCommandSystemTest extends AddressBookSystemTest {
      * 4. Asserts that the status bar's sync status changes.<br>
      * 5. Asserts that the command box has the default style class.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * {@code PdfBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see PdfBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see PdfBookSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
@@ -297,8 +297,8 @@ public class RenameCommandSystemTest extends AddressBookSystemTest {
      * 3. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code PdfBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see PdfBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

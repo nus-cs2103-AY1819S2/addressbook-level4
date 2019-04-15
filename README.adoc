@@ -42,6 +42,7 @@ _In-CreditBle_ is an open source project that welcomes contribution from the com
 
 * This application was inspired by AddressBook-Level4 project created by SE-EDU initiative at https://github.com/se-edu/.
 * Libraries used: https://github.com/TestFX/TestFX[TextFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
+
 * Application Icon made by https://www.flaticon.com/authors/monkik[monkik] from www.flaticon.com
 
 == Licence : link:LICENSE[MIT]

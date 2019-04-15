@@ -633,6 +633,7 @@ image::RotateCommandSequenceDiagram.png[width="800"]
 
 * Images that are still being edited have to be stored and edited in a temp directory first due to our `undo/redo` implementation.
 
+// end::ImageManipulation[]
 ==== Crop Command
 This command allows the user to crop the targeted image by specifying the coordinates of the top left hand corner of the desired image, the width of the desired image and the height of the desired image. Upon receiving the inputs, the values will be checked for their validity and will throw an error if any value is not within the specified range. The command will then be added to the `List<Command>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targeted image.
 
@@ -642,8 +643,6 @@ Refer to the example usage scenario, sequence diagram and design considerations 
 This command allows the user to resize the targeted image by specifying the width and height of the desired image. Upon receiving the inputs, the values will be checked for their validity and will throw an error if any value is not within the specified range. The command will then be added to the `List<Command>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targeted image.
 
 Refer to the example usage scenario, sequence diagram and design considerations in <<Rotate Command>>.
-
-// end::ImageManipulation[]
 
 === Save Feature
 // tag::DGSave[]
@@ -1015,12 +1014,12 @@ The diagram below illustrates how the WaterMark Command works:
 
 .Sequence Diagram for WaterMark Command
 image::WaterMarkCommandSequenceDiagram.png[width="800"]
-
+//end::WaterMark[]
 ==== Design Considerations
 
 * Images that are still being edited have to be stored and edited in a temp directory first due to our `undo/redo` implementation.
 
-//end::WaterMark[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.

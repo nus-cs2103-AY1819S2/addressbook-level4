@@ -116,6 +116,11 @@ Example: `add c/landlord n/James Ho p/98765432 e/jamesho@example.com r/family fr
 * *Tenant:* +
 Format: `add c/tenant n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS` +
 Example: `add c/tenant n/James Ho p/98765432 e/jamesho@example.com r/looking for 4-room apartment`
+
+[NOTE]
+====
+When multiple parameters of the same type are entered, only the last one will be added. e.g. `add ... p/97642542 p/12345678 ...`, only `12345678` will be saved to the contact.
+====
 // end::addfeatures[]
 
 === Listing all contacts : `list`
@@ -247,6 +252,11 @@ Example: `edit 2 n/James Lee p/87654321 `
 [NOTE]
 ====
 The customer type of the contact cannot be changed and only information type relevant to the customer type can be modified.
+====
+
+[NOTE]
+====
+When multiple parameters of the same type are entered, only the last one will be edited. e.g. `edit ... p/97642542 p/12345678 ...`, only `12345678` will be saved to the contact.
 ====
 // end::editfeatures[]
 

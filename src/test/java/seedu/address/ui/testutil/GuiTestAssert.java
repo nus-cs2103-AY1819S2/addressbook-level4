@@ -52,7 +52,7 @@ public class GuiTestAssert {
         assertEquals(expectedBuyer.getPhone().value, actualCard.getPhone());
         assertEquals(expectedBuyer.getEmail().value, actualCard.getEmail());
         assertEquals(expectedBuyer.getRemark().value, actualCard.getRemark());
-        assertEquals("buyer", actualCard.getCustomer());
+        assertEquals(Buyer.CUSTOMER_TYPE_BUYER, actualCard.getCustomer());
     }
 
     /**
@@ -63,7 +63,7 @@ public class GuiTestAssert {
         assertEquals(expectedTenant.getPhone().value, actualCard.getPhone());
         assertEquals(expectedTenant.getEmail().value, actualCard.getEmail());
         assertEquals(expectedTenant.getRemark().value, actualCard.getRemark());
-        assertEquals("tenant", actualCard.getCustomer());
+        assertEquals(Tenant.CUSTOMER_TYPE_TENANT, actualCard.getCustomer());
     }
 
     /**
@@ -78,7 +78,7 @@ public class GuiTestAssert {
         assertEquals(expectedSeller.getSellingPrice().value, actualCard.getSellingPrice());
         assertEquals(expectedSeller.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
                 actualCard.getTags());
-        assertEquals("seller", actualCard.getCustomer());
+        assertEquals(Seller.CUSTOMER_TYPE_SELLER, actualCard.getCustomer());
     }
 
     /**
@@ -93,7 +93,7 @@ public class GuiTestAssert {
         assertEquals(expectedLandlord.getRentalPrice().value, actualCard.getRentalPrice());
         assertEquals(expectedLandlord.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
                 actualCard.getTags());
-        assertEquals("landlord", actualCard.getCustomer());
+        assertEquals(Landlord.CUSTOMER_TYPE_LANDLORD, actualCard.getCustomer());
     }
 
     /**

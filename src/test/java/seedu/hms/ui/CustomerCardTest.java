@@ -3,7 +3,7 @@ package seedu.hms.ui;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.hms.ui.testutil.GuiTestAssert.assertCardDisplaysCustomer;
+import static seedu.hms.ui.testutil.GuiTestAssert.assertCustomerCardDisplaysCustomer;
 
 import org.junit.Test;
 
@@ -67,6 +67,6 @@ public class CustomerCardTest extends GuiUnitTest {
         assertEquals(expectedId + ". ", customerCardHandle.getId());
 
         // verify customer details are displayed correctly
-        assertCardDisplaysCustomer(expectedCustomer, customerCardHandle);
+        assertCustomerCardDisplaysCustomer(expectedCustomer, customerCardHandle);
     }
 }

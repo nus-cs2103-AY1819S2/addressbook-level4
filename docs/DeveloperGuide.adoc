@@ -2010,6 +2010,55 @@ Instructions:
                memberSort: Sorts all members in the members' list based on the specified attribute (case-insensitive).
                Parameters: KEYWORD...
 
+=== Modes of Operation Feature for `mode`
+
+. Initial launch mode
+.. App should start in MEMBER mode, indicated by the label on the top right corner of app window.
+.. Test case: `mode` +
+   Expected: Returns 'Mode MEMBER' in the Result Display Panel.
+
+. Mode changes correctly from MEMBER
+.. Prerequisites: ClubManager is in MEMBER mode
+.. Test case: `mode MEMBER` +
+   Expected: Returns 'Mode is already: MEMBER'.
+.. Test case: `mode ACTIVITY` +
+   Expected: Returns 'Mode changed to ACTIVITY', and is indicated by the label on the top right corner of app window.
+
+. Mode changes correctly from ACTIVITY
+.. Prerequisites: ClubManager is in ACTIVITY mode.
+.. Test case: `mode ACTIVITY` +
+   Expected: Returns 'Mode is already: ACTIVITY'.
+.. Test case: `mode MEMBER` +
+   Expected: Returns 'Mode changed to MEMBER', and is indicated by the label on the top right corner of app window.
+
+. Only Member Commands and Generic Commands work in MEMBER mode
+.. Prerequisites: ClubManager is in MEMBER mode.
+.. Test case: `memberSelect 1` +
+   Expected: Person at index 1 of the list is selected. Member details panel shows details of person at index 1. Returns 'Selected Person: 1'.
+.. Test case: `activityList` +
+   Expected: Error message 'Invalid command mode! Allowed Mode : ACTIVITY' and prompt mode usage to change mode.
+.. Test case: `help` +
+   Expected: Help window opens.
+
+. Only Activity Commands and Generic Commands work in ACTIVITY mode
+.. Prerequisites: ClubManager is in ACTIVITY mode.
+.. Test case: `activitySelect 1` +
+  Expected: Activity at index 1 of the list is selected. Activity details panel shows details of activity at index 1. Returns 'Selected Activity: 1'.
+.. Test case: `memberList` +
+  Expected: Error message 'Invalid command mode! Allowed Mode : MEMBER' and prompt mode usage to change mode.
+.. Test case: `help` +
+  Expected: Help window opens.
+
+. ClubManager mode resets in MEMBER mode after `clear` operation in MEMBER mode.
+.. Prerequisites: ClubManager is in MEMBER mode.
+.. Test case: `clear` +
+   Expected: App in mode MEMBER indicated by the label on the top right corner of app window.
+
+. ClubManager mode resets in MEMBER mode after `clear` operation in ACTIVITY mode.
+.. Prerequisites: ClubManager is in ACTIVITY mode.
+.. Test case: `clear` +
+   Expected: App in mode MEMBER indicated by the label on the top right corner of app window.
+
 === Deleting a person
 
 . Deleting a person while all persons are listed
@@ -2135,4 +2184,28 @@ the activity list.
 
 _{ more test cases ... }_
 
+=== Export Feature for MEMBER `memberExport` or `mExport`
 
+. App exports member data to file when index if member exists in list.
+.. Prerequisites: ClubManager is in MEMBER mode. There is a member in the list at index 1 and none at index 999.
+.. Test case: `memberExport` +
+   Expected: Error message, shows command usage instructions.
+.. Test case: `mExport` +
+   Expected: Error message, shows command usage instructions.
+.. Test case: `memberExport 1` +
+   Expected: File created at root folder where the jar file is situated.
+.. Test case: `memberExport 999` +
+   Expected: Retuens 'The member index provided is invalid.'. No file is created.
+
+=== Export Feature for ACTIVITY `activityExport` or `aExport`
+
+. App exports member data to file when index if member exists in list.
+.. Prerequisites: ClubManager is in ACTIVITY mode. There is an activity in the list at index 1 and none at index 999.
+.. Test case: `activityExport` +
+   Expected: Error message, shows command usage instructions.
+.. Test case: `aExport` +
+   Expected: Error message, shows command usage instructions.
+.. Test case: `activityExport 1` +
+   Expected: File created at root folder where the jar file is situated.
+.. Test case: `activityExport 999` +
+   Expected: Returns 'The activity index provided is invalid.'. No file is created.

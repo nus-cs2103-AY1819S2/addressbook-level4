@@ -13,15 +13,17 @@
 
 == Summary of contributions
 
-* *Major enhancement*: Revamp the person object in the model to a customer object with property information.
+* *Major enhancement*: Transform the model to allow for client contact and property information to be stored, modified and accessed.
 ** What it does: allows The Real App to treat each entry as a customer to process and store the relevant information.
-** Justification: This feature forms the underlying model of The Real App allows the user to use The Real App to store customer and real estate information.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required extensive changes to various existing components.
+** Justification: This feature forms the underlying model of The Real App and allows the user to use The Real App to store customer and real estate information.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required extensive changes to many existing components, such as `logic`, `model`, `storage` and `ui` .
 
 * *Minor enhancement*:
-** Modify add command to allow user to add entries into the revamped contact book.
-** Modify edit command to allow user to edit entries in the revamped contact book.
-** Modify UI to display all the information of customer sand properties.
+** Modify `add` command to allow user to add entries into the revamped contact book.
+** Modify `edit` command to allow user to edit entries in the revamped contact book.
+** Transform existing `find` command into `search` command to allow user to search and retrieve information.
+** Integrate new `search` command with the `archive` feature.
+** Modify UI to display all the information of customers and properties.
 
 * *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=tanlongbin[Project Code Dashboard]]
 
@@ -29,14 +31,15 @@
 
 ** Project management:
 *** Set up the organisation Github and the team repo.
-** Enhancements to existing features:
+*** Set up Travis-CI and Coverall.
+*** Set up auto-publishing of documentation.
 ** Documentation:
 *** Update product name in README.adoc and modified Ui.png: https://github.com/CS2103-AY1819S2-W16-2/main/pull/1[#1]
-*** Update User Guide: https://github.com/CS2103-AY1819S2-W16-2/main/pull/78[#78] https://github.com/CS2103-AY1819S2-W16-2/main/pull/87[#87]
+*** Update AboutUs.adoc and add photo for tanlongbin https://github.com/CS2103-AY1819S2-W16-2/main/pull/12[#12]
+*** Update User Guide: https://github.com/CS2103-AY1819S2-W16-2/main/pull/78[#78] https://github.com/CS2103-AY1819S2-W16-2/main/pull/87[#87] https://github.com/CS2103-AY1819S2-W16-2/main/pull/154[#154]
+*** Update Developer Guide: https://github.com/CS2103-AY1819S2-W16-2/main/pull/92[#92] https://github.com/CS2103-AY1819S2-W16-2/main/pull/157[#157]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W16-2/main/pull/64[#64], https://github.com/CS2103-AY1819S2-W16-2/main/pull/68[#68]
-** Tools:
-*** Set up Travis-CI and Coverage.
 
 
 == Contributions to the User Guide
@@ -46,6 +49,8 @@
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+include::../UserGuide.adoc[tag=explainui]
+
 include::../UserGuide.adoc[tag=addfeatures]
 
 include::../UserGuide.adoc[tag=sortfeatures]
@@ -53,6 +58,8 @@ include::../UserGuide.adoc[tag=sortfeatures]
 include::../UserGuide.adoc[tag=searchfeatures]
 
 include::../UserGuide.adoc[tag=editfeatures]
+
+include::../UserGuide.adoc[tag=archivesearch]
 
 == Contributions to the Developer Guide
 
@@ -62,7 +69,15 @@ include::../UserGuide.adoc[tag=editfeatures]
 
 include::../DeveloperGuide.adoc[tag=modelcomponent]
 
+include::../DeveloperGuide.adoc[tag=modeltransformation]
 
+include::../DeveloperGuide.adoc[tag=addmanualtesting]
+
+include::../DeveloperGuide.adoc[tag=editmanualtesting]
+
+include::../DeveloperGuide.adoc[tag=searchmanualtesting]
+
+include::../DeveloperGuide.adoc[tag=archivemanualtesting]
 
 == PROJECT: PowerPointLabs
 

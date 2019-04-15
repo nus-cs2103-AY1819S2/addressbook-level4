@@ -85,10 +85,11 @@ include::../DeveloperGuide.adoc[tag=filter]
 
 
 == Contributions to README:
+include::../../README.adoc[]
 
 * Explanation of the application is updated.
 * Some parts about the changes in every version is updated.
 * UI.png is updated.
 * For every new version, the progresses are updated. +
-include::../../README.adoc[]
+
 

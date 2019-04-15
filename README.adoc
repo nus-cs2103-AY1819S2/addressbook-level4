@@ -1,10 +1,10 @@
-= Address Book (Level 4)
+= GradTrak
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-https://travis-ci.org/se-edu/addressbook-level4[image:https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master[Build Status]]
-https://ci.appveyor.com/project/damithc/addressbook-level4[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
-https://coveralls.io/github/se-edu/addressbook-level4?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master[Coverage Status]]
-https://www.codacy.com/app/damith/addressbook-level4?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level4&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
+https://travis-ci.org/cs2103-ay1819s2-w14-4/main[image:https://travis-ci.org/cs2103-ay1819s2-w14-4/main.svg?branch=master[Build Status]]
+https://ci.appveyor.com/project/monikernemo/main[image:https://ci.appveyor.com/api/projects/status/5gj2bbi8m22402im?svg=true[Build status]]
+https://coveralls.io/github/cs2103-ay1819s2-w14-4/main?branch=master[image:https://coveralls.io/repos/github/cs2103-ay1819s2-w14-4/main/badge.svg?branch=master[Coverage Status]]
+https://www.codacy.com/app/crumpledpaper/main?utm_source=github.com&utm_medium=referral&utm_content=cs2103-ay1819s2-w14-4/main&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/8252478d5ba54270b64ad69074a826b8[Codacy Badge]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
@@ -14,19 +14,35 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
-* What's different from https://github.com/se-edu/addressbook-level3[level 3]:
-** A more sophisticated GUI that includes a list  panel and an in-built Browser.
-** More test cases, including automated GUI testing.
-** Support for _Build Automation_ using Gradle and for _Continuous Integration_ using Travis CI.
+
+NUS graduation tracker is an application to aid School of Computing students to track their graduation progress. GradTrak is implemented to aid students in alleviating the hardships of module planning to tracking C.A.P scores so that students can focus on “student-ing”. Not to mention with the tremendous amount of uncollated information required to keep track of the graduation requirements, GradTrak is the one stop solution to solve all of these problems.
+
+== Requirements
+* GradTrak is written in *_java_* and uses *_JDK 9_* library.
+
+== Plan Modules
+* Plan when to take modules throughout your undergraduate studies
+* Recommends which modules to read based on module prerequisites and specialization
+
+== Managing C.A.P
+* Tracks your C.A.P. for each semester
+* Set goals for your C.A.P.
+* Calculates minimum expected, maximum C.A.P. based on expected grades
+
+== Managing Workload
+* Tracks your workload for each semester
+* Tracks the amount of time you spent on lecture, preparation, project and many others!
+
+== Specializations
+* Choose your course of study from one of the following three Computer Science Major programs:
+** Computer Science Algorithms
+** Computer Science Artificial Intelligence
+** Computer Science Software Engineering
 
 == Site Map
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
@@ -35,5 +51,9 @@ endif::[]
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://github.com/TestFX/TestFX[TextFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
+* This project is based-off  AddressBook 4 by:  https://github.com/se-edu/[SE-EDU]
+
 
 == Licence : link:LICENSE[MIT]
+
+

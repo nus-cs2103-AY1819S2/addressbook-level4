@@ -1,8 +1,11 @@
 package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import static seedu.address.logic.commands.CommandTestUtil.FINISHED_STATUS_FALSE;
+import static seedu.address.logic.parser.ParserUtil.FINISHED_STATUS_TRUE;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -16,24 +19,24 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
+import seedu.address.model.course.CourseName;
+import seedu.address.model.moduleinfo.ModuleInfoCode;
+import seedu.address.model.moduletaken.Grade;
+import seedu.address.model.moduletaken.Semester;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
 public class ParserUtilTest {
-    private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_PHONE = "+651234";
-    private static final String INVALID_ADDRESS = " ";
-    private static final String INVALID_EMAIL = "example.com";
+    private static final String INVALID_MODULE_INFO_CODE = "CS123A";
+    private static final String INVALID_SEMESTER = "+651234";
+    private static final String INVALID_EXPECTED_MAX_GRADE = " ";
+    private static final String INVALID_EXPECTED_MIN_GRADE = "example.com";
     private static final String INVALID_TAG = "#friend";
 
-    private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_PHONE = "123456";
-    private static final String VALID_ADDRESS = "123 Main Street #0505";
-    private static final String VALID_EMAIL = "rachel@example.com";
+    private static final String VALID_MODULE_INFO_CODE = "CS1231";
+    private static final String VALID_SEMESTER = "Y2S2";
+    private static final String VALID_EXPECTED_MAX_GRADE = "A_PLUS";
+    private static final String VALID_EXPECTED_MIN_GRADE = "F";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
@@ -66,94 +69,94 @@ public class ParserUtilTest {
 
     @Test
     public void parseName_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseName((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.moduleInfoCode((String) null));
     }
 
     @Test
     public void parseName_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseName(INVALID_NAME));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.moduleInfoCode(INVALID_MODULE_INFO_CODE));
     }
 
     @Test
     public void parseName_validValueWithoutWhitespace_returnsName() throws Exception {
-        Name expectedName = new Name(VALID_NAME);
-        assertEquals(expectedName, ParserUtil.parseName(VALID_NAME));
+        ModuleInfoCode expectedName = new ModuleInfoCode(VALID_MODULE_INFO_CODE);
+        assertEquals(expectedName, ParserUtil.moduleInfoCode(VALID_MODULE_INFO_CODE));
     }
 
     @Test
     public void parseName_validValueWithWhitespace_returnsTrimmedName() throws Exception {
-        String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
-        Name expectedName = new Name(VALID_NAME);
-        assertEquals(expectedName, ParserUtil.parseName(nameWithWhitespace));
+        String nameWithWhitespace = WHITESPACE + VALID_MODULE_INFO_CODE + WHITESPACE;
+        ModuleInfoCode expectedName = new ModuleInfoCode(VALID_MODULE_INFO_CODE);
+        assertEquals(expectedName, ParserUtil.moduleInfoCode(nameWithWhitespace));
     }
 
     @Test
-    public void parsePhone_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone((String) null));
+    public void parseSemester_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseSemester((String) null));
     }
 
     @Test
-    public void parsePhone_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE));
+    public void parseSemester_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseSemester(INVALID_SEMESTER));
     }
 
     @Test
-    public void parsePhone_validValueWithoutWhitespace_returnsPhone() throws Exception {
-        Phone expectedPhone = new Phone(VALID_PHONE);
-        assertEquals(expectedPhone, ParserUtil.parsePhone(VALID_PHONE));
+    public void parseSemester_validValueWithoutWhitespace_returnsSemester() throws Exception {
+        Semester expectedSemester = Semester.valueOf(VALID_SEMESTER);
+        assertEquals(expectedSemester, ParserUtil.parseSemester(VALID_SEMESTER));
     }
 
     @Test
-    public void parsePhone_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
-        String phoneWithWhitespace = WHITESPACE + VALID_PHONE + WHITESPACE;
-        Phone expectedPhone = new Phone(VALID_PHONE);
-        assertEquals(expectedPhone, ParserUtil.parsePhone(phoneWithWhitespace));
+    public void parseSemester_validValueWithWhitespace_returnsTrimmedSemester() throws Exception {
+        String semesterWithWhitespace = WHITESPACE + VALID_SEMESTER + WHITESPACE;
+        Semester expectedSemester = Semester.valueOf(VALID_SEMESTER);
+        assertEquals(expectedSemester, ParserUtil.parseSemester(semesterWithWhitespace));
     }
 
     @Test
-    public void parseAddress_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress((String) null));
+    public void parseExpectedMaxGrade_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseGrade((String) null));
     }
 
     @Test
-    public void parseAddress_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseAddress(INVALID_ADDRESS));
+    public void parseExpectedMaxGrade_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseGrade(INVALID_EXPECTED_MAX_GRADE));
     }
 
     @Test
-    public void parseAddress_validValueWithoutWhitespace_returnsAddress() throws Exception {
-        Address expectedAddress = new Address(VALID_ADDRESS);
-        assertEquals(expectedAddress, ParserUtil.parseAddress(VALID_ADDRESS));
+    public void parseExpectedMaxGrade_validValueWithoutWhitespace_returnsExpectedMaxGrade() throws Exception {
+        Grade expectedExpectedMaxGrade = Grade.getGrade(VALID_EXPECTED_MAX_GRADE);
+        assertEquals(expectedExpectedMaxGrade, ParserUtil.parseGrade(VALID_EXPECTED_MAX_GRADE));
     }
 
     @Test
-    public void parseAddress_validValueWithWhitespace_returnsTrimmedAddress() throws Exception {
-        String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
-        Address expectedAddress = new Address(VALID_ADDRESS);
-        assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithWhitespace));
+    public void parseExpectedMaxGrade_validValueWithWhitespace_returnsTrimmedExpectedMaxGrade() throws Exception {
+        String addressWithWhitespace = WHITESPACE + VALID_EXPECTED_MAX_GRADE + WHITESPACE;
+        Grade expectedExpectedMaxGrade = Grade.getGrade(VALID_EXPECTED_MAX_GRADE);
+        assertEquals(expectedExpectedMaxGrade, ParserUtil.parseGrade(addressWithWhitespace));
     }
 
     @Test
-    public void parseEmail_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseEmail((String) null));
+    public void parseExpectedMinGrade_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseGrade((String) null));
     }
 
     @Test
-    public void parseEmail_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseEmail(INVALID_EMAIL));
+    public void parseExpectedMinGrade_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseGrade(INVALID_EXPECTED_MIN_GRADE));
     }
 
     @Test
-    public void parseEmail_validValueWithoutWhitespace_returnsEmail() throws Exception {
-        Email expectedEmail = new Email(VALID_EMAIL);
-        assertEquals(expectedEmail, ParserUtil.parseEmail(VALID_EMAIL));
+    public void parseExpectedMinGrade_validValueWithoutWhitespace_returnsExpectedMinGrade() throws Exception {
+        Grade expectedExpectedMinGrade = Grade.valueOf(VALID_EXPECTED_MIN_GRADE);
+        assertEquals(expectedExpectedMinGrade, ParserUtil.parseGrade(VALID_EXPECTED_MIN_GRADE));
     }
 
     @Test
-    public void parseEmail_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
-        String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
-        Email expectedEmail = new Email(VALID_EMAIL);
-        assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
+    public void parseExpectedMinGrade_validValueWithWhitespace_returnsTrimmedExpectedMinGrade() throws Exception {
+        String expectedMinGradeWithWhitespace = WHITESPACE + VALID_EXPECTED_MIN_GRADE + WHITESPACE;
+        Grade expectedExpectedMinGrade = Grade.valueOf(VALID_EXPECTED_MIN_GRADE);
+        assertEquals(expectedExpectedMinGrade, ParserUtil.parseGrade(expectedMinGradeWithWhitespace));
     }
 
     @Test
@@ -204,5 +207,35 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseFinishedStatus_returnsCorrectBoolean() {
+        assertTrue(ParserUtil.parseFinishedStatus(FINISHED_STATUS_TRUE));
+        assertFalse(ParserUtil.parseFinishedStatus(FINISHED_STATUS_FALSE));
+        assertFalse(ParserUtil.parseFinishedStatus("abc123"));
+    }
+
+    @Test public void booleanToFinishedStatus_returnsCorrectString() {
+        assertEquals(ParserUtil.booleanToFinishedStatus(true), FINISHED_STATUS_TRUE);
+        assertEquals(ParserUtil.booleanToFinishedStatus(false), "n");
+    }
+
+    @Test
+    public void parseCourseName_validCourseName_returnsExpectedCourseName() throws Exception {
+        assertEquals(ParserUtil.parseCourseName("Computer Science Algorithms"),
+                new CourseName("Computer Science Algorithms"));
+    }
+
+    @Test
+    public void parseCourseName_invalidCourseName_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseCourseName("InvalidCourseName*");
+    }
+
+    @Test
+    public void parseCourseName_null_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        ParserUtil.parseCourseName(null);
     }
 }

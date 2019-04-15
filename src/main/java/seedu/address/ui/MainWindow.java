@@ -8,6 +8,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -31,8 +32,9 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+    private UiPart<Region> commandPanel;
+    private PanelHandler commandPanelHandler;
+    private ModuleTakenListPanel moduleTakenListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -67,6 +69,8 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
+        commandPanelHandler = new PanelHandler(logic);
     }
 
     public Stage getPrimaryStage() {
@@ -111,12 +115,12 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedPersonProperty());
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        commandPanel = new BrowserPanel(logic.selectedPersonProperty());
+        browserPlaceholder.getChildren().add(commandPanel.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
+        moduleTakenListPanel = new ModuleTakenListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
                 logic::setSelectedPerson);
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        personListPanelPlaceholder.getChildren().add(moduleTakenListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -168,8 +172,23 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public ModuleTakenListPanel getModuleTakenListPanel() {
+        return moduleTakenListPanel;
+    }
+
+    /**
+     * Changes the Panel being displayed at the BrowerPanel StackPane
+     * @param commandText
+     */
+    public void changePanel(String commandText) {
+        String[] cmdArray = commandText.split(" ");
+        String command = cmdArray[0];
+
+        if (!browserPlaceholder.getChildren().isEmpty()) {
+            browserPlaceholder.getChildren().remove(0);
+        }
+        commandPanelHandler.getCommandPanel(command).ifPresent(panel ->
+                browserPlaceholder.getChildren().add(0, panel));
     }
 
     /**
@@ -182,6 +201,7 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            changePanel(commandText);
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

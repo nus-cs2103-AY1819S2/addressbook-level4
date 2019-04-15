@@ -20,7 +20,7 @@ public class UiManager implements Ui {
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
-    private static final String ICON_APPLICATION = "/images/address_book_32.png";
+    private static final String ICON_APPLICATION = "/images/gradtrak.png";
 
     private Logic logic;
     private MainWindow mainWindow;
@@ -73,7 +73,7 @@ public class UiManager implements Ui {
     }
 
     /**
-     * Shows an error alert dialog with {@code title} and error message, {@code e},
+     * Shows an error alert dialog with {@code description} and error message, {@code e},
      * and exits the application after the user has closed the alert dialog.
      */
     private void showFatalErrorDialogAndShutdown(String title, Throwable e) {

@@ -2,11 +2,16 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPECTED_MAX_GRADE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPECTED_MIN_GRADE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LAB_HOUR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LECTURE_HOUR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_INFO_CODE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PREPARATION_HOUR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PROJECT_HOUR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIAL_HOUR;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -15,7 +20,7 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditCommand.EditModuleTakenDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 
@@ -32,7 +37,9 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_MODULE_INFO_CODE, PREFIX_SEMESTER,
+                        PREFIX_EXPECTED_MIN_GRADE, PREFIX_EXPECTED_MAX_GRADE, PREFIX_LECTURE_HOUR, PREFIX_TUTORIAL_HOUR,
+                        PREFIX_LAB_HOUR, PREFIX_PROJECT_HOUR, PREFIX_PREPARATION_HOUR, PREFIX_TAG);
 
         Index index;
 
@@ -42,18 +49,41 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
-        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
-        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+        EditModuleTakenDescriptor editPersonDescriptor = new EditCommand.EditModuleTakenDescriptor();
+        if (argMultimap.getValue(PREFIX_MODULE_INFO_CODE).isPresent()) {
+            editPersonDescriptor.setModuleInfoCode(
+                    ParserUtil.moduleInfoCode(argMultimap.getValue(PREFIX_MODULE_INFO_CODE).get()));
         }
-        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-            editPersonDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
+        if (argMultimap.getValue(PREFIX_SEMESTER).isPresent()) {
+            editPersonDescriptor.setSemester(ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get()));
         }
-        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            editPersonDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
+        if (argMultimap.getValue(PREFIX_EXPECTED_MIN_GRADE).isPresent()) {
+            editPersonDescriptor.setExpectedMinGrade(
+                    ParserUtil.parseGrade(argMultimap.getValue(PREFIX_EXPECTED_MIN_GRADE).get()));
         }
-        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+        if (argMultimap.getValue(PREFIX_EXPECTED_MAX_GRADE).isPresent()) {
+            editPersonDescriptor.setExpectedMaxGrade(
+                    ParserUtil.parseGrade(argMultimap.getValue(PREFIX_EXPECTED_MAX_GRADE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_LECTURE_HOUR).isPresent()) {
+            editPersonDescriptor.setLectureHour(
+                    ParserUtil.parseHour(argMultimap.getValue(PREFIX_LECTURE_HOUR).get()));
+        }
+        if (argMultimap.getValue(PREFIX_TUTORIAL_HOUR).isPresent()) {
+            editPersonDescriptor.setTutorialHour(
+                    ParserUtil.parseHour(argMultimap.getValue(PREFIX_TUTORIAL_HOUR).get()));
+        }
+        if (argMultimap.getValue(PREFIX_LAB_HOUR).isPresent()) {
+            editPersonDescriptor.setLabHour(
+                    ParserUtil.parseHour(argMultimap.getValue(PREFIX_LAB_HOUR).get()));
+        }
+        if (argMultimap.getValue(PREFIX_PROJECT_HOUR).isPresent()) {
+            editPersonDescriptor.setProjectHour(
+                    ParserUtil.parseHour(argMultimap.getValue(PREFIX_PROJECT_HOUR).get()));
+        }
+        if (argMultimap.getValue(PREFIX_PREPARATION_HOUR).isPresent()) {
+            editPersonDescriptor.setPreparationHour(
+                    ParserUtil.parseHour(argMultimap.getValue(PREFIX_PREPARATION_HOUR).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 

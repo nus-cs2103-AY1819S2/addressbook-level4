@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Represents the result of a command execution.
@@ -10,6 +11,8 @@ import java.util.Objects;
 public class CommandResult {
 
     private final String feedbackToUser;
+
+    private String result;
 
     /** Help information should be shown to the user. */
     private final boolean showHelp;
@@ -34,8 +37,17 @@ public class CommandResult {
         this(feedbackToUser, false, false);
     }
 
+    public CommandResult(String feedbackToUser, String result) {
+        this(feedbackToUser, false, false);
+        this.result = requireNonNull(result);
+    }
+
     public String getFeedbackToUser() {
         return feedbackToUser;
+    }
+
+    public Optional<String> getResult() {
+        return Optional.ofNullable(result);
     }
 
     public boolean isShowHelp() {

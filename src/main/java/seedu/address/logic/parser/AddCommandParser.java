@@ -1,28 +1,38 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPECTED_MAX_GRADE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPECTED_MIN_GRADE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LAB_HOUR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LECTURE_HOUR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_INFO_CODE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PREPARATION_HOUR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PROJECT_HOUR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIAL_HOUR;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.moduleinfo.ModuleInfoCode;
+import seedu.address.model.moduletaken.Grade;
+import seedu.address.model.moduletaken.Hour;
+import seedu.address.model.moduletaken.ModuleTaken;
+import seedu.address.model.moduletaken.Semester;
+import seedu.address.model.moduletaken.Workload;
 import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddCommand object
  */
 public class AddCommandParser implements Parser<AddCommand> {
+
+    public static final Grade DEFAULT_MIN_GRADE = Grade.valueOf("F");
+    public static final Grade DEFAULT_MAX_GRADE = Grade.valueOf("A");
+    public static final Hour DEFAULT_WORKLOAD_HOUR = new Hour("0");
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -31,22 +41,68 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_MODULE_INFO_CODE, PREFIX_SEMESTER,
+                        PREFIX_EXPECTED_MIN_GRADE, PREFIX_EXPECTED_MAX_GRADE, PREFIX_LECTURE_HOUR, PREFIX_TUTORIAL_HOUR,
+                        PREFIX_LAB_HOUR, PREFIX_PROJECT_HOUR, PREFIX_PREPARATION_HOUR, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
+        if (!arePrefixesPresent(argMultimap, PREFIX_MODULE_INFO_CODE,
+                PREFIX_SEMESTER)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        ModuleInfoCode name = ParserUtil.moduleInfoCode(argMultimap.getValue(PREFIX_MODULE_INFO_CODE).get());
+        Semester semester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, email, address, tagList);
+        Grade expectedMinGrade = DEFAULT_MIN_GRADE;
+        if (arePrefixesPresent(argMultimap, PREFIX_EXPECTED_MIN_GRADE)) {
+            expectedMinGrade = ParserUtil
+                    .parseGrade(argMultimap.getValue(PREFIX_EXPECTED_MIN_GRADE).get());
+        }
 
-        return new AddCommand(person);
+        Grade expectedMaxGrade = DEFAULT_MAX_GRADE;
+        if (arePrefixesPresent(argMultimap, PREFIX_EXPECTED_MAX_GRADE)) {
+            expectedMaxGrade = ParserUtil
+                    .parseGrade(argMultimap.getValue(PREFIX_EXPECTED_MAX_GRADE).get());
+        }
+
+        Hour lectureHour = DEFAULT_WORKLOAD_HOUR;
+        if (arePrefixesPresent(argMultimap, PREFIX_LECTURE_HOUR)) {
+            lectureHour = ParserUtil
+                    .parseHour(argMultimap.getValue(PREFIX_LECTURE_HOUR).get());
+        }
+
+        Hour tutorialHour = DEFAULT_WORKLOAD_HOUR;
+        if (arePrefixesPresent(argMultimap, PREFIX_TUTORIAL_HOUR)) {
+            tutorialHour = ParserUtil
+                    .parseHour(argMultimap.getValue(PREFIX_TUTORIAL_HOUR).get());
+        }
+
+        Hour labHour = DEFAULT_WORKLOAD_HOUR;
+        if (arePrefixesPresent(argMultimap, PREFIX_LAB_HOUR)) {
+            labHour = ParserUtil
+                    .parseHour(argMultimap.getValue(PREFIX_LAB_HOUR).get());
+        }
+
+        Hour projectHour = DEFAULT_WORKLOAD_HOUR;
+        if (arePrefixesPresent(argMultimap, PREFIX_PROJECT_HOUR)) {
+            projectHour = ParserUtil
+                    .parseHour(argMultimap.getValue(PREFIX_PROJECT_HOUR).get());
+        }
+
+        Hour preparationHour = DEFAULT_WORKLOAD_HOUR;
+        if (arePrefixesPresent(argMultimap, PREFIX_PREPARATION_HOUR)) {
+            preparationHour = ParserUtil
+                    .parseHour(argMultimap.getValue(PREFIX_PREPARATION_HOUR).get());
+        }
+
+        Workload workload = new Workload(lectureHour, tutorialHour, labHour, projectHour, preparationHour);
+
+        ModuleTaken moduleTaken = new ModuleTaken(name, semester, expectedMinGrade,
+                expectedMaxGrade, workload, tagList);
+
+        return new AddCommand(moduleTaken);
     }
 
     /**

@@ -32,8 +32,11 @@ Responsibilities::
 image::kthsim.png[width="150", align="left"]
 {empty}[https://github.com/kthSim[github]] [<<kthsim#, portfolio>>]
 
-Role: Chief Developer +
-Responsibilities: Viewing of stored Data
+Responsibilities::
+ * Chief Developer
+ * Develop functions for viewing of stored data within the program
+ * Ensure project repo is properly maintained
+ * Apply proper issue and milestone tracking to the project
 
 '''
 
@@ -45,7 +48,7 @@ image::jiahaolim.png[width="150", align="left"]
 {nbsp} +
 
 Responsibilities::
-* Develop functions and features for file management.
+* Develop functions and features for file management
 * Create images used for dental representation
 * Design pleasant looking user interfaces
 * Ensure user friendliness of all features

@@ -88,7 +88,7 @@ Code Dashboard]]
 *** Use buffers to set deadlines and ensure everyone are informed and on task.
 
 ** Enhancements to existing features:
-*** Updated the GUI color scheme 
+*** Updated the GUI color scheme
 *** Wrote tests for bill and statistics features
 
 ** Documentation:

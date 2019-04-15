@@ -40,12 +40,11 @@ This section provides a summary of my coding, documentation and other contributi
 
 * *Other contributions*:
 
-** Project management:
-*** Managed release `v1.3` (1 release) on GitHub
 ** Documentation:
-*** Wrote detailed documentation on undo/redo command in developer guide https://github.com/CS2103-AY1819S2-W14-2/main/pull/138[#138]
+*** Wrote detailed documentation on undo/redo command in developer guide: https://github.com/CS2103-AY1819S2-W14-2/main/pull/138[#138]
+*** Wrote detailed documentation on export command in developer's guide: https://github.com/CS2103-AY1819S2-W14-2/main/pull/216[#216]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W14-2/main/pull/141[#141]
+*** PRs merged (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W14-2/main/pull/141[#141] https://github.com/CS2103-AY1819S2-W14-2/main/pull/57 [#57]
 
 
 _{you can add/remove categories in the list above}_

@@ -1715,14 +1715,6 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
-
 === Editing an activity
 
 . Editing an activity while all activities are listed.
@@ -1760,3 +1752,13 @@ _{ more test cases ... }_
 .. Expected: Successfully removed member from selected Activity: 1
 .. Test case: `activityDeleteMember 1 A0111111M` +
    Expected: The person is not in the activity attendance list!
+
+=== Saving data
+
+. Dealing with missing/corrupted data files
+
+.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+
+_{ more test cases ... }_
+
+

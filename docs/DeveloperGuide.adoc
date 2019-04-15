@@ -400,18 +400,6 @@ e.g. the 1st index of `criterion` is set to `57` regarding to the example above.
 . Also the type of the process (`and`, `or`, `clear` or `reverse`) is stored in a parameter in `FilterCommand`, too.
 . According to the process type, one of the methods `filterAnd()`, `filterOr()`, `clearFilter()` or `reverseFilter()` is called through `Model` interface and these methods in `Model` also called the one of these methods in `AddressBook` class with the same name.
 . For `filterAnd()` and `filterOr()` methods, the values for every single field are passed through the method call.
-** e.g. if the `criterion` value is like that: `{"ale", null, "@gmail", "singapore", "c, java","manager", "2.7", "nus", "3", "3"}`, it is stored as:
-*** `String name = "ale"`
-*** `String phone = null`
-*** `String email = "@gmail"`
-*** `String address = "singapore"`
-*** `String[] skills = ["c", "java"]`
-*** `String[] pos = ["manager"]`
-*** `String gpa = "2.7"`
-*** `String education = "nus"`
-*** `String endorseCount = "3"`
-*** `String degreeLevel = "3"`
-** and all these parameters are passed to the `filterOr()` or `filterAnd()` methods.
 
 * *Working Principle of `AddressBook` Class for Filtering Purposes*
 ** In the AddressBook class, a new `UniquePersonsList` parameter called `allPersonsStorage` is added.
@@ -501,15 +489,7 @@ The testing methods for filtering is written for 3 different parts:
 
 ===== FilterCommandIntegrationTests
 
-* This test class contains integration tests and investigates the interaction of `FilterCommand` with:
-** `UndoCommand`,
-** `RedoCommand`,
-** `AddCommand`,
-** `DeleteCommand`,
-** `SortCommand`,
-** `FindCommand`,
-** `SelectCommand`,
-** and cases, when all of them are together.
+* This test class contains integration tests and investigates the interaction of `FilterCommand` with: `UndoCommand`, `RedoCommand`, `AddCommand`, `DeleteCommand`,`SortCommand`, `FindCommand`, `SelectCommand`, and cases, when all of them are together.
 * Each test case at least contains filtering with `or - success` or `and - success`, `clear - success` and `clear - failure`, `reverse - success` and `reverse - failure`.
 * Also for every interacting command, *failure* and *success* cases are both investigated.
 

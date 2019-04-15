@@ -89,12 +89,3 @@ include::../DeveloperGuide.adoc[tag=filter]
 * Some of the use cases and user stories are updated.
 
 
-== Contributions to README:
-include::../../README.adoc[]
-
-* Explanation of the application is updated.
-* Some parts about the changes in every version is updated.
-* UI.png is updated.
-* For every new version, the progresses are updated. +
-
-

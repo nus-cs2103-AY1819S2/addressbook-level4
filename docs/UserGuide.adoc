@@ -643,18 +643,17 @@ Format: `report`
 [NOTE]
 This command is only valid inside a folder.
 
-[NOTE]
-There must be at least two test attempts for the line graph to be drawn.
-
+====
+* There must be at least two test attempts for the line graph to be drawn.
+====
 ==== End the current report session : `end`
 
 Quits the current report session.
 
 Format: `end`
 
-====
-* This command is only valid inside a report display.
-====
+[NOTE]
+This command is only valid inside a report display.
 
 //end::reportoperations[]
 

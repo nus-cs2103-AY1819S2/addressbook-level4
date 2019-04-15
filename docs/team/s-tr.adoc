@@ -63,12 +63,12 @@ include::../UserGuide.adoc[tag=battle]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below is an excerpt of my contributions to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+ To see my full contribution, please refer to the full Developer Guide._
 |===
 
 include::../DeveloperGuide.adoc[tag=battle]
 include::../DeveloperGuide.adoc[tag=battle_aspect_1]
 include::../DeveloperGuide.adoc[tag=battle_aspect_2]
-include::../DeveloperGuide.adoc[tag=battle_aspect_3]
 
 ---

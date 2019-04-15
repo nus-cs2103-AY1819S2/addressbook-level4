@@ -539,10 +539,10 @@ The Battle feature handles the following:
 The Battle feature is split between several packages:
 
   * `seedu.address.battle`: the main `Battle` class is implemented here.
-  * `seedu.address.battle.state`: the battle state classes are implemented here, and
+  * `seedu.address.battle.state`: the `BattleState` class is implemented here, and
     can be stored and retrieved via `Model`.
   * `seedu.address.battle.result`: the attack result classes are implemented here.
-    These classes are returned by `Battle#humanPerformAttack(coordinates)` and
+    These classes are returned by `Battle#humanPerformAttack(Coordinates)` and
     `Battle#takeComputerTurn()`.
   * `BeginCommand` and `AttackCommand` handle the player's interaction
     with this component.
@@ -587,7 +587,6 @@ see next section for more details).
 which causes the enemy to place its ships and set up other data structures.
 For more information, please see the "Enemy AI Feature" section below.
 
-// tag::battle_aspect_2[]
 ===== `AttackResult performAttack(Player, Player, Coordinates)`
 
 .Sequence diagram of the `performAttack` method
@@ -600,7 +599,6 @@ the attacked `Coordinates`, and returns an `AttackResult`. (See section
 
 This method is an internal method, used by both `humanPerformAttack` and
 `takeComputerTurn`.
-// end::battle_aspect_2[]
 
 ===== `AttackResult humanPerformAttack(Coordinates)`
 
@@ -614,7 +612,7 @@ This method simply calls `performAttack` with the human player as the
 attacker, the computer player as the target and the argument coordinate
 as the attacked coordinate.
 
-// tag::battle_aspect_3[]
+// tag::battle_aspect_2[]
 ===== `List<AttackResult> takeComputerTurn()`
 
 .Sequence diagram of the `takeComputerTurn` method
@@ -712,7 +710,7 @@ In the end, we decided to implement Option 1. Even though some team members pref
 we decided that `Logic` and `Model` not being kept separate was a worthy tradeoff
 for the advantages of Option 1.
 
-// end::battle_aspect_3[]
+// end::battle_aspect_2[]
 
 === Enemy AI feature
 

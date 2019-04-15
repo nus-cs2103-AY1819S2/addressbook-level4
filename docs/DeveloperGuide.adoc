@@ -232,6 +232,99 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::modeltransformation[]
+=== Transformation of AddressBook4 to The Real App
+==== Current Implementation
+
+To allow *The Real App* to store client contact and property information, the model of *AB4* must be modified.
+The `Person` class has been modified to only contain the following 4 information: +
+
+* `Name` -- Encapsulates the name of a client in the model.
+* `Phone` -- Encapsulates the phone of a client in the model.
+* `Email` -- Encapsulates the email of a client in the model.
+* `Remark` -- Encapsulates the remark associated with a client in the model.
+
+The `Person` class has also been extended to the following 4 sub-classes to encapsulate the customer type and related information: +
+
+* `Buyer` -- Represents a client who is a buyer in the model.
+* `Seller` -- Represents a client who is a seller in the model, contains additional property information.
+* `Tenant` -- Represents a client who is a tenant in the model.
+* `Landlord` -- Represents a client who is a landlord in the model, contains additional property information.
+
+The abstraction of the property information is done through a `Property` class. The `Property` class encapsulates property information through the following 3 classes:
+
+* `Address` -- Encapsulates the address of a property in the model.
+* `Price` -- Encapsulates the price of a property in the model.
+* `Tag` -- Encapsulates short keywords associated with a property in the model.
+
+There are 2 ways through which client information can be added into the model. One is through user input in the `add` command, the other is through reading the storage json files at launch. +
+
+Given below is an example scenario of how client information can be added into the model via the 2 ways described above. +
+
+*From storage*
+
+Step 1. The user launches the application.
+
+Step 2. `MainApp` will find the `addressbook`, `archivebook` and `pinbook` json files in the data folder and get them as `JsonAddressBookStorage` objects.
+
+Step 3. The `JsonAddressBookStorage` objects are used to initialise `StorageManager`.
+
+Step 4. The `MainApp` calls `initModelManager` method which will eventually return a `ModelManager` object.
+
+Step 5. To build the model, the `StorageManager` will build three `AddressBook` objects which are collections of all the `Person` objects stored in the `addressbook`, `archivebook` and `pinbook` json files.
+
+Step 6. The three `AddressBook` objects are used to initialise the `ModelManager`, which creates the model.
+
+The following sequence diagram summarizes how the model is created from json files when a user launches The Real App:
+
+image::LaunchSequenceDiagram.png[width="800"]
+
+*Through add command*
+
+Step 1. The user launches the application.
+
+Step 2. The user enters the `add` command with the correct parameters into the Command Box. +
+e.g. `add c/seller n/James Tan p/97652456 e/jamestan@example.com r/need to sell by April 2018 a/Blk 345 Clementi Ave 5, #04-04, S120345 sp/500000 t/MRT t/newlyRenovated`
+
+Step 3. The `LogicManager` handles the user input and creates an `AddCommand` object.
+
+Step 4. The `AddCommand` object is executed by the `LogicManager`.
+
+Step 5. The `ModelManager` updates the model to add the contact into the `AddressBook`.
+
+The following sequence diagram summarizes how a contact is added to the `AddressBook` using the `add` command:
+
+image::AddSequenceDiagram.png[width="800"]
+
+==== Other Improvements
+
+To allow for modification and retrieval of information, the `edit` and `search` commands have been expanded to fit the new model.
+
+**Edit command**
+
+Edit command has been improved to handle the different types of contacts safely.
+Object type checking is done during the execution of the command to ensure that only the correct information associated with the customer type is edited. This also ensures that the returned object is the same class as the original object being edited.
+
+**Search command**
+
+The original `find` command in AB4 has been renamed to `search` command to better reflect its new functionality. `search` command can now search through multiple information fields to look for matches to the input keywords.
+This allows users to quickly retrieve contacts using whatever limited information they may have at hand.
+
+==== Design Considerations
+
+===== Aspect: Abstraction of different customer types
+
+* **Alternative 1 (current choice):** The four customer types are abstracted as sub-classes which extends the `Person` class
+** Pros: Allows for subclass polymorphism.
+** Cons: Legacy code from AB4 is not optimised for runtime polymorphism.
+* **Alternative 2:** Encapsulate customer type information in `Person` class using a `CustomerType` class.
+** Pros: Easy to implement.
+** Cons: Requires rigorous checking of customer type to ensure each contact is handled appropriately.
+* **Alternative 3:** Refactor `Person` class into an abstract class and extend the 4 subclasses from it
+** Pros: Prevents the initialisation of a `Person` object, which is not required in our application.
+** Cons: Much of the legacy code of AB4 has strong dependence on the instantiation of the `Person` objects.
+// end::modeltransformation[]
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
@@ -305,7 +398,8 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
-===== Aspect: Data structure to support the undo/redo commands
+
+===== Aspect:
 
 * **Alternative 1 (current choice):** Use a list to store the history of address book states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.

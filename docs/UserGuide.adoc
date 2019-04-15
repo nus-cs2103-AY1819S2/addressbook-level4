@@ -31,21 +31,36 @@ Interested? Jump to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
+*Setting up the app*
+
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the latest `therealapp.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for The Real App.
 
 [TIP]
-New files and folders will be generated after launching the app. Recommended to put jar file in a new folder.
+New files and folders will be generated after launching the app. +
+You are recommended to move the jar file into a new empty folder.
+
+*Starting the app*
 
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 
 +
-image::Ui.png[width="790"]
+image::UiExplained.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  An example workflow with some commands you can try:
+E.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+.  The outcome of the command will be displayed in the result display box. +
+E.g. after successfully executing the `help` command, the following message will appear: +
+ _Opened help window._ +
+ _Displaying main person list!_
+ .  The pin list shows the contacts who has been pinned. It can be resized by clicking and dragging the borders of the box.
+ .  The main contact list shows the active list of contacts. It can also be resized by clicking and dragging the borders of the box. You can toggle between the contact list view and the archive list view using commands `list` and `archivelist`.
+ .  The browser window will display the property's location on Google Maps(TM) when an appropriate contact is selected. You can go to <<GoogleMaps>> for more details of the Google Maps(TM) display.
+
+*Using the app*
+
+.  Here is an example workflow with some commands you can try:
 
 .. **`add`**`c/seller n/James Ho p/98765432 e/jamesho@example.com r/urgent need to sell a/Blk 345 Clementi Ave 5, #04-04, S120345 sp/500000 t/newlyRenovated`: adds a seller named `James Ho` and the associated property information to the contact book.
 .. **`delete`**`3` : deletes the 3rd contact shown in the current main contact list
@@ -93,9 +108,9 @@ Adds a contact to the contact book, with 4 variants of customer types. Adds the 
 [NOTE]
 ====
 Accepted customer types: `seller`, `buyer`, `landlord`, `tenant` +
-`NAME`, `PHONE`, `EMAIL` & `REMARK` ARE compulsory for all customers. +
-`ADDRESS` & `SELLINGPRICE` of property are compulsory for sellers. +
-`ADDRESS` & `RENTALPRICE` of property are compulsory for landlords.
+`NAME`, `PHONE`, `EMAIL` & `REMARK` are compulsory for all customers. +
+`ADDRESS` & `SELLING_PRICE` of property are compulsory for sellers. +
+`ADDRESS` & `RENTAL_PRICE` of property are compulsory for landlords.
 ====
 
 [TIP]
@@ -103,24 +118,35 @@ A *property* can have any number of `TAG` (including 0).
 
 * *Seller:* +
 Format: `add c/seller n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS a/ADDRESS sp/SELLING_PRICE_OF_PROPERTY [t/TAG]...` +
-Example: `add c/seller n/James Ho p/98765432 e/jamesho@example.com r/need to sell by April 2018 a/Blk 345 Clementi Ave 5, #04-04, S120345 sp/500000 t/MRT t/newlyRenovated`
+Example: `add c/seller n/James Tan p/97652456 e/jamestan@example.com r/need to sell by April 2018 a/Blk 345 Clementi Ave 5, #04-04, S120345 sp/500000 t/MRT t/newlyRenovated`
 
 * *Buyer:* +
 Format: `add c/buyer n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS` +
-Example: `add c/buyer n/James Ho p/98765432 e/jamesho@example.com r/looking for 3-room apartment`
+Example: `add c/buyer n/James Ho p/87657252 e/jamesho@example.com r/looking for 3-room apartment`
 
 * *Landlord:* +
 Format: `add c/landlord n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS a/ADDRESS rp/RENTAL_PRICE_OF_PROPERTY [t/TAG]...` +
-Example: `add c/landlord n/James Ho p/98765432 e/jamesho@example.com r/family friend  a/Blk 345 Clementi Ave 5, #04-04, S120345 rp/1500 t/MRT t/newlyRenovated`
+Example: `add c/landlord n/Hans Tan p/90826522 e/hanstan@example.com r/family friend  a/Blk 345 Woodlands Street 32, #04-04, S730345 rp/1500 t/MRT t/newlyRenovated`
 
 * *Tenant:* +
 Format: `add c/tenant n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS` +
-Example: `add c/tenant n/James Ho p/98765432 e/jamesho@example.com r/looking for 4-room apartment`
+Example: `add c/tenant n/Bo Yang p/86541526 e/boyang@example.com r/looking for 4-room apartment`
 
 [NOTE]
 ====
-When multiple parameters of the same type are entered, only the last one will be added. e.g. `add ... p/97642542 p/12345678 ...`, only `12345678` will be saved to the contact.
+When multiple parameters of the same type are entered, only the *last* one will be added. e.g. `add ... p/97642542 p/87654321 ...`, only `87654321` will be saved to the contact.
 ====
+
+Screenshots for 1st example:
+
+* Enter `add c/seller n/James Tan p/97652456 e/jamestan@example.com r/need to sell by April 2018 a/Blk 345 Clementi Ave 5, #04-04, S120345 sp/500000 t/MRT t/newlyRenovated`:
+
+image::add_screenshot_1.png[width="790"]
+
+* Client James Tan is successfully added, the contact list is updated and the newly added contact is selected:
+
+image::add_screenshot_2.png[width="790"]
+
 // end::addfeatures[]
 
 === Listing all contacts : `list`
@@ -135,14 +161,14 @@ Selects the contact identified by the index number used in the displayed contact
 Format: `select INDEX`
 
 ****
-* Selects the contact at the specified `INDEX` and displays all the contact and any associated property information, as well as the address location of the associated property (if applicable) on the Google Maps(TM) window panel.
+* Selects the contact at the specified `INDEX` and displays the address location of the associated property (if applicable) on the Google Maps(TM) browser window panel.
 * The index refers to the index number shown in the displayed contact list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
 
 [NOTE]
 ====
-Go to <<GoogleMaps>> for more details of the Google Maps(TM) display.
+Go to <<GoogleMaps>> for more details on the Google Maps(TM) display.
 ====
 
 Examples:
@@ -209,11 +235,21 @@ Format: `search KEYWORD [KEYWORD]...`
 Examples:
 
 * `search James` +
-Returns `James Lee` and `John James`
-* `search James Tan Young` +
-Returns any contact with information matching `James`, `Tan`, or `Young`
+Returns `James Tan` and `James Ho`
+* `search James Tan Yang` +
+Returns any contact with information matching `James`, `Tan`, or `Yang`
 * `search Woodlands Landlord` +
 Returns any contact with information matching `Woodlands` or `Landlord`
+
+Screenshots for 1st example:
+
+* Enter `search James`:
+
+image::search_screenshot_1.png[width="790"]
+
+* The search is executed successfully and the contact list is updated to show `James Tan` and `James Ho`.
+
+image::search_screenshot_2.png[width="790"]
 // end::searchfeatures[]
 
 // tag::editfeatures[]
@@ -231,23 +267,23 @@ Edits an existing contact and/or associated property (if any) in the contact boo
 
 * *Seller:* +
 Format: `edit INDEX_SELLER [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS] [a/ADDRESS] [sp/SELLING_PRICE_OF_PROPERTY] [t/TAG]...` +
-Example: `edit 2 n/James Lee e/jameslee@example.com sp/450000 t/`
-** Edits the name and email address of the 2nd contact to be `James Lee` and `jameslee@example.com` respectively. Edits selling price of the associated property to be `450000` and clears all existing tags.
+Example: `edit 2 n/James Li e/jamesli@example.com sp/450000 t/`
+** Edits the name and email address of the 2nd contact to be `James Li` and `jamesli@example.com` respectively. Edits selling price of the associated property to be `450000` and clears all existing tags.
 
 * *Buyer:* +
 Format: `edit INDEX_BUYER [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS]` +
-Example: `edit 2 n/James Lee e/jameslee@example.com r/looking for houses in Woodlands` +
-** Edits the name, email address and remarks of the 2nd contact to be `James Lee`, `jameslee@example.com` and `looking for houses in Woodlands` respectively.
+Example: `edit 2 n/James Han e/jameshan@example.com r/looking for houses in Woodlands` +
+** Edits the name, email address and remarks of the 2nd contact to be `James Tan`, `jamestan@example.com` and `looking for houses in Woodlands` respectively.
 
 * *Landlord:* +
 Format: `edit INDEX_LANDLORD [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS] [a/ADDRESS] [rp/RENTAL_PRICE_OF_PROPERTY] [t/TAG]...` +
-Example: `edit 2 n/James Lee p/87654321 rp/1700 t/MRT t/Park`
-** Edits the name and phone number of the 2nd contact to be `James Lee` and `87654321` respectively. Edits rental price of the associated property to be `1700`, clears all existing tags and adds new tags `MRT` and `Park`.
+Example: `edit 2 n/Jim Lee p/87654321 rp/1700 t/MRT t/Park`
+** Edits the name and phone number of the 2nd contact to be `Jim Lee` and `87654321` respectively. Edits rental price of the associated property to be `1700`, clears all existing tags and adds new tags `MRT` and `Park`.
 
 * *Tenant:* +
 Format: `edit INDEX_TENANT [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS]` +
-Example: `edit 2 n/James Lee p/87654321 `
-** Edits the name and phone number of the 2nd contact to be `James Lee` and `87654321` respectively.
+Example: `edit 2 n/James p/87654322`
+** Edits the name and phone number of the 2nd contact to be `James` and `87654322` respectively.
 
 [NOTE]
 ====
@@ -258,6 +294,26 @@ The customer type of the contact cannot be changed and only information type rel
 ====
 When multiple parameters of the same type are entered, only the last one will be edited. e.g. `edit ... p/97642542 p/12345678 ...`, only `12345678` will be saved to the contact.
 ====
+
+Screenshots for 1st example:
+
+* Enter `list`:
+
+image::archive_screenshot_1.png[width="790"]
+
+* Main contact list is displayed:
+
+image::edit_screenshot_1.png[width="790"]
+
+* Make sure that the contact at index 2 is a seller, otherwise choose the correct index corresponding to a seller. +
+Enter `edit 2 n/James Li e/jamesli@example.com sp/450000 t/`:
+
+image::edit_screenshot_2.png[width="790"]
+
+* Contact at index 2 is now edited to `James Li` and the information are updated accordingly. The contact is also selected upon successful execution of the `edit` command:
+
+image::edit_screenshot_3.png[width="790"]
+
 // end::editfeatures[]
 
 === Matching a contact to a property: `match` `[coming in v2.0]`
@@ -294,15 +350,20 @@ Deletes the 2nd contact in the contact book.
 * `search James` +
 `delete 1` +
 Deletes the 1st contact in the results of the `search` command.
-* `sort` +
-`delete 3` +
-Deletes the 3rd contact in the sorted list displayed earlier.
+* `search seller` +
+`delete 2` +
+Deletes the 2nd contact in the results of the `search` command.
 
 === Clearing all entries : `clear`
 
 Clears all entries from the contact book. +
 Address book contact list must be displayed prior to clearing. +
 Format: `clear`
+
+[NOTE]
+====
+The contact book will be permanently cleared of all contacts and the data will be erased. This can be undone by the `undo` command, but it will be permanent once you close the app!
+====
 
 // tag::pinunpinfeatures[]
 === Pinning a contact : `pin`
@@ -330,6 +391,10 @@ Pins the 2nd contact in the contact book.
 * `search James` +
 `pin 1` +
 Pins the 1st contact in the results of the `search` command.
+* `search seller` +
+`pin 2` +
+Selects the 2nd contact in the results of the `search` command.
+
 
 Screenshots for 1st example:
 
@@ -371,14 +436,14 @@ Select a pinned contact identified by the index number used in the displayed pin
 Format: `pinselect INDEX`
 
 ****
-* Selects the contact at the specified `INDEX` and displays all the contact and property information, as well as the address location of the associated property on the Google Maps(TM) window panel.
+* Selects the contact at the specified `INDEX` and displays the address location of the associated property on the Google Maps(TM) browser window panel.
 * The index refers to the index number shown in the displayed pin list.
 * The index must be a positive integer no greater than `5` and the number of contacts in the pin list, whichever is bigger.
 ****
 
 [NOTE]
 ====
-Go to <<GoogleMaps>> for more details of the Google Maps(TM) display.
+Go to <<GoogleMaps>> for more details on the Google Maps(TM) display.
 ====
 
 Examples:
@@ -400,13 +465,13 @@ image::pinselect_screenshot_2.png[width="800"]
 // tag::archivefeatures[]
 === Archiving a contact : `archive`
 
-Moves the specified contact from the normal contact book to the archive . +
-Archived contacts can *only* be accessed through a archive search function. +
+Moves the specified contact from the main contact book to the archive book. +
+Archived contacts can *only* be accessed through the `archivelist` command. +
 Format: `archive INDEX`
 
 [NOTE]
 ====
-Archived contacts *cannot* be displayed in a sorted list, be pinned or be deleted individually. +
+Archived contacts *cannot* be pinned, deleted individually or displayed in a sorted list. +
 Unarchive a contact before performing those commands.
 ====
 
@@ -435,7 +500,7 @@ Screenshots for 1st example:
 
 image::archive_screenshot_1.png[width="790"]
 
-* Main contact list is displayed:
+* Main contact list is successfully displayed:
 
 image::archive_screenshot_2.png[width="790"]
 
@@ -443,22 +508,22 @@ image::archive_screenshot_2.png[width="790"]
 
 image::archive_screenshot_3.png[width="790"]
 
-* 2nd contact has been successfully archived:
+* The 2nd contact, _Bernard Chan_, in the main contact list has been successfully archived:
 
 image::archive_screenshot_4.png[width="790"]
 
 === Listing all archived contacts : `archivelist`
 
-Lists all the contacts in the archive. +
+Lists all the contacts in the archive book, in their archived chronological order. +
 Format: `archivelist`
 
-Screenshots:
+Screenshots (following the 1st example of `archive`) :
 
 * Enter `archivelist`:
 
 image::archive_screenshot_5.png[width="790"]
 
-* The archive list is displayed (the contact archived in the 1st example of `archive` can be found):
+* The archive list is successfully displayed (and the contact archived, _Bernard Chan_, can be found!):
 
 image::archive_screenshot_6.png[width="790"]
 
@@ -469,14 +534,14 @@ Format: `archiveselect INDEX`
 
 ****
 * Archive list must be displayed prior to this.
-* Selects the contact at the specified `INDEX` and displays the address location of the associated property on the Google Maps(TM) window panel.
+* Selects the contact at the specified `INDEX` and displays the address location of the associated property on the Google Maps(TM) browser window panel.
 * The index refers to the index number shown in the displayed contact list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
 
 [NOTE]
 ====
-Go to <<GoogleMaps>> for more details of the Google Maps(TM) display.
+Go to <<GoogleMaps>> for more details on the Google Maps(TM) display.
 ====
 
 Examples:
@@ -484,6 +549,7 @@ Examples:
 * `archivelist` +
 `archiveselect 2` +
 Selects the 2nd contact in the archive book.
+// end::archivefeatures[]
 
 === Searching for archived contact(s) : `archivesearch`
 
@@ -492,7 +558,8 @@ Format: `archivesearch KEYWORD [KEYWORD]...`
 
 [NOTE]
 ====
-`KEYWORD` List: `CUSTOMER_TYPE`, `NAME`, `PHONE_NUMBER`, `EMAIL`, `REMARK`, `ADDRESS`, `t/TAG`
+* Archive list must be displayed prior to this.
+* `KEYWORD` List: `CUSTOMER_TYPE`, `NAME`, `PHONE_NUMBER`, `EMAIL`, `REMARK`, `ADDRESS`, `t/TAG`
 ====
 
 Example:
@@ -502,11 +569,11 @@ Returns any contact with information fields matching keywords `James` and/or `Se
 
 === Unarchiving a contact : `unarchive`
 
-Moves the specified contact from the archive back into the normal contact book. +
+Moves the specified contact from the archive book back into the main contact book. +
 Format: `unarchive INDEX`
 
 ****
-* Archive list must be displayed prior to unarchiving.
+* Archive list must be displayed prior to this.
 * Unarchives the contact at the specified `INDEX`.
 * The index refers to the index number shown in the displayed *archived* contact list.
 * The index *must be a positive integer* 1, 2, 3, ...
@@ -526,9 +593,13 @@ Moves the 1st contact in the results of the `archivesearch` command from the arc
 Clears all entries from the archive book. +
 Archived contact list must be displayed prior to clearing. +
 Format: `archiveclear`
-// end::archivefeatures[]
 
-=== Listing entered commands : `history`
+[NOTE]
+====
+The archive book will be permanently cleared of all contacts and the data will be erased. This can be undone by the `undo` command, but it will be permanent once you close the app!
+====
+
+=== Listing previously entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history`
@@ -539,14 +610,15 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 ====
 
 // tag::undoredo[]
-=== Undoing previous command : `undo`
+=== Undoing the previous command : `undo`
 
 Restores the contact book to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the contact book's content (`add`, `delete`, `edit`, `archive`, `unarchive` and `clear`).
+* Undoable commands: those commands that modify the contact book's content (`add`, `delete`, `edit`, `clear`, `pin`, `unpin`, `archive`, `unarchive` and `archiveclear`).
+* Any selection made will be deselected.
 ====
 
 Examples:
@@ -569,6 +641,11 @@ The `undo` command fails as there are no undoable commands executed previously.
 
 Reverses the most recent `undo` command. +
 Format: `redo`
+
+[NOTE]
+====
+Any selection made will be deselected.
+====
 
 Examples:
 
@@ -597,14 +674,17 @@ Format: `exit`
 [[GoogleMaps]]
 === Displaying location on Google Maps(TM)
 
-Double-clicking the contact will also select and bring up the the address location of the associated property on the Google Maps(TM) window panel.
+Double-clicking the contact will also select the contact and display the address location of the associated property on the Google Maps(TM) browser window panel.
 
 [NOTE]
 ====
-As of `v1.4`, Google Maps(TM) will search for the location of any address provided. If it is an invalid address that cannot be found on Google Maps(TM), Google Maps(TM) will simply return that the location cannot be found, just like in the browser version.
+[none]
+* As of `v1.4`,
+** Google Maps(TM) will search for the location of any address provided. If it is an invalid address that cannot be found on Google Maps(TM), Google Maps(TM) will simply return that the location cannot be found, just like in the browser version.
+** Once the map location is displayed, you will be able to input to the Google Maps(TM) search bar. *Click the command box* again to resume typing and entering of commands.
 ====
 
-The screenshot below shows how selecting a contact using any of the `select` commands works:
+The screenshot below shows how selecting a contact using any of the `select` commands will work:
 
 image::select_screenshot.png[width="790"]
 // end::googlemapsfeature[]
@@ -616,6 +696,10 @@ Address book data are saved in the hard disk automatically after any command tha
 You can find the data saved as data files in `.json` format in the `/data` folder created in the home folder of The Real App, after launching the app for the first time.
 
 Go to <<FAQ>> for more details on transferring saved data files.
+
+=== Importing and exporting data with `.csv` files `[coming in v2.0]`
+
+Contact data in `.csv` format can be imported into the contact book, as well as exported from the contact book.
 
 === Encrypting data files `[coming in v2.0]`
 
@@ -639,16 +723,16 @@ User can set a password, which will be required when logging into the app.
 [none]
 ** Seller: +
 *** `add c/seller n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS a/ADDRESS sp/SELLING_PRICE_OF_PROPERTY [t/TAG]...` +
-*** e.g. `add c/seller n/James Ho p/98765432 e/jamesho@example.com r/need to sell by April 2018 a/Blk 345 Clementi Ave 5, #04-04, S120345 sp/500000 t/MRT t/newlyRenovated`
+*** e.g. `add c/seller n/James Tan p/97652456 e/jamestan@example.com r/need to sell by April 2018 a/Blk 345 Clementi Ave 5, #04-04, S120345 sp/500000 t/MRT t/newlyRenovated`
 ** Buyer: +
 *** `add c/buyer n/NAME p/PHONE_NUMBER e/EMAIL r/REMARK` +
-*** e.g. `add c/buyer n/James Ho p/98765432 e/jamesho@example.com r/looking for 3-room apartment`
+*** e.g. `add c/buyer n/James Ho p/87657252 e/jamesho@example.com r/looking for 3-room apartment`
 ** Landlord: +
 *** `add c/landlord n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS a/ADDRESS rp/RENTAL_PRICE_OF_PROPERTY [t/TAG]...` +
-*** e.g. `add c/landlord n/James Ho p/98765432 e/jamesho@example.com r/family friend  a/Blk 345 Clementi Ave 5, #04-04, S120345 rp/1500 t/MRT t/newlyRenovated`
+*** e.g. `add c/landlord n/Hans Tan p/90826522 e/hanstan@example.com r/family friend  a/Blk 345 Woodlands Street 32, #04-04, S730345 rp/1500 t/MRT t/newlyRenovated`
 ** Tenant: +
 *** `add c/tenant n/NAME p/PHONE_NUMBER e/EMAIL r/REMARKS` +
-*** e.g. `add c/tenant n/James Ho p/98765432 e/jamesho@example.com r/looking for 4-room apartment`
+*** e.g. `add c/tenant n/Bo Yang p/86541526 e/boyang@example.com r/looking for 4-room apartment`
 * *Archive* : `archive INDEX`
 ** e.g. `archive 1`
 * *Archive clear* : `archiveclear`
@@ -656,26 +740,28 @@ User can set a password, which will be required when logging into the app.
 * *Archive search* : `archivesearch KEYWORD [KEYWORD]...`
 ** `KEYWORD` List: `CUSTOMER_TYPE`, `NAME`, `PHONE_NUMBER`, `EMAIL`, `REMARK`, `ADDRESS`, `t/TAG`
 ** e.g. `archivesearch james seller`
+* *Archive select* : `archiveselect INDEX`
+** e.g.`archiveselect 2`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX`
 ** e.g. `delete 3`
 * *Edit* :
 ** Seller: +
 *** `edit INDEX_SELLER [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS] [a/ADDRESS] [sp/SELLING_PRICE_OF_PROPERTY] [t/TAG]...` +
-*** e.g. `edit 2 n/James Lee e/jameslee@example.com sp/450000 t/`
+*** e.g. `edit 2 n/James Li e/jamesli@example.com sp/450000 t/`
 ** Buyer: +
 *** `edit INDEX_BUYER [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS]` +
-*** e.g. `edit 2 n/James Lee e/jameslee@example.com r/looking for houses in Woodlands`
+*** e.g. `edit 2 n/James Han e/jameshan@example.com r/looking for houses in Woodlands` +
 ** Landlord: +
 *** `edit INDEX_LANDLORD [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS] [a/ADDRESS] [rp/RENTAL_PRICE_OF_PROPERTY] [t/TAG]...` +
-*** e.g. `edit 2 n/James Lee p/87654321 rp/1700 t/MRT t/Park`
+*** e.g. `edit 2 n/Jim Lee p/87654321 rp/1700 t/MRT t/Park`
 ** Tenant: +
 *** `edit INDEX_TENANT [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS]` +
-*** e.g. `edit 2 n/James Lee p/87654321 r/`
+*** e.g. `edit 2 n/James p/87654322`
 * *Exit* : `exit`
 * *Search* : `search KEYWORD [KEYWORD]...`
 ** `KEYWORD` List: `CUSTOMER_TYPE`, `NAME`, `PHONE_NUMBER`, `EMAIL`, `REMARK`, `ADDRESS`, `t/TAG`
-** e.g. `search James Tan young`
+** e.g. `search James Tan yang`
 * *Help* : `help`
 * *History* : `history`
 * *Match* :
@@ -688,6 +774,8 @@ User can set a password, which will be required when logging into the app.
 * *List* : `list`
 * *Pin* : `pin INDEX`
 ** e.g. `pin 3`
+* *Pin select* : `pinselect INDEX`
+** e.g.`pinselect 2`
 * *Redo* : `redo`
 * *Select* : `select INDEX`
 ** e.g.`select 2`

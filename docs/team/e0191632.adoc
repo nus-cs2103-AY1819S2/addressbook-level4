@@ -16,11 +16,11 @@ I will showcase my main contributions to the team in making *Equipment manager* 
 
 == Overview
 
-*Equipment Manager* is a _Preventive Maintenance (PM)_ planner application that allows users, specifically the engineers, to keep track of the PM schedule of all Resuscitation Equipment in Singapore.
+*Equipment Manager* is a _Preventive Maintenance (PM)_ planner application that allows users, specifically the engineers, to keep track of the PM schedule of all resuscitation equipment in Singapore.
 *Equipment Manager* is designed to allow engineers assign the equipment which they are going to carry out maintenance work on, to their own work schedule.
 
 When they are carrying out maintenance work on multiple equipments based on their work schedule, they are able to have a visual representation on the locations of all equipment.
-In order to carry out maintenance work efficiently, *Equipment Manager* provide engineers with an efficient route to take for visiting multiple locations, minimizing the chance that the resuscitation devices will fail and cause costly unscheduled downtime.
+In order to carry out maintenance work efficiently, *Equipment Manager* provides engineers with an efficient route to take for visiting multiple locations, minimizing the chance that the resuscitation equipment will fail and cause costly unscheduled downtime.
 
 == Terminology
 Some technical terms have been used as it will better deliver the idea of *Equipment Manager* features.

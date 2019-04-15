@@ -587,7 +587,7 @@ If the input is invalid (e.g. user did not provide a folder name or provided one
 * Step 3. The `LogicManager` executes the `AddFolderCommand`, Before transferring control to the Model component with the `ModelManager#addFolder()` method, a few checks are performed to ensure that the user is inside a folder and the model does not already have a folder with the same name (not shown in sequence diagram).
 
 [NOTE]
-If any of the aforementioned checks do not success, Step 3 would end in a Command Exception being thrown and would not proceed. Model and Storage components would not be modified.
+If any of the aforementioned checks do not succeed, Step 3 would end in a Command Exception being thrown and would not proceed. Model and Storage components would not be modified.
 
 * Step 4. The `ModelManager` creates a `VersionedCardFolder` to represent the newly created folder, storing a reference to its currently empty list of cards. Before returning control to the Logic component, `ModelManager#indicateModified()` is invoked to notify listeners in the `LogicManager` that the list of `CardFolders` have changed.
 
@@ -696,7 +696,7 @@ To keep track of navigation state, an enum `State` is maintained by the `ModelMa
 
 ===== Change Directory Command
 
-Folder navigation is achieved by the user through the use of the `change` command. As navigating folders do not actually modify folders and their cards, folder navigation does not involve the Storage Component.
+Folder navigation is achieved by the user through the use of the `cd` command. As navigating folders do not actually modify folders and their cards, folder navigation does not involve the Storage Component.
 
 The change directory command has the following formats:
 

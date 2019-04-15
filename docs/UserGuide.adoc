@@ -28,6 +28,8 @@ image::UI.png[width="790"]
 
 Welcome to the *Know-It-All* User Guide! This document will equip you with what you need in order to use `v1.4` of the application. While some familiarity with command line programs will come in handy, simply adhere to the command formats specified in this guide closely and the rest will be a breeze.
 
+// end::introabout[]
+
 Look out for the following icons and formatting used!
 
 [NOTE]
@@ -44,9 +46,6 @@ Useful information for a deeper understanding of the command.
 
 Without further ado, let's head over to <<Quick Start>> to get started!
 
-// end::introabout[]
-
-// tag::quickstart[]
 == Quick Start
 
 ==== Launching the application
@@ -57,6 +56,7 @@ To get Know-It-All up and running:
 .  Copy the file to the folder you want to use as the home folder for *Know-It-All*.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 
+// tag::quickstart[]
 ==== Using the application
 In this section, we'll walk you through the primary user interface of the application and how to create your first flashcard.
 
@@ -121,6 +121,7 @@ Examples:
 * `cd 2` +
 Enters the second folder in the folder list on the home directory.
 
+//tag::addfolder[]
 [[addfolder]]
 ==== Create new folder : `addfolder`
 
@@ -142,6 +143,7 @@ Creates a folder with the name "Nervous System". The UI should appear like the f
 image:AnnotatedAddFolderUI.png[width=500]
 
 You can then enter the folder with the `cd` command and begin adding cards.
+//end::addfolder[]
 
 ==== Remove folder : `deletefolder`
 
@@ -158,6 +160,7 @@ Examples:
 * `deletefolder 2` +
 Deletes the second folder in the folder list, along with its cards, on the home directory.
 
+//tag::editfolder[]
 ==== Rename folder : `editfolder`
 
 Renames the flashcard folder specified by index.
@@ -172,6 +175,7 @@ Examples:
 
 * `editfolder 2 Circulatory System` +
 Renames the second folder in the folder list to "Circulatory System".
+//end::editfolder[]
 
 **Merge folders feature** `Coming in v2.0`
 
@@ -648,7 +652,6 @@ Exits the program.
 
 Format: `exit`
 
-//tag::glossarycmdsummary[]
 == Glossary
 
 * [[flashcard]] **Flashcard/Card**: An object containing a single question and answer, and optionally hints.
@@ -662,7 +665,7 @@ this number is automatically calculated and recorded.
 * [[homedirectory]] **Home Directory**: The home page where all the folders are listed. From here, users can enter folders to view cards.
 * [[index]] **Index**: The unique number associated with an item in a list. The first item in a list has an index of 1.
 
-
+//tag::cmdsummary[]
 == Command Summary
 [width="100%",cols="20%,<30%",options="header",]
 |=======================================================================
@@ -693,4 +696,4 @@ this number is automatically calculated and recorded.
 |`help` | Opens the User Guide in a new window.
 |`exit` | Exits the application.
 |=======================================================================
-//end::glossarycmdsummary[]
+//end::cmdsummary[]

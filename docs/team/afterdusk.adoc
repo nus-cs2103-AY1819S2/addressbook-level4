@@ -2,6 +2,9 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
+[NOTE]
+To CS2103T peer reviewers, please refer to the PDF document uploaded to LumiNUS instead of this GitHub page. The PDF document is better formatted and nicely features only the most important components. Thank you!
+
 == image:Logo.png[width=50] Know-It-All
 :icons: font
 
@@ -36,31 +39,6 @@ Useful information for a deeper understanding of the current topic.
 
 ** The tests I wrote increased coverage from 80% to 84% (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/104[#104], https://github.com/cs2103-ay1819s2-w10-4/main/pull/177[#177])
 
-// *Other contributions:*
-// [cols="1,4"]
-// |===
-// a|Project Management
-// a|
-// ** Created GitHub organisation and team repository, issue labels, milestones and https://github.com/cs2103-ay1819s2-w10-4/main/projects/1[project board]
-// ** Managed and tagged milestones `v1.1` to `v1.2`
-
-// a|Documentation
-// a|
-// ** User Guide:
-// *** Introduced an About section (later renamed to How To Use this Guide) and populated the Command Summary and Glossary sections. Also revised the document format be more consistent (Pull request https://github.com/cs2103-ay1819s2-w10-4/main/pull/90[#90])
-// *** Rewrote and added annotated UI images to Quick Start to improve clarity (Pull request https://github.com/cs2103-ay1819s2-w10-4/main/pull/180[#180])
-
-// ** Developer Guide:
-// *** Wrote user stories to set project requirements, which were eventually ported over to GitHub issues for project management (Pull request https://github.com/cs2103-ay1819s2-w10-4/main/pull/53[#53])
-// *** Contributed to use cases (Pull request https://github.com/cs2103-ay1819s2-w10-4/main/pull/104[#104])
-
-// a|Community
-// a|
-// ** Performed the initial refactoring of code to flashcard context (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/37[#37])
-// ** Reviewed over 20 PRs, spotting potential errors and making suggestions (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/128[#128], https://github.com/cs2103-ay1819s2-w10-4/main/pull/178[#178])
-// ** Made bug reports to notify teammates of bugs related to their components (Issues https://github.com/cs2103-ay1819s2-w10-4/main/issues/118[#118], https://github.com/cs2103-ay1819s2-w10-4/main/issues/122[#122], https://github.com/cs2103-ay1819s2-w10-4/main/issues/136[#136], https://github.com/cs2103-ay1819s2-w10-4/main/issues/169[#169]) and addressed/assigned bug reports from external testers
-// ** Integrated a GitHub plugin (Netlify) to the team repo
-// |===
 *Other Contributions*:
 
 * Project Management:
@@ -74,7 +52,7 @@ Useful information for a deeper understanding of the current topic.
 
 ** Developer Guide:
 *** Wrote user stories to set project requirements, which were eventually ported over to GitHub issues for project management (Pull request https://github.com/cs2103-ay1819s2-w10-4/main/pull/53[#53])
-*** Contributed to use cases (Pull request https://github.com/cs2103-ay1819s2-w10-4/main/pull/104[#104])
+*** Contributed to use cases and manual testing (Pull request https://github.com/cs2103-ay1819s2-w10-4/main/pull/104[#104], https://github.com/cs2103-ay1819s2-w10-4/main/pull/180[#180])
 
 * Community:
 ** Performed the initial refactoring of code to flashcard context (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/37[#37])
@@ -89,18 +67,20 @@ Useful information for a deeper understanding of the current topic.
 _As we morphed the product, we kept the user guide up to date with the features we implemented. To showcase my technical writing skills, I have included an excerpt of my notable contributions, namely Quick Start and the new folder-related commands._
 =====
 
-// include::../UserGuide.adoc[tag=introabout]
-
 include::../UserGuide.adoc[tag=quickstart]
 
-include::../UserGuide.adoc[tag=folderoperations]
+include::../UserGuide.adoc[tag=addfolder]
 
-//include::../UserGuide.adoc[tag=glossarycmdsummary]
+include::../UserGuide.adoc[tag=editfolder]
 
 == Contributions to the Developer Guide
 
+// =====
+// _We also kept the Developer Guide updated so that potential developers and enthusiast users could better understand the design and implementation of our app. To show the technical depth of my contributions while keeping this document brief, I have once again only included the more notable excerpts._
+// =====
+
 =====
-_We also kept the Developer Guide updated so that potential developers and enthusiast users could better understand the design and implementation of our app. To show the technical depth of my contributions while keeping this document brief, I have once again only included the more notable excerpts._
+_We also kept the Developer Guide updated so that potential developers and enthusiast users could better understand the design and implementation of our app. This section is long-running, although the first few pages of the section should suffice in showcasing the technical depth of my contributions._
 =====
 
 include::../DeveloperGuide.adoc[tag=modeldesign]
@@ -110,3 +90,17 @@ include::../DeveloperGuide.adoc[tag=folders]
 include::../DeveloperGuide.adoc[tag=folderusecases]
 
 include::../DeveloperGuide.adoc[tag=foldermanualtesting]
+
+== Additional Contributions to the User Guide
+
+=====
+_This section is GitHub only (not in PDF copy of PPP). They cover my contributions to the User Guide more extensively._
+=====
+
+include::../UserGuide.adoc[tag=introabout]
+
+include::../UserGuide.adoc[tag=quickstart]
+
+include::../UserGuide.adoc[tag=folderoperations]
+
+include::../UserGuide.adoc[tag=cmdsummary]

@@ -1,4 +1,4 @@
-package seedu.address.logic.battle;
+package seedu.address.battle;
 
 import static java.util.Objects.requireNonNull;
 
@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import seedu.address.battle.result.AttackDefeatedEnemy;
+import seedu.address.battle.result.AttackDestroyedShip;
+import seedu.address.battle.result.AttackFailed;
+import seedu.address.battle.result.AttackHit;
+import seedu.address.battle.result.AttackMissed;
+import seedu.address.battle.result.AttackResult;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.MapGrid;
 import seedu.address.model.cell.Coordinates;

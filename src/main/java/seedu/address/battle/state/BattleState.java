@@ -1,4 +1,4 @@
-package seedu.address.logic.battle.state;
+package seedu.address.battle.state;
 
 /**
  * Enum that represents the state the battle is currently in.

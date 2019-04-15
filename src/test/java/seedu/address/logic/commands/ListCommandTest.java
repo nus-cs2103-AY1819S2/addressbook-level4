@@ -15,9 +15,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.battle.state.BattleState;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.Logic;
-import seedu.address.logic.battle.state.BattleState;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.battleship.Battleship;

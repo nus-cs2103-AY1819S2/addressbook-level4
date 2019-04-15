@@ -9,8 +9,8 @@ import java.util.Set;
 
 import java.util.stream.Collectors;
 
+import seedu.address.battle.state.BattleState;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.battle.state.BattleState;
 import seedu.address.model.Model;
 import seedu.address.model.battleship.Name;
 import seedu.address.model.player.Fleet;

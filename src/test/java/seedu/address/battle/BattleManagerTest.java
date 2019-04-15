@@ -1,4 +1,4 @@
-package seedu.address.logic.battle;
+package seedu.address.battle;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -14,6 +14,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.battle.result.AttackDefeatedEnemy;
+import seedu.address.battle.result.AttackDestroyedShip;
+import seedu.address.battle.result.AttackFailed;
+import seedu.address.battle.result.AttackHit;
+import seedu.address.battle.result.AttackMissed;
+import seedu.address.battle.result.AttackResult;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.player.Player;
 import seedu.address.testutil.EvilEnemy;

@@ -78,7 +78,10 @@ and diagrams.
 === Statistics Feature
 include::../UserGuide.adoc[tag=stats]
 
-include::../UserGuide.adoc[tag=commandsummary]
+___
+==== Command Summary
+
+As the diagram is too large, please refer to 'Command Summary' in the User Guide. (https://github.com/CS2103-AY1819S2-W14-3/main/blob/master/docs/UserGuide.adoc#7-command-summary[link])
 
 ___
 === Coming in V2.0

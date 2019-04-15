@@ -46,4 +46,24 @@ public class ModuleInfoDepartmentTest {
         ModuleInfoDepartment dept = new ModuleInfoDepartment("Mathematics");
         assertEquals("Mathematics", dept.toString());
     }
+
+    @Test
+    public void equals() {
+        ModuleInfoDepartment depts = new ModuleInfoDepartment("Mathematics");
+        ModuleInfoDepartment deptsCopy = depts;
+
+        assertTrue(depts.equals(deptsCopy));
+
+        ModuleInfoDepartment diffdepts = new ModuleInfoDepartment("Science");
+
+        assertFalse(depts.equals(diffdepts));
+    }
+
+    @Test
+    public void hashcode() {
+        ModuleInfoDepartment depts = new ModuleInfoDepartment("Mathematics");
+        ModuleInfoDepartment deptsCopy = depts;
+
+        assertEquals(depts.hashCode(), deptsCopy.hashCode());
+    }
 }

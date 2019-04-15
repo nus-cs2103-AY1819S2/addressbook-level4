@@ -37,4 +37,24 @@ public class ModuleInfoCreditsTest {
         assertEquals("4.0", title.toString());
     }
 
+    @Test
+    public void equals() {
+        ModuleInfoCredits credits = new ModuleInfoCredits(4.0);
+        ModuleInfoCredits creditsCopy = credits;
+
+        assertTrue(credits.equals(creditsCopy));
+
+        ModuleInfoCredits diffCredits = new ModuleInfoCredits(1.0);
+
+        assertFalse(credits.equals(diffCredits));
+    }
+
+    @Test
+    public void hashcode() {
+        ModuleInfoCredits credits = new ModuleInfoCredits(4.0);
+        ModuleInfoCredits creditsCopy = credits;
+
+        assertEquals(credits.hashCode(), creditsCopy.hashCode());
+    }
+
 }

@@ -61,4 +61,25 @@ public class ModuleInfoWorkloadTest {
 
         assertArrayEquals(testArray, workload.splitWorkload(workload.toString()));
     }
+
+    @Test
+    public void equals() {
+        ModuleInfoWorkload descrip = new ModuleInfoWorkload("5-4-3-2-1");
+        ModuleInfoWorkload descripCopy = descrip;
+
+        assertTrue(descrip.equals(descripCopy));
+
+        ModuleInfoWorkload diffdescrip = new ModuleInfoWorkload("1-1-1-1-1");
+
+        assertFalse(descrip.equals(diffdescrip));
+    }
+
+    @Test
+    public void hashcode() {
+        ModuleInfoWorkload descrip = new ModuleInfoWorkload("5-4-3-2-1");
+        ModuleInfoWorkload descripCopy = descrip;
+
+        assertEquals(descrip.hashCode(), descripCopy.hashCode());
+    }
+
 }

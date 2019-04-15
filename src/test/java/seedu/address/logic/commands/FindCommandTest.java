@@ -42,6 +42,7 @@ import seedu.address.testutil.FindModuleDescriptorBuilder;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
+
     private Model model = new ModelManager(getTypicalGradTrak(), new UserPrefs(),
             new ModuleInfoList(), new CourseList(), new UserInfo());
     private Model expectedModel = new ModelManager(getTypicalGradTrak(), new UserPrefs(),

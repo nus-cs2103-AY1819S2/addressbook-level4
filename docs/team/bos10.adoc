@@ -55,7 +55,7 @@ highscore feature in the game.
 *** Overhaul of HistoryCommand into StatsCommand to be used by rest of the team (Pull request https://github.com/CS2103-AY1819S2-W14-3/main/pull/43[#43])
 *** Restructured Storage component to accommodate saving of statistics data (Pull request https://github.com/CS2103-AY1819S2-W14-3/main/pull/289[#289])
 *** Introduced an elapsed time functionality in the Graphical User Interface (GUI). (Pull request https://github.com/CS2103-AY1819S2-W14-3/main/pull/108[#108], https://github.com/CS2103-AY1819S2-W14-3/main/pull/123[#123] )
-*** Wrote tests for the statistics feature and storage component and increased coverage by 5.6%. (Pull Requests https://github.com/CS2103-AY1819S2-W14-3/main/pull/379[#379], https://github.com/CS2103-AY1819S2-W14-3/main/pull/397[#397], https://github.com/CS2103-AY1819S2-W14-3/main/pull/253[#253])
+*** Wrote tests for the statistics feature and storage component and increased coverage by 5.6%. (Pull Requests https://github.com/CS2103-AY1819S2-W14-3/main/pull/253[#253], https://github.com/CS2103-AY1819S2-W14-3/main/pull/379[#379], https://github.com/CS2103-AY1819S2-W14-3/main/pull/397[#397])
 
 ** Documentation:
 *** Added detailed implementation documentation for the statistics feature in the Developer Guide and User Guide, including screenshots

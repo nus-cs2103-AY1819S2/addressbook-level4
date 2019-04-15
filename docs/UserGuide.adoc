@@ -50,7 +50,7 @@ Without further ado, let's head over to <<Quick Start>> to get started!
 == Quick Start
 
 ==== Launching the application
-To get Know-It-All up and running:
+To get *Know-It-All* up and running:
 
 .  Ensure that you have Java version `9` or later installed in your Computer.
 .  Download the latest `knowitall.jar` link:{repoURL}/releases[here].
@@ -86,7 +86,8 @@ This is the end of the Quick Start tutorial. Please refer to <<Features>> for de
 // end::quickstart[]
 
 [NOTE]
-Your data is saved in the `data/` folder by default. Like any other software application, you are not advised to modify any of the system created files located within the folder. If you do, Know-It-All may not perform right!
+Your data is saved in the `data/` folder by default. Like any other software application, you are not advised to
+modify any of the system created files located within the folder. If you do, *Know-It-All* may not perform right!
 
 [[Features]]
 == Features
@@ -193,7 +194,7 @@ image:StatusBarInFolder.png[width ="200"]
 // tag::add[]
 ==== Adding a flashcard : `add`
 
-Adds a flashcard to the current folder. Know-It-All supports 2 types of flashcards: **Single answer cards** and **MCQ** cards.
+Adds a flashcard to the current folder. *Know-It-All* supports 2 types of flashcards: **Single answer cards** and **MCQ** cards.
 
 Format **(Single answer)**: `add q/QUESTION a/ANSWER [h/HINT]` +
 Format **(MCQ)**: `add q/QUESTION a/ANSWER [i/INCORRECT_OPTION]... [h/HINT]`
@@ -442,12 +443,12 @@ image::Blood.png[width = "800"]
 Format: `import FILENAME`
 
 NOTE: unlike the `export command` the importing of multiple csv files
-is not supported in Know-It-All.
+is not supported in *Know-It-All*.
 
 Examples:
 
 * `import Blood.csv` +
-Imports blood csv file into know-it-all. A new `Blood` cardfolder should be present in the home
+Imports blood csv file into *Know-It-All*. A new `Blood` cardfolder should be present in the home
 directory after execution of this command.
 
 // end::advancedoperations[]
@@ -505,8 +506,8 @@ Format: `test [-timer]`
 
 ==== Keying in answer to a flashcard: `ans`
 
-To reinforce learning and provide a more engaging experience with Know-It-All, you can input an answer for the
-currently displayed flashcard question. Know-It-All compares your attempt with the correct answer for that flashcard and
+To reinforce learning and provide a more engaging experience with *Know-It-All*, you can input an answer for the
+currently displayed flashcard question. *Know-It-All* compares your attempt with the correct answer for that flashcard and
 tells you if you are right or wrong.
 
 If the answer has been submitted successfully and it is *correct*, you will see the following page.

@@ -435,7 +435,8 @@ Format: `addReview INDEX re/ENTRY rr/RATING`
 
 Examples:
 
-* `addReview 2 re/Peach Pie was amazing rr/4`
+* `addReview 2 re/Peach Pie was amazing rr/4` +
+Adds a review to the second restaurant in the list.
 
 ==== Editing a specified review : `editReview`
 
@@ -454,7 +455,7 @@ Steps to execute `editReview` command:
 * From the main screen of the application, first select a restaurant by clicking on it with the mouse or using the `select INDEX` command.
 
 image::UG_editReview_selected_restaurant.png[width="480"]
-_Figure 1. Upon selecting a restaurant, the reviews of the restaurant will show on the review panel, and the rightmost browser panel will show the webpage of the restaurant (if available)_
+_Figure 1. Upon selecting a restaurant, the reviews of the restaurant will show on the rightmost review panel_
 
 * Following the above, enter the command. Upon successful execution of the command:
 

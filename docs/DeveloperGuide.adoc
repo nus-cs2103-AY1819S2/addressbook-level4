@@ -1212,7 +1212,7 @@ _{More to be added}_
 
 // tag::mapuse[]
 
-=== Use case: Initialise Maps
+=== Initialise Maps
 
 *MSS*
 
@@ -1233,7 +1233,7 @@ Use case resumes at step 1.
 
 // end::mapuse[]
 
-=== Use case: Put Battleship
+=== Put Battleship
 
 *MSS*
 
@@ -1247,7 +1247,7 @@ Use case ends.
 [none]
 * 2a. If there is a ship present in the cell, show an error.
 
-=== Use case: List Battleship
+=== List Battleship
 
 *MSS*
 
@@ -1261,7 +1261,7 @@ Use case ends.
 [none]
 * 2a. If there are no ships deployed, inform the user.
 
-=== Use case: List tags that Battleships have
+=== List tags that Battleships have
 
 *MSS*
 
@@ -1270,7 +1270,7 @@ Use case ends.
 +
 Use case ends.
 
-=== Use case: List Battleships by tag
+=== List Battleships by tag
 
 *MSS*
 
@@ -1284,7 +1284,7 @@ Use case ends.
 [none]
 * 2a. If there are no ships deployed, inform the user.
 //tag::StatsUseCase[]
-=== Use case: See game statistics
+=== See game statistics
 *MSS*
 
 1. User requests to display current gameplay statistics
@@ -1300,7 +1300,7 @@ Use case ends.
 [none]
 ** 2a1. A single statement indicating no statistical data yet is displayed in the command box.
 
-=== Use case: Compare scores with previous games
+=== Compare scores with previous games
 *MSS*
 
 1. User wins a game.
@@ -1317,7 +1317,7 @@ Use case ends.
 ** 2a1. A single statement indicating no statistical data yet is displayed in the command box.
 
 //end::StatsUseCase[]
-=== Use case: End player turn
+=== End player turn
 
 *MSS*
 
@@ -1327,7 +1327,7 @@ Use case ends.
 +
 Use case ends.
 
-=== Use case: Play enemy turn
+=== Play enemy turn
 
 *Actor:* `enemy player`
 

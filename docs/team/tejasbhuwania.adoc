@@ -57,16 +57,6 @@ customer's Identification Number or Room Type or Dates of Reservation or all of 
 ** Highlights: This enhancement is an end-to-end feature that allows the hotel staff to find specific bookings based on three filters - customer’s Identification number, the Room Type and the Dates of Reservation. While implementing this I had to ensure that I use the already placed prefixes so that it does not become confusing for the staff to handle too many prefixes and that the command is easy enough for them to use.
 ** Relevant Pull Requests: https://github.com/cs2103-ay1819s2-t12-1/main/pull/147[#147] and https://github.com/cs2103-ay1819s2-t12-1/main/pull/165[#165]
 
-2. [underline]#Customer fields#: This enhancement added two customer fields - `Date of Birth` and `Identification Number` -
-to a customer's data.
-** What it does: This enhancement added two new fields - `Date of Birth` and `Identification Number` - to identify a customer.
-** Justification: Running a hotel management system, `Date of Birth` and `Identification Number` are two important fields required by the hotel management to identify
-a customer.
-** Highlights: This enhancement is an end-to-end implementation that allows staff to take in two additional fields for the
-customer. While implementing them, I had to make sure that I followed the structure of the already implemented customer fields
-so that a similar structure is maintained throughout the codebase and it becomes easier for a new developer to understand and work on the code.
-** Relevant Pull Requests: https://github.com/cs2103-ay1819s2-t12-1/main/pull/81[#81] and https://github.com/cs2103-ay1819s2-t12-1/main/pull/28[#28]
-
 * *Code contributed*: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=Tej&sort=totalCommits&since=2019-02-10&until=2019-04-14&timeframe=day&reverse=true&repoSort=true[RepoSense]
 
 * *Other contributions*:
@@ -221,7 +211,7 @@ include::../DeveloperGuide.adoc[tag=storage-diagram]
 
 == Achievements and Learnings
 
-* Learned how to work on a large code base with more 8000 lines of code.
+* Learned how to work on a large code base with more 10000 lines of code.
 * Learned how to effectively work in a team when everyone is working on the same project.
 
 

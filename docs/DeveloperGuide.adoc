@@ -872,7 +872,7 @@ image::inputStatsCommandSS.png[width=400]
 Pop-up window for `stats` :
 
 image::StatsWindowSS.png[width=800]
-Figure 33. Screenshot of empty statistics pop-up window.
+.Screenshot of empty statistics pop-up window.
 
 There should not be any valid data at the moment as the game as not started.
 
@@ -881,7 +881,7 @@ Step 4. Now proceed with the game and perform an attack. Input `attack a1`.
 Step 5. Invoke the `stats` command again to view the updated statistics of the attack result.
 
 image::StatsWindowUpdatedSS.PNG[width=800]
-Figure 34. Screenshot of populated statistics pop-up window.
+.Screenshot of populated statistics pop-up window.
 
 Besides the pop-up window, the data is also captured in the command-line result box.
 
@@ -890,7 +890,7 @@ image::StatsCommandBox.PNG[width=400]
 The following sequence diagram summarizes what happens when a User invokes the `stats` command.
 
 image::StatsSequenceDiagram.PNG[width=1000 ]
-Figure 35. Sequence diagram of `stats` command.
+.Sequence diagram of `stats` command.
 
 ==== Save and Compare
 Given below is an example usage scenario of the automatic save and compare feature.
@@ -910,25 +910,25 @@ The following sequence diagram summarizes what happens at the end of a game and 
 performed.
 
 image::SaveSequenceDiag.PNG[width=600]
-Figure 36. Sequence diagram of how the statistics data is saved.
+.Sequence diagram of how the statistics data is saved.
 
-The following sequence diagram summarizes what happens at the end of the game and an automatic reading of previous
+The following sequence diagram summarizes what happens at the end of the game where an automatic reading of previous
 statistics data is performed.
 
 image::ReadSequenceDiagram.PNG[width=600]
-Figure 37. Sequence diagram of how the previous statistics data is read from storage.
+.Sequence diagram of how the previous statistics data is read from storage.
 
 ==== Activity Diagram
 The following Activity Diagram shows when the `stats` command can be used.
 
 image::StatisticsActivityDiagram.png[width=1000]
-Figure 38. Activity Diagram of the statistics feature.
+.Activity Diagram of the statistics feature.
 
 ==== Use Case Diagram
 The following use-case diagram captures the behaviour of the statistics feature.
 
 image::StatsUseCaseDiag.PNG[width=500]
-Figure 39. Use case diagram on the statistics feature.
+.Use case diagram on the statistics feature.
 
 
 ==== Design considerations

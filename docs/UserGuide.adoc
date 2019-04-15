@@ -306,7 +306,8 @@ Example:
 
 ****
 * The pop-up window will contain a bar chart visualisation of your game play data
-* The pop-up window does not update itself when it is opened and the `stats` command must be called again to display updated
+* To reload the statistics data, you must close the current pop-up window and call the `stats` command again
+to display the updated values.
 values.
 ****
 // end::stats[]

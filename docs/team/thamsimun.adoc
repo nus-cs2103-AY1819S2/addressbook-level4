@@ -92,15 +92,14 @@ https://github.com/CS2103-AY1819S2-W14-2/main/issues/148[#148],
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=BrightnessCommand]
-
-include::../UserGuide.adoc[tag=SavePreset]
+include::../UserGuide.adoc[tag=ContrastCommand]
 
 include::../UserGuide.adoc[tag=SetPreset]
 
 === *Other Works Contributed*
 '''
-* Black/White and Contrast features
+* Black/White and Brightness features
+* Save Preset feature
 * Command Summary
 
 == Contributions to the Developer Guide
@@ -111,6 +110,11 @@ include::../UserGuide.adoc[tag=SetPreset]
 
 include::../DeveloperGuide.adoc[tag=ImageFilter]
 
-include::../DeveloperGuide.adoc[tag=SavePreset]
-
 include::../DeveloperGuide.adoc[tag=SetPreset]
+
+=== *Other Works Contributed*
+'''
+* Brightness and Black/White features under the Image Filter section
+* Save Preset feature
+* Logic Component sequence diagrams
+* Storage Component

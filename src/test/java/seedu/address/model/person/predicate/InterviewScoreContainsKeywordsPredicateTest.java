@@ -41,11 +41,8 @@ public class InterviewScoreContainsKeywordsPredicateTest {
         // null -> returns false
         assertNotEquals(firstPredicate, null);
 
-        // different question num -> returns false
-        assertNotEquals(firstPredicate, secondPredicate);
-
         // different person -> returns false
-        assertNotEquals(firstPredicate, thirdPredicate);
+        assertNotEquals(firstPredicate, secondPredicate);
     }
 
     @Test

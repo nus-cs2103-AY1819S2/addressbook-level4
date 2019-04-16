@@ -99,6 +99,7 @@ public class ExportCommand extends Command {
 
             String dest = CDL.toString(patients);
             FileUtils.writeStringToFile(getCurLocation().getAbsoluteFile(), dest);
+            System.out.println("Hello!!");
 
         } catch (IOException e) {
             new CommandException(MESSAGE_CSV_FAIL);

@@ -49,6 +49,11 @@ public class ExportCommandParserTest {
         assertParseFailure(parser, PREFIX_WITH_INVALID_PATH, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 ExportCommand.INVALID_PATH));
 
+        // invalid arg
+        assertParseFailure(parser, " 1",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
+
+
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + PREFIX_WITH_VALID_PATH,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));

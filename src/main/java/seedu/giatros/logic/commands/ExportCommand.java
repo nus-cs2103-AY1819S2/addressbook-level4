@@ -30,7 +30,8 @@ public class ExportCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Export sucessul. Giatros book csv file located at ";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Exports current Giatros book as csv file (giatrosbook.csv) to ~/Downloads directory unless other "
+            + ": Exports current Giatros book as csv file (giatrosbook.csv) to "
+            + System.getProperty("user.home") + "/Giatros directory unless another "
             + "destination is specified by parameter.\n"
             + "Parameters: [" + PREFIX_DEST + "DESTINATION]\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_DEST + System.getProperty("user.home") + "/Desktop";

@@ -27,7 +27,7 @@ public class ExportCommand extends Command {
 
     public static final String COMMAND_WORD = "export";
 
-    public static final String MESSAGE_SUCCESS = "Export sucessul. Giatros book csv file located at ";
+    public static final String MESSAGE_SUCCESS = "Export succesful. Giatros book csv file located at ";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Exports current Giatros book as csv file (giatrosbook.csv) to "

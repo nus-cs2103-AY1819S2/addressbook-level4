@@ -2,12 +2,9 @@ package seedu.giatros.logic.parser;
 
 import static seedu.giatros.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.giatros.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
-import static seedu.giatros.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.giatros.logic.commands.CommandTestUtil.PREFIX_WITH_INVALID_PATH;
 import static seedu.giatros.logic.commands.CommandTestUtil.PREFIX_WITH_VALID_PATH;
-import static seedu.giatros.logic.commands.CommandTestUtil.VALID_PATH;
 import static seedu.giatros.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.giatros.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -31,16 +28,6 @@ public class ExportCommandParserTest {
     @BeforeClass
     public static void setupBeforeClass() {
         EventsCenter.getInstance().post(new LoginEvent(new AccountCreator("staff").build()));
-    }
-
-    @Test
-    public void parse_validArgs_returnsExportCommand() {
-        // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE, new ExportCommand());
-
-        // valid path defined
-        assertParseSuccess(parser, PREFIX_WITH_VALID_PATH, new ExportCommand(VALID_PATH));
-
     }
 
     @Test

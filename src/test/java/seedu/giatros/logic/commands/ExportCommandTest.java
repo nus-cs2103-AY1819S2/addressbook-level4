@@ -3,9 +3,6 @@ package seedu.giatros.logic.commands;
 import static seedu.giatros.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.giatros.testutil.TypicalPatients.getTypicalGiatrosBook;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
@@ -28,22 +25,20 @@ public class ExportCommandTest {
     }
 
     @Test
-    public void execute_nonemptyGiatrosBookDefault_success() {
+    public void export_nonemptyGiatrosBookDefault_success() {
         ExportCommand exportCommand = new ExportCommand();
         ModelManager expectedModel = new ModelManager(model.getGiatrosBook(), new UserPrefs());
         assertCommandSuccess(exportCommand, model, commandHistory, ExportCommand.MESSAGE_SUCCESS
                 + ExportCommand.getCurLocation(), expectedModel);
-
     }
 
     @Test
-    public void execute_nonemptyGiatrosBookCustom_success() {
-        Path validPath = Paths.get("src", "test", "data", "sandbox");
-        ExportCommand exportCommand = new ExportCommand(validPath.toString());
+    public void export_nonemptyGiatrosBookCustom_success() {
+        String validPath = System.getProperty("user.home") + "/Desktop/giatrosbook.csv";
+        ExportCommand exportCommand = new ExportCommand(validPath);
         ModelManager expectedModel = new ModelManager(model.getGiatrosBook(), new UserPrefs());
         assertCommandSuccess(exportCommand, model, commandHistory, ExportCommand.MESSAGE_SUCCESS
                 + ExportCommand.getCurLocation(), expectedModel);
-
     }
 
     @Test

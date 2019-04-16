@@ -396,7 +396,7 @@ Format: `export` [d/`DESTINATION`]
 
 * `DESTINATION` can end with an extension of .csv or end as a path to a directory. +
 * Existing data file at `DESTINATION` will be overwritten. +
-* A table view of the exported data will appear on execution of command.
+* A table view of the exported data will appear when file is opened.
 * .csv files can be opened and edited in Microsoft Excel
 // end::export[]
 

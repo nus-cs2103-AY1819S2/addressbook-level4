@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Path;
 import java.util.HashMap;
 
 import org.apache.commons.io.FileUtils;
@@ -33,24 +32,25 @@ public class ExportCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Exports current Giatros book as csv file (giatrosbook.csv) to ~/Downloads directory unless other "
             + "destination is specified by parameter.\n"
-            + "Parameters:\n"
-            + "[" + PREFIX_DEST + "DESTINATION ]\n"
+            + "Parameters: [" + PREFIX_DEST + "DESTINATION]\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_DEST + System.getProperty("user.home") + "/Desktop";
 
     public static final String MESSAGE_CSV_FAIL = "Unable to open giatrosbook.csv - invalid file location";
+    public static final String INVALID_PATH = "Invalid path specified. Path must be non-empty and end in .csv";
 
     private static File curLocation;
 
     public ExportCommand(String destination) {
-        curLocation = new File(destination + "/giatrosbook.csv");
+        curLocation = new File(destination);
     }
 
     public ExportCommand() {
-        curLocation = new File(System.getProperty("user.home") + "/Downloads/giatrosbook.csv");
+        curLocation = new File(System.getProperty("user.home") + "/Giatros/giatrosbook.csv");
 
     }
 
     public static File getCurLocation() {
+
         return curLocation;
     }
 
@@ -62,11 +62,14 @@ public class ExportCommand extends Command {
 
         try {
 
-            Path resourceName = model.getGiatrosBookFilePath();
-            InputStream is = new FileInputStream(resourceName.toString());
+            File giatros = new File(model.getGiatrosBookFilePath().toAbsolutePath().toString());
+
+            String giatrosData = FileUtils.readFileToString(giatros);
+
+            InputStream is = new FileInputStream(String.valueOf(giatros));
 
             JSONTokener tokener = new JSONTokener(is);
-            JSONObject object = new JSONObject(tokener);
+            JSONObject object = new JSONObject(giatrosData);
 
             JSONArray patients = new JSONArray();
             JSONArray array = object.getJSONArray("patients");
@@ -78,6 +81,7 @@ public class ExportCommand extends Command {
                 map.put("phone", array.getJSONObject(x).getString("phone"));
                 map.put("address", array.getJSONObject(x).getString("address"));
                 map.put("email", array.getJSONObject(x).getString("email"));
+                map.put("appointments", String.valueOf(array.getJSONObject(x).getJSONArray("appointments")));
                 map.put("name", array.getJSONObject(x).getString("name"));
 
                 // Display allergies in neater string
@@ -93,11 +97,12 @@ public class ExportCommand extends Command {
             }
 
             String dest = CDL.toString(patients);
-            FileUtils.writeStringToFile(getCurLocation(), dest);
+            FileUtils.writeStringToFile(getCurLocation().getAbsoluteFile(), dest);
+
         } catch (IOException e) {
             new CommandException(MESSAGE_CSV_FAIL);
         }
 
-        return new CommandResult(MESSAGE_SUCCESS + getCurLocation());
+        return new CommandResult(MESSAGE_SUCCESS + getCurLocation().getAbsolutePath());
     }
 }

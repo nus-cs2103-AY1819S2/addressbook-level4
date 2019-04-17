@@ -10,11 +10,11 @@
 
 .tag-selector {
     -fx-border-width: 1;
-    -fx-border-color: white;
+    -fx-border-color: #F9AA33;
     -fx-border-radius: 3;
     -fx-background-radius: 3;
 }
 
 .tooltip-text {
-    -fx-text-fill: white;
+    -fx-text-fill: #F9AA33;
 }

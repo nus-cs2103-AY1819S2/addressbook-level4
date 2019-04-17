@@ -4,46 +4,62 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.FashionMatch;
+import seedu.address.model.ReadOnlyFashionMatch;
+import seedu.address.model.apparel.Apparel;
+import seedu.address.model.apparel.ClothingType;
+import seedu.address.model.apparel.Color;
+import seedu.address.model.apparel.Name;
 import seedu.address.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code FashionMatch} with sample data.
  */
 public class SampleDataUtil {
-    public static Person[] getSamplePersons() {
-        return new Person[] {
-            new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                new Address("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("friends")),
-            new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-                new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                getTagSet("colleagues", "friends")),
-            new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                getTagSet("neighbours")),
-            new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                getTagSet("family")),
-            new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-                new Address("Blk 47 Tampines Street 20, #17-35"),
-                getTagSet("classmates")),
-            new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                new Address("Blk 45 Aljunied Street 85, #11-31"),
-                getTagSet("colleagues"))
+    public static Apparel[] getSamplePersons() {
+        return new Apparel[] {
+            new Apparel(new Name("Formal Shirt"), new Color("White"), new ClothingType("Top"),
+                    true, 3),
+
+            new Apparel(new Name("Formal Pants"), new Color("Black"), new ClothingType("Bottom"),
+                    true, 4),
+
+            new Apparel(new Name("Formal Belt"), new Color("Black"), new ClothingType("Belt"),
+                    true, 5),
+
+            new Apparel(new Name("Formal Shoes"), new Color("Black"), new ClothingType("Shoes"),
+                    true, 7),
+
+            new Apparel(new Name("Uniqlo Tshirt"), new Color("Yellow"), new ClothingType("Top"),
+                    true, 10),
+
+            new Apparel(new Name("Casual Belt"), new Color("Red"), new ClothingType("Belt"),
+                    true, 8),
+
+            new Apparel(new Name("Sneakers"), new Color("White"), new ClothingType("Shoes"),
+                    true, 9),
+
+            new Apparel(new Name("Zara Tshirt"), new Color("Pink"), new ClothingType("Top"),
+                    false, 6),
+
+            new Apparel(new Name("Running Shoes"), new Color("Grey"), new ClothingType("Shoes"),
+                    false, 9),
+
+            new Apparel(new Name("Skinny Jeans"), new Color("Blue"), new ClothingType("Bottom"),
+                    false, 8),
+
+            new Apparel(new Name("Bermudas"), new Color("Cream"), new ClothingType("Bottom"),
+                    false, 7),
+
+            new Apparel(new Name("Cool Shirt"), new Color("Khaki"), new ClothingType("Top"),
+                    false, 5),
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
-        for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+    public static ReadOnlyFashionMatch getSampleAddressBook() {
+        FashionMatch sampleAb = new FashionMatch();
+        for (Apparel sampleApparel : getSamplePersons()) {
+            sampleAb.addApparel(sampleApparel);
         }
         return sampleAb;
     }

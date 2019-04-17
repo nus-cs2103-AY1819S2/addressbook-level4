@@ -1,0 +1,54 @@
+= Tan Yiren Eugene - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Fashion Match
+
+---
+
+== Overview
+
+Fashion Match is a desktop wardrobe management application used as a guide for your fashion necessities. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is morphed from https://github.com/nus-cs2103-AY1819S2/addressbook-level4[Address Book] over a period of 8 weeks. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: Generate statistics for a user's wardrobe via the `statistics` command.
+** What it does: The statistics feature gives basic statistics to the user for visualisation purposes.
+** Justification: This feature improves the product significantly because a user can have greater clarity for his wardrobe and allows the user to be more aware of his usage patterns.
+** Highlights: A user is able to tell his top most worn apparel, his favorite color, how clean/dirty his wardrobe is, etc.
+
+** Code Contributed: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=reinsheer&sort=displayName&since=2019-02-10&until=2019-04-15&timeframe=day&reverse=false&repoSort=true[RepoSense]], [https://github.com/CS2103-AY1819S2-W15-1/main/pull/139[#139]]
+
+* *Minor enhancement*: Refactoring the whole of AddressBook to formulate the skeleton of Fashion Match.
+** Code contributed: [https://github.com/CS2103-AY1819S2-W15-1/main/pull/45[#45]], [https://github.com/CS2103-AY1819S2-W15-1/main/pull/46[#46]], [https://github.com/CS2103-AY1819S2-W15-1/main/pull/50[#50]]
+
+* *Other contributions*:
+** Project Management:
+*** Managed release of `v1.3` and `v1.4`, reviewed and merged all PRs from week 10 saturday onwards on GitHub.
+*** Submitted and ensure weekly deliverables are handed in on time from v1.3 onwards.
+*** Allocated and fix bugs that arose from the dry-run Practical Exam.
+
+** Enhancement to Existing Features:
+*** Refactored AddressBook to Fashion Match: [https://github.com/CS2103-AY1819S2-W15-1/main/pull/45[#45]], [https://github.com/CS2103-AY1819S2-W15-1/main/pull/46[#46]], [https://github.com/CS2103-AY1819S2-W15-1/main/pull/94[#94]]
+*** Fix test cases that resulted from the refactoring of AddressBook: [https://github.com/CS2103-AY1819S2-W15-1/main/pull/89[#89]], [https://github.com/CS2103-AY1819S2-W15-1/main/pull/91[#91]], [https://github.com/CS2103-AY1819S2-W15-1/main/pull/50[#50]]
+*** Cleanup of the Developer Guide from AddressBook4 to Fashion Match: [https://github.com/CS2103-AY1819S2-W15-1/main/pull/8[#8]], [https://github.com/CS2103-AY1819S2-W15-1/main/pull/99[#99]]
+
+** Documentation:
+*** Documented new statistics feature in UG and DG: [https://github.com/CS2103-AY1819S2-W15-1/main/pull/139[#139]], [https://github.com/CS2103-AY1819S2-W15-1/main/pull/166[#166]]
+*** Added Use Cases, User Stories and Non-Functional Requirements for DG.
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=stats]
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=stats]

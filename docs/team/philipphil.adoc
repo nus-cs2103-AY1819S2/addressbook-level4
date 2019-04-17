@@ -1,0 +1,60 @@
+= Philip Garabandic - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: AddressBook - Level 4
+
+---
+
+== Overview
+
+We build a desktop application that is a clothing closet manager.
+
+== Summary of contributions
+
+* *Major enhancement*: added *RecommendationCommand Algorthym, RandomCommand, and SomethingColorCommand*
+** What it does: RecommendationCommand is an algorythm that find a matching outfit for the user. RandomCommand find a radnom item of chosen type. SomethingColorCommand, finds a random outfit of chosen color.
+** Justification: This feature improves the product significantly because a user can get a outfit with matching colors without thinking. The user can also have the machine pick a item of his favorite color or a type for him so he doesn't have to think.
+** Highlights: This enhancement affects existing commands and commands to be added in future. I had to write parsers for each command and a CommandRecommendation. Because the methods function on random numbers I had to add more tests methods also.
+
+* *Minor enhancement*: I had also added other immpimentations here and there but I didn't know this was due tonight so it's too last minute for me to cite all of them. I also updated the user guide and so on. I did the UI color changes.
+
+* *Code contributed*:
+
+Methods:
+https://github.com/PhilipPhil/main/blob/master/src/main/java/seedu/address/logic/CommandRecommendation.java
+https://github.com/PhilipPhil/main/blob/master/src/main/java/seedu/address/logic/parser/RandomItemParser.java
+https://github.com/PhilipPhil/main/blob/master/src/main/java/seedu/address/logic/parser/SomethingColorParser.java
+https://github.com/PhilipPhil/main/blob/master/src/main/java/seedu/address/logic/commands/RandomItemCommand.java
+https://github.com/PhilipPhil/main/blob/master/src/main/java/seedu/address/logic/commands/RecommendationCommand.java
+https://github.com/PhilipPhil/main/blob/master/src/main/java/seedu/address/logic/commands/SomethingColorCommand.java
+
+Tests:
+https://github.com/PhilipPhil/main/blob/master/src/test/java/seedu/address/logic/commands/RandomItemCommandTest.java
+https://github.com/PhilipPhil/main/blob/master/src/test/java/seedu/address/logic/commands/RecommendationCommandTest.java
+https://github.com/PhilipPhil/main/blob/master/src/test/java/seedu/address/logic/commands/SomethingColorCommandTest.java
+https://github.com/PhilipPhil/main/blob/master/src/test/java/seedu/address/logic/CommandRecommendationTest.java
+https://github.com/PhilipPhil/main/blob/master/src/test/java/seedu/address/logic/parser/RandomItemParserTest.java
+https://github.com/PhilipPhil/main/blob/master/src/test/java/seedu/address/logic/parser/SomethingColorParserTest.java
+
+* *Other contributions*:
+
+Methods here and there @@Author will be seen
+
+== Contributions to the User Guide
+
+
+|===
+|_Section 3.18,3.19,3.2 and Section 5_
+|===
+
+include::../UserGuide.adoc
+
+== Contributions to the Developer Guide
+
+|===
+|_Added writting in_
+|===
+
+include::../DeveloperGuide.adoc

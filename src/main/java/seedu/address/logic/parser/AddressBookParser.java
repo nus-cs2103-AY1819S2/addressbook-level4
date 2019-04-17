@@ -16,9 +16,17 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.RandomItemCommand;
+import seedu.address.logic.commands.RecommendationCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SomethingColorCommand;
+import seedu.address.logic.commands.SortCommand;
+import seedu.address.logic.commands.StatisticsCommand;
+import seedu.address.logic.commands.SwapCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.WashCommand;
+import seedu.address.logic.commands.WearCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -54,9 +62,32 @@ public class AddressBookParser {
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
+        case WearCommand.COMMAND_WORD:
+            return new WearCommandParser().parse(arguments);
+
+        case WearCommand.ALTERNATE_COMMAND_WORD:
+            return new WearCommandParser().parse(arguments);
+
+        case WashCommand.COMMAND_WORD:
+            return new WashCommandParser().parse(arguments);
+
+        case WashCommand.ALTERNATE_COMMAND_WORD:
+            return new WashCommandParser().parse(arguments);
+
+        case StatisticsCommand.COMMAND_WORD:
+            return new StatisticsCommand();
+
+        case StatisticsCommand.ALTERNATE_COMMAND_WORD:
+            return new StatisticsCommand();
+
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);
 
+        case SortCommand.COMMAND_WORD:
+            return new SortCommandParser().parse(arguments);
+
+        case SwapCommand.COMMAND_WORD:
+            return new SwapCommandParser().parse(arguments);
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
@@ -67,7 +98,7 @@ public class AddressBookParser {
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return new ListCommandParser().parse(arguments);
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();
@@ -81,8 +112,17 @@ public class AddressBookParser {
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
 
+        case RecommendationCommand.COMMAND_WORD:
+            return new RecommendationCommand();
+
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+
+        case RandomItemCommand.COMMAND_WORD:
+            return new RandomItemParser().parse(arguments);
+
+        case SomethingColorCommand.COMMAND_WORD:
+            return new SomethingColorParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

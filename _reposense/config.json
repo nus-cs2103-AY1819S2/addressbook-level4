@@ -1,0 +1,25 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "PhilipPhil",
+      "displayName": "GAR...LIP",
+      "authorNames": ["PhilipPhil","Philip Garabandic"]
+    },
+    {
+      "githubId": "rafflesandrison",
+      "displayName": "RAF...SON",
+      "authorNames": ["rafflesandrison"]
+    },
+    {
+      "githubId": "stanleymok",
+      "displayName": "STA...UAN",
+      "authorNames": ["stanleymok"]
+    },
+    {
+      "githubId": "ReinSheer",
+      "displayName": "TAN...ENE",
+      "authorNames": ["ReinSheer"]
+    }
+  ]
+}

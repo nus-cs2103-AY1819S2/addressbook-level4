@@ -46,6 +46,25 @@ public class CommandResult {
         return exit;
     }
 
+    /**
+     * Helper function for debugging.
+     */
+    public void showDiff(CommandResult other) {
+        StringBuilder sb = new StringBuilder("Difference is\n");
+        if (!this.feedbackToUser.equals(other.getFeedbackToUser())) {
+            sb.append("Feedback to user: " + this.feedbackToUser + " vs " + other.getFeedbackToUser());
+        }
+
+        if (this.showHelp != other.isShowHelp()) {
+            sb.append("Is show help: " + this.isShowHelp() + " vs " + other.isShowHelp());
+        }
+
+        if (this.isExit() != other.isExit()) {
+            sb.append("Is Exit: " + this.isExit() + " vs " + other.isExit());
+        }
+        System.out.println(sb.toString());
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {

@@ -1,0 +1,115 @@
+= Raffles Andrison - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Fashion Match
+
+---
+
+== Overview
+Fashion Match is a command line application that is morphed from an addressbook application. This is a Software Engineering project that required us to use their code as a base and we decided to morph it into an wardrobe management system. This application enables normal users to:
+** Manage the arrangement of apparels in the wardrobe
+** Wash and wear specific apparel
+** Recommend outfit combination
+** Usage statistics
+
+The part of Fashion Match that I implemented is the Wardrobe Management Feature which comprises of `list [OPTION]`, `sort [OPTION]`, and `swap [INDEX_X] [INDEX_Y]`. Also, I handled the display of the apparel details on the User Interface when an apparel is selected. More details about these features will be elaborated below including documentation of it in the user and developer guide.
+
+`list all` : A grey highlight (called a markup) indicates that this is a command that can be input into the command line and executed by the application.
+
+== Summary of contributions
+In this section, all of my contributions will be listed in detail including my code and documentations.
+
+The main feature that I worked on is called *Wardrobe Management Feature*, a term that refers all the related smaller features under it.
+You will find many commands implemented to manipulate the arrangement of the apparels. These include:
+
+* <<list, List the apparels based on specific option>>
+* <<sort, Sort the apparels based on specific option>>
+* <<swap, Swap the position of any two apparels>>
+* <<minorEnhancement, Minor Enhancements>>
+* <<otherContributions, Other Contributions>>
+* <<codeContributed, Code Contributed>>
+
+[[list]]
+. *List apparels*: added *the ability to list the apparels you want to see*
+** _What it does_: It lists the apparels based on a specific category.
+** _Justification_: This command is a fundamental feature to allow the user to limit the apparels shown on the UI. This is for easy viewing.
+** _Highlights_: This command takes in option and only show apparels based on the option given.
+[[sort]]
+. *Sort apparels*: added *the ability to sort the apparels*
+** _What it does_: It sorts the apparels based on a specific category.
+** _Justification_: This command is a fundamental feature to allow the user to sort the apparels and the changes will be persisted even if the user close and open this application again.
+** _Highlights_: This command takes in option and sort the apparels based on the option given.
+[[swap]]
+. *Swap apparels*: added *the ability to swap the position of any two apparels*
+** _What it does_: It changes the display position of the two apparels specified. The changes are made directly to the storage. When the user exit this application and come back back at it, the changes will still apply.
+** _Justification_: This command is a fundamental feature to allow the user to change the swap the apparels and the changes will be persisted even if the user close and open this application again.
+** _Highlights_: This command takes in the index of two apparels to be swapped and proceed to swap the position of these apparels.
+[[minorEnhancement]]
+. *Minor Enhancement to be added in v2*: pending *safety mechanism for clear command*.
+[[otherContributions]]
+. *Other Contributions*:
+** _Project Management_:
+*** _Set up team development environment_
+*** _Set up travis and coverall_
+*** Managed releases `v1.1` (1 release) on GitHub
+** Graphical User Interface:
+*** Created all apparel icons with all valid colours.
+*** Enable selected apparel from the list to be displayed on the browser panel.
+** Enhancements to existing features:
+*** Updated the display of apparel name on GUI by capitalising the name (Pull requests https://github.com/CS2103-AY1819S2-W15-1/main/pull/65[#65])
+*** Refactoring of existing classes to suit Fashion Match need. (Pull requests https://github.com/CS2103-AY1819S2-W15-1/main/pull/93[#93])
+** Documentation:
+*** Wrote the first version of user guide on Google Doc before it was keyed into GitHub.
+*** Cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed: https://github.com/CS2103-AY1819S2-W15-1/main/pull/42[#42], https://github.com/CS2103-AY1819S2-W15-1/main/pull/50[#50], https://github.com/CS2103-AY1819S2-W15-1/main/pull/51[#51]
+** Tools:
+*** {to be added in future update}
+[[codeContributed]]
+. *Code Contributed*:
+** *Apparel*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/model/apparel/Apparel.java[Functional code]]
+*ApparelTest*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/test/java/seedu/address/model/apparel/ApparelTest.java[Functional code]]
+*Color*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/model/apparel/Color.java[Functional code]]
+*ColorValue*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/model/apparel/ColorValue.java[Functional code]]
+*ClothingType*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/model/apparel/ClothingType.java[Functional code]]
+*ClothingTypeTest*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/test/java/seedu/address/model/apparel/ClothingTypeTest.java[Test code]]
+*ClothingTypeValue*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/model/apparel/ClothingType.java[Functional code]]
+*ListCommand*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/logic/commands/ListCommand.java[Functional code]]
+*ListCommandParser*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/logic/parser/ListCommandParser.java[Functional code]]
+*ListCommandTest*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/test/java/seedu/address/logic/commands/ListCommandTest.java[Test code]]
+*SortCommand*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/logic/commands/SortCommand.java[Functional code]]
+*SortCommandParser*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/logic/parser/SortCommandParser.java[Functional code]]
+*SortCommandTest*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/test/java/seedu/address/logic/commands/SortCommandTest.java[Test code]]
+*SwapCommand*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/logic/commands/SwapCommand.java[Functional code]]
+*SwapCommandParser*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/logic/parser/SwapCommandParser.java[Functional code]]
+*SwapCommandTest*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/test/java/seedu/address/logic/commands/SwapCommandTest.java[Test code]]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=list]
+
+include::../UserGuide.adoc[tag=sort]
+
+include::../UserGuide.adoc[tag=swap]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+
+|===
+include::../DeveloperGuide.adoc[tag=sort]
+include::../DeveloperGuide.adoc[tag=swap]
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_

@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -15,8 +18,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.apparel.Apparel;
+import seedu.address.model.apparel.exceptions.ApparelNotFoundException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -24,28 +27,28 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
+    private final VersionedFashionMatch versionedFashionMatch;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
-    private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+    private final FilteredList<Apparel> filteredApparels;
+    private final SimpleObjectProperty<Apparel> selectedPerson = new SimpleObjectProperty<>();
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given Fashion Match and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyFashionMatch addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with fashion match: " + addressBook + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAddressBook(addressBook);
+        versionedFashionMatch = new VersionedFashionMatch(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-        filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        filteredApparels = new FilteredList<>(versionedFashionMatch.getApparelList());
+        filteredApparels.addListener(this::ensureSelectedPersonIsValid);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new FashionMatch(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -83,113 +86,228 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== FashionMatch ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        versionedAddressBook.resetData(addressBook);
+    public void setAddressBook(ReadOnlyFashionMatch addressBook) {
+        versionedFashionMatch.resetData(addressBook);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+    public ReadOnlyFashionMatch getAddressBook() {
+        return versionedFashionMatch;
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return versionedAddressBook.hasPerson(person);
+    public boolean hasApparel(Apparel apparel) {
+        requireNonNull(apparel);
+        return versionedFashionMatch.hasApparel(apparel);
     }
 
     @Override
-    public void deletePerson(Person target) {
-        versionedAddressBook.removePerson(target);
+    public void deleteApparel(Apparel target) {
+        versionedFashionMatch.removeApparel(target);
     }
 
     @Override
-    public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addApparel(Apparel apparel) {
+        versionedFashionMatch.addApparel(apparel);
+        updateFilteredApparelList(PREDICATE_SHOW_ALL_APPARELS);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void setPerson(Apparel target, Apparel editedApparel) {
+        requireAllNonNull(target, editedApparel);
 
-        versionedAddressBook.setPerson(target, editedPerson);
+        versionedFashionMatch.setApparel(target, editedApparel);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Apparel List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of {@code Apparel} backed by the internal list of
+     * {@code versionedFashionMatch}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<Apparel> getFilteredApparelList() {
+        return filteredApparels;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredApparelList(Predicate<Apparel> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredApparels.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
 
     @Override
     public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+        return versionedFashionMatch.canUndo();
     }
 
     @Override
     public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+        return versionedFashionMatch.canRedo();
     }
 
     @Override
     public void undoAddressBook() {
-        versionedAddressBook.undo();
+        versionedFashionMatch.undo();
     }
 
     @Override
     public void redoAddressBook() {
-        versionedAddressBook.redo();
+        versionedFashionMatch.redo();
     }
 
     @Override
     public void commitAddressBook() {
-        versionedAddressBook.commit();
+        versionedFashionMatch.commit();
     }
 
-    //=========== Selected person ===========================================================================
+    //=========== Statistics ===============================================================================
+    @Override
+    public String getTotalColor() {
+        ArrayList<String> outputTotalColor = new ArrayList<>();
+        for (int i = 0; i <= filteredApparels.size() - 1; i++) {
+            if (!outputTotalColor.contains(filteredApparels.get(i).getColor().toString())) {
+                outputTotalColor.add(filteredApparels.get(i).getColor().toString());
+            }
+        }
+        return "Total Different Colors : " + outputTotalColor.size();
+    }
 
     @Override
-    public ReadOnlyProperty<Person> selectedPersonProperty() {
+    public String getFavApparel() {
+        Map<String, Integer> hm = new HashMap();
+        for (int i = 0; i < filteredApparels.size(); i++) {
+            String key = filteredApparels.get(i).getName().toString();
+            int value = filteredApparels.get(i).getUsageCount();
+            hm.put(key, value);
+        }
+        int maxCount = -1;
+        String output = null;
+        for (Map.Entry<String, Integer> value : hm.entrySet()) {
+            if (maxCount < value.getValue()) {
+                maxCount = value.getValue();
+                output = value.getKey();
+            }
+        }
+        if (filteredApparels.size() == 0) {
+            return "Your favorite apparel is none!";
+        } else {
+            return "Your favorite apparel is " + output;
+        }
+    }
+
+    @Override
+    public String getFavColor() {
+        ArrayList<String> favColor = new ArrayList<>();
+        for (int i = 0; i < filteredApparels.size(); i++) {
+            favColor.add(filteredApparels.get(i).getColor().toString());
+        }
+
+        Map<String, Integer> hm = new HashMap();
+        for (int i = 0; i < favColor.size(); i++) {
+            String key = favColor.get(i);
+            if (hm.containsKey(key)) {
+                int value = hm.get(key);
+                hm.put(key, value + 1);
+            } else {
+                hm.put(key, 1);
+            }
+        }
+        int maxCount = -1;
+        String output = null;
+        for (Map.Entry<String, Integer> value : hm.entrySet()) {
+            if (maxCount < value.getValue()) {
+                maxCount = value.getValue();
+                output = value.getKey();
+            }
+        }
+        if (filteredApparels.size() == 0) {
+            return "Your favorite color is none!";
+        } else {
+            return "Your favorite color is " + output;
+        }
+    }
+
+    @Override
+    public String getLeastFavApparel() {
+        Map<String, Integer> hm = new HashMap();
+        for (int i = 0; i < filteredApparels.size(); i++) {
+            String key = filteredApparels.get(i).getName().toString();
+            int value = filteredApparels.get(i).getUsageCount();
+            hm.put(key, value);
+        }
+        int minCount = 10000;
+        String output = null;
+        for (Map.Entry<String, Integer> value : hm.entrySet()) {
+            if (minCount > value.getValue()) {
+                minCount = value.getValue();
+                output = value.getKey();
+            }
+        }
+        if (filteredApparels.size() == 0) {
+            return "You should wear more of none of your apparels! :(";
+        } else {
+            return "You should wear more of " + output + " :(";
+        }
+    }
+
+    @Override
+    public String getCleanOrDirty() {
+        float cleanCount = 0;
+        float dirtyCount = 0;
+        for (int i = 0; i < filteredApparels.size(); i++) {
+            if (filteredApparels.get(i).isAvailable()) {
+                cleanCount++;
+            } else {
+                dirtyCount++;
+            }
+        }
+        if (cleanCount > dirtyCount) {
+            return "Your wardrobe is quite clean! ("
+                    + Math.round(cleanCount / (filteredApparels.size()) * 100) + "% clean)";
+        } else if (dirtyCount > cleanCount) {
+            return "Your wardrobe is getting dirty... ("
+                    + Math.round(dirtyCount / (filteredApparels.size()) * 100) + "% dirty)";
+        } else if (cleanCount == 0 && dirtyCount == 0) {
+            return "Your wardrobe is empty!";
+        } else if (cleanCount == dirtyCount) {
+            return "Your wardrobe is equally clean and dirty :O";
+        } else {
+            return null;
+        }
+    }
+    //=========== Selected apparel ===========================================================================
+
+    @Override
+    public ReadOnlyProperty<Apparel> selectedPersonProperty() {
         return selectedPerson;
     }
 
     @Override
-    public Person getSelectedPerson() {
+    public Apparel getSelectedApparel() {
         return selectedPerson.getValue();
     }
 
     @Override
-    public void setSelectedPerson(Person person) {
-        if (person != null && !filteredPersons.contains(person)) {
-            throw new PersonNotFoundException();
+    public void setSelectedPerson(Apparel apparel) {
+        if (apparel != null && !filteredApparels.contains(apparel)) {
+            throw new ApparelNotFoundException();
         }
-        selectedPerson.setValue(person);
+        selectedPerson.setValue(apparel);
     }
 
     /**
-     * Ensures {@code selectedPerson} is a valid person in {@code filteredPersons}.
+     * Ensures {@code selectedPerson} is a valid apparel in {@code filteredApparels}.
      */
-    private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends Person> change) {
+    private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends Apparel> change) {
         while (change.next()) {
             if (selectedPerson.getValue() == null) {
-                // null is always a valid selected person, so we do not need to check that it is valid anymore.
+                // null is always a valid selected apparel, so we do not need to check that it is valid anymore.
                 return;
             }
 
@@ -203,10 +321,10 @@ public class ModelManager implements Model {
             }
 
             boolean wasSelectedPersonRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPerson -> selectedPerson.getValue().isSamePerson(removedPerson));
+                    .anyMatch(removedPerson -> selectedPerson.getValue().isSameApparel(removedPerson));
             if (wasSelectedPersonRemoved) {
-                // Select the person that came before it in the list,
-                // or clear the selection if there is no such person.
+                // Select the apparel that came before it in the list,
+                // or clear the selection if there is no such apparel.
                 selectedPerson.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
@@ -226,10 +344,40 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
+        return versionedFashionMatch.equals(other.versionedFashionMatch)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons)
+                && filteredApparels.equals(other.filteredApparels)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
 
+    /**
+     * Debugging tool to determine and output the property that is different.
+     */
+    public void validateEquality(ModelManager other) {
+        if (!versionedFashionMatch.equals(other.versionedFashionMatch)) {
+            System.out.println("versionedFashionMatch is different");
+        }
+
+        if (!userPrefs.equals(other.userPrefs)) {
+            System.out.println("userPrefs is different");
+        }
+
+        if (!filteredApparels.equals(other.filteredApparels)) {
+            System.out.println("filteredApparels is different");
+        }
+
+        if (!Objects.equals(selectedPerson.get(), other.selectedPerson.get())) {
+            System.out.println("selectedPerson is different");
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "ModelManager{"
+                + "versionedFashionMatch=" + versionedFashionMatch
+                + ", userPrefs=" + userPrefs
+                + ", filteredApparels=" + filteredApparels
+                + ", selectedPerson=" + selectedPerson
+                + '}';
+    }
 }

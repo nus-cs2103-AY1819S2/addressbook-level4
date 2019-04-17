@@ -65,4 +65,12 @@ public class StringUtil {
             return false;
         }
     }
+
+    /**
+     * Capitalise the first letter of the given string.
+     */
+    public static String capitaliseFirstLetter(String s) {
+        requireNonNull(s);
+        return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
+    }
 }

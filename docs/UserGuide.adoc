@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+﻿= Fashion Match - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,20 +12,20 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/cs2103-ay1819s2-w15-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103-AY1819S2-W15-1`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Fashion Match (FM) is for those who *prefer to use a desktop app for managing dresswear*. More importantly, FM is *optimized for those who prefer to work with a Command Line Interface* (CLI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Download the latest `main.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for FM.
+.  Double-click the jar file to start FM. The GUI will appear shortly after.
 +
 image::Ui.png[width="790"]
 +
@@ -33,10 +33,10 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* *`list`* : lists all apparels
+* **`add`**`n/Cool Tshirt c/Green t/Top` : adds an apparel named `Cool Tshirt` to Fashion Match.
+* **`delete`**`3` : deletes the 3rd apparel shown in the current list
+* *`exit`* : exits Fashion Match
 
 .  Refer to <<Features>> for details of each command.
 
@@ -46,82 +46,193 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/Formal Shirt`.
+* Items in square brackets are optional e.g `n/NAME [c/COLOR]` can be used as `n/Formal Shirt c/White` or as `n/Formal Shirt`.
+* Parameters can be in any order e.g. if the command specifies `n/NAME c/COLOR`, `c/COLOR n/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+// tag::list[]
+=== Listing all apparels that matches the given option : `list [OPTION] [OPTION-VALUE]`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Shows a list of all apparels in FM that matches the given option. +
 
-[TIP]
-A person can have any number of tags (including 0)
+Valid options: +
+all, top, bottom, belt, shoes, color
+
+Format: `list options`
+List all valid list options.
+
+Format: `list all`
+List all apparels.
+
+Format: `list top`
+List all apparels of clothing type top.
+
+Format: `list bottom`
+List all apparels of clothing type bottom.
+
+Format: `list belt`
+List all apparels of clothing type belt.
+
+Format: `list shoes`
+List all apparels of clothing type shoes.
+
+Format: `list color red`
+List all red colored apparels.
+// end::list[]
+
+=== Adding a piece of Apparel: `add`
+
+Add a piece of apparel to wardrobe +
+Format: `add n/NAME c/COLOR t/CLOTHINGTYPE`
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Zara Shirt c/Red t/Top`
+* `add n/Desigual Tailored Pants c/Grey t/Bottom`
 
-=== Listing all persons : `list`
+// tag::sort[]
+=== Sort all apparels that matches the given option : `sort [OPTION]`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Sort all apparels in the FM based on the option supplied. +
 
-=== Editing a person : `edit`
+Valid options: +
+name, color, type
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: `sort options` +
+List all valid sorting options.
+
+Format: `sort [OPTION]` +
+Sort all apparels according to the option supplied. +
+
+Example: sort the apparels by color +
+Format: `sort color`
+// end::sort[]
+
+// tag::swap[]
+=== Swap any two apparels : `sort [INDEX_X] [INDEX_Y]`
+
+Swap the position of two apparels. +
+
+Format: `swap 2 5` +
+Swap the position for apparels at index 2 and 5.
+// end::swap[]
+
+=== Editing an apparel : `edit`
+
+Edits an existing apparel in FM. +
+Format: `edit INDEX [n/NAME] [c/COLOUR] [t/CLOTHINGTYPE]`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the apparel at the specified `INDEX`. The index refers to the index number shown in the displayed apparel list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit 1 n/TSHIRT c/ORANGE` +
+Edits the name and colour of the 1st apparel to be `TSHIRT` and `Orange` respectively.
+* `edit 2 n/Brown Belt t/Belt` +
+Edits the name of the 2nd apparel to be `Brown Belt` and changes type to `Belt`.
 
-=== Locating persons by name: `find`
 
-Finds persons whose names contain any of the given keywords. +
+// tag::wash[]
+=== Washing a piece of apparel : `wash` or `available`
+
+Makes an existing listed apparel available. +
+Format: `wash INDEX` or `available INDEX`
+
+****
+* Makes available the apparel at the specified `INDEX`.
+* Does not allow the user to clean an already clean apparel.
+* The index refers to the index number shown in the displayed apparel list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* Apparel will be made clean if it was worn before the command.
+****
+
+Examples:
+
+* `wash 5` +
+Resets cleanliness status of the fifth apparel in the list if it was worn.
++
+image::washWornBefore.JPG[width="790"]
++
+image::washWornAfter.JPG[width="790"]
++
+* `wash 5` +
+Does not allow cleaning if the fifth apparel in the list is already clean.
++
+image::washClean.JPG[width="790"]
+// end::wash[]
+
+// tag::wear[]
+=== Wearing a piece of apparel : `wear` or `unavailable`
+
+Makes an existing apparel in FM worn and increases times worn by 1. +
+Format: `wash INDEX` or `unavailable INDEX`
+
+****
+* Makes the apparel's status worn at the specified `INDEX`. The index refers to the index number shown in the displayed apparel list.
+* Apparel will be made worn whether it was worn or clean before the command.
+* Feedback message gently advices you to not be a dirty bum if you wear a worn apparel even if its belts or shoes.
+* Random message guilting you for being dirty is shown to user.
+* Increases the 'Times Worn' counter by 1.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `wear 5` +
+Sets status of the fifth apparel in the list to 'Worn'.
+Increases its times worn by 1.
++
+image::wearCleanBefore.JPG[width="790"]
++
+image::wearCleanAfter.JPG[width="790"]
++
+* `wear 5` +
+Sets status of the fifth apparel in the list to 'Worn' even if it's already worn.
+Increases its times worn by 1.
+One of the seven random messages shown below.
++
+image::wearAgainBefore.PNG[width="790"]
++
+image::wearAgainAfter.JPG[width="790"]
+// end::wear[]
+
+=== Locating apparels by name: `find`
+
+Finds apparels whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The search is case insensitive. e.g `Zara` will match `zara`
+* The order of the keywords does not matter. e.g. `Nice Shirt` will match `Shirt Nice`
 * Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Only full words will be matched e.g. `Nice` will not match `Nices`
+* Apparels matching at least one keyword will be returned (i.e. `OR` search). e.g. `Zara Uniqlo` will return `Zara Belt`, `Uniqlo shoes`
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find Zara` +
+Returns `zara` and `Zara`
+* `find Zara Uniqlo Shirt` +
+Returns any apparel having names `Zara`, `Uniqlo` or `Shirt`.
 
-=== Deleting a person : `delete`
+=== Deleting an apparel : `delete`
 
-Deletes the specified person from the address book. +
+Deletes the specified apparel from FM. +
 Format: `delete INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the apparel at the specified `INDEX`.
+* The index refers to the index number shown in the displayed apparel list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -129,19 +240,19 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
+Deletes the 2nd apparel in FM.
+* `find Uniqlo` +
 `delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 1st apparel in the results of the `find` command.
 
-=== Selecting a person : `select`
+=== Selecting a apparel : `select`
 
-Selects the person identified by the index number used in the displayed person list. +
+Selects the apparel identified by the index number used in the displayed apparel list. +
 Format: `select INDEX`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Selects the apparel and loads a picture of the apparel at the specified `INDEX`.
+* The index refers to the index number shown in the displayed apparel list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
 
@@ -149,10 +260,10 @@ Examples:
 
 * `list` +
 `select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
+Selects the 2nd apparel in FM.
+* `find Uniqlo` +
 `select 1` +
-Selects the 1st person in the results of the `find` command.
+Selects the 1st apparel in the results of the `find` command.
 
 === Listing entered commands : `history`
 
@@ -167,12 +278,12 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores FM to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the FM's content (`add`, `delete`, `edit` and `clear`).
 ====
 
 Examples:
@@ -214,10 +325,80 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
+// tag::clear[]
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from FM. +
 Format: `clear`
+
+=== Recommend outfit : `recommendation`
+
+Lists a recommended outfit based on what matches in your closet. The matching is done based on what colors match. The matching matrix is displayed below. Green means match and red means not match. The algorithm will search for a random outfit that meets the color requirements. The outfit must have a `TOP`, `BOTTOM`, `SHOES`. If a matching belt exists, an outfit may be recommended with a BELT. +
+Format: `recommendation`
+
+=== Something color : `something [COLOR]`
+image::CM.png[width="1000"]
+
+Returns random apparel of specified COLOR FM. +
+Format: `something COLOR`
+
+****
+* Returns random apparel from specified `COLOR`.
+* The color refers to the color of apparel.
+* The color *must be a one of* RED, BLUE, GREEN, WHITE, BLACK, ...
+****
+
+Examples:
+
+* `something RED` +
+Returns a RED apparel from FM.
+
+* `something BLACK` +
+Returns a BLACK apparel from FM.
+
+=== Random item type : `random [TYPE]`
+
+Returns random specified TYPE of apparel from FM. +
+Format: `random TYPE`
+
+****
+* Returns random apparel from specified `TYPE`.
+* The type refers to the type of apparel.
+* The type *must be a one of* `TOP`, `BOTTOM`, `BELT`, `SHOES`
+****
+
+Examples:
+
+* `random TOP` +
+Returns a random TOP in FM.
+
+* `random BOTTOM` +
+Returns a random BOTTOM in FM.
+
+// tag::stats[]
+=== Calculating statistics : `stats` or `statistics`
+
+Gives an overview of the various statistics of the apparels/wardrobe. +
+Format: `stats` or `statistics`
+
+Typing `stats` or `statistics` will give you the following several information about your wardrobe:
+
+* Your favorite apparel
+
+* Your favorite color
+
+* Total number of apparel in wardrobe
+
+* Total number of different colored apparels
+
+* Your least favorite apparel (a reminder for you to wear them more often!)
+
+* How clean or dirty is your wardrobe
+
+An example output is shown in the screenshot below:
+
+image::stats.png[width="790"]
+// end::stats[]
 
 === Exiting the program : `exit`
 
@@ -226,35 +407,61 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+FM data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+== Coming in v2.0
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+=== Know suitable apparels based on occasions
+
+Fashion Match would be able to recommend suitable apparels based on whatever occasion the user is preparing for. For example, if the user is preparing for a formal event, FM will only recommend apparels that match the formal occasion.
+
+=== Matched colors
+
+Fashion Match would also be able to establish relations between certain colors so that it will not recommend conflicting colors. +
+Examples: red on red, yellow on yellow, etc
+
+=== Save favourite apparels/outfits
+
+Users would be able to save their favourite outfits or apparels so that they can quickly identify their favourite clothes for future use.
+
+
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous FM folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add* `add n/NAME c/COLOR t/CLOTHINGTYPE` +
+e.g. `add n/Bright Tshirt c/Yellow t/Top`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
+* *Edit* : `edit INDEX [n/NAME] [c/COLOR] [t/CLOTHINGTYPE]` +
+e.g. `edit 2 n/Formal Belt c/Brown`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
+e.g. `find Formal`
 * *History* : `history`
-* *Undo* : `undo`
+* *Help* : `help`
+* *List* : `list [OPTION] [OPTION-VALUE]` +
+e.g. `list top`
+* *Random* : `random TYPE` +
+e.g. `random TOP`
 * *Redo* : `redo`
+* *Recommendation* : `recommendation`
+* *Select* : `select INDEX` +
+e.g. `select 2`
+* *Something* : `something COLOR` +
+e.g. `something RED`
+* *Sort* : `sort [OPTION]` +
+e.g. `sort color`
+* *Swap* : `swap [INDEX_X] [INDEX_Y]` +
+e.g. `swap 2 5`
+* *Stats* : `stats`
+* *Undo* : `undo`
+* *Wash* : `wash INDEX` +
+e.g. `wash 1`
+* *Wear* : `wear INDEX` +
+e.g. `wear 1`

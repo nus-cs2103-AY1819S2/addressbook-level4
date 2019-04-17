@@ -102,6 +102,9 @@ For constraints of name, gender, age, phone, address and tags, please refer to t
 .Table for Patient's info constraint
 image::patientdataconstrainttable.png[width="800"]
 
+* A new `Patient` is thus created with the specified fields with a `pid` and default appointment status of `COMPLETED`.
+
+
 === Listing all patients : `list-p`
 
 Shows a list of all patients in docX. +
@@ -253,6 +256,14 @@ Examples:
 `select-p 3` +
 Selects the patient with current list index of '3' in the docX +
 The patient's full detail can be easily viewed in the browser panel.
+
+=== Appointment Status Display feature
+The patient card will show the appointment status of a patient. It will display any one of the four enum values: `ACTIVE, COMPLETED, CANCELLED, MISSED`.
+When an appointment is added, or marked, the execution of the command will cascade and alter the status display of the patient.
+It follows the following rules:
+
+. If the patient still has any other active appointments, a patient status will show `ACTIVE`
+. Else, a patient status will reflect the latest status change to any of his appointment.
 
 // tag::doctorcommands[]
 === Adding a doctor: `add-d`

@@ -65,9 +65,11 @@ Fashion Match is a desktop wardrobe management application used as a guide for y
 |===
 
 Wash command:
+
 include::../UserGuide.adoc[tag=wash]
 
 Wear command:
+
 include::../UserGuide.adoc[tag=wear]
 
 == Contributions to the Developer Guide
@@ -77,7 +79,9 @@ include::../UserGuide.adoc[tag=wear]
 |===
 
 Wash command:
+
 include::../DeveloperGuide.adoc[tag=wash]
 
 Wear command:
+
 include::../DeveloperGuide.adoc[tag=wear]

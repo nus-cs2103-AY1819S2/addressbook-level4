@@ -168,6 +168,7 @@ image::washWornAfter.JPG[width="790"]
 Does not allow cleaning if the fifth apparel in the list is already clean.
 +
 image::washClean.JPG[width="790"]
+// end::wash[]
 
 // tag::wear[]
 === Wearing a piece of apparel : `wear` or `unavailable`
@@ -202,6 +203,7 @@ One of the seven random messages shown below.
 image::wearAgainBefore.PNG[width="790"]
 +
 image::wearAgainAfter.JPG[width="790"]
+// end::wear[]
 
 === Locating apparels by name: `find`
 

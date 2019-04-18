@@ -1,5 +1,6 @@
 package seedu.giatros.logic.commands;
 
+import static seedu.giatros.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.giatros.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.giatros.testutil.TypicalPatients.getTypicalGiatrosBook;
 
@@ -7,7 +8,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.giatros.logic.CommandHistory;
-import seedu.giatros.logic.commands.exceptions.CommandException;
 import seedu.giatros.model.Model;
 import seedu.giatros.model.ModelManager;
 import seedu.giatros.model.UserPrefs;
@@ -21,6 +21,7 @@ public class ExportCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     public ExpectedException getThrown() {
+
         return this.thrown;
     }
 
@@ -42,13 +43,11 @@ public class ExportCommandTest {
     }
 
     @Test
-    public void execute_invalidDestination_throwsCommandException() throws CommandException {
-        ExportCommand exportCommand = new ExportCommand("");
+    public void execute_invalidDestination_throwsCommandException() {
         Model expectedModel = new ModelManager();
         expectedModel.commitGiatrosBook();
-        getThrown().expect(CommandException.class);
-        getThrown().expectMessage(ExportCommand.MESSAGE_CSV_FAIL);
-        exportCommand.execute(expectedModel, commandHistory);
+        assertCommandFailure(new ExportCommand(""), expectedModel, commandHistory,
+                    ExportCommand.MESSAGE_CSV_FAIL);
     }
 
 }

@@ -42,7 +42,7 @@ public class ExportCommandTest {
     }
 
     @Test
-    public void execute_invalidDestination_throwsCommandException() {
+    public void execute_invalidDestination_throwsCommandException() throws CommandException {
         ExportCommand exportCommand = new ExportCommand("");
         Model expectedModel = new ModelManager();
         expectedModel.commitGiatrosBook();

@@ -16,9 +16,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import seedu.giatros.commons.util.FileUtil;
 import seedu.giatros.logic.CommandHistory;
 import seedu.giatros.logic.commands.exceptions.CommandException;
 import seedu.giatros.model.Model;
+import seedu.giatros.model.util.SampleDataUtil;
+import seedu.giatros.storage.JsonGiatrosBookStorage;
 
 /**
  * Exports current Giatros book as csv file to local disk.
@@ -27,7 +30,7 @@ public class ExportCommand extends Command {
 
     public static final String COMMAND_WORD = "export";
 
-    public static final String MESSAGE_SUCCESS = "Export succesful. Giatros book csv file located at ";
+    public static final String MESSAGE_SUCCESS = "Export successful. Giatros book csv file located at ";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Exports current Giatros book as csv file (giatrosbook.csv) to "
@@ -56,12 +59,16 @@ public class ExportCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
         model.updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
 
         try {
+            if (!FileUtil.isFileExists(model.getGiatrosBookFilePath())) {
+                JsonGiatrosBookStorage giatrosBookStore = new JsonGiatrosBookStorage(model.getGiatrosBookFilePath());
+                giatrosBookStore.saveGiatrosBook(SampleDataUtil.getSampleGiatrosBook(), model.getGiatrosBookFilePath());
+            }
 
             File giatros = new File(model.getGiatrosBookFilePath().toAbsolutePath().toString());
 
@@ -99,10 +106,9 @@ public class ExportCommand extends Command {
 
             String dest = CDL.toString(patients);
             FileUtils.writeStringToFile(getCurLocation().getAbsoluteFile(), dest);
-            System.out.println("Hello!!");
 
         } catch (IOException e) {
-            new CommandException(MESSAGE_CSV_FAIL);
+            throw new CommandException(MESSAGE_CSV_FAIL);
         }
 
         return new CommandResult(MESSAGE_SUCCESS + getCurLocation().getAbsolutePath());

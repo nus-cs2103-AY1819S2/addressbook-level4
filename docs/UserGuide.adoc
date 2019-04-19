@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= Giatros - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,99 +12,151 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S2-W13-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103-AY1819S2-W13-4`      Since: `January 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Giatros is a hospital-management app that facilitate better interactions between different parties involved in the hospital.
+It is mainly targeted at the hospital staff who are keeping track of the patient records.
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `Giatros.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Giatros.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
+.  At this stage, you are in Guest mode and you will not be able to execute any commands yet.
+You need to login to your account before you can use the application.
+*  If you are a staff who already has an account, please login using this format : `login id/USERNAME pw/PASS`.
+*  If you do not have an account, please approach the manager to create an account for you.
+*  Refer to <<Authentication>> for details of the login system.
+
+.  Once logged in, you can type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list`* : lists all patients
+* **`add`**`n/John Doe p/94785930 y/Ibuprofen` : adds a patient named `John Doe`, who is allergic to `Ibuprofen` into Giatros
+* **`delete`**`3` : deletes the 3rd patient shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
+// tag::authentication[]
+[[Authentication]]
+== User Authentication Features
+When the application is first opened, it will be in Guest mode and no command can be executed except the `login` command.
+
+=== Logging in to the application : `login`
+
+Allows a guest to login and start using the application. +
+Format: `login id/USERNAME pw/PASSWORD`
+
+NOTE: A dummy staff account with sample data is available by default. Username: `STAFF` and Password: `1122qq`
+
+=== Logging out of the application : `logout`
+
+Allows the user to logout when done with the session. +
+Format: `logout`
+
+TIP: You can only logout when you have been logged in.
+
+=== Registering a new staff to use the application : `register`
+
+Allows the manager to create new staff account using which new staff can log into the application. +
+Format: `register id/USERNAME pw/PASSWORD n/NAME`
+
+****
+* Only the manager can create new staff accounts. A normal staff will not be able to execute the `register` command
+* The username `manager` is restricted. There can only be one manager.
+****
+
+NOTE: A dummy manager account is available by default. Username: `MANAGER` and Password: `1122qq`
+// end::authentication[]
+
 [[Features]]
-== Features
+== Application Features
 
 ====
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items in square brackets are optional e.g `n/NAME [y/ALLERGY]` can be used as `n/John Doe y/Ibuprofen` or as `n/John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[y/ALLERGY]...` can be used as `{nbsp}` (i.e. 0 times), `y/Ibuprofen`,
+`y/Ibuprofen y/Penicillin` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
 
+Allows a new user to learn about the different commands that are available. +
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding a patient: `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds a patient into Giatros. +
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [y/ALLERGY] [apt/APPOINTMENT]... `
 
 [TIP]
-A person can have any number of tags (including 0)
+A patient can have any number of allergies (including 0)
+A patient can have any number of appointments (including 0)
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe p/98765432 e/johndoe@gmail.com a/120 Jurong West St 23, #13-189 y/Ibuprofen`
+* `add n/Betsy Crowe p/12345678 e/ betsy@ymail.com.sg a/56 Lorong 2 Toa Payoh, #01-129 y/Ibuprofen y/Penicillin`
 
-=== Listing all persons : `list`
+=== Listing all patients : `list`
 
-Shows a list of all persons in the address book. +
+Shows a list of all patients stored in Giatros. +
 Format: `list`
 
-=== Editing a person : `edit`
+=== Editing a patient : `edit`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Edits an existing patient stored in Giatros. +
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [y/ALLERGY] [apt/APPOINTMENT]...`
+
+[TIP]
+This feature can be used to add, remove, or update a patient's name, phone, email, address, allergy or appointment
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list.
+The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When editing allergies or appointments, the existing allergies or appointments of the patient will be removed i.e adding of allergies or appointments is not cumulative.
+* You can remove all the patient's allergies by typing `y/` without specifying any allergies after it.
+* You can remove all the patient's appointments by typing `apt/` without specifying any appointments after it.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit 1 p/10293847` +
+Edits the phone number of the 1st patient to be `10293847`.
+* `edit 2 n/Betsy Crower y/ apt/` +
+Edits the name of the 2nd patient to be `Betsy Crower` and clears all existing allergies and appointments.
 
-=== Locating persons by name: `find`
+=== Locating patients by name: `find`
 
-Finds persons whose names contain any of the given keywords. +
+Finds patients whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
+
+[TIP]
+This feature is useful to find out whether a patient has been registered in the system.
+[TIP]
+Doctors and pharmacists can also use this feature to find out more about a specific patient, e.g. patient's allergies and appointments
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Patients matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
 Examples:
@@ -112,16 +164,16 @@ Examples:
 * `find John` +
 Returns `john` and `John Doe`
 * `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+Returns any patients having names `Betsy`, `Tim`, or `John`
 
-=== Deleting a person : `delete`
+=== Deleting a patient: `delete`
 
-Deletes the specified person from the address book. +
+Removes a patient from Giatros +
 Format: `delete INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the patient at the specified `INDEX`.
+* The index refers to the index number shown in the displayed patient list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -129,19 +181,19 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
+Deletes the 2nd patient stored in Giatros.
 * `find Betsy` +
 `delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 1st patient in the results of the `find` command.
 
-=== Selecting a person : `select`
+=== Selecting a patient : `select`
 
-Selects the person identified by the index number used in the displayed person list. +
+Selects the patient identified by the index number used in the displayed patient list. +
 Format: `select INDEX`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Selects the patient and loads the Google search page the patient at the specified `INDEX`.
+* The index refers to the index number shown in the displayed patient list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
 
@@ -149,10 +201,10 @@ Examples:
 
 * `list` +
 `select 2` +
-Selects the 2nd person in the address book.
+Selects the 2nd patient in the address book.
 * `find Betsy` +
 `select 1` +
-Selects the 1st person in the results of the `find` command.
+Selects the 1st patient in the results of the `find` command.
 
 === Listing entered commands : `history`
 
@@ -167,12 +219,12 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores the Giatros book to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the Giatros book's content (`add`, `delete`, `edit` and `clear`).
 ====
 
 Examples:
@@ -214,9 +266,116 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
+// tag::addremall[]
+=== Adding allergy to a patient: `addall`
+
+Adds one or more allergies to an existing patient in Giatros. +
+Format: `addall INDEX y/ALLERGY [y/ALLERGY]...`
+
+[NOTE]
+====
+Allergy names should be alphanumeric, i.e. `ibuprofen`, `C6H6` are acceptable but `anti-inflammatory` is not acceptable.
+====
+
+****
+* Adds one or more allergies to the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list.
+The index *must be a positive integer* 1, 2, 3, ...
+* Multiple allergies can be added at a time by separating the distinct allergies with distinct `y/` tags, e.g. `y/aspirin y/ibuprofen`.
+* Allergies already associated with the patient will be ignored. For example, if the 1st patient is allergic to `aspirin`, `addall 1 y/aspirin`
+will not modify the allergy list while `addall 1 y/aspirin y/ibuprofen` will just add `ibuprofen` to the allergy list.
+****
+
+Examples:
+
+* `addall 1 y/ibuprofen` +
+Adds the allergy `ibuprofen` to the 1st patient in the list.
+* `addall 3 y/aspirin y/amoxicillin` +
+Adds two allergies, `aspirin` and `amoxicillin` to the 3rd patient in the list.
+
+
+=== Removing allergy from a patient: `remall`
+
+[NOTE]
+====
+Allergy names should be alphanumeric, i.e. `ibuprofen`, `C6H6` are acceptable but `anti-inflammatory` is not acceptable.
+====
+
+Removes one or more allergies to an existing patient in Giatros. +
+Format: `remall INDEX y/ALLERGY [y/ALLERGY]...`
+
+****
+* Removes one or more allergies to the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list.
+The index *must be a positive integer* 1, 2, 3, ...
+* Multiple allergies can be removed at a time by separating the distinct allergies with distinct `y/` tags, e.g. `y/aspirin y/ibuprofen`.
+* Allergies not already associated with the patient will be ignored. For example, if the 1st patient is allergic to `aspirin`, `remall 1 y/ibuprofen`
+  will not modify the allergy list while `remall 1 y/aspirin y/ibuprofen` will just remove `aspirin` from the allergy list.
+****
+
+Examples:
+
+* `remall 1 y/ibuprofen` +
+Removes the allergy `ibuprofen` from the 1st patient in the list.
+* `remall 3 y/aspirin y/amoxicillin` +
+Removes two allergies, `aspirin` and `amoxicillin` from the 3rd patient in the list.
+// end::addremall[]
+
+// tag::addremapt[]
+=== Adding appointment to a patient: `addapt`
+
+Adds one or more appointments to an existing patient in Giatros. +
+Format: `addapt INDEX apt/APPOINTMENT [apt/APPOINTMENT]...`
+
+[NOTE]
+====
+Appointments should be in one of the following forms, 'yyyy-MM-dd HH:mm:ss'
+            , 'yyyy-MM-dd HH:mm', 'yyyy-MM-dd HH', and should be a valid date-time. Entering '2016-01-01' (no time value), '2019-02-29 10:10' (leap year, day does not exist), '2019-02-29 25:10' (impossible time), etc is not acceptable.
+====
+
+****
+* Adds one or more appointments to the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list.
+The index *must be a positive integer* 1, 2, 3, ...
+* Multiple appointments can be added at a time by separating the distinct appointments with distinct `apt/` tags, e.g. `apt/2019-01-01 15:15 apt/2019-01-01 15`.
+* Appointments already associated with the patient will be ignored. For example, if the 1st patient has an appointment at `2019-01-01 15:15`, `addapt 1 apt/2019-01-01 15:15`
+will not modify the appointment list while `addapt 1 apt/2019-01-01 15:15 apt/2019-01-01 15` will just add `2019-01-01 15` to the appointment list.
+****
+
+Examples:
+
+* `addapt 1 apt/2019-01-01 15` +
+Adds the appointment `2019-01-01 15` to the 1st patient in the list.
+* `addapt 3 apt/2019-01-01 15:15 apt/2019-02-02 15:15:30` +
+Adds two appointments, `2019-01-01 15:15` and `2019-02-02 15:15:30` to the 3rd patient in the list.
+
+=== Removing appointment from a patient: `remapt`
+
+[NOTE]
+====
+Appointments should be in one of the following forms, 'yyyy-MM-dd HH:mm:ss'
+            , 'yyyy-MM-dd HH:mm', 'yyyy-MM-dd HH', and should be a valid date-time. Entering '2016-01-01' (no time value), '2019-02-29 10:10' (leap year, day does not exist), '2019-02-29 25:10' (impossible time), etc is not acceptable.
+====
+
+Removes one or more appointments to an existing patient in Giatros. +
+Format: `remapt INDEX apt/APPOINTMENT [apt/APPOINTMENT]...`
+
+****
+* Removes one or more appointments to the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list.
+The index *must be a positive integer* 1, 2, 3, ...
+* Multiple appointments can be removed at a time by separating the distinct appointments with distinct `apt/` tags, e.g. `apt/2019-01-01 15:15 apt/2019-01-01 15`.
+* Appointments not already associated with the patient will be ignored. For example, if the 1st patient has an appointment at `2019-01-01 15:15`, `remapt 1 apt/2019-01-01 15`
+  will not modify the appointment list while `remapt 1 apt/2019-01-01 15:15 apt/2019-01-01 15` will just remove `2019-01-01 15:15` from the appointment list.
+****
+
+Examples:
+
+* `remapt 1 apt/2019-01-01 15` +
+Removes the appointment `2019-01-01 15` from the 1st patient in the list.
+* `remapt 3 apt/2019-01-01 15:15 apt/2019-02-02 15:15:30` +
+Removes two appointments, `2019-01-01 15:15` and `2019-02-02 15:15:30` from the 3rd patient in the list.
+// end::addremapt[]
+
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from Giatros. +
 Format: `clear`
 
 === Exiting the program : `exit`
@@ -226,28 +385,48 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Giatros data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+// tag::export[]
+=== Exporting the data `export`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Exports the giatros book to a cvs file saved on the local disk at the specified `DESTINATION`. +
+Format: `export` [d/`DESTINATION`]
+
+* `DESTINATION` can end with an extension of .csv or end as a path to a directory. +
+* Existing data file at `DESTINATION` will be overwritten. +
+* A table view of the exported data will appear when file is opened.
+* .csv files can be opened and edited in Microsoft Excel
+// end::export[]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Giatros folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+=== User Authentication Features
+
+* *Login (Guest-only)* `login id/USERNAME pw/PASSWORD`
+e.g. `login id/STAFF pw/1122qq`
+* *Logout (Staff-only)* `logout`
+* *Register (Manager-only)* `register id/USERNAME pw/PASSWORD n/NAME`
+e.g. `register id/USER pw/1122qq n/New User`
+
+=== Application Features
+
+* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [y/ALLERGY] [y/APPOINTMENT]...` +
+e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 y/paracetamol y/ibuprofen`
+* *Add appointment* `addapt INDEX apt/APPOINTMENT [apt/APPOINTMENT]...` +
+e.g. `addapt 1 apt/2019-01-01 15`
+* *Remove appointment* `remapt INDEX apt/APPOINTMENT [apt/APPOINTMENT]...` +
+e.g. `remapt 1 apt/2019-01-01 15`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [y/ALLERGY] [apt/APPOINTMENT]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
@@ -258,3 +437,9 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Add allergy* : `addall INDEX y/ALLERGY [y/ALLERGY]`
+e.g. `addall 1 y/ibuprofen`
+* *Remove allergy* : `remall INDEX y/ALLERGY [y/ALLERGY]`
+e.g. `remall 1 y/aspirin y/paracetamol`
+* *Export* : `export [d/DESTINATION]`
+e.g. `export d/~/Desktop`

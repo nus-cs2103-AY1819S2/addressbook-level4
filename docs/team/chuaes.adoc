@@ -1,0 +1,64 @@
+= Chua Eng Soon - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Giatros by CS2103 AY1819S2 W13-4
+
+---
+
+== Overview
+
+Hi! I am Chua Eng Soon, a Computer Science undergraduate in National University of Singapore. Giatros is my first software engineering project under CS2103.
+
+An introduction is as such:
+
+Giatros is a desktop patient record application that allows staff to keep track of patient data in a hospital. Written in Java, the user interacts with it using a CLI, and it has a GUI created with JavaFX.
+With the authentication and user management components, these restrict people without proper credentials from viewing or editing information.
+
+== Summary of contributions
+
+* *Major enhancement*: Added the *User Authentication feature*
+** What it does: Prevents user without proper credentials from executing role-restricted command and viewing of sensitive information.
+** Justification: This feature provides *data protection* for sensitive information from user without proper credential.
+** Highlights: 'Login', 'Logout' and 'Register' commands are available to faciliate the *User Authentication feature*.
+
+* *Minor enhancement*:
+** Change the ab4 logo to Giatros
+** Change the UI to show the username of the current user at the top right corner of the gui.
+** Added sample data for accounts and patients
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.0` - `v1.4` (5 releases) on GitHub
+** Documentation:
+*** Updated the Product Website
+*** Updated the user guide
+*** Updated the developed guide
+*** Updated the portfolio page
+
+** Tools:
+*** Created an organization repository for the team on Github
+*** Integrated a Github plugin (TravisCI) to the team repo
+*** Integrated a Github plugin (Appveyor) to the team repo
+*** Integrated a Github plugin (Coveralls) to the team repo
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=authentication]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=authentication]

@@ -5,6 +5,7 @@ import static seedu.giatros.logic.parser.CliSyntax.PREFIX_DEST;
 
 import java.util.stream.Stream;
 
+import seedu.giatros.commons.core.session.UserSession;
 import seedu.giatros.logic.commands.ExportCommand;
 import seedu.giatros.logic.parser.exceptions.ParseException;
 
@@ -22,11 +23,13 @@ public class ExportCommandParser implements Parser<ExportCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DEST);
 
+        if (!argMultimap.getPreamble().isEmpty() && UserSession.isAuthenticated()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
 
-        if (arePrefixesPresent(argMultimap, PREFIX_DEST)) {
+        } else if (arePrefixesPresent(argMultimap, PREFIX_DEST)) {
             String destination = ParserUtil.parseDestination(argMultimap.getValue(PREFIX_DEST).get());
-            if (destination.trim().isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
+            if (!destination.endsWith(".csv")) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.INVALID_PATH));
             }
             return new ExportCommand(destination.trim());
         }

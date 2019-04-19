@@ -522,7 +522,7 @@ The functionality of the classes related to `export` are listed below:
 * `ExportCommand` -- When executed, the command will result in a cvs file saved on the local disk at the specified `DESTINATION`.
 * `DESTINATION` can end with an extension of .csv or end as a path to a directory.
 * Existing data file at `DESTINATION` will be overwritten.
-* A table view of the exported data will appear on execution of command.
+* A table view of the exported data will appear when file is opened.
 * .csv files can be opened and edited in Microsoft Excel
 
 Given below is an example usage scenario and how the export mechanism behaves at each step.
@@ -1313,9 +1313,9 @@ Prerequisites: Have a non-empty list of patients.
 You may need to restart your application if you just finished testing the `undo` command.
 
 . Test case: `export` +
-  Expected: Export sucessful. Giatros book csv file located at ~/Downloads. CSV file will open automatically.
+  Expected: Export sucessful. Giatros book csv file located at ~/Downloads.
+. Test case: `export d/~/Desktop/Giatros.csv` +
+  Expected: Export sucessful. Giatros book csv file located at ~/Desktop.
 . Test case: `export d/~/Desktop` +
-  Expected: Export sucessful. Giatros book csv file located at ~/Desktop. CSV file will open automatically.
-. Test case: `export d/` +
-  Expected: An error will occur. Invalid destination specified
+  Expected: An error will occur. Invalid destination specified. Destination must end in .csv
 //end::manualtest2

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.giatros.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.giatros.logic.parser.CliSyntax.PREFIX_ALLERGY;
 import static seedu.giatros.logic.parser.CliSyntax.PREFIX_APPOINTMENT;
+import static seedu.giatros.logic.parser.CliSyntax.PREFIX_DEST;
 import static seedu.giatros.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.giatros.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.giatros.logic.parser.CliSyntax.PREFIX_NAME;
@@ -74,8 +75,10 @@ public class CommandTestUtil {
     public static final String INVALID_PASSWORD = "1122 qq";
     public static final String INVALID_NAME = "bab @ b";
 
-    public static final String VALID_DEST_PATH = System.getProperty("user.home") + "/Desktop";
-    public static final String INVALID_DEST_PATH = " ";
+    public static final String VALID_PATH = System.getProperty("user.home") + "/giatros.csv";
+    public static final String INVALID_PATH = System.getProperty("user.home");
+    public static final String PREFIX_WITH_VALID_PATH = " " + PREFIX_DEST + VALID_PATH;
+    public static final String PREFIX_WITH_INVALID_PATH = " " + PREFIX_DEST + INVALID_PATH;
 
     public static final String PREFIX_WITH_VALID_USERNAME = " " + PREFIX_ID + VALID_USERNAME;
     public static final String PREFIX_WITH_VALID_PASSWORD = " " + PREFIX_PASSWORD + VALID_PASSWORD;

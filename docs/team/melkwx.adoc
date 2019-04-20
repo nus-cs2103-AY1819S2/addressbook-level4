@@ -61,8 +61,10 @@ include::../UserGuide.adoc[tag=memberfind]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
+include::../DeveloperGuide.adoc[tag=memberdelete]
+include::../DeveloperGuide.adoc[tag=memberedit]
+include::../DeveloperGuide.adoc[tag=memberfind]
+include::../DeveloperGuide.adoc[tag=userstories]
 == PROJECT: PowerPointLabs
 
 ---

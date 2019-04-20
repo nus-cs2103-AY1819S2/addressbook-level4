@@ -554,7 +554,7 @@ The following code snippet shows how `memberFind` command is executed:
 <3> Checks if criteria given is "matricnum"
 <4> Updates filtered person list with members whose matriculation number contain the keyword
 
-//end::memberFind[]
+//end::memberfind[]
 
 // tag::memberfilter[]
 ===== `memberFilter` Command

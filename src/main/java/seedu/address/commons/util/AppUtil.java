@@ -3,12 +3,18 @@ package seedu.address.commons.util;
 import static java.util.Objects.requireNonNull;
 
 import javafx.scene.image.Image;
+
 import seedu.address.MainApp;
 
 /**
  * A container for App specific utility functions
  */
 public class AppUtil {
+    /**
+     * This is a static-methods-only (utility) class which should not be instantiated.
+     * Note that this is not a singleton class given that not even a single instance is allowed.
+     */
+    private AppUtil() { }
 
     public static Image getImage(String imagePath) {
         requireNonNull(imagePath);

@@ -1,0 +1,87 @@
+= Chang Lei - Project Portfolio for BrainTrain
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:toc:
+:toclevels: 1
+:toc-title: Table of contents
+:toc-placement: manual
+:sectnums:
+:repoURL: https://github.com/CS2103-AY1819S2-W14-1/main
+:pullURL: https://github.com/CS2103-AY1819S2-W14-1/main/pull/
+:seeduURL: https://github.com/se-edu/addressbook-level4
+
+== Introduction
+
+This project portfolio page displays my contributions to the BrainTrain project.
+
+=== Overview
+The BrainTrain project was designed, developed and implemented by a team of 5 students over seven weeks, under one of the National University of Singapore's modules: link:{seeduURL}[CS2103T Software Engineering]. +
+
+We chose to morph link:{seeduURL}[existing addressbook application] into a https://en.wikipedia.org/wiki/Spaced_repetition[spaced-repetition system] flashcard application to improve our software engineering skills and build an application for users who need to memorize heavy contents.
+
+=== What is BrainTrain
+BrainTrain is an open-source spaced repetition flashcard application for people who need to memorise something which is content heavy. link:https://www.theguardian.com/education/2016/jan/23/spaced-repetition-a-hack-to-make-your-brain-store-information[Research] has shown that the Spaced-Repetition System (SRS) is much more effective than traditional memorization techniques since it help users review more their poorly memorised words. With BrainTrain, you will learn more with less time since this application makes memorizing an easier and more efficient job.
+
+BrainTrain is also a portable and easy-to-navigate desktop program. It is an offline application which you can use anywhere, even in places with limited or no Internet availability. It can be navigated and used via easy-to-use commands through the Command Line Interface (CLI). The CLI is supplemented by a minimalistic Graphical User Interface (GUI) which provides helpful but non-distracting visual aid. Together, the CLI and GUI provides an effective and straightforward way for you to use BrainTrain.
+
+=== My role
+My role was to design and write the codes for a `session` feature as well as `start` command. The following sections illustrate these enhancements and other relevant minor enhancements in more detail.
+
+== Summary of contributions
+This section shows a summary of my coding, documentation, and other helpful contributions to the
+team project.
+
+=== *Major enhancement*: Session and session manager model
+* *What it does*: Session model generates quiz cards that are needed to be tested in quiz mode based on data storage both from lesson and user progress.
+* *Justification*: To choose the most suitable words for users, session model also has a manager to do the card analysis and generation based on different modes that users want. In review mode, the method will always generate the cards with the closet due date to users which applies our https://en.wikipedia.org/wiki/Spaced_repetition[spaced-repetition system]. It can update the user progress after each quiz session as well.
+* *Highlights*: Pull request link:{pullURL}40[#40], link:{pullURL}97[#97], link:{pullURL}109[#109] and link:{pullURL}132[#132].
+* Code contributed: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=lallanachang[RepoSense]]
+
+=== *Minor enhancement*: quiz start command
+* *What it does*: Users can start a quiz session using `start` command.
+* *Justification*: Users can specify the lesson and number of cards they want to be tested as well as the quiz mode they want to enter through setting different parameters in the quiz start command .
+* *Highlights*: Pull request link:{pullURL}40[#40], link:{pullURL}100[#100] and link:{pullURL}185[#185].
+* Code contributed: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=lallanachang[RepoSense]]
+
+=== *Other contributions*:
+Besides designing and writing codes, I also contributed to the project in the following areas:
+
+* Documentation:
+** Updated explanation and diagrams in user guide and developer guide to match the current implementation.
+** Sorted out and updated use stories and cases in develop guide. (Pull request link:{pullURL}14[#14])
+
+* Enhancement to existing feature:
+** Updated the Graphical User Interface representation for the quiz system. (Pull request link:{pullURL}176[#176])
+
+* Project management:
+** Followed team's internal schedule and updated the codes before each milestone.
+
+* Community:
+** PRs reviewed with comments: (examples: Pull request link:{pullURL}86[#86], link:{pullURL}107[#107])
+** Reported bugs and offered suggestion for the project. (examples: https://github.com/CS2103-AY1819S2-W14-1/main/issues/98[#98], https://github.com/CS2103-AY1819S2-W14-1/main/issues/128[#128])
+
+{empty} +
+{empty} +
+{empty} +
+
+== Contributions to the User Guide
+
+|===
+|Given below are sections I contributed to the User Guide, showing development that I have made for the `start` feature. They showcase my ability to write documentation targeting end-users.
+|The sections also contain an excerpt for the starting multiple lessons feature that I have planned for the next version (v2.0) of BrainTrain.
+|===
+
+include::../UserGuide.adoc[tag=lei]
+
+{empty} +
+{empty} +
+{empty} +
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide, showing implementation I have made for the `session` feature as well as some suggested test cases for `StartCommand`. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=session]

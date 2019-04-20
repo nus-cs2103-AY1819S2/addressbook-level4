@@ -27,7 +27,6 @@ import seedu.address.commons.exceptions.DataConversionException;
  * Converts a Java object instance to JSON and vice versa
  */
 public class JsonUtil {
-
     private static final Logger logger = LogsCenter.getLogger(JsonUtil.class);
 
     private static ObjectMapper objectMapper = new ObjectMapper().findAndRegisterModules()
@@ -38,6 +37,12 @@ public class JsonUtil {
             .registerModule(new SimpleModule("SimpleModule")
                     .addSerializer(Level.class, new ToStringSerializer())
                     .addDeserializer(Level.class, new LevelDeserializer(Level.class)));
+
+    /**
+     * This is a static-methods-only (utility) class which should not be instantiated.
+     * Note that this is not a singleton class given that not even a single instance is allowed.
+     */
+    private JsonUtil() { }
 
     static <T> void serializeObjectToJsonFile(Path jsonFile, T objectToSerialize) throws IOException {
         FileUtil.writeToFile(jsonFile, toJsonString(objectToSerialize));
@@ -132,11 +137,6 @@ public class JsonUtil {
          */
         private Level getLoggingLevel(String loggingLevelString) {
             return Level.parse(loggingLevelString);
-        }
-
-        @Override
-        public Class<Level> handledType() {
-            return Level.class;
         }
     }
 

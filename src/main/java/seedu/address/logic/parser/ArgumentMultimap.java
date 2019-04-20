@@ -52,6 +52,14 @@ public class ArgumentMultimap {
     }
 
     /**
+     * @param prefix the prefix to check
+     * @return true if and only if one of prefix is available; false otherwise
+     */
+    public boolean hasExactlyOneValue(Prefix prefix) {
+        return getAllValues(prefix).size() == 1;
+    }
+
+    /**
      * Returns the preamble (text before the first valid prefix). Trims any leading/trailing spaces.
      */
     public String getPreamble() {

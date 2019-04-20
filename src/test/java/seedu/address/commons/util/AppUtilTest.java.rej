@@ -1,0 +1,12 @@
+diff a/src/test/java/braintrain/commons/util/AppUtilTest.java b/src/test/java/braintrain/commons/util/AppUtilTest.java	(rejected hunks)
+@@ -1,7 +1,10 @@
+  package braintrain.commons.util;
+
+++<<<<<<< HEAD
+ +import static org.junit.Assert.assertNotNull;
+ +
+++=======
+++>>>>>>> 5c3c049cf1982350a2d83f1566f3e19676831918
+  import org.junit.Rule;
+  import org.junit.Test;
+  import org.junit.rules.ExpectedException;

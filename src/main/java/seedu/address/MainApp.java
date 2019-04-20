@@ -1,6 +1,7 @@
 package seedu.address;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -15,19 +16,23 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.lesson.LessonList;
+import seedu.address.model.modelmanager.ManagementModel;
+import seedu.address.model.modelmanager.ManagementModelManager;
+import seedu.address.model.modelmanager.QuizModel;
+import seedu.address.model.modelmanager.QuizModelManager;
+import seedu.address.model.user.User;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.CsvLessonListStorage;
+import seedu.address.storage.CsvUserStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.LessonListStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.UserStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -36,19 +41,20 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Version VERSION = new Version(1, 3, 1, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
     protected Logic logic;
     protected Storage storage;
-    protected Model model;
+    protected ManagementModel managementModel;
+    protected QuizModel quizModel;
     protected Config config;
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing BrainTrain ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -56,41 +62,35 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        LessonListStorage lessonListStorage = new CsvLessonListStorage(userPrefs.getLessonListFolderPath());
+        LessonList lessonList = initLessonList(lessonListStorage);
+        UserStorage userStorage = new CsvUserStorage(userPrefs.getUserFilePath());
+        User user = initUser(userStorage);
+        storage = new StorageManager(userPrefsStorage, lessonListStorage, userStorage);
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
+        managementModel = initModelManager(userPrefs, lessonList, user);
+        quizModel = initQuizModelManager(managementModel);
 
-        logic = new LogicManager(model, storage);
+        logic = new LogicManager(managementModel, quizModel, storage);
 
         ui = new UiManager(logic);
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ManagementModelManager} with the data from {@code userPrefs}.
      */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
-        try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
-            }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
-        }
+    private ManagementModel initModelManager(ReadOnlyUserPrefs userPrefs, LessonList lessonList, User user) {
+        return new ManagementModelManager(userPrefs, lessonList, user);
+    }
 
-        return new ModelManager(initialData, userPrefs);
+    /**
+     * Returns an empty {@code QuizModelManager}.
+     * @param managementModel
+     */
+    private QuizModelManager initQuizModelManager(ManagementModel managementModel) {
+        return new QuizModelManager(managementModel);
     }
 
     private void initLogging(Config config) {
@@ -151,7 +151,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with a empty BrainTrain");
             initializedPrefs = new UserPrefs();
         }
 
@@ -165,17 +165,76 @@ public class MainApp extends Application {
         return initializedPrefs;
     }
 
+
+    /**
+     * Returns a {@code LessonList} using the folder at {@code storage}'s LessonList folder path,
+     * or a new {@code LessonList} with no initial lessons if errors occur when
+     * reading from the file.
+     */
+    protected LessonList initLessonList(LessonListStorage storage) {
+        Path lessonListFolderPath = storage.getLessonListFolderPath();
+        logger.info("Using lessons folder: " + lessonListFolderPath);
+
+        if (!Files.exists(lessonListFolderPath)) {
+            logger.info("Lessons folder not found. Creating...");
+        }
+
+        try {
+            Files.createDirectories(lessonListFolderPath);
+        } catch (IOException e) {
+            logger.warning("Failed to create folder at: " + lessonListFolderPath);
+        }
+
+        LessonList initializedLessonList = null;
+        Optional<LessonList> prefsOptional = storage.readLessonList();
+        initializedLessonList = prefsOptional.orElse(SampleDataUtil.getSampleBrainTrain());
+
+        if (initializedLessonList.getLessons().size() == 0) {
+            initializedLessonList = SampleDataUtil.getSampleBrainTrain();
+            storage.saveLessonList(initializedLessonList);
+        }
+
+        logger.info(initializedLessonList.getLessons().size() + " lessons loaded.");
+        return initializedLessonList;
+    }
+
+    /**
+     * Returns a {@code User} using the file at {@code storage}'s user file path,
+     * or a new {@code User} with empty data if errors occur when reading from the file.
+     */
+    protected User initUser(UserStorage storage) {
+        Path userFilePath = storage.getUserFilePath();
+        logger.info("Using user data folder : " + userFilePath);
+
+        if (!Files.exists(userFilePath)) {
+            logger.info("User folder not found. Creating...");
+        }
+
+        try {
+            Files.createDirectories(userFilePath.getParent());
+        } catch (IOException e) {
+            logger.warning("Failed to create folder at: " + userFilePath);
+        }
+
+        User initializedUser = null;
+        Optional<User> prefsOptional = storage.readUser();
+        initializedUser = prefsOptional.orElse(new User());
+
+        logger.info("User data successfully loaded " + initializedUser.getCards().size() + " cards.");
+        return initializedUser;
+    }
+
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting BrainTrain " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping BrainTrain ] =============================");
         try {
-            storage.saveUserPrefs(model.getUserPrefs());
+            storage.saveUserPrefs(managementModel.getUserPrefs());
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }

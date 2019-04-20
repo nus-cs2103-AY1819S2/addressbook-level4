@@ -4,53 +4,53 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+BrainTrain was developed by https://cs2103-ay1819s2-w14-1.github.io/main/AboutUs.html[Team BrainTrain]. +
+
 {empty} +
-We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+We are a team based in the link:http://www.comp.nus.edu.sg[School of Computing], link:http://www.nus.edu.sg[National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
-
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Eugene Foo
+image::eugenefdw.png[width="150", align="left"]
+{empty}[http://github.com/eugenefdw[github]] [<<eugenefdw#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibilities: Data storage
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Lee Tze Ting
+image::halcyoneee.png[width="150", align="left"]
+{empty}[http://github.com/halcyoneee[github]] [<<halcyoneee#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Quiz mode and integration
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Jerald Tan
+image::jeraldtsy.png[width="150", align="left"]
+{empty}[http://github.com/jeraldtsy[github]] [<<jeraldtsy#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: User model and import and export files
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Evan Tay
+image::digipie.png[width="150", align="left"]
+{empty}[http://www.evantay.com[homepage]] [http://github.com/DigiPie[github]] [<<digipie#, portfolio>>]
+
+Role: Documentation Lead +
+Responsibilities: Card Management System and Project Documentation
+
+'''
+
+=== Chang Lei
+image::lallanachang.png[width="150", align="left"]
+{empty}[https://github.com/lallanachang[github]] [<<lallanachang#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
-
-'''
+Responsibilities: Spaced-Repetition System (SRS)

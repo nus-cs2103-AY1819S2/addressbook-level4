@@ -147,4 +147,17 @@ public class ArgumentTokenizerTest {
         assertNotEquals(aaa, new Prefix("aab"));
     }
 
+    @Test
+    public void singleInputForAToken_hasOneValue_returnsTrue() {
+        String argsString = "SomePreambleStringp/ pSlash joined-tjoined -t not joined^Qjoined";
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, pSlash, dashT, hatQ);
+        assertTrue(argMultimap.hasExactlyOneValue(dashT));
+    }
+
+    @Test
+    public void multipleInputForAToken_hasOneValue_returnsFalse() {
+        String argsString = "SomePreambleStringp/ pSlash -t joined-tjoined -t not joined^Qjoined";
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, pSlash, dashT, hatQ);
+        assertFalse(argMultimap.hasExactlyOneValue(dashT));
+    }
 }

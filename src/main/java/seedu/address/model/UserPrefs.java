@@ -12,9 +12,13 @@ import seedu.address.commons.core.GuiSettings;
  * Represents User's preferences.
  */
 public class UserPrefs implements ReadOnlyUserPrefs {
+    public static final String LIGHT_THEME = "view/LightTheme.css";
+    public static final String DARK_THEME = "view/DarkTheme.css";
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path lessonListFolderPath = Paths.get("lessons");
+    private Path userFilePath = Paths.get("userdata", "savedata.csv");
+    private String theme = LIGHT_THEME;
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -35,7 +39,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+        setLessonListFolderPath(newUserPrefs.getLessonListFolderPath());
+        setUserFilePath(newUserPrefs.getUserFilePath());
+        setTheme(newUserPrefs.getTheme());
     }
 
     public GuiSettings getGuiSettings() {
@@ -47,13 +53,35 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getAddressBookFilePath() {
-        return addressBookFilePath;
+    public Path getLessonListFolderPath() {
+        return lessonListFolderPath;
     }
 
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        this.addressBookFilePath = addressBookFilePath;
+    public void setLessonListFolderPath(Path lessonListFolderPath) {
+        requireNonNull(lessonListFolderPath);
+        this.lessonListFolderPath = lessonListFolderPath;
+    }
+
+    public Path getUserFilePath() {
+        return userFilePath;
+    }
+
+    public void setUserFilePath(Path userFilePath) {
+        requireNonNull(userFilePath);
+        this.userFilePath = userFilePath;
+    }
+
+    public String getTheme() {
+        return theme;
+    }
+
+    public void setTheme(String newTheme) {
+        requireNonNull(newTheme);
+        this.theme = newTheme;
+    }
+
+    public String toggleTheme() {
+        return theme.equals(LIGHT_THEME) ? DARK_THEME : LIGHT_THEME;
     }
 
     @Override
@@ -67,21 +95,23 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
         UserPrefs o = (UserPrefs) other;
 
-        return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath);
+        return this.hashCode() == o.hashCode();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath);
+        return Objects.hash(guiSettings, lessonListFolderPath, userFilePath, theme);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nLocal data file location : " + lessonListFolderPath);
+        sb.append("\nLocal user file location : " + userFilePath);
+        sb.append("\nTheme location : " + theme);
         return sb.toString();
     }
+
 
 }

@@ -1,0 +1,78 @@
+= Jerald Tan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: BrainTrain
+
+This project portfolio page showcases my contributions to the BrainTrain project such as coding,
+documentation and other contributions.
+
+== Overview
+All National University of Singapore(NUS) School of Computing(SoC) students have to take a software engineering module
+part encoded CS2103T as a required module. Our team comprises of 5 members who were tasked to develop and enhance an existing
+https://github.com/se-edu/addressbook-level4[address book application] within 7 weeks.
+
+We were given a choice to morph the existing address book to any application we want and we chose
+to develop *BrainTrain*, which will be detailed below.
+
+BrainTrain uses Spaced-Repetition System (SRS), a more effective and efficient memorisation technique compared to hardcore
+memorisation techniques. Users will be able to learn more with less time. User interaction
+happens through Command Line Interface (CLI) and it has a minimal Graphical User Interface (GUI)
+created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+My role in BrainTrain is to design and manage the user data through the manipulation of importing and exporting of files.
+The following sections give a summary of how I have contributed to the project and showcases my ability to write both
+the user and developer guide.
+
+== Summary of contributions
+
+* *Major enhancement*: User features, Comma-Separated Values(CSV) File Storage
+
+** *What it does*: User features manage the user progress and import and export their progress into a simple CSV file accordingly.
+This feature is automated. +
+Import of user file happens when the application is opened. +
+Export of user file happens when the application is closed. +
+
+** *Why it is important*: In consideration of the portability for users to use BrainTrain across different devices, it is
+important to have a file to keep track of the status of the questions. Furthermore, each question will have a unique SRS-date that is
+dependent on how well the user answered the questions. Questions with approaching due dates will be listed first.
+
+** *Highlights*: Pull request https://github.com/CS2103-AY1819S2-W14-1/main/pull/30[#30],
+https://github.com/CS2103-AY1819S2-W14-1/main/pull/75[#75],
+https://github.com/CS2103-AY1819S2-W14-1/main/pull/106[#106],
+https://github.com/CS2103-AY1819S2-W14-1/main/pull/139[#139]
+
+* *Minor enhancement*: Sanitise user inputs of the CSV file that is generated
+
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=jeraldtsy[RepoSense]]
+
+* *Other contributions*:
+** Documentation:
+*** Updated class and sequence diagrams to match the current implementation
+*** Reported bugs and suggestion for other team in the class
+(examples: https://github.com/CS2103-AY1819S2-W16-1/main/issues/143[#143],
+https://github.com/CS2103-AY1819S2-W16-1/main/issues/152[#152],
+https://github.com/CS2103-AY1819S2-W16-1/main/issues/163[#163],
+https://github.com/CS2103-AY1819S2-W16-1/main/issues/172[#172])
+
+== Contributions to the User Guide
+
+_Start of extract of user mode_
+
+include::../UserGuide.adoc[tag=jeraldtsy]
+
+_End of extract of user mode_
+
+Click to read the full https://cs2103-ay1819s2-w14-1.github.io/main/UserGuide.html[User Guide].
+
+== Contributions to the Developer Guide
+
+_Start of extract of data storage_
+
+include::../DeveloperGuide.adoc[tag=datastorage]
+
+_End of extract of data storage_
+
+Click to read the full https://cs2103-ay1819s2-w14-1.github.io/main/DeveloperGuide.html[Developer Guide].
+

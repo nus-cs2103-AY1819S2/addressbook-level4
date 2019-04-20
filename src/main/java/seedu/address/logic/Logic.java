@@ -1,15 +1,15 @@
 package seedu.address.logic;
 
-import java.nio.file.Path;
+import java.util.List;
 
-import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.lesson.Lesson;
+import seedu.address.model.quiz.QuizCard;
 
 /**
  * API of the Logic component
@@ -25,25 +25,33 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
-     *
-     * @see seedu.address.model.Model#getAddressBook()
+     * Returns either management or quiz mode dependent on isQuizDone
      */
-    ReadOnlyAddressBook getAddressBook();
+    LogicManager.Mode getMode();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    /**
+     * @return a list of lessons for UI display purposes
+     */
+    List<Lesson> getLessons();
+
+    String getCurrentLessonName();
+    Lesson getOpenedLesson();
+
+    /**
+     * Returns the current quiz card for UI MainPanel display
+     */
+    QuizCard getCurrentQuizCard();
+
+    /**
+     * Returns the total correct out of total attempts for UI MainPanel display
+     */
+    String getTotalCorrectAndTotalAttempts();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
      * The list is ordered from the least recent command to the most recent command.
      */
     ObservableList<String> getHistory();
-
-    /**
-     * Returns the user prefs' address book file path.
-     */
-    Path getAddressBookFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
@@ -56,17 +64,12 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
-     *
-     * @see seedu.address.model.Model#selectedPersonProperty()
+     * Returns the user prefs' theme.
      */
-    ReadOnlyProperty<Person> selectedPersonProperty();
+    String getTheme();
 
     /**
-     * Sets the selected person in the filtered person list.
-     *
-     * @see seedu.address.model.Model#setSelectedPerson(Person)
+     * Returns the list of QuizCard from Quiz.
      */
-    void setSelectedPerson(Person person);
+    List<QuizCard> getQuizCardList();
 }

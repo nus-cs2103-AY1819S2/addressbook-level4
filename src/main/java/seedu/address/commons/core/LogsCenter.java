@@ -14,15 +14,23 @@ import java.util.logging.SimpleFormatter;
  * These loggers have been configured to output messages to the console and a {@code .log} file by default,
  *   at the {@code INFO} level. A new {@code .log} file with a new numbering will be created after the log
  *   file reaches 5MB big, up to a maximum of 5 files.<br>
+ *
+ * Taken from seedu.addressbook.
  */
 public class LogsCenter {
     private static final int MAX_FILE_COUNT = 5;
     private static final int MAX_FILE_SIZE_IN_BYTES = (int) (Math.pow(2, 20) * 5); // 5MB
-    private static final String LOG_FILE = "addressbook.log";
+    private static final String LOG_FILE = "braintrain.log";
     private static Level currentLogLevel = Level.INFO;
     private static final Logger logger = LogsCenter.getLogger(LogsCenter.class);
     private static FileHandler fileHandler;
     private static ConsoleHandler consoleHandler;
+
+    /**
+     * This is a static-methods-only (utility) class which should not be instantiated.
+     * Note that this is not a singleton class given that not even a single instance is allowed.
+     */
+    private LogsCenter() { }
 
     /**
      * Initializes with a custom log level (specified in the {@code config} object)

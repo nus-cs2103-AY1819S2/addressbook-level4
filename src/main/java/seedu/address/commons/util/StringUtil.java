@@ -6,11 +6,21 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Helper functions for handling strings.
  */
 public class StringUtil {
+    /**
+     * This is a static-methods-only (utility) class which should not be instantiated.
+     * Note that this is not a singleton class given that not even a single instance is allowed.
+     *
+     * Throws an {@link InstantiationError} when accessed to prevent instantiation
+     * via new, clone(), reflection and serialization.
+     */
+    private StringUtil() { }
+
 
     /**
      * Returns true if the {@code sentence} contains the {@code word}.
@@ -64,5 +74,40 @@ public class StringUtil {
         } catch (NumberFormatException nfe) {
             return false;
         }
+    }
+
+    /**
+     * Checks if a {@code List} of {@code String} has empty strings.
+     * @param strings the {@code List} of {@code String} to check
+     * @return true if there is one or more empty strings; false if all are non-empty
+     */
+    public static boolean hasEmptyStrings(List<String> strings) {
+        for (String s: strings) {
+            if (s.isEmpty()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    /**
+     * Truncates {@code s} if it exceed {@code maxLength} and returns it.
+     *
+     * @param s the string to truncate if exceeding {@code maxLength}
+     * @param maxLength the maximum length of the string to be returned, if {@code s} exceeds
+     * {@code maxLength}, return a {@code substring(0, maxLength -3)} of {@code s} with "..."
+     * appended.
+     *
+     * @return the string if s < maxLength, otherwise the substring of the string of maxLength length
+     */
+    public static String truncateString(String s, int maxLength) {
+        String output = s;
+        if (s.length() > maxLength) {
+            output = s.substring(0, maxLength - 3) + "...";
+        }
+
+        return output;
     }
 }

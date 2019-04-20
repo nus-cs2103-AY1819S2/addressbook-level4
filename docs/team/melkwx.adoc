@@ -64,7 +64,6 @@ include::../UserGuide.adoc[tag=memberfind]
 include::../DeveloperGuide.adoc[tag=memberdelete]
 include::../DeveloperGuide.adoc[tag=memberedit]
 include::../DeveloperGuide.adoc[tag=memberfind]
-include::../DeveloperGuide.adoc[tag=userstories]
 == PROJECT: PowerPointLabs
 
 ---

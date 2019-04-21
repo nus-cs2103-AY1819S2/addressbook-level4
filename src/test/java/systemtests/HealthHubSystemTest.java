@@ -39,6 +39,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.request.DeleteRequestCommand;
+import seedu.address.logic.commands.request.EditRequestCommand;
 import seedu.address.logic.commands.request.FilterRequestCommand;
 import seedu.address.logic.commands.request.ListRequestCommand;
 import seedu.address.model.HealthWorkerBook;
@@ -175,8 +176,8 @@ public abstract class HealthHubSystemTest {
      */
     protected void showPatientsWithName(String keyword) {
         executeCommand(FilterRequestCommand.COMMAND_WORD + " request n/" + keyword);
-        // assertTrue(getModel().getFilteredRequestList().size()
-        //        < getModel().getRequestBook().getRequestList().size());
+        //assertTrue(getModel().getFilteredRequestList().size()
+        // < getModel().getRequestBook().getRequestList().size());
     }
 
     /**
@@ -185,6 +186,19 @@ public abstract class HealthHubSystemTest {
     protected void selectRequest(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
         assertEquals(index.getZeroBased(), getRequestListPanel().getSelectedCardIndex());
+    }
+
+    /**
+     * Converts all ongoing requests to completed (for systemtests).
+     */
+    protected void convertOngoingRequests() {
+        executeCommand(FilterRequestCommand.COMMAND_WORD + " request st/ONGOING");
+        int size = getModel().getFilteredRequestList().size();
+        for (int i = 1; i < size + 1; i++) {
+            executeCommand(EditRequestCommand.COMMAND_WORD + " " + EditRequestCommand.COMMAND_OPTION
+                    + " 1 st/COMPLETED");
+            executeCommand(FilterRequestCommand.COMMAND_WORD + " request st/ONGOING");
+        }
     }
 
     /**

@@ -150,33 +150,42 @@ Other enhancements made to Health Hub include:
 
 * `setreminder` command: Allows the user to set and register reminders in the
  application.
-* `undo/redo` command: Undo a previous action or redo everything.
+* `undo/redo` command: Undo a previous action or redo a previously undone action.
 
 For more explicit information on the `filter`,`setreminder` and `undo/redo`
 command, visit <<Features>>, under Filtering Health Workers/Requests.
 
+// tag::releasenotes-1.4[]
 === v1.4 Release Notes
 
-v1.4 to be released
+With the release of version 1.4, we decided to improve our current features by making them more dynamic and automated to reduce the manual work of changing the data.
+
+* The health worker field inside requests now shows the NRIC of the health worker instead of the name in previous versions.
+
+* Editing the NRIC of a health worker will dynamically change the health staff field  of all requests assigned to the health worker.
+
+* Users can assign multiple requests to a health worker only if the requests are at least 2 hours apart.
+
+// end::releasenotes-1.4[]
 
 // tag::releasenotes-2.0[]
 === v2.0 Release Notes
 
-After the release of v1.4, the team have planned for future enhancements to Health Hub to improve its existing functionalities,
-by also considering different aspects such as the ethical part of handling sensititve patient information within and outside of the app.
+After the release of v1.4, the team have planned for future enhancements to Health Hub to improve its existing
+functionalities, by also considering different aspects such as the ethical part of handling sensitive patient information within and outside of the app.
 
-For data management, it will be upgraded to an even higher level of encryption by professional standards to ensure that sensitive
+For *data management*, it will be upgraded to an even higher level of encryption by professional standards to ensure that sensitive
 information is handled cautiously to prevent data leaks.
 
-For account management, hospital administrative staff will have to start logging in to their accounts (accounts which are given to them when they
+For *account management*, hospital administrative staff will have to start logging in to their accounts (accounts which are given to them when they
 first joined the department) in order to use the app. These accounts are created and managed by a higher authority personnel, to add a
 second layer of security.
 
 So far, with the releases of v1.2 to v1.4, the focus is on registering the requests into the system and assigning them. In v2.0, there will be additional details
-added to health workers such as their availability to visit the home care patients, that will add value to when the user is assigning an open request.
+added to health workers such as their *availability to visit the home care patients*, that will add value to when the user is assigning an open request.
 
 Last but not least, it is important that we gather our users' feedback from time to time to understand their frustrations and needs with the app. As such,
-there will be a "Feedback" option in v2.0 for users to submit their feedback to the developers of Health Hub.
+there will be a *"Feedback"* option in v2.0 for users to submit their feedback to the developers of Health Hub.
 // end::releasenotes-2.0[]
 
 [[Features]]
@@ -191,6 +200,10 @@ The following description of the features and commands are prototypes and specif
 can be used as `n/John Doe c/Claustrophobia` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `s/<specialisation>...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/<name> p/<phone_number>`, `p/<phonenumber> n/<name>` is also acceptable.
+
+[NOTE]
+Our application does not support command chaining. Inputting multiple commands onto the same line will result in only the first command to be executed.
+For example, calling `list r undo` will only list the requests and not execute the `undo` command.
 
 === Viewing Help : `help`
 
@@ -219,7 +232,11 @@ Format: `list <type>`
 
 ==== Showing all health workers
 
-Format: `list healthworker/h/1`
+Format: `list healthworker`
+
+*Shortcut(s)*: +
+-  `list h` +
+- `list 1`
 
 Upon entering the command to list health workers, all currently registered
 health workers in the Health Hub system will be displayed on the list on the
@@ -228,7 +245,11 @@ right side of the GUI.
 
 ==== Showing all requests
 
-Format: `list request/r/2`
+Format: `list request`
+
+Shortcut(s): +
+- `list r` +
+- `list 2`
 
 After entering the command to list requests, you should see the list on the
 left side of the GUI being populated with all requests that are added to
@@ -252,7 +273,7 @@ the request and the type of service requested.
 // tag::addHealthWorker[]
 === Adding requests/health workers: `add`
 
-Before you can jump right intWo the core feature of our application and
+Before you can jump right into the core feature of our application and
 streamline the process of adding requests from patients and to assign
 requests to experts in the medical field, it is essential to first ensure
 that the respective health staff and patients are registered in the system
@@ -329,12 +350,12 @@ denoting a duplicate worker will be displayed.
 
 *Format:*
 
-* `add request n/<patient_name> c/<condition> d/<date> t/time`
+* `add request n/<patient_name> a/<address> i/<patient_nric> p/<phone> dt/<date_time> c/<condition>...`
 
 *Shortcuts:*
 
-* `add r n/<patient_name> c/<condition> d/<date> t/time`
-* `add 2 n/<patient_name> c/<condition> d/<date> t/time`
+* `add r n/<patient_name> a/<address> i/<patient_nric> p/<phone> dt/<date_time> c/<condition>...`
+* `add 2 n/<patient_name> a/<address> i/<patient_nric> p/<phone> dt/<date_time> c/<condition>...`
 
 * Registers a new open request from `patient` of `<patient_name>` into the
 application.
@@ -342,14 +363,31 @@ application.
 experiencing. Administrative staff can then inspect the conditions that are
 stated by the `patient` and assign the appropriate health worker to handle
 these requests in the `assign` command.
-* Format for the time is `HH:mm:ss`.
+* Format for the time is `HH:mm:ss`, where HH represents the hours in a 24hr clock.
 * Format for the date is `dd-MM-yyyy`.
+* Multiple conditions can be accepted. However, each condition has to be prepended with `c/` tag.
+* Two requests are considered duplicates if they have the same patient NRIC, date, address *and* conditions. Adding duplicate requests are not allowed.
+
+[TIP]
+The arguments and their respective tags can also be reordered.
 
 Examples:
 
-* `add 1 n/Dog Terr p/92837710 i/S98817471Z o/NUH s/GENERAL_PRACTICE
-s/ORTHOPAEDIC`
-* `add request n/Pay Shun c/Heart Attack t/14:00:00 d/05:05:2019`
+
+* `add request n/Pay Shun i/S9123456G a/NUS UTown p/91234567 c/Heart Attack dt/30-01-2019 10:00:00`
+* `add request n/Jin Livingston i/S9123456G a/NUS UTown p/91234567 c/Heart Attack dt/30-01-2019 10:00:00 c/Physiotherapy`
+
+[NOTE]
+====
+If multiple prefixes are provided with valid values for parameters that can
+ only take in a single value, only the value of the last prefix will be
+ accepted. + E.g n/John n/Johnson the name field will be set to Johnson and
+ not John.
+
+Similarly for the `edit` command, in the case with multiple parameters with
+ the same prefix, only the last parameter value will be accepted as the new
+ value for that field.
+====
 
 === Editing requests/health workers : `edit`
 
@@ -401,13 +439,14 @@ Edits the phone number and name of the 1st health worker shown in the health
 worker list to be `91234567` and `John Doe` respectively. +
 
 // end::editHealthWorker[]
-healthworker` command with valid inputs.
+
 
 ==== *Editing a request*
 
 *Format:*
 
-* `edit request <index> <additional_parameters>...`
+* `edit request <index> <additional_parameters>...` +
+E.g `edit request 1 n/NAME p/PHONE a/ADDRESS i/NRIC c/CONDITION dt/DATE_TIME st/STATUS`
 
 *Shortcuts:*
 
@@ -418,14 +457,14 @@ Edits the details of a request registered in Health Hub, at
 the `<index>` specified in the request list upon entering the `edit
 request` command with valid inputs.
 
-Upon entering the `edit` command with all the necessary and valid paramters,
+Upon entering the `edit` command with all the necessary and valid parameters,
 the corresponding request/health worker at the specified `<index>`. The index refers to the
 index number shown in the displayed person list.
 
-Existing values of the health worker or request will be updated to the valid
+Existing values of the request will be updated to the valid
 input values based on the prefix specified.
 
-Any changes made to existing fields in requests and healthworkers are
+Any changes made to existing fields in requests are
 immediately reflected in the list shown on the HealthHub GUI.
 
 {nbsp}
@@ -442,6 +481,19 @@ for other fields will only cause the last one to be accepted.
 * Note that the healthworker cannot be edited using this command. To unassign an existing healthworker, `edit` the status to `PENDING`.
 To change the healthworker assigned, use the `assign` command instead.
 
+* When a request status is changed to pending, any assigned healthworker will be disassigned.
+
+* When changing the request status, there are only 3 valid statuses: PENDING, COMPLETED and ONGOING. Only these statuses will be accepted, and is not case-sensitive.
+
+* Not all the tags need to be specified.
+
+* The tags can be reordered. e.g `edit r 1 n/NAME p/91234567` is the same as `edit r 1 p/91234567 n/NAME`
+
+* Two requests are considered duplicates if they have the same patient NRIC, date, address *and* conditions. Duplicate requests are not allowed.
+
+[WARNING]
+When editing the date of a request, ensure that the date entered is correct. HealthHub accepts any valid calendar dates in the format dd-mm-yyyy HH:mm:ss (where HH represents the time in 24hr format).
+
 
 
 Examples:
@@ -451,6 +503,7 @@ Examples:
 * `edit 2 2 n/Betsy Crower` +
 All the 3 commands above edits the patient name of the 2nd request in the request list to be `Betsy
 Crower`. +
+* `edit r 1 n/NAME p/PHONE a/ADDRESS i/NRIC c/CONDITION dt/DATE_TIME st/STATUS`
 
 // tag::filterHealthWorker[]
 === Filtering health workers/requests: `filter`
@@ -673,7 +726,7 @@ proceed to assign an existing health worker in the system to handle the request,
  allocating medical resources to it and closing the request using the simple
  `assign` command +
 
-Format: `assign <request_index> <health_worker_index>`
+Format: `assign hw/<health_worker_index> r/<request_index>...`
 
 Where the `<request_index>` and `<health_worker_index>` are as shown in the
 respective health worker and requests lists in the Health Hub GUI.
@@ -682,8 +735,8 @@ respective health worker and requests lists in the Health Hub GUI.
 
 * The `request_index` and `health_worker_index` fields *must be a positive integer* 1, 2, 3, ... and not greater
 than the number of requests/health workers in the current list.
+* The prefix `r/` has to be prepended to all requests indices that you would like to assign.
 * Health worker that is assigned must be available at the current time stated by the request.
-* Health worker must have the necessary skillset and certifications that allow him to be able to take up the corresponding request.
 
 Examples:
 
@@ -713,7 +766,7 @@ Format: `clr`
 
 [WARNING]
 ====
-Clearing requests would delete all records of completed requests.
+Clearing requests would delete all records of completed and pending requests.
 
 If you would like to delete just one particular request, consider using the
 `delete` command instead.
@@ -742,6 +795,26 @@ Examples:
 * `complete 1` +
 Marks the first request in the list as completed.
 
+// tag::undoredo[]
+=== Undoing Commands : `undo`
+If you wish to undo a mistake that you had made while entering commands,
+you can restore the lists to the state before the command was called using the `undo` command.
+
+Format: `undo`
+
+[NOTE]
+====
+* The `undo` command can only be used to undo commands that modify the lists such as `add`, `delete` and `edit`.
+* For commands that affects the display such as `filter`, you can use `list` command to get back the original list.
+====
+
+=== Redoing undone commands : `redo`
+If you wish to redo a command that you have previously undone, you can use the `redo` command.
+
+Format: `redo`
+
+
+// end::undoredo[]
 === Listing previous commands : `history`
 
 In the case where you have been using the application for a while now, and
@@ -761,15 +834,17 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 ====
 
 
-=== Viewing a request : `sr`
+=== Viewing a request : `select`
 
 With the flexibility in managing and adding, editing and deleting requests,
 existing functionality for the user to view the details of requests in
 Health Hub has also been implemented to improve the user experience.
 
-Format: `sr <request_index>`
+Format: `select <request_index>`
 
-Entering the `sr` command allows the application to select the request at the
+Shortcut: `sr <request_index>`
+
+Entering the `select` command allows the application to select the request at the
  specified `<request_index>`, and displays the full details of the selected
  request on the GUI.
 
@@ -783,22 +858,30 @@ request.
 // tag::setreminder[]
 === Setting Reminder Alerts: `setreminder`
 
-Sometimes, it can be difficult to keep track of multiple tasks and specific
-details for different requests. In addition to the already expressive
-function of keying in the description of a request upon registering, the
-`setreminder` command now also allows you to set customised reminder alerts
-to aid you so that you do not have to cram a large amount of details in memory.
+Sometimes when you have too many tasks at hand, it can be quite cumbersome to remember what tasks you need to
+complete for the day. You might want to phone up a patient to remind him of an appointment before the health worker
+visits his home, because you recall that this patient was not at home the last time the health worker visited. The
+phone call from you can prepare him to be at his home when the health worker arrives, so he can provide the necessary
+health care services. It can also remind you when it is lunch time, so you can avoid the peak period!
 
 Format: `setreminder t/<hh:mm:ss> m/<customised_message>` +
 
-Using the `setreminder` command, you can set a reminder alert to notify you at a certain time
-of the day, with your own message that you can customise to remind youself. The alert only shows
-for when Health Hub is running in the background process.
+Using the `setreminder` command, you can set a reminder alert to notify you at a certain time of the day, with your
+own message that you can customise to remind yourself.
 
-In the example below, a reminder has been set to notify the user at 1.30PM with
-the customised message to "to call patient John Doe for his appointment".
+[NOTE]
+====
+The alert only shows for when Health Hub is running in the background process.
+====
 
-image::reminder_command.png[]
+In the example below, a reminder has been set to notify the user at 6.30PM with
+the customised message to "to call patient Tan Ah Hock for his appointment later at night".
+
+image::SetReminderCommandTextField.png[]
+Figure 5.14.1 shows the format of the `setreminder` command in the text field.
+
+image::SetReminderResult.png[]
+Figure 5.14.2 shows the result of the reminder alert in the GUI after it is time for the app to notify the user.
 // end::setreminder[]
 
 // tag::statistics[]
@@ -899,6 +982,9 @@ Changes to the data in the application are also saved that any command that
 modifies application parameters, making sure that minimal data is lost should
 any unforeseen circumstances happen.
 
+Attempting to read a corrupted data file will show an empty book.
+If the application is unable to find any data files, it will create books based on its sample data.
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
@@ -908,42 +994,98 @@ to the `\data` folder of the app directory.
 // tag::summary[]
 == Command Summary
 
-[%header, cols=2*]
+[%header, cols=4*]
 |===
-|Command
+|Base Command
+|Additional Parameters
 |Description
+|Remarks
 
 |`help`
-|opens the user guide
-|`list`
-|lists all the requests or health workers
+|_not applicable_
+|opens the user guide in a new window
+|_none_
+|`list healthworker/h/1` +
+
+`list request/r/2`
+|_not applicable_
+|lists all the health workers or requests
+|_none_
 |`add healthworker/h/1`
+|`n/ (name)` - required +
+ `i/ (nric)` - required +
+ `p/ (phone)` - required +
+ `o/ (organisation)` - required +
+ `s/ (specialisations)` - required
 |registers a health worker into the system
+|_none_
 |`add request/r/2`
+|`n/ (name)` - required +
+ `i/ (nric)` - required +
+ `p/ (phone)` - required +
+ `a/ (address)` - required +
+ `dt/ (request date)` - required +
+ `c/ (patient conditions)` - required
 |registers a request into the system
+|_none_
 |`edit`
+|any of the tags above (i.e. edit `n/` or `dt/` or `c/`)
 |edits the details of a request or a health worker
-|`filter`
-|filters the list of requests or health workers by a condition
-|`delete`
-|deletes a request or a health worker
+|_none_
+|`filter healthworker/h/1`
+|any of the tags above belonging to health worker (i.e. filter by `n/` or `o/` or `s/`)
+|filters through the list of health workers by a criteria
+|_none_
+|`filter request/r/2`
+|any of the tags above belonging to request (i.e. filter by `n/` or `dt/` or `c/`). +
+
+new filterable tag after request is added - `st/ (request status)`
+|filters through the list of requests by a criteria
+|_none_
+|`delete request`
+|`INDEX` of  request to delete
+|deletes a request
+|_none_
 |`assign`
-|assigns a health worker to a request
-|`clr`
-|clears all requests from the list
+|`hw/<index>` - `INDEX` of the health worker to be assigned, required +
+
+`r/<index>` - `INDEX` of the request, required
+|assigns a health worker to an open request
+|should a health worker be assigned to requests on the same date and time, it should be at least 2 hours apart.
 |`complete`
-|closes a pending or ongoing request after it has been done
+|`INDEX` of the request to close
+|closes an ongoing request after it has been completed by the assigned staff
+|only used for requests that have the *ONGOING* status
+
+|`clr`
+|_not applicable_
+|clears all *COMPLETED* requests from the list
+|_none_
 |`history`
-|lists the previous commands entered
+|_not applicable_
+|lists the previous commands entered in chronological order
+|_none_
 |`sr`
-|selects a request and view its details on the UI
+|`INDEX` of request to display
+|selects a request and display its details on the UI
+|_none_
 |`setreminder`
-|sets a reminder alert to notify the user at a certain time
+|`t/<hh:mm:ss>` - time to schedule, required +
+
+`m/` - customised message, required
+|sets a reminder alert to notify the user at a certain time of the day
+|the alert will show only if Health Hub is still running
 |`statistics`
+|_not applicable_
 |shows the occurences of the different requests by conditions
+|_none_
 |`undo`
+|_not applicable_
 |undos the previous action
+|_none_
 |`redo`
-|redos everything
+|_not applicable_
+|redos the previous undone command
+|_none_
 |===
 // end::summary[]

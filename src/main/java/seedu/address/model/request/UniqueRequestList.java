@@ -149,7 +149,11 @@ public class UniqueRequestList implements Iterable<Request> {
     public void updateHealthWorker(String oldNric, String newNric) {
         for (Request request : this.internalList) {
             if (Objects.equals(request.getHealthStaff(), oldNric)) {
-                request.setHealthStaff(newNric);
+                Request editedRequest = new Request(request);
+                RequestStatus status = request.getRequestStatus();
+                editedRequest.setHealthStaff(newNric);
+                editedRequest.setRequestStatus(status);
+                setRequest(request, editedRequest);
             }
         }
     }

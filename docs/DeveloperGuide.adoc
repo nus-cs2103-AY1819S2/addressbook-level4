@@ -22,18 +22,34 @@ By: `Team W9-02 (HealthHub)`      Since: `Jan 2019`      Licence: `MIT`
 
 === Prerequisites
 
-. *JDK `9`* or later
+. *JDK `9`*
+* The Java Development Kit, or JDK for short, provides the necessary existing
+ libraries and implementations that we have used in our implementation of
+ HealthHub. The current version of HealthHub needs at least JDK version 9 to
+ support the full functionality it has to offer.
 +
 [WARNING]
 JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
 Windows developers are highly recommended to use JDK `9`.
 
 . *IntelliJ* IDE
+* IntelliJ is an Integrated Development Environment(IDE) that provides the
+necessary tools and available plugins needed to compile, build and run the
+project.
 +
 [NOTE]
 IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
+[NOTE]
+====
+Don't have Intellij or JDK installed? Click on the following links to
+download them below:
+
+* IntelliJ: https://www.jetbrains.com/idea/
+
+* Java Development Kit: https://www.oracle.com/technetwork/java/javase/downloads/index.html
+====
 
 === Setting up the project in your computer
 
@@ -73,11 +89,23 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
 
-==== Getting started with coding
+==== Getting started
 
-When you are ready to start coding,
+When you have set up your environment successfully for building and running
+HealthHub, you are ready to get started on coding to contribute to the
+project. But before that, you may consider familiarising yourself with
+HealthHub through the following:
 
-1. Get some sense of the overall design by reading <<Design-Architecture>>.
+* Familiarising yourself with the model, logic and storage design of
+HealthHub under the section <<Design>>.
+
+* Get a good feel of how existing features are implemented under the
+<<Implementation>> section.
+
+* Follow the way that the testing suite for features are built in
+<<Testing>>
+
+* Painlessly automate build integration by following the steps under <<Dev Ops>>
 
 == Design
 
@@ -114,18 +142,14 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[width="800"]
 
 [discrete]
 ==== How the architecture components interact with each other
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete 1` command
-image::SDforDeletePerson.png[width="800"]
+.Component interactions for `delete request 1` command
+image::logicseqdiagram.png[width="800"]
 
 The sections below give more details of each component.
 
@@ -147,29 +171,27 @@ The `UI` component uses the JavaFX UI framework. The layout of these UI parts ar
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data dynamically.
+* Listens for changes to the `Model` data so that the UI can be updated with the modified data dynamically.
 // end::ui-header[]
 
+// tag::logic-header[]
 [[Design-Logic]]
 === Logic component
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[width="800"]
+image::logicclassdiag.png[width="800"]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `HealthHubParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a request) or sometimes only affecting the display (eg. listing all requests).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as printing out the result message in the command line.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
-
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+// end::logic-header[]
 
 [[Design-Model]]
 === Model component
@@ -190,8 +212,11 @@ in the form of `ReadOnlyHealthWorkerBook` and `ReadOnlyRequestBook`.
 [NOTE]
 As a more OOP model, we store a list of `Request` objects in `Request Book`, which stores the details of every request, including the patient's details, request date and status.
 In addition, each `Request` also stores a `Set` of `Conditions` of the patient. +
-image:ModelClassBetterOopDiagram.png[width="800"]
+Similarly for `HealthWorker`, the list of `HealthWorker` is stored in a
+`HealthWorkerBook`, and each `Specialisation` that the `HealthWorker` has is
+stored in a `Set` that is contained in the `Skills` class.
 
+// tag::storage[]
 [[Design-Storage]]
 === Storage component
 
@@ -203,8 +228,13 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address, Request, HealthWorker Book data in json format and read it back.
+* can save the Request, HealthWorker Book data in json format and read it back.
 
+[NOTE]
+The storage class converts the object data of `Request` and `HealthWorker` by converting the objects
+into a json object of strings which will be stored in the `.json` file. When reading the file, the json library passes the respective strings into
+their java object constructors to recreate the objects.
+// end::storage[]
 
 [[Design-Commons]]
 === Common classes
@@ -222,6 +252,7 @@ and `delete` different types of objects respective to the different
 `CommandMode` Enums. The various `CommandMode` enums are:
 ** `CommandMode.HEALTHWORKER`
 ** `CommandMode.REQUEST`
+** `CommandMode.OTHERS`
 ** `CommandMode.INVALID`
 
 Each `CommandMode` enum is matched by it's own corresponding set of keywords,
@@ -242,13 +273,11 @@ Then implementation for `CommandMode` is as follows:
 public enum CommandMode {
 
     HEALTH_WORKER,
-    PATIENT,
     REQUEST,
     OTHERS,
     INVALID;
 
     public static final String MODE_HEALTHWORKER = "1";
-    public static final String MODE_PATIENT = "3";
     public static final String MODE_REQUEST = "2";
     public static final String MODE_OTHERS = "4";
     public static final String MODE_INVALID = "5";
@@ -283,7 +312,7 @@ These `CommandModes` provide flexbility and functionality to switch between
 === Add feature
 
 The `add` command allows for users to register new `HealthWorker` and
-`Request` objects into HealtHub.
+`Request` objects into HealthHub.
 
 The format for the `add` command is as follows:
 
@@ -359,7 +388,8 @@ constructed from the user entered fields will be added to the end of the `Unique
 The `Specialisation` field is an `Enum` type in Java, and supports only the
 enum fields that are specified in the `Specialisation` class itself.
 
-The implementation of the `Specialisiation` class is as follows:
+The various available specialisation enum values of the `Specialisation`
+class is as follows in the implementation of `Specialisation`:
 
 ```
 public enum Specialisation {
@@ -378,85 +408,12 @@ public enum Specialisation {
     OCCUPATIONAL_THERAPY,
     ANAESTHESIOLOGY;
 
-    public static final String MESSAGE_CONSTRAINTS = getMessageConstraints();
-
-    /**
-     * Displays a list of available specialisations.
-     * @return String describing all available specialisations.
-     */
-    public static String getSpecialisationList() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (Specialisation specialisation : Specialisation.values()) {
-            stringBuilder.append(specialisation.toString()).append("\n");
-        }
-
-        return stringBuilder.toString();
-    }
-
-    /**
-     * Checks if a given input string matches any of the available
-     * Specialisations
-     * @param input string to check for valid Specialisation.
-     * @return true if the input string has a matching Specialisation, else
-     * false.
-     */
-    public static boolean isValidSpecialisation(String input) {
-        try {
-            Specialisation.valueOf(input);
-        } catch (IllegalArgumentException | NullPointerException e) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Returns the corresponding matching Specialisation given an input String
-     * @param input string to match Specialisations.
-     * @return Specialisation matching the given string.
-     */
-    public static Specialisation parseString(String input) {
-        return Specialisation.valueOf(input);
-    }
-
-    /**
-     * Returns an Optional containing the matching Specialisation to the substring if any, else an empty Optional
-     * @param input the substring to match against the Specialisation names
-     * @return Optional containing the matching Specialisation, else an empty Optional
-     */
-    public static Optional<Specialisation> getSpecialisation (String input) {
-        if (input.isEmpty()) {
-            return Optional.empty();
-        }
-
-        for (Specialisation specialisation : Specialisation.values()) {
-            if (specialisation.name().toLowerCase().contains(input.toLowerCase())) {
-                return Optional.of(specialisation);
-            }
-        }
-
-        return Optional.empty();
-    }
-
-    /**
-     * Formulates the String representing the valid specialisations and
-     * constraints.
-     * @return String containing the valid specialisations to be added.
-     */
-    private static String getMessageConstraints() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Valid specialisations: \n");
-        stringBuilder.append(getSpecialisationList());
-
-        return stringBuilder.toString();
-    }
-
+    ...
 }
 
 ```
 
-==== Adding a Request
-
+=== Add Request feature
 
 ==== Current Implementation
 The `add request` command allows the `LogicManager` to create a new request and add it to the list of requests. Adding a new request requires the
@@ -466,7 +423,7 @@ add request n/NAME p/PHONE i/NRIC a/ADDRESS dt/DATETIME c/CONDITION.
 The following sequence shows the sequence when the add command is execute by the LogicManager:
 
 image::addrequest.png[width=800]
-Figure 3.1.3.1 Sequence Diagram for `add request` command
+Figure 3.2.1.1 Sequence Diagram for `add request` command
 
 From the diagram above:
 
@@ -624,43 +581,71 @@ The assign request feature allows an administrator to assign a request to a part
 
 The following sequence diagram shows the sequence flow from the `LogicManager` to the `ModelManager` when a user enters a `assign request` command:
 
-image::assignreq.png[width=800]
+image::assignreq.png[]
 Figure 3.3.1.1 Sequence diagram to illustrate `Logic` component interactions for `assign request` command.
 
-image::assignreq1.png[width=800]
+image::assignReqToHw.png[]
 Figure 3.3.1.2 Sequence diagram to illustrate `Logic` and `Model` component interactions for [blue]`AssignRequestCommand`.
 
-1. When `LogicManager` receives the `execute` command, it calls the `parseCommand` method in `HealthHubParser`.
-2. `HealthHubParser` will receive `assign` as the command and instantiate `AssignRequestCommandParser` to further parse the command.
+image::addHwRequestDates.png[]
+Figure 3.3.1.3 Sequence diagram illustrates addition of the relevant `Date` objects into the `TreeSet<Date>` of the `healthWorker`.
+
+image::checkConflictingRequests.png[]
+Figure 3.3.1.4 Sequence diagram illustrates interaction between `AssignRequestCommand` and `healthWorkerAppointments`
+
+1. When `LogicManager` receives the `execute` command, it calls the `parseCommand` method in `RequestBookParser`.
+2. `RequestBookParser` will receive `assign` as the command and instantiate `AssignRequestCommandParser` to further parse the command.
 3. If the arguments specified in the `assign` command are invalid, a `AssignCommand` will be created and returned back to the `LogicManager`.
 4. `LogicManager` will proceed to call the `execute` command of `AssignCommand`
 5. `AssignRequestCommand` will proceed to call the `getFilteredRequestList` method of `Model`.
 6. Iterate through the `requestIds`, if valid, add the `request` corresponding to that `index` to the set of `Request`.
-7. Writes the updated request to the `RequestBook` in `ModelManager`
+7. Iterates through all the requests already assigned to that `healthWorker`. If there is a conflict of schedule (i.e Requests assigned
+to that healthWorker are less than 2 hours apart), a `CommandException` is thrown.
+8. Writes the updated request to the `RequestBook` in `ModelManager`, if all the request timings are valid.
 
 ==== Design Consideration
 
-===== Aspect: Implementation of the `AssignRequestCommand` feature
-* Alternative 1 (current choice): Index-based assigning, where the user assigns a request based on the index number of that list item they see in the UI.
-** Pros: Effecient - since the storage of `HealthWorker` and `Request` are in lists, index-based assigning optimises effeciency, by reducing runtime to O(1) time.
-** Pros: Simple to implement, `Request` and `HealthWorker` details can easily be retrieved from the `filteredRequestList` and `filteredHealthWorkerList` in `ModelManager`.
-** Cons: May not be very user friendly as index-based assigning may not be intuitive. (This has been circumvented by using 1-based indexing, instead of the traditional 0-based indexing).
+===== Aspect: Algorithm in ensuring no clashing requests assigned to healthworkers - Data Structure and implementation
+* Alternative 1 (current choice): Using a Balanced Binary Search Tree (java `TreeSet`) to keep track of the [blue]`RequestDate` of each request attended to by a particular `healthWorker`.
+** Reasoning: Since the allowed time interval between 2 consecutive requests should be at least 2 hours, we can take advantage
+of of this by only keeping track of the start time of requests. Hence we can utilise the `ceiling()`, `contains()` and `floor()` methods of the `TreeSet`, which runs effeciently in O(log N) time (where N is the number of requests). Here is the code snippet that implements this:
+```
+    // Note: healthWorkerAppointments is the TreeSet that stores the appointment dates
+    Date date = request.getRequestDate().getDate();
+    calendar.setTime(date);
+    calendar.add(Calendar.HOUR_OF_DAY, -MIN_REQUEST_DURATION); // MIN_REQUEST_DURATION = 2 hours
+    Date lowerLimit = calendar.getTime();
+    calendar.add(Calendar.HOUR_OF_DAY, 2 * MIN_REQUEST_DURATION);
+    Date upperLimit = calendar.getTime();
 
-* Alternative 2: Assign by making a query using another unique identifier, like the name or NRIC of the patient and healthworker.
-** Pros: Perhaps more user friendly, as the commands are more straightforward to pick up.
-** Cons: Not effecient, as each query would run in O(n + m) time, where n is the number of requests and m is the number of healthworkers.
-Although this can be further optimised by using other data structures like a Balanced Binary Search Tree (Java `TreeSet`)
- (to add while maintaining some ordering), the cost of eventually filtering it to display to the user would still run in O(n + m) time.
+    if (healthWorkerAppointments.contains(date) || (healthWorkerAppointments.lower(date) != null
+          && healthWorkerAppointments.lower(date).after(lowerLimit))
+          || (healthWorkerAppointments.higher(date) != null
+          && healthWorkerAppointments.ceiling(date).before(upperLimit))) {
+              throw new CommandException(Messages.MESSAGE_HEALTHWORKER_OCCUPIED_CANNOT_ASSIGN);
+    }
 
-===== Aspect: Relationship between `Request` and `Healthworker`
-* Alternative 1 (current choice): The `Request` holds only some of the details of the healthworker (e.g name) assigned to it.
+    healthWorkerAppointments.add(date);
+```
+
+image::assignRegionCheck.png[]
+Figure 3.3.1.5 Shows visualisation of time ranges that are valid.
+
+The above mentioned code snippet checks that there are not clashing requests that fall within the red region, as depicted in Figure 3.3.1.5.
+
+* Alternative 2: For each request to be assigned, manually iterate through the Request list to ensure that there are not clashing dates.
+Pros: Easy to implement
+Cons: Slow - in the worst case, if all the requests get assigned at once, this operation will run in O(n^2) time.
+
+===== Aspect: Relationship between [blue]`Request` and [blue]`Healthworker`
+* Alternative 1 (current choice): The [blue]`Request` holds a unique identifier of the [blue]`HealthWorker` (i.e the `NRIC`) assigned to it.
 ** Pros: Simplification of implementation.
 ** Pros: Cleaner implementation, low level of dependencies on other modules. This also makes it easier to test, and easier to maintain.
-** Cons: Makes it difficult to obtain all details of a `HealthWorker` from a `Request` object.
+** Cons: Makes it difficult to obtain all details of the `healthWorker` assigned from a [blue]`Request` object. The healthworker with the unique NRIC will have the be queried from the `healthWorkerList`
 
 * Alternative 2: The `Request` holds a `HealthWorker` object and the `HealthWorker` keeps track of a list of `Request`s.
 ** Pros: Can quickly access details of a `HealthWorker` from a `Request`, and can quickly access the `Requests` assigned to a `HealthWorker` from the `Request`.
-** Cons: Increases coupling by adding additional dependencies to the code. This makes the code base more difficult to maintain.
+** Cons: Increases complexity of code base, adding additional dependencies to the code. This makes the code base more verbose and more difficult to maintain.
 
 // end::assignrequest[]
 === List Feature
@@ -872,8 +857,8 @@ within the `FilterCommandParser` class when it's `parse()` method is called.
 ==== Current Implementation
 
 The undo/redo mechanism is facilitated by `VersionedBook`.
-There are two implementations of it. One extending `HealthWorkerBook` and the other extending `RequestBook`.
-Both contain an undo/redo history, stored internally as an `healthWorkerBookStateList`/`requestBookStateList`
+There are two extensions of it. `VersionedHealthWorkerBook` extends `HealthWorkerBook` and `VersionedRequestBook` extends `RequestBook`.
+Both contain an undo/redo history, stored internally as an `healthWorkerBookStateList` or `requestBookStateList`
  and `currentStatePointer`.
 Additionally, it implements the following operations:
 
@@ -881,93 +866,155 @@ Additionally, it implements the following operations:
 * `VersionedBook#undo()` -- Restores the previous request/healthworker book state from its history.
 * `VersionedBook#redo()` -- Restores a previously undone request/healthworker book state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()`
-and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commit()`, `Model#undo()`
+and `Model#redo()` respectively.
 
 
-The feature also makes use `ModifyCommandManager` to keep track of the commands that modified the books. It contains
+The feature also makes use `ModifyCommandHistory` to keep track of the commands that modified the books. It contains
 `currentStatePointer` and a list of `CommandType` enums to differenciate the type of command to undo or redo.
 Similar to `CommandMode`, the various `CommandType` enums are:
 
 ** `CommandType.HEALTHWORKER_COMMAND`
 ** `CommandType.REQUEST_COMMAND`
+** `CommandType.HEALTHWORKER_AND_REQUEST_COMMAND`
 
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-{to be updated}
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedRequestBook` and `VersionedHealthWorkerBook` will be initialized with the initial state,
+ and the `currentStatePointer` for each `VersionedBook` pointing to that single book state.
+Since no modify command has been called, the initial list of commands in `ModifyCommandHistory` is empty and the initial `currentStatePointer` of `ModifyCommandHistory` is initialized to -1.
 
-image::UndoRedoStartingStateListDiagram.png[width="800"]
+image::initrb.png[width="800"]
+image::inithb.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
-image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
+Step 2. The user executes `delete r 5` command to delete the 5th request in request book. The `delete r` command calls `Model#commit(REQUEST_COMMAND)`, causing the modified state of the request book after the `delete r 5` command executes to be saved in the `requestBookStateList`, and the `currentStatePointer` is shifted to the newly inserted request book state.
+Since the request book is modified, the enum `REQUEST_COMMAND` is added to the `modifyCommandHistory` list within the `ModifyCommandHistory` class and the `currentStatePointer` is now pointing at the most recent command.
+The `VersionedHealthWorkerBook` is unaffected.
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+image::rbafterdelete.png[width="800"]
+image::mchafterdelete.png[width="800"]
 
-image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
+Step 3. The user executes `add h n/David ...` to add a new healthworker. The `add h` command also calls `Model#commit(HEALTHWORKER_COMMAND)`, causing a modified health worker book state to be saved into the `healthWorkerBookStateList` and the `currentStatePointer` is shifted to the new health worker book state.
+The enum `HEALTHWORKER_COMMAND` is added into the `modifyCommandHistory` list of the `ModifyCommandHistory` class.
+The `VersionedRequestBook` is unaffected.
+
+image::hbafteradd.png[width="800"]
+image::mchafteradd.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commit()`, so the book state will not be saved into the `healthWorkerBookStateList` or `requestBookStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the health worker was a mistake, and decides to undo that action by executing the `undo` command.
+The `undo` command will call `Model#undo()`, which will first obtain the type of command that needs to be undone by caling  `ModifyCommandHistory#getUndoCommand()`. In this case `HEALTHWORKER_COMMAND` is returned, and hence will call undo on `VersionedHealthWorkerBook`. It will shift the `currentStatePointer` once to the left, pointing it to the previous health worker book state, and restores the health worker book to that state.
+The `currentStatePointer` of the `ModifyCommandHistory` also gets shifted once to the left, pointing it to the previous command.
 
-image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
+image::hbafterundo.png[width="800"]
+image::mchafterundo.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` of both `VersionedHealthWorkerBook` and `VersionedRequestBook` is at index 0, pointing to the initial book state for both books, then there are no previous states to restore. The `undo` command uses `Model#canUndo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+
+[NOTE]
+As of version 1.4, the only command that has modifies both the health worker book and the request book is `EditHealthWorkerCommand`.
+It is the only command that has `CommandType.HEALTHWORKER_AND_REQUEST_COMMAND`.
+
+
+
+The user first enters the `undo` command in the command line interface. The logic manager processes the command as a string
+and checks using the `AddressBookParser` is the string is a valid command. In this case, the parser sees that the command string
+matches the `undo` command string and hence returns an `undo` command to the `LogicManager` which then calls `execute()` to execute the command.
+The `execute()` method calls `Model#undo()` in which the model checks the `ModifyCommandHistory` for the correct `VersionedBook` that needs to be undone
+and then calls `VersionedBook#undo()`. Upon a successful undo, the `UndoCommand` will return a successful result to the `LogicManager`
+which will then the "Undo Success!" message will be displayed on the command line interface.
 
 The following sequence diagram shows how the undo operation works:
 
-image::UndoRedoSequenceDiagram.png[width="800"]
+image::UndoRedoSeqDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redo()`, which first obtains the command type by calling `ModifyCommandHistory#getRedoCommand()` and based on the returned command type it shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the respective book to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` of both `VersionedBook` s are pointing to the latest state, then there are no undone book states to restore. The `redo` command uses `Model#canRedo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list r`. Commands that do not modify the books, such as `list r`,
+will not call `Model#commit()`, `Model#undo()` or `Model#redo()`. Thus, the `VersionedBook` s and `ModyfiCommandHistory` do not change.
 
-image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
+image::rbafterlist.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `delete h 1`, which calls `Model#commit(HEALTHWORKER_COMMAND)`. Since the `currentStatePointer` is not pointing at the end of the `healthWorkerBookStateList`, all health worker book states after the `currentStatePointer` will be purged.
+We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
-image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
+image::hbafterdel.png[width="800"]
+image::mchafteroverride.png[width="800"]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-image::UndoRedoActivityDiagram.png[width="650"]
+image::UndoRedoActDiagram.png[width="650"]
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+===== Aspect: How undo & redo executes
+[width="100%",cols="1, 5, 5",options="header"]
+|=======================================================================
+|Implementation |Saves the entire book (Current implementation) | Individual command knows how to undo/redo by itself.
+|Pros| Less prone to bugs since the we are switching between different versions of the books. | Will use less memory (e.g. for `delete`, just save the person being deleted).
+|Cons| May have performance issues in terms of memory usage especially for
+large numbers of health workers and requests.| Every command will have their own implementation of undo and some of them are slow hence it causes performance issues.
+(e.g. for `clr`, all requests that were deleted have to be added back into the list, which will be quite slow if
+there is a large number of requests).|
+|=======================================================================
+
 
 ===== Aspect: Data structure to support the undo/redo commands
+[width="100%",cols="1, 5, 5",options="header"]
+|=======================================================================
+|Implementation | Use a list to store the history of book states.(Current implementation) | Use `HistoryManager` for undo/redo
+|Pros| Undo and redo commands runs faster since it only involves the switching of the state pointer.| Supports multiple books with the `HistoryManager` alone since we are undoing from the command history.
+|Cons| Need multiple `VersionedBook` s. One or each type of book.|  `HistoryManager` keeps a record of all commands, even if they are invalid or commands that does not call `Model#commit()`.
+Traversing these irrelevant commands to find the next undoable command will take a long time especially if size of history is large.|
+|=======================================================================
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+===== Aspect: Data structure to handle multiple `VersionedBooks`
+[width="100%",cols="1, 5, 5",options="header"]
+|=======================================================================
+|Implementation | Use a command history to keep track
+of the type of book that was modified It is represented as a list of `CommandType`.(Current implementation) | Use a list of pairs. Each state is represented as a pair which stores the `currentStatePointer` of each book.
+|Pros| Easily scalable to include more than two books. As the developer can simply add an extra `CommandType`
+and extra cases for switch statements.| Supports commands that change multiple books at once since it keeps track of all states.
+|Cons| Unable to scale as well if there are many commands that modifies multiple books at once.| Keeping multiple integers takes up more memory as compared to keeping a single enum.
+|=======================================================================
+
 // end::undoredo[]
 
 // tag::setreminder[]
 === Set Reminder Feature
 
 The `setreminder` command gives the user an option to set a reminder with a customised message.
-The reminder is in the form of an `AlertDialog` and is scheduled to show on the UI by a `TimerTask` at time
-`t + current time`. +
+The reminder is in the form of an `AlertDialog` and is scheduled to display on the UI by a `TimerTask` at time
+`t + current time`, where `t` is time in the format `hh:mm:ss`. +
 
-The alert only pop ups when the application is running in the background.
+==== Current Implementation
+
+The following sequence diagram shows the sequence flow from when the `SetReminderCommandParser` receives the command and
+parses it into a `SetReminderCommand` object.
+
+image::SetReminderSequenceDiagram.png[width="800"]
+Figure 3.9.1 shows the sequence diagram for the different method invocation calls between the classes
+
+1. When `SetReminderCommandParser` receives the `parse` command, it calls the static method `ArgumentTokenizer.tokenize` to extract the arguments from the user input string.
+
+2. The `extractArguments` constructs and returns an `ArgumentMultimap` based on the arguments passed in.
+
+3. `SetReminderCommandParser` checks if there are arguments specified under prefixes `PREFIX_TIME` and `PREFIX_MESSAGE`.
+
+4. If it cannot find those arguments, it throws a `ParseException` to the calling program.
+
+5. If arguments are available, it calls the `getValue` method of `ArgumentMultimap` to return the values
+
+6. After getting the values, the `SetReminderCommandParser` checks for the validity of the values and if true, calls the constructor of `SetReminderCommand`
 // end::setreminder[]
 
 // tag::statistics[]
@@ -1129,27 +1176,23 @@ with an `AutoCompleteTextField` class that extends from the parent class, `TextF
 In the `AutoCompleteTextField` class, it adds an additional listener to the `textProperty()` of `TextField` class, to register for when
 a text input is being sensed and generates the suggestion box in the form of a `ContextMenu` to the user.
 
-The searching of which commands to display to the user as suggestions is by iterating the `suggestions` data structure, which is a `TreeSet`, then checking
+image::AutoCompleteTextFieldSMD.png[]
+Figure 3.11.1 shows the state machine diagram for the `AutoCompleteTextField` behaviour when it listens for a user input.
+
+The searching of which commands to display to the user as suggestions is done by iterating the `suggestions` data structure, which is a `TreeSet`, then checking
 against the user's input if any of the suggestions starts with the user's text.
 
 ==== Aspect: Data structure to store the list of commands
-<insert text>
-
-==== Aspect: Algorithm to search for commands that fit user's input
-<insert text>
-
-A detailed interaction diagram for the autocomplete behaviour is created previously under <insert section>.
+[width="100%",cols="1, 5, 5",options="header"]
+|=======================================================================
+Implementation | Use a `TreeSet` data structure | Use a `SuffixTree` data structure
+|Pros| Implements the `NavigatableSet` interface and guarantees that elements are stored in sorted order, also allows for _O(log n)_ time complexity for dynamic searching of elements.  | Made for features like autocompletion, allows particularly fast implementation of `String` operations.
+|Cons| Elements contained within the `TreeSet` data have to be a _Comparable_ or a _Comparator_ needs to be supplied. In this case, since we are only concerned with `Strings`, we do not
+need an extra step. | Suffix Trees are difficult to comprehend -> difficult to implement.
+|=======================================================================
 // end::autocomplete[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
-=== Logging
-
+== Logging
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
@@ -1275,9 +1318,27 @@ The SE-EDU team does not provide support for modified template files.
 [[Testing]]
 == Testing
 
+Testing is an important component of the development pipeline for HealthHub.
+With each new feature that is implemented, new tests for the fresh feature
+must also be included to ensure robustness and validation of the feature. In
+addition, regression testing using existing tests already implemented is also
+ extensively done to ensure that the application functions without unintended
+  side effects. In following sections, we will be elaborating on how you can
+  adopt the testing suite implementation that is in place in HealthHub.
+
 === Running Tests
 
-There are three ways to run tests.
+For the testing phase in HealthHub, we will be using a testing framework
+called *JUnit* that is specialised to run tests for software built in Java.
+
+[NOTE]
+====
+Not sure how JUnit works? Head over to the JUnit website and take a look at
+their User Guide at this link:
+https://junit.org/junit5/docs/current/user-guide/
+====
+
+There are three ways to run tests in HealthHub.
 
 [TIP]
 The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
@@ -1325,7 +1386,6 @@ book containing the respective data they need for tests by using the `HealthWork
 All test file generator classes contains a main function and hence can be ran independently by compiling the file.
 
 
-
 === Troubleshooting Testing
 **Problem: `HelpWindowTest` fails with a `NullPointerException`.**
 
@@ -1334,15 +1394,31 @@ All test file generator classes contains a main function and hence can be ran in
 
 == Dev Ops
 
+As HealthHub grows larger as a software development project due to addition
+of new features or overhauling of existing ones, we have also deployed the
+use of various build automation tools in order to efficiently integrate the
+components of HealthHub together during the build process. This allows of
+greater efficiency and scalability when introducing new implementations into
+the project.
+
 === Build Automation
 
-See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
+See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build
+automation on your local machine for efficient project builds.
 
 === Continuous Integration
 
-We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
+We use https://travis-ci.org/[Travis CI] and https://www.appveyor
+.com/[AppVeyor] to perform _Continuous Integration_ on our projects to allow
+for more seamless and parallel coding performance between team members. See
+<<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
 
 === Coverage Reporting
+
+Coverage represents the portion of the software codebase that has been tested
+ for using various testing frameworks, such as JUnit. This allows the
+ development to track how extensive the testing of new features are to ensure
+  that their features are correctly implemented with minimal bugs.
 
 We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
 
@@ -1360,7 +1436,10 @@ Here are the steps to create a new release.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
+With a huge number of different components in HealthHub, the project also
+includes use of various third party libraries to efficiently support new and
+existing features in HealthHub, some of which includes for example the
+https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
 
 [loweralpha]
 . Include those libraries in the repo (this bloats the repo size)
@@ -1374,13 +1453,17 @@ A project often depends on third-party libraries. For example, Address Book depe
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Administrative staff in hospitals and healthcare organizations that also
+manage requests from and services for home-care patients
+* Administrative staff that are comfortable with typing on a CLI, as well as
+a GUI.
+* Aims to streamline the performance of keeping records of home-care
+patients, and also assigning health staff to requests using technological
+means.
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage requests from home-care patients, and handle
+assignment of healthstaff for these requests much faster and efficient than
+traditional methods of pen and paper documentation.
 
 [appendix]
 == User Stories
@@ -1505,7 +1588,6 @@ Use case ends.
 
 [discrete]
 === Use case: Delete requests
-
 1. User wants to delete a request that is expired or invalid.
 [none]
 * 1.a. Specified request is not in Application
@@ -1524,8 +1606,6 @@ Use case ends.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-_{More to be added}_
-
 [appendix]
 == Glossary
 
@@ -1536,26 +1616,11 @@ Windows, Linux, Unix, OS-X
 A contact detail that is not meant to be shared with others
 
 [appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
 == Instructions for Manual Testing
 
-Given below are instructions to test the app manually.
+In case of circumstances where manual testing needs to be done for HealthHub,
+ this section provides instructions on how to get started on manual testing
+ for the application.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
@@ -1574,26 +1639,112 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
 
-=== Deleting a person
 
-. Deleting a person while all persons are listed
+=== Adding a `HealthWorker
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+* Enter a valid `add healthworker` command with all compulsory fields
+containing valid values. For example, you may try `add healthworker n/Dog Terr
+p/92837710 i/S98817471Z o/NUH s/GENERAL_PRACTICE s/ORTHOPAEDIC` +
+ Message showing the successful addition of the `HealthWorker` will be
+displayed in the command terminal, as well as the details of the newly added
+`HealthWorker`. The newly added `HealthWorker` is now reflected immediately
+in the GUI shown at the end of the list on the right.
+* Enter an invalid `add healthworker` command. Some examples include:
+** Missing fields: add healthworker p/92837710 i/S98817471Z o/NUH
+s/GENERAL_PRACTICE s/ORTHOPAEDIC` (Missing name) +
+An error message representing invalid command format will be displayed on the
+ command terminal, as well as the valid command format for the `add
+ healthworker` command.
+
+** Invalid fields: add healthworker n/Dog Terr p/92837710 i/A111Z o/NUH
+s/GENERAL_PRACTICE s/ORTHOPAEDIC` (Invalid NRIC format) +
+An error message is displayed that tells the user of the incorrect format for
+ a field whose value does not follow the correct format. If there are
+ multiple, the incorrect format of the first field whose value is invalid is
+ shown.
+
+=== Editing a `HealthWorker`
+
+* Enter a valid `edit healthworker` command with a valid index, and at least
+one field to edit with a valid value. For example, you may try `edit
+healthworker 1 p/91234567 n/John Doe` +
+A status message that denotes the successful modification of the details of
+an existing `HealthWorker` is shown on the command terminal. In addition, the
+ modified details of the `HealthWorker is immediately reflected on the list
+ in the GUI.
+
+* Enter an invalid `edit healthworker` command. Some examples include:
+** Invalid index: `edit healthworker -1 n/John` +
+An error message displays which informs the user that the index provided is
+invalid.
+** No field specified: `edit healthworker 1 ` +
+An error message displays informing the user that at least one field to edit
+must be provided.
+** Invalid field: `edit healthworker 1 p/helloworld` +
+An error message displays informing the user that the specific field
+specified containing invalid values does not conform the field format. If
+multiple invalid fields are entered, the first invalid one will be chosen as
+the invalid format.
+
+=== Deleting a `HealthWorker`
+
+* Deleting a `HealthWorker` while all `HealthWorker` are listed:
+
+.. Prerequisites: List all `HealthWorker` using the `list healthworker`
+command. Multiple `HealthWorker` in the list.
+.. Test case: `delete healthworker 1` +
+   Expected: First `HealthWorker` is deleted from the list. Details of the
+   deleted `HealthWorker` shown in the status message. Timestamp in the status
+   bar is updated.
+.. Test case: `delete healthworker 0` +
+   Expected: No `HealthWorker` is deleted. Error details shown in the status
+   message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, delete healthworker`,
+`delete healthworker x` (where x is larger than the list size), `delete healthworker y` (where y is negative) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+* Deleting a `HealthWorker` after a valid `filter healthworker` command is
+issued:
+.. Prerequisite: Enter the command `filter healthworker s/physiotherapy` to
+display only `HealthWorker` that specialise in physiotherapy. Other valid
+variants of the `filter healthworker` command may be used in place of this.
+.. Test case: `delete healthworker 1` +
+   Expected: First `HealthWorker` is deleted from the filtered list. Details of
+    the deleted `HealthWorker` shown in the status message. Timestamp in the
+    status bar is updated.
+.. Test case: `delete healthworker 0` +
+   Expected: No `HealthWorker` is deleted. Error details shown in the status
+   message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, delete healthworker`,
+`delete healthworker x` (where x is larger than the filtered list size),
+`delete healthworker y` (where y is negative) +
+   Expected: Similar to previous.
 
 === Saving data
 
 . Dealing with missing/corrupted data files
+.. If data file is missing, the app will retrieve a list of sample data internally. It will be saved upon exit.
+.. If any of the data is corrupted, the app will start with empty books, adding a health worker
+or request will overwrite the corrupted file.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+// tag::undoredo[]
 
-_{ more test cases ... }_
+=== Undoing a command
+. Undo a command that has been executed
+.. Prerequisites: A command that modifies the data has been executed already, for example `delete r 1`.
+.. Test case: `undo` +
+Expected: The request has been deleted will appear back inside the list in its original position.
+.. Test case: `undo` without any prerequisites +
+Expected: The application will show an error message: No more commands to undo!
+
+=== Redoing a command
+. Redo an undone command
+.. Prerequisites: A successful undo command have to be executed already.
+.. Test case: `redo` +
+Expected: The application will redo the undone command.
+.. Test case: `redo` without prerequisites +
+Expected: The application will show an error message: No more commands to redo!
+
+
+// end::undoredo[]

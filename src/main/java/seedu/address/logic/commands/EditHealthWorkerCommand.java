@@ -10,6 +10,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.CommandType;
 import seedu.address.model.Model;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
@@ -44,7 +45,6 @@ public class EditHealthWorkerCommand extends EditCommand implements HealthWorker
     public void edit(Model model, Object toEdit, Object edited) {
         model.setHealthWorker((HealthWorker) toEdit, (HealthWorker) edited);
         model.updateFilteredHealthWorkerList(Model.PREDICATE_SHOW_ALL_HEALTHWORKERS);
-        //model.commitHealthWorkerBook();
         commitHealthWorkerBook(model);
     }
 
@@ -197,5 +197,10 @@ public class EditHealthWorkerCommand extends EditCommand implements HealthWorker
                     && getOrganization().equals(e.getOrganization())
                     && getSkills().equals(e.getSkills());
         }
+    }
+
+    @Override
+    public void commitHealthWorkerBook(Model model) {
+        model.commit(CommandType.HEALTHWORKER_AND_REQUEST_COMMAND);
     }
 }

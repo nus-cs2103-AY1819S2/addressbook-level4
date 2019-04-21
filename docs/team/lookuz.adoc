@@ -5,6 +5,12 @@
 
 == Project: Health Hub
 
+Greetings! I am a Year 2 undergraduate in NUS majoring in Computer Science
+with a passion for solving real world problems using my technical expertise
+in software development and technological knowledge. This portfolio details
+the contributions that I have made to HealthHub, the considerations and also
+the decisions made in my implementation of various functions in HealthHub.
+
 == Overview
 
 In light of the overwhelming workload of hospital administration teams due
@@ -74,6 +80,10 @@ and `Request`, I had to rework the existing implementation of `CommandParser`
  HealthHub via the `CommandParser` class paved the way for other teammates to
  use the new revised `CommandParser` class for the development of their features
   as well.
+** Adjusted the implementation for `FilterCommandParser`, `ListCommandParser`
+and `DeleteCommandParser` implemented by my teammates use `CommandMode` to
+for a more seamless integration of the `filter`, `list` and `delete` commands
+ into HealthHub.
 
 * Added the functionality to filter `HealthWorker` objects in the HealthHub
 system using various fields.
@@ -86,12 +96,16 @@ I implemented the ability to filter the existing list of
 most appropriate health staff for assignment to requests to a shorter list
 based on filter conditions they input.
 ** A significant difficulty that was faced when implementing this feature, is
- the ability to combine multiple conditions of user inputs. The following
- considerations and possible solutions for this problem are as follows:
+ the ability to combine multiple conditions of user inputs. The two main
+ solutions that were considered were firstly, storing all the filter
+ conditions into a `List<Predicate`, while the second solution involved
+ condensing all the filter conditions into a single `Predicate` using Java's
+ `Predicate` and `Function` library methods. The considerations for each
+ solution are as follows:
 
 include::../DeveloperGuide.adoc[tag=filterHealthWorkerTable]
 
-Weighing both the pros and cons of both design considerations, I decided to
+*** Weighing both the pros and cons of both design considerations, I decided to
  go with composing multiple `Predicates` into a single `Predicate` by using
  the functional programming paradigm through Java's `Predicate` and
  `Function` libraries. This is because doing so increases the ease of
@@ -105,9 +119,9 @@ Weighing both the pros and cons of both design considerations, I decided to
 
 *Minor Enhancements*:
 
-* Adjusted the implementation for `FilterCommandParser`, `ListCommandParser`
-and `DeleteCommandParser` implemented by my teammates to for a more seamless
- integration of the `filter`, `list` and `delete` commands into HealthHub.
+* Added the ability for users to perform Create, Read, Update and Delete
+(CRUD) operations for health workers in HealthHub by implementing the `add
+healthworker`, `edit healthworker` and `delete healthworker` commands.
 * Wrote incremental integration tests for existing features in HealthHub, as
 well as features implemented by my teammates to ensure that the logic and
 model components in HealthHub are integrated together smoothly without hiccups.
@@ -126,15 +140,11 @@ contributions to HealthHub.
 
 *Documentation*:
 
-* Created the base skeleton and layout for the HealthHub User Guide
-documentation.
 * Contributed to the descriptions of each feature by reviewing the
 explanation of features in the User Guide, and overhauling it to be more
 informative and audience-focused.
 * Provided the notation and structure for my team to follow when documenting
 our changes and contributions made to HealthHub in the User Guide.
-* Provided easy navigation through the User Guide by adding links to various
-sections both at the start and at the summary.
 
 *Community*:
 
@@ -153,14 +163,12 @@ repository.
 
 == Contributions to the User Guide
 
-As my team and I morphed the original implementation of AddressBook4 to
+As my team and I transformed the original implementation of AddressBook4 to
 HealthHub, we have also extensively updated the User Guide to allow for users
  to better understand what HealthHub aims to achieve, and how it does so.
 
 The following sections details my contribution to the User Guide up til
 HealthHub version release v1.4.
-
-include::../UserGuide.adoc[tag=addHealthWorker]
 
 include::../UserGuide.adoc[tag=filterHealthWorker]
 

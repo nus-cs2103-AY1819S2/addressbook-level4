@@ -205,6 +205,8 @@ public class MainApp extends Application {
     public void stop() {
         logger.info("============================ [ Stopping Health Hub ] =============================");
         try {
+            storage.saveHealthWorkerBook(model.getHealthWorkerBook());
+            storage.saveRequestBook(model.getRequestBook());
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));

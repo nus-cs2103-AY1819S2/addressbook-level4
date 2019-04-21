@@ -25,7 +25,7 @@ We chose to morph it to a home-care patient management system, because of our pa
 Note the following symbols and formatting used in this document:
 
 `add` A grey highlight (called a mark-up) indicates that this is a command that can be inputted into the command line and executed by the application. +
-`Request` Red text beginning with a capital letter indicates a component, class or object in the architecture of the application.
+`Request` Grey highlight beginning with a capital letter indicates a component, class or object in the architecture of the application.
 
 == Summary of contributions
 

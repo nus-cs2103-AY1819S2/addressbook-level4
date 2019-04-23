@@ -7,7 +7,10 @@ import java.nio.file.Paths;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.request.Request;
+
+//import seedu.address.commons.core.index.Index;
+//import seedu.address.model.Model;
 
 /**
  * A utility class for test cases.
@@ -33,23 +36,31 @@ public class TestUtil {
     }
 
     /**
-     * Returns the middle index of the person in the {@code model}'s person list.
+     * Returns the middle index of the request in the {@code model}'s request list.
+     * @param model
+     * @return the middle index
      */
     public static Index getMidIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredPersonList().size() / 2);
+        return Index.fromOneBased(model.getFilteredRequestList().size() / 2);
     }
 
     /**
-     * Returns the last index of the person in the {@code model}'s person list.
+     * Returns the last index of the request in the {@code model}'s request list.
+     * @param model
+     * @return the last index
      */
     public static Index getLastIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredPersonList().size());
+
+        return Index.fromOneBased(model.getFilteredRequestList().size());
     }
 
     /**
-     * Returns the person in the {@code model}'s person list at {@code index}.
+     * Returns the request in the {@code model}'s request list at {@code index}.
+     * @param model
+     * @param index
+     * @return the request from the list at a specified index
      */
-    public static Person getPerson(Model model, Index index) {
-        return model.getFilteredPersonList().get(index.getZeroBased());
+    public static Request getRequest(Model model, Index index) {
+        return model.getFilteredRequestList().get(index.getZeroBased());
     }
 }

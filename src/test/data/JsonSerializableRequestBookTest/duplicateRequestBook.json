@@ -1,0 +1,47 @@
+{
+  "requests": [ {
+    "id": "1234",
+    "patient": {
+      "name" : "Alice Pauline",
+      "phone" : "94351253",
+      "nric": "S1234567A",
+      "email" : "alice@example.com",
+      "address" : "123, Jurong West Ave 6, #08-111",
+      "tagged" : [ "friends" ]
+    },
+    "requestdate": "01-01-2019 10:00:00",
+    "healthworker": {
+      "name" : "Andy Tan",
+      "phone" : "94358253",
+      "nric": "S8312942G",
+      "email" : "andye@example.com",
+      "address" : "125, Jurong West Ave 6, #08-111",
+      "organisation": "NUH",
+      "skills" : "GENERAL_PRACTICE ORTHOPAEDIC"
+    },
+    "conditions": "Palliative",
+    "requestStatus": "PENDING"
+  }, {
+    "id": "1234",
+    "patient": {
+      "name" : "Alice Pauline",
+      "phone" : "94351253",
+      "nric": "S1234567A",
+      "email" : "alice@example.com",
+      "address" : "123, Jurong West Ave 6, #08-111",
+      "tagged" : [ "friends" ]
+    },
+    "requestdate": "01-01-2019 10:00:00",
+    "healthworker": {
+      "name" : "Andy Tan",
+      "phone" : "94358253",
+      "nric": "S8312942G",
+      "email" : "andye@example.com",
+      "address" : "125, Jurong West Ave 6, #08-111",
+      "organisation": "NUH",
+      "skills" : "GENERAL_PRACTICE ORTHOPAEDIC"
+    },
+    "conditions": "Palliative",
+    "requestStatus": "PENDING"
+  } ]
+}

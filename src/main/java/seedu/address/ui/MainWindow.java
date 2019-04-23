@@ -20,6 +20,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
+ * @author Hui Chun
  */
 public class MainWindow extends UiPart<Stage> {
 
@@ -30,29 +31,37 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
 
-    // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
-    private ResultDisplay resultDisplay;
+    // Independent UI parts residing in this UI container
     private HelpWindow helpWindow;
-
-    @FXML
-    private StackPane browserPlaceholder;
-
-    @FXML
-    private StackPane commandBoxPlaceholder;
+    private ResultDisplay resultDisplay;
+    private RequestListPanel requestListPanel;
+    private InfoPanel infoPanel;
+    private HealthWorkerListPanel healthWorkerListPanel;
+    private StatusBarFooter statusBarFooter;
 
     @FXML
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private MenuItem feedbackMenuItem;
+
+    @FXML
+    private StackPane commandBoxPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
-    private StackPane statusbarPlaceholder;
+    private StackPane requestListPlaceholder;
+
+    @FXML
+    private StackPane displayInfoPlaceholder;
+
+    @FXML
+    private StackPane healthWorkerListPlaceholder;
+
+    @FXML
+    private StackPane statusBarPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -75,6 +84,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+        setAccelerator(feedbackMenuItem, KeyCombination.valueOf("F2"));
     }
 
     /**
@@ -111,21 +121,30 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedPersonProperty());
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
-
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
-                logic::setSelectedPerson);
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        requestListPanel = new RequestListPanel(logic.getFilteredRequestList(), logic.selectedRequestProperty(),
+                logic::setSelectedRequest);
+        requestListPlaceholder.getChildren().add(requestListPanel.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+        infoPanel = new InfoPanel(logic.selectedRequestProperty());
+        displayInfoPlaceholder.getChildren().add(infoPanel.getRoot());
+
+        healthWorkerListPanel = new HealthWorkerListPanel(logic.getFilteredHealthWorkerList(),
+            logic.selectedHealthWorkerProperty(), logic::setSelectedHealthWorker);
+        healthWorkerListPlaceholder.getChildren().add(healthWorkerListPanel.getRoot());
+
+        statusBarFooter = new StatusBarFooter(logic.getRequestBookFilePath(), logic.getHealthWorkerBookFilePath(),
+                logic.getRequestBook(), logic.getHealthWorkerBook());
+        statusBarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+    }
+
+    void show() {
+        primaryStage.show();
     }
 
     /**
@@ -152,8 +171,12 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    void show() {
-        primaryStage.show();
+    /**
+     * Opens the feedback window.
+     */
+    @FXML
+    public void handleFeedback() {
+        //TODO implement feedback window logic
     }
 
     /**
@@ -168,14 +191,10 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }
-
     /**
      * Executes the command and returns the result.
      *
-     * @see seedu.address.logic.Logic#execute(String)
+     * @see Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {

@@ -1,7 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.logic.commands.Statistics.undoRedoStatistics;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_HEALTHWORKERS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_REQUESTS;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -20,12 +22,16 @@ public class UndoCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (!model.canUndoAddressBook()) {
+        if (!model.canUndo()) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        model.undoAddressBook();
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.undo();
+        model.updateFilteredHealthWorkerList(PREDICATE_SHOW_ALL_HEALTHWORKERS);
+        model.updateFilteredRequestList(PREDICATE_SHOW_ALL_REQUESTS);
+
+        undoRedoStatistics(model);
+
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

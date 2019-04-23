@@ -6,14 +6,19 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.healthworker.HealthWorker;
+import seedu.address.model.request.Request;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
+
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<HealthWorker> PREDICATE_SHOW_ALL_HEALTHWORKERS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Request> PREDICATE_SHOW_ALL_REQUESTS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -35,96 +40,172 @@ public interface Model {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+
+    /** Returns the HealthWorkerBook */
+    ReadOnlyHealthWorkerBook getHealthWorkerBook();
+
+    /** Returns the user prefs' health worker book file path. */
+    Path getHealthWorkerBookFilePath();
+
+    // ============== Added methods for AddHealthWorkerCommand ===============
+    // @author: Lookaz
+
     /**
-     * Returns the user prefs' address book file path.
+     * Returns true if a person with the same identity as {@code healthWorker}
+     * exists in the address book.
      */
-    Path getAddressBookFilePath();
+    boolean hasHealthWorker(HealthWorker healthWorker);
 
     /**
-     * Sets the user prefs' address book file path.
+     * Deletes the given HealthWorker.
+     * The HealthWorker object must exist in the address book.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void deleteHealthWorker(HealthWorker target);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Adds the given HealthWorker.
+     * {@code healthWorker} must not already exist in the address book.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
-
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    void addHealthWorker(HealthWorker healthWorker);
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
-     */
-    boolean hasPerson(Person person);
-
-    /**
-     * Deletes the given person.
-     * The person must exist in the address book.
-     */
-    void deletePerson(Person target);
-
-    /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
-     */
-    void addPerson(Person person);
-
-    /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given person {@code target} with {@code editedWorker}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The identity of {@code editedWorker} must not be the same as
+     * another existing HealthWorker in the address book.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setHealthWorker(HealthWorker target, HealthWorker editedWorker);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered health worker list */
+    ObservableList<HealthWorker> getFilteredHealthWorkerList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered HealthWorker list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredHealthWorkerList(Predicate<HealthWorker> predicate);
+
+    /**
+     * Selected health worker in the filtered health worker list.
+     * null if no health worker is selected.
+     */
+    ReadOnlyProperty<HealthWorker> selectedHealthWorkerProperty();
+
+    /**\
+     * Sets the selected health worker in the filtered health worker list.
+     */
+    void setSelectedHealthWorker(HealthWorker worker);
+
+    void commitHealthWorkerBook();
+
+    /**
+     * Updates the healthStaff field in Request class upon editing the name of a HealthWorker
+     */
+    void updateRequestOnNameEdit(String oldNric, String newNric);
+
+    // ================== Request related code =========================================
+    // @author David, Hui Chun
+
+    /**
+     * Returns the user prefs' request book file path.
+     */
+    Path getRequestBookFilePath();
+
+    /** Returns the RequestBook */
+    ReadOnlyRequestBook getRequestBook();
+
+    /**
+     * Returns an unmodifiable view of the request list.
+     */
+    ObservableList<Request> getFilteredRequestList();
+
+    /**
+     * Selected request in the filtered request list.
+     * null if no request is selected.
+     */
+    ReadOnlyProperty<Request> selectedRequestProperty();
+
+    /**
+     * Sets the selected request in the filtered request list.
+     */
+    void setSelectedRequest(Request request);
+
+    /**
+     * Returns true if a request with the same identity as {@code request} exists in the address
+     * book.
+     */
+    boolean hasRequest(Request request);
+
+
+    /**
+     * Replaces the given order {@code target} with {@code editedRequest}.
+     * {@code target} must exist in the request book.
+     * The request identity of {@code editedRequest} must not be the same as another existing
+     * request in the request book.
+     */
+    void updateRequest(Request target, Request editedRequest);
+
+    /**
+     * Deletes the given request.
+     * The request must exist in the request book.
+     */
+    void deleteRequest(Request target);
+
+    /**
+     * Updates the filter of the filtered order list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredRequestList(Predicate<Request> predicate);
+
+    /**
+     * Adds the given request.
+     * {@code request} must not already exist in the request book.
+     */
+    void addRequest(Request request);
+
+    /**
+     * Checks if the provide name string of a HealthWorker is assigned to any existing requests
+     */
+    boolean isAssigned(String name);
+
+    /**
+     * Clears existing backing model and replaces with the provided new data.
+     */
+    void resetData(ReadOnlyRequestBook newData);
+
+    /**
+     * Replaces the given request {@code target} with {@code editedRequest}.
+     * {@code target} must exist in the request book.
+     * The request identity of {@code editedRequest} must not be the same as another existing
+     * request in the request book.
+     */
+    void setRequest(Request target, Request editedRequest);
+
+    void commitRequestBook();
 
     /**
      * Returns true if the model has previous address book states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndo();
 
     /**
      * Returns true if the model has undone address book states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedo();
 
     /**
      * Restores the model's address book to its previous state.
      */
-    void undoAddressBook();
+    void undo();
 
     /**
      * Restores the model's address book to its previously undone state.
      */
-    void redoAddressBook();
+    void redo();
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Commits the book based on command issued.
      */
-    void commitAddressBook();
-
-    /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
-     */
-    ReadOnlyProperty<Person> selectedPersonProperty();
-
-    /**
-     * Returns the selected person in the filtered person list.
-     * null if no person is selected.
-     */
-    Person getSelectedPerson();
-
-    /**
-     * Sets the selected person in the filtered person list.
-     */
-    void setSelectedPerson(Person person);
+    void commit(CommandType commandType);
 }

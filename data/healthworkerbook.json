@@ -1,0 +1,45 @@
+{
+  "healthWorkers" : [ {
+    "name" : "Andy Tan",
+    "phone" : "94358253",
+    "nric" : "S8312942G",
+    "organization" : "NUH",
+    "skills" : "GENERAL_PRACTICE PHYSIOTHERAPY "
+  }, {
+    "name" : "Betty Meier",
+    "phone" : "98761232",
+    "nric" : "S8176952L",
+    "organization" : "CGH",
+    "skills" : "GENERAL_PRACTICE ORTHOPAEDIC "
+  }, {
+    "name" : "Carlie Kurz",
+    "phone" : "95358463",
+    "nric" : "S9312942G",
+    "organization" : "NUH",
+    "skills" : "GYNAECOLOGY GENERAL_PRACTICE "
+  }, {
+    "name" : "Paniel Meier",
+    "phone" : "87652133",
+    "nric" : "S9701568T",
+    "organization" : "SGH",
+    "skills" : "HAEMATOLOGY PHYSIOTHERAPY "
+  }, {
+    "name" : "Ella Meyer",
+    "phone" : "94824524",
+    "nric" : "S9112942G",
+    "organization" : "SGH",
+    "skills" : "PHYSIOTHERAPY ANAESTHESIOLOGY "
+  }, {
+    "name" : "Fione Kunz",
+    "phone" : "94822373",
+    "nric" : "S7812942G",
+    "organization" : "TTSH",
+    "skills" : "OCCUPATIONAL_THERAPY CARDIOLOGY "
+  }, {
+    "name" : "George Best",
+    "phone" : "94824424",
+    "nric" : "S8812942G",
+    "organization" : "TTSH",
+    "skills" : "UROLOGY PAEDIATRIC "
+  } ]
+}

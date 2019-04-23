@@ -6,34 +6,34 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.request.Request;
 
 /**
  * Contains helper methods to set up {@code Model} for testing.
  */
 public class ModelHelper {
-    private static final Predicate<Person> PREDICATE_MATCHING_NO_PERSONS = unused -> false;
+    private static final Predicate<Request> PREDICATE_MATCHING_NO_PERSONS = unused -> false;
 
     /**
      * Updates {@code model}'s filtered list to display only {@code toDisplay}.
      */
-    public static void setFilteredList(Model model, List<Person> toDisplay) {
-        Optional<Predicate<Person>> predicate =
+    public static void setFilteredRequestList(Model model, List<Request> toDisplay) {
+        Optional<Predicate<Request>> predicate =
                 toDisplay.stream().map(ModelHelper::getPredicateMatching).reduce(Predicate::or);
-        model.updateFilteredPersonList(predicate.orElse(PREDICATE_MATCHING_NO_PERSONS));
+        model.updateFilteredRequestList(predicate.orElse(PREDICATE_MATCHING_NO_PERSONS));
     }
 
     /**
-     * @see ModelHelper#setFilteredList(Model, List)
+     * @see ModelHelper#setFilteredRequestList(Model, List)
      */
-    public static void setFilteredList(Model model, Person... toDisplay) {
-        setFilteredList(model, Arrays.asList(toDisplay));
+    public static void setFilteredRequestList(Model model, Request... toDisplay) {
+        setFilteredRequestList(model, Arrays.asList(toDisplay));
     }
 
     /**
-     * Returns a predicate that evaluates to true if this {@code Person} equals to {@code other}.
+     * Returns a predicate that evaluates to true if this {@code Request} equals to {@code other}.
      */
-    private static Predicate<Person> getPredicateMatching(Person other) {
-        return person -> person.equals(other);
+    private static Predicate<Request> getPredicateMatching(Request other) {
+        return request -> request.equals(other);
     }
 }

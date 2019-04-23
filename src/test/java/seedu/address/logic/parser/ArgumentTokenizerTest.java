@@ -7,6 +7,9 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.testutil.Assert;
+
 public class ArgumentTokenizerTest {
 
     private final Prefix unknownPrefix = new Prefix("--u");
@@ -145,6 +148,76 @@ public class ArgumentTokenizerTest {
 
         assertNotEquals(aaa, "aaa");
         assertNotEquals(aaa, new Prefix("aab"));
+    }
+
+    @Test
+    public void checkMode() {
+        // Empty String
+        assertEquals(ArgumentTokenizer.checkMode(""), CommandMode.INVALID);
+
+        // null string
+        Assert.assertThrows(NullPointerException.class, () ->
+                ArgumentTokenizer.checkMode(null));
+
+        // 1 -> HealthWorker command mode
+        assertTrue(ArgumentTokenizer.checkMode("1 n/")
+                .equals(CommandMode.HEALTH_WORKER));
+
+        // alternative command modes for health worker
+        assertTrue(ArgumentTokenizer.checkMode("healthworker")
+                .equals(CommandMode.HEALTH_WORKER));
+        assertTrue(ArgumentTokenizer.checkMode("h")
+                .equals(CommandMode.HEALTH_WORKER));
+
+        // alternative command modes for request
+        assertTrue(ArgumentTokenizer.checkMode("request")
+                .equals(CommandMode.REQUEST));
+        assertTrue(ArgumentTokenizer.checkMode("r")
+                .equals(CommandMode.REQUEST));
+
+        // invalid alternative command modes
+        assertFalse(ArgumentTokenizer.checkMode("health_worker")
+                .equals(CommandMode.HEALTH_WORKER));
+        assertFalse(ArgumentTokenizer.checkMode("req")
+                .equals(CommandMode.REQUEST));
+
+        // 3 -> Request command mode
+        assertTrue(ArgumentTokenizer.checkMode("2 n/")
+                .equals(CommandMode.REQUEST));
+
+        // Invalid number
+        assertTrue(ArgumentTokenizer.checkMode("0 n/")
+                .equals(CommandMode.INVALID));
+
+        // actual Health Worker, expected invalid -> return false
+        assertFalse(ArgumentTokenizer.checkMode("1 n/")
+                .equals(CommandMode.INVALID));
+
+        // actual Patient, expected Health Worker -> return false
+        assertFalse(ArgumentTokenizer.checkMode("2 n/")
+                .equals(CommandMode.HEALTH_WORKER));
+
+        // Leading white space
+        assertTrue(ArgumentTokenizer.checkMode("   1 n/")
+                .equals(CommandMode.HEALTH_WORKER));
+    }
+
+    @Test
+    public void trimMode() throws ParseException {
+        // null
+        Assert.assertThrows(NullPointerException.class, () -> ArgumentTokenizer.trimMode(null));
+
+        // empty string
+        Assert.assertThrows(ArrayIndexOutOfBoundsException.class, () -> ArgumentTokenizer.trimMode(""));
+
+        // single word
+        Assert.assertThrows(ArrayIndexOutOfBoundsException.class, () -> ArgumentTokenizer.trimMode("first"));
+
+        // two words
+        assertEquals(ArgumentTokenizer.trimMode("first second"), "second");
+
+        // sentence
+        assertEquals(ArgumentTokenizer.trimMode("first second third fourth"), "second third fourth");
     }
 
 }

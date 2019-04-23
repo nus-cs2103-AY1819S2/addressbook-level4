@@ -9,46 +9,68 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.HealthWorkerBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyHealthWorkerBook;
+import seedu.address.model.ReadOnlyRequestBook;
+import seedu.address.model.RequestBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonHealthWorkerBookStorage;
+import seedu.address.storage.JsonRequestBookStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.testutil.TestUtil;
 import systemtests.ModelHelper;
 
 /**
- * This class is meant to override some properties of MainApp so that it will be suited for
- * testing
+ * This class is meant to override some properties of MainApp so that it will be suited for testing
  */
 public class TestApp extends MainApp {
 
-    public static final Path SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.json");
+    public static final Path SAVE_LOCATION_FOR_TESTING_HEALTHWORKERBOOK =
+            TestUtil.getFilePathInSandboxFolder("healthWorkerData.json");
+    public static final Path SAVE_LOCATION_FOR_TESTING_REQUESTBOOK =
+            TestUtil.getFilePathInSandboxFolder("requestData.json");
+
 
     protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
             TestUtil.getFilePathInSandboxFolder("pref_testing.json");
-    protected Supplier<ReadOnlyAddressBook> initialDataSupplier = () -> null;
-    protected Path saveFileLocation = SAVE_LOCATION_FOR_TESTING;
+    protected Supplier<ReadOnlyHealthWorkerBook> initialHealthWorkerBookSupplier = () -> null;
+    protected Supplier<ReadOnlyRequestBook> initialRequestBookSupplier = () -> null;
+    protected Path saveHealthWorkerBookLocation = SAVE_LOCATION_FOR_TESTING_HEALTHWORKERBOOK;
+    protected Path saveRequestBookLocation = SAVE_LOCATION_FOR_TESTING_REQUESTBOOK;
+
 
     public TestApp() {
     }
 
-    public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier, Path saveFileLocation) {
+    public TestApp(Supplier<ReadOnlyHealthWorkerBook> initialHealthWorkerBookSupplier, Path healthWorkerBookPath,
+                   Supplier<ReadOnlyRequestBook> initialRequestBookSupplier, Path requestBookPath) {
         super();
-        this.initialDataSupplier = initialDataSupplier;
-        this.saveFileLocation = saveFileLocation;
+        this.initialHealthWorkerBookSupplier = initialHealthWorkerBookSupplier;
+        this.initialRequestBookSupplier = initialRequestBookSupplier;
+        this.saveHealthWorkerBookLocation = healthWorkerBookPath;
+        this.saveRequestBookLocation = requestBookPath;
 
         // If some initial local data has been provided, write those to the file
-        if (initialDataSupplier.get() != null) {
-            JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(saveFileLocation);
+        if (initialHealthWorkerBookSupplier.get() != null) {
+            JsonHealthWorkerBookStorage jsonHealthWorkerBookStorage =
+                    new JsonHealthWorkerBookStorage(healthWorkerBookPath);
             try {
-                jsonAddressBookStorage.saveAddressBook(initialDataSupplier.get());
+                jsonHealthWorkerBookStorage.saveHealthWorkerBook(initialHealthWorkerBookSupplier.get());
             } catch (IOException ioe) {
                 throw new AssertionError(ioe);
             }
         }
+        if (initialRequestBookSupplier.get() != null) {
+            JsonRequestBookStorage jsonRequestBookStorage = new JsonRequestBookStorage(requestBookPath);
+            try {
+                jsonRequestBookStorage.saveRequestBook(initialRequestBookSupplier.get());
+            } catch (IOException ioe) {
+                throw new AssertionError(ioe);
+            }
+        }
+
     }
 
     @Override
@@ -64,36 +86,58 @@ public class TestApp extends MainApp {
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
         userPrefs.setGuiSettings(new GuiSettings(600.0, 600.0, (int) x, (int) y));
-        userPrefs.setAddressBookFilePath(saveFileLocation);
+        userPrefs.setHealthWorkerBookFilePath(saveHealthWorkerBookLocation);
+        userPrefs.setRequestBookFilePath(saveRequestBookLocation);
         return userPrefs;
     }
 
     /**
-     * Returns a defensive copy of the address book data stored inside the storage file.
+     * Returns a defensive copy of the health worker book data stored inside the storage file.
      */
-    public AddressBook readStorageAddressBook() {
+    public HealthWorkerBook readStorageHealthWorkerBook() {
         try {
-            return new AddressBook(storage.readAddressBook().get());
+            return new HealthWorkerBook(storage.readHealthWorkerBook().get());
         } catch (DataConversionException dce) {
-            throw new AssertionError("Data is not in the AddressBook format.", dce);
+            throw new AssertionError("Data is not in the HealthWorkerBook format.", dce);
         } catch (IOException ioe) {
             throw new AssertionError("Storage file cannot be found.", ioe);
         }
     }
 
     /**
-     * Returns the file path of the storage file.
+     * Returns a defensive copy of the request book data stored inside the storage file.
      */
-    public Path getStorageSaveLocation() {
-        return storage.getAddressBookFilePath();
+    public RequestBook readStorageRequestBook() {
+        try {
+            return new RequestBook(storage.readRequestBook().get());
+        } catch (DataConversionException dce) {
+            throw new AssertionError("Data is not in the RequestBook format.", dce);
+        } catch (IOException ioe) {
+            throw new AssertionError("Storage file cannot be found.", ioe);
+        }
+    }
+
+    /**
+     * Returns the file path of the storage file for health worker book.
+     */
+    public Path getStorageSaveLocationHealthWorkerBook() {
+        return storage.getHealthWorkerBookFilePath();
+    }
+
+    /**
+     * Returns the file path of the storage file for request book.
+     */
+    public Path getStorageSaveLocationRequestBook() {
+        return storage.getRequestBookFilePath();
     }
 
     /**
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager((model.getAddressBook()), new UserPrefs());
-        ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
+        Model copy = new ModelManager(model.getHealthWorkerBook(), model.getRequestBook(),
+                model.getUserPrefs());
+        ModelHelper.setFilteredRequestList(copy, model.getFilteredRequestList());
         return copy;
     }
 

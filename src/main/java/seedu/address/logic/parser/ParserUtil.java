@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -12,8 +13,16 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.person.healthworker.Organization;
+import seedu.address.model.request.RequestDate;
+import seedu.address.model.request.RequestStatus;
+import seedu.address.model.tag.Condition;
+import seedu.address.model.tag.Skills;
+import seedu.address.model.tag.Specialisation;
+
+
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -36,6 +45,19 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code Collection<String> tags} into a {@code Set<Index>}.
+     */
+    public static Set<Index> parseIndexes(Collection<String> index) throws ParseException {
+        requireNonNull(index);
+        final Set<Index> indexSet = new HashSet<>();
+        for (String indexNo : index) {
+            indexSet.add(parseIndex(indexNo));
+        }
+        return indexSet;
+
+    }
+
+    /**
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -48,6 +70,16 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String id} and returns it's respective index in the addressbook patient list.
+     * @return
+     */
+    public static int parsePatientIndex(String id) {
+        requireNonNull(id);
+        String trimmedId = id.trim();
+        return Integer.parseInt(trimmedId);
     }
 
     /**
@@ -95,30 +127,140 @@ public class ParserUtil {
         return new Email(trimmedEmail);
     }
 
+    // ===== Methods for parsing Patient Conditions =====
+    // @author Rohan
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
+     * Parses a {@code String specialisation} into a {@code Specialisation}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code tag} is invalid.
+     * @throws ParseException if the given {@code specialisation} is invalid.
      */
-    public static Tag parseTag(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+    public static Condition parseCondition(String condition)
+            throws ParseException {
+        requireNonNull(condition);
+        String trimmedCondition = condition.trim();
+        if (!Condition.isValidConditionName(trimmedCondition)) {
+            throw new ParseException(Condition.MESSAGE_CONSTRAINTS);
         }
-        return new Tag(trimmedTag);
+
+        return new Condition(trimmedCondition);
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     * Parses a {@code String status} into a {@code RequestStatus}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code status} is invalid.
      */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+    public static RequestStatus parseRequestStatus(String status) throws ParseException {
+        requireNonNull(status);
+        String trimmedStatus = status.trim();
+        if (!RequestStatus.isValidStatus(trimmedStatus)) {
+            throw new ParseException(RequestStatus.MESSAGE_STATUS_CONSTRAINTS);
         }
-        return tagSet;
+
+        return new RequestStatus(trimmedStatus);
+    }
+
+    /**
+     * Parses {@code Collection<String> conditionsToAdd} into a {@code Set<Condition>}.
+     */
+    public static Set<Condition> parseConditions(Collection<String> conditionsToAdd)
+            throws ParseException {
+        requireNonNull(conditionsToAdd);
+        final Set<Condition> conditionSet = new HashSet<>();
+        for (String conditionToAdd : conditionsToAdd) {
+            conditionSet.add(parseCondition(conditionToAdd));
+        }
+        return conditionSet;
+    }
+
+    // ===== Methods for parsing Organisation, Nric and Specialisations =====
+    // @author Lookaz
+    /**
+     * Parses a {@code String organization} into a {@code Organization}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code organization} is invalid.
+     */
+    public static Organization parseOrganization(String organization) throws ParseException {
+        requireNonNull(organization);
+        String trimmedOrganization = organization.trim();
+        if (!Organization.isValidOrgName(trimmedOrganization)) {
+            throw new ParseException(Organization.MESSAGE_CONSTRAINTS);
+        }
+
+        return new Organization(trimmedOrganization);
+    }
+
+    /**
+     * Parses a {@code String nric} into a {@code Nric}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code nric} is invalid.
+     */
+    public static Nric parseNric(String nric) throws ParseException {
+        requireNonNull(nric);
+        String trimmedNric = nric.trim();
+        if (!Nric.isValidNric(trimmedNric)) {
+            throw new ParseException(Nric.MESSAGE_CONSTRAINTS);
+        }
+
+        return new Nric(trimmedNric);
+    }
+
+    /**
+     * Parses a {@code String specialisation} into a {@code Specialisation}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code specialisation} is invalid.
+     */
+    public static Specialisation parseSpecialisation(String specialisation)
+            throws ParseException {
+        requireNonNull(specialisation);
+        String trimmedSpecialisation = specialisation.trim();
+        if (!Specialisation.isValidSpecialisation(trimmedSpecialisation)) {
+            throw new ParseException(Specialisation.MESSAGE_CONSTRAINTS);
+        }
+
+        return Specialisation.parseString(trimmedSpecialisation);
+    }
+
+    /**
+     * Parses {@code Collection<String> specialisations} into a {@code
+     * Skills}.
+     */
+    public static Skills parseSpecialisations(Collection<String> specialisations)
+            throws ParseException {
+        requireNonNull(specialisations);
+        final Skills skills = new Skills();
+        for (String specialisation : specialisations) {
+            skills.addSpecialisation(parseSpecialisation(specialisation));
+        }
+        return skills;
+    }
+
+    /**
+     * Parses {@code String date} into a {@code RequestDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static RequestDate parseRequestDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!RequestDate.isValidDate(trimmedDate)) {
+            throw new ParseException(RequestDate.MESSAGE_CONSTRAINTS);
+        }
+
+        return new RequestDate(trimmedDate);
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    public static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

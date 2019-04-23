@@ -121,6 +121,11 @@ public class UniquePersonList implements Iterable<Person> {
         return internalList.hashCode();
     }
 
+    public Person getAt(int index) {
+        assert(index < this.internalList.size() - 1);
+        return this.internalList.get(index);
+    }
+
     /**
      * Returns true if {@code persons} contains only unique persons.
      */

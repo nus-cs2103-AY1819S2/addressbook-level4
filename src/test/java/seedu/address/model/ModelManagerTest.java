@@ -3,27 +3,31 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ANDY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BETTY;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_HEALTHWORKERS;
+import static seedu.address.testutil.TypicalHealthWorkers.ANDY;
+import static seedu.address.testutil.TypicalHealthWorkers.BETTY;
+import static seedu.address.testutil.TypicalHealthWorkers.PANIEL;
+import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthWorkerBook;
+import static seedu.address.testutil.TypicalRequests.ALICE_REQUEST;
+import static seedu.address.testutil.TypicalRequests.BENSON_REQUEST;
+import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
 
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Collections;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
-import seedu.address.testutil.AddressBookBuilder;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.Assert;
+import seedu.address.testutil.HealthWorkerBookBuilder;
+import seedu.address.testutil.RequestBookBuilder;
+import seedu.address.testutil.RequestBuilder;
+
 
 public class ModelManagerTest {
     @Rule
@@ -35,8 +39,6 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
-        assertEquals(null, modelManager.getSelectedPerson());
     }
 
     @Test
@@ -72,92 +74,77 @@ public class ModelManagerTest {
         assertEquals(guiSettings, modelManager.getGuiSettings());
     }
 
+    // Added tests for added supporting operations on UniqueHealthWorkerList
+    // @author: Lookaz
+
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        modelManager.setAddressBookFilePath(null);
+    public void addHealthWorker() {
+        // add null health worker
+        Assert.assertThrows(NullPointerException.class, () -> modelManager
+                .addHealthWorker(null));
+
+        // health worker already in addressbook
+        modelManager.addHealthWorker(ANDY);
+        Assert.assertThrows(DuplicatePersonException.class, () ->
+                modelManager.addHealthWorker(ANDY));
     }
 
     @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
-        Path path = Paths.get("address/book/file/path");
-        modelManager.setAddressBookFilePath(path);
-        assertEquals(path, modelManager.getAddressBookFilePath());
+    public void hasHealthWorker() {
+        // null health worker
+        Assert.assertThrows(NullPointerException.class, () -> modelManager
+                .hasHealthWorker(null));
+
+        // health worker does not exist -> return false
+        assertFalse(modelManager.hasHealthWorker(ANDY));
+
+        // health worker exists -> return true
+        modelManager.addHealthWorker(ANDY);
+        assertTrue(modelManager.hasHealthWorker(ANDY));
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        modelManager.hasPerson(null);
+    public void deleteHealthWorker() {
+        // null health worker
+        Assert.assertThrows(NullPointerException.class, () -> modelManager
+                .deleteHealthWorker(null));
+
+        // delete non existent person
+        Assert.assertThrows(PersonNotFoundException.class, () -> modelManager
+                .deleteHealthWorker(ANDY));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasPerson(ALICE));
+    public void setHealthWorker() {
+        // setting null health worker
+        modelManager.addHealthWorker(ANDY);
+        Assert.assertThrows(NullPointerException.class, () -> modelManager
+                .setHealthWorker(ANDY, null));
+        Assert.assertThrows(NullPointerException.class, () -> modelManager
+                .setHealthWorker(null, ANDY));
+
+        // setting non existent health worker
+        Assert.assertThrows(PersonNotFoundException.class, () -> modelManager
+                .setHealthWorker(BETTY, ANDY));
+
+        // setting to duplicate health worker
+        modelManager.addHealthWorker(BETTY);
+        Assert.assertThrows(DuplicatePersonException.class, () ->
+                modelManager.setHealthWorker(BETTY, ANDY));
     }
 
-    @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.addPerson(ALICE);
-        assertTrue(modelManager.hasPerson(ALICE));
-    }
-
-    @Test
-    public void deletePerson_personIsSelectedAndFirstPersonInFilteredPersonList_selectionCleared() {
-        modelManager.addPerson(ALICE);
-        modelManager.setSelectedPerson(ALICE);
-        modelManager.deletePerson(ALICE);
-        assertEquals(null, modelManager.getSelectedPerson());
-    }
-
-    @Test
-    public void deletePerson_personIsSelectedAndSecondPersonInFilteredPersonList_firstPersonSelected() {
-        modelManager.addPerson(ALICE);
-        modelManager.addPerson(BOB);
-        assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredPersonList());
-        modelManager.setSelectedPerson(BOB);
-        modelManager.deletePerson(BOB);
-        assertEquals(ALICE, modelManager.getSelectedPerson());
-    }
-
-    @Test
-    public void setPerson_personIsSelected_selectedPersonUpdated() {
-        modelManager.addPerson(ALICE);
-        modelManager.setSelectedPerson(ALICE);
-        Person updatedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
-        modelManager.setPerson(ALICE, updatedAlice);
-        assertEquals(updatedAlice, modelManager.getSelectedPerson());
-    }
-
-    @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        thrown.expect(UnsupportedOperationException.class);
-        modelManager.getFilteredPersonList().remove(0);
-    }
-
-    @Test
-    public void setSelectedPerson_personNotInFilteredPersonList_throwsPersonNotFoundException() {
-        thrown.expect(PersonNotFoundException.class);
-        modelManager.setSelectedPerson(ALICE);
-    }
-
-    @Test
-    public void setSelectedPerson_personInFilteredPersonList_setsSelectedPerson() {
-        modelManager.addPerson(ALICE);
-        assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredPersonList());
-        modelManager.setSelectedPerson(ALICE);
-        assertEquals(ALICE, modelManager.getSelectedPerson());
-    }
+    // ======================================================================
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        AddressBook differentAddressBook = new AddressBook();
+        HealthWorkerBook healthWorkerBook = new HealthWorkerBookBuilder().withHealthWorker(ANDY)
+                .withHealthWorker(BETTY).build();
+        RequestBook requestBook = new RequestBookBuilder().withRequest(ALICE_REQUEST).build();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        modelManager = new ModelManager(healthWorkerBook, requestBook, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(healthWorkerBook, requestBook, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -170,19 +157,36 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(new HealthWorkerBook(), requestBook, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        // modelManager.updateFilteredHealthWorkerList(x -> x.getName().contains("Andy"));
+        // assertFalse(modelManager.equals(new ModelManager(healthWorkerBook, requestBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.updateFilteredHealthWorkerList(PREDICATE_SHOW_ALL_HEALTHWORKERS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(healthWorkerBook, requestBook, differentUserPrefs)));
+    }
+
+    @Test
+    public void isAssigned() {
+        modelManager = new ModelManager(getTypicalHealthWorkerBook(), getTypicalRequestBook(), new UserPrefs());
+
+        // unassigned request
+        assertFalse(modelManager.isAssigned(PANIEL.getName().toString()));
+
+        // assigned request
+        modelManager.updateRequest(ALICE_REQUEST, new RequestBuilder(ALICE_REQUEST).withHealthWorker(VALID_NAME_ANDY)
+                .withStatus("ONGOING").build());
+        assertTrue(modelManager.isAssigned(VALID_NAME_ANDY));
+
+        // completed request
+        modelManager.updateRequest(BENSON_REQUEST, new RequestBuilder(BENSON_REQUEST).withHealthWorker(VALID_NAME_BETTY)
+                .withStatus("COMPLETED").build());
+        assertFalse(modelManager.isAssigned(VALID_NAME_BETTY));
     }
 }

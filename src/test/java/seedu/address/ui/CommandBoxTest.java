@@ -9,13 +9,14 @@ import org.junit.Test;
 
 import guitests.guihandles.CommandBoxHandle;
 import javafx.scene.input.KeyCode;
+import seedu.address.commons.core.Commands;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListHealthWorkerCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 public class CommandBoxTest extends GuiUnitTest {
 
-    private static final String COMMAND_THAT_SUCCEEDS = ListCommand.COMMAND_WORD;
+    private static final String COMMAND_THAT_SUCCEEDS = ListHealthWorkerCommand.COMMAND_WORD + " 1";
     private static final String COMMAND_THAT_FAILS = "invalid command";
 
     private ArrayList<String> defaultStyleOfCommandBox;
@@ -38,39 +39,60 @@ public class CommandBoxTest extends GuiUnitTest {
         uiPartRule.setUiPart(commandBox);
 
         defaultStyleOfCommandBox = new ArrayList<>(commandBoxHandle.getStyleClass());
-
         errorStyleOfCommandBox = new ArrayList<>(defaultStyleOfCommandBox);
-        errorStyleOfCommandBox.add(CommandBox.ERROR_STYLE_CLASS);
+        errorStyleOfCommandBox.add(AutoCompleteTextField.ERROR_STYLE_CLASS);
     }
 
+    /**
+     * Tests for command box's behavior when executing a successful command,
+     * followed by a failed command.
+     */
     @Test
     public void commandBox_startingWithSuccessfulCommand() {
         assertBehaviorForSuccessfulCommand();
         assertBehaviorForFailedCommand();
     }
 
+    /**
+     * Tests for command box's behavior when executing a failed command,
+     * followed by a successful command.
+     */
     @Test
     public void commandBox_startingWithFailedCommand() {
         assertBehaviorForFailedCommand();
         assertBehaviorForSuccessfulCommand();
-
-        // verify that style is changed correctly even after multiple consecutive failed commands
-        assertBehaviorForSuccessfulCommand();
-        assertBehaviorForFailedCommand();
-        assertBehaviorForFailedCommand();
     }
 
+    /**
+     * Tests for key press events for failed command, in which the text does not
+     * clear.
+     */
     @Test
     public void commandBox_handleKeyPress() {
         commandBoxHandle.run(COMMAND_THAT_FAILS);
         assertEquals(errorStyleOfCommandBox, commandBoxHandle.getStyleClass());
         guiRobot.push(KeyCode.ESCAPE);
         assertEquals(errorStyleOfCommandBox, commandBoxHandle.getStyleClass());
-
         guiRobot.push(KeyCode.A);
         assertEquals(defaultStyleOfCommandBox, commandBoxHandle.getStyleClass());
     }
 
+    /**
+     * Tests for the auto-complete functionality, and checks if the entered prefixes
+     * corresponds to the expected commands.
+     */
+    @Test
+    public void commandBox_checkAutoComplete() {
+        assertAutoCompletion("s", Commands.SELECT);
+        assertAutoCompletion("add 1", Commands.ADD_HEALTH_WORKER_MODE);
+        assertAutoCompletion("add r", Commands.ADD_REQUEST);
+        assertAutoCompletion("hi", Commands.HISTORY);
+        assertAutoCompletion("f", Commands.FILTER);
+    }
+
+    /**
+     * Tests for key press events starting with UP.
+     */
     @Test
     public void handleKeyPress_startingWithUp() {
         // empty history
@@ -80,7 +102,7 @@ public class CommandBoxTest extends GuiUnitTest {
         // one command
         commandBoxHandle.run(COMMAND_THAT_SUCCEEDS);
         assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
-        assertInputHistory(KeyCode.DOWN, "");
+        assertInputHistory(KeyCode.DOWN, COMMAND_THAT_SUCCEEDS);
 
         // two commands (latest command is failure)
         commandBoxHandle.run(COMMAND_THAT_FAILS);
@@ -93,16 +115,19 @@ public class CommandBoxTest extends GuiUnitTest {
 
         // insert command in the middle of retrieving previous commands
         guiRobot.push(KeyCode.UP);
-        String thirdCommand = "list";
+        String thirdCommand = "list 2";
         commandBoxHandle.run(thirdCommand);
         assertInputHistory(KeyCode.UP, thirdCommand);
-        assertInputHistory(KeyCode.UP, COMMAND_THAT_FAILS);
-        assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
+        assertInputHistory(KeyCode.UP, thirdCommand);
+        assertInputHistory(KeyCode.UP, thirdCommand);
         assertInputHistory(KeyCode.DOWN, COMMAND_THAT_FAILS);
-        assertInputHistory(KeyCode.DOWN, thirdCommand);
+        assertInputHistory(KeyCode.DOWN, "");
         assertInputHistory(KeyCode.DOWN, "");
     }
 
+    /**
+     * Tests for key press events starting with DOWN.
+     */
     @Test
     public void handleKeyPress_startingWithDown() {
         // empty history
@@ -117,7 +142,7 @@ public class CommandBoxTest extends GuiUnitTest {
         // two commands
         commandBoxHandle.run(COMMAND_THAT_FAILS);
         assertInputHistory(KeyCode.DOWN, "");
-        assertInputHistory(KeyCode.UP, COMMAND_THAT_FAILS);
+        assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
 
         // insert command in the middle of retrieving previous commands
         guiRobot.push(KeyCode.UP);
@@ -155,5 +180,10 @@ public class CommandBoxTest extends GuiUnitTest {
     private void assertInputHistory(KeyCode keycode, String expectedCommand) {
         guiRobot.push(keycode);
         assertEquals(expectedCommand, commandBoxHandle.getInput());
+    }
+
+    private void assertAutoCompletion(String prefix, String expected) {
+        commandBoxHandle.selectFromAutoComplete(prefix);
+        assertEquals(expected, commandBoxHandle.getInput());
     }
 }

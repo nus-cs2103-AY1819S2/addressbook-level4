@@ -1,5 +1,7 @@
 package seedu.address;
 
+import static seedu.address.logic.commands.Statistics.undoRedoStatistics;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -15,16 +17,20 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
+import seedu.address.model.HealthWorkerBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyHealthWorkerBook;
+import seedu.address.model.ReadOnlyRequestBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.RequestBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.HealthWorkerBookStorage;
+import seedu.address.storage.JsonHealthWorkerBookStorage;
+import seedu.address.storage.JsonRequestBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.RequestBookStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
@@ -48,7 +54,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing Health Hub ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -56,12 +62,17 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        RequestBookStorage requestBookStorage = new JsonRequestBookStorage(userPrefs.getRequestBookFilePath());
+        HealthWorkerBookStorage healthWorkerBookStorage = new JsonHealthWorkerBookStorage(
+                userPrefs.getHealthWorkerBookFilePath());
+        storage = new StorageManager(userPrefsStorage, requestBookStorage,
+                healthWorkerBookStorage);
 
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
+
+        undoRedoStatistics(model);
 
         logic = new LogicManager(model, storage);
 
@@ -69,28 +80,45 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s address
+     * book and {@code userPrefs}. <br>
+     * The data from the sample address book will be used instead if
+     * {@code storage}'s address book is not found, or an empty address book will be
+     * used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyHealthWorkerBook> healthWorkerBookOptional;
+        Optional<ReadOnlyRequestBook> requestBookOptional;
+        ReadOnlyHealthWorkerBook initialHealthWorkerBook;
+        ReadOnlyRequestBook initialRequestBook;
+
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+
+            healthWorkerBookOptional = storage.readHealthWorkerBook();
+            requestBookOptional = storage.readRequestBook();
+
+            if (!requestBookOptional.isPresent()) {
+                logger.info("RequestBook file not found. Will be starting with sample RequestBook");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            if (!healthWorkerBookOptional.isPresent()) {
+                logger.info("HealthWorkerBook file not found. Will be starting with a sample HealthWorkerBook");
+            }
+            initialRequestBook = requestBookOptional.orElseGet(SampleDataUtil::getSampleRequestBook);
+            initialHealthWorkerBook = healthWorkerBookOptional.orElseGet(SampleDataUtil::getSampleHealthWorkerBook);
+
+
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with empty books");
+            initialHealthWorkerBook = new HealthWorkerBook();
+            initialRequestBook = new RequestBook();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Problem while reading from the file. Will be starting with empty books");
+            initialHealthWorkerBook = new HealthWorkerBook();
+            initialRequestBook = new RequestBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+
+        return new ModelManager(initialHealthWorkerBook, initialRequestBook, userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -124,7 +152,8 @@ public class MainApp extends Application {
             initializedConfig = new Config();
         }
 
-        //Update config file in case it was missing to begin with or there are new/unused fields
+        // Update config file in case it was missing to begin with or there are
+        // new/unused fields
         try {
             ConfigUtil.saveConfig(initializedConfig, configFilePathUsed);
         } catch (IOException e) {
@@ -134,9 +163,9 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
-     * or a new {@code UserPrefs} with default configuration if errors occur when
-     * reading from the file.
+     * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs
+     * file path, or a new {@code UserPrefs} with default configuration if errors
+     * occur when reading from the file.
      */
     protected UserPrefs initPrefs(UserPrefsStorage storage) {
         Path prefsFilePath = storage.getUserPrefsFilePath();
@@ -151,11 +180,12 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty books");
             initializedPrefs = new UserPrefs();
         }
 
-        //Update prefs file in case it was missing to begin with or there are new/unused fields
+        // Update prefs file in case it was missing to begin with or there are
+        // new/unused fields
         try {
             storage.saveUserPrefs(initializedPrefs);
         } catch (IOException e) {
@@ -167,17 +197,22 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting Health Hub " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Health Hub ] =============================");
         try {
+            storage.saveHealthWorkerBook(model.getHealthWorkerBook());
+            storage.saveRequestBook(model.getRequestBook());
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
+        } finally {
+            // to fix timer task not stopping
+            System.exit(0);
         }
     }
 

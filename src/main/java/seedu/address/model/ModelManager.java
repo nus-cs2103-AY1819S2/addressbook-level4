@@ -16,7 +16,10 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.person.healthworker.HealthWorker;
+import seedu.address.model.person.healthworker.exceptions.HealthWorkerNotFoundException;
+import seedu.address.model.request.Request;
+import seedu.address.model.request.exceptions.RequestNotFoundException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -24,31 +27,45 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
+    private final VersionedHealthWorkerBook versionedHealthWorkerBook;
+    private final VersionedRequestBook versionedRequestBook;
+    private final ModifyCommandHistory modifyCommandHistory;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+
+    private final FilteredList<HealthWorker> filteredHealthWorkers;
+
+    // TODO get versionedAddressBook tests to pass
+    private final FilteredList<Request> filteredRequests;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<HealthWorker> selectedHealthWorker = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Request> selectedRequest = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyHealthWorkerBook healthWorkerBook,
+                        ReadOnlyRequestBook requestBook,
+                        ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(requestBook, healthWorkerBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with request book: " + requestBook + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAddressBook(addressBook);
+        versionedHealthWorkerBook = new VersionedHealthWorkerBook(healthWorkerBook);
+        versionedRequestBook = new VersionedRequestBook(requestBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-        filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        filteredHealthWorkers = new FilteredList<>(versionedHealthWorkerBook.getHealthWorkerList());
+        filteredRequests = new FilteredList<>(versionedRequestBook.getRequestList());
+        filteredHealthWorkers.addListener(this::ensureSelectedHealthWorkerIsValid);
+        filteredRequests.addListener(this::ensureSelectedRequestIsValid);
+        modifyCommandHistory = new ModifyCommandHistory();
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new HealthWorkerBook(), new RequestBook(), new UserPrefs());
     }
 
-    //=========== UserPrefs ==================================================================================
+    //=========================== UserPrefs ====================================================
 
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -72,142 +89,329 @@ public class ModelManager implements Model {
         userPrefs.setGuiSettings(guiSettings);
     }
 
+
+    // ======================== Implemented methods for HealthWorker through Model Interface =========================
+    // @author: Lookaz
+
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public boolean hasHealthWorker(HealthWorker healthWorker) {
+        requireNonNull(healthWorker);
+        return this.versionedHealthWorkerBook.hasHealthWorker(healthWorker);
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
-    }
-
-    //=========== AddressBook ================================================================================
-
-    @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        versionedAddressBook.resetData(addressBook);
+    public void deleteHealthWorker(HealthWorker target) {
+        this.versionedHealthWorkerBook.removeHealthWorker(target);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+    public void addHealthWorker(HealthWorker healthWorker) {
+        this.versionedHealthWorkerBook.addHealthWorker(healthWorker);
+        updateFilteredHealthWorkerList(PREDICATE_SHOW_ALL_HEALTHWORKERS);
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return versionedAddressBook.hasPerson(person);
+    public void setHealthWorker(HealthWorker target, HealthWorker editedWorker) {
+        requireAllNonNull(target, editedWorker);
+
+        this.versionedHealthWorkerBook.setHealthWorker(target, editedWorker);
     }
 
     @Override
-    public void deletePerson(Person target) {
-        versionedAddressBook.removePerson(target);
+    public ObservableList<HealthWorker> getFilteredHealthWorkerList() {
+        return this.filteredHealthWorkers;
     }
 
     @Override
-    public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void updateFilteredHealthWorkerList(Predicate<HealthWorker> predicate) {
+        requireNonNull(predicate);
+        this.filteredHealthWorkers.setPredicate(predicate);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        versionedAddressBook.setPerson(target, editedPerson);
+    public ReadOnlyProperty<HealthWorker> selectedHealthWorkerProperty() {
+        return selectedHealthWorker;
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    @Override
+    public void setSelectedHealthWorker(HealthWorker worker) {
+        if (worker != null && !filteredHealthWorkers.contains(worker)) {
+            throw new HealthWorkerNotFoundException();
+        }
+        selectedHealthWorker.setValue(worker);
+    }
+
+    @Override
+    public ReadOnlyHealthWorkerBook getHealthWorkerBook() {
+        return this.versionedHealthWorkerBook;
+    }
+
+    @Override
+    public void commitHealthWorkerBook() {
+        versionedHealthWorkerBook.commit();
+    }
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns the user prefs' health worker book file path.
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public Path getHealthWorkerBookFilePath() {
+        return userPrefs.getHealthWorkerBookFilePath();
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+    public boolean isAssigned(String name) {
+        return this.versionedRequestBook.isAssigned(name);
+    }
+
+    @Override
+    public void updateRequestOnNameEdit(String oldNric, String newNric) {
+        this.versionedRequestBook.updateHealthWorker(oldNric, newNric);
     }
 
     //=========== Undo/Redo =================================================================================
+    // @author Jing1324
 
     @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+    public boolean canUndo() {
+
+        return versionedHealthWorkerBook.canUndo() || versionedRequestBook.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+    public boolean canRedo() {
+        return versionedHealthWorkerBook.canRedo() || versionedRequestBook.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
-    }
+    public void undo() {
+        CommandType commandType = modifyCommandHistory.getUndoCommand();
+        modifyCommandHistory.undo();
+        switch(commandType) {
+        case HEALTHWORKER_COMMAND:
+            versionedHealthWorkerBook.undo();
+            break;
 
-    @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
-    }
+        case REQUEST_COMMAND:
+            versionedRequestBook.undo();
+            break;
 
-    @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
-    }
+        case HEALTHWORKER_AND_REQUEST_COMMAND:
+            versionedRequestBook.undo();
+            versionedHealthWorkerBook.undo();
+            break;
 
-    //=========== Selected person ===========================================================================
-
-    @Override
-    public ReadOnlyProperty<Person> selectedPersonProperty() {
-        return selectedPerson;
-    }
-
-    @Override
-    public Person getSelectedPerson() {
-        return selectedPerson.getValue();
-    }
-
-    @Override
-    public void setSelectedPerson(Person person) {
-        if (person != null && !filteredPersons.contains(person)) {
-            throw new PersonNotFoundException();
+        default:
         }
-        selectedPerson.setValue(person);
+    }
+
+    @Override
+    public void redo() {
+        CommandType commandType = modifyCommandHistory.getRedoCommand();
+        modifyCommandHistory.redo();
+        switch (commandType) {
+        case HEALTHWORKER_COMMAND:
+            versionedHealthWorkerBook.redo();
+            break;
+
+        case REQUEST_COMMAND:
+            versionedRequestBook.redo();
+            break;
+
+        case HEALTHWORKER_AND_REQUEST_COMMAND:
+            versionedRequestBook.redo();
+            versionedHealthWorkerBook.redo();
+            break;
+
+        default:
+        }
+    }
+
+    @Override
+    public void commit(CommandType commandType) {
+        modifyCommandHistory.addLatestCommand(commandType);
+        switch (commandType) {
+        case HEALTHWORKER_COMMAND:
+            commitHealthWorkerBook();
+            break;
+
+        case REQUEST_COMMAND:
+            commitRequestBook();
+            break;
+
+        case HEALTHWORKER_AND_REQUEST_COMMAND:
+            commitRequestBook();
+            commitHealthWorkerBook();
+            break;
+
+        default:
+        }
+    }
+
+
+    //=========== Implemented methods for Request through the Model interface  ==============================
+
+    @Override
+    public ObservableList<Request> getFilteredRequestList() {
+        return filteredRequests;
     }
 
     /**
-     * Ensures {@code selectedPerson} is a valid person in {@code filteredPersons}.
+     * Returns the user prefs' request book file path.
      */
-    private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends Person> change) {
+    @Override
+    public Path getRequestBookFilePath() {
+        return userPrefs.getRequestBookFilePath();
+    }
+
+    /**
+     * Returns the RequestBook
+     */
+    @Override
+    public ReadOnlyRequestBook getRequestBook() {
+        return this.versionedRequestBook;
+    }
+
+    /**
+     * Returns true if a request with the same identity as {@code request} exists in the address
+     * book.
+     *
+     * @param request
+     */
+    @Override
+    public boolean hasRequest(Request request) {
+        requireNonNull(request);
+        return versionedRequestBook.hasRequest(request);
+    }
+
+    @Override
+    public void updateRequest(Request target, Request editedRequest) {
+        requireAllNonNull(target, editedRequest);
+
+        versionedRequestBook.setRequest(target, editedRequest);
+    }
+
+    /**
+     * Deletes the given request.
+     * The request must exist in the request book.
+     *
+     * @param target
+     */
+    @Override
+    public void deleteRequest(Request target) {
+        versionedRequestBook.removeRequest(target);
+    }
+
+    @Override
+    public void updateFilteredRequestList(Predicate<Request> predicate) {
+        requireNonNull(predicate);
+        filteredRequests.setPredicate(predicate);
+    }
+
+    /**
+     * Adds the given request to the request book
+     */
+    @Override
+    public void addRequest(Request request) {
+        versionedRequestBook.addRequest(request);
+        updateFilteredRequestList(PREDICATE_SHOW_ALL_REQUESTS);
+    }
+
+    @Override
+    public void resetData(ReadOnlyRequestBook newData) {
+        versionedRequestBook.resetData(newData);
+    }
+
+    /**
+     * Replaces the given request {@code target} with {@code editedRequest}.
+     * {@code target} must exist in the request book.
+     * The request identity of {@code editedRequest} must not be the same as another existing
+     * request in the request book.
+     *
+     * @param target
+     * @param editedRequest
+     */
+    @Override
+    public void setRequest(Request target, Request editedRequest) {
+        requireAllNonNull(target, editedRequest);
+        versionedRequestBook.setRequest(target, editedRequest);
+    }
+
+    @Override
+    public void commitRequestBook() {
+        versionedRequestBook.commit();
+    }
+
+
+    @Override
+    public ReadOnlyProperty<Request> selectedRequestProperty() {
+        return selectedRequest;
+    }
+
+    @Override
+    public void setSelectedRequest(Request request) {
+        if (request != null && !filteredRequests.contains(request)) {
+            throw new RequestNotFoundException();
+        }
+        selectedRequest.setValue(request);
+    }
+
+    /**
+     * Ensures {@code selectedHealthWorker} is a valid request in {@code filteredHealthWorkers}.
+     */
+    private void ensureSelectedHealthWorkerIsValid(ListChangeListener.Change<? extends HealthWorker> change) {
         while (change.next()) {
-            if (selectedPerson.getValue() == null) {
-                // null is always a valid selected person, so we do not need to check that it is valid anymore.
+            if (selectedHealthWorker.getValue() == null) {
                 return;
             }
 
-            boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedPerson.getValue());
-            if (wasSelectedPersonReplaced) {
-                // Update selectedPerson to its new value.
-                int index = change.getRemoved().indexOf(selectedPerson.getValue());
-                selectedPerson.setValue(change.getAddedSubList().get(index));
+            boolean wasSelectedHealthWorkerReplaced =
+                    change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                            && change.getRemoved().contains(selectedHealthWorker.getValue());
+
+            if (wasSelectedHealthWorkerReplaced) {
+                // Update selectedHealthWorker to its new value
+                int index = change.getRemoved().indexOf(selectedHealthWorker.getValue());
+                selectedHealthWorker.setValue(change.getAddedSubList().get(index));
                 continue;
             }
 
-            boolean wasSelectedPersonRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPerson -> selectedPerson.getValue().isSamePerson(removedPerson));
-            if (wasSelectedPersonRemoved) {
-                // Select the person that came before it in the list,
-                // or clear the selection if there is no such person.
-                selectedPerson.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            boolean wasSelectedHealthWorkerRemoved =
+                    change.getRemoved().stream().anyMatch(removedHealthWorker -> selectedHealthWorker.getValue()
+                            .isSameHealthWorker(removedHealthWorker));
+            if (wasSelectedHealthWorkerRemoved) {
+                selectedHealthWorker.setValue(change.getFrom() > 0
+                        ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
+    }
+
+    /**
+     * Ensures {@code selectedRequest} is a valid request in {@code filteredRequests}.
+     */
+    private void ensureSelectedRequestIsValid(ListChangeListener.Change<? extends Request> change) {
+        while (change.next()) {
+            if (selectedRequest.getValue() == null) {
+                return;
+            }
+
+            boolean wasSelectedRequestReplaced =
+                change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedRequest.getValue());
+
+            if (wasSelectedRequestReplaced) {
+                // Update selectedRequest to its new value
+                int index = change.getRemoved().indexOf(selectedRequest.getValue());
+                selectedRequest.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedRequestRemoved =
+                change.getRemoved().stream().anyMatch(removedRequest -> selectedRequest.getValue()
+                    .isSameRequest(removedRequest));
+            if (wasSelectedRequestRemoved) {
+                selectedRequest.setValue(change.getFrom() > 0
+                    ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
     }
@@ -226,10 +430,13 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons)
-                && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
+        return versionedHealthWorkerBook.equals(other.versionedHealthWorkerBook)
+            && versionedRequestBook.equals(other.versionedRequestBook)
+            && userPrefs.equals(other.userPrefs)
+            && filteredRequests.equals(other.filteredRequests)
+            && filteredHealthWorkers.equals(filteredHealthWorkers)
+            && Objects.equals(selectedRequest.get(), other.selectedRequest.get())
+            && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
 
 }

@@ -77,7 +77,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'healthhub.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -235,3 +235,4 @@ deployOfflineDocs.dependsOn asciidoctor
 processResources.dependsOn deployOfflineDocs
 
 defaultTasks 'clean', 'headless', 'allTests', 'coverage', 'asciidoctor'
+apply plugin: 'java'

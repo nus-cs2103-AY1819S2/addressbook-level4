@@ -1,0 +1,88 @@
+= Jin Jing - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Hello there
+My name is Jin Jing and I am currently a second-year Computer Science student from the National University of Singapore.
+I enjoy doing math and I like to solve logic problems in my spare time.
+
+https://github.com/jing1324[This is my Github]
+
+== Project: Health Hub
+
+== Overview
+
+Health Hub is a desktop application made for hospital administrative staff.
+With the growing ageing population in Singapore,
+we see more elderly needing Intermediate and Long-Term Care (ILTC) services.
+With the increasing number of home healthcare requests, the current system in hospitals requires a lot of paper work
+from the admin's side.
+
+Health Hub aims to reduce the workload of the admin by reducing the amount of paperwork
+involved, hence improving the workflow of the system.
+
+The user interacts with it using a command line interface (CLI), and it has a graphics user interface(GUI).
+It is written in Java and is a modification of the https://se-education.org/addressbook-level4/[AddressBook] originally made by seedu to help computer
+science students learn software engineering.
+
+== Summary of contributions
+
+* *Enhancement 1*: Reimplemented undo/redo commands
+** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
+** Justification: The undo/redo feature provides a huge upgrade to the app, as it now allows the user to rectify the mistakes he/she made easily.
+For example, if the user deleted a request by accident, he/she does not have to add back the request manually as the command can be undone with the `undo` command.
+** Highlights: After the transformation from AddressBook to HealthHub, the old implementation of the undo/redo command was unable to support our new features.
+Hence, in order to maintain the functionality as well as to improve the scalability of our app, it have to be reimplemented.
+It is complicated to implement due to the various design considerations (See below for contributions in Developer's Guide ).
+** Credits: https://se-education.org/addressbook-level4/[AddressBook] for the original implementation of the undo/redo feature.
+
+* *Enhancement 2*: Reimplemented storage component
+** What is does: Stores all requests and health workers data into `json` text files whenever any of the data is edited or when app is closed.
+** Justification: Storage is a necessary key feature in our app, having a storage system containing information of health workers and requests saves
+a lot of time when the user wants to view the information of a specific request or health worker. He can simply filter for the conditions he want using the app
+instead of searching the documents manually.
+** Credits: https://se-education.org/addressbook-level4/[AddressBook] for the original implementation of the storage component.
+
+* *Code contributed*: [https://github.com/CS2103-AY1819S2-W09-2/main/blob/master/src/main/java/seedu/address/model/ModelManager.java[ModelManager]]
+ [https://github.com/CS2103-AY1819S2-W09-2/main/blob/master/src/main/java/seedu/address/model/ModifyCommandHistory.java[ModifyCommandHistory]]
+ [https://github.com/CS2103-AY1819S2-W09-2/main/blob/master/src/main/java/seedu/address/storage/JsonHealthWorkerBookStorage.java[HealthWorkerBookStorage]]
+ [https://github.com/CS2103-AY1819S2-W09-2/main/blob/master/src/main/java/seedu/address/storage/JsonSerializableHealthWorkerBook.java[SerializableHealthWorkerBook]]
+ [https://github.com/CS2103-AY1819S2-W09-2/main/blob/master/src/main/java/seedu/address/storage/JsonSerializableRequestBook.java[SerializableRequestBook]]
+ [https://github.com/CS2103-AY1819S2-W09-2/main/blob/master/src/main/java/seedu/address/storage/JsonRequestBookStorage.java[RequestBookStorage]]
+
+https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=jing1324&sort=displayName&since=2019-02-10&until=2019-04-12&timeframe=day&reverse=false&repoSort=true[Click here to see all my code contributions]
+
+* *Other contributions*:
+
+** Enhancements to existing features:
+*** Modified `Complete` command and `EditHealthWorker` command to support undo/redo features
+** Community:
+*** Consolidated a list of broken tests in the Issue tracker: https://github.com/CS2103-AY1819S2-W09-2/main/issues/130[#130]
+*** Bug reports: https://github.com/CS2103-AY1819S2-W09-2/main/issues/160[#160], https://github.com/CS2103-AY1819S2-W09-2/main/issues/159[#159]
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W09-2/main/pull/70[#70], https://github.com/CS2103-AY1819S2-W09-2/main/pull/47[#47],
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S2-W10-1/main/issues/156[156], https://github.com/CS2103-AY1819S2-W10-1/main/issues/142[142], https://github.com/CS2103-AY1819S2-W10-1/main/issues/148[148])
+
+
+== Contributions to the User Guide
+
+
+|===
+|_The following sections of the user guide were written by me. Do take a look._
+|===
+
+include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=releasenotes-1.4]
+
+
+
+== Contributions to the Developer Guide
+
+|===
+|_The following sections of the developer's guide were written by me. Please take a look._
+|===
+
+include::../DeveloperGuide.adoc[tag=logic-header]
+include::../DeveloperGuide.adoc[tag=storage]
+include::../DeveloperGuide.adoc[tag=undoredo]
+

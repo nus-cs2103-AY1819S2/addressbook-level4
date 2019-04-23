@@ -1,0 +1,95 @@
+= Tay Hui Chun - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:icons: font
+
+== Project: Health Hub
+
+Hello there! Welcome to my project portfolio! This portfolio contains a list of contributions towards my CS2103T - Software Engineering module project,
+which requires me to work in a team to morph an existing functional product to something else that solves a real-world problem.
+
+Health Hub is a desktop application that aims to get rid of the messy system of palliative care requests for health administrative staff.
+Admin staff who are in-charge of assigning requests from patients to qualified health staff are often overwhelmed by the enormous filings and binders that take up so much of their time.
+
+image::Ui_home_orange.png[]
+
+My role in the team is to handle all the User Interface (UI) coding to render model data to display it to our users, who are hospital administrative staff.
+Thinking that this is not enough to ensure a pleasant experience for our users, I extended some of the original functionalities from AddressBook4 and added a new command.
+Tests in the form of component, integration and system tests are also added to ensure quality control.
+
+
+== Overview
+* Restructured most of the `.fxml` files associated with the UI components
+* Wrote code to render the model data into the different UI components
+* Wrote my own version of stylesheet to use for the application
+* Handle logic for displaying a request's details in the `InfoPanel`, which is the center panel of the app.
+* Extended the normal textfield to an additional autocomplete functionality.
+* Added a `setreminder` command
+
+== Summary of Contributions
+
+* *Major Enhancement 1*: restructured the original AB4 UI code into different code that will suit the context of our application.
+** What it does: Shows the lists of requests and health workers in two different panels. The UI has a center panel that displays a request's additional details that are not visible within the list,
+such as the health staff assigned, and a static map overview of the patient's address.
+** Justification: This is important as it is the interface that the user will be interacting with. Important details such as a patient's name and NRIC are displayed differently
+compared to the other details such as phone or address. Special noteworthy details such as the conditions of a patient or the skills of a health worker are also displayed differently.
+** Highlights: Coding the UI requires a deep understanding of how different UI components interact with each other and how the model data is rendered to the UI layer (via `ObservableValue<Object>`).
+** Credits: Myself, but integrated a UI library called `font-awesome` in the application itself to render the display of icons related to request details. The static map is provided by `gothere.sg`.
+
+* *Major Enhancement 2*: added the ability for the user to select from a list of suggested commands, which is also known as an autocomplete feature.
+** What it does: Shows a list of suggested commands based on the character that the user has typed in the text field.
+** Justification: This is important as new users might be lost as to what kind of commands they can use. By having an autocomplete feature, they spend shorter time rewriting the same commands (e.g. adding 10 requests).
+** Highlights: Since the `CommandBox` which contains the `AutoCompleteTextField`, is always used in the test cases, this new implementation affects the behaviour of existing test cases, especially the UI component and
+systemtests and requires a thorough rework to resolve them.
+** Credits: Myself, but had read some tutorials online on how to do it.
+
+* *Minor Enhancement*: added a `setreminder` command to further enhance the app's capability, by reminding the user of a task he or she needs to do within the day.
+
+* *Code Contributed*: [https://github.com/huichun66/main/tree/master/src/test/java/systemtests[Test code]]
+
+* *Other Contributions*:
+
+** Project Management:
+*** Assigned the relevant issues to my teammates and suggested solutions for them to resolve it (Issues https://github.com/CS2103-AY1819S2-W09-2/main/issues/188[#188],
+https://github.com/CS2103-AY1819S2-W09-2/main/issues/190[#190],
+https://github.com/CS2103-AY1819S2-W09-2/main/issues/195[#195])
+** Enhancements to existing features:
+*** Wrote the system tests that integrate newly implemented features to increase coverage from 82% to 90% (Pull requests https://github.com/CS2103-AY1819S2-W09-2/main/pull/209[#209],
+https://github.com/CS2103-AY1819S2-W09-2/main/pull/217[#217],
+https://github.com/CS2103-AY1819S2-W09-2/main/pull/219[#219])
+** Community:
+*** Reviewed my teammate's PRs every week
+*** Reported bugs and suggestions for other teams in the class (examples: https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/221[1],
+https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/355[2])
+
+== Contributions to the User Guide
+
+|===
+|_The sections below demonstrate how I used an emphathetic approach to educate the users of Health Hub on its features and future releases._
+|===
+
+include::../UserGuide.adoc[tag=releasenotes-2.0]
+
+include::../UserGuide.adoc[tag=setreminder]
+
+|===
+|_In addition to the sections above, I also formatted the Command Summary table in the user guide in a neat manner so users are able to look for the key
+information for the different commands._
+|===
+
+
+== Contributions to the Developer Guide
+
+|===
+|_The sections below showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=ui-header]
+
+include::../DeveloperGuide.adoc[tag=setreminder]
+
+include::../DeveloperGuide.adoc[tag=autocomplete]
+
+---
+

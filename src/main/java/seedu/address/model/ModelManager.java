@@ -300,8 +300,8 @@ public class ModelManager implements Model {
                 }
             }
         }
-        versionedFinanceTracker.setBudget(targetBudget, updatedBudget);
         versionedFinanceTracker.setBudget(targetBudget2, updatedBudget2);
+        versionedFinanceTracker.setBudget(targetBudget, updatedBudget);
     }
 
     //=========== Debts ========================================================================================

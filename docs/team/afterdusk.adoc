@@ -2,9 +2,6 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-[NOTE]
-To CS2103T peer reviewers, please refer to the PDF document uploaded to LumiNUS instead of this GitHub page. The PDF document is better formatted and nicely features only the most important components. Thank you!
-
 == image:Logo.png[width=50] Know-It-All
 :icons: font
 
@@ -67,11 +64,13 @@ Useful information for a deeper understanding of the current topic.
 _As we morphed the product, we kept the user guide up to date with the features we implemented. To showcase my technical writing skills, I have included an excerpt of my notable contributions, namely Quick Start and the new folder-related commands._
 =====
 
+include::../UserGuide.adoc[tag=introabout]
+
 include::../UserGuide.adoc[tag=quickstart]
 
-include::../UserGuide.adoc[tag=addfolder]
+include::../UserGuide.adoc[tag=folderoperations]
 
-include::../UserGuide.adoc[tag=editfolder]
+include::../UserGuide.adoc[tag=cmdsummary]
 
 == Contributions to the Developer Guide
 
@@ -91,16 +90,16 @@ include::../DeveloperGuide.adoc[tag=folderusecases]
 
 include::../DeveloperGuide.adoc[tag=foldermanualtesting]
 
-== Additional Contributions to the User Guide
+// == Additional Contributions to the User Guide
 
-=====
-_This section is GitHub only (not in PDF copy of PPP). They cover my contributions to the User Guide more extensively._
-=====
+// =====
+// _This section is GitHub only (not in PDF copy of PPP). They cover my contributions to the User Guide more extensively._
+// =====
 
-include::../UserGuide.adoc[tag=introabout]
+// include::../UserGuide.adoc[tag=introabout]
 
-include::../UserGuide.adoc[tag=quickstart]
+// include::../UserGuide.adoc[tag=quickstart]
 
-include::../UserGuide.adoc[tag=folderoperations]
+// include::../UserGuide.adoc[tag=folderoperations]
 
-include::../UserGuide.adoc[tag=cmdsummary]
+// include::../UserGuide.adoc[tag=cmdsummary]

@@ -1,0 +1,72 @@
+= Yang Yiqing - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:sectnums:
+
+== PROJECT: ClubManager
+
+---
+
+=== Overview
+This portfolio documents the features and enhancements that I have made to the project and the contributions I have made to
+the User and Developer guide.
+
+ClubManager is a desktop application for NUS CCA management. It is specially designed for *CCA main committee members* to manage their CCA data. It is the
+go-to application for CCA leaders who are looking for a software that allows them to *manage their members and activities*.
+
+=== Summary of contributions
+
+* *Major enhancement*: added *Activity List Management feature*
+** What it does: Manages the list of activities that a club has. This feacture includes functions such as: +
+*** Adding activities to (`activityAdd`) and removing activities from (`activityDelete`) the activity list.
+*** Finding activities that match some given criteria (`activityFind`) and filtering the activities based on the how recent
+the activities are (`activityFilter`).
+*** Listing all activities (`activityList`)
+** Justification: This feature improves the product significantly because in addition to manage members in the club,
+the app can manage another common aspect in club affairs - the activities.
+** Highlights: This enhancement involves all commands that manages the activity list, including `activityAdd`, `activityDelete`,
+ `activityList`, `activityFind` and `activityFilter`.
+The implementation of the activity list is automatically sorted and ordered based on completion status and time.
+The order is from Ongoing to Completed, within the same status the activities are ordered by the earliest to the latest.
+
+* *Minor enhancement*:
+** Update UI display for activity list and activity details. https://github.com/cs2103-ay1819s2-w13-2/main/pull/154[#154]
+** Update Storage for storing attendance in activity.
+
+* *Code contributed*: [https://github.com/CS2103-AY1819S2-W13-2/main/commits?author=ivyyangyq[Functional code]] [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=ivyyangyq&sort=displayName&since=2019-02-10&until=2019-04-15&timeframe=day&reverse=false&repoSort=true[RepoSense]]
+
+* *Other contributions*:
+
+** Project management:
+*** Compiled binary (JAR) files and managed releases `v1.1` - `v1.4` (4 releases) on GitHub
+*** Managed milestones `v1.1` - `v1.4`
+*** Setting up issue tracker, contributed to issues (https://github.com/cs2103-ay1819s2-w13-2/main/issues?utf8=✓&q=is%3Aissue+author%3Aivyyangyq+label%3Atype.Task[Issues])
+and 6 user stories (https://github.com/cs2103-ay1819s2-w13-2/main/issues?utf8=✓&q=is%3Aissue+author%3Aivyyangyq+label%3Atype.Story[User Stories]).
+
+** Community:
+*** Reviewed PRs of other team members (with non-trivial comments): https://github.com/cs2103-ay1819s2-w13-2/main/pull/99[#99],
+https://github.com/cs2103-ay1819s2-w13-2/main/pull/102[#102]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide_abrev.adoc[tag=activityAdd]
+include::../UserGuide_abrev.adoc[tag=activityFilter]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide_abrev.adoc[tag=activity_list]
+
+|===
+|_Some of the contributions to the user guide and developer guide have been omitted for brevity.
+Please visit W13-2 user guide and developer guide for full details._
+|===

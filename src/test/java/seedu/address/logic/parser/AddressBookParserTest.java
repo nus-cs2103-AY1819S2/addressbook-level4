@@ -4,9 +4,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ACTIVITYNAME;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ACTIVITY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,22 +17,32 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.ActivityAddCommand;
+import seedu.address.logic.commands.ActivityDeleteCommand;
+//import seedu.address.logic.commands.ActivityFilterCommand;
+import seedu.address.logic.commands.ActivityFindCommand;
+import seedu.address.logic.commands.ActivityListCommand;
+import seedu.address.logic.commands.ActivitySelectCommand;
 import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.MemberAddCommand;
+import seedu.address.logic.commands.MemberDeleteCommand;
+import seedu.address.logic.commands.MemberEditCommand;
+import seedu.address.logic.commands.MemberEditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.MemberFindCommand;
+import seedu.address.logic.commands.MemberListCommand;
+import seedu.address.logic.commands.MemberSelectCommand;
 import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.ActivityContainsKeywordsPredicate;
+//import seedu.address.model.activity.ActivityDateTimeAfterPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.ActivityBuilder;
+import seedu.address.testutil.ActivityUtil;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -43,8 +56,8 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Person person = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
-        assertEquals(new AddCommand(person), command);
+        MemberAddCommand command = (MemberAddCommand) parser.parseCommand(PersonUtil.getMemberAddCommand(person));
+        assertEquals(new MemberAddCommand(person), command);
     }
 
     @Test
@@ -55,18 +68,18 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+        MemberDeleteCommand command = (MemberDeleteCommand) parser.parseCommand(
+                MemberDeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new MemberDeleteCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test
     public void parseCommand_edit() throws Exception {
         Person person = new PersonBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
+        MemberEditCommand command = (MemberEditCommand) parser.parseCommand(MemberEditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
+        assertEquals(new MemberEditCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
 
     @Test
@@ -78,10 +91,50 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        MemberFindCommand command = (MemberFindCommand) parser.parseCommand(
+                MemberFindCommand.COMMAND_WORD + " name " + keywords.toString());
+        assertEquals(new MemberFindCommand(new FindCriteriaContainsKeywordPredicate(("name " + keywords.toString()))),
+                command);
     }
+
+    @Test
+    public void parseCommand_activityAdd() throws Exception {
+        Activity activity = new ActivityBuilder().build();
+        ActivityAddCommand command =
+                (ActivityAddCommand) parser.parseCommand(ActivityUtil.getActivityAddCommand(activity));
+        assertEquals(new ActivityAddCommand(activity), command);
+    }
+
+    @Test
+    public void parseCommand_activityFind() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        ActivityFindCommand command = (ActivityFindCommand) parser.parseCommand(
+                ActivityFindCommand.COMMAND_WORD + " n/" + keywords.stream().collect(Collectors.joining(
+                        " ")));
+        HashMap<Prefix, List<String>> predicate = new HashMap<>();
+        predicate.put(PREFIX_ACTIVITYNAME, keywords);
+        assertEquals(new ActivityFindCommand(new ActivityContainsKeywordsPredicate(predicate)), command);
+    }
+
+    @Test
+    public void parseCommand_activityDelete() throws Exception {
+        ActivityDeleteCommand command = (ActivityDeleteCommand) parser.parseCommand(
+                ActivityDeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_ACTIVITY.getOneBased());
+        assertEquals(new ActivityDeleteCommand(INDEX_FIRST_ACTIVITY), command);
+    }
+
+    @Test
+    public void parseCommand_activityList() throws Exception {
+        assertTrue(parser.parseCommand(ActivityListCommand.COMMAND_WORD) instanceof ActivityListCommand);
+        assertTrue(parser.parseCommand(ActivityListCommand.COMMAND_WORD + " 3") instanceof ActivityListCommand);
+    }
+    @Test
+    public void parseCommand_activitySelect() throws Exception {
+        ActivitySelectCommand command = (ActivitySelectCommand) parser.parseCommand(
+                ActivitySelectCommand.COMMAND_WORD + " " + INDEX_FIRST_ACTIVITY.getOneBased());
+        assertEquals(new ActivitySelectCommand(INDEX_FIRST_ACTIVITY), command);
+    }
+
 
     @Test
     public void parseCommand_help() throws Exception {
@@ -104,15 +157,15 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+        assertTrue(parser.parseCommand(MemberListCommand.COMMAND_WORD) instanceof MemberListCommand);
+        assertTrue(parser.parseCommand(MemberListCommand.COMMAND_WORD + " 3") instanceof MemberListCommand);
     }
 
     @Test
     public void parseCommand_select() throws Exception {
-        SelectCommand command = (SelectCommand) parser.parseCommand(
-                SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new SelectCommand(INDEX_FIRST_PERSON), command);
+        MemberSelectCommand command = (MemberSelectCommand) parser.parseCommand(
+                MemberSelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new MemberSelectCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test

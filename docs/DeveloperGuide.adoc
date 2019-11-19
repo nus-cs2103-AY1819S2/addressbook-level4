@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= ClubManager - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,11 +13,22 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/cs2103-ay1819s2-w13-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+Welcome Developers! Thank you for your interest to contribute to Club Manager!
 
-== Setting up
+By: `W13-2`      Since: `Jan 2019`      Licence: `MIT`
+
+= About This Guide
+This guide provides a technical overview of Club Manager and walks you through the installation process.
+Furthermore, this guide documents all of the features available in Club Manager, and covers everything that you need to know before you begin contributing to Club Manager.
+
+== Introduction
+Club Manager is a desktop application that enables CCA leaders to manage their members and activities effectively and efficiently.
+To learn more about installation, proceed to Section 2 (Installation Guide).
+
+== Installation Guide
+This section serves to guide you through the setting up process of Club Manager's development environment.
 
 === Prerequisites
 
@@ -175,7 +186,7 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[width="800"]
+image::LogicClassDiagram2.png[width="800"]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -232,6 +243,62 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+// tag::modes_of_operation[]
+=== Operation mode control feature
+==== Current Implementation
+
+ClubManager is designed to manage members and activities and allow the user to link members to the activities.
+To synchronize the user interface to show appropriate information when users are doing different operation and to minimize confusion the following feature has been added.
+With the implementation of modes of operations which only allows commands to be executed in their respective modes.
+
+For example when ClubManager is in Member Mode, only member commands can be called (for example memberAdd, memberEdit etc.)
+
+.ClubManager in MEMBER mode
+image::appInMemberMode.png[width="800"]
+
+Calling an activity command will result in an error.
+
+.Error when Activity Command is called in MEMBER mode
+image::appInMemberModeCallingActivityCmd.png[width="800"]
+
+General commands can be called in any mode (for example help and exit)
+
+Currently the app has 2 modes of operation, namely member mode and activity mode.
+
+A coloured label on the top right corner indicates the mode of operation at any time to let the user easily track which mode the app is operating in.
+
+image::ModeMemberLabel.png[width="200"]
+
+.Indicator for mode in the Window
+image::ModeActivityLabel.png[width="200"]
+
+==== Design of operation mode control
+Each Command extends a CommandType, currently MemberCommand, ActivityCommand and GeneralCommand
+For each CommandType, there is an ArrayList of modes in where this category of command can operate in as seen in the class diagram.
+
+For example, for the MemberSelectCommand extends MemberCommands which the ArrayList of AppMode.Modes contains the MEMBER mode enumeration.
+Which means that the MemberSelectCommand can only operate when ClubManager is in MEMBER mode.
+
+.Example of Class Diagram for Member Commands
+image::memberCommandClassDiagram.png[width="800px"]
+
+When the Command is created, it instantiates the operation modes. And when the execute function of the Command is called, the app would allow the execution of the command if the current app mode can be found within the the allowed mode list of the command.
+If the mode does not match, it will throw an exception preventing the execution and prompting the user to change the app mode (by using the mode command) before calling such a function.
+
+For example if mLIst (alias of memberList) command is called the following process occurs to either execute the command or throw the InvalidCommandModeException exception for the case that the command is called in the wrong mode.
+
+.Sequence diagram of mode control
+image::commandModeControl.png[width="800px"]
+
+==== Design Consideration to aid future expansion of app
+
+* The design approach of the mode of operation control allows easy expansion of the app to manage more categories if required as the allowed modes of operation can be added to the ArrayList.
+* The feature is designed with easy reuse in mind by allowing the checking of mode to be done dynamically.
+* Since the modes which the command can operate in is stored as an ArrayList, future implementation of more modes of operation, can be added to the list. The current function to check the allowed mode will still be valid.
+* The design also allows the type of command to operate in and not be restricted to either a single mode or all modes but also any combination of modes.
+
+// end::modes_of_operation[]
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -311,14 +378,555 @@ image::UndoRedoActivityDiagram.png[width="650"]
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+//tag::memberlistfeature[]
+=== Member List Feature
+The Member's List is a core feature that underpins Club Manager's role as a CCA management system.
+To ensure versatility and enhance the usefulness of this list, a number of commands have been introduced to facilitate the management of members. These commands include: `MemberAdd`, `MemberDelete`, `MemberEdit`, `MemberFilter`, `MemberFind`, `MemberList`, `MemberSelect`, and `MemberSort`.
 
-_{Explain here how the data encryption feature will be implemented}_
+==== Current Implementation
+===== Model Component
 
-// end::dataencryption[]
+.Updated Model Component Class Diagram for Member List
+image::person-attributes.png[width=50%]
+
+// end::memberlistfeature[]
+
+// tag::memberadd[]
+===== `memberAdd` Command
+This command takes in a number of parameters that are contact and student information pertaining to the member. The `MemberAddCommandParser` requires that all field are present, in the required format, with the exception of tags which are optional.
+
+.Activity Diagram of Validations and Checks for MemberAddCommand
+image::memberadd_validation.png[width=100%]
+
+Below is a step-by-step process on how the memberAdd command works on execution:
+
+* *Step 1:* The User executes the `memberAdd` command
+* *Step 2:* The `memberAdd` command calls the `Model#hasPerson()` to prevent duplicated members from being added to the member's list.
+* *Step 3:* Then, the `memberAdd` call `Model#hasMatricNumber` to prevent duplication of matric number within the member's list. This is because matric number are unique and no two students can have the same matric number.
+* *Step 4:* Once these verification have been completed, the `memberAdd` command calls `Model#addPerson` to proceed with adding the member to the member's list.
+* *Step 5:* The `memberAdd` calls `Model#commitAddressBook()` to finalise the changes made to the patient record.
+* *Step 6:* Finally, the `memberAdd` command provides a success message to indicate that the member has been successfully added to Club Manager.
+
+The following code snippet shows how the `memberAdd` command is executed:
+[source,java]
+----
+    @Override
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        requireNonNull(model);
+
+        if (model.hasPerson(toAdd)) { # <1>
+            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        } else if (model.hasMatricNumber(toAdd.getMatricNumber())) { # <2>
+            throw new CommandException(MESSAGE_DUPLICATE_MATRICNUMBER);
+        }
+        model.addPerson(toAdd); # <3>
+        model.commitAddressBook();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+----
+<1> Check if member already exists in Club Manager.
+<2> Check if the matric number entered is unique.
+<3> Add member to Club Manager.
+//end::memberadd[]
+
+//tag::memberdelete[]
+===== `memberDelete` Command
+The `memberDelete` command deletes a person (based on index) from the addressbook.
+
+Below is a step-by-step process on how the `memberDelete` command works on execution:
+
+* *Step 1:* The user executes the `memberDelete` command by specifying the index of the member that the user would like to delete.
+* *Step 2:* The `memberDelete` command will call `model#getFilteredPersonList` to retrieve the members list.
+* *Step 3:* Next, the `memberDelete` command will call `lastShownList#get` from which the given index will be used to pin point the specific
+member in the `filteredPersonList`.
+* *Step 4:* Then, the `memberDelete` command will call `model#removeMemberFromAllAttendance` to remove the member from all actvities using the member's matriculation number.
+* *Step 5:* Afterwards, the `memberDelete` command will call `model#deletePerson` to delete the person from the Club Manager.
+* *Step 6:* Thereafter, the `memberDelete` command will call `model#commitAddressBook` to commit the changes to Club Manager.
+* *Step 7:* Finally, the `memberDelete` command provides a success message to indicate that the member has been successfully deleted from Club Manager.
+
+The following code snippet shows how `memberDelete` command is executed:
+[source,java]
+----
+@Override
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        requireNonNull(model);
+        List<Person> lastShownList = model.getFilteredPersonList(); # (1)
+
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX); # (2)
+        }
+
+        Person personToDelete = lastShownList.get(targetIndex.getZeroBased()); # (3)
+        model.removeMemberFromAllAttendance(personToDelete.getMatricNumber()); # (4)
+        model.deletePerson(personToDelete); # (5)
+        model.commitAddressBook();
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+    }
+----
+<1> Gets filtered person list
+<2> Checks if index is valid
+<3> Gets person from filtered person list
+<4> Gets person's matriculation number and removes it from all activities
+<5> Delete person from address book
+//end::memberdelete[]
+
+//tag::memberedit[]
+===== `memberEdit` Command
+The `memberEdit` command edits a member's information.
+
+Below is a step-by-step process on how the `memberEdit` command works on execution:
+
+* *Step 1:* The user executes the `memberEdit` command by specifying the index of the member that the user would like to edit, followed by the prefix and information to be overwritten.
+* *Step 2:* The `memberEdit` command will call `model#getFilteredPersonList` to retrieve the members list.
+* *Step 3:* Next, the `memberEdit` command will call `lastShownList#get` from which the given index will be used to pin point the specific
+member in the `filteredPersonList`.
+* *Step 4:* Then, the `memberEdit` command will call `createEditedPerson` to create a new member using the new information.
+* *Step 5:* Afterwards, the `memberEdit` command will call `model#SetPerson` to replace the outdated member in the Club Manager.
+* *Step 6:* Thereafter, the `memberEdit` command will call `model#updateFilteredPersonList` to update the filtered person list.
+* *Step 7:* Finally, the `memberDelete` command provides a success message to indicate that the member has been successfully deleted from Club Manager.
+
+The following code snippet shows how `memberEdit` command is executed:
+[source,java]
+----
+ @Override
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        requireNonNull(model);
+        List<Person> lastShownList = model.getFilteredPersonList(); # (1)
+
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX); # (2)
+        }
+
+        Person personToEdit = lastShownList.get(index.getZeroBased()); # (3)
+        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor); # (4)
+
+        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) { # (5)
+            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
+
+        model.setPerson(personToEdit, editedPerson); # (6)
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS); # (7)
+        model.commitAddressBook();
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+    }
+----
+<1> Gets filtered person list
+<2> Checks if index is valid
+<3> Gets person from filtered person list
+<4> Creates new person using new information
+<5> Checks if the new person created is the same as the old person
+<6> Replace old entry of person with updated person
+<7> Update filtered person list to show changes
+
+//end::memberedit[]
+
+//tag::memberfind[]
+===== `memberFind` Command
+The `memberFind` command finds all members in Club Manager that contain the keywords in their name or matricnum (as specified in command).
+
+Below is a step-by-step process on how the `memberFind` command works on execution:
+
+* *Step 1:* The user executes the `memberFind` command by specifying the criteria and keyword(s)of the member that the user would like to find.
+* *Step 2:* The `memberFind` command will call `model#getFilteredPersonList` to retrieve the members list of members whose name contains the name keywords or matricnum contains the matricnum keywords.
+* *Step 3:*  Finally, the `memberFind` command shows an overview of the number of members found, and displays the members found.
+
+The following code snippet shows how `memberFind` command is executed:
+[source,java]
+----
+@Override
+    public CommandResult execute(Model model, CommandHistory history) {
+        requireNonNull(model);
+
+        if (predicate.toString().equalsIgnoreCase("name")) { # (1)
+            model.updateFilteredPersonList(namePredicate); # (2)
+        } else if (predicate.toString().equalsIgnoreCase("matricnum")) { # (3)
+            model.updateFilteredPersonList(matricNumPredicate); # (4)
+        }
+        return new CommandResult(
+                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+    }
+----
+<1> Checks if criteria given is "name"
+<2> Updates filtered person list with members whose names contain the keyword
+<3> Checks if criteria given is "matricnum"
+<4> Updates filtered person list with members whose matriculation number contain the keyword
+
+//end::memberfind[]
+
+// tag::memberfilter[]
+===== `memberFilter` Command
+*Logic Component*
+
+.Sequence Diagram for MemberFilterCommand for the logic component.
+image::MemberFilter_Logic.png[width=60%]
+
+*Model Component*
+
+.Sequence Diagram for MemberFilterCommand for the model component.
+image::MemberFilter_Model.png[width=60%]
+
+The `memberFilter` command retrieves members (based on a filter criteria) from the `UniquePersonList` and displays these members on the `PersonListPanel`.
+
+Below is a step-by-step process on how the `memberFilter` command works on execution:
+
+* Step 1: The user executes the `memberFilter` command.
+* Step 2: The `memberFilter` command parser will check if the filter category entered by the user is valid. Note that this is case-insensitive.
+* Step 3: Thereafter, the `memberFilter` command parser will concatenate the keywords (if there are more than one keyword). This will allow users to filter majors with multiple words.
+* Step 4: The `memberFilter` command will then call `Model#updateFilteredPersonList` to filter the member's list based on the given criteria.
+* Step 4 (Continued): In this process, based on the criteria provided, the relevant predicate class
+(e.g. `YearOfStudyContainsKeywordsPredicate`) will be used and its test method will be called to test if the member in the member's list has an exact match of the given keyword. This gradually filters the member's list. Do note, however,
+the list generated will given as it is (no sorting carried out). Depending on the initial ordering of the member's list, the list may or may not appear to be sorted.
+* Step 5: The `memberFilter` command will then call `Model#getFilteredPersonList()` to get the filtered member's list.
+* Step 6: Finally, the memberFilter command provides a success message to indicate that the member's list has been successfully filtered.
+
+====== Design Considerations
+*Aspect:* Predicate Classes
+
+To check if the user input matches the correct criteria, there are various ways. Below are some options:
+
+* *Alternative 1 (current choice)*: Check through MemberFilterCommandParser Class
+
+** Pros : More organised and logical as parser classes handle the user input.
+** Cons : May be less efficient as check has to be done through looping through the criteria one by one.
+
+* *Alternative 2*: Check through individual predicate classes.
+
+** Pros: More time efficient as only one check is required.
+** Cons: Less logical and could prove to be confusing to the developer.
+
+==== Future Implementation
+For future implementation, the `memberFilter` command could allow more than one filter, which will further allow the user to target a specific subset of members.
+
+// end::memberfilter[]
+
+// tag::memberlist[]
+===== `memberList` Command
+The `memberList` command retrieves all the members in the `UniquePersonList` and displays all these members on the `PersonListPanel`.
+
+Below is a step-by-step process on how the `memberList` command works on execution:
+
+* Step 1: The user executes the `memberList` command.
+* Step 2: The `memberList` command will then call the `Model#UpdateFilteredPersonList()` to retrieve all the members in the UniquePersonList.
+* Step 3: The `memberList` provide the command success message to indicate that the member list has been successfully listed.
+//end::memberlist[]
+
+// tag::memberselect[]
+===== `memberSelect` Command
+
+The `memberSelect` command selects a member (based on index) on the `UniquePersonList`.
+
+Below is a step-by-step process on how the `memberSelect` command works on execution:
+
+* *Step 1:* The user executes the `memberSelect` command by specifying the index of the member that the user would like to select.
+* *Step 2:* The `memberSelect` command will call `model#getFilteredPersonList` to retrieve the member's list.
+* *Step 3:* Next, the `memberSelect` command will call `model#setSelectedPerson` from which the given index will be used to pin point the specific
+member in the `filteredPersonList`.
+* *Step 4:* Finally, the `memberSelect` command will show a command success message to indicate the member at the specified index has been successfully selected.
+
+The `memberSelect` command is naturally tied with the User Interface.
+
+.Updated Ui Component Class Diagram
+image::updatedUIcomponent.png[width=50%]
+
+When a member is selected, the `memberDetailPanel` will populate the information of the selected person. The `ActivitiesAttendedByMemberPanel` will also populate the activities that are attended by member.
+For the population of member statistics, it is less straightforward. The calling flow is UI to Logic to Model. This is illustrated in the diagram below.
+
+.Sequence Diagram of MemberSelectCommand
+image::memberselect_sequence.png[width=50%]
+
+===== Design Considerations
+*Aspect:* UI calling methods from the AddressBook class
+
+There are various ways to cal the statistics methods from UI. Below are some options:
+
+* *Alternative 1 (current choice):* Go through the calling flow of UI to logic to model.
+** Pros: Abstraction principle is observed.
+** Cons: More tedious for the developer to implement methods that UI requires.
+
+* *Aternative 2:* Go through Model directly.
+** Pros: Abstraction principle is violated.
+** Cons: Less tedious to implement.
+
+//end::memberselect[]
+
+// tag::membersort[]
+
+=== MemberSort
+
+==== Current Implementation
+
+The `memberSort` command extends from `MemberCommand`, and modifies the `uniquePersonList` which is an observable list. The user will provide a sorting criteria,
+and the `memberSort` command will sort the members in the `uniquePersonList` based on the sorting criteria.
+
+If the sorting criteria is not name, the `memberSort` command will
+will conduct an additional sort (by name). For example, `memberSort yearOfStudy 2` will be sorted by member's yearOfStudy, followed by member's name.
+
+.Sequence Diagram of MemberSortCommand
+image::membersort_sequencediagram.png[width=70%]
+
+* *Step 1:* The user executes the `memberSort` command by specifying the sorting criteria in which the user would like to sort the list.
+* *Step 2:* The `memberSort` command will call `model#sortAddressBook` to retrieve the member's list.
+* *Step 3:* Finally, the `memberSort` command will show a command success message to indicate that the member's list has been successfully sorted.
+
+// end::membersort[]
+
+// tag::memberexport[]
+=== MemberExport
+
+==== Current Implementation
+.Sequence diagram for export function
+image::MemberExportCommand_LogicComponentSequenceDiagram.png[width="800"]
+
+* The `memberExport` command extends from command and retrieves the Person object from the Model based on the specified index
+
+* The `exportPerson` command is called with the Person object being pass into the function as a parameter. The function will get the formatting as defined in resources/exportutil personInfo.html
+
+* The formatted string in html mark up is then passed to the `exportDataToFile` function which then creates the file and writes to it.
+
+* If the index specified in invalid, an error message will be displayed
+
+* Currently the exported file is in html format. The formatted document is responsive to the screen size giving 2 options.
+
+* For large screens (diagram below)
+
+.Exported file on large screens
+image::MemberExportExample.png[width="1000"]
+
+* For smaller mobile screens (diagram below)
+
+.Exported file on mobile screens
+image::MemberExportExampleMobile.png[width="300"]
+
+==== Future Implementation
+* For future implementation, the `memberExport` would be able to take in an additional parameter for the selection of export format.
+// end::memberexport[]
+
+
+//tag::activity_list[]
+
+=== Activity List Feature
+
+One basic feature of `ClubManager` is to display and manage either a list of all the activities or some particular
+activities that the club has. `activityAdd` , `activityList` , `activityFilter` , `activityFind` and
+`activityDelete` commands contribute to this feature.
+
+==== Current Implementation
+
+[discrete]
+===== Updated Model Component to Store Activity List
+.Structure of the Activity Model Component
+image::ModelComponentWithActivityList.png[width="800"]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+
+The updated `Model`,
+
+* stores a `UserPref` object that represents the user's preferences.
+* stores the Address Book data.
+* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Activity>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* Each activity can have a `List` of `MatricNumber` Object for attendance.
+
+[discrete]
+===== Activity Add Command
+The `activityAdd` command enables users to create a new activity with name, datetime, location. User could
+also provide additional description.
+
+When user enters the command `activityAdd` in `Command Box`, the following sequence of events would occur:
+
+Step 1. An `ActivityAddCommandParser` would be generated based on user's inputs. +
+The presence of required prefixes and whether any prefixes are duplicated would be checked. +
+Inputs would be checked in respective parser utils. +
+If all checks pass, an `ActivityAddCommand` would be generated with the specified `Activity`.
+
+Step 2. `ActivityAddCommand` would be executed by calling `ActivityAddCommand#execute` and it would attempt to
+add the new `Activity` to `Model` by calling `Model#addActivity` +
+Whether the `Activity` can be added to `Model` would be checked in this step.
+
+.Sequence of Checks for Adding Activity
+image::ActivityAddChecks.png[width="600" height="300"]
+
+
+[discrete]
+===== Activity Filter Command
+The `activityFilter` command enables users to filter activities based on the time. Either past or
+future activities would be filtered based on the condition in the user input.
+
+The `activityFilter` mechanism is facilitated by `ActivityFilterCommand`, `ActivityFilterCommandParser`,
+`ActivityDateTimeAfterPredicate` and `ActivityDateTimeBeforePredicate`.
+
+Given below is an example usage scenario and how the `ActivityFilterCommand` is carried out at each step.
+
+Step 1. The users want to find all future `Activity` scheduled for the next seven days by inputting
+`activityFilter + 7` in the command box.
+
+Step 2. The `ActivityFilterCommandParser` will parse the input and generate an `ActivityDateTimeAfterPredicate`
+based on the `+` condition given. The predicate will be passed to `ActivityFilterCommand`.
+
+Step 3. The `ActivityFilterCommand` will call the `execute` function by executing `Model#updateFilteredActivityList`
+
+Step 4. `AddressBook` will be committed due to potential update to `ActivityStatus` for each `Activity`.
+
+The following diagram is a partial sequence diagram that summarises what happens when the user call
+`ActivityFilterCommand` starting from `ActivityFilterCommandParser`.
+
+.Activity Filter Command Sequence Diagram
+image::ActivityFilterCommandSequenceDiagram.png[width="800"]
+
+[discrete]
+==== Activity Find Command
+The `activityFind` command enables users to search for activities with specific keywords in some attribute
+fields(i.e `ActivityName`, `ActivityDescription` and `ActivityLocation`).
+
+The structure and sequence of events after `activityFind` command is called is very similar to that of
+`activityFilter`. The one difference is, instead of generating a predicate based on conditions, the
+`ActivityFindCommandParser` would parse the input into a `Map` of `Prefix` mapped to a `List` of `String`(keywords)
+ and pass the map to generate an `ActivityContainsKeywordPredicate`.
+
+To avoid redundancy and repeating diagrams with minor details, the sequence of events could refer to the steps and
+sequence diagram for `ActivityFilterCommand` given above.
+
+The key component of `ActivityFindCommand` is the `ActivityContainsKeywordsPredicate#test` function. The snippet
+of code below is to show how it is implemented.
+
+[source,java]
+----
+public boolean test(Activity activity) {
+    // all attribute fields are searched.
+    if (keywords.containsKey(PREFIX_ALL)) {
+        return keywords.get(PREFIX_ALL).stream()
+            .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(activity.getName().fullActivityName, keyword)
+                || StringUtil.containsWordIgnoreCase(activity.getDescription().value, keyword)
+                || StringUtil.containsWordIgnoreCase(activity.getLocation().value, keyword));
+    }
+
+     // OR search for a single boolean
+   boolean isNameMatched = keywords.get(PREFIX_ACTIVITYNAME) == null
+       || keywords.get(PREFIX_ACTIVITYNAME).stream()
+           .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(activity.getName().fullActivityName, keyword));
+
+   boolean isDescriptionMatched = keywords.get(PREFIX_ADESCRIPTION) == null
+       || keywords.get(PREFIX_ADESCRIPTION).stream()
+           .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(activity.getDescription().value, keyword));
+
+   boolean isLocationMatched = keywords.get(PREFIX_LOCATION) == null
+       || keywords.get(PREFIX_LOCATION).stream()
+           .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(activity.getLocation().value, keyword));
+
+   // AND search between prefixes
+        return isNameMatched && isDescriptionMatched && isLocationMatched;
+}
+----
+
+Here is some usage scenarios to better elucidate the logic of the predicate use:
+
+* If a user want to find some `Activity` with name `Workshop` or `Outing`, it could be achieved by typing
+`activityFind n/Workshop Outing`.
+* If a user want to find some `Activity` with name `Movie` or `Viewing` and the location is a `cinema`,
+`activityFind n/Movie Viewing l/cinema` could be used. +
+`Activity` with `Movie Panel Discussion` as `ActivityName`, `Club Room` as `ActivityLocation` would not be displayed
+by this command because it does not match the keyword provided by the location prefix.
+* If no `Prexfix` is found, e.g. `activityFind Summer`, all `Activity` with `Summer` in any of the three
+fields would be listed.
+
+==== Design Considerations
+This section describes the pros and cons of the current implementation of the activity list
+feature.
+
+===== Aspect: Updating the status of activities
+
+* **Alternative 1(current choice):** Loop through the entire `ActivityList` in `AddressBook` each time
+the predicate to `FilteredActivityList` is updated.
+
+** Pros: Ensures that all the status of `Activity` displayed by most command calls are accurate and every
+`Activity` is in the sorted position whenever the list is displayed. The given code snippet below demonstrates
+how this is achieved.
+[source, java]
+    //in ModelManager.java
+    public void updateFilteredActivityList(Predicate<Activity> predicate) {
+        requireNonNull(predicate);
+        updateActivityList(); //loop through activitylist to update any outdated status
+        filteredActivities.setPredicate(predicate);
+    }
+** Cons: The update function would be called for most activity commands, as it loops through the entire `ActivityList`,
+it would make the app slower in performance. There may be unnecessary loops as well.
+
+* **Alternative 2:** Implement an `activityUpdate` command and `ActivityStatus` would only be updated when
+the command is called.
+
+** Pros: Faster in performance.
+** Cons: `ActivityStatus` displayed in the List may be outdated and the `Activity` might not be in the correct
+sorted position.
+
+===== Aspect: How to specify search field for `activityFind`
+
+* **Alternative 1 (current choice):** Search conditions are specified by `Prefix` such as `n/` for `ActivityName`
+** Pros: Similar to other activity commands such as `activityAdd` or `activityEdit`. More accurate results.
+** Cons: May be hard for new users to remember and understand the logic.
+
+* **Alternative 2:** Use `name` etc. as search conditions.
+** Pros: More intuitive for new users.
+** Cons: Inconsistency with other activity commands. It may yield incorrect results as the app need to
+distinguish whether an input is a keyword or a search condition.
+
+// end::activity_list[]
+
+//tag::activity_edit[]
+
+=== Activity Edit Features
+
+[discrete]
+===== Activity Edit Command
+`ClubManager` allows users to make changes to the information fields of activities that are currently in its activity list.
+
+The `activityEdit` command allows users to edit the name, datetime, location and description fields of existing activities in the activity list.
+At least one of the fields must be different from the existing record of the activity the user is trying to edit.
+
+When the command is entered, an `ActivityEditCommandParser` is created with the inputs provided by the user. +
+The ActivityEditCommandParser object would then validate the prefixes in the inputs and compare it with the current fields of the activity to check if there are any changes to be made. +
+After that, the individual inputs would be validated in the parser utils. Finally, if the checks pass, an `ActivityEditCommand` object would be returned.
+
+The execute command of the `ActivityEditCommand` object would then be called, and it will replace the existing Activity object (that the user wants to edit) with
+a new Activity object created with the updated fields, and any other previous information if certain fields are not edited.
+
+[discrete]
+===== Activity Add Member Command
+The `activityAddMember` command allows users to add members to the attendance list of an activity. The provided MatricNumber must be a valid MatricNumber and must belong to
+a member in the member list.
+
+When the `activityAddMember` command is executed from the UI, the inputs are parsed with the `ActivityAddMemberCommandParser` object which checks the validity of the MatricNumber.
+
+If the inputs are valid, the `ActivityAddMemberCommand` is returned from the Parser object and the execute function is called. The first check would be if the provided activity
+index number is valid, relative to the currently displayed activity list. Then, the Command object will check whether the MatricNumber belongs to a member in the member list. Finally,
+it will check that the MatricNumber provided does not belong to a member already in the activity's attendance list.
+
+If all the checks pass, the MatricNumber object containing the member's matric number will be stored in an ArrayList object(which represents the attendance list) belonging to the activity.
+
+.Sequence Diagram for `activityAddMember` command
+image::ActivityAddMember_SequenceDiagram.PNG[width="800"]
+
+.Object Diagram displaying the relationship between Activity and Person when using `activityAddMember` command.
+image::ActivityAddMember_ObjectDiagram.PNG[width="600" height="300"]
+
+
+[discrete]
+===== Activity Delete Member Command
+
+The `activityDeleteMember` command allows users to remove members from the attendance list of an activity. The provided MatricNumber must be a valid MatricNumber and must belong to
+a member in the member list.
+
+When the `activityDeleteMember` command is executed from the UI, the inputs are parsed with the `ActivityDeleteMemberCommandParser` object which checks the validity of the MatricNumber.
+
+If the inputs are valid, the `ActivityDeleteMemberCommand` is returned from the Parser object and the execute function is called. The first check would be if the provided activity
+index number is valid, relative to the currently displayed activity list. Then, the Command object will check whether the MatricNumber belongs to a member in the member list. Finally,
+it will check that the MatricNumber provided belongs to a member already in the activity's attendance list.
+
+If all the checks pass, the MatricNumber object containing the member's matric number will be removed from the ArrayList object(which represents the attendance list) belonging to the activity.
+
+// end::activity_edit[]
 
 === Logging
 
@@ -335,10 +943,12 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
-[[Implementation-Configuration]]
+// tag::implementationconfiguration[]
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
+// end::implementationconfiguration[]
 
 == Documentation
 
@@ -555,7 +1165,7 @@ Do take a look at <<Design-Logic>> before attempting to modify the `Logic` compo
 +
 ****
 * Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
+** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/MemberFindCommand.java[`MemberFindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `MemberFindCommand#COMMAND_ALIAS`).
 ** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
 * Solution
 ** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
@@ -807,6 +1417,8 @@ We now have everything set up... but we still can't modify the remarks. Let's fi
 See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
 
 [appendix]
+
+//tag::productscope
 == Product Scope
 
 *Target user profile*:
@@ -817,9 +1429,20 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+
+. Allow users to manage club members faster and more effectively than a typical mouse/ GUI-driven app.
+
+. Allow users to plan activities better based on members’ interest.
+
+. Avoid errors that stem from inaccurate members record (e.g. not keying in CCA points for the member due to inaccurate attendance data).
+
+. Improve the data collection accuracy and efficiency in the member management process.
+
+//end::productscope
 
 [appendix]
+//tag::userstories
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -827,35 +1450,75 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |CCA main committee member |see who are the members in my CCA |track the CCA’s current membership level
 
-|`* * *` |user |add a new person |
+|`* * *` |CCA main committee member |see which members are attending an activity |plan the activity according to the participation rate.
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |CCA main committee member |view the activities that a member has participated. |better select applicants for the main committee positions.
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`*` |CCA main committee member |see the payments of each member |track the payments of each member.
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |CCA main committee member |sort members into categories (e.g. race, nationality, religion, gender, year of study).  |target specific groups of members based on the type of activities offered by the CCA (e.g. interfaith CCA, Sports Club).
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |CCA main committee member |add new members to the CCA |see the new members in the list
+
+|`* *` |CCA main committee member |delete members from the CCA |see the new members in the list
+
+|`* *` |CCA main committee member |see what are the ongoing and upcoming activities of the CCA |sign up for activities I am interested in.
+
+|`*` |CCA main committee member |view the list of people who have not made payment based on activity |request payment from these members
+
+|`*` |CCA main committee member |conduct surveys |gather feedback from users
+
+|`* * *` |CCA main committee member |Import and export members data |easily enter new members’ information from the annual CCA fair.
+
+|`* *` |CCA main committee member |to have a calendar that shows the activities |plan my schedule
+
+|`* *` |CCA main committee member |Record the attendance of members |see the new members in the list.
+
+|`*` |CCA main committee member |send a quick SMS/email to members |inform them of any upcoming activities
+
+|`* *` |CCA main committee member |track the attendance of members |Identify members who are inactive
+
+|`* *` |CCA main committee member |add event tags to members |record which members are going for which events
+
+|`* *` |CCA main committee member |remove tags from members |keep the address book neat after an event has concluded
+
+|`* * *` |CCA main committee member |create an activity list |see the upcoming events
 |=======================================================================
-
-_{More to be added}_
+//end::userstories
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+[discrete]
+=== Use case: Add Member
+
+*Main Success Scenario (MSS)*
+
+1.  User requests to add a specific member in the list
+2.  Club Manager adds the member
+3.  Use case ends.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The given index is invalid.
++
+** 2a1. Club Manager shows an error message.
+Use case resumes at step 1.
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Delete Member
 
-*MSS*
+*Main Success Scenario (MSS)*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  Admin requests to list persons
+2.  Club Manager shows a list of members
+3.  User requests to delete a specific member in the list
+4.  Club Manager deletes the member
 +
 Use case ends.
 
@@ -869,13 +1532,353 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Club Manager shows an error message.
 +
 Use case resumes at step 2.
+
+[discrete]
+=== Use case: Sort Member's List
+
+*Main Success Scenario (MSS)*
+
+1.  User requests to sort the Club Manager by a sorting criteria (e.g. name, yearOfStudy).
+2.  Club Manager sorts the members by given criteria. Thereafter, Club Manager sorts the members by name.
+3.  Club Management System shows the sorted list.
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 2a. The given index is invalid.
++
+[none]
+** 2a1. Club Manager shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Edit Member
+
+*Main Success Scenario (MSS)*
+
+1.  User requests to list persons
+2.  Club Manager shows a list of members
+3.  User requests to edit details of a member in the displayed list
+4.  Club Manager edits the details of the specified member with given information.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+** 3a1. Club Manager shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: List Members
+
+*Main Success Scenario (MSS)*
+
+1.  User requests to list persons
+2.  Club Manager shows a list of members
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: Select Member
+
+*Main Success Scenario (MSS)*
+
+1.  User requests to select a specific member in the list by the index number.
+2.  Club Manager shows the details of the specific person in the list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. List is empty.
++
+Use case ends.
+
+* 2b. Member does not exist in the list.
++
+** 2b1. Club Manager shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Find Member
+
+*Main Success Scenario (MSS)*
+
+1.  User requests to find a specific member.
+2.  Club Manager shows the specific member.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. List is empty.
++
+Use case ends.
+
+* 2b. Member does not exist in the list.
++
+** 2b1. Club Manager shows an error message.
++
+Use case ends.
+
+* 2c. The search index is not unique.
++
+** 2c1. Club Manager shows a list of all members who match the search index.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Add Activity
+
+*Main Success Scenario (MSS)*
+
+1.  User requests to add a new activity in the list
+2.  Club Manager adds the activity
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The given input is invalid.
++
+** 2a1. Club Manager shows an error message.
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Edit Activity
+
+*Main Success Scenario (MSS)*
+
+1.  User requests to list activities
+2.  Club Manager shows a list of activities
+3.  User requests to edit details of an activity in the displayed list
+4.  Club Manager edits the details of the specified member with given information.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty
++
+Use case ends.
+
+* 3a. The given index or parameters is/are invalid.
++
+** 3a1. Club Manager shows an error message.
++
+Use case resumes at step 2.
+
+// tag::activityAddMember[]
+[discrete]
+=== Use case: Add Member to Activity
+
+*Main Success Scenario (MSS)*
+
+1.  User requests to list activities
+2.  Club Manager shows a list of activities
+3.  User requests to add a member to the attendance list of an activity
+4.  Club Manager adds the member to the activity's attendance list
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given activity index is invalid
++
+** 3a1. Club Manager shows an error message.
++
+Use case resumes at step 2.
++
+* 3b. The specified member does not exist.
++
+** 3b1. Club Manager shows an error message.
++
+Use case resumes at step 2.
++
+* 3c. The specified member is already in the attendance list.
++
+** 3c1. Club Manager shows an error message.
++
+Use case ends.
+// end::activityAddMember[]
+
+// tag::activityDeleteMember[]
+[discrete]
+=== Use case: Remove Member from Activity
+
+*Main Success Scenario (MSS)*
+
+1.  User requests to list activities
+2.  Club Manager shows a list of activities
+3.  User requests to remove a member from the attendance list of an activity
+4.  Club Manager removes the member to the activity's attendance list
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given activity index is invalid
++
+** 3a1. Club Manager shows an error message.
++
+Use case resumes at step 2.
++
+* 3b. The specified member does not exist.
++
+** 3b1. Club Manager shows an error message.
++
+Use case resumes at step 2.
++
+* 3c. The specified member is not in the attendance list.
++
+** 3c1. Club Manager shows an error message.
++
+Use case ends.
+// end::activityDeleteMember[]
+
+
+// tag::activityDelete[]
+[discrete]
+=== Use case: Delete Activity
+
+*Main Success Scenario (MSS)*
+
+1.  User requests to list activities
+2.  Club Manager shows a list of activities
+3.  User requests to permanently delete an activity from the activity list
+4.  Club Manager deletes the activity.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given activity index is invalid
++
+** 3a1. Club Manager shows an error message.
++
+Use case resumes at step 2.
+// end::activityDelete[]
+
+[discrete]
+=== Use case: List Activity
+
+*Main Success Scenario (MSS)*
+
+1. User requests to list activities
+2. Club Manager shows a list of activities
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: Select Activity
+
+*Main Success Scenario (MSS)*
+
+1. User requests to list activities
+2. Club Manager shows a list of activities
+3. User request to select an activity from the displayed list
+4. Club Manager shows the details of the selected activity
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Club Manager shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Find Activity
+
+*Main Success Scenario (MSS)*
+
+1. User requests to find activities based on keywords
+2. Club Manager finds the activities with the given keywords
+3. Club Manager displays the list of activities that matches the keywords
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Keyword input is invalid
++[none]
+** 1a1. Club Manager shows an error message.
++
+Use case ends.
+
+
+
+* 3a. The list is empty
++
+Use case ends.
+
+
 
 _{More to be added}_
 
 [appendix]
+//tag::non-functional-requirements
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
@@ -883,32 +1886,61 @@ _{More to be added}_
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
-
+//end::non-functional-requirements
 [appendix]
+
+//tag::glossary
 == Glossary
+
+This section is designed to provide you with definitions for
+terms that are used in this document below.
+
+[horizontal]
+
+[[CLI]] CLI::
+Command Line Interface
+
+[[CCA]] CCA::
+Co-Curricular Activities
+
+[[crud]] Create, Read, Update and Delete (CRUD)::
+Basic functions of a database
+
+[[GUI]] GUI::
+Graphical User Interface
+
+[[Main-Committee-Member]] Main Committee Member::
+A person who is in the core team of organisers for the CCA.
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[Sub-Committee-Member]] Sub-Committee Member::
+A person who is an active member of the CCA, but do not play any organiser role.
+//end::glossary
 
+//tag::product-survey
 [appendix]
 == Product Survey
 
-*Product Name*
+*Product Name:* EventBank
 
-Author: ...
+Author: Joel Ng
 
 Pros:
 
-* ...
-* ...
+* Has necessary relevant features to a member management system
+* Available in Desktop and Mobile Platforms.
+* Easy to use and set up activities for members.
 
 Cons:
 
-* ...
-* ...
+* Does not clearly differentiate the Users application and the managers application well. This caused managers to download the users application.
+
+* Interface could be more intuitive e.g. allowing preview of corporate members.
+
+* No training document provided. Users have to contact the support manager for “how to” questions.
+//end::product-survey
 
 [appendix]
 == Instructions for Manual Testing
@@ -932,21 +1964,217 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+
+
+=== Adding a member
+
+You are adding a new member to Club Manager
+
+Instructions:
+
+.. *Test case:* `memberAdd n/Lim Sun Yong mn/A0187456N p/87961012 e/johnd@example.com a/311, Tiong Bahru Ave 5, #12-03 g/Male y/2 m/Law t/Tennis
+` +
+   *Expected:* New member added: Lim Sun Yong Matric Number: A0187456N Phone: 87961012 Email: johnd@example.com Address: 311, Tiong Bahru Ave 5, #12-03 Gender: Male Year of Study: Year 2 Major: Law Tags: [Tennis]
+.. *Test case:* `memberAdd n/Tan Xun Song mn/A0192595N p/811619921 e/txs@example.com a/311, Jurong West Ave 3, #12-03 g/Female y/2 m/Medicine t/Archery` +
+   *Expected:* Phone numbers should only start with 6, 8 or 9, and it should be only be 8 digits long.
+.. *Test case:* `memberAdd n/Tan Xun Song mn/A0187456N p/81161992 e/txs@example.com a/311, Jurong West Ave 3, #12-03 g/Female y/2 m/Medicine t/Archery` +
+   *Expected:* This matricNumber already exists in Club Manager.
+.. *Test case:* `memberAdd n/Tan Xun Song mn/A0192595Z p/81161992 e/txs@example.com a/311, Jurong West Ave 3, #12-03 g/Female y/2 m/Medicine t/Archery` +
+   *Expected:* MatricNumber should only contain alphanumeric characters, starting with an A and ending with an uppercase alphabet, with 7 digits in between the first and last character. The last letter must be a valid checksum.
+.. *Test case:* `memberAdd n/Tan Xun Song mn/A0192595N p/81161992 e/txs@example.com a/311, Jurong West Ave 3, #12-03 g/chicken y/2 m/Medicine t/Archery` +
+   *Expected:* Gender should be Male or Female, and it should not be blank
+.. *Test case:* `memberAdd n/Tan Xun Song mn/A0192595N p/81161992 e/txs@example.com a/311, Jurong West Ave 3, #12-03 g/Female y/0 m/Medicine t/Archery` +
+   *Expected:* YearOfStudy should only contain a single digit between 1 to 6 and it should not be blank
+
+=== Filtering Member's List
+.. *Test case:* `memberFilter yearofstudy 2` +
+   *Expected:* _ member(s) listed!!
+
+=== Listing all Members
+.. *Test case:* `memberList` +
+   *Expected:* Listed all persons
+
+=== Select a Member
+.. *Test case:* `memberSelect 1` +
+   *Expected:* Selected Person: 1
+.. *Test case:* `memberSelect 0` +
+   *Expected:* Invalid command format!
+               memberSelect: Selects the member identified by the index number used in the displayed member list.
+               Parameters: INDEX (must be a positive integer)
+
+=== Sorting Member's List
+.. *Test case:* `memberSort name` +
+   *Expected:* Members' list successfully sorted!
+.. *Test case:* `memberSort names` +
+   *Expected:* Invalid command format!
+               memberSort: Sorts all members in the members' list based on the specified attribute (case-insensitive).
+               Parameters: KEYWORD...
+
+=== Modes of Operation Feature for `mode`
+
+. Initial launch mode
+.. App should start in MEMBER mode, indicated by the label on the top right corner of app window.
+.. Test case: `mode` +
+   Expected: Returns 'Mode MEMBER' in the Result Display Panel.
+
+. Mode changes correctly from MEMBER
+.. Prerequisites: ClubManager is in MEMBER mode
+.. Test case: `mode MEMBER` +
+   Expected: Returns 'Mode is already: MEMBER'.
+.. Test case: `mode ACTIVITY` +
+   Expected: Returns 'Mode changed to ACTIVITY', and is indicated by the label on the top right corner of app window.
+
+. Mode changes correctly from ACTIVITY
+.. Prerequisites: ClubManager is in ACTIVITY mode.
+.. Test case: `mode ACTIVITY` +
+   Expected: Returns 'Mode is already: ACTIVITY'.
+.. Test case: `mode MEMBER` +
+   Expected: Returns 'Mode changed to MEMBER', and is indicated by the label on the top right corner of app window.
+
+. Only Member Commands and Generic Commands work in MEMBER mode
+.. Prerequisites: ClubManager is in MEMBER mode.
+.. Test case: `memberSelect 1` +
+   Expected: Person at index 1 of the list is selected. Member details panel shows details of person at index 1. Returns 'Selected Person: 1'.
+.. Test case: `activityList` +
+   Expected: Error message 'Invalid command mode! Allowed Mode : ACTIVITY' and prompt mode usage to change mode.
+.. Test case: `help` +
+   Expected: Help window opens.
+
+. Only Activity Commands and Generic Commands work in ACTIVITY mode
+.. Prerequisites: ClubManager is in ACTIVITY mode.
+.. Test case: `activitySelect 1` +
+  Expected: Activity at index 1 of the list is selected. Activity details panel shows details of activity at index 1. Returns 'Selected Activity: 1'.
+.. Test case: `memberList` +
+  Expected: Error message 'Invalid command mode! Allowed Mode : MEMBER' and prompt mode usage to change mode.
+.. Test case: `help` +
+  Expected: Help window opens.
+
+. ClubManager mode resets in MEMBER mode after `clear` operation in MEMBER mode.
+.. Prerequisites: ClubManager is in MEMBER mode.
+.. Test case: `clear` +
+   Expected: App in mode MEMBER indicated by the label on the top right corner of app window.
+
+. ClubManager mode resets in MEMBER mode after `clear` operation in ACTIVITY mode.
+.. Prerequisites: ClubManager is in ACTIVITY mode.
+.. Test case: `clear` +
+   Expected: App in mode MEMBER indicated by the label on the top right corner of app window.
 
 === Deleting a person
 
 . Deleting a person while all persons are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
+.. Prerequisites: List all persons using the `memberList` command. Multiple persons in the list.
+.. Test case: `memberDelete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
+.. Test case: `memberDelete 0` +
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `memberDelete`, `memberDelete x` (where x is larger than the list size) _{give more}_ +
+   Expected: Similar to previous.
+
+=== Editing a person
+
+. Editing a person while all persons are listed
+
+.. Prerequisites: List all persons using the `memberList` command. Multiple persons in the list.
+.. Test case: `memberEdit 1 yos/4` +
+   Expected: First contact's year of study is changed to Year 4. New details shown in status message. Timestamp in the status bar is updated.
+.. Test case: `memberEdit 1 mn/A0157138B` +
+   Expected: First contact matriculation number is not edited. Error on status message says that matriculation number cannot be edited. Status bar remains the same.
+.. Other incorrect edit commands to try: `memberEdit 0`, `memberEdit 1 n/`, `memberEdit 1 z/` +
+   Expected: No person is edited. Error details shown in the status message. Similar to previous.
+
+=== Finding a person
+
+. Finding a person while all persons are listed
+
+.. Prerequisites: List all persons using the `memberList` command. Multiple persons in the list.
+.. Test case: `memberFind name john` +
+   Expected: All members whose names contain fully or partially "john" will be displayed. Status message shows number of members found. Timestamp in the status bar is updated.
+.. Test case: `memberFind john` +
+   Expected: Display does not change. Error message shown on status message. Timstamp remains the same.
+.. Other incorrect find commands to try: `memberFind hello`, `memberFind `, any case which does not have the correct criteria ("name" or "matricnum" only) +
    Expected: Similar to previous.
 
 _{ more test cases ... }_
+
+
+=== Activity List Feature
+
+. Adding an activity to the activity list - `activityAdd`
+
+.. Prerequisites: The ClubManager in `mode activity`. The activity to add is not already in the list.
+No duplicated activities or time and location clash for the activity to add.
+.. Test case: `activityAdd n/Test activity d/25/06/2019 1900 l/NUS de/test activity` +
+   Expected: Activity added to the correct location in the list.
+.. Test case: `activityAdd n/Test activity d/25/06/2019 2500 l/NUS de/test activity` +
+   Expected: Error message with prompt for correct time input format.
+.. Other incorrect activity add commands to try: `activityAdd`, `activityAdd x/` (where x
+is an invalid prefix), `activityAdd n/Some activity d/20/03/2019 1000 d/30/03/2019 2039 l/here`
+(activity with duplicated prefix) ... +
+    Expected: Error message.
+
+. Finding activities based on keywords - `activityFind`
+
+.. Prerequisites: The ClubManager in `mode activity`. Some activities matching the keywords are in
+the activity list.
+.. Test case: `activityFind CS2103` +
+   Expected: Activities with `CS2103` in `name` or `location` or `description` are listed
+.. Test case: `activityFind n/Movie Outing` +
+   Expected: Activities with name containing either `Movie` or `Outing` will be listed.
+.. Test case: `activityFind d/20/02/2019 0910` +
+   Expected: Error message.
+.. Other incorrect input for `activityFind` command: `activityFind`, `activityFind n/` +
+   Expected: Error message
+
+. Filtering activities - `activityFilter`
+
+.. Prerequisites: The ClubManager in `mode activity`. Some activities in the activity list.
+.. Test case: `activityFilter + 30` +
+   Expected: Upcoming activities in the next 30 days are listed.
+.. Test case: `activityFilter -3` +
+   Expected: Error message in result display about incorrect result format.
+.. Other incorrect input for `activityFilter` command: `activityFilter + 0`,
+`activityFilter + randomsomething` +
+   Expected: Same as above.
+
+=== Editing an activity
+
+. Editing an activity while all activities are listed.
+
+.. Prerequisites: List all activities using the `aList` command. Multiple persons in the list.
+.. Test case: `activityEdit 1 n/New Activity d/13/02/2019 1200 l/Com1 de/Bring calculator` +
+.. Expected: Edited Activity: New Activity Date Time: 13/02/2019 1200 Location: Com1 Description: Bring calculator Number Attending: "NUM_ATTENDING"
+.. Test case: `aEdit 0` +
+   Expected: Invalid command format!
+
+=== Deleting an activity
+. Deleting an activity while all activities are listed.
+
+.. Prerequisites: List all activities using the `aList` command. Multiple persons in the list.
+.. Test case: `activityDelete 1` +
+.. Expected: Deleted Activity: "ACTIVITY DETAILS"
+.. Test case: `activityDelete 99` (if there are only 10 activities in the list) +
+   The activity index provided is invalid
+
+=== Adding a member to an activity's attendance list
+. Adding a member to an activity while all activities are listed.
+
+.. Prerequisites: List all activities using the `aList` command. Multiple persons in the list.
+.. Test case: `aAddMember 1 A0111111M` +
+.. Expected: Successfully added to selected Activity: 1
+.. Test case: `aAddMember 1 A1234567N` +
+   Expected: MatricNumber should only contain alphanumeric characters, starting with an A and ending with an uppercase alphabet, with 7 digits in between the first and last character.
+   The last letter must be a valid checksum.
+
+=== Deleting a member from an activity's attendance list
+. Deleting a member from an activity while all activities are listed.
+
+.. Prerequisites: List all activities using the `aList` command. Multiple persons in the list.
+.. Test case: `activityDeleteMember 1 A0111111M` +
+.. Expected: Successfully removed member from selected Activity: 1
+.. Test case: `activityDeleteMember 1 A0111111M` +
+   Expected: The person is not in the activity attendance list!
+
 
 === Saving data
 
@@ -955,3 +2183,29 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+=== Export Feature for MEMBER `memberExport` or `mExport`
+
+. App exports member data to file when index if member exists in list.
+.. Prerequisites: ClubManager is in MEMBER mode. There is a member in the list at index 1 and none at index 999.
+.. Test case: `memberExport` +
+   Expected: Error message, shows command usage instructions.
+.. Test case: `mExport` +
+   Expected: Error message, shows command usage instructions.
+.. Test case: `memberExport 1` +
+   Expected: File created at root folder where the jar file is situated.
+.. Test case: `memberExport 999` +
+   Expected: Retuens 'The member index provided is invalid.'. No file is created.
+
+=== Export Feature for ACTIVITY `activityExport` or `aExport`
+
+. App exports member data to file when index if member exists in list.
+.. Prerequisites: ClubManager is in ACTIVITY mode. There is an activity in the list at index 1 and none at index 999.
+.. Test case: `activityExport` +
+   Expected: Error message, shows command usage instructions.
+.. Test case: `aExport` +
+   Expected: Error message, shows command usage instructions.
+.. Test case: `activityExport 1` +
+   Expected: File created at root folder where the jar file is situated.
+.. Test case: `activityExport 999` +
+   Expected: Returns 'The activity index provided is invalid.'. No file is created.

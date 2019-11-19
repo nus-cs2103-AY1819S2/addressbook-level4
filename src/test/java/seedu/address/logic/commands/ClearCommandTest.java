@@ -1,7 +1,8 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.logic.commands.ClearCommand.MESSAGE_SUCCESS;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBookWithPerson;
 
 import org.junit.Test;
 
@@ -21,17 +22,19 @@ public class ClearCommandTest {
         Model expectedModel = new ModelManager();
         expectedModel.commitAddressBook();
 
-        assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS, false, false, true);
+        assertCommandSuccess(new ClearCommand(), model, commandHistory, expectedCommandResult, expectedModel);
     }
 
     @Test
     public void execute_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Model model = new ModelManager(getTypicalAddressBookWithPerson(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalAddressBookWithPerson(), new UserPrefs());
         expectedModel.setAddressBook(new AddressBook());
         expectedModel.commitAddressBook();
 
-        assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS, false, false, true);
+        assertCommandSuccess(new ClearCommand(), model, commandHistory, expectedCommandResult, expectedModel);
     }
 
 }

@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -15,7 +16,9 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.InvalidCommandModeException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.AppMode;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -31,8 +34,13 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+    //private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
+    private ActivityDetailPanel activityDetailPanel;
+    private PersonNotAttendingListPanel personNotInActivityListPanel;
+    private ActivitiesAttendedByMemberPanel activitiesAttendedByMemberPanel;
+    private ActivityListPanel activityListPanel;
+    private MemberDetailPanel memberDetailPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -46,10 +54,15 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane leftListPanelPlaceholder;
+    @FXML
+    private StackPane rightListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private Label modeLabel;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -79,6 +92,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -111,12 +125,20 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedPersonProperty());
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        memberDetailPanel = new MemberDetailPanel(logic.selectedPersonProperty(), logic);
+        activityDetailPanel = new ActivityDetailPanel(logic.selectedActivityProperty(),
+                logic.getAttendingOfSelectedActivity());
+        browserPlaceholder.getChildren().add(memberDetailPanel.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
                 logic::setSelectedPerson);
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        activityListPanel = new ActivityListPanel(logic.getFilteredActivityList(), logic.selectedActivityProperty(),
+                logic::setSelectedActivity);
+        leftListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        personNotInActivityListPanel = new PersonNotAttendingListPanel(logic.getPersonNotInSelectedActivity());
+        activitiesAttendedByMemberPanel = new ActivitiesAttendedByMemberPanel(logic.getActivitiesOfPerson());
+        rightListPanelPlaceholder.getChildren().add(activitiesAttendedByMemberPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -126,6 +148,8 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        setModeLabel(logic.getAddressBook().getCurrMode());
     }
 
     /**
@@ -150,6 +174,52 @@ public class MainWindow extends UiPart<Stage> {
         } else {
             helpWindow.focus();
         }
+    }
+
+    /**
+     * Change mode
+     */
+    @FXML
+    private void handleModeHasChanged() {
+        logic.callAllListFn();
+        if (isModeChangeToMember()) {
+            leftListPanelPlaceholder.getChildren().set(0, personListPanel.getRoot());
+            browserPlaceholder.getChildren().set(0, memberDetailPanel.getRoot());
+            rightListPanelPlaceholder.getChildren().set(0, activitiesAttendedByMemberPanel.getRoot());
+            setModeLabel(AppMode.Modes.MEMBER);
+        }
+        if (isModeChangeToActivity()) {
+            leftListPanelPlaceholder.getChildren().set(0, activityListPanel.getRoot());
+            browserPlaceholder.getChildren().set(0, activityDetailPanel.getRoot());
+            rightListPanelPlaceholder.getChildren().set(0, personNotInActivityListPanel.getRoot());
+            setModeLabel(AppMode.Modes.ACTIVITY);
+        }
+    }
+
+    @FXML
+    private void setModeLabel(AppMode.Modes mode) {
+        switch (mode) {
+        case MEMBER:
+            modeLabel.setText("Mode : MEMBER");
+            modeLabel.getStyleClass().remove("labelMode-Activity");
+            modeLabel.getStyleClass().add("labelMode-Member");
+            break;
+        case ACTIVITY:
+            modeLabel.setText("Mode : ACTIVITY");
+            modeLabel.getStyleClass().remove("labelMode-Member");
+            modeLabel.getStyleClass().add("labelMode-Activity");
+            break;
+        default:
+            break;
+        }
+    }
+
+    private boolean isModeChangeToMember() {
+        return logic.modeHasChange_isCurrModeMember();
+    }
+
+    private boolean isModeChangeToActivity() {
+        return logic.modeHasChange_isCurrModeActivity();
     }
 
     void show() {
@@ -177,7 +247,8 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText) throws CommandException,
+            ParseException, InvalidCommandModeException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -191,9 +262,17 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandResult.isModeHasChanged()) {
+                handleModeHasChanged();
+            }
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
+            resultDisplay.setFeedbackToUser(e.getMessage());
+            throw e;
+        } catch (InvalidCommandModeException e) {
+            logger.info("Invalid command mode: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }

@@ -19,9 +19,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Gender;
+import seedu.address.model.person.Major;
+import seedu.address.model.person.MatricNumber;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.YearOfStudy;
 
 public class PersonListPanelTest extends GuiUnitTest {
     private static final ObservableList<Person> TYPICAL_PERSONS =
@@ -79,11 +83,16 @@ public class PersonListPanelTest extends GuiUnitTest {
     private ObservableList<Person> createBackingList(int personCount) {
         ObservableList<Person> backingList = FXCollections.observableArrayList();
         for (int i = 0; i < personCount; i++) {
-            Name name = new Name(i + "a");
-            Phone phone = new Phone("000");
+            Name name = new Name("John");
+            MatricNumber matricNumber = new MatricNumber("A0111111M");
+            Phone phone = new Phone("61234567");
             Email email = new Email("a@aa");
             Address address = new Address("a");
-            Person person = new Person(name, phone, email, address, Collections.emptySet());
+            Gender gender = new Gender("Male");
+            YearOfStudy yearOfStudy = new YearOfStudy("1");
+            Major major = new Major(("Computer Science"));
+            Person person = new Person(name, matricNumber, phone, email, address, gender, yearOfStudy, major,
+                    Collections.emptySet());
             backingList.add(person);
         }
         return backingList;

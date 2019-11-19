@@ -1,0 +1,71 @@
+= Melissa Khoo - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Club Manager
+
+---
+
+== Overview
+
+Club Manager is a desktop member management application used by committee members to track and view the information and participation of their club members. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: Member List Management Functions
+
+** *What it does:*
+*** *Find* (`memberFind`): allows the user to find members using part or whole name or matriculation number, and multiple fields can also be entered. All members who fulfill the criteria will be returned.
+*** *Edit* (`memberEdit`): allows the user to edit all fields in the member information EXCEPT matriculation number.
+*** *Delete* (`memberDelete`): allows the user to delete member from memberList AND activityList with one simple command using list index.
+** *Justification:* Grants ease of CCA leaders looking up contact information of a particular member without scrolling through long lists, allows leaders to easily edit member information that is available to edit, as well as allow for clean delete from the Club Manager when the member graduates or has quit the club.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
+* *Minor enhancements*:
+** Added contiansIgnoreCase function under StringUtil to allow for partial keyword match, available for all to use, breaking restriction of only full word match
+** Find Criteria contains keywords predicate for others to follow to allow for multiple criteria and keywords to be input instead of single criteria multiple keywords
+** Highlights: It negates the need to demand full word match and enables more effective search functions given a long list of members with may information fields.
+
+* *Code contributed*: [https://github.com/CS2103-AY1819S2-W13-2/main/commits?author=melkwx[Functional code]] [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=melkwx&sort=displayName&since=2019-02-10&until=2019-04-15&timeframe=day&reverse=false&repoSort=true[RepoSense]] _{give links to collated code files}_
+
+* *Other contributions*:
+* Actively reviewed documentation of teammates to make sure the documentation follows a similar structure.
+* Actively reviewed teammates' PRs to ease debugging process.
+* Corrected any team-related documentation issues.
+* Provided high-speed typing services for all demos.
+* Continuous morale booster and emotional support.
+* Tells everyone their code looks good.
+
+** Community:
+*** Regularly reviewed PRs and commented.
+*** Reported bugs and suggestions for other teams in the class (W14-1)
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=commandsummary]
+include::../UserGuide.adoc[tag=introduction]
+include::../UserGuide.adoc[tag=memberedit]
+include::../UserGuide.adoc[tag=memberdelete]
+include::../UserGuide.adoc[tag=memberfind]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=memberdelete]
+include::../DeveloperGuide.adoc[tag=memberedit]
+include::../DeveloperGuide.adoc[tag=memberfind]
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_

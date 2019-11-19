@@ -10,11 +10,15 @@ import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.exceptions.ActivityNotFoundException;
+import seedu.address.model.person.MatricNumber;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -28,6 +32,11 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+    private final FilteredList<Activity> filteredActivities;
+    private final SimpleObjectProperty<Activity> selectedActivity = new SimpleObjectProperty<>();
+    private final ObservableList<Person> personAttendingActivity = FXCollections.observableArrayList();
+    private final ObservableList<Person> personNotAttendingActivity = FXCollections.observableArrayList();
+    private final ObservableList<Activity> activitiesAttendedByMember = FXCollections.observableArrayList();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -42,6 +51,9 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        filteredActivities = new FilteredList<>(versionedAddressBook.getActivityList());
+        filteredActivities.addListener(this::ensureSelectedActivityIsValid);
+
     }
 
     public ModelManager() {
@@ -91,16 +103,46 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public void setAddressBookMode(AppMode.Modes mode) {
+        versionedAddressBook.setAppMode(mode);
+    }
+
+    @Override
+    public AppMode.Modes getAddressBookMode () {
+        return versionedAddressBook.getAppMode();
+    }
+
+    @Override
+    public boolean addressBookModeIsMember () {
+        return versionedAddressBook.modeIsMember();
+    }
+    @Override
+    public boolean addressBookModeIsActivity () {
+        return versionedAddressBook.modeIsActivity();
+    }
+
+    @Override
+    public ReadOnlyAddressBook getAddressBook () {
         return versionedAddressBook;
     }
 
     @Override
-    public boolean hasPerson(Person person) {
+    public boolean hasPerson (Person person) {
         requireNonNull(person);
         return versionedAddressBook.hasPerson(person);
     }
 
+    @Override
+    public boolean hasMatricNumber(MatricNumber matricNumber) {
+        requireNonNull(matricNumber);
+        return versionedAddressBook.hasMatricNumber(matricNumber);
+    }
+
+    @Override
+    public Person getPersonWithMatricNumber(MatricNumber matricNumber) {
+        requireNonNull(matricNumber);
+        return versionedAddressBook.getPersonWithMatricNumber(matricNumber);
+    }
     @Override
     public void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);
@@ -115,8 +157,46 @@ public class ModelManager implements Model {
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-
         versionedAddressBook.setPerson(target, editedPerson);
+    }
+
+    @Override
+    public boolean hasActivity(Activity activity) {
+        requireNonNull(activity);
+        return versionedAddressBook.hasActivity(activity);
+    }
+
+    @Override
+    public boolean hasActivityClashInLocation(Activity activity) {
+        requireNonNull(activity);
+        return versionedAddressBook.hasActivityClashInLocation(activity);
+    }
+
+    @Override
+    public void deleteActivity(Activity target) {
+        versionedAddressBook.removeActivity(target);
+    }
+
+    @Override
+    public void addActivity(Activity activity) {
+        versionedAddressBook.addActivity(activity);
+        updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
+    }
+
+    @Override
+    public void setActivity(Activity target, Activity editedActivity) {
+        requireAllNonNull(target, editedActivity);
+
+        versionedAddressBook.setActivity(target, editedActivity);
+    }
+
+    public void sortAddressBook(String input) {
+        versionedAddressBook.sortAddressBook(input);
+    }
+
+    @Override
+    public void updateActivityList() {
+        versionedAddressBook.updateActivities();
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -163,6 +243,14 @@ public class ModelManager implements Model {
         versionedAddressBook.commit();
     }
 
+    @Override
+    public void resetLists() {
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        setSelectedPerson(null);
+        updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
+        setSelectedActivity(null);
+    }
+
     //=========== Selected person ===========================================================================
 
     @Override
@@ -176,11 +264,34 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Person generateExportedPerson(Person person) {
+        if (person != null && !filteredPersons.contains(person)) {
+            throw new PersonNotFoundException();
+        }
+        setSelectedPerson(person);
+        return selectedPerson.get(); // this function returns a person
+    }
+
+    @Override
+    public Activity generateExportedActivity(Activity activity) {
+        if (activity != null && !filteredActivities.contains(activity)) {
+            throw new ActivityNotFoundException();
+        }
+        setSelectedActivity(activity);
+        return selectedActivity.get(); // this function returns a activity
+    }
+
+    @Override
     public void setSelectedPerson(Person person) {
         if (person != null && !filteredPersons.contains(person)) {
             throw new PersonNotFoundException();
         }
         selectedPerson.setValue(person);
+        if (person == null) {
+            activitiesAttendedByMember.clear();
+        } else {
+            activitiesAttendedByMember.setAll(versionedAddressBook.getActivitiesOfPerson(person));
+        }
     }
 
     /**
@@ -212,6 +323,117 @@ public class ModelManager implements Model {
         }
     }
 
+    public int getAttendedActivitiesCounter(Person person) {
+        return versionedAddressBook.getAttendedActivitiesCounter(person);
+    }
+
+    public int getParticipationRate(Person person) {
+        return versionedAddressBook.getParticipationRate(person);
+    }
+    //=========== Filtered Activity List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Activity} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Activity> getFilteredActivityList() {
+        return filteredActivities;
+    }
+
+    @Override
+    public void updateFilteredActivityList(Predicate<Activity> predicate) {
+        requireNonNull(predicate);
+        updateActivityList();
+        filteredActivities.setPredicate(predicate);
+    }
+
+    //=========== Selected activity ===========================================================================
+
+    @Override
+    public ReadOnlyProperty<Activity> selectedActivityProperty() {
+        return selectedActivity;
+    }
+
+    @Override
+    public Activity getSelectedActivity() {
+        return selectedActivity.getValue();
+    }
+
+    @Override
+    public void setSelectedActivity(Activity activity) {
+        if (activity != null && !filteredActivities.contains(activity)) {
+            throw new ActivityNotFoundException();
+        }
+        selectedActivity.setValue(activity);
+        if (activity == null) {
+            personNotAttendingActivity.clear();
+            personAttendingActivity.clear();
+        } else {
+            personAttendingActivity.setAll(versionedAddressBook.getAttendingFromActivity(activity));
+            personNotAttendingActivity.setAll(versionedAddressBook.getPeronNotAttending(activity));
+        }
+    }
+
+    @Override
+    public ObservableList<Person> getAttendingOfSelectedActivity() {
+        return personAttendingActivity;
+    }
+
+    @Override
+    public ObservableList<Person> getPersonNotInSelectedActivity() {
+        return personNotAttendingActivity;
+    }
+
+    @Override
+    public ObservableList<Activity> getActivitiesOfPerson() {
+        return activitiesAttendedByMember;
+    }
+
+    /**
+     * Ensures {@code selectedActivity} is a valid activity in {@code filteredActivities}.
+     */
+    private void ensureSelectedActivityIsValid(ListChangeListener.Change<? extends Activity> change) {
+        while (change.next()) {
+            if (selectedActivity.getValue() == null) {
+                // null is always a valid selected activity, so we do not need to check that it is valid anymore.
+                return;
+            }
+
+            boolean wasSelectedActivityReplaced = change.wasReplaced()
+                    && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedActivity.getValue());
+            if (wasSelectedActivityReplaced) {
+                // Update selectedActivity to its new value.
+                int index = change.getRemoved().indexOf(selectedActivity.getValue());
+                selectedActivity.setValue(change.getAddedSubList().get(index));
+                logger.fine(personAttendingActivity.stream().toString());
+                continue;
+            }
+
+            boolean wasSelectedActivityRemoved = change.getRemoved().stream()
+                    .anyMatch(removedActivity -> selectedActivity.getValue().isSameActivity(removedActivity));
+            if (wasSelectedActivityRemoved) {
+                // Select the activity that came before it in the list,
+                // or clear the selection if there is no such activity.
+                selectedActivity.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+
+            }
+        }
+    }
+
+    //=========== Member-Activity Interaction==================================================================
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    @Override
+    public void removeMemberFromAllAttendance(MatricNumber matricNumber) {
+        requireNonNull(matricNumber);
+        versionedAddressBook.removeMemberFromAllAttendance(matricNumber);
+    }
+
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -229,7 +451,9 @@ public class ModelManager implements Model {
         return versionedAddressBook.equals(other.versionedAddressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
-                && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
+                && filteredActivities.equals(other.filteredActivities)
+                && Objects.equals(selectedPerson.get(), other.selectedPerson.get())
+                && Objects.equals(selectedActivity.get(), other.selectedActivity.get());
     }
 
 }

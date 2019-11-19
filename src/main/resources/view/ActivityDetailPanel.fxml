@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:id="actDetParent">
+        <Text fx:id="actName" styleClass="activity-details-title" />
+        <Text fx:id="actTime" styleClass="activity-details-text" />
+        <Text fx:id="actLocation" styleClass="activity-details-text" />
+        <Text fx:id="actDescription" styleClass="activity-details-text" />
+        <Text fx:id="actStatus" styleClass="activity-details-text" />
+        <Text fx:id="numAttending" styleClass="activity-details-text" />
+        <Text fx:id="hasAttending" styleClass="activity-details-title list-label-member" style="-fx-font-size: 13px; -fx-fill: white;" />
+
+    <ListView fx:id="attendingList" VBox.vgrow="ALWAYS"/>
+
+</VBox>
+

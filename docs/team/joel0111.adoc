@@ -1,0 +1,83 @@
+= Joel Ng - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Club Manager - v1.4
+
+
+== Overview
+This Project Portfolio serves to document the features and enhancements that I have made to the project as well as my contributions to the User Guide and Developer Guide.
+
+For this project, our group has embarked on a journey to create a desktop CCA management application called *Club Manager*.
+Club Manager is catered for *CCA leaders* and is used for managing CCA members and activities. The user (i.e. CCA leader) interacts with it using a CLI, and it has a GUI created with JavaFX. This application is written in Java.
+
+== Summary of contributions
+
+* *Major enhancement*: Member List Management Feature
+
+** *What it does:*
+*** *Add* member to the existing list of members (`memberAdd`).
+*** *Lists* all of the members in Club Manager (`memberList`). *Filters* the list of members based on a given filter criteria. This allows the user to shortlist members for activities (e.g. competition) based on a particular member's attribute (`memberFilter`).
+*Sorts* the members' list based on a given sorting criteria (`memberSort`). This allows the user to be able to organise their members based on a particular member attribute, facilitating the attendance list preparation, keying in CCA points as well as the export list function.
+*** *Select* a specific member to view the complete members' information page which includes statistics pertaining to the selected member (`memberSelect`).
+** *Justification:* This feature improves the product significantly because as a CCA leader, the user needs to be able to view the entire set of member's information and statistics, as well as manage the member's list to prepare the list to be exported and printed for attendance taking in the CCA activities. CCA leaders could also use the information to plan out their activities (e.g. logistics).
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+* *Minor enhancements*:
+** A checksum generator has been implemented to ensure that all members have valid matric numbers.
+** Colored tags which follows the color theme of Club Manager.
+* *Code contributed*: [https://github.com/CS2103-AY1819S2-W13-2/main/commits?author=joel0111[Functional code]] [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=joel0111&sort=displayName&since=2019-02-10&until=2019-04-14&timeframe=day&reverse=false&repoSort=true[RepoSense]]
+
+*Other Contributions:*
+
+* Actively reviewed documentation of teammates to make sure the documentation follows a similar structure.
+* Corrected any team-related documentation issues.
+* Updated issues tracker for member management features including features that are not done by me.
+* Updated README and AboutUs page.
+* Provided UI Walk-through in the User Guide.
+* Designed a logo for the Club Manager Application.
+* Made cosmetic changes to the command summary in User Guide by categorising the commands.
+* Did up the user stories, non-functional requirements, glossary, and product survey in the Developer Guide.
+
+*Community Contributions*
+
+* Actively reviewed teammates' PRs.
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=memberadd]
+
+include::../UserGuide.adoc[tag=memberfilter]
+
+include::../UserGuide.adoc[tag=memberlist]
+
+include::../UserGuide.adoc[tag=memberselect]
+
+include::../UserGuide.adoc[tag=membersort]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=memberlistfeature]
+
+include::../DeveloperGuide.adoc[tag=memberadd]
+
+include::../DeveloperGuide.adoc[tag=memberfilter]
+
+include::../DeveloperGuide.adoc[tag=memberlist]
+
+include::../DeveloperGuide.adoc[tag=memberselect]
+
+include::../DeveloperGuide.adoc[tag=membersort]
+
+|===
+|_Some of the contributions to the user guide and developer guide have been omitted for brevity.
+Please visit W13-2 user guide and developer guide for full details._
+|===

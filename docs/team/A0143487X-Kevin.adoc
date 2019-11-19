@@ -1,0 +1,73 @@
+= Kevin Yeong Yu Heng - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:sectnums:
+
+== PROJECT: ClubManager
+
+---
+
+=== Overview
+This portfolio documents the features and enhancements that I have made to the project and the contributions I have made to
+the User and Developer guide.
+
+ClubManager is a desktop application for CCA management. It comes with a GUI but most of the user interactions
+takes place on the CLI (Command Line Interface) provided.
+
+ClubManager is specially designed for *CCA main committee members* to manage their CCA data. It is the g
+o-to application for CCA leaders who are looking for a software that allows them to *manage their members and activities*.
+
+=== Summary of contributions
+
+* *Major enhancement*: added *Mode of operation control feature*
+** What it does: Allow the app to operate in different modes which restrict the modes in which different commands can operate in. This feacture includes : +
+*** Management of UI for the different modes.
+*** Function for mode switching.
+*** Modification of the logic architecture for the restriction of command operations to their respective modes.
+** Justification: This feature improves the product to allow user to more intuitively use the app to handle both activity and members.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It also minimizes ambiguity and limits errors from user.
+
+* *Major enhancement*: added *Export feature*
+** What it does: Allow the user to generate information in a html format for viewing or printing. This feacture includes : +
+*** File handling operations.
+*** Formatting data based on templates which are designed in html.
+*** Generating the file which is responsive (large screens or mobile screens)
+** Justification: This feature improves the product to allow user and vendors to generate a copy of the information on a need-to-hold basis minimizing information leaks and PDPA breaches.
+** Highlights: This enhancement allows easy reuse and expansion in the future as the infrastructure for file handling and generating responsive files from templates.
+
+* *Minor enhancement*:
+** Rename member list function.
+** Implement command alias for expert users.
+
+* *Code contributed*: [https://github.com/CS2103-AY1819S2-W13-2/main/commits?author=A0143487X-Kevin[Functional code]] [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=A0143487X-Kevin&sort=displayName&since=2019-02-10&until=2019-04-8&timeframe=day&reverse=false&repoSort=true[RepoSense]]
+
+* *Other contributions*:
+
+** Project management:
+*** Integrator of the project and modules from member and activity management
+
+** Community:
+*** Reviewed PRs
+*** Discuss with and help members design the structure and flow of their feature implementation
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=mode]
+include::../UserGuide.adoc[tag=memberexport]
+include::../UserGuide.adoc[tag=activityexport]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=modes_of_operation]
+
+

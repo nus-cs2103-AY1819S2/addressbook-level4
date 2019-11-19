@@ -4,53 +4,61 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+ClubManager was developed by team w13-2. This application builds on the existing work of the
+https://se-edu.github.io/docs/Team.html[se-edu] team. +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Chan Ming En Minern
+image::minernchan.png[width="150", align="left"]
+{empty}[http://github.com/minernchan[github]] [<<minernchan#, portfolio>>]
 
-Role: Project Advisor
+Role: Developer (Testing) +
+Responsibilities:
+
+* In charge of Model.
+* Working on Activity Management feature.
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Joel 
+
+'''
+
+=== Kevin Yeong Yu Heng
+image::A0143487X-Kevin.png[width="150", align="left"]
+{empty}[http://github.com/A0143487X-Kevin[github]] [<<A0143487X-Kevin#, portfolio>>]
+
+Role: Developer (Integrator) +
+Responsibilities:
+
+* In charge of UI.
+* Development of mode of operation architecture and feature.
+* Working on file handling and export features.
+
+'''
+
+=== Melissa Khoo Wan Xuan
+image::melkwx.png[width="150", align="left"]
+{empty}[http://github.com/melkwx[github]] [<<melkwx#, portfolio>>]
+
+Role: Developer (Code Quality) +
+Responsibilities:
+
+* In charge of Logic.
+* Working on Member Management feature.
+
+'''
+
+=== Yang Yiqing
+image::ivyyangyq.png[width="150", align="left"]
+{empty}[http://github.com/ivyyangyq[github]] [<<ivyyangyq#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibilities:
 
-'''
-
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Data
-
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
-
-'''
-
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: UI
+* In charge of Storage.
+* Working on Activity Management feature.
 
 '''

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.web.WebView?>
+
+<?import javafx.scene.layout.GridPane?>
+
+<GridPane id = "prescriptionPage" fx:id="prescriptionPage" styleClass="background" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <WebView fx:id="browser"/>
+    <padding><Insets top="5" bottom="5"/></padding>
+    <Label fx:id="patientId" styleClass="label-bright" GridPane.rowIndex="1"  wrapText="true"/>
+    <Label fx:id="patientName" styleClass="label-bright" GridPane.rowIndex="2"  wrapText="true"/>
+    <Label fx:id="doctorId" styleClass="label-bright" GridPane.rowIndex="3" wrapText="true"/>
+    <Label fx:id="doctorName" styleClass="label-bright" GridPane.rowIndex="4" wrapText="true"/>
+    <Label fx:id="date" styleClass="label-bright" GridPane.rowIndex="5" wrapText="true"/>
+    <Label fx:id="description" styleClass="label-bright" GridPane.rowIndex="6" wrapText="true"/>
+</GridPane>
+

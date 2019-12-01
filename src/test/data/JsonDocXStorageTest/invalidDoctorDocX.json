@@ -1,0 +1,11 @@
+{
+  "patients": [ {
+    "name": "Doctor with invalid name field: Ha!ns Mu@ster",
+    "gender": "M",
+    "age": "24",
+    "phone": "94824241",
+    "specs": "general"
+  } ],
+  "medicalHistories" : [ ],
+  "appointments" : [ ]
+}

@@ -1,0 +1,33 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "GongChangda",
+      "emails": ["changda1998@gmail.com"],
+      "displayName": "GON...GDA",
+      "authorNames": ["GongChangda"]
+    },
+    {
+      "githubId": "Liuyy99",
+      "emails": ["e0253712@u.nus.edu"],
+      "displayName": "LIU...ANG",
+      "authorNames": ["Liuyy99"]
+    },
+    {
+      "githubId": "siyingpoof",
+      "displayName": "ONG...ING",
+      "authorNames": ["siyingpoof"]
+    },
+    {
+      "githubId": "wayneswq",
+      "emails": ["e0203166@u.nus.edu"],
+      "displayName": "SEA...UAN",
+      "authorNames": ["wayneswq"]
+    },
+    {
+      "githubId": "amuletxheart",
+      "displayName": "YON...HEN",
+      "authorNames": ["amuletxheart"]
+    }
+  ]
+}

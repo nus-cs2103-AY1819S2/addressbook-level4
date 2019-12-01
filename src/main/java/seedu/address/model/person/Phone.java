@@ -1,18 +1,20 @@
+/* @@author wayneswq */
 package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's phone number in the address book.
+ * Represents a Person's phone number in the docX.
  * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
  */
 public class Phone {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Phone numbers should only contain numbers, and it should be at least 3 digits long";
-    public static final String VALIDATION_REGEX = "\\d{3,}";
+            "Phone numbers should only contain numbers starting with 9, 8 or 6, "
+                    + "and it should be exactly 8 digits long";
+    public static final String VALIDATION_REGEX = "[689][0-9]{7}";
     public final String value;
 
     /**

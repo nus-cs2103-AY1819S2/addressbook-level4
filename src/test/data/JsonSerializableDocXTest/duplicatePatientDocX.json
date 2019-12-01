@@ -1,0 +1,32 @@
+{
+  "patients": [ {
+    "id" : 1,
+    "name": "Alice Pauline",
+    "gender": "F",
+    "age": "24",
+    "phone": "94351253",
+    "address": "123, Jurong West Ave 6, #08-111",
+    "tagged": [ "friends" ],
+    "appointmentStatus" : "ACTIVE"
+  }, {
+    "id" : 2,
+    "name": "Alice Pauline",
+    "gender": "F",
+    "age": "24",
+    "phone": "94351253",
+    "address": "4th street",
+    "tagged": [ "friends" ],
+    "appointmentStatus" : "ACTIVE"
+  } ],
+  "doctors": [ ],
+  "medicalHistories" : [ {
+    "name" : "John Doe",
+    "writeUp" : "Fever"
+  }, {
+    "name" : "Amy Doe",
+    "writeUp" : "Sneeze"
+  } ],
+  "appointments": [ ],
+  "prescriptions": [ ],
+  "personIdCounter" : 0
+}

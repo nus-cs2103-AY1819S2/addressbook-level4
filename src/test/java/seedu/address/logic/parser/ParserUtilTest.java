@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -16,26 +15,33 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
+import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.doctor.Year;
+import seedu.address.model.person.patient.Address;
+import seedu.address.model.person.specialisation.Specialisation;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
+    private static final String INVALID_GENDER = "girl";
     private static final String INVALID_ADDRESS = " ";
-    private static final String INVALID_EMAIL = "example.com";
+    private static final String INVALID_YEAR = " 1h";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_SPECIALISATION = "genera&l";
 
     private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_PHONE = "123456";
+    private static final String VALID_PHONE = "62345678";
+    private static final String VALID_GENDER = "f";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
-    private static final String VALID_EMAIL = "rachel@example.com";
+    private static final String VALID_YEAR = "12";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_SPECIALISATION_1 = "general";
+    private static final String VALID_SPECIALISATION_2 = "acupuncture";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -111,6 +117,29 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseGender_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseGender((String) null));
+    }
+
+    @Test
+    public void parseGender_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseGender(INVALID_GENDER));
+    }
+
+    @Test
+    public void parseGender_validValueWithoutWhitespace_returnsGender() throws Exception {
+        Gender expectedGender = new Gender(VALID_GENDER);
+        assertEquals(expectedGender, ParserUtil.parseGender(VALID_GENDER));
+    }
+
+    @Test
+    public void parseGender_validValueWithWhitespace_returnsTrimmedGender() throws Exception {
+        String genderWithWhitespace = WHITESPACE + VALID_GENDER + WHITESPACE;
+        Gender expectedGender = new Gender(VALID_GENDER);
+        assertEquals(expectedGender, ParserUtil.parseGender(genderWithWhitespace));
+    }
+
+    @Test
     public void parseAddress_null_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress((String) null));
     }
@@ -134,26 +163,26 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseEmail_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseEmail((String) null));
+    public void parseYear_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseGender((String) null));
     }
 
     @Test
-    public void parseEmail_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseEmail(INVALID_EMAIL));
+    public void parseYear_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseYear(INVALID_YEAR));
     }
 
     @Test
-    public void parseEmail_validValueWithoutWhitespace_returnsEmail() throws Exception {
-        Email expectedEmail = new Email(VALID_EMAIL);
-        assertEquals(expectedEmail, ParserUtil.parseEmail(VALID_EMAIL));
+    public void parseYear_validValueWithoutWhitespace_returnsGender() throws Exception {
+        Year expectedYear = new Year(VALID_YEAR);
+        assertEquals(expectedYear, ParserUtil.parseYear(VALID_YEAR));
     }
 
     @Test
-    public void parseEmail_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
-        String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
-        Email expectedEmail = new Email(VALID_EMAIL);
-        assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
+    public void parseYear_validValueWithWhitespace_returnsTrimmedYear() throws Exception {
+        String yearWithWhitespace = WHITESPACE + VALID_YEAR + WHITESPACE;
+        Year expectedYear = new Year(VALID_YEAR);
+        assertEquals(expectedYear, ParserUtil.parseYear(yearWithWhitespace));
     }
 
     @Test
@@ -205,4 +234,57 @@ public class ParserUtilTest {
 
         assertEquals(expectedTagSet, actualTagSet);
     }
+
+    @Test
+    public void parseSpecialisation_null_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        ParserUtil.parseSpecialisation(null);
+    }
+
+    @Test
+    public void parseSpecialisation_invalidValue_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseSpecialisation(INVALID_SPECIALISATION);
+    }
+
+    @Test
+    public void parseSpecialisation_validValueWithoutWhitespace_returnsSpecialisation() throws Exception {
+        Specialisation expectedSpecialisation = new Specialisation(VALID_SPECIALISATION_1);
+        assertEquals(expectedSpecialisation, ParserUtil.parseSpecialisation(VALID_SPECIALISATION_1));
+    }
+
+    @Test
+    public void parseSpecialisation_validValueWithWhitespace_returnsTrimmedSpecialisation() throws Exception {
+        String specWithWhitespace = WHITESPACE + VALID_SPECIALISATION_1 + WHITESPACE;
+        Specialisation expectedSpec = new Specialisation(VALID_SPECIALISATION_1);
+        assertEquals(expectedSpec, ParserUtil.parseSpecialisation(specWithWhitespace));
+    }
+
+    @Test
+    public void parseSpecialisations_null_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        ParserUtil.parseSpecialisations(null);
+    }
+
+    @Test
+    public void parseSpecialisations_collectionWithInvalidSpecialisations_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseSpecialisations(Arrays.asList(VALID_SPECIALISATION_1, INVALID_SPECIALISATION));
+    }
+
+    @Test
+    public void parseSpecialisations_emptyCollection_returnsEmptySet() throws Exception {
+        assertTrue(ParserUtil.parseSpecialisations(Collections.emptyList()).isEmpty());
+    }
+
+    @Test
+    public void parseSpecialisations_collectionWithValidSpecialisations_returnsSpecSet() throws Exception {
+        Set<Specialisation> actualSpecSet = ParserUtil.parseSpecialisations(Arrays
+                .asList(VALID_SPECIALISATION_1, VALID_SPECIALISATION_2));
+        Set<Specialisation> expectedSpecSet = new HashSet<Specialisation>(Arrays
+                .asList(new Specialisation(VALID_SPECIALISATION_1), new Specialisation(VALID_SPECIALISATION_2)));
+
+        assertEquals(expectedSpecSet, actualSpecSet);
+    }
+
 }

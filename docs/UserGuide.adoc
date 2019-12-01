@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= DocX - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,30 +12,55 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/cs2103-ay1819s2-w13-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W13-1 and Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
+// tag::introduction[]
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+DocX is a desktop clinic management application designed for receptionists in small clinics.
+Even today, many receptionists in small clinics are still using pen and paper to track patients' information, which can be prone to human errors and reduced productivity if the number of patients is large. Our clinic management application is designed specifically to make this process much easier for them.
+
+The features we provide include:
+
+* Record and manage patients coming to the clinic
+
+* Record and manage doctors in the clinic
+
+* Record and manage medical histories of patients
+
+* Make and manage appointments for patients
+
+* Record and manage medicines in the clinic and prescriptions given by doctors
+
+While it has a GUI,
+most of the user interactions happen using a CLI (Command Line Interface).
+More importantly, DocX is *optimized for those who prefer to work with a Command Line Interface* (CLI)
+while still having the benefits of a Graphical User Interface (GUI).
+No technical knowledge on programming or terminal commands is needed.
+If you can type normal words fast, DocX can get your clinic management tasks done faster than traditional GUI apps.
+
+Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+// end::introduction[]
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `docX.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your docX.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
+.  Note that for now, docX only supports Command Line Interface (CLI). Clicking on any list is not allowed and will cause unexpected errors.
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* **`add-p`**`n/John Doe p/98765432 a/22 g/M adr/Utown College` : adds a patient named `John Doe` to docX.
+* *`list-med-hist`* : lists all medical histories
+* **`add-med-hist`**`pid/2 did/8 d/2018-12-09 sw/The patient had a cough. I told him to have a good rest` : adds a medical history of patient with specified id(pid) and doctor with specified id(did).
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -46,113 +71,644 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add-p n/NAME`, `NAME` is a parameter which can be used as `add-p n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[s/SPECIALISATION]...` can be used as `{nbsp}` (i.e. 0 times), `s/acupuncture`, `s/acupuncture s/general` etc.
+* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE`, `p/PHONE n/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding a patient: `add-p`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds a patient to docX +
+Format: `add-p [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [adr/ADDRESS] [t/TAG]`
+
+****
+* A patient can have any number of tags (including 0) +
+* If there are multiple input for each parameter field, the last input will be stored
+****
+
+Examples:
+
+* `add-p n/Tom Hiddleston g/M a/21 p/98765432 adr/Utown College 2`
+* `add-p n/Bettany Sim g/F p/82345672 a/32 adr/RVRC House 12 t/diabetic`
 
 [TIP]
-A person can have any number of tags (including 0)
+For constraints of name, gender, age, phone, address and tags, please refer to the table below.
 
-Examples:
+.Table for Patient's info constraint
+image::patientdataconstrainttable.png[width="800"]
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* A new `Patient` is thus created with the specified fields with a `pid` and default appointment status of `COMPLETED`.
 
-=== Listing all persons : `list`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+=== Listing all patients : `list-p`
 
-=== Editing a person : `edit`
+Shows a list of all patients in docX. +
+Format: `list-p`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+=== Editing a patient : `edit-p`
+
+Edits an existing patient in docX. +
+Format: `edit-p [INDEX] [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [adr/ADDRESS]`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the patient at the specified list index. +
 * At least one of the optional fields must be provided.
+* If there are multiple input for each parameter field, the last input will be stored
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit-p 1 p/91234567` +
+Edits the phone number of the patient with current list index '1' to be `91234567`.
+* `edit-p 2 n/Alex Martin p/95678901` +
+Edits the name and phone number of the patient with current list index of '2' to be `Alex Martin` and '95678901' respectively.
+* `edit-p 1 n/Alex n/Martin` +
+Having 2 input of the same field will take the last input. Edited patient name to `Martin`.
+* `edit-p 1 t/` +
+An empty tag field removes all the current tags of the patient with ID of '1'.
 
-=== Locating persons by name: `find`
+=== Deleting a patient : `delete-p`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Deletes the specified patient from docX. +
+Format: `delete-p [INDEX]`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the patient of the specified list index.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `list-p` +
+`delete-p 3` +
+Deletes the patient with current list index of '3' in the docX.
+* `delete-p 2` +
+Deletes the patient with current list index of '2' in the docX.
 
-=== Selecting a person : `select`
+=== Search patient by name: `search-p-name`
 
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
+Search and return patient(s) whose names contain any of the input keywords. +
+Format: `search-p-name [NAME] [NAME2]`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
+* The search is case insensitive. e.g `aLeX` will match `Alex`
+* The order of the keywords does not matter +
+e.g. `Alex Martin` will match `Martin Alex`
+* Only the name is searched.
+* Only full words will be matched +
+e.g. `Alex` will not match `Alexander`
+* Patients matching at least one keyword will be returned +
+e.g. `Alex Tom` will return `Alex Martin`, `Tom Hiddleston`
 ****
 
 Examples:
 
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
+* `search-p-name Alex` +
+Returns `Alex Lim` and `Alex Martin`
+* `search-p-name Betsy Tim John` +
+Returns all patients having names containing `Betsy`, `Tim`, or `John`
+
+=== Search patient by pid: `search-pid`
+
+Search and return patient(s) whose pid matches the input pid. +
+Format: `search-pid [pid]`
+
+****
+* Only one pid can be searched.
+* Only full pid will be matched e.g. `12` will not match `120`
+****
+
+Examples:
+
+* `search-pid 1` +
+Returns `Alex Martin` who has pid of `1`.
+
+=== Search patient by appointment status: `search-p-status`
+
+Search and return patient(s) whose appointment status matches the input status. +
+Format: `search-p-status [STATUS]`
+
+****
+* Only the appointment status is searched.
+* Only one status can be searched and it must be one of the following:
+ACTIVE, ONGOING, COMPLETED, MISSED
+* Status search are not case-senstitive
+****
+
+Examples:
+
+* `search-p-status ACTIVE` +
+Returns `Alex Martin` and `Tom Hiddleston` who has appointment status of `ACTIVE`.
+
+=== Advanced search patient by any info: `search-p-advanced`
+
+Search and return patient(s) whose detail contains all of the input keywords,
+even if the keyword is only a subword of the patient's info +
+Use a "quoted_keyword" to enforce fullword match to the patient's info +
+Format: `search-p-advanced [keyword] ["quoted_keyword"]...`
+
+****
+* The search is case insensitive. e.g `aLeX` will match `Alex`
+* The order of the input keywords does not matter. e.g. `stroke cancer` will match `cancer stroke`
+* With "unquoted_keyword", subwords will be matched +
+e.g. `blood` will match `highbloodpressure` and `bloodclot`
+* With quoted keyword, only the full word will be matched +
+e.g. `"blood"` will only match `blood` and not match `highbloodpressure`
+* "quoted_keyword" must be one word and contain no spaces
+* All the keywords input must be present in a patient's info to be true.
+****
+
+[TIP]
+A patient's info does not include the `list index` and `"| pid:"`
+
+Examples:
+
+* `search-p-advanced blood alex` +
+Returns both `Alex Martin` who has a `bloodclot` tag and `Alexander Fleming` who has a `highbloodpressure` tag
+* `search-p-advanced blood "alex"` +
+Returns `Alex Martin` who has a `bloodclot` tag +
+and will not return `Alexander Fleming` who has a `highbloodpressure` tag
+* `search-p-advanced "blood" "alex"` +
+Will return neither `Alex Martin` who has a `bloodclot` tag +
+nor `Alexander Fleming` who has a `highbloodpressure` tag
+
+
+=== Selecting a patient : `select-p`
+
+Select the specified patient from docX. +
+Displays his/her full information on the browser panel.
+Format: `select-p [INDEX]`
+
+****
+* Selects the patient of the specified list index.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list-p` +
+`select-p 3` +
+Selects the patient with current list index of '3' in the docX +
+The patient's full detail can be easily viewed in the browser panel.
+
+=== Appointment Status Display feature
+The patient card will show the appointment status of a patient. It will display any one of the four enum values: `ACTIVE, COMPLETED, CANCELLED, MISSED`.
+When an appointment is added, or marked, the execution of the command will cascade and alter the status display of the patient.
+It follows the following rules:
+
+. If the patient still has any other active appointments, a patient status will show `ACTIVE`
+. Else, a patient status will reflect the latest status change to any of his appointment.
+
+// tag::doctorcommands[]
+=== Adding a doctor: `add-d`
+
+Adds a doctor to docX +
+Format: `add-d n/NAME g/GENDER y/YEAR_OF_EXPERIENCE p/PHONE_NUMBER s/SPECIALISATION`
+
+****
+* A doctor must have at least 1 specialisation.
+* Year of specialisation should be within 0 to 100.
+****
+
+Examples:
+
+* `add-d n/John Doe g/M y/5 p/98765432 s/acupuncture s/general`
+* `add-d n/Betsy Crowe g/f p/81234567 y/22 s/surgery`
+
+=== Listing all doctors : `list-d`
+
+Shows a list of all doctors in docX. +
+Format: `list-d`
+
+=== Selecting a doctor : `select-d`
+
+Selects an existing doctor in docX to display all the information about this doctor in the browser panel. +
+Format: `select-d INDEX`
+
+****
+* There has to be an initial `select-d INDEX` command executed, before the user can use the mouse to click on the other doctors to display their information.
+* Selects the doctor at the specified `INDEX`. The index refers to the relative ID of the doctor. The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `select-d 1` +
+Selects the doctor with ID of '1'.
+* `select-d 5` +
+Selects the doctor with ID of '5'.
+
+=== Editing a doctor : `edit-d`
+
+Edits an existing doctor in docX. +
+Format: `edit-d INDEX [n/NAME] [g/GENDER] [y/YEAR_OF_EXPERIENCE] [p/PHONE] [s/SPECIALISATION]`
+
+****
+* Edits the doctor at the specified `INDEX`. The index refers to the relative ID of the doctor. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing specialisation, the existing specialisations of the doctor will be removed i.e adding of specialisation(s) is not cumulative.
+****
+
+Examples:
+
+* `edit-d 1 p/91234567` +
+Edits the phone number of the doctor with ID of '1' to be `91234567`.
+* `edit-d 2 s/acupuncture s/general` +
+Edits the specialisations of the doctor with ID of '2' to be `acupuncture` and 'general'.
+
+=== Locating doctor by keywords: `list-d`
+
+Finds doctor(s) whose names contain any of the given keywords. +
+Format: `list-d [KEYWORD] [KEYWORD]`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Partial or full words will be matched e.g. `Han` will match `Hanry` and `Han`
+* Doctors matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* If no keywords are given, you will list all the existing doctors in docX. (Section 3.12)
+****
+
+Examples:
+
+* `list-d John` +
+Returns `john` and `John Doe`
+* `list-d 1` +
+Returns doctor with doctor ID of `1`, phone number containing `1` or year of specialisation containing `1`.
+
+=== Deleting an existing doctor : `delete-d`
+
+Deletes the specified doctor from docX. +
+Format: `delete-d INDEX`
+
+****
+* Deletes the doctor of the specified `INDEX`.
+* The index refers to the relative ID of the doctor.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list-d` +
+`delete-d 1` +
+Deletes the doctor with ID of '1' in docX.
+* `delete-d 2` +
+Deletes the doctor with ID of '2' in docX.
+
+=== Finding a doctor for appointment : `match-d`
+
+Lists the doctors whose specialisations match and are free for an appointment at the stated date and time. +
+Format: `match-d s/SPECIALISATION d/DESIRED_DATE_OF_APPT t/DESIRED_START_TIME_OF_APPT`
+
+****
+* Search can only be done with 1 specialisation.
+* Only full words are matched. e.g. `acupun` will not match `acupuncture`
+* `DESIRED_DATE_OF_APPT` is in the format `YYYY-MM-DD`.
+* `DESIRED_START_TIME_OF_APPT` is in the 24-hour format as `HH:mm`.
+****
+
+Examples:
+
+* `match-d s/acupuncture d/2019-06-02 t/10:00` +
+Lists the doctors who has the specialisation of `acupuncture` and is free on 2nd June 2019 at 10am.
+* `match-d s/general d/2019-10-04 t/15:00` +
+Lists the doctors who has the specialisation of `general` and is free on 4th October 2019 at 3pm.
+
+// end::doctorcommands[]
+
+=== Adding a medical history: `add-med-hist`
+
+Adds a medical history +
+Format: `add-med-hist pid/PATIENT_ID did/DOCTOR_ID d/DATE sw/SHORT_WRITEUP`
+
+****
+* To veiw the list of medical histories, please *execute `list-med-hist` command* first.
+* Medical history with attending patient, attending doctor, date and write up form doctor will be added to docX.
+* *PATIENT_ID and DOCTOR_ID* must be existing id in patient list and doctor list.
+* *Date* of visit must be a valid date in calender and must be a past day or today. Medical history is medical treatment that has taken place.
+* Two medical histories with *the same PATIENT_ID, DOCTOR_ID and DATE* are not allowed.
+On the same day, only one medical history can be maintained between a doctor and a patient.
+If a patient see a doctor more than one times on the same day, users only need to edit the write up of existing medical history. (see `edit-med-hist` command)
+* However, a patient can have multiple medical histories with different doctors on the same day.
+* *Write up* is doctor's description about the medical record. Only write up can be edited by "edit-med-hist" command.
+
+
+****
+
+Examples:
+
+* `add-med-hist pid/1 did/7 d/2019-03-05 sw/Came down with a stomach flu, possibly due to eating expired food`
+* `add-med-hist pid/3 did/8 d/2018-07-09 sw/Had a fever with sore throat. Sleeps late.`
+
+=== Listing medical histories: `list-med-hist`
+
+Show a list of all medical histories or medical histories with specified constraint(s). +
+Format: `list-med-hist [pid/PATIENT_ID] [did/DOCTOR_ID] [d/DATE]`
+
+****
+* PATIENT_ID, DOCTOR_ID and DATE are *optional*. `list-med-hist ` without specified constraints will list all medical histories.
+* *PATIENT_ID and DOCTOR_ID* must be existing id in patient and doctor list. If a patient/doctor is deleted, user will not be able to list medical history of this patient/doctor. The id of deleted patient/doctor is regarded as *invalid id*.
+* *Date* must be a valid date in calender and must be a past day or today.
+* If there is *no medical history* satisfying all specified constraints, an empty list will be shown.
+* Write up of medical history will not be shown in the list. Users can view all details of one medical history by `select-med-hist` command.
+* If medical histories in the list have *deleted patient or deleted doctor*, "Patient Deleted" or "Doctor Deleted" will replace the previous shown id in patient or doctor field.
+
+
+****
+
+Examples:
+
+* `list-med-hist`: show all medical histories in docX
+* `list-med-hist pid/1`: show all medical histories of patient with id 1. If patient with id 1 is already deleted or not in docX, an error will be shown.
+* `list-med-hist pid/1 d/2019-03-03`: show all medical histories of patient with id 1 which happened on 2019-03-03
+
+=== Editing write up of medical history: `edit-med-hist`
+
+Edit the write up of medical history with specified index in medical history list. +
+Format: `edit-med-hist INDEX sw/EDITED_WRITEUP`
+
+****
+* Please *execute `list-med-hist`* to find the index of the medical history you want to edit *before execute `edit-med-hist` command*.
+* *INDEX* should be a valid existing index in the displayed list.
+* Users can *only edit write up* of medical history. Patient id, doctor id and date of a medical history are immutable.
+* To view the edited write up, please execute `select-med-hist` command to view details.
+
+
+****
+
+Examples:
+
+* `edit-med-hist 1 sw/The patient came to me this morning, having a fever. This afternoon he came again because of higher fever.`
+
+=== Sorting medical history by date: `sort-med-hist`
+
+Sort medical history by date in ascending order or descending order. +
+Format: `sort-med-hist [ASC/DESC]`
+
+****
+* If the list of medical history is not yet shown. Before sorting, `list-med-hist` command should be executed.
+* When a new medical history is added to docX, it will be added to *the end of list*. You can sort again to make the list be in order.
+* If "ASC" or "DESC" is not specified in the command, the default order will be descending order(DESC). Medical histories will be listed from newest date to oldest date.
+* If "DESC" is specified, the order will be descending order. Medical histories will be listed from newest date to oldest date.
+* If "ASC" is specified, the order will be ascending order. Medical histories will be listed from oldest date or newest date.
+
+
+****
+
+Examples:
+
+* `sort-med-hist` +
+Medical histories will be listed from newest date to oldest date
+* `sort-med-hist ASC` +
+Medical histories will be listed from oldest date or newest date.
+
+=== Searching medical history : `search-med-hist`
+
+Finds medical history(ies) whose write up contains any of the given keywords. +
+Format: `search-med-hist KEYWORD`
+
+****
+* If the list of medical history is not yet shown. Before searching, `list-med-hist` command must be executed to view the searching result.
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Write ups of the medical history matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* If there is no medical history whose write up contains any of the keywords, an empty list will be shown.
+* Each keyword should not be in quotation mark. There should be one space between two keywords.
+****
+
+Examples:
+
+* `search-med-hist fever` +
+Returns all medical history with the write up containing the keyword `fever`
+* `search-med-hist fever sore` +
+Returns all medical history with the write up containing either 'fever' or 'sore' or both keywords.
+
+=== Viewing a certain medical history: `select-med-hist`
+
+View details specified medical history with index in displayed list. +
+Format: `select-med-hist index`
+
+****
+* Display details of medical history with the specified index, including patient information, doctor information and full write up.
+* *INDEX* should be a valid existing index in the displayed list.
+****
+
+Examples:
+
+* `select-med-hist 1` +
+Returns details of the medical history with index 1 in medical history list.
+
+// tag::appointment[]
+
+=== Adding an appointment: `add-appt`
+Adds an appointment between a patient and a doctor +
+Format: `add-appt pid/PATIENT_ID did/DOCTOR_ID d/DATE_OF_APPT t/START_TIME`
+
+****
+* All of the fields must be provided.
+* Appointments can only be made in the future, as determined by system time.
+* New appointments default to the ACTIVE status. Appointments cannot be deleted once created,
+only marked as CANCELLED if required.
+* Doctors are free during office hours from 9am to 12pm and 1pm to 5pm. (12pm to 1pm not availabe)
+* Appointments are in 1-hour blocks.
+* User is notified if the doctor is not available during the specified time.
+* `PATIENT_ID` and `DOCTOR_ID` are positive integers and must refer to existing patients and doctors in the system.
+* `DATE_OF_APPT` must be in the format `YYYY-MM-DD` and be a valid date on the calendar.
+* `START_TIME` must be in the 24-hour format HH:00 with no minutes specified as each appointment is 1 hour long.
+****
+
+Examples:
+
+* `add-appt pid/1 did/7 d/2019-06-01 t/09:00` +
+Adds an appointment with patient ID '1' and doctor ID '7' on 1st June 2019 at 9am.
+* `add-appt pid/3 did/9 d/2019-06-01 t/13:00` +
+Adds an appointment with patient ID '3' and doctor ID '9' on 1st June 2019 at 1pm.
+
+=== Listing appointments : `list-appt`
+Shows a list of appointments in the system. Can be used with or without optional keywords to filter the result. +
+Format: `list-appt [pid/PATIENT_ID] [did/DOCTOR_ID] [d/DATE_OF_APPT] [t/START_TIME] [s/STATUS] [c/CHRONOLOGY]`
+
+****
+* If none of the optional fields are provided, all appointments are shown.
+* Appointments are filtered by patient ID, doctor ID, date of appointment, start time, appointment status,
+and appointment chronology respectively.
+* All the optional filters can be mixed and matched independently to obtain the required output.
+* `PATIENT_ID` and `DOCTOR_ID` are positive integers and refer to valid patients and doctors in the system.
+* `DATE_OF_APPT` must be in the format YYYY-MM-DD and be a valid date on the calendar.
+* `START_TIME` must be in the format HH:00 and be in 1 hour blocks, i.e. 09:00, 10:00.
+* `STATUS` is case insensitive and must be one of the valid statuses: ACTIVE, CANCELLED, MISSED, COMPLETED.
+* `CHRONOLOGY` is case insensitive refers to whether an appointment is in the past or future. Can be PAST or FUTURE.
+****
+
+Examples:
+
+* `list-appt` +
+Lists all appointments.
+* `list-appt c/FUTURE` +
+Lists all appointments that are in the future.
+* `list-appt pid/1` +
+Lists all appointments with patient ID 1.
+* `list-appt pid/1 did/7` +
+Lists all appointments with patient ID 1 and doctor ID 7.
+* `list-appt d/2018-06-01 t/09:00` +
+Lists all appointments with date 2018-06-01 and time 09:00.
+* `list-appt s/ACTIVE` +
+Lists all appointments that are marked as ACTIVE.
+
+=== Changing an appointment status : `mark-appt`
+Mark an appointment as ACTIVE, CANCELLED, MISSED or COMPLETED +
+Format: `mark-appt INDEX s/NEW_STATUS`
+
+****
+* All of the fields must be provided.
+* Appointment status is not cases sensitive. i.e. both ACTIVE and active is allowed.
+* Change appointment status of the appointment at the specified `INDEX`.
+* The index refers to the index number shown in the displayed appointment list.
+The index must be a positive integer 1, 2, 3, …​
+* Status meaning: ACTIVE - The appointment is scheduled and active. CANCELLED - The appointment has been cancelled.
+MISSED - The appointment was missed by the patient. COMPLETED - The patient successfully completed the appointment.
+* Only appointments in the past can be marked as MISSED or COMPLETED. Appointments in the future can only be marked
+ACTIVE or CANCELLED.
+****
+Examples:
+
+* `mark-appt 1 s/CANCELLED` +
+The appointment with INDEX 1 is cancelled.
+* `mark-appt 3 s/MISSED` +
+The appointment with INDEX 3 was missed. Note that this can only be done to elapsed appointments.
+
+// end::appointment[]
+
+=== Adding a prescription: `add-presc`
+
+Adds a prescription and the prescribing doctor under the patient involved. +
+Format: `add-presc pid/PATIENT_ID did/DOCTOR_ID dp/DATE rid/MED_ID w/SHORT_WRITEUP`
+
+****
+* Prescription with corresponding patient, doctor, date, medicine and a short description written by the doctor will be added to docX.
+* *PATIENT_ID and DOCTOR_ID* must be ids that correspond to existing patient and doctor.
+* *DATE* must be a valid date in calendar and must be a past day or today.
+* Duplicate prescription cannot be added to the list.
+* Description is doctor's description about the prescription. Description can be edited by "edit-presc" command.
+
+****
+
+Examples:
+
+* `add-presc pid/1 did/2 dp/2018-05-13 mn/Acetaminophen d/500 mg for relieving pain` +
+Adds the prescribing doctor with ID of '2', the medicine with name of 'Acetaminophen',
+and a short description of '500 mg for relieving pain' under the patient with ID of '1' on the date May 13rd 2018.
+* `add-presc pid/5 did/3 dp/2018-05-13 mn/Aspirin d/2g for curing fever` +
+Adds the prescribing doctor with ID of '3', the medicine with name of 'Aspirin',
+and a short description of '2g for curing fever' under the patient with ID of '5' on the date May 13rd 2018.
+
+=== Listing prescriptions: `list-presc`
+
+Show a list of all prescriptions with the specified requirements. +
+Format: `list-presc [pid/PATIENT_ID] [did/DOCTOR_ID]`
+
+****
+* PATIENT_ID and DOCTOR_ID are *optional*. list-presc wioutout specifying PATIENT_ID and DOCTOR_ID will list out all prescriptions.
+* *PATIENT_ID and DOCTOR_ID* must be existing id in patient and doctor list.
+* If there is no prescription satisfying all specified requirements, an empty list will be shown.
+* Description of prescription may not be shown fully in the list. Can view more details of a particular prescription by using "select-presc" command.
+* If presriptions in the list have *deleted patient or deleted doctor*, "Patient Deleted" or "Doctor Deleted" will replace the previous shown id in patientId or doctorId field.
+****
+
+Examples:
+
+* `list-presc` +
+Lists all past prescriptions.
+* `list-presc pid/3` +
+Lists all past prescriptions whose patientId is '3'.
+* `list-presc pid/3 did/5` +
+Lists all past prescriptions whose patientId is '3' and doctor id is '5'.
+
+=== Editing description of a prescription: `edit-presc`
+
+Edit the description of the prescription with specified index in prescription list. +
+Format: `edit-presc INDEX d/EDITED_DESCRIPTION`
+
+****
+* Please *execute `list-presc`* to find the index of the prescription you want to edit before execute `edit-presc` command.
+* *INDEX* should be a valid existing index in the displayed list.
+* Users can *only edit the description* of a prescription. Patient id, doctor id, the date of a prescription and the medicine are immutable.
+* To view the edited prescription, please execute `select-presc` command to view more details.
+
+
+****
+
+Examples:
+
+* `edit-presc 1 d/For curing fever`
+
+=== Searching prescriptions : `search-presc`
+
+Finds prescriptions whose description contains any one of the specified keywords. +
+Format: `search-presc KEYWORDS`
+
+****
+* If the list of prescription is not yet shown. Before searching, `list-presc` command *must be executed* to view the searching result.
+* The search is case insensitive. e.g `fever` will match `Fever`
+* The order of the keywords does not matter. e.g. `fever cold` will have the same effect as `cold fever`.
+* Only full words will be matched e.g. `fever` will not match `fevers`
+* Prescriptions with descriptions matching at least one keyword will be returned (i.e. `OR` search). e.g. Prescriptions with the descriptions being `fever` or `cold` will all be returned with searching keywords `fever cold`.
+* If there is no prescription whose description contains any of the keywords, an empty list will be shown.
+* There should be one space between two keywords.
+****
+
+Examples:
+
+* `search-presc fever` +
+All prescriptions with descriptions containing the keyword `fever` will be listed.
+* `search-presc fever cold` +
+All prescriptions with descriptions containing the keyword `fever` or `cold` will be listed.
+
+=== Viewing prescriptions: `select-presc`
+
+View details of the specified prescription with index in the displayed list. +
+Format: `select-presc INDEX`
+
+****
+* Display details of the prescription with the specified index, including patient information, doctor information, medicine name, date and the full description.
+* *INDEX* should be a valid existing index in the displayed list.
+****
+
+Examples:
+
+* `select-presc 1` +
+List details of the prescription with index 1 in displayed prescription list.
+
+=== Sorting precriptions by date: `sort-presc`
+
+Sort prescriptions by date in ascending order or descending order. +
+Format: `sort-presc [ASC/DESC]`
+
+****
+* To view the sorted list, execute `list-presc` command.
+* When a new prescription is added to docX, it will be added to *the end of list*. You can sort again to make the list be in order.
+* If "ASC" or "DESC" is not specified in the command, the default order will be descending order(DESC). Prescriptions will be listed from newest date to oldest date.
+* If "DESC" is specified, the order will be descending order. Prescriptions will be listed from newest date to oldest date.
+* If "ASC" is specified, the order will be ascending order. Prescriptions will be listed from oldest date or newest date.
+
+
+****
+
+Examples:
+
+* `sort-presc` +
+Prescriptions will be listed from newest date to oldest date
+* `sort-presc ASC` +
+Prescriptions will be listed from oldest date or newest date.
+
+
 
 === Listing entered commands : `history`
 
@@ -164,59 +720,9 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-// tag::undoredo[]
-=== Undoing previous command : `undo`
-
-Restores the address book to the state before the previous _undoable_ command was executed. +
-Format: `undo`
-
-[NOTE]
-====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
-====
-
-Examples:
-
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
-
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-
-=== Redoing the previously undone command : `redo`
-
-Reverses the most recent `undo` command. +
-Format: `redo`
-
-Examples:
-
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
-
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from docX. +
 Format: `clear`
 
 === Exiting the program : `exit`
@@ -226,35 +732,93 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+DocX data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
+The user will be able to enable/disable the encryption of data files through a button in the menu bar.
 // end::dataencryption[]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous DocX folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
+PATIENT COMMANDS
+
+* *Add a new patient* `add-p [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [adr/ADDRESS] [t/TAG]` +
+* *List existing patients* : `list-p`
+* *Edit an existing patient* : `edit-p [INDEX] [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [adr/ADDRESS] [t/TAG]` +
+* *Delete an existing patient* : `delete-p [INDEX]` +
+* *Searching a patient by name* : `search-p-name [NAME]` +
+* *Searching a patient by pid* : `search-pid [pid]` +
+* *Searching a patient by appt status* : `search-p-status [STATUS]` +
+* *Searching a patient (advanced)* : `search-p-advanced [KEYWORD] ["QUOTED_KEYWORD"]` +
+
+DOCTOR COMMANDS
+
+* *Add a new doctor* `add-d n/NAME g/GENDER y/YEAR_OF_SPECIALISATION p/PHONE_NUMBER s/SPECIALISATION` +
+e.g. `add-d n/Aaron Doe g/Male y/3 p/98765432 s/`acupuncture' 'general'`
+* *List all existing doctors* : `list-d`
+* *Select a doctor* : `select-d INDEX` +
+e.g. `select-d 3`
+* *Edit an existing doctor* : `edit-d INDEX [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [s/SPECIALISATION]` +
+e.g. `edit-d 2 n/Betsy Crower p/45678901`
+* *Locating doctor(s) by keywords* : `list-d KEYWORD [KEYWORD]` +
+e.g. `list-d john 8233`
+* *Finding a doctor for an appointment* : `match-d s/SPECIALISATION d/DESIRED_DATE_OF_APPT t/DESIRED_TIME_OF_APPT` +
+e.g. `match-d s/acupuncture d/2019-06-02 t/09:00`
+* *Delete an existing doctor* : `delete-d INDEX` +
+eg. `delete-d 2`
+
+MEDICAL HISTORY COMMANDS
+
+* *Add a new medical history* :`add-med-hist pid/PATIENT_ID did/DOCTOR_ID d/DATE sw/SHORT_WRITEUP` +
+e.g. `add-med-hist pid/1 did/7 d/2019-03-03 sw/Had a fever with sorethroat. Sleeps late.`
+* *List medical histories* : `list-med-hist [pid/PATIENT_ID] [did/DOCTOR_ID] [d/DATE]` +
+e.g. `list-med-hist d/2019-03-03`
+* *Edit write up of an existing medical history* : `edit-med-hist INDEX sw/EDITED_WRITEUP` +
+e.g. `edit-med-hist 1 sw/The patient came this morning with high fever. In the afternoon, he came with higher fever.`
+* *Sort medical histories by date* : `sort-med-hist [ASC/DESC]` +
+e.g. `sort-med-hist DESC`
+* *Search a medical history* : `search-med-hist KEYWORD` +
+e.g. `search-med-hist fever`
+* *Select a medical history* : `select-med-hist INDEX ` +
+e.g. `select-med-hist 1`
+
+// tag::appointmentsummary[]
+APPOINTMENT COMMANDS
+
+* *Add a new appointment* `add-appt pid/PATIENT_ID did/DOCTOR_ID d/DATE_OF_APPT t/START_TIME` +
+e.g. `add-appt pid/1 did/1 d/2019-06-01 t/09:00`
+* *Listing appointments* `list-appt [pid/PATIENT_ID] [did/DOCTOR_ID] [d/DATE_OF_APPT]
+[t/START_TIME] [s/STATUS] [c/CHRONOLOGY]` +
+e.g. `list-appt`
+* *Changing an appointment status* : `mark-appt INDEX s/NEW_STATUS`
+e.g. `mark-appt 1 s/CANCELLED`
+// end::appointmentsummary[]
+
+PRESCRIPTION COMMANDS
+
+* *Add a new prescription* `add-presc pid/PATIENT-ID did/DOCTOR-ID dp/DATE mn/MEDICINE NAME d/SHORT DESCRIPTION` +
+e.g. `add-presc pid/1 did/2 dp/2018-05-13 mn/Acetaminophen d/500 mg for relieving pain`
+* *List prescriptions* : `list-presc  [pid/PATIENT-ID ] [did/DOCTOR-ID ]` +
+e.g. `list-presc pid/1 did/2`
+* *Edit description of an existing prescription* `edit-presc INDEX (must be a positive integer) d/EDITED-DESCRIPTION` +
+e.g. `edit-presc 1 d/For curing fever`
+* *Sort prescriptions by date* : `sort-presc [ASC/DESC]` +
+e.g. `sort-presc ASC`
+* *Search a prescription* : `search-presc KEYWORDS` +
+e.g. `search-presc fever`
+* *Select a prescription* : `select-presc INDEX` +
+e.g. `select-presc 1`
+
+
+GENERAL COMMANDS
+
 * *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
 * *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`

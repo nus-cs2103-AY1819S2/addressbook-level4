@@ -1,0 +1,19 @@
+{
+  "patients": [ {
+    "id": "1",
+    "name": "Valid Doctor",
+    "gender": "M",
+    "year": "4",
+    "phone": "82376542",
+    "specs": "general"
+  }, {
+    "id": "1",
+    "name": "Doctor With Invalid Phone Field",
+    "gender": "M",
+    "age": "6",
+    "phone": "948asdf2424",
+    "specs" : "acupuncture"
+  } ],
+  "medicalHistories" : [ ],
+  "appointments" : [ ]
+}

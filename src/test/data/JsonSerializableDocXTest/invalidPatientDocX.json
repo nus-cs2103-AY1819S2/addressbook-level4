@@ -1,0 +1,24 @@
+{
+  "patients": [ {
+    "name": "Hans Muster",
+    "gender": "Boy",
+    "age": "26",
+    "phone": "9482424",
+    "address": "4th street"
+  } ],
+  "doctors": [ {
+    "name": "Hans Muster",
+    "gender": "Boy",
+    "year": "10",
+    "phone": "9482424"
+  } ],
+  "medicalHistories" : [ {
+    "name" : "John Doe",
+    "writeUp" : "Fever"
+  }, {
+    "name" : "Amy Doe",
+    "writeUp" : "Sneeze"
+  } ],
+  "appointments": [ ],
+  "prescriptions": [ ]
+}

@@ -11,11 +11,15 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.DocXParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.ReadOnlyDocX;
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.medicalhistory.MedicalHistory;
+import seedu.address.model.person.doctor.Doctor;
+import seedu.address.model.person.patient.Patient;
+import seedu.address.model.prescription.Prescription;
 import seedu.address.storage.Storage;
 
 /**
@@ -28,36 +32,36 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final CommandHistory history;
-    private final AddressBookParser addressBookParser;
-    private boolean addressBookModified;
+    private final DocXParser docXParser;
+    private boolean docXModified;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         history = new CommandHistory();
-        addressBookParser = new AddressBookParser();
+        docXParser = new DocXParser();
 
-        // Set addressBookModified to true whenever the models' address book is modified.
-        model.getAddressBook().addListener(observable -> addressBookModified = true);
+        // Set DocXModified to true whenever the models' docX is modified.
+        model.getDocX().addListener(observable -> docXModified = true);
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        addressBookModified = false;
+        docXModified = false;
 
         CommandResult commandResult;
         try {
-            Command command = addressBookParser.parseCommand(commandText);
+            Command command = docXParser.parseCommand(commandText);
             commandResult = command.execute(model, history);
         } finally {
             history.add(commandText);
         }
 
-        if (addressBookModified) {
-            logger.info("Address book modified, saving to file.");
+        if (docXModified) {
+            logger.info("docX modified, saving to file.");
             try {
-                storage.saveAddressBook(model.getAddressBook());
+                storage.saveDocX(model.getDocX());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
@@ -67,13 +71,28 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyDocX getDocX() {
+        return model.getDocX();
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<Patient> getFilteredPatientList() {
+        return model.getFilteredPatientList();
+    }
+
+    @Override
+    public ObservableList<MedicalHistory> getFilteredMedHistList() {
+        return model.getFilteredMedHistList();
+    }
+
+    @Override
+    public ObservableList<Prescription> getFilteredPrescriptionList() {
+        return model.getFilteredPrescriptionList();
+    }
+
+    @Override
+    public ObservableList<Appointment> getFilteredAppointmentList() {
+        return model.getFilteredAppointmentList();
     }
 
     @Override
@@ -82,8 +101,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getDocXFilePath() {
+        return model.getDocXFilePath();
     }
 
     @Override
@@ -97,12 +116,57 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyProperty<Person> selectedPersonProperty() {
-        return model.selectedPersonProperty();
+    public ReadOnlyProperty<Patient> selectedPatientProperty() {
+        return model.selectedPatientProperty();
     }
 
     @Override
-    public void setSelectedPerson(Person person) {
-        model.setSelectedPerson(person);
+    public void setSelectedPatient(Patient patient) {
+        model.setSelectedPatient(patient);
+    }
+
+    @Override
+    public ReadOnlyProperty<MedicalHistory> selectedMedHistProperty() {
+        return model.selectedMedHistProperty();
+    }
+
+    @Override
+    public void setSelectedMedHist(MedicalHistory medHist) {
+        model.setSelectedMedHist(medHist);
+    }
+
+    @Override
+    public ReadOnlyProperty<Prescription> selectedPrescriptionProperty() {
+        return model.selectedPrescriptionProperty();
+    }
+
+    @Override
+    public void setSelectedPrescription(Prescription prescription) {
+        model.setSelectedPrescription(prescription);
+    }
+
+    @Override
+    public ReadOnlyProperty<Appointment> selectedAppointmentProperty() {
+        return model.selectedAppointmentProperty();
+    }
+
+    @Override
+    public void setSelectedAppointment (Appointment appointment) {
+        model.setSelectedAppointment(appointment);
+    }
+
+    @Override
+    public ObservableList<Doctor> getFilteredDoctorList() {
+        return model.getFilteredDoctorList();
+    }
+
+    @Override
+    public ReadOnlyProperty<Doctor> selectedDoctorProperty() {
+        return model.selectedDoctorProperty();
+    }
+
+    @Override
+    public void setSelectedDoctor(Doctor doctor) {
+        model.setSelectedDoctor(doctor);
     }
 }

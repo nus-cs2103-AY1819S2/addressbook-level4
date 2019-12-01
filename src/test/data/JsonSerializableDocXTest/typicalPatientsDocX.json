@@ -1,0 +1,120 @@
+{
+  "patients" : [ {
+    "id" : 1,
+    "name" : "Alice Pauline",
+    "gender": "F",
+    "age": "23",
+    "phone" : "94351251",
+    "address" : "123, Jurong West Ave 6, #08-111",
+    "tagged" : [ "friends" ],
+    "appointmentStatus" : "ACTIVE"
+  }, {
+    "id" : 2,
+    "name" : "Benson Meier",
+    "gender": "M",
+    "age": "30",
+    "phone" : "98765432",
+    "address" : "311, Clementi Ave 2, #02-25",
+    "tagged" : [ "owesMoney", "friends" ],
+    "appointmentStatus" : "ACTIVE"
+  }, {
+    "id" : 3,
+    "name" : "Carl Kurz",
+    "gender": "M",
+    "age": "101",
+    "phone" : "95352563",
+    "address" : "wall street",
+    "tagged" : [ ],
+    "appointmentStatus" : "ACTIVE"
+  }, {
+    "id" : 4,
+    "name" : "Daniel Meier",
+    "gender": "M",
+    "age": "7",
+    "phone" : "87652533",
+    "address" : "10th street",
+    "tagged" : [ "friends" ],
+    "appointmentStatus" : "ACTIVE"
+  }, {
+    "id" : 5,
+    "name" : "Elle Meyer",
+    "gender": "F",
+    "age": "19",
+    "phone" : "94822241",
+    "address" : "michegan ave",
+    "tagged" : [ ],
+    "appointmentStatus" : "ACTIVE"
+  }, {
+    "id" : 6,
+    "name" : "Fiona Kunz",
+    "gender": "F",
+    "age": "110",
+    "phone" : "94824271",
+    "address" : "little tokyo",
+    "tagged" : [ ],
+    "appointmentStatus" : "ACTIVE"
+  }, {
+    "id" : 7,
+    "name" : "George Best",
+    "gender": "M",
+    "age": "50",
+    "phone" : "94824421",
+    "address" : "4th street",
+    "tagged" : [ ],
+    "appointmentStatus" : "ACTIVE"
+  } ],
+  "doctors" : [ {
+    "id" : 8,
+    "name" : "Alice Pauline",
+    "phone" : "98761234",
+    "gender": "F",
+    "year": "32",
+    "specs" : [ "massage" ]
+  }, {
+    "id" : 9,
+    "name" : "Benson Meier",
+    "phone" : "90123456",
+    "gender": "M",
+    "year": "31",
+    "specs" : [ "massage", "acupuncture" ]
+  }, {
+    "id" : 10,
+    "name" : "Carl Kurz",
+    "phone" : "95678934",
+    "gender": "F",
+    "year": "22",
+    "specs" : [ "general" ]
+  }, {
+    "id" : 11,
+    "name" : "Daniel Meier",
+    "gender": "M",
+    "year": "57",
+    "phone" : "89023456",
+    "specs" : [ "general" ]
+  }, {
+    "id" : 12,
+    "name" : "Elle Meyer",
+    "phone" : "94567893",
+    "gender": "F",
+    "year": "29",
+    "specs" : [ "acupuncture" ]
+  }, {
+    "id" : 13,
+    "name" : "Fiona Kunz",
+    "gender": "F",
+    "year": "43",
+    "phone" : "87654312",
+    "specs" : [ "general", "acupuncture" ]
+  }, {
+    "id" : 14,
+    "name" : "George Best",
+    "phone" : "90345622",
+    "gender": "M",
+    "year": "50",
+    "specs" : [ "general" ]
+  } ],
+  "medicalHistories" : [ ],
+  "appointments": [ ],
+  "prescriptions": [ ],
+  "personIdCounter": 0
+}

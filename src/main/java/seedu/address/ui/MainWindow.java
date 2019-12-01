@@ -16,6 +16,11 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.appointment.AppointmentListPanel;
+import seedu.address.ui.doctor.DoctorBrowserPanel;
+import seedu.address.ui.doctor.DoctorListPanel;
+import seedu.address.ui.patient.PatientInfoPanel;
+import seedu.address.ui.patient.PatientListPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -32,9 +37,18 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+    private PatientInfoPanel patientInfoPanel;
+    private MedHistBrowserPanel medHistBrowserPanel;
+    private DoctorBrowserPanel doctorBrowserPanel;
+    private PrescriptionBrowserPanel prescriptionBrowserPanel;
+    private PatientListPanel patientListPanel;
+    private MedHistListPanel medHistListPanel;
+    private AppointmentListPanel appointmentListPanel;
+    private PrescriptionListPanel prescriptionListPanel;
+    private DoctorListPanel doctorListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private CommandResult.ShowBrowser whichBrowser = null;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -46,7 +60,13 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane patientListPanelPlaceholder;
+
+    @FXML
+    private StackPane middleListPanelPlaceholder;
+
+    @FXML
+    private StackPane doctorListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -65,7 +85,6 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
-
         helpWindow = new HelpWindow();
     }
 
@@ -79,6 +98,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -111,21 +131,95 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedPersonProperty());
+
+        browserPanel = new BrowserPanel(logic.selectedPatientProperty()); // to delete !!!
+        patientInfoPanel = new PatientInfoPanel(logic.selectedPatientProperty());
+        doctorBrowserPanel = new DoctorBrowserPanel(logic.selectedDoctorProperty());
+        medHistBrowserPanel = new MedHistBrowserPanel(logic.selectedMedHistProperty());
+        prescriptionBrowserPanel = new PrescriptionBrowserPanel(logic.selectedPrescriptionProperty());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
-                logic::setSelectedPerson);
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        patientListPanel = new PatientListPanel(logic.getFilteredPatientList(), logic.selectedPatientProperty(),
+                logic::setSelectedPatient);
+        patientListPanelPlaceholder.getChildren().add(patientListPanel.getRoot());
+
+        doctorListPanel = new DoctorListPanel(logic.getFilteredDoctorList(), logic.selectedDoctorProperty(),
+                logic::setSelectedDoctor);
+        doctorListPanelPlaceholder.getChildren().add(doctorListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getDocXFilePath(), logic.getDocX());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Show the full patient info
+     */
+    public void showPatientBrowser() {
+        browserPlaceholder.getChildren().clear();
+        browserPlaceholder.getChildren().add(patientInfoPanel.getRoot());
+    }
+
+    /**
+     * Show the browser of doctor
+     */
+    public void showDoctorBrowser() {
+        browserPlaceholder.getChildren().clear();
+        browserPlaceholder.getChildren().add(doctorBrowserPanel.getRoot());
+    }
+
+    /**
+     * Show the browser of medical history
+     */
+    public void showMedHistBrowser() {
+        browserPlaceholder.getChildren().clear();
+        browserPlaceholder.getChildren().add(medHistBrowserPanel.getRoot());
+    }
+
+    /**
+     * Show the browser of prescription
+     */
+    public void showPrescriptionBrowser() {
+        browserPlaceholder.getChildren().clear();
+        browserPlaceholder.getChildren().add(prescriptionBrowserPanel.getRoot());
+    }
+
+    /**
+     * Show the medical history panel
+     */
+    public void showMedHistPanel() {
+        medHistListPanel = new MedHistListPanel(logic.getFilteredMedHistList(), logic.selectedMedHistProperty(),
+                logic::setSelectedMedHist);
+        middleListPanelPlaceholder.getChildren().clear();
+        middleListPanelPlaceholder.getChildren().add(medHistListPanel.getRoot());
+    }
+
+    /**
+     * Show the medical history panel
+     */
+    public void showPrescriptionPanel() {
+        prescriptionListPanel = new PrescriptionListPanel(logic.getFilteredPrescriptionList(),
+                logic.selectedPrescriptionProperty(),
+                logic::setSelectedPrescription);
+        middleListPanelPlaceholder.getChildren().clear();
+        middleListPanelPlaceholder.getChildren().add(prescriptionListPanel.getRoot());
+    }
+
+    /**
+     * Show the appointment panel
+     */
+    public void showAppointmentPanel() {
+        appointmentListPanel = new AppointmentListPanel(logic.getFilteredAppointmentList(),
+                logic.selectedAppointmentProperty(),
+                logic::setSelectedAppointment);
+        middleListPanelPlaceholder.getChildren().clear();
+        middleListPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
     }
 
     /**
@@ -168,8 +262,20 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public PatientListPanel getPatientListPanel() {
+        return patientListPanel;
+    }
+
+    public MedHistListPanel getMedHistListPanel() {
+        return medHistListPanel;
+    }
+
+    public DoctorListPanel getDoctorListPanel() {
+        return doctorListPanel;
+    }
+
+    public PrescriptionListPanel getPrescriptionListPanel() {
+        return prescriptionListPanel;
     }
 
     /**
@@ -189,6 +295,55 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            switch (commandResult.getShowPanel()) {
+            case MED_HIST_PANEL:
+                showMedHistPanel();
+                break;
+            case APPOINTMENT_PANEL:
+                showAppointmentPanel();
+                break;
+            case PRESC_PANEL:
+                showPrescriptionPanel();
+                break;
+
+            default:
+                break;
+            }
+
+            switch (commandResult.getShowBrowser()) {
+            case MED_HIST_BROWSER:
+                whichBrowser = CommandResult.ShowBrowser.MED_HIST_BROWSER;
+                showMedHistBrowser();
+                break;
+            case PATIENT_BROWSER:
+                whichBrowser = CommandResult.ShowBrowser.PATIENT_BROWSER;
+                showPatientBrowser();
+                break;
+            case DOCTOR_BROWSER:
+                whichBrowser = CommandResult.ShowBrowser.DOCTOR_BROWSER;
+                showDoctorBrowser();
+                break;
+            case PRESCRIPTION_BROWSER:
+                whichBrowser = CommandResult.ShowBrowser.PRESCRIPTION_BROWSER;
+                showPrescriptionBrowser();
+                break;
+            default:
+                break;
+            }
+
+            // If deletion of patient or doctor is executed, refresh MedHist or Prescription Browser Panel
+            switch (commandResult.getRefreshOrNot()) {
+            case REFRESH:
+                if ((whichBrowser != null)
+                        && (whichBrowser.equals(CommandResult.ShowBrowser.MED_HIST_BROWSER)
+                        || whichBrowser.equals(CommandResult.ShowBrowser.PRESCRIPTION_BROWSER))) {
+                    browserPlaceholder.getChildren().clear();
+                }
+                break;
+            default:
+                break;
             }
 
             return commandResult;

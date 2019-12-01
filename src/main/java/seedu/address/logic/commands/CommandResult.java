@@ -17,6 +17,27 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** Show a different panel to the user, depending on the command result */
+    public enum ShowPanel {
+        NO_CHANGE, MED_HIST_PANEL, APPOINTMENT_PANEL, PRESC_PANEL
+    }
+
+    /** Show a different browser panel to the user, depending on the command result */
+    public enum ShowBrowser {
+        NO_CHANGE, MED_HIST_BROWSER, PATIENT_BROWSER, DOCTOR_BROWSER, PRESCRIPTION_BROWSER
+    }
+
+    /** Refresh browser panel depending on the command result. */
+    public enum RefreshOrNot {
+        NO_CHANGE, REFRESH
+    }
+
+    private ShowPanel showPanel = ShowPanel.NO_CHANGE;
+
+    private ShowBrowser showBrowser = ShowBrowser.NO_CHANGE;
+
+    private RefreshOrNot refreshOrNot = RefreshOrNot.NO_CHANGE;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -34,6 +55,30 @@ public class CommandResult {
         this(feedbackToUser, false, false);
     }
 
+    /**
+     * Constructs a {@code CommandResult} that will switch panels to display in the UI
+     */
+    public CommandResult(String feedbackToUser, ShowPanel showPanel) {
+        this(feedbackToUser);
+        this.showPanel = showPanel;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} that will switch browser panels to display in the UI
+     */
+    public CommandResult(String feedbackToUser, ShowBrowser showBrowser) {
+        this(feedbackToUser);
+        this.showBrowser = showBrowser;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} that will refresh browser panel in UI.
+     */
+    public CommandResult(String feedbackToUser, RefreshOrNot refreshOrNot) {
+        this(feedbackToUser);
+        this.refreshOrNot = refreshOrNot;
+    }
+
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
@@ -44,6 +89,18 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public ShowPanel getShowPanel() {
+        return showPanel;
+    }
+
+    public ShowBrowser getShowBrowser() {
+        return showBrowser;
+    }
+
+    public RefreshOrNot getRefreshOrNot() {
+        return refreshOrNot;
     }
 
     @Override

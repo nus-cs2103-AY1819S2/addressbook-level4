@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= DocX - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W13-1 and Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Setting up
 
@@ -144,20 +144,24 @@ For example, the `Logic` component (see the class diagram given below) defines i
 image::LogicClassDiagram.png[width="800"]
 
 [discrete]
+// tag::componentinteraction[]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user
+issues the command `add-appt pid/1 did/7 d/2019-06-01 t/09:00`.
 
-.Component interactions for `delete 1` command
-image::SDforDeletePerson.png[width="800"]
+.Component interactions for `add-appt pid/1 did/7 d/2019-06-01 t/09:00` command
+image::LogicComponentSequenceDiagram-AddAppointment.png[width="800"]
 
 The sections below give more details of each component.
 
+// end::componentinteraction[]
+// tag::ui[]
 [[Design-Ui]]
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[width="800"]
+image::UiClassDiagram_edited.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -169,8 +173,10 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+// end::ui[]
 
 [[Design-Logic]]
+// tag::logiccomponent[]
 === Logic component
 
 [[fig-LogicClassDiagram]]
@@ -180,36 +186,38 @@ image::LogicClassDiagram.png[width="800"]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `DocXParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a new appointment).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions,
+such as displaying help to the user or showing a different panel (appointment panel).
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the
+`execute("add-appt pid/1 did/7 d/2019-06-01 t/09:00")` API call. Interactions with other components such as
+UI or Model is omitted or simplified for clarity.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+.Interactions Inside the Logic Component for the `add-appt ...` Command
+image::AddAppointmentSequenceDiagramForLogic.png[width="800"]
+
+// end::logiccomponent[]
 
 [[Design-Model]]
 === Model component
 
+Due to space constraint and to aid visibility, we will only include patient and doctor to illustrate our model.
+
 .Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
+image::ModelClassDiagramForPatientAndDoctor.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the DocX data.
+* exposes an unmodifiable `ObservableList<Patient>` and `ObeservableList<Doctor>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
 === Storage component
@@ -222,7 +230,7 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the DocX data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -232,93 +240,6 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
-
-// tag::undoredo[]
-=== Undo/Redo feature
-==== Current Implementation
-
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoStartingStateListDiagram.png[width="800"]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoRedoSequenceDiagram.png[width="800"]
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::UndoRedoActivityDiagram.png[width="650"]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
@@ -339,6 +260,476 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
+== Implementation
+
+This section describes some noteworthy details on how certain features are implemented.
+
+=== Patient Management Features
+
+Patient is one of the two valid types of Person to be stored in the docX record.
+The following features are implemented for patients of docX:
+
+* Add patient
+* Edit existing patient
+* Delete patient
+* List all patients
+* Various search functions for patient
+* Select patient
+
+==== Add Patient feature
+When a user executes 'add-p n/John Doe g/Male a/21 p/98765432 adr/Utown College 2'
+
+Steps: +
+
+. `LogicManager` calls parseCommand("add-p") in `DocXParser`.
+
+. Based on the COMMAND_WORD, `DocXParser` builds a new `AddPatientCommandParser` and call function parse(arguments) of `AddPatientCommandParser`.
+
+. `AddPatientCommandParser` parses the argument and get patient's name, gender, age, phone, address and an optional tag. `AddPatientCommandParser` calls constructors of Age, Gender, Phone, Address and Tag and then calls the constructor of `Patient`.
+
+. `Patient` constructor will invoke the constructor of the parent `Person` class, which will call `PersonIdCounter` to generate a new unique Pid for this patient.
+
+. A new `Patient` object is thus created with the specified fields with a `pid` and default appointment status of `COMPLETED`.
+
+. Then, `AddPatientCommandParser` calls AddPatientCommand(Patient).
+
+. LogicManager calls execute() of `AddPatientCommand`.
+
+. The execute() calls hasPatient() of `Model`. If patient does not exist in the current DocX, the `Model` will call addPatient() and the patient will be successfully added.
+
+.Simplified sequence diagram showing logic and model interaction when patient is successfully added
+image::AddPatientSdForLogic.png[width="700"]
+
+==== Edit Patient feature
+
+When a user executes edit-p 1 n/Betty Sim
+
+Steps: +
+
+. `LogicManager` calls parseCommand("edit-p") in `DocXParser`.
+
+. Based on the COMMAND_WORD, `DocXParser` builds a new `EditPatientCommandParser` and calls function parse(arguments) of `EditPatientCommandParser`.
+
+. `EditPatientCommandParser` parses the argument and get the relative index of the patient to be edited
+ and the respective field(s) to be changed. It will call `EditPatientDescriptor` and change the field(s) accordingly.
+
+. `LogicManager` calls execute() of `EditPatientCommand`.
+
+. execute() calls `getFilteredPatientList()` of `ModelManager` and then get the patient to be edited based on the specified index.
+
+. A new editedPatient `Patient` object will be created based on the EditPatientDescriptor.
+
+. Then, the execute() command continues to check if the patientToEdit and the editedPatient are the same, and if `model` contains the editedPatient.
+
+. If both of the conditions are false, the `model` will set the editedPatient to replace the patientToEdit and the patient will be successfully edited.
+
+==== Delete Patient feature
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete")` API call.
+
+When a user executes `delete-p 1`
+
+Steps: +
+
+. LogicManager calls parseCommand("delete-p") in `DocXParser`.
+
+. Based on the COMMAND_WORD, `DocXParser` builds a new DeletePatientCommandParser() and call function parse("1") of DeletePatientCommandParser.
+
+. DeletePatientCommandParser parses the argument and get the relative list index of the patient to be deleted.
+        Then, DeletePatientCommandParser calls DeletePatientCommand(index).
+
+. LogicManager calls execute() of DeletePatientCommand.
+
+. execute() calls getFilteredPatientList() of `ModelManager` and gets the patient to be deleted.
+DeletePatientCommand calls deletePatient(patientToDelete) of `ModelManager`.
+
+. `ModelManager` later commitDocX and the patient is successfully deleted.
+
+.Interactions Inside the Logic Component for the `delete-p` Command
+image::DeletePatientSdForLogic.png[width="700"]
+
+==== List Patient feature
+When a user executes 'list-p', the full patient list will be displayed.
+
+. `LogicManager` calls execute() of `ListPatientCommand`.
+
+. execute() will call `Model` to `updateFilteredPatientList` by setting the predicate to show all the patients in the DocX currently.
+
+==== Search Patient feature
+There are various search commands available for patients. The internal workings of the search commands are similar and can be described together under this section.
+Search commands: `search-p-name, search-pid, search-p-status, search-p-advanced`.
+
+When a user executes `search-p-status ACTIVE`
+
+Steps: +
+
+. LogicManager calls parseCommand("search-p-status") in `DocXParser`.
+
+. Based on the COMMAND_WORD, `DocXParser` builds a new `SearchPatientApptStatusCommandParser` and calls function parse("ACTIVE") of `SearchPatientApptStatusCommandParser`.
+
+. `SearchPatientApptStatusCommandParser` parses the argument and checks if the entered argument is one of the four enum values: `ACTIVE, COMPLETED, CANCELLED, MISSED`.
+
+. If the entered argument is valid, the command proceeds to execute. Otherwise, it will throw a ParseException and display the correct command usage to the user.
+
+.Activity Diagram showing search-p-status
+image::activitydiagramforsearchpatientstatus.png[width="800"]
+
+==== Select Patient feature
+When a user executes 'select-p [INDEX]', the full patient info will be displayed on the browser panel.
+
+Steps: +
+
+. LogicManager calls parseCommand("select-p") in `DocXParser`.
+
+. Based on the COMMAND_WORD, `DocXParser` builds a new SelectPatientCommandParser() and calls function parse("1") of SelectPatientCommandParser.
+
+. SelectPatientCommandParser parses the argument and get the relative list index of the patient to be selected.
+     Then SelectPatientCommandParser calls SelectPatientCommand(index).
+
+. LogicManager calls execute() of SelectPatientCommand.
+
+. execute() calls getFilteredPatientList() of ModelManager and gets the patient to be selected.
+SelectPatientCommand calls setSelectedPatient(selectedPatient) and then return a new `CommandResult` that will trigger browser panel display.
+
+==== Appointment Status Display feature
+The patient card will show the appointment status of a patient. It will display any one of the four enum values: `ACTIVE, COMPLETED, CANCELLED, MISSED`.
+When an appointment is added, or marked, the execution of the command will cascade and alter the status display of the patient.
+It follows the following rules:
+. If the patient still has any other active appointments, a patient status will show `ACTIVE`
+. Else, a patient status will reflect the latest status change to any of his appointment.
+
+// tag::doctorcommands[]
+=== CRUD of Doctors
+
+Doctor is one of the two valid types of Persons to be stored in the docX record.
+The following features are implemented or will be implemented for doctors of docX:
+
+* Add doctor `add-d`
+* List all doctors and search for doctors by keywords `list-d`
+* Edit existing doctors `edit-d`
+* Select a doctor to display the full details `select-d`
+* Delete existing doctors `delete-d`
+* Finding relevant and available doctors for upcoming appointments `match-d`
+
+==== Add Doctor feature
+
+===== Implementation
+
+When a user executes `add-d n/John Doe g/M p/98765432 y/3 s/'acupuncture`
+
+Step1. LogicManager calls parseCommand("add-d") in docXParser.
+
+Step2. Based on the COMMAND_WORD, docXParser builds a new AddDoctorCommandParser() and calls function parse(arguments) of AddDoctorCommandParser.
+
+Step3. AddDoctorCommandParser parses the argument and get doctor's name, gender, year of experience, phone and his/her specialisations. AddDoctorCommandParser calls constructors of Name, Year, Gender, Phone, Specialisation and then calls the constructor of Doctor.
+	   Then, AddDoctorCommandParser calls AddDoctorCommand(Doctor).
+
+Step4. LogicManager calls execute() of AddDoctorCommand.
+
+Step5. execute() calls hasDoctor() of Model. If doctor does not exist, call addDoctor() of Model.
+
+===== Design Considerations
+
+Aspect 1: Definition of 'duplicates' in Doctor List of docX.
+
+Alternative 1 (current choice): Phone number that is the same as any existing doctors would be deemed as a duplicated doctor.
+* Pros: It is intuitive for our users that a doctor can have the same name, same specialisations, but should have different numbers, as in the real world.
+* Cons: -
+
+Alternative 2: Name and phone number that is the same as any existing doctors would be deemed as a duplicated doctor.
+* Pros: No additional implementation required.
+* Cons: Less flexibility for our users. Not intuitive as anyone can have the same name, but should have different numbers, as in the real world.
+
+==== List Doctor feature
+
+===== Implementation
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("list-d")` API call.
+
+.The Sequence Diagram of the creation of the list doctor command.
+image::ListDoctorCreationSequenceDiagram.png[width="700"]
+
+.The Sequence Diagram of the execution of the list doctor command.
+image::ListDoctorExecutionSequenceDiagram.png[width="700"]
+
+When a user executes `list-doctor acupu`
+
+Step1. LogicManager calls parseCommand("list-d") in docXParser.
+
+Step2. Based on the COMMAND_WORD, docXParser builds a new ListDoctorCommandParser() and calls function parse(arguments) of ListDoctorCommandParser.
+
+Step3. ListDoctorCommandParser parses the argument. If no argument is present, then ListDoctorCommandParser calls ListDoctorCommand(). If there are argument(s) present, DoctorContainsKeywordsPredicate("acupu") will be created.
+        Then, ListDoctorCommandParser calls ListDoctorCommand(DoctorContainsKeywordsPredicate).
+
+Step4. LogicManager calls execute() of ListDoctorCommand.
+
+Step5. execute() checks if the DoctorContainsPredicate equals to null. If it equals to null, it calls updateFilteredDoctorList() of Model to show all doctors.
+        If it is not null, it calls updateFilteredDoctorList() of ModelManager.
+
+Step6. test(Doctor) of DoctorContainsKeywordsPredicate will be called. It will check if any of the field matches "acupu" in full or part. If it matches, the doctor will be shown.
+
+===== Design Considerations
+
+Aspect 1: Substring matching or full-word matching
+
+* Alternative 1 (current choice): Substring matching of keyword inputted.
+** Pros: Users will be able to view a wider list of doctors after filtering as any phrase that contains the input will be shown. Even when there are accidental typing mistakes, (eg. "genera" instead of "general") substring matching will eliminate the possibility of results being omitted due to human error.
+** Cons: When the search is too general, irrelevant results may be shown. For example, when the user input "s", almost all doctors with 's' in any of its fields will be shown.
+* Alternative 2: Full-word matching of keyword inputted.
+** Pros: Ensure that only doctors with fields that matches the user's input exactly will be returned. This will greatly reduce irrelevant results being shown.
+** Cons: Any accidental mistakes made in typing will not be condoned by the system, and may result in relevant results being omitted due to human error.
+
+Aspect 2: Categorised or non-categorised keywords
+
+* Alternative 1 (current choice): Substring matching for all fields in Doctor.
+** Pros: Users will be able to view a wider list of doctors after filtering as doctors with any of the fields containing the keyword(s) will be shown.
+** Cons: Users will not be able to specify the field he/she wants to check, even when he/she knows which field to look into. This may result in irrelevant results being shown, where the doctor(s) of irrelevant fields that matches the user's input will be shown.
+* Alternative 2: Substring matching for specific fields stated in Doctor.
+** Pros: Users will be able to view the most accurate results from the search. For example, if the user wants to search for "Ong" under the Name field only, he/she can specify in the search and narrow down to the relevant results.
+** Cons: Too restrictive if the user is not able to identify the specific field to check or if the user wants to check multiple fields.
+
+==== Edit Doctor feature
+
+When a user executes `edit-d 1 n/Betty Veronica`
+
+Step1. LogicManager calls parseCommand("edit-d") in docXParser.
+
+Step2. Based on the COMMAND_WORD, docXParser builds a new EditDoctorCommandParser() and calls function parse(arguments) of EditDoctorCommandParser.
+
+Step3. EditDoctorCommandParser parses the argument and get the relative index of the doctor to be changed and the respective field(s) to be changed.
+        It will call EditDoctorDescriptor() and change the field(s) accordingly.
+        Then, EditDoctorCommandParser calls EditDoctorCommand(index, EditDoctorDescriptor).
+
+Step4. LogicManager calls execute() of EditDoctorCommand.
+
+Step5. execute() calls getFilteredDoctorList() of ModelManager and gets the doctor to be edited. After creating the edited doctor, EditDoctorCommand calls setDoctor(DoctorToEdit, EditedDoctor) of ModelManager.
+
+==== Select Doctor feature
+
+===== Implementation
+
+When a user executes `select-d 1`
+
+Step1. LogicManager calls parseCommand("select-d") in docXParser.
+
+Step2. Based on the COMMAND_WORD, docXParser builds a new SelectDoctorCommandParser() and calls function parse("1") of SelectDoctorCommandParser.
+
+Step3. SelectDoctorCommandParser parses the argument and get the relative index of the doctor to be selected.
+        Then SelectDoctorCommandParser calls SelectDoctorCommand(index).
+
+Step4. LogicManager calls execute() of SelectDoctorCommand.
+
+Step5. execute() calls getFilteredDoctorList() of ModelManager and gets the doctor to be selected.
+        SelectDoctorCommand calls setSelectedDoctor(selectedDoctor) and calls DOCTOR_BROWSER to be showed in the browser panel in the UI with the CommandResult.
+
+==== Delete Doctor feature
+
+===== Implementation
+
+When a user executes `delete-d 1`
+
+Step1. LogicManager calls parseCommand("delete-d") in docXParser.
+
+Step2. Based on the COMMAND_WORD, docXParser builds a new DeleteDoctorCommandParser() and call function parse("1") of DeleteDoctorCommandParser.
+
+Step3. DeleteDoctorCommandParser parses the argument and get the relative index of the doctor to be deleted.
+        Then, DeleteDoctorCommandParser calls DeleteDoctorCommand(index).
+
+Step4. LogicManager calls execute() of DeleteDoctorCommand.
+
+Step5. execute() calls getFilteredDoctorList() of ModelManager and gets the doctor to be deleted. DeleteDoctorCommand calls deleteDoctor(doctorToDelete) of ModelManager.
+
+==== Doctor Match feature
+
+===== Implementation
+
+When a user executes `match-d s/general d/2019-06-20 t/09:00`
+
+Step1. LogicManager calls parseCommand("match-d") in docXParser.
+
+Step2. Based on the COMMAND_WORD, docXParser builds a new DoctorMatchCommandParser() and call function parse(arguments) of DoctorMatchCommandParser.
+
+Step3. DoctorMatchCommandParser parses the argument and get the desired specialisation, date and time of the appointment. DoctorMatchCommandParser calls constructors of Specialisation, AppointmentDate, AppointmentTime and then calls the constructor of DoctorMatch.
+        Then, DoctorSpecialisationMatchesPredicate(DoctorMatch) will be created.
+
+Step4. Then, DoctorMatchCommandParser calls DoctorMatchCommand(DoctorSpecialisationMatchesPredicate).
+
+Step5. execute() calls updateFilteredDoctorList(DoctorSpecialisationMatchesPredicate) of ModelManager to filter the list of doctors whose specialisation matches the user's input.
+
+
+Step6. Then, execute() will call the constructor of DoctorsMatch with the filtered list of doctors, the desired appointment date and time. AppointmentContainsDoctorPredicate(DoctorsMatch) will be created.
+        execute() calls updateAppointmentList(AppointmentContainsDoctorPredicate) of ModelManager to filter the list of appointments who are occupied during the desired date and time of appointment.
+
+Step7. Then, execute() will get the filtered list of appointments and the desired specialisation. DoctorHasAppointmentPredicate will be created.
+        execute() calls updateFilteredDoctorList(DoctorHasAppointmentPredicate) to filter the list of doctors whose specialisation matches and are available on the date and timing inputted.
+
+===== Design Considerations
+
+Aspect 1: Use user's input of the doctor's specialisation or use patient's tags to auto-match.
+
+* Alternative 1: Using patient's tags
+** Pros: Users only have to input the patient's ID, and the command will generate available doctors who are suitable (according to specialisation match) and available at the date and time.
+** Cons: Restrictions on creation of patients' tags and doctors' specialisations, as there must be a back-end check that categorises the tags under specified specialisations, which results in tags and specialisations having to be in ENUM form and added prior to usage of the application.
+* Alternative 2 (current choice): Using user's inputs to match with doctor's specialisation(s).
+** Pros: Users have the flexibility and autonomy to input the specialisation to check with the doctors' specialisations. Our users are mostly clinic receptionists, who have the ability and knowledge to decide the type of doctor the patient should consult.
+** Cons: Any accidental errors in typing or someone new on the job may not be able to identify the correct doctors for the patient based on his/her illness.
+
+// end::doctorcommands[]
+
+=== Medical History Management Features
+
+==== Current Implementation
+`Medical History` is one of the core aspects of the application. It is used to track patients' medical records of seeing doctors.
+`Medical History` and it's management features enable the build of relationships between `Patient` and `Doctor`.
+
+The following features are implemented in current version of docX. The main classes and methods in *Logic* and *Model* components used to implement these features are shown below:
+
+* Add medical history command: enabled by `MedicalHistory`, `AddMedHistCommand`, `AddMedHistCommandParser`, `Model#addMedHist`
+* List medical history command: enabled by `ListMedHistCommand`, `ListMedHistCommandParser`, `Model#updateFilteredMedHistList`
+* Sort medical history command: enabled by `ValidDate`, `SortMedHistCommand`, `SortMedHistCommandParser`, `Model#sortFilteredMedHistList`
+* Edit medical history command: enabled by `EditMedHistCommand`, `EditMedHistCommandParser`, `Model#setMedHist`
+* Search medical history command: enabled by `SearchMedHistCommand`, `SearchMedHistCommandParser`, `Model#updateFilteredMedHistList`
+* Select medical history command: enabled by `SelectMedHistCommand`, `SelectMedHistCommandParser`, `Model#setSelectedMedHist`
+
+
+==== Example Command: Sort Medical History Command
+Sort medical history command enable users to sort medical history list by date of occurrence. This part will explain the workflow and implementation of sort medical history command in details.
+
+Given below is the Activity Diagram for sort medical history command. It shows the workflow on a high level:
+
+image::SortMedHistActivityDiagram.png[width="800"]
+
+The implementation of sort medical history feature involving these classes: `MedicalHistory`, `ValidDate`, `SortMedHistCommand`, `SortMedHistCommandParser`
+
+* `MedicalHistory` - This is an entity class used to store information regarding patients' medical histories of seeing doctors.
+An Medical History object stores patient id, doctor id, corresponding patient, corresponding doctor, date, and writeup.
+
+* `ValidDate` - This is an entity class used to represent a valid date of medical history. Using `java.time.LocalDate`,
+this class ensures the date of a `Medical History` is today or a valid past date existing in the calender. This class also enable comparing two medical histories based on the date of occurrence.
+
+* `SortMedHistCommandParser` - This is a class parsing a user's optional input string to an `SortMedHistCommand` object.
+This class checks if the user's input string is valid ("", "ASC" or "DESC") before creating an object using input string.
+
+* `SortMedHistCommand` - This is a class where the execution of sort medical history command happens.
+It interacts with Model components to execute sorting of `UniqueMedHistList` object stored in `docX` object.
+
+Given below is the Sequence Diagram for interactions within the Logic and Model components for the "sort-med-hist ..." command:
+
+image::SortMedHistSequenceDiagram.png[width="800"]
+
+Steps:
+
+. When a user enters "sort-med-hist ..." in command box, execute() function of `LogicManager` is called by Ui component.
+Then, parseCommand() function of `docXparser` matches the input string with a command type. Here, the command type is sort medical history.
+
+. Based on the command type, corresponding command parser `SortMedHistCommandParser` is created. Function inside is then called to parse the argument string after command word "sort-med-hist".
+Here, `SortMedHistCommandParser` checks the argument string is either "" or "ASC" or "DESC". If valid, the argument string will be used to construct `SortMedHistCommand`.
+
+. The `LogicManager` then calls the execution of `SortMedHistCommand`, which interacts with Model component. In Model component, the internal list of medical histories in `UniqueMedHistList` is sorted.
+Through a `ListChangeListener`, Ui component is updated the changes of medical history list order. Then the sorted list of medical histories will be displayed in user interface.
+
+// tag::appointment[]
+
+=== Add Appointment Feature
+Appointments are created to facilitate future appointments between patients and doctors.
+A patient can have none or multiple appointments, a doctor can have none or multiple appointments.
+An appointment cannot overlap with a patient's or doctor's existing appointments.
+This is determined if the date and time overlaps.
+An appointment must specify a patient ID, doctor ID, date and time.
+
+The following class diagram shows the modelling of appointments in our application. Details in Patient and Doctor are
+omitted for clarity.
+
+image::AppointmentClassDiagram.png[width="800"]
+
+==== Current Implementation
+The add appointment feature is enabled by the classes: `Appointment`, `FutureAppointment`,
+`AddAppointmentCommandParser`, `AddAppointmentCommand` and `JsonAdaptedAppointment`.
+
+* `Appointment` - This is an entity class to store information regarding an appointment, such as patient ID,
+Doctor ID, date, time and status.
+
+* `FutureAppointment` - This is an entity class that extends `Appointment`. This class ensures that a newly
+created appointment is always in the future compared to the system time. The comparison between date and time is done using `java.time.LocalDateTime`. It is not recommended to perform such checks manually, as there are many edge case in a calendar.
+
+* `AddAppointmentCommandParser` - This is a class that parses a user input string to an `AppointmentCommand` object.
+Validation for user input data that do not require access to the model is performed here.
+
+* `AddAppointmentCommand` - This is where the actual logic of the add appointment command is mainly performed.
+It will access the model to ensure there is no duplicate appointment before adding the appointment to the model.
+
+* `JsonAdaptedAppointment` - This class functions as an adapter between `Appointment` and the Storage layer.
+It specifies how to convert from Java appointment object to JSON file format and vice versa.
+This is also where validation for correct data format is performed when the save file is loaded back into memory.
+
+The following sequence diagram shows how add appointment works on a high level:
+
+image::AddAppointmentSequenceDiagram.png[width="800"]
+
+
+Steps:
+
+. When a user enters an add appointment command, the input is first validated by `AddAppointmentCommandParser`.
+Here, inputs that do not require access to the model is validated, such as ensuring patient ID, doctor ID, date and time are of the correct format, as well as ensuring the appointment is in the future.
+A new `AddAppointmentCommand` object is created.
+
+. The Logic layer then executes the `AddAppointmentCommand`. Here, the appointment is checked against existing appointments in the model to ensure there are no duplicates.
+The appointment object is then sent to the Model layer.
+
+. The model adds the appointment to its internal list. The internal list is a `javafx.collections.ObservableList` and the UI layer through a `ListChangeListener` is notified and updated following the observer pattern.
+
+. The Logic layer will be notified that the model has been modified through an `InvalidationListener` and then it stores the new appointment to disk using the Storage layer.
+The Storage layer will convert the appointment Java object into the JSON file format using the format specified in `JsonAdaptedAppointment`.
+The next time the application is opened, the Storage layer will use `JsonAdaptedAppointment` again to convert appointments in the JSON file back into appointment objects.
+
+// end::appointment[]
+
+=== Prescriptions
+Prescriptions are used to keep track of what kind of medicine a doctor suggest a particular patient to take. they
+are useful because sometimes patients may want to know what medicine they took before. There are three functionalities
+related to prescriptions, which are add a new prescription, edit an existing prescription and delete an existing
+prescription respectively.
+
+
+
+==== Add a New Prescription
+Current proposed implementation
+
+A user specifies the id of the patient, the id of the doctor, the date, the name of the medicine and a description of the prescription in command line. And
+then the command processing procedure is roughly as follows:
+
+Step1. LogicManager calls parseCommand("add-prescription") in DocXParser.
+
+Step2. Based on the COMMAND_WORD, DocXParser builds a new AddPrescriptionCommandParser()
+and call function parse(arguments) of AddPrescriptionCommandParser;
+
+Step3. AddPrescriptionCommandParser parses patient id, doctor id, date, medicine name as well as the description of the prescription.
+
+Step4. Constructors for patientId, doctorId, validDate, medicine and description are invoked. After this the constructor for Prescription is called to create a new prescription. Then AddPrescriptionCommandParser calls AddPrescriptionCommand(prescription).
+
+Step5. LogicManager calls execute() of AddPrescriptionCommand.
+
+Step6. execute() calls hasPrescription() of Model. If the prescription does not exist, call addPrescription() of Model.
+
+image::AddPrescriptionSD.png[width="800"]
+
+==== Edit an Existing Prescription
+
+To be updated later
+
+----- Delete an Existing Prescription
+
+To be updated later
+
+// tag::dataencryption[]
+=== [Proposed] Data Encryption
+
+The data encryption feature will be implemented using the built-in JDK API javax.crypto.Cipher, without the need of
+adding any external libraries or dependencies. We will look into whether to stick to the JSON file format or
+something else.
+
+// end::dataencryption[]
 
 == Documentation
 
@@ -811,13 +1202,14 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* receptionist in a small to medium sized clinic
+* has a need to manage a significant number of patients and doctors
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage patients and doctors faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -829,60 +1221,570 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new patient/doctor |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |list all existing patient/doctor |
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |edit an existing patient/doctor |
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |search all existing patient/doctor |locate details of patients/doctors without having to go through the entire list
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |add a new medical history to a patient |
+
+|`* * *` |user |list all existing medical history of a patient |
+
+|`* * *` |user |edit an existing medical history of a patient |
+
+|`* * *` |user |view an existing medical history of a patient |
+
+|`* * *` |user |search for an existing medical history of a patient |
+
+|`* * *` |user |add appointment |
+
+|`* * *` |user |complete appointment |the appointment has elapsed, mark as completed or missed
+
+|`* * *` |user |cancel appointment | the appointment has been cancelled
+
+|`* *` |user |list all appointments of a doctor |
+
+|`* *` |user |list available timings of a doctor |
+
+|`* *` |user |list available appointments of all doctors |
+
+|`* *` |user |add a new prescription |
+
+|`* *` |user |edit an existing prescription |
+
+|`* *` |user |delete an existing prescription |
+
+|`* *` |user |list entered commands |list a history of previously entered commands
+
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `docX` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add Patient/Doctor
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User adds a new patient/doctor.
+2.  docX shows details of the new patient/doctor added.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. The patient/doctor to be added is in the wrong format.
++
+[none]
+** 1a1. docX shows an error message, prompting user to re-enter the data.
++
+Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: List All Existing Patients/Doctors
+
+*MSS*
+
+1.  User requests to list all existing patients/doctors.
+2.  docX shows a list of patients/doctors.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+*Extensions*
+
+[none]
+* 2a. There are no existing patients/doctors.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 2a1. docX shows an empty list.
 +
-Use case resumes at step 2.
+Use case ends.
 
-_{More to be added}_
+
+[discrete]
+=== Use case: Edit an Existing Patient/Doctor
+
+*MSS*
+
+1.  User enters the new details for a patient/doctor with the given ID.
+2.  docX shows a success message and the new details of the patient/doctor.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given ID for a patient/doctor is not found.
++
+[none]
+** 1a1. docX shows an error message and prompts for a valid ID.
++
+Use case resumes at step 1.
+
+[none]
+* 1b. The new details is in an invalid format.
++
+[none]
+** 1b1. docX prompts user to re-enter the details.
++
+Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: Search All Existing Patient/Doctor
+
+*MSS*
+
+1.  User searches for patients using name or phone number/doctors using any keywords.
+2.  docX shows a list of patients/doctors with their full info.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The search terms are in an invalid format.
++
+[none]
+** 1a1. docX shows an error message and prompts users to re-enter the search terms.
++
+Use case resumes at step 1.
+
+[none]
+* 2a. There are no patients/doctors that match the given search terms.
++
+[none]
+** 2a1. docX shows an empty list.
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Delete an Existing Patient/Doctor
+*MSS*
+
+1. User enters the patient/doctor ID to be deleted.
+2. docX shows the patient/doctor is deleted.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The patient/doctor ID does not exist.
+[none]
+** 1a1. docX shows an error message and request the user to enter a valid patient/doctor ID.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Finding a doctor that matches the specialisation at the date and time specified.
+*MSS*
+
+1. User enters the specialisation and desired appointment date and time.
+2. docX shows the relevant and available doctors.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The inputs are in the wrong format.
++
+[none]
+** 1a1. docX shows an error message, prompting user to re-enter the data.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Add New Medical History
+
+*MSS*
+
+1.  User adds a new medical history entry to a patient ID.
+2.  docX shows the details of the new medical history entry added.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The medical history is in the wrong format.
++
+[none]
+** 1a1. docX shows an error message and prompts users to re-enter the medical history.
++
+Use case resumes at step 1.
+
+[none]
+* 1b. The given patient ID does not exist.
++
+[none]
+** 1b1. docX shows an error message and prompts for a valid patient ID.
++
+Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: List All Existing Medical History of a Patient
+
+*MSS*
+
+1. User requests to list all existing medical history of a given patient ID.
+2. docX shows all the medical history entries belonging to the patient ID.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The patient ID does not exist.
++
+[none]
+** 1a1. docX shows an error message and prompts user to re-enter patient ID.
++
+Use case resumes at step 1.
+
+[none]
+* 1b. The patient does not have any medical history.
++
+[none]
+** 1b1. docX shows the patient does not have any medical history.
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Edit An Existing Medical History of a Patient
+
+*MSS*
+
+1. User enter the new details for a medical history entry, given a medical history ID and patient ID.
+2. docX shows a success message and the new details for the medical history.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The new details is not in a valid format.
++
+[none]
+** 1a1. docX shows an error message and prompts user to re-enter details.
++
+Use case resumes at step 1.
+
+[none]
+* 1b. The medical history ID for the given patient ID does not exist.
++
+[none]
+** 1b1. docX shows an error message and prompts user to enter a valid medical history ID.
++
+Use case resumes at step 1.
+
+[none]
+* 1c. The patient ID does not exist.
++
+[none]
+** 1c1. docX shows an error message and prompts user to enter a valid patient ID.
++
+Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: View An Existing Medical History of a Patient
+
+*MSS*
+
+1. User enters the medical history ID and the patient ID.
+2. docX shows the full details of the medical history.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The medical history ID is not valid for the given patient ID.
++
+[none]
+** 1a1. docX shows an error message and prompts user to re-enter the medical history ID.
++
+Use case resumes at step 1.
+
+[none]
+* 1b. The patient ID does not exist.
++
+[none]
+** 1b1. docX shows an error message and prompts user to enter a valid patient ID.
++
+Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: Search All Existing Medical History of a Patient
+
+*MSS*
+
+1. User enters the search terms and the patient ID.
+2. docX shows medical history entries belonging to the particular patient ID whose write up contains the matching search terms.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There are no medical history whose write up matches the search terms for the patient ID.
++
+[none]
+** 1a1. docX shows an empty search result.
++
+Use case ends.
+
+[none]
+* 1b. The patient ID does not exist.
++
+[none]
+** 1b1. docX shows an error message and prompts user to enter a valid patient ID.
++
+Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: Add Appointment
+
+*MSS*
+
+1. User enters the patient ID, doctor ID and start and end times for the appointment.
+2. docX shows the appointment details.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The patient ID or doctor ID does not exist.
++
+[none]
+** 1a1. docX shows an error message and request the user to give a valid patient/doctor ID.
++
+Use case resumes at step 1.
+
+[none]
+* 1b. The doctor is not available in the specified duration.
++
+[none]
+** 1b1. docX shows the doctor is not available and request user to enter a different time.
++
+Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: Mark Appointment
+
+*MSS*
+
+1. User enters appointment ID and mark the appointment.
+2. docX shows the appointment details as completed.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The appointment ID does not exist.
++
+[none]
+** 1a1. docX shows an error message and request the user to give a valid appointment ID.
++
+Use case resumes at step 1.
+* 1b. The patient being marked has no more active appointments.
++
+[none]
+** 1b1. The patient's appointment status display switches to completed. +
+Use case ends.
+
+[discrete]
+=== Use case: Cancel Appointment
+
+*MSS*
+
+1. User enters appointment ID.
+2. docX marks the appointment as cancelled.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The appointment ID does not exist.
++
+[none]
+** 1a1. docX shows an error message and request the user to give a valid appointment ID.
++
+Use case resumes at step 1.
+
+[none]
+* 1b. The appointment is in the past or has already been completed.
++
+[none]
+** 1b1. docX shows an error message and request the user to give a valid appointment ID.
++
+Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: List All Appointments of a Doctor
+
+*MSS*
+
+1. User enters doctor ID
+2. docX shows a list of all the appointment of the doctor ID.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The doctor ID does not exist.
++
+[none]
+** 1a1. docX shows an error message and request the user to give a valid doctor ID.
++
+Use case resumes at step 1.
+
+[none]
+* 2a. The doctor has no appointments.
++
+[none]
+** 2a1. docX shows the doctor has no appointments.
++
+Use case ends.
+
+
+[discrete]
+=== Use case: List All Available Timing of a Doctor
+
+*MSS*
+
+1. User enters doctor ID and date
+2. docX shows a list of all the available time slots of the doctor ID on a particular date.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The doctor ID does not exist.
++
+[none]
+** 1a1. docX shows an error message and request the user to give a valid doctor ID.
++
+Use case resumes at step 1.
+
+[none]
+* 2a. The doctor has no appointments.
++
+[none]
+** 2a1. docX shows the doctor has no appointments.
++
+Use case ends.
+
+
+[discrete]
+=== Use case: List All Available Timings of Doctors on a Date
+
+*MSS*
+
+1. User enters date.
+2. docX shows a list of all the available time slots of all the doctors on a particular date.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There are no doctors with available time slots on the date.
++
+[none]
+** 1a1. docX shows there are no available doctors and suggests the nearest date with doctors who are available.
++
+Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: Add a Prescription
+
+*MSS*
+
+1. User enters the prescription details, patient ID and medical history ID.
+2. docX shows the prescription created for the associated patient ID and medical history ID.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The patient ID or medical history ID does not exist.
+[none]
+** 1a1. docX shows an error message and request the user to enter a valid patient ID/medical history ID.
++
+Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: Edit an Existing Prescription
+
+*MSS*
+
+1. User enters the new prescription detail and prescription ID.
+2. docX shows the new details for that prescription.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The prescription ID does not exist.
+[none]
+** 1a1. docX shows an error message and request the user to enter a valid prescription ID.
++
+Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: Delete an Existing Prescription
+
+*MSS*
+
+1. User enters the prescription ID to be deleted.
+2. docX shows the prescription is deleted.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The prescription ID does not exist.
+[none]
+** 1a1. docX shows an error message and request the user to enter a valid prescription ID.
++
+Use case resumes at step 1.
+
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  Should be able to hold up to 1000 patients/doctors without a noticeable sluggishness in performance for typical usage.
+.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be
+able to accomplish most of the tasks faster using commands than using the mouse.
 
 [appendix]
 == Glossary
@@ -892,23 +1794,6 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -932,26 +1817,84 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Adding a patient/doctor
 
-=== Deleting a person
+. Adding a patient/doctor while all patients/doctors are listed
 
-. Deleting a person while all persons are listed
+.. Test case: `add-p n/Tan Kah Kee p/90192292 g/F a/54 adr/Blk 312 Tampines St 33 #02-22 t/highbloodpressure`/`add-d n/Lim Ah Bong p/61235211 y/5 g/M s/surgery s/acupuncture` +
+   Expected: New patient/doctor is added to the end of the list with a unique ID generated for the contact. Details of the added contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `add-p`/`add-d` +
+   Expected: No patient/doctor is added. All fields must be filled and not left empty. The correct command format is shown.
+.. Other incorrect `add-d`/`add-p` commands to try: `add-p n/Tan Kah Kee p/30192292 g/F a/54 adr/Blk 312 Tampines St 33 #02-22 t/highbloodpressure`/`add-d n/Lim Ah Bong p/61235211 y/5 g/M` +
+   Expected: Type of error is shown. In this case, phone should begin with 6, 8 or 9 only, and specialisations of doctors must not be empty.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+. Listing patients/doctors
+
+.. Test case: `list-p`/`list-d` +
+   Expected: All patients/doctors are listed.
+
+. Search for doctors with keywords
+
+.. Test case: `list-d acupu` +
+   Expected: Any fields of doctors that match "acupu" will be returned.
+.. Test case: `list-d` +
+   Expected: All doctors will be listed, as no keywords are given. Same result as listing all doctors.
+
+
+. Advanced search for patients
+
+.. Test case: `search-p-advanced blood` +
+   Expected: Any fields of patients that contains "blood" will be returned.
+.. Test case: `search-p-advanced "blood"` +
+   Expected: Any fields of patients that matches "blood" exactly will be returned.
+.. Test case: `search-p-advanced "blood pressure" +
+   Expected: No patients will be found. Quoted keywords cannot have spaces in between.
+
+. Finding doctors who have the specified specialisation and available at the specified date and time.
+
+.. Test case: `match-d s/surgery d/2019-06-20 t/09:00` +
+   Expected: Doctor List Panel will show the relevant and available doctors.
+.. Test case: `match-d` +
+   Expected: No doctors will be found. All fields must be filled and not left empty. The correct command format is shown.
+
+// tag::appointmentmanualtesting[]
+=== Appointment
+. Adding a new appointment
+
+.. Prerequisites: There are existing patients and doctors in the system.
+.. Test case: `add-appt pid/1 did/7 d/2019-06-01 t/09:00` +
+   Expected: A new appointment with the given patient, doctor, date and time is added.
+.. Test case: `add-appt` +
+   Expected: No appointment is added. All fields must be filled and not left empty. The correct command format is shown.
+.. Other incorrect add-appt commands to try: `add-appt pid/1 did/7`, `add-appt d/2019-06-01 t/09:00`. +
+   Expected: Similar to previous.
+.. Test case: `add-appt add-appt pid/1 did/7 d/2019-02-29 t/30:00` +
+  Expected: No appointment is added. The date and time should be in the valid format and be a valid date on the calendar.
+
+. Marking an appointment as "CANCELLED" (or back to ACTIVE)
+
+.. Prerequisites: List all appointments using the `list-appt` command. All appointments are in the list.
+.. Test case: `mark-appt 1 s/CANCELLED` +
+   Expected: First appointment in the list is marked as "CANCELLED".
+.. Test case: `mark-appt 1 s/ASDF` +
+   Expected: No appointment is changed. A list of valid appointment status that can be input is shown.
+.. Other incorrect mark-appt commands to try: `mark-appt`, `mark-appt 1 s/123`. +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+. Listing appointments
 
-=== Saving data
+.. Prerequisites: There are existing appointments in the system.
+.. Test case: `list-appt` +
+   Expected: All appointments in the system are shown.
+.. Test case: `list-appt pid/1` +
+   Expected: Appointments made by patient ID 1 are shown.
+.. Test case: `list-appt did/7` +
+   Expected: Appointments made by doctor ID 7 are shown.
+.. Test case: `list-appt c/PAST` +
+   Expected: Only appointments in the past are shown.
+.. Test case: `list-appt d/2019-06-99` +
+   Expected: No appointments are shown. A message prompting the user to enter the correct command format is shown.
+.. Other incorrect list-appt commands to try: `list-appt t/99:00`, `list-appt s/ASDF`, `list-appt c/TOMORROW`. +
+   Expected: Similar to previous.
 
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+// end::appointmentmanualtesting[]

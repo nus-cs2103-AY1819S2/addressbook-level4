@@ -76,8 +76,9 @@ dependencies {
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 }
 
+
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'docx.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -202,9 +203,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level4',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level4',
-        'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
+        'site-name': 'DocX',
+        'site-githuburl': 'https://github.com/cs2103-ay1819s2-w13-1/main',
     ]
 
     options['template_dirs'].each {

@@ -1,3 +1,4 @@
+/*
 package guitests.guihandles;
 
 import java.util.List;
@@ -10,9 +11,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
 
+*/
 /**
  * Provides a handle to a person card in the person list panel.
- */
+ *//*
+
 public class PersonCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
@@ -72,9 +75,11 @@ public class PersonCardHandle extends NodeHandle<Node> {
                 .collect(Collectors.toList());
     }
 
-    /**
+    */
+/**
      * Returns true if this handle contains {@code person}.
-     */
+     *//*
+
     public boolean equals(Person person) {
         return getName().equals(person.getName().fullName)
                 && getAddress().equals(person.getAddress().value)
@@ -85,3 +90,4 @@ public class PersonCardHandle extends NodeHandle<Node> {
                         .collect(Collectors.toList())));
     }
 }
+*/

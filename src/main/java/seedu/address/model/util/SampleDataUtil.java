@@ -128,15 +128,15 @@ public class SampleDataUtil {
     public static Appointment[] getAppointments() {
         Appointment[] appointments = new Appointment[4];
         Appointment appointment1 = new FutureAppointment(new AppointmentPatientId("1"),
-            new AppointmentDoctorId("7"), new AppointmentDate("2019-06-01"), new AppointmentTime("09:00"));
+            new AppointmentDoctorId("7"), new AppointmentDate("2020-06-01"), new AppointmentTime("09:00"));
         Appointment appointment2 = new FutureAppointment(new AppointmentPatientId("2"),
-            new AppointmentDoctorId("8"), new AppointmentDate("2019-06-01"), new AppointmentTime("10:00"));
+            new AppointmentDoctorId("8"), new AppointmentDate("2020-06-01"), new AppointmentTime("10:00"));
 
 
         Appointment appointment3 = new Appointment(new AppointmentPatientId("1"),
-            new AppointmentDoctorId("7"), new AppointmentDate("2019-02-01"), new AppointmentTime("09:00"));
+            new AppointmentDoctorId("7"), new AppointmentDate("2020-02-01"), new AppointmentTime("09:00"));
         Appointment appointment4 = new Appointment(new AppointmentPatientId("2"),
-            new AppointmentDoctorId("8"), new AppointmentDate("2019-02-01"), new AppointmentTime("10:00"));
+            new AppointmentDoctorId("8"), new AppointmentDate("2020-02-01"), new AppointmentTime("10:00"));
 
         appointments[0] = appointment1;
         appointments[1] = appointment2;

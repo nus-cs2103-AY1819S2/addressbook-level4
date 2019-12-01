@@ -1,8 +1,6 @@
 = docX
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-
-image:https://travis-ci.org/cs2103-ay1819s2-w13-1/main.svg?branch=master["Build Status", link="https://travis-ci.org/cs2103-ay1819s2-w13-1/main"]
 https://ci.appveyor.com/project/wayneswq/main/branch/master[image:https://ci.appveyor.com/api/projects/status/yulbp51x3qkkyrlu/branch/master?svg=true[Build status]]
 https://coveralls.io/github/cs2103-ay1819s2-w13-1/main?branch=master[image:https://coveralls.io/repos/github/cs2103-ay1819s2-w13-1/main/badge.svg?branch=master[Coverage Status]]
 https://www.codacy.com/app/wayneswq/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=cs2103-ay1819s2-w13-1/main&amp;utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/18e1bc109ace4b8eb7ced3f270666dff[Codacy Badge]]

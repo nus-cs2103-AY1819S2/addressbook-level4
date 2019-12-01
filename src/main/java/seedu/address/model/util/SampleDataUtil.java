@@ -131,8 +131,6 @@ public class SampleDataUtil {
             new AppointmentDoctorId("7"), new AppointmentDate("2020-06-01"), new AppointmentTime("09:00"));
         Appointment appointment2 = new FutureAppointment(new AppointmentPatientId("2"),
             new AppointmentDoctorId("8"), new AppointmentDate("2020-06-01"), new AppointmentTime("10:00"));
-
-
         Appointment appointment3 = new Appointment(new AppointmentPatientId("1"),
             new AppointmentDoctorId("7"), new AppointmentDate("2020-02-01"), new AppointmentTime("09:00"));
         Appointment appointment4 = new Appointment(new AppointmentPatientId("2"),

@@ -11,6 +11,7 @@ import java.util.stream.Stream;
  * Utility methods related to Collections
  */
 public class CollectionUtil {
+    private CollectionUtil() {}
 
     /** @see #requireAllNonNull(Collection) */
     public static void requireAllNonNull(Object... items) {

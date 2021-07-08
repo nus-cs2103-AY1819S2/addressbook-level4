@@ -1,6 +1,6 @@
 package seedu.address;
 
-import java.io.IOException;
+//import java.io.IOException;
 import java.nio.file.Path;
 import java.util.function.Supplier;
 
@@ -8,16 +8,10 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.testutil.TestUtil;
-import systemtests.ModelHelper;
 
 /**
  * This class is meant to override some properties of MainApp so that it will be suited for
@@ -41,14 +35,15 @@ public class TestApp extends MainApp {
         this.saveFileLocation = saveFileLocation;
 
         // If some initial local data has been provided, write those to the file
-        if (initialDataSupplier.get() != null) {
-            JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(saveFileLocation);
-            try {
-                jsonAddressBookStorage.saveAddressBook(initialDataSupplier.get());
-            } catch (IOException ioe) {
-                throw new AssertionError(ioe);
-            }
-        }
+        // STORAGE TEST
+        //if (initialDataSupplier.get() != null) {
+        //    JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(saveFileLocation);
+        //    try {
+        //        jsonAddressBookStorage.saveAddressBook(initialDataSupplier.get());
+        //    } catch (IOException ioe) {
+        //        throw new AssertionError(ioe);
+        //    }
+        //}
     }
 
     @Override
@@ -70,32 +65,24 @@ public class TestApp extends MainApp {
 
     /**
      * Returns a defensive copy of the address book data stored inside the storage file.
-     */
-    public AddressBook readStorageAddressBook() {
+
+    public MapGrid readStorageAddressBook() {
         try {
-            return new AddressBook(storage.readAddressBook().get());
+            return new MapGrid(storage.readAddressBook().get());
         } catch (DataConversionException dce) {
-            throw new AssertionError("Data is not in the AddressBook format.", dce);
+            throw new AssertionError("Data is not in the MapGrid format.", dce);
         } catch (IOException ioe) {
             throw new AssertionError("Storage file cannot be found.", ioe);
         }
     }
+     */
 
     /**
      * Returns the file path of the storage file.
      */
-    public Path getStorageSaveLocation() {
-        return storage.getAddressBookFilePath();
-    }
-
-    /**
-     * Returns a defensive copy of the model.
-     */
-    public Model getModel() {
-        Model copy = new ModelManager((model.getAddressBook()), new UserPrefs());
-        ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
-        return copy;
-    }
+    //public Path getStorageSaveLocation() {
+    //    return storage.getAddressBookFilePath();
+    //}
 
     @Override
     public void start(Stage primaryStage) {

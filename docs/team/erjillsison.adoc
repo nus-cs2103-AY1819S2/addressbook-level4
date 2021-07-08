@@ -1,0 +1,102 @@
+= Erjill Sison - Project Portfolio for Battleship
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Project Overview
+The purpose of this document is to showcase the work that I have done for the project named "*Battleship*". The project was done as a requirement for the module *CS2103T Software Engineering* in *National University of Singapore*.
+
+My team and I were presented with an existing code base for a command line interface (CLI) address book application. We were given about 8 weeks to either enhance or morph the address book application to a product of our own choice. We chose to morph it into *Battleship*.
+
+*Battleship* is a desktop game application based on the classic 2 player guessing game of the same name. The objective of the game is to sink all the opposing player's ships. The player interacts with the game using a command-line interface (CLI) and feedback is given to the player through the graphical user interface (GUI). The game is written in Java, with the GUI created using JavaFX and has about 10 kLoC.
+
+My role was to design and write the code for the *map feature* of the game.
+The following sections illustrate the feature in more detail, as well as the relevant sections I have added to the user and developer guides in relation to this feature.
+
+*Relevant links:* +
+Project Respository: https://github.com/CS2103-AY1819S2-W14-3/main[Battleship] +
+Project Website: https://cs2103-ay1819s2-w14-3.github.io/main/[Battleship @ github.io] +
+The full User Guide and Developer Guide can be viewed in the project website.
+
+*Note the following formatting used in this document:*
+
+[cols="1,3"]
+|===
+
+a| `MapGrid`
+| A grey highlight indicates that this is either a *command* that can be inputted into the command line or a *class name* or *method name* that can be found in the code.
+
+a| image::important.png[width="50", align="left"]
+| This symbol indicates important information.
+|===
+
+== Summary of contributions
+This section provides the summary of the contributions that I have made to the project.
+
+* *Major enhancement*: Added the *map feature* of the game. This includes the internal data structure of the map, the cells that make up the map and how they are displayed in the UI.
+
+** What it does: The player can initialise the maps to the size they specified using the command `init`. The players can place ships on their own map and shoot the opposing players map. The maps are displayed in the UI and each cell will be represented with different colours depending on its status. The `init` command can be used at any point in time during the game and will reset the board to a clean state.
+** Highlights: The other features (e.g placing ships) rely heavily on the map. It requires careful planning on the design as the other features must be built on top of it and any changes made later on will affect the other features.
+** Justification: The maps are crucial to the gameplay as all of the other features are built on top of it.
+
+* *Code contributed*:
+** https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=erjillsison[Code extracts]
+** https://github.com/CS2103-AY1819S2-W14-3/main/commits/master?author=erjillsison[Authored commits]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed project release in GitHub: v1.2
+*** Made changes to the project that do not fall under a specific feature (Pull Requests  https://github.com/CS2103-AY1819S2-W14-3/main/pull/352["Change output jar name" #352], https://github.com/CS2103-AY1819S2-W14-3/main/pull/240["Create Model component diagram" #240], https://github.com/CS2103-AY1819S2-W14-3/main/pull/176["Renaming the app header title and icon" #176])
+*** Reported bugs not related to my own feature. (Issues https://github.com/CS2103-AY1819S2-W14-3/main/issues/339[#339],  https://github.com/CS2103-AY1819S2-W14-3/main/issues/105[#105], https://github.com/CS2103-AY1819S2-W14-3/main/issues/61[#61])
+
+** Enhancements to existing features:
+*** Overhauled UI to display the maps. (Pull request https://github.com/CS2103-AY1819S2-W14-3/main/pull/87[#87])
+
+** Documentation:
+*** Restructured UG to make it easier to follow when playing the game. (Pull Request https://github.com/CS2103-AY1819S2-W14-3/main/pull/256[#256])
+** Community:
+
+*** Reviewed PRs (with non-trivial review comments). (Pull Requests https://github.com/CS2103-AY1819S2-W14-3/main/pull/53[#53],  https://github.com/CS2103-AY1819S2-W14-3/main/pull/334[#334])
+*** Reported bugs and suggestions for other teams in the class. (Issues https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/672[#672], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/148[#148])
+
+** Tools:
+*** Integrated Netlify to the team repo.
+*** Setup auto publishing of documentation.
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users. Parts of the User Guide that belong to different sections are separated by a horizontal line._
+|===
+
+include::../UserGuide.adoc[tag=map]
+
+---
+
+include::../UserGuide.adoc[tag=upcomingmap]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project. Parts of the Developer Guide that belong to different sections are separated by a horizontal line._
+|===
+
+Co-authored the Model diagram as shown below.
+
+.Model Diagram
+image::ModelClassDiagram.png[width="600"]
+
+---
+
+include::../DeveloperGuide.adoc[tag=map]
+
+---
+=== Use Case
+
+include::../DeveloperGuide.adoc[tag=mapuse]
+
+---
+=== Instructions for Manual Testing
+include::../DeveloperGuide.adoc[tag=maptest]

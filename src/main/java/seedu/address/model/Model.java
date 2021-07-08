@@ -1,19 +1,47 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
-import java.util.function.Predicate;
 
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.collections.ObservableList;
+import javafx.beans.value.ObservableBooleanValue;
+import seedu.address.battle.Battle;
+import seedu.address.battle.state.BattleState;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
+import seedu.address.model.battleship.Battleship;
+import seedu.address.model.battleship.Orientation;
+import seedu.address.model.cell.Coordinates;
+import seedu.address.model.player.Enemy;
+import seedu.address.model.player.Fleet;
+import seedu.address.model.player.Player;
+import seedu.address.model.statistics.PlayerStatistics;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    /**
+     * Update the UI
+     */
+    void updateUi();
+
+    /**
+     * Returns the observable value in the human map. Used by the Ui to listen to for changes.
+     */
+    ObservableBooleanValue getHumanMapObservable();
+
+    /**
+     * Returns the observable value in the human map. Used by the Ui to listen to for changes.
+     */
+    ObservableBooleanValue getEnemyMapObservable();
+
+    /**
+     * Returns the player map grid
+     */
+    MapGrid getHumanMapGrid();
+
+    /**
+     * Returns the enemy map grid
+     */
+    MapGrid getEnemyMapGrid();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -46,85 +74,49 @@ public interface Model {
     void setAddressBookFilePath(Path addressBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Returns the map size
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
-
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    int getMapSize();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns the initialized player statistics used in the game.
      */
-    boolean hasPerson(Person person);
+    PlayerStatistics getPlayerStats();
+
+    Fleet getFleet();
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deploys a battleship.
      */
-    void deletePerson(Person target);
+    void deployBattleship(Battleship battleship, Coordinates coordinates, Orientation orientation);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Checks number of battleships available.
      */
-    void addPerson(Person person);
+    boolean isEnoughBattleships(Battleship battleship, int numBattleship);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Returns the human player in the game.
      */
-    void setPerson(Person target, Person editedPerson);
-
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    Player getHumanPlayer();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
+     * Returns the computer player.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    Enemy getEnemyPlayer();
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Retrieves the Battle API.
      */
-    boolean canUndoAddressBook();
+    Battle getBattle();
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Retrieves the current state of the battle.
      */
-    boolean canRedoAddressBook();
+    void setBattleState(BattleState battleState);
 
     /**
-     * Restores the model's address book to its previous state.
+     * Retrieves the current state of the battle.
      */
-    void undoAddressBook();
-
-    /**
-     * Restores the model's address book to its previously undone state.
-     */
-    void redoAddressBook();
-
-    /**
-     * Saves the current address book state for undo/redo.
-     */
-    void commitAddressBook();
-
-    /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
-     */
-    ReadOnlyProperty<Person> selectedPersonProperty();
-
-    /**
-     * Returns the selected person in the filtered person list.
-     * null if no person is selected.
-     */
-    Person getSelectedPerson();
-
-    /**
-     * Sets the selected person in the filtered person list.
-     */
-    void setSelectedPerson(Person person);
+    BattleState getBattleState();
 }

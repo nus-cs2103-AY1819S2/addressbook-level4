@@ -1,0 +1,69 @@
+= Lucy Chan - Project Portfolio for Battleship
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Project Overview
+Greetings! My name is Lucy and I am part of a 5-person team developing a classic game of Battleship.
+
+For the module CS2103t, we were presented with an existing code base for a command line interface(CLI) address book application.
+It was that which we morphed into a game of Battleship.
+
+Battleship is a desktop game application based on the classic Battleship game.
+The user interacts with it using a CLI and it has a graphical user interface(GUI) created using JavaFX.
+It is written in Java, and has about 10 kLoC.
+
+My role was to design and write the code for the `Enemy AI` feature of the game.
+The feature provides the game with an automated and intelligent computerised enemy player for the user to play against
+in our single-player game.
+
+The following sections illustrate the feature in more detail, as well as the relevant sections I have added to the user and developer guides in relation to this feature.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the Enemy AI feature of the game*
+** What it does: It is a fully automated computerised enemy player that can randomly fill its own map and attack the player's ship with some level of intelligence.
+** Justification: We wanted to make this single-player game as realistic as possible, and so the need for a smarter computerised player that could substitute a human player arose.
+** Highlights: The behaviour of the computerised enemy AI is randomised with eah game session, to provide the player with a unique experience in each game session.
+Furthermore, the enemy's shooting algorithm is also informed by past shot successes and misses, and follows an algorithm customised to the strategy of the Battleship game.
+** Credits: The algorithm for the enemy shooting references this article heavily: [http://www.datagenetics.com/blog/december32011/index.html[DataGeneticsBattleshipAglo]].
+
+* *Code contributed*: [https://github.com/CS2103-AY1819S2-W14-3/main/commits/master?author=lucydotc[Commits]] [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=lucydotc&sort=displayName&since=2019-02-28&until=2019-04-15&timeframe=day&reverse=false&repoSort=true[Reposense]]
+
+* *Other contributions*:
+
+** Project management:
+*** Actively hit all milestones in time, and used git issue tracker to track tasks.
+*** Actively create and manage issues for myself and my team. [https://github.com/CS2103-AY1819S2-W14-3/main/issues?utf8=%E2%9C%93&q=is%3Aissue+assignee%3Alucydotc+[Issues made]]
+
+** Enhancements to existing features:
+*** N/A - I created a new feature essential to the Battleship game that was not present in the given Address Book codebase.
+** Documentation:
+*** Wrote the Game Rules section in the User Guide.
+*** Wrote the Enemy AI section in the Developer Guide.
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=intro]
+include::../UserGuide.adoc[tag=gamerules]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=enemyCurrentImplementation]
+include::../DeveloperGuide.adoc[tag=enemyInitialiseMap]
+include::../DeveloperGuide.adoc[tag=enemyShoot]
+
+include::../DeveloperGuide.adoc[tag=enemyDesign]
+
+
+---

@@ -27,7 +27,6 @@ import seedu.address.commons.exceptions.DataConversionException;
  * Converts a Java object instance to JSON and vice versa
  */
 public class JsonUtil {
-
     private static final Logger logger = LogsCenter.getLogger(JsonUtil.class);
 
     private static ObjectMapper objectMapper = new ObjectMapper().findAndRegisterModules()
@@ -38,6 +37,8 @@ public class JsonUtil {
             .registerModule(new SimpleModule("SimpleModule")
                     .addSerializer(Level.class, new ToStringSerializer())
                     .addDeserializer(Level.class, new LevelDeserializer(Level.class)));
+
+    private JsonUtil() {}
 
     static <T> void serializeObjectToJsonFile(Path jsonFile, T objectToSerialize) throws IOException {
         FileUtil.writeToFile(jsonFile, toJsonString(objectToSerialize));
@@ -72,7 +73,6 @@ public class JsonUtil {
             logger.warning("Error reading from jsonFile file " + filePath + ": " + e);
             throw new DataConversionException(e);
         }
-
         return Optional.of(jsonFile);
     }
 

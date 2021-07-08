@@ -1,0 +1,97 @@
+= Chong Shao Wei - Project Portfolio for Battleship
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Project: Battleship CLI
+
+Battleship CLI is an implementation of the classic game Battleship.
+
+As part of a group project in the module https://nus-cs2103-ay1819s2.github.io/cs2103-website/index.html[CS2103] in NUS,
+my group had to morph an existing product, https://github.com/nus-cs2103-AY1819S2/addressbook-level4[`addressbook-level4`],
+into a new product while keeping the original product's distinctive feature of being operated through the command-line.
+My group chose to morph it into a command-line based Battleships application.
+
+My role in the team was to design and implement the `Battle` feature, which:
+
+  * Ensures that the human and computer players each take their turns in order,
+  * Ensures that the game progresses in a fixed sequence of stages (from setting up the map, to placing ships, to attacking)
+
+The following sections illustrate the feature in more detail, as well as the relevant sections I have added to the user and developer guides in relation to this feature.
+
+== Summary of contributions
+
+* *Major enhancement*: implemented *the logic for the battle stage of the game* +
+  The battle is one of the two important phases of Battleship, along with the placing of ships.
+  Via the battle feature, the user will be able to launch attacks at the enemy, and the enemy launch
+  attacks at the user. Crucially, it ensures that the user and enemy take their turns in the correct
+  order.
+* *Minor enhancement*: added *the ability to prevent commands from being executed at inappropriate times* +
+  Preventing the user from executing certain commands at certain times (e.g. the user should not
+  be placing ships when the battle is already in progress) will ensure the correct progression of
+  the game, as well as prevent the game from entering an invalid state.
+
+
+* *Code contributed*: Here are my [https://github.com/CS2103-AY1819S2-W14-3/main/commits/master?author=s-tr[code commits]].
+
+* *Other contributions*:
+
+** Project management:
+*** Removed elements from `addressbook-level4` that were not used in our project
+    (Pull requests
+        https://github.com/CS2103-AY1819S2-W14-3/main/pull/274[#274],
+        https://github.com/CS2103-AY1819S2-W14-3/main/pull/336[#336])
+*** Refactored the Battle component's package structure
+    (Pull request
+        https://github.com/CS2103-AY1819S2-W14-3/main/pull/407[#407])
+** Testing:
+*** Wrote tests for that increased coverage by a total of 6.7%
+    (Pull requests
+        https://github.com/CS2103-AY1819S2-W14-3/main/pull/231[#231],
+        https://github.com/CS2103-AY1819S2-W14-3/main/pull/269[#269],
+        https://github.com/CS2103-AY1819S2-W14-3/main/pull/404[#404])
+** Documentation:
+*** Wrote the sections of the User Guide and Developer guide for the Battle Component,
+    as reproduced below
+** Community:
+*** Made summaries of current issues in order to make it easier for
+    the team to coordinate our efforts.
+    (Issues
+        https://github.com/CS2103-AY1819S2-W14-3/main/issues/211[#211],
+        https://github.com/CS2103-AY1819S2-W14-3/main/issues/275[#275],
+        https://github.com/CS2103-AY1819S2-W14-3/main/issues/394[#394])
+*** Reported bugs for team W15-3.
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=battle]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below is an excerpt of my contributions to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+ To see my full contribution, please refer to the full Developer Guide._
+|===
+
+== 2. Design
+include::../DeveloperGuide.adoc[tag=battle]
+
+== 3. Implementation
+include::../DeveloperGuide.adoc[tag=battle_aspect_1]
+include::../DeveloperGuide.adoc[tag=battle_aspect_2]
+
+== Appendix C: Use Cases
+
+include::../DeveloperGuide.adoc[tag=beginusecase]
+
+== Appendix F: Instructions for Manual Testing
+
+include::../DeveloperGuide.adoc[tag=battletest]
+
+---

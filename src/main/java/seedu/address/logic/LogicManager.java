@@ -1,21 +1,19 @@
 package seedu.address.logic;
 
-import java.io.IOException;
-import java.nio.file.Path;
 import java.util.logging.Logger;
 
-import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.BattleshipParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.MapGrid;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.statistics.PlayerStatistics;
 import seedu.address.storage.Storage;
 
 /**
@@ -28,62 +26,58 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final CommandHistory history;
-    private final AddressBookParser addressBookParser;
-    private boolean addressBookModified;
+    private final BattleshipParser battleshipParser;
+    private final PlayerStatistics statistics;
 
     public LogicManager(Model model, Storage storage) {
+
         this.model = model;
         this.storage = storage;
         history = new CommandHistory();
-        addressBookParser = new AddressBookParser();
+        battleshipParser = new BattleshipParser();
+        this.statistics = model.getPlayerStats();
 
-        // Set addressBookModified to true whenever the models' address book is modified.
-        model.getAddressBook().addListener(observable -> addressBookModified = true);
+        this.statistics.setStorage(storage);
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        addressBookModified = false;
-
+        boolean validCommand = false;
         CommandResult commandResult;
         try {
-            Command command = addressBookParser.parseCommand(commandText);
-            commandResult = command.execute(model, history);
+            Command command = battleshipParser.parseCommand(commandText.toLowerCase());
+            if (command.canExecuteIn(model.getBattleState())) {
+                commandResult = command.execute(model, history);
+                addToStatistics(commandText);
+                validCommand = true;
+            } else {
+                commandResult = new CommandResult("Cannot perform command while "
+                    + model.getBattleState().toString().toLowerCase());
+            }
         } finally {
-            history.add(commandText);
-        }
-
-        if (addressBookModified) {
-            logger.info("Address book modified, saving to file.");
-            try {
-                storage.saveAddressBook(model.getAddressBook());
-            } catch (IOException ioe) {
-                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            if (validCommand) {
+                history.add(commandText);
             }
         }
-
         return commandResult;
     }
 
+    /**
+     * keeps track of specific commands for statistics (eg. attack).
+     */
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
-    }
-
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public void addToStatistics (String commandText) {
+        String commandKeyword = commandText.split(" ")[0]; // Take first word
+        if (commandKeyword.matches("attack|shoot|fire|hit  ")) {
+            int numMovesLeft = statistics.addMove();
+            statistics.addAttack();
+        }
     }
 
     @Override
     public ObservableList<String> getHistory() {
         return history.getHistory();
-    }
-
-    @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
     }
 
     @Override
@@ -97,12 +91,22 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyProperty<Person> selectedPersonProperty() {
-        return model.selectedPersonProperty();
+    public ObservableBooleanValue getHumanMapObservable() {
+        return model.getHumanMapObservable();
     }
 
     @Override
-    public void setSelectedPerson(Person person) {
-        model.setSelectedPerson(person);
+    public ObservableBooleanValue getEnemyMapObservable() {
+        return model.getEnemyMapObservable();
+    }
+
+    @Override
+    public MapGrid getHumanMapGrid() {
+        return model.getHumanMapGrid();
+    }
+
+    @Override
+    public MapGrid getEnemyMapGrid() {
+        return model.getEnemyMapGrid();
     }
 }

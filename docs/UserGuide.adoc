@@ -1,9 +1,11 @@
-= AddressBook Level 4 - User Guide
+= Battleship - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
+:toclevels: 4
 :toc-placement: preamble
 :sectnums:
+:sectnumlevels: 4
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -12,249 +14,370 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S2-W14-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W14-3`      Since: `Jan 2019`      Licence: `MIT`
+
 
 == Introduction
+// tag::intro[]
+Ships ahoy! Battleship is a simple computer-based remake of the classic Battleship game.
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+It is for people who want to experience the joy of playing Battleships without the hassle and fuss of dealing with physical game pieces.
+
+Battleship is optimised for people who want to use a Command Line Interface (CLI), while still retaining the benefits of a Graphical User Interface (GUI).
+
+It's a single-player game, and provides a fully functional computerised enemy player for the player to play against, guaranteeing many hours of fun! Can't wait to get started? Head over to <<Quick Start>> to fire away!
+
+[NOTE]
+====
+*What is a Command Line Interface (CLI) and a Graphical User Interface (GUI)?* +
+An interface is how a user interacts with the computer. For example, you can use a mouse to click on a file to open it in Windows or MacOS. This is part of the interface for these operating systems. +
+
+A Command Line Interface (CLI) interacts with the user by accepting words that are typed in by the user. Conversely, a Graphical User Interface (GUI) interacts with the user visually. It uses icons and graphics to show the user what the program is doing.
+====
+
+As you will see, Battleship is a hybrid application. It combines both a CLI and GUI, meaning that the user must type in commands but will see the changes caused by those commands graphically.
+
+// end::intro[]
+
+// tag::quickstart[]
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `battleship.jar` link:https://github.com/CS2103-AY1819S2-W14-3/main/releases[here].
+.  Copy the file to the folder you want to use as the home folder for Battleship.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
+.  Type commands in the command box and press kbd:[Enter] to execute them. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+.  Initialise the map to a size between 6 to 10. eg: `init 6`.
+.  Deploy your battleships:
+..  Deploy your aircraft carrier: `put n/aircraft carrier c/a1 r/h`
+..  Deploy your cruiser(s): `put n/cruiser c/c1 r/h`
+..  Deploy your destroyer(s): `put n/destroyer c/e1 r/h`
+.  Start the game: `start game`
+.  Shoot the enemy's map at a specific cell. eg: `shoot a1`
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+The game will go on until either party's ships are totally destroyed.
 
-.  Refer to <<Features>> for details of each command.
+// end::quickstart[]
+
+Refer to <<Features>> for details of each command.
+
+
+
+== Game Rules
+// tag::gamerules[]
+This section will describe the game rules and how to play the classic Battleship game.
+====
+*Goal*
+
+Sink all your opponent's ships before they sink yours.
+====
+====
+*Captain, deploy ships!*
+
+Depending on the chosen size of the map, as specified through the `init <map_size>` command,
+you will be given different numbers of each ship.
+
+The ships available are:
+
+* Cruiser: size 2
+* Destroyer: size 3
+* Aircraft Carrier: size 5
+
+Depending on your map size, your fleet will have different numbers of each ship.
+
+image::mapSizeFleetSize.png[width=550]
+====
+====
+*Ready, aim, fire!*
+
+After you have placed all your ships, enter `begin` to start the battle.
+
+You will always be given the first turn.
+You may fire shots at the enemy map through the command `shoot`, for example `shoot a1`.
+
+If the shot hits a ship, you may continue taking shots until they miss.
+Upon a miss, the turn will be handed over to the enemy.
+The same goes for the enemy - the enemy will take its shot automatically, firing until it misses, before
+passing the turn back to you.
+====
+
+====
+*Good Game!*
+
+Whoever is first to destroy all their opponent's ships will be declared the winner.
+Had fun? You can view the game statistics with the command `stats`.
+====
+// end::gamerules[]
+
 
 [[Features]]
 == Features
+This section will describe the features of the game in more detail.
 
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by you e.g. in `init MAP_SIZE`, `MAP_SIZE` is a parameter which can be used as `init 10`.
+* Items in square brackets are optional e.g `put n/NAME [t/TAG]` can be used as `put n/Destroyer t/bestship` or as `put n/Destroyer`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/alpha`, `t/best t/captain` etc.
+* Parameters can be in any order e.g. if the command specifies `n/NAME c/COORDINATES`, `c/COORDINATES n/NAME` is also acceptable.
 ====
-
-=== Viewing help : `help`
-
-Format: `help`
-
-=== Adding a person: `add`
-
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-[TIP]
-A person can have any number of tags (including 0)
-
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-=== Selecting a person : `select`
-
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
-
-****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-Examples:
-
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
-
-=== Listing entered commands : `history`
-
-Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
 
 [NOTE]
 ====
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-// tag::undoredo[]
-=== Undoing previous command : `undo`
-
-Restores the address book to the state before the previous _undoable_ command was executed. +
-Format: `undo`
-
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Some commands can only be executed at some part of the game, e.g. `attack` can only be executed
+when the battle is ongoing. If you try to enter a command that is not allowed at that point in
+time, the program will tell you so.
 ====
 
-Examples:
+=== General commands
 
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
+This section describes commands that can be executed at any point of time during the game.
 
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
+==== Viewing help : `help`
+Opens a help window that displays this User Guide. +
+Format: `help`
 
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-
-=== Redoing the previously undone command : `redo`
-
-Reverses the most recent `undo` command. +
-Format: `redo`
-
-Examples:
-
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
-
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Exiting the program : `exit`
+==== Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
+// tag::map[]
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+=== Preparation phase
+This section describes the commands used in the preparation phase.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+==== Initialising the maps : `init`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+The `init` command initialises both your map and the enemy AI's map to the size that you specify. The size of the maps must be between 6 and 10, inclusive. +
 
-== FAQ
+Format: `init MAP_SIZE` +
+Example: `init 10`
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+****
+* The `init` command can be used at any point in time during gameplay. When used in the middle of a game, the `init` command functions like a "new game" command and will reset the board to a clean state.
+* Each cell is represented by its coordinates e.g "b1". The coordinates will be used by the other commands to refer to a cell.
+****
 
+_Figure 1_ below shows how the maps will be displayed in the UI.
+
+.The maps as displayed in the UI
+image::initmapresult.png[width=750]
+
+{empty} +
+Throughout the course of the game, the cells in the map will change colour based on their status. +
+
+[NOTE]
+====
+.Cell statuses:
+- Hidden - Enemy map cell that has not been hit
+- Water - Empty (i.e cell with no ship) player cell that has not been hit
+- Water Hit - Empty cell that has been hit
+- Ship - Player cell that has a ship and has not been hit
+- Ship Hit - Ship cell that has been hit but not yet destroyed
+- Ship Destroyed - Ship cell that has been destroyed
+====
+
+{empty} +
+_Figure 2_ below shows which colour is used for each status.
+
+.Cell colours
+image::maplegend.png[width=400]
+{empty} +
+
+// end::map[]
+
+// tag::ship1[]
+
+==== Managing ships: `put`, `list`, `listTags`
+===== Placing a ship on the map: `put`
+
+Adds a ship onto your map. The coordinates specified is the position of the ship's head. +
+
+Format: `put n/NAME c/COORDINATES r/ORIENTATION [t/TAGS]` +
+
+Examples:
+
+* `put n/destroyer c/a1 r/vertical`
+* `put n/aircraft carrier c/b1 r/h t/tag1` +
+
+The head of a ship is the top-most and left-most cell of the ship. When coordinates are specified in the `put` command, it specifies the coordinates of the head of the ship, as shown in the figure below.
+
+// end::ship1[]
+
+.The coordinates of the `put` command refer to the coordinates of the ship head.
+image::BattleshipHeadExample2.png[width=400, align="center"]
+
+// tag::ship2[]
+
+The orientation of the ship can be `horizontal` or `vertical`. This may be shortened to `h` or `v`, respectively. The orientation of the ship must be specified. +
+
+When putting a ship on the map grid, you should specify the head coordinates such that:
+
+* The ship falls within the map grid.
+* The ship does not collide with another ship that is already on the map grid.
+
+// end::ship2[]
+
+// tag::list[]
+===== Listing all ships : `list`
+
+Shows a list of all of your ships that have been deployed on the map. There are four ways of using the `list` command:
+
+1. List all ships: `list`.
+2. List ships that match certain tags: `list t/[TAGS]`.
+3. List certain ships: `list n/[NAME]`.
+4. List certain ships that match certain tags: `list n/[NAME] t/[TAGS]`
+
+Examples:
+
+* `list`
+* `list t/blueFleet`
+* `list n/destroyer`
+* `list n/destroyer n/cruiser t/blueFleet t/greenFleet`
+
+The list will show the ship's head coordinate, the ship's orientation, and the ship's tags in square brackets. The format of each entry in the list is: `[NAME] [CURRENT LIFE] at [HEAD COORDINATE] [ORIENTATION] [TAGS]`. An example is given below.
+
+[source,text]
+----
+Input:      list n/destroyer t/blueFleet t/greenFleet
+Output:     destroyer (3/3) at g5 vertical [redFleet][blueFleet][greenFleet]
+            destroyer (3/3) at c3 horizontal [blueFleet][greenFleet]
+----
+// end::list[]
+
+// tag::listTags[]
+===== Listing all tags: `listTags`
+
+Lists all the tags that have been used to tag the ship deployed on the map. +
+
+Format: `listTags`
+
+// end::listTags[]
+
+// tag::battle[]
+=== Battle phase
+
+==== Beginning the battle: `begin`
+
+Begins the battle against the computer enemy. +
+Format: `begin` +
+Alternative command: `start`
+
+****
+* After this command is entered, the program's AI will place its own ships.
+* After the AI completes its placing of ships, you can take your first turn.
+****
+
+==== Shooting at a coordinate: `shoot`
+
+Launches an attack against given coordinate on the enemy's map. +
+Format: `shoot COORDINATES` +
+Alternative commands: `attack`, `fire`, `hit`
+
+Examples:
+
+* `shoot a6`
+* `attack b5`
+
+****
+* The program will prevent you from attacking an invalid coordinate.
+* The program will prevent you from attacking a square that you have already attacked.
+* If you hit one of the opponent's ships, you may make another attack.
+  Otherwise, the enemy will take their turn(s), firing until they get a miss.
+****
+
+// end::battle[]
+
+// tag::stats[]
+==== Retrieving game statistics: `stats`
+
+Retrieves the gameplay statistics data displays them on a pop-up window.
+
+Format: `stats`
+
+****
+* The pop-up window will contain a bar chart visualisation of your game play data
+* To reload the statistics data, you must close the current pop-up window and call the `stats` command again
+to display the updated values.
+****
+// end::stats[]
+
+// tag::upcomingmap[]
+== Features Coming in v2.0
+This section describes features that have not been implemented yet and are scheduled to be released in version 2.0.
+
+=== Special map shapes
+You will be allowed to use maps that are randomised in shape. This adds an extra layer of challenge and fun.
+
+Both yourself and the enemy AI will not be able to place ships on the grey tiles. The enemy AI will also have a randomised map that will not be the same as your map. You will not be able to see the shape of the enemy map and can shoot grey cells which will be counted as a miss.
+
+The image below shows an example of a randomised map.
+
+.Example of a random map shape
+image::randommap.png[width="300"]
+
+// end::upcomingmap[]
+
+// tag::upcomingQuickStart[]
+=== Quick start
+Randomly deploys the all of your ships onto the map and starts the battle. +
+
+Format: `quickStart`
+
+// end::upcomingQuickStart[]
+
+// tag::upcomingPattern[]
+=== Save and load pattern of deployed ships
+Save and load the pattern that you used to deploy your ships. +
+
+Format: `pattern i/OPTION p/PATTERN]` +
+Examples:
+
+* `pattern i/save`
+* `pattern i/load p/circle`
+
+// end::upcomingPattern[]
+// tag::v2stats[]
+=== Display high score across games
+Display the high score across more than two games. +
+
+Format: `stats highscore t/ATTRIBUTE` +
+Examples:
+
+* `stats highscore t/time` +
+Display game data from the game that won in the shortest amount of time
+* `stats highscore t/accuracy` +
+Display game data from the game with the highest accuracy.
+
+// end::v2stats[]
+
+//tag::commandsummary[]
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+[width="200%",cols="<30%,<40%,50%,20%",options="header",]
+|=======================================================================
+|Feature |Format |Purpose   | Example
+|*Attack*| `attack COORDINATE` |Attacks a selected cell on the enemy map.| `attack c1`
+|*Display manual*| `help` |Opens up the help guide window. | `help`
+|*Create map of size 6-10*| `init MAP_SIZE` | Initializes the map grid. | `init 8`
+|*List ships*| `list [n/NAME] [t/TAG]…` |Lists all available ships, optionally filtering by name and tag(s)| `list`
+|*List tags*| `listTags` |Lists all tags.| `listTags`
+|*Put ship on map*| `put n/NAME r/ORIENTATION c/COORDINATE [t/TAG]…` | Places a ship on the specified position on the map, optionally adding tag(s). | `put n/Destroyer r/vertical c/a1 t/myfleet`
+|*View statistics*| `stats` | Opens the Statistics window. | `stats`
+|*Start battle*| `start` | Begins the battle. | `start`
+|=======================================================================
+//end::commandsummary[]
+
+
+
